@@ -1,0 +1,9 @@
+<anima version="0.1" name="paint-morph" grid="20" requires="paint">
+  <path id="a" d="M2 2L18 2L10 18Z" fill="#000"/>
+  <timeline name="t" duration="1">
+    <track target="a.d">0 "M2 2L18 2L10 18Z"; 1 "M4 4L16 4L10 16Z"</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

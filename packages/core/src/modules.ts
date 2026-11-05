@@ -17,7 +17,7 @@ import {
   type Shape,
 } from './registry.ts';
 import type { Diags } from './diag.ts';
-import type { Addr, Model, NodeM } from './load.ts';
+import type { Addr, Model, NodeM, Value } from './load.ts';
 import type { Player } from './player.ts';
 import type { Attrs, El, Paint } from './svg.ts';
 
@@ -36,6 +36,9 @@ export interface Module {
   load?(model: Model, raw: Model['doc'], diag: Diags): void;
   /** Resolve additional addresses to the existing number/colour/bool sampling slots. */
   model?(node: NodeM, key: string): Pick<Addr, 'prop' | 'rest'> | undefined;
+  value?(addr: Addr, value: unknown, pointer: string, diag: Diags): Value | undefined;
+  outline?(player: Player, node: number): { pts: number[]; closed: boolean }[] | undefined;
+  interpolate?(a: Value, b: Value, weight: number): Value | undefined;
   scene?(model: Model, tree: { root: El[]; defs: El[] }): void;
   attrs?(player: Player, el: El, paint: Paint, id: string, attrs: Attrs): void;
 }

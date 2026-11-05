@@ -24,7 +24,7 @@ export const FORMAT_VERSION = '0.1';
 export { FEATURES } from './modules.ts';
 import { FEATURES, modules } from './modules.ts';
 
-export type Value = number | boolean | RGBA;
+export type Value = number | boolean | RGBA | string;
 type Json = Record<string, unknown>;
 
 /* eslint-disable @typescript-eslint/no-explicit-any -- raw JSON after the structural check */
@@ -333,6 +333,7 @@ function resolve(doc: Raw, d: Diags): Model {
     return r;
   };
   const value = (a: Addr, v: unknown, p: string): Value | undefined => {
+    if (a.prop.type === 'path') return modules.get(a.prop.feature!)?.value?.(a, v, p, d);
     const t = a.prop.type;
     if (t === 'color') {
       if (typeof v !== 'string')
@@ -761,11 +762,11 @@ export function resolveAddress(
   if (ni === undefined)
     return ['unknown-address', V && `no node "${id}"`, V && `${suggest(id, ids.keys()) ?? ''}`];
   const n = nodes[ni]!;
-  if (key === 'd') return ['reserved', V && 'path morphing arrives in anima 0.2', false];
   for (const m of modules.values()) {
     const value = m.model?.(n, key);
     if (value) return { node: ni, key, ...value };
   }
+  if (key === 'd') return ['reserved', V && 'd animation needs a paint-module path node', false];
   const m = /^(fill|stroke)\.(.+)$/.exec(key);
   if (m) {
     const paint = m[1] as 'fill' | 'stroke';

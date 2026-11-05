@@ -258,7 +258,7 @@ describe('AniML compiler', () => {
         'number',
         'trigger',
         'hit',
-        ...NODE_TYPES,
+        ...NODE_TYPES.filter((t) => ['group', 'path', 'circle', 'rect', 'arc'].includes(t)),
         'ease',
         'timeline',
         'track',
@@ -277,6 +277,10 @@ describe('AniML compiler', () => {
     };
     collectPaint(
       parseXml(readFileSync(new URL('../../../examples/paint.animl', import.meta.url), 'utf8')).doc
+        .root!,
+    );
+    collectPaint(
+      parseXml(readFileSync(new URL('../../../examples/shapes.animl', import.meta.url), 'utf8')).doc
         .root!,
     );
     const attrs = new Set(

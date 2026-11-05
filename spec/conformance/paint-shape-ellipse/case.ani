@@ -1,0 +1,42 @@
+{
+  "anima": "0.1",
+  "name": "paint-ellipse",
+  "grid": 20,
+  "requires": ["paint"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "ellipse",
+      "rx": 8,
+      "fill": {
+        "color": "#f00"
+      },
+      "cx": 10,
+      "cy": 10,
+      "ry": 4
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "a.rx": [
+          [0, 8],
+          [1, 4]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

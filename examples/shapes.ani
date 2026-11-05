@@ -1,0 +1,109 @@
+{
+  "anima": "0.1",
+  "name": "shapes",
+  "grid": 20,
+  "requires": ["paint"],
+  "nodes": [
+    {
+      "id": "oval",
+      "type": "ellipse",
+      "rx": 3,
+      "fill": {
+        "color": "#d97757"
+      },
+      "cx": 5,
+      "cy": 5,
+      "ry": 2
+    },
+    {
+      "id": "pentagon",
+      "type": "polygon",
+      "fill": {
+        "color": "#5577aa"
+      },
+      "cx": 14,
+      "cy": 5,
+      "sides": 5,
+      "radius": 3,
+      "rotation": 15,
+      "cornerRadius": 0.5
+    },
+    {
+      "id": "spark",
+      "type": "star",
+      "fill": {
+        "color": "#d97757"
+      },
+      "cx": 5,
+      "cy": 14,
+      "points": 5,
+      "radius": 3,
+      "innerRadius": 1.5,
+      "cornerRadius": 0.3
+    },
+    {
+      "id": "peak",
+      "type": "triangle",
+      "x0": 11,
+      "y0": 11,
+      "stroke": {
+        "color": "#5577aa",
+        "scale": "fixed"
+      },
+      "width": 6,
+      "height": 6
+    },
+    {
+      "id": "tile",
+      "type": "rect",
+      "x0": 8,
+      "y0": 8,
+      "w": 4,
+      "h": 4,
+      "fill": {
+        "color": "#5577aa"
+      },
+      "corners": [1, 1, 0, 0]
+    },
+    {
+      "id": "morph",
+      "type": "path",
+      "d": "M1 19L5 19",
+      "stroke": {
+        "color": "#d97757"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "loop": "pingpong",
+      "tracks": {
+        "morph.d": [
+          [0, "M1 19L5 19"],
+          [1, "M1 18L7 18"]
+        ],
+        "tile.corners.0": [
+          [0, 1],
+          [1, 0]
+        ],
+        "oval.rx": [
+          [0, 3],
+          [1, 2]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

@@ -639,6 +639,7 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
       .map((a) => ({ markup: a.attr, ani: a.path.join('.') }));
   const typeInfo = (t: (typeof NODE_TYPES)[number]) => ({
     type: t,
+    fields: fields([], nodeShape(t)),
     spellings: spellings(t),
     animatable: props({ ...COMMON, ...OWN[t] } as never),
     static: [
@@ -755,7 +756,10 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
   const mapping = (rows: { markup: string; ani: string }[]) =>
     rows.map((r) => `  ${r.markup} ↔ ${r.ani}`).join('\n');
   const show = (d: ReturnType<typeof typeInfo>) =>
-    `${d.type}\n animatable (address: <id>.<property>)\n${table(d.animatable)}\n not animatable: ${d.static.join(', ')}\n markup ↔ .ani\n${mapping(d.spellings)}`;
+    `${d.type}\n animatable (address: <id>.<property>)\n${table(d.animatable)}\n not animatable: ${d.static.join(', ')}\n markup ↔ .ani\n${mapping(d.spellings)}\n module fields\n${d.fields
+      .filter((f) => f.feature)
+      .map((f) => '  ' + f.ani + ' [' + f.feature + ']')
+      .join('\n')}`;
   const paint = (k: 'fill' | 'stroke') =>
     `${k} (address: <id>.${k}.<field>)\n${table(props(PAINT[k] as never))}\n markup ↔ .ani\n${mapping(spellings('path', k))}\n module fields\n${fields(
       [],

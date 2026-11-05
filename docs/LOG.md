@@ -396,3 +396,21 @@ preview, preserving the distinction between state machines and timeline sampling
   parity statuses stay planned. All algorithms were independently implemented from SVG semantics;
   no Rive source/docs text was copied, no .riv/account command used, no NOTICE/licence added.
   Local commit only; no push, PR or merge. WORKLOG, research, design and Glyphy remain untouched.
+
+### P4a-2 geometry implementation
+
+Added optional paint ellipse/polygon/star/triangle paths, independently constructed quadratic
+corner rounding, per-corner rectangles, compatible SVG command-list morphs, fixed strokes,
+and static raster length normalization for resvg. Geometry lives in paint/geometry.ts;
+core gained optional value/interpolation/outline hooks and a dependency-free length utility.
+AniML quotes path track values, derives shape spellings from registry entries, and lists new
+fields in CLI schema. Seven conformance cases and shapes.animl cover the new forms. Parity
+construct/test fields are populated; statuses and composite integration remain with the owner.
+Focused PNG tests count dashes on paint.animl and a straight path and measure quarter-arc trim
+coverage; Chromium and Firefox validate retained geometry and normalized browser dashes.
+No Rive code/docs copied, no runtime dependencies, licence or NOTICE change.
+
+Verification: npm run check passed 31 files / 581 tests, Chromium and Firefox; schema, web
+bundles and 27 AniML outputs current. Paint 3679/5120 B min+gzip incremental, markup
+6524/8192 B, core+web 16519 B (+58 versus d3e19ef; existing hook target exceeded by 39 B).
+Implementation commit only, on t3/paint-geometry-morphing; no push, PR or merge.

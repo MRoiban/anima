@@ -287,3 +287,48 @@ export function flatten(subpaths: Subpath[], steps = 12): { pts: number[]; close
   }
   return out;
 }
+
+/**
+ * Natural outline length in local grid units. Cubics use de Casteljau subdivision until
+ * control-polygon length minus chord ≤ tolerance (0.0001 grid units), or depth 20.
+ * Each accepted chord uses (polygon + chord)/2. Arcs use parsePath's ≤90° cubic conversion.
+ */
+export function pathLength(d: string, tolerance = 0.0001): number {
+  const dist = (a: number[], b: number[]) => Math.hypot(a[0]! - b[0]!, a[1]! - b[1]!);
+  const mid = (a: number[], b: number[]) => [(a[0]! + b[0]!) / 2, (a[1]! + b[1]!) / 2];
+  const cubic = (a: number[], b: number[], c: number[], e: number[], depth: number): number => {
+    const chord = dist(a, e),
+      polygon = dist(a, b) + dist(b, c) + dist(c, e);
+    if (depth === 20 || polygon - chord <= tolerance) return (polygon + chord) / 2;
+    const ab = mid(a, b),
+      bc = mid(b, c),
+      ce = mid(c, e),
+      abc = mid(ab, bc),
+      bce = mid(bc, ce),
+      centre = mid(abc, bce);
+    return cubic(a, ab, abc, centre, depth + 1) + cubic(centre, bce, ce, e, depth + 1);
+  };
+  let total = 0;
+  for (const sp of parsePath(d)) {
+    let at = [0, 0],
+      start = at;
+    for (let i = 0; i < sp.segs.length;) {
+      const op = sp.segs[i++]!;
+      if (op === Z) {
+        total += dist(at, start);
+        at = start;
+        continue;
+      }
+      const end = sp.segs.slice(i + (op === C ? 4 : 0), i + (op === C ? 6 : 2));
+      if (op === M) start = end;
+      else
+        total +=
+          op === C
+            ? cubic(at, sp.segs.slice(i, i + 2), sp.segs.slice(i + 2, i + 4), end, 0)
+            : dist(at, end);
+      at = end;
+      i += op === C ? 6 : 2;
+    }
+  }
+  return total;
+}

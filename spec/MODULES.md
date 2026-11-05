@@ -70,3 +70,16 @@ entries, diagnostics with tests, conformance cases (`spec/conformance/<feature>-
 same capability, an oracle case (`tests/oracle/<case>/`, see `docs/parity/README.md`). Where an
 algorithm closely follows Rive's MIT runtime, the spec says so and `NOTICE` carries the
 attribution.
+
+### Geometry value hooks (paint)
+
+The paint geometry implementation also uses optional module hooks:
+- value(addr, value, pointer, diag) validates/compiles a module-defined path value during
+  track and pose loading; path values are strings in the player's slots.
+- interpolate(a, b, weight) samples and blends those strings; returns undefined for
+  value kinds the module does not handle.
+- outline(player, node) supplies current local polylines for hit testing; returns
+  undefined to retain core geometry. Paint uses its SVG path construction and the
+  existing flattening convention for parametric shapes, corners and animated paths.
+
+The normal number, boolean and colour slots retain their existing sampling behaviour.
