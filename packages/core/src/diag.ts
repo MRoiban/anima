@@ -17,23 +17,20 @@ export const text = (s: string): string => (V ? s : '');
 
 export class Diags {
   readonly list: Diagnostic[] = [];
-  private add(
+  /** Returns undefined, so `return d.err(…)` ends a function that returns a value or nothing. */
+  err(
     code: string,
-    severity: Diagnostic['severity'],
     pointer: string,
-    message: Text,
-    hint: Text,
-  ) {
+    message?: Text,
+    hint?: Text,
+    severity: Diagnostic['severity'] = 'error',
+  ): undefined {
     const x: Diagnostic = { code, severity, pointer, message: message || code };
     if (hint) x.hint = hint;
     this.list.push(x);
   }
-  /** Returns undefined, so `return d.err(…)` ends a function that returns a value or nothing. */
-  err(code: string, pointer: string, message?: Text, hint?: Text): undefined {
-    this.add(code, 'error', pointer, message, hint);
-  }
-  warn(code: string, pointer: string, message?: Text, hint?: Text): void {
-    this.add(code, 'warning', pointer, message, hint);
+  warn(code: string, pointer: string, message?: Text): void {
+    this.err(code, pointer, message, false, 'warning');
   }
   get failed(): boolean {
     return this.list.some((d) => d.severity === 'error');
