@@ -4,12 +4,19 @@ import {
   load,
   Player,
   registerModule,
+  registerSVGBackend,
   sceneTree,
+  type DrawNode,
+  drawTree,
+  drawFrame,
   toSVG,
   type Module,
 } from '../src/index.ts';
 import { paint } from '../src/modules/paint/index.ts';
 
+interface ProbeDraw extends DrawNode {
+  extra?: number;
+}
 const doc = { anima: '0.1', name: 'module', grid: 20, nodes: [{ id: 'a', type: 'group' }] };
 
 describe('module registration', () => {
@@ -24,8 +31,8 @@ describe('module registration', () => {
     expect(load({ ...doc, requires: ['paint'] }).model).toBeDefined();
   });
 
-  it('supports registry entries, load/model/scene/attrs hooks and ordinary sampling', () => {
-    const counts = { load: 0, model: 0, scene: 0, attrs: 0 };
+  it('supports registry entries, load/model/draw hooks and ordinary sampling', () => {
+    const counts = { load: 0, model: 0, tree: 0, frame: 0 };
     const module: Module = {
       name: 'probe',
       entries: [
@@ -46,19 +53,30 @@ describe('module registration', () => {
         counts.model++;
         return { prop: { type: 'number', feature: 'probe', def: 1 }, rest: node.raw.extra ?? 1 };
       },
-      scene(_model, tree) {
-        counts.scene++;
-        tree.defs.push({ role: 'module:probe', tag: 'g', node: 0, kids: [] });
-      },
-      attrs(player, el, _paint, id, attrs) {
-        if (el.role === 'module:probe') {
-          counts.attrs++;
-          attrs.id = id + player.num(0, 'extra', 1);
-        }
+      draw: {
+        tree(_model, tree) {
+          counts.tree++;
+          expect(tree.nodes[0]!.kind).toBe('group');
+          tree.resources.push({ node: 0, kind: 'probe' });
+        },
+        frame(player, node, data) {
+          counts.frame++;
+          (data as ProbeDraw).extra = player.num(node, 'extra', 1);
+        },
       },
     };
     registerModule(module);
     registerModule(module);
+    registerSVGBackend('probe', {
+      tree(draw, tree) {
+        for (const resource of draw.resources)
+          if (resource.kind === 'probe')
+            tree.defs.push({ role: 'module:probe', tag: 'g', node: resource.node, kids: [] });
+      },
+      attrs(frame, el, _paint, id, attrs) {
+        if (el.role === 'module:probe') attrs.id = id + (frame.nodes[el.node] as ProbeDraw).extra;
+      },
+    });
     expect(FEATURES.filter((f) => f === 'probe')).toHaveLength(1);
     const raw = {
       ...doc,
@@ -82,6 +100,8 @@ describe('module registration', () => {
     const p = new Player(result.model!);
     p.step(0.5);
     expect(p.value('a.extra')).toBe(2);
+    expect(drawTree(p.model).nodes).toHaveLength(1);
+    expect((drawFrame(p).nodes[0] as ProbeDraw).extra).toBe(2);
     expect(sceneTree(p.model).defs.at(-1)?.role).toBe('module:probe');
     expect(toSVG(p)).toContain('<g id="a2"/>');
     expect(Object.values(counts).every((n) => n > 0)).toBe(true);

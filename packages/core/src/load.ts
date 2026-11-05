@@ -1,6 +1,7 @@
 // Loader: parse → structural check → resolve and validate → Model (spec §2 "Strictness").
 // Never partially loads: either a Model with no errors, or the diagnostics.
 
+import { drawTree, type DrawTree } from './draw.ts';
 import { checkDoc } from './check.ts';
 import { type RGBA, parseHex } from './color.ts';
 import { type Term, parseCondition } from './cond.ts';
@@ -115,6 +116,9 @@ export interface ListenerM {
 }
 
 export interface Model {
+  /** Built after successful validation; stable for the document lifetime. */
+  draw?: DrawTree;
+  drawModules?: import('./modules.ts').Module[];
   doc: Raw;
   grid: number;
   viewBox: [number, number, number, number];
@@ -148,7 +152,11 @@ export function load(input: string | object): LoadResult {
   const d = new Diags();
   const model = parse(input, d);
   if (model) for (const m of modules.values()) m.load?.(model, model.doc, d);
-  return model && !d.failed ? { model, diagnostics: d.list } : { diagnostics: d.list };
+  if (model && !d.failed) {
+    drawTree(model);
+    return { model, diagnostics: d.list };
+  }
+  return { diagnostics: d.list };
 }
 
 /** The steps of `load`; stops at the first failing one. */

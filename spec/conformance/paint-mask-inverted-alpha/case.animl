@@ -1,4 +1,4 @@
-<anima version="0.1" name="paint-mask-inverted-alpha" grid="20" requires="paint">
+<anima version="0.1" name="paint-mask-inverted-alpha" grid="20" requires="composite">
   <rect id="a" x0="0" y0="0" width="20" height="20" fill="#f00">
     <mask source="b" mode="inverted-alpha" source-draws="false"/>
   </rect>

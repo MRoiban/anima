@@ -1,8 +1,9 @@
 // Independent geometry constructions; SVG path grammar, no Rive source.
 import type { Module, ModuleEntry } from '../../modules.ts';
 import type { Shape, Prop } from '../../registry.ts';
-import { flatten, parsePath } from '../../path.ts';
-import { fmt, type Attrs } from '../../svg.ts';
+import { flatten, parsePath, pathLength } from '../../path.ts';
+import { fmt } from '../../draw.ts';
+import type { Player } from '../../player.ts';
 import { VERBOSE as V } from '../../flags.ts';
 
 const num = (min?: number): Shape => ({ k: 'num', min });
@@ -183,79 +184,84 @@ export const geometry: Module = {
       !(n.type === 'path' && p.addrs.includes(n.id + '.d'))
     )
       return;
-    const a: Attrs = {};
-    geometry.attrs!(
-      p,
-      { tag: 'path', role: 'shape', node: i, kids: [] },
-      { slot: (_n, d) => d },
-      '',
-      a,
-    );
-    return flatten(parsePath(a.d!));
+    return flatten(parsePath(sampledPath(p, i)!));
   },
-  scene(model, tree) {
-    const walk = (els: typeof tree.root) => {
-      for (const el of els) {
-        const n = model.nodes[el.node]!;
-        if (
-          (el.role === 'shape' || el.role === 'cut') &&
-          (entries.some((e) => e.node && e.target === n.type) || n.raw.corners)
-        )
-          el.tag = 'path';
-        walk(el.kids);
-      }
-    };
-    walk(tree.root);
-    walk(tree.defs);
-  },
-  attrs(p, el, _paint, _id, a) {
-    if (el.role !== 'shape' && el.role !== 'cut') return;
-    const i = el.node,
-      n = p.model.nodes[i]!,
-      r = n.raw;
-    const v = (k: string, def = 0) => p.num(i, k, def);
-    const type: string = n.type;
-    if (type === 'path') a.d = (p.value(n.id + '.d') as string) ?? n.d!;
-    else if (type === 'ellipse') {
-      const cx = v('cx'),
-        cy = v('cy'),
-        rx = v('rx'),
-        ry = v('ry');
-      a.d = `M${fmt(cx - rx)} ${fmt(cy)}a${fmt(rx)} ${fmt(ry)} 0 1 0 ${fmt(2 * rx)} 0a${fmt(rx)} ${fmt(ry)} 0 1 0 ${fmt(-2 * rx)} 0Z`;
-    } else if (type === 'polygon' || type === 'star') {
-      const star = type === 'star',
-        count = Math.round(v(star ? 'points' : 'sides')) * (star ? 2 : 1);
-      a.d = outline(
-        Array.from({ length: count }, (_, j): Point => {
-          const angle =
-            ((star ? -90 : v('rotation') - 90) * Math.PI) / 180 + (j * Math.PI * 2) / count;
-          const radius = v(star && j % 2 ? 'innerRadius' : 'radius');
-          return [v('cx') + radius * Math.cos(angle), v('cy') + radius * Math.sin(angle)];
-        }),
-        [v('cornerRadius')],
-      );
-    } else if (type === 'triangle') {
-      const x = v('x0'),
-        y = v('y0'),
-        w = v('width'),
-        h = v('height');
-      a.d = `M${fmt(x + w / 2)} ${fmt(y)}L${fmt(x + w)} ${fmt(y + h)}L${fmt(x)} ${fmt(y + h)}Z`;
-    } else if (type === 'rect' && r.corners) {
-      const x = r.x0,
-        y = r.y0,
-        w = v('w'),
-        h = v('h');
-      a.d = outline(
-        [
-          [x, y],
-          [x + w, y],
-          [x + w, y + h],
-          [x, y + h],
-        ],
-        [0, 1, 2, 3].map((j) => v('corners.' + j)),
-      );
-      for (const k of ['x', 'y', 'width', 'height', 'rx']) a[k] = null;
-    }
-    if (r.stroke?.scale === 'fixed') a['vector-effect'] = 'non-scaling-stroke';
+  draw: {
+    tree(model, tree) {
+      model.nodes.forEach((n, i) => {
+        if (entries.some((e) => e.node && e.target === n.type) || n.raw.corners)
+          tree.nodes[i]!.kind = 'path';
+      });
+    },
+    frame(p, i, data) {
+      const d = sampledPath(p, i);
+      if (d !== undefined) data.geometry = { kind: 'path', d };
+      if (p.model.nodes[i]!.raw.stroke?.scale === 'fixed')
+        for (const paint of data.paints) if (paint.kind === 'stroke') paint.scale = 'fixed';
+    },
   },
 };
+function sampledPath(p: Player, i: number): string | undefined {
+  const a: { d?: string } = {};
+  const n = p.model.nodes[i]!,
+    r = n.raw;
+  const v = (k: string, def = 0) => p.num(i, k, def);
+  const type: string = n.type;
+  if (type === 'path') a.d = (p.value(n.id + '.d') as string) ?? n.d!;
+  else if (type === 'ellipse') {
+    const cx = v('cx'),
+      cy = v('cy'),
+      rx = v('rx'),
+      ry = v('ry');
+    a.d = `M${fmt(cx - rx)} ${fmt(cy)}a${fmt(rx)} ${fmt(ry)} 0 1 0 ${fmt(2 * rx)} 0a${fmt(rx)} ${fmt(ry)} 0 1 0 ${fmt(-2 * rx)} 0Z`;
+  } else if (type === 'polygon' || type === 'star') {
+    const star = type === 'star',
+      count = Math.round(v(star ? 'points' : 'sides')) * (star ? 2 : 1);
+    a.d = outline(
+      Array.from({ length: count }, (_, j): Point => {
+        const angle =
+          ((star ? -90 : v('rotation') - 90) * Math.PI) / 180 + (j * Math.PI * 2) / count;
+        const radius = v(star && j % 2 ? 'innerRadius' : 'radius');
+        return [v('cx') + radius * Math.cos(angle), v('cy') + radius * Math.sin(angle)];
+      }),
+      [v('cornerRadius')],
+    );
+  } else if (type === 'triangle') {
+    const x = v('x0'),
+      y = v('y0'),
+      w = v('width'),
+      h = v('height');
+    a.d = `M${fmt(x + w / 2)} ${fmt(y)}L${fmt(x + w)} ${fmt(y + h)}L${fmt(x)} ${fmt(y + h)}Z`;
+  } else if (type === 'rect' && r.corners) {
+    const x = r.x0,
+      y = r.y0,
+      w = v('w'),
+      h = v('h');
+    a.d = outline(
+      [
+        [x, y],
+        [x + w, y],
+        [x + w, y + h],
+        [x, y + h],
+      ],
+      [0, 1, 2, 3].map((j) => v('corners.' + j)),
+    );
+  }
+  return a.d;
+}
+
+/** Natural local outline length. Relative dashes are resolved before any backend sees a frame. */
+export function outlineLength(g: import('../../draw.ts').Geometry | undefined): number {
+  if (!g) return 0;
+  if (g.d !== undefined) return pathLength(g.d);
+  if (g.kind === 'circle') return 2 * Math.PI * g.r!;
+  const w = g.width!,
+    h = g.height!,
+    r = g.rx ?? 0,
+    rx = Math.min(r, w / 2),
+    ry = Math.min(r, h / 2);
+  return (
+    2 * (w + h - 2 * rx - 2 * ry) +
+    (rx && ry ? 4 * pathLength(`M${rx} 0A${rx} ${ry} 0 0 1 0 ${ry}`) : 0)
+  );
+}

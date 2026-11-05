@@ -1,11 +1,13 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive (owner 2026-11-06). Order: P4a → P5 → Pc canvas → P4b–e → P3b → P6–P10. Benchmark gate after every phase.
-State: p4a-paint: P4a-1 (modules, gradients, dashes) + P4a-2 (geometry) merged; P4a-3 compositing running (on old SVG hooks).
-Next: merge P4a-3 → P4a-4 draw-layer refactor (MODULES §3.1, Sol xhigh) → P4a-5 benchmark (paint brief, AniML vs Rive) → PR.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: P4a-4 draw layer and paint/composite split; local commits only.
+Verified: npm run check green, 35 files / 706 tests, Chromium + Firefox, no skips.
+State: renderer-neutral draw tree/frame + dependency tracking; separate module SVG backends/exports/bundles.
+SVG: bell/moon/trash byte-identical vs b7b6e92 at 4 times in normal + raster modes (24 documents).
+Sizes: base 17175 vs 16697 (+478); paint 3771/5120, composite 3874/4096, markup 7326/8192 B.
+Next: resolve the core no-growth gate (P4a-4 stays unchecked); P4a-5 benchmark follows.
+Don't: push/PR/merge, runtime dependencies, licences, .riv/Rive account commands, rendered expectation changes.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -62,3 +64,9 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 01:10 [claude]: merged P4a-2 geometry (e7f7dbd): 6/6; paint 3679/5120, core+web 16519; PNG dashes verified visually
 - 2026-11-06 01:40 [claude]: owner direction recorded (PLAN, LOG, MODULES §3.1 draw layer, docs/benchmarks/agent-native.md; P1 run moved to docs/benchmarks/runs/2026-11-05-p1); P5 moved after P4a; canvas Pc after P5
 - 2026-11-06 03:00 [claude]: merged P4a-3 compositing (46f2ed3) with geometry (10 conflicts resolved, artifacts regenerated): 693 tests pass; paint 7359/5120 over → split into paint + composite modules in P4a-4 with the draw layer; core+web 16697
+- 2026-11-05 17:52 [sol]: P4a-4 draw/backend separation implemented; baseline example SVG comparison passes; initial size budgets base/composite over, stale schema regenerated; split-bundle module closure bug found and fixed (browser rerun unverified).
+- 2026-11-05 18:20 [sol]: P4a-4 split-bundle failures fixed via shared registry/renderer APIs; dependencies replace crossNode; initial full check formatting failure corrected → npm run check passes 35 files / 706 tests (evidence: /tmp/anima-p4a4/check2.txt).
+- 2026-11-05 18:20 [sol]: P4a-4 output oracles unchanged; added 24-document b7b6e92 SVG hash coverage and cross-bundle tests → base 17175 (+478 target miss), paint 3771, composite 3877, markup 7326 B; PLAN gate remains open (evidence: node tools/size.ts, git diff --name-only -- 'spec/conformance/*/expected.jsonl').
+- 2026-11-05 18:22 [sol]: standalone base+composite bundles accept solid multi-paints/masks without paint in Chromium and Firefox; composite-only example/conformance declarations minimized to requires composite (evidence: manual Playwright, no diagnostics; final full check passed (35 files / 706 tests)).
+- 2026-11-05 18:30 [sol]: final review restricted nested paint draw hooks to the document's declared modules and added a regression → npm run check green, 35 files / 706 tests; final sizes base 17175, paint 3771, composite 3874, markup 7326 B (evidence: /tmp/anima-p4a4/check-final2.txt).
+- 2026-11-05 18:31 [sol]: correction to 18:20 entry: check2.txt passed 705 tests; check-final2.txt passed 706 after the undeclared-hook regression was added (evidence: both command logs).

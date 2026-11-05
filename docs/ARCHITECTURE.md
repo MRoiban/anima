@@ -39,8 +39,11 @@ docs/      architecture, plan, research notes
    `set(name, value)`, `fire(name)`, `pointer(kind, x, y)` (core hit-testing on flattened geometry so
    headless runs can click), `values()` (resolved property snapshot), `dirty` (slot indices changed
    since the last read — the renderer only touches those).
-5. **Static SVG** (`svg.ts`: `sceneTree` + `attrs`, serialised by `toSVG`; the web runtime builds the
-   same tree as DOM). `toSVG(player | doc, options)` serialises the current resolved scene to a
+5. **Draw layer** (`draw.ts`): a static tree built after validation and a cached, renderer-neutral
+   resolved frame. Player revision stamps track changes without consuming dirty-slot reads.
+   Module `draw.tree/frame` hooks contribute geometry, paints and compositing references.
+6. **Static SVG** (`svg.ts`: `sceneTree` + `attrs`, serialised by `toSVG`; the web runtime builds the
+   same tree as DOM from draw data). `toSVG(player | doc, options)` serialises the current resolved scene to a
    standalone SVG string. Used by the CLI renderer, by server-side rendering, and as the no-JS
    fallback. At rest it must reproduce the Glyphy SVG (same `d`, `fill-rule`, `currentColor`); tested pixel for pixel on every fixture glyph.
 
@@ -51,7 +54,7 @@ docs/      architecture, plan, research notes
   gives it (like `<img src>`), and with an inline document the page makes no requests at all.
 - **Shadow DOM.** The element renders into an open shadow root (a `<style>` and the `<svg>`). CSS
   custom properties and `color` inherit through it, so slots theme from the page.
-- **Retained SVG DOM.** Build the tree once from the core's `sceneTree`: a `<g>` per node carrying its
+- **Retained SVG DOM.** Build the tree once from the SVG backend's `sceneTree`: a `<g>` per node carrying its
   `transform`, `opacity` and `display`, with the painted element inside it untransformed; `<mask>` for
   knockouts, attached to a wrapper `<g>` that has no transform of its own. Per frame write only changed
   attributes, and never remove `transform`/`opacity`/`display` (identity is written out as
@@ -142,16 +145,17 @@ structural AniML descriptors (object shape, fixed discriminator values and an op
 selector); the compiler, decompiler and formatter use them without paint-specific branches.
 
 The `model(node, key)` hook resolves an extra address to `{ prop, rest }`; the loader converts it
-into an ordinary sampling slot. `scene(model, tree)` extends `{ root, defs }` with elements tagged
-`module:<name>`. `attrs(player, el, paint, id, attrs)` updates their per-frame attributes and may
-augment core element attributes; `id` is the renderer's per-instance prefix. `load(model, raw, diag)`
-runs semantic validation after core compilation, before a model can escape the loader. All hooks
-run in registration order. Hooks must ignore documents/elements they do not own. Modules are
-registered before loading documents. `@anima-format/core/all` registers all modules in authoring
-builds; terse browser builds register only the modules explicitly imported by the page.
+into an ordinary sampling slot. `draw.tree(model, tree)` contributes static resource/geometry
+metadata; `draw.frame(player, node, data, entry, frame)` resolves current drawing values. Modules never
+return SVG elements or attributes. `load(model, raw, diag)` runs semantic validation after core
+compilation, before a model can escape the loader. The static draw tree is built only after all
+validation succeeds. Hooks run in registration order and ignore nodes they do not own.
+Each module's `svg.ts` separately registers its SVG backend using the same draw data for retained
+DOM and `toSVG`. `core/all` registers all modules and SVG backends for authoring; browser builds
+load only explicit imports. See MODULES §3.1 for the Canvas2D seam and change-tracking contract.
 
 Module registration and the retained renderer are shared through the active `AnimaIcon` class,
 so separately emitted base, paint and markup bundles use the same runtime. The browser markup
-compiler copies the registered entries before compiling; its optional structural engine is carried
-by paint, so markup-only pages keep the existing 6 KB budget. Tooling's `core/all` registration is
+compiler copies the registered entries before compiling; its structural engine is carried
+by markup itself (8 KB incremental budget), so paint and composite do not duplicate it. Tooling's `core/all` registration is
 folded out of terse browser builds. Both optional bundle import orders are browser-tested.

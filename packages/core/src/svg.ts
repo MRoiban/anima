@@ -2,8 +2,18 @@
 // builds it as retained DOM; `toSVG` serialises it. Both use exactly these attributes.
 
 import { pathLength } from './path.ts';
-import { modules } from './modules.ts';
-import { formatHex } from './color.ts';
+import {
+  drawTree,
+  drawFrame,
+  drawOrder,
+  fmt,
+  type DrawTree,
+  type DrawFrame,
+  type Geometry,
+  type DrawColor,
+  type DrawPaint,
+} from './draw.ts';
+export { fmt } from './draw.ts';
 import type { Mat } from './geom.ts';
 import type { Model } from './load.ts';
 import type { Player } from './player.ts';
@@ -24,8 +34,22 @@ export interface El {
 
 export type Attrs = Record<string, string | null>;
 
-const SHAPE: Record<string, string> = { path: 'path', arc: 'path', circle: 'circle', rect: 'rect' };
-
+export type SVGRenderer = (frame: DrawFrame, el: El, paint: Paint, id: string) => Attrs;
+export interface SVGBackend {
+  tree?(draw: DrawTree, tree: { root: El[]; defs: El[] }): void;
+  attrs?(
+    frame: DrawFrame,
+    el: El,
+    paint: Paint,
+    id: string,
+    attrs: Attrs,
+    render: SVGRenderer,
+  ): void;
+}
+export const svgBackends = new Map<string, SVGBackend>();
+export function registerSVGBackend(name: string, backend: SVGBackend): void {
+  svgBackends.set(name, backend);
+}
 /**
  * Build the element tree, plus mask definitions, for a model.
  *
@@ -35,9 +59,10 @@ const SHAPE: Record<string, string> = { path: 'path', arc: 'path', circle: 'circ
  * mask sits on a wrapper with no transform of its own, attached for the document's whole life.
  */
 export function sceneTree(model: Model): { root: El[]; defs: El[] } {
+  const draw = drawTree(model);
   const defs: El[] = [];
   const leaf = (i: number, role: 'shape' | 'cut'): El => ({
-    tag: SHAPE[model.nodes[i]!.type]!,
+    tag: draw.nodes[i]!.kind,
     role,
     node: i,
     kids: [],
@@ -45,8 +70,8 @@ export function sceneTree(model: Model): { root: El[]; defs: El[] } {
   const build = (list: number[]): El[] => {
     let out: El[] = [];
     for (const i of list) {
-      const n = model.nodes[i]!;
-      if (n.raw.knockout !== undefined && out.length) {
+      const n = draw.nodes[i]!;
+      if (n.knockout !== undefined && out.length) {
         out = [{ tag: 'g', role: 'wrap', node: i, kids: out }];
         defs.push({
           tag: 'mask',
@@ -62,23 +87,20 @@ export function sceneTree(model: Model): { root: El[]; defs: El[] } {
         tag: 'g',
         role: 'node',
         node: i,
-        kids: n.type === 'group' ? build(n.children) : [leaf(i, 'shape')],
+        kids: n.kind === 'group' ? build(n.children) : [leaf(i, 'shape')],
       });
     }
     return out;
   };
-  const roots = model.nodes.flatMap((n, i) => (n.parent < 0 ? [i] : []));
+  const roots = draw.roots;
   const tree = { root: build(roots), defs };
-  for (const m of modules.values()) m.scene?.(model, tree);
+  for (const b of svgBackends.values()) b.tree?.(draw, tree);
   return tree;
 }
 
 export function sceneOrder(p: Player, nodes: number[]): number[] {
-  for (const m of modules.values()) nodes = m.order?.(p, nodes) ?? nodes;
-  return nodes;
+  return drawOrder(drawFrame(p), nodes);
 }
-
-export const fmt = (v: number): string => String(Math.round(v * 1e5) / 1e5 || 0);
 
 const matrix = (m: Mat): string => `matrix(${m.map(fmt).join(' ')})`;
 
@@ -92,61 +114,56 @@ export const staticSlots = (over: Record<string, string> = {}): Paint => ({
   slot: (name, def) => over[name] ?? def,
 });
 
-export function color(p: Player, i: number, key: string, paint: Paint): string {
-  const v = p.prop(i, key);
-  if (Array.isArray(v)) return formatHex(v);
-  const s = v as string;
-  const slots = p.model.colors;
-  return Object.hasOwn(slots, s) ? paint.slot(s, slots[s]!) : s;
+export function paintColor(value: DrawColor | undefined, paint: Paint): string {
+  return typeof value === 'object' ? paint.slot(value.slot, value.fallback) : value!;
 }
-
-function geometry(p: Player, i: number, a: Attrs): void {
-  const n = p.model.nodes[i]!;
-  const r = n.raw;
-  const num = (k: string) => p.num(i, k, 0);
-  if (n.type === 'path') a.d = n.d!;
-  else if (n.type === 'circle')
-    [a.cx, a.cy, a.r] = [fmt(r.center[0]), fmt(r.center[1]), fmt(num('r'))];
-  else if (n.type === 'rect')
-    [a.x, a.y, a.width, a.height, a.rx] = [
-      fmt(r.x0),
-      fmt(r.y0),
-      fmt(num('w')),
-      fmt(num('h')),
-      num('rx') ? fmt(num('rx')) : null,
-    ];
-  else if (n.type === 'arc') {
-    const [cx, cy] = r.center;
-    const rad = num('r');
-    let from = num('from');
-    const sweep = Math.min(360, Math.max(0, num('to') - from));
-    const pt = (deg: number) =>
-      `${fmt(cx + rad * Math.cos((deg * Math.PI) / 180))} ${fmt(cy + rad * Math.sin((deg * Math.PI) / 180))}`;
-    let d = `M${pt(from)}`;
-    // Full circles need two arcs; anything over 180° sets the large-arc flag.
-    for (const part of sweep > 180 ? [sweep / 2, sweep / 2] : [sweep]) {
-      from += part;
-      d += `A${fmt(rad)} ${fmt(rad)} 0 0 1 ${pt(from)}`;
+export function geometryAttrs(g: Geometry | undefined, a: Attrs): void {
+  if (!g) return;
+  for (const k in g)
+    if (k !== 'kind') {
+      const v = g[k as keyof Geometry]!;
+      a[k] = k === 'rx' && !v ? null : typeof v === 'number' ? fmt(v) : v;
     }
-    a.d = d;
+}
+export function paintAttrs(
+  fill: DrawPaint | undefined,
+  s: DrawPaint | undefined,
+  paint: Paint,
+  a: Attrs,
+): void {
+  a.fill = fill ? paintColor(fill.color, paint) : 'none';
+  a['fill-rule'] = fill?.rule === 'evenodd' ? 'evenodd' : null;
+  if (s) {
+    const t = s.trim;
+    const len = Math.min(1, (t?.end ?? 1) - (t?.start ?? 0));
+    Object.assign(a, {
+      stroke: len > 0 ? paintColor(s.color, paint) : 'none',
+      'stroke-width': fmt(s.width!),
+      'stroke-linecap': s.cap!,
+      'stroke-linejoin': s.join!,
+      pathLength: t ? '1' : null,
+      'stroke-dasharray': t && len < 1 ? `${fmt(len)} ${fmt(1 - len)}` : null,
+      'stroke-dashoffset': t && len < 1 ? fmt(-((((t.start + t.offset) % 1) + 1) % 1)) : null,
+    });
   }
 }
-
 /** Current attributes of one element. `id` prefixes mask ids so several icons can share a page. */
-export function attrs(p: Player, el: El, paint: Paint, id: string): Attrs {
-  const a = coreAttrs(p, el, paint, id);
-  for (const m of modules.values()) m.attrs?.(p, el, paint, id, a);
+export function attrs(p: Player | DrawFrame, el: El, paint: Paint, id: string): Attrs {
+  return svgAttrs('tree' in p ? p : drawFrame(p), el, paint, id);
+}
+export function svgAttrs(f: DrawFrame, el: El, paint: Paint, id: string): Attrs {
+  const a = coreAttrs(f, el, paint, id);
+  for (const b of svgBackends.values()) b.attrs?.(f, el, paint, id, a, svgAttrs);
   return a;
 }
-
-function coreAttrs(p: Player, el: El, paint: Paint, id: string): Attrs {
+function coreAttrs(f: DrawFrame, el: El, paint: Paint, id: string): Attrs {
   if (el.role.startsWith('module:')) return {};
-  const i = el.node;
-  const r = p.model.nodes[i]!.raw;
+  const i = el.node,
+    n = f.nodes[i]!,
+    entry = f.tree.nodes[i]!;
   if (el.role === 'wrap') return { mask: `url(#${id}k${i})` };
   if (el.role === 'mask' || el.role === 'bg') {
-    // The mask and its white background cover three viewBoxes, so cuts may overhang.
-    const [x, y, w, h] = p.model.viewBox;
+    const [x, y, w, h] = f.viewBox;
     const box = { x: fmt(x - w), y: fmt(y - h), width: fmt(3 * w), height: fmt(3 * h) };
     return el.role === 'bg'
       ? { ...box, fill: '#fff' }
@@ -154,44 +171,26 @@ function coreAttrs(p: Player, el: El, paint: Paint, id: string): Attrs {
   }
   if (el.role === 'node' || el.role === 'cutg')
     return {
-      transform: matrix(p.local(i)),
-      opacity: fmt(p.num(i, 'opacity', 1)),
-      display: p.prop(i, 'visible') === false ? 'none' : 'inline',
+      transform: matrix(n.transform),
+      opacity: fmt(n.opacity),
+      display: n.visible ? 'inline' : 'none',
     };
   const a: Attrs = {};
-  geometry(p, i, a);
+  geometryAttrs(n.geometry, a);
+  const fill = n.paints.find((p) => p.kind === 'fill'),
+    stroke = n.paints.find((p) => p.kind === 'stroke');
   if (el.role === 'cut') {
-    const sw = r.stroke ? p.num(i, 'stroke.width', 1) : 0;
-    const width = sw + 2 * r.knockout;
+    const width = (stroke?.width ?? 0) + 2 * entry.knockout!;
     return Object.assign(a, {
-      fill: r.fill ? '#000' : 'none',
-      'fill-rule': r.fill?.rule === 'evenodd' ? 'evenodd' : null,
+      fill: fill ? '#000' : 'none',
+      'fill-rule': fill?.rule === 'evenodd' ? 'evenodd' : null,
       stroke: width > 0 ? '#000' : 'none',
       'stroke-width': fmt(width),
       'stroke-linejoin': 'round',
       'stroke-linecap': 'round',
     });
   }
-  a.fill = r.fill ? color(p, i, 'fill.color', paint) : 'none';
-  a['fill-rule'] = r.fill?.rule === 'evenodd' ? 'evenodd' : null;
-  const s = r.stroke;
-  if (s) {
-    const start = p.num(i, 'stroke.trimStart', 0);
-    const to = p.num(i, 'stroke.trimOffset', 0);
-    const len = Math.min(1, p.num(i, 'stroke.trimEnd', 1) - start);
-    const trimmed = ['trimStart', 'trimEnd', 'trimOffset'].some(
-      (k) => k in s || p.prop(i, 'stroke.' + k) !== undefined,
-    );
-    Object.assign(a, {
-      stroke: len > 0 ? color(p, i, 'stroke.color', paint) : 'none',
-      'stroke-width': fmt(p.num(i, 'stroke.width', 1)),
-      'stroke-linecap': s.cap ?? 'round',
-      'stroke-linejoin': s.join ?? 'round',
-      pathLength: trimmed ? '1' : null,
-      'stroke-dasharray': trimmed && len < 1 ? `${fmt(len)} ${fmt(1 - len)}` : null,
-      'stroke-dashoffset': trimmed && len < 1 ? fmt(-((((start + to) % 1) + 1) % 1)) : null,
-    });
-  }
+  paintAttrs(fill, stroke, paint, a);
   return a;
 }
 
@@ -212,6 +211,7 @@ export function toSVG(
   const paint = opts.paint ?? staticSlots();
   const id = opts.id ?? 'a';
   const { root, defs } = sceneTree(p.model);
+  const frame = drawFrame(p);
   const ordered = (els: El[]): El[] => {
     if (new Set(els.map((el) => el.node)).size !== els.length) return els;
     const out = sceneOrder(
@@ -221,7 +221,7 @@ export function toSVG(
     return out.map((i) => els.find((el) => el.node === i)!);
   };
   const ser = (el: El): string => {
-    const a = attrs(p, el, paint, id);
+    const a = svgAttrs(frame, el, paint, id);
     if (opts.staticLengths && a.pathLength === '1') {
       let length = 0;
       if (a.d) length = pathLength(a.d);

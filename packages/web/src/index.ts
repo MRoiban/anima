@@ -5,17 +5,19 @@
 import {
   type AnimaEvent,
   type Attrs,
+  type DrawFrame,
   type Diagnostic,
   type El,
   type Model,
   Player,
-  attrs,
+  svgAttrs,
   cssSlots,
   load,
   sceneTree,
-  sceneOrder,
   registerModule,
   modules,
+  drawFrame,
+  registerSVGBackend,
 } from '@anima-format/core';
 
 export type { AnimaEvent, Diagnostic };
@@ -56,8 +58,10 @@ let ids = 0;
 
 export class AnimaIcon extends HTMLElement {
   static registerModule = registerModule;
+  static registerSVGBackend = registerSVGBackend;
   static modules = modules;
-  declare static markupModules?: typeof import('@anima-format/markup/modules').structuralMarkup;
+  /** Installed by the composite SVG backend; 0.1 scenes keep authored DOM order. */
+  declare static orderSVG?: (frame: DrawFrame, elements: [El, Element, Attrs][]) => void;
   static observedAttributes = ['src', 'motion', 'label', 'speed', 'paused', 'fit', 'align'];
   /** Registered by @anima-format/web/markup; the runtime never imports a compiler itself. */
   declare static compiler?: (source: string) => { doc?: object; diagnostics: SourceDiagnostic[] };
@@ -74,7 +78,6 @@ export class AnimaIcon extends HTMLElement {
   #root: ShadowRoot;
   #svg?: SVGSVGElement;
   #els: [El, Element, Attrs][] = [];
-  #byNode = new Map<number, [El, Element, Attrs][]>();
   #last = -1;
   #onScreen = true;
   #states = '';
@@ -287,7 +290,6 @@ export class AnimaIcon extends HTMLElement {
     this.player = undefined;
     this.#svg = undefined;
     this.#els = [];
-    this.#byNode.clear();
     this.#root.replaceChildren();
     this.#held = false;
     this.#aria();
@@ -347,15 +349,11 @@ export class AnimaIcon extends HTMLElement {
     svg.setAttribute('viewBox', `${x} ${y} ${w} ${h}`);
     svg.setAttribute('aria-hidden', 'true');
     this.#els = [];
-    this.#byNode.clear();
     const make = (el: El, parent: Element) => {
       const d = document.createElementNS(SVG, el.tag);
       parent.append(d);
       const rec: [El, Element, Attrs] = [el, d, {}];
       this.#els.push(rec);
-      const list = this.#byNode.get(el.node) ?? [];
-      list.push(rec);
-      this.#byNode.set(el.node, list);
       for (const k of el.kids) make(k, d);
     };
     const { root, defs } = sceneTree(m);
@@ -407,7 +405,7 @@ export class AnimaIcon extends HTMLElement {
 
   #paint(rec: [El, Element, Attrs]): void {
     const [el, d, cur] = rec;
-    const next = attrs(this.player!, el, cssSlots, this.#mid);
+    const next = svgAttrs(drawFrame(this.player!), el, cssSlots, this.#mid);
     for (const k in next) {
       const v = next[k]!;
       if (v === cur[k]) continue;
@@ -418,37 +416,13 @@ export class AnimaIcon extends HTMLElement {
   }
 
   #order(): void {
-    const groups = new Map<Element, Map<number, Element>>();
-    for (const [el, dom] of this.#els)
-      if (el.role === 'node') {
-        let top = dom;
-        while (top.parentElement?.getAttribute('data-anima-wrap') === 'true')
-          top = top.parentElement;
-        const parent = top.parentElement!;
-        const group = groups.get(parent) ?? new Map<number, Element>();
-        group.set(el.node, top);
-        groups.set(parent, group);
-      }
-    for (const [parent, group] of groups) {
-      const nodes = [...group.keys()].sort((a, b) => a - b);
-      const ordered = sceneOrder(this.player!, nodes).map((i) => group.get(i)!);
-      if (
-        ordered.some((dom, i) => [...parent.children].filter((d) => ordered.includes(d))[i] !== dom)
-      )
-        for (const dom of ordered) parent.append(dom);
-    }
+    AnimaIcon.orderSVG?.(drawFrame(this.player!), this.#els);
   }
 
   #draw(): void {
     const p = this.player!;
-    const nodes = new Set(p.takeDirty().map((s) => p.model.addrs.get(p.addrs[s]!)!.node));
-    // A visibility change reaches knockout cuts of descendants; just repaint everything then.
-    if (
-      [...modules.values()].some((m) => m.crossNode) ||
-      [...nodes].some((n) => p.model.addrs.get(p.model.nodes[n]!.id + '.visible'))
-    )
-      for (const rec of this.#els) this.#paint(rec);
-    else for (const n of nodes) for (const rec of this.#byNode.get(n) ?? []) this.#paint(rec);
+    const changed = new Set(drawFrame(p).changed);
+    for (const rec of this.#els) if (changed.has(rec[0].node)) this.#paint(rec);
     this.#order();
   }
 

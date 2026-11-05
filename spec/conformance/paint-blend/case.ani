@@ -2,7 +2,7 @@
   "anima": "0.1",
   "name": "paint-blend",
   "grid": 20,
-  "requires": ["paint"],
+  "requires": ["composite"],
   "nodes": [
     {
       "id": "a",

@@ -121,6 +121,9 @@ and an oracle test against Rive.
   - [ ] P4a-4 **renderer-neutral draw layer** (owner, 2026-11-06; `spec/MODULES.md` §3.1): modules
         describe resolved draw data; the SVG backend turns it into retained DOM and `toSVG`;
         `paint` converted; core + web for icons must not grow (`tools/size.ts`).
+        Draw tree/frame, independent paint/composite modules and SVG backends implemented; 706 tests
+        green, 0.1 example SVG bytes unchanged. Acceptance remains open: core+web 17175 B vs 16697 B
+        (+478 B); paint 3771/5120, composite 3874/4096, markup 7326/8192 B.
   - [ ] P4a-5 agent-native benchmark run with a paint brief (`docs/benchmarks/agent-native.md`).
   - [ ] P4a oracle cases against the Rive CLI for the paint features (MODULES §5).
 - [ ] P5 Components and assets — **moved up** (owner, 2026-11-06): nested artboards / components,
