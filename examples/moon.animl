@@ -9,7 +9,7 @@
   <bool name="dark" default="false"/>
   <bool name="hover"/>
   <bool name="down"/>
-  <a11y role="switch" label="Dark mode" pressed="dark" held="down"/>
+  <a11y role="switch" label="Dark mode" activate="dark" pressed="dark" held="down"/>
   <!-- Keep the glyph geometry intact; separate nodes compose interaction and rotation. -->
   <group id="interaction" pivot="10 10">
     <group id="moon" pivot="10 10">
