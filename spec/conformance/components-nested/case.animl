@@ -1,0 +1,33 @@
+<anima version="0.1" name="components-nested" grid="20" requires="components bind">
+  <number name="unread" default="3"/>
+  <component name="button" grid="8">
+    <number name="count"/>
+    <trigger name="press"/>
+    <circle id="dot" cx="4" cy="4" r="1" fill="#000"/>
+    <bind target="dot.r" value="count"/>
+    <listener on="click" fire="press"/>
+    <layer name="button" initial="idle">
+      <state name="idle">
+        <pose/>
+        <on when="press" to="pressed"/>
+      </state>
+      <state name="pressed" emit="selected">
+        <pose dot.opacity="0.5"/>
+      </state>
+    </layer>
+  </component>
+  <component name="wrapper" grid="12">
+    <number name="count"/>
+    <instance id="inside" component="button" x="2" count="{count}"/>
+  </component>
+  <instance id="outer" component="wrapper" x="6" count="{unread}"/>
+  <layer name="parent" initial="waiting">
+    <state name="waiting">
+      <pose/>
+      <on when="outer.inside.selected" to="selected"/>
+    </state>
+    <state name="selected">
+      <pose/>
+    </state>
+  </layer>
+</anima>

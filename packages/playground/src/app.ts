@@ -1,3 +1,5 @@
+import '@anima-format/web/components';
+import '@anima-format/web/bind';
 import '@anima-format/web/paint';
 import { compile, formatMarkup, type MarkupDiagnostic } from '@anima-format/markup';
 import { type LayerInspect, type TimelineM } from '@anima-format/core';
@@ -401,7 +403,17 @@ function update() {
   const p = icon.player;
   if (!p) return;
   const states = p.inspect();
-  states.forEach(updateGraph);
+  states.filter((s) => !s.layer.includes('/')).forEach(updateGraph);
+  let instances = document.getElementById('instance-states');
+  if (!instances) {
+    instances = document.createElement('p');
+    instances.id = 'instance-states';
+    $('layers').after(instances);
+  }
+  instances.textContent = states
+    .filter((s) => s.layer.includes('/'))
+    .map((s) => `${s.layer}: ${s.state}`)
+    .join(' · ');
   if (!scrubbing) {
     const playing = states.find(
       (s) => s.timeline && s.time !== null && p.model.timelines.find((t) => t.name === s.timeline),

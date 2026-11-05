@@ -1,11 +1,11 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: wave 1 Sol: bind module; AniML libraries/templates; assets+image (parallel). Then components (after bind), n-slice/feather/image paints, P5 benchmark.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: implement P5-2 components end to end; local commit only (no push/PR/merge).
+Base: e64cf94 (core+web 17026 B); module, markup, 4 cases, CLI/playground/example implemented.
+Verified: typecheck/lint/format + 900 tests pass; artifact checks pass; check fails markup 10078/8192 B.
+Next: orchestrator integrates parallel markup split; local P5-2 acceptance remains open at size gate.
+Don't: touch assets/oracle ownership, read .riv, run Rive commands, add runtime deps or licence.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -77,3 +77,11 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 10:50 [claude]: P5 wave 1 launched (Sol high): P5-1 bind, P5-3 AniML libraries/templates, P5-4 assets+image; components (P5-2) after bind
 - 2026-11-06 12:00 [claude]: merged P5-3 templates (a119eba): 767 tests, examples byte-identical; markup 9506/8192 over → split library support into its own browser entry; compile time unchanged on fixed workload (interleaved 818–1092 vs 881–995 ms)
 - 2026-11-06 13:00 [claude]: merged P5-1 bind (fdcc4cc): 846 tests, bind 1367/2048; owner size ceilings recorded (PLAN, parity README, table-driven tools/size.ts with totals: full-featured 34.7 KB); per-frame cost in tools/perf.ts; oracle cases scheduled before P5 merge
+- 2026-11-05 21:22 [sol-components]: read P5 design/specs; added loader/player nesting seam and initial component/AniML implementation (unverified); npm ci restored absent tsc.
+- 2026-11-05 21:22 [sol-components]: targeted checks pass; 4 hand-derived conformance cases cover speed/pause, binding+timeline inputs, events, nesting; corrected event proxy routing, queued binding precedence and separate-bundle registries (evidence: 55 core/conformance tests, 2 web browser tests, 16 playground browser tests).
+- 2026-11-05 21:22 [sol-components]: baseline core+web 17026 B measured from e64cf94 via esbuild source override; current 17318 (+292), components 3432/4096; markup remains above its existing ceiling pending parallel split (evidence: tools/size.ts, final rerun pending).
+- 2026-11-05 21:29 [sol-components]: full npm run check → typecheck/lint/format + 898 tests pass; size alone fails markup 10069/8192 (baseline 9583; +486), components 3439/4096, core+web 17318 (+292); independent artifact checks + perf pass (bell 2.37 ms/606 ms prefixes, toolbar 3.87 ms compile/36.9 µs frame).
+- 2026-11-05 21:29 [sol-components]: owner ruled instance property names reserved for component inputs → reserved-input-name derives from active node shape, tested declaration pointer/location/hint across registry keys (evidence: 20 targeted tests pass); final full rerun pending.
+- 2026-11-05 21:35 [sol-components]: final npm run check → 900/900 tests + typecheck/lint/format pass; size exits 1 solely at markup 10078/8192 (baseline 9583, +495); core+web 17326 (+300), components 3485/4096, full/Rive-class 38176 B (evidence: /tmp/anima-p5-components-final-check.log).
+- 2026-11-05 21:35 [sol-components]: both artifact --check commands pass; perf bell compile 2.38 ms / 9040 prefixes 787 ms, bell/composite frames 45.7/27.9 µs, toolbar frame 32.0 µs / compile 4.11 ms; 14 parity construct/test mappings updated, statuses unchanged; commit local only.
+- 2026-11-05 21:35 [sol-components]: earlier exploratory failures (fixture parse, nested event proxies, library resource/ease scope, queued binding precedence, stale schema/demo and fixture readers) corrected before final 900-test pass; no test limit/budget changed.

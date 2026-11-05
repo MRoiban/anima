@@ -4359,10 +4359,10 @@
    "rive-wasm/js/src/rive.ts:4483@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: components.<name> / nodes[].component: named host-nested-inputs settings; seconds, degrees and grid-unit bounds",
+   "construct": "Player.set/fire/toggle(\"instance.input\")",
    "module": "components",
    "status": "planned",
-   "test": "oracle/components-host-nested-inputs",
+   "test": "packages/core/test/components.test.ts",
    "phase": "P5"
   },
   "aliases": [
@@ -4482,10 +4482,10 @@
    "rive schema LibraryDataEnum --all --json"
   ],
   "anima": {
-   "construct": "new: components.<name> / nodes[].component: named library-components settings; seconds, degrees and grid-unit bounds",
+   "construct": "AniML library <component>; <instance component=\"ui:name\">",
    "module": "components",
    "status": "planned",
-   "test": "oracle/components-library-components",
+   "test": "packages/markup/test/components.test.ts",
    "phase": "P5"
   }
  },
@@ -4505,10 +4505,10 @@
    "rive docs project/libraries-folder"
   ],
   "anima": {
-   "construct": "new: components.<name> / nodes[].component: named library-detach settings; seconds, degrees and grid-unit bounds",
+   "construct": "anima build resolves component libraries into self-contained .ani",
    "module": "components",
    "status": "planned",
-   "test": "oracle/components-library-detach",
+   "test": "packages/markup/test/components.test.ts",
    "phase": "P5"
   }
  },
@@ -4725,10 +4725,10 @@
    "rive-runtime/include/rive/animation/nested_simple_animation.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: components.<name> / nodes[].component: named nested-animation settings; seconds, degrees and grid-unit bounds",
+   "construct": "components definitions with per-instance timeline players",
    "module": "components",
    "status": "planned",
-   "test": "oracle/components-nested-animation",
+   "test": "spec/conformance/components-basic",
    "phase": "P5"
   }
  },
@@ -4753,10 +4753,10 @@
    "rive-runtime/include/rive/nested_artboard.hpp:35@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: components.<name> / nodes[].component: named nested-artboard settings; seconds, degrees and grid-unit bounds",
+   "construct": "components map + transformed instance nodes; scoped draw groups",
    "module": "components",
    "status": "planned",
-   "test": "oracle/components-nested-artboard",
+   "test": "spec/conformance/components-nested",
    "phase": "P5"
   }
  },
@@ -4784,10 +4784,10 @@
    "rive schema StateMachineNestedInput --all --json"
   ],
   "anima": {
-   "construct": "new: components.<name> / nodes[].component: named nested-bool settings; seconds, degrees and grid-unit bounds",
+   "construct": "instance bool inputs; scoped set/toggle actions",
    "module": "components",
    "status": "planned",
-   "test": "oracle/components-nested-bool",
+   "test": "packages/core/test/components.test.ts",
    "phase": "P5"
   }
  },
@@ -4812,10 +4812,10 @@
    "rive-runtime/include/rive/animation/nested_state_machine.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: components.<name> / nodes[].component: named nested-machine settings; seconds, degrees and grid-unit bounds",
+   "construct": "one independent Player per instance; scoped layer inspection",
    "module": "components",
    "status": "planned",
-   "test": "oracle/components-nested-machine",
+   "test": "spec/conformance/components-events",
    "phase": "P5"
   }
  },
@@ -4843,10 +4843,10 @@
    "rive schema StateMachineNestedInput --all --json"
   ],
   "anima": {
-   "construct": "new: components.<name> / nodes[].component: named nested-number settings; seconds, degrees and grid-unit bounds",
+   "construct": "instance number inputs, literals/expressions, bounds",
    "module": "components",
    "status": "planned",
-   "test": "oracle/components-nested-number",
+   "test": "spec/conformance/components-inputs-bound",
    "phase": "P5"
   }
  },
@@ -4871,10 +4871,10 @@
    "rive-runtime/include/rive/nested_artboard.hpp:35@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: components.<name> / nodes[].component: named nested-pause settings; seconds, degrees and grid-unit bounds",
+   "construct": "instance.paused suspends child stepping",
    "module": "components",
    "status": "planned",
-   "test": "oracle/components-nested-pause",
+   "test": "spec/conformance/components-basic",
    "phase": "P5"
   }
  },
@@ -4956,10 +4956,10 @@
    "rive-runtime/include/rive/nested_artboard.hpp:35@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: components.<name> / nodes[].component: named nested-speed settings; seconds, degrees and grid-unit bounds",
+   "construct": "instance.speed multiplies parent dt",
    "module": "components",
    "status": "planned",
-   "test": "oracle/components-nested-speed",
+   "test": "spec/conformance/components-basic",
    "phase": "P5"
   }
  },
@@ -4987,10 +4987,10 @@
    "rive schema StateMachineNestedInput --all --json"
   ],
   "anima": {
-   "construct": "new: components.<name> / nodes[].component: named nested-trigger settings; seconds, degrees and grid-unit bounds",
+   "construct": "fire=\"instance.trigger\"; child listener trigger actions",
    "module": "components",
    "status": "planned",
-   "test": "oracle/components-nested-trigger",
+   "test": "spec/conformance/components-events",
    "phase": "P5"
   }
  },
@@ -5043,10 +5043,10 @@
    "rive schema ViewModelInstanceNumber --all --json"
   ],
   "anima": {
-   "construct": "new: components.<name> / nodes[].component: named stateful-input-animation settings; seconds, degrees and grid-unit bounds",
+   "construct": "pose/track/bind targets instance.input after parent resolution",
    "module": "components",
    "status": "planned",
-   "test": "oracle/components-stateful-input-animation",
+   "test": "packages/core/test/components.test.ts",
    "phase": "P5"
   }
  },
@@ -5065,10 +5065,10 @@
    "https://rive.app/docs/editor/data-binding/stateful-components"
   ],
   "anima": {
-   "construct": "new: components.<name> / nodes[].component: named stateful-input-forwarding settings; seconds, degrees and grid-unit bounds",
+   "construct": "instance inputs=\"{parentInput}\" via bind evaluator, recursively",
    "module": "components",
    "status": "planned",
-   "test": "oracle/components-stateful-input-forwarding",
+   "test": "spec/conformance/components-nested",
    "phase": "P5"
   }
  },
@@ -5096,10 +5096,10 @@
    "rive-runtime/include/rive/viewmodel/viewmodel_instance.hpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: components.<name> / nodes[].component: named stateful-instance settings; seconds, degrees and grid-unit bounds",
+   "construct": "instance owns inputs, clocks, transitions and timelines",
    "module": "components",
    "status": "planned",
-   "test": "oracle/components-stateful-instance",
+   "test": "packages/core/test/components.test.ts",
    "phase": "P5"
   }
  },

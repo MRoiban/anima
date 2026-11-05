@@ -1,6 +1,7 @@
+import { parseXml, type Element } from './xml.ts';
 import { ELEMENTS, markupName, type NodeType } from '@anima-format/core';
 import { markupAddress, nodeAttrs } from './names.ts';
-import { type LayoutElement, render } from './layout.ts';
+import { type LayoutElement, type LayoutChild, render } from './layout.ts';
 
 type Obj = Record<string, unknown>;
 const obj = (v: unknown): Obj => (v ?? {}) as Obj;
@@ -86,6 +87,8 @@ export function decompile(doc: string | object): string {
         el.children.push(child);
       }
     }
+    if (n.type === 'instance')
+      el.attrs.push(...entries(n.inputs).map(([key, v]): [string, string] => [key, value(v)]));
     el.children.push(...((n.children ?? []) as Obj[]).map(node));
     return el;
   };
@@ -130,6 +133,31 @@ export function decompile(doc: string | object): string {
     ),
   );
   groups.push(d.hit ? [element('hit', obj(d.hit), ['circle', 'rect'])] : []);
+  groups.push(
+    entries(d.components).map(([name, component]) => {
+      // Reuse document decompilation so local node addresses retain their own type scope.
+      const nested = obj(component);
+      const xml = decompile({ anima: '0.1', name: 'component', ...nested });
+      const parsed = parseXml(xml).doc.root!;
+      const convert = (el: Element): LayoutElement => ({
+        name: el.name,
+        attrs: el.attrs
+          .filter((a) => el !== parsed || !['version', 'name', 'requires'].includes(a.name))
+          .map((a) => [a.name, a.value]),
+        children: el.children.flatMap<LayoutChild>((c) =>
+          c.kind === 'element'
+            ? [convert(c)]
+            : c.kind === 'text' && c.value.trim()
+              ? [{ text: c.value.trim() }]
+              : [],
+        ),
+      });
+      const el = convert(parsed);
+      el.name = 'component';
+      el.attrs.unshift(['name', name]);
+      return el;
+    }),
+  );
   groups.push(((d.nodes ?? []) as Obj[]).map(node));
   groups.push(
     entries(d.timelines).map(([name, v]) => {

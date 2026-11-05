@@ -1,0 +1,4 @@
+advance 0.25
+snapshot a/dot.x b/dot.x
+advance 0.25
+snapshot a/dot.x b/dot.x

@@ -290,6 +290,10 @@ describe('AniML compiler', () => {
       parseXml(readFileSync(new URL('../../../examples/composite.animl', import.meta.url), 'utf8'))
         .doc.root!,
     );
+    collectPaint(
+      parseXml('<anima><instance id="i" component="badge" speed="2" paused="true"/></anima>').doc
+        .root!,
+    );
     const attrs = new Set(
       [...elements, ...paintElements].flatMap((e) => e.attrs.map((a) => a.name)),
     );

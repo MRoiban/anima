@@ -5,6 +5,7 @@ import '@anima-format/core/all';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
 import {
+  Player,
   type Diagnostic,
   type Model,
   type Shape,
@@ -355,6 +356,7 @@ function inspect(f: string, json: boolean, io: IO): number {
     return {
       id: n.id,
       type: n.type,
+      ...(n.raw.component ? { component: n.raw.component } : {}),
       ...(n.raw.glyph ? { glyph: n.raw.glyph, subpaths: n.raw.subpaths ?? 'all' } : {}),
       ...(n.raw.pivot ? { pivot: n.raw.pivot } : {}),
       ...(animated.length ? { animated } : {}),
@@ -393,7 +395,11 @@ function inspect(f: string, json: boolean, io: IO): number {
       })),
     };
   });
+  const preview = new Player(m);
+  preview.step(0);
+  const instances = preview.inspect().filter((l) => l.layer.includes('/'));
   const summary = {
+    instances,
     name: doc.name,
     title: doc.title,
     grid: m.grid,
@@ -415,7 +421,14 @@ function inspect(f: string, json: boolean, io: IO): number {
       events: t.events.map((e) => e[1]),
     })),
     layers,
-    bound: Object.keys(doc.bind ?? {}).filter((a) => a !== '$comment'),
+    bound: [
+      ...Object.keys(doc.bind ?? {}).filter((a) => a !== '$comment'),
+      ...m.nodes.flatMap((n) =>
+        Object.entries(n.raw.inputs ?? {})
+          .filter(([, v]) => typeof v === 'string')
+          .map(([key]) => n.id + '.' + key),
+      ),
+    ],
     overlaps: [...writers]
       .filter(([, ls]) => ls.length > 1)
       .map(([a, ls]) => `${a} is written by ${ls.join(', ')} (the last one wins)`),
@@ -485,6 +498,8 @@ function inspect(f: string, json: boolean, io: IO): number {
         ...s.on.map((t: string) => `        ${t}`),
       );
   }
+  if (instances.length)
+    lines.push('', 'instances', ...instances.map((l) => `  ${l.layer}: ${l.state}`));
   if (summary.bound.length) lines.push('', 'bound', ...summary.bound.map((a) => `  ${a}`));
   lines.push('', 'listeners', ...summary.listeners.map((l) => `  ${l}`));
   if (summary.overlaps.length) lines.push('', 'overlaps', ...summary.overlaps.map((x) => `  ${x}`));

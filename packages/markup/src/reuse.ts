@@ -148,18 +148,12 @@ export function expand(
           names.add(output);
         }
         scope.set(key, { el: c, scope, name: output });
-        if (c.name === 'component')
-          error(
-            'components-unavailable',
-            c.at,
-            VERBOSE ? 'components arrive with the components module' : '',
-          );
       } else if (imported)
         error('misplaced-element', c.at, VERBOSE ? `<${c.name}> is not allowed in a library` : '');
     }
     if (imported)
       for (const d of scope.values()) {
-        if (d.scope === scope && ['color', 'glyph', 'ease'].includes(d.el.name)) {
+        if (d.scope === scope && ['color', 'glyph', 'ease', 'component'].includes(d.el.name)) {
           const copy = clone(d.el, {}, scope, []);
           if (copy.kind === 'element') {
             copy.attrs.find((a) => a.name === 'name')!.value = d.name;
@@ -228,16 +222,19 @@ export function expand(
     };
     for (const a of out.attrs) {
       const kind =
-        a.name === 'glyph'
-          ? 'glyph'
-          : ['fill', 'stroke', 'stop-color', 'value'].includes(a.name)
-            ? 'color'
-            : ['ease', 'curve'].includes(a.name)
-              ? 'ease'
-              : '';
+        a.name === 'component'
+          ? 'component'
+          : a.name === 'glyph'
+            ? 'glyph'
+            : ['fill', 'stroke', 'stop-color', 'value'].includes(a.name)
+              ? 'color'
+              : ['ease', 'curve'].includes(a.name)
+                ? 'ease'
+                : '';
       if (kind) a.value = reference(a.value, kind, scope, a.valueAt);
       if (out.name === 'pose') a.value = reference(a.value, 'color', scope, a.valueAt);
     }
+    if (c.name === 'component') scope = new Map([...scope, ...scopeFor(c, c.at.file)]);
     out.children = children(c.children, params, scope, uses, c.name === 'track');
     return out;
   };

@@ -432,3 +432,43 @@ and target disagree; `unknown-input` means an input needs declaring; `bind-synta
 expressions. `anima inspect` lists bound addresses, `anima schema bind` describes the form, and
 `anima sample --script` includes resolved values. Browser hosts import `@anima-format/web/bind`.
 See `examples/progress.animl`; general view-model data binding remains for P4e.
+
+## Components
+
+Use a template for repeated markup and a component when each placement needs its own inputs and
+state. Declare components at the document level or in an imported library; place them with
+`<instance>`. A component's coordinates stay local: translate/scale the instance to place it.
+
+```xml
+<anima version="0.1" name="badges" grid="20" requires="components bind">
+  <number name="unread" default="3"/>
+  <component name="badge" grid="8">
+    <number name="count" min="0" max="8"/>
+    <circle id="dot" cx="4" cy="4" r="1" fill="#e44"/>
+    <bind target="dot.r" value="count"/>
+    <listener on="click" emit="selected"/>
+  </component>
+  <instance id="left" component="badge" count="{unread}"/>
+  <instance id="right" component="badge" x="10" count="2"/>
+  <listener on="left.selected" set="unread=0 right.count=0"/>
+</anima>
+```
+
+`count="{unread}"` evaluates against parent inputs every step. Literal initializers apply once;
+listener actions can subsequently write `right.count`, and `fire="right.pop"` addresses a trigger.
+For a continuous explicit binding use `<bind target="right.count" value="unread * 2"/>`.
+Explicit bound/animated addresses override inline expressions. Do not use a node attribute name
+such as `x` as a component input name (`reserved-input-name` at the declaration); use names such
+as `pos-x`, `count` or `enabled`. Installed module node keys are reserved too.
+
+Child events bubble as `left.selected`. Parent listeners and transitions see them on the next
+step (including `advance 0`); the player stays awake for that step. Paused children keep their
+state; invisible settled children sleep. Recursive definitions are `component-cycle`; depth >8
+or >256 expanded instances is `limit-exceeded`. Unknown components/inputs are errors with their
+source location, not silent no-ops.
+
+Run `anima inspect examples/toolbar.animl` to see instance layers. With `anima sample`, select
+`left/count` or `left/dot.r`; snapshot state keys are scoped too (`left/interaction`).
+`examples/toolbar.animl` combines three Glyphy icons using the same imported press template and
+an unread badge. Browser hosts import `@anima-format/web/components` and, when expressions are
+used, `@anima-format/web/bind`, alongside the base runtime.

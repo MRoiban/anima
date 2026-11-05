@@ -1,0 +1,100 @@
+{
+  "anima": "0.1",
+  "name": "components-events",
+  "grid": 20,
+  "requires": ["components"],
+  "inputs": {
+    "seen": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "instance",
+      "x": 10,
+      "scale": 2,
+      "component": "button"
+    }
+  ],
+  "machine": {
+    "layers": {
+      "parent": {
+        "initial": "waiting",
+        "states": {
+          "waiting": {
+            "pose": {},
+            "on": [
+              {
+                "when": "a.selected",
+                "to": "selected"
+              }
+            ]
+          },
+          "selected": {
+            "pose": {}
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "a.selected",
+      "set": {
+        "seen": true
+      }
+    }
+  ],
+  "components": {
+    "button": {
+      "grid": 8,
+      "inputs": {
+        "press": {
+          "type": "trigger"
+        }
+      },
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [4, 4],
+          "r": 3,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "machine": {
+        "layers": {
+          "button": {
+            "initial": "idle",
+            "states": {
+              "idle": {
+                "pose": {},
+                "on": [
+                  {
+                    "when": "press",
+                    "to": "pressed"
+                  }
+                ]
+              },
+              "pressed": {
+                "pose": {
+                  "dot.opacity": 0.5
+                },
+                "emit": "selected"
+              }
+            }
+          }
+        }
+      },
+      "listeners": [
+        {
+          "on": "click",
+          "fire": "press"
+        }
+      ]
+    }
+  }
+}

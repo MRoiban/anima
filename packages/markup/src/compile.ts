@@ -75,6 +75,7 @@ const FORMS: Record<string, Form> = {
       'layer',
       'listener',
       'bind',
+      'component',
     ],
   },
   meta: { attrs: {} },
@@ -140,6 +141,11 @@ const FORMS: Record<string, Form> = {
     },
     required: ['on'],
   },
+};
+FORMS.component = {
+  attrs: { name: 'name', grid: 'number', viewBox: 4 },
+  required: ['name', 'grid'],
+  children: FORMS.anima!.children!.filter((n) => !['component', 'meta'].includes(n)),
 };
 const IS_NUMBER = /^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/;
 
@@ -223,6 +229,10 @@ export class Compiler {
         if (el.name === 'arc' && ['from', 'to'].includes(a.attr)) required.push(a.attr);
         if (el.name === 'rect' && ['x0', 'y0', 'width', 'height'].includes(a.attr))
           required.push(a.attr);
+      }
+      if (el.name === 'instance') {
+        required.push('component');
+        for (const a of el.attrs) if (!Object.hasOwn(attrs, a.name)) attrs[a.name] = 'value';
       }
       return {
         attrs,
@@ -420,14 +430,24 @@ export class Compiler {
           return s.split(/\s+/).map((x) => this.num(x));
         case 'names': {
           const v = s ? s.split(/\s+/) : [];
-          if (!v.length || (a.name !== 'requires' && v.some((x) => !NAME.test(x))))
+          if (
+            !v.length ||
+            (a.name !== 'requires' &&
+              v.some(
+                (x) =>
+                  !NAME.test(x) &&
+                  !(
+                    ['fire', 'toggle'].includes(a.name) && /^[a-z][\w-]*(?:\.[a-z][\w-]*)+$/.test(x)
+                  ),
+              ))
+          )
             throw new Error(VERBOSE ? 'expected a whitespace-separated name list' : '');
           return v;
         }
         case 'set': {
           const o: Json = {};
           for (const pair of s.split(/\s+/)) {
-            const m = /^([a-z][a-zA-Z0-9-]*)=(.+)$/.exec(pair);
+            const m = /^([a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*)=(.+)$/.exec(pair);
             if (!m)
               throw new Error(
                 VERBOSE ? 'expected whitespace-separated name=value assignments' : '',
@@ -485,10 +505,64 @@ export class Compiler {
     const a = this.attrs(el, p);
     const children = this.children(el, p);
     const o: Json = {};
+    const savedTypes = el.name === 'component' ? new Map(this.types) : undefined;
+    const savedEases = savedTypes ? new Map(this.eases) : undefined;
+    const savedResolved = savedTypes ? new Map(this.resolved) : undefined;
+    if (savedTypes) {
+      this.resolved.clear();
+      const local = new Set<string>();
+      for (const c of children)
+        if (c.name === 'ease') {
+          const n = c.attrs.find((a) => a.name === 'name'),
+            curve = c.attrs.find((a) => a.name === 'curve');
+          if (n && curve) {
+            if (local.has(n.value) || BUILTINS.includes(n.value))
+              this.error('duplicate-name', p, n.valueAt, VERBOSE ? 'duplicate component ease' : '');
+            local.add(n.value);
+            this.eases.set(n.value, curve);
+          }
+        }
+      for (const n of local) {
+        const curve = this.resolveEase(n);
+        if (typeof parseEase(curve) === 'string' && !this.failed)
+          this.error(
+            curve.startsWith('spring(') ? 'reserved' : 'bad-attribute',
+            p,
+            this.eases.get(n)!.valueAt,
+            VERBOSE ? 'invalid ease curve' : '',
+          );
+      }
+    }
+
+    if (savedTypes) {
+      this.types.clear();
+      const collect = (e: Element) => {
+        const id = e.attrs.find((a) => a.name === 'id');
+        if (NODES.includes(e.name) && id) this.types.set(id.value, e.name as NodeType);
+        for (const c of e.children) if (c.kind === 'element') collect(c);
+      };
+      collect(el);
+    }
     if (!['track', 'event', 'color', 'ease'].includes(el.name)) this.comment(el, o, p);
     if (NODES.includes(el.name)) {
       this.copyNode(el, a, o, p);
       moduleCompiler.node?.(this, el, children, o, p);
+      if (el.name === 'instance') {
+        const known = new Set(['id', ...this.nodeAttrs(el.name as NodeType).map((a) => a.attr)]);
+        for (const [name, attr] of a)
+          if (!known.has(name)) {
+            const inputs = this.container(o, 'inputs', p, attr.valueAt);
+            this.put(
+              inputs,
+              name,
+              /^\{[\s\S]*\}$/.test(attr.value)
+                ? attr.value
+                : this.read(attr, 'value', ptr(p + '/inputs', name)),
+              p + '/inputs',
+              attr.valueAt,
+            );
+          }
+      }
       if (el.name === 'group') {
         this.put(o, 'children', [], p, el.at);
         for (const c of children.filter((c) => NODES.includes(c.name))) {
@@ -545,8 +619,9 @@ export class Compiler {
     } else {
       this.copy(el, a, o, p, ['name', 'xmlns']);
       if (a.has('name') && el.name !== 'anima') this.read(a.get('name')!, 'name', p);
-      if (el.name === 'anima') {
-        if (a.has('name')) this.put(o, 'name', a.get('name')!.value, p, a.get('name')!.valueAt);
+      if (el.name === 'anima' || el.name === 'component') {
+        if (el.name === 'anima' && a.has('name'))
+          this.put(o, 'name', a.get('name')!.value, p, a.get('name')!.valueAt);
         this.put(o, 'nodes', [], p, el.at);
         for (const c of children) this.rootChild(c, o, p);
       } else if (['bool', 'number', 'trigger'].includes(el.name))
@@ -609,6 +684,14 @@ export class Compiler {
         }
       }
     }
+    if (savedTypes) {
+      this.types.clear();
+      for (const [k, v] of savedTypes) this.types.set(k, v);
+      this.eases.clear();
+      for (const [k, v] of savedEases!) this.eases.set(k, v);
+      this.resolved.clear();
+      for (const [k, v] of savedResolved!) this.resolved.set(k, v);
+    }
     return o;
   }
 
@@ -621,6 +704,16 @@ export class Compiler {
       const key = this.address(target?.value.trim() ?? '');
       this.addNamed(map, key, c, p + '/bind', target?.valueAt ?? c.at);
       this.map.set(ptr(p + '/bind', key), value?.valueAt ?? c.at);
+      return;
+    }
+    if (c.name === 'component') {
+      this.addNamed(
+        this.container(o, 'components', p, c.at),
+        name?.value.trim() ?? '',
+        c,
+        p + '/components',
+        name?.valueAt ?? c.at,
+      );
       return;
     }
     if (c.name === 'ease') {
@@ -803,7 +896,7 @@ export class Compiler {
         const id = el.attrs.find((a) => a.name === 'id');
         if (id) this.types.set(id.value.trim(), el.name as NodeType);
       }
-      for (const c of el.children) if (c.kind === 'element') collect(c);
+      for (const c of el.children) if (c.kind === 'element' && c.name !== 'component') collect(c);
     };
     collect(root);
     for (const c of root.children) {
@@ -832,6 +925,22 @@ export class Compiler {
         );
     }
     const doc = this.build(root, '') as Json;
+    // Library resources referenced from a component are resolved at build time; compiled
+    // components are self-contained and the runtime never searches a parent's resource maps.
+    for (const component of Object.values((doc.components ?? {}) as Json)) {
+      const child = component as Json;
+      const text = JSON.stringify(child);
+      for (const key of ['colors', 'glyphs']) {
+        for (const [name, value] of Object.entries((doc[key] ?? {}) as Json)) {
+          if (
+            text.includes(JSON.stringify(name)) &&
+            !Object.hasOwn((child[key] ?? {}) as Json, name)
+          ) {
+            ((child[key] ??= {}) as Json)[name] = value;
+          }
+        }
+      }
+    }
     if (!this.failed && this.opts.validate !== false) {
       for (const d of load(doc).diagnostics) {
         let p = d.pointer;

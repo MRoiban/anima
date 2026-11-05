@@ -1,0 +1,28 @@
+<anima version="0.1" name="components-events" grid="20" requires="components">
+  <bool name="seen"/>
+  <component name="button" grid="8">
+    <trigger name="press"/>
+    <circle id="dot" cx="4" cy="4" r="3" fill="#000"/>
+    <listener on="click" fire="press"/>
+    <layer name="button" initial="idle">
+      <state name="idle">
+        <pose/>
+        <on when="press" to="pressed"/>
+      </state>
+      <state name="pressed" emit="selected">
+        <pose dot.opacity="0.5"/>
+      </state>
+    </layer>
+  </component>
+  <instance id="a" component="button" x="10" scale="2"/>
+  <listener on="a.selected" set="seen=true"/>
+  <layer name="parent" initial="waiting">
+    <state name="waiting">
+      <pose/>
+      <on when="a.selected" to="selected"/>
+    </state>
+    <state name="selected">
+      <pose/>
+    </state>
+  </layer>
+</anima>

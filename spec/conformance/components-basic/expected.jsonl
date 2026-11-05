@@ -1,0 +1,2 @@
+{"time":0.25,"values":{"a/dot.x":5,"b/dot.x":0},"states":{"a/motion":"move","b/motion":"move"},"events":[],"settled":false}
+{"time":0.5,"values":{"a/dot.x":10,"b/dot.x":0},"states":{"a/motion":"move","b/motion":"move"},"events":[],"settled":true}

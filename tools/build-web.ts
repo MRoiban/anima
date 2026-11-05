@@ -9,6 +9,7 @@ const js = await bundle(new URL('packages/web/src/index.ts', root).pathname);
 const markup = await bundle(new URL('packages/web/src/markup.ts', root).pathname);
 const paint = await bundle(new URL('packages/web/src/paint.ts', root).pathname);
 const composite = await bundle(new URL('packages/web/src/composite.ts', root).pathname);
+const components = await bundle(new URL('packages/web/src/components.ts', root).pathname);
 const bind = await bundle(new URL('packages/web/src/bind.ts', root).pathname);
 const check = process.argv.includes('--check');
 mkdirSync(new URL('packages/web/dist/', root), { recursive: true });
@@ -27,6 +28,7 @@ emit('packages/web/dist/anima-markup.js', markup, true);
 emit('packages/web/dist/anima-paint.js', paint, true);
 emit('packages/web/dist/anima-composite.js', composite, true);
 emit('packages/web/dist/anima-bind.js', bind, true);
+emit('packages/web/dist/anima-components.js', components, true);
 
 const bell = readFileSync(new URL('examples/bell.ani', root), 'utf8');
 const page = readFileSync(new URL('examples/web/template.html', root), 'utf8')

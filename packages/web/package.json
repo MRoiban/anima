@@ -9,7 +9,8 @@
     "./markup": "./src/markup.ts",
     "./paint": "./src/paint.ts",
     "./composite": "./src/composite.ts",
-    "./bind": "./src/bind.ts"
+    "./bind": "./src/bind.ts",
+    "./components": "./src/components.ts"
   },
   "files": [
     "src"

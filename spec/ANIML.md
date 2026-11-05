@@ -306,3 +306,30 @@ For example, `<bind target="dot.fill" value="mix(#000, #fff, progress)"/>` binds
 after listeners. Loader diagnostics map back to the expression attribute; their message gives
 the character offset within the expression. The deprecated `from`/`map` attributes are rejected.
 See `examples/progress.animl` for a continuously input-driven ring.
+
+## Components
+
+With `requires="components"`, document-level `<component name="badge" grid="8" viewBox="…">`
+contains ordinary inputs, nodes, timelines, layers, listeners and bindings. It compiles into
+`components.badge` without a format/name wrapper. Components can also be declared in libraries;
+`<instance id="badge" component="ui:badge"/>` resolves the imported name at build time. Referenced
+library colours/glyphs are copied into the compiled component so it remains self-contained.
+
+`<instance id="b1" component="badge" x="12" count="{unread}"/>` is an instance node. Ordinary
+node attributes are unchanged; extra attributes are component input initializers, parsed as literal
+numbers/bools or `{expression}` strings. Expressions additionally require `bind`. A literal example
+is `count="3"`; bool inputs use `enabled="true"`. Unknown inputs are diagnosed at that attribute.
+`speed="2"` and `paused="true"` control instance stepping. There is no automatic fit or viewBox clip.
+
+Parent actions use dotted input paths (`set="b1.count=0"`, `fire="b1.pop"`,
+`toggle="b1.enabled"`). `<bind target="b1.count" value="unread"/>` continuously drives an instance
+input. `<listener on="b1.selected" set="unread=0"/>` and
+`<on when="b1.selected" to="read"/>` react on the next parent step after a child emits `selected`.
+Decompilation preserves components and input initializers, using ordinary local node/paint names
+inside each definition; it cannot recover library imports/templates.
+
+Input names equal to any instance node property are reserved (`reserved-input-name` at the input
+declaration, with its line/column). This includes `x`, `y`, other transform attributes, `id`,
+`type`, `component`, `inputs`, `opacity`, `visible`, `speed`, `paused` and installed module keys
+such as `blend`, `mask` or `clip`. Instance properties keep their ordinary attribute and address;
+rename a conflicting input, for example to `pos-x`. The registry's instance shape defines the set.

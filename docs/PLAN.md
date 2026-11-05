@@ -168,6 +168,10 @@ and an oracle test against Rive.
       one AniML miss) lands here with component inputs.
   - [x] P5-1 `bind`: typed input expressions, post-state resolution, both syntaxes, CLI schema/inspect/sample,
         progress example, four conformance cases, optional web module (2048 B budget) and browser tests.
+  - [ ] P5-2 `components`: implementation, scoped draw/player inspection, library AniML, toolbar,
+        diagnostics (including registry-derived reserved input names), four conformance cases,
+        Chromium/Firefox runtime and playground tests are present. Acceptance awaits the parallel
+        markup split: `npm run check` passes tests but still fails the unchanged markup size budget.
 - [ ] Pc **Canvas backend, minimal** — brought forward from P10 (owner, 2026-11-06): the draw layer
       rendered to Canvas2D as `@anima-format/web/canvas`; runs every conformance case with a pixel
       comparison against the SVG backend; SVG stays the default for icons. Must exist before P8.

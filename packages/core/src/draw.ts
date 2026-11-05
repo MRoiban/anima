@@ -40,6 +40,8 @@ export interface Geometry {
   rx?: number;
 }
 export interface DrawEntry {
+  /** Scoped identity supplied by nested draw trees. */
+  id?: string;
   node: number;
   kind: string;
   parent: number;
@@ -194,6 +196,7 @@ export function drawFrame(p: Player): DrawFrame {
     f.nodes[i] = data;
     f.changed.push(i);
   }
+  for (const m of p.model.drawModules!) m.draw?.end?.(p, f);
   f.revision = p.drawRevision;
   return f;
 }

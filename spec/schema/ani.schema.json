@@ -487,14 +487,7 @@
           },
           "on": {
             "type": "string",
-            "enum": [
-              "enter",
-              "leave",
-              "down",
-              "up",
-              "click",
-              "move"
-            ]
+            "pattern": "^(?:enter|leave|down|up|click|move|[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)+)$"
           },
           "target": {
             "type": "string",
@@ -508,13 +501,13 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                "pattern": "^[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*$"
               },
               {
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                  "pattern": "^[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*$"
                 },
                 "minItems": 1
               }
@@ -528,7 +521,7 @@
               }
             },
             "propertyNames": {
-              "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+              "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*$"
             },
             "additionalProperties": {
               "anyOf": [
@@ -545,13 +538,13 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                "pattern": "^[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*$"
               },
               {
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                  "pattern": "^[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*$"
                 },
                 "minItems": 1
               }
@@ -567,6 +560,19 @@
         ],
         "additionalProperties": false
       }
+    },
+    "components": {
+      "type": "object",
+      "properties": {
+        "$comment": {
+          "type": "string"
+        }
+      },
+      "propertyNames": {
+        "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+      },
+      "additionalProperties": {},
+      "feature": "components"
     },
     "bind": {
       "type": "object",
@@ -3607,6 +3613,209 @@
             "from",
             "to",
             "center"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+            },
+            "type": {
+              "const": "instance"
+            },
+            "pivot": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "rotate": {
+              "type": "number"
+            },
+            "scale": {
+              "type": "number"
+            },
+            "scaleX": {
+              "type": "number"
+            },
+            "scaleY": {
+              "type": "number"
+            },
+            "opacity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "visible": {
+              "type": "boolean"
+            },
+            "component": {
+              "type": "string",
+              "pattern": "^[a-z][a-zA-Z0-9-]*$",
+              "feature": "components"
+            },
+            "inputs": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "propertyNames": {
+                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+              },
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "feature": "components"
+            },
+            "speed": {
+              "type": "number",
+              "minimum": 0,
+              "feature": "components"
+            },
+            "paused": {
+              "type": "boolean",
+              "feature": "components"
+            },
+            "blend": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "multiply",
+                "screen",
+                "overlay",
+                "darken",
+                "lighten",
+                "color-dodge",
+                "color-burn",
+                "hard-light",
+                "soft-light",
+                "difference",
+                "exclusion",
+                "hue",
+                "saturation",
+                "color",
+                "luminosity"
+              ],
+              "feature": "composite"
+            },
+            "mask": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "alpha",
+                    "luminance",
+                    "inverted-alpha",
+                    "inverted-luminance"
+                  ]
+                },
+                "sourceDraws": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "source",
+                "mode",
+                "sourceDraws"
+              ],
+              "additionalProperties": false,
+              "feature": "composite"
+            },
+            "clip": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                },
+                "rule": {
+                  "type": "string",
+                  "enum": [
+                    "nonzero",
+                    "evenodd"
+                  ],
+                  "default": "nonzero"
+                }
+              },
+              "required": [
+                "source"
+              ],
+              "additionalProperties": false,
+              "feature": "composite"
+            },
+            "drawOrder": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "target": {
+                  "type": "string"
+                },
+                "position": {
+                  "type": "string",
+                  "enum": [
+                    "before",
+                    "after"
+                  ]
+                },
+                "active": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "target",
+                "position"
+              ],
+              "additionalProperties": false,
+              "feature": "composite"
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "component"
           ],
           "additionalProperties": false
         },

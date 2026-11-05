@@ -60,3 +60,18 @@ const bellFrame = frameCost('examples/bell.ani', (p, i) => {
 });
 const compositeFrame = frameCost('examples/composite.ani', () => {});
 console.log(`frame: bell ${bellFrame.toFixed(1)} µs; composite ${compositeFrame.toFixed(1)} µs`);
+const toolbarFrame = frameCost('examples/toolbar.ani', (p, i) => {
+  if (i % 60 === 0) p.set('unread', (i / 60) % 10);
+});
+console.log(`frame: toolbar ${toolbarFrame.toFixed(1)} µs (step + draw, 4 instances)`);
+const toolbar = readFileSync(new URL('../examples/toolbar.animl', import.meta.url), 'utf8');
+const toolbarOptions = { ...options, file: 'examples/toolbar.animl' };
+for (let i = 0; i < 50; i++) compile(toolbar, toolbarOptions);
+const toolbarCompile = median(
+  Array.from({ length: 200 }, () =>
+    time(() => {
+      compile(toolbar, toolbarOptions);
+    }),
+  ),
+);
+console.log(`compile: toolbar ${toolbarCompile.toFixed(2)} ms`);
