@@ -1,0 +1,17 @@
+<!-- Interrupting a crossfade freezes its current blended output as the source of the next blend. -->
+<anima version="0.1" name="case" grid="20">
+  <bool name="on"/>
+
+  <circle id="a" cx="10" cy="10" r="5" pivot="10 10" fill="#000"/>
+
+  <layer name="l" initial="off">
+    <state name="off">
+      <pose a.x="0"/>
+      <on when="on" to="lit" blend="1"/>
+    </state>
+    <state name="lit">
+      <pose a.x="10"/>
+      <on when="!on" to="off" blend="1"/>
+    </state>
+  </layer>
+</anima>

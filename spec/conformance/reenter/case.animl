@@ -1,0 +1,16 @@
+<!-- A trigger can re-enter the current state, restarting its timeline without being consumed twice. -->
+<anima version="0.1" name="case" grid="20">
+  <trigger name="again"/>
+
+  <circle id="a" cx="10" cy="10" r="5" pivot="10 10" fill="#000"/>
+
+  <timeline name="t" duration="1">
+    <track target="a.x">0 0; 1 10</track>
+  </timeline>
+
+  <layer name="l" initial="s">
+    <state name="s" play="t">
+      <on when="again" to="s"/>
+    </state>
+  </layer>
+</anima>

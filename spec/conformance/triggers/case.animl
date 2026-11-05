@@ -1,0 +1,19 @@
+<!-- Triggers are consumed once per layer, lost while unhandled, or buffered until consumed or expired. -->
+<anima version="0.1" name="case" grid="20">
+  <trigger name="go"/>
+  <trigger name="keep" buffer="0.3"/>
+
+  <circle id="a" cx="10" cy="10" r="5" pivot="10 10" fill="#000"/>
+
+  <layer name="l" initial="idle">
+    <state name="idle">
+      <pose a.x="0"/>
+      <on when="go" to="busy"/>
+      <on when="keep" to="busy"/>
+    </state>
+    <state name="busy">
+      <pose a.x="10"/>
+      <on when="@after(1)" to="idle"/>
+    </state>
+  </layer>
+</anima>

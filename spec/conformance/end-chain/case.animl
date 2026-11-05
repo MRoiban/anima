@@ -1,0 +1,24 @@
+<!-- Timeline end transitions chain in one step, carrying overshoot and reporting entry events in order. -->
+<anima version="0.1" name="case" grid="20">
+  <circle id="a" cx="10" cy="10" r="5" pivot="10 10" fill="#000"/>
+
+  <timeline name="one" duration="0.5">
+    <track target="a.x">0 0; 0.5 10</track>
+    <event at="0.5" name="done"/>
+  </timeline>
+  <timeline name="two" duration="0.5">
+    <track target="a.x">0 20; 0.5 30</track>
+  </timeline>
+
+  <layer name="l" initial="s1">
+    <state name="s1" play="one">
+      <on when="@end" to="s2"/>
+    </state>
+    <state name="s2" play="two" emit="second">
+      <on when="@end" to="s3"/>
+    </state>
+    <state name="s3" emit="third">
+      <pose a.x="99"/>
+    </state>
+  </layer>
+</anima>

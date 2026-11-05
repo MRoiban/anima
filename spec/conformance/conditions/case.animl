@@ -1,0 +1,18 @@
+<!-- Number inputs clamp to their bounds; comparisons and conjunctions select the first matching transition. -->
+<anima version="0.1" name="case" grid="20">
+  <number name="level" min="0" max="1"/>
+  <bool name="on"/>
+
+  <circle id="a" cx="10" cy="10" r="5" pivot="10 10" fill="#000"/>
+
+  <layer name="l" initial="lo">
+    <state name="lo">
+      <pose a.x="0"/>
+      <on when="level >= 0.5 and on" to="hi"/>
+    </state>
+    <state name="hi">
+      <pose a.x="1"/>
+      <on when="level &lt; 0.5" to="lo"/>
+    </state>
+  </layer>
+</anima>

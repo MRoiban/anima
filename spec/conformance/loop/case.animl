@@ -1,0 +1,13 @@
+<!-- Loop playback wraps with carry-over; a large step reports every crossed timeline event. -->
+<anima version="0.1" name="case" grid="20">
+  <circle id="a" cx="10" cy="10" r="5" pivot="10 10" fill="#000"/>
+
+  <timeline name="t" duration="1" loop="loop">
+    <track target="a.x">0 0; 1 10</track>
+    <event at="0.5" name="half"/>
+  </timeline>
+
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

@@ -1,0 +1,44 @@
+<!-- Pointer listeners use transformed hit geometry; down toggles inputs and movement cancels clicks. -->
+<anima version="0.1" name="case" grid="20">
+  <bool name="hover"/>
+  <trigger name="ring"/>
+  <bool name="flag"/>
+
+  <circle id="a" cx="10" cy="10" r="5" pivot="10 10" fill="#000"/>
+
+  <layer name="l" initial="idle">
+    <state name="idle">
+      <pose a.x="0"/>
+      <on when="ring" to="rang"/>
+    </state>
+    <state name="rang">
+      <pose a.x="1"/>
+      <on when="ring" to="idle"/>
+    </state>
+  </layer>
+  <layer name="hv" initial="off">
+    <state name="off">
+      <pose/>
+      <on when="hover" to="on"/>
+    </state>
+    <state name="on">
+      <pose a.scale="2"/>
+      <on when="!hover" to="off"/>
+    </state>
+  </layer>
+  <layer name="f" initial="f0">
+    <state name="f0">
+      <pose/>
+      <on when="flag" to="f1"/>
+    </state>
+    <state name="f1">
+      <pose a.rotate="45"/>
+      <on when="!flag" to="f0"/>
+    </state>
+  </layer>
+
+  <listener on="enter" set="hover=true"/>
+  <listener on="leave" set="hover=false"/>
+  <listener on="click" target="a" fire="ring"/>
+  <listener on="down" target="a" toggle="flag"/>
+</anima>

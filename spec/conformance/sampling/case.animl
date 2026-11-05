@@ -1,0 +1,14 @@
+<!-- Sampling clamps before/after keys, interpolates numbers and sRGB colours, and holds booleans and hold segments. -->
+<anima version="0.1" name="case" grid="20">
+  <circle id="a" cx="10" cy="10" r="5" pivot="10 10" fill="#000"/>
+
+  <timeline name="t" duration="2">
+    <track target="a.x">0.5 10; 1 20 hold; 1.5 30</track>
+    <track target="a.fill">0 #000000; 1 #ff0080</track>
+    <track target="a.visible">0 true; 1 false</track>
+  </timeline>
+
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>
