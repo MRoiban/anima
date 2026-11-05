@@ -1,5 +1,5 @@
 {
- "$comment": "expect reserved at /bind",
+ "$comment": "expect reserved at /timelines/t/colorSpace",
  "anima": "0.1",
  "name": "t",
  "grid": 20,
@@ -17,5 +17,5 @@
    }
   }
  ],
- "bind": {}
+ "timelines": { "t": { "duration": 1, "tracks": {}, "colorSpace": "oklab" } }
 }

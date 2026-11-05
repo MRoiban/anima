@@ -147,6 +147,8 @@ and an oracle test against Rive.
       embedded twice), image/font/audio assets, then images, n-slice and feathering in `paint`;
       **input → value binding** (a number input driving an animatable value; the P4a benchmark's
       one AniML miss) lands here with component inputs.
+  - [x] P5-1 `bind`: typed input expressions, post-state resolution, both syntaxes, CLI schema/inspect/sample,
+        progress example, four conformance cases, optional web module (2048 B budget) and browser tests.
 - [ ] Pc **Canvas backend, minimal** — brought forward from P10 (owner, 2026-11-06): the draw layer
       rendered to Canvas2D as `@anima-format/web/canvas`; runs every conformance case with a pixel
       comparison against the SVG backend; SVG stays the default for icons. Must exist before P8.

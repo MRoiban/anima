@@ -1,0 +1,27 @@
+{
+  "anima": "0.1",
+  "name": "binding",
+  "grid": 20,
+  "requires": ["bind"],
+  "inputs": {
+    "progress": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "ring",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 8,
+      "stroke": {
+        "color": "#000"
+      }
+    }
+  ],
+  "bind": {
+    "ring.stroke.trimEnd": "clamp(progress * 2, 0, 1)",
+    "ring.x": "(1 / 0) + 2",
+    "ring.y": "mix(2, 6, progress)"
+  }
+}

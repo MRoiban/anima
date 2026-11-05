@@ -678,3 +678,32 @@ Both artifact checks pass independently; no `.ani` changed. Final compile line:
 `compile: bell 5.15 ms; all 8935 prefixes 1429 ms`. An immediately subsequent baseline run under
 the same concurrent workload reported `compile: bell 4.41 ms; all 9040 prefixes 1239 ms`.
 The initial baseline timings above came from a quieter run. No budgets or test limits changed.
+
+## P5-1 — input bindings (2026-11-05)
+
+- Implemented DESIGN §4: optional `bind` map / `<bind target value/>`, position-aware typed
+  expression parser and reusable named-input evaluator, `bind-type`, `unknown-input`,
+  `bind-cycle`, `bind-syntax`, and post-state/pre-clamp application through the existing slots.
+- CLI `inspect` lists bound addresses; `sample` snapshots include them; `schema bind` derives
+  both attribute spellings from the registry. Added the progress-ring example, authoring guide,
+  spec and AniML forms, and four manually specified conformance cases (number, colour, bool,
+  state override). Chromium and Firefox verify the next frame updates a settled ring, including
+  a separately bundled paint-module address.
+- Minimal base hooks: the optional evaluator map and active runtime address resolver supplied
+  to module registration. Core+web **16901 → 16934 B (+33 B)**; bind **1369 / 2048 B**;
+  markup **7646 / 8192 B**; paint **3712 / 5120 B**; composite **3850 / 4096 B**.
+- `VITEST_MAX_WORKERS=1 npm run check`: **826 tests / 37 files**, all green; both browsers run,
+  artifacts current (43 AniML files). Default-worker runs hit unchanged five-second prefix-test
+  limits under load average ~40 on 12 CPUs. No limit or budget was changed.
+- Compile lines: baseline `bell 2.96 ms; all 9040 prefixes 845 ms`; checked build
+  `bell 3.18 ms; all 9040 prefixes 1173 ms`. Separate-process repeated baseline/current prefix
+  medians under the same later load were both 839 ms. An in-process interleaved comparison
+  (400 single compiles / six sweeps per version) measured **2.17 → 2.20 ms / 848 → 937 ms**;
+  record the variability rather than claim a timing win.
+- Updated construct/test only on 16 data inventory rows: `bind-components`, `binding-to-target`,
+  `calculate-{add,subtract,multiply,divide}`, `formula-expression`, `formula-function-{min,max}`,
+  `formula-operator-{add,subtract,multiply,divide}`, `operation-operand-value`,
+  `range-clamp-{lower,upper}` (all prefixed `data.`). No additional state-machine row is fully
+  covered. Status/module/phase decisions remain with the orchestrator; view models and instance
+  input destinations remain P4e / P5-2. No Rive commands or oracle runs, dependencies, licence,
+  push, PR or merge.

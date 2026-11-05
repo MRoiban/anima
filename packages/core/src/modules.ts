@@ -17,7 +17,7 @@ import {
   type Shape,
 } from './registry.ts';
 import type { Diags } from './diag.ts';
-import type { Addr, Model, NodeM, Value } from './load.ts';
+import { resolveAddress, type Addr, type Model, type NodeM, type Value } from './load.ts';
 import type { Player } from './player.ts';
 import type { DrawTree, DrawNode, DrawEntry, DrawFrame } from './draw.ts';
 
@@ -31,6 +31,7 @@ export interface ModuleEntry {
   elements?: Record<string, ElementForm>;
 }
 export interface ModuleRegistry {
+  resolveAddress: typeof resolveAddress;
   PAINTED: typeof PAINTED;
   FILL: typeof FILL;
   STROKE: typeof STROKE;
@@ -58,7 +59,7 @@ export const FEATURES = ['knockout'];
 export function registerModule(m: Module): void {
   if (!/^[a-z]+(?:@[1-9]\d*)?$/.test(m.name)) throw new Error('invalid module name');
   if (modules.has(m.name)) return;
-  m = m.init?.(modules, { PAINTED, FILL, STROKE, PAINT }) ?? m;
+  m = m.init?.(modules, { PAINTED, FILL, STROKE, PAINT, resolveAddress }) ?? m;
   for (const e of m.entries) {
     const targets =
       e.target === 'node' ? NODE_TYPES : e.target === 'painted' ? PAINTED : [e.target];

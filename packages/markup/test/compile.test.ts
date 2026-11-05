@@ -452,7 +452,6 @@ describe('AniML compiler', () => {
 
   it.each([
     '<layer name="m" initial="s" mode="additive"><state name="s"/></layer>',
-    '<bind target="dot.x" from="level" map="identity"/>',
     '<timeline name="t" duration="1"><track target="dot.d">0 1; 1 2</track></timeline>',
     '<timeline name="t" duration="1"><track target="dot.scale">0 1 spring(1); 1 2</track></timeline>',
     '<timeline name="t" duration="1" colorSpace="linear"/>',

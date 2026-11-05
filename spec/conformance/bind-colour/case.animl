@@ -1,0 +1,5 @@
+<anima version="0.1" name="binding" grid="20" requires="bind">
+  <number name="progress"/>
+  <circle id="ring" cx="10" cy="10" r="8" stroke="#000"/>
+  <bind target="ring.stroke" value="mix(#000, #fff, progress)"/>
+</anima>

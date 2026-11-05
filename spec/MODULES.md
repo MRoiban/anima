@@ -127,13 +127,15 @@ Registry entry targets `node` and `painted` apply to every matching current or s
 registered node type; feature attribution remains with the declaring module.
 `Module.init(registry, shapes)` receives the active runtime's module and shape registries, so
 separately bundled modules share the same registry objects rather than private copies.
+It also supplies `resolveAddress`, the active runtime’s address resolver, so a separately bundled
+bind module can target properties installed by other modules.
 
 ## 4. Size
 
 Each browser module has its own budget (`docs/parity/README.md`), measured like the markup module:
 `gzip(bundle(web + module)) − gzip(bundle(web))`, enforced by `tools/size.ts`. The core + web
 budget (25 KB) covers the hook points only. P4a-4 additionally targets its 16697 B baseline.
-Paint is limited to 5120 B, composite to 4096 B and markup to 8192 B incremental.
+Paint is limited to 5120 B, composite to 4096 B, bind to 2048 B and markup to 8192 B incremental.
 
 ## 5. Conformance and oracles
 
@@ -156,3 +158,11 @@ The paint geometry implementation also uses optional module hooks:
   existing flattening convention for parametric shapes, corners and animated paths.
 
 The normal number, boolean and colour slots retain their existing sampling behaviour.
+
+### Post-state bindings
+
+`Model.bindings` optionally maps an address to `(scope: ReadonlyMap<string, number | boolean>) =>
+Value`. The loader registers bound addresses in `Model.addrs`; the player evaluates these functions
+against applied inputs after layer resolution and before clamping. Bind's exported `expression`
+compiler takes named input types and `evaluate` takes a compiled expression and input scope.
+Components can reuse the evaluator for instance inputs without coupling it to a document/player.

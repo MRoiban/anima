@@ -117,6 +117,8 @@ export interface ListenerM {
 }
 
 export interface Model {
+  /** Optional post-state bindings; evaluators receive the current named inputs. */
+  bindings?: Map<string, (scope: ReadonlyMap<string, number | boolean>) => Value>;
   /** Built after successful validation; stable for the document lifetime. */
   draw?: DrawTree;
   drawModules?: import('./modules.ts').Module[];

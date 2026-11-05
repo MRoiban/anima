@@ -8,7 +8,8 @@
     ".": "./src/index.ts",
     "./markup": "./src/markup.ts",
     "./paint": "./src/paint.ts",
-    "./composite": "./src/composite.ts"
+    "./composite": "./src/composite.ts",
+    "./bind": "./src/bind.ts"
   },
   "files": [
     "src"

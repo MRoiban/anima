@@ -478,6 +478,9 @@ export class Player {
       }
       this.#write(L, V);
     });
+    this.model.bindings?.forEach((evaluate, address) => {
+      V[this.#slots.get(address)!] = evaluate(this.#inputVals);
+    });
     // 4. Clamp, and note what changed
     V.forEach((v, i) => {
       const addr = this.model.addrs.get(this.addrs[i]!)!;

@@ -34,3 +34,8 @@ const composite = await bundle(
 const compositeDelta = gzipSync(composite, { level: 9 }).length - gz;
 console.log(`composite: ${compositeDelta} B min+gzip incremental (budget 4096 B)`);
 if (compositeDelta > 4096) process.exitCode = 1;
+
+const bind = await bundle(new URL('../packages/web/src/bind.ts', import.meta.url).pathname);
+const bindDelta = gzipSync(bind, { level: 9 }).length - gz;
+console.log(`bind: ${bindDelta} B min+gzip incremental (budget 2048 B)`);
+if (bindDelta > 2048) process.exitCode = 1;

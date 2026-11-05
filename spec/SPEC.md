@@ -248,7 +248,8 @@ per channel with rounding for colours (§5), and for booleans `a || b` while the
       step; reaching the cap reports the event `@limit` for that layer and stops its transitions for
       this step. A trigger already consumed by this layer does not hold for it again in this step.
    3. *Write* the layer's output over the values (resolve rule).
-4. **Clamp.** Clamp resolved values to their property's range (`opacity`, trims 0..1; `r`, `w`, `h`,
+4. **Bindings, then clamp.** Evaluate declared `bind` expressions against the current inputs,
+   overriding the state-machine values (see the bind chapter). Clamp resolved values to their property's range (`opacity`, trims 0..1; `r`, `w`, `h`,
    `rx`, `stroke.width` ≥ 0).
 5. **Triggers.** A pending trigger that some layer consumed this step is cleared. One that no layer
    consumed is cleared too, unless its input declares `"buffer": seconds`: then it stays pending until
@@ -485,9 +486,8 @@ so a 0.1 loader rejects them with `reserved` and a pointer to the version that b
    compose already, which covers a breathing idle on one node under a hover tilt on another.
 5. **Path morphing** is available through the optional paint module for compatible command lists
    (see the paint chapter). Automatic matching of differing Glyphy traces remains deferred.
-6. **Data binding — deferred to 0.2** (key `bind` reserved, in the shape
-   `"bind": { "<address>": { "from": "level", "map": [0, 1, 0, 1] } }`). 0.1 hosts drive values
-   through inputs and conditions.
+6. **Data binding.** Input expressions are available in the optional `bind` module below.
+   View models and general data sources remain for P4e.
 7. **Draw-on for Glyphy outlines — deferred to 0.2.** Trims work on authored strokes in 0.1. For
    glyph ink the likely 0.2 design is a `reveal` mask: an authored centreline subpath, stroked wider
    than the ink and trimmed, used as a mask so the visible ink stays the exact outline
@@ -754,3 +754,50 @@ are independently implemented from SVG semantics; no Rive code or algorithms wer
 The explicit references and retained ordering follow the lessons in
 [format/graph research](../docs/research/rive-format-and-graph.md) §6; the sleeping renderer remains
 as described in [web research](../docs/research/rive-web-runtime.md).
+
+## bind
+
+The optional `bind` module requires `requires: ["bind"]`. At document level,
+`bind: { "ring.stroke.trimEnd": "progress" }` maps animatable addresses to expressions.
+Every step evaluates bindings after all state layers resolve and before property clamping (§7),
+so a binding overrides a pose, timeline or crossfade on the same address. Resolved bound
+addresses appear in `Player.values()`, `anima sample` snapshots, dirty slots and `anima inspect`
+(the `bound` list). Inputs still apply in queued arrival order. A settled binding sleeps until
+an input write wakes the player; its value changes on the next step, including `step(0)`.
+
+### Expressions and types
+
+Sources are declared number or bool input names, finite JSON number literals, hex colours
+(`#rgb`, `#rrggbb`, `#rrggbbaa`), parentheses, unary `+`/`-`, binary `+ - * /`, and the functions
+`min(a,b)`, `max(a,b)`, `clamp(x,lo,hi)`, `mix(a,b,t)`. Nothing else is allowed: no property
+reads, strings, boolean literals, comparisons, assignments or arbitrary calls. Identifiers use
+the input-name grammar; a hyphen is part of a name, so write `level - other` for subtraction
+between inputs. Multiplication/division precede addition/subtraction; binary operators associate
+left; unary signs have highest precedence. Whitespace is insignificant between tokens.
+
+A bare bool input retains its bool type for boolean targets. Numeric operations and number
+targets convert bools to 0/1. Numbers do not implicitly become bools. `min`, `max`, `clamp` and
+numeric `mix` return numbers; `mix` also accepts two hex colours and a numeric/bool weight,
+returning a colour. Mixing a number and colour is invalid. Colour interpolation is §5 sRGB
+channel interpolation (including alpha, rounding and channel clamping); weights may extrapolate.
+Numeric `mix` is `a + (b-a)*t`; `clamp` is `min(max(x,lo),hi)`. Non-finite arithmetic results
+(including division by zero) resolve to zero when consumed by another operation or the target,
+before property clamping. Trigger inputs cannot
+be values. Evaluators accept a scope map of named inputs, reusable for component input bindings.
+
+### Validation
+
+`bind-type` rejects incompatible operands or target types; `unknown-input` rejects unknown names.
+`bind-syntax` rejects malformed expressions, unknown calls, wrong arity or limits (512 tokens,
+64 nested expressions). Diagnostics point to `/bind/<escaped-address>`, include the 1-based
+character offset in the expression message, and give a corrective hint. Parser nodes/errors
+retain zero-based UTF-16 offsets. `bind-cycle` rejects attempted cyclic property references,
+including self references. Valid expressions read only inputs and cannot form property cycles;
+acyclic property references are also rejected. Targets use the ordinary `unknown-address`,
+`not-animatable` and `undeclared-feature` diagnostics. The old object-valued `from/map` form is
+not supported. `anima schema bind` describes both spellings from the registry.
+
+The grammar and evaluator are independently written. Strict unknown-name checks and a single
+post-state pass follow the lessons about silent unresolved bindings and feedback loops in
+[animation/state research](../docs/research/rive-animation-and-state.md) §C. No Rive source,
+documentation text or binary format was used.

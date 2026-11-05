@@ -140,7 +140,6 @@ const FORMS: Record<string, Form> = {
     },
     required: ['on'],
   },
-  bind: { attrs: { target: 'string', from: 'string', map: 'string' } },
 };
 const IS_NUMBER = /^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/;
 
@@ -497,6 +496,8 @@ export class Compiler {
           list.push(this.build(c, ptr(p + '/children', list.length)));
         }
       }
+    } else if (el.name === 'bind') {
+      return a.get('value')?.value ?? '';
     } else if (ELEMENTS[el.name]) {
       moduleCompiler.build?.(this, el, a, children, o, p);
     } else if (el.name === 'track') {
@@ -613,6 +614,15 @@ export class Compiler {
 
   private rootChild(c: Element, o: Json, p: string): void {
     const name = c.attrs.find((a) => a.name === 'name');
+    if (c.name === 'bind') {
+      const target = c.attrs.find((a) => a.name === 'target');
+      const value = c.attrs.find((a) => a.name === 'value');
+      const map = this.container(o, 'bind', p, c.at);
+      const key = this.address(target?.value.trim() ?? '');
+      this.addNamed(map, key, c, p + '/bind', target?.valueAt ?? c.at);
+      this.map.set(ptr(p + '/bind', key), value?.valueAt ?? c.at);
+      return;
+    }
     if (c.name === 'ease') {
       this.attrs(c, p);
       this.children(c, p);

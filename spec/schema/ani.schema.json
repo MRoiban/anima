@@ -567,6 +567,18 @@
         ],
         "additionalProperties": false
       }
+    },
+    "bind": {
+      "type": "object",
+      "properties": {
+        "$comment": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {
+        "type": "string"
+      },
+      "feature": "bind"
     }
   },
   "required": [
