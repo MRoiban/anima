@@ -3,35 +3,10 @@
 
 import { DOC, NODE_TYPES, type NodeType, type Shape, nodeShape } from './registry.ts';
 
-const NODE_ORDER = [
-  'id',
-  'type',
-  'glyph',
-  'subpaths',
-  'd',
-  'center',
-  'x0',
-  'y0',
-  'w',
-  'h',
-  'r',
-  'rx',
-  'from',
-  'to',
-  'pivot',
-  'x',
-  'y',
-  'rotate',
-  'scale',
-  'scaleX',
-  'scaleY',
-  'opacity',
-  'visible',
-  'fill',
-  'stroke',
-  'knockout',
-  'children',
-];
+const NODE_ORDER =
+  'id type glyph subpaths d center x0 y0 w h r rx from to pivot x y rotate scale scaleX scaleY opacity visible fill stroke knockout children'.split(
+    ' ',
+  );
 
 const isPlain = (v: unknown) => v === null || typeof v !== 'object';
 

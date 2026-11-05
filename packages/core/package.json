@@ -5,7 +5,9 @@
   "type": "module",
   "description": "Anima core: load, validate and play .ani documents. Pure, deterministic, no DOM.",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./all": "./src/all.ts",
+    "./paint": "./src/modules/paint/index.ts"
   },
   "files": [
     "src"

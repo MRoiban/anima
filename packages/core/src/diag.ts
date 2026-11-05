@@ -16,6 +16,7 @@ type Text = string | false | undefined;
 export const text = (s: string): string => (V ? s : '');
 
 export class Diags {
+  declare features?: string[];
   readonly list: Diagnostic[] = [];
   /** Returns undefined, so `return d.err(…)` ends a function that returns a value or nothing. */
   err(

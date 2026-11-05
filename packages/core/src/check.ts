@@ -34,12 +34,21 @@ const MAX_DEPTH = 96;
 /** Check `value` against the document shape. Reports into `d`; returns false on any error. */
 export function checkDoc(value: unknown, d: Diags): boolean {
   const before = d.list.length;
+  const required = (value as { requires?: unknown })?.requires;
+  d.features = Array.isArray(required) ? required : [];
   check(value, DOC, '', d, 0);
   return d.list.length === before;
 }
 
 function check(v: unknown, s: Shape, p: string, d: Diags, depth: number): void {
   if (depth > MAX_DEPTH) return d.err('limit-exceeded', p, V && 'nesting is too deep');
+  if (s.feature && !d.features?.includes(s.feature))
+    d.err(
+      'undeclared-feature',
+      p,
+      V && `requires does not declare ${s.feature}`,
+      V && `add "${s.feature}" to "requires"`,
+    );
   if (s.k === 'any') return;
   const k = kind(v);
   if (s.k === 'alt') {

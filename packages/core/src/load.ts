@@ -8,10 +8,21 @@ import { type Diagnostic, Diags, ptr, suggest } from './diag.ts';
 import { VERBOSE as V } from './flags.ts';
 import { type EaseFn, hold, linear, parseEase } from './ease.ts';
 import { PathError, type Subpath, parsePath, selectPath } from './path.ts';
-import { COMMON, type NodeType, OWN, PAINT, PAINTED, type Prop, STATIC } from './registry.ts';
+import {
+  COMMON,
+  type NodeType,
+  OWN,
+  PAINT,
+  PAINTED,
+  type Prop,
+  STATIC,
+  nodeShape,
+  type ObjShape,
+} from './registry.ts';
 
 export const FORMAT_VERSION = '0.1';
-export const FEATURES = ['knockout'];
+export { FEATURES } from './modules.ts';
+import { FEATURES, modules } from './modules.ts';
 
 export type Value = number | boolean | RGBA;
 type Json = Record<string, unknown>;
@@ -136,6 +147,7 @@ const entries = <T = Raw>(o: Record<string, T> | undefined): [string, T][] =>
 export function load(input: string | object): LoadResult {
   const d = new Diags();
   const model = parse(input, d);
+  if (model) for (const m of modules.values()) m.load?.(model, model.doc, d);
   return model && !d.failed ? { model, diagnostics: d.list } : { diagnostics: d.list };
 }
 
@@ -163,6 +175,13 @@ function parse(input: string | object, d: Diags): Model | undefined {
           V && `format version ${JSON.stringify(v)} is not supported`,
           V && `this runtime reads "${FORMAT_VERSION}"`,
         );
+  const requires = (doc as Json).requires;
+  if (Array.isArray(requires))
+    requires.forEach((f, i) => {
+      if (typeof f === 'string' && !FEATURES.includes(f))
+        d.err('unknown-feature', '/requires/' + i, V && `this runtime does not support "${f}"`);
+    });
+  if (d.failed) return;
   try {
     if (checkDoc(doc, d)) return resolve(doc as Raw, d);
   } catch (e) {
@@ -179,10 +198,6 @@ function resolve(doc: Raw, d: Diags): Model {
       V && `"${doc.name}" ends in -<digits>`,
       V && 'Glyphy reserves that suffix for variants',
     );
-  asList(doc.requires).forEach((f, i) => {
-    if (!FEATURES.includes(f))
-      d.err('unknown-feature', '/requires/' + i, V && `this runtime does not support "${f}"`);
-  });
 
   // Colours
   const colors: Record<string, string> = doc.colors ?? {};
@@ -298,6 +313,13 @@ function resolve(doc: Raw, d: Diags): Model {
   const address = (a: string, p: string): Addr | undefined => {
     const r = resolveAddress(a, nodes, ids);
     if (Array.isArray(r)) return void d.err(r[0], p, r[1], r[2]);
+    if (r.prop.feature && !doc.requires?.includes(r.prop.feature))
+      d.err(
+        'undeclared-feature',
+        p,
+        V && `requires does not declare ${r.prop.feature}`,
+        V && `add "${r.prop.feature}" to "requires"`,
+      );
     if (r.prop.type === 'color' && !Array.isArray(r.rest)) {
       d.err(
         'color-slot-animated',
@@ -689,8 +711,8 @@ function checkNode(
     }
   }
   if (!PAINTED.includes(n.type)) return;
-  if (r.fill) checkPaint(r.fill.color, p + '/fill/color');
-  if (r.stroke) checkPaint(r.stroke.color, p + '/stroke/color');
+  if (r.fill?.color !== undefined) checkPaint(r.fill.color, p + '/fill/color');
+  if (r.stroke?.color !== undefined) checkPaint(r.stroke.color, p + '/stroke/color');
   if (V && !r.fill && !r.stroke)
     d.warn('no-paint', p, V && `"${n.id}" has neither fill nor stroke`);
   if (n.type === 'arc') {
@@ -720,8 +742,6 @@ function checkNode(
     );
 }
 
-const STATIC_PAINT = ['rule', 'cap', 'join'];
-
 /** Resolve `<id>.<property>`; returns an Addr or [code, message, hint]. */
 export function resolveAddress(
   a: string,
@@ -742,6 +762,10 @@ export function resolveAddress(
     return ['unknown-address', V && `no node "${id}"`, V && `${suggest(id, ids.keys()) ?? ''}`];
   const n = nodes[ni]!;
   if (key === 'd') return ['reserved', V && 'path morphing arrives in anima 0.2', false];
+  for (const m of modules.values()) {
+    const value = m.model?.(n, key);
+    if (value) return { node: ni, key, ...value };
+  }
   const m = /^(fill|stroke)\.(.+)$/.exec(key);
   if (m) {
     const paint = m[1] as 'fill' | 'stroke';
@@ -750,7 +774,7 @@ export function resolveAddress(
       return ['unknown-address', V && `"${id}" has no ${paint}`, false];
     const prop = PAINT[paint][field];
     if (!prop) {
-      if (STATIC_PAINT.includes(field))
+      if (Object.hasOwn((nodeShape(n.type).p[paint] as ObjShape).p, field))
         return ['not-animatable', V && `${paint}.${field} cannot be animated`, false];
       return [
         'unknown-address',
@@ -759,6 +783,8 @@ export function resolveAddress(
       ];
     }
     const raw = n.raw[paint][field];
+    if (raw === undefined && prop.def === undefined)
+      return ['unknown-address', V && `no value for ${key}`, false];
     const rest: Value = prop.type === 'color' ? (parseHex(raw) ?? raw) : (raw ?? prop.def);
     return { node: ni, key, prop, rest };
   }

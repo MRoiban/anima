@@ -320,3 +320,27 @@ Hand-written `.ani` JSON is still valid. It is the runtime format that `anima bu
 produces. `validate`, `inspect`, `sample`, `render` and `fmt` accept it too.
 Follow `anima docs spec` and the JSON spellings in `anima schema`.
 Use `anima decompile icon.ani -o icon.animl` to move authoring to markup.
+
+## Paint module
+
+Add `requires="paint"` to use gradients and dashed strokes. Browser pages also import
+`@anima-format/web/paint` (or load `anima-paint.js`); authoring tools register modules automatically.
+A page without paint refuses the document with `unknown-feature`. See `examples/paint.animl` for
+animated stop colours, coordinates and dash offset.
+
+```xml
+<anima version="0.1" name="paint-demo" grid="20" requires="paint">
+  <circle id="disc" cx="10" cy="10" r="8" stroke="#000" stroke-dasharray="10% 5%">
+    <linearGradient x1="2" y1="2" x2="18" y2="18">
+      <stop offset="0" stop-color="#ff000080"/>
+      <stop offset="1" stop-color="#00f"/>
+    </linearGradient>
+  </circle>
+</anima>
+```
+
+Use `paint="stroke"` on a gradient child for a gradient stroke. Animate `disc.fill.x2`,
+`disc.fill.stops.0.color`, `disc.fill.stops.0.position` or `disc.stroke-dashoffset`. Animated colours
+must be hex literals; unanimated stops may use colour slots. Dash numbers are grid units; percentages
+are fractions of the full path length, with offset expressed as a fraction (0.1 = 10%). A partial
+trim overrides dashes. Validate and render the `.animl` directly as usual.

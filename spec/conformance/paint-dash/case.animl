@@ -1,0 +1,14 @@
+<anima version="0.1" name="paint-dash" grid="20" requires="paint">
+  <path id="absolute" d="M0 2L20 2" stroke="#000" stroke-dasharray="2 1"/>
+  <path id="relative" d="M0 10L20 10" stroke="#000" stroke-dasharray="10% 5%"/>
+  <path id="trim" d="M0 18L20 18" stroke="#000" trimEnd="1" stroke-dasharray="2 1"/>
+  <timeline name="t" duration="1">
+    <track target="absolute.stroke-dashoffset">0 0; 1 4</track>
+    <track target="relative.stroke-dashoffset">0 0; 1 -0.5</track>
+    <track target="trim.trimEnd">0 1; 1 0</track>
+    <track target="trim.stroke-dashoffset">0 0; 1 2</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

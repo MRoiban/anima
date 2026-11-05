@@ -1,5 +1,5 @@
 // Shared layout rules; formatting never interprets attribute values as animation data.
-import { type NodeType } from '@anima-format/core';
+import { ELEMENTS, markupName, type NodeType } from '@anima-format/core';
 import { NODE_ELEMENTS, nodeAttrs } from './names.ts';
 import { escapeAttr, escapeText } from './xml.ts';
 
@@ -31,6 +31,14 @@ export const ATTR_ORDER: Record<string, string[]> = {
   listener: ['on', 'target', 'hitPadding', 'fire', 'set', 'toggle', 'emit'],
 };
 export function attrOrder(name: string): string[] {
+  const form = ELEMENTS[name];
+  if (form)
+    return [
+      ...(form.target ? [form.target.attribute] : []),
+      ...Object.entries(form.shape.p)
+        .filter(([, s]) => s.k !== 'arr')
+        .map(([k, s]) => markupName(s, k)),
+    ];
   return NODE_ELEMENTS.includes(name)
     ? ['id', ...nodeAttrs(name as NodeType).map((a) => a.attr)]
     : (ATTR_ORDER[name] ?? []);

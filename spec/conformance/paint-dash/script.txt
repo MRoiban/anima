@@ -1,0 +1,7 @@
+# Trim overrides dashes at half time and suppresses the stroke at its end.
+advance 0
+snapshot
+advance 0.5
+snapshot
+advance 0.5
+snapshot

@@ -456,9 +456,9 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `drawing-paint.blend-saturation` | Blend mode saturation | new: blend: saturation | paint | planned | oracle/blend-saturation |
 | `drawing-paint.blend-screen` | Blend mode screen | new: blend: screen | paint | planned | oracle/blend-screen |
 | `drawing-paint.blend-soft-light` | Blend mode softLight | new: blend: soft-light | paint | planned | oracle/blend-soft-light |
-| `drawing-paint.dash-absolute` | Dash lengths | new: stroke.dash lengths in grid units | paint | planned | oracle/dash-absolute |
-| `drawing-paint.dash-offset` | Dash phase | new: stroke.dashOffset with explicit units | paint | planned | oracle/dash-offset |
-| `drawing-paint.dash-relative` | Relative dashes | new: stroke.dash entries with fraction units | paint | planned | oracle/dash-relative |
+| `drawing-paint.dash-absolute` | Dash lengths | stroke.dash numeric grid lengths; requires paint | paint | planned | spec/conformance/paint-dash; packages/core/test/paint.test.ts |
+| `drawing-paint.dash-offset` | Dash phase | stroke.dashOffset animatable number; grid units or path fraction; requires paint | paint | planned | spec/conformance/paint-dash; packages/core/test/paint.test.ts |
+| `drawing-paint.dash-relative` | Relative dashes | stroke.dash percentage strings, fractions of full outline length; requires paint | paint | planned | spec/conformance/paint-dash; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
 | `drawing-paint.detached-vertex` | detached vertex | new: editable vertices with detached vertex geometry | paint | planned | oracle/detached-vertex |
 | `drawing-paint.effect-order` | Ordered path effect stacks | new: paint.effects ordered array | paint | planned | oracle/effect-order |
 | `drawing-paint.ellipse` | Ellipses | new: ellipse with center, radiusX and radiusY | paint | planned | oracle/ellipse |
@@ -472,10 +472,10 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `drawing-paint.geometry-origin` | Parametric geometry origin | new: geometry origin expressed as an explicit point in grid units | paint | planned | oracle/geometry-origin |
 | `drawing-paint.gradient-angular` | angular gradients | new: fill or stroke gradient: angular with grid-unit endpoints | paint | planned | oracle/gradient-angular |
 | `drawing-paint.gradient-channel-binding` | Gradient color channels | new: gradient stop channel property paths | data | planned | oracle/gradient-channel-binding |
-| `drawing-paint.gradient-linear` | linear gradients | new: fill or stroke gradient: linear with grid-unit endpoints | paint | planned | oracle/gradient-linear |
-| `drawing-paint.gradient-opacity` | Gradient opacity | new: gradient.opacity | paint | planned | oracle/gradient-opacity |
-| `drawing-paint.gradient-radial` | radial gradients | new: fill or stroke gradient: radial with grid-unit endpoints | paint | planned | oracle/gradient-radial |
-| `drawing-paint.gradient-stops` | Gradient stop animation | new: gradient.stops with position and color tracks | paint | planned | oracle/gradient-stops |
+| `drawing-paint.gradient-linear` | linear gradients | fill/stroke.type=linear; x1/y1/x2/y2; requires paint | paint | planned | spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
+| `drawing-paint.gradient-opacity` | Gradient opacity | gradient stop colour alpha (#rrggbbaa), sampled per channel; requires paint | paint | planned | spec/conformance/paint-gradient; packages/core/test/paint.test.ts |
+| `drawing-paint.gradient-radial` | radial gradients | fill/stroke.type=radial; cx/cy/r/fx/fy; requires paint | paint | planned | spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
+| `drawing-paint.gradient-stops` | Gradient stop animation | fill/stroke.stops[] {position,color}; indexed animatable stop addresses; requires paint | paint | planned | spec/conformance/paint-gradient; packages/core/test/paint.test.ts |
 | `drawing-paint.gradient-transform` | Gradient transforms | new: gradient.transform using grid units and degrees | paint | planned | oracle/gradient-transform |
 | `drawing-paint.image-alignment` | Image box alignment | new: image.align: [x,y] | paint | planned | oracle/image-alignment |
 | `drawing-paint.image-drawable` | Scene images | new: image node with asset and origin | paint | planned | oracle/image-drawable |

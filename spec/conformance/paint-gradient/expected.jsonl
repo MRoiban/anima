@@ -1,0 +1,4 @@
+{"time":0,"values":{"box.fill.x1":0,"box.fill.x2":20,"box.fill.stops.0.position":0,"box.fill.stops.0.color":"#ff000000","box.stroke.r":8,"box.stroke.fx":8},"states":{"l":"s"},"events":[],"settled":false}
+{"time":0.5,"values":{"box.fill.x1":2,"box.fill.x2":16,"box.fill.stops.0.position":0.25,"box.fill.stops.0.color":"#80008080","box.stroke.r":6,"box.stroke.fx":9},"states":{"l":"s"},"events":[],"settled":false}
+{"time":1,"values":{"box.fill.x1":4,"box.fill.x2":12,"box.fill.stops.0.position":0.5,"box.fill.stops.0.color":"#0000ff","box.stroke.r":4,"box.stroke.fx":10},"states":{"l":"s"},"events":[],"settled":true}
+{"time":2,"values":{"box.fill.x1":4,"box.fill.x2":12,"box.fill.stops.0.position":0.5,"box.fill.stops.0.color":"#0000ff","box.stroke.r":4,"box.stroke.fx":10},"states":{"l":"s"},"events":[],"settled":true}

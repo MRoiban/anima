@@ -13,9 +13,9 @@ describe('examples', () => {
     expect(readFileSync(schemaFile, 'utf8')).toBe(schemaText());
   });
 
-  const validate = new Ajv2020({ strict: true, strictTuples: false, allErrors: true }).compile(
-    JSON.parse(readFileSync(schemaFile, 'utf8')),
-  );
+  const validate = new Ajv2020({ strict: true, strictTuples: false, allErrors: true })
+    .addKeyword('feature')
+    .compile(JSON.parse(readFileSync(schemaFile, 'utf8')));
 
   it.each(examples)('%s validates against the schema and the loader', (f) => {
     const text = readFileSync(new URL(f, EX), 'utf8');

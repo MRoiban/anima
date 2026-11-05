@@ -1,0 +1,9 @@
+# Linear positions, RGBA channels, radial radius/focal point, boundaries.
+advance 0
+snapshot
+advance 0.5
+snapshot
+advance 0.5
+snapshot
+advance 1
+snapshot

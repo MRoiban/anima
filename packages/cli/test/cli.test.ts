@@ -340,6 +340,15 @@ describe('anima inspect, schema, docs', () => {
     expect(text).toContain('likely hole of 0');
   });
 
+  it('schema marks gradient and dash keys with their module', async () => {
+    const data = JSON.parse((await cli('schema', 'stroke', '--format=json')).out);
+    for (const name of ['type', 'stops', 'dash', 'dashOffset'])
+      expect(data.fields.find((f: { ani: string }) => f.ani === name).feature).toBe('paint');
+    expect((await cli('schema', 'stroke')).out).toContain(
+      'stroke-dasharray ↔ stroke.dash: array<number | string> [paint]',
+    );
+  });
+
   it('schema describes node types and paint', async () => {
     expect((await cli('schema', 'circle')).out).toMatch(/r +number/);
     expect(

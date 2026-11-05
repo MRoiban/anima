@@ -13,6 +13,8 @@ import {
   cssSlots,
   load,
   sceneTree,
+  registerModule,
+  modules,
 } from '@anima-format/core';
 
 export type { AnimaEvent, Diagnostic };
@@ -52,6 +54,9 @@ const motionQuery = () => matchMedia('(prefers-reduced-motion: reduce)');
 let ids = 0;
 
 export class AnimaIcon extends HTMLElement {
+  static registerModule = registerModule;
+  static modules = modules;
+  declare static markupModules?: typeof import('@anima-format/markup/modules').structuralMarkup;
   static observedAttributes = ['src', 'motion', 'label', 'speed', 'paused', 'fit', 'align'];
   /** Registered by @anima-format/web/markup; the runtime never imports a compiler itself. */
   declare static compiler?: (source: string) => { doc?: object; diagnostics: SourceDiagnostic[] };

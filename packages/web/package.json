@@ -6,7 +6,8 @@
   "description": "<anima-icon>: the Anima web runtime (retained SVG, sleeping scheduler, a11y).",
   "exports": {
     ".": "./src/index.ts",
-    "./markup": "./src/markup.ts"
+    "./markup": "./src/markup.ts",
+    "./paint": "./src/paint.ts"
   },
   "files": [
     "src"

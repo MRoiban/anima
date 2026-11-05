@@ -1,3 +1,4 @@
+import '@anima-format/core/all';
 // Runs spec/conformance/*/ (spec §11) and the ease golden vectors.
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';

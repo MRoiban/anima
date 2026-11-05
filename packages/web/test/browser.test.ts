@@ -94,10 +94,12 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
     let page: Page;
     let js: string;
     let markupJs: string;
+    let paintJs: string;
     beforeAll(async () => {
-      [js, markupJs] = await Promise.all([
+      [js, markupJs, paintJs] = await Promise.all([
         bundle(resolve('packages/web/src/index.ts')),
         bundle(resolve('packages/web/src/markup.ts')),
+        bundle(resolve('packages/web/src/paint.ts')),
       ]);
       browser = await type.launch({ executablePath, headless: true });
     }, 30000);
@@ -115,6 +117,149 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
     afterEach(async () => {
       await page?.close();
     });
+
+    it('refuses paint without its module, then accepts a separately loaded paint bundle', async () => {
+      await page.setContent(
+        '<style>body{margin:0;background:white}anima-icon{display:block;width:200px;height:200px}</style>',
+      );
+      await page.addScriptTag({ type: 'module', content: js });
+      await page.evaluate(() => customElements.whenDefined('anima-icon'));
+      const doc = {
+        anima: '0.1',
+        name: 'paint-browser',
+        grid: 20,
+        requires: ['paint'],
+        nodes: [
+          {
+            id: 'linear',
+            type: 'rect',
+            x0: 0,
+            y0: 0,
+            w: 20,
+            h: 8,
+            fill: {
+              type: 'linear',
+              x1: 0,
+              y1: 0,
+              x2: 20,
+              y2: 0,
+              stops: [
+                { position: 0, color: '#f00' },
+                { position: 1, color: '#00f' },
+              ],
+            },
+          },
+          {
+            id: 'radial',
+            type: 'circle',
+            center: [10, 13],
+            r: 3,
+            fill: {
+              type: 'radial',
+              cx: 10,
+              cy: 13,
+              r: 3,
+              stops: [
+                { position: 0, color: '#fff' },
+                { position: 1, color: '#000' },
+              ],
+            },
+          },
+          {
+            id: 'dash',
+            type: 'path',
+            d: 'M0 19L20 19',
+            stroke: { color: '#000', width: 1, cap: 'butt', dash: ['10%', '10%'] },
+          },
+        ],
+      };
+      const errors = await page.evaluate((doc) => {
+        const icon = (window.icon = document.createElement('anima-icon'));
+        icon.setAttribute('paused', '');
+        document.body.append(icon);
+        return icon.load(doc);
+      }, doc);
+      expect(errors).toEqual([
+        expect.objectContaining({ code: 'unknown-feature', pointer: '/requires/0' }),
+      ]);
+      await page.addScriptTag({ type: 'module', content: paintJs });
+      await page.waitForFunction(() =>
+        (customElements.get('anima-icon') as typeof AnimaIcon).modules.has('paint'),
+      );
+      expect(
+        await page.evaluate((doc) => {
+          window.icon.remove();
+          const icon = (window.icon = document.createElement('anima-icon'));
+          icon.setAttribute('paused', '');
+          document.body.append(icon);
+          return icon.load(doc);
+        }, doc),
+      ).toEqual([]);
+      await page.evaluate(() => window.icon.ready);
+      const attributes = await page.evaluate(() => {
+        const svg = window.icon.shadowRoot!.querySelector('svg')!;
+        return {
+          units: svg.querySelector('linearGradient')!.getAttribute('gradientUnits'),
+          radial: svg.querySelector('radialGradient')!.getAttribute('fx'),
+          dash: svg.querySelector('path')!.getAttribute('stroke-dasharray'),
+          length: svg.querySelector('path')!.getAttribute('pathLength'),
+        };
+      });
+      expect(attributes).toEqual({
+        units: 'userSpaceOnUse',
+        radial: '10',
+        dash: '0.1 0.1',
+        length: '1',
+      });
+      const image = PNG.sync.read(await page.locator('anima-icon').screenshot());
+      const pixel = (x: number, y: number) => [
+        ...image.data.subarray((y * image.width + x) * 4, (y * image.width + x) * 4 + 3),
+      ];
+      expect(pixel(20, 40)[0]).toBeGreaterThan(200);
+      expect(pixel(180, 40)[2]).toBeGreaterThan(200);
+      expect(pixel(100, 130)[0]).toBeGreaterThan(200);
+      expect(pixel(125, 130)[0]).toBeLessThan(70);
+      expect(pixel(10, 190)).toEqual([0, 0, 0]);
+      expect(pixel(30, 190)).toEqual([255, 255, 255]);
+    });
+
+    it.each(['paint-first', 'markup-first'])(
+      'compiles paint markup and updates retained defs (%s)',
+      async (order) => {
+        await page.setContent('<anima-icon paused style="width:200px;height:200px"></anima-icon>');
+        // Each optional bundle includes its own core copy. Both must bridge to the active runtime.
+        for (const content of order === 'paint-first' ? [paintJs, markupJs] : [markupJs, paintJs]) {
+          await page.addScriptTag({ type: 'module', content });
+          await page.evaluate(() => customElements.whenDefined('anima-icon'));
+          await page.waitForFunction(
+            (paint) =>
+              paint
+                ? (customElements.get('anima-icon') as typeof AnimaIcon).modules.has('paint')
+                : !!(customElements.get('anima-icon') as typeof AnimaIcon).compiler,
+            content === paintJs,
+          );
+        }
+        const source = readFileSync(
+          new URL('../../../spec/conformance/paint-gradient/case.animl', import.meta.url),
+          'utf8',
+        );
+        const result = await page.evaluate((source) => {
+          const icon = document.querySelector('anima-icon') as AnimaIcon;
+          const errors = icon.load(source, true);
+          if (errors.length) return { errors };
+          icon.player!.step(0.5);
+          icon.invalidate();
+          const svg = icon.shadowRoot!.querySelector('svg')!;
+          return {
+            errors,
+            x1: svg.querySelector('linearGradient')!.getAttribute('x1'),
+            offset: svg.querySelector('stop')!.getAttribute('offset'),
+            color: svg.querySelector('stop')!.getAttribute('stop-color'),
+          };
+        }, source);
+        expect(result).toEqual({ errors: [], x1: '2', offset: '0.25', color: '#80008080' });
+      },
+    );
 
     async function mount(doc = bell, motion?: string) {
       await page.route('https://anima.test/', (route) =>

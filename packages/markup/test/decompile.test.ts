@@ -65,7 +65,27 @@ function recover(root: Element): Obj {
       const parent = a.path.length === 2 ? ((o[a.path[0]!] ??= {}) as Obj) : o;
       const key = a.path.at(-1)!;
       if (a.index !== undefined) ((parent[key] ??= []) as unknown[])[a.index] = Number(v);
-      else parent[key] = ['pivot', 'subpaths'].includes(key) ? vector(v) : scalar(v);
+      else
+        parent[key] =
+          key === 'dash'
+            ? v.split(' ').map((x) => (x.endsWith('%') ? x : Number(x)))
+            : ['pivot', 'subpaths'].includes(key)
+              ? vector(v)
+              : scalar(v);
+    }
+    for (const g of elements(e).filter((c) =>
+      ['linearGradient', 'radialGradient'].includes(c.name),
+    )) {
+      const a = attrs(g);
+      const key = a.paint ?? 'fill';
+      const target = (o[key] ??= {}) as Obj;
+      target.type = g.name === 'linearGradient' ? 'linear' : 'radial';
+      for (const [k, v] of Object.entries(a)) if (k !== 'paint') target[k] = Number(v);
+      target.stops = elements(g).map((s) => ({
+        ...base(s),
+        position: Number(attrs(s).offset),
+        color: attrs(s)['stop-color'],
+      }));
     }
     if (e.name === 'group') o.children = elements(e).map(node);
     return o;
@@ -273,7 +293,14 @@ function check(source: string | object) {
   expect(parsed.errors).toEqual([]);
   const root = parsed.doc.root!;
   const names = (e: Element) => {
-    expect([...Object.keys(ATTR_ORDER), ...NODE_ELEMENTS, 'pose']).toContain(e.name);
+    expect([
+      ...Object.keys(ATTR_ORDER),
+      ...NODE_ELEMENTS,
+      'pose',
+      'linearGradient',
+      'radialGradient',
+      'stop',
+    ]).toContain(e.name);
     if (e.name !== 'pose') for (const a of e.attrs) expect(attrOrder(e.name)).toContain(a.name);
     elements(e).forEach(names);
   };

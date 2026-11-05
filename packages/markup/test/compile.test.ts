@@ -270,7 +270,18 @@ describe('AniML compiler', () => {
         'listener',
       ]),
     );
-    const attrs = new Set(elements.flatMap((e) => e.attrs.map((a) => a.name)));
+    const paintElements: Element[] = [];
+    const collectPaint = (el: Element) => {
+      paintElements.push(el);
+      for (const c of el.children) if (c.kind === 'element') collectPaint(c);
+    };
+    collectPaint(
+      parseXml(readFileSync(new URL('../../../examples/paint.animl', import.meta.url), 'utf8')).doc
+        .root!,
+    );
+    const attrs = new Set(
+      [...elements, ...paintElements].flatMap((e) => e.attrs.map((a) => a.name)),
+    );
     for (const type of NODE_TYPES)
       for (const a of nodeAttrs(type)) expect(attrs.has(a.attr), a.attr).toBe(true);
   });
