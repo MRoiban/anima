@@ -48,3 +48,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 16:45 [claude]: head-to-head merged + re-checked (AniML 7/7, .ani 7/7, Rive 4/7; switch a11y browser test added); parity row tooling.markup-authoring done (FINISHED phases P0,P1); PLAN/LOG updated
 - 2026-11-05 17:05 [claude]: PR #7 merged (45d019a, CI green on 2592cae); branched m5-glyphs
 - 2026-11-05 17:30 [claude]: Glyphy export -f animl/-f ani written myself (delegate cannot target another project): 11/11 glyphs byte-identical to anima new --glyphy, both forms; glyphy pytest 22 passed → DRAFT PR MRoiban/glyphy#2 (f7e483a), not to merge without owner. M5 agents running: format fix, trash, moon.
+- 2026-11-05 17:50 [claude]: merged moon toggle (7d186df): 6/6, rest pixel-identical, reversal delta 0, 4 friction points (want: render --compare glyph, inputs in snapshots); sheet checked visually
