@@ -91,3 +91,18 @@ it('rejects non-JSON, malformed and oversized save bodies without changing the f
   ).toBe(400);
   expect(await readFile(file, 'utf8')).toBe('initial');
 });
+
+it('compiles imports and rejects paths outside the project', async () => {
+  host = await startPlayground({ port: 0, html: 'test' });
+  const compile = async (src: string) =>
+    (await fetch(host.url + '/api/compile', { method: 'POST', body: src })).json();
+  const good = await compile(
+    '<anima version="0.1" name="test" grid="20"><import src="lib/ui.animl" as="ui"/><circle id="dot" cx="1" cy="1" r="1" fill="#000"/><bool name="hover"/><bool name="down"/><apply template="ui:press"/></anima>',
+  );
+  expect(good.diagnostics).toEqual([]);
+  expect(good.doc.listeners).toHaveLength(4);
+  const bad = await compile(
+    `<anima version="0.1" name="test" grid="20"><import src="${file}" as="bad"/></anima>`,
+  );
+  expect(bad.diagnostics[0].code).toBe('unknown-import');
+});

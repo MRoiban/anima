@@ -140,6 +140,7 @@ and an oracle test against Rive.
   - [x] P4a-7 benchmark friction: pose path strings, group clips, optional clip rule,
         `anima schema pose`, dash caps in the docs.
   - [ ] P4a oracle cases against the Rive CLI for the paint features (MODULES §5).
+- [ ] P5-3 AniML libraries/templates: implementation present; acceptance blocked on the unchanged 8192 B markup budget (see LOG).
 - [ ] P5 Components and assets — **moved up** (owner, 2026-11-06): nested artboards / components,
       per-instance inputs, shared glyph and layer libraries (the reuse friction from M5 and from
       authoring the nine Glyphy icons: the same hover/press layer pasted into every file, a glyph

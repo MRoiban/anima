@@ -3,6 +3,7 @@
   version in fixtures/bell/rive-reference/. Build it with: anima build examples/bell.animl
 -->
 <anima version="0.1" name="bell" title="Bell" grid="20" viewBox="-2 -2 24 24">
+  <import src="lib/ui.animl" as="ui"/>
   <color name="ink" value="currentColor"/>
   <color name="accent" value="#d97757"/>
 
@@ -109,8 +110,5 @@
   </layer>
 
   <listener on="click" fire="ring"/>
-  <listener on="enter" set="hover=true"/>
-  <listener on="leave" set="hover=false down=false"/>
-  <listener on="down" set="down=true"/>
-  <listener on="up" set="down=false"/>
+  <apply template="ui:press"/>
 </anima>

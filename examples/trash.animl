@@ -1,4 +1,5 @@
 <anima version="0.1" name="trash" title="Empty trash" grid="20">
+  <import src="lib/ui.animl" as="ui"/>
   <!-- Original path at rest avoids antialiasing seams from the manually split moving parts. -->
   <color name="ink" value="currentColor"/>
   <glyph name="lid"
@@ -83,8 +84,5 @@
     </state>
   </layer>
   <listener on="click" fire="empty"/>
-  <listener on="enter" set="hover=true"/>
-  <listener on="leave" set="hover=false down=false"/>
-  <listener on="down" set="down=true"/>
-  <listener on="up" set="down=false"/>
+  <apply template="ui:press"/>
 </anima>

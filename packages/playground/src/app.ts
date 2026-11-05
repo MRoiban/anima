@@ -89,10 +89,15 @@ function showSource(json: boolean) {
 }
 function jump(d: MarkupDiagnostic) {
   showSource(false);
-  const [a, b] = diagnosticRange(text, d);
+  const target =
+    d.file && !d.file.endsWith('/' + filename) && d.file !== filename
+      ? d.related?.find((r) => r.file?.endsWith('/' + filename) || r.file === filename)
+      : d;
+  if (!target) return;
+  const [a, b] = diagnosticRange(text, target);
   source.focus();
   source.setSelectionRange(a, b);
-  source.scrollTop = Math.max(0, ((d.line ?? 1) - 1) * 20 - source.clientHeight / 2);
+  source.scrollTop = Math.max(0, ((target.line ?? 1) - 1) * 20 - source.clientHeight / 2);
   syncScroll();
 }
 function problems(ds: MarkupDiagnostic[]) {
@@ -110,7 +115,7 @@ function problems(ds: MarkupDiagnostic[]) {
     ? ds
         .map(
           (d, i) =>
-            `<li><button class="diag ${d.severity === 'warning' ? 'warn' : ''} ${i === 0 ? 'sel' : ''}" data-diag="${i}"><span class="dot"></span><span class="where">${esc(filename)}:${d.line ?? 1}:${d.column ?? 1}</span><span class="msg">${esc(d.message)} <span class="code-id">${esc(d.code)}</span></span>${d.hint ? `<span class="hint">hint: ${esc(d.hint)}</span>` : ''}</button></li>`,
+            `<li><button class="diag ${d.severity === 'warning' ? 'warn' : ''} ${i === 0 ? 'sel' : ''}" data-diag="${i}"><span class="dot"></span><span class="where">${esc(d.file ?? filename)}:${d.line ?? 1}:${d.column ?? 1}</span><span class="msg">${esc(d.message)} <span class="code-id">${esc(d.code)}</span></span>${d.hint ? `<span class="hint">hint: ${esc(d.hint)}</span>` : ''}</button></li>`,
         )
         .join('')
     : '<li class="empty">No problems. Every change is compiled as you type.</li>';
@@ -134,8 +139,15 @@ function loadIcons() {
     if (paused || scrubbing) host(i).pause?.();
   }
 }
-function compileEdit() {
-  const result = compile(text, { file: filename });
+let compilation = 0;
+async function compileEdit() {
+  const generation = ++compilation;
+  const result = /<import\b/.test(text)
+    ? ((await fetch('/api/compile', { method: 'POST', body: text }).then((r) =>
+        r.json(),
+      )) as ReturnType<typeof compile>)
+    : compile(text, { file: filename });
+  if (generation !== compilation) return;
   problems(result.diagnostics);
   if (!result.doc) {
     $<HTMLButtonElement>('copy').disabled = !compiled.text;

@@ -237,7 +237,7 @@ interface Located extends Diagnostic {
 function check(f: string): { model?: Model; diagnostics: Located[]; text: string } {
   const text = readFileSync(f, 'utf8');
   if (f.endsWith('.animl')) {
-    const c = compile(text, { file: f });
+    const c = compile(text, { file: f, resolve: (path) => readFileSync(path, 'utf8') });
     const diagnostics = [...c.diagnostics];
     if (c.doc) {
       for (const d of glyphDiagnostics(c.doc)) {
@@ -310,7 +310,9 @@ function loaded(
 
 function report(f: string, ds: Located[], io: IO): void {
   for (const d of ds) {
-    const where = d.line ? `${f}:${d.line}:${d.column}` : f;
+    const where = d.line ? `${d.file ?? f}:${d.line}:${d.column}` : (d.file ?? f);
+    for (const r of (d as MarkupDiagnostic).related ?? [])
+      io.err(`  related: ${r.file ?? f}:${r.line}:${r.column}`);
     if (d.file) {
       io.err(`${where} ${d.severity} ${d.code} ${d.message}`);
       if (d.hint) io.err(`  hint: ${d.hint}`);
@@ -847,7 +849,11 @@ function build(f: string, out: string | undefined, json: boolean, io: IO): numbe
   let text: string | undefined;
   let diagnostics: MarkupDiagnostic[];
   if (/\.html?$/i.test(f)) ({ text, diagnostics } = buildHTML(source, f));
-  else if (f.endsWith('.animl')) ({ text, diagnostics } = compile(source, { file: f }));
+  else if (f.endsWith('.animl'))
+    ({ text, diagnostics } = compile(source, {
+      file: f,
+      resolve: (path) => readFileSync(path, 'utf8'),
+    }));
   else throw new Usage('build needs a .animl or .html file');
   if (json && (text === undefined || out))
     io.out(

@@ -6,6 +6,10 @@ import { readFileSync } from 'node:fs';
 import { compile } from '../packages/markup/src/index.ts';
 
 const bell = readFileSync(new URL('../examples/bell.animl', import.meta.url), 'utf8');
+const options = {
+  file: 'examples/bell.animl',
+  resolve: (path: string) => readFileSync(new URL('../' + path, import.meta.url), 'utf8'),
+};
 const median = (xs: number[]) => xs.sort((a, b) => a - b)[xs.length >> 1]!;
 const time = (f: () => void) => {
   const t = performance.now();
@@ -13,12 +17,12 @@ const time = (f: () => void) => {
   return performance.now() - t;
 };
 
-for (let i = 0; i < 50; i++) compile(bell); // warm up
-const one = median(Array.from({ length: 200 }, () => time(() => compile(bell))));
+for (let i = 0; i < 50; i++) compile(bell, options); // warm up
+const one = median(Array.from({ length: 200 }, () => time(() => compile(bell, options))));
 const sweep = median(
   Array.from({ length: 3 }, () =>
     time(() => {
-      for (let i = 0; i <= bell.length; i++) compile(bell.slice(0, i));
+      for (let i = 0; i <= bell.length; i++) compile(bell.slice(0, i), options);
     }),
   ),
 );

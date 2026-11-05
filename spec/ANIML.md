@@ -252,3 +252,44 @@ Multiple paints are repeated `<fillPaint fill="#f00"/>` or
 use `type="linear"` / `type="radial"`, coordinate attributes and nested `<stop>` children on
 these elements. Track addresses keep the JSON paint-array path. A structural selector `for`
 is reserved for registry routing and normally omitted.
+
+## 11. Libraries and templates (build time)
+
+A reusable file has root `<library name="ui">`, with `color`, `glyph`, `ease`, `template`,
+`component` and `import` children. Components are accepted syntactically but currently produce
+`components-unavailable` (“components arrive with the components module”). A library is consumed
+by an import rather than compiled as a standalone animation.
+
+`<import src="lib/ui.animl" as="ui"/>` at document or library level brings its exported names into
+that lexical scope. References to colours, glyphs, eases and templates use `ui:name`; nested
+imports may be addressed as `ui:other:name`. Definitions inside a library use its own local names.
+Imported colour and glyph names become collision-free generated `.ani` names; eases inline as
+usual. Libraries must not declare arbitrary document elements outside templates. Imports and
+local declarations are visible regardless of source order.
+
+`<template name="press" params="target scale=0.92">…</template>` declares a template. Parameters
+are names, separated by whitespace, with optional `=default` (a single whitespace-free value).
+`<apply template="ui:press" target="icon"/>` substitutes `{target}` and `{scale}` in attribute
+values and text, including keyframes. Application inserts the template's children exactly where
+it occurs; the normal parent-content rules apply after expansion. Templates can apply templates
+in their defining lexical scope. Substitution is literal, without evaluation or XML reparsing.
+Templates and imports compile away completely; runtime `.ani` contains neither.
+
+`compile(source, { file, resolve })` calls `resolve(path)` for source text. The path is normalised
+relative to the importing file; URL file names use URL resolution. A resolver throws for unreadable
+files. The compiler has no filesystem/network dependency. `compileAsync` accepts the same options
+with a resolver returning text or a promise of text. Hosts own access policy: CLI reads relative
+files, the playground reads only real paths within its project directory (the server's working
+directory), and the optional browser module fetches URLs relative to the source document URL
+(or the page's base URL for inline markup). The synchronous compiler remains usable without imports.
+
+Additional error codes: `unknown-import` (missing resolver or unreadable file), `bad-import`
+(non-library root), `import-cycle`, `unknown-name`, `missing-parameter`, `unknown-parameter`
+(an undeclared placeholder or extra application attribute), `unused-parameter`,
+`template-recursion`, and `components-unavailable`. Existing syntax, duplicate-name and placement
+codes also apply. Diagnostics retain imported `file`, `line`, `column` positions; `related` is an
+array of `{file?, line, column}` use/import positions. The CLI displays both origins and related
+positions. The source map retains the imported file for loader diagnostics too.
+
+`anima fmt` retains libraries, imports, templates, parameters and applications. `anima decompile`
+recovers expanded markup only: it cannot recover imports, templates, parameter names or applications.

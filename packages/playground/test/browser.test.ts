@@ -8,7 +8,12 @@ import type { AnimaIcon } from '@anima-format/web';
 import { startPlayground, type PlaygroundServer } from '../../cli/src/playground.ts';
 import { buildPlayground } from '../../../tools/build-playground.ts';
 
-const bell = await readFile(new URL('../../../examples/bell.animl', import.meta.url), 'utf8');
+const bell = (
+  await readFile(new URL('../../../examples/bell.animl', import.meta.url), 'utf8')
+).replace(
+  'src="lib/ui.animl"',
+  `src="${new URL('../../../examples/lib/ui.animl', import.meta.url).pathname}"`,
+);
 const BROWSERS: [string, BrowserType, string | undefined][] = [
   [
     'Chromium',
@@ -79,7 +84,7 @@ for (const [name, type, executablePath] of BROWSERS) {
       await page.waitForFunction(
         () => document.querySelector('#status')!.textContent === '2 errors',
       );
-      expect(await page.locator('#diags').textContent()).toContain('bell.animl:32:51');
+      expect(await page.locator('#diags').textContent()).toContain('bell.animl:33:51');
       expect(await page.locator('#diags').textContent()).toContain('unknown-attribute');
       expect(await page.locator('#tilewrap').getAttribute('class')).toContain('broken');
       expect(await page.locator('#icon svg path').count()).toBeGreaterThan(0);
@@ -198,7 +203,7 @@ for (const [name, type, executablePath] of BROWSERS) {
       await page.locator('#source').fill(bell.replace('title="Bell"', 'title="Scratch bell"'));
       await page.locator('#source').press('Control+s');
       expect(await (await fetch(host.url + '/api/file')).json()).toMatchObject({
-        source: bell,
+        source: await readFile(new URL('../../../examples/bell.animl', import.meta.url), 'utf8'),
         writable: false,
       });
     });

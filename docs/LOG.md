@@ -655,3 +655,26 @@ The older P4a-6 target remains open (core+web is still 204 B above 16697 B).
 - **Parity**: 46 rows done (173 / 1 238 overall). Images, n-slice and feathering moved to P5; other
   paint rows (angular gradients, gradient transform, trim modes, effect stacks, additive blend)
   stay in P4. **Open:** the Rive oracle cases for these features (MODULES §5) — not yet written.
+
+
+### P5-3 implementation checkpoint (acceptance blocked)
+
+Build-time AniML imports/templates, positional diagnostics, CLI filesystem resolution, browser
+async fetching and project-sandboxed playground compilation are implemented. Bell, moon and trash
+share the hover/down listener wiring through `examples/lib/ui.animl` (`press`), preserving their
+different animation layers and all compiled `.ani` bytes. Components deliberately report
+`components-unavailable` until the components module lands. Formatting preserves reuse forms;
+decompilation documents that these cannot be recovered. No runtime dependencies were added.
+
+The expansion stays in the authoring layer, preserving the self-contained runtime documents and
+Glyphy path provenance described in `docs/research/glyphy-compat.md`, rather than adding another
+runtime resource graph. Baseline at 0179c9c: `npm run check` green (747 tests), markup 7554/8192 B;
+`compile: bell 2.18 ms; all 9040 prefixes 759 ms`. The implementation exceeds the unchanged markup
+budget; P5-3 is **not accepted**. Final verification and metrics are recorded in WORKLOG.
+
+Final checkpoint: 767 tests pass (Chromium and Firefox included), typecheck/lint/format pass;
+`npm run check` exits 1 solely at markup **9506/8192 B** (1314 B over). Core+web is 16992 B.
+Both artifact checks pass independently; no `.ani` changed. Final compile line:
+`compile: bell 5.15 ms; all 8935 prefixes 1429 ms`. An immediately subsequent baseline run under
+the same concurrent workload reported `compile: bell 4.41 ms; all 9040 prefixes 1239 ms`.
+The initial baseline timings above came from a quieter run. No budgets or test limits changed.

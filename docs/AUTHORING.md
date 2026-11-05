@@ -385,3 +385,29 @@ for holes. Source transforms apply, but its paint, visibility and opacity do not
   <listener on="click" toggle="done"/>
 </anima>
 ```
+
+## Reusing markup
+
+Keep shared interaction wiring in a library, then import it from each icon. The bell, moon and
+trash examples import `examples/lib/ui.animl` and use `<apply template="ui:press"/>`; their compiled
+`.ani` files stay byte-identical. That template sets the common `hover` and `down` inputs. Each
+icon retains its own animation layers, timing and accessibility behavior.
+
+A library starts with `<library name="ui">`. Put a template inside it, for example
+`<template name="press" params="hover=hover down=down">`, whose listener attributes use
+`set="{hover}=true"` and `set="{down}=false"`. At the document root, add
+`<import src="lib/ui.animl" as="ui"/>`. Override defaults on an application, for example
+`<apply template="ui:press" hover="over" down="held"/>`, after declaring those inputs.
+
+Templates can contain nodes, timelines, layers or listeners; apply them where those elements
+are allowed. Parameters substitute attribute values and text, including keyframes. Required
+parameters have no default (`params="target scale=0.92"`). Missing, extra and unused parameters,
+unknown imported names, cycles and recursive applications produce diagnostics showing the
+library's source position and the application/import site. Libraries also share colours, glyphs
+and named eases through `ui:name` references. Components await the components module.
+
+`anima build` and `validate` resolve imports relative to each importing file. The playground
+resolves them inside the project directory; the browser markup module fetches them relative
+to the document URL. API hosts supply `compile(source, {file, resolve})`, or `compileAsync` with
+an asynchronous resolver. Formatting preserves reusable source forms. Decompiling `.ani` gives
+the expanded markup: imports and templates cannot be recovered.

@@ -223,7 +223,10 @@ function pointers(value: unknown, p = ''): string[] {
 
 describe('AniML compiler', () => {
   it('builds bell byte for byte, without diagnostics', () => {
-    const result = compile(bell);
+    const result = compile(bell, {
+      file: 'examples/bell.animl',
+      resolve: (path) => readFileSync(new URL('../../../' + path, import.meta.url), 'utf8'),
+    });
     expect(result.diagnostics).toEqual([]);
     expect(result.text).toBe(ani);
     expect(result.doc).toEqual(JSON.parse(ani));
@@ -296,7 +299,10 @@ describe('AniML compiler', () => {
 
   it('maps every produced JSON pointer, including containers, comments and vector entries', () => {
     for (const source of [bell, all]) {
-      const result = compile(source);
+      const result = compile(source, {
+        file: 'examples/bell.animl',
+        resolve: (path) => readFileSync(new URL('../../../' + path, import.meta.url), 'utf8'),
+      });
       for (const p of pointers(result.doc)) expect(result.map.has(p), p).toBe(true);
     }
     const result = compile(all);

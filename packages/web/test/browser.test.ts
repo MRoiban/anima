@@ -319,6 +319,12 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
         if (m.type() === 'error') messages.push(m.text());
       });
       page.on('request', (r) => requests.push(r.url()));
+      if (withModule && source.includes('lib/ui.animl'))
+        await page.route('https://anima.test/lib/ui.animl', (r) =>
+          r.fulfill({
+            body: readFileSync(new URL('../../../examples/lib/ui.animl', import.meta.url), 'utf8'),
+          }),
+        );
       if (src)
         await page.route('https://anima.test/' + src.split('#')[0], (r) =>
           r.fulfill({ body: source }),
@@ -737,7 +743,7 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
       });
       const { messages, requests } = await markupPage(bellMarkup);
       expect(messages).toEqual([]);
-      expect(requests).toEqual(['https://anima.test/']);
+      expect(requests).toEqual(['https://anima.test/', 'https://anima.test/lib/ui.animl']);
       const snapshots = await page.evaluate(async (doc) => {
         const compiled = document.createElement('anima-icon');
         document.body.append(compiled);
@@ -766,7 +772,11 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
     it('compiles .animl src URLs including a query and fragment', async () => {
       const { messages, requests } = await markupPage(bellMarkup, true, 'bell.animl?v=1#icon');
       expect(messages).toEqual([]);
-      expect(requests).toEqual(['https://anima.test/', 'https://anima.test/bell.animl?v=1']);
+      expect(requests).toEqual([
+        'https://anima.test/',
+        'https://anima.test/bell.animl?v=1',
+        'https://anima.test/lib/ui.animl',
+      ]);
       expect(await page.evaluate(() => window.icon.player!.model.doc)).toEqual(JSON.parse(bell));
     });
 
@@ -774,6 +784,11 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
       // Importing the optional bundle after the base extends the registered class,
       // even when the browser bundle contains another copy of the runtime.
       await mount();
+      await page.route('https://anima.test/lib/ui.animl', (r) =>
+        r.fulfill({
+          body: readFileSync(new URL('../../../examples/lib/ui.animl', import.meta.url), 'utf8'),
+        }),
+      );
       await page.addScriptTag({ type: 'module', content: markupJs });
       await page.waitForFunction(
         () => !!(customElements.get('anima-icon') as typeof AnimaIcon).compiler,

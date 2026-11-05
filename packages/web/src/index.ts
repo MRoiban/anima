@@ -69,6 +69,11 @@ export class AnimaIcon extends HTMLElement {
 
   /** The player, once loaded (for debugging and tests). */
   player?: Player;
+  declare static compilerAsync?: (
+    source: string,
+    file: string,
+  ) => Promise<{ doc?: object; diagnostics: SourceDiagnostic[] }>;
+
   /** Resolves when a document has loaded; rejects with its diagnostics. */
   ready: Promise<void>;
   /** Set to an array to record every step, pointer event and input write (for replays). */
@@ -126,7 +131,7 @@ export class AnimaIcon extends HTMLElement {
         const inline = this.querySelector<HTMLScriptElement>(
           'script[type="application/vnd.anima+json"],script[type="application/vnd.anima+xml"]',
         );
-        if (inline) this.load(inline.text, inline.type.endsWith('xml'));
+        if (inline) void this.#source(inline.text, inline.type.endsWith('xml'), document.baseURI);
       }
     });
     this.#observe();
@@ -158,7 +163,12 @@ export class AnimaIcon extends HTMLElement {
         .then((r) => r.text())
         .then(
           (t) => {
-            if (generation === this.#generation) this.load(t, /\.animl(?:[?#]|$)/.test(value));
+            if (generation === this.#generation)
+              void this.#source(
+                t,
+                /\.animl(?:[?#]|$)/.test(value),
+                new URL(value, document.baseURI).href,
+              );
           },
           () => {
             if (generation !== this.#generation) return;
@@ -180,6 +190,16 @@ export class AnimaIcon extends HTMLElement {
       if (this.speed === 0) schedule(this, false);
       else if (this.player?.busy) this.#wake();
     }
+  }
+
+  async #source(source: string, markup: boolean, file: string): Promise<void> {
+    if (markup && AnimaIcon.compilerAsync) {
+      const generation = this.#generation;
+      const result = await AnimaIcon.compilerAsync(source, file);
+      if (generation !== this.#generation || this.#destroyed) return;
+      if (result.doc) this.load(result.doc);
+      else this.#fail(result.diagnostics);
+    } else this.load(source, markup);
   }
 
   /** Load a document (text or parsed). Returns its diagnostics; errors leave the icon empty. */

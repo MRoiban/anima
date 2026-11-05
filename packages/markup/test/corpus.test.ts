@@ -6,7 +6,9 @@ import { compile, formatMarkup } from '../src/index.ts';
 const root = new URL('../../../', import.meta.url);
 const files = globSync(['examples/**/*.animl', 'spec/conformance/**/*.animl'], {
   cwd: fileURLToPath(root),
-}).sort();
+})
+  .filter((f) => !f.startsWith('examples/lib/'))
+  .sort();
 
 describe('authored AniML corpus', () => {
   it('includes the bell example and all conformance sources', () => {
@@ -18,7 +20,10 @@ describe('authored AniML corpus', () => {
 
   it.each(files)('%s builds byte for byte to its sibling .ani', (file) => {
     const source = readFileSync(new URL(file, root), 'utf8');
-    const result = compile(source, { file });
+    const result = compile(source, {
+      file,
+      resolve: (path) => readFileSync(new URL(path, root), 'utf8'),
+    });
     expect(result.diagnostics).toEqual([]);
     expect(result.text).toBe(readFileSync(new URL(file.replace(/\.animl$/, '.ani'), root), 'utf8'));
   });
