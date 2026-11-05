@@ -1,3 +1,5 @@
+import { VERBOSE as V } from './flags.ts';
+
 /** A load or validation finding (spec §2 "Strictness", codes in §11.3). */
 export interface Diagnostic {
   code: string;
@@ -9,6 +11,9 @@ export interface Diagnostic {
 }
 
 type Text = string | false | undefined;
+
+/** `s` in verbose builds, '' in the terse browser build (terser inlines the call away). */
+export const text = (s: string): string => (V ? s : '');
 
 export class Diags {
   readonly list: Diagnostic[] = [];

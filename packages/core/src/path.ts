@@ -1,5 +1,7 @@
 // SVG 1.1 path data: full grammar in, absolute M/L/C/Z out, split by subpath (spec §3).
 
+import { text } from './diag.ts';
+
 /** Segment opcodes in `Subpath.segs`: M x y, L x y, C x1 y1 x2 y2 x y, Z. */
 export const M = 0;
 export const L = 1;
@@ -37,14 +39,14 @@ export function parsePath(d: string): Subpath[] {
   const num = (): number => {
     ws();
     const m = /^[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?/.exec(d.slice(i, i + 40));
-    if (!m) throw new PathError('expected a number', i);
+    if (!m) throw new PathError(text('expected a number'), i);
     i += m[0].length;
     return Number(m[0]);
   };
   const flag = (): number => {
     ws();
     const c = d[i];
-    if (c !== '0' && c !== '1') throw new PathError('expected an arc flag (0 or 1)', i);
+    if (c !== '0' && c !== '1') throw new PathError(text('expected an arc flag (0 or 1)'), i);
     i++;
     return c === '1' ? 1 : 0;
   };
@@ -65,17 +67,17 @@ export function parsePath(d: string): Subpath[] {
   while (i < n) {
     const ch = d[i]!;
     if (/[a-z]/i.test(ch)) {
-      if (!(ch.toLowerCase() in ARGS)) throw new PathError(`unknown command "${ch}"`, i);
+      if (!(ch.toLowerCase() in ARGS)) throw new PathError(text(`unknown command "${ch}"`), i);
       cmd = ch;
       i++;
     } else if (!cmd) {
-      throw new PathError('path data must start with a moveto', i);
+      throw new PathError(text('path data must start with a moveto'), i);
     } else if (cmd === 'z' || cmd === 'Z') {
-      throw new PathError('closepath takes no arguments', i);
+      throw new PathError(text('closepath takes no arguments'), i);
     }
     const lc = cmd.toLowerCase();
     const rel = cmd !== cmd.toUpperCase();
-    if (!cur && lc !== 'm') throw new PathError('path data must start with a moveto', i - 1);
+    if (!cur && lc !== 'm') throw new PathError(text('path data must start with a moveto'), i - 1);
     if (lc === 'z') {
       seg(Z);
       x = sx;
@@ -160,7 +162,7 @@ export function parsePath(d: string): Subpath[] {
     prev = lc === 'm' ? 'l' : lc;
     ws();
   }
-  if (!out.length) throw new PathError('empty path data', 0);
+  if (!out.length) throw new PathError(text('empty path data'), 0);
   return out;
 }
 

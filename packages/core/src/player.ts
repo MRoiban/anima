@@ -15,6 +15,8 @@ import type {
   Value,
 } from './load.ts';
 import { flatten } from './path.ts';
+import { text } from './diag.ts';
+import { VERBOSE as V } from './flags.ts';
 
 export interface AnimaEvent {
   name: string;
@@ -145,8 +147,9 @@ export class Player {
 
   #input(name: string, types: InputM['type'][]): InputM {
     const inp = this.model.inputs.get(name);
-    if (!inp) throw new Error(`anima: no input "${name}"`);
-    if (!types.includes(inp.type)) throw new Error(`anima: input "${name}" is ${inp.type}`);
+    if (!inp) throw new Error(V ? `anima: no input "${name}"` : 'anima: ' + name);
+    if (!types.includes(inp.type))
+      throw new Error(V ? `anima: input "${name}" is ${inp.type}` : 'anima: ' + name);
     return inp;
   }
 
@@ -157,7 +160,7 @@ export class Player {
       typeof value !== (inp.type === 'bool' ? 'boolean' : 'number') ||
       (typeof value === 'number' && !Number.isFinite(value))
     )
-      throw new Error(`anima: input "${name}" takes a ${inp.type}`);
+      throw new Error(V ? `anima: input "${name}" takes a ${inp.type}` : 'anima: ' + name);
     this.#queue.push(['set', name, value]);
   }
 
@@ -362,7 +365,7 @@ export class Player {
   // ------------------------------------------------------------------ step (spec §7)
 
   step(dt: number): StepResult {
-    if (!(dt >= 0)) throw new Error('anima: step needs dt ≥ 0');
+    if (!(dt >= 0)) throw new Error(text('anima: step needs dt ≥ 0'));
     const events = this.#entryEvents;
     this.#entryEvents = [];
     this.time += dt;

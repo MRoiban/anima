@@ -2,6 +2,8 @@
 // every object in a document. Validation, the JSON Schema, `anima schema`, sampling and the
 // renderers all read it.
 
+import { text } from './diag.ts';
+
 export type ValueType = 'number' | 'bool' | 'color';
 
 export interface Prop {
@@ -148,7 +150,7 @@ const STATE = O(
   undefined,
 );
 const LAYER = O({ initial: S(NAME), states: MAP(STATE, NAME) }, ['initial', 'states'], {
-  mode: 'additive layers arrive in anima 0.2',
+  mode: text('additive layers arrive in anima 0.2'),
 });
 
 /** The whole document. */
@@ -199,7 +201,7 @@ export const DOC: Shape = O(
           events: A(T([N(), S(NAME)])),
         },
         ['duration', 'tracks'],
-        { colorSpace: 'colour interpolation spaces arrive in anima 0.2' },
+        { colorSpace: text('colour interpolation spaces arrive in anima 0.2') },
       ),
       NAME,
     ),
@@ -220,5 +222,5 @@ export const DOC: Shape = O(
     ),
   },
   ['anima', 'name', 'grid', 'nodes'],
-  { bind: 'data binding arrives in anima 0.2' },
+  { bind: text('data binding arrives in anima 0.2') },
 );
