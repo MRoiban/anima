@@ -579,3 +579,10 @@ Final verification: `npm run check` exits 0: typecheck, lint, formatting, all 70
 (no skips; Chromium + Firefox, including the unchanged per-frame clapper regression and 0.1 SVG
 compatibility assertions), size budgets, browser artifact freshness, and all 37 AniML rebuild checks.
 The standalone demo was regenerated. This is a local-only partial size handoff; P4a-4/P4a-6 stay open.
+
+## P4a size decision (2026-11-06)
+
+Two size rounds took core + web from 17 175 B (after the draw layer) to 16 901 B; the second round
+plateaued (−52 B), 204 B above the pre-draw-layer 16 697 B. The owner accepted it: the size is not a
+merge blocker. Compile time was a blocker and is fixed (interleaved Vitest medians ~1 081 ms at
+b7b6e92 vs ~1 010 ms now). Both stay tracked per phase.

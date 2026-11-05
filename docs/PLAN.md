@@ -133,9 +133,10 @@ and an oracle test against Rive.
         (759 → 767 ms median); see LOG for measurements and output parity checks.
   - [x] P4a-5 agent-native benchmark run with a paint brief: AniML 5/6, Rive 5/6
         (`docs/benchmarks/agent-native.md`).
-  - [ ] P4a-6 **merge blockers** from the draw layer: core + web back to ≤ 16 697 B, and compile
-        time back to the pre-draw-layer level (owner, 2026-11-06: the prefix-compile test keeps its
-        original limit; no loosening without the owner).
+  - [x] P4a-6 draw-layer costs: compile time back to the pre-draw-layer level (merge blocker; the
+        prefix-compile test keeps its original limit). Core + web 17 175 → 16 901 B after two size
+        rounds, 204 B above the pre-draw-layer 16 697 B — accepted by the owner (2026-11-06: "it
+        shouldn't be a blocker"); still tracked per phase.
   - [ ] P4a-7 benchmark friction: pose path strings, group clips, optional clip rule,
         `anima schema pose`, dash caps in the docs.
   - [ ] P4a oracle cases against the Rive CLI for the paint features (MODULES §5).
