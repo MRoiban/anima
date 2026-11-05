@@ -138,20 +138,13 @@ export function attrs(p: Player, el: El, paint: Paint, id: string): Attrs {
     a.mask = cutEmpty(p, i) ? null : `url(#${id}k${i})`;
     return a;
   }
-  if (el.role === 'mask') {
+  if (el.role === 'mask' || el.role === 'bg') {
+    // The mask and its white background cover three viewBoxes, so cuts may overhang.
     const [x, y, w, h] = p.model.viewBox;
-    return {
-      id: `${id}k${i}`,
-      maskUnits: 'userSpaceOnUse',
-      x: fmt(x - w),
-      y: fmt(y - h),
-      width: fmt(3 * w),
-      height: fmt(3 * h),
-    };
-  }
-  if (el.role === 'bg') {
-    const [x, y, w, h] = p.model.viewBox;
-    return { x: fmt(x - w), y: fmt(y - h), width: fmt(3 * w), height: fmt(3 * h), fill: '#fff' };
+    const box = { x: fmt(x - w), y: fmt(y - h), width: fmt(3 * w), height: fmt(3 * h) };
+    return el.role === 'bg'
+      ? { ...box, fill: '#fff' }
+      : { id: `${id}k${i}`, maskUnits: 'userSpaceOnUse', ...box };
   }
   a.transform = matrix(p.local(i));
   a.display = p.prop(i, 'visible') === false ? 'none' : null;
