@@ -105,8 +105,12 @@ export function runScript(
           if (args.length) {
             const pick: typeof values = {};
             for (const a of args) {
-              const v = p.value(a);
-              if (v === undefined) throw new ScriptError(`"${a}" is not an animated address`, line);
+              const v = p.get(a) ?? p.value(a);
+              if (v === undefined)
+                throw new ScriptError(
+                  `"${a}" is not an animated address or a bool/number input`,
+                  line,
+                );
               pick[a] = v;
             }
             values = pick;

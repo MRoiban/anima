@@ -1,12 +1,37 @@
 import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
-import { load, Player } from '../src/index.ts';
+import { load, Player, runScript } from '../src/index.ts';
 
 const bell = load(
   readFileSync(new URL('../../../examples/bell.ani', import.meta.url), 'utf8'),
 ).model!;
 
 describe('player host interface', () => {
+  it('includes named inputs in selected script snapshots and preserves unlisted snapshots', () => {
+    const before = runScript(bell, 'snapshot').snapshots[0]!;
+    const selected = runScript(bell, 'snapshot hover swing.rotate').snapshots[0]!;
+    expect(selected.values).toEqual({ hover: false, 'swing.rotate': 0 });
+    expect(before.values).not.toHaveProperty('hover');
+  });
+  it('samples applied bool and number inputs, rejecting unknown names and triggers', () => {
+    const doc = JSON.parse(
+      readFileSync(new URL('../../../examples/bell.ani', import.meta.url), 'utf8'),
+    );
+    doc.inputs.level = { type: 'number', default: 2 };
+    const model = load(JSON.stringify(doc)).model!;
+    const snapshots = runScript(
+      model,
+      'set level 4\nset hover true\nsnapshot level hover\nadvance 0\nsnapshot level hover swing.rotate\nsnapshot',
+    ).snapshots;
+    expect(snapshots[0]!.values).toEqual({ level: 2, hover: false });
+    expect(snapshots[1]!.values).toEqual({ level: 4, hover: true, 'swing.rotate': 0 });
+    expect(snapshots[2]!.values).not.toHaveProperty('level');
+    expect(snapshots[2]!.values).not.toHaveProperty('hover');
+    for (const name of ['missing', 'ring'])
+      expect(() => runScript(model, `snapshot ${name}`)).toThrow(
+        /line 1:.*not an animated address or a bool\/number input/,
+      );
+  });
   it('rejects unknown inputs and wrong types instead of ignoring them', () => {
     const p = new Player(bell);
     expect(() => p.set('hovr', true)).toThrow(/no input "hovr"/);

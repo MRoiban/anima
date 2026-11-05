@@ -388,12 +388,17 @@ One command per line; `#` starts a comment. The same language drives `anima samp
 | `pointer click <x> <y>` | `move`, `down`, `up` at that point, each followed by `step(0)`. |
 | `pointer leave` | Report `leave()`, then `step(0)`. |
 | `motion reduce\|full` | Turn reduced motion on or off for states entered from now on. |
-| `snapshot [address …]` | Print one JSON line (below), optionally limited to the given addresses. |
+| `snapshot [address …]` | Print one JSON line (below), optionally limited to animated addresses and bool/number input names. An input is reported under its input name. |
 
 A snapshot line is `{"time": t, "values": {address: value}, "states": {layer: state},
 "events": [...], "settled": bool}`: `time` is the total step time so far, `values` holds every
 address any track or pose writes (or the listed ones), `events` holds the events reported since the
 previous snapshot, and `settled` is the last step's result.
+Explicit input names appear in `values` under their own names (for example,
+`snapshot dark knob.x`). They report the currently applied value; queued `set`/`toggle`
+writes take effect only after a step. Triggers have no persistent value and cannot be
+selected. An unknown address or input is a script error. With no arguments, `snapshot`
+continues to include only animated addresses, never inputs.
 
 ### 11.3 Diagnostic codes
 

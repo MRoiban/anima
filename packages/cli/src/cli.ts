@@ -24,9 +24,10 @@ import {
 import { formatAni as format } from '@anima-format/core';
 import { compile, decompile, formatMarkup, type MarkupDiagnostic } from '@anima-format/markup';
 import { nodeAttrs } from '../../markup/src/names.ts';
+import { inspectGlyph } from './glyphs.ts';
 import { buildHTML } from './html.ts';
 import { lineCol, locate, syntaxErrorAt } from './locate.ts';
-import { DARK, LIGHT, type Look, frameSVG, sheetSVG, toPNG } from './render.ts';
+import { DARK, LIGHT, type Look, compareSVG, frameSVG, sheetSVG, toPNG } from './render.ts';
 import { nameFromFile, newDoc, readGlyphSVG, readGlyphy, sha256 } from './scaffold.ts';
 
 export interface IO {
@@ -43,12 +44,16 @@ const ROOT = new URL('../../../', import.meta.url);
 const HELP = `anima — check, see and scaffold .animl and .ani animations
 
   anima validate <file>                 all diagnostics, with JSON pointers, lines and hints
-  anima inspect <file>                  nodes, timelines, state graph, what writes what
+  anima inspect <file>                  nodes, glyph subpaths and bounds, timelines, state graph
   anima sample <file> [-s script | -e "cmds"] [--reduced-motion]
                                         run a script (spec §11.2), print snapshots as JSON lines
   anima render <file> -o out.svg|png [--at t] [-s script | -e "cmds"] [--size px]
                [--sheet N [--over seconds]] [--dark] [--color slot=#hex] [--current #hex]
                [--background #hex]       draw a frame or a labelled contact sheet
+  anima render <file> --compare glyph.svg [--at t] [-s script | -e "cmds"]
+               [--size px] [--tolerance 0..255] [-o diff.png]
+                                        compare RGBA pixels (default 256px, black currentColor,
+                                        transparent background); exit 1 beyond tolerance (default 0)
   anima fmt <file> [--write | --check]  canonical formatting
   anima new <name> --glyph <file.svg> | --glyphy <project-dir> [-o out.animl] [--ani] [--force]
                                         scaffold AniML whose rest frame is the glyph (--ani for JSON)
@@ -81,6 +86,8 @@ export async function run(argv: string[], io: IO): Promise<number> {
         color: { type: 'string', multiple: true },
         current: { type: 'string' },
         background: { type: 'string' },
+        compare: { type: 'string' },
+        tolerance: { type: 'string' },
         write: { type: 'boolean' },
         check: { type: 'boolean' },
         glyph: { type: 'string' },
@@ -373,6 +380,12 @@ function inspect(f: string, json: boolean, io: IO): number {
     title: doc.title,
     grid: m.grid,
     viewBox: m.viewBox,
+    glyphs: Object.fromEntries(
+      Object.entries(doc.glyphs ?? {}).map(([name, g]) => [
+        name,
+        { subpaths: inspectGlyph((g as { d: string }).d) },
+      ]),
+    ),
     nodes: m.nodes.flatMap((n, i) => (n.parent < 0 ? [node(i)] : [])),
     inputs: Object.fromEntries([...m.inputs.values()].map((i) => [i.name, i.type])),
     timelines: m.timelines.map((t) => ({
@@ -400,8 +413,16 @@ function inspect(f: string, json: boolean, io: IO): number {
   const lines: string[] = [
     `${doc.name}${doc.title ? ` — ${doc.title}` : ''} (grid ${m.grid}, viewBox ${m.viewBox.join(' ')})`,
     '',
-    'nodes',
+    'glyphs (bbox: minX minY maxX maxY, grid units; hole hints use bbox containment only)',
   ];
+  for (const [name, glyph] of Object.entries(summary.glyphs)) {
+    lines.push(`  ${name}`);
+    for (const sp of glyph.subpaths)
+      lines.push(
+        `    ${sp.index}: bbox ${sp.bbox.join(' ')}${sp.likelyHoleOf.length ? `; likely hole of ${sp.likelyHoleOf.join(', ')}` : ''}`,
+      );
+  }
+  lines.push('', 'nodes');
   const tree = (
     n: {
       id: string;
@@ -456,7 +477,8 @@ function inspect(f: string, json: boolean, io: IO): number {
 
 function render(f: string, o: Record<string, unknown>, json: boolean, io: IO): number {
   const out = o.out as string | undefined;
-  if (!out || !/\.(svg|png)$/.test(out))
+  const compare = o.compare as string | undefined;
+  if ((!compare && !out) || (out && !/\.(svg|png)$/.test(out)))
     throw new Usage('render needs -o <file>.svg or <file>.png');
   const { model } = loaded(f, io, json);
   if (!model) return 1;
@@ -472,11 +494,36 @@ function render(f: string, o: Record<string, unknown>, json: boolean, io: IO): n
     color: (o.current as string) ?? base.color,
     background: (o.background as string) ?? base.background,
   };
-  const size = o.size ? Number(o.size) : 240;
+  const size = o.size ? Number(o.size) : compare ? 256 : 240;
+  if (!Number.isInteger(size) || size < 1) throw new Usage('--size takes a positive integer');
+  const tolerance = o.tolerance === undefined ? 0 : Number(o.tolerance);
+  if (!Number.isInteger(tolerance) || tolerance < 0 || tolerance > 255)
+    throw new Usage('--tolerance must be an integer from 0 to 255');
   const script = scriptText(o.script as string, o.eval as string) ?? '';
   const { player } = runScript(model, script, { reducedMotion: !!o['reduced-motion'] });
   player.step(0); // apply inputs the script queued, so frame 0 shows them
   if (o.at) player.step(Number(o.at));
+  if (compare) {
+    if (o.sheet || (out && !out.endsWith('.png')))
+      throw new Usage('--compare takes a single frame and optional -o diff.png');
+    const result = compareSVG(
+      frameSVG(player, { paint: look.paint, color: '#000' }, size),
+      readFileSync(compare, 'utf8'),
+      size,
+      tolerance,
+      !!out,
+    );
+    if (out) writeFileSync(out, result.diff!);
+    const { diff, ...metrics } = result;
+    void diff;
+    const report = { ...metrics, size, tolerance, ...(out ? { wrote: out } : {}) };
+    if (json) io.out(JSON.stringify(report));
+    else
+      io.out(
+        `${metrics.pass ? 'PASS' : 'FAIL'}: ${metrics.differingPixels} differing pixels, max channel difference ${metrics.maxChannelDifference}; ${metrics.pixelsBeyondTolerance} pixels beyond tolerance ${tolerance}${out ? `; wrote ${out}` : ''}`,
+      );
+    return metrics.pass ? 0 : 1;
+  }
   let svg: string;
   if (o.sheet) {
     const n = Number(o.sheet);
@@ -505,7 +552,7 @@ function render(f: string, o: Record<string, unknown>, json: boolean, io: IO): n
     }
     svg = sheetSVG(frames, look, size >= 240 ? 160 : size);
   } else svg = frameSVG(player, look, size);
-  writeFileSync(out, out.endsWith('.png') ? toPNG(svg) : svg);
+  writeFileSync(out!, out!.endsWith('.png') ? toPNG(svg) : svg);
   if (json) io.out(JSON.stringify({ wrote: out, time: player.time, states: player.states() }));
   else io.out(`wrote ${out}`);
   return 0;

@@ -63,3 +63,65 @@ export function pixels(svg: string, width: number): Uint8Array {
   const img = new Resvg(svg, { fitTo: { mode: 'width', value: width } }).render();
   return img.pixels;
 }
+
+/** Normalize viewport and ink before rasterizing both documents with the PNG renderer. */
+function comparisonSVG(svg: string, size: number): string {
+  return svg.replace(/<svg\b([^>]*)>/i, (_, attrs: string) => {
+    let root = attrs.replace(/\s(?:width|height|color)\s*=\s*("[^"]*"|'[^']*')/gi, '');
+    let style = '';
+    root = root.replace(/\sstyle\s*=\s*(["'])(.*?)\1/gi, (_, _quote: string, value: string) => {
+      style = value;
+      return '';
+    });
+    return `<svg${root} width="${size}" height="${size}" color="#000" style="${style};color:#000!important;width:${size}px!important;height:${size}px!important">`;
+  });
+}
+
+/** Absolute RGBA differences; a diff image shows the largest channel delta as grayscale. */
+export function compareSVG(a: string, b: string, size: number, tolerance = 0, diff = false) {
+  const left = pixels(comparisonSVG(a, size), size);
+  const right = pixels(comparisonSVG(b, size), size);
+  if (left.length !== size * size * 4 || right.length !== left.length)
+    throw new Error('comparison raster dimensions do not match');
+  let differingPixels = 0,
+    maxChannelDifference = 0,
+    pixelsBeyondTolerance = 0;
+  const rects: string[] = [];
+  for (let y = 0; y < size; y++) {
+    let run = 0,
+      previous = -1;
+    const flush = (end: number) => {
+      if (previous > 0)
+        rects.push(
+          `<rect x="${run}" y="${y}" width="${end - run}" height="1" fill="rgb(${previous},${previous},${previous})"/>`,
+        );
+    };
+    for (let x = 0; x < size; x++) {
+      const i = (y * size + x) * 4;
+      let delta = 0;
+      for (let c = 0; c < 4; c++) delta = Math.max(delta, Math.abs(left[i + c]! - right[i + c]!));
+      if (delta) differingPixels++;
+      if (delta > tolerance) pixelsBeyondTolerance++;
+      maxChannelDifference = Math.max(maxChannelDifference, delta);
+      if (diff && delta !== previous) {
+        flush(x);
+        run = x;
+        previous = delta;
+      }
+    }
+    if (diff) flush(size);
+  }
+  return {
+    differingPixels,
+    maxChannelDifference,
+    pixelsBeyondTolerance,
+    pass: pixelsBeyondTolerance === 0,
+    ...(diff
+      ? {
+          diff: toPNG(
+            `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><rect width="100%" height="100%" fill="black"/>${rects.join('')}</svg>`,
+          ),
+        }
+      : {}),
+  };
+}
