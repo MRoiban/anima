@@ -5,14 +5,18 @@ import { compile } from '@anima-format/markup';
 import { diagnosticRange, highlight, layoutGraph, sampleTimeline } from '../src/pure.ts';
 
 const bell = readFileSync(new URL('../../../examples/bell.animl', import.meta.url), 'utf8');
-const model = () => load(compile(bell).doc!).model!;
+const options = {
+  file: 'examples/bell.animl',
+  resolve: (path: string) => readFileSync(new URL('../../../' + path, import.meta.url), 'utf8'),
+};
+const model = () => load(compile(bell, options).doc!).model!;
 describe('source diagnostics and syntax highlighting', () => {
   it('maps compiler line:column to the offending attribute, including CRLF', () => {
     const bad = bell.replace('fill="ink"', 'fil="ink"').replaceAll('\n', '\r\n');
-    const d = compile(bad).diagnostics.find((d) => d.code === 'unknown-attribute')!;
+    const d = compile(bad, options).diagnostics.find((d) => d.code === 'unknown-attribute')!;
     const [a, b] = diagnosticRange(bad, d);
     expect(bad.slice(a, b)).toBe('fil');
-    expect(d.line).toBe(32);
+    expect(d.line).toBe(33);
     expect(d.column).toBe(51);
     expect(highlight(bad, [d])).toContain('<span class="a squig">fil</span>');
   });

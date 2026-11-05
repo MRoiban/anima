@@ -1,5 +1,6 @@
 // HTML build-time embedding (ANIML §9). Scan tags and raw-text elements without reserialising
 // the page: only a matching script's type value and body may change.
+import { readFileSync } from 'node:fs';
 import { compile, type MarkupDiagnostic } from '@anima-format/markup';
 import { lineCol } from './locate.ts';
 
@@ -92,13 +93,30 @@ export function buildHTML(
       });
       continue;
     }
-    const result = compile(source.slice(bodyStart, bodyEnd), { file });
+    const result = compile(source.slice(bodyStart, bodyEnd), {
+      file,
+      resolve: (path) => readFileSync(path, 'utf8'),
+    });
     const [line, column] = lineCol(source, bodyStart);
     diagnostics.push(
       ...result.diagnostics.map((d) => ({
         ...d,
-        line: line + (d.line ?? 1) - 1,
-        column: (d.column ?? 1) + ((d.line ?? 1) === 1 ? column - 1 : 0),
+        ...(d.related
+          ? {
+              related: d.related.map((r) =>
+                r.file === file
+                  ? {
+                      ...r,
+                      line: line + r.line - 1,
+                      column: r.column + (r.line === 1 ? column - 1 : 0),
+                    }
+                  : r,
+              ),
+            }
+          : {}),
+        line: d.file === file ? line + (d.line ?? 1) - 1 : d.line,
+        column:
+          d.file === file ? (d.column ?? 1) + ((d.line ?? 1) === 1 ? column - 1 : 0) : d.column,
       })),
     );
     if (result.text !== undefined) {

@@ -1,8 +1,11 @@
 // Local, single-file authoring server. No static filesystem routes and no arbitrary write path.
 import { createHash } from 'node:crypto';
-import { readFile, writeFile } from 'node:fs/promises';
+import { readFile, writeFile, realpath } from 'node:fs/promises';
 import { createServer, type Server } from 'node:http';
-import { basename, resolve } from 'node:path';
+import { basename, resolve, dirname, relative, isAbsolute } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { compile } from '@anima-format/markup';
+import { readFileSync, realpathSync } from 'node:fs';
 import { buildPlayground } from '../../../tools/build-playground.ts';
 
 export interface PlaygroundServer {
@@ -23,6 +26,8 @@ export async function startPlayground(
   await readFile(file, 'utf8'); // Fail before binding if the file cannot be opened.
   const html = options.html ?? (await buildPlayground());
   const writable = !!options.file;
+  const sourceFile = typeof file === 'string' ? file : fileURLToPath(file);
+  const project = await realpath(process.cwd());
   let origin = '';
   let writing = Promise.resolve();
   const server = createServer(async (req, res) => {
@@ -49,6 +54,28 @@ export async function startPlayground(
           'X-Content-Type-Options': 'nosniff',
         });
         res.end(html);
+        return;
+      }
+      if (req.url === '/api/compile' && req.method === 'POST') {
+        let body = '';
+        for await (const chunk of req) {
+          body += chunk;
+          if (Buffer.byteLength(body) > 1024 * 1024) {
+            send(413, { error: 'limit-exceeded' });
+            return;
+          }
+        }
+        const result = compile(body, {
+          file: sourceFile,
+          resolve: (path) => {
+            const target = realpathSync(resolve(dirname(sourceFile), path));
+            const rel = relative(project, target);
+            if (rel === '..' || rel.startsWith('../') || isAbsolute(rel))
+              throw Error('outside project directory');
+            return readFileSync(target, 'utf8');
+          },
+        });
+        send(200, { doc: result.doc, text: result.text, diagnostics: result.diagnostics });
         return;
       }
       if (req.url !== '/api/file') {

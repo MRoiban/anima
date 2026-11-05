@@ -13,7 +13,11 @@ const files = globSync(['examples/**/*.animl', 'spec/conformance/*/case.animl'],
 const outputs: { file: string; text: string }[] = [];
 for (const file of files) {
   const source = readFileSync(new URL(file, new URL('../', import.meta.url)), 'utf8');
-  const result = compile(source, { file });
+  if (/^\s*<library\b/.test(source)) continue;
+  const result = compile(source, {
+    file,
+    resolve: (path) => readFileSync(new URL(path, new URL('../', import.meta.url)), 'utf8'),
+  });
   for (const d of result.diagnostics) {
     console.error(
       `${d.file ?? file}:${d.line ?? 1}:${d.column ?? 1}: ${d.severity} ${d.code} ${d.pointer}: ${d.message}${d.hint ? ` (${d.hint})` : ''}`,

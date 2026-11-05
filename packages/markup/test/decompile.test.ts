@@ -375,11 +375,19 @@ describe('round-trip', () => {
     expect(decompile(ani2)).toBe(animl);
   });
   it('examples/bell.animl builds to examples/bell.ani byte for byte, and survives the round trip', () => {
-    const built = compile(read('examples/bell.animl'), { file: 'examples/bell.animl' });
+    const built = compile(read('examples/bell.animl'), {
+      file: 'examples/bell.animl',
+      resolve: read,
+    });
     expect(built.diagnostics).toEqual([]);
     expect(built.text).toBe(read('examples/bell.ani'));
     const again = compile(decompile(built.text!)).text;
     expect(again).toBe(built.text);
-    expect(compile(formatMarkup(read('examples/bell.animl')).text!).text).toBe(built.text);
+    expect(
+      compile(formatMarkup(read('examples/bell.animl')).text!, {
+        file: 'examples/bell.animl',
+        resolve: read,
+      }).text,
+    ).toBe(built.text);
   });
 });

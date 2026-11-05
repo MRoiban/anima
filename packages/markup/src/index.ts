@@ -25,9 +25,12 @@ export interface MarkupDiagnostic extends Diagnostic {
   column?: number;
   /** The file name given to `compile`, if any. */
   file?: string;
+  related?: { file?: string; line: number; column: number }[];
 }
 
 export interface CompileOptions {
+  /** Read a normalised import path; throw when unavailable. */
+  resolve?: (path: string) => string;
   /** File name to put on diagnostics. */
   file?: string;
   /** Run the strict `.ani` loader on the result and map its diagnostics (default true). */
@@ -53,3 +56,6 @@ export { decompile } from './decompile.ts';
 
 /** Reformat AniML in the canonical layout, keeping comments, element order and named eases. */
 export { formatMarkup } from './format.ts';
+
+export { compileAsync } from './async.ts';
+export { importPath } from './reuse.ts';

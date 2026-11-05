@@ -2,7 +2,7 @@
 import { structuralMarkup } from '@anima-format/markup/modules';
 import { moduleCompiler } from '@anima-format/markup/module-hooks';
 import { registerModule } from '@anima-format/core';
-import { compile } from '@anima-format/markup';
+import { compile, compileAsync } from '@anima-format/markup';
 import './index.ts';
 import type { AnimaIcon } from './index.ts';
 
@@ -13,3 +13,17 @@ Icon.compiler = (source) => {
   for (const m of Icon.modules.values()) registerModule(m);
   return compile(source);
 };
+
+Icon.compilerAsync = (source, file) => {
+  Object.assign(moduleCompiler, structuralMarkup);
+  for (const m of Icon.modules.values()) registerModule(m);
+  return compileAsync(source, {
+    file,
+    resolve: async (path) => {
+      const response = await fetch(path);
+      if (!response.ok) throw Error(`cannot fetch ${path}`);
+      return response.text();
+    },
+  });
+};
+export { compileAsync };

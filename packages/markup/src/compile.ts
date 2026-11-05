@@ -17,6 +17,7 @@ import {
   type NodeType,
   type Shape,
 } from '@anima-format/core';
+import { expand, location } from './reuse.ts';
 import { moduleCompiler } from './module-hooks.ts';
 import { structuralMarkup } from './modules.ts';
 if (VERBOSE) Object.assign(moduleCompiler, structuralMarkup);
@@ -180,7 +181,8 @@ export class Compiler {
       ...(VERBOSE && hint ? { hint } : {}),
       line: at.line,
       column: at.col,
-      ...(this.opts.file === undefined ? {} : { file: this.opts.file }),
+      file: at.file ?? this.opts.file,
+      ...(at.related ? { related: [location(at.related)] } : {}),
     });
   }
   private get failed(): boolean {
@@ -716,7 +718,7 @@ export class Compiler {
               : { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'" }[entity]!;
         }
         value += s;
-        for (let j = 0; j < s.length; j++) offsets.push(t.at.offset + i);
+        for (let j = 0; j < s.length; j++) offsets.push(t.offsets?.[i] ?? t.at.offset + i);
         i += m ? m[0].length : 1;
       }
     }
@@ -729,7 +731,10 @@ export class Compiler {
       const line = m[0];
       const tokens = [...line.matchAll(/"(?:\\.|[^"\\])*"|\S+/g)];
       if (!tokens.length) continue;
-      const at = (i: number) => this.xml!.pos(offsets[m.index + i] ?? el.at.offset);
+      const at = (i: number) => ({
+        ...el.at,
+        ...(el.at.locate ?? this.xml!.pos)(offsets[m.index + i] ?? el.at.offset),
+      });
       const kp = ptr(p, keys.length);
       try {
         if (tokens.length < 2) throw new Error(VERBOSE ? 'expected time value [ease]' : '');
@@ -768,6 +773,10 @@ export class Compiler {
     for (const e of errors) this.error('markup-syntax', '', e.at, VERBOSE ? e.message : '');
     const root = xml.root;
     if (!root) return this.result();
+    if (/<(?:import|template|apply)\b/.test(source)) {
+      expand(xml, this.opts, this.diagnostics);
+      if (this.failed) return this.result();
+    }
     if (root.name !== 'anima') {
       const known = NODES.includes(root.name) || Object.hasOwn(FORMS, root.name);
       this.error(
@@ -826,7 +835,8 @@ export class Compiler {
           ...(d.hint && DECLARE[d.hint] ? { hint: DECLARE[d.hint] } : {}),
           line: at.line,
           column: at.col,
-          ...(this.opts.file === undefined ? {} : { file: this.opts.file }),
+          file: at.file ?? this.opts.file,
+          ...(at.related ? { related: [location(at.related)] } : {}),
         });
       }
     }

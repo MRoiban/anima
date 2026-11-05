@@ -1,11 +1,14 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: wave 1 Sol: bind module; AniML libraries/templates; assets+image (parallel). Then components (after bind), n-slice/feather/image paints, P5 benchmark.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: deliver P5-3 AniML libraries/templates on t3/animl-libraries-templates (from 0179c9c); local commit only.
+State: 6/6 functional task areas implemented; acceptance BLOCKED on markup 9506/8192 B (+1314 B over).
+Verified: npm run check typecheck/lint/format and 767 tests pass; it exits 1 at the unchanged size gate.
+Verified: build-web --check and build-animl --check pass; no .ani changed; bell/moon/trash remain byte-identical.
+Metrics: initial baseline compile bell 2.18 ms / 9040 prefixes 759 ms; final bell 5.15 ms / 8935 prefixes 1429 ms.
+Load comparison: immediately subsequent baseline rerun bell 4.41 ms / 9040 prefixes 1239 ms; timings vary with concurrent work.
+Next: shrink markup by at least 1314 B before accepting P5-3; components intentionally report components-unavailable.
+Don't: push/PR/merge, change budgets/test limits, add runtime dependencies/licence, read .riv or run Rive commands.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -74,3 +77,10 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 09:30 [owner]: core+web size (16901, +204 over pre-draw-layer) is not a blocker → no final size round; P4a PR after P4a-7 friction fixes
 - 2026-11-06 10:00 [claude]: merged P4a-7 (cd0205d) 5/5; parity 46 rows done in P4a, 29 image/n-slice/feather rows → P5; LOG P4a entry with numbers; opening PR
 - 2026-11-06 10:40 [claude]: PR #10 merged (e0957cb); P5 design decided (design/p5/DESIGN.md: templates/libraries in AniML, components, bind expressions, assets)
+
+- 2026-11-05 20:39 [sol]: P5-3 expansion and host integration → byte-identical examples, 303 markup + 39 host tests pass; markup size over budget (evidence: /tmp/p53-markup.log, /tmp/p53-host.log, tools/build-animl.ts --check).
+
+- 2026-11-05 20:47 [sol]: initial check failed (tsc absent), npm ci restored tools; an isolated 0179c9c baseline passed 747 tests → markup 7554 B, compile 2.18 ms / 759 ms prefixes (evidence: /tmp/p53-clean-before.log).
+- 2026-11-05 20:47 [sol]: intermediate checks failed on fixture imports, generated-bundle staleness, and one 5051 ms prefix timeout during overlapping suites → fixtures/bundles corrected, no limits changed (evidence: /tmp/p53-after2.log, /tmp/p53-final-check.log).
+- 2026-11-05 20:47 [sol]: final npm run check passed typecheck/lint/format and 767/767 tests, then failed size 9506/8192 B → P5-3 acceptance blocked (evidence: /tmp/p53-verification.log).
+- 2026-11-05 20:47 [sol]: build-web --check and build-animl --check pass; .ani diff empty; final compile 5.15 ms / 8935 prefixes 1429 ms, subsequent baseline 4.41 ms / 9040 prefixes 1239 ms under concurrent load → implementation committed locally only (evidence: node tools/perf.ts; node /tmp/anima-p53-baseline/tools/perf.ts; git diff --name-only -- '*.ani').
