@@ -78,7 +78,10 @@ Budgets are first estimates; each phase measures its module and records it in `d
 
 ## Phase order
 
-Weighted toward what the owner uses: the web runtime, AniML, Glyphy and the playground first.
+Weighted toward what the owner uses: the web runtime, AniML, Glyphy and the playground first. Since
+2026-11-06 the goal is explicit — a smaller, agent-native Rive — and the order is P4a → P5 → Pc →
+P4b–e → P3b → P6 → P7 → P8 → P9 → P10, each phase gated by the agent-native benchmark
+(`docs/benchmarks/agent-native.md`).
 
 | Phase | Scope | Why here |
 |---|---|---|
@@ -87,13 +90,15 @@ Weighted toward what the owner uses: the web runtime, AniML, Glyphy and the play
 | P2 | M5: Glyphy export draft, two more glyphs in AniML, the head-to-head test | Proves the authoring loop on real glyphs before the model grows. |
 | P3 | Playground/inspector (live AniML, state graph, timeline scrubber, input controls) and the web host API (fit/alignment, playback control, events, data access) | Moved ahead of the suggested order: it is the owner's main tool for seeing and tweaking, and it makes every later phase easier to check. |
 | P3b | The rest of P3: the `a11y` module (roles, states and focus per node), authoring/drawing tools, headless CLI extras (touch, wheel, gamepad, data streams), timeline editing | Split off when the playground and host API shipped; scheduled after P4 unless a later phase needs a piece earlier. |
-| P4 | Interaction, paint, events, data binding | The suggested first block of Phase B; the most-used Rive features after the basics. |
-| P5 | Components and assets | Needs data binding (per-instance data). |
+| P4a | `paint`, on the module system and the renderer-neutral draw layer | The most-used Rive features after the basics; the module pilot. |
+| P5 | Components and assets | Moved up (owner): reuse is the main friction agents hit; per-instance inputs now, data-bound instances after P4e. |
+| Pc | Canvas backend, minimal | Brought forward from P10 (owner): rigging and large scenes need it; SVG stays the icon default. |
+| P4b–e | `motion`, `interaction`, `events`, `data` | The rest of the first block of Phase B. |
 | P6 | Text | Needs assets (fonts) and binding. |
 | P7 | Layout | Builds on text measurement and components. |
 | P8 | Rigging | Independent of the above; least needed for UI work. |
 | P9 | Scripting | Needs the hooks above to exist. |
-| P10 | GPU effects, canvas/WebGL renderer | Last: heaviest and least needed for vector icons. |
+| P10 | GPU effects, WebGL renderer | Last: heaviest and least needed for vector icons. |
 | later | Native runtimes, editor round-trip, cloud tooling, low-level GPU API, 3D, parallel/network scripting, video export | Inventoried in full; the spec stays portable (normative step function, conformance cases, no web-only semantics in the format) so they stay possible. |
 
 ## Oracle tests

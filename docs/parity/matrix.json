@@ -5704,7 +5704,7 @@
   "module": "canvas",
   "status": "planned",
   "test": "browser/device-pixel-ratio",
-  "phase": "P10"
+  "phase": "Pc"
  },
  {
   "id": "host-api.dom-listener-control",
@@ -6398,7 +6398,7 @@
   "module": "canvas",
   "status": "planned",
   "test": "browser/resize-backing-surface",
-  "phase": "P10"
+  "phase": "Pc"
  },
  {
   "id": "host-api.reuse-loaded-file",
@@ -8621,7 +8621,7 @@
   "module": "canvas",
   "status": "planned",
   "test": "platform/web-canvas",
-  "phase": "P10"
+  "phase": "Pc"
  },
  {
   "id": "platforms.web-canvas-lite",

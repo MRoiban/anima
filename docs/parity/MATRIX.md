@@ -42,12 +42,13 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | [P3](#p3) — Done: the playground/inspector and the web host API | 15 |
 | [P3b](#p3b) — The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras | 139 |
 | [P4](#p4) — Interaction, paint, events and data binding | 456 |
-| [P5](#p5) — Components and assets | 88 |
+| [P5](#p5) — Components and assets (moved up: right after P4a) | 88 |
+| [Pc](#pc) — Canvas backend, minimal (brought forward from P10) | 3 |
 | [P6](#p6) — Text | 67 |
 | [P7](#p7) — Layout | 69 |
 | [P8](#p8) — Rigging | 25 |
 | [P9](#p9) — Scripting | 82 |
-| [P10](#p10) — GPU effects and the canvas/WebGL renderer | 20 |
+| [P10](#p10) — GPU effects and the canvas/WebGL renderer | 17 |
 | [Maybe / later](#maybe-later) | 162 |
 | [Won't do](#wont-do) | 3 |
 
@@ -935,7 +936,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.view-model-instances` | Create view model instances | new: typed model instance factory | data | planned | browser/view-model-instances |
 | `host-api.volume` | Artboard volume | new: <anima-icon>.volume | audio | planned | browser/volume |
 
-## P5 — Components and assets <a id="p5"></a>
+## P5 — Components and assets (moved up: right after P4a) <a id="p5"></a>
 
 ### Drawing and paint
 
@@ -1044,6 +1045,21 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.reuse-loaded-file` | Reuse parsed files | new: cache compiled documents and decoded assets | assets | planned | browser/reuse-loaded-file |
 | `host-api.wasm-preload` | Preload runtime | new: backend preload promise | assets | planned | browser/wasm-preload |
 | `host-api.wasm-url` | Self-host WASM | new: optional backend loader URLs | assets | planned | browser/wasm-url |
+
+## Pc — Canvas backend, minimal (brought forward from P10) <a id="pc"></a>
+
+### Host runtime API
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `host-api.device-pixel-ratio` | Pixel ratio override | new: canvas pixelRatio option | canvas | planned | browser/device-pixel-ratio |
+| `host-api.resize-backing-surface` | Resize drawing surface | new: raster surface resize helper; SVG already scales without backing pixels | canvas | planned | browser/resize-backing-surface |
+
+### Platforms
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `platforms.web-canvas` | Web Canvas2D | new: Web Canvas2D | canvas | planned | platform/web-canvas |
 
 ## P6 — Text <a id="p6"></a>
 
@@ -1386,20 +1402,17 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `host-api.device-pixel-ratio` | Pixel ratio override | new: canvas pixelRatio option | canvas | planned | browser/device-pixel-ratio |
 | `host-api.gpu-canvas` | GPU canvas opt-in | new: optional GPU Canvas extension | gpu | planned | browser/gpu-canvas |
 | `host-api.inkbleed` | Inkbleed antialiasing | new: optional GPU antialiasing mode | gpu | planned | browser/inkbleed |
 | `host-api.multi-artboard-canvas` | Multiple artboards on one canvas | new: scene instances composed within an Anima surface | canvas | planned | browser/multi-artboard-canvas |
 | `host-api.offscreen-surface` | OffscreenCanvas target | new: offscreen raster renderer | canvas | planned | browser/offscreen-surface |
 | `host-api.replay-worker` | Worker-based replay | new: worker replay backend | gpu | planned | browser/replay-worker |
-| `host-api.resize-backing-surface` | Resize drawing surface | new: raster surface resize helper; SVG already scales without backing pixels | canvas | planned | browser/resize-backing-surface |
 | `host-api.shared-offscreen-renderer` | Share GPU context | new: shared GPU surface pool | gpu | planned | browser/shared-offscreen-renderer |
 
 ### Platforms
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `platforms.web-canvas` | Web Canvas2D | new: Web Canvas2D | canvas | planned | platform/web-canvas |
 | `platforms.web-layer-masks` | Web layer-mask backend | new: Web layer-mask backend | gpu | planned | platform/web-layer-masks |
 | `platforms.web-webgl2` | Web WebGL2 | new: Web WebGL2 | gpu | planned | platform/web-webgl2 |
 
