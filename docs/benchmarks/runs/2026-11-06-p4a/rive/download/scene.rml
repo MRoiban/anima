@@ -1,0 +1,112 @@
+<Rive version="1" kind="fragment">
+<Artboard name="Download" id="0:1" width="240" height="240" styleId="0:13" defaultStateMachineId="0:2" viewModelId="0:3" viewModelInstanceId="0:4">
+<LayoutComponentStyle name="Artboard Style" id="0:13"/>
+<Fill name="Capture background"><SolidColor colorValue="FFFFFFFF"/></Fill>
+<!-- Front-to-back paint order. Coordinates are 12 pixels per brief unit. -->
+<Node name="Clipped sweep"><ClippingShape sourceId="0:10"/>
+<Shape name="Highlight" id="0:11" x="-120" y="120" rotation="-0.7853981634"><Rectangle width="24" height="440" originX="0.5" originY="0.5"/><Fill><LinearGradient startX="-12" startY="0" endX="12" endY="0"><GradientStop position="0" colorValue="00FFFFFF"/><GradientStop position="0.5" colorValue="66FFFFFF"/><GradientStop position="1" colorValue="00FFFFFF"/></LinearGradient></Fill></Shape></Node>
+<Shape name="Circle clip" id="0:10" x="120" y="120"><Ellipse width="192" height="192" originX="0.5" originY="0.5"/></Shape>
+<Shape name="Arrow"><PointsPath><StraightVertex id="0:20" x="120" y="72"/><StraightVertex id="0:21" x="120" y="156"/></PointsPath><PointsPath><StraightVertex id="0:22" x="84" y="126"/><StraightVertex id="0:23" x="120" y="156"/><StraightVertex id="0:24" x="156" y="126"/></PointsPath><Stroke thickness="18" cap="round" join="round"><SolidColor colorValue="FF141413"/></Stroke></Shape>
+<Shape name="Progress ring">
+<PointsPath isClosed="true" isClockwise="true">
+<CubicDetachedVertex x="120.000000000" y="24.000000000" inRotation="-3.141592653590" outRotation="0.000000000000" inDistance="53.019335984" outDistance="53.019335984"/>
+<CubicDetachedVertex x="216.000000000" y="120.000000000" inRotation="-1.570796326795" outRotation="1.570796326795" inDistance="53.019335984" outDistance="53.019335984"/>
+<CubicDetachedVertex x="120.000000000" y="216.000000000" inRotation="0.000000000000" outRotation="3.141592653590" inDistance="53.019335984" outDistance="53.019335984"/>
+<CubicDetachedVertex x="24.000000000" y="120.000000000" inRotation="1.570796326795" outRotation="4.712388980385" inDistance="53.019335984" outDistance="53.019335984"/>
+</PointsPath>
+<Stroke thickness="18" cap="round" join="round"><LinearGradient startX="24" startY="24" endX="216" endY="216"><GradientStop position="0" colorValue="FFD97757"/><GradientStop id="0:30" position="1" colorValue="FFF0B49C"/></LinearGradient><TrimPath id="0:31" start="0" end="0"/></Stroke></Shape>
+<Shape name="Track" opacity="0.25">
+<PointsPath isClosed="true" isClockwise="true">
+<CubicDetachedVertex x="120.000000000" y="24.000000000" inRotation="-3.141592653590" outRotation="0.000000000000" inDistance="53.019335984" outDistance="53.019335984"/>
+<CubicDetachedVertex x="216.000000000" y="120.000000000" inRotation="-1.570796326795" outRotation="1.570796326795" inDistance="53.019335984" outDistance="53.019335984"/>
+<CubicDetachedVertex x="120.000000000" y="216.000000000" inRotation="0.000000000000" outRotation="3.141592653590" inDistance="53.019335984" outDistance="53.019335984"/>
+<CubicDetachedVertex x="24.000000000" y="120.000000000" inRotation="1.570796326795" outRotation="4.712388980385" inDistance="53.019335984" outDistance="53.019335984"/>
+</PointsPath>
+<Stroke thickness="18" cap="butt"><SolidColor colorValue="FF141413"/><DashPath><Dash length="0.0208333333333333" lengthIsPercentage="true"/><Dash length="0.0208333333333333" lengthIsPercentage="true"/></DashPath></Stroke></Shape>
+<Shape name="Hit area" id="0:12" x="120" y="120"><Ellipse width="192" height="192" originX="0.5" originY="0.5"/><Fill><SolidColor colorValue="00000000"/></Fill></Shape>
+<Event name="start-observed" id="0:80"/>
+<StateMachine name="Download" id="0:2">
+<StateMachineListenerSingle targetId="0:12" listenerTypeValue="enter"><ListenerViewModelChange><BindablePropertyBoolean propertyValue="true"><DataBindContext sourcePathIds="0:3-0:7" propertyKey="634" direction="true"/></BindablePropertyBoolean></ListenerViewModelChange></StateMachineListenerSingle>
+<StateMachineListenerSingle targetId="0:12" listenerTypeValue="exit"><ListenerViewModelChange><BindablePropertyBoolean propertyValue="false"><DataBindContext sourcePathIds="0:3-0:7" propertyKey="634" direction="true"/></BindablePropertyBoolean></ListenerViewModelChange></StateMachineListenerSingle>
+<StateMachineListenerSingle targetId="0:12" listenerTypeValue="click"><ListenerViewModelChange><BindablePropertyTrigger propertyValue="1"><DataBindContext sourcePathIds="0:3-0:8" propertyKey="686" direction="true"/></BindablePropertyTrigger></ListenerViewModelChange></StateMachineListenerSingle>
+<StateMachineLayer name="Frame baseline"><AnyState x="0" y="-150"/><ExitState x="600" y="-150"/><EntryState x="-200" y="0"><StateTransition stateToId="0:39" duration="0" ></StateTransition></EntryState>
+<AnimationState id="0:39" x="0" y="0" animationId="0:50"/></StateMachineLayer>
+<StateMachineLayer name="Progress and completion"><AnyState x="0" y="-150"/><ExitState x="600" y="-150"/><EntryState x="-200" y="0"><StateTransition stateToId="0:40" duration="0" ></StateTransition></EntryState>
+<BlendState1DViewModel id="0:40" x="0" y="0"><BindablePropertyNumber><DataBindContext sourcePathIds="0:3-0:5" propertyKey="636" converterId="0:90"/></BindablePropertyNumber><BlendAnimation1D animationId="0:50" value="0"/><BlendAnimation1D animationId="0:51" value="100"/>
+<BlendStateTransition stateToId="0:41" duration="0" ><TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:3-0:6" propertyKey="634" /></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="true"/></TransitionViewModelCondition><TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:3-0:9" propertyKey="634" /></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="true"/></TransitionViewModelCondition></BlendStateTransition>
+<BlendStateTransition stateToId="0:41" duration="350" interpolationType="cubic"><TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:3-0:6" propertyKey="634" /></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="true"/></TransitionViewModelCondition><TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:3-0:9" propertyKey="634" /></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="false"/></TransitionViewModelCondition><CubicEaseInterpolator x1="0" y1="0" x2="0.58" y2="1"/></BlendStateTransition>
+</BlendState1DViewModel>
+<AnimationState id="0:41" x="250" y="0" animationId="0:52"><StateTransition stateToId="0:40" duration="0" ><TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:3-0:6" propertyKey="634" /></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="false"/></TransitionViewModelCondition></StateTransition></AnimationState></StateMachineLayer>
+<StateMachineLayer name="Hover sweep"><AnyState x="0" y="-150"/><ExitState x="600" y="-150"/><EntryState x="-200" y="0"><StateTransition stateToId="0:60" duration="0" ></StateTransition></EntryState>
+<AnimationState id="0:60" x="0" y="0" animationId="0:70"><StateTransition stateToId="0:62" duration="0" ><TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:3-0:7" propertyKey="634" /></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="true"/></TransitionViewModelCondition><TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:3-0:9" propertyKey="634" /></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="true"/></TransitionViewModelCondition></StateTransition><StateTransition stateToId="0:61" duration="0" ><TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:3-0:7" propertyKey="634" /></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="true"/></TransitionViewModelCondition><TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:3-0:9" propertyKey="634" /></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="false"/></TransitionViewModelCondition></StateTransition></AnimationState>
+<AnimationState id="0:61" x="200" y="0" animationId="0:71" reset="true"><StateTransition stateToId="0:62" duration="0" ><TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:3-0:9" propertyKey="634" /></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="true"/></TransitionViewModelCondition></StateTransition><StateTransition stateToId="0:62" duration="0" enableExitTime="true" exitTimeIsPercetange="true" exitTime="100"></StateTransition></AnimationState>
+<AnimationState id="0:62" x="400" y="0" animationId="0:72"><StateTransition stateToId="0:60" duration="0" ><TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:3-0:7" propertyKey="634" /></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="false"/></TransitionViewModelCondition></StateTransition></AnimationState></StateMachineLayer>
+<StateMachineLayer name="Observe start trigger"><AnyState x="0" y="-150"/><ExitState x="600" y="-150"/><EntryState x="-200" y="0"><StateTransition stateToId="0:81" duration="0" ></StateTransition></EntryState>
+<AnimationState id="0:81" x="0" y="0" animationId="0:73"><StateTransition stateToId="0:82"><TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyTrigger><DataBindContext sourcePathIds="0:3-0:8" propertyKey="686" /></BindablePropertyTrigger></TransitionPropertyViewModelComparator><TransitionValueTriggerComparator/></TransitionViewModelCondition></StateTransition></AnimationState>
+<AnimationState id="0:82" x="200" y="0" animationId="0:73" reset="true"><StateMachineFireEvent eventId="0:80"/><StateTransition stateToId="0:81" duration="0" enableExitTime="true" exitTimeIsPercetange="true" exitTime="100"></StateTransition></AnimationState></StateMachineLayer></StateMachine>
+<LinearAnimation name="Empty" id="0:50" fps="60" duration="1">
+  <KeyedObject objectId="0:20"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="120"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:20"><KeyedProperty property="y"><KeyFrameDouble frame="0" value="72"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:21"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="120"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:21"><KeyedProperty property="y"><KeyFrameDouble frame="0" value="156"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:22"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="84"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:22"><KeyedProperty property="y"><KeyFrameDouble frame="0" value="126"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:23"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="120"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:23"><KeyedProperty property="y"><KeyFrameDouble frame="0" value="156"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:24"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="156"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:24"><KeyedProperty property="y"><KeyFrameDouble frame="0" value="126"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:30"><KeyedProperty property="colorValue"><KeyFrameColor frame="0" value="FFF0B49C"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:31"><KeyedProperty property="end"><KeyFrameDouble frame="0" value="0"/></KeyedProperty></KeyedObject>
+</LinearAnimation>
+<LinearAnimation name="Full gradient" id="0:51" fps="60" duration="1">
+  <KeyedObject objectId="0:20"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="120"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:20"><KeyedProperty property="y"><KeyFrameDouble frame="0" value="72"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:21"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="120"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:21"><KeyedProperty property="y"><KeyFrameDouble frame="0" value="156"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:22"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="84"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:22"><KeyedProperty property="y"><KeyFrameDouble frame="0" value="126"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:23"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="120"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:23"><KeyedProperty property="y"><KeyFrameDouble frame="0" value="156"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:24"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="156"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:24"><KeyedProperty property="y"><KeyFrameDouble frame="0" value="126"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:30"><KeyedProperty property="colorValue"><KeyFrameColor frame="0" value="FFF0B49C"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:31"><KeyedProperty property="end"><KeyFrameDouble frame="0" value="1"/></KeyedProperty></KeyedObject>
+</LinearAnimation>
+<LinearAnimation name="Check and flat accent" id="0:52" fps="60" duration="1">
+  <KeyedObject objectId="0:20"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="108"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:20"><KeyedProperty property="y"><KeyFrameDouble frame="0" value="150"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:21"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="108"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:21"><KeyedProperty property="y"><KeyFrameDouble frame="0" value="150"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:22"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="78"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:22"><KeyedProperty property="y"><KeyFrameDouble frame="0" value="120"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:23"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="108"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:23"><KeyedProperty property="y"><KeyFrameDouble frame="0" value="150"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:24"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="162"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:24"><KeyedProperty property="y"><KeyFrameDouble frame="0" value="90"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:30"><KeyedProperty property="colorValue"><KeyFrameColor frame="0" value="FFD97757"/></KeyedProperty></KeyedObject>
+  <KeyedObject objectId="0:31"><KeyedProperty property="end"><KeyFrameDouble frame="0" value="1"/></KeyedProperty></KeyedObject>
+</LinearAnimation>
+<LinearAnimation name="Sweep rest" id="0:70" fps="60" duration="1">
+  <KeyedObject objectId="0:11"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="-120"/></KeyedProperty></KeyedObject>
+</LinearAnimation>
+<LinearAnimation name="Sweep end" id="0:72" fps="60" duration="1">
+  <KeyedObject objectId="0:11"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="360"/></KeyedProperty></KeyedObject>
+</LinearAnimation>
+<LinearAnimation name="Trigger wait" id="0:73" fps="60" duration="1">
+</LinearAnimation>
+<LinearAnimation name="Sweep" id="0:71" fps="60" duration="36"><KeyedObject objectId="0:11"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="-120" interpolationType="linear"/><KeyFrameDouble frame="36" value="360"/></KeyedProperty></KeyedObject></LinearAnimation>
+</Artboard>
+<DataConverterRangeMapper name="Progress percent" id="0:90" minInput="0" maxInput="1" minOutput="0" maxOutput="100" clampLower="true" clampUpper="true"/>
+<ViewModel name="Download" id="0:3" defaultInstanceId="0:4">
+<ViewModelPropertyNumber name="progress" id="0:5"/>
+<ViewModelPropertyBoolean name="done" id="0:6"/>
+<ViewModelPropertyBoolean name="hover" id="0:7"/>
+<ViewModelPropertyTrigger name="start" id="0:8"/>
+<ViewModelPropertyBoolean name="reducedMotion" id="0:9"/>
+<ViewModelInstance name="Default" id="0:4" exports="true">
+<ViewModelInstanceNumber viewModelPropertyId="0:5" propertyValue="0"/>
+<ViewModelInstanceBoolean viewModelPropertyId="0:6" propertyValue="false"/>
+<ViewModelInstanceBoolean viewModelPropertyId="0:7" propertyValue="false"/>
+<ViewModelInstanceTrigger viewModelPropertyId="0:8"/>
+<ViewModelInstanceBoolean viewModelPropertyId="0:9" propertyValue="false"/>
+</ViewModelInstance></ViewModel></Rive>
