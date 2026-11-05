@@ -1,0 +1,30 @@
+help
+advance 1
+screenshot ../captures/00-off.png
+data-dump build/off.json
+semantics build/off-semantics.json
+pointer move@120,120
+advance 150ms
+screenshot ../captures/01-hover.png
+pointer down@120,120
+advance 80ms
+screenshot ../captures/02-press.png
+pointer up@120,120
+advance 150ms
+screenshot ../captures/03-toggle-mid.png
+data-dump build/mid.json
+advance 150ms
+screenshot ../captures/04-on.png
+semantics build/on-semantics.json
+pointer exit@300,300
+advance 150ms
+screenshot ../captures/05-on-rest.png
+data on=false
+advance 300ms
+screenshot ../captures/06-off-rest.png
+data reducedMotion=true
+data on=true
+screenshot ../captures/07-reduced-on.png
+data on=false
+screenshot ../captures/08-reduced-off.png
+quit
