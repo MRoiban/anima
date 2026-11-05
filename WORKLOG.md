@@ -1,13 +1,12 @@
 # Work log
 
 ## Now
-Goal: finish M4 (bell in browser, core+web ≤ 25 KB gz, strict), then AniML, then M5, then Phase B (P3 playground first).
-State: M0–M3 merged (PRs #1–#4); Phase A in PR #5. m4-web: runtime + 8 browser tests, 120 tests green, 14636 B gz (budget 25 KB).
-Next: push Firefox fix to PR #6 (m4-web), merge #6 then #5 when green; ask owner to check the fix on macOS Firefox.
-Next: Phase A research running (r1–r4 → /data/t3/scratch/anima-parity/); then write docs/parity/ on a branch from main.
-Next: AniML from main after M4 merges; draft spec/ANIML.md + examples/bell.animl exist uncommitted in the main checkout.
-Don't: relax browser strictness (owner chose 25 KB budget instead); mangle property names (breaks string-keyed tables).
-Don't: spawn non-Sol sub-agents (user rule), > 5 at once; touch .riv files or Rive account commands (publish/push/pull).
+Goal: P1 AniML (authoring markup) → PR from p1-animl; then M5, then Phase B (P3 playground first).
+State: main has M0–M4 + Phase A (PRs #1–#6 merged). p1-animl: contract committed (spec/ANIML.md, bell.animl, registry markup names, xml.ts, names.ts; d9c0063).
+Next: wave 1 running — Sol compiler (compile.ts) and Sol decompiler+formatter, worktrees from d9c0063; merge both, add round-trip tests.
+Next: wave 2 — CLI (.animl everywhere, build incl. html, decompile, new→animl), web markup module (own budget), migrate conformance + AUTHORING.md; wave 3 head-to-head (AniML vs .ani vs Rive RML).
+Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
+Open for owner: verify Firefox clapper fix on macOS; package names; licence.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -30,3 +29,5 @@ Don't: spawn non-Sol sub-agents (user rule), > 5 at once; touch .riv files or Ri
 - 2026-11-05 13:35 [claude]: owner chose budget 25 KB (after lighter validation re-measured at ~13.1 KB, not 11–11.5) → strict browser stays
 - 2026-11-05 14:20 [claude]: Firefox stale-clapper fix (g wrappers carry transforms, attrs never removed, mask always attached) + Firefox lane + per-frame regression test (201 frames, worst 0.019) → 130 tests green
 - 2026-11-05 14:20 [claude]: GPU Firefox (Linux WebRender, GTX 1650): old 1/4 runs stale episode, fixed 0/4; macOS symptom not reproduced → fix unverified on macOS (evidence: /data/agent-workspaces/anima-ff/*-run*.json)
+- 2026-11-05 14:40 [claude]: merged PR #5 (Phase A) and #6 (M4 incl. Firefox fix) → main 62cee1b
+- 2026-11-05 15:00 [claude]: P1 contract on p1-animl (23839c7, d9c0063): ANIML spec, bell.animl, registry markup names, xml parser (18 tests), names.ts (4 tests); launched Sol compiler (xhigh) + decompiler/formatter (high)
