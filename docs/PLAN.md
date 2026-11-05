@@ -98,9 +98,11 @@ and an oracle test against Rive.
 
 - [x] **Phase A — inventory.** 1 238 sourced capabilities in `docs/parity/` (inventory, matrix,
       roadmap), generated views checked by `tools/parity.test.ts`.
-- [ ] P1 AniML (authoring markup; `spec/ANIML.md`).
+- [x] P1 AniML (authoring markup; `spec/ANIML.md`): compiler, decompiler, `anima build`/`decompile`,
+      markup in every command and in HTML, optional browser module, round-trip tests, head-to-head.
 - [ ] P2 M5 (Glyphy export draft, two more glyphs in AniML, head-to-head test).
-- [ ] P3 Playground/inspector and the web host API.
+- [ ] P3 Playground/inspector and the web host API. From the P1 head-to-head: `a11y.activate` may
+      name a bool (keyboard toggles a switch); `anima schema a11y` and `anima schema transition`.
 - [ ] P4 Interaction, paint, events, data binding.
 - [ ] P5 Components and assets.
 - [ ] P6 Text.

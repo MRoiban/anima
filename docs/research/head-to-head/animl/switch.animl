@@ -1,0 +1,51 @@
+<anima version="0.1" name="dark-mode-switch" title="Dark mode" grid="20" viewBox="0 0 20 20">
+  <color name="ink" value="#141413"/>
+  <color name="accent" value="#d97757"/>
+  <bool name="on" default="false"/>
+  <bool name="hover"/>
+  <bool name="down"/>
+  <a11y role="switch" label="Dark mode" pressed="on" held="down"/>
+  <hit rect="0 0 20 20"/>
+
+  <!-- Separate fill and outline keep the ink stroke unchanged during the fade. -->
+  <rect id="track-fill" x0="2" y0="6" width="16" height="8" rx="4" fill="accent" opacity="0"/>
+  <rect id="track-outline" x0="2" y0="6" width="16" height="8" rx="4" stroke="ink" stroke-width="1.5"/>
+  <circle id="knob" cx="6" cy="10" r="2.6" pivot="6 10" fill="ink"/>
+
+  <!-- Interruptible blends freeze the current pose before changing direction. -->
+  <layer name="toggle" initial="off">
+    <state name="off">
+      <pose knob.x="0" track-fill.opacity="0"/>
+      <on when="on" to="on" blend="0.3" ease="inOut"/>
+    </state>
+    <state name="on">
+      <pose knob.x="8" track-fill.opacity="1"/>
+      <on when="!on" to="off" blend="0.3" ease="inOut"/>
+    </state>
+  </layer>
+
+  <!-- Scale is independent of toggle translation and stays centred on the moving knob. -->
+  <layer name="feedback" initial="rest">
+    <state name="rest">
+      <pose knob.scale="1"/>
+      <on when="down" to="press" blend="0.08"/>
+      <on when="hover" to="hover" blend="0.15"/>
+    </state>
+    <state name="hover">
+      <pose knob.scale="1.15"/>
+      <on when="down" to="press" blend="0.08"/>
+      <on when="!hover" to="rest" blend="0.15"/>
+    </state>
+    <state name="press">
+      <pose knob.scale="0.85"/>
+      <on when="!down and hover" to="hover" blend="0.15"/>
+      <on when="!down and !hover" to="rest" blend="0.15"/>
+    </state>
+  </layer>
+
+  <listener on="click" toggle="on"/>
+  <listener on="enter" set="hover=true"/>
+  <listener on="leave" set="hover=false down=false"/>
+  <listener on="down" set="down=true"/>
+  <listener on="up" set="down=false"/>
+</anima>

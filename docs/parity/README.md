@@ -45,7 +45,7 @@ say so and a `NOTICE` file will carry the attribution.
 
 ## What 0.1 already covers
 
-111 of 1 238 capabilities (9 %) are done, concentrated where icons live: transforms (9/17), animation
+112 of 1 238 capabilities (9 %) are done (111 in 0.1, plus AniML in P1), concentrated where icons live: transforms (9/17), animation
 (16/40), state machines (25/61), drawing and paint (20/125), input (13/93), host API (12/125). The
 large categories with nothing yet are data binding (169), host API (125), scripting (96), text (61),
 assets (50) and layout (49). `MATRIX.md` has the per-category table.

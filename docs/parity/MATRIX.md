@@ -31,13 +31,13 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | Accessibility | 63 | 5 |  | 58 |  |  |  |
 | Host runtime API | 125 | 12 |  | 109 |  | 4 |  |
 | Platforms | 64 | 1 |  | 9 |  | 54 |  |
-| Tooling | 119 | 8 | 1 | 55 | 1 | 51 | 3 |
-| **Total** | **1238** | **111** | **3** | **958** | **1** | **162** | **3** |
+| Tooling | 119 | 9 |  | 55 | 1 | 51 | 3 |
+| **Total** | **1238** | **112** | **2** | **958** | **1** | **162** | **3** |
 
 | Phase | Rows |
 |---|---:|
 | [P0](#p0) — Done: format 0.1, core, CLI, `<anima-icon>` (M0–M4) | 111 |
-| [P1](#p1) — AniML, the authoring markup | 1 |
+| [P1](#p1) — Done: AniML, the authoring markup | 1 |
 | [P2](#p2) — M5: Glyphy export, more glyphs, the head-to-head test | 2 |
 | [P3](#p3) — Playground/inspector and the web host API | 152 |
 | [P4](#p4) — Interaction, paint, events and data binding | 456 |
@@ -213,13 +213,13 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `tooling.offline-docs` | Bundled documentation | anima docs | tooling | done | cli/offline-docs |
 | `tooling.verify` | Headless verification | anima validate | tooling | done | cli/verify |
 
-## P1 — AniML, the authoring markup <a id="p1"></a>
+## P1 — Done: AniML, the authoring markup <a id="p1"></a>
 
 ### Tooling
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `tooling.markup-authoring` | Text scene authoring | anima build source.animl | markup | spec'd | cli/markup-authoring |
+| `tooling.markup-authoring` | Text scene authoring | anima build source.animl | markup | done | packages/markup/test (compile, round-trip, corpus), packages/cli/test/markup.test.ts |
 
 ## P2 — M5: Glyphy export, more glyphs, the head-to-head test <a id="p2"></a>
 

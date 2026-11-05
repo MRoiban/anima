@@ -106,7 +106,8 @@ directly (tests, CLI, tools) with no build step; esbuild bundles the browser bui
 size budget (`tools/size.ts`); `tsc` with `rewriteRelativeImportExtensions` will emit JavaScript
 for publishing. `npm run check` runs everything CI runs.
 
-Working package names (all `private` until the user decides — `anima` and `anima-cli` are taken on
+The project name stays **Anima**, with `.ani` (runtime format) and `.animl` (markup) as the file
+extensions (owner, 2026-11-05). Working package names (all `private` until the owner decides — `anima` and `anima-cli` are taken on
 npm, and whether the `@anima` scope is claimed cannot be checked without logging in):
 `@anima-format/core`, `@anima-format/web`, `@anima-format/cli` (binary `anima`).
 

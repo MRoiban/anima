@@ -1,13 +1,11 @@
 # Work log
 
 ## Now
-Goal: finish M4 (bell in browser, core+web ≤ 25 KB gz, strict), then AniML, then M5, then Phase B (P3 playground first).
-State: M0–M3 merged (PRs #1–#4); Phase A in PR #5. m4-web: runtime + 8 browser tests, 120 tests green, 14636 B gz (budget 25 KB).
-Next: push Firefox fix to PR #6 (m4-web), merge #6 then #5 when green; ask owner to check the fix on macOS Firefox.
-Next: Phase A research running (r1–r4 → /data/t3/scratch/anima-parity/); then write docs/parity/ on a branch from main.
-Next: AniML from main after M4 merges; draft spec/ANIML.md + examples/bell.animl exist uncommitted in the main checkout.
-Don't: relax browser strictness (owner chose 25 KB budget instead); mangle property names (breaks string-keyed tables).
-Don't: spawn non-Sol sub-agents (user rule), > 5 at once; touch .riv files or Rive account commands (publish/push/pull).
+Goal: P1 AniML → PR p1-animl → main, merge when CI green; then M5 (P2), then Phase B (P3 playground first).
+State: P1 complete on p1-animl: all waves merged, head-to-head done (RESULTS.md), PLAN P1 ticked, LOG entry written.
+Next: npm run check, push, PR, watch CI, merge; post summary with bell markup. Then M5: Glyphy export draft PR (draft only), two glyphs in AniML.
+Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
+Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -30,3 +28,21 @@ Don't: spawn non-Sol sub-agents (user rule), > 5 at once; touch .riv files or Ri
 - 2026-11-05 13:35 [claude]: owner chose budget 25 KB (after lighter validation re-measured at ~13.1 KB, not 11–11.5) → strict browser stays
 - 2026-11-05 14:20 [claude]: Firefox stale-clapper fix (g wrappers carry transforms, attrs never removed, mask always attached) + Firefox lane + per-frame regression test (201 frames, worst 0.019) → 130 tests green
 - 2026-11-05 14:20 [claude]: GPU Firefox (Linux WebRender, GTX 1650): old 1/4 runs stale episode, fixed 0/4; macOS symptom not reproduced → fix unverified on macOS (evidence: /data/agent-workspaces/anima-ff/*-run*.json)
+- 2026-11-05 14:40 [claude]: merged PR #5 (Phase A) and #6 (M4 incl. Firefox fix) → main 62cee1b
+- 2026-11-05 15:00 [claude]: P1 contract on p1-animl (23839c7, d9c0063): ANIML spec, bell.animl, registry markup names, xml parser (18 tests), names.ts (4 tests); launched Sol compiler (xhigh) + decompiler/formatter (high)
+- 2026-11-05 15:10 [owner]: Firefox clapper fix confirmed on macOS; name stays Anima with .ani and .animl
+- 2026-11-05 14:20 [claude]: merged Sol decompiler+formatter (0deca93) into p1-animl; parser now reports out-of-range entities → markup tests 49 pass/14 skipped (evidence: npx vitest run packages/markup)
+- 2026-11-05 14:35 [claude]: merged Sol compiler (d575827); round-trip tests on bell + 13 cases pass; full suite 274 pass, size 14635 B gz (evidence: npx vitest run; node tools/size.ts). Spec §8 lists 3 decompile normalisations ($schema, element-less $comment, singleton action lists).
+- 2026-11-05 14:45 [claude]: launched wave 2 (3 Sol agents: CLI, web markup module, migration) from 12b642d; measured markup module baseline 7032 B gz over core+web
+- 2026-11-05 15:05 [claude]: merged Sol migration (596085a): 13/13 case.animl build byte-for-byte, tools/build-animl.ts --check, corpus test; bell.animl reformatted canonically → 303 tests, 1 Firefox timing test failed once under load (2 agents running), 3/3 reruns of packages/web green (flaky, cause unverified)
+- 2026-11-05 15:20 [claude]: merged Sol CLI (2a597ae): .animl in validate/inspect/sample/render/fmt/new, build (.animl + page.html), decompile, schema both spellings, docs markup → cli+markup 221 tests pass; validate of bad .animl prints bad.animl:2:40 unknown-attribute + hint
+- 2026-11-05 14:34 [sol]: initial size command failed (esbuild absent) → npm ci installed local tooling; npm ci --ignore-scripts --dry-run accepts workspace dependency addition without lock edit.
+- 2026-11-05 14:34 [sol]: module+compiler hook 6996 B markup → VERBOSE folding 5776 B; queued inline loading fixes upgrade-before-registration; final measured 5777 B markup / 14781 B core+web (+146) (evidence: node tools/size.ts).
+- 2026-11-05 14:34 [sol]: first browser run 25 pass/5 fail: 4 inline-upgrade errors fixed via microtask; existing Firefox frame-count assertion 3 vs ≤2 (unresolved); targeted new tests then 12 pass/18 filtered; 141 unchanged markup tests pass.
+- 2026-11-05 14:38 [sol]: full verification 289 pass/3 fail → new parity test incorrectly expected reduce to jump an already-running timeline; corrected with deterministic full-duration ticks; reduced-motion trace identifies Playwright mouse.click's extra pointermove as third wake, now down/up with unchanged ≤2-frame assertion.
+- 2026-11-05 14:39 [sol]: final requested verify chain passed → 16 files / 292 tests, no skips (36 browser tests across Chromium+Firefox; 141 unchanged markup tests); core+web 14781 B gzip (+146/150 allowance), markup 5777/6144 B incremental.
+- 2026-11-05 14:39 [sol]: browser build emits anima-icon.js + anima-markup.js → build-web --check passes; intentional stale markup artifact rejected with exit 1, restored artifact passes; no new runtime dependencies beyond workspace markup, no CLI/core/spec/docs edits, no push/PR/merge.
+- 2026-11-05 15:40 [claude]: merged Sol web markup module (a980e42): markup 5777/6144 B gz, core+web 14781 B (+146); npm run check green: 347 tests, Chromium+Firefox (evidence: npm run check after local dist rebuild)
+- 2026-11-05 16:05 [claude]: merged Sol AUTHORING.md rewrite (8ee957f; 4/4 xml blocks compile, 6/6 diagnostics match, tested); markup hints for undeclared input/colour/glyph; markup 5804 B gz
+- 2026-11-05 16:15 [claude]: launched head-to-head (3 Sol, high, worktrees from 052af3f): animl / ani / rive, 45 min timebox each
+- 2026-11-05 16:45 [claude]: head-to-head merged + re-checked (AniML 7/7, .ani 7/7, Rive 4/7; switch a11y browser test added); parity row tooling.markup-authoring done (FINISHED phases P0,P1); PLAN/LOG updated

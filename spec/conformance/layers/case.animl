@@ -1,0 +1,24 @@
+<!-- Later layers override earlier ones, then blend unwritten properties back to the moving layer below. -->
+<anima version="0.1" name="case" grid="20">
+  <bool name="over"/>
+
+  <circle id="a" cx="10" cy="10" r="5" pivot="10 10" fill="#000"/>
+
+  <timeline name="ta" duration="1">
+    <track target="a.x">0 0; 1 10</track>
+  </timeline>
+
+  <layer name="base" initial="run">
+    <state name="run" play="ta"/>
+  </layer>
+  <layer name="top" initial="b0">
+    <state name="b0">
+      <pose/>
+      <on when="over" to="b1" blend="0.5"/>
+    </state>
+    <state name="b1">
+      <pose a.x="100"/>
+      <on when="!over" to="b0" blend="0.5"/>
+    </state>
+  </layer>
+</anima>

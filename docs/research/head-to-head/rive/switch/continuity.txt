@@ -1,0 +1,34 @@
+advance 1
+screenshot ../captures/10-baseline.png
+data on=true
+screenshot ../captures/11-start.png
+advance 50ms
+screenshot ../captures/12-on-early.png
+advance 50ms
+screenshot ../captures/13-before-reverse.png
+data on=false
+screenshot ../captures/14-reverse-event.png
+advance 1
+screenshot ../captures/15-reverse-frame.png
+advance 50ms
+screenshot ../captures/16-reverse-50ms.png
+advance 300ms
+screenshot ../captures/17-reversed-rest.png
+pointer click@4,4
+advance 300ms
+pointer exit@300,300
+advance 150ms
+screenshot ../captures/18-corner-click-on.png
+data-dump build/corner-on.json
+pointer click@236,236
+advance 300ms
+pointer exit@300,300
+advance 150ms
+screenshot ../captures/19-corner-click-off.png
+data-dump build/corner-off.json
+semantic-action tap@Dark mode
+advance 2
+advance 300ms
+screenshot ../captures/20-semantic-on.png
+semantics build/semantic-on.json
+quit

@@ -1,0 +1,15 @@
+<!-- A zero-time transition cycle stops after 16 transitions and reports @limit. -->
+<anima version="0.1" name="case" grid="20">
+  <circle id="a" cx="10" cy="10" r="5" pivot="10 10" fill="#000"/>
+
+  <layer name="l" initial="p">
+    <state name="p">
+      <pose a.x="1"/>
+      <on when="@after(0)" to="q"/>
+    </state>
+    <state name="q">
+      <pose a.x="2"/>
+      <on when="@after(0)" to="p"/>
+    </state>
+  </layer>
+</anima>

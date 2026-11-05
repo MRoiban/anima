@@ -1,0 +1,194 @@
+{
+  "anima": "0.1",
+  "name": "dark-mode-switch",
+  "title": "Dark mode",
+  "grid": 20,
+  "viewBox": [0, 0, 20, 20],
+  "colors": {
+    "ink": "#141413",
+    "accent": "#d97757"
+  },
+  "a11y": {
+    "role": "switch",
+    "label": "Dark mode",
+    "pressed": "on",
+    "held": "down"
+  },
+  "inputs": {
+    "on": {
+      "type": "bool",
+      "default": false
+    },
+    "hover": {
+      "type": "bool"
+    },
+    "down": {
+      "type": "bool"
+    }
+  },
+  "hit": {
+    "rect": [0, 0, 20, 20]
+  },
+  "nodes": [
+    {
+      "id": "track-fill",
+      "type": "rect",
+      "x0": 2,
+      "y0": 6,
+      "w": 16,
+      "h": 8,
+      "rx": 4,
+      "opacity": 0,
+      "fill": {
+        "color": "accent"
+      }
+    },
+    {
+      "id": "track-outline",
+      "type": "rect",
+      "x0": 2,
+      "y0": 6,
+      "w": 16,
+      "h": 8,
+      "rx": 4,
+      "stroke": {
+        "color": "ink",
+        "width": 1.5
+      }
+    },
+    {
+      "id": "knob",
+      "type": "circle",
+      "center": [6, 10],
+      "r": 2.6,
+      "pivot": [6, 10],
+      "fill": {
+        "color": "ink"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "toggle": {
+        "initial": "off",
+        "states": {
+          "off": {
+            "pose": {
+              "knob.x": 0,
+              "track-fill.opacity": 0
+            },
+            "on": [
+              {
+                "when": "on",
+                "to": "on",
+                "blend": 0.3,
+                "ease": "inOut"
+              }
+            ]
+          },
+          "on": {
+            "pose": {
+              "knob.x": 8,
+              "track-fill.opacity": 1
+            },
+            "on": [
+              {
+                "when": "!on",
+                "to": "off",
+                "blend": 0.3,
+                "ease": "inOut"
+              }
+            ]
+          }
+        }
+      },
+      "feedback": {
+        "initial": "rest",
+        "states": {
+          "rest": {
+            "pose": {
+              "knob.scale": 1
+            },
+            "on": [
+              {
+                "when": "down",
+                "to": "press",
+                "blend": 0.08
+              },
+              {
+                "when": "hover",
+                "to": "hover",
+                "blend": 0.15
+              }
+            ]
+          },
+          "hover": {
+            "pose": {
+              "knob.scale": 1.15
+            },
+            "on": [
+              {
+                "when": "down",
+                "to": "press",
+                "blend": 0.08
+              },
+              {
+                "when": "!hover",
+                "to": "rest",
+                "blend": 0.15
+              }
+            ]
+          },
+          "press": {
+            "pose": {
+              "knob.scale": 0.85
+            },
+            "on": [
+              {
+                "when": "!down && hover",
+                "to": "hover",
+                "blend": 0.15
+              },
+              {
+                "when": "!down && !hover",
+                "to": "rest",
+                "blend": 0.15
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "click",
+      "toggle": "on"
+    },
+    {
+      "on": "enter",
+      "set": {
+        "hover": true
+      }
+    },
+    {
+      "on": "leave",
+      "set": {
+        "hover": false,
+        "down": false
+      }
+    },
+    {
+      "on": "down",
+      "set": {
+        "down": true
+      }
+    },
+    {
+      "on": "up",
+      "set": {
+        "down": false
+      }
+    }
+  ]
+}

@@ -1,77 +1,49 @@
 {
- "anima": "0.1",
- "name": "case",
- "grid": 20,
- "nodes": [
-  {
-   "id": "a",
-   "type": "circle",
-   "center": [
-    10,
-    10
-   ],
-   "r": 5,
-   "pivot": [
-    10,
-    10
-   ],
-   "fill": {
-    "color": "#000"
-   }
-  }
- ],
- "timelines": {
-  "t": {
-   "duration": 2,
-   "tracks": {
-    "a.x": [
-     [
-      0.5,
-      10
-     ],
-     [
-      1,
-      20,
-      "hold"
-     ],
-     [
-      1.5,
-      30
-     ]
-    ],
-    "a.fill.color": [
-     [
-      0,
-      "#000000"
-     ],
-     [
-      1,
-      "#ff0080"
-     ]
-    ],
-    "a.visible": [
-     [
-      0,
-      true
-     ],
-     [
-      1,
-      false
-     ]
-    ]
-   }
-  }
- },
- "machine": {
-  "layers": {
-   "l": {
-    "initial": "s",
-    "states": {
-     "s": {
-      "play": "t"
-     }
+  "anima": "0.1",
+  "name": "case",
+  "grid": 20,
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 5,
+      "pivot": [10, 10],
+      "fill": {
+        "color": "#000"
+      }
     }
-   }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 2,
+      "tracks": {
+        "a.x": [
+          [0.5, 10],
+          [1, 20, "hold"],
+          [1.5, 30]
+        ],
+        "a.fill.color": [
+          [0, "#000000"],
+          [1, "#ff0080"]
+        ],
+        "a.visible": [
+          [0, true],
+          [1, false]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
   }
- }
 }

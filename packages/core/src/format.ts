@@ -1,7 +1,7 @@
-// `anima fmt`: canonical formatting. Known keys in a stable order, maps (whose order can matter,
+// Canonical .ani text (`anima fmt`, and `anima build` output). Known keys in a stable order, maps (whose order can matter,
 // e.g. layers) kept as written, arrays of plain values on one line — so each keyframe gets a line.
 
-import { DOC, NODE_TYPES, type NodeType, type Shape, nodeShape } from '@anima-format/core';
+import { DOC, NODE_TYPES, type NodeType, type Shape, nodeShape } from './registry.ts';
 
 const NODE_ORDER = [
   'id',
@@ -65,6 +65,6 @@ function print(v: unknown, s: Shape | undefined, indent: string): string {
 }
 
 /** Canonical text of a parsed document. */
-export function format(doc: unknown): string {
+export function formatAni(doc: unknown): string {
   return print(doc, DOC, '') + '\n';
 }

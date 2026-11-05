@@ -1,139 +1,133 @@
 {
- "anima": "0.1",
- "name": "case",
- "grid": 20,
- "nodes": [
-  {
-   "id": "a",
-   "type": "circle",
-   "center": [
-    10,
-    10
-   ],
-   "r": 5,
-   "pivot": [
-    10,
-    10
-   ],
-   "fill": {
-    "color": "#000"
-   }
-  }
- ],
- "inputs": {
-  "hover": {
-   "type": "bool"
-  },
-  "ring": {
-   "type": "trigger"
-  },
-  "flag": {
-   "type": "bool"
-  }
- },
- "machine": {
-  "layers": {
-   "l": {
-    "initial": "idle",
-    "states": {
-     "idle": {
-      "pose": {
-       "a.x": 0
-      },
-      "on": [
-       {
-        "when": "ring",
-        "to": "rang"
-       }
-      ]
-     },
-     "rang": {
-      "pose": {
-       "a.x": 1
-      },
-      "on": [
-       {
-        "when": "ring",
-        "to": "idle"
-       }
-      ]
-     }
+  "anima": "0.1",
+  "name": "case",
+  "grid": 20,
+  "inputs": {
+    "hover": {
+      "type": "bool"
+    },
+    "ring": {
+      "type": "trigger"
+    },
+    "flag": {
+      "type": "bool"
     }
-   },
-   "hv": {
-    "initial": "off",
-    "states": {
-     "off": {
-      "pose": {},
-      "on": [
-       {
-        "when": "hover",
-        "to": "on"
-       }
-      ]
-     },
-     "on": {
-      "pose": {
-       "a.scale": 2
-      },
-      "on": [
-       {
-        "when": "!hover",
-        "to": "off"
-       }
-      ]
-     }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 5,
+      "pivot": [10, 10],
+      "fill": {
+        "color": "#000"
+      }
     }
-   },
-   "f": {
-    "initial": "f0",
-    "states": {
-     "f0": {
-      "pose": {},
-      "on": [
-       {
-        "when": "flag",
-        "to": "f1"
-       }
-      ]
-     },
-     "f1": {
-      "pose": {
-       "a.rotate": 45
+  ],
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {
+              "a.x": 0
+            },
+            "on": [
+              {
+                "when": "ring",
+                "to": "rang"
+              }
+            ]
+          },
+          "rang": {
+            "pose": {
+              "a.x": 1
+            },
+            "on": [
+              {
+                "when": "ring",
+                "to": "idle"
+              }
+            ]
+          }
+        }
       },
-      "on": [
-       {
-        "when": "!flag",
-        "to": "f0"
-       }
-      ]
-     }
+      "hv": {
+        "initial": "off",
+        "states": {
+          "off": {
+            "pose": {},
+            "on": [
+              {
+                "when": "hover",
+                "to": "on"
+              }
+            ]
+          },
+          "on": {
+            "pose": {
+              "a.scale": 2
+            },
+            "on": [
+              {
+                "when": "!hover",
+                "to": "off"
+              }
+            ]
+          }
+        }
+      },
+      "f": {
+        "initial": "f0",
+        "states": {
+          "f0": {
+            "pose": {},
+            "on": [
+              {
+                "when": "flag",
+                "to": "f1"
+              }
+            ]
+          },
+          "f1": {
+            "pose": {
+              "a.rotate": 45
+            },
+            "on": [
+              {
+                "when": "!flag",
+                "to": "f0"
+              }
+            ]
+          }
+        }
+      }
     }
-   }
-  }
- },
- "listeners": [
-  {
-   "on": "enter",
-   "set": {
-    "hover": true
-   }
   },
-  {
-   "on": "leave",
-   "set": {
-    "hover": false
-   }
-  },
-  {
-   "on": "click",
-   "target": "a",
-   "fire": "ring"
-  },
-  {
-   "on": "down",
-   "target": "a",
-   "toggle": "flag"
-  }
- ]
+  "listeners": [
+    {
+      "on": "enter",
+      "set": {
+        "hover": true
+      }
+    },
+    {
+      "on": "leave",
+      "set": {
+        "hover": false
+      }
+    },
+    {
+      "on": "click",
+      "target": "a",
+      "fire": "ring"
+    },
+    {
+      "on": "down",
+      "target": "a",
+      "toggle": "flag"
+    }
+  ]
 }

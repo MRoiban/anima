@@ -1,0 +1,4 @@
+<!-- expect bad-attribute at 3:24 -->
+<anima version="0.1" name="broken" grid="20">
+  <group id="g" scale="wide"/>
+</anima>
