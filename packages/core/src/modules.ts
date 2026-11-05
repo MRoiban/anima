@@ -17,8 +17,8 @@ import {
   type Shape,
 } from './registry.ts';
 import type { Diags } from './diag.ts';
-import { resolveAddress, type Addr, type Model, type NodeM, type Value } from './load.ts';
-import type { Player } from './player.ts';
+import { load, resolveAddress, type Addr, type Model, type NodeM, type Value } from './load.ts';
+import { Player } from './player.ts';
 import type { DrawTree, DrawNode, DrawEntry, DrawFrame } from './draw.ts';
 
 export interface ModuleEntry {
@@ -31,6 +31,10 @@ export interface ModuleEntry {
   elements?: Record<string, ElementForm>;
 }
 export interface ModuleRegistry {
+  DOC: typeof DOC;
+  nodeShape: typeof nodeShape;
+  load: typeof load;
+  Player: typeof Player;
   resolveAddress: typeof resolveAddress;
   PAINTED: typeof PAINTED;
   FILL: typeof FILL;
@@ -41,6 +45,7 @@ export interface Module {
   name: string;
   init?(registry: ReadonlyMap<string, Module>, shapes: ModuleRegistry): Module;
   entries: ModuleEntry[];
+  resolve?(model: Model, diag: Diags): void;
   load?(model: Model, raw: Model['doc'], diag: Diags): void;
   /** Resolve additional addresses to the existing number/colour/bool sampling slots. */
   model?(node: NodeM, key: string): Pick<Addr, 'prop' | 'rest'> | undefined;
@@ -48,6 +53,7 @@ export interface Module {
   outline?(player: Player, node: number): { pts: number[]; closed: boolean }[] | undefined;
   interpolate?(a: Value, b: Value, weight: number): Value | undefined;
   draw?: {
+    end?(player: Player, frame: DrawFrame): void;
     tree?(model: Model, tree: DrawTree): void;
     frame?(player: Player, node: number, data: DrawNode, entry: DrawEntry, frame: DrawFrame): void;
   };
@@ -59,7 +65,18 @@ export const FEATURES = ['knockout'];
 export function registerModule(m: Module): void {
   if (!/^[a-z]+(?:@[1-9]\d*)?$/.test(m.name)) throw new Error('invalid module name');
   if (modules.has(m.name)) return;
-  m = m.init?.(modules, { PAINTED, FILL, STROKE, PAINT, resolveAddress }) ?? m;
+  m =
+    m.init?.(modules, {
+      DOC,
+      nodeShape,
+      PAINTED,
+      FILL,
+      STROKE,
+      PAINT,
+      resolveAddress,
+      load,
+      Player,
+    }) ?? m;
   for (const e of m.entries) {
     const targets =
       e.target === 'node' ? NODE_TYPES : e.target === 'painted' ? PAINTED : [e.target];

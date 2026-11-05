@@ -81,7 +81,11 @@ describe('build-time libraries and templates', () => {
       '<template name="t"><circle id="x" cx="bad" cy="0" r="1" fill="#000"/></template>',
       '<apply template="ui:t"/>',
     ],
-    ['components-unavailable', '<component name="badge" grid="8"/>', ''],
+    [
+      'undeclared-feature',
+      '<component name="badge" grid="8"><circle id="dot" cx="4" cy="4" r="2" fill="#000"/></component>',
+      '',
+    ],
     ['misplaced-element', '<listener on="click"/>', ''],
     ['duplicate-name', '<template name="t"/><template name="t"/>', ''],
   ])('%s has the imported origin and a related use site', (code, library, body) => {

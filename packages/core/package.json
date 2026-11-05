@@ -13,7 +13,9 @@
     "./composite-svg": "./src/modules/composite/svg.ts",
     "./bind": "./src/modules/bind/index.ts",
     "./assets": "./src/modules/assets/index.ts",
-    "./assets-svg": "./src/modules/assets/svg.ts"
+    "./assets-svg": "./src/modules/assets/svg.ts",
+    "./components": "./src/modules/components/index.ts",
+    "./components-svg": "./src/modules/components/svg.ts"
   },
   "files": [
     "src"

@@ -10,7 +10,7 @@ export type Term =
   | { k: 'end' }
   | { k: 'after'; s: number };
 
-const NAME = '([a-z][a-zA-Z0-9-]*)';
+const NAME = '([a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*)';
 const NUM = '(-?(?:\\d+\\.?\\d*|\\.\\d+)(?:[eE][-+]?\\d+)?)';
 const IS = new RegExp(`^(!?)\\s*${NAME}$`);
 const CMP = new RegExp(`^${NAME}\\s*(==|!=|<=|>=|<|>)\\s*${NUM}$`);

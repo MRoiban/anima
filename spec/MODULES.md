@@ -54,7 +54,7 @@ A module is code in three places, all in its own files:
 Hook points (revised at P4a, owner decision 2026-11-06: rendering is renderer-neutral):
 
 - `registerModule(m: Module)` in core; `Module = { name, entries, load?, model?, value?,
-  interpolate?, outline?, draw? }`.
+  interpolate?, outline?, resolve?, draw? }`.
 - `load(model, raw, diag)`: validate and compile the module's keys after the core loader.
 - `model` / `value` / `interpolate`: new animatable value kinds use the player's existing slots and
   sampling; a module declares their value type and default.
@@ -134,7 +134,7 @@ bind module can target properties installed by other modules.
 
 Each browser module has its own budget (`docs/parity/README.md`), measured like the markup module:
 `gzip(bundle(web + module)) − gzip(bundle(web))`, enforced by `tools/size.ts`. The core + web
-budget (25 KB) covers the hook points only. P4a-4 additionally targets its 16697 B baseline.
+budget (30 KB) covers the hook points only. P4a-4 additionally targets its 16697 B baseline.
 Paint is limited to 5120 B, composite to 4096 B, bind to 2048 B and markup to 8192 B incremental.
 Paint is limited to 5120 B, composite to 4096 B, assets to 2048 B and markup to 8192 B incremental.
 
@@ -167,3 +167,21 @@ Value`. The loader registers bound addresses in `Model.addrs`; the player evalua
 against applied inputs after layer resolution and before clamping. Bind's exported `expression`
 compiler takes named input types and `evaluate` takes a compiled expression and input scope.
 Components can reuse the evaluator for instance inputs without coupling it to a document/player.
+
+### Nested-player seam (components)
+
+`Module.resolve(model, diag)` runs after nodes/inputs are compiled and before timeline, listener
+and transition references resolve. Components use it to validate child models and expose scoped
+input/event references to existing semantic validation. `Model.nesting(player)` creates an
+optional `PlayerExtension` for input forwarding, local pointer routing, stepping and scoped
+inspection. The base player owns no component policy. `draw.end(player, frame)` runs after all
+local node hooks, so nested sibling ranks can be appended after the parent compositing pass. Child
+draw entries are appended to the parent tree; the components final draw hook supplies their
+resolved draw records and remaps resources.
+`Module.init` also receives the active runtime's `load` and `Player`, preserving registry identity
+when optional browser modules arrive as separate bundles.
+
+Formatter-only registry shapes may specify `format: <shape>` to reuse canonical key ordering
+without changing structural validation. Components reuse the document shape for their nested
+self-contained documents. Module initialization also receives the active `nodeShape` resolver;
+components derive reserved input names from the instance shape, including optional node keys.

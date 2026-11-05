@@ -78,6 +78,7 @@ export const STRUCTURAL_NODE_KEYS = [
   'children',
   ...Object.keys(STATIC.group).filter((k) => nodeShape('group').p[k]?.element),
   'paints',
+  'inputs',
 ];
 
 /** Node element names: one per node type. */

@@ -1,0 +1,4 @@
+{"time":0,"values":{"a/count":3,"a/dot.r":3,"b/count":6,"b/dot.r":6,"c/count":0,"c/dot.r":0},"states":{"main":"drive"},"events":[],"settled":false}
+{"time":0,"values":{"a/count":5,"a/dot.r":5,"b/count":8,"b/dot.r":8,"c/count":0,"c/dot.r":0},"states":{"main":"drive"},"events":[],"settled":false}
+{"time":0.5,"values":{"c/count":4,"c/dot.r":4},"states":{"main":"drive"},"events":[],"settled":false}
+{"time":1,"values":{"c/count":8,"c/dot.r":8},"states":{"main":"drive"},"events":[],"settled":true}

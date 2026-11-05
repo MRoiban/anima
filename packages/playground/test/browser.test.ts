@@ -193,6 +193,24 @@ for (const [name, type, executablePath] of BROWSERS) {
       );
       expect(await iconValue('dot.scale')).toBe(1);
     });
+    it('shows live scoped component states in the state panel', async () => {
+      await page
+        .locator('#source')
+        .fill(
+          `<anima version="0.1" name="components" grid="20" requires="components"><component name="button" grid="20"><trigger name="press"/><circle id="dot" cx="10" cy="10" r="5" fill="#f00"/><listener on="click" fire="press"/><layer name="interaction" initial="idle"><state name="idle"><pose/><on when="press" to="pressed"/></state><state name="pressed"><pose dot.opacity="0.5"/></state></layer></component><instance id="badge" component="button"/></anima>`,
+        );
+      await page.waitForFunction(() =>
+        document
+          .querySelector('#instance-states')
+          ?.textContent?.includes('badge/interaction: idle'),
+      );
+      await page.locator('#icon').click();
+      await page.waitForFunction(() =>
+        document
+          .querySelector('#instance-states')
+          ?.textContent?.includes('badge/interaction: pressed'),
+      );
+    });
     it('opens the built-in example without write access', async () => {
       await host.close();
       host = await startPlayground({ port: 0, html });

@@ -106,7 +106,7 @@ export interface InputM {
 }
 
 export interface ListenerM {
-  on: 'enter' | 'leave' | 'down' | 'up' | 'click' | 'move';
+  on: string;
   /** Node index, or -1 for the whole icon. */
   target: number;
   pad: number;
@@ -117,6 +117,7 @@ export interface ListenerM {
 }
 
 export interface Model {
+  nesting?: (player: import('./player.ts').Player) => import('./player.ts').PlayerExtension;
   /** Optional post-state bindings; evaluators receive the current named inputs. */
   bindings?: Map<string, (scope: ReadonlyMap<string, number | boolean>) => Value>;
   /** Built after successful validation; stable for the document lifetime. */
@@ -325,6 +326,21 @@ function resolve(doc: Raw, d: Diags): Model {
       );
     return inp;
   };
+
+  const model: Model = {
+    doc,
+    grid: doc.grid,
+    viewBox: doc.viewBox ?? [0, 0, doc.grid, doc.grid],
+    colors,
+    nodes,
+    ids,
+    inputs,
+    addrs: new Map(),
+    timelines: [],
+    layers: [],
+    listeners: [],
+  };
+  for (const m of modules.values()) m.resolve?.(model, d);
 
   // Addresses
   const addrs = new Map<string, Addr>();
@@ -661,20 +677,7 @@ function resolve(doc: Raw, d: Diags): Model {
       if (!used!.has(n))
         d.warn('unused-input', ptr('/inputs', n), V && `nothing reads or writes "${n}"`);
 
-  const vb = doc.viewBox ?? [0, 0, doc.grid, doc.grid];
-  return {
-    doc,
-    grid: doc.grid,
-    viewBox: vb,
-    colors,
-    nodes,
-    ids,
-    addrs,
-    timelines,
-    layers,
-    inputs,
-    listeners,
-  };
+  return Object.assign(model, { addrs, timelines, layers, listeners });
 }
 
 type Glyphs = Map<string, { d: string; sp: Subpath[] } | undefined>;

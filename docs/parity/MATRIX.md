@@ -963,12 +963,12 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 |---|---|---|---|---|---|
 | `components.explicit-context` | Explicit component context | new: components.<name> / nodes[].component: named explicit-context settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-explicit-context |
 | `components.host-artboard-reference` | Host bindable artboard | new: components.<name> / nodes[].component: named host-artboard-reference settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-host-artboard-reference |
-| `components.host-nested-inputs` | Host nested inputs | new: components.<name> / nodes[].component: named host-nested-inputs settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-host-nested-inputs |
+| `components.host-nested-inputs` | Host nested inputs | Player.set/fire/toggle("instance.input") | components | planned | packages/core/test/components.test.ts |
 | `components.inherited-context` | Inherited component context | new: components.<name> / nodes[].component: named inherited-context settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-inherited-context |
 | `components.layout-size` | Per-instance layout size | new: components.<name> / nodes[].component: named layout-size settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-layout-size |
 | `components.leaf-fit` | Nested fit and alignment | new: components.<name> / nodes[].component: named leaf-fit settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-leaf-fit |
-| `components.library-components` | Library components | new: components.<name> / nodes[].component: named library-components settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-library-components |
-| `components.library-detach` | Detach library dependency | new: components.<name> / nodes[].component: named library-detach settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-library-detach |
+| `components.library-components` | Library components | AniML library <component>; <instance component="ui:name"> | components | planned | packages/markup/test/components.test.ts |
+| `components.library-detach` | Detach library dependency | anima build resolves component libraries into self-contained .ani | components | planned | packages/markup/test/components.test.ts |
 | `components.library-export` | Library export selection | new: components.<name> / nodes[].component: named library-export settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-library-export |
 | `components.library-models` | Library data definitions | new: components.<name> / nodes[].component: named library-models settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-library-models |
 | `components.library-update` | Update library dependency | new: components.<name> / nodes[].component: named library-update settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-library-update |
@@ -976,20 +976,20 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `components.list-layout-inheritance` | Component list layout inheritance | new: components.<name> / nodes[].component: named list-layout-inheritance settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-list-layout-inheritance |
 | `components.list-map` | Map model to row artboard | new: components.<name> / nodes[].component: named list-map settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-list-map |
 | `components.list-size-override` | Generated item sizing | new: components.<name> / nodes[].component: named list-size-override settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-list-size-override |
-| `components.nested-animation` | Nested animation playback | new: components.<name> / nodes[].component: named nested-animation settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-animation |
-| `components.nested-artboard` | Nested artboard placement | new: components.<name> / nodes[].component: named nested-artboard settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-artboard |
-| `components.nested-bool` | Nested boolean input | new: components.<name> / nodes[].component: named nested-bool settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-bool |
-| `components.nested-machine` | Nested state machine | new: components.<name> / nodes[].component: named nested-machine settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-machine |
-| `components.nested-number` | Nested numeric input | new: components.<name> / nodes[].component: named nested-number settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-number |
-| `components.nested-pause` | Nested pause | new: components.<name> / nodes[].component: named nested-pause settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-pause |
+| `components.nested-animation` | Nested animation playback | components definitions with per-instance timeline players | components | planned | spec/conformance/components-basic |
+| `components.nested-artboard` | Nested artboard placement | components map + transformed instance nodes; scoped draw groups | components | planned | spec/conformance/components-nested |
+| `components.nested-bool` | Nested boolean input | instance bool inputs; scoped set/toggle actions | components | planned | packages/core/test/components.test.ts |
+| `components.nested-machine` | Nested state machine | one independent Player per instance; scoped layer inspection | components | planned | spec/conformance/components-events |
+| `components.nested-number` | Nested numeric input | instance number inputs, literals/expressions, bounds | components | planned | spec/conformance/components-inputs-bound |
+| `components.nested-pause` | Nested pause | instance.paused suspends child stepping | components | planned | spec/conformance/components-basic |
 | `components.nested-quantize` | Nested quantization | new: components.<name> / nodes[].component: named nested-quantize settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-quantize |
 | `components.nested-remap` | Nested time remapping | new: components.<name> / nodes[].component: named nested-remap settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-remap |
-| `components.nested-speed` | Nested speed | new: components.<name> / nodes[].component: named nested-speed settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-speed |
-| `components.nested-trigger` | Nested trigger input | new: components.<name> / nodes[].component: named nested-trigger settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-trigger |
+| `components.nested-speed` | Nested speed | instance.speed multiplies parent dt | components | planned | spec/conformance/components-basic |
+| `components.nested-trigger` | Nested trigger input | fire="instance.trigger"; child listener trigger actions | components | planned | spec/conformance/components-events |
 | `components.script-instance` | Script-created artboard instance | new: components.<name> / nodes[].component: named script-instance settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-script-instance |
-| `components.stateful-input-animation` | Animate component inputs | new: components.<name> / nodes[].component: named stateful-input-animation settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-stateful-input-animation |
-| `components.stateful-input-forwarding` | Forward nested component inputs | new: components.<name> / nodes[].component: named stateful-input-forwarding settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-stateful-input-forwarding |
-| `components.stateful-instance` | Per-placement state | new: components.<name> / nodes[].component: named stateful-instance settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-stateful-instance |
+| `components.stateful-input-animation` | Animate component inputs | pose/track/bind targets instance.input after parent resolution | components | planned | packages/core/test/components.test.ts |
+| `components.stateful-input-forwarding` | Forward nested component inputs | instance inputs="{parentInput}" via bind evaluator, recursively | components | planned | spec/conformance/components-nested |
+| `components.stateful-instance` | Per-placement state | instance owns inputs, clocks, transitions and timelines | components | planned | packages/core/test/components.test.ts |
 | `components.stateful-output` | Read-only component outputs | new: components.<name> / nodes[].component: named stateful-output settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-stateful-output |
 
 ### Assets

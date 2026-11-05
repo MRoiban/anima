@@ -12,6 +12,7 @@ export interface LayoutElement {
 export type LayoutChild = LayoutElement | { comment: string; blank?: boolean } | { text: string };
 
 export const ATTR_ORDER: Record<string, string[]> = {
+  component: ['name', 'grid', 'viewBox'],
   anima: ['version', 'name', 'title', 'grid', 'viewBox', 'requires', 'xmlns'],
   meta: [],
   color: ['name', 'value'],

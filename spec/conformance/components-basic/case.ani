@@ -1,0 +1,60 @@
+{
+  "anima": "0.1",
+  "name": "components-basic",
+  "grid": 20,
+  "requires": ["components"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "instance",
+      "component": "mover",
+      "speed": 2
+    },
+    {
+      "id": "b",
+      "type": "instance",
+      "x": 10,
+      "component": "mover",
+      "paused": true
+    }
+  ],
+  "components": {
+    "mover": {
+      "grid": 8,
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [4, 4],
+          "r": 2,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "timelines": {
+        "move": {
+          "duration": 1,
+          "tracks": {
+            "dot.x": [
+              [0, 0],
+              [1, 10]
+            ]
+          }
+        }
+      },
+      "machine": {
+        "layers": {
+          "motion": {
+            "initial": "move",
+            "states": {
+              "move": {
+                "play": "move"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

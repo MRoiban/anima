@@ -1,0 +1,4 @@
+pointer click 18 8
+snapshot seen a/dot.opacity
+advance 0
+snapshot seen a/dot.opacity

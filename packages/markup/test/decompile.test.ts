@@ -28,7 +28,9 @@ function recover(root: Element): Obj {
   const types = new Map<string, NodeType>();
   const collect = (e: Element) => {
     if (NODE_ELEMENTS.includes(e.name)) types.set(attrs(e).id!, e.name as NodeType);
-    elements(e).forEach(collect);
+    elements(e)
+      .filter((c) => c.name !== 'component')
+      .forEach(collect);
   };
   collect(root);
   const address = (s: string) => aniAddress(s, (id) => types.get(id)) ?? s;
@@ -112,6 +114,11 @@ function recover(root: Element): Obj {
         ((o.paints ??= []) as unknown[]).push({ [kind]: paint });
       }
     }
+    if (e.name === 'instance') {
+      const known = new Set(['id', ...nodeAttrs(e.name as NodeType).map((a) => a.attr)]);
+      for (const [key, v] of Object.entries(attrs(e)))
+        if (!known.has(key)) ((o.inputs ??= {}) as Obj)[key] = scalar(v);
+    }
     if (e.name === 'group')
       o.children = elements(e)
         .filter((c) => NODE_ELEMENTS.includes(c.name))
@@ -130,7 +137,12 @@ function recover(root: Element): Obj {
       p = plain(el);
     const name = a.name!;
     delete p.name;
-    if (el.name === 'bind') insert('bind', address(a.target!), a.value);
+    if (el.name === 'component') {
+      const component = recover({ ...el, name: 'anima' });
+      delete component.name;
+      delete component.anima;
+      insert('components', name, component);
+    } else if (el.name === 'bind') insert('bind', address(a.target!), a.value);
     else if (NODE_ELEMENTS.includes(el.name)) (d.nodes as unknown[]).push(node(el));
     else if (el.name === 'meta')
       d.meta = {
@@ -342,7 +354,13 @@ function check(source: string | object) {
       'fillPaint',
       'strokePaint',
     ]).toContain(e.name);
-    if (e.name !== 'pose') for (const a of e.attrs) expect(attrOrder(e.name)).toContain(a.name);
+    if (e.name !== 'pose')
+      for (const a of e.attrs) {
+        if (e.name === 'instance' && !attrOrder(e.name).includes(a.name)) {
+          const component = (expected.components as Obj)[attrs(e).component!] as Obj;
+          expect(Object.keys(component.inputs as Obj)).toContain(a.name);
+        } else expect(attrOrder(e.name)).toContain(a.name);
+      }
     elements(e).forEach(names);
   };
   names(root);

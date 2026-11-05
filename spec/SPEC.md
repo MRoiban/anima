@@ -874,3 +874,88 @@ by this disk build and report `asset-load`; HTTP asset fetching is a browser hos
 `anima render` embeds local image sources and decodes intrinsic sizes through resvg before
 rendering; other asset types remain declarations. IO/decode failures report `asset-load` at
 `/assets`, with a message and hint. Build does not decode or transcode image bytes.
+
+
+## components
+
+The optional `components` module requires `requires: ["components"]`. A document's `components`
+map holds named nested documents: `grid`, optional `viewBox`, `inputs`, `nodes`, `timelines`,
+`machine`, `listeners`, `colors`, `glyphs`, `a11y`, `hit` and `bind`. Definitions inherit the enclosing
+`requires` list. References to components resolve in the enclosing document's component map,
+including from other definitions; all definitions, even unused ones, are validated. Each placement
+owns a separate player; compiled definitions and static geometry may be shared.
+
+An instance node has `{id, type: "instance", component, inputs?, speed?, paused?}` and the ordinary
+node transform, opacity and visibility properties. `component` names a definition. `inputs` maps its
+bool/number inputs to literals or strings `{expression}`. Expressions use the bind grammar and
+require `bind`; their scope is the parent's applied inputs. Triggers cannot be initialized with
+values. Omitted inputs retain their component defaults. Literal initializers apply once, before
+subsequent queued writes. Number inputs clamp to their declared bounds.
+
+Component inputs must not use any key in the instance node's registry shape. This includes `id`,
+`type`, `component`, `inputs`, transform keys, `opacity`, `visible`, `speed`, `paused`, and keys
+installed by other node modules such as `blend`, `mask` and `clip`. Those names retain their plain
+instance attributes and `<instanceId>.<property>` addresses. `reserved-input-name` points at the
+input declaration (`/components/<name>/inputs/<input>`, with source line/column in AniML), with the
+hint `rename the input; <name> is an instance property (e.g. use pos-x)`. The reserved set is derived
+from the active registry's instance shape, including module keys; it is not a separate hand list.
+
+### Stepping, writes and events
+
+After §7 step 5, the parent evaluates instance input expressions, then resolved parent addresses
+that name instance inputs, and steps children in node order with `dt * speed` (`speed` defaults to
+1, must be finite and ≥0). Each child's own state speeds multiply this speed. A `paused` instance
+(default false) retains its clocks and queued input actions without stepping. An invisible instance
+whose player is settled and has no queued writes is not stepped. Invisible running players finish
+normally. Reduced-motion policy propagates from the parent before stepping.
+
+A parent's actions and host API may address `<instanceId>.<input>` in `set`, `toggle` and `fire`.
+Bindings, poses and tracks may target a bool/number instance input at the same address; explicit
+resolved addresses override inline instance expressions. Writes reach the child before its step.
+Nested action addresses continue with dots (`outer.inner.count`). Invalid inputs/types are load
+errors, just like local inputs.
+
+Pointers are transformed through the inverse instance world matrix and routed to each child
+player. Invisible or singular instances receive `leave`. The child's own hit areas and listeners
+then operate in local grid units; parent listener targets on instances use their local viewBox.
+Instances do not establish a viewport clip or automatic fit; use their ordinary transforms and
+composite clipping to place/clip them.
+
+A child's events are returned by that parent step as `<instanceId>.<event>`; nested names continue
+with dots. Event layers use slash scope (`outer/inner/layer`), retaining null for listener events.
+The parent queues the bubbled event as a one-step trigger and queues matching parent listeners
+(`on: "badge.selected"`). Those actions and parent transition conditions (`when: "badge.selected"`)
+are applied on the **next parent step**, including `step(0)`. Child events follow the parent's own
+events in deterministic instance order. Pending bubbled events/actions keep the parent unsettled.
+This single pass prevents event feedback from rerunning the state machine in one step. A parent is
+settled only when its own machine and all unpaused children are settled and no actions are queued.
+
+### Drawing and inspection
+
+An instance contributes a renderer-neutral group with its local transform and the child's draw
+tree as children. Draw entries have scoped ids (`badge/dot`, `outer/inner/dot`); resources and
+source references are remapped into the enclosing draw tree. SVG uses scoped ids under the host's
+unique id prefix. Clip, mask, blend and paint behavior use the ordinary draw/backend contract.
+
+`Player.states()` and `inspect()` include slash-scoped child layers. `Player.values()` and sample
+snapshots include child inputs (`badge/count`) and animated values (`badge/dot.r`), recursively;
+selected snapshots accept those same scoped addresses. `anima inspect` lists placed instances and
+their initial states. The playground's state panel shows live instance states.
+
+### Limits and diagnostics
+
+No recursive definitions are allowed: direct/indirect cycles are `component-cycle`. Expanded
+placement depth is at most 8 and the total number of instances is at most 256, including repeated
+nested placements (`limit-exceeded`). Ordinary per-document node/key/layer limits still apply to
+each definition. `unknown-component` points at the instance's component name; `unknown-input` and
+`input-type` point at bad input initializers/actions. Bind expressions retain `bind-syntax`,
+`bind-type` and `unknown-input`. `unknown-event` rejects unresolved listener event names;
+`component-event-collision` rejects a component input and event sharing a scoped address.
+Diagnostics retain JSON pointers and corrective hints; errors inside definitions point under
+`/components/<name>`. No partially valid instance tree escapes a failed load.
+
+This implementation is independent. Explicit names, validation before references are used and
+retained nested transforms follow [graph research](../docs/research/rive-format-and-graph.md) §6;
+a single ordered update pass avoids the feedback loops discussed in
+[state research](../docs/research/rive-animation-and-state.md) §C. Sleep behavior follows
+[web runtime research](../docs/research/rive-web-runtime.md), with no separate instance scheduler.

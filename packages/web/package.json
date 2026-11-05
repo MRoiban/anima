@@ -11,7 +11,8 @@
     "./composite": "./src/composite.ts",
     "./bind": "./src/bind.ts",
     "./assets": "./src/assets.ts",
-    "./markup-libraries": "./src/markup-libraries.ts"
+    "./markup-libraries": "./src/markup-libraries.ts",
+    "./components": "./src/components.ts"
   },
   "files": [
     "src"

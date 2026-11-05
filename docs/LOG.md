@@ -781,3 +781,40 @@ not a claimed speedup. Local commit only; no push or PR.
   failures (Chromium bind undefined player, Firefox playground timeout/server close),
   both pass with two workers. Web and AniML generated checks and performance check
   pass separately; strict oracle CLI passes. Full check is explicitly **not green**.
+
+
+
+## P5-2 — component players (2026-11-05; acceptance pending markup split)
+
+- Implemented DESIGN §3: self-contained component definitions, instance nodes in both syntaxes
+  (including libraries), literal and parent-scoped expression inputs using the bind evaluator,
+  scoped set/fire/toggle and bound/animated input destinations. Each placement owns a player;
+  speed and pause apply to clocks, and invisible settled children stop stepping. Local pointer
+  routing and scoped bubbled events are deterministic. Parent event listeners/transitions react
+  on the next parent step rather than rerunning the machine in a feedback pass.
+- Renderer-neutral instance groups append scoped child entries/resources. A final draw hook
+  preserves nested compositing ranks after parent resolution; SVG uses scoped node ids.
+  `inspect`, `sample`, live playground states, the toolbar example (three Glyphy icons using
+  the shared press template plus a bound unread badge), and the authoring/spec chapters ship.
+- Added four manually calculated conformance cases, core validation/clock/compositing tests,
+  AniML round-trip and library-scope tests, CLI coverage, and Chromium + Firefox runtime and
+  playground tests. Owner's namespace ruling is implemented: `reserved-input-name` derives every
+  reserved name from the active instance registry shape (including module node keys), points at
+  the input declaration with source coordinates, and supplies the requested rename hint.
+- Final `npm run check`: typecheck, lint, formatting and **900 tests / 42 files** pass. It exits 1
+  at the unchanged markup budget: **10078 / 8192 B**. The same build/minifier applied to e64cf94
+  source gives markup **9583 B**, so component authoring adds **495 B** to that existing blocker.
+  The parallel markup-libraries split must preserve component pass-through and finish acceptance.
+  No budget or timing-test limit was changed. Both artifact checks pass independently (49 AniML
+  inputs including the library), as do the final performance commands.
+- Sizes (min+gzip): core+web **17026 → 17326 B (+300 B)**, components **3485 / 4096 B**,
+  markup **10078 / 8192 B**, paint **3668 / 5120 B**, composite **3811 / 4096 B**, bind
+  **1414 / 2048 B**; full-featured and Rive-class totals **38176 B** (ceilings 102400 / 256000 B).
+  Only generic loader/player/draw hooks are paid by the base runtime; component behavior stays
+  under `packages/core/src/modules/components/`. Formatter metadata is tooling-only.
+- Final performance line: bell compile **2.38 ms**, **9040 prefixes / 787 ms**; step + draw frame
+  bell **45.7 µs**, composite **27.9 µs**, toolbar (four instances) **32.0 µs**; toolbar compile
+  **4.11 ms**. These are single-session measurements, not a claim of a timing improvement.
+- Updated construct/test on 14 `components.*` parity rows, leaving status/phase to the orchestrator.
+  Assets and oracle trees were not edited. No Rive commands, runtime dependencies, licence,
+  push, PR or merge. The open P5-2 checkbox records the size-gate blocker honestly.

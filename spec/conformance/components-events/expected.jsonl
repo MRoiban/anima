@@ -1,0 +1,2 @@
+{"time":0,"values":{"seen":false,"a/dot.opacity":0.5},"states":{"parent":"waiting","a/button":"pressed"},"events":[{"name":"a.selected","layer":"a/button","time":0}],"settled":false}
+{"time":0,"values":{"seen":true,"a/dot.opacity":0.5},"states":{"parent":"selected","a/button":"pressed"},"events":[],"settled":true}

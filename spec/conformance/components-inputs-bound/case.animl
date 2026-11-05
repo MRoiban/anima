@@ -1,0 +1,18 @@
+<anima version="0.1" name="components-inputs-bound" grid="20" requires="components bind">
+  <number name="unread" default="3"/>
+  <component name="badge" grid="8">
+    <number name="count" min="0" max="8"/>
+    <circle id="dot" cx="4" cy="4" r="1" fill="#f00"/>
+    <bind target="dot.r" value="count"/>
+  </component>
+  <instance id="a" component="badge" count="{unread}"/>
+  <instance id="b" component="badge" count="2"/>
+  <instance id="c" component="badge" count="2"/>
+  <timeline name="drive" duration="1">
+    <track target="c.count">0 0; 1 8</track>
+  </timeline>
+  <layer name="main" initial="drive">
+    <state name="drive" play="drive"/>
+  </layer>
+  <bind target="b.count" value="unread * 2"/>
+</anima>

@@ -1,0 +1,120 @@
+{
+  "anima": "0.1",
+  "name": "components-nested",
+  "grid": 20,
+  "requires": ["components", "bind"],
+  "inputs": {
+    "unread": {
+      "type": "number",
+      "default": 3
+    }
+  },
+  "nodes": [
+    {
+      "id": "outer",
+      "type": "instance",
+      "x": 6,
+      "component": "wrapper",
+      "inputs": {
+        "count": "{unread}"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "parent": {
+        "initial": "waiting",
+        "states": {
+          "waiting": {
+            "pose": {},
+            "on": [
+              {
+                "when": "outer.inside.selected",
+                "to": "selected"
+              }
+            ]
+          },
+          "selected": {
+            "pose": {}
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "button": {
+      "grid": 8,
+      "inputs": {
+        "count": {
+          "type": "number"
+        },
+        "press": {
+          "type": "trigger"
+        }
+      },
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [4, 4],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "machine": {
+        "layers": {
+          "button": {
+            "initial": "idle",
+            "states": {
+              "idle": {
+                "pose": {},
+                "on": [
+                  {
+                    "when": "press",
+                    "to": "pressed"
+                  }
+                ]
+              },
+              "pressed": {
+                "pose": {
+                  "dot.opacity": 0.5
+                },
+                "emit": "selected"
+              }
+            }
+          }
+        }
+      },
+      "listeners": [
+        {
+          "on": "click",
+          "fire": "press"
+        }
+      ],
+      "bind": {
+        "dot.r": "count"
+      }
+    },
+    "wrapper": {
+      "grid": 12,
+      "inputs": {
+        "count": {
+          "type": "number"
+        }
+      },
+      "nodes": [
+        {
+          "id": "inside",
+          "type": "instance",
+          "x": 2,
+          "component": "button",
+          "inputs": {
+            "count": "{count}"
+          }
+        }
+      ]
+    }
+  }
+}
