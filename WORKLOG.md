@@ -1,11 +1,11 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: P5-7 (markup owner) running → then D1 module folders + D2 scoped tests (parallel) → D3 new-capability scaffolder → P5 AniML benchmark run → P5 PR (full check in CI).
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: D2 scoped tests implemented on t3/scoped-test-runner; commit locally only.
+State: selector 7/7; typecheck/lint/format pass; full check NOT green (inherited markup/timing failures).
+Metrics: paint 152.876 s (739 pass/3 fail), full 145.371 s (993 pass/7 fail); no speedup established.
+Next: parent integrates D2, resolves P5 markup failures/size, runs complete CI before merge.
+Don't: relax budgets/test limits; edit runtime package sources; push/PR/merge.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -87,3 +87,8 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-07 00:40 [claude]: P5-5 (fe7438f) partial: image paints done; new surface module (n-slice + feather, 7576/8192) without nested AniML forms; 3 markup test failures; held unmerged until P5-6 markup split lands, then one markup-owner follow-up (design/p5/SURFACE-HANDOFF.md on that branch)
 - 2026-11-07 01:30 [claude]: merged P5-6 split (444194; compile interleaved ~867→842 ms, no regression) and P5-5 surface (fe7438f); 988/993 tests (3 markup fixture/name tests, demo); markup 8255 over again → P5-7 markup owner follow-up
 - 2026-11-07 02:00 [owner]: dev process: module folders + generated index (order from deps, composed registry), scoped tests locally / full suite in CI, new-capability scaffolder — recorded in PLAN/LOG; scheduled after P5-7
+- 2026-11-05 23:05 [sol D2]: added scoped Vitest projects + derived ownership, CI complete check/summary, testing docs → selector tests 7/7 and tools typecheck/lint pass; timed paint running, existing markup fixture failure observed (unverified full result).
+- 2026-11-05 23:10 [sol D2]: fixed conformance title filter (Vitest delimiter is " > ") → bind conformance 6 cases execute, 270 scoped tests pass; Chromium selection 316 pass; changed/base/no-browser selection maps all touched tooling to packages+tools. npm run check typecheck/lint/format pass, tests 996 pass/4 fail (3 inherited markup fixtures/names, prefix time under load); final sequential timings running.
+- 2026-11-05 23:14 [sol D2]: final review added shared markup API/registry/corpus tests to each module scope (derived from imports) so unnamed integration coverage is retained → selector regression tests pass; remeasuring paint. Full npx vitest run 145.371 s, 993 pass/7 fail (3 markup expectations, 4 timing failures); earlier narrower paint 172.075 s, not a speedup under shared-host contention.
+- 2026-11-05 23:17 [sol D2]: final paint scope 152.876 s (30 files, 739 pass/3 inherited markup failures, 20 matching cases execute); full 145.371 s (51 files, 993 pass/7 failures, no skips) → smaller selection but no speedup demonstrated; /usr/bin/time absent, measured both actual subprocesses with Python monotonic (evidence: /tmp/anima-d2-final-metric-scope.json, /tmp/anima-d2-metrics.json).
+- 2026-11-05 23:18 [sol D2]: final tools typecheck/lint/format and diff whitespace pass; web + 52 AniML artifact checks and perf pass; size exits 1 solely at inherited markup 8255/8192 B → full check remains not green, budgets unchanged (evidence: /tmp/anima-d2-{size,web-artifacts,animl-artifacts,perf}.log). Ready for local D2 commit only.

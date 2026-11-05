@@ -917,3 +917,45 @@ module edits the same shared lists, which is why bind + assets hit 16 conflicts;
 scoped tests for what they touch, the full `npm run check` runs once per PR in CI while the next
 task starts (merge only when green); (3) `tools/new-capability.ts <row-id>` scaffolds a capability
 from its parity row. Scheduled after P5-7 lands and before the next new module; recorded in PLAN.
+
+## D2 — Scoped development tests
+
+- Added `npm run test:scope -- <target…>` for package/module unions, conformance, oracle and changed
+  files, with `--no-browser`, `--browser=chromium|firefox` and `--base=<ref>`. Selection prints every
+  test file; separate Vitest projects keep browser and conformance filters out of unit tests.
+- Ownership is discovered from paths, names and module references, with `moduleFiles` as the
+  manifest migration seam. Shared package files select their package; shared tooling/config selects
+  all packages and tools. No test list is maintained by hand.
+- CI now invokes the complete `npm run check` on every push and PR, preserving failure status through
+  tee and putting size/perf lines in the always-run job summary. AGENTS/ARCHITECTURE describe scoped
+  development and the green-CI merge gate. The default full-suite Vitest config is unchanged.
+- Selector tests: 7/7; new tools typecheck/lint/format pass. Bind with no browser executes all six
+  matching conformance cases (270 tests passed before the expanded reference matcher); bind with
+  Chromium passes 316 tests with Firefox and unrelated conformance cases filtered. An initial
+  conformance title filter selected no cases; corrected for Vitest's ` > ` delimiter and regression
+  tested. No runtime dependencies, budgets, measurement methods or full-suite skips were changed.
+- First full `npm run check`: typecheck/lint/format passed; 996 tests passed and 4 failed
+  (three inherited markup fixture/name expectations for slice/feather, plus the unchanged prefix
+  timing gate under contention). `changed --base=HEAD --no-browser`: 841 passed / the same three
+  markup assertions failed; the prefix gate passed in that run. These are not hidden or loosened.
+- Final review included shared markup API/registry/corpus tests for each module, derived from imports,
+  so generic tests that do not name a module still run. The earlier paint measurement (172.075 s,
+  582 passed / 1 fixture failure) preceded this coverage addition and is not the final scope metric.
+- Sequential `npx vitest run`: **145.371 s**, 51 files, **993 passed / 7 failed**, no skipped tests.
+  Failures: the same three markup expectations, plus unchanged timeouts in CLI authoring, Chromium
+  standalone demo, Firefox components and Firefox surface. Shared-host load prevents a stable
+  speed comparison; none of these timing limits was changed.
+- Final paint scope (after shared markup coverage): **152.876 s**, 30 files, **739 passed / 3
+  inherited markup failures**, 22 unrelated conformance tests filtered. All 20 matching conformance
+  cases execute. Full command above ran every test with no skips. Wall times use Python monotonic
+  timing around the actual npm/npx subprocesses, with identical test limits. Scope reduced the test
+  set but was **5.2% slower** in this sample; no speedup is established on the contended shared host.
+- All requested targets are supported: five packages, discovered module entries (including paint,
+  composite, bind, assets, components and surface), conformance, oracle, changed, plus tools.
+  `--no-browser`, single-engine selection and the changed/base override were exercised. Remaining
+  full-check failures belong to the existing P5 markup/test state, not hidden test exclusions.
+- Checks after the test gate: web artifact freshness and all 52 AniML artifacts pass; perf exits 0
+  (bell compile 2.96 ms, 9040 prefixes 859 ms; bell/composite/toolbar frames 45.0/29.6/27.7 µs;
+  toolbar compile 3.93 ms). Size exits 1 at inherited markup **8255/8192 B**; core+web 17388 B,
+  full-featured 43382 B. Therefore **npm run check is not green**. New tooling typecheck/lint/format
+  pass. No push, PR or merge was performed; D2 is a local implementation commit for integration.

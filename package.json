@@ -24,7 +24,8 @@
     "build:web": "node tools/build-web.ts",
     "build:animl": "node tools/build-animl.ts",
     "build:playground": "node tools/build-playground.ts",
-    "perf": "node tools/perf.ts"
+    "perf": "node tools/perf.ts",
+    "test:scope": "node tools/test-scope.ts"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
