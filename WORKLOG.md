@@ -65,3 +65,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 03:10 [claude]: launched P4a-4 (draw layer + paint/composite split; Sol xhigh; core+web target ≤16697 B) and the Rive side of the P4a benchmark (AniML side after P4a-4)
 - 2026-11-06 03:30 [claude]: merged benchmark P4a Rive run (6688103): 5/6 (reduced motion host-only), 7m14s, 182 lines incl. generator; frames checked visually (mid-morph, clipped sweep); no .riv/scaffold docs committed
 - 2026-11-06 05:00 [claude]: merged P4a-4 draw layer (3e2a00f): 706 tests, 0.1 SVG byte-identical, paint 3771/5120, composite 3874/4096; core+web 17175 (+478 over 16697 target) → size race
+- 2026-11-06 05:10 [claude]: launched size race A+B (core+web 17175 → ≤16697, xhigh) and the AniML side of the P4a benchmark
