@@ -1,4 +1,4 @@
-<anima version="0.1" name="composite" grid="20" requires="paint">
+<anima version="0.1" name="composite" grid="20" requires="composite">
   <rect id="background" x0="0" y0="0" width="20" height="20" fill="#e8eef8"/>
   <circle id="source" cx="10" cy="10" r="8" fill="#fff"/>
   <rect id="card" x0="2" y0="2" mix-blend-mode="multiply" width="16" height="16">

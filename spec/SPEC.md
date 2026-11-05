@@ -664,6 +664,17 @@ so this tolerance describes subdivision flatness, not the initial arc approximat
 These are independent constructions, extending the shared scene and registry designs
 in the format/graph and web-runtime research cited above. No algorithm follows Rive
 runtime source; no additional NOTICE attribution is required.
+## composite
+
+The optional `composite` module extends 0.1 documents with `requires: ["composite"]`.
+It owns blend modes, source masks, geometry clips, ordered paints/paint visibility,
+stroke placement and sibling draw order. Gradients, dashes, additional geometry,
+corners, morphs and fixed strokes belong to `paint`; using both sets requires
+`requires: ["paint", "composite"]` (AniML `requires="paint composite"`).
+An unavailable module is `unknown-feature`; using an undeclared feature is
+`undeclared-feature` at the offending key/address with an add-feature hint (§11.3).
+Composite alone supports ordinary 0.1 geometry and solid paints.
+
 ### Blend modes
 
 `node.blend` (AniML `mix-blend-mode`) selects normal (default), multiply, screen, overlay,
@@ -724,10 +735,10 @@ per frame, removing then inserting their node relative to the target. Multiple r
 have deterministic precedence. Cyclic target chains and nonsibling targets are rejected.
 Rules involving knockout siblings are rejected because knockout permanently groups earlier nodes.
 Static SVG serializes the current order; web reorders existing DOM siblings without replacing
-nodes or detaching their masks. The extra module `order(player,nodes)` hook returns sibling indices.
-The module `init()` hook constructs registry entries at registration, preserving tree shaking.
-A module may set `crossNode: true` to request repainting all retained attributes after dirty slots;
-this keeps animated source references correct across node and ancestor boundaries.
+nodes or detaching their masks. The module's draw hook resolves sibling ranks before rendering.
+Its registry factory binds to the active runtime's shared registry (MODULES §3.1).
+Cross-node draw changes conservatively invalidate dependent draw entries, keeping animated
+source references correct across node and ancestor boundaries.
 
 ### Compositing diagnostics
 

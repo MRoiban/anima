@@ -344,3 +344,12 @@ Use `paint="stroke"` on a gradient child for a gradient stroke. Animate `disc.fi
 must be hex literals; unanimated stops may use colour slots. Dash numbers are grid units; percentages
 are fractions of the full path length, with offset expressed as a fraction (0.1 = 10%). A partial
 trim overrides dashes. Validate and render the `.animl` directly as usual.
+
+### Optional compositing
+
+Add `requires="composite"` for blend modes, masks, clips, multiple paints, paint visibility,
+stroke position or sibling draw order. Browser pages import `@anima-format/web/composite`
+(or load `anima-composite.js`). When also using gradients, dashes, shapes, corners, morphs
+or fixed strokes, declare `requires="paint composite"` and import both browser modules.
+Neither module implies the other. See `examples/composite.animl`, SPEC's `composite` chapter
+and ANIML's composite forms. The base runtime continues to refuse unavailable features.

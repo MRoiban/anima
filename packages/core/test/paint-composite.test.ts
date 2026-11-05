@@ -17,7 +17,7 @@ const doc = (nodes: object[]) => ({
   anima: '0.1',
   name: 'composite',
   grid: 20,
-  requires: ['paint'],
+  requires: ['composite'],
   nodes,
 });
 describe('composite paint', () => {

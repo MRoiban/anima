@@ -1,4 +1,4 @@
-<anima version="0.1" name="paint-draw-order" grid="20" requires="paint">
+<anima version="0.1" name="paint-draw-order" grid="20" requires="composite">
   <rect id="a" x0="0" y0="0" width="20" height="20" fill="#f00">
     <drawOrder target="b" position="after"/>
   </rect>

@@ -1,9 +1,8 @@
-import { geometry } from './geometry.ts';
+import { geometry, outlineLength } from './geometry.ts';
 // Independently implemented from the SVG paint model; no Rive runtime algorithm is used.
-import { withComposite } from './composite.ts';
 import type { Module } from '../../modules.ts';
 import { parseHex } from '../../color.ts';
-import { color, fmt } from '../../svg.ts';
+import { drawColor } from '../../draw.ts';
 import { VERBOSE as V } from '../../flags.ts';
 import type { ObjShape, Prop, Shape } from '../../registry.ts';
 
@@ -163,89 +162,92 @@ const base: Module = {
     const value = s[m[3]!];
     return { prop: stopProps[m[3]!]!, rest: m[3] === 'color' ? (parseHex(value) ?? value) : value };
   },
-  scene(model, tree) {
-    model.nodes.forEach((n, node) => {
-      for (const key of ['fill', 'stroke']) {
-        const p = n.raw[key];
-        if (!p?.type) continue;
-        tree.defs.push({
-          tag: p.type + 'Gradient',
-          role: 'module:paint',
-          node,
-          key,
-          kids: p.stops.map((_s: unknown, index: number) => ({
-            tag: 'stop',
-            role: 'module:paint',
-            node,
-            key,
-            index,
-            kids: [],
-          })),
-        });
-      }
-    });
-  },
-  attrs(p, el, paint, id, a) {
-    const i = el.node;
-    const raw = p.model.nodes[i]!.raw;
-    const gid = (key: string) => `${id}p${i}-${key}`;
-    if (el.role === 'module:paint') {
-      const key = el.key!;
-      const gradient = raw[key];
-      if (el.index !== undefined) {
-        const j = el.index;
-        let position = 0;
-        for (let k = 0; k <= j; k++)
-          position = Math.max(position, p.num(i, `${key}.stops.${k}.position`, 0));
-        Object.assign(a, {
-          offset: fmt(Math.min(1, position)),
-          'stop-color': color(p, i, `${key}.stops.${j}.color`, paint),
-        });
-      } else {
-        Object.assign(a, {
-          id: gid(key),
-          gradientUnits: 'userSpaceOnUse',
-          'color-interpolation': 'sRGB',
-        });
-        for (const k of gradient.type === 'linear'
-          ? ['x1', 'y1', 'x2', 'y2']
-          : ['cx', 'cy', 'r', 'fx', 'fy']) {
-          const fallback =
-            k === 'fx' ? p.num(i, `${key}.cx`, 0) : k === 'fy' ? p.num(i, `${key}.cy`, 0) : 0;
-          a[k] = fmt(p.num(i, `${key}.${k}`, fallback));
-        }
-      }
-    } else if (el.role === 'shape') {
-      for (const key of ['fill', 'stroke'])
-        if (raw[key]?.type && a[key] !== 'none') a[key] = `url(#${gid(key)})`;
-      const s = raw.stroke;
-      if (s?.dash && !a['stroke-dasharray']) {
-        const relative = typeof s.dash[0] === 'string';
-        a.pathLength = relative ? '1' : null;
-        a['stroke-dasharray'] = s.dash
-          .map((x: string | number) => fmt(relative ? parseFloat(String(x)) / 100 : +x))
-          .join(' ');
-        a['stroke-dashoffset'] = fmt(p.num(i, 'stroke.dashOffset', 0));
-      }
-    }
+  draw: {
+    tree(model, tree) {
+      model.nodes.forEach((n, node) => {
+        for (const key of ['fill', 'stroke'])
+          if (n.raw[key]?.type)
+            tree.resources.push({
+              node,
+              kind: 'gradient',
+              key,
+              paint: {
+                kind: key as 'fill' | 'stroke',
+                type: n.raw[key].type,
+                visible: true,
+                stops: n.raw[key].stops,
+              },
+            });
+      });
+    },
+    frame(p, i, data) {
+      for (const paint of data.paints)
+        enhancePaint(p, i, paint, paint.key ?? paint.kind, data.geometry);
+    },
   },
 };
 
-const withGeometry: Module = {
+export function enhancePaint(
+  p: import('../../player.ts').Player,
+  i: number,
+  paint: import('../../draw.ts').DrawPaint,
+  key: string,
+  geometry: import('../../draw.ts').Geometry | undefined,
+): void {
+  const raw = key.split('.').reduce((o, k) => o?.[k], p.model.nodes[i]!.raw);
+  if (!raw) return;
+  if (raw.type) {
+    paint.color = undefined;
+    paint.type = raw.type;
+    paint.coordinates = {};
+    for (const k of raw.type === 'linear'
+      ? ['x1', 'y1', 'x2', 'y2']
+      : ['cx', 'cy', 'r', 'fx', 'fy'])
+      paint.coordinates[k] = p.num(
+        i,
+        `${key}.${k}`,
+        k === 'fx' ? p.num(i, `${key}.cx`, 0) : k === 'fy' ? p.num(i, `${key}.cy`, 0) : 0,
+      );
+    let position = 0;
+    paint.stops = raw.stops.map((_s: unknown, j: number) => ({
+      position: Math.min(
+        1,
+        (position = Math.max(position, p.num(i, `${key}.stops.${j}.position`, 0))),
+      ),
+      color: drawColor(p, p.prop(i, `${key}.stops.${j}.color`)),
+    }));
+  }
+  if (raw.scale === 'fixed') paint.scale = 'fixed';
+  if (raw.dash) {
+    const relative = typeof raw.dash[0] === 'string';
+    const array = raw.dash.map((x: string | number) =>
+      relative ? parseFloat(String(x)) / 100 : +x,
+    );
+    const offset = p.num(i, key + '.dashOffset', 0);
+    const length = relative ? outlineLength(geometry) : 1;
+    paint.dash = array.map((v: number) => v * length);
+    paint.dashOffset = offset * length;
+    if (relative) {
+      paint.dashNormalized = array;
+      paint.dashOffsetNormalized = offset;
+    }
+  }
+}
+export const paint: Module = {
   ...base,
   entries: [...base.entries, ...geometry.entries],
   outline: geometry.outline,
   value: geometry.value,
   interpolate: geometry.interpolate,
-  model: (n, key) => geometry.model?.(n, key) ?? base.model?.(n, key),
-  scene(model, tree) {
-    base.scene?.(model, tree);
-    geometry.scene?.(model, tree);
-  },
-  attrs(p, el, paint, id, a) {
-    base.attrs?.(p, el, paint, id, a);
-    geometry.attrs?.(p, el, paint, id, a);
+  model: (n, k) => geometry.model?.(n, k) ?? base.model?.(n, k),
+  draw: {
+    tree(m, t) {
+      base.draw?.tree?.(m, t);
+      geometry.draw?.tree?.(m, t);
+    },
+    frame(p, i, d, e, f) {
+      geometry.draw?.frame?.(p, i, d, e, f);
+      base.draw?.frame?.(p, i, d, e, f);
+    },
   },
 };
-
-export const paint: Module = { ...withGeometry, init: () => withComposite(withGeometry) };

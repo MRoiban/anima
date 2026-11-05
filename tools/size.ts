@@ -1,4 +1,4 @@
-// Size budgets: core + web ≤25 KB, optional AniML support ≤6 KB incremental min+gzip.
+// Size budgets: core+web ≤25 KB; markup ≤8 KB, paint ≤5 KB, composite ≤4 KB incremental.
 import { gzipSync } from 'node:zlib';
 import { bundle } from './browser-build.ts';
 
@@ -26,4 +26,11 @@ const paint = await bundle(new URL('../packages/web/src/paint.ts', import.meta.u
 const paintDelta = gzipSync(paint, { level: 9 }).length - gz;
 console.log(`paint: ${paintDelta} B min+gzip incremental (budget 5120 B)`);
 if (paintDelta > 5120) process.exitCode = 1;
-console.log(`core+web hook delta: ${gz - 15880} B (e5170d4 baseline 15880 B; target 600 B)`);
+console.log(`core+web draw-layer delta: ${gz - 16697} B (b7b6e92 baseline 16697 B; target ≤0 B)`);
+
+const composite = await bundle(
+  new URL('../packages/web/src/composite.ts', import.meta.url).pathname,
+);
+const compositeDelta = gzipSync(composite, { level: 9 }).length - gz;
+console.log(`composite: ${compositeDelta} B min+gzip incremental (budget 4096 B)`);
+if (compositeDelta > 4096) process.exitCode = 1;

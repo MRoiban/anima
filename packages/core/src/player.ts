@@ -116,6 +116,11 @@ export class Player {
   #lastSettled = false;
   /** Slots whose value changed since `takeDirty()`. */
   readonly #dirtySet = new Set<number>();
+  /** Draw consumers track changes independently of takeDirty(). */
+  readonly drawVersions: number[];
+  drawRevision = 0;
+  /** Renderer cache; step output and dirty-slot reads do not depend on it. */
+  declare drawData?: import('./draw.ts').DrawFrame;
   /** Reduced motion (spec §10): applies to states entered from now on. */
   reducedMotion = false;
   /** Total step time. */
@@ -129,6 +134,7 @@ export class Player {
 
   constructor(model: Model, opts: { reducedMotion?: boolean } = {}) {
     this.model = model;
+    this.drawVersions = model.nodes.map(() => 0);
     this.reducedMotion = !!opts.reducedMotion;
     this.addrs = [...model.addrs.keys()];
     const slots = (this.#slots = new Map(this.addrs.map((a, i) => [a, i])));
@@ -468,6 +474,7 @@ export class Player {
       const o = this.#vals[i]!;
       if (Array.isArray(v) && Array.isArray(o) ? v.some((c, k) => c !== o[k]) : v !== o)
         this.#dirtySet.add(i);
+      this.drawVersions[this.model.addrs.get(this.addrs[i]!)!.node] = ++this.drawRevision;
     });
     this.#vals = V;
     // 5. Triggers

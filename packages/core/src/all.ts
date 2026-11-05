@@ -2,4 +2,13 @@
 import { VERBOSE } from './flags.ts';
 import { registerModule } from './modules.ts';
 import { paint } from './modules/paint/index.ts';
-if (VERBOSE) registerModule(paint);
+import { composite } from './modules/composite/index.ts';
+import { paintSVG } from './modules/paint/svg.ts';
+import { compositeSVG } from './modules/composite/svg.ts';
+import { registerSVGBackend } from './svg.ts';
+if (VERBOSE) {
+  registerModule(paint);
+  registerModule(composite);
+  registerSVGBackend('paint', paintSVG);
+  registerSVGBackend('composite', compositeSVG);
+}

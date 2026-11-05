@@ -462,3 +462,45 @@ one; full parity stays the point — and decided three things, now in the plan:
   30 files (including Chromium and Firefox), then exits 1 only at paint size 5768/5120 B. Separate
   `build-web --check`, `build-animl --check` (29 files) and `parity --check` pass. No budget changes,
   push, PR or merge. This remains a partial acceptance handoff for size and geometry integration.
+
+## P4a-4 — draw layer and paint/composite split (2026-11-05, size gate open)
+
+Core now builds a renderer-neutral static draw tree after successful validation. Cached draw frames
+resolve transforms, opacity, visibility, primitive/path geometry, ordered paints, literal/slot/gradient
+colours, stroke trim/dashes/position/scale, source references and sibling ranks. Relative dashes are
+resolved to grid units; authored fractions remain available for SVG's normalized pathLength output.
+Per-node revision stamps and static spatial dependency lists keep unchanged records stable without
+draining Player.takeDirty(). Module.scene, Module.attrs, Module.order and crossNode are removed;
+modules contribute through draw.tree and draw.frame. The existing sampling/outline/value hooks remain.
+
+SVG has a separate backend registry. Module-specific SVG drawing is in modules/paint/svg.ts and
+modules/composite/svg.ts; retained reordering is in web/composite.ts. The active renderer is passed to
+backend callbacks, avoiding private registry copies across separate browser bundles. Registry factories
+receive shared paint schemas; node/painted entry targets also apply to subsequently registered types.
+This follows the graph/registry and dirty retained-scene lessons in docs/research/rive-format-and-graph.md
+and docs/research/rive-web-runtime.md, while retaining all M4 Firefox rules. No Rive source or files
+were used. The Canvas2D seam is documented in MODULES §3.1; no canvas backend was added.
+
+Paint owns gradients, dashes, shapes, corners, morphs and fixed strokes. Composite owns blends, masks,
+clips, multiple paints/visibility, stroke placement and draw order. Registry feature annotations,
+requires declarations, AniML, schema, authoring docs, exports and build bundles follow that split.
+Markup now carries its structural compiler engine, avoiding duplication in both rendering modules.
+
+Verification: npm run check passed, 35 files / 706 tests, no skips, including Chromium and Firefox.
+The existing 201-frame clapper regression and complete retained-attribute trace replay assertions are
+unchanged. All existing rendered-output expectations and conformance expected.jsonl files are
+unchanged. The module probe retains its original `<g id="a2"/>` assertion via a separate test backend.
+New tests cover change tracking, neutral resolved data, dependencies, owner feature declarations,
+both separately emitted module import orders, AniML, nested animated gradient paints and clips from
+module geometry, plus exclusion of undeclared module hooks from ordered-paint sampling. SHA-256 compatibility tests captured from b7b6e92 pin byte-identical bell.ani,
+moon.ani and trash.ani SVG output at rest and after steps 0.1, 0.5, 1 s, both normal and CLI raster-length
+modes (24 SVG documents). All 37 AniML documents rebuild without drift.
+
+Size (unchanged gzip incremental method): core+web 17175 B vs 16697 B (+478); paint 3771/5120 B;
+composite 3874/4096 B; markup 7326/8192 B. The core no-growth target is **not met**, so P4a-4 remains
+unchecked. This is the smallest complete verified implementation reached; draw record construction,
+revision/dependency tracking and active-registry plumbing remain in the base bundle. Early incomplete
+iterations measured 17303 B base / 4662 B composite; moving reorder work into composite, structural
+markup into markup, and separating the frame-only SVG API reduced the costs. No validation or
+rendered-output assertions were relaxed to shrink it. The standard 25 KB CI size budget still passes;
+tools/size.ts separately prints the unmet 16697 B draw-layer target.

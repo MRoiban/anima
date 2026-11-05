@@ -12,7 +12,8 @@ in `requires`; a runtime that lacks the module refuses the document with `unknow
 
 | Feature | Module | Phase |
 |---|---|---|
-| `paint` | gradients, dashes, more shapes, blend modes, masks and clips, multiple paints, stroke position, trim modes, path morphing, draw order | P4a |
+| `paint` | gradients, dashes, shapes, corner radii, path morphing, fixed stroke | P4a |
+| `composite` | blend modes, masks, clips, multiple paints, stroke position, draw order, paint visibility | P4a |
 | `motion` | more eases, typed and string tracks, seek / reverse / work area / quantize, host timeline control, animatable pivot | P4b |
 | `interaction` | blend states, transition flags, drag, keyboard, focus, scroll, gamepad | P4c |
 | `events` | event payloads, open-URL events, audio events | P4d |
@@ -39,8 +40,9 @@ loader and the formatter keep deriving from one place. A module's entries carry 
 A module is code in three places, all in its own files:
 
 1. **Core** (`packages/core/src/modules/<name>/`): registry entries, loader hooks (validate and
-   compile its keys into the model), player hooks (new animatable value kinds, sampling), and scene
-   hooks (extra SVG elements, defs and attributes). Core's own files only gain the hook points.
+   compile its keys into the model), player hooks (new animatable value kinds, sampling), and draw
+   hooks (renderer-neutral tree and resolved frame data). Each module's `svg.ts` is its separate
+   browser/static SVG backend; it receives draw data, never a Player or raw document.
 2. **Web** (`packages/web/src/<name>.ts`): `import '@anima-format/web/<name>'` registers the module
    with the runtime, like `@anima-format/web/markup`. A page that never imports it never loads it.
 3. **Tooling**: the CLI, the markup compiler, the playground and the conformance runner always
@@ -83,11 +85,52 @@ The SVG backend keeps the retained-SVG rules (docs/ARCHITECTURE.md): transforms 
 only, attributes always present, masks attached for the document's life. The draw layer must not
 grow core + web for icon documents: `tools/size.ts` measures it.
 
+### Backend contract and Canvas2D seam
+
+`drawTree(model)` returns the document's stable `DrawTree`, built after successful load validation.
+`nodes` is indexed by document node index, with `parent`, `children` and `roots` in authored order.
+Each entry declares group/geometry kind, knockout radius and optional compositing references;
+`resources` identifies shared gradients and mask/clip sources by node index and paint key.
+A knockout isolates the preceding siblings in its parent list; its source geometry cuts those
+siblings with the specified stroke expansion. Blend/mask groups preserve that isolation.
+
+`drawFrame(player)` returns a cached `DrawFrame` with `revision`, `tree`, `viewBox`, `nodes` and
+`changed` indices. A frame is a live view: its arrays update on the next resolved revision.
+Unchanged node records retain object identity. `changed` describes that revision's potentially
+changed entries (static dependency lists include spatial source/ancestor changes); a consumer remembers
+`revision` and ignores a repeated revision. It does not drain `Player.takeDirty()`.
+`DrawNode` supplies local affine `transform`, opacity, visibility, geometry and ordered paints.
+Compositing adds world matrices, source indices, mask mode/sourceDraws, clip rule, blend and a
+resolved sibling `DrawFrame.order` rank table; absent ranks mean authored order. A backend draws source subtrees
+independently of whether `sourceDraws` hides their ordinary drawing. Source ancestor transforms
+apply, ancestor opacity/visibility do not. Geometry clips ignore source paint and visibility.
+
+Colours are literal colours/`currentColor` or `{slot, fallback}`. Gradient coordinates/stops are
+resolved in local grid space; stops already obey the nondecreasing rule. Paints include fill rule,
+visibility, stroke width/cap/join, trim fractions/offset, dashes in local grid units, position
+and scale mode. Relative authored dashes also retain `dashNormalized`/`dashOffsetNormalized`
+fractions so SVG can preserve normalized pathLength output, including zero-length outlines;
+Canvas2D uses the resolved grid-unit `dash`/`dashOffset` directly.
+A Canvas2D backend can traverse the same groups and primitives/paths, resolve colours from its host,
+apply transforms/opacity, use ordered paints, and isolate masks/blends in offscreen surfaces.
+Fixed strokes follow the viewport semantics in SPEC; a backend must not approximate nonuniform
+scales with a scalar inverse. No SVG attributes, element tags or canvas calls occur in module draw
+hooks. No canvas backend is implemented in this phase.
+
+SVG registers separate `SVGBackend.tree/attrs` functions. `sceneTree` and `attrs` remain SVG backend
+APIs for existing callers; they consume the draw tree/frame. Optional web compositing also installs
+its retained DOM reorder function. The base 0.1 runtime has no compositing reorder implementation.
+Registry entry targets `node` and `painted` apply to every matching current or subsequently
+registered node type; feature attribution remains with the declaring module.
+`Module.init(registry, shapes)` receives the active runtime's module and shape registries, so
+separately bundled modules share the same registry objects rather than private copies.
+
 ## 4. Size
 
 Each browser module has its own budget (`docs/parity/README.md`), measured like the markup module:
 `gzip(bundle(web + module)) − gzip(bundle(web))`, enforced by `tools/size.ts`. The core + web
-budget (25 KB) covers the hook points only.
+budget (25 KB) covers the hook points only. P4a-4 additionally targets its 16697 B baseline.
+Paint is limited to 5120 B, composite to 4096 B and markup to 8192 B incremental.
 
 ## 5. Conformance and oracles
 

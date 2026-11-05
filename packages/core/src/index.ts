@@ -19,6 +19,7 @@ export {
   sceneTree,
   sceneOrder,
   attrs,
+  svgAttrs,
   toSVG,
   cssSlots,
   staticSlots,
@@ -31,3 +32,6 @@ export { jsonSchema } from './schema.ts';
 export { VERBOSE } from './flags.ts';
 export { formatAni } from './format.ts';
 export { suggest, ptr } from './diag.ts';
+
+export * from './draw.ts';
+export { registerSVGBackend, svgBackends, type SVGBackend } from './svg.ts';

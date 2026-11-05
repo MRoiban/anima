@@ -358,7 +358,7 @@ describe('anima inspect, schema, docs', () => {
     }
     const stroke = JSON.parse((await cli('schema', 'stroke', '--format=json')).out);
     expect(stroke.fields).toContainEqual(
-      expect.objectContaining({ ani: 'position', markup: 'stroke-position', feature: 'paint' }),
+      expect.objectContaining({ ani: 'position', markup: 'stroke-position', feature: 'composite' }),
     );
     expect((await cli('schema', 'rect')).out).toContain('mix-blend-mode');
   });

@@ -234,6 +234,10 @@ Rect corners="1 1 0 0" supplies TL/TR/BR/BL; tracks address tile.corners.0 throu
 Stroke-scale="fixed" maps to stroke.scale. Morph tracks target pathId.d and enclose
 SVG paths in JSON double quotes: 0 "M0 0L2 2"; 1 "M1 1L3 3".
 See examples/shapes.animl for a complete document and SPEC for bounds and diagnostics.
+## Composite module
+
+Declare `requires="composite"`; use `requires="paint composite"` when also using paint features.
+Browser hosts import `@anima-format/web/composite` separately.
 Compositing uses `mix-blend-mode` and `stroke-position` node attributes. Paint visibility uses
 `fill-visible` or `stroke-visible`. Structural children map directly to their JSON objects:
 `<mask source="shape" mode="alpha" source-draws="false"/>`,

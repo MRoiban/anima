@@ -41,14 +41,16 @@ for (const [name, engine, paths] of [
   ],
 ] as const)
   describe(name + ' composite paint', () => {
-    let browser: Browser, js: string, paint: string;
+    let browser: Browser, js: string, paint: string, composite: string, markup: string;
     beforeAll(async () => {
       const path = paths.find((p) => p && existsSync(p));
       if (!path) throw Error('browser absent');
       browser = await engine.launch({ executablePath: path, headless: true });
-      [js, paint] = await Promise.all([
+      [js, paint, composite, markup] = await Promise.all([
         bundle(resolve('packages/web/src/index.ts')),
         bundle(resolve('packages/web/src/paint.ts')),
+        bundle(resolve('packages/web/src/composite.ts')),
+        bundle(resolve('packages/web/src/markup.ts')),
       ]);
     }, 30000);
     afterAll(async () => {
@@ -224,9 +226,10 @@ for (const [name, engine, paths] of [
           await page.setContent(
             '<style>body{margin:0;background:white}anima-icon{display:block;width:200px;height:200px}</style>',
           );
-          for (const content of [js, paint]) await page.addScriptTag({ type: 'module', content });
+          for (const content of [js, paint, composite])
+            await page.addScriptTag({ type: 'module', content });
           await page.waitForFunction(() =>
-            (customElements.get('anima-icon') as typeof AnimaIcon)?.modules.has('paint'),
+            (customElements.get('anima-icon') as typeof AnimaIcon)?.modules.has('composite'),
           );
           const diagnostics = await page.evaluate(async (nodes) => {
             const icon = document.createElement('anima-icon') as AnimaIcon;
@@ -236,7 +239,7 @@ for (const [name, engine, paths] of [
               anima: '0.1',
               name: 'composite',
               grid: 20,
-              requires: ['paint'],
+              requires: ['paint', 'composite'],
               nodes,
             });
             await icon.ready;
@@ -259,9 +262,10 @@ for (const [name, engine, paths] of [
         await page.setContent(
           '<style>body{margin:0;background:white}anima-icon{display:block;width:200px;height:200px}</style><div id="reference" style="width:200px;height:200px;isolation:isolate;background:#4080c0"><div style="width:100%;height:100%;background:#c08040"></div></div>',
         );
-        for (const content of [js, paint]) await page.addScriptTag({ type: 'module', content });
+        for (const content of [js, paint, composite])
+          await page.addScriptTag({ type: 'module', content });
         await page.waitForFunction(() =>
-          (customElements.get('anima-icon') as typeof AnimaIcon)?.modules.has('paint'),
+          (customElements.get('anima-icon') as typeof AnimaIcon)?.modules.has('composite'),
         );
         for (const blend of 'normal multiply screen overlay darken lighten color-dodge color-burn hard-light soft-light difference exclusion hue saturation color luminosity'.split(
           ' ',
@@ -276,7 +280,7 @@ for (const [name, engine, paths] of [
               anima: '0.1',
               name: 'blends',
               grid: 20,
-              requires: ['paint'],
+              requires: ['paint', 'composite'],
               nodes: [
                 { id: 'a', type: 'rect', x0: 0, y0: 0, w: 20, h: 20, fill: { color: '#4080c0' } },
                 {
@@ -312,9 +316,10 @@ for (const [name, engine, paths] of [
           await page.setContent(
             '<style>body{margin:0;background:white}anima-icon{display:block;width:200px;height:200px}</style>',
           );
-          for (const content of [js, paint]) await page.addScriptTag({ type: 'module', content });
+          for (const content of [js, paint, composite])
+            await page.addScriptTag({ type: 'module', content });
           await page.waitForFunction(() =>
-            (customElements.get('anima-icon') as typeof AnimaIcon)?.modules.has('paint'),
+            (customElements.get('anima-icon') as typeof AnimaIcon)?.modules.has('composite'),
           );
           const nodes =
             kind === 'order'
@@ -342,7 +347,7 @@ for (const [name, engine, paths] of [
                 anima: '0.1',
                 name: 'animated',
                 grid: 20,
-                requires: ['paint'],
+                requires: ['paint', 'composite'],
                 nodes,
                 timelines: {
                   t: {
@@ -391,6 +396,69 @@ for (const [name, engine, paths] of [
               return before.length === now.length && before.every((el) => now.includes(el));
             }),
           ).toBe(true);
+        } finally {
+          await page.close();
+        }
+      },
+      15000,
+    );
+    it.each(['paint-first', 'composite-first'])(
+      'shares registries, draw data and SVG helpers across separate bundles (%s)',
+      async (order) => {
+        const page = await browser.newPage();
+        try {
+          await page.setContent('');
+          for (const code of [
+            js,
+            ...(order === 'paint-first' ? [paint, composite] : [composite, paint]),
+            markup,
+          ])
+            await page.addScriptTag({ type: 'module', content: code });
+          await page.waitForFunction(() => {
+            const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
+            return Icon?.modules.has('paint') && Icon.modules.has('composite') && !!Icon.compiler;
+          });
+          const result = await page.evaluate(async () => {
+            const icon = document.createElement('anima-icon') as AnimaIcon;
+            icon.setAttribute('paused', '');
+            document.body.append(icon);
+            const diagnostics = icon.load(
+              `<anima version="0.1" name="both" grid="20" requires="paint composite">
+            <ellipse id="source" cx="10" cy="10" rx="6" ry="8" fill="#fff"/>
+            <rect id="tile" x0="0" y0="0" width="20" height="20">
+              <clip source="source" rule="evenodd"/>
+              <fillPaint type="linear" x1="0" y1="0" x2="20" y2="0"><stop offset="0" stop-color="#f00"/><stop offset="1" stop-color="#00f"/></fillPaint>
+            </rect>
+            <timeline name="t" duration="1"><track target="tile.paints.0.fill.x2">0 20; 1 10</track></timeline>
+            <layer name="l" initial="s"><state name="s" play="t"/></layer>
+          </anima>`,
+              true,
+            );
+            if (diagnostics.length) return { diagnostics };
+            await icon.ready;
+            const gradient = icon.shadowRoot!.querySelector('linearGradient')!,
+              shape = icon.shadowRoot!.querySelector('rect[fill^="url"]')!,
+              clip = icon.shadowRoot!.querySelector('clipPath path')!;
+            const before = gradient.getAttribute('x2');
+            icon.player!.step(1);
+            icon.invalidate();
+            return {
+              diagnostics,
+              before,
+              after: gradient.getAttribute('x2'),
+              linked: shape.getAttribute('fill') === `url(#${gradient.id})`,
+              retained: gradient === icon.shadowRoot!.querySelector('linearGradient'),
+              clip: !!clip.getAttribute('d'),
+            };
+          });
+          expect(result).toEqual({
+            diagnostics: [],
+            before: '20',
+            after: '10',
+            linked: true,
+            retained: true,
+            clip: true,
+          });
         } finally {
           await page.close();
         }
