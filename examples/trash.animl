@@ -1,0 +1,90 @@
+<anima version="0.1" name="trash" title="Empty trash" grid="20">
+  <!-- Original path at rest avoids antialiasing seams from the manually split moving parts. -->
+  <color name="ink" value="currentColor"/>
+  <glyph name="lid"
+      d="M15.348 6.496L16.195 6.496C16.245 6.496 16.298 6.438 16.341 6.414C16.704 6.211 16.591 5.695 16.258 5.529C16.224 5.512 16.154 5.468 16.127 5.468L13.122 5.468L13.122 3.774C13.122 3.711 13.086 3.607 13.06 3.548C13.011 3.441 12.985 3.32 12.932 3.211C12.764 2.861 12.197 2.53 11.844 2.53L8.219 2.53C7.697 2.53 7.056 2.973 6.953 3.501C6.934 3.598 6.869 3.716 6.869 3.81L6.869 5.468L3.914 5.468C3.443 5.468 3.263 6.163 3.631 6.416C3.665 6.439 3.73 6.496 3.762 6.496L4.644 6.496L15.348 6.496ZM7.855 5.468L7.855 3.89C7.855 3.696 8.124 3.495 8.293 3.495L11.668 3.495C11.836 3.495 12.136 3.672 12.136 3.848L12.136 5.422C12.136 5.438 12.135 5.452 12.132 5.468L7.855 5.468Z"
+      source="glyphy-manual-split" sha256="d0afa7116d56b1d4725c841666a8797b53d10b72212d3627a2266454150521f7"/>
+  <glyph name="can"
+      d="M15.348 6.496L4.644 6.496L5.621 16.258C5.655 16.59 6.032 17.134 6.354 17.281C6.485 17.34 6.622 17.375 6.753 17.428C6.778 17.438 6.852 17.47 6.87 17.47L13.096 17.47C13.413 17.47 14.011 17.095 14.15 16.789C14.195 16.688 14.248 16.543 14.299 16.45C14.317 16.418 14.364 16.318 14.365 16.301L15.326 6.541C15.349 6.521 15.346 6.531 15.348 6.496ZM5.635 6.496L14.339 6.496L13.71 12.778L13.406 15.975C13.382 16.223 13.123 16.492 12.853 16.492L7.036 16.492C6.881 16.492 6.6 16.17 6.584 16.019L5.634 6.531C5.633 6.516 5.632 6.512 5.635 6.496ZM8.59 14.774C8.719 14.736 8.946 14.578 8.946 14.428L8.946 8.672C8.946 8.396 8.641 8.216 8.394 8.216C8.231 8.299 8.022 8.333 7.981 8.557C7.978 8.577 7.939 8.627 7.939 8.635L7.939 12.751C7.939 12.782 7.937 12.769 7.96 12.788L7.96 14.382C7.96 14.674 8.349 14.812 8.59 14.774ZM11.653 14.774C11.857 14.714 11.916 14.61 12.031 14.449L12.031 8.576C11.878 8.365 11.812 8.216 11.501 8.216C11.256 8.317 11.217 8.324 11.085 8.565C11.076 8.581 11.045 8.65 11.045 8.654L11.045 14.309C11.045 14.618 11.368 14.819 11.653 14.774Z"
+      source="glyphy-manual-split" sha256="c991d163e302bb798ea950966da98e1c14488835de1cda524c0fed06836e9e36"/>
+  <glyph name="trash"
+      d="M15.348 6.496L16.195 6.496C16.245 6.496 16.298 6.438 16.341 6.414C16.704 6.211 16.591 5.695 16.258 5.529C16.224 5.512 16.154 5.468 16.127 5.468L13.122 5.468L13.122 3.774C13.122 3.711 13.086 3.607 13.06 3.548C13.011 3.441 12.985 3.32 12.932 3.211C12.764 2.861 12.197 2.53 11.844 2.53L8.219 2.53C7.697 2.53 7.056 2.973 6.953 3.501C6.934 3.598 6.869 3.716 6.869 3.81L6.869 5.468L3.914 5.468C3.443 5.468 3.263 6.163 3.631 6.416C3.665 6.439 3.73 6.496 3.762 6.496L4.644 6.496L5.621 16.258C5.655 16.59 6.032 17.134 6.354 17.281C6.485 17.34 6.622 17.375 6.753 17.428C6.778 17.438 6.852 17.47 6.87 17.47L13.096 17.47C13.413 17.47 14.011 17.095 14.15 16.789C14.195 16.688 14.248 16.543 14.299 16.45C14.317 16.418 14.364 16.318 14.365 16.301L15.326 6.541C15.349 6.521 15.346 6.531 15.348 6.496ZM7.855 5.468L7.855 3.89C7.855 3.696 8.124 3.495 8.293 3.495L11.668 3.495C11.836 3.495 12.136 3.672 12.136 3.848L12.136 5.422C12.136 5.438 12.135 5.452 12.132 5.468L7.855 5.468ZM5.635 6.496L14.339 6.496L13.71 12.778L13.406 15.975C13.382 16.223 13.123 16.492 12.853 16.492L7.036 16.492C6.881 16.492 6.6 16.17 6.584 16.019L5.634 6.531C5.633 6.516 5.632 6.512 5.635 6.496ZM8.59 14.774C8.719 14.736 8.946 14.578 8.946 14.428L8.946 8.672C8.946 8.396 8.641 8.216 8.394 8.216C8.231 8.299 8.022 8.333 7.981 8.557C7.978 8.577 7.939 8.627 7.939 8.635L7.939 12.751C7.939 12.782 7.937 12.769 7.96 12.788L7.96 14.382C7.96 14.674 8.349 14.812 8.59 14.774ZM11.653 14.774C11.857 14.714 11.916 14.61 12.031 14.449L12.031 8.576C11.878 8.365 11.812 8.216 11.501 8.216C11.256 8.317 11.217 8.324 11.085 8.565C11.076 8.581 11.045 8.65 11.045 8.654L11.045 14.309C11.045 14.618 11.368 14.819 11.653 14.774Z"
+      source="svg" sha256="f5cc784fb5227df7bab2ed496f06574cbb26775b282722e9a4205ff450281433"/>
+  <a11y role="button" label="Empty trash" activate="empty" held="down"/>
+  <trigger name="empty"/>
+  <bool name="hover"/>
+  <bool name="down"/>
+  <group id="icon" pivot="10 10">
+    <path id="original" glyph="trash" fill="ink" fill-rule="evenodd"/>
+    <group id="can" pivot="10 17" visible="false">
+      <path id="body" glyph="can" fill="ink" fill-rule="evenodd"/>
+      <path id="lid" glyph="lid" pivot="16.195 6.496" fill="ink" fill-rule="evenodd"/>
+    </group>
+  </group>
+  <timeline name="hover" duration="0.16" reducedMotion="skip">
+    <track target="can.visible">0 false; 0.000001 true</track>
+    <track target="original.visible">0 true; 0.000001 false</track>
+    <track target="lid.rotate">0 0 out; 0.16 6</track>
+    <track target="lid.y">0 0 out; 0.16 -0.35</track>
+  </timeline>
+  <timeline name="close" duration="0.18" reducedMotion="end">
+    <track target="can.visible">0 true; 0.18 false</track>
+    <track target="original.visible">0 false; 0.18 true</track>
+    <track target="lid.rotate">0 6 out; 0.18 0</track>
+    <track target="lid.y">0 -0.35 out; 0.18 0</track>
+  </timeline>
+  <timeline name="empty" duration="0.9" reducedMotion="end">
+    <track target="can.visible">0 true; 0.9 false</track>
+    <track target="original.visible">0 false; 0.9 true</track>
+    <track target="lid.rotate">0 0 out; 0.18 18 inOut; 0.32 16 inOut; 0.62 -3 out; 0.76 1 out; 0.9 0</track>
+    <track target="lid.y">0 0 out; 0.18 -0.1 inOut; 0.32 -0.1 inOut; 0.62 0; 0.9 0</track>
+    <track target="can.rotate">0 0; 0.18 0 inOut; 0.26 -3 inOut; 0.34 3 inOut; 0.42 -2 inOut; 0.5 1 out; 0.62 0; 0.9 0</track>
+    <track target="can.scaleX">0 1; 0.18 1 out; 0.28 1.04 inOut; 0.42 0.98 out; 0.62 1; 0.9 1</track>
+    <track target="can.scaleY">0 1; 0.18 1 out; 0.28 0.94 inOut; 0.42 1.02 out; 0.62 1; 0.9 1</track>
+  </timeline>
+  <timeline name="press" duration="0.07" reducedMotion="skip">
+    <track target="icon.scale">0 1 out; 0.07 0.94</track>
+  </timeline>
+  <timeline name="release" duration="0.12" reducedMotion="end">
+    <track target="icon.scale">0 0.94 out; 0.12 1</track>
+  </timeline>
+  <layer name="lid" initial="rest">
+    <state name="rest">
+      <on when="empty" to="empty"/>
+      <on when="hover" to="hover"/>
+    </state>
+    <state name="hover" play="hover">
+      <on when="empty" to="empty" blend="0.04"/>
+      <on when="!hover" to="close" blend="0.04"/>
+    </state>
+    <state name="close" play="close">
+      <on when="empty" to="empty" blend="0.04"/>
+      <on when="hover" to="hover" blend="0.04"/>
+      <on when="@end" to="rest"/>
+    </state>
+    <state name="empty" play="empty">
+      <on when="@end" to="closed"/>
+    </state>
+    <state name="closed">
+      <on when="empty" to="empty"/>
+      <on when="!hover" to="rest"/>
+    </state>
+  </layer>
+  <layer name="press" initial="rest">
+    <state name="rest">
+      <on when="down" to="pressed"/>
+    </state>
+    <state name="pressed" play="press">
+      <on when="!down" to="release" blend="0.03"/>
+    </state>
+    <state name="release" play="release">
+      <on when="down" to="pressed" blend="0.03"/>
+      <on when="@end" to="rest"/>
+    </state>
+  </layer>
+  <listener on="click" fire="empty"/>
+  <listener on="enter" set="hover=true"/>
+  <listener on="leave" set="hover=false down=false"/>
+  <listener on="down" set="down=true"/>
+  <listener on="up" set="down=false"/>
+</anima>
