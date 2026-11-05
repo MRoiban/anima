@@ -1,0 +1,30 @@
+toolbar (grid 20, viewBox 0 0 72 24)
+
+glyphs (bbox: minX minY maxX maxY, grid units; hole hints use bbox containment only)
+
+nodes
+  bell (instance)
+  folder (instance)
+  trash-button (instance)
+  bell-badge (instance)
+  trash-badge (instance)
+
+inputs: unread (number), trash (number), bell.hover (bool), bell.down (bool), bell.selected (trigger), folder.hover (bool), folder.down (bool), folder.selected (trigger), trash-button.hover (bool), trash-button.down (bool), trash-button.selected (trigger), bell-badge.count (number), trash-badge.count (number)
+
+timelines
+
+machine
+
+instances
+  bell/press: rest
+  folder/press: rest
+  trash-button/press: rest
+  bell-badge/count-motion: count3
+  trash-badge/count-motion: count0
+
+bound
+  bell-badge.count
+  trash-badge.count
+
+listeners
+  bell.selected → set unread=0

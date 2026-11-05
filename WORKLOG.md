@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: P5-7 (markup owner) running → then D1 module folders + D2 scoped tests (parallel) → D3 new-capability scaffolder → P5 AniML benchmark run → P5 PR (full check in CI).
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: complete P5 AniML toolbar benchmark using permitted CLI docs/examples only.
+State: scene, compiled .ani, sample scripts, 4 PNGs and REPORT.md complete; 37 numeric assertions pass.
+Result: 5/6 strict; badge pop samples correctly but render does not show its scale (unresolved).
+Checks: 14, 0 check errors; 2 initial informational CLI dependency failures recovered by npm ci.
+Next: owner review of benchmark report and sample/render discrepancy.
+Don't: read .riv/other-format materials or runtime source; push, PR or merge in this run.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -89,3 +90,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-07 02:00 [owner]: dev process: module folders + generated index (order from deps, composed registry), scoped tests locally / full suite in CI, new-capability scaffolder — recorded in PLAN/LOG; scheduled after P5-7
 - 2026-11-07 03:30 [claude]: merged D2 scoped tests (482bc30): test:scope -- paint --no-browser 6 s / 23 files vs full ~145 s; with browser the paint target is too broad (30 files) → tighten via module manifests in D1; CI job summary prints size/perf
 - 2026-11-07 05:00 [claude]: merged P5-7 (0cde698): 4/4; 3 consecutive full checks green at default concurrency (1045 tests); markup 7357/8192; real late-registration/schema-sync bugs fixed; next D1 module folders
+- 2026-11-05 22:33 [sol benchmark]: AniML toolbar → 5/6 strict, 14 checks / 0 check errors, 2 dependency startup errors, 37 assertions; badge pop render disagreement documented (evidence: animl/REPORT.md and samples/PNGs).
