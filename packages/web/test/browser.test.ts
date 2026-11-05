@@ -19,6 +19,10 @@ declare global {
 }
 
 const bell = readFileSync(new URL('../../../examples/bell.ani', import.meta.url), 'utf8');
+const switchAni = readFileSync(
+  new URL('../../../docs/research/head-to-head/animl/switch.ani', import.meta.url),
+  'utf8',
+);
 const bellMarkup = readFileSync(new URL('../../../examples/bell.animl', import.meta.url), 'utf8');
 /** Browsers to run in: the cached Playwright builds, or CHROMIUM_PATH / FIREFOX_PATH (CI). */
 const BROWSERS: [string, BrowserType, string | undefined][] = [
@@ -395,6 +399,18 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
         { polling: 10 },
       );
       expect(await page.evaluate(() => window.icon.player!.get('down'))).toBe(false);
+    });
+
+    it('exposes switch semantics: aria-checked follows the pressed input on click', async () => {
+      await mount(switchAni);
+      const icon = page.locator('anima-icon');
+      expect(await icon.getAttribute('role')).toBe('switch');
+      expect(await icon.getAttribute('aria-label')).toBe('Dark mode');
+      expect(await icon.getAttribute('aria-checked')).toBe('false');
+      await icon.click();
+      await page.waitForFunction(() => window.icon.getAttribute('aria-checked') === 'true');
+      await icon.click();
+      await page.waitForFunction(() => window.icon.getAttribute('aria-checked') === 'false');
     });
 
     it('reduces a click to at most two frames, reports timeline events, and honors motion=full', async () => {
