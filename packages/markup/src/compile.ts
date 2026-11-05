@@ -779,6 +779,7 @@ class Compiler {
         const at = this.map.get(p) ?? root.at;
         this.diagnostics.push({
           ...d,
+          ...(d.hint && DECLARE[d.hint] ? { hint: DECLARE[d.hint] } : {}),
           line: at.line,
           column: at.col,
           ...(this.opts.file === undefined ? {} : { file: this.opts.file }),
@@ -811,6 +812,16 @@ class Compiler {
     return this.result();
   }
 }
+
+// Loader hints that name a .ani container, said the markup way.
+const DECLARE: Record<string, string> = VERBOSE
+  ? {
+      'declare it in "inputs"':
+        'declare it: <bool name="…"/>, <number name="…"/> or <trigger name="…"/>',
+      'declare it in "colors"': 'declare it: <color name="…" value="#…"/>',
+      'declare it in "glyphs"': 'declare it: <glyph name="…" d="…"/>',
+    }
+  : {};
 
 /** Compile AniML to canonical .ani with a source map. Never throws on malformed source. */
 export function compile(source: string, opts: CompileOptions = {}): CompileResult {

@@ -22,7 +22,7 @@ Fix validation errors first. Exit codes: 0 success, 1 diagnostics, 2 usage error
 ## Start from the glyph
 
 ```sh
-anima new bell --glyph icons/glyphs/bell.svg
+anima new bell --glyph fixtures/glyphs/bell.svg
 anima new bell --glyphy path/to/glyphy-project -o bell.animl
 ```
 
@@ -233,7 +233,7 @@ target.animl: 1 error
 <!-- diagnostics: input.animl -->
 ```text
 input.animl:3:64 error unknown-input no input "hover"
-  hint: declare it in "inputs"
+  hint: declare it: <bool name="…"/>, <number name="…"/> or <trigger name="…"/>
 input.animl: 1 error
 ```
 
@@ -289,8 +289,9 @@ Wrap AniML in a script so HTML does not interpret its node tags:
 Run `anima build page.html -o page.built.html`. It replaces AniML scripts inside
 `<anima-icon>` with compiled `application/vnd.anima+json` scripts. Load the regular
 `@anima-format/web` runtime on that page.
-The optional `@anima-format/web/markup` module is specified for browser compilation of
-unbuilt markup. This checkout does not export it yet; use the HTML build command here.
+To compile markup in the browser instead (prototypes, playgrounds), also import
+`@anima-format/web/markup` (about 6 KB more). Without it, an icon holding AniML reports a
+`markup-unavailable` error. Pages that ship built `.ani` never need it.
 
 ## Hand-written ani
 
