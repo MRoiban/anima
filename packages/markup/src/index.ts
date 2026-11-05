@@ -51,11 +51,7 @@ export function compile(_source: string, _opts: CompileOptions = {}): CompileRes
 }
 
 /** Canonical AniML for a compiled document (spec/ANIML.md §8). `doc` may be text or parsed. */
-export function decompile(_doc: string | object): string {
-  throw new Error('decompile: not implemented yet');
-}
+export { decompile } from './decompile.ts';
 
 /** Reformat AniML in the canonical layout, keeping comments, element order and named eases. */
-export function formatMarkup(_source: string): { text?: string; diagnostics: MarkupDiagnostic[] } {
-  throw new Error('formatMarkup: not implemented yet');
-}
+export { formatMarkup } from './format.ts';
