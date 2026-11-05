@@ -64,6 +64,7 @@ const FORMS: Record<string, Form> = {
       'meta',
       'color',
       'glyph',
+      'asset',
       'a11y',
       'bool',
       'number',
@@ -609,6 +610,7 @@ export class Compiler {
         }
       }
     }
+    if (el.name === 'asset') delete o.name;
     return o;
   }
 
@@ -632,18 +634,20 @@ export class Compiler {
       const [list, cp] = this.append(o, c.name === 'listener' ? 'listeners' : 'nodes', p, c.at);
       list.push(this.build(c, cp));
     } else if (
-      ['color', 'glyph', 'bool', 'number', 'trigger', 'timeline', 'layer'].includes(c.name)
+      ['color', 'glyph', 'asset', 'bool', 'number', 'trigger', 'timeline', 'layer'].includes(c.name)
     ) {
       const key =
         c.name === 'color'
           ? 'colors'
-          : c.name === 'glyph'
-            ? 'glyphs'
-            : c.name === 'timeline'
-              ? 'timelines'
-              : c.name === 'layer'
-                ? 'layers'
-                : 'inputs';
+          : c.name === 'asset'
+            ? 'assets'
+            : c.name === 'glyph'
+              ? 'glyphs'
+              : c.name === 'timeline'
+                ? 'timelines'
+                : c.name === 'layer'
+                  ? 'layers'
+                  : 'inputs';
       const parent = key === 'layers' ? this.container(o, 'machine', p, c.at) : o;
       const base = key === 'layers' ? p + '/machine' : p;
       const map = this.container(parent, key, base, c.at);

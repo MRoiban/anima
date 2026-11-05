@@ -120,8 +120,8 @@ export function paintColor(value: DrawColor | undefined, paint: Paint): string {
 export function geometryAttrs(g: Geometry | undefined, a: Attrs): void {
   if (!g) return;
   for (const k in g)
-    if (k !== 'kind') {
-      const v = g[k as keyof Geometry]!;
+    if (k !== 'kind' && k !== 'image') {
+      const v = g[k as Exclude<keyof Geometry, 'image'>]!;
       a[k] = k === 'rx' && !v ? null : typeof v === 'number' ? fmt(v) : v;
     }
 }

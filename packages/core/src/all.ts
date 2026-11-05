@@ -7,8 +7,12 @@ import { composite } from './modules/composite/index.ts';
 import { paintSVG } from './modules/paint/svg.ts';
 import { compositeSVG } from './modules/composite/svg.ts';
 import { registerSVGBackend } from './svg.ts';
+import { assets } from './modules/assets/index.ts';
+import { assetsSVG } from './modules/assets/svg.ts';
 if (VERBOSE) {
   registerModule(bind);
+  registerModule(assets);
+  registerSVGBackend('assets', assetsSVG);
   registerModule(paint);
   registerModule(composite);
   registerSVGBackend('paint', paintSVG);

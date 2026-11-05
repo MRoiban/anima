@@ -718,3 +718,22 @@ now table-driven: every module's budget, the module ceiling, and both use-case t
 per class, so shared code counts once). `tools/perf.ts` adds per-frame cost (Player.step +
 drawFrame: bell ~85–115 µs, composite example ~55–70 µs on this machine, varying with load) next
 to compile time. The Rive oracle cases for P4a are scheduled before P5 merges.
+## P5-4 — assets and image nodes
+
+Assets declare image/font/audio/blob sources and embedded/referenced storage. Images contribute
+renderer-neutral geometry; SVG is a separate backend with a clipped viewport, seven fits,
+nine alignments and bilinear/nearest sampling. The web module decodes images, resolves document-relative
+URLs and host URL/Blob overrides, and reports failures. CLI builds embed local sources without
+changing other document fields; render embeds and decodes disk images through existing resvg.
+AniML uses `src` for asset source and separate `fit`/`align` instead of a partial SVG
+`preserveAspectRatio` alias. No runtime dependency was added. Asset indirection follows the idea in
+[research/§6](research/rive-format-and-graph.md#6-lessons-for-anima), with failure semantics from
+the decided P5 design; draw data follows MODULES §3.1, independently implemented.
+
+Verification: `VITEST_MAX_WORKERS=1 npm run check` green, 38 files / 780 tests, including
+Chromium and Firefox images (all fits, embedded no-network, document-relative sources,
+host Blob replacement and errors). Core+web 16961 B gzip (+60 B from 16901); assets
+1587/2048 B, paint 3709/5120 B incremental. Compile: bell 2.95 ms; all 9040 prefixes
+845 ms. Generated schema, demo/bundles and 40 AniML siblings are current. Parity construct/test
+fields updated for covered rows; statuses left to the orchestrator. No test limit or size budget
+was loosened; the exact conformance corpus count increased by one for the new case.

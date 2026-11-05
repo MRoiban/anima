@@ -28,6 +28,15 @@ export interface DrawPaint {
   position?: string;
 }
 export interface Geometry {
+  image?: {
+    asset: string;
+    source: string;
+    width?: number;
+    height?: number;
+    fit: string;
+    align: string;
+    sampling: string;
+  };
   kind: string;
   d?: string;
   cx?: number;

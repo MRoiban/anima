@@ -306,3 +306,11 @@ For example, `<bind target="dot.fill" value="mix(#000, #fff, progress)"/>` binds
 after listeners. Loader diagnostics map back to the expression attribute; their message gives
 the character offset within the expression. The deprecated `from`/`map` attributes are rejected.
 See `examples/progress.animl` for a continuously input-driven ring.
+## Images and assets
+
+With `requires="paint assets"`, declare `<asset name="photo" type="image" src="photo.png"/>`
+at document level, then `<image id="photo" asset="photo" x0="0" y0="0" width="24"
+height="24" fit="contain" align="center" sampling="bilinear"/>`. `src` maps to asset
+`source`; other attributes retain their JSON spelling. Optional asset fields are `storage`,
+`width`, `height`. Image `fit`/`align` replace SVG's combined `preserveAspectRatio`; there is
+no input alias. Full layout and validation rules are in SPEC's paint and assets chapters.

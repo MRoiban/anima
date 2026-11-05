@@ -1,0 +1,52 @@
+{
+  "anima": "0.1",
+  "name": "photo",
+  "grid": 24,
+  "requires": ["paint", "assets"],
+  "nodes": [
+    {
+      "id": "photo",
+      "type": "image",
+      "x0": 2,
+      "y0": 2,
+      "asset": "photo",
+      "fit": "contain",
+      "align": "center",
+      "sampling": "nearest",
+      "width": 20,
+      "height": 20
+    }
+  ],
+  "timelines": {
+    "resize": {
+      "duration": 1,
+      "tracks": {
+        "photo.width": [
+          [0, 20],
+          [1, 10]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "resize",
+        "states": {
+          "resize": {
+            "play": "resize"
+          }
+        }
+      }
+    }
+  },
+  "assets": {
+    "photo": {
+      "type": "image",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAG0lEQVR4AWP8r8HwnwEPYGIgAJgYCAAmBgIAABjwAi5tDXySAAAAAElFTkSuQmCC",
+      "storage": "embedded",
+      "width": 8,
+      "height": 4
+    }
+  }
+}

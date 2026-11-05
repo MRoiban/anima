@@ -517,6 +517,43 @@ An unregistered module is `unknown-feature` at `/requires/<index>`, before struc
 Using its keys or animation addresses without declaring it is `undeclared-feature` at that key
 or address, with hint `add "paint" to "requires"`. Ordinary 0.1 documents keep their behaviour.
 
+### Image nodes
+
+With `requires: ["paint", "assets"]`, an image node has `id`, `type: "image"`, `asset`,
+`x0`, `y0`, positive `width` and `height`, and optional `fit`, `align`, `sampling`.
+It accepts the common transforms, opacity and visibility. Width and height are animatable
+(nonnegative resolved values); layout options and the asset name are static.
+`unknown-asset` at the node's `/asset` names an absent declaration; `asset-type` at that
+pointer rejects a declaration whose type is not `image`.
+
+Let the box be W×H and the intrinsic size I×J. The image is scaled and clipped to the box:
+
+| fit | scale (x and y unless specified) |
+|---|---|
+| `contain` (default) | min(W/I, H/J) |
+| `cover` | max(W/I, H/J) |
+| `fill` | x=W/I, y=H/J |
+| `none` | 1 |
+| `scale-down` | min(1, W/I, H/J) |
+| `fit-width` | W/I |
+| `fit-height` | H/J |
+
+`align` is `center` (default), `top-left`, `top`, `top-right`, `left`, `right`,
+`bottom-left`, `bottom`, or `bottom-right`. Each axis places the scaled image at 0,
+(box−image)/2, or box−image. Overflow is always clipped, including `none`.
+`sampling` is `bilinear` (default) or `nearest`; SVG maps these to `image-rendering="auto"`
+and `image-rendering="pixelated"`. The browser's final display scaling remains host-controlled.
+
+AniML: `<image id="photo" asset="photo" x0="0" y0="0" width="24" height="24"
+fit="contain" align="center" sampling="bilinear"/>`. `x0`/`y0` specify the untransformed
+box origin; common `x`/`y` remain transform translations. `fit` and `align` deliberately keep
+their JSON spellings: SVG `preserveAspectRatio="xMidYMid meet"` maps to contain/center,
+`slice` to cover and `none` to fill. No `preserveAspectRatio` input alias exists, since SVG
+cannot express all seven fit modes. Backends receive `Geometry.kind: "image"`, box coordinates,
+and renderer-neutral image metadata (asset, source, intrinsic size, fit, align, sampling).
+SVG uses a nested clipped viewport and an image leaf; transforms stay on the node's group.
+The host resolves missing intrinsic dimensions before rendering; core draw data keeps them absent.
+
 ### Gradients
 
 A `fill` or `stroke` contains either `color` or a gradient, never both. A gradient has `type`:
@@ -801,3 +838,39 @@ The grammar and evaluator are independently written. Strict unknown-name checks 
 post-state pass follow the lessons about silent unresolved bindings and feedback loops in
 [animation/state research](../docs/research/rive-animation-and-state.md) §C. No Rive source,
 documentation text or binary format was used.
+## assets
+
+The optional `assets` module adds an `assets` map and image draw data. Image nodes also
+require `paint`. Core validation and `Player.step` perform no IO. Fonts, audio and blobs
+are declarations only; their consumers arrive in P6/P4d.
+
+Each named asset is `{ type, source, storage?, width?, height? }`. `type` is `image`, `font`,
+`audio` or `blob`. `source` is required and nonempty: a data URI or URL (relative URLs are
+relative to the document). Optional `storage` is `embedded` for data URIs or `referenced`
+for URLs; omitted storage is inferred. A disagreement is `asset-storage` at `/assets/<name>/storage`.
+`width` and `height`, when present, are positive intrinsic dimensions, in grid units for
+layout. Omitted dimensions are decoded by the host before drawing. Declared dimensions override
+decoded dimensions independently. Data URIs use percent encoding or padded standard base64;
+malformed encoding is `bad-data-uri` at the source. An empty source is `missing-source`;
+an absent source is `missing-key` at the asset object. Messages carry a repair hint.
+
+AniML declares `<asset name="photo" type="image" src="photo.png" storage="referenced"/>`
+at document level; registry `source` maps to `src`. All other field spellings match JSON.
+
+The browser module `@anima-format/web/assets` registers assets and the SVG image backend;
+image documents also import `@anima-format/web/paint`. Images decode before `anima:load` and
+initial `ready` resolution. URLs resolve relative to the icon's `src`, or `document.baseURI`
+for inline/programmatic documents. `icon.assets = (name, info) => url | Blob | Promise<url | Blob>`
+replaces the source before decode; `info` is a copy of the authored declaration. A resolver rejection
+or image decode failure empties the icon and dispatches `anima:error` with `asset-load`, the
+source pointer, message and hint. Embedded data URIs require no network. Resolved data is private
+to the loaded model; source declarations are preserved. Superseded loads cannot install their scene.
+Fonts/audio/blob do not load or invoke the resolver yet.
+
+`anima build --embed` embeds local referenced assets (paths relative to the source file), sets
+storage to `embedded`, and changes no fields outside the assets map. It supports AniML and
+AniML scripts in HTML. Already embedded assets are unchanged. Other URL schemes cannot be read
+by this disk build and report `asset-load`; HTTP asset fetching is a browser host responsibility.
+`anima render` embeds local image sources and decodes intrinsic sizes through resvg before
+rendering; other asset types remain declarations. IO/decode failures report `asset-load` at
+`/assets`, with a message and hint. Build does not decode or transcode image bytes.

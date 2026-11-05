@@ -1,0 +1,29 @@
+{
+  "anima": "0.1",
+  "name": "photo",
+  "grid": 24,
+  "requires": ["paint", "assets"],
+  "nodes": [
+    {
+      "id": "photo",
+      "type": "image",
+      "x0": 2,
+      "y0": 2,
+      "asset": "photo",
+      "fit": "contain",
+      "align": "center",
+      "sampling": "nearest",
+      "width": 20,
+      "height": 20
+    }
+  ],
+  "assets": {
+    "photo": {
+      "type": "image",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAG0lEQVR4AWP8r8HwnwEPYGIgAJgYCAAmBgIAABjwAi5tDXySAAAAAElFTkSuQmCC",
+      "storage": "embedded",
+      "width": 8,
+      "height": 4
+    }
+  }
+}

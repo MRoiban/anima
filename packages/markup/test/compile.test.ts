@@ -290,6 +290,10 @@ describe('AniML compiler', () => {
       parseXml(readFileSync(new URL('../../../examples/composite.animl', import.meta.url), 'utf8'))
         .doc.root!,
     );
+    collectPaint(
+      parseXml(readFileSync(new URL('../../../examples/photo.animl', import.meta.url), 'utf8')).doc
+        .root!,
+    );
     const attrs = new Set(
       [...elements, ...paintElements].flatMap((e) => e.attrs.map((a) => a.name)),
     );
