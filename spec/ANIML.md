@@ -168,8 +168,9 @@ normalisations, none of which changes playback: `$schema` is dropped; a `$commen
 that has no element of its own (`inputs`, `colors`, a `fill` or `stroke`, …) is dropped; and a
 one-item action list (`"fire": ["ring"]`) is written as a single name (`"fire": "ring"`).
 
-`anima fmt x.animl` reformats markup in place of the same canonical layout but keeps the author's
-comments, element order and named eases.
+`anima fmt x.animl` reformats markup into the same canonical layout but keeps the author's
+comments, element order, named eases and track style: a track written inline with `;` stays inline
+(one space between columns), a track written one key per line stays so, with aligned columns.
 
 ## 9. Markup inside HTML
 

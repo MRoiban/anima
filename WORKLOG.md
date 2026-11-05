@@ -49,3 +49,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 17:05 [claude]: PR #7 merged (45d019a, CI green on 2592cae); branched m5-glyphs
 - 2026-11-05 17:30 [claude]: Glyphy export -f animl/-f ani written myself (delegate cannot target another project): 11/11 glyphs byte-identical to anima new --glyphy, both forms; glyphy pytest 22 passed → DRAFT PR MRoiban/glyphy#2 (f7e483a), not to merge without owner. M5 agents running: format fix, trash, moon.
 - 2026-11-05 17:50 [claude]: merged moon toggle (7d186df): 6/6, rest pixel-identical, reversal delta 0, 4 friction points (want: render --compare glyph, inputs in snapshots); sheet checked visually
+- 2026-11-05 18:05 [claude]: merged trash (7d37682): 6/6, rest pixel-identical (original path at rest, split parts in motion), 7 friction points; spec §8 fmt keeps inline tracks (clarified)
