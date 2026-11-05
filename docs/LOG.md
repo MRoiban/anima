@@ -342,3 +342,27 @@ the parallel host API. Graphs above six states use a vertical list. Sampling is 
 preview, preserving the distinction between state machines and timeline sampling (research notes
 `rive-animation-and-state.md` A.2/A.6); typed model reuse and sleeping UI inspection follow
 `rive-format-and-graph.md` §6 and `rive-web-runtime.md` lessons 3/8. Local commit only per task.
+
+## P3 — Playground and web host API (2026-11-05)
+
+- **Design first.** `design/playground/mockup.html` (written and checked by the orchestrator at
+  1440, 1000 and 390 px in valid, errors, scrubbing and dark states) and `handoff.md` (contract:
+  tokens, layout, states, integration targets, ownership, acceptance) before any production code.
+- **`Player.inspect()`** (core): per layer the current and previous state, blend progress, whether
+  the running transition is locked, and the playing timeline with its local time. +150 B.
+- **Web host API** (`docs/WEB.md`): `speed`, `pause()`/`play()`/`paused`, `playback`, `reset()`,
+  `destroy()`, `invalidate()`, `get()`, `info`, `fit`/`align`, `anima:load`; every item tested in
+  Chromium and Firefox. Core + web 15 880 B (+918 B; budget 25 600 B).
+- **`anima playground [file.animl]`** (`packages/playground`, served by the CLI on 127.0.0.1, no
+  dependencies): source editor with highlighting, compile on every edit (178–273 ms to a new stage),
+  problems at line:column with the last valid build kept on the stage, the real `<anima-icon>` at
+  four sizes, generated input controls, events, live state graphs per layer, a timeline with
+  keyframes, a playhead that follows the playing state, scrubbing, pause/¼×, Format, Copy .ani,
+  Save (with on-disk change detection), dark theme, reduced motion. 13/15 acceptance items met by
+  the coder; the 2 that needed the host API were confirmed after merging it.
+- **Compared with the mockup** at the same widths and states (`design/playground/impl/`): matches;
+  drift fixed — ruler edge labels, a heavy editor focus ring, and a layout flaw at 1280×720 (shared
+  with the mockup) where the preview tile overlapped the inputs: the tile is now bounded by the
+  window height and the preview column scrolls; mockup and handoff revised.
+- **Parity:** 15 rows done (host API and playground); the other 139 P3 rows (the `a11y` module,
+  drawing tools, headless extras, timeline editing) moved to a new phase P3b.

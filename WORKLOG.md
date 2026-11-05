@@ -1,9 +1,9 @@
 # Work log
 
 ## Now
-Goal: P3 (first part): playground (`anima playground`) per design/playground/{mockup.html,handoff.md} + web host API; branch p3-playground → PR.
-State: main b1941c9 = M0–M5, Phase A, P1 (PRs #7, #8 merged). p3-playground: mockup + handoff + Player.inspect() (core+web 14962 B).
-Next: Sol agents: host API (web) and playground (packages/playground + CLI); then compare real UI vs mockup at 1440/1000/390, fix drift, PR. Rest of P3 rows (a11y module, drawing tools, headless extras) stay open.
+Goal: P3 PR p3-playground → main, merge when green; then P4 (interaction, paint, events, data binding).
+State: P3 done on p3-playground: Player.inspect, host API (15880 B), anima playground, mockup compared + drift fixed; parity 127/1238 done, P3b holds the rest.
+Next: PR, CI, merge. Then P4 planning: split into modules (interaction, paint, events, data), design specs first.
 Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
 Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
@@ -54,3 +54,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 18:50 [claude]: merged tooling (ff34197): inspect subpaths, render --compare (moon/trash 0 px), snapshot inputs; bbox rounding; PLAN M5/P2 ticked, P2 parity rows → P3, LOG M5
 - 2026-11-05 19:40 [claude]: PR #8 merged; P3 design done myself (mockup checked at 1440/1000/390, valid/errors/scrub/dark; fixed highlighter, mask sizing, phone overflow); Player.inspect() + test (+150 B gz)
 - 2026-11-05 20:30 [claude]: merged host API (d1313fe): 10/10 items, Chromium+Firefox tests, docs/WEB.md; core+web 15880 B (+918)
+- 2026-11-05 21:30 [claude]: merged playground (9f6849a); compared with mockup at 1440/1000/390 + 1280x720 (found overlap, fixed in impl+mockup); parity 15 rows done, rest → P3b; npm run check 437 pass

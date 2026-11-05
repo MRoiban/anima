@@ -29,17 +29,18 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | GPU | 35 |  |  | 8 |  | 27 |  |
 | Assets | 50 |  |  | 50 |  |  |  |
 | Accessibility | 63 | 5 |  | 58 |  |  |  |
-| Host runtime API | 125 | 12 |  | 109 |  | 4 |  |
+| Host runtime API | 125 | 22 |  | 99 |  | 4 |  |
 | Platforms | 64 | 1 |  | 9 |  | 54 |  |
-| Tooling | 119 | 9 |  | 55 | 1 | 51 | 3 |
-| **Total** | **1238** | **112** | **2** | **958** | **1** | **162** | **3** |
+| Tooling | 119 | 14 |  | 50 | 1 | 51 | 3 |
+| **Total** | **1238** | **127** | **2** | **943** | **1** | **162** | **3** |
 
 | Phase | Rows |
 |---|---:|
 | [P0](#p0) — Done: format 0.1, core, CLI, `<anima-icon>` (M0–M4) | 111 |
 | [P1](#p1) — Done: AniML, the authoring markup | 1 |
 | [P2](#p2) — Done: M5, Glyphy export, more glyphs, the head-to-head test | 0 |
-| [P3](#p3) — Playground/inspector and the web host API | 154 |
+| [P3](#p3) — Done: the playground/inspector and the web host API | 15 |
+| [P3b](#p3b) — The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras | 139 |
 | [P4](#p4) — Interaction, paint, events and data binding | 456 |
 | [P5](#p5) — Components and assets | 88 |
 | [P6](#p6) — Text | 67 |
@@ -223,7 +224,34 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 ## P2 — Done: M5, Glyphy export, more glyphs, the head-to-head test <a id="p2"></a>
 
-## P3 — Playground/inspector and the web host API <a id="p3"></a>
+## P3 — Done: the playground/inspector and the web host API <a id="p3"></a>
+
+### Host runtime API
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `host-api.autoplay` | Autoplay | plays on load unless the paused attribute is present | web | done | packages/web/test/browser.test.ts (host API, Chromium + Firefox) |
+| `host-api.cleanup` | Instance teardown | <anima-icon>.destroy() | web | done | packages/web/test/browser.test.ts (host API, Chromium + Firefox) |
+| `host-api.file-introspection` | Inspect runtime contents | <anima-icon>.info and anima:load | tooling | done | packages/web/test/browser.test.ts (host API, Chromium + Firefox) |
+| `host-api.pause` | Pause selected playback | <anima-icon>.pause() / paused attribute | web | done | packages/web/test/browser.test.ts (host API, Chromium + Firefox) |
+| `host-api.play` | Play named animation or machine | <anima-icon>.play() | web | done | packages/web/test/browser.test.ts (host API, Chromium + Firefox) |
+| `host-api.playback-state` | Read playback state | <anima-icon>.playback | web | done | packages/web/test/browser.test.ts (host API, Chromium + Firefox) |
+| `host-api.render-loop-control` | Suspend drawing loop | <anima-icon>.pause()/.play(); speed | web | done | packages/web/test/browser.test.ts (host API, Chromium + Firefox) |
+| `host-api.reset` | Reset playback | <anima-icon>.reset() | web | done | packages/web/test/browser.test.ts (host API, Chromium + Firefox) |
+| `host-api.shared-frame-scheduler` | Shared frame scheduling | one shared requestAnimationFrame scheduler that sleeps when every icon is settled | web | done | packages/web/test/browser.test.ts (host API, Chromium + Firefox) |
+| `host-api.single-redraw` | Request one frame | <anima-icon>.invalidate() | web | done | packages/web/test/browser.test.ts (host API, Chromium + Firefox) |
+
+### Tooling
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `tooling.editor-live-interaction` | Interactive editor preview | playground stage: real pointer and keyboard interaction | tooling | done | packages/playground/test (unit, server, Chromium + Firefox) |
+| `tooling.editor-machine-graph` | Visual machine graph | playground state graphs (current, previous, live transition, blend) | tooling | done | packages/playground/test (unit, server, Chromium + Firefox) |
+| `tooling.editor-open` | Open a cloud editor file | anima playground <file.animl> | tooling | done | packages/playground/test (unit, server, Chromium + Firefox) |
+| `tooling.live-preview` | Live source preview | anima playground [file.animl]: live AniML compile and preview | markup | done | packages/playground/test (unit, server, Chromium + Firefox) |
+| `tooling.preview-controls` | Preview playback controls | playground: pause/play, ¼× speed, scrubbing, inputs, reset | tooling | done | packages/playground/test (unit, server, Chromium + Firefox) |
+
+## P3b — The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras <a id="p3b"></a>
 
 ### Drawing and paint
 
@@ -328,23 +356,13 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `host-api.autoplay` | Autoplay | new: <anima-icon autoplay> | web | planned | browser/autoplay |
-| `host-api.cleanup` | Instance teardown | `el.destroy()` detaches internal listeners, observers and scheduler; later load reuses host | web | planned | packages/web/test/browser.test.ts: host destroy is idempotent (Chromium + Firefox) |
 | `host-api.deprecation-policy` | Deprecation warning controls | new: coded API deprecation diagnostics | tooling | planned | browser/deprecation-policy |
-| `host-api.file-introspection` | Inspect runtime contents | `el.info` lists metadata, inputs, timelines and layer states; `el.get(name)` reads inputs | tooling | planned | packages/web/test/browser.test.ts: host info describes the model (Chromium + Firefox) |
 | `host-api.fps-counter` | FPS monitoring | new: inspector performance counters | tooling | planned | browser/fps-counter |
 | `host-api.keyboard-focus` | Keyboard focus integration | new: focus tree and host focus policy | a11y | planned | browser/keyboard-focus |
 | `host-api.low-level-focus` | Manual focus traversal | new: focus tree handle | a11y | planned | browser/low-level-focus |
 | `host-api.low-level-semantics` | Semantic diffs and actions | new: semantic tree adapter API | a11y | planned | browser/low-level-semantics |
-| `host-api.pause` | Pause selected playback | `el.pause()` or `paused` attribute; queue writes without stepping | web | planned | packages/web/test/browser.test.ts: host pause queues writes (Chromium + Firefox) |
 | `host-api.performance-marks` | Performance marks | new: opt-in performance marks | tooling | planned | browser/performance-marks |
-| `host-api.play` | Play named animation or machine | `el.play()` removes explicit pause, applies writes, and resumes | web | planned | packages/web/test/browser.test.ts: host pause queues writes (Chromium + Firefox) |
-| `host-api.playback-state` | Read playback state | `el.playback`: empty, paused, playing, settled | web | planned | packages/web/test/browser.test.ts: host pause queues writes; host destroy is idempotent (Chromium + Firefox) |
-| `host-api.render-loop-control` | Suspend drawing loop | `el.speed` / speed attribute; shared scheduler sleeps at zero or explicit pause | web | planned | packages/web/test/browser.test.ts: host speed scales frame dt (Chromium + Firefox) |
-| `host-api.reset` | Reset playback | `el.reset()` restores default inputs and initial states, retaining the host | web | planned | packages/web/test/browser.test.ts: host paused attribute starts without stepping (Chromium + Firefox) |
 | `host-api.semantic-overlay` | Accessible semantic tree | new: nested semantic nodes mapped to SVG/DOM | a11y | planned | browser/semantic-overlay |
-| `host-api.shared-frame-scheduler` | Shared frame scheduling | new: Shared frame scheduling | web | planned | browser/shared-frame-scheduler |
-| `host-api.single-redraw` | Request one frame | `el.invalidate()` repaints retained SVG once without stepping | web | planned | packages/web/test/browser.test.ts: host invalidate repaints once (Chromium + Firefox) |
 | `host-api.stop` | Stop selected playback | new: <anima-icon>.stop(name) | web | planned | browser/stop |
 
 ### Platforms
@@ -367,9 +385,6 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `tooling.data-debugger` | Live data inspection and editing | new: playground data inspector | tooling | planned | cli/data-debugger |  |
 | `tooling.debug-rebuild` | Preserve debugger session on rebuild | new: stable debug IDs across preview reloads | tooling | planned | cli/debug-rebuild |  |
 | `tooling.editor-hierarchy` | Visual scene hierarchy | new: Visual scene hierarchy | tooling | planned | cli/editor-hierarchy |  |
-| `tooling.editor-live-interaction` | Interactive editor preview | new: Interactive editor preview | tooling | planned | cli/editor-live-interaction |  |
-| `tooling.editor-machine-graph` | Visual machine graph | new: Visual machine graph | tooling | planned | cli/editor-machine-graph |  |
-| `tooling.editor-open` | Open a cloud editor file | new: open local playground at selected document | tooling | planned | cli/editor-open |  |
 | `tooling.editor-property-inspector` | Visual property editing | new: Visual property editing | tooling | planned | cli/editor-property-inspector |  |
 | `tooling.editor-svg-import` | Editable SVG import | new: Editable SVG import | tooling | planned | cli/editor-svg-import |  |
 | `tooling.editor-timeline` | Visual timeline and work area | new: Visual timeline and work area | tooling | planned | cli/editor-timeline |  |
@@ -397,11 +412,9 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `tooling.headless-wheel` | Synthetic wheel and trackpad | new: sample wheel/trackpad commands | tooling | planned | cli/headless-wheel |  |
 | `tooling.inspect-editor-properties` | Inspect editor-only properties | new: anima inspect --all --scene | tooling | planned | cli/inspect-editor-properties |  |
 | `tooling.inspect-summary` | Wiring diagnostics summary | new: anima inspect --summary with data wiring diagnostics | tooling | planned | cli/inspect-summary |  |
-| `tooling.live-preview` | Live source preview | new: anima playground with live AniML preview | markup | planned | cli/live-preview |  |
 | `tooling.multi-file-project` | Multi-file source project | new: anima project with explicit imports | tooling | planned | cli/multi-file-project |  |
 | `tooling.pixel-compare` | Image comparison | new: anima render --compare reference.png | tooling | planned | cli/pixel-compare |  |
 | `tooling.pixel-probe` | Pixel color probes | new: anima render --probe | tooling | planned | cli/pixel-probe |  |
-| `tooling.preview-controls` | Preview playback controls | new: playground playback and scene controls | tooling | planned | cli/preview-controls |  |
 | `tooling.project-configuration` | Project configuration | new: anima project configuration | tooling | planned | cli/project-configuration |  |
 | `tooling.publish-local` | Runtime export | new: anima build self-contained web distributable | markup | planned | cli/publish-local |  |
 | `tooling.render-presets` | Render presets and queue | new: Render presets and queue | tooling | planned | cli/render-presets |  |

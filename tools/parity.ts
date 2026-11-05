@@ -60,7 +60,8 @@ export const PHASES: [string, string][] = [
   ['P0', 'Done: format 0.1, core, CLI, `<anima-icon>` (M0–M4)'],
   ['P1', 'Done: AniML, the authoring markup'],
   ['P2', 'Done: M5, Glyphy export, more glyphs, the head-to-head test'],
-  ['P3', 'Playground/inspector and the web host API'],
+  ['P3', 'Done: the playground/inspector and the web host API'],
+  ['P3b', 'The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras'],
   ['P4', 'Interaction, paint, events and data binding'],
   ['P5', 'Components and assets'],
   ['P6', 'Text'],
@@ -71,7 +72,7 @@ export const PHASES: [string, string][] = [
 ];
 
 /** Phases whose rows are all done. */
-export const FINISHED = ['P0', 'P1', 'P2'];
+export const FINISHED = ['P0', 'P1', 'P2', 'P3'];
 
 const ROOT = new URL('../docs/parity/', import.meta.url);
 

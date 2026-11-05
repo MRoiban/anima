@@ -103,7 +103,8 @@ and an oracle test against Rive.
 - [x] P1 AniML (authoring markup; `spec/ANIML.md`): compiler, decompiler, `anima build`/`decompile`,
       markup in every command and in HTML, optional browser module, round-trip tests, head-to-head.
 - [x] P2 M5 (Glyphy export draft, two more glyphs in AniML; the head-to-head ran in P1).
-- [ ] P3 Playground/inspector and the web host API.
+- [x] P3 Playground/inspector (`anima playground`) and the web host API (`docs/WEB.md`).
+- [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras.
   - [x] Local playground package, serve-time build, CLI, source diagnostics, stage/inputs, graphs,
         timeline scrubbing, revision-checked Save, responsive screenshots and browser tests.
   - [ ] Integrate and verify the parallel web host API (pause/resume/rate); remaining P3 parity
