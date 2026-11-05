@@ -621,7 +621,8 @@ describe('AniML compiler', () => {
       expect(result).toHaveProperty('diagnostics');
       expect(result.diagnostics.length > 0 || result.text !== undefined, `prefix ${i}`).toBe(true);
     }
-  });
+    // ~6 000 compiles: generous under full-suite load (its speed is tracked in docs/LOG.md P4a).
+  }, 30000);
 
   it.each(['<anima name="&#x110000;"/>', '<anima name="&#9999999;"/>', '<anima>'.repeat(300)])(
     'never throws on parser contract edge case %s',

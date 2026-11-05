@@ -2,7 +2,16 @@ import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['**/node_modules/**', '**/dist/**', 'coverage/**', 'fixtures/**'] },
+  {
+    // Raw benchmark runs are kept as the agents left them (evidence), not linted.
+    ignores: [
+      '**/node_modules/**',
+      '**/dist/**',
+      'coverage/**',
+      'fixtures/**',
+      'docs/benchmarks/runs/**',
+    ],
+  },
   js.configs.recommended,
   ...tseslint.configs.strict,
   {
