@@ -16,8 +16,8 @@ icon buttons at x = 2, 26 and 50 (top-left corners, y = 2): **bell**, **folder**
    its centre in 0.12 s; pointer down scales it to 0.92 in 0.08 s; release returns to the hover
    scale. This behaviour must be **defined once** and reused by all three buttons (not copied per
    button). State how you reused it.
-2. **A reusable badge.** A badge — an accent circle of radius 3.5 with a white number (or a white
-   dot when the number is 0 is not wanted: hide the badge entirely at 0) — sits at the top-right
+2. **A reusable badge.** A badge — an accent circle of radius 3.5 showing its number in white, and hidden entirely
+   when the number is 0 — sits at the top-right
    corner of the bell (centre (19, 4) relative to the button). The badge is **defined once** with
    its own `count` input and its own small animation: when `count` increases it pops (scale 1 →
    1.25 → 1 over 0.25 s).
