@@ -33,3 +33,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 15:00 [claude]: P1 contract on p1-animl (23839c7, d9c0063): ANIML spec, bell.animl, registry markup names, xml parser (18 tests), names.ts (4 tests); launched Sol compiler (xhigh) + decompiler/formatter (high)
 - 2026-11-05 15:10 [owner]: Firefox clapper fix confirmed on macOS; name stays Anima with .ani and .animl
 - 2026-11-05 14:20 [claude]: merged Sol decompiler+formatter (0deca93) into p1-animl; parser now reports out-of-range entities → markup tests 49 pass/14 skipped (evidence: npx vitest run packages/markup)
+- 2026-11-05 14:35 [claude]: merged Sol compiler (d575827); round-trip tests on bell + 13 cases pass; full suite 274 pass, size 14635 B gz (evidence: npx vitest run; node tools/size.ts). Spec §8 lists 3 decompile normalisations ($schema, element-less $comment, singleton action lists).

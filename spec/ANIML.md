@@ -163,6 +163,11 @@ attributes in registry order; tracks one keyframe per line with aligned columns;
 conditions as in `.ani`. `$comment`s become first-child comments. For every document,
 `build(decompile(build(m)))` equals `build(m)` (round-trip stability).
 
+Decompiling a hand-written `.ani` and building it again gives the same document up to three
+normalisations, none of which changes playback: `$schema` is dropped; a `$comment` on an object
+that has no element of its own (`inputs`, `colors`, a `fill` or `stroke`, …) is dropped; and a
+one-item action list (`"fire": ["ring"]`) is written as a single name (`"fire": "ring"`).
+
 `anima fmt x.animl` reformats markup in place of the same canonical layout but keeps the author's
 comments, element order and named eases.
 
