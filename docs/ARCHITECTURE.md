@@ -72,7 +72,8 @@ docs/      architecture, plan, research notes
 - **Debug and replay.** `el.player` is the core `Player`; setting `el.trace = []` records every step,
   pointer event and input write, which converts one-to-one into an `anima sample` script — the
   browser tests use it to check the browser applies exactly what the headless run computes.
-- **Budget.** `core + web` ≤ **12 KB min+gzip**, enforced in CI (`tools/size.ts`). The bundle is built
+- **Budget.** `core + web` ≤ **25 KB min+gzip**, enforced in CI (`tools/size.ts`); 14.6 KB at M4 with the
+  full strict validator (the owner raised it from 12 KB rather than relax validation; see LOG M4). The bundle is built
   by `tools/browser-build.ts`: esbuild with terse diagnostics, then terser. `node tools/build-web.ts`
   writes `packages/web/dist/anima-icon.js` and the standalone demo `examples/web/index.html`. Rive's web runtime is ~1 MB gzip
   (see `docs/research/rive-web-runtime.md`); the point of Anima is to not need that.

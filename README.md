@@ -7,7 +7,7 @@ An open animation format, `.ani`, and a small web runtime for interactive icons.
 - **Glyphy-native.** Coordinates are glyph grid units; Glyphy's path data is embedded as-is and
   animated in place.
 - **Small.** Retained SVG, CSS theming, no wasm, no network calls, a loop that sleeps when nothing
-  moves. Target: under 12 KB gzipped.
+  moves. Under 15 KB gzipped (budget 25 KB), strict validation included.
 
 Status: format 0.1, core, CLI and web runtime in progress (see [`docs/PLAN.md`](docs/PLAN.md) and
 [`docs/LOG.md`](docs/LOG.md)). [`spec/SPEC.md`](spec/SPEC.md) is the format;
