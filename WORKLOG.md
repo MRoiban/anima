@@ -90,3 +90,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-07 03:30 [claude]: merged D2 scoped tests (482bc30): test:scope -- paint --no-browser 6 s / 23 files vs full ~145 s; with browser the paint target is too broad (30 files) → tighten via module manifests in D1; CI job summary prints size/perf
 - 2026-11-07 05:00 [claude]: merged P5-7 (0cde698): 4/4; 3 consecutive full checks green at default concurrency (1045 tests); markup 7357/8192; real late-registration/schema-sync bugs fixed; next D1 module folders
 - 2026-11-07 05:15 [claude]: launched D1 module folders (xhigh) and the AniML side of the P5 benchmark (format final for P5)
+- 2026-11-07 07:00 [claude]: merged P5 AniML benchmark run (a80efc3): agent 5/6, re-check 6/6 (pop renders 1.25 with its script; sheet never triggered it); 3m43s vs Rive 10m48s; findings: on-change condition → P4c, text → P6, script set-before-advance documented

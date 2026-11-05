@@ -159,6 +159,10 @@ anima render examples/bell.animl -o sheet.png --sheet 8 -e "fire ring"
 anima render examples/bell.animl -o reduced.png -e "motion reduce; fire ring; advance 0"
 ```
 
+A script's first `advance` also enters the initial states. A `set` before it is already in place when
+they resolve, so transitions that react to the change never run (the document starts in the end
+state). To see a reaction to an input change, `advance 0` first, then `set`, then advance.
+
 Scripts accept `advance <seconds> [in <steps>]`, `set <input> <value>`, `fire <input>`,
 `toggle <input>`, `pointer move|down|up|click <x> <y>`, `pointer leave`,
 `motion reduce|full` and `snapshot [addresses]`. Pointer coordinates use grid units.

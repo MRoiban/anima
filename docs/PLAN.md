@@ -202,7 +202,8 @@ and an oracle test against Rive.
       comparison against the SVG backend; SVG stays the default for icons. Must exist before P8.
 - [ ] P4b `motion`: eases, typed/string tracks, seek/reverse/work area/quantize, host timeline
       control, animatable pivot.
-- [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad.
+- [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
+      an on-change / previous-value condition (P5 benchmark: 'count increased' took 10 states).
 - [ ] P4d `events`: payloads, open-URL, audio.
 - [ ] P4e `data`: view models, bindings, converters, lists.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras.
