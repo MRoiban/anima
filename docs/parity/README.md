@@ -45,7 +45,7 @@ say so and a `NOTICE` file will carry the attribution.
 
 ## What 0.1 already covers
 
-112 of 1 238 capabilities (9 %) are done (111 in 0.1, plus AniML in P1), concentrated where icons live: transforms (9/17), animation
+127 of 1 238 capabilities (10 %) are done (111 in 0.1, AniML in P1, 15 in P3: the playground and the web host API), concentrated where icons live: transforms (9/17), animation
 (16/40), state machines (25/61), drawing and paint (20/125), input (13/93), host API (12/125). The
 large categories with nothing yet are data binding (169), host API (125), scripting (96), text (61),
 assets (50) and layout (49). `MATRIX.md` has the per-category table.
@@ -86,6 +86,7 @@ Weighted toward what the owner uses: the web runtime, AniML, Glyphy and the play
 | P1 | AniML: compiler, decompiler, `anima build`, markup in every command, inline HTML | Every later feature is written once in the registry with both spellings. |
 | P2 | M5: Glyphy export draft, two more glyphs in AniML, the head-to-head test | Proves the authoring loop on real glyphs before the model grows. |
 | P3 | Playground/inspector (live AniML, state graph, timeline scrubber, input controls) and the web host API (fit/alignment, playback control, events, data access) | Moved ahead of the suggested order: it is the owner's main tool for seeing and tweaking, and it makes every later phase easier to check. |
+| P3b | The rest of P3: the `a11y` module (roles, states and focus per node), authoring/drawing tools, headless CLI extras (touch, wheel, gamepad, data streams), timeline editing | Split off when the playground and host API shipped; scheduled after P4 unless a later phase needs a piece earlier. |
 | P4 | Interaction, paint, events, data binding | The suggested first block of Phase B; the most-used Rive features after the basics. |
 | P5 | Components and assets | Needs data binding (per-instance data). |
 | P6 | Text | Needs assets (fonts) and binding. |

@@ -11,7 +11,8 @@ spec/
 packages/
   core/    parse → validate → compile → Player.step(dt); pure, deterministic, no DOM
   web/     <anima-icon> custom element: retained SVG DOM, scheduler, input, a11y
-  cli/     anima validate | inspect | sample | render | fmt | new | schema | docs
+  cli/     anima validate | inspect | sample | render | fmt | new | schema | docs | playground
+  playground/ private local editor and inspectors; plain DOM/SVG, compiler + web runtime
 examples/  bell.ani and later icons
 fixtures/  Glyphy glyphs and the Rive reference for the bell
 docs/      architecture, plan, research notes
@@ -71,8 +72,8 @@ docs/      architecture, plan, research notes
 - **A11y and motion** per spec §10: role, label, `tabindex`, Enter/Space, `:focus-visible` styling
   hook, `prefers-reduced-motion` with a `motion` attribute override.
 - **Theming.** Slots become `var(--anima-<slot>, default)`; `currentColor` inherits.
-- **API.** Element properties/methods: `set`, `fire`, `play(timeline)` (debug), `ready` promise,
-  `values()`; DOM events: `anima:event` (detail `{ name, layer, time }`), `anima:state`.
+- **API.** See the [web host API reference](WEB.md) for attributes, properties, playback controls,
+  introspection, cleanup, and DOM events.
 - **Debug and replay.** `el.player` is the core `Player`; setting `el.trace = []` records every step,
   pointer event and input write, which converts one-to-one into an `anima sample` script — the
   browser tests use it to check the browser applies exactly what the headless run computes.
@@ -121,3 +122,12 @@ Glyphy (Python, `MRoiban/glyphy`) has no exporter registry: `export -f` is hard-
    glyph, rest pose only). Follow Glyphy's own `AGENTS.md`.
 3. Respect Glyphy's conventions: grid units, absolute `M L C Z`, `fill-rule: evenodd`,
    `currentColor`, kebab-case names without a `-<digits>` suffix.
+
+## playground (`packages/playground`)
+
+A private development UI, built at serve time by `tools/build-playground.ts` into self-contained
+HTML. `packages/cli/src/playground.ts` serves it and a single revision-checked file endpoint on
+loopback. The client owns source editing, compile diagnostics, model-derived state graph layout
+and a timeline sampler; it uses `Player.inspect()` and `<anima-icon>` rather than implementing a
+second state machine or renderer. It adds no runtime dependencies to core or web. See
+`docs/PLAYGROUND.md` for the build decision, API integration and screenshot reproduction.

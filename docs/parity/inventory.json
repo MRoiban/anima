@@ -22,7 +22,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-ancestor-focus",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -49,7 +49,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-check-checked",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -76,7 +76,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-check-mixed",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -103,7 +103,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-check-unchecked",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -129,7 +129,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-focus-action-target",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -155,7 +155,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-focus-action-traversal",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -181,7 +181,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-focus-condition",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -207,7 +207,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-focus-retarget",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -233,7 +233,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-focus-sync",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -256,7 +256,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-headless-inspection",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -331,7 +331,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-inferred-text",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -359,7 +359,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-overlay-policy",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -387,7 +387,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-property-heading-level",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -415,7 +415,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-property-hint",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -443,7 +443,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-property-label",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -471,7 +471,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-property-value",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -499,7 +499,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-role-alert-dialog",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -555,7 +555,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-role-checkbox",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -583,7 +583,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-role-dialog",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -611,7 +611,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-role-group",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -667,7 +667,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-role-link",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -695,7 +695,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-role-list",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -723,7 +723,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-role-list-item",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -751,7 +751,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-role-none",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -779,7 +779,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-role-radio-button",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -807,7 +807,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-role-radio-group",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -835,7 +835,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-role-slider",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -891,7 +891,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-role-tab",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -919,7 +919,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-role-tab-list",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -947,7 +947,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-role-text",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -975,7 +975,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-role-text-field",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -998,7 +998,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-roving-focus",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1025,7 +1025,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-semantic-diffs",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1051,7 +1051,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-spatial-focus",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1078,7 +1078,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-state-disabled",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1105,7 +1105,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-state-expanded",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1132,7 +1132,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-state-focused",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1159,7 +1159,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-state-hidden",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1186,7 +1186,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-state-live-region",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1213,7 +1213,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-state-modal",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1240,7 +1240,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-state-multiline",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1267,7 +1267,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-state-obscured",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1294,7 +1294,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-state-read-only",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1321,7 +1321,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-state-required",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1348,7 +1348,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-state-selected",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1375,7 +1375,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-state-toggled",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1401,7 +1401,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-tab-focus",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1424,7 +1424,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-text-proxy",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1451,7 +1451,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-trait-checkable",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1478,7 +1478,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-trait-enablable",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1505,7 +1505,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-trait-expandable",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1532,7 +1532,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-trait-focusable",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1559,7 +1559,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-trait-requirable",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1586,7 +1586,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-trait-selectable",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1613,7 +1613,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-trait-toggleable",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1639,7 +1639,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-tree-bounds",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1669,7 +1669,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-tree-visibility",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1694,7 +1694,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "oracle/a11y-web-overlay",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1896,7 +1896,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "conformance/frame-grid",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -1924,7 +1924,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "oracle/graph-editor",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -10668,7 +10668,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "oracle/brush-flatten",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -10695,7 +10695,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "oracle/brush-pressure",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -10723,7 +10723,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "oracle/brush-smoothing",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -10750,7 +10750,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "oracle/brush-speed",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -10776,7 +10776,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "conformance/brush-tips",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -11285,7 +11285,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "oracle/freehand-brush",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -11312,7 +11312,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "oracle/freehand-eraser",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -11340,7 +11340,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "oracle/freehand-pencil",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -12978,7 +12978,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "oracle/shape-builder-subtract",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -13000,7 +13000,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "oracle/shape-builder-union",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -15628,10 +15628,10 @@
    "rive-wasm/js/src/rive.ts:1569@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: <anima-icon autoplay>",
+   "construct": "plays on load unless the paused attribute is present",
    "module": "web",
-   "status": "planned",
-   "test": "browser/autoplay",
+   "status": "done",
+   "test": "packages/web/test/browser.test.ts (host API, Chromium + Firefox)",
    "phase": "P3"
   }
  },
@@ -15740,10 +15740,10 @@
    "rive-wasm/js/src/rive.ts:3937@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: <anima-icon>.destroy()",
+   "construct": "<anima-icon>.destroy()",
    "module": "web",
-   "status": "planned",
-   "test": "browser/cleanup",
+   "status": "done",
+   "test": "packages/web/test/browser.test.ts (host API, Chromium + Firefox)",
    "phase": "P3"
   }
  },
@@ -16165,7 +16165,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "browser/deprecation-policy",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -16598,10 +16598,10 @@
    "rive-wasm/js/src/rive.ts:4894@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: runtime metadata for scenes, timelines, machines and inputs",
+   "construct": "<anima-icon>.info and anima:load",
    "module": "tooling",
-   "status": "planned",
-   "test": "browser/file-introspection",
+   "status": "done",
+   "test": "packages/web/test/browser.test.ts (host API, Chromium + Firefox)",
    "phase": "P3"
   }
  },
@@ -16941,7 +16941,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "browser/fps-counter",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -17106,7 +17106,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "browser/keyboard-focus",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -17393,7 +17393,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "browser/low-level-focus",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -17507,7 +17507,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "browser/low-level-semantics",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -17883,10 +17883,10 @@
    "rive-wasm/js/src/rive.ts:4164@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: <anima-icon>.pause(name)",
+   "construct": "<anima-icon>.pause() / paused attribute",
    "module": "web",
-   "status": "planned",
-   "test": "browser/pause",
+   "status": "done",
+   "test": "packages/web/test/browser.test.ts (host API, Chromium + Firefox)",
    "phase": "P3"
   }
  },
@@ -17913,7 +17913,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "browser/performance-marks",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -17935,10 +17935,10 @@
    "rive-wasm/js/src/rive.ts:4133@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: <anima-icon>.play(name)",
+   "construct": "<anima-icon>.play()",
    "module": "web",
-   "status": "planned",
-   "test": "browser/play",
+   "status": "done",
+   "test": "packages/web/test/browser.test.ts (host API, Chromium + Firefox)",
    "phase": "P3"
   }
  },
@@ -17967,10 +17967,10 @@
    "rive-wasm/js/src/rive.ts:4658@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: <anima-icon>.playback",
+   "construct": "<anima-icon>.playback",
    "module": "web",
-   "status": "planned",
-   "test": "browser/playback-state",
+   "status": "done",
+   "test": "packages/web/test/browser.test.ts (host API, Chromium + Firefox)",
    "phase": "P3"
   }
  },
@@ -18046,10 +18046,10 @@
    "rive-wasm/js/src/rive.ts:4818@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: <anima-icon>.suspend()/.resume()",
+   "construct": "<anima-icon>.pause()/.play(); speed",
    "module": "web",
-   "status": "planned",
-   "test": "browser/render-loop-control",
+   "status": "done",
+   "test": "packages/web/test/browser.test.ts (host API, Chromium + Firefox)",
    "phase": "P3"
   }
  },
@@ -18124,10 +18124,10 @@
    "rive-wasm/js/src/rive.ts:4248@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: <anima-icon>.reset(options)",
+   "construct": "<anima-icon>.reset()",
    "module": "web",
-   "status": "planned",
-   "test": "browser/reset",
+   "status": "done",
+   "test": "packages/web/test/browser.test.ts (host API, Chromium + Firefox)",
    "phase": "P3"
   }
  },
@@ -18290,7 +18290,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "browser/semantic-overlay",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -18312,10 +18312,10 @@
    "rive-wasm/wasm/js/animation_callback_handler.js:1@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: Shared frame scheduling",
+   "construct": "one shared requestAnimationFrame scheduler that sleeps when every icon is settled",
    "module": "web",
-   "status": "planned",
-   "test": "browser/shared-frame-scheduler",
+   "status": "done",
+   "test": "packages/web/test/browser.test.ts (host API, Chromium + Firefox)",
    "phase": "P3"
   }
  },
@@ -18366,10 +18366,10 @@
    "rive-wasm/js/src/rive.ts:3440@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: <anima-icon>.invalidate()",
+   "construct": "<anima-icon>.invalidate()",
    "module": "web",
-   "status": "planned",
-   "test": "browser/single-redraw",
+   "status": "done",
+   "test": "packages/web/test/browser.test.ts (host API, Chromium + Firefox)",
    "phase": "P3"
   }
  },
@@ -18396,7 +18396,7 @@
    "module": "web",
    "status": "planned",
    "test": "browser/stop",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -20584,7 +20584,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "conformance/input-semantic-decrease",
-   "phase": "P3"
+   "phase": "P3b"
   },
   "aliases": [
    "a11y.action-decrease"
@@ -20621,7 +20621,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "conformance/input-semantic-increase",
-   "phase": "P3"
+   "phase": "P3b"
   },
   "aliases": [
    "a11y.action-increase"
@@ -20658,7 +20658,7 @@
    "module": "a11y",
    "status": "planned",
    "test": "conformance/input-semantic-tap",
-   "phase": "P3"
+   "phase": "P3b"
   },
   "aliases": [
    "a11y.action-tap"
@@ -23841,7 +23841,7 @@
    "module": "web",
    "status": "planned",
    "test": "platform/react-webgl2",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -23886,7 +23886,7 @@
    "module": "web",
    "status": "planned",
    "test": "platform/threaded-wasm",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -24080,7 +24080,7 @@
    "module": "web",
    "status": "planned",
    "test": "platform/web-canvas-lite",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -24104,7 +24104,7 @@
    "module": "web",
    "status": "planned",
    "test": "platform/web-canvas-single",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -24199,7 +24199,7 @@
    "module": "web",
    "status": "planned",
    "test": "platform/webgl2-advanced",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -24223,7 +24223,7 @@
    "module": "web",
    "status": "planned",
    "test": "platform/webgl2-threads",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -31026,7 +31026,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/benchmark",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -31171,7 +31171,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/data-breakpoints",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -31195,7 +31195,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/data-debugger",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -31219,7 +31219,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/debug-rebuild",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -31408,7 +31408,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/editor-hierarchy",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -31497,10 +31497,10 @@
    "https://rive.app/docs/editor/interface-overview/toolbar"
   ],
   "anima": {
-   "construct": "new: Interactive editor preview",
+   "construct": "playground stage: real pointer and keyboard interaction",
    "module": "tooling",
-   "status": "planned",
-   "test": "cli/editor-live-interaction",
+   "status": "done",
+   "test": "packages/playground/test (unit, server, Chromium + Firefox)",
    "phase": "P3"
   }
  },
@@ -31519,10 +31519,10 @@
    "https://rive.app/docs/editor/state-machine/state-machine"
   ],
   "anima": {
-   "construct": "new: Visual machine graph",
+   "construct": "playground state graphs (current, previous, live transition, blend)",
    "module": "tooling",
-   "status": "planned",
-   "test": "cli/editor-machine-graph",
+   "status": "done",
+   "test": "packages/playground/test (unit, server, Chromium + Firefox)",
    "phase": "P3"
   }
  },
@@ -31589,10 +31589,10 @@
    "rive open --help"
   ],
   "anima": {
-   "construct": "new: open local playground at selected document",
+   "construct": "anima playground <file.animl>",
    "module": "tooling",
-   "status": "planned",
-   "test": "cli/editor-open",
+   "status": "done",
+   "test": "packages/playground/test (unit, server, Chromium + Firefox)",
    "phase": "P3"
   }
  },
@@ -31615,7 +31615,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/editor-property-inspector",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -31660,7 +31660,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/editor-svg-import",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -31682,7 +31682,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/editor-timeline",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -31729,7 +31729,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/environment-doctor",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -31819,7 +31819,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/export-png-sequence",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -31863,7 +31863,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/export-svg-sequence",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -31910,7 +31910,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/failed-script-fixtures",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -31959,7 +31959,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-artboard",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -31983,7 +31983,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-audio",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32007,7 +32007,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-command-session",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32031,7 +32031,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-data",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32055,7 +32055,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-data-dump",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32079,7 +32079,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-data-filter",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32103,7 +32103,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-data-stream",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32127,7 +32127,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-fit",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32151,7 +32151,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-gamepad",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32175,7 +32175,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-key",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32199,7 +32199,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-pointer",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32223,7 +32223,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-scale",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32271,7 +32271,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-semantic-actions",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32295,7 +32295,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-semantics",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32319,7 +32319,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-settle-jobs",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32367,7 +32367,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-touch",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32391,7 +32391,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-viewport",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32416,7 +32416,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/headless-wheel",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32464,7 +32464,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/inspect-editor-properties",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32488,7 +32488,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/inspect-summary",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -32782,10 +32782,10 @@
    "rive --help"
   ],
   "anima": {
-   "construct": "new: anima playground with live AniML preview",
+   "construct": "anima playground [file.animl]: live AniML compile and preview",
    "module": "markup",
-   "status": "planned",
-   "test": "cli/live-preview",
+   "status": "done",
+   "test": "packages/playground/test (unit, server, Chromium + Firefox)",
    "phase": "P3"
   }
  },
@@ -32932,7 +32932,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/multi-file-project",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33055,7 +33055,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/pixel-compare",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33079,7 +33079,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/pixel-probe",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33099,10 +33099,10 @@
    "rive --help"
   ],
   "anima": {
-   "construct": "new: playground playback and scene controls",
+   "construct": "playground: pause/play, ¼× speed, scrubbing, inputs, reset",
    "module": "tooling",
-   "status": "planned",
-   "test": "cli/preview-controls",
+   "status": "done",
+   "test": "packages/playground/test (unit, server, Chromium + Firefox)",
    "phase": "P3"
   }
  },
@@ -33127,7 +33127,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/project-configuration",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33151,7 +33151,7 @@
    "module": "markup",
    "status": "planned",
    "test": "cli/publish-local",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33273,7 +33273,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/render-presets",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33347,7 +33347,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/sample-projects",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33371,7 +33371,7 @@
    "module": "markup",
    "status": "planned",
    "test": "cli/scaffold",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33395,7 +33395,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/schema-lookup",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33421,7 +33421,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/schema-search",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33446,7 +33446,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/script-build-constants",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33470,7 +33470,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/script-debugger",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33495,7 +33495,7 @@
    "status": "deferred",
    "test": "cli/script-memory-bounds",
    "reason": "Requires a chosen script engine and memory model before specifying the host contract.",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33519,7 +33519,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/script-network-permission",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33544,7 +33544,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/script-release-build",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33568,7 +33568,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/script-test-runner",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33594,7 +33594,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/script-thread-controls",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33618,7 +33618,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/seed",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -33644,7 +33644,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/test-assertions",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {
@@ -34024,7 +34024,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "conformance/freeze-transform",
-   "phase": "P3"
+   "phase": "P3b"
   }
  },
  {

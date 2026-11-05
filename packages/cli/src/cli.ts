@@ -24,6 +24,7 @@ import {
 import { formatAni as format } from '@anima-format/core';
 import { compile, decompile, formatMarkup, type MarkupDiagnostic } from '@anima-format/markup';
 import { nodeAttrs } from '../../markup/src/names.ts';
+import { startPlayground } from './playground.ts';
 import { inspectGlyph } from './glyphs.ts';
 import { buildHTML } from './html.ts';
 import { lineCol, locate, syntaxErrorAt } from './locate.ts';
@@ -43,6 +44,7 @@ const ROOT = new URL('../../../', import.meta.url);
 
 const HELP = `anima — check, see and scaffold .animl and .ani animations
 
+  anima playground [file.animl] [--port 4519]  local live editor (built-in bell is read-only)
   anima validate <file>                 all diagnostics, with JSON pointers, lines and hints
   anima inspect <file>                  nodes, glyph subpaths and bounds, timelines, state graph
   anima sample <file> [-s script | -e "cmds"] [--reduced-motion]
@@ -73,6 +75,7 @@ export async function run(argv: string[], io: IO): Promise<number> {
       args: argv,
       allowPositionals: true,
       options: {
+        port: { type: 'string' },
         format: { type: 'string', default: 'text' },
         script: { type: 'string', short: 's' },
         eval: { type: 'string', short: 'e' },
@@ -111,6 +114,16 @@ export async function run(argv: string[], io: IO): Promise<number> {
   const emit = (v: unknown) => io.out(JSON.stringify(v, null, json ? undefined : 2));
   try {
     switch (cmd) {
+      case 'playground': {
+        if (rest.length > 1) throw new Usage('playground takes at most one .animl file');
+        const port = o.port === undefined ? 4519 : Number(o.port);
+        if (!Number.isInteger(port) || port < 0 || port > 65535)
+          throw new Usage('--port takes an integer from 0 to 65535');
+        const host = await startPlayground({ file: rest[0], port });
+        if (json) emit({ url: host.url, writable: !!rest[0] });
+        else io.out(`Anima Playground: ${host.url}${rest[0] ? '' : ' (example is read-only)'}`);
+        return 0;
+      }
       case 'validate':
         return validate(file(rest), json, io);
       case 'inspect':

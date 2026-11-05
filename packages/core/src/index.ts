@@ -8,6 +8,7 @@ export {
   Player,
   sampleTrack,
   type AnimaEvent,
+  type LayerInspect,
   type StepResult,
   type PointerKind,
 } from './player.ts';

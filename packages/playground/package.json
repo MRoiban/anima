@@ -1,0 +1,7 @@
+{
+  "name": "@anima-format/playground",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local AniML editor and live runtime inspector; built at serve time."
+}

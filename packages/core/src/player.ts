@@ -24,6 +24,16 @@ export interface AnimaEvent {
   time: number;
 }
 
+export interface LayerInspect {
+  layer: string;
+  state: string;
+  prev: string | null;
+  blend: number | null;
+  locked: boolean;
+  timeline: string | null;
+  time: number | null;
+}
+
 export interface StepResult {
   events: AnimaEvent[];
   settled: boolean;
@@ -45,6 +55,8 @@ interface LayerRun {
   /** Per state, the writes it makes: [slot, constant value or track]. */
   w: Write[][];
   state: number;
+  /** The state before the last transition (for inspectors). */
+  prev: number;
   time: number;
   fade: Fade | null;
   /** Reduced motion: the local time the timeline is frozen at, or -1. */
@@ -130,11 +142,15 @@ export class Player {
             : [],
       ),
       state: m.initial,
+      prev: -1,
       time: 0,
       fade: null,
       frozen: -1,
     }));
-    this.#layers.forEach((L) => this.#enter(L, L.state, 0, null, 0, null, this.#entryEvents));
+    this.#layers.forEach((L) => {
+      this.#enter(L, L.state, 0, null, 0, null, this.#entryEvents);
+      L.prev = -1;
+    });
     this.#over = model.listeners.map(() => false);
     this.#vals = this.#rest.slice();
     for (const L of this.#layers) this.#write(L, this.#vals);
@@ -185,6 +201,27 @@ export class Player {
     const o: Record<string, string> = {};
     for (const L of this.#layers) o[L.m.name] = L.m.states[L.state]!.name;
     return o;
+  }
+
+  /**
+   * Per layer, what an inspector shows: the current and previous state, the blend in progress
+   * (0–1, or null when none; `locked` when it is non-interruptible), and the timeline the state
+   * plays with its local time.
+   */
+  inspect(): LayerInspect[] {
+    return this.#layers.map((L) => {
+      const st = L.m.states[L.state]!;
+      const tl = st.play === undefined ? undefined : this.model.timelines[st.play]!;
+      return {
+        layer: L.m.name,
+        state: st.name,
+        prev: L.prev < 0 ? null : L.m.states[L.prev]!.name,
+        blend: L.fade ? Math.min(1, L.fade.t / L.fade.dur) : null,
+        locked: !!L.fade?.lock,
+        timeline: tl?.name ?? null,
+        time: tl ? (L.frozen >= 0 ? L.frozen : loopTime(tl, L.time * st.speed)) : null,
+      };
+    });
   }
 
   /** Resolved value of an animated address, colours as hex. */
@@ -495,6 +532,7 @@ export class Player {
     lock = false,
   ): void {
     const st = L.m.states[to]!;
+    L.prev = L.state;
     L.state = to;
     L.time = carry;
     L.frozen = -1;

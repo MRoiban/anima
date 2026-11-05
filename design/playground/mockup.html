@@ -1,0 +1,1927 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Anima Playground — mockup</title>
+    <!-- Design mockup for P3 (design/playground/handoff.md). Static: no compiler, no runtime. -->
+    <style>
+      :root {
+        --paper: #faf9f5;
+        --panel: #f3f1ea;
+        --ink: #141413;
+        --muted: #6b6a64;
+        --faint: #9c9a91;
+        --line: #e3e1d7;
+        --accent: #d97757;
+        --accent-soft: #f5e1d8;
+        --ok: #5a7a4a;
+        --ok-soft: #e4ecdc;
+        --err: #b4472f;
+        --err-soft: #f7e0d9;
+        --warn: #9a6a12;
+        --warn-soft: #f4e8cc;
+        --tag: #8a5a44;
+        --attr: #4f5d7a;
+        --val: #4f6b3a;
+        --com: #9c9a91;
+        --serif: ui-serif, Georgia, 'Times New Roman', serif;
+        --sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+        --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+        --r: 10px;
+      }
+      :root[data-theme='dark'] {
+        --paper: #1f1e1d;
+        --panel: #262523;
+        --ink: #f0eee6;
+        --muted: #a3a29a;
+        --faint: #7a7972;
+        --line: #3a3934;
+        --accent: #e08a6d;
+        --accent-soft: #4a3229;
+        --ok: #9cbc86;
+        --ok-soft: #2d3727;
+        --err: #ec8a72;
+        --err-soft: #4a2a22;
+        --warn: #e0b45a;
+        --warn-soft: #43361c;
+        --tag: #e0a58a;
+        --attr: #a7b4d4;
+        --val: #b5cf9c;
+        --com: #7a7972;
+        color-scheme: dark;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font: 14px/1.45 var(--sans);
+      }
+      button,
+      select,
+      input {
+        font: inherit;
+        color: inherit;
+      }
+      .mock-switch {
+        position: fixed;
+        right: 12px;
+        bottom: 12px;
+        z-index: 9;
+        display: flex;
+        gap: 6px;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 6px;
+        border-radius: 8px;
+        font-size: 12px;
+      }
+      .mock-switch button {
+        background: transparent;
+        border: 1px solid #fff3;
+        border-radius: 6px;
+        color: inherit;
+        padding: 2px 8px;
+        cursor: pointer;
+      }
+      .mock-switch button[aria-pressed='true'] {
+        background: #fff2;
+      }
+
+      /* App shell */
+      .app {
+        height: 100%;
+        display: grid;
+        grid-template-rows: auto 1fr;
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .bar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px 16px;
+        border-bottom: 1px solid var(--line);
+      }
+      .brand {
+        font: 400 20px/1 var(--serif);
+        letter-spacing: -0.01em;
+        margin-right: 4px;
+      }
+      .file {
+        font: 13px var(--mono);
+        color: var(--muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: 0;
+      }
+      .file b {
+        color: var(--ink);
+        font-weight: 500;
+      }
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 2px 10px;
+        border-radius: 999px;
+        font-size: 12px;
+        white-space: nowrap;
+      }
+      .pill::before {
+        content: '';
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+      .pill.ok {
+        background: var(--ok-soft);
+        color: var(--ok);
+      }
+      .pill.err {
+        background: var(--err-soft);
+        color: var(--err);
+      }
+      .spacer {
+        flex: 1;
+      }
+      .btn {
+        border: 1px solid var(--line);
+        background: var(--paper);
+        border-radius: 8px;
+        padding: 5px 12px;
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .btn:hover {
+        border-color: var(--faint);
+      }
+      .btn.primary {
+        background: var(--ink);
+        color: var(--paper);
+        border-color: var(--ink);
+      }
+      .btn:focus-visible,
+      .seg button:focus-visible,
+      .tbtn:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+      .btn kbd {
+        font: 11px var(--mono);
+        color: var(--faint);
+        margin-left: 6px;
+      }
+      .btn.primary kbd {
+        color: #fff8;
+      }
+
+      .main {
+        min-height: 0;
+        display: grid;
+        gap: 0;
+        grid-template-columns: minmax(380px, 1.15fr) minmax(320px, 1fr) minmax(280px, 0.85fr);
+        grid-template-rows: minmax(0, 1fr) auto;
+        grid-template-areas: 'editor stage machine' 'editor timeline timeline';
+      }
+      .panel {
+        min-width: 0;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+      }
+      .panel + .panel {
+        border-left: 1px solid var(--line);
+      }
+      .head {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 14px;
+        border-bottom: 1px solid var(--line);
+        font-size: 12px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--muted);
+        min-height: 37px;
+      }
+      .head .count {
+        text-transform: none;
+        letter-spacing: 0;
+        color: var(--faint);
+      }
+      .head .right {
+        margin-left: auto;
+        display: flex;
+        gap: 6px;
+        text-transform: none;
+        letter-spacing: 0;
+      }
+
+      /* Editor */
+      .editor {
+        grid-area: editor;
+      }
+      .code {
+        flex: 1;
+        min-height: 0;
+        overflow: auto;
+        font: 12.5px/1.6 var(--mono);
+        padding: 8px 0;
+        background: var(--paper);
+      }
+      .ln {
+        display: grid;
+        grid-template-columns: 44px 1fr;
+        white-space: pre;
+      }
+      .ln > i {
+        font-style: normal;
+        color: var(--faint);
+        text-align: right;
+        padding-right: 12px;
+        user-select: none;
+      }
+      .ln.err {
+        background: var(--err-soft);
+      }
+      .ln.err > i {
+        color: var(--err);
+        font-weight: 600;
+      }
+      .ln.cur {
+        background: color-mix(in srgb, var(--accent-soft) 45%, transparent);
+      }
+      .t {
+        color: var(--tag);
+      }
+      .a {
+        color: var(--attr);
+      }
+      .v {
+        color: var(--val);
+      }
+      .c {
+        color: var(--com);
+        font-style: italic;
+      }
+      .squig {
+        text-decoration: underline wavy var(--err);
+        text-underline-offset: 3px;
+      }
+      .diags {
+        border-top: 1px solid var(--line);
+        max-height: 34%;
+        display: flex;
+        flex-direction: column;
+      }
+      .diaglist {
+        overflow: auto;
+        margin: 0;
+        padding: 4px 0;
+        list-style: none;
+      }
+      .diag {
+        display: grid;
+        grid-template-columns: 14px auto 1fr;
+        column-gap: 8px;
+        padding: 6px 14px;
+        cursor: pointer;
+      }
+      .diag:hover,
+      .diag.sel {
+        background: var(--panel);
+      }
+      .diag .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-top: 6px;
+        background: var(--err);
+      }
+      .diag.warn .dot {
+        background: var(--warn);
+      }
+      .diag .where {
+        font: 12px var(--mono);
+        color: var(--muted);
+      }
+      .diag .msg {
+        font-size: 13px;
+      }
+      .diag .msg code {
+        font: 12px var(--mono);
+      }
+      .diag .hint {
+        grid-column: 3;
+        color: var(--muted);
+        font-size: 12.5px;
+      }
+      .diag .code-id {
+        font: 11px var(--mono);
+        color: var(--err);
+      }
+      .empty {
+        padding: 14px;
+        color: var(--muted);
+        font-size: 13px;
+      }
+
+      /* Stage */
+      .stage-p {
+        grid-area: stage;
+        overflow-y: auto;
+      }
+      .stage {
+        flex: none;
+        display: grid;
+        grid-template-rows: auto auto;
+      }
+      .tile-wrap {
+        display: grid;
+        place-items: center;
+        padding: 18px;
+        min-height: 180px;
+        position: relative;
+      }
+      .tile {
+        width: min(300px, 100%, calc(100vh - 560px));
+        min-width: 140px;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        border-radius: 22px;
+        border: 1px solid var(--line);
+        background: var(--paper);
+        position: relative;
+        background-image:
+          linear-gradient(var(--line) 1px, transparent 1px),
+          linear-gradient(90deg, var(--line) 1px, transparent 1px);
+        background-size: calc(100% / 24) calc(100% / 24);
+        background-position: center;
+      }
+      .tile.nogrid {
+        background-image: none;
+      }
+      .tile svg {
+        width: 84%;
+        height: 84%;
+        color: var(--ink);
+        --anima-accent: var(--accent);
+        cursor: pointer;
+      }
+      .tile .ghost {
+        position: absolute;
+        inset: 8%;
+        border: 1px dashed var(--accent);
+        border-radius: 2px;
+        opacity: 0.55;
+        pointer-events: none;
+      }
+      .tile-wrap.broken .tile svg {
+        opacity: 0.25;
+        filter: grayscale(1);
+      }
+      .broken-note {
+        position: absolute;
+        bottom: 26px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 12px;
+        color: var(--err);
+        background: var(--err-soft);
+        padding: 3px 10px;
+        border-radius: 999px;
+        white-space: nowrap;
+        display: none;
+      }
+      .tile-wrap.broken .broken-note {
+        display: block;
+      }
+      .stage-tools {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 14px 12px;
+      }
+      .sizes {
+        display: flex;
+        align-items: end;
+        gap: 10px;
+      }
+      .sizes figure {
+        margin: 0;
+        display: grid;
+        justify-items: center;
+        gap: 2px;
+        font: 10px var(--mono);
+        color: var(--faint);
+      }
+      .chip {
+        display: grid;
+        place-items: center;
+        border-radius: 6px;
+        border: 1px solid var(--line);
+      }
+      .chip.inverse {
+        background: var(--ink);
+        color: var(--paper);
+        border-color: var(--ink);
+      }
+      .chip svg {
+        color: inherit;
+      }
+      .seg {
+        display: inline-flex;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        overflow: hidden;
+        font-size: 12px;
+      }
+      .seg button {
+        border: 0;
+        background: transparent;
+        padding: 3px 9px;
+        cursor: pointer;
+        color: var(--muted);
+      }
+      .seg button[aria-pressed='true'] {
+        background: var(--panel);
+        color: var(--ink);
+      }
+      .seg button + button {
+        border-left: 1px solid var(--line);
+      }
+
+      .inputs {
+        border-top: 1px solid var(--line);
+      }
+      .inputs-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        padding: 10px 14px 12px;
+      }
+      .inp {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        min-width: 0;
+      }
+      .inp .name {
+        font: 12.5px var(--mono);
+      }
+      .inp .type {
+        font-size: 11px;
+        color: var(--faint);
+      }
+      .inp .ctl {
+        margin-left: auto;
+      }
+      .tog {
+        width: 30px;
+        height: 18px;
+        border-radius: 999px;
+        background: var(--line);
+        border: 0;
+        position: relative;
+        cursor: pointer;
+        padding: 0;
+      }
+      .tog::after {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: var(--paper);
+        transition: left 0.15s;
+        box-shadow: 0 1px 2px #0003;
+      }
+      .tog[aria-checked='true'] {
+        background: var(--accent);
+      }
+      .tog[aria-checked='true']::after {
+        left: 14px;
+      }
+      .fire {
+        border: 1px solid var(--accent);
+        color: var(--accent);
+        background: transparent;
+        border-radius: 6px;
+        padding: 1px 10px;
+        font-size: 12px;
+        cursor: pointer;
+      }
+      .events {
+        padding: 0 14px 12px;
+        font: 12px var(--mono);
+        color: var(--muted);
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+        align-items: center;
+      }
+      .events .ev {
+        background: var(--accent-soft);
+        color: var(--ink);
+        border-radius: 4px;
+        padding: 0 6px;
+      }
+
+      /* Machine */
+      .machine {
+        grid-area: machine;
+      }
+      .layers {
+        overflow: auto;
+        padding: 6px 14px 14px;
+        display: grid;
+        gap: 14px;
+      }
+      .layer h3 {
+        margin: 6px 0 6px;
+        font: 600 12.5px var(--mono);
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+      }
+      .layer h3 span {
+        font: 11px var(--sans);
+        color: var(--faint);
+        font-weight: 400;
+      }
+      .graph {
+        width: 100%;
+        max-width: 340px;
+        height: auto;
+        display: block;
+      }
+      .graph .st rect {
+        fill: var(--paper);
+        stroke: var(--line);
+        stroke-width: 1.2;
+      }
+      .graph .st text {
+        font: 12px var(--mono);
+        fill: var(--ink);
+      }
+      .graph .st.cur rect {
+        fill: var(--accent);
+        stroke: var(--accent);
+      }
+      .graph .st.cur text {
+        fill: #fff;
+      }
+      .graph .st.init rect {
+        stroke-dasharray: 0;
+      }
+      .graph .st.prev rect {
+        stroke: var(--accent);
+        stroke-dasharray: 3 2;
+      }
+      .graph .ed {
+        fill: none;
+        stroke: var(--faint);
+        stroke-width: 1.2;
+      }
+      .graph .ed.live {
+        stroke: var(--accent);
+        stroke-width: 2;
+      }
+      .graph .lab {
+        font: 10.5px var(--mono);
+        fill: var(--muted);
+      }
+      .graph .lab.live {
+        fill: var(--accent);
+      }
+      .graph .entry {
+        fill: var(--ink);
+      }
+      .blend {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .blend .bar2 {
+        flex: 1;
+        height: 4px;
+        border-radius: 2px;
+        background: var(--line);
+        overflow: hidden;
+      }
+      .blend .bar2 i {
+        display: block;
+        height: 100%;
+        width: 62%;
+        background: var(--accent);
+      }
+
+      /* Timeline */
+      .timeline {
+        grid-area: timeline;
+        border-top: 1px solid var(--line);
+      }
+      .tl-tools {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .tl-tools select {
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--paper);
+        padding: 1px 6px;
+        font: 12px var(--mono);
+        text-transform: none;
+      }
+      .tbtn {
+        width: 26px;
+        height: 24px;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        background: var(--paper);
+        cursor: pointer;
+      }
+      .tbtn svg {
+        width: 12px;
+        height: 12px;
+        fill: currentColor;
+      }
+      .time {
+        font: 12px var(--mono);
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+        text-transform: none;
+        letter-spacing: 0;
+      }
+      .tracks {
+        display: grid;
+        grid-template-columns: 150px 1fr 64px;
+        font: 12px var(--mono);
+        position: relative;
+        padding-bottom: 8px;
+      }
+      .ruler,
+      .tr {
+        display: contents;
+      }
+      .ruler > div {
+        border-bottom: 1px solid var(--line);
+        height: 24px;
+        position: relative;
+      }
+      .ruler .ticks {
+        background-image: linear-gradient(90deg, var(--line) 1px, transparent 1px);
+        background-size: calc(100% / 14) 6px;
+        background-repeat: repeat-x;
+        background-position: 0 100%;
+      }
+      .ruler .ticks span {
+        position: absolute;
+        top: 3px;
+        font-size: 10.5px;
+        color: var(--faint);
+        transform: translateX(-50%);
+      }
+      .tr > div {
+        height: 26px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid color-mix(in srgb, var(--line) 55%, transparent);
+      }
+      .tr .tname {
+        padding: 0 14px;
+        color: var(--muted);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .tr .lane {
+        position: relative;
+      }
+      .tr .val {
+        justify-content: flex-end;
+        padding-right: 14px;
+        color: var(--ink);
+        font-variant-numeric: tabular-nums;
+      }
+      .kf {
+        position: absolute;
+        top: 50%;
+        width: 8px;
+        height: 8px;
+        background: var(--ink);
+        transform: translate(-50%, -50%) rotate(45deg);
+        border-radius: 1px;
+      }
+      .kf.hold {
+        background: var(--paper);
+        border: 1.5px solid var(--ink);
+      }
+      .seg-line {
+        position: absolute;
+        top: 50%;
+        height: 2px;
+        background: color-mix(in srgb, var(--ink) 18%, transparent);
+        transform: translateY(-50%);
+      }
+      .tr.sel > div {
+        background: var(--panel);
+      }
+      .tr.sel .tname {
+        color: var(--ink);
+      }
+      .playhead {
+        position: absolute;
+        top: 0;
+        bottom: 8px;
+        width: 0;
+        border-left: 2px solid var(--accent);
+        pointer-events: none;
+      }
+      .playhead::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -6px;
+        border: 5px solid transparent;
+        border-top: 7px solid var(--accent);
+      }
+      .mode {
+        font-size: 11px;
+        text-transform: none;
+        letter-spacing: 0;
+        color: var(--accent);
+        background: var(--accent-soft);
+        border-radius: 999px;
+        padding: 1px 8px;
+      }
+
+      /* Narrow */
+      @media (max-width: 1100px) {
+        .main {
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+          grid-template-areas: 'stage machine' 'editor editor' 'timeline timeline';
+          grid-template-rows: auto auto auto;
+        }
+        .app {
+          height: auto;
+        }
+        .editor {
+          border-left: 0 !important;
+          border-top: 1px solid var(--line);
+        }
+        .code {
+          max-height: 420px;
+        }
+      }
+      @media (max-width: 720px) {
+        .main {
+          grid-template-columns: minmax(0, 1fr);
+          grid-template-areas: 'stage' 'machine' 'editor' 'timeline';
+        }
+        .panel + .panel {
+          border-left: 0;
+          border-top: 1px solid var(--line);
+        }
+        .bar {
+          flex-wrap: wrap;
+          padding: 10px 16px;
+        }
+        .file {
+          order: 5;
+          width: 100%;
+        }
+        .btn kbd {
+          display: none;
+        }
+        .inputs-grid {
+          grid-template-columns: 1fr;
+        }
+        .head .right {
+          flex-wrap: wrap;
+          justify-content: flex-end;
+        }
+        .head {
+          flex-wrap: wrap;
+        }
+        .mock-switch {
+          left: 12px;
+          right: auto;
+        }
+        .tracks {
+          grid-template-columns: 104px 1fr 54px;
+        }
+        .tr .tname {
+          padding: 0 8px 0 16px;
+        }
+        .tile-wrap {
+          padding: 16px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="bar">
+        <span class="brand">Anima</span>
+        <span class="file"><b>examples/bell.animl</b> · saved · builds to bell.ani (5.9 KB)</span>
+        <span class="pill ok" id="status">valid</span>
+        <span class="spacer"></span>
+        <button class="btn">Format<kbd>⇧⌥F</kbd></button>
+        <button class="btn">Copy .ani</button>
+        <button class="btn primary">Save<kbd>⌘S</kbd></button>
+        <button class="btn" id="theme" aria-pressed="false">Dark</button>
+      </header>
+
+      <div class="main">
+        <!-- Editor + diagnostics -->
+        <section class="panel editor" aria-label="AniML source">
+          <div class="head">
+            Source <span class="count">AniML · 116 lines</span>
+            <span class="right"
+              ><span class="seg"
+                ><button aria-pressed="true">.animl</button
+                ><button aria-pressed="false">.ani</button></span
+              ></span
+            >
+          </div>
+          <div class="code" id="code"></div>
+          <div class="diags">
+            <div class="head">Problems <span class="count" id="pcount">none</span></div>
+            <ul class="diaglist" id="diags"></ul>
+          </div>
+        </section>
+
+        <!-- Stage -->
+        <section class="panel stage-p" aria-label="Preview">
+          <div class="head">
+            Preview
+            <span class="right">
+              <span class="seg"
+                ><button aria-pressed="true">grid</button
+                ><button aria-pressed="false">bounds</button></span
+              >
+              <span class="seg"><button aria-pressed="false">reduced motion</button></span></span
+            >
+          </div>
+          <div class="stage">
+            <div class="tile-wrap" id="tilewrap">
+              <div class="tile">
+                <div class="ghost" hidden></div>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -2 24 24">
+                  <defs>
+                    <mask
+                      id="maink9"
+                      maskUnits="userSpaceOnUse"
+                      x="-26"
+                      y="-26"
+                      width="72"
+                      height="72"
+                    >
+                      <rect x="-26" y="-26" width="72" height="72" fill="#fff" />
+                      <g transform="matrix(0 0 0 0 14.9 4.6)" opacity="1" display="inline">
+                        <circle
+                          cx="14.9"
+                          cy="4.6"
+                          r="1.5"
+                          fill="#000"
+                          stroke="#000"
+                          stroke-width="2.4"
+                          stroke-linejoin="round"
+                          stroke-linecap="round"
+                        />
+                      </g>
+                    </mask>
+                  </defs>
+                  <g transform="matrix(1 0 0 1 0 0)" opacity="1" display="inline">
+                    <g transform="matrix(1 0 0 1 0 0)" opacity="1" display="inline">
+                      <g
+                        transform="matrix(1.03716 0 0 1.03716 -0.37163 -0.26014)"
+                        opacity="0.30831"
+                        display="inline"
+                      >
+                        <path
+                          d="M14.58475 2.25236A6.6 6.6 0 0 1 16.27697 4.96049"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </g>
+                      <g
+                        transform="matrix(0.97404 0 0 0.97404 0.25958 0.18171)"
+                        opacity="0.77983"
+                        display="inline"
+                      >
+                        <path
+                          d="M15.6962 1.10141A8.2 8.2 0 0 1 17.79866 4.46606"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </g>
+                      <g
+                        transform="matrix(1.03716 0 0 1.03716 -0.37163 -0.26014)"
+                        opacity="0.30831"
+                        display="inline"
+                      >
+                        <path
+                          d="M3.72303 4.96049A6.6 6.6 0 0 1 5.41525 2.25236"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </g>
+                      <g
+                        transform="matrix(0.97404 0 0 0.97404 0.25958 0.18171)"
+                        opacity="0.77983"
+                        display="inline"
+                      >
+                        <path
+                          d="M2.20134 4.46606A8.2 8.2 0 0 1 4.3038 1.10141"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </g>
+                    </g>
+                    <g
+                      transform="matrix(0.97299 -0.23087 0.23087 0.97299 -0.30702 2.37622)"
+                      opacity="1"
+                      display="inline"
+                    >
+                      <g mask="url(#maink9)">
+                        <g transform="matrix(1 0 0 1 0 0)" opacity="1" display="inline">
+                          <path
+                            d="M9.493 4.473C9.423 4.49 9.326 4.517 9.256 4.493L8.602 4.66C8.543 4.675 8.464 4.703 8.409 4.73L7.835 5.016L7.366 5.328L6.888 5.748L6.485 6.211C6.428 6.277 6.354 6.377 6.313 6.452L6.009 6.998C5.984 7.043 5.955 7.099 5.939 7.147L5.714 7.805C5.692 7.871 5.666 7.981 5.659 8.05L5.605 8.614L5.605 10.357C5.605 10.417 5.589 10.486 5.579 10.545C5.532 10.817 5.449 11.086 5.338 11.338C5.317 11.387 5.297 11.444 5.27 11.488L4.972 11.98C4.945 12.023 4.907 12.062 4.876 12.102C4.846 12.139 4.818 12.183 4.788 12.218L4.223 12.866C3.945 13.187 3.76 13.793 3.974 14.186C4.04 14.307 4.138 14.394 4.25 14.469C4.326 14.519 4.484 14.621 4.575 14.621L15.38 14.621C15.516 14.621 15.657 14.542 15.762 14.463C16.203 14.128 16.199 13.552 15.949 13.102C15.905 13.022 15.841 12.912 15.778 12.849L15.262 12.333C15.21 12.281 15.161 12.215 15.114 12.156C14.893 11.882 14.696 11.575 14.579 11.241C14.538 11.125 14.522 11.001 14.487 10.883C14.477 10.847 14.455 10.811 14.447 10.776C14.441 10.749 14.445 10.722 14.434 10.697C14.428 10.684 14.398 10.661 14.398 10.658L14.374 8.304C14.35 8.276 14.373 8.247 14.367 8.216L14.24 7.579C14.222 7.485 14.157 7.3 14.115 7.214L13.8 6.572C13.72 6.411 13.607 6.256 13.495 6.115C13.47 6.084 13.444 6.043 13.417 6.017L12.947 5.547C12.927 5.526 12.92 5.529 12.898 5.516C12.883 5.507 12.878 5.481 12.865 5.471L12.413 5.133L11.93 4.86L11.457 4.664L10.924 4.514C10.806 4.481 10.672 4.484 10.551 4.467L10.551 2.953C10.551 2.912 10.512 2.871 10.497 2.835C10.474 2.782 10.458 2.725 10.417 2.681C10.372 2.631 10.297 2.601 10.236 2.578C9.97 2.476 9.694 2.537 9.563 2.807C9.549 2.835 9.494 2.901 9.494 2.929L9.494 4.444C9.494 4.454 9.494 4.463 9.493 4.473ZM4.988 13.492L5.57 12.823L5.897 12.351L6.137 11.92L6.358 11.384C6.407 11.263 6.477 11.018 6.489 10.891L6.545 10.312L6.545 8.664C6.545 8.614 6.568 8.563 6.573 8.512C6.58 8.444 6.573 8.313 6.587 8.257L6.71 7.763C6.721 7.718 6.738 7.661 6.758 7.62L7.019 7.091C7.058 7.011 7.125 6.899 7.182 6.833L7.559 6.399L7.966 6.043C8.038 5.979 8.127 5.927 8.209 5.876C8.503 5.697 8.827 5.552 9.16 5.462C9.221 5.446 9.292 5.422 9.355 5.416L10.001 5.357L10.614 5.413C10.668 5.418 10.728 5.436 10.781 5.449C11.13 5.532 11.472 5.678 11.777 5.869C11.84 5.908 11.913 5.949 11.968 5.997L12.49 6.456C12.575 6.53 12.646 6.628 12.713 6.719C12.983 7.089 13.202 7.524 13.324 7.966C13.343 8.033 13.369 8.111 13.374 8.18L13.422 8.861L13.422 10.639C13.422 10.953 13.543 11.337 13.66 11.626C13.685 11.687 13.709 11.758 13.741 11.815L14.074 12.399L14.402 12.831C14.43 12.868 14.462 12.899 14.492 12.932L14.939 13.423C14.958 13.444 15.03 13.561 15.033 13.584L4.974 13.584L4.988 13.492Z"
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                          />
+                        </g>
+                        <g
+                          transform="matrix(0.9998 0.02 -0.02 0.9998 0.18199 -0.19818)"
+                          opacity="1"
+                          display="inline"
+                        >
+                          <path
+                            d="M10.173 17.469C10.219 17.457 10.27 17.455 10.317 17.447C10.414 17.431 10.51 17.412 10.605 17.387C10.759 17.347 10.907 17.289 11.051 17.224C11.154 17.178 11.26 17.133 11.355 17.073C11.622 16.905 11.838 16.646 12.005 16.382C12.185 16.099 12.376 15.685 12.262 15.346C12.18 15.101 11.838 14.963 11.598 15.035C11.507 15.062 11.439 15.133 11.367 15.19C11.348 15.204 11.322 15.216 11.306 15.233C11.289 15.25 11.282 15.299 11.274 15.322C11.231 15.45 11.196 15.587 11.14 15.71C11.101 15.796 11.036 15.869 10.973 15.939C10.712 16.229 10.312 16.462 9.908 16.385C9.864 16.377 9.821 16.362 9.777 16.355C9.721 16.346 9.663 16.346 9.609 16.328C9.567 16.314 9.529 16.285 9.49 16.264C9.432 16.233 9.368 16.208 9.313 16.171C9.28 16.149 9.256 16.115 9.226 16.089C9.2 16.068 9.17 16.053 9.144 16.032C9.08 15.981 9.027 15.917 8.982 15.849C8.89 15.713 8.848 15.547 8.795 15.393C8.777 15.341 8.764 15.275 8.73 15.231C8.676 15.16 8.597 15.123 8.517 15.089C8.441 15.056 8.361 15.024 8.278 15.02C8.155 15.015 8.045 15.079 7.945 15.141C7.929 15.151 7.896 15.183 7.878 15.185C7.831 15.281 7.747 15.389 7.735 15.497C7.722 15.609 7.777 15.702 7.803 15.807C7.818 15.871 7.823 15.939 7.844 16.002C7.873 16.085 7.93 16.162 7.972 16.24C8.027 16.344 8.067 16.457 8.136 16.554C8.356 16.859 8.86 17.208 9.212 17.339C9.521 17.454 9.849 17.458 10.173 17.469Z"
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                          />
+                        </g>
+                      </g>
+                      <g transform="matrix(0 0 0 0 14.9 4.6)" opacity="1" display="inline">
+                        <circle cx="14.9" cy="4.6" r="1.5" fill="#d97757" />
+                      </g>
+                    </g>
+                  </g>
+                </svg>
+              </div>
+              <span class="broken-note">showing the last valid build</span>
+            </div>
+            <div class="stage-tools">
+              <div class="sizes">
+                <figure>
+                  <div class="chip" style="width: 24px; height: 24px">
+                    <svg
+                      width="16"
+                      height="16"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="-2 -2 24 24"
+                    >
+                      <defs>
+                        <mask
+                          id="sk9"
+                          maskUnits="userSpaceOnUse"
+                          x="-26"
+                          y="-26"
+                          width="72"
+                          height="72"
+                        >
+                          <rect x="-26" y="-26" width="72" height="72" fill="#fff" />
+                          <g transform="matrix(0 0 0 0 14.9 4.6)" opacity="1" display="inline">
+                            <circle
+                              cx="14.9"
+                              cy="4.6"
+                              r="1.5"
+                              fill="#000"
+                              stroke="#000"
+                              stroke-width="2.4"
+                              stroke-linejoin="round"
+                              stroke-linecap="round"
+                            />
+                          </g>
+                        </mask>
+                      </defs>
+                      <g transform="matrix(1 0 0 1 0 0)" opacity="1" display="inline">
+                        <g transform="matrix(1 0 0 1 0 0)" opacity="1" display="inline">
+                          <g
+                            transform="matrix(1.03716 0 0 1.03716 -0.37163 -0.26014)"
+                            opacity="0.30831"
+                            display="inline"
+                          >
+                            <path
+                              d="M14.58475 2.25236A6.6 6.6 0 0 1 16.27697 4.96049"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                          <g
+                            transform="matrix(0.97404 0 0 0.97404 0.25958 0.18171)"
+                            opacity="0.77983"
+                            display="inline"
+                          >
+                            <path
+                              d="M15.6962 1.10141A8.2 8.2 0 0 1 17.79866 4.46606"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                          <g
+                            transform="matrix(1.03716 0 0 1.03716 -0.37163 -0.26014)"
+                            opacity="0.30831"
+                            display="inline"
+                          >
+                            <path
+                              d="M3.72303 4.96049A6.6 6.6 0 0 1 5.41525 2.25236"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                          <g
+                            transform="matrix(0.97404 0 0 0.97404 0.25958 0.18171)"
+                            opacity="0.77983"
+                            display="inline"
+                          >
+                            <path
+                              d="M2.20134 4.46606A8.2 8.2 0 0 1 4.3038 1.10141"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                        </g>
+                        <g
+                          transform="matrix(0.97299 -0.23087 0.23087 0.97299 -0.30702 2.37622)"
+                          opacity="1"
+                          display="inline"
+                        >
+                          <g mask="url(#sk9)">
+                            <g transform="matrix(1 0 0 1 0 0)" opacity="1" display="inline">
+                              <path
+                                d="M9.493 4.473C9.423 4.49 9.326 4.517 9.256 4.493L8.602 4.66C8.543 4.675 8.464 4.703 8.409 4.73L7.835 5.016L7.366 5.328L6.888 5.748L6.485 6.211C6.428 6.277 6.354 6.377 6.313 6.452L6.009 6.998C5.984 7.043 5.955 7.099 5.939 7.147L5.714 7.805C5.692 7.871 5.666 7.981 5.659 8.05L5.605 8.614L5.605 10.357C5.605 10.417 5.589 10.486 5.579 10.545C5.532 10.817 5.449 11.086 5.338 11.338C5.317 11.387 5.297 11.444 5.27 11.488L4.972 11.98C4.945 12.023 4.907 12.062 4.876 12.102C4.846 12.139 4.818 12.183 4.788 12.218L4.223 12.866C3.945 13.187 3.76 13.793 3.974 14.186C4.04 14.307 4.138 14.394 4.25 14.469C4.326 14.519 4.484 14.621 4.575 14.621L15.38 14.621C15.516 14.621 15.657 14.542 15.762 14.463C16.203 14.128 16.199 13.552 15.949 13.102C15.905 13.022 15.841 12.912 15.778 12.849L15.262 12.333C15.21 12.281 15.161 12.215 15.114 12.156C14.893 11.882 14.696 11.575 14.579 11.241C14.538 11.125 14.522 11.001 14.487 10.883C14.477 10.847 14.455 10.811 14.447 10.776C14.441 10.749 14.445 10.722 14.434 10.697C14.428 10.684 14.398 10.661 14.398 10.658L14.374 8.304C14.35 8.276 14.373 8.247 14.367 8.216L14.24 7.579C14.222 7.485 14.157 7.3 14.115 7.214L13.8 6.572C13.72 6.411 13.607 6.256 13.495 6.115C13.47 6.084 13.444 6.043 13.417 6.017L12.947 5.547C12.927 5.526 12.92 5.529 12.898 5.516C12.883 5.507 12.878 5.481 12.865 5.471L12.413 5.133L11.93 4.86L11.457 4.664L10.924 4.514C10.806 4.481 10.672 4.484 10.551 4.467L10.551 2.953C10.551 2.912 10.512 2.871 10.497 2.835C10.474 2.782 10.458 2.725 10.417 2.681C10.372 2.631 10.297 2.601 10.236 2.578C9.97 2.476 9.694 2.537 9.563 2.807C9.549 2.835 9.494 2.901 9.494 2.929L9.494 4.444C9.494 4.454 9.494 4.463 9.493 4.473ZM4.988 13.492L5.57 12.823L5.897 12.351L6.137 11.92L6.358 11.384C6.407 11.263 6.477 11.018 6.489 10.891L6.545 10.312L6.545 8.664C6.545 8.614 6.568 8.563 6.573 8.512C6.58 8.444 6.573 8.313 6.587 8.257L6.71 7.763C6.721 7.718 6.738 7.661 6.758 7.62L7.019 7.091C7.058 7.011 7.125 6.899 7.182 6.833L7.559 6.399L7.966 6.043C8.038 5.979 8.127 5.927 8.209 5.876C8.503 5.697 8.827 5.552 9.16 5.462C9.221 5.446 9.292 5.422 9.355 5.416L10.001 5.357L10.614 5.413C10.668 5.418 10.728 5.436 10.781 5.449C11.13 5.532 11.472 5.678 11.777 5.869C11.84 5.908 11.913 5.949 11.968 5.997L12.49 6.456C12.575 6.53 12.646 6.628 12.713 6.719C12.983 7.089 13.202 7.524 13.324 7.966C13.343 8.033 13.369 8.111 13.374 8.18L13.422 8.861L13.422 10.639C13.422 10.953 13.543 11.337 13.66 11.626C13.685 11.687 13.709 11.758 13.741 11.815L14.074 12.399L14.402 12.831C14.43 12.868 14.462 12.899 14.492 12.932L14.939 13.423C14.958 13.444 15.03 13.561 15.033 13.584L4.974 13.584L4.988 13.492Z"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                            <g
+                              transform="matrix(0.9998 0.02 -0.02 0.9998 0.18199 -0.19818)"
+                              opacity="1"
+                              display="inline"
+                            >
+                              <path
+                                d="M10.173 17.469C10.219 17.457 10.27 17.455 10.317 17.447C10.414 17.431 10.51 17.412 10.605 17.387C10.759 17.347 10.907 17.289 11.051 17.224C11.154 17.178 11.26 17.133 11.355 17.073C11.622 16.905 11.838 16.646 12.005 16.382C12.185 16.099 12.376 15.685 12.262 15.346C12.18 15.101 11.838 14.963 11.598 15.035C11.507 15.062 11.439 15.133 11.367 15.19C11.348 15.204 11.322 15.216 11.306 15.233C11.289 15.25 11.282 15.299 11.274 15.322C11.231 15.45 11.196 15.587 11.14 15.71C11.101 15.796 11.036 15.869 10.973 15.939C10.712 16.229 10.312 16.462 9.908 16.385C9.864 16.377 9.821 16.362 9.777 16.355C9.721 16.346 9.663 16.346 9.609 16.328C9.567 16.314 9.529 16.285 9.49 16.264C9.432 16.233 9.368 16.208 9.313 16.171C9.28 16.149 9.256 16.115 9.226 16.089C9.2 16.068 9.17 16.053 9.144 16.032C9.08 15.981 9.027 15.917 8.982 15.849C8.89 15.713 8.848 15.547 8.795 15.393C8.777 15.341 8.764 15.275 8.73 15.231C8.676 15.16 8.597 15.123 8.517 15.089C8.441 15.056 8.361 15.024 8.278 15.02C8.155 15.015 8.045 15.079 7.945 15.141C7.929 15.151 7.896 15.183 7.878 15.185C7.831 15.281 7.747 15.389 7.735 15.497C7.722 15.609 7.777 15.702 7.803 15.807C7.818 15.871 7.823 15.939 7.844 16.002C7.873 16.085 7.93 16.162 7.972 16.24C8.027 16.344 8.067 16.457 8.136 16.554C8.356 16.859 8.86 17.208 9.212 17.339C9.521 17.454 9.849 17.458 10.173 17.469Z"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                          </g>
+                          <g transform="matrix(0 0 0 0 14.9 4.6)" opacity="1" display="inline">
+                            <circle cx="14.9" cy="4.6" r="1.5" fill="#d97757" />
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                  </div>
+                  16
+                </figure>
+                <figure>
+                  <div class="chip" style="width: 32px; height: 32px">
+                    <svg
+                      width="24"
+                      height="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="-2 -2 24 24"
+                    >
+                      <defs>
+                        <mask
+                          id="mk9"
+                          maskUnits="userSpaceOnUse"
+                          x="-26"
+                          y="-26"
+                          width="72"
+                          height="72"
+                        >
+                          <rect x="-26" y="-26" width="72" height="72" fill="#fff" />
+                          <g transform="matrix(0 0 0 0 14.9 4.6)" opacity="1" display="inline">
+                            <circle
+                              cx="14.9"
+                              cy="4.6"
+                              r="1.5"
+                              fill="#000"
+                              stroke="#000"
+                              stroke-width="2.4"
+                              stroke-linejoin="round"
+                              stroke-linecap="round"
+                            />
+                          </g>
+                        </mask>
+                      </defs>
+                      <g transform="matrix(1 0 0 1 0 0)" opacity="1" display="inline">
+                        <g transform="matrix(1 0 0 1 0 0)" opacity="1" display="inline">
+                          <g
+                            transform="matrix(1.03716 0 0 1.03716 -0.37163 -0.26014)"
+                            opacity="0.30831"
+                            display="inline"
+                          >
+                            <path
+                              d="M14.58475 2.25236A6.6 6.6 0 0 1 16.27697 4.96049"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                          <g
+                            transform="matrix(0.97404 0 0 0.97404 0.25958 0.18171)"
+                            opacity="0.77983"
+                            display="inline"
+                          >
+                            <path
+                              d="M15.6962 1.10141A8.2 8.2 0 0 1 17.79866 4.46606"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                          <g
+                            transform="matrix(1.03716 0 0 1.03716 -0.37163 -0.26014)"
+                            opacity="0.30831"
+                            display="inline"
+                          >
+                            <path
+                              d="M3.72303 4.96049A6.6 6.6 0 0 1 5.41525 2.25236"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                          <g
+                            transform="matrix(0.97404 0 0 0.97404 0.25958 0.18171)"
+                            opacity="0.77983"
+                            display="inline"
+                          >
+                            <path
+                              d="M2.20134 4.46606A8.2 8.2 0 0 1 4.3038 1.10141"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                        </g>
+                        <g
+                          transform="matrix(0.97299 -0.23087 0.23087 0.97299 -0.30702 2.37622)"
+                          opacity="1"
+                          display="inline"
+                        >
+                          <g mask="url(#mk9)">
+                            <g transform="matrix(1 0 0 1 0 0)" opacity="1" display="inline">
+                              <path
+                                d="M9.493 4.473C9.423 4.49 9.326 4.517 9.256 4.493L8.602 4.66C8.543 4.675 8.464 4.703 8.409 4.73L7.835 5.016L7.366 5.328L6.888 5.748L6.485 6.211C6.428 6.277 6.354 6.377 6.313 6.452L6.009 6.998C5.984 7.043 5.955 7.099 5.939 7.147L5.714 7.805C5.692 7.871 5.666 7.981 5.659 8.05L5.605 8.614L5.605 10.357C5.605 10.417 5.589 10.486 5.579 10.545C5.532 10.817 5.449 11.086 5.338 11.338C5.317 11.387 5.297 11.444 5.27 11.488L4.972 11.98C4.945 12.023 4.907 12.062 4.876 12.102C4.846 12.139 4.818 12.183 4.788 12.218L4.223 12.866C3.945 13.187 3.76 13.793 3.974 14.186C4.04 14.307 4.138 14.394 4.25 14.469C4.326 14.519 4.484 14.621 4.575 14.621L15.38 14.621C15.516 14.621 15.657 14.542 15.762 14.463C16.203 14.128 16.199 13.552 15.949 13.102C15.905 13.022 15.841 12.912 15.778 12.849L15.262 12.333C15.21 12.281 15.161 12.215 15.114 12.156C14.893 11.882 14.696 11.575 14.579 11.241C14.538 11.125 14.522 11.001 14.487 10.883C14.477 10.847 14.455 10.811 14.447 10.776C14.441 10.749 14.445 10.722 14.434 10.697C14.428 10.684 14.398 10.661 14.398 10.658L14.374 8.304C14.35 8.276 14.373 8.247 14.367 8.216L14.24 7.579C14.222 7.485 14.157 7.3 14.115 7.214L13.8 6.572C13.72 6.411 13.607 6.256 13.495 6.115C13.47 6.084 13.444 6.043 13.417 6.017L12.947 5.547C12.927 5.526 12.92 5.529 12.898 5.516C12.883 5.507 12.878 5.481 12.865 5.471L12.413 5.133L11.93 4.86L11.457 4.664L10.924 4.514C10.806 4.481 10.672 4.484 10.551 4.467L10.551 2.953C10.551 2.912 10.512 2.871 10.497 2.835C10.474 2.782 10.458 2.725 10.417 2.681C10.372 2.631 10.297 2.601 10.236 2.578C9.97 2.476 9.694 2.537 9.563 2.807C9.549 2.835 9.494 2.901 9.494 2.929L9.494 4.444C9.494 4.454 9.494 4.463 9.493 4.473ZM4.988 13.492L5.57 12.823L5.897 12.351L6.137 11.92L6.358 11.384C6.407 11.263 6.477 11.018 6.489 10.891L6.545 10.312L6.545 8.664C6.545 8.614 6.568 8.563 6.573 8.512C6.58 8.444 6.573 8.313 6.587 8.257L6.71 7.763C6.721 7.718 6.738 7.661 6.758 7.62L7.019 7.091C7.058 7.011 7.125 6.899 7.182 6.833L7.559 6.399L7.966 6.043C8.038 5.979 8.127 5.927 8.209 5.876C8.503 5.697 8.827 5.552 9.16 5.462C9.221 5.446 9.292 5.422 9.355 5.416L10.001 5.357L10.614 5.413C10.668 5.418 10.728 5.436 10.781 5.449C11.13 5.532 11.472 5.678 11.777 5.869C11.84 5.908 11.913 5.949 11.968 5.997L12.49 6.456C12.575 6.53 12.646 6.628 12.713 6.719C12.983 7.089 13.202 7.524 13.324 7.966C13.343 8.033 13.369 8.111 13.374 8.18L13.422 8.861L13.422 10.639C13.422 10.953 13.543 11.337 13.66 11.626C13.685 11.687 13.709 11.758 13.741 11.815L14.074 12.399L14.402 12.831C14.43 12.868 14.462 12.899 14.492 12.932L14.939 13.423C14.958 13.444 15.03 13.561 15.033 13.584L4.974 13.584L4.988 13.492Z"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                            <g
+                              transform="matrix(0.9998 0.02 -0.02 0.9998 0.18199 -0.19818)"
+                              opacity="1"
+                              display="inline"
+                            >
+                              <path
+                                d="M10.173 17.469C10.219 17.457 10.27 17.455 10.317 17.447C10.414 17.431 10.51 17.412 10.605 17.387C10.759 17.347 10.907 17.289 11.051 17.224C11.154 17.178 11.26 17.133 11.355 17.073C11.622 16.905 11.838 16.646 12.005 16.382C12.185 16.099 12.376 15.685 12.262 15.346C12.18 15.101 11.838 14.963 11.598 15.035C11.507 15.062 11.439 15.133 11.367 15.19C11.348 15.204 11.322 15.216 11.306 15.233C11.289 15.25 11.282 15.299 11.274 15.322C11.231 15.45 11.196 15.587 11.14 15.71C11.101 15.796 11.036 15.869 10.973 15.939C10.712 16.229 10.312 16.462 9.908 16.385C9.864 16.377 9.821 16.362 9.777 16.355C9.721 16.346 9.663 16.346 9.609 16.328C9.567 16.314 9.529 16.285 9.49 16.264C9.432 16.233 9.368 16.208 9.313 16.171C9.28 16.149 9.256 16.115 9.226 16.089C9.2 16.068 9.17 16.053 9.144 16.032C9.08 15.981 9.027 15.917 8.982 15.849C8.89 15.713 8.848 15.547 8.795 15.393C8.777 15.341 8.764 15.275 8.73 15.231C8.676 15.16 8.597 15.123 8.517 15.089C8.441 15.056 8.361 15.024 8.278 15.02C8.155 15.015 8.045 15.079 7.945 15.141C7.929 15.151 7.896 15.183 7.878 15.185C7.831 15.281 7.747 15.389 7.735 15.497C7.722 15.609 7.777 15.702 7.803 15.807C7.818 15.871 7.823 15.939 7.844 16.002C7.873 16.085 7.93 16.162 7.972 16.24C8.027 16.344 8.067 16.457 8.136 16.554C8.356 16.859 8.86 17.208 9.212 17.339C9.521 17.454 9.849 17.458 10.173 17.469Z"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                          </g>
+                          <g transform="matrix(0 0 0 0 14.9 4.6)" opacity="1" display="inline">
+                            <circle cx="14.9" cy="4.6" r="1.5" fill="#d97757" />
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                  </div>
+                  24
+                </figure>
+                <figure>
+                  <div class="chip" style="width: 56px; height: 56px">
+                    <svg
+                      width="48"
+                      height="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="-2 -2 24 24"
+                    >
+                      <defs>
+                        <mask
+                          id="lk9"
+                          maskUnits="userSpaceOnUse"
+                          x="-26"
+                          y="-26"
+                          width="72"
+                          height="72"
+                        >
+                          <rect x="-26" y="-26" width="72" height="72" fill="#fff" />
+                          <g transform="matrix(0 0 0 0 14.9 4.6)" opacity="1" display="inline">
+                            <circle
+                              cx="14.9"
+                              cy="4.6"
+                              r="1.5"
+                              fill="#000"
+                              stroke="#000"
+                              stroke-width="2.4"
+                              stroke-linejoin="round"
+                              stroke-linecap="round"
+                            />
+                          </g>
+                        </mask>
+                      </defs>
+                      <g transform="matrix(1 0 0 1 0 0)" opacity="1" display="inline">
+                        <g transform="matrix(1 0 0 1 0 0)" opacity="1" display="inline">
+                          <g
+                            transform="matrix(1.03716 0 0 1.03716 -0.37163 -0.26014)"
+                            opacity="0.30831"
+                            display="inline"
+                          >
+                            <path
+                              d="M14.58475 2.25236A6.6 6.6 0 0 1 16.27697 4.96049"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                          <g
+                            transform="matrix(0.97404 0 0 0.97404 0.25958 0.18171)"
+                            opacity="0.77983"
+                            display="inline"
+                          >
+                            <path
+                              d="M15.6962 1.10141A8.2 8.2 0 0 1 17.79866 4.46606"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                          <g
+                            transform="matrix(1.03716 0 0 1.03716 -0.37163 -0.26014)"
+                            opacity="0.30831"
+                            display="inline"
+                          >
+                            <path
+                              d="M3.72303 4.96049A6.6 6.6 0 0 1 5.41525 2.25236"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                          <g
+                            transform="matrix(0.97404 0 0 0.97404 0.25958 0.18171)"
+                            opacity="0.77983"
+                            display="inline"
+                          >
+                            <path
+                              d="M2.20134 4.46606A8.2 8.2 0 0 1 4.3038 1.10141"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                        </g>
+                        <g
+                          transform="matrix(0.97299 -0.23087 0.23087 0.97299 -0.30702 2.37622)"
+                          opacity="1"
+                          display="inline"
+                        >
+                          <g mask="url(#lk9)">
+                            <g transform="matrix(1 0 0 1 0 0)" opacity="1" display="inline">
+                              <path
+                                d="M9.493 4.473C9.423 4.49 9.326 4.517 9.256 4.493L8.602 4.66C8.543 4.675 8.464 4.703 8.409 4.73L7.835 5.016L7.366 5.328L6.888 5.748L6.485 6.211C6.428 6.277 6.354 6.377 6.313 6.452L6.009 6.998C5.984 7.043 5.955 7.099 5.939 7.147L5.714 7.805C5.692 7.871 5.666 7.981 5.659 8.05L5.605 8.614L5.605 10.357C5.605 10.417 5.589 10.486 5.579 10.545C5.532 10.817 5.449 11.086 5.338 11.338C5.317 11.387 5.297 11.444 5.27 11.488L4.972 11.98C4.945 12.023 4.907 12.062 4.876 12.102C4.846 12.139 4.818 12.183 4.788 12.218L4.223 12.866C3.945 13.187 3.76 13.793 3.974 14.186C4.04 14.307 4.138 14.394 4.25 14.469C4.326 14.519 4.484 14.621 4.575 14.621L15.38 14.621C15.516 14.621 15.657 14.542 15.762 14.463C16.203 14.128 16.199 13.552 15.949 13.102C15.905 13.022 15.841 12.912 15.778 12.849L15.262 12.333C15.21 12.281 15.161 12.215 15.114 12.156C14.893 11.882 14.696 11.575 14.579 11.241C14.538 11.125 14.522 11.001 14.487 10.883C14.477 10.847 14.455 10.811 14.447 10.776C14.441 10.749 14.445 10.722 14.434 10.697C14.428 10.684 14.398 10.661 14.398 10.658L14.374 8.304C14.35 8.276 14.373 8.247 14.367 8.216L14.24 7.579C14.222 7.485 14.157 7.3 14.115 7.214L13.8 6.572C13.72 6.411 13.607 6.256 13.495 6.115C13.47 6.084 13.444 6.043 13.417 6.017L12.947 5.547C12.927 5.526 12.92 5.529 12.898 5.516C12.883 5.507 12.878 5.481 12.865 5.471L12.413 5.133L11.93 4.86L11.457 4.664L10.924 4.514C10.806 4.481 10.672 4.484 10.551 4.467L10.551 2.953C10.551 2.912 10.512 2.871 10.497 2.835C10.474 2.782 10.458 2.725 10.417 2.681C10.372 2.631 10.297 2.601 10.236 2.578C9.97 2.476 9.694 2.537 9.563 2.807C9.549 2.835 9.494 2.901 9.494 2.929L9.494 4.444C9.494 4.454 9.494 4.463 9.493 4.473ZM4.988 13.492L5.57 12.823L5.897 12.351L6.137 11.92L6.358 11.384C6.407 11.263 6.477 11.018 6.489 10.891L6.545 10.312L6.545 8.664C6.545 8.614 6.568 8.563 6.573 8.512C6.58 8.444 6.573 8.313 6.587 8.257L6.71 7.763C6.721 7.718 6.738 7.661 6.758 7.62L7.019 7.091C7.058 7.011 7.125 6.899 7.182 6.833L7.559 6.399L7.966 6.043C8.038 5.979 8.127 5.927 8.209 5.876C8.503 5.697 8.827 5.552 9.16 5.462C9.221 5.446 9.292 5.422 9.355 5.416L10.001 5.357L10.614 5.413C10.668 5.418 10.728 5.436 10.781 5.449C11.13 5.532 11.472 5.678 11.777 5.869C11.84 5.908 11.913 5.949 11.968 5.997L12.49 6.456C12.575 6.53 12.646 6.628 12.713 6.719C12.983 7.089 13.202 7.524 13.324 7.966C13.343 8.033 13.369 8.111 13.374 8.18L13.422 8.861L13.422 10.639C13.422 10.953 13.543 11.337 13.66 11.626C13.685 11.687 13.709 11.758 13.741 11.815L14.074 12.399L14.402 12.831C14.43 12.868 14.462 12.899 14.492 12.932L14.939 13.423C14.958 13.444 15.03 13.561 15.033 13.584L4.974 13.584L4.988 13.492Z"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                            <g
+                              transform="matrix(0.9998 0.02 -0.02 0.9998 0.18199 -0.19818)"
+                              opacity="1"
+                              display="inline"
+                            >
+                              <path
+                                d="M10.173 17.469C10.219 17.457 10.27 17.455 10.317 17.447C10.414 17.431 10.51 17.412 10.605 17.387C10.759 17.347 10.907 17.289 11.051 17.224C11.154 17.178 11.26 17.133 11.355 17.073C11.622 16.905 11.838 16.646 12.005 16.382C12.185 16.099 12.376 15.685 12.262 15.346C12.18 15.101 11.838 14.963 11.598 15.035C11.507 15.062 11.439 15.133 11.367 15.19C11.348 15.204 11.322 15.216 11.306 15.233C11.289 15.25 11.282 15.299 11.274 15.322C11.231 15.45 11.196 15.587 11.14 15.71C11.101 15.796 11.036 15.869 10.973 15.939C10.712 16.229 10.312 16.462 9.908 16.385C9.864 16.377 9.821 16.362 9.777 16.355C9.721 16.346 9.663 16.346 9.609 16.328C9.567 16.314 9.529 16.285 9.49 16.264C9.432 16.233 9.368 16.208 9.313 16.171C9.28 16.149 9.256 16.115 9.226 16.089C9.2 16.068 9.17 16.053 9.144 16.032C9.08 15.981 9.027 15.917 8.982 15.849C8.89 15.713 8.848 15.547 8.795 15.393C8.777 15.341 8.764 15.275 8.73 15.231C8.676 15.16 8.597 15.123 8.517 15.089C8.441 15.056 8.361 15.024 8.278 15.02C8.155 15.015 8.045 15.079 7.945 15.141C7.929 15.151 7.896 15.183 7.878 15.185C7.831 15.281 7.747 15.389 7.735 15.497C7.722 15.609 7.777 15.702 7.803 15.807C7.818 15.871 7.823 15.939 7.844 16.002C7.873 16.085 7.93 16.162 7.972 16.24C8.027 16.344 8.067 16.457 8.136 16.554C8.356 16.859 8.86 17.208 9.212 17.339C9.521 17.454 9.849 17.458 10.173 17.469Z"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                          </g>
+                          <g transform="matrix(0 0 0 0 14.9 4.6)" opacity="1" display="inline">
+                            <circle cx="14.9" cy="4.6" r="1.5" fill="#d97757" />
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                  </div>
+                  48
+                </figure>
+                <figure>
+                  <div class="chip inverse" style="width: 56px; height: 56px">
+                    <svg
+                      width="48"
+                      height="48"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="-2 -2 24 24"
+                    >
+                      <defs>
+                        <mask
+                          id="dk9"
+                          maskUnits="userSpaceOnUse"
+                          x="-26"
+                          y="-26"
+                          width="72"
+                          height="72"
+                        >
+                          <rect x="-26" y="-26" width="72" height="72" fill="#fff" />
+                          <g transform="matrix(0 0 0 0 14.9 4.6)" opacity="1" display="inline">
+                            <circle
+                              cx="14.9"
+                              cy="4.6"
+                              r="1.5"
+                              fill="#000"
+                              stroke="#000"
+                              stroke-width="2.4"
+                              stroke-linejoin="round"
+                              stroke-linecap="round"
+                            />
+                          </g>
+                        </mask>
+                      </defs>
+                      <g transform="matrix(1 0 0 1 0 0)" opacity="1" display="inline">
+                        <g transform="matrix(1 0 0 1 0 0)" opacity="1" display="inline">
+                          <g
+                            transform="matrix(1.03716 0 0 1.03716 -0.37163 -0.26014)"
+                            opacity="0.30831"
+                            display="inline"
+                          >
+                            <path
+                              d="M14.58475 2.25236A6.6 6.6 0 0 1 16.27697 4.96049"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                          <g
+                            transform="matrix(0.97404 0 0 0.97404 0.25958 0.18171)"
+                            opacity="0.77983"
+                            display="inline"
+                          >
+                            <path
+                              d="M15.6962 1.10141A8.2 8.2 0 0 1 17.79866 4.46606"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                          <g
+                            transform="matrix(1.03716 0 0 1.03716 -0.37163 -0.26014)"
+                            opacity="0.30831"
+                            display="inline"
+                          >
+                            <path
+                              d="M3.72303 4.96049A6.6 6.6 0 0 1 5.41525 2.25236"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                          <g
+                            transform="matrix(0.97404 0 0 0.97404 0.25958 0.18171)"
+                            opacity="0.77983"
+                            display="inline"
+                          >
+                            <path
+                              d="M2.20134 4.46606A8.2 8.2 0 0 1 4.3038 1.10141"
+                              fill="none"
+                              stroke="currentColor"
+                              stroke-width="1"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                          </g>
+                        </g>
+                        <g
+                          transform="matrix(0.97299 -0.23087 0.23087 0.97299 -0.30702 2.37622)"
+                          opacity="1"
+                          display="inline"
+                        >
+                          <g mask="url(#dk9)">
+                            <g transform="matrix(1 0 0 1 0 0)" opacity="1" display="inline">
+                              <path
+                                d="M9.493 4.473C9.423 4.49 9.326 4.517 9.256 4.493L8.602 4.66C8.543 4.675 8.464 4.703 8.409 4.73L7.835 5.016L7.366 5.328L6.888 5.748L6.485 6.211C6.428 6.277 6.354 6.377 6.313 6.452L6.009 6.998C5.984 7.043 5.955 7.099 5.939 7.147L5.714 7.805C5.692 7.871 5.666 7.981 5.659 8.05L5.605 8.614L5.605 10.357C5.605 10.417 5.589 10.486 5.579 10.545C5.532 10.817 5.449 11.086 5.338 11.338C5.317 11.387 5.297 11.444 5.27 11.488L4.972 11.98C4.945 12.023 4.907 12.062 4.876 12.102C4.846 12.139 4.818 12.183 4.788 12.218L4.223 12.866C3.945 13.187 3.76 13.793 3.974 14.186C4.04 14.307 4.138 14.394 4.25 14.469C4.326 14.519 4.484 14.621 4.575 14.621L15.38 14.621C15.516 14.621 15.657 14.542 15.762 14.463C16.203 14.128 16.199 13.552 15.949 13.102C15.905 13.022 15.841 12.912 15.778 12.849L15.262 12.333C15.21 12.281 15.161 12.215 15.114 12.156C14.893 11.882 14.696 11.575 14.579 11.241C14.538 11.125 14.522 11.001 14.487 10.883C14.477 10.847 14.455 10.811 14.447 10.776C14.441 10.749 14.445 10.722 14.434 10.697C14.428 10.684 14.398 10.661 14.398 10.658L14.374 8.304C14.35 8.276 14.373 8.247 14.367 8.216L14.24 7.579C14.222 7.485 14.157 7.3 14.115 7.214L13.8 6.572C13.72 6.411 13.607 6.256 13.495 6.115C13.47 6.084 13.444 6.043 13.417 6.017L12.947 5.547C12.927 5.526 12.92 5.529 12.898 5.516C12.883 5.507 12.878 5.481 12.865 5.471L12.413 5.133L11.93 4.86L11.457 4.664L10.924 4.514C10.806 4.481 10.672 4.484 10.551 4.467L10.551 2.953C10.551 2.912 10.512 2.871 10.497 2.835C10.474 2.782 10.458 2.725 10.417 2.681C10.372 2.631 10.297 2.601 10.236 2.578C9.97 2.476 9.694 2.537 9.563 2.807C9.549 2.835 9.494 2.901 9.494 2.929L9.494 4.444C9.494 4.454 9.494 4.463 9.493 4.473ZM4.988 13.492L5.57 12.823L5.897 12.351L6.137 11.92L6.358 11.384C6.407 11.263 6.477 11.018 6.489 10.891L6.545 10.312L6.545 8.664C6.545 8.614 6.568 8.563 6.573 8.512C6.58 8.444 6.573 8.313 6.587 8.257L6.71 7.763C6.721 7.718 6.738 7.661 6.758 7.62L7.019 7.091C7.058 7.011 7.125 6.899 7.182 6.833L7.559 6.399L7.966 6.043C8.038 5.979 8.127 5.927 8.209 5.876C8.503 5.697 8.827 5.552 9.16 5.462C9.221 5.446 9.292 5.422 9.355 5.416L10.001 5.357L10.614 5.413C10.668 5.418 10.728 5.436 10.781 5.449C11.13 5.532 11.472 5.678 11.777 5.869C11.84 5.908 11.913 5.949 11.968 5.997L12.49 6.456C12.575 6.53 12.646 6.628 12.713 6.719C12.983 7.089 13.202 7.524 13.324 7.966C13.343 8.033 13.369 8.111 13.374 8.18L13.422 8.861L13.422 10.639C13.422 10.953 13.543 11.337 13.66 11.626C13.685 11.687 13.709 11.758 13.741 11.815L14.074 12.399L14.402 12.831C14.43 12.868 14.462 12.899 14.492 12.932L14.939 13.423C14.958 13.444 15.03 13.561 15.033 13.584L4.974 13.584L4.988 13.492Z"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                            <g
+                              transform="matrix(0.9998 0.02 -0.02 0.9998 0.18199 -0.19818)"
+                              opacity="1"
+                              display="inline"
+                            >
+                              <path
+                                d="M10.173 17.469C10.219 17.457 10.27 17.455 10.317 17.447C10.414 17.431 10.51 17.412 10.605 17.387C10.759 17.347 10.907 17.289 11.051 17.224C11.154 17.178 11.26 17.133 11.355 17.073C11.622 16.905 11.838 16.646 12.005 16.382C12.185 16.099 12.376 15.685 12.262 15.346C12.18 15.101 11.838 14.963 11.598 15.035C11.507 15.062 11.439 15.133 11.367 15.19C11.348 15.204 11.322 15.216 11.306 15.233C11.289 15.25 11.282 15.299 11.274 15.322C11.231 15.45 11.196 15.587 11.14 15.71C11.101 15.796 11.036 15.869 10.973 15.939C10.712 16.229 10.312 16.462 9.908 16.385C9.864 16.377 9.821 16.362 9.777 16.355C9.721 16.346 9.663 16.346 9.609 16.328C9.567 16.314 9.529 16.285 9.49 16.264C9.432 16.233 9.368 16.208 9.313 16.171C9.28 16.149 9.256 16.115 9.226 16.089C9.2 16.068 9.17 16.053 9.144 16.032C9.08 15.981 9.027 15.917 8.982 15.849C8.89 15.713 8.848 15.547 8.795 15.393C8.777 15.341 8.764 15.275 8.73 15.231C8.676 15.16 8.597 15.123 8.517 15.089C8.441 15.056 8.361 15.024 8.278 15.02C8.155 15.015 8.045 15.079 7.945 15.141C7.929 15.151 7.896 15.183 7.878 15.185C7.831 15.281 7.747 15.389 7.735 15.497C7.722 15.609 7.777 15.702 7.803 15.807C7.818 15.871 7.823 15.939 7.844 16.002C7.873 16.085 7.93 16.162 7.972 16.24C8.027 16.344 8.067 16.457 8.136 16.554C8.356 16.859 8.86 17.208 9.212 17.339C9.521 17.454 9.849 17.458 10.173 17.469Z"
+                                fill="currentColor"
+                                fill-rule="evenodd"
+                              />
+                            </g>
+                          </g>
+                          <g transform="matrix(0 0 0 0 14.9 4.6)" opacity="1" display="inline">
+                            <circle cx="14.9" cy="4.6" r="1.5" fill="#d97757" />
+                          </g>
+                        </g>
+                      </g>
+                    </svg>
+                  </div>
+                  inverse
+                </figure>
+              </div>
+              <span class="spacer"></span>
+              <span class="seg"
+                ><button aria-pressed="true">1×</button
+                ><button aria-pressed="false">¼×</button></span
+              >
+            </div>
+          </div>
+          <div class="inputs">
+            <div class="head">
+              Inputs <span class="count">3</span
+              ><span class="right"
+                ><button class="btn" style="padding: 1px 8px; font-size: 12px">Reset</button></span
+              >
+            </div>
+            <div class="inputs-grid">
+              <div class="inp">
+                <span class="name">ring</span><span class="type">trigger</span
+                ><span class="ctl"><button class="fire">Fire</button></span>
+              </div>
+              <div class="inp">
+                <span class="name">hover</span><span class="type">bool</span
+                ><span class="ctl"
+                  ><button class="tog" role="switch" aria-checked="true" aria-label="hover"></button
+                ></span>
+              </div>
+              <div class="inp">
+                <span class="name">down</span><span class="type">bool</span
+                ><span class="ctl"
+                  ><button class="tog" role="switch" aria-checked="false" aria-label="down"></button
+                ></span>
+              </div>
+            </div>
+            <div class="events">
+              events <span class="ev">rang · 0.00 s</span><span class="ev">rang · 2.31 s</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- State machine -->
+        <section class="panel machine" aria-label="State machine">
+          <div class="head">State machine <span class="count">2 layers</span></div>
+          <div class="layers">
+            <div class="layer">
+              <h3>ring <span>plays ring · 0.42 / 1.40 s</span></h3>
+              <svg
+                class="graph"
+                viewBox="0 0 280 150"
+                role="img"
+                aria-label="ring layer: idle, ringing (current), rested"
+              >
+                <defs>
+                  <marker
+                    id="arr"
+                    viewBox="0 0 8 8"
+                    refX="7"
+                    refY="4"
+                    markerWidth="7"
+                    markerHeight="7"
+                    orient="auto-start-reverse"
+                  >
+                    <path d="M0 0L8 4L0 8z" fill="context-stroke" />
+                  </marker>
+                </defs>
+                <circle class="entry" cx="10" cy="30" r="4" />
+                <path class="ed" d="M14 30H38" marker-end="url(#arr)" />
+                <g class="st prev">
+                  <rect x="40" y="16" width="70" height="28" rx="14" />
+                  <text x="75" y="34" text-anchor="middle">idle</text>
+                </g>
+                <g class="st cur">
+                  <rect x="170" y="16" width="90" height="28" rx="14" />
+                  <text x="215" y="34" text-anchor="middle">ringing</text>
+                </g>
+                <g class="st">
+                  <rect x="105" y="104" width="76" height="28" rx="14" />
+                  <text x="143" y="122" text-anchor="middle">rested</text>
+                </g>
+                <path class="ed live" d="M110 30H168" marker-end="url(#arr)" />
+                <text class="lab live" x="139" y="24" text-anchor="middle">ring</text>
+                <path class="ed" d="M215 44C215 80 200 112 183 118" marker-end="url(#arr)" />
+                <text class="lab" x="226" y="86">@end</text>
+                <path class="ed" d="M107 108C80 92 72 64 74 46" marker-end="url(#arr)" />
+                <text class="lab" x="24" y="84">@after 0.4</text>
+                <path
+                  class="ed"
+                  d="M181 112C200 96 214 70 214 46"
+                  marker-end="url(#arr)"
+                  stroke-dasharray="3 3"
+                />
+                <text class="lab" x="150" y="96">ring</text>
+              </svg>
+            </div>
+            <div class="layer">
+              <h3>hover <span>blending rest → hover</span></h3>
+              <svg
+                class="graph"
+                viewBox="0 0 280 120"
+                role="img"
+                aria-label="hover layer: rest, hover (current, blending), press"
+              >
+                <circle class="entry" cx="10" cy="30" r="4" />
+                <path class="ed" d="M14 30H38" marker-end="url(#arr)" />
+                <g class="st prev">
+                  <rect x="40" y="16" width="64" height="28" rx="14" />
+                  <text x="72" y="34" text-anchor="middle">rest</text>
+                </g>
+                <g class="st cur">
+                  <rect x="176" y="16" width="70" height="28" rx="14" />
+                  <text x="211" y="34" text-anchor="middle">hover</text>
+                </g>
+                <g class="st">
+                  <rect x="176" y="82" width="70" height="28" rx="14" />
+                  <text x="211" y="100" text-anchor="middle">press</text>
+                </g>
+                <path class="ed live" d="M104 26H174" marker-end="url(#arr)" />
+                <text class="lab live" x="139" y="20" text-anchor="middle">hover · 0.15</text>
+                <path class="ed" d="M174 36H106" marker-end="url(#arr)" />
+                <text class="lab" x="139" y="50" text-anchor="middle">!hover</text>
+                <path class="ed" d="M205 44V80" marker-end="url(#arr)" />
+                <text class="lab" x="160" y="66">down</text>
+                <path class="ed" d="M217 80V46" marker-end="url(#arr)" />
+                <text class="lab" x="222" y="66">!down</text>
+              </svg>
+              <div class="blend">
+                <span>blend</span><span class="bar2"><i></i></span><span>62 %</span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Timeline -->
+        <section class="panel timeline" aria-label="Timeline">
+          <div class="head">
+            Timeline
+            <span class="tl-tools">
+              <select aria-label="Timeline">
+                <option>ring · 1.4 s</option>
+              </select>
+              <button class="tbtn" aria-label="Play">
+                <svg viewBox="0 0 12 12"><path d="M2 1L11 6L2 11z" /></svg>
+              </button>
+              <button class="tbtn" aria-label="Step one frame">
+                <svg viewBox="0 0 12 12"><path d="M1 1L7 6L1 11zM8 1h2v10H8z" /></svg>
+              </button>
+              <span class="time">0.420 s</span>
+            </span>
+            <span class="right"
+              ><span class="mode" id="mode">live — follows the state machine</span></span
+            >
+          </div>
+          <div class="tracks" id="tracks"></div>
+        </section>
+      </div>
+    </div>
+
+    <div class="mock-switch" aria-label="Mockup states">
+      <span>mock:</span>
+      <button aria-pressed="true" data-s="ok">valid</button>
+      <button aria-pressed="false" data-s="err">errors</button>
+      <button aria-pressed="false" data-s="scrub">scrubbing</button>
+      <button aria-pressed="false" data-s="dark">dark</button>
+    </div>
+
+    <script>
+      // Design-only: fills the static panels and switches between the mocked states.
+      const SRC = [
+        '<!--',
+        '  The reference document: a bell that tilts on hover and rings on click, reproducing the Rive',
+        '  version in fixtures/bell/rive-reference/. Build it with: anima build examples/bell.animl',
+        '-->',
+        '<anima version="0.1" name="bell" title="Bell" grid="20" viewBox="-2 -2 24 24">',
+        '  <color name="ink" value="currentColor"/>',
+        '  <color name="accent" value="#d97757"/>',
+        '',
+        '  <glyph name="bell"',
+        '      d="M9.493 4.473C9.423 4.49 9.326 4.517 9.256 4.493L8.602 4.66C8.543 4.675 8.464 4.703 8.409 4.73L7.835 5.016L7.366 \u2026"',
+        '      source="glyphy" sha256="866d168f0377ff78a07856f02ba519771ec8b8f9389695d32b338bb8b86a04ae"/>',
+        '',
+        '  <a11y role="button" label="Ring the bell" activate="ring" held="down"/>',
+        '',
+        '  <trigger name="ring"/>',
+        '  <bool name="hover"/>',
+        '  <bool name="down"/>',
+        '',
+        "  <!-- The Rive file's hit disc: whole-icon listeners react inside it. -->",
+        '  <hit circle="10 10 10.8"/>',
+        '',
+        "  <!-- Paint order is document order, later on top. Children use their parent's coordinates. -->",
+        '  <group id="icon" pivot="10 10">',
+        '    <group id="waves">',
+        '      <arc id="wave-r1" cx="10" cy="7" r="6.6" from="-46" to="-18" pivot="10 7" opacity="0" stroke="ink" stroke-width="1 \u2026"',
+        '      <arc id="wave-r2" cx="10" cy="7" r="8.2" from="-46" to="-18" pivot="10 7" opacity="0" stroke="ink" stroke-width="1 \u2026"',
+        '      <arc id="wave-l1" cx="10" cy="7" r="6.6" from="-162" to="-134" pivot="10 7" opacity="0" stroke="ink" stroke-width= \u2026"',
+        '      <arc id="wave-l2" cx="10" cy="7" r="8.2" from="-162" to="-134" pivot="10 7" opacity="0" stroke="ink" stroke-width= \u2026"',
+        '    </group>',
+        '    <!-- Swings from the top of the handle; the clapper lags about its own pivot. -->',
+        '    <group id="swing" pivot="10 2.5">',
+        '      <path id="body" glyph="bell" subpaths="0 1" fill="ink" fill-rule="evenodd"/>',
+        '      <path id="clapper" glyph="bell" subpaths="2" pivot="10 9" fill="ink" fill-rule="evenodd"/>',
+        '      <!-- The notification dot cuts a 1.2-unit ring out of the body and clapper. -->',
+        '      <circle id="dot" cx="14.9" cy="4.6" r="1.5" pivot="14.9 4.6" scale="0" fill="accent" knockout="1.2"/>',
+        '    </group>',
+        '  </group>',
+        '',
+        '  <ease name="settle" curve="cubic(0.2, 0, 0.3, 1)"/>',
+        '  <ease name="sway" curve="cubic(0.45, 0, 0.55, 1)"/>',
+        '',
+        '  <timeline name="ring" duration="1.4" reducedMotion="end">',
+        "    <!-- Times are the Rive version's 60 fps frames in seconds (frame / 60, 6 decimals); angles are its radians in degrees. -->",
+        '    <track target="swing.rotate">',
+        '      0         0        settle',
+        '      0.116667  17.1887  sway',
+        '      0.283333  -13.751  sway',
+        '      0.45      9.1673   sway',
+        '      0.616667  -5.7296  sway',
+        '      0.783333  3.1513   sway',
+        '      0.95      -1.1459  sway',
+        '      1.1       0',
+        '    </track>',
+        '    <track target="clapper.rotate">',
+        '      0         0        settle',
+        '      0.083333  -6.8755  sway',
+        '      0.216667  9.7403   sway',
+        '      0.383333  -7.4485  sway',
+        '      0.55      5.1566   sway',
+        '      0.716667  -2.8648  sway',
+        '      0.883333  1.1459   sway',
+        '      1.05      0',
+        '    </track>',
+        '    <track target="dot.scale">',
+        '      0         0  hold',
+        '      0.666667  0  elastic(1, 0.45)',
+        '      0.966667  1',
+        '    </track>',
+        '    <track target="wave-r1.opacity">0 0 hold; 0.016667 0 settle; 0.133333 1 settle; 0.516667 0</track>',
+        '    <track target="wave-r1.scale">0 0.82 hold; 0.016667 0.82 settle; 0.516667 1.08</track>',
+        '    <track target="wave-l1.opacity">0 0 hold; 0.016667 0 settle; 0.133333 1 settle; 0.516667 0</track>',
+        '    <track target="wave-l1.scale">0 0.82 hold; 0.016667 0.82 settle; 0.516667 1.08</track>',
+        '    <track target="wave-r2.opacity">0 0 hold; 0.116667 0 settle; 0.233333 1 settle; 0.616667 0</track>',
+        '    <track target="wave-r2.scale">0 0.82 hold; 0.116667 0.82 settle; 0.616667 1.08</track>',
+        '    <track target="wave-l2.opacity">0 0 hold; 0.116667 0 settle; 0.233333 1 settle; 0.616667 0</track>',
+        '    <track target="wave-l2.scale">0 0.82 hold; 0.116667 0.82 settle; 0.616667 1.08</track>',
+        '  </timeline>',
+        '',
+        '  <layer name="ring" initial="idle">',
+        '    <state name="idle">',
+        '      <pose dot.scale="0"/>',
+        '      <on when="ring" to="ringing"/>',
+        '    </state>',
+        '    <state name="ringing" play="ring" emit="rang">',
+        '      <on when="@end" to="rested"/>',
+        '    </state>',
+        '    <state name="rested">',
+        '      <pose dot.scale="1"/>',
+        '      <on when="ring" to="ringing"/>',
+        '    </state>',
+        '  </layer>',
+        '',
+        '  <!-- As in Rive, a crossfade runs to its end before the layer reacts again, so a quick click',
+        '       still shows the press. -->',
+        '  <layer name="hover" initial="rest">',
+        '    <state name="rest">',
+        '      <on when="hover" to="hover" blend="0.18" interruptible="false"/>',
+        '    </state>',
+        '    <state name="hover">',
+        '      <pose icon.scale="1.05" icon.rotate="-2.0054"/>',
+        '      <on when="!hover" to="rest" blend="0.22" interruptible="false"/>',
+        '      <on when="down" to="press" blend="0.09" interruptible="false"/>',
+        '    </state>',
+        '    <state name="press">',
+        '      <pose icon.scale="0.95" icon.rotate="-0.8594"/>',
+        '      <on when="!hover" to="rest" blend="0.22" interruptible="false"/>',
+        '      <on when="!down" to="hover" blend="0.16" interruptible="false"/>',
+        '    </state>',
+        '  </layer>',
+        '',
+        '  <listener on="click" fire="ring"/>',
+        '  <listener on="enter" set="hover=true"/>',
+        '  <listener on="leave" set="hover=false down=false"/>',
+        '  <listener on="down" set="down=true"/>',
+        '  <listener on="up" set="down=false"/>',
+        '</anima>',
+      ];
+      const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+      let inComment = false;
+      function hl(line) {
+        // One pass over the raw line, so inserted spans are never re-matched.
+        const c = inComment || /^\s*<!--/.test(line);
+        inComment = c && !line.includes('-->');
+        if (c) return `<span class="c">${esc(line)}</span>`;
+        return line.replace(
+          /(<\/?)([\w-]+)|([\w.-]+)=("[^"]*")|([^<\w"]+|[\s\S])/g,
+          (m, lt, tag, an, av) =>
+            tag
+              ? `${esc(lt)}<span class="t">${tag}</span>`
+              : an
+                ? `<span class="a">${an}</span>=<span class="v">${esc(av)}</span>`
+                : esc(m),
+        );
+      }
+      function renderCode(err) {
+        inComment = false;
+        document.getElementById('code').innerHTML = SRC.map((l, i) => {
+          const n = i + 1;
+          if (err && n === 32) l = l.replace(' fill="ink" ', ' fil="ink" ');
+          if (err && n === 51) l = l.replace('sway', 'swy');
+          let h = hl(l);
+          if (err && n === 32)
+            h = h.replace('<span class="a">fil</span>', '<span class="a squig">fil</span>');
+          if (err && n === 51) h = h.replace('swy', '<span class="squig">swy</span>');
+          const cls = err && (n === 32 || n === 51) ? ' err' : n === 32 ? ' cur' : '';
+          return `<div class="ln${cls}"><i>${n}</i><span>${h}</span></div>`;
+        }).join('');
+        if (err) document.querySelector('.ln.err').scrollIntoView({ block: 'center' });
+      }
+      const DIAGS = [
+        {
+          where: 'bell.animl:32:58',
+          code: 'unknown-attribute',
+          msg: '&lt;path&gt; takes no <code>"fil"</code> attribute',
+          hint: 'did you mean "fill"?',
+          sev: 'error',
+        },
+        {
+          where: 'bell.animl:51:26',
+          code: 'bad-keyframe',
+          msg: 'keyframe <code>0.95 -1.1459 swy</code>: unknown ease "swy"',
+          hint: 'named eases here: settle, sway; built-ins: linear, hold, in, out, inOut',
+          sev: 'error',
+        },
+      ];
+      const TRACKS = [
+        ['swing.rotate', [0, 0.117, 0.283, 0.45, 0.617, 0.783, 0.95], '9.73°'],
+        ['clapper.rotate', [0, 0.083, 0.217, 0.383, 0.55, 0.717, 0.883], '−4.12°'],
+        ['icon.scale', [0, 0.1, 0.3], '1.04'],
+        ['dot.scale', [0, 0.12, 0.3], '1'],
+        ['wave-r1.opacity', [0.05, 0.2, 0.55], '0.71'],
+        ['wave-r2.opacity', [0.1, 0.25, 0.6], '0.48'],
+      ];
+      function renderTracks(t) {
+        const D = 1.4,
+          pct = (x) => (x / D) * 100;
+        let h =
+          '<div class="ruler"><div></div><div class="ticks">' +
+          [0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4]
+            .map((x) => `<span style="left:${pct(x)}%">${x}</span>`)
+            .join('') +
+          '</div><div></div></div>';
+        TRACKS.forEach(([n, ks, v], i) => {
+          h +=
+            `<div class="tr${i === 0 ? ' sel' : ''}"><div class="tname">${n}</div><div class="lane">` +
+            `<span class="seg-line" style="left:${pct(ks[0])}%;width:${pct(ks.at(-1) - ks[0])}%"></span>` +
+            ks.map((k) => `<span class="kf" style="left:${pct(k)}%"></span>`).join('') +
+            `</div><div class="val">${v}</div></div>`;
+        });
+        h += `<div class="playhead" id="ph"></div>`;
+        const el = document.getElementById('tracks');
+        el.innerHTML = h;
+        const lane = el.querySelector('.lane');
+        const ph = document.getElementById('ph');
+        const place = () => {
+          ph.style.left = lane.offsetLeft + lane.offsetWidth * (t / D) + 'px';
+        };
+        place();
+        addEventListener('resize', place);
+      }
+      function state(s) {
+        document
+          .querySelectorAll('.mock-switch button')
+          .forEach((b) =>
+            b.setAttribute('aria-pressed', String(b.dataset.s === s || (s !== 'dark' && false))),
+          );
+        const err = s === 'err';
+        renderCode(err);
+        const pill = document.getElementById('status');
+        pill.className = 'pill ' + (err ? 'err' : 'ok');
+        pill.textContent = err ? '2 errors' : 'valid';
+        document.getElementById('pcount').textContent = err ? '2 errors' : 'none';
+        document.getElementById('diags').innerHTML = err
+          ? DIAGS.map(
+              (d, i) =>
+                `<li class="diag${i === 0 ? ' sel' : ''}"><span class="dot"></span><span class="where">${d.where}</span><span class="msg">${d.msg} <span class="code-id">${d.code}</span></span><span class="hint">hint: ${d.hint}</span></li>`,
+            ).join('')
+          : '<li class="empty">No problems. Every change is compiled as you type.</li>';
+        document.getElementById('tilewrap').classList.toggle('broken', err);
+        document.getElementById('mode').textContent =
+          s === 'scrub' ? 'scrubbing — inputs paused' : 'live — follows the state machine';
+        renderTracks(s === 'scrub' ? 0.95 : 0.42);
+        document.querySelector('.time').textContent =
+          (s === 'scrub' ? 0.95 : 0.42).toFixed(3) + ' s';
+      }
+      document.querySelectorAll('.mock-switch button').forEach((b) =>
+        b.addEventListener('click', () => {
+          if (b.dataset.s === 'dark') {
+            const d = document.documentElement.dataset.theme === 'dark';
+            document.documentElement.dataset.theme = d ? 'light' : 'dark';
+            b.setAttribute('aria-pressed', String(!d));
+          } else state(b.dataset.s);
+        }),
+      );
+      document.getElementById('theme').addEventListener('click', () => {
+        const d = document.documentElement.dataset.theme === 'dark';
+        document.documentElement.dataset.theme = d ? 'light' : 'dark';
+      });
+      document
+        .querySelectorAll('.tog')
+        .forEach((t) =>
+          t.addEventListener('click', () =>
+            t.setAttribute('aria-checked', String(t.getAttribute('aria-checked') !== 'true')),
+          ),
+        );
+      state('ok');
+    </script>
+  </body>
+</html>
