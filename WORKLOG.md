@@ -3,7 +3,7 @@
 ## Now
 Goal: finish M4 (bell in browser, core+web ≤ 25 KB gz, strict), then AniML, then M5, then Phase B (P3 playground first).
 State: M0–M3 merged (PRs #1–#4); Phase A in PR #5. m4-web: runtime + 8 browser tests, 120 tests green, 14636 B gz (budget 25 KB).
-Next: M4 PR from m4-web, merge when green; merge PR #5 when green.
+Next: push Firefox fix to PR #6 (m4-web), merge #6 then #5 when green; ask owner to check the fix on macOS Firefox.
 Next: Phase A research running (r1–r4 → /data/t3/scratch/anima-parity/); then write docs/parity/ on a branch from main.
 Next: AniML from main after M4 merges; draft spec/ANIML.md + examples/bell.animl exist uncommitted in the main checkout.
 Don't: relax browser strictness (owner chose 25 KB budget instead); mangle property names (breaks string-keyed tables).
@@ -28,3 +28,5 @@ Don't: spawn non-Sol sub-agents (user rule), > 5 at once; touch .riv files or Ri
 - 2026-11-05 13:18 [claude]: Phase A synthesized: 1238 rows after 37 merges, 111 done / 958 planned / 162 maybe-later / 3 wont-do; copy check 1 overlap → PR #5 (phase-a-parity, worktree ../anima-phase-a), waiting on CI
 - 2026-11-05 13:30 [opus]: size race (Opus) 15222 → 14636 B, plateau, parity-checked over 6060 docs (t3/shrink-browser-bundle-1 59713c7) → merged into m4-web
 - 2026-11-05 13:35 [claude]: owner chose budget 25 KB (after lighter validation re-measured at ~13.1 KB, not 11–11.5) → strict browser stays
+- 2026-11-05 14:20 [claude]: Firefox stale-clapper fix (g wrappers carry transforms, attrs never removed, mask always attached) + Firefox lane + per-frame regression test (201 frames, worst 0.019) → 130 tests green
+- 2026-11-05 14:20 [claude]: GPU Firefox (Linux WebRender, GTX 1650): old 1/4 runs stale episode, fixed 0/4; macOS symptom not reproduced → fix unverified on macOS (evidence: /data/agent-workspaces/anima-ff/*-run*.json)

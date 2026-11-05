@@ -50,9 +50,13 @@ docs/      architecture, plan, research notes
   gives it (like `<img src>`), and with an inline document the page makes no requests at all.
 - **Shadow DOM.** The element renders into an open shadow root (a `<style>` and the `<svg>`). CSS
   custom properties and `color` inherit through it, so slots theme from the page.
-- **Retained SVG DOM.** Build the tree once (`<g>` per node with one `transform` attribute, `<path>`
-  per painted node, `<mask>` for knockouts). Per frame write only dirty attributes. No canvas, no
-  devicePixelRatio handling, crisp at any size.
+- **Retained SVG DOM.** Build the tree once from the core's `sceneTree`: a `<g>` per node carrying its
+  `transform`, `opacity` and `display`, with the painted element inside it untransformed; `<mask>` for
+  knockouts, attached to a wrapper `<g>` that has no transform of its own. Per frame write only changed
+  attributes, and never remove `transform`/`opacity`/`display` (identity is written out as
+  `matrix(1 0 0 1 0 0)`). These rules came from a Firefox paint bug (LOG, M4 Firefox fix): a transformed
+  leaf inside an animated, masked group was painted stale. No canvas, no devicePixelRatio handling,
+  crisp at any size.
 - **Scheduler.** One shared `requestAnimationFrame` loop for all instances; an instance is in the loop
   only while not `settled`. Inputs, pointer events, attribute changes and visibility wake it. A shared
   `IntersectionObserver` and `document.visibilityState` pause off-screen instances. Clamp display

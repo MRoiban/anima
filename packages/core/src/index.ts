@@ -19,7 +19,6 @@ export {
   toSVG,
   cssSlots,
   staticSlots,
-  cutEmpty,
   type El,
   type Attrs,
   type Paint,
