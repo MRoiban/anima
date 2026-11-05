@@ -5,12 +5,14 @@
   "type": "module",
   "description": "<anima-icon>: the Anima web runtime (retained SVG, sleeping scheduler, a11y).",
   "exports": {
-    ".": "./src/index.ts"
+    ".": "./src/index.ts",
+    "./markup": "./src/markup.ts"
   },
   "files": [
     "src"
   ],
   "dependencies": {
-    "@anima-format/core": "0.1.0"
+    "@anima-format/core": "0.1.0",
+    "@anima-format/markup": "0.1.0"
   }
 }

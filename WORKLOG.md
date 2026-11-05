@@ -1,12 +1,11 @@
 # Work log
 
 ## Now
-Goal: P1 AniML (authoring markup) → PR from p1-animl; then M5, then Phase B (P3 playground first).
-State: main has M0–M4 + Phase A (PRs #1–#6 merged). p1-animl: contract committed (spec/ANIML.md, bell.animl, registry markup names, xml.ts, names.ts; d9c0063).
-Next: wave 1 running — Sol compiler (compile.ts) and Sol decompiler+formatter, worktrees from d9c0063; merge both, add round-trip tests.
-Next: wave 2 — CLI (.animl everywhere, build incl. html, decompile, new→animl), web markup module (own budget), migrate conformance + AUTHORING.md; wave 3 head-to-head (AniML vs .ani vs Rive RML).
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: optional @anima-format/web/markup module (AniML §9), local commit only.
+State: verified on t3/web-markup-module; core+web 14781 B (+146); markup 5777 B (budget 6144).
+Next: hand local commit to orchestrator for P1 integration; no push/PR/merge.
+Verified: typecheck, lint, format:check, 292 tests (no skips), size, build-web --check; 141 markup tests unchanged.
+Don't: push/PR/merge; edit spec/docs/CLI/core/markup tests; read .riv or run rive; add runtime dependencies beyond workspace packages.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -34,3 +33,9 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 15:10 [owner]: Firefox clapper fix confirmed on macOS; name stays Anima with .ani and .animl
 - 2026-11-05 14:20 [claude]: merged Sol decompiler+formatter (0deca93) into p1-animl; parser now reports out-of-range entities → markup tests 49 pass/14 skipped (evidence: npx vitest run packages/markup)
 - 2026-11-05 14:35 [claude]: merged Sol compiler (d575827); round-trip tests on bell + 13 cases pass; full suite 274 pass, size 14635 B gz (evidence: npx vitest run; node tools/size.ts). Spec §8 lists 3 decompile normalisations ($schema, element-less $comment, singleton action lists).
+- 2026-11-05 14:34 [sol]: initial size command failed (esbuild absent) → npm ci installed local tooling; npm ci --ignore-scripts --dry-run accepts workspace dependency addition without lock edit.
+- 2026-11-05 14:34 [sol]: module+compiler hook 6996 B markup → VERBOSE folding 5776 B; queued inline loading fixes upgrade-before-registration; final measured 5777 B markup / 14781 B core+web (+146) (evidence: node tools/size.ts).
+- 2026-11-05 14:34 [sol]: first browser run 25 pass/5 fail: 4 inline-upgrade errors fixed via microtask; existing Firefox frame-count assertion 3 vs ≤2 (unresolved); targeted new tests then 12 pass/18 filtered; 141 unchanged markup tests pass.
+- 2026-11-05 14:38 [sol]: full verification 289 pass/3 fail → new parity test incorrectly expected reduce to jump an already-running timeline; corrected with deterministic full-duration ticks; reduced-motion trace identifies Playwright mouse.click's extra pointermove as third wake, now down/up with unchanged ≤2-frame assertion.
+- 2026-11-05 14:39 [sol]: final requested verify chain passed → 16 files / 292 tests, no skips (36 browser tests across Chromium+Firefox; 141 unchanged markup tests); core+web 14781 B gzip (+146/150 allowance), markup 5777/6144 B incremental.
+- 2026-11-05 14:39 [sol]: browser build emits anima-icon.js + anima-markup.js → build-web --check passes; intentional stale markup artifact rejected with exit 1, restored artifact passes; no new runtime dependencies beyond workspace markup, no CLI/core/spec/docs edits, no push/PR/merge.

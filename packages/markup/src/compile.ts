@@ -1,8 +1,11 @@
 // AniML → .ani. Syntax/authoring conveniences live here; the strict core loader remains the
 // authority on semantic validity (references, property types, ranges, and reserved features).
+// Guard diagnostic arguments too: browser builds fold their text and suggestion work away;
+// Node/CLI keep VERBOSE=true and the full authoring diagnostics (SPEC §2).
 import {
   NAME,
   NODE_TYPES,
+  VERBOSE,
   formatAni,
   load,
   parseEase,
@@ -158,8 +161,8 @@ class Compiler {
       code,
       severity: 'error',
       pointer: p,
-      message,
-      ...(hint ? { hint } : {}),
+      message: VERBOSE ? message : code,
+      ...(VERBOSE && hint ? { hint } : {}),
       line: at.line,
       column: at.col,
       ...(this.opts.file === undefined ? {} : { file: this.opts.file }),
@@ -222,15 +225,20 @@ class Compiler {
     const out = new Map<string, Attr>();
     for (const a of el.attrs) {
       if (out.has(a.name))
-        this.error('duplicate-attribute', p, a.at, `attribute "${a.name}" appears twice`);
+        this.error(
+          'duplicate-attribute',
+          p,
+          a.at,
+          VERBOSE ? `attribute "${a.name}" appears twice` : '',
+        );
       else out.set(a.name, a);
       if (el.name !== 'pose' && !Object.hasOwn(form.attrs, a.name))
         this.error(
           'unknown-attribute',
           p,
           a.at,
-          `<${el.name}> takes no "${a.name}" attribute`,
-          suggest(a.name, Object.keys(form.attrs)),
+          VERBOSE ? `<${el.name}> takes no "${a.name}" attribute` : '',
+          VERBOSE ? suggest(a.name, Object.keys(form.attrs)) : '',
         );
     }
     for (const name of form.required ?? [])
@@ -239,8 +247,8 @@ class Compiler {
           'missing-attribute',
           p,
           el.at,
-          `<${el.name}> needs "${name}"`,
-          `add ${name}="…"`,
+          VERBOSE ? `<${el.name}> needs "${name}"` : '',
+          VERBOSE ? `add ${name}="…"` : '',
         );
     return out;
   }
@@ -249,23 +257,28 @@ class Compiler {
     const allowed = this.form(el).children ?? [];
     for (const c of el.children) {
       if (c.kind === 'text' && c.value.trim() && !['track', 'meta'].includes(el.name))
-        this.error('markup-syntax', p, c.at, `text is not allowed inside <${el.name}>`);
+        this.error(
+          'markup-syntax',
+          p,
+          c.at,
+          VERBOSE ? `text is not allowed inside <${el.name}>` : '',
+        );
       if (c.kind !== 'element') continue;
       if (!NODES.includes(c.name) && !Object.hasOwn(FORMS, c.name))
         this.error(
           'unknown-element',
           p,
           c.at,
-          `unknown element <${c.name}>`,
-          suggest(c.name, [...Object.keys(FORMS), ...NODES]),
+          VERBOSE ? `unknown element <${c.name}>` : '',
+          VERBOSE ? suggest(c.name, [...Object.keys(FORMS), ...NODES]) : '',
         );
       else if (!allowed.includes(c.name))
         this.error(
           'misplaced-element',
           p,
           c.at,
-          `<${c.name}> is not allowed inside <${el.name}>`,
-          suggest(c.name, allowed),
+          VERBOSE ? `<${c.name}> is not allowed inside <${el.name}>` : '',
+          VERBOSE ? suggest(c.name, allowed) : '',
         );
       else out.push(c);
     }
@@ -283,12 +296,12 @@ class Compiler {
 
   private num(s: string): number {
     if (!IS_NUMBER.test(s) || !Number.isFinite(Number(s)))
-      throw new Error('expected a finite JSON number');
+      throw new Error(VERBOSE ? 'expected a finite JSON number' : '');
     return Number(s);
   }
   private color(s: string): string {
     if (NAME.test(s) || /^(?:#[0-9a-f]{3}|#[0-9a-f]{6}|#[0-9a-f]{8})$/i.test(s)) return s;
-    throw new Error('expected a colour literal or slot name');
+    throw new Error(VERBOSE ? 'expected a colour literal or slot name' : '');
   }
   private scalar(s: string, color = true): number | boolean | string {
     if (s === 'true' || s === 'false') return s === 'true';
@@ -296,7 +309,11 @@ class Compiler {
     if (color && (NAME.test(s) || /^(?:#[0-9a-f]{3}|#[0-9a-f]{6}|#[0-9a-f]{8})$/i.test(s)))
       return s;
     throw new Error(
-      color ? 'expected a number, boolean or colour' : 'expected a number or boolean',
+      VERBOSE
+        ? color
+          ? 'expected a number, boolean or colour'
+          : 'expected a number or boolean'
+        : '',
     );
   }
   private ease(s: string): string {
@@ -305,14 +322,19 @@ class Compiler {
     if (!m) return s; // the loader owns bad-ease and reserved diagnostics
     const args = m[2]!.split(',').map((s) => this.num(s.trim()));
     if (args.length !== (m[1] === 'cubic' ? 4 : 2))
-      throw new Error('wrong number of ease arguments');
+      throw new Error(VERBOSE ? 'wrong number of ease arguments' : '');
     return `${m[1]}(${args.join(', ')})`;
   }
   private resolveEase(name: string): string {
     if (this.resolved.has(name)) return this.resolved.get(name)!;
     const a = this.eases.get(name)!;
     if (this.resolving.has(name)) {
-      this.error('bad-attribute', '', a.valueAt, `cyclic ease declaration "${name}"`);
+      this.error(
+        'bad-attribute',
+        '',
+        a.valueAt,
+        VERBOSE ? `cyclic ease declaration "${name}"` : '',
+      );
       return name;
     }
     this.resolving.add(name);
@@ -340,39 +362,45 @@ class Compiler {
     try {
       if (typeof kind === 'number') {
         if (!VECTOR.test(s))
-          throw new Error('expected numbers separated by whitespace or one comma');
+          throw new Error(VERBOSE ? 'expected numbers separated by whitespace or one comma' : '');
         const v = s.split(/\s*,\s*|\s+/).map((x) => this.num(x));
-        if (kind && v.length !== kind) throw new Error(`expected ${kind} numbers`);
+        if (kind && v.length !== kind) throw new Error(VERBOSE ? `expected ${kind} numbers` : '');
         return v;
       }
       switch (kind) {
         case 'number':
           return this.num(s);
         case 'boolean':
-          if (s !== 'true' && s !== 'false') throw new Error('expected true or false');
+          if (s !== 'true' && s !== 'false')
+            throw new Error(VERBOSE ? 'expected true or false' : '');
           return s === 'true';
         case 'name':
-          if (!NAME.test(s)) throw new Error('expected a name matching [a-z][a-zA-Z0-9-]*');
+          if (!NAME.test(s))
+            throw new Error(VERBOSE ? 'expected a name matching [a-z][a-zA-Z0-9-]*' : '');
           return s;
         case 'value':
           return this.scalar(s);
         case 'color':
           return this.color(s);
         case 'indices':
-          if (!s) throw new Error('expected a whitespace-separated index list');
+          if (!s) throw new Error(VERBOSE ? 'expected a whitespace-separated index list' : '');
           return s.split(/\s+/).map((x) => this.num(x));
         case 'names': {
           const v = s ? s.split(/\s+/) : [];
           if (!v.length || v.some((x) => !NAME.test(x)))
-            throw new Error('expected a whitespace-separated name list');
+            throw new Error(VERBOSE ? 'expected a whitespace-separated name list' : '');
           return v;
         }
         case 'set': {
           const o: Json = {};
           for (const pair of s.split(/\s+/)) {
             const m = /^([a-z][a-zA-Z0-9-]*)=(.+)$/.exec(pair);
-            if (!m) throw new Error('expected whitespace-separated name=value assignments');
-            if (Object.hasOwn(o, m[1]!)) throw new Error(`repeated assignment "${m[1]}"`);
+            if (!m)
+              throw new Error(
+                VERBOSE ? 'expected whitespace-separated name=value assignments' : '',
+              );
+            if (Object.hasOwn(o, m[1]!))
+              throw new Error(VERBOSE ? `repeated assignment "${m[1]}"` : '');
             own(o, m[1]!, this.scalar(m[2]!, false));
           }
           return o;
@@ -389,7 +417,7 @@ class Compiler {
         'bad-attribute',
         p,
         a.valueAt,
-        e instanceof Error ? e.message : 'invalid attribute value',
+        VERBOSE ? (e instanceof Error ? e.message : 'invalid attribute value') : '',
       );
       return undefined;
     }
@@ -407,7 +435,12 @@ class Compiler {
 
   private addNamed(o: Json, key: string, el: Element, p: string, at: Pos): boolean {
     if (Object.hasOwn(o, key)) {
-      this.error('duplicate-name', ptr(p, key), at, `"${key}" is declared twice in this map`);
+      this.error(
+        'duplicate-name',
+        ptr(p, key),
+        at,
+        VERBOSE ? `"${key}" is declared twice in this map` : '',
+      );
       return false;
     }
     // Do not recursively mark a built object here: its descendants already have precise origins.
@@ -448,7 +481,7 @@ class Compiler {
         .join('');
       try {
         const v: unknown = JSON.parse(text);
-        if (!object(v)) throw new Error('meta must contain a JSON object');
+        if (!object(v)) throw new Error(VERBOSE ? 'meta must contain a JSON object' : '');
         this.mark(p, v, el.at);
         this.comment(el, v, p);
         return v;
@@ -457,7 +490,7 @@ class Compiler {
           'bad-attribute',
           p,
           el.children.find((c) => c.kind === 'text')?.at ?? el.at,
-          e instanceof Error ? e.message : 'invalid JSON metadata',
+          VERBOSE ? (e instanceof Error ? e.message : 'invalid JSON metadata') : '',
         );
       }
     } else if (el.name === 'color') {
@@ -486,7 +519,7 @@ class Compiler {
             a.size ? 'bad-attribute' : 'missing-attribute',
             p,
             el.at,
-            '<hit> needs exactly one of circle or rect',
+            VERBOSE ? '<hit> needs exactly one of circle or rect' : '',
           );
       } else if (el.name === 'timeline') {
         this.put(o, 'tracks', {}, p, el.at);
@@ -526,7 +559,7 @@ class Compiler {
                 'misplaced-element',
                 p + '/pose',
                 c.at,
-                '<pose> may occur once, before any <on>',
+                VERBOSE ? '<pose> may occur once, before any <on>' : '',
               );
             else own(o, 'pose', this.build(c, p + '/pose'));
             pose = true;
@@ -569,7 +602,12 @@ class Compiler {
       const map = this.container(parent, key, base, c.at);
       this.addNamed(map, name?.value.trim() ?? '', c, ptr(base, key), name?.valueAt ?? c.at);
     } else if (Object.hasOwn(o, c.name))
-      this.error('misplaced-element', ptr(p, c.name), c.at, `<${c.name}> may occur only once`);
+      this.error(
+        'misplaced-element',
+        ptr(p, c.name),
+        c.at,
+        VERBOSE ? `<${c.name}> may occur only once` : '',
+      );
     else own(o, c.name, this.build(c, ptr(p, c.name)));
   }
 
@@ -586,8 +624,8 @@ class Compiler {
           'paint-attribute',
           ptr(p, paint),
           attr.valueAt,
-          `"${attr.name}" needs "${paint}"`,
-          `add ${paint}="…"`,
+          VERBOSE ? `"${attr.name}" needs "${paint}"` : '',
+          VERBOSE ? `add ${paint}="…"` : '',
         );
       const v = this.read(
         attr,
@@ -654,7 +692,7 @@ class Compiler {
       const at = (i: number) => this.xml!.pos(offsets[m.index + i] ?? el.at.offset);
       const kp = ptr(p, keys.length);
       try {
-        if (tokens.length < 2) throw new Error('expected time value [ease]');
+        if (tokens.length < 2) throw new Error(VERBOSE ? 'expected time value [ease]' : '');
         const time = this.num(tokens[0]![0]);
         const val = this.scalar(tokens[1]![0]);
         const key: unknown[] = [time, val];
@@ -672,7 +710,7 @@ class Compiler {
           'bad-keyframe',
           kp,
           at(tokens[0]!.index),
-          e instanceof Error ? e.message : 'invalid keyframe',
+          VERBOSE ? (e instanceof Error ? e.message : 'invalid keyframe') : '',
         );
       }
     }
@@ -686,7 +724,7 @@ class Compiler {
   run(source: string): CompileResult {
     const { doc: xml, errors } = parseXml(source);
     this.xml = xml;
-    for (const e of errors) this.error('markup-syntax', '', e.at, e.message);
+    for (const e of errors) this.error('markup-syntax', '', e.at, VERBOSE ? e.message : '');
     const root = xml.root;
     if (!root) return this.result();
     if (root.name !== 'anima') {
@@ -695,8 +733,8 @@ class Compiler {
         known ? 'misplaced-element' : 'unknown-element',
         '',
         root.at,
-        'the root element must be <anima>',
-        suggest(root.name, ['anima']),
+        VERBOSE ? 'the root element must be <anima>' : '',
+        VERBOSE ? suggest(root.name, ['anima']) : '',
       );
       return this.result();
     }
@@ -718,7 +756,7 @@ class Compiler {
           'duplicate-name',
           '',
           n.valueAt,
-          `ease "${n.value}" is already declared or built in`,
+          VERBOSE ? `ease "${n.value}" is already declared or built in` : '',
         );
       else if (curve) this.eases.set(n.value.trim(), curve);
       this.read(n, 'name', '');
@@ -730,7 +768,7 @@ class Compiler {
           curve.startsWith('spring(') ? 'reserved' : 'bad-attribute',
           '',
           this.eases.get(name)!.valueAt,
-          `invalid ease curve "${curve}"`,
+          VERBOSE ? `invalid ease curve "${curve}"` : '',
         );
     }
     const doc = this.build(root, '') as Json;
@@ -768,7 +806,7 @@ class Compiler {
       'markup-syntax',
       '',
       { offset: 0, line: 1, col: 1 },
-      e instanceof Error ? e.message : 'invalid markup',
+      VERBOSE ? (e instanceof Error ? e.message : 'invalid markup') : '',
     );
     return this.result();
   }
