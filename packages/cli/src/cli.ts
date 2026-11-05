@@ -19,6 +19,9 @@ import {
   staticSlots,
 } from '@anima-format/core';
 import { formatAni as format } from '@anima-format/core';
+import { compile, decompile, formatMarkup, type MarkupDiagnostic } from '@anima-format/markup';
+import { nodeAttrs } from '../../markup/src/names.ts';
+import { buildHTML } from './html.ts';
 import { lineCol, locate, syntaxErrorAt } from './locate.ts';
 import { DARK, LIGHT, type Look, frameSVG, sheetSVG, toPNG } from './render.ts';
 import { nameFromFile, newDoc, readGlyphSVG, readGlyphy, sha256 } from './scaffold.ts';
@@ -26,13 +29,15 @@ import { nameFromFile, newDoc, readGlyphSVG, readGlyphy, sha256 } from './scaffo
 export interface IO {
   out(s: string): void;
   err(s: string): void;
+  /** Exact stdout bytes for compiled artifacts (out is line-oriented). */
+  write?(s: string): void;
 }
 
 class Usage extends Error {}
 
 const ROOT = new URL('../../../', import.meta.url);
 
-const HELP = `anima — check, see and scaffold .ani animations
+const HELP = `anima — check, see and scaffold .animl and .ani animations
 
   anima validate <file>                 all diagnostics, with JSON pointers, lines and hints
   anima inspect <file>                  nodes, timelines, state graph, what writes what
@@ -42,14 +47,16 @@ const HELP = `anima — check, see and scaffold .ani animations
                [--sheet N [--over seconds]] [--dark] [--color slot=#hex] [--current #hex]
                [--background #hex]       draw a frame or a labelled contact sheet
   anima fmt <file> [--write | --check]  canonical formatting
-  anima new <name> --glyph <file.svg> | --glyphy <project-dir> [-o out.ani] [--force]
-                                        scaffold a .ani whose rest frame is the glyph
+  anima new <name> --glyph <file.svg> | --glyphy <project-dir> [-o out.animl] [--ani] [--force]
+                                        scaffold AniML whose rest frame is the glyph (--ani for JSON)
+  anima build <file.animl|page.html> [-o out]  compile AniML to canonical .ani or inline JSON
+  anima decompile <file.ani> [-o out.animl]    write canonical AniML
   anima schema [type | fill | stroke] [--json-schema]
                                         what each node type and paint takes
-  anima docs [authoring | spec | <section>] [--list]
+  anima docs [authoring | spec | markup | <section>] [--list]
                                         the authoring guide and the spec
 
-Every command takes --format=json. Exit codes: 0 ok, 1 diagnostics, 2 usage.`;
+Authoring commands accept .animl and .ani. Every command takes --format=json. Exit codes: 0 ok, 1 diagnostics, 2 usage.`;
 
 export async function run(argv: string[], io: IO): Promise<number> {
   let args;
@@ -76,6 +83,7 @@ export async function run(argv: string[], io: IO): Promise<number> {
         glyph: { type: 'string' },
         glyphy: { type: 'string' },
         force: { type: 'boolean' },
+        ani: { type: 'boolean' },
         'json-schema': { type: 'boolean' },
         list: { type: 'boolean' },
         help: { type: 'boolean', short: 'h' },
@@ -98,7 +106,7 @@ export async function run(argv: string[], io: IO): Promise<number> {
       case 'inspect':
         return inspect(file(rest), json, io);
       case 'sample': {
-        const { model } = loaded(file(rest), io);
+        const { model } = loaded(file(rest), io, json);
         if (!model) return 1;
         const script = scriptText(o.script, o.eval) ?? 'snapshot';
         const { snapshots } = runScript(model, script, { reducedMotion: o['reduced-motion'] });
@@ -107,17 +115,40 @@ export async function run(argv: string[], io: IO): Promise<number> {
       }
       case 'render':
         return render(file(rest), o, json, io);
+      case 'build':
+        return build(file(rest), o.out, json, io);
+      case 'decompile': {
+        const f = file(rest);
+        const r = loaded(f, io, json);
+        if (!r.model) return 1;
+        const text = decompile(r.text);
+        if (o.out) writeFileSync(o.out, text);
+        else io.out(text.trimEnd());
+        return 0;
+      }
       case 'fmt': {
         const f = file(rest);
         const text = readFileSync(f, 'utf8');
-        let doc;
-        try {
-          doc = JSON.parse(text);
-        } catch (e) {
-          io.err(`${f}: not JSON: ${(e as Error).message}`);
-          return 1;
+        let out: string;
+        if (f.endsWith('.animl')) {
+          const r = formatMarkup(text);
+          const diagnostics = r.diagnostics.map((d) => ({ ...d, file: f }));
+          if (!r.text) {
+            if (json) emit({ file: f, ok: false, diagnostics });
+            else report(f, diagnostics, io);
+            return 1;
+          }
+          out = r.text;
+        } else {
+          let doc;
+          try {
+            doc = JSON.parse(text);
+          } catch (e) {
+            io.err(`${f}: not JSON: ${(e as Error).message}`);
+            return 1;
+          }
+          out = format(doc);
         }
-        const out = format(doc);
         if (o.check) {
           if (json) emit({ file: f, formatted: out === text });
           else
@@ -171,6 +202,7 @@ function scriptText(file?: string, inline?: string): string | undefined {
 }
 
 interface Located extends Diagnostic {
+  file?: string;
   line?: number;
   column?: number;
 }
@@ -178,6 +210,19 @@ interface Located extends Diagnostic {
 /** Load with the CLI-only checks (duplicate keys, glyph hashes) and source positions. */
 function check(f: string): { model?: Model; diagnostics: Located[]; text: string } {
   const text = readFileSync(f, 'utf8');
+  if (f.endsWith('.animl')) {
+    const c = compile(text, { file: f });
+    const diagnostics = [...c.diagnostics];
+    if (c.doc) {
+      for (const d of glyphDiagnostics(c.doc)) {
+        let pointer = d.pointer;
+        while (!c.map.has(pointer) && pointer) pointer = pointer.slice(0, pointer.lastIndexOf('/'));
+        const pos = c.map.get(pointer);
+        diagnostics.push({ ...d, file: f, line: pos?.line, column: pos?.col });
+      }
+    }
+    return { model: c.text ? load(c.text).model : undefined, diagnostics, text: c.text ?? '' };
+  }
   const r = load(text);
   const diagnostics: Located[] = [...r.diagnostics];
   let at = new Map<string, number>();
@@ -194,15 +239,7 @@ function check(f: string): { model?: Model; diagnostics: Located[]; text: string
         hint: 'remove or merge one of them',
       });
     const doc = JSON.parse(text);
-    for (const [name, g] of Object.entries<{ d?: unknown; sha256?: unknown }>(doc?.glyphs ?? {}))
-      if (typeof g?.sha256 === 'string' && typeof g.d === 'string' && sha256(g.d) !== g.sha256)
-        diagnostics.push({
-          code: 'hash-mismatch',
-          severity: 'warning',
-          pointer: `/glyphs/${name}/sha256`,
-          message: `glyph "${name}" changed since its hash was taken`,
-          hint: 'if it was re-traced, check that subpath indices still pick the right parts, then update sha256',
-        });
+    diagnostics.push(...glyphDiagnostics(doc));
   } catch {
     /* json-syntax is already reported */
   }
@@ -214,10 +251,32 @@ function check(f: string): { model?: Model; diagnostics: Located[]; text: string
   return { model: failed ? undefined : r.model, diagnostics, text };
 }
 
-function loaded(f: string, io: IO): { model?: Model; text: string; diagnostics: Located[] } {
+function glyphDiagnostics(doc: Record<string, unknown>): Located[] {
+  const diagnostics: Located[] = [];
+  for (const [name, g] of Object.entries(
+    (doc?.glyphs ?? {}) as Record<string, { d?: unknown; sha256?: unknown }>,
+  ))
+    if (typeof g?.sha256 === 'string' && typeof g.d === 'string' && sha256(g.d) !== g.sha256)
+      diagnostics.push({
+        code: 'hash-mismatch',
+        severity: 'warning',
+        pointer: `/glyphs/${name}/sha256`,
+        message: `glyph "${name}" changed since its hash was taken`,
+        hint: 'if it was re-traced, check that subpath indices still pick the right parts, then update sha256',
+      });
+  return diagnostics;
+}
+
+function loaded(
+  f: string,
+  io: IO,
+  json = false,
+): { model?: Model; text: string; diagnostics: Located[] } {
   const r = check(f);
   if (!r.model) {
-    report(f, r.diagnostics, io);
+    if (json && f.endsWith('.animl'))
+      io.out(JSON.stringify({ file: f, ok: false, diagnostics: r.diagnostics }));
+    else report(f, r.diagnostics, io);
     io.err(`${f}: fix the errors above first (anima validate ${f})`);
   }
   return r;
@@ -226,6 +285,11 @@ function loaded(f: string, io: IO): { model?: Model; text: string; diagnostics: 
 function report(f: string, ds: Located[], io: IO): void {
   for (const d of ds) {
     const where = d.line ? `${f}:${d.line}:${d.column}` : f;
+    if (d.file) {
+      io.err(`${where} ${d.severity} ${d.code} ${d.message}`);
+      if (d.hint) io.err(`  hint: ${d.hint}`);
+      continue;
+    }
     io.err(
       `${where} ${d.severity} ${d.code} ${d.pointer || '/'}: ${d.message}${d.hint ? ` — ${d.hint}` : ''}`,
     );
@@ -251,7 +315,7 @@ function validate(f: string, json: boolean, io: IO): number {
 // ---------------------------------------------------------------- inspect
 
 function inspect(f: string, json: boolean, io: IO): number {
-  const { model, diagnostics } = loaded(f, io);
+  const { model, diagnostics } = loaded(f, io, json);
   if (!model) return 1;
   const m = model;
   const doc = m.doc;
@@ -391,7 +455,7 @@ function render(f: string, o: Record<string, unknown>, json: boolean, io: IO): n
   const out = o.out as string | undefined;
   if (!out || !/\.(svg|png)$/.test(out))
     throw new Usage('render needs -o <file>.svg or <file>.png');
-  const { model } = loaded(f, io);
+  const { model } = loaded(f, io, json);
   if (!model) return 1;
   const over: Record<string, string> = {};
   for (const c of (o.color as string[] | undefined) ?? []) {
@@ -455,12 +519,21 @@ function scaffold(rest: string[], o: Record<string, unknown>, json: boolean, io:
     throw new Usage('new needs exactly one of --glyph <file.svg> or --glyphy <project-dir>');
   const g = o.glyph ? readGlyphSVG(o.glyph as string) : readGlyphy(o.glyphy as string, name);
   const doc = newDoc(name, g);
-  const out = (o.out as string) ?? `${name}.ani`;
+  const out = (o.out as string) ?? `${name}.${o.ani ? 'ani' : 'animl'}`;
   if (existsSync(out) && !o.force) {
     io.err(`${out} exists (use --force to overwrite)`);
     return 1;
   }
-  writeFileSync(out, format(doc));
+  const text = o.ani || out.endsWith('.ani') ? format(doc) : decompile(doc);
+  if (out.endsWith('.animl') && !o.ani) {
+    const c = compile(text, { file: out });
+    if (c.diagnostics.length) {
+      if (json) io.out(JSON.stringify({ file: out, ok: false, diagnostics: c.diagnostics }));
+      else report(out, c.diagnostics, io);
+      return 1;
+    }
+  }
+  writeFileSync(out, text);
   if (json)
     io.out(
       JSON.stringify({
@@ -491,8 +564,13 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
       ...(p.max !== undefined ? { max: p.max } : {}),
       animatable: true,
     }));
+  const spellings = (t: (typeof NODE_TYPES)[number], paint?: string) =>
+    nodeAttrs(t)
+      .filter((a) => (!paint || a.path[0] === paint) && a.attr !== a.path.join('.'))
+      .map((a) => ({ markup: a.attr, ani: a.path.join('.') }));
   const typeInfo = (t: (typeof NODE_TYPES)[number]) => ({
     type: t,
+    spellings: spellings(t),
     animatable: props({ ...COMMON, ...OWN[t] } as never),
     static: [
       'id',
@@ -513,6 +591,7 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
   else if (topic === 'fill' || topic === 'stroke')
     data = {
       [topic]: props(PAINT[topic] as never),
+      spellings: spellings('path', topic),
       static: topic === 'fill' ? ['rule'] : ['cap', 'join'],
     };
   else throw new Usage(`no schema topic "${topic}" (try a node type, fill or stroke)`);
@@ -526,10 +605,12 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
           `  ${r.name.padEnd(12)} ${r.type.padEnd(7)} default ${JSON.stringify(r.default)}${r.min !== undefined || r.max !== undefined ? `  range [${r.min ?? '-∞'}, ${r.max ?? '∞'}]` : ''}`,
       )
       .join('\n');
+  const mapping = (rows: { markup: string; ani: string }[]) =>
+    rows.map((r) => `  ${r.markup} ↔ ${r.ani}`).join('\n');
   const show = (d: ReturnType<typeof typeInfo>) =>
-    `${d.type}\n animatable (address: <id>.<property>)\n${table(d.animatable)}\n not animatable: ${d.static.join(', ')}`;
+    `${d.type}\n animatable (address: <id>.<property>)\n${table(d.animatable)}\n not animatable: ${d.static.join(', ')}\n markup ↔ .ani\n${mapping(d.spellings)}`;
   const paint = (k: 'fill' | 'stroke') =>
-    `${k} (address: <id>.${k}.<field>)\n${table(props(PAINT[k] as never))}`;
+    `${k} (address: <id>.${k}.<field>)\n${table(props(PAINT[k] as never))}\n markup ↔ .ani\n${mapping(spellings('path', k))}`;
   if (!topic)
     io.out([...NODE_TYPES.map(typeInfo).map(show), paint('fill'), paint('stroke')].join('\n\n'));
   else if (topic === 'fill' || topic === 'stroke') io.out(paint(topic));
@@ -549,17 +630,43 @@ function docs(topic: string | undefined, list: boolean, json: boolean, io: IO): 
     at: m.index!,
   }));
   if (list) {
-    const topics = ['authoring', 'spec', ...sections.map((s) => s.slug)];
+    const topics = ['authoring', 'spec', ...sections.map((s) => s.slug), 'markup'];
     return (io.out(json ? JSON.stringify(topics) : topics.join('\n')), 0);
   }
   let text: string;
   if (!topic || topic === 'authoring') text = guide;
   else if (topic === 'spec') text = read('spec/SPEC.md');
+  else if (topic === 'markup') text = read('spec/ANIML.md');
   else {
     const i = sections.findIndex((s) => s.slug === topic || s.slug.startsWith(topic));
     if (i < 0) throw new Usage(`no docs topic "${topic}" (anima docs --list)`);
     text = guide.slice(sections[i]!.at, sections[i + 1]?.at ?? guide.length).trim();
   }
   io.out(json ? JSON.stringify({ topic: topic ?? 'authoring', text }) : text);
+  return 0;
+}
+
+function build(f: string, out: string | undefined, json: boolean, io: IO): number {
+  const source = readFileSync(f, 'utf8');
+  let text: string | undefined;
+  let diagnostics: MarkupDiagnostic[];
+  if (/\.html?$/i.test(f)) ({ text, diagnostics } = buildHTML(source, f));
+  else if (f.endsWith('.animl')) ({ text, diagnostics } = compile(source, { file: f }));
+  else throw new Usage('build needs a .animl or .html file');
+  if (json && (text === undefined || out))
+    io.out(
+      JSON.stringify({
+        file: f,
+        ok: text !== undefined,
+        diagnostics,
+        ...(text !== undefined && out ? { wrote: out } : {}),
+      }),
+    );
+  else if (json && diagnostics.length) io.err(JSON.stringify({ file: f, diagnostics }));
+  else report(f, diagnostics, io);
+  if (text === undefined) return 1;
+  if (out) writeFileSync(out, text);
+  else if (io.write) io.write(text);
+  else io.out(text);
   return 0;
 }
