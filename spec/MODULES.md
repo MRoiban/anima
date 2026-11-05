@@ -16,6 +16,7 @@ in `requires`; a runtime that lacks the module refuses the document with `unknow
 | `composite` | blend modes, masks, clips, multiple paints, stroke position, draw order, paint visibility | P4a |
 | `bind` | bindings: an address follows an expression of inputs every step (P5; `design/p5/DESIGN.md` §4) | P5 |
 | `components` | components and instances with their own inputs and state machines (P5, §3) | P5 |
+| `surface` | image paints, n-slice patches, feathering (8192 B budget) | P5 |
 | `assets` | image, font, audio and blob assets; the `image` node (P5, §5) | P5 |
 | `motion` | more eases, typed and string tracks, seek / reverse / work area / quantize, host timeline control, animatable pivot | P4b |
 | `interaction` | blend states, transition flags, drag, keyboard, focus, scroll, gamepad | P4c |

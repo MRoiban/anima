@@ -1,0 +1,50 @@
+{
+  "paints": [],
+  "patches": [
+    {
+      "source": [0, 0, 2, 2],
+      "target": [4, 4, 2, 2],
+      "mode": "stretch"
+    },
+    {
+      "source": [2, 0, 4, 2],
+      "target": [6, 4, 12, 2],
+      "mode": "repeat"
+    },
+    {
+      "source": [6, 0, 2, 2],
+      "target": [18, 4, 2, 2],
+      "mode": "stretch"
+    },
+    {
+      "source": [0, 2, 2, 4],
+      "target": [4, 6, 2, 12],
+      "mode": "stretch"
+    },
+    {
+      "source": [2, 2, 4, 4],
+      "target": [6, 6, 12, 12],
+      "mode": "hidden"
+    },
+    {
+      "source": [6, 2, 2, 4],
+      "target": [18, 6, 2, 12],
+      "mode": "stretch"
+    },
+    {
+      "source": [0, 6, 2, 2],
+      "target": [4, 18, 2, 2],
+      "mode": "stretch"
+    },
+    {
+      "source": [2, 6, 4, 2],
+      "target": [6, 18, 12, 2],
+      "mode": "stretch"
+    },
+    {
+      "source": [6, 6, 2, 2],
+      "target": [18, 18, 2, 2],
+      "mode": "stretch"
+    }
+  ]
+}

@@ -11,7 +11,10 @@ import { compositeSVG } from './modules/composite/svg.ts';
 import { registerSVGBackend } from './svg.ts';
 import { assets } from './modules/assets/index.ts';
 import { assetsSVG } from './modules/assets/svg.ts';
+import { surface } from './modules/surface/index.ts';
+import { surfaceSVG } from './modules/surface/svg.ts';
 if (VERBOSE) {
+  // Registered last: surface extends paints and already-resolved component drawings.
   registerModule(components);
   registerSVGBackend('components', componentsSVG);
   registerModule(bind);
@@ -21,4 +24,6 @@ if (VERBOSE) {
   registerModule(composite);
   registerSVGBackend('paint', paintSVG);
   registerSVGBackend('composite', compositeSVG);
+  registerModule(surface);
+  registerSVGBackend('surface', surfaceSVG);
 }

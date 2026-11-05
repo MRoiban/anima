@@ -44,7 +44,8 @@ export function validDataURI(s: string): boolean {
   return !/%(?![0-9a-fA-F]{2})/.test(m[2]!);
 }
 export const resolvedAssets = new WeakMap<object, Record<string, Asset>>();
-export const assets: Module = {
+export const assets: Module & { resolvedAssets: typeof resolvedAssets } = {
+  resolvedAssets,
   name: 'assets',
   entries: [
     {

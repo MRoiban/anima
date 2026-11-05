@@ -199,3 +199,13 @@ and an oracle test against Rive.
 - Keep the shipped packages dependency-free. CLI-only dependencies are fine.
 - Prefer small commits on a branch per milestone; open PRs against `main`. Ask the user before
   making the repository public or publishing packages.
+
+### P5-5 image and edge implementation checkpoint
+
+- [ ] Acceptance: image paints, n-slice and feathering in both syntaxes; full `npm run check` green.
+  `surface` (8192 B budget) provides renderer-neutral image paint, patch and feather data and an SVG
+  backend; image paints have AniML and CLI schema support. Image/group/component slices and local
+  feathering have draw conformance and Chromium/Firefox pixels. Nested slice/feather AniML and
+  related markup fixture expectations remain with the parallel markup owner; see
+  `design/p5/SURFACE-HANDOFF.md`. SVG world feathering reports `unsupported-render`. Status is
+  deliberately unchecked; no size budget or test limit was raised.

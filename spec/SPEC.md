@@ -959,3 +959,106 @@ retained nested transforms follow [graph research](../docs/research/rive-format-
 a single ordered update pass avoids the feedback loops discussed in
 [state research](../docs/research/rive-animation-and-state.md) §C. Sleep behavior follows
 [web runtime research](../docs/research/rive-web-runtime.md), with no separate instance scheduler.
+
+## surface
+
+The optional `surface` module extends `paint` and `assets` with image paints, patch slicing and
+paint feathering. The independent algorithms below follow SVG semantics, not Rive source.
+The split keeps paint (5120 B), composite (4096 B) and assets (2048 B) within their existing
+budgets; surface has an 8192 B incremental budget. Browser import `@anima-format/web/surface`
+also registers paint; assets and components remain separate imports. This follows the optional
+backend and sleeping-renderer lessons in [web research](../docs/research/rive-web-runtime.md) §13
+and the renderer-neutral contract in [MODULES §3.1](MODULES.md#31-the-draw-layer).
+
+### Image paints
+
+A fill or stroke with `type: "image"` requires `asset`, `imageWidth`, `imageHeight`; the last two
+are strictly positive tile sizes in grid units. It also needs `assets` in `requires` and a declared
+image asset. It replaces `color`, gradient coordinates and `stops`. Usual stroke width, cap, join,
+dash, trim, visibility and ordered-paint semantics still apply. Optional `imageX`, `imageY`
+(default 0), `imageRotate` (degrees, default 0), `imageScaleX`, `imageScaleY` (default 1) transform
+the tile in local coordinates: scale, then rotate about the origin, then translate. Static zero
+scales are load errors. Transform fields are animatable. The SVG backend uses a repeating
+`pattern` with `patternUnits="userSpaceOnUse"`, `patternTransform`, and an image stretched to the
+specified tile size. Intrinsic aspect ratio does not affect image paints.
+
+Optional `modulate` is a literal hex colour. It multiplies non-premultiplied sRGB R, G, B and alpha
+channels independently by the colour channels divided by 255; SVG uses an sRGB `feColorMatrix`
+on the image inside the pattern. It is static. Defaults to identity. No slot modulation is defined.
+Draw data contains the resolved URL, tile dimensions, transform and normalized modulation channels.
+AniML uses `<imagePaint asset="tile" image-width="8" image-height="8" paint="stroke"/>`
+inside the painted node (`paint` defaults to fill); the registry supplies both spellings.
+See `examples/image-paints.animl` and `spec/draw-conformance/surface-image/`.
+
+`unknown-asset`, `asset-type`, `undeclared-feature`, `missing-key`, `paint-conflict`, `bad-color`
+and `bad-value` point at the affected paint/field and give a corrective hint. Image-specific
+fields on another paint type are errors. Sources resolve through the same assets mechanism as
+image nodes. No IO occurs during stepping.
+
+### N-slice patches
+
+`slice: { x, y, width, height, modes? }` on an image, group or component instance defines a source
+rectangle using the first and last entries of strictly increasing `x`/`y` cut arrays (2–9 entries
+per axis, grid units, including both bounds). There are at most 64 patches. `width`/`height` are
+positive target sizes. `modes` has one entry per patch in row-major order: `stretch`, `repeat` or
+`hidden`; omission means stretch everywhere. Slice structure and target size are static.
+
+For four or more cuts on an axis, the first and last bands keep their authored lengths. Interior
+bands divide the remaining target length in proportion to their source lengths. If the target
+is smaller than the two border lengths, borders shrink proportionally and all interior bands
+collapse to zero. Two or three cuts divide the entire target proportionally, since there is no
+interior band bounded by two distinct border bands. Target origin is the first source cut for
+groups/instances, or the image's `x0`,`y0` for images. Image source cuts must begin at zero and end
+at the asset's declared intrinsic width/height; those dimensions are required. Slicing replaces
+image fit/alignment and node width/height layout. Node transforms apply to the resulting drawing.
+
+Stretch maps each source rectangle to its target rectangle, independently on each axis. Repeat
+tiles that rectangle at its original grid size, from the target's upper-left corner, clipping the
+last partial tile; it does not scale either axis. Hidden contributes no pixels. SVG implements
+patches using clipped nested SVG viewports and patterns referencing a shared source drawing.
+
+For vector groups and components the source is the live rendered local subtree, clipped at each
+cut. Each patch scales the *whole* source appearance, including strokes, filters and compositing.
+This is rendered-output slicing, not path deformation: geometry, hit testing, component inputs,
+state and pointer coordinates remain in source space. Child animations remain live. Fixed-width
+strokes are fixed in the source drawing before patch scaling. True geometry deformation and
+inverse patch pointer mapping are deferred; duplicating stateful component players per patch
+would change document semantics. The resolved draw data lists source/target rectangles and modes.
+
+Diagnostics: `slice-cuts` for unordered cuts; `slice-limit` beyond 9 cuts; `slice-modes` for a wrong
+mode count; `slice-bounds` for image intrinsic-bound mismatch; `slice-type` for an unsupported node
+kind. Each points into `slice` and includes a hint. Structural errors use ordinary registry codes.
+`spec/draw-conformance/surface-slice/` records the 9-patch result, including repeat and hidden patches.
+AniML support for nested `slice` remains a markup integration item; this implementation does not
+claim AniML round-trip support for it.
+
+### Feather falloff
+
+A paint may have `feather: { inner?, outer?, offset?, enabled?, space? }`. Amounts are nonnegative
+grid distances, default 0. Offset is a two-number local vector, default `[0,0]`; enabled defaults
+true and disabling preserves all settings. Space defaults `local`. Inner, outer, offset components
+and enabled are animatable via `fill.feather.inner`, `stroke.feather.enabled`, etc., including
+ordered paint addresses. Feathering applies independently to each paint, before node opacity.
+
+Let P be the premultiplied RGBA paint image, A its original alpha, and T the offset translation.
+Let B(r) be a Gaussian convolution of T(P) with standard deviation r/3, with B(0)=T(P).
+The output is `A * B(inner) + (1-A) * B(outer)`, componentwise in premultiplied sRGB; alpha is
+clamped to [0,1]. For a fully covered hard edge with no offset, Gaussian falloff has its midpoint
+at the edge and about 99.7% of its transition within three standard deviations on either side.
+This is an explicit Anima Gaussian model, not a claim of pixel parity with Rive's feather model.
+At zero inner/outer and zero offset the original paint is unchanged.
+
+SVG uses `feOffset`, two `feGaussianBlur` primitives (`stdDeviation=amount/3`), `feComposite`
+in/out with SourceAlpha, then an arithmetic sum (`k2=k3=1`), all with sRGB filter interpolation.
+The filter region expands the document viewBox by three times the greatest amount plus the
+largest offset component. Root SVG viewport clipping still applies. Separate paint leaves prevent
+feathering a fill from blurring an unfeathered stroke.
+
+World-space feathering cannot preserve isotropic falloff through arbitrary local nonuniform
+transforms in this SVG implementation. `space: "world"` is represented in draw data; when enabled,
+the SVG backend throws an error carrying `code: "unsupported-render"`, the source JSON pointer,
+a message and a hint to use local space. Canvas support is deferred to Pc. Disabled world feathering
+renders normally. Unknown spaces and negative/nonfinite amounts receive registry diagnostics.
+`spec/draw-conformance/surface-feather/` defines resolved draw data independent of browser rasterization;
+Chromium/Firefox pixel tests check the Gaussian halo, disabled state and independent stroke.
+AniML support for the nested feather object remains a markup integration item.

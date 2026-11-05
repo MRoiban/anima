@@ -29,6 +29,7 @@ const MODULES: { name: string; budget: number; heavy?: boolean; over?: string }[
   { name: 'composite', budget: 4 * KB },
   { name: 'bind', budget: 2 * KB },
   { name: 'assets', budget: 2 * KB },
+  { name: 'surface', budget: 8 * KB },
   { name: 'components', budget: 4 * KB },
   { name: 'canvas', budget: 8 * KB, heavy: true },
 ];
