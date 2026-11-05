@@ -10,6 +10,8 @@ import {
   type XmlDocument,
 } from './xml.ts';
 
+import { location } from './library-hooks.ts';
+
 declare const URL: { new (path: string, base: string): { href: string } };
 
 export const attr = (el: Element, name: string): string =>
@@ -315,10 +317,6 @@ export function expand(
   annotate(root, opts.file, xml);
   const scope = scopeFor(root, opts.file);
   root.children = [...resources, ...children(root.children, {}, scope, [])];
-}
-
-export function location(at: Pos): { file?: string; line: number; column: number } {
-  return { file: at.file, line: at.line, column: at.col };
 }
 
 function relatedLocations(at: Pos): ReturnType<typeof location>[] {

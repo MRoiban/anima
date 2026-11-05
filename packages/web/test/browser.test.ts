@@ -94,12 +94,14 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
     let page: Page;
     let js: string;
     let markupJs: string;
+    let leanMarkupJs: string;
     let paintJs: string;
     beforeAll(async () => {
-      [js, markupJs, paintJs] = await Promise.all([
+      [js, markupJs, paintJs, leanMarkupJs] = await Promise.all([
         bundle(resolve('packages/web/src/index.ts')),
-        bundle(resolve('packages/web/src/markup.ts')),
+        bundle(resolve('packages/web/src/markup-libraries.ts')),
         bundle(resolve('packages/web/src/paint.ts')),
+        bundle(resolve('packages/web/src/markup.ts')),
       ]);
       browser = await type.launch({ executablePath, headless: true });
     }, 30000);
@@ -350,6 +352,90 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
       });
       return { messages, requests };
     }
+
+    it('compiles ordinary inline markup with the lean entry', async () => {
+      const enabled = markupJs;
+      markupJs = leanMarkupJs;
+      try {
+        const { messages, requests } = await markupPage(
+          '<anima version="0.1" name="dot" grid="20"><circle id="dot" cx="10" cy="10" r="2"/></anima>',
+        );
+        expect(messages).toEqual([]);
+        expect(requests).toEqual(['https://anima.test/']);
+        expect(await page.evaluate(() => window.icon.player!.model.doc.name)).toBe('dot');
+      } finally {
+        markupJs = enabled;
+      }
+    });
+
+    it.each(['libraries-first', 'markup-first'])(
+      'registers libraries across separate bundles (%s)',
+      async (order) => {
+        await mount();
+        await page.route('https://anima.test/lib/ui.animl', (r) =>
+          r.fulfill({
+            body: readFileSync(new URL('../../../examples/lib/ui.animl', import.meta.url), 'utf8'),
+          }),
+        );
+        for (const content of order === 'libraries-first'
+          ? [markupJs, leanMarkupJs]
+          : [leanMarkupJs, markupJs]) {
+          await page.addScriptTag({ type: 'module', content });
+          await page.waitForFunction(
+            () => !!(customElements.get('anima-icon') as typeof AnimaIcon).compilerAsync,
+          );
+        }
+        const doc = await page.evaluate(async (source) => {
+          const icon = document.createElement('anima-icon');
+          const script = document.createElement('script');
+          script.type = 'application/vnd.anima+xml';
+          script.textContent = source;
+          icon.append(script);
+          document.body.append(icon);
+          await icon.ready;
+          return icon.player!.model.doc;
+        }, bellMarkup);
+        expect(doc).toEqual(JSON.parse(bell));
+      },
+    );
+
+    it.each(['import', 'template', 'apply'])(
+      'explains how to enable libraries for <%s> in inline markup',
+      async (element) => {
+        const enabled = markupJs;
+        markupJs = leanMarkupJs;
+        try {
+          const body =
+            element === 'import' ? '<import src="lib/ui.animl" as="ui"/>' : `<${element}/>`;
+          const source = `<anima version="0.1" name="test" grid="20">${body}</anima>`;
+          const { messages, requests } = await markupPage(source);
+          const errors = await page.evaluate(async () => ({
+            event: window.events[0],
+            ready: await window.icon.ready.catch((d: unknown) => d),
+            empty: !window.icon.player,
+          }));
+          expect(errors.event).toEqual(errors.ready);
+          expect(errors.event).toEqual([
+            expect.objectContaining({
+              code: 'markup-libraries-unavailable',
+              severity: 'error',
+              pointer: '',
+              message: 'load @anima-format/web/markup-libraries or run anima build',
+              hint: 'load @anima-format/web/markup-libraries or run anima build',
+              line: 1,
+              column: 1,
+            }),
+          ]);
+          expect(errors.empty).toBe(true);
+          expect(requests).toEqual(['https://anima.test/']);
+          expect(messages.join('\n')).toContain(
+            'load @anima-format/web/markup-libraries or run anima build',
+          );
+        } finally {
+          markupJs = enabled;
+        }
+      },
+    );
 
     async function manualClock() {
       await page.addInitScript(() => {

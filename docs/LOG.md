@@ -737,3 +737,22 @@ host Blob replacement and errors). Core+web 16961 B gzip (+60 B from 16901); ass
 845 ms. Generated schema, demo/bundles and 40 AniML siblings are current. Parity construct/test
 fields updated for covered rows; statuses left to the orchestrator. No test limit or size budget
 was loosened; the exact conformance corpus count increased by one for the new case.
+
+### P5-3 browser compiler budget fix
+
+Library/template expansion and async import resolution now register through a separate authoring
+layer. The tooling entry registers it automatically, preserving CLI, playground and build behavior.
+Browser markup uses the lean compiler; `@anima-format/web/markup-libraries` opts into the layer,
+including when standalone bundles load in either order. Missing support reports
+`markup-libraries-unavailable` with the entry name and `anima build` hint. This keeps reuse at build
+time as specified in design/p5/DESIGN.md §2 and avoids a runtime resource graph (see
+`docs/research/glyphy-compat.md`). No runtime dependencies, measurement changes or relaxed limits.
+
+`npm run check` passes: 779 tests, including 74 browser cases across Chromium and Firefox; 39
+AniML artifacts checked. Existing browser assertions are unchanged; their setup loads the new
+libraries entry for imported examples. Markup falls from 9506 to **7857/8192 B**; the new layer is
+**1777/2048 B** incremental over web+markup. Core+web stays 16992 B. A serial pair using HEAD's
+compiler and the working tree with the unchanged fixed `tools/perf.ts` workload reports
+`compile: bell 4.05 ms; all 9040 prefixes 1411 ms` before and
+`compile: bell 2.83 ms; all 9040 prefixes 975 ms` after. Host load varies; these are observations,
+not a claimed speedup. Local commit only; no push or PR.

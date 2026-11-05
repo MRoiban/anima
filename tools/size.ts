@@ -16,10 +16,11 @@ const FULL_CEILING = 100 * KB;
 const RIVE_CLASS_CEILING = 250 * KB;
 
 /** Browser modules: entry under packages/web/src, budget, and whether it is heavy (Rive-class only). */
-const MODULES: { name: string; budget: number; heavy?: boolean }[] = [
+const MODULES: { name: string; budget: number; heavy?: boolean; over?: string }[] = [
   // Raised from 6 KB at P4a (docs/LOG.md P4a): every module adds markup forms.
   { name: 'markup', budget: 8 * KB },
-  { name: 'markup-libraries', budget: 2 * KB },
+  // Measured on top of web + markup, which it extends.
+  { name: 'markup-libraries', budget: 2 * KB, over: 'markup' },
   { name: 'paint', budget: 5 * KB },
   { name: 'composite', budget: 4 * KB },
   { name: 'bind', budget: 2 * KB },
@@ -44,8 +45,10 @@ report(`core+web: ${base} B min+gzip (ceiling ${CORE_WEB_CEILING} B)`, base > CO
 const present = MODULES.filter((m) => existsSync(src(m.name)));
 for (const m of present) {
   if (m.budget > MODULE_CEILING) throw new Error(`${m.name}: budget above the module ceiling`);
-  const delta = gz(await bundle(src(m.name))) - base;
-  report(`${m.name}: ${delta} B min+gzip incremental (budget ${m.budget} B)`, delta > m.budget);
+  const under = m.over ? gz(await bundle(src(m.over))) : base;
+  const delta = gz(await bundle(src(m.name))) - under;
+  const what = m.over ? `over web+${m.over}` : 'incremental';
+  report(`${m.name}: ${delta} B min+gzip ${what} (budget ${m.budget} B)`, delta > m.budget);
 }
 
 // Use-case totals: one bundle importing every module of the class, so shared code counts once.

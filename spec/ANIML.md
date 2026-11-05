@@ -188,7 +188,11 @@ HTML parses `<path/>` and friends as HTML, so markup in a page is wrapped in a s
   `<anima-icon>` into `<script type="application/vnd.anima+json">` with the compiled document.
 - **Runtime.** The optional module `@anima-format/web/markup` teaches `<anima-icon>` to compile
   markup in the browser. It has its own size budget and is not part of the core + web budget; a
-  page that ships compiled `.ani` never loads it.
+  page that ships compiled `.ani` never loads it. Library/template support additionally requires
+  `@anima-format/web/markup-libraries` (which also loads markup support). Without it,
+  `<import>`, `<template>` and `<apply>` report `markup-libraries-unavailable`, with a hint to load
+  that entry or run `anima build`. The default tooling compiler entry always registers this layer;
+  the lean `@anima-format/markup/browser` entry uses it only when registered.
 
 ## 10. Reserved for 0.2
 
@@ -280,7 +284,7 @@ relative to the importing file; URL file names use URL resolution. A resolver th
 files. The compiler has no filesystem/network dependency. `compileAsync` accepts the same options
 with a resolver returning text or a promise of text. Hosts own access policy: CLI reads relative
 files, the playground reads only real paths within its project directory (the server's working
-directory), and the optional browser module fetches URLs relative to the source document URL
+directory), and the optional browser markup-libraries module fetches URLs relative to the source document URL
 (or the page's base URL for inline markup). The synchronous compiler remains usable without imports.
 
 Additional error codes: `unknown-import` (missing resolver or unreadable file), `bad-import`

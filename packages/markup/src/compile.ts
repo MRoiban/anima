@@ -17,7 +17,7 @@ import {
   type NodeType,
   type Shape,
 } from '@anima-format/core';
-import { expand, location } from './reuse.ts';
+import { libraryCompiler, location } from './library-hooks.ts';
 import { moduleCompiler } from './module-hooks.ts';
 import { structuralMarkup } from './modules.ts';
 if (VERBOSE) Object.assign(moduleCompiler, structuralMarkup);
@@ -788,7 +788,18 @@ export class Compiler {
     const root = xml.root;
     if (!root) return this.result();
     if (/<(?:import|template|apply)\b/.test(source)) {
-      expand(xml, this.opts, this.diagnostics);
+      if (libraryCompiler.expand) libraryCompiler.expand(xml, this.opts, this.diagnostics);
+      else
+        this.diagnostics.push({
+          code: 'markup-libraries-unavailable',
+          severity: 'error',
+          pointer: '',
+          message: 'load @anima-format/web/markup-libraries or run anima build',
+          hint: 'load @anima-format/web/markup-libraries or run anima build',
+          file: this.opts.file,
+          line: root.at.line,
+          column: root.at.col,
+        });
       if (this.failed) return this.result();
     }
     if (root.name !== 'anima') {

@@ -10,7 +10,8 @@
     "./paint": "./src/paint.ts",
     "./composite": "./src/composite.ts",
     "./bind": "./src/bind.ts",
-    "./assets": "./src/assets.ts"
+    "./assets": "./src/assets.ts",
+    "./markup-libraries": "./src/markup-libraries.ts"
   },
   "files": [
     "src"
