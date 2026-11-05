@@ -12,6 +12,7 @@ import {
   Player,
   svgAttrs,
   cssSlots,
+  clamp,
   load,
   sceneTree,
   registerModule,
@@ -183,24 +184,23 @@ export class AnimaIcon extends HTMLElement {
 
   /** Load a document (text or parsed). Returns its diagnostics; errors leave the icon empty. */
   load(doc: string | object, markup = false): SourceDiagnostic[] {
-    if (markup && typeof doc === 'string') {
-      const result = AnimaIcon.compiler?.(doc) ?? {
-        diagnostics: [
-          {
-            code: 'markup-unavailable',
-            severity: 'error' as const,
-            pointer: '',
-            message: 'load @anima-format/web/markup or run anima build page.html',
-          },
-        ],
-      };
-      if (!result.doc) {
-        this.#fail(result.diagnostics);
-        return result.diagnostics;
-      }
-      doc = result.doc;
-    }
-    const { model, diagnostics } = load(doc);
+    const compiled =
+      markup && typeof doc === 'string'
+        ? (AnimaIcon.compiler?.(doc) ?? {
+            diagnostics: [
+              {
+                code: 'markup-unavailable',
+                severity: 'error' as const,
+                pointer: '',
+                message: 'load @anima-format/web/markup or run anima build page.html',
+              },
+            ],
+          })
+        : undefined;
+    const { model, diagnostics } =
+      compiled && !compiled.doc
+        ? { model: undefined, diagnostics: compiled.diagnostics }
+        : load(compiled?.doc ?? doc);
     if (!model) {
       this.#fail(diagnostics);
       return diagnostics;
@@ -375,18 +375,21 @@ export class AnimaIcon extends HTMLElement {
     if (!svg || !m) return;
     const fit = this.getAttribute('fit');
     const align = this.getAttribute('align') ?? 'center';
-    const positions: Record<string, [string, string]> = {
-      center: ['Mid', 'Mid'],
-      'top-left': ['Min', 'Min'],
-      top: ['Mid', 'Min'],
-      'top-right': ['Max', 'Min'],
-      left: ['Min', 'Mid'],
-      right: ['Max', 'Mid'],
-      'bottom-left': ['Min', 'Max'],
-      bottom: ['Mid', 'Max'],
-      'bottom-right': ['Max', 'Max'],
-    };
-    const [x, y] = Object.hasOwn(positions, align) ? positions[align]! : positions.center!;
+    const valid = [
+      'center',
+      'top-left',
+      'top',
+      'top-right',
+      'left',
+      'right',
+      'bottom-left',
+      'bottom',
+      'bottom-right',
+    ].includes(align);
+    const position = (min: string, max: string) =>
+      valid && align.includes(min) ? 'Min' : valid && align.includes(max) ? 'Max' : 'Mid';
+    const x = position('left', 'right');
+    const y = position('top', 'bottom');
     svg.setAttribute(
       'preserveAspectRatio',
       fit === 'fill' ? 'none' : `x${x}Y${y} ${fit === 'cover' ? 'slice' : 'meet'}`,
@@ -472,7 +475,7 @@ export class AnimaIcon extends HTMLElement {
       schedule(this, false);
       return;
     }
-    const dt = this.#last < 0 ? 0 : Math.min(MAX_DT, Math.max(0, (now - this.#last) / 1000));
+    const dt = this.#last < 0 ? 0 : clamp((now - this.#last) / 1000, 0, MAX_DT);
     this.#last = now;
     this.#step(dt * this.speed);
   }

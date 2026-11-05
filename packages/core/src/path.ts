@@ -232,12 +232,25 @@ export function formatSegs(subpaths: Subpath[]): string {
  * `d` byte for byte (spec §1.2).
  */
 export function selectPath(d: string, all: Subpath[], pick?: readonly number[]): string {
-  const idx = pick ? [...pick].sort((a, b) => a - b) : all.map((_, i) => i);
-  if (idx.length === all.length) return d;
-  const chosen = idx.map((i) => all[i]!);
-  if (chosen.every((sp) => sp.absolute))
-    return chosen.map((sp) => d.slice(sp.start, sp.end).trim()).join('');
-  return formatSegs(chosen);
+  return selectSubpaths(d, all, pick).d;
+}
+
+/** Resolve geometry and source-preserving path data together, sorting the selection once. */
+export function selectSubpaths(
+  d: string,
+  all: Subpath[],
+  pick?: readonly number[],
+): { geom: Subpath[]; d: string } {
+  const geom = pick ? [...pick].sort((a, b) => a - b).map((i) => all[i]!) : all;
+  return {
+    geom,
+    d:
+      geom.length === all.length
+        ? d
+        : geom.every((sp) => sp.absolute)
+          ? geom.map((sp) => d.slice(sp.start, sp.end).trim()).join('')
+          : formatSegs(geom),
+  };
 }
 
 /**
