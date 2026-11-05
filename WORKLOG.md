@@ -80,3 +80,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 13:15 [claude]: launched P5-2 components (xhigh) and P4a Rive oracle cases (tests/oracle, committed Rive frames, CI compares Anima renders); running: assets, markup-libraries split, components, oracle (4)
 - 2026-11-06 14:00 [claude]: merged P5-4 assets (b04b23d) with bind (16 conflicts resolved): 879 tests; core+web 17083, assets 1544, full-featured 36.2 KB; markup 9722 over (split running)
 - 2026-11-06 14:40 [claude]: merged P5-3b library split (3b12d00): markup 8093/8192, markup-libraries 1755/2048 over web+markup; size.ts supports per-module base
+- 2026-11-06 15:20 [claude]: merged P4a oracle cases (7b6e847): 17 cases/21 frames vs committed Rive frames, all within AA tolerance (max share over 16: 0.35%); 908 tests
