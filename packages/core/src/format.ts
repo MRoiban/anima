@@ -16,6 +16,7 @@ function order(keys: string[], wanted: string[]): string[] {
 }
 
 function print(v: unknown, s: Shape | undefined, indent: string): string {
+  s = s?.format ?? s;
   if (isPlain(v)) return JSON.stringify(v);
   const inner = indent + '  ';
   if (Array.isArray(v)) {

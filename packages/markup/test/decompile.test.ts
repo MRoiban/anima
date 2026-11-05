@@ -2,6 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { formatAni, load, type NodeType } from '@anima-format/core';
 import { compile, decompile, formatMarkup, parseXml, type Element } from '../src/index.ts';
+import { pendingReason } from '../../../tools/pending.ts';
 import { aniAddress, nodeAttrs, NODE_ELEMENTS } from '../src/names.ts';
 import { attrOrder, ATTR_ORDER } from '../src/layout.ts';
 
@@ -9,7 +10,11 @@ const read = (p: string) => readFileSync(new URL('../../../' + p, import.meta.ur
 const cases = readdirSync(new URL('../../../spec/conformance/', import.meta.url), {
   withFileTypes: true,
 })
-  .filter((entry) => entry.isDirectory())
+  .filter(
+    (entry) =>
+      entry.isDirectory() &&
+      !pendingReason(new URL('../../../spec/conformance/' + entry.name + '/', import.meta.url)),
+  )
   .map((entry) => entry.name)
   .sort();
 const corpus = [
@@ -28,7 +33,9 @@ function recover(root: Element): Obj {
   const types = new Map<string, NodeType>();
   const collect = (e: Element) => {
     if (NODE_ELEMENTS.includes(e.name)) types.set(attrs(e).id!, e.name as NodeType);
-    elements(e).forEach(collect);
+    elements(e)
+      .filter((c) => c.name !== 'component')
+      .forEach(collect);
   };
   collect(root);
   const address = (s: string) => aniAddress(s, (id) => types.get(id)) ?? s;
@@ -112,6 +119,11 @@ function recover(root: Element): Obj {
         ((o.paints ??= []) as unknown[]).push({ [kind]: paint });
       }
     }
+    if (e.name === 'instance') {
+      const known = new Set(['id', ...nodeAttrs(e.name as NodeType).map((a) => a.attr)]);
+      for (const [key, v] of Object.entries(attrs(e)))
+        if (!known.has(key)) ((o.inputs ??= {}) as Obj)[key] = scalar(v);
+    }
     if (e.name === 'group')
       o.children = elements(e)
         .filter((c) => NODE_ELEMENTS.includes(c.name))
@@ -130,7 +142,13 @@ function recover(root: Element): Obj {
       p = plain(el);
     const name = a.name!;
     delete p.name;
-    if (NODE_ELEMENTS.includes(el.name)) (d.nodes as unknown[]).push(node(el));
+    if (el.name === 'component') {
+      const component = recover({ ...el, name: 'anima' });
+      delete component.name;
+      delete component.anima;
+      insert('components', name, component);
+    } else if (el.name === 'bind') insert('bind', address(a.target!), a.value);
+    else if (NODE_ELEMENTS.includes(el.name)) (d.nodes as unknown[]).push(node(el));
     else if (el.name === 'meta')
       d.meta = {
         ...base(el),
@@ -143,7 +161,12 @@ function recover(root: Element): Obj {
       };
     else if (el.name === 'color') insert('colors', name, a.value);
     else if (el.name === 'glyph') insert('glyphs', name, p);
-    else if (el.name === 'a11y') d.a11y = p;
+    else if (el.name === 'asset') {
+      const asset: Obj = { ...p, source: p.src };
+      delete asset.src;
+      for (const k of ['width', 'height']) if (asset[k] !== undefined) asset[k] = Number(asset[k]);
+      insert('assets', name, asset);
+    } else if (el.name === 'a11y') d.a11y = p;
     else if (['bool', 'number', 'trigger'].includes(el.name))
       insert('inputs', name, { type: el.name, ...p });
     else if (el.name === 'hit')
@@ -325,6 +348,8 @@ function check(source: string | object) {
       ...Object.keys(ATTR_ORDER),
       ...NODE_ELEMENTS,
       'pose',
+      'bind',
+      'asset',
       'linearGradient',
       'radialGradient',
       'stop',
@@ -334,7 +359,13 @@ function check(source: string | object) {
       'fillPaint',
       'strokePaint',
     ]).toContain(e.name);
-    if (e.name !== 'pose') for (const a of e.attrs) expect(attrOrder(e.name)).toContain(a.name);
+    if (e.name !== 'pose')
+      for (const a of e.attrs) {
+        if (e.name === 'instance' && !attrOrder(e.name).includes(a.name)) {
+          const component = (expected.components as Obj)[attrs(e).component!] as Obj;
+          expect(Object.keys(component.inputs as Obj)).toContain(a.name);
+        } else expect(attrOrder(e.name)).toContain(a.name);
+      }
     elements(e).forEach(names);
   };
   names(root);
@@ -375,11 +406,19 @@ describe('round-trip', () => {
     expect(decompile(ani2)).toBe(animl);
   });
   it('examples/bell.animl builds to examples/bell.ani byte for byte, and survives the round trip', () => {
-    const built = compile(read('examples/bell.animl'), { file: 'examples/bell.animl' });
+    const built = compile(read('examples/bell.animl'), {
+      file: 'examples/bell.animl',
+      resolve: read,
+    });
     expect(built.diagnostics).toEqual([]);
     expect(built.text).toBe(read('examples/bell.ani'));
     const again = compile(decompile(built.text!)).text;
     expect(again).toBe(built.text);
-    expect(compile(formatMarkup(read('examples/bell.animl')).text!).text).toBe(built.text);
+    expect(
+      compile(formatMarkup(read('examples/bell.animl')).text!, {
+        file: 'examples/bell.animl',
+        resolve: read,
+      }).text,
+    ).toBe(built.text);
   });
 });

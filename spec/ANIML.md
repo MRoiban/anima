@@ -188,12 +188,39 @@ HTML parses `<path/>` and friends as HTML, so markup in a page is wrapped in a s
   `<anima-icon>` into `<script type="application/vnd.anima+json">` with the compiled document.
 - **Runtime.** The optional module `@anima-format/web/markup` teaches `<anima-icon>` to compile
   markup in the browser. It has its own size budget and is not part of the core + web budget; a
-  page that ships compiled `.ani` never loads it.
+  page that ships compiled `.ani` never loads it. Library/template support additionally requires
+  `@anima-format/web/markup-libraries` (which also loads markup support). Without it,
+  `<import>`, `<template>` and `<apply>` report `markup-libraries-unavailable`, with a hint to load
+  that entry or run `anima build`. The default tooling compiler entry always registers this layer;
+  the lean `@anima-format/markup/browser` entry uses it only when registered.
+- Module compilation is optional too. `@anima-format/web/components` registers the component
+  compiler hook, and `@anima-format/web/bind` registers the binding hook. Load each alongside
+  `@anima-format/web/markup`, in either order. Inline and fetched sources also recover when a module arrives after the icon is connected. Without its hook,
+  `<component>` / `<instance>` report `markup-components-unavailable` and `<bind>` reports
+  `markup-bind-unavailable`; each diagnostic includes the source position, JSON pointer and
+  a message/hint naming the entry to load (or `anima build`). The registration-only entries
+  `@anima-format/web/markup-components` and `@anima-format/web/markup-bind` are available
+  separately; they do not install their runtime modules or the compiler.
+- Registry-derived forms (including `<asset>` and ordinary module node attributes) remain in
+  markup. Structural paint handling (gradient children, masks, clips, multiple paints and dash
+  lengths) is registered by `@anima-format/web/paint`, or separately by
+  `@anima-format/web/markup-paint`. A composite-only page using structural children must load
+  `markup-paint` alongside `composite` and `markup`; without it those children report
+  `markup-paint-unavailable`, naming `markup-paint` in the message and hint. These hooks are
+  shared through the registered element class, including across separately emitted bundles.
+  `surface` also loads `markup-surface` (the structural routing hook), including image paints,
+  slices and feathering. Tooling's main entry registers all modules and hooks; the lean browser
+  entry imports neither `core/all` nor the tooling entry. CLI and playground compilation are unchanged.
+- Failed source loads retain their source and retry when compiler hooks or runtime modules register.
+  The initial attempt still reports diagnostics through `anima:error` and rejects its `ready` promise;
+  a registration-triggered attempt installs a fresh `ready` promise. A later successful load clears
+  the retained source. An explicit `destroy()` cancels retries. Registrations never replace an
+  already loaded player. This applies to inline scripts, fetched sources and explicit `load` calls.
 
 ## 10. Reserved for 0.2
 
 The markup forms of the `.ani` features reserved in SPEC §12 are reserved too, and rejected with
-the loader's `reserved` code: `<layer mode="additive">`, `<bind target from map>`, a track target
+the loader's `reserved` code: `<layer mode="additive">`, a track target
 `spring(…)` eases, and `<timeline colorSpace>`.
 
 ## Paint module
@@ -252,3 +279,130 @@ Multiple paints are repeated `<fillPaint fill="#f00"/>` or
 use `type="linear"` / `type="radial"`, coordinate attributes and nested `<stop>` children on
 these elements. Track addresses keep the JSON paint-array path. A structural selector `for`
 is reserved for registry routing and normally omitted.
+
+## 11. Libraries and templates (build time)
+
+A reusable file has root `<library name="ui">`, with `color`, `glyph`, `ease`, `template`,
+`component` and `import` children. Components are accepted syntactically but currently produce
+`components-unavailable` (“components arrive with the components module”). A library is consumed
+by an import rather than compiled as a standalone animation.
+
+`<import src="lib/ui.animl" as="ui"/>` at document or library level brings its exported names into
+that lexical scope. References to colours, glyphs, eases and templates use `ui:name`; nested
+imports may be addressed as `ui:other:name`. Definitions inside a library use its own local names.
+Imported colour and glyph names become collision-free generated `.ani` names; eases inline as
+usual. Libraries must not declare arbitrary document elements outside templates. Imports and
+local declarations are visible regardless of source order.
+
+`<template name="press" params="target scale=0.92">…</template>` declares a template. Parameters
+are names, separated by whitespace, with optional `=default` (a single whitespace-free value).
+`<apply template="ui:press" target="icon"/>` substitutes `{target}` and `{scale}` in attribute
+values and text, including keyframes. Application inserts the template's children exactly where
+it occurs; the normal parent-content rules apply after expansion. Templates can apply templates
+in their defining lexical scope. Substitution is literal, without evaluation or XML reparsing.
+Templates and imports compile away completely; runtime `.ani` contains neither.
+
+`compile(source, { file, resolve })` calls `resolve(path)` for source text. The path is normalised
+relative to the importing file; URL file names use URL resolution. A resolver throws for unreadable
+files. The compiler has no filesystem/network dependency. `compileAsync` accepts the same options
+with a resolver returning text or a promise of text. Hosts own access policy: CLI reads relative
+files, the playground reads only real paths within its project directory (the server's working
+directory), and the optional browser markup-libraries module fetches URLs relative to the source document URL
+(or the page's base URL for inline markup). The synchronous compiler remains usable without imports.
+
+Additional error codes: `unknown-import` (missing resolver or unreadable file), `bad-import`
+(non-library root), `import-cycle`, `unknown-name`, `missing-parameter`, `unknown-parameter`
+(an undeclared placeholder or extra application attribute), `unused-parameter`,
+`template-recursion`, and `components-unavailable`. Existing syntax, duplicate-name and placement
+codes also apply. Diagnostics retain imported `file`, `line`, `column` positions; `related` is an
+array of `{file?, line, column}` use/import positions. The CLI displays both origins and related
+positions. The source map retains the imported file for loader diagnostics too.
+
+`anima fmt` retains libraries, imports, templates, parameters and applications. `anima decompile`
+recovers expanded markup only: it cannot recover imports, templates, parameter names or applications.
+
+## Bind module
+
+Declare `requires="bind"` on `<anima>` and import `@anima-format/web/bind` in browser hosts.
+`<bind target="ring.trimEnd" value="progress"/>` compiles to
+`bind: { "ring.stroke.trimEnd": "progress" }`. Both attributes are required; `target` uses
+AniML animation address spelling and `value` is an expression exactly as specified in SPEC's
+bind chapter. Repeat `<bind>` for multiple addresses; duplicate targets are `duplicate-name`.
+For example, `<bind target="dot.fill" value="mix(#000, #fff, progress)"/>` binds a colour and
+`<bind target="dot.visible" value="enabled"/>` binds a bool. Decompilation writes these forms
+after listeners. Loader diagnostics map back to the expression attribute; their message gives
+the character offset within the expression. The deprecated `from`/`map` attributes are rejected.
+See `examples/progress.animl` for a continuously input-driven ring.
+## Images and assets
+
+With `requires="paint assets"`, declare `<asset name="photo" type="image" src="photo.png"/>`
+at document level, then `<image id="photo" asset="photo" x0="0" y0="0" width="24"
+height="24" fit="contain" align="center" sampling="bilinear"/>`. `src` maps to asset
+`source`; other attributes retain their JSON spelling. Optional asset fields are `storage`,
+`width`, `height`. Image `fit`/`align` replace SVG's combined `preserveAspectRatio`; there is
+no input alias. Full layout and validation rules are in SPEC's paint and assets chapters.
+
+
+## Components
+
+With `requires="components"`, document-level `<component name="badge" grid="8" viewBox="…">`
+contains ordinary inputs, nodes, timelines, layers, listeners and bindings. It compiles into
+`components.badge` without a format/name wrapper. Components can also be declared in libraries;
+`<instance id="badge" component="ui:badge"/>` resolves the imported name at build time. Referenced
+library colours/glyphs are copied into the compiled component so it remains self-contained.
+
+`<instance id="b1" component="badge" x="12" count="{unread}"/>` is an instance node. Ordinary
+node attributes are unchanged; extra attributes are component input initializers, parsed as literal
+numbers/bools or `{expression}` strings. Expressions additionally require `bind`. A literal example
+is `count="3"`; bool inputs use `enabled="true"`. Unknown inputs are diagnosed at that attribute.
+`speed="2"` and `paused="true"` control instance stepping. There is no automatic fit or viewBox clip.
+
+Parent actions use dotted input paths (`set="b1.count=0"`, `fire="b1.pop"`,
+`toggle="b1.enabled"`). `<bind target="b1.count" value="unread"/>` continuously drives an instance
+input. `<listener on="b1.selected" set="unread=0"/>` and
+`<on when="b1.selected" to="read"/>` react on the next parent step after a child emits `selected`.
+Decompilation preserves components and input initializers, using ordinary local node/paint names
+inside each definition; it cannot recover library imports/templates.
+
+Input names equal to any instance node property are reserved (`reserved-input-name` at the input
+declaration, with its line/column). This includes `x`, `y`, other transform attributes, `id`,
+`type`, `component`, `inputs`, `opacity`, `visible`, `speed`, `paused` and installed module keys
+such as `blend`, `mask` or `clip`. Instance properties keep their ordinary attribute and address;
+rename a conflicting input, for example to `pos-x`. The registry's instance shape defines the set.
+
+
+## Surface module
+
+Declare `requires="surface"` in addition to the modules used by the node/paint. Browser markup
+loads `@anima-format/web/surface` (which includes paint and `markup-surface`) alongside `markup`.
+The optional registration-only `markup-surface` entry installs structural routing without a runtime.
+
+`<slice x="0 2 6 8" y="0 2 6 8" width="16" height="16" modes="…"/>` is a child of an image,
+group or instance and maps to `node.slice`. Cut lists are numbers. Optional `modes` is a row-major
+list of `stretch`, `repeat` and `hidden`; omission defaults to stretch. The strict loader owns
+cut ordering, bounds, count, mode count and supported node types, as specified in SPEC's surface
+chapter. See `examples/slice.animl`.
+
+`<feather paint="fill" inner="1" outer="2" offset="1 -2" enabled="true" space="local"/>` maps to
+`node.fill.feather`; `paint="stroke"` selects `node.stroke.feather`. The selector defaults to fill.
+The existing flat colour, gradient or image paint stays intact, regardless of child order.
+An ordered `<fillPaint>` or `<strokePaint>` may contain `<feather …/>`; its paint is inferred from
+the wrapper, and an explicit selector must match it. Duplicate objects at a target are
+`duplicate-name`; a mismatched nested selector is `bad-attribute`. Empty `<feather/>` preserves
+an explicitly authored default object. Decompilation emits these children, including empty and
+disabled settings, without materialising defaults. See `examples/feather.animl`.
+
+`<imagePaint asset="tile" image-width="8" image-height="8"/>` replaces the selected paint's colour
+or gradient with an image paint; `paint` defaults to fill. Transform attributes are `image-x`,
+`image-y`, `image-rotate`, `image-scale-x`, `image-scale-y`; `modulate` is a hex colour. Ordered
+paints use these attributes directly on `<fillPaint type="image" …>` / `<strokePaint type="image" …>`.
+Image paints additionally require assets and paint. Feathering's Gaussian model and SVG's
+world-space limitation are specified in SPEC; this syntax makes no additional rendering promise.
+
+Structural descriptors route a selected node key through an optional nested object path (for
+example, fill → feather). Object shapes with an element name emit/consume child elements;
+arrays whose items name an element remain repeated child elements. Other structural arrays and
+tuples are scalar token lists, separated by whitespace or single commas. Their registry item
+shapes determine number, boolean or string decoding, including positional tuple member types.
+String tokens cannot contain whitespace or commas. Tuple arity, enums, ranges and minimum array
+lengths are checked by the strict loader; diagnostics retain the attribute origin and item pointer.

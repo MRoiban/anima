@@ -8,7 +8,12 @@ import type { AnimaIcon } from '@anima-format/web';
 import { startPlayground, type PlaygroundServer } from '../../cli/src/playground.ts';
 import { buildPlayground } from '../../../tools/build-playground.ts';
 
-const bell = await readFile(new URL('../../../examples/bell.animl', import.meta.url), 'utf8');
+const bell = (
+  await readFile(new URL('../../../examples/bell.animl', import.meta.url), 'utf8')
+).replace(
+  'src="lib/ui.animl"',
+  `src="${new URL('../../../examples/lib/ui.animl', import.meta.url).pathname}"`,
+);
 const BROWSERS: [string, BrowserType, string | undefined][] = [
   [
     'Chromium',
@@ -79,7 +84,7 @@ for (const [name, type, executablePath] of BROWSERS) {
       await page.waitForFunction(
         () => document.querySelector('#status')!.textContent === '2 errors',
       );
-      expect(await page.locator('#diags').textContent()).toContain('bell.animl:32:51');
+      expect(await page.locator('#diags').textContent()).toContain('bell.animl:33:51');
       expect(await page.locator('#diags').textContent()).toContain('unknown-attribute');
       expect(await page.locator('#tilewrap').getAttribute('class')).toContain('broken');
       expect(await page.locator('#icon svg path').count()).toBeGreaterThan(0);
@@ -188,6 +193,24 @@ for (const [name, type, executablePath] of BROWSERS) {
       );
       expect(await iconValue('dot.scale')).toBe(1);
     });
+    it('shows live scoped component states in the state panel', async () => {
+      await page
+        .locator('#source')
+        .fill(
+          `<anima version="0.1" name="components" grid="20" requires="components"><component name="button" grid="20"><trigger name="press"/><circle id="dot" cx="10" cy="10" r="5" fill="#f00"/><listener on="click" fire="press"/><layer name="interaction" initial="idle"><state name="idle"><pose/><on when="press" to="pressed"/></state><state name="pressed"><pose dot.opacity="0.5"/></state></layer></component><instance id="badge" component="button"/></anima>`,
+        );
+      await page.waitForFunction(() =>
+        document
+          .querySelector('#instance-states')
+          ?.textContent?.includes('badge/interaction: idle'),
+      );
+      await page.locator('#icon').click();
+      await page.waitForFunction(() =>
+        document
+          .querySelector('#instance-states')
+          ?.textContent?.includes('badge/interaction: pressed'),
+      );
+    });
     it('opens the built-in example without write access', async () => {
       await host.close();
       host = await startPlayground({ port: 0, html });
@@ -198,7 +221,7 @@ for (const [name, type, executablePath] of BROWSERS) {
       await page.locator('#source').fill(bell.replace('title="Bell"', 'title="Scratch bell"'));
       await page.locator('#source').press('Control+s');
       expect(await (await fetch(host.url + '/api/file')).json()).toMatchObject({
-        source: bell,
+        source: await readFile(new URL('../../../examples/bell.animl', import.meta.url), 'utf8'),
         writable: false,
       });
     });

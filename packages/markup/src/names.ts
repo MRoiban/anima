@@ -1,4 +1,3 @@
-import '@anima-format/core/all';
 // The two spellings, from one registry (spec/ANIML.md §3): which AniML attribute carries which `.ani`
 // key on a node, and how animation addresses translate. Compiler and decompiler both use this.
 
@@ -78,6 +77,7 @@ export const STRUCTURAL_NODE_KEYS = [
   'children',
   ...Object.keys(STATIC.group).filter((k) => nodeShape('group').p[k]?.element),
   'paints',
+  'inputs',
 ];
 
 /** Node element names: one per node type. */

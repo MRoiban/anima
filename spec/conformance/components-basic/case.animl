@@ -1,0 +1,13 @@
+<anima version="0.1" name="components-basic" grid="20" requires="components">
+  <component name="mover" grid="8">
+    <circle id="dot" cx="4" cy="4" r="2" fill="#000"/>
+    <timeline name="move" duration="1">
+      <track target="dot.x">0 0; 1 10</track>
+    </timeline>
+    <layer name="motion" initial="move">
+      <state name="move" play="move"/>
+    </layer>
+  </component>
+  <instance id="a" component="mover" speed="2"/>
+  <instance id="b" component="mover" paused="true" x="10"/>
+</anima>

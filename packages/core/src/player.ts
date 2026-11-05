@@ -50,6 +50,18 @@ export interface StepResult {
   settled: boolean;
 }
 
+/** Optional nested-player seam; implemented entirely by the components module. */
+export interface PlayerExtension {
+  input(op: string, name: string, value?: number | boolean): boolean;
+  get(name: string): number | boolean | undefined;
+  states(): Record<string, string>;
+  values(): Record<string, number | boolean | string>;
+  inspect(): LayerInspect[];
+  pointer(kind: PointerKind, x: number, y: number): void;
+  hits(node: number, x: number, y: number): boolean | undefined;
+  step(dt: number): StepResult;
+}
+
 export type PointerKind = 'move' | 'down' | 'up' | 'leave';
 
 interface Fade {
@@ -112,6 +124,7 @@ const lerp = (a: Value, b: Value, w: number): Value =>
 
 export class Player {
   readonly model: Model;
+  readonly nested?: PlayerExtension;
   /** Animated addresses, in slot order. */
   readonly addrs: string[];
   readonly #slots: Map<string, number>;
@@ -179,6 +192,7 @@ export class Player {
     this.#over = model.listeners.map(() => false);
     this.#vals = this.#rest.slice();
     for (const L of this.#layers) this.#write(L, this.#vals);
+    this.nested = model.nesting?.(this);
   }
 
   // ------------------------------------------------------------------ host interface
@@ -216,7 +230,7 @@ export class Player {
 
   /** Current value of a bool or number input (before queued writes). */
   get(name: string): number | boolean | undefined {
-    return this.#inputVals.get(name);
+    return this.nested?.get(name) ?? this.#inputVals.get(name);
   }
 
   get busy(): boolean {
@@ -227,7 +241,7 @@ export class Player {
   states(): Record<string, string> {
     const o: Record<string, string> = {};
     for (const L of this.#layers) o[L.m.name] = L.m.states[L.state]!.name;
-    return o;
+    return Object.assign(o, this.nested?.states());
   }
 
   /**
@@ -236,25 +250,27 @@ export class Player {
    * plays with its local time.
    */
   inspect(): LayerInspect[] {
-    return this.#layers.map((L) => {
-      const st = L.m.states[L.state]!;
-      const tl = st.play === undefined ? undefined : this.model.timelines[st.play]!;
-      return {
-        layer: L.m.name,
-        state: st.name,
-        prev: L.prev < 0 ? null : L.m.states[L.prev]!.name,
-        blend: L.fade ? Math.min(1, L.fade.t / L.fade.dur) : null,
-        locked: !!L.fade?.lock,
-        timeline: tl?.name ?? null,
-        time: this.#localTime(L),
-      };
-    });
+    return this.#layers
+      .map((L) => {
+        const st = L.m.states[L.state]!;
+        const tl = st.play === undefined ? undefined : this.model.timelines[st.play]!;
+        return {
+          layer: L.m.name,
+          state: st.name,
+          prev: L.prev < 0 ? null : L.m.states[L.prev]!.name,
+          blend: L.fade ? Math.min(1, L.fade.t / L.fade.dur) : null,
+          locked: !!L.fade?.lock,
+          timeline: tl?.name ?? null,
+          time: this.#localTime(L),
+        };
+      })
+      .concat(this.nested?.inspect() ?? []);
   }
 
   /** Resolved value of an animated address, colours as hex. */
   value(addr: string): number | boolean | string | undefined {
     const s = this.#slots.get(addr);
-    if (s === undefined) return undefined;
+    if (s === undefined) return this.nested?.values()[addr];
     const v = this.#vals[s]!;
     return Array.isArray(v) ? formatHex(v) : v;
   }
@@ -263,7 +279,7 @@ export class Player {
   values(): Record<string, number | boolean | string> {
     const o: Record<string, number | boolean | string> = {};
     for (const a of this.addrs) o[a] = this.value(a)!;
-    return o;
+    return Object.assign(o, this.nested?.values());
   }
 
   /** Slots changed since the last call. */
@@ -318,11 +334,12 @@ export class Player {
 
   /** Report a pointer event in grid units. Listener actions are queued for the next step. */
   pointer(kind: PointerKind, x = 0, y = 0): void {
+    this.nested?.pointer(kind, x, y);
     const ls = this.model.listeners;
     const now = ls.map((l) => kind !== 'leave' && this.hits(l, x, y));
     const run = (on: ListenerM['on'], when: (i: number) => boolean) =>
       ls.forEach((l, i) => {
-        if (l.on === on && when(i)) this.#act(l);
+        if (l.on === on && when(i)) this.act(l);
       });
     run('leave', (i) => this.#over[i]! && !now[i]);
     run('enter', (i) => !this.#over[i] && now[i]!);
@@ -343,7 +360,8 @@ export class Player {
     this.#over = now;
   }
 
-  #act(l: ListenerM): void {
+  /** Queue an already validated listener, including actions routed by an optional module. */
+  act(l: ListenerM): void {
     for (const n of l.fire) this.#queue.push(['fire', n]);
     for (const [n, v] of l.set) this.#queue.push(['set', n, v]);
     for (const n of l.toggle) this.#queue.push(['toggle', n]);
@@ -362,6 +380,8 @@ export class Player {
       const n = this.model.nodes[i]!;
       if (this.prop(i, 'visible') === false) return false;
       if (n.type === 'group') return n.children.some(test);
+      const nested = this.nested?.hits(i, x, y);
+      if (nested !== undefined) return nested;
       const m = this.world(i);
       const inv = invert(m);
       if (!inv) return false;
@@ -425,6 +445,7 @@ export class Player {
     this.time += dt;
     // 1. Inputs
     for (const [op, name, v] of this.#queue) {
+      if (this.nested?.input(op, name, v)) continue;
       if (op === 'fire') {
         if (!this.#pending.has(name)) this.#pending.set(name, 0);
       } else if (op === 'toggle') this.#inputVals.set(name, !this.#inputVals.get(name));
@@ -478,6 +499,9 @@ export class Player {
       }
       this.#write(L, V);
     });
+    this.model.bindings?.forEach((evaluate, address) => {
+      V[this.#slots.get(address)!] = evaluate(this.#inputVals);
+    });
     // 4. Clamp, and note what changed
     V.forEach((v, i) => {
       const addr = this.model.addrs.get(this.addrs[i]!)!;
@@ -497,8 +521,14 @@ export class Player {
       if (consumed.has(name) || !buf || age + dt > buf) this.#pending.delete(name);
       else this.#pending.set(name, age + dt);
     }
+    const nested = this.nested?.step(dt);
+    if (nested) events.push(...nested.events);
     // 6. Settled
-    this.#lastSettled = !this.#pending.size && this.#layers.every((L) => this.#atRest(L));
+    this.#lastSettled =
+      !this.#queue.length &&
+      (nested?.settled ?? true) &&
+      !this.#pending.size &&
+      this.#layers.every((L) => this.#atRest(L));
     return { events, settled: this.#lastSettled };
   }
 
@@ -522,7 +552,7 @@ export class Player {
       if (x.k === 'end') return this.#finished(L, st);
       if (x.k === 'after') return L.time >= x.s;
       if (x.k === 'cmp') {
-        const v = this.#inputVals.get(x.name) as number;
+        const v = this.get(x.name) as number;
         const c = x.value;
         return { '==': v === c, '!=': v !== c, '<': v < c, '<=': v <= c, '>': v > c, '>=': v >= c }[
           x.op
@@ -530,7 +560,7 @@ export class Player {
       }
       if (this.model.inputs.get(x.name)!.type === 'trigger')
         return this.#pending.has(x.name) && !used.has(x.name);
-      return !this.#inputVals.get(x.name) === x.not;
+      return !this.get(x.name) === x.not;
     });
   }
 

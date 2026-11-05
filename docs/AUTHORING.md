@@ -159,6 +159,10 @@ anima render examples/bell.animl -o sheet.png --sheet 8 -e "fire ring"
 anima render examples/bell.animl -o reduced.png -e "motion reduce; fire ring; advance 0"
 ```
 
+A script's first `advance` also enters the initial states. A `set` before it is already in place when
+they resolve, so transitions that react to the change never run (the document starts in the end
+state). To see a reaction to an input change, `advance 0` first, then `set`, then advance.
+
 Scripts accept `advance <seconds> [in <steps>]`, `set <input> <value>`, `fire <input>`,
 `toggle <input>`, `pointer move|down|up|click <x> <y>`, `pointer leave`,
 `motion reduce|full` and `snapshot [addresses]`. Pointer coordinates use grid units.
@@ -385,3 +389,115 @@ for holes. Source transforms apply, but its paint, visibility and opacity do not
   <listener on="click" toggle="done"/>
 </anima>
 ```
+
+## Reusing markup
+
+Keep shared interaction wiring in a library, then import it from each icon. The bell, moon and
+trash examples import `examples/lib/ui.animl` and use `<apply template="ui:press"/>`; their compiled
+`.ani` files stay byte-identical. That template sets the common `hover` and `down` inputs. Each
+icon retains its own animation layers, timing and accessibility behavior.
+
+A library starts with `<library name="ui">`. Put a template inside it, for example
+`<template name="press" params="hover=hover down=down">`, whose listener attributes use
+`set="{hover}=true"` and `set="{down}=false"`. At the document root, add
+`<import src="lib/ui.animl" as="ui"/>`. Override defaults on an application, for example
+`<apply template="ui:press" hover="over" down="held"/>`, after declaring those inputs.
+
+Templates can contain nodes, timelines, layers or listeners; apply them where those elements
+are allowed. Parameters substitute attribute values and text, including keyframes. Required
+parameters have no default (`params="target scale=0.92"`). Missing, extra and unused parameters,
+unknown imported names, cycles and recursive applications produce diagnostics showing the
+library's source position and the application/import site. Libraries also share colours, glyphs
+and named eases through `ui:name` references. Components await the components module.
+
+`anima build` and `validate` resolve imports relative to each importing file. The playground
+resolves them inside the project directory; the browser markup module fetches them relative
+to the document URL. API hosts supply `compile(source, {file, resolve})`, or `compileAsync` with
+an asynchronous resolver. Formatting preserves reusable source forms. Decompiling `.ani` gives
+the expanded markup: imports and templates cannot be recovered.
+
+## Bindings
+
+Use `requires="bind"` when a value should follow an input continuously. This ring follows
+`progress` on the next frame with no timeline or transition:
+
+```xml
+<anima version="0.1" name="progress" grid="20" requires="bind">
+  <number name="progress" default="0" min="0" max="1"/>
+  <circle id="ring" cx="10" cy="10" r="8" stroke="#d97757" trimEnd="0"/>
+  <bind target="ring.trimEnd" value="progress"/>
+</anima>
+```
+
+Bindings override state and timeline writes, then clamp to the property's range. Expressions
+accept arithmetic and `min`, `max`, `clamp`, `mix`; bool inputs work directly for visibility or
+as 0/1 in arithmetic. Use `mix(#000, #fff, progress)` for colour. `bind-type` means the expression
+and target disagree; `unknown-input` means an input needs declaring; `bind-syntax` names malformed
+expressions. `anima inspect` lists bound addresses, `anima schema bind` describes the form, and
+`anima sample --script` includes resolved values. Browser hosts import `@anima-format/web/bind`.
+See `examples/progress.animl`; general view-model data binding remains for P4e.
+## Images and assets
+
+Import both `@anima-format/web/paint` and `@anima-format/web/assets` for image documents.
+Declare an asset, then place it in a box (see `examples/photo.animl`, an original generated PNG):
+
+```xml
+<anima version="0.1" name="photo" grid="24" requires="paint assets">
+  <asset name="photo" type="image" src="photo.png"/>
+  <image id="photo" asset="photo" x0="2" y0="2" width="20" height="20" fit="contain"/>
+</anima>
+```
+
+`contain` preserves the full image; `cover` fills and crops; `fill` stretches. `none`,
+`scale-down`, `fit-width`, and `fit-height` use intrinsic size. Set `align="top-left"` (or
+center/edge/corner names) to position it, and `sampling="nearest"` for pixel art. The box clips
+overflow. Asset `width`/`height` override decoded intrinsic dimensions when needed.
+
+Paths resolve relative to the document URL in the browser and source file in the CLI.
+`anima build photo.animl --embed -o photo.ani` embeds local files as data URIs; only assets
+change. `anima render photo.animl -o photo.png` reads local images directly.
+For hosted assets, assign `icon.assets = (name, info) => urlOrBlob` before loading; promises
+work too. Await `icon.ready` on initial load, or listen for `anima:load` on reload. Failed
+loads emit `anima:error`. Embedded images make no network request. Font/audio/blob declarations
+are accepted now; their playback/text modules follow later.
+
+
+## Components
+
+Use a template for repeated markup and a component when each placement needs its own inputs and
+state. Declare components at the document level or in an imported library; place them with
+`<instance>`. A component's coordinates stay local: translate/scale the instance to place it.
+
+```xml
+<anima version="0.1" name="badges" grid="20" requires="components bind">
+  <number name="unread" default="3"/>
+  <component name="badge" grid="8">
+    <number name="count" min="0" max="8"/>
+    <circle id="dot" cx="4" cy="4" r="1" fill="#e44"/>
+    <bind target="dot.r" value="count"/>
+    <listener on="click" emit="selected"/>
+  </component>
+  <instance id="left" component="badge" count="{unread}"/>
+  <instance id="right" component="badge" x="10" count="2"/>
+  <listener on="left.selected" set="unread=0 right.count=0"/>
+</anima>
+```
+
+`count="{unread}"` evaluates against parent inputs every step. Literal initializers apply once;
+listener actions can subsequently write `right.count`, and `fire="right.pop"` addresses a trigger.
+For a continuous explicit binding use `<bind target="right.count" value="unread * 2"/>`.
+Explicit bound/animated addresses override inline expressions. Do not use a node attribute name
+such as `x` as a component input name (`reserved-input-name` at the declaration); use names such
+as `pos-x`, `count` or `enabled`. Installed module node keys are reserved too.
+
+Child events bubble as `left.selected`. Parent listeners and transitions see them on the next
+step (including `advance 0`); the player stays awake for that step. Paused children keep their
+state; invisible settled children sleep. Recursive definitions are `component-cycle`; depth >8
+or >256 expanded instances is `limit-exceeded`. Unknown components/inputs are errors with their
+source location, not silent no-ops.
+
+Run `anima inspect examples/toolbar.animl` to see instance layers. With `anima sample`, select
+`left/count` or `left/dot.r`; snapshot state keys are scoped too (`left/interaction`).
+`examples/toolbar.animl` combines three Glyphy icons using the same imported press template and
+an unread badge. Browser hosts import `@anima-format/web/components` and, when expressions are
+used, `@anima-format/web/bind`, alongside the base runtime.

@@ -1,0 +1,1 @@
+<anima version="0.1" name="path-morph" grid="20" requires="paint composite"><path id="a" d="M3 4L17 4L10 16Z" fill="#4263eb"/><timeline name="t" duration="1"><track target="a.d">0 "M3 4L17 4L10 16Z"; 1 "M3 4L17 4L16 16Z"</track></timeline><layer name="l" initial="s"><state name="s" play="t"/></layer></anima>

@@ -1,0 +1,32 @@
+{
+  "anima": "0.1",
+  "name": "image-paints",
+  "grid": 24,
+  "requires": ["paint", "assets", "surface"],
+  "nodes": [
+    {
+      "id": "tile",
+      "type": "image",
+      "x0": 4,
+      "y0": 4,
+      "asset": "tile",
+      "width": 16,
+      "height": 16,
+      "slice": {
+        "x": [0, 2, 6, 8],
+        "y": [0, 2, 6, 8],
+        "width": 16,
+        "height": 16,
+        "modes": ["stretch", "repeat", "stretch", "stretch", "hidden", "stretch", "stretch", "stretch", "stretch"]
+      }
+    }
+  ],
+  "assets": {
+    "tile": {
+      "type": "image",
+      "source": "data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='8'%20height='8'%3E%3Cpath%20fill='%23ff0000'%20d='M0%200h4v8H0z'/%3E%3Cpath%20fill='%230000ff'%20d='M4%200h4v8H4z'/%3E%3C/svg%3E",
+      "width": 8,
+      "height": 8
+    }
+  }
+}

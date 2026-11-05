@@ -1,0 +1,1 @@
+<anima version="0.1" name="stroke-outside" grid="20" requires="paint composite"><rect id="a" x0="4" y0="4" width="12" height="12" fill="#d97757" stroke="#4263eb" stroke-width="1" stroke-position="outside" stroke-linejoin="miter"/></anima>

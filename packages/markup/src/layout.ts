@@ -12,6 +12,7 @@ export interface LayoutElement {
 export type LayoutChild = LayoutElement | { comment: string; blank?: boolean } | { text: string };
 
 export const ATTR_ORDER: Record<string, string[]> = {
+  component: ['name', 'grid', 'viewBox'],
   anima: ['version', 'name', 'title', 'grid', 'viewBox', 'requires', 'xmlns'],
   meta: [],
   color: ['name', 'value'],
@@ -36,7 +37,7 @@ export function attrOrder(name: string): string[] {
     return [
       ...(form.target ? [form.target.attribute] : []),
       ...Object.entries(form.shape.p)
-        .filter(([, s]) => s.k !== 'arr')
+        .filter(([, s]) => !(s.k === 'arr' && s.of.element) && !(s.k === 'obj' && s.element))
         .map(([k, s]) => markupName(s, k)),
     ];
   return NODE_ELEMENTS.includes(name)

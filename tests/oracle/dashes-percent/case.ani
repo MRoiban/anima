@@ -1,0 +1,19 @@
+{
+  "anima": "0.1",
+  "name": "dashes-percent",
+  "grid": 20,
+  "requires": ["paint", "composite"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "path",
+      "d": "M2 10L18 10",
+      "stroke": {
+        "color": "#4263eb",
+        "width": 1,
+        "cap": "butt",
+        "dash": ["12.5%", "6.25%"]
+      }
+    }
+  ]
+}

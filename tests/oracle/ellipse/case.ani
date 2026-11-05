@@ -1,0 +1,19 @@
+{
+  "anima": "0.1",
+  "name": "ellipse",
+  "grid": 20,
+  "requires": ["paint", "composite"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "ellipse",
+      "rx": 7,
+      "fill": {
+        "color": "#4263eb"
+      },
+      "cx": 10,
+      "cy": 10,
+      "ry": 4
+    }
+  ]
+}

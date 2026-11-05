@@ -13,6 +13,7 @@
     "node": ">=24"
   },
   "scripts": {
+    "pretest": "node tools/build-web.ts --check",
     "test": "vitest run",
     "typecheck": "tsc -p packages/core && tsc -p packages/core/test && tsc -p packages/markup && tsc -p packages/markup/test && tsc -p packages/web && tsc -p packages/web/test && tsc -p packages/cli && tsc -p tools && tsc -p packages/playground",
     "lint": "eslint .",
@@ -20,11 +21,12 @@
     "format:check": "prettier --check .",
     "size": "node tools/size.ts",
     "gen": "node tools/gen-schema.ts",
-    "check": "npm run typecheck && npm run lint && npm run format:check && npm test && npm run size && node tools/build-web.ts --check && node tools/build-animl.ts --check && node tools/perf.ts",
+    "check": "node tools/modules.ts --check && npm run typecheck && npm run lint && npm run format:check && npm test && npm run size && node tools/build-web.ts --check && node tools/build-animl.ts --check && node tools/perf.ts",
     "build:web": "node tools/build-web.ts",
     "build:animl": "node tools/build-animl.ts",
     "build:playground": "node tools/build-playground.ts",
-    "perf": "node tools/perf.ts"
+    "perf": "node tools/perf.ts",
+    "test:scope": "node tools/test-scope.ts"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

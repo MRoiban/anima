@@ -1,0 +1,32 @@
+{
+  "anima": "0.1",
+  "name": "radial",
+  "grid": 20,
+  "requires": ["paint", "composite"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 3,
+      "y0": 3,
+      "w": 14,
+      "h": 14,
+      "fill": {
+        "type": "radial",
+        "cx": 10,
+        "cy": 10,
+        "r": 7,
+        "stops": [
+          {
+            "position": 0,
+            "color": "#4263eb"
+          },
+          {
+            "position": 1,
+            "color": "#d97757"
+          }
+        ]
+      }
+    }
+  ]
+}

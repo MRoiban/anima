@@ -1,0 +1,4 @@
+name: oracle-path-morph
+logs:
+  file: build/rive.log
+  problems: build/problems.log

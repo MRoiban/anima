@@ -14,6 +14,10 @@ in `requires`; a runtime that lacks the module refuses the document with `unknow
 |---|---|---|
 | `paint` | gradients, dashes, shapes, corner radii, path morphing, fixed stroke | P4a |
 | `composite` | blend modes, masks, clips, multiple paints, stroke position, draw order, paint visibility | P4a |
+| `bind` | bindings: an address follows an expression of inputs every step (P5; `design/p5/DESIGN.md` §4) | P5 |
+| `components` | components and instances with their own inputs and state machines (P5, §3) | P5 |
+| `surface` | image paints, n-slice patches, feathering (8192 B budget) | P5 |
+| `assets` | image, font, audio and blob assets; the `image` node (P5, §5) | P5 |
 | `motion` | more eases, typed and string tracks, seek / reverse / work area / quantize, host timeline control, animatable pivot | P4b |
 | `interaction` | blend states, transition flags, drag, keyboard, focus, scroll, gamepad | P4c |
 | `events` | event payloads, open-URL events, audio events | P4d |
@@ -37,21 +41,72 @@ loader and the formatter keep deriving from one place. A module's entries carry 
 
 ## 3. Where the code lives
 
-A module is code in three places, all in its own files:
+Each optional module has one source folder at the repository root:
 
-1. **Core** (`packages/core/src/modules/<name>/`): registry entries, loader hooks (validate and
-   compile its keys into the model), player hooks (new animatable value kinds, sampling), and draw
-   hooks (renderer-neutral tree and resolved frame data). Each module's `svg.ts` is its separate
-   browser/static SVG backend; it receives draw data, never a Player or raw document.
-2. **Web** (`packages/web/src/<name>.ts`): `import '@anima-format/web/<name>'` registers the module
-   with the runtime, like `@anima-format/web/markup`. A page that never imports it never loads it.
-3. **Tooling**: the CLI, the markup compiler, the playground and the conformance runner always
-   register every module, so authoring sees the whole format.
+```
+modules/<name>/
+  manifest.ts           tooling metadata; named `after` export for runtime ordering
+  core/index.ts         registry entries and pure loader/player/draw hooks (when applicable)
+  core/svg.ts           SVG backend (when applicable)
+  markup/index.ts       compiler forms/hooks not expressible by registry descriptors
+  web/index.ts          optional browser registration
+  web/markup.ts         optional registration-only markup entry (when applicable)
+  test/<package>/       core, markup, web and CLI tests owned by this module
+```
+
+Paint, composite, bind, assets, components and surface follow this layout. Bind needs no SVG
+backend; assets/composite/surface supply structural AniML forms through their core descriptors and
+share paint's structural engine. Markup-libraries owns its markup expansion, async resolver, hook
+slots, web entry and tests in the same layout. The shared markup browser entry has a small manifest
+under `modules/markup/`; the base compiler/parser remain in `packages/markup`.
+
+The default manifest export declares:
+
+- `name` and `after`: ordering constraints among installed module manifests. Runtime `after` orders
+  only the modules present; it does not import another module. The current chain preserves the P5
+  execution order: components → bind → assets → paint → composite → surface. This also puts surface
+  after the paint refinements and nested drawing hooks it extends.
+- `core`: implementation entry/export and optional SVG entry/export.
+- `web`: browser entry names, byte budgets, optional measurement base (`over`) and heavy-class flag.
+  Registration-only markup entries have separate hook budgets. `sizeOrder` preserves the existing
+  aggregate measurement import order; `buildOrder` preserves the browser worker lane assignments; new entries may omit it and follow the existing entries.
+- `adapters` and `exports`: package source adapter paths mapped to local implementations, and public
+  package subpaths. These preserve all existing `@anima-format/{core,markup,web}` imports, including
+  internal compatibility paths. The adapters contain no implementation or runtime dependencies.
+- `markupHook`: optional typed compiler slot and implementation exports. Descriptor-only modules
+  need no additional hook slot.
+- `tests`, `conformance`, `docs`: explicit test globs, conformance case-name prefixes and docs files.
+  Test ownership includes shared markup registry/corpus integration tests where needed; browser
+  ownership is explicit and never inferred from mentions/imports of other modules.
+
+`node tools/modules.ts` discovers manifests, validates dependencies, and generates core/all,
+package adapters/exports, browser build entries, size tables, compiler hook registration and test
+scope tables. `--check` is part of `npm run check` and fails without writing when wiring is stale.
+Generated files are committed, but never edited by hand. A new module requires additions only under
+its folder plus generator output; `tools/modules.test.ts` proves this in a temporary repository.
+No shared hand-written index changes are needed. Existing source package exports remain the
+repository's development API; package publishing is still deferred (all packages are private).
+
+Core registration composes the base tables plus the complete declared module set in dependency
+order, with lexical ordering of simultaneously ready modules. Exported table/map identities stay
+stable for separately bundled browser entries. Recomposition rebuilds cached node shapes and applies
+wildcard contributions to the final node set, so a late node receives earlier modules' fields without
+recursive replay inside `applyEntry`. Initializers can run again during recomposition and must keep
+registration setup idempotent. Duplicate registration by name remains a no-op. Runtime dependency
+cycles throw before changing the active registry; manifest cycles and missing dependencies fail the
+generator. `packages/core/test/module-order.test.ts` exercises 12 arrival orders (all permutations of
+components/paint/assets with the other modules before and after), comparing JSON Schema, CLI schema
+output, loaded models and snapshots for every example/conformance document, and corpus AniML output.
+
+Tooling (`core/all`, CLI, playground and conformance runner) registers the entire generated module
+set. Browser builds load only explicit imports. The layout changes no document syntax or semantics. The single-source registry/generation principle
+continues the existing design rationale in `docs/research/rive-format-and-graph.md` (generated type
+metadata); no Rive implementation or file conversion is involved.
 
 Hook points (revised at P4a, owner decision 2026-11-06: rendering is renderer-neutral):
 
 - `registerModule(m: Module)` in core; `Module = { name, entries, load?, model?, value?,
-  interpolate?, outline?, draw? }`.
+  interpolate?, outline?, resolve?, draw? }`.
 - `load(model, raw, diag)`: validate and compile the module's keys after the core loader.
 - `model` / `value` / `interpolate`: new animatable value kinds use the player's existing slots and
   sampling; a module declares their value type and default.
@@ -124,13 +179,16 @@ Registry entry targets `node` and `painted` apply to every matching current or s
 registered node type; feature attribution remains with the declaring module.
 `Module.init(registry, shapes)` receives the active runtime's module and shape registries, so
 separately bundled modules share the same registry objects rather than private copies.
+It also supplies `resolveAddress`, the active runtime’s address resolver, so a separately bundled
+bind module can target properties installed by other modules.
 
 ## 4. Size
 
 Each browser module has its own budget (`docs/parity/README.md`), measured like the markup module:
 `gzip(bundle(web + module)) − gzip(bundle(web))`, enforced by `tools/size.ts`. The core + web
-budget (25 KB) covers the hook points only. P4a-4 additionally targets its 16697 B baseline.
-Paint is limited to 5120 B, composite to 4096 B and markup to 8192 B incremental.
+budget (30 KB) covers the hook points only. P4a-4 additionally targets its 16697 B baseline.
+Paint is limited to 5120 B, composite to 4096 B, bind to 2048 B and markup to 8192 B incremental.
+Paint is limited to 5120 B, composite to 4096 B, assets to 2048 B and markup to 8192 B incremental.
 
 ## 5. Conformance and oracles
 
@@ -140,6 +198,16 @@ entries, diagnostics with tests, conformance cases (`spec/conformance/<feature>-
 same capability, an oracle case (`tests/oracle/<case>/`, see `docs/parity/README.md`). Where an
 algorithm closely follows Rive's MIT runtime, the spec says so and `NOTICE` carries the
 attribution.
+
+### Unfinished capability probes
+
+`node tools/new-capability.ts <row-id> [--module <name>] [--dry-run]` creates TODO evidence without
+changing the row's status. A conformance or oracle directory may contain `todo.json` with
+`status: "todo"` and a nonempty `reason`. Runners report these as pending TODO tests; they are never
+passing conformance or parity evidence. AniML generation/corpus validation omits marked conformance
+sources. Invalid markers are errors. Completed oracle manifest entries cannot retain this marker.
+Remove it only after authoring the actual probe, independent expectations/reference frames and
+compiled `.ani`. Existing unmarked cases retain their validation and comparison behavior.
 
 ### Geometry value hooks (paint)
 
@@ -153,3 +221,29 @@ The paint geometry implementation also uses optional module hooks:
   existing flattening convention for parametric shapes, corners and animated paths.
 
 The normal number, boolean and colour slots retain their existing sampling behaviour.
+
+### Post-state bindings
+
+`Model.bindings` optionally maps an address to `(scope: ReadonlyMap<string, number | boolean>) =>
+Value`. The loader registers bound addresses in `Model.addrs`; the player evaluates these functions
+against applied inputs after layer resolution and before clamping. Bind's exported `expression`
+compiler takes named input types and `evaluate` takes a compiled expression and input scope.
+Components can reuse the evaluator for instance inputs without coupling it to a document/player.
+
+### Nested-player seam (components)
+
+`Module.resolve(model, diag)` runs after nodes/inputs are compiled and before timeline, listener
+and transition references resolve. Components use it to validate child models and expose scoped
+input/event references to existing semantic validation. `Model.nesting(player)` creates an
+optional `PlayerExtension` for input forwarding, local pointer routing, stepping and scoped
+inspection. The base player owns no component policy. `draw.end(player, frame)` runs after all
+local node hooks, so nested sibling ranks can be appended after the parent compositing pass. Child
+draw entries are appended to the parent tree; the components final draw hook supplies their
+resolved draw records and remaps resources.
+`Module.init` also receives the active runtime's `load` and `Player`, preserving registry identity
+when optional browser modules arrive as separate bundles.
+
+Formatter-only registry shapes may specify `format: <shape>` to reuse canonical key ordering
+without changing structural validation. Components reuse the document shape for their nested
+self-contained documents. Module initialization also receives the active `nodeShape` resolver;
+components derive reserved input names from the instance shape, including optional node keys.

@@ -9,6 +9,10 @@ import {
   type Diagnostic,
   type El,
   type Model,
+  type ObjShape,
+  DOC,
+  FILL,
+  STROKE,
   Player,
   svgAttrs,
   cssSlots,
@@ -58,22 +62,54 @@ const motionQuery = () => matchMedia('(prefers-reduced-motion: reduce)');
 let ids = 0;
 
 export class AnimaIcon extends HTMLElement {
-  static registerModule = registerModule;
+  /** Wake sources that were loaded before their compiler or runtime modules registered. */
+  static registration = 0;
+  static refresh(): void {
+    this.registration++;
+    queueMicrotask(() => dispatchEvent(new Event('anima:register')));
+  }
+  static markupHooks: Record<string, object> = {};
+  static registerMarkup(name: string, hooks: object): void {
+    this.markupHooks[name] = hooks;
+    this.refresh();
+  }
+  static registerModule(m: Parameters<typeof registerModule>[0]): void {
+    registerModule(m);
+    AnimaIcon.refresh();
+  }
   static registerSVGBackend = registerSVGBackend;
   static modules = modules;
+  /** Live shapes include module init extensions as well as replayable entries. */
+  static registry = { DOC: DOC as ObjShape, FILL: FILL as ObjShape, STROKE: STROKE as ObjShape };
   /** Installed by the composite SVG backend; 0.1 scenes keep authored DOM order. */
   declare static orderSVG?: (frame: DrawFrame, elements: [El, Element, Attrs][]) => void;
+  declare static loadAssets?: (icon: AnimaIcon, model: Model) => Promise<void>;
   static observedAttributes = ['src', 'motion', 'label', 'speed', 'paused', 'fit', 'align'];
   /** Registered by @anima-format/web/markup; the runtime never imports a compiler itself. */
   declare static compiler?: (source: string) => { doc?: object; diagnostics: SourceDiagnostic[] };
 
   /** The player, once loaded (for debugging and tests). */
   player?: Player;
+  declare static compilerAsync?: (
+    source: string,
+    file: string,
+  ) => Promise<{ doc?: object; diagnostics: SourceDiagnostic[] }>;
+
   /** Resolves when a document has loaded; rejects with its diagnostics. */
   ready: Promise<void>;
   /** Set to an array to record every step, pointer event and input write (for replays). */
   trace?: unknown[][];
 
+  #retry?: () => void;
+  #registered = () => {
+    if (!this.#retry || !this.isConnected || this.#destroyed) return;
+    this.ready = new Promise((res, rej) => {
+      this.#resolve = res;
+      this.#reject = rej;
+    });
+    this.ready.catch(() => {});
+    this.#retry();
+  };
   #resolve!: () => void;
   #reject!: (d: Diagnostic[]) => void;
   #root: ShadowRoot;
@@ -123,10 +159,14 @@ export class AnimaIcon extends HTMLElement {
     // Let optional modules register after customElements.define upgrades existing elements.
     queueMicrotask(() => {
       if (this.isConnected && !this.#destroyed && !this.player) {
+        if (this.#retry) {
+          this.#registered();
+          return;
+        }
         const inline = this.querySelector<HTMLScriptElement>(
           'script[type="application/vnd.anima+json"],script[type="application/vnd.anima+xml"]',
         );
-        if (inline) this.load(inline.text, inline.type.endsWith('xml'));
+        if (inline) void this.#source(inline.text, inline.type.endsWith('xml'), document.baseURI);
       }
     });
     this.#observe();
@@ -136,6 +176,7 @@ export class AnimaIcon extends HTMLElement {
   #observe(): void {
     if (this.#observing || !this.isConnected) return;
     this.#observing = true;
+    addEventListener('anima:register', this.#registered);
     (seen ??= new IntersectionObserver((es) => {
       for (const e of es) (e.target as AnimaIcon).#visible(e.isIntersecting);
     })).observe(this);
@@ -145,6 +186,7 @@ export class AnimaIcon extends HTMLElement {
 
   disconnectedCallback(): void {
     this.#observing = false;
+    removeEventListener('anima:register', this.#registered);
     seen?.unobserve(this);
     this.#query.removeEventListener('change', this.#motion);
     document.removeEventListener('visibilitychange', this.#motion);
@@ -158,7 +200,12 @@ export class AnimaIcon extends HTMLElement {
         .then((r) => r.text())
         .then(
           (t) => {
-            if (generation === this.#generation) this.load(t, /\.animl(?:[?#]|$)/.test(value));
+            if (generation === this.#generation)
+              void this.#source(
+                t,
+                /\.animl(?:[?#]|$)/.test(value),
+                new URL(value, document.baseURI).href,
+              );
           },
           () => {
             if (generation !== this.#generation) return;
@@ -182,8 +229,31 @@ export class AnimaIcon extends HTMLElement {
     }
   }
 
+  async #source(source: string, markup: boolean, file: string): Promise<void> {
+    const retry = () => {
+      void this.#source(source, markup, file);
+    };
+    this.#retry = undefined;
+    const registration = AnimaIcon.registration;
+    if (markup && AnimaIcon.compilerAsync) {
+      const generation = this.#generation;
+      const result = await AnimaIcon.compilerAsync(source, file);
+      if (generation !== this.#generation || this.#destroyed) return;
+      if (result.doc) this.load(result.doc);
+      else if (registration !== AnimaIcon.registration) return this.#source(source, markup, file);
+      else {
+        this.#retry = retry;
+        this.#fail(result.diagnostics);
+      }
+    } else this.load(source, markup);
+    this.#retry &&= retry;
+  }
+
   /** Load a document (text or parsed). Returns its diagnostics; errors leave the icon empty. */
   load(doc: string | object, markup = false): SourceDiagnostic[] {
+    this.#retry = () => {
+      this.load(doc, markup);
+    };
     const compiled =
       markup && typeof doc === 'string'
         ? (AnimaIcon.compiler?.(doc) ?? {
@@ -205,6 +275,7 @@ export class AnimaIcon extends HTMLElement {
       this.#fail(diagnostics);
       return diagnostics;
     }
+    this.#retry = undefined;
     ++this.#generation;
     this.#destroyed = false;
     this.#listen();
@@ -213,13 +284,23 @@ export class AnimaIcon extends HTMLElement {
     this.#last = -1;
     this.#states = '';
     this.#held = false;
-    this.player = new Player(model);
-    this.#build(model);
-    this.#motion();
-    this.#aria();
-    if (!this.hasAttribute('paused')) this.#step(0);
-    this.#resolve();
-    this.dispatchEvent(new CustomEvent('anima:load', { detail: this.info }));
+    this.player = undefined;
+    const generation = this.#generation;
+    const finish = () => {
+      if (generation !== this.#generation) return;
+      this.player = new Player(model);
+      this.#build(model);
+      this.#motion();
+      this.#aria();
+      if (!this.hasAttribute('paused')) this.#step(0);
+      this.#resolve();
+      this.dispatchEvent(new CustomEvent('anima:load', { detail: this.info }));
+    };
+    if (model.doc.assets && AnimaIcon.loadAssets) {
+      AnimaIcon.loadAssets(this, model).then(finish, (d: SourceDiagnostic[]) => {
+        if (generation === this.#generation) this.#fail(d);
+      });
+    } else finish();
     return diagnostics;
   }
 
@@ -284,6 +365,7 @@ export class AnimaIcon extends HTMLElement {
   destroy(): void {
     ++this.#generation;
     this.#destroyed = true;
+    this.#retry = undefined;
     this.disconnectedCallback();
     this.#listeners?.abort();
     this.#listeners = undefined;
@@ -328,7 +410,14 @@ export class AnimaIcon extends HTMLElement {
   }
 
   #fail(d: SourceDiagnostic[]): void {
+    const retry = this.#retry;
     this.destroy();
+    if (retry) {
+      this.#destroyed = false;
+      this.#retry = retry;
+      this.#listen();
+      this.#observe();
+    }
     console.error(
       `anima-icon: ${d.map((x) => `${x.message} at ${x.line ? `${x.line}:${x.column}` : x.pointer || '/'}`).join(', ')}`,
     );

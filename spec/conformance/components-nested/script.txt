@@ -1,0 +1,6 @@
+advance 0
+snapshot outer/count outer/inside/count outer/inside/dot.r
+pointer click 12 4
+snapshot outer/inside/dot.opacity
+advance 0
+snapshot outer/inside/dot.opacity

@@ -1,0 +1,9 @@
+advance 0
+snapshot a/count a/dot.r b/count b/dot.r c/count c/dot.r
+set unread 5
+advance 0
+snapshot a/count a/dot.r b/count b/dot.r c/count c/dot.r
+advance 0.5
+snapshot c/count c/dot.r
+advance 0.5
+snapshot c/count c/dot.r

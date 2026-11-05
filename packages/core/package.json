@@ -7,10 +7,17 @@
   "exports": {
     ".": "./src/index.ts",
     "./all": "./src/all.ts",
+    "./components": "./src/modules/components/index.ts",
+    "./components-svg": "./src/modules/components/svg.ts",
+    "./bind": "./src/modules/bind/index.ts",
+    "./assets": "./src/modules/assets/index.ts",
+    "./assets-svg": "./src/modules/assets/svg.ts",
     "./paint": "./src/modules/paint/index.ts",
-    "./composite": "./src/modules/composite/index.ts",
     "./paint-svg": "./src/modules/paint/svg.ts",
-    "./composite-svg": "./src/modules/composite/svg.ts"
+    "./composite": "./src/modules/composite/index.ts",
+    "./composite-svg": "./src/modules/composite/svg.ts",
+    "./surface": "./src/modules/surface/index.ts",
+    "./surface-svg": "./src/modules/surface/svg.ts"
   },
   "files": [
     "src"

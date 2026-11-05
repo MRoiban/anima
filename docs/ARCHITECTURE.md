@@ -13,6 +13,7 @@ packages/
   web/     <anima-icon> custom element: retained SVG DOM, scheduler, input, a11y
   cli/     anima validate | inspect | sample | render | fmt | new | schema | docs | playground
   playground/ private local editor and inspectors; plain DOM/SVG, compiler + web runtime
+modules/   one manifest + core/SVG/markup/web sources + tests per optional module
 examples/  bell.ani and later icons
 fixtures/  Glyphy glyphs and the Rive reference for the bell
 docs/      architecture, plan, research notes
@@ -50,8 +51,10 @@ docs/      architecture, plan, research notes
 ## web (`packages/web`)
 
 - `<anima-icon src="bell.ani">`, an inline `<script type="application/vnd.anima+json">` child, or
-  `el.load(doc)`. The runtime requests nothing on its own: the only fetch is the `src` the page
-  gives it (like `<img src>`), and with an inline document the page makes no requests at all.
+  `el.load(doc)`. The base runtime fetches only the `src` the page gives it (like `<img src>`); inline
+  documents without referenced assets make no requests. The optional assets module decodes image
+  sources relative to that document URL, or asks `icon.assets` for a replacement URL/Blob. Embedded
+  data URIs require no network. Image geometry stays renderer-neutral; SVG owns the clipped viewport.
 - **Shadow DOM.** The element renders into an open shadow root (a `<style>` and the `<svg>`). CSS
   custom properties and `color` inherit through it, so slots theme from the page.
 - **Retained SVG DOM.** Build the tree once from the SVG backend's `sceneTree`: a `<g>` per node carrying its
@@ -104,6 +107,15 @@ The agent's feedback loop. Every command has `--format=json` and typed exit code
 
 ## Packages, names and tooling
 
+Optional implementations live in root `modules/<name>/` folders, grouped by capability across
+package responsibilities. Each `manifest.ts` owns dependency order, core/SVG entry points, markup
+hooks, web entries and their separate byte budgets, test globs, conformance prefixes, docs and
+package adapters/exports. `node tools/modules.ts` generates the source adapters under the existing
+packages, `core/all`, markup-hook registration and `tools/modules.generated.ts` for build, size and
+scope consumers. `--check` runs first in `npm run check`. Public package import paths stay stable;
+source implementations and tests have a single owner. The packages are private development APIs;
+standalone package publication remains deferred. See `spec/MODULES.md` §3 for the manifest contract.
+
 npm workspaces, TypeScript strict (6.0; typescript-eslint does not support 7 yet), Vitest, ESLint,
 Prettier. Sources are erasable-syntax TypeScript with `.ts` import specifiers, so Node 24 runs them
 directly (tests, CLI, tools) with no build step; esbuild bundles the browser build and measures the
@@ -149,13 +161,36 @@ into an ordinary sampling slot. `draw.tree(model, tree)` contributes static reso
 metadata; `draw.frame(player, node, data, entry, frame)` resolves current drawing values. Modules never
 return SVG elements or attributes. `load(model, raw, diag)` runs semantic validation after core
 compilation, before a model can escape the loader. The static draw tree is built only after all
-validation succeeds. Hooks run in registration order and ignore nodes they do not own.
+validation succeeds. Hooks run in dependency order and ignore nodes they do not own.
 Each module's `svg.ts` separately registers its SVG backend using the same draw data for retained
 DOM and `toSVG`. `core/all` registers all modules and SVG backends for authoring; browser builds
 load only explicit imports. See MODULES §3.1 for the Canvas2D seam and change-tracking contract.
 
 Module registration and the retained renderer are shared through the active `AnimaIcon` class,
 so separately emitted base, paint and markup bundles use the same runtime. The browser markup
-compiler copies the registered entries before compiling; its structural engine is carried
-by markup itself (8 KB incremental budget), so paint and composite do not duplicate it. Tooling's `core/all` registration is
+compiler copies the registered entries and the live DOC/fill/stroke shape refinements from module initialization before compiling; its registry-derived forms remain in markup (8 KB incremental budget). Component and binding
+compilation hooks register through their runtime entries; structural paint handling registers
+through paint or the registration-only markup-paint entry (also used by composite-only markup). Tooling's `core/all` registration is
 folded out of terse browser builds. Both optional bundle import orders are browser-tested.
+
+
+## Testing scopes
+
+`npm run test:scope -- <target…>` runs the affected package/module tests during development;
+`conformance` and `oracle` select their independent runners. `changed` derives targets from the
+branch merge-base with main and working-tree changes (`--base=<ref>` overrides the base).
+`--no-browser` excludes browser files; `--browser=chromium|firefox` filters their engine suites.
+`tools/test-scope-map.ts` consumes generated manifest test globs and conformance prefixes;
+shared markup API/registry tests are explicitly listed by module manifests. Module browser scopes
+include only their declared suites. Package scopes include module tests under `test/<package>/`. Shared files
+select their whole package, and shared config/tooling selects all packages and tools (including
+oracle).
+`vitest.scope.config.ts` uses separate unit, conformance and browser projects so conformance case
+and browser-name filters do not filter unit tests. The default Vitest config always runs every test.
+CI runs `npm run check` on every PR and push and adds size/perf output to the job summary. A green
+CI run is required before merge; see AGENTS.md for the local phase verification policy.
+
+folded out of terse browser builds. Module and compiler registration notify pending source loads through the active element class;
+failed loads retry after late registration and explicit destruction cancels retries. Tooling's
+`core/all` import belongs to the markup package's tooling entry, never its shared name helpers.
+Both optional bundle import orders and delayed registration after connection are browser-tested.

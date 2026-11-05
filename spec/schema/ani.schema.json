@@ -487,14 +487,7 @@
           },
           "on": {
             "type": "string",
-            "enum": [
-              "enter",
-              "leave",
-              "down",
-              "up",
-              "click",
-              "move"
-            ]
+            "pattern": "^(?:enter|leave|down|up|click|move|[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)+)$"
           },
           "target": {
             "type": "string",
@@ -508,13 +501,13 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                "pattern": "^[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*$"
               },
               {
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                  "pattern": "^[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*$"
                 },
                 "minItems": 1
               }
@@ -528,7 +521,7 @@
               }
             },
             "propertyNames": {
-              "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+              "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*$"
             },
             "additionalProperties": {
               "anyOf": [
@@ -545,13 +538,13 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                "pattern": "^[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*$"
               },
               {
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                  "pattern": "^[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*$"
                 },
                 "minItems": 1
               }
@@ -567,6 +560,83 @@
         ],
         "additionalProperties": false
       }
+    },
+    "components": {
+      "type": "object",
+      "properties": {
+        "$comment": {
+          "type": "string"
+        }
+      },
+      "propertyNames": {
+        "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+      },
+      "additionalProperties": {},
+      "feature": "components"
+    },
+    "bind": {
+      "type": "object",
+      "properties": {
+        "$comment": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {
+        "type": "string"
+      },
+      "feature": "bind"
+    },
+    "assets": {
+      "type": "object",
+      "properties": {
+        "$comment": {
+          "type": "string"
+        }
+      },
+      "propertyNames": {
+        "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "$comment": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "image",
+              "font",
+              "audio",
+              "blob"
+            ]
+          },
+          "source": {
+            "type": "string"
+          },
+          "storage": {
+            "type": "string",
+            "enum": [
+              "embedded",
+              "referenced"
+            ]
+          },
+          "width": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "height": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          }
+        },
+        "required": [
+          "type",
+          "source"
+        ],
+        "additionalProperties": false
+      },
+      "feature": "assets"
     }
   },
   "required": [
@@ -740,6 +810,55 @@
               ],
               "additionalProperties": false,
               "feature": "composite"
+            },
+            "slice": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "y": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "width": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "height": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "modes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "stretch",
+                      "repeat",
+                      "hidden"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "width",
+                "height"
+              ],
+              "additionalProperties": false,
+              "feature": "surface"
             }
           },
           "required": [
@@ -836,7 +955,8 @@
                   "type": "string",
                   "enum": [
                     "linear",
-                    "radial"
+                    "radial",
+                    "image"
                   ],
                   "feature": "paint"
                 },
@@ -906,6 +1026,86 @@
                 "visible": {
                   "type": "boolean",
                   "feature": "composite"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
                 }
               },
               "additionalProperties": false
@@ -956,7 +1156,8 @@
                   "type": "string",
                   "enum": [
                     "linear",
-                    "radial"
+                    "radial",
+                    "image"
                   ],
                   "feature": "paint"
                 },
@@ -1064,6 +1265,86 @@
                     "outside"
                   ],
                   "feature": "composite"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
                 }
               },
               "additionalProperties": false
@@ -1203,7 +1484,8 @@
                         "type": "string",
                         "enum": [
                           "linear",
-                          "radial"
+                          "radial",
+                          "image"
                         ],
                         "feature": "paint"
                       },
@@ -1273,6 +1555,86 @@
                       "visible": {
                         "type": "boolean",
                         "feature": "composite"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
                       }
                     },
                     "additionalProperties": false
@@ -1323,7 +1685,8 @@
                         "type": "string",
                         "enum": [
                           "linear",
-                          "radial"
+                          "radial",
+                          "image"
                         ],
                         "feature": "paint"
                       },
@@ -1431,6 +1794,86 @@
                           "outside"
                         ],
                         "feature": "composite"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
                       }
                     },
                     "additionalProperties": false
@@ -1440,6 +1883,55 @@
               },
               "minItems": 1,
               "feature": "composite"
+            },
+            "slice": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "y": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "width": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "height": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "modes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "stretch",
+                      "repeat",
+                      "hidden"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "width",
+                "height"
+              ],
+              "additionalProperties": false,
+              "feature": "surface"
             }
           },
           "required": [
@@ -1642,7 +2134,8 @@
                   "type": "string",
                   "enum": [
                     "linear",
-                    "radial"
+                    "radial",
+                    "image"
                   ],
                   "feature": "paint"
                 },
@@ -1712,6 +2205,86 @@
                 "visible": {
                   "type": "boolean",
                   "feature": "composite"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
                 }
               },
               "additionalProperties": false
@@ -1762,7 +2335,8 @@
                   "type": "string",
                   "enum": [
                     "linear",
-                    "radial"
+                    "radial",
+                    "image"
                   ],
                   "feature": "paint"
                 },
@@ -1870,6 +2444,86 @@
                     "outside"
                   ],
                   "feature": "composite"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
                 }
               },
               "additionalProperties": false
@@ -1906,7 +2560,8 @@
                         "type": "string",
                         "enum": [
                           "linear",
-                          "radial"
+                          "radial",
+                          "image"
                         ],
                         "feature": "paint"
                       },
@@ -1976,6 +2631,86 @@
                       "visible": {
                         "type": "boolean",
                         "feature": "composite"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
                       }
                     },
                     "additionalProperties": false
@@ -2026,7 +2761,8 @@
                         "type": "string",
                         "enum": [
                           "linear",
-                          "radial"
+                          "radial",
+                          "image"
                         ],
                         "feature": "paint"
                       },
@@ -2134,6 +2870,86 @@
                           "outside"
                         ],
                         "feature": "composite"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
                       }
                     },
                     "additionalProperties": false
@@ -2143,6 +2959,55 @@
               },
               "minItems": 1,
               "feature": "composite"
+            },
+            "slice": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "y": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "width": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "height": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "modes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "stretch",
+                      "repeat",
+                      "hidden"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "width",
+                "height"
+              ],
+              "additionalProperties": false,
+              "feature": "surface"
             }
           },
           "required": [
@@ -2269,7 +3134,8 @@
                   "type": "string",
                   "enum": [
                     "linear",
-                    "radial"
+                    "radial",
+                    "image"
                   ],
                   "feature": "paint"
                 },
@@ -2339,6 +3205,86 @@
                 "visible": {
                   "type": "boolean",
                   "feature": "composite"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
                 }
               },
               "additionalProperties": false
@@ -2389,7 +3335,8 @@
                   "type": "string",
                   "enum": [
                     "linear",
-                    "radial"
+                    "radial",
+                    "image"
                   ],
                   "feature": "paint"
                 },
@@ -2497,6 +3444,86 @@
                     "outside"
                   ],
                   "feature": "composite"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
                 }
               },
               "additionalProperties": false
@@ -2636,7 +3663,8 @@
                         "type": "string",
                         "enum": [
                           "linear",
-                          "radial"
+                          "radial",
+                          "image"
                         ],
                         "feature": "paint"
                       },
@@ -2706,6 +3734,86 @@
                       "visible": {
                         "type": "boolean",
                         "feature": "composite"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
                       }
                     },
                     "additionalProperties": false
@@ -2756,7 +3864,8 @@
                         "type": "string",
                         "enum": [
                           "linear",
-                          "radial"
+                          "radial",
+                          "image"
                         ],
                         "feature": "paint"
                       },
@@ -2864,6 +3973,86 @@
                           "outside"
                         ],
                         "feature": "composite"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
                       }
                     },
                     "additionalProperties": false
@@ -2873,6 +4062,55 @@
               },
               "minItems": 1,
               "feature": "composite"
+            },
+            "slice": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "y": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "width": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "height": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "modes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "stretch",
+                      "repeat",
+                      "hidden"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "width",
+                "height"
+              ],
+              "additionalProperties": false,
+              "feature": "surface"
             }
           },
           "required": [
@@ -3085,7 +4323,8 @@
                   "type": "string",
                   "enum": [
                     "linear",
-                    "radial"
+                    "radial",
+                    "image"
                   ],
                   "feature": "paint"
                 },
@@ -3155,6 +4394,86 @@
                 "visible": {
                   "type": "boolean",
                   "feature": "composite"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
                 }
               },
               "additionalProperties": false
@@ -3205,7 +4524,8 @@
                   "type": "string",
                   "enum": [
                     "linear",
-                    "radial"
+                    "radial",
+                    "image"
                   ],
                   "feature": "paint"
                 },
@@ -3313,6 +4633,86 @@
                     "outside"
                   ],
                   "feature": "composite"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
                 }
               },
               "additionalProperties": false
@@ -3349,7 +4749,8 @@
                         "type": "string",
                         "enum": [
                           "linear",
-                          "radial"
+                          "radial",
+                          "image"
                         ],
                         "feature": "paint"
                       },
@@ -3419,6 +4820,86 @@
                       "visible": {
                         "type": "boolean",
                         "feature": "composite"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
                       }
                     },
                     "additionalProperties": false
@@ -3469,7 +4950,8 @@
                         "type": "string",
                         "enum": [
                           "linear",
-                          "radial"
+                          "radial",
+                          "image"
                         ],
                         "feature": "paint"
                       },
@@ -3577,6 +5059,86 @@
                           "outside"
                         ],
                         "feature": "composite"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
                       }
                     },
                     "additionalProperties": false
@@ -3586,6 +5148,55 @@
               },
               "minItems": 1,
               "feature": "composite"
+            },
+            "slice": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "y": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "width": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "height": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "modes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "stretch",
+                      "repeat",
+                      "hidden"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "width",
+                "height"
+              ],
+              "additionalProperties": false,
+              "feature": "surface"
             }
           },
           "required": [
@@ -3595,6 +5206,534 @@
             "from",
             "to",
             "center"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+            },
+            "type": {
+              "const": "instance"
+            },
+            "pivot": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "rotate": {
+              "type": "number"
+            },
+            "scale": {
+              "type": "number"
+            },
+            "scaleX": {
+              "type": "number"
+            },
+            "scaleY": {
+              "type": "number"
+            },
+            "opacity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "visible": {
+              "type": "boolean"
+            },
+            "component": {
+              "type": "string",
+              "pattern": "^[a-z][a-zA-Z0-9-]*$",
+              "feature": "components"
+            },
+            "inputs": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "propertyNames": {
+                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+              },
+              "additionalProperties": {
+                "anyOf": [
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "feature": "components"
+            },
+            "speed": {
+              "type": "number",
+              "minimum": 0,
+              "feature": "components"
+            },
+            "paused": {
+              "type": "boolean",
+              "feature": "components"
+            },
+            "blend": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "multiply",
+                "screen",
+                "overlay",
+                "darken",
+                "lighten",
+                "color-dodge",
+                "color-burn",
+                "hard-light",
+                "soft-light",
+                "difference",
+                "exclusion",
+                "hue",
+                "saturation",
+                "color",
+                "luminosity"
+              ],
+              "feature": "composite"
+            },
+            "mask": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "alpha",
+                    "luminance",
+                    "inverted-alpha",
+                    "inverted-luminance"
+                  ]
+                },
+                "sourceDraws": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "source",
+                "mode",
+                "sourceDraws"
+              ],
+              "additionalProperties": false,
+              "feature": "composite"
+            },
+            "clip": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                },
+                "rule": {
+                  "type": "string",
+                  "enum": [
+                    "nonzero",
+                    "evenodd"
+                  ],
+                  "default": "nonzero"
+                }
+              },
+              "required": [
+                "source"
+              ],
+              "additionalProperties": false,
+              "feature": "composite"
+            },
+            "drawOrder": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "target": {
+                  "type": "string"
+                },
+                "position": {
+                  "type": "string",
+                  "enum": [
+                    "before",
+                    "after"
+                  ]
+                },
+                "active": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "target",
+                "position"
+              ],
+              "additionalProperties": false,
+              "feature": "composite"
+            },
+            "slice": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "y": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "width": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "height": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "modes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "stretch",
+                      "repeat",
+                      "hidden"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "width",
+                "height"
+              ],
+              "additionalProperties": false,
+              "feature": "surface"
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "component"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+            },
+            "type": {
+              "const": "image"
+            },
+            "pivot": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "rotate": {
+              "type": "number"
+            },
+            "scale": {
+              "type": "number"
+            },
+            "scaleX": {
+              "type": "number"
+            },
+            "scaleY": {
+              "type": "number"
+            },
+            "opacity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "visible": {
+              "type": "boolean"
+            },
+            "width": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "feature": "assets"
+            },
+            "height": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "feature": "assets"
+            },
+            "asset": {
+              "type": "string",
+              "pattern": "^[a-z][a-zA-Z0-9-]*$",
+              "feature": "assets"
+            },
+            "x0": {
+              "type": "number",
+              "feature": "assets"
+            },
+            "y0": {
+              "type": "number",
+              "feature": "assets"
+            },
+            "fit": {
+              "type": "string",
+              "enum": [
+                "contain",
+                "cover",
+                "fill",
+                "none",
+                "scale-down",
+                "fit-width",
+                "fit-height"
+              ],
+              "feature": "assets"
+            },
+            "align": {
+              "type": "string",
+              "enum": [
+                "center",
+                "top-left",
+                "top",
+                "top-right",
+                "left",
+                "right",
+                "bottom-left",
+                "bottom",
+                "bottom-right"
+              ],
+              "feature": "assets"
+            },
+            "sampling": {
+              "type": "string",
+              "enum": [
+                "bilinear",
+                "nearest"
+              ],
+              "feature": "assets"
+            },
+            "blend": {
+              "type": "string",
+              "enum": [
+                "normal",
+                "multiply",
+                "screen",
+                "overlay",
+                "darken",
+                "lighten",
+                "color-dodge",
+                "color-burn",
+                "hard-light",
+                "soft-light",
+                "difference",
+                "exclusion",
+                "hue",
+                "saturation",
+                "color",
+                "luminosity"
+              ],
+              "feature": "composite"
+            },
+            "mask": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "alpha",
+                    "luminance",
+                    "inverted-alpha",
+                    "inverted-luminance"
+                  ]
+                },
+                "sourceDraws": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "source",
+                "mode",
+                "sourceDraws"
+              ],
+              "additionalProperties": false,
+              "feature": "composite"
+            },
+            "clip": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "source": {
+                  "type": "string"
+                },
+                "rule": {
+                  "type": "string",
+                  "enum": [
+                    "nonzero",
+                    "evenodd"
+                  ],
+                  "default": "nonzero"
+                }
+              },
+              "required": [
+                "source"
+              ],
+              "additionalProperties": false,
+              "feature": "composite"
+            },
+            "drawOrder": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "target": {
+                  "type": "string"
+                },
+                "position": {
+                  "type": "string",
+                  "enum": [
+                    "before",
+                    "after"
+                  ]
+                },
+                "active": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "target",
+                "position"
+              ],
+              "additionalProperties": false,
+              "feature": "composite"
+            },
+            "slice": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "y": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "width": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "height": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "modes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "stretch",
+                      "repeat",
+                      "hidden"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "width",
+                "height"
+              ],
+              "additionalProperties": false,
+              "feature": "surface"
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "asset",
+            "x0",
+            "y0",
+            "width",
+            "height"
           ],
           "additionalProperties": false
         },
@@ -3689,7 +5828,8 @@
                   "type": "string",
                   "enum": [
                     "linear",
-                    "radial"
+                    "radial",
+                    "image"
                   ],
                   "feature": "paint"
                 },
@@ -3759,6 +5899,86 @@
                 "visible": {
                   "type": "boolean",
                   "feature": "composite"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
                 }
               },
               "additionalProperties": false
@@ -3809,7 +6029,8 @@
                   "type": "string",
                   "enum": [
                     "linear",
-                    "radial"
+                    "radial",
+                    "image"
                   ],
                   "feature": "paint"
                 },
@@ -3917,6 +6138,86 @@
                     "outside"
                   ],
                   "feature": "composite"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
                 }
               },
               "additionalProperties": false
@@ -4056,7 +6357,8 @@
                         "type": "string",
                         "enum": [
                           "linear",
-                          "radial"
+                          "radial",
+                          "image"
                         ],
                         "feature": "paint"
                       },
@@ -4126,6 +6428,86 @@
                       "visible": {
                         "type": "boolean",
                         "feature": "composite"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
                       }
                     },
                     "additionalProperties": false
@@ -4176,7 +6558,8 @@
                         "type": "string",
                         "enum": [
                           "linear",
-                          "radial"
+                          "radial",
+                          "image"
                         ],
                         "feature": "paint"
                       },
@@ -4284,6 +6667,86 @@
                           "outside"
                         ],
                         "feature": "composite"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
                       }
                     },
                     "additionalProperties": false
@@ -4293,6 +6756,55 @@
               },
               "minItems": 1,
               "feature": "composite"
+            },
+            "slice": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "y": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "width": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "height": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "modes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "stretch",
+                      "repeat",
+                      "hidden"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "width",
+                "height"
+              ],
+              "additionalProperties": false,
+              "feature": "surface"
             }
           },
           "required": [
@@ -4406,7 +6918,8 @@
                   "type": "string",
                   "enum": [
                     "linear",
-                    "radial"
+                    "radial",
+                    "image"
                   ],
                   "feature": "paint"
                 },
@@ -4476,6 +6989,86 @@
                 "visible": {
                   "type": "boolean",
                   "feature": "composite"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
                 }
               },
               "additionalProperties": false
@@ -4526,7 +7119,8 @@
                   "type": "string",
                   "enum": [
                     "linear",
-                    "radial"
+                    "radial",
+                    "image"
                   ],
                   "feature": "paint"
                 },
@@ -4634,6 +7228,86 @@
                     "outside"
                   ],
                   "feature": "composite"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
                 }
               },
               "additionalProperties": false
@@ -4773,7 +7447,8 @@
                         "type": "string",
                         "enum": [
                           "linear",
-                          "radial"
+                          "radial",
+                          "image"
                         ],
                         "feature": "paint"
                       },
@@ -4843,6 +7518,86 @@
                       "visible": {
                         "type": "boolean",
                         "feature": "composite"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
                       }
                     },
                     "additionalProperties": false
@@ -4893,7 +7648,8 @@
                         "type": "string",
                         "enum": [
                           "linear",
-                          "radial"
+                          "radial",
+                          "image"
                         ],
                         "feature": "paint"
                       },
@@ -5001,6 +7757,86 @@
                           "outside"
                         ],
                         "feature": "composite"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
                       }
                     },
                     "additionalProperties": false
@@ -5010,6 +7846,55 @@
               },
               "minItems": 1,
               "feature": "composite"
+            },
+            "slice": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "y": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "width": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "height": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "modes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "stretch",
+                      "repeat",
+                      "hidden"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "width",
+                "height"
+              ],
+              "additionalProperties": false,
+              "feature": "surface"
             }
           },
           "required": [
@@ -5124,7 +8009,8 @@
                   "type": "string",
                   "enum": [
                     "linear",
-                    "radial"
+                    "radial",
+                    "image"
                   ],
                   "feature": "paint"
                 },
@@ -5194,6 +8080,86 @@
                 "visible": {
                   "type": "boolean",
                   "feature": "composite"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
                 }
               },
               "additionalProperties": false
@@ -5244,7 +8210,8 @@
                   "type": "string",
                   "enum": [
                     "linear",
-                    "radial"
+                    "radial",
+                    "image"
                   ],
                   "feature": "paint"
                 },
@@ -5352,6 +8319,86 @@
                     "outside"
                   ],
                   "feature": "composite"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
                 }
               },
               "additionalProperties": false
@@ -5491,7 +8538,8 @@
                         "type": "string",
                         "enum": [
                           "linear",
-                          "radial"
+                          "radial",
+                          "image"
                         ],
                         "feature": "paint"
                       },
@@ -5561,6 +8609,86 @@
                       "visible": {
                         "type": "boolean",
                         "feature": "composite"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
                       }
                     },
                     "additionalProperties": false
@@ -5611,7 +8739,8 @@
                         "type": "string",
                         "enum": [
                           "linear",
-                          "radial"
+                          "radial",
+                          "image"
                         ],
                         "feature": "paint"
                       },
@@ -5719,6 +8848,86 @@
                           "outside"
                         ],
                         "feature": "composite"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
                       }
                     },
                     "additionalProperties": false
@@ -5728,6 +8937,55 @@
               },
               "minItems": 1,
               "feature": "composite"
+            },
+            "slice": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "y": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "width": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "height": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "modes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "stretch",
+                      "repeat",
+                      "hidden"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "width",
+                "height"
+              ],
+              "additionalProperties": false,
+              "feature": "surface"
             }
           },
           "required": [
@@ -5832,7 +9090,8 @@
                   "type": "string",
                   "enum": [
                     "linear",
-                    "radial"
+                    "radial",
+                    "image"
                   ],
                   "feature": "paint"
                 },
@@ -5902,6 +9161,86 @@
                 "visible": {
                   "type": "boolean",
                   "feature": "composite"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
                 }
               },
               "additionalProperties": false
@@ -5952,7 +9291,8 @@
                   "type": "string",
                   "enum": [
                     "linear",
-                    "radial"
+                    "radial",
+                    "image"
                   ],
                   "feature": "paint"
                 },
@@ -6060,6 +9400,86 @@
                     "outside"
                   ],
                   "feature": "composite"
+                },
+                "asset": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "imageWidth": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageHeight": {
+                  "type": "number",
+                  "exclusiveMinimum": 0,
+                  "feature": "surface"
+                },
+                "imageX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageRotate": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleX": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "imageScaleY": {
+                  "type": "number",
+                  "feature": "surface"
+                },
+                "modulate": {
+                  "type": "string",
+                  "feature": "surface"
+                },
+                "feather": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "inner": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "outer": {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    "offset": {
+                      "type": "array",
+                      "prefixItems": [
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "items": false,
+                      "minItems": 2,
+                      "maxItems": 2
+                    },
+                    "enabled": {
+                      "type": "boolean"
+                    },
+                    "space": {
+                      "type": "string",
+                      "enum": [
+                        "local",
+                        "world"
+                      ]
+                    }
+                  },
+                  "additionalProperties": false,
+                  "feature": "surface"
                 }
               },
               "additionalProperties": false
@@ -6199,7 +9619,8 @@
                         "type": "string",
                         "enum": [
                           "linear",
-                          "radial"
+                          "radial",
+                          "image"
                         ],
                         "feature": "paint"
                       },
@@ -6269,6 +9690,86 @@
                       "visible": {
                         "type": "boolean",
                         "feature": "composite"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
                       }
                     },
                     "additionalProperties": false
@@ -6319,7 +9820,8 @@
                         "type": "string",
                         "enum": [
                           "linear",
-                          "radial"
+                          "radial",
+                          "image"
                         ],
                         "feature": "paint"
                       },
@@ -6427,6 +9929,86 @@
                           "outside"
                         ],
                         "feature": "composite"
+                      },
+                      "asset": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "imageWidth": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageHeight": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "feature": "surface"
+                      },
+                      "imageX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageRotate": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleX": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "imageScaleY": {
+                        "type": "number",
+                        "feature": "surface"
+                      },
+                      "modulate": {
+                        "type": "string",
+                        "feature": "surface"
+                      },
+                      "feather": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "inner": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "outer": {
+                            "type": "number",
+                            "minimum": 0
+                          },
+                          "offset": {
+                            "type": "array",
+                            "prefixItems": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "number"
+                              }
+                            ],
+                            "items": false,
+                            "minItems": 2,
+                            "maxItems": 2
+                          },
+                          "enabled": {
+                            "type": "boolean"
+                          },
+                          "space": {
+                            "type": "string",
+                            "enum": [
+                              "local",
+                              "world"
+                            ]
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "surface"
                       }
                     },
                     "additionalProperties": false
@@ -6436,6 +10018,55 @@
               },
               "minItems": 1,
               "feature": "composite"
+            },
+            "slice": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "x": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "y": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  },
+                  "minItems": 2
+                },
+                "width": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "height": {
+                  "type": "number",
+                  "exclusiveMinimum": 0
+                },
+                "modes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "stretch",
+                      "repeat",
+                      "hidden"
+                    ]
+                  }
+                }
+              },
+              "required": [
+                "x",
+                "y",
+                "width",
+                "height"
+              ],
+              "additionalProperties": false,
+              "feature": "surface"
             }
           },
           "required": [

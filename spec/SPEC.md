@@ -248,7 +248,8 @@ per channel with rounding for colours (§5), and for booleans `a || b` while the
       step; reaching the cap reports the event `@limit` for that layer and stops its transitions for
       this step. A trigger already consumed by this layer does not hold for it again in this step.
    3. *Write* the layer's output over the values (resolve rule).
-4. **Clamp.** Clamp resolved values to their property's range (`opacity`, trims 0..1; `r`, `w`, `h`,
+4. **Bindings, then clamp.** Evaluate declared `bind` expressions against the current inputs,
+   overriding the state-machine values (see the bind chapter). Clamp resolved values to their property's range (`opacity`, trims 0..1; `r`, `w`, `h`,
    `rx`, `stroke.width` ≥ 0).
 5. **Triggers.** A pending trigger that some layer consumed this step is cleared. One that no layer
    consumed is cleared too, unless its input declares `"buffer": seconds`: then it stays pending until
@@ -485,9 +486,8 @@ so a 0.1 loader rejects them with `reserved` and a pointer to the version that b
    compose already, which covers a breathing idle on one node under a hover tilt on another.
 5. **Path morphing** is available through the optional paint module for compatible command lists
    (see the paint chapter). Automatic matching of differing Glyphy traces remains deferred.
-6. **Data binding — deferred to 0.2** (key `bind` reserved, in the shape
-   `"bind": { "<address>": { "from": "level", "map": [0, 1, 0, 1] } }`). 0.1 hosts drive values
-   through inputs and conditions.
+6. **Data binding.** Input expressions are available in the optional `bind` module below.
+   View models and general data sources remain for P4e.
 7. **Draw-on for Glyphy outlines — deferred to 0.2.** Trims work on authored strokes in 0.1. For
    glyph ink the likely 0.2 design is a `reveal` mask: an authored centreline subpath, stroked wider
    than the ink and trimmed, used as a mask so the visible ink stays the exact outline
@@ -516,6 +516,43 @@ The optional `paint` module (MODULES.md) extends 0.1 documents with `requires: [
 An unregistered module is `unknown-feature` at `/requires/<index>`, before structural checks.
 Using its keys or animation addresses without declaring it is `undeclared-feature` at that key
 or address, with hint `add "paint" to "requires"`. Ordinary 0.1 documents keep their behaviour.
+
+### Image nodes
+
+With `requires: ["paint", "assets"]`, an image node has `id`, `type: "image"`, `asset`,
+`x0`, `y0`, positive `width` and `height`, and optional `fit`, `align`, `sampling`.
+It accepts the common transforms, opacity and visibility. Width and height are animatable
+(nonnegative resolved values); layout options and the asset name are static.
+`unknown-asset` at the node's `/asset` names an absent declaration; `asset-type` at that
+pointer rejects a declaration whose type is not `image`.
+
+Let the box be W×H and the intrinsic size I×J. The image is scaled and clipped to the box:
+
+| fit | scale (x and y unless specified) |
+|---|---|
+| `contain` (default) | min(W/I, H/J) |
+| `cover` | max(W/I, H/J) |
+| `fill` | x=W/I, y=H/J |
+| `none` | 1 |
+| `scale-down` | min(1, W/I, H/J) |
+| `fit-width` | W/I |
+| `fit-height` | H/J |
+
+`align` is `center` (default), `top-left`, `top`, `top-right`, `left`, `right`,
+`bottom-left`, `bottom`, or `bottom-right`. Each axis places the scaled image at 0,
+(box−image)/2, or box−image. Overflow is always clipped, including `none`.
+`sampling` is `bilinear` (default) or `nearest`; SVG maps these to `image-rendering="auto"`
+and `image-rendering="pixelated"`. The browser's final display scaling remains host-controlled.
+
+AniML: `<image id="photo" asset="photo" x0="0" y0="0" width="24" height="24"
+fit="contain" align="center" sampling="bilinear"/>`. `x0`/`y0` specify the untransformed
+box origin; common `x`/`y` remain transform translations. `fit` and `align` deliberately keep
+their JSON spellings: SVG `preserveAspectRatio="xMidYMid meet"` maps to contain/center,
+`slice` to cover and `none` to fill. No `preserveAspectRatio` input alias exists, since SVG
+cannot express all seven fit modes. Backends receive `Geometry.kind: "image"`, box coordinates,
+and renderer-neutral image metadata (asset, source, intrinsic size, fit, align, sampling).
+SVG uses a nested clipped viewport and an image leaf; transforms stay on the node's group.
+The host resolves missing intrinsic dimensions before rendering; core draw data keeps them absent.
 
 ### Gradients
 
@@ -754,3 +791,277 @@ are independently implemented from SVG semantics; no Rive code or algorithms wer
 The explicit references and retained ordering follow the lessons in
 [format/graph research](../docs/research/rive-format-and-graph.md) §6; the sleeping renderer remains
 as described in [web research](../docs/research/rive-web-runtime.md).
+
+## bind
+
+The optional `bind` module requires `requires: ["bind"]`. At document level,
+`bind: { "ring.stroke.trimEnd": "progress" }` maps animatable addresses to expressions.
+Every step evaluates bindings after all state layers resolve and before property clamping (§7),
+so a binding overrides a pose, timeline or crossfade on the same address. Resolved bound
+addresses appear in `Player.values()`, `anima sample` snapshots, dirty slots and `anima inspect`
+(the `bound` list). Inputs still apply in queued arrival order. A settled binding sleeps until
+an input write wakes the player; its value changes on the next step, including `step(0)`.
+
+### Expressions and types
+
+Sources are declared number or bool input names, finite JSON number literals, hex colours
+(`#rgb`, `#rrggbb`, `#rrggbbaa`), parentheses, unary `+`/`-`, binary `+ - * /`, and the functions
+`min(a,b)`, `max(a,b)`, `clamp(x,lo,hi)`, `mix(a,b,t)`. Nothing else is allowed: no property
+reads, strings, boolean literals, comparisons, assignments or arbitrary calls. Identifiers use
+the input-name grammar; a hyphen is part of a name, so write `level - other` for subtraction
+between inputs. Multiplication/division precede addition/subtraction; binary operators associate
+left; unary signs have highest precedence. Whitespace is insignificant between tokens.
+
+A bare bool input retains its bool type for boolean targets. Numeric operations and number
+targets convert bools to 0/1. Numbers do not implicitly become bools. `min`, `max`, `clamp` and
+numeric `mix` return numbers; `mix` also accepts two hex colours and a numeric/bool weight,
+returning a colour. Mixing a number and colour is invalid. Colour interpolation is §5 sRGB
+channel interpolation (including alpha, rounding and channel clamping); weights may extrapolate.
+Numeric `mix` is `a + (b-a)*t`; `clamp` is `min(max(x,lo),hi)`. Non-finite arithmetic results
+(including division by zero) resolve to zero when consumed by another operation or the target,
+before property clamping. Trigger inputs cannot
+be values. Evaluators accept a scope map of named inputs, reusable for component input bindings.
+
+### Validation
+
+`bind-type` rejects incompatible operands or target types; `unknown-input` rejects unknown names.
+`bind-syntax` rejects malformed expressions, unknown calls, wrong arity or limits (512 tokens,
+64 nested expressions). Diagnostics point to `/bind/<escaped-address>`, include the 1-based
+character offset in the expression message, and give a corrective hint. Parser nodes/errors
+retain zero-based UTF-16 offsets. `bind-cycle` rejects attempted cyclic property references,
+including self references. Valid expressions read only inputs and cannot form property cycles;
+acyclic property references are also rejected. Targets use the ordinary `unknown-address`,
+`not-animatable` and `undeclared-feature` diagnostics. The old object-valued `from/map` form is
+not supported. `anima schema bind` describes both spellings from the registry.
+
+The grammar and evaluator are independently written. Strict unknown-name checks and a single
+post-state pass follow the lessons about silent unresolved bindings and feedback loops in
+[animation/state research](../docs/research/rive-animation-and-state.md) §C. No Rive source,
+documentation text or binary format was used.
+## assets
+
+The optional `assets` module adds an `assets` map and image draw data. Image nodes also
+require `paint`. Core validation and `Player.step` perform no IO. Fonts, audio and blobs
+are declarations only; their consumers arrive in P6/P4d.
+
+Each named asset is `{ type, source, storage?, width?, height? }`. `type` is `image`, `font`,
+`audio` or `blob`. `source` is required and nonempty: a data URI or URL (relative URLs are
+relative to the document). Optional `storage` is `embedded` for data URIs or `referenced`
+for URLs; omitted storage is inferred. A disagreement is `asset-storage` at `/assets/<name>/storage`.
+`width` and `height`, when present, are positive intrinsic dimensions, in grid units for
+layout. Omitted dimensions are decoded by the host before drawing. Declared dimensions override
+decoded dimensions independently. Data URIs use percent encoding or padded standard base64;
+malformed encoding is `bad-data-uri` at the source. An empty source is `missing-source`;
+an absent source is `missing-key` at the asset object. Messages carry a repair hint.
+
+AniML declares `<asset name="photo" type="image" src="photo.png" storage="referenced"/>`
+at document level; registry `source` maps to `src`. All other field spellings match JSON.
+
+The browser module `@anima-format/web/assets` registers assets and the SVG image backend;
+image documents also import `@anima-format/web/paint`. Images decode before `anima:load` and
+initial `ready` resolution. URLs resolve relative to the icon's `src`, or `document.baseURI`
+for inline/programmatic documents. `icon.assets = (name, info) => url | Blob | Promise<url | Blob>`
+replaces the source before decode; `info` is a copy of the authored declaration. A resolver rejection
+or image decode failure empties the icon and dispatches `anima:error` with `asset-load`, the
+source pointer, message and hint. Embedded data URIs require no network. Resolved data is private
+to the loaded model; source declarations are preserved. Superseded loads cannot install their scene.
+Fonts/audio/blob do not load or invoke the resolver yet.
+
+`anima build --embed` embeds local referenced assets (paths relative to the source file), sets
+storage to `embedded`, and changes no fields outside the assets map. It supports AniML and
+AniML scripts in HTML. Already embedded assets are unchanged. Other URL schemes cannot be read
+by this disk build and report `asset-load`; HTTP asset fetching is a browser host responsibility.
+`anima render` embeds local image sources and decodes intrinsic sizes through resvg before
+rendering; other asset types remain declarations. IO/decode failures report `asset-load` at
+`/assets`, with a message and hint. Build does not decode or transcode image bytes.
+
+
+## components
+
+The optional `components` module requires `requires: ["components"]`. A document's `components`
+map holds named nested documents: `grid`, optional `viewBox`, `inputs`, `nodes`, `timelines`,
+`machine`, `listeners`, `colors`, `glyphs`, `a11y`, `hit` and `bind`. Definitions inherit the enclosing
+`requires` list. References to components resolve in the enclosing document's component map,
+including from other definitions; all definitions, even unused ones, are validated. Each placement
+owns a separate player; compiled definitions and static geometry may be shared.
+
+An instance node has `{id, type: "instance", component, inputs?, speed?, paused?}` and the ordinary
+node transform, opacity and visibility properties. `component` names a definition. `inputs` maps its
+bool/number inputs to literals or strings `{expression}`. Expressions use the bind grammar and
+require `bind`; their scope is the parent's applied inputs. Triggers cannot be initialized with
+values. Omitted inputs retain their component defaults. Literal initializers apply once, before
+subsequent queued writes. Number inputs clamp to their declared bounds.
+
+Component inputs must not use any key in the instance node's registry shape. This includes `id`,
+`type`, `component`, `inputs`, transform keys, `opacity`, `visible`, `speed`, `paused`, and keys
+installed by other node modules such as `blend`, `mask` and `clip`. Those names retain their plain
+instance attributes and `<instanceId>.<property>` addresses. `reserved-input-name` points at the
+input declaration (`/components/<name>/inputs/<input>`, with source line/column in AniML), with the
+hint `rename the input; <name> is an instance property (e.g. use pos-x)`. The reserved set is derived
+from the active registry's instance shape, including module keys; it is not a separate hand list.
+
+### Stepping, writes and events
+
+After §7 step 5, the parent evaluates instance input expressions, then resolved parent addresses
+that name instance inputs, and steps children in node order with `dt * speed` (`speed` defaults to
+1, must be finite and ≥0). Each child's own state speeds multiply this speed. A `paused` instance
+(default false) retains its clocks and queued input actions without stepping. An invisible instance
+whose player is settled and has no queued writes is not stepped. Invisible running players finish
+normally. Reduced-motion policy propagates from the parent before stepping.
+
+A parent's actions and host API may address `<instanceId>.<input>` in `set`, `toggle` and `fire`.
+Bindings, poses and tracks may target a bool/number instance input at the same address; explicit
+resolved addresses override inline instance expressions. Writes reach the child before its step.
+Nested action addresses continue with dots (`outer.inner.count`). Invalid inputs/types are load
+errors, just like local inputs.
+
+Pointers are transformed through the inverse instance world matrix and routed to each child
+player. Invisible or singular instances receive `leave`. The child's own hit areas and listeners
+then operate in local grid units; parent listener targets on instances use their local viewBox.
+Instances do not establish a viewport clip or automatic fit; use their ordinary transforms and
+composite clipping to place/clip them.
+
+A child's events are returned by that parent step as `<instanceId>.<event>`; nested names continue
+with dots. Event layers use slash scope (`outer/inner/layer`), retaining null for listener events.
+The parent queues the bubbled event as a one-step trigger and queues matching parent listeners
+(`on: "badge.selected"`). Those actions and parent transition conditions (`when: "badge.selected"`)
+are applied on the **next parent step**, including `step(0)`. Child events follow the parent's own
+events in deterministic instance order. Pending bubbled events/actions keep the parent unsettled.
+This single pass prevents event feedback from rerunning the state machine in one step. A parent is
+settled only when its own machine and all unpaused children are settled and no actions are queued.
+
+### Drawing and inspection
+
+An instance contributes a renderer-neutral group with its local transform and the child's draw
+tree as children. Draw entries have scoped ids (`badge/dot`, `outer/inner/dot`); resources and
+source references are remapped into the enclosing draw tree. SVG uses scoped ids under the host's
+unique id prefix. Clip, mask, blend and paint behavior use the ordinary draw/backend contract.
+
+`Player.states()` and `inspect()` include slash-scoped child layers. `Player.values()` and sample
+snapshots include child inputs (`badge/count`) and animated values (`badge/dot.r`), recursively;
+selected snapshots accept those same scoped addresses. `anima inspect` lists placed instances and
+their initial states. The playground's state panel shows live instance states.
+
+### Limits and diagnostics
+
+No recursive definitions are allowed: direct/indirect cycles are `component-cycle`. Expanded
+placement depth is at most 8 and the total number of instances is at most 256, including repeated
+nested placements (`limit-exceeded`). Ordinary per-document node/key/layer limits still apply to
+each definition. `unknown-component` points at the instance's component name; `unknown-input` and
+`input-type` point at bad input initializers/actions. Bind expressions retain `bind-syntax`,
+`bind-type` and `unknown-input`. `unknown-event` rejects unresolved listener event names;
+`component-event-collision` rejects a component input and event sharing a scoped address.
+Diagnostics retain JSON pointers and corrective hints; errors inside definitions point under
+`/components/<name>`. No partially valid instance tree escapes a failed load.
+
+This implementation is independent. Explicit names, validation before references are used and
+retained nested transforms follow [graph research](../docs/research/rive-format-and-graph.md) §6;
+a single ordered update pass avoids the feedback loops discussed in
+[state research](../docs/research/rive-animation-and-state.md) §C. Sleep behavior follows
+[web runtime research](../docs/research/rive-web-runtime.md), with no separate instance scheduler.
+
+## surface
+
+The optional `surface` module extends `paint` and `assets` with image paints, patch slicing and
+paint feathering. The independent algorithms below follow SVG semantics, not Rive source.
+The split keeps paint (5120 B), composite (4096 B) and assets (2048 B) within their existing
+budgets; surface has an 8192 B incremental budget. Browser import `@anima-format/web/surface`
+also registers paint; assets and components remain separate imports. This follows the optional
+backend and sleeping-renderer lessons in [web research](../docs/research/rive-web-runtime.md) §13
+and the renderer-neutral contract in [MODULES §3.1](MODULES.md#31-the-draw-layer).
+
+### Image paints
+
+A fill or stroke with `type: "image"` requires `asset`, `imageWidth`, `imageHeight`; the last two
+are strictly positive tile sizes in grid units. It also needs `assets` in `requires` and a declared
+image asset. It replaces `color`, gradient coordinates and `stops`. Usual stroke width, cap, join,
+dash, trim, visibility and ordered-paint semantics still apply. Optional `imageX`, `imageY`
+(default 0), `imageRotate` (degrees, default 0), `imageScaleX`, `imageScaleY` (default 1) transform
+the tile in local coordinates: scale, then rotate about the origin, then translate. Static zero
+scales are load errors. Transform fields are animatable. The SVG backend uses a repeating
+`pattern` with `patternUnits="userSpaceOnUse"`, `patternTransform`, and an image stretched to the
+specified tile size. Intrinsic aspect ratio does not affect image paints.
+
+Optional `modulate` is a literal hex colour. It multiplies non-premultiplied sRGB R, G, B and alpha
+channels independently by the colour channels divided by 255; SVG uses an sRGB `feColorMatrix`
+on the image inside the pattern. It is static. Defaults to identity. No slot modulation is defined.
+Draw data contains the resolved URL, tile dimensions, transform and normalized modulation channels.
+AniML uses `<imagePaint asset="tile" image-width="8" image-height="8" paint="stroke"/>`
+inside the painted node (`paint` defaults to fill); the registry supplies both spellings.
+See `examples/image-paints.animl` and `spec/draw-conformance/surface-image/`.
+
+`unknown-asset`, `asset-type`, `undeclared-feature`, `missing-key`, `paint-conflict`, `bad-color`
+and `bad-value` point at the affected paint/field and give a corrective hint. Image-specific
+fields on another paint type are errors. Sources resolve through the same assets mechanism as
+image nodes. No IO occurs during stepping.
+
+### N-slice patches
+
+`slice: { x, y, width, height, modes? }` on an image, group or component instance defines a source
+rectangle using the first and last entries of strictly increasing `x`/`y` cut arrays (2–9 entries
+per axis, grid units, including both bounds). There are at most 64 patches. `width`/`height` are
+positive target sizes. `modes` has one entry per patch in row-major order: `stretch`, `repeat` or
+`hidden`; omission means stretch everywhere. Slice structure and target size are static.
+
+For four or more cuts on an axis, the first and last bands keep their authored lengths. Interior
+bands divide the remaining target length in proportion to their source lengths. If the target
+is smaller than the two border lengths, borders shrink proportionally and all interior bands
+collapse to zero. Two or three cuts divide the entire target proportionally, since there is no
+interior band bounded by two distinct border bands. Target origin is the first source cut for
+groups/instances, or the image's `x0`,`y0` for images. Image source cuts must begin at zero and end
+at the asset's declared intrinsic width/height; those dimensions are required. Slicing replaces
+image fit/alignment and node width/height layout. Node transforms apply to the resulting drawing.
+
+Stretch maps each source rectangle to its target rectangle, independently on each axis. Repeat
+tiles that rectangle at its original grid size, from the target's upper-left corner, clipping the
+last partial tile; it does not scale either axis. Hidden contributes no pixels. SVG implements
+patches using clipped nested SVG viewports and patterns referencing a shared source drawing.
+
+For vector groups and components the source is the live rendered local subtree, clipped at each
+cut. Each patch scales the *whole* source appearance, including strokes, filters and compositing.
+This is rendered-output slicing, not path deformation: geometry, hit testing, component inputs,
+state and pointer coordinates remain in source space. Child animations remain live. Fixed-width
+strokes are fixed in the source drawing before patch scaling. True geometry deformation and
+inverse patch pointer mapping are deferred; duplicating stateful component players per patch
+would change document semantics. The resolved draw data lists source/target rectangles and modes.
+
+Diagnostics: `slice-cuts` for unordered cuts; `slice-limit` beyond 9 cuts; `slice-modes` for a wrong
+mode count; `slice-bounds` for image intrinsic-bound mismatch; `slice-type` for an unsupported node
+kind. Each points into `slice` and includes a hint. Structural errors use ordinary registry codes.
+`spec/draw-conformance/surface-slice/` records the 9-patch result, including repeat and hidden patches.
+AniML uses a `<slice x="…" y="…" width="…" height="…" modes="…"/>` node child.
+Cut lists decode to numbers and modes to strings. See [ANIML](ANIML.md#surface-module) and
+`examples/slice.animl` for the syntax and round-trip contract.
+
+### Feather falloff
+
+A paint may have `feather: { inner?, outer?, offset?, enabled?, space? }`. Amounts are nonnegative
+grid distances, default 0. Offset is a two-number local vector, default `[0,0]`; enabled defaults
+true and disabling preserves all settings. Space defaults `local`. Inner, outer, offset components
+and enabled are animatable via `fill.feather.inner`, `stroke.feather.enabled`, etc., including
+ordered paint addresses. Feathering applies independently to each paint, before node opacity.
+
+Let P be the premultiplied RGBA paint image, A its original alpha, and T the offset translation.
+Let B(r) be a Gaussian convolution of T(P) with standard deviation r/3, with B(0)=T(P).
+The output is `A * B(inner) + (1-A) * B(outer)`, componentwise in premultiplied sRGB; alpha is
+clamped to [0,1]. For a fully covered hard edge with no offset, Gaussian falloff has its midpoint
+at the edge and about 99.7% of its transition within three standard deviations on either side.
+This is an explicit Anima Gaussian model, not a claim of pixel parity with Rive's feather model.
+At zero inner/outer and zero offset the original paint is unchanged.
+
+SVG uses `feOffset`, two `feGaussianBlur` primitives (`stdDeviation=amount/3`), `feComposite`
+in/out with SourceAlpha, then an arithmetic sum (`k2=k3=1`), all with sRGB filter interpolation.
+The filter region expands the document viewBox by three times the greatest amount plus the
+largest offset component. Root SVG viewport clipping still applies. Separate paint leaves prevent
+feathering a fill from blurring an unfeathered stroke.
+
+World-space feathering cannot preserve isotropic falloff through arbitrary local nonuniform
+transforms in this SVG implementation. `space: "world"` is represented in draw data; when enabled,
+the SVG backend throws an error carrying `code: "unsupported-render"`, the source JSON pointer,
+a message and a hint to use local space. Canvas support is deferred to Pc. Disabled world feathering
+renders normally. Unknown spaces and negative/nonfinite amounts receive registry diagnostics.
+`spec/draw-conformance/surface-feather/` defines resolved draw data independent of browser rasterization;
+Chromium/Firefox pixel tests check the Gaussian halo, disabled state and independent stroke.
+AniML uses `<feather paint="fill|stroke" …/>` node children, or a feather child within an ordered
+`fillPaint`/`strokePaint`. It retains the parent paint and preserves empty and disabled settings;
+see [ANIML](ANIML.md#surface-module) and `examples/feather.animl`.

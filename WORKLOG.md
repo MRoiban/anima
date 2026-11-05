@@ -1,9 +1,9 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Order: P4a (PR now) → P5 components/assets (+ input→value binding) → Pc canvas → P4b–e → P3b → P6–P10.
-State: P4a complete on p4a-paint: 747 tests; core+web 16901 (owner-accepted); paint 3708, composite 3855, markup 7554; parity 173/1238. Oracle cases for P4a open.
-Next: PR p4a-paint → merge when CI green; then P5 design (components, per-instance inputs, binding, libraries, assets).
+Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
+State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
+Next: P5-7 (markup owner) running → then D1 module folders + D2 scoped tests (parallel) → D3 new-capability scaffolder → P5 AniML benchmark run → P5 PR (full check in CI).
 Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
 Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
@@ -73,3 +73,23 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 09:10 [claude]: merged round 2 (51ac8b7): core+web 16901 (−52, plateau; 204 over), compile speed restored — my interleaved vitest medians b7b6e92 ~1081 ms vs now ~1010 ms; next P4a-7 friction then a final size round (anywhere in core+web), else ask owner
 - 2026-11-06 09:30 [owner]: core+web size (16901, +204 over pre-draw-layer) is not a blocker → no final size round; P4a PR after P4a-7 friction fixes
 - 2026-11-06 10:00 [claude]: merged P4a-7 (cd0205d) 5/5; parity 46 rows done in P4a, 29 image/n-slice/feather rows → P5; LOG P4a entry with numbers; opening PR
+- 2026-11-06 10:40 [claude]: PR #10 merged (e0957cb); P5 design decided (design/p5/DESIGN.md: templates/libraries in AniML, components, bind expressions, assets)
+- 2026-11-06 10:50 [claude]: P5 wave 1 launched (Sol high): P5-1 bind, P5-3 AniML libraries/templates, P5-4 assets+image; components (P5-2) after bind
+- 2026-11-06 12:00 [claude]: merged P5-3 templates (a119eba): 767 tests, examples byte-identical; markup 9506/8192 over → split library support into its own browser entry; compile time unchanged on fixed workload (interleaved 818–1092 vs 881–995 ms)
+- 2026-11-06 13:00 [claude]: merged P5-1 bind (fdcc4cc): 846 tests, bind 1367/2048; owner size ceilings recorded (PLAN, parity README, table-driven tools/size.ts with totals: full-featured 34.7 KB); per-frame cost in tools/perf.ts; oracle cases scheduled before P5 merge
+- 2026-11-06 13:15 [claude]: launched P5-2 components (xhigh) and P4a Rive oracle cases (tests/oracle, committed Rive frames, CI compares Anima renders); running: assets, markup-libraries split, components, oracle (4)
+- 2026-11-06 14:00 [claude]: merged P5-4 assets (b04b23d) with bind (16 conflicts resolved): 879 tests; core+web 17083, assets 1544, full-featured 36.2 KB; markup 9722 over (split running)
+- 2026-11-06 14:40 [claude]: merged P5-3b library split (3b12d00): markup 8093/8192, markup-libraries 1755/2048 over web+markup; size.ts supports per-module base
+- 2026-11-06 15:20 [claude]: merged P4a oracle cases (7b6e847): 17 cases/21 frames vs committed Rive frames, all within AA tolerance (max share over 16: 0.35%); 908 tests
+- 2026-11-06 21:45 [claude]: merged P5-2 components (f4f5705) with assets/libraries (12 conflicts): 962 tests; core+web 17388, components 3477/4096, full 39.7 KB; markup 8551 over → split; perf noisy (load 7): prefix 751–917 ms, toolbar frame 50 µs
+- 2026-11-06 22:00 [claude]: launched P5-6 markup split (component forms), P5-5 n-slice/feather/image paints, and the Rive side of the P5 benchmark (toolbar brief); AniML side after P5-5/P5-6
+- 2026-11-07 00:10 [claude]: merged P5 benchmark Rive run (4b04ee2): 6/6, 10m48s, 997 lines/73k chars incl. generator + self-made digit font; frame 08 checked (badges 3 and 2)
+- 2026-11-07 00:40 [claude]: P5-5 (fe7438f) partial: image paints done; new surface module (n-slice + feather, 7576/8192) without nested AniML forms; 3 markup test failures; held unmerged until P5-6 markup split lands, then one markup-owner follow-up (design/p5/SURFACE-HANDOFF.md on that branch)
+- 2026-11-07 01:30 [claude]: merged P5-6 split (444194; compile interleaved ~867→842 ms, no regression) and P5-5 surface (fe7438f); 988/993 tests (3 markup fixture/name tests, demo); markup 8255 over again → P5-7 markup owner follow-up
+- 2026-11-07 02:00 [owner]: dev process: module folders + generated index (order from deps, composed registry), scoped tests locally / full suite in CI, new-capability scaffolder — recorded in PLAN/LOG; scheduled after P5-7
+- 2026-11-07 03:30 [claude]: merged D2 scoped tests (482bc30): test:scope -- paint --no-browser 6 s / 23 files vs full ~145 s; with browser the paint target is too broad (30 files) → tighten via module manifests in D1; CI job summary prints size/perf
+- 2026-11-07 05:00 [claude]: merged P5-7 (0cde698): 4/4; 3 consecutive full checks green at default concurrency (1045 tests); markup 7357/8192; real late-registration/schema-sync bugs fixed; next D1 module folders
+- 2026-11-07 05:15 [claude]: launched D1 module folders (xhigh) and the AniML side of the P5 benchmark (format final for P5)
+- 2026-11-07 07:00 [claude]: merged P5 AniML benchmark run (a80efc3): agent 5/6, re-check 6/6 (pop renders 1.25 with its script; sheet never triggered it); 3m43s vs Rive 10m48s; findings: on-change condition → P4c, text → P6, script set-before-advance documented
+- 2026-11-07 09:30 [claude]: merged D1 module folders (d9510ae): 6 modules + libraries in folders, generator --check, 12 orders identical; core+web 17789 (+248, logged); test:scope paint 12 files/4.2 s; next D3 scaffolder then P5 PR
+- 2026-11-06 11:00 [claude]: merged D3 scaffolder (c7e3012): 31 files per row, idempotent; opening P5 PR (full suite in CI)

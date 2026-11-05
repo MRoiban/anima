@@ -1,0 +1,20 @@
+{
+  "anima": "0.1",
+  "name": "polygon-rounded",
+  "grid": 20,
+  "requires": ["paint", "composite"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "polygon",
+      "fill": {
+        "color": "#4263eb"
+      },
+      "cx": 10,
+      "cy": 10,
+      "sides": 5,
+      "radius": 7,
+      "cornerRadius": 1
+    }
+  ]
+}

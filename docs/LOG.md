@@ -655,3 +655,565 @@ The older P4a-6 target remains open (core+web is still 204 B above 16697 B).
 - **Parity**: 46 rows done (173 / 1 238 overall). Images, n-slice and feathering moved to P5; other
   paint rows (angular gradients, gradient transform, trim modes, effect stacks, additive blend)
   stay in P4. **Open:** the Rive oracle cases for these features (MODULES §5) — not yet written.
+
+
+### P5-3 implementation checkpoint (acceptance blocked)
+
+Build-time AniML imports/templates, positional diagnostics, CLI filesystem resolution, browser
+async fetching and project-sandboxed playground compilation are implemented. Bell, moon and trash
+share the hover/down listener wiring through `examples/lib/ui.animl` (`press`), preserving their
+different animation layers and all compiled `.ani` bytes. Components deliberately report
+`components-unavailable` until the components module lands. Formatting preserves reuse forms;
+decompilation documents that these cannot be recovered. No runtime dependencies were added.
+
+The expansion stays in the authoring layer, preserving the self-contained runtime documents and
+Glyphy path provenance described in `docs/research/glyphy-compat.md`, rather than adding another
+runtime resource graph. Baseline at 0179c9c: `npm run check` green (747 tests), markup 7554/8192 B;
+`compile: bell 2.18 ms; all 9040 prefixes 759 ms`. The implementation exceeds the unchanged markup
+budget; P5-3 is **not accepted**. Final verification and metrics are recorded in WORKLOG.
+
+Final checkpoint: 767 tests pass (Chromium and Firefox included), typecheck/lint/format pass;
+`npm run check` exits 1 solely at markup **9506/8192 B** (1314 B over). Core+web is 16992 B.
+Both artifact checks pass independently; no `.ani` changed. Final compile line:
+`compile: bell 5.15 ms; all 8935 prefixes 1429 ms`. An immediately subsequent baseline run under
+the same concurrent workload reported `compile: bell 4.41 ms; all 9040 prefixes 1239 ms`.
+The initial baseline timings above came from a quieter run. No budgets or test limits changed.
+
+## P5-1 — input bindings (2026-11-05)
+
+- Implemented DESIGN §4: optional `bind` map / `<bind target value/>`, position-aware typed
+  expression parser and reusable named-input evaluator, `bind-type`, `unknown-input`,
+  `bind-cycle`, `bind-syntax`, and post-state/pre-clamp application through the existing slots.
+- CLI `inspect` lists bound addresses; `sample` snapshots include them; `schema bind` derives
+  both attribute spellings from the registry. Added the progress-ring example, authoring guide,
+  spec and AniML forms, and four manually specified conformance cases (number, colour, bool,
+  state override). Chromium and Firefox verify the next frame updates a settled ring, including
+  a separately bundled paint-module address.
+- Minimal base hooks: the optional evaluator map and active runtime address resolver supplied
+  to module registration. Core+web **16901 → 16934 B (+33 B)**; bind **1369 / 2048 B**;
+  markup **7646 / 8192 B**; paint **3712 / 5120 B**; composite **3850 / 4096 B**.
+- `VITEST_MAX_WORKERS=1 npm run check`: **826 tests / 37 files**, all green; both browsers run,
+  artifacts current (43 AniML files). Default-worker runs hit unchanged five-second prefix-test
+  limits under load average ~40 on 12 CPUs. No limit or budget was changed.
+- Compile lines: baseline `bell 2.96 ms; all 9040 prefixes 845 ms`; checked build
+  `bell 3.18 ms; all 9040 prefixes 1173 ms`. Separate-process repeated baseline/current prefix
+  medians under the same later load were both 839 ms. An in-process interleaved comparison
+  (400 single compiles / six sweeps per version) measured **2.17 → 2.20 ms / 848 → 937 ms**;
+  record the variability rather than claim a timing win.
+- Updated construct/test only on 16 data inventory rows: `bind-components`, `binding-to-target`,
+  `calculate-{add,subtract,multiply,divide}`, `formula-expression`, `formula-function-{min,max}`,
+  `formula-operator-{add,subtract,multiply,divide}`, `operation-operand-value`,
+  `range-clamp-{lower,upper}` (all prefixed `data.`). No additional state-machine row is fully
+  covered. Status/module/phase decisions remain with the orchestrator; view models and instance
+  input destinations remain P4e / P5-2. No Rive commands or oracle runs, dependencies, licence,
+  push, PR or merge.
+
+## Size ceilings (owner, 2026-11-06)
+
+Size is now a clear line, not a per-phase argument (min+gzip; Rive's web runtime is about 1 MB):
+core + web ≤ 30 KB (16.9–17.0 KB now); each module ≤ 5–8 KB, split before raising; full-featured
+page ≤ 100 KB (34.7 KB now: core + web + markup + paint + composite + bind); Rive-class page
+≤ 200–250 KB; tools unlimited. Crossing a use-case ceiling is the owner's call. `tools/size.ts` is
+now table-driven: every module's budget, the module ceiling, and both use-case totals (one bundle
+per class, so shared code counts once). `tools/perf.ts` adds per-frame cost (Player.step +
+drawFrame: bell ~85–115 µs, composite example ~55–70 µs on this machine, varying with load) next
+to compile time. The Rive oracle cases for P4a are scheduled before P5 merges.
+## P5-4 — assets and image nodes
+
+Assets declare image/font/audio/blob sources and embedded/referenced storage. Images contribute
+renderer-neutral geometry; SVG is a separate backend with a clipped viewport, seven fits,
+nine alignments and bilinear/nearest sampling. The web module decodes images, resolves document-relative
+URLs and host URL/Blob overrides, and reports failures. CLI builds embed local sources without
+changing other document fields; render embeds and decodes disk images through existing resvg.
+AniML uses `src` for asset source and separate `fit`/`align` instead of a partial SVG
+`preserveAspectRatio` alias. No runtime dependency was added. Asset indirection follows the idea in
+[research/§6](research/rive-format-and-graph.md#6-lessons-for-anima), with failure semantics from
+the decided P5 design; draw data follows MODULES §3.1, independently implemented.
+
+Verification: `VITEST_MAX_WORKERS=1 npm run check` green, 38 files / 780 tests, including
+Chromium and Firefox images (all fits, embedded no-network, document-relative sources,
+host Blob replacement and errors). Core+web 16961 B gzip (+60 B from 16901); assets
+1587/2048 B, paint 3709/5120 B incremental. Compile: bell 2.95 ms; all 9040 prefixes
+845 ms. Generated schema, demo/bundles and 40 AniML siblings are current. Parity construct/test
+fields updated for covered rows; statuses left to the orchestrator. No test limit or size budget
+was loosened; the exact conformance corpus count increased by one for the new case.
+
+### P5-3 browser compiler budget fix
+
+Library/template expansion and async import resolution now register through a separate authoring
+layer. The tooling entry registers it automatically, preserving CLI, playground and build behavior.
+Browser markup uses the lean compiler; `@anima-format/web/markup-libraries` opts into the layer,
+including when standalone bundles load in either order. Missing support reports
+`markup-libraries-unavailable` with the entry name and `anima build` hint. This keeps reuse at build
+time as specified in design/p5/DESIGN.md §2 and avoids a runtime resource graph (see
+`docs/research/glyphy-compat.md`). No runtime dependencies, measurement changes or relaxed limits.
+
+`npm run check` passes: 779 tests, including 74 browser cases across Chromium and Firefox; 39
+AniML artifacts checked. Existing browser assertions are unchanged; their setup loads the new
+libraries entry for imported examples. Markup falls from 9506 to **7857/8192 B**; the new layer is
+**1777/2048 B** incremental over web+markup. Core+web stays 16992 B. A serial pair using HEAD's
+compiler and the working tree with the unchanged fixed `tools/perf.ts` workload reports
+`compile: bell 4.05 ms; all 9040 prefixes 1411 ms` before and
+`compile: bell 2.83 ms; all 9040 prefixes 975 ms` after. Host load varies; these are observations,
+not a claimed speedup. Local commit only; no push or PR.
+
+
+## P4a Rive frame oracles (2026-11-05)
+
+- Added 17 paired scenes / 21 committed Rive reference frames under `tests/oracle/`,
+  plus AniML/compiled `.ani`, Anima renders, raw diff images and exact measurements.
+  Local headless Rive only; no account command, interactive preview, `.riv` read,
+  runtime dependency, push, PR or merge. Reproduction scripts retain no binary build files.
+- `tools/oracle.ts` calls the CLI render implementation and compares raw RGBA pixels;
+  Vitest covers every case and checks compiled fixture freshness. Maximum channel
+  delta and share over threshold 16 both have per-case limits. All 21 frames pass;
+  worst share 0.3507% (star), largest delta 95 (dash endpoints); zero >16 deltas in
+  locally flat reference regions. Per-case numbers: `tests/oracle/README.md` / `metrics.json`.
+- Native Rive corner rounding differs from Anima's specified quadratic cutbacks:
+  Rive oracle paths explicitly encode those curves. Other limits (radial focal points,
+  stop-position versus colour animation, blend coverage) are documented, not overclaimed.
+  Initial outside-stroke join mismatch (190 / 0.264% over threshold) corrected by
+  matching explicit miter joins on both scenes → 1 / 0%. No tolerance was increased.
+- Added oracle paths to the 17 inventory rows actually covered; regenerated parity views.
+- Verification: `VITEST_MAX_WORKERS=2 npm run check` passes types/lint/format and all
+  **863 tests / 39 files**, then fails the inherited **markup 9583/8192 B** budget
+  (no runtime source was changed). First default-worker run had two existing browser
+  failures (Chromium bind undefined player, Firefox playground timeout/server close),
+  both pass with two workers. Web and AniML generated checks and performance check
+  pass separately; strict oracle CLI passes. Full check is explicitly **not green**.
+
+
+
+## P5-2 — component players (2026-11-05; acceptance pending markup split)
+
+- Implemented DESIGN §3: self-contained component definitions, instance nodes in both syntaxes
+  (including libraries), literal and parent-scoped expression inputs using the bind evaluator,
+  scoped set/fire/toggle and bound/animated input destinations. Each placement owns a player;
+  speed and pause apply to clocks, and invisible settled children stop stepping. Local pointer
+  routing and scoped bubbled events are deterministic. Parent event listeners/transitions react
+  on the next parent step rather than rerunning the machine in a feedback pass.
+- Renderer-neutral instance groups append scoped child entries/resources. A final draw hook
+  preserves nested compositing ranks after parent resolution; SVG uses scoped node ids.
+  `inspect`, `sample`, live playground states, the toolbar example (three Glyphy icons using
+  the shared press template plus a bound unread badge), and the authoring/spec chapters ship.
+- Added four manually calculated conformance cases, core validation/clock/compositing tests,
+  AniML round-trip and library-scope tests, CLI coverage, and Chromium + Firefox runtime and
+  playground tests. Owner's namespace ruling is implemented: `reserved-input-name` derives every
+  reserved name from the active instance registry shape (including module node keys), points at
+  the input declaration with source coordinates, and supplies the requested rename hint.
+- Final `npm run check`: typecheck, lint, formatting and **900 tests / 42 files** pass. It exits 1
+  at the unchanged markup budget: **10078 / 8192 B**. The same build/minifier applied to e64cf94
+  source gives markup **9583 B**, so component authoring adds **495 B** to that existing blocker.
+  The parallel markup-libraries split must preserve component pass-through and finish acceptance.
+  No budget or timing-test limit was changed. Both artifact checks pass independently (49 AniML
+  inputs including the library), as do the final performance commands.
+- Sizes (min+gzip): core+web **17026 → 17326 B (+300 B)**, components **3485 / 4096 B**,
+  markup **10078 / 8192 B**, paint **3668 / 5120 B**, composite **3811 / 4096 B**, bind
+  **1414 / 2048 B**; full-featured and Rive-class totals **38176 B** (ceilings 102400 / 256000 B).
+  Only generic loader/player/draw hooks are paid by the base runtime; component behavior stays
+  under `packages/core/src/modules/components/`. Formatter metadata is tooling-only.
+- Final performance line: bell compile **2.38 ms**, **9040 prefixes / 787 ms**; step + draw frame
+  bell **45.7 µs**, composite **27.9 µs**, toolbar (four instances) **32.0 µs**; toolbar compile
+  **4.11 ms**. These are single-session measurements, not a claim of a timing improvement.
+- Updated construct/test on 14 `components.*` parity rows, leaving status/phase to the orchestrator.
+  Assets and oracle trees were not edited. No Rive commands, runtime dependencies, licence,
+  push, PR or merge. The open P5-2 checkbox records the size-gate blocker honestly.
+
+
+## P5 browser markup compiler split — 2026-11-05
+
+- Component compilation (scoped node types/eases, nested document forms, input initializers and
+  resource copying) and bind address compilation now use optional hooks. Components/bind browser
+  entries register their authoring layers automatically through the active element class. Both
+  import orders and separately emitted bundles work; Node tooling always installs all hooks.
+- Registry-derived forms, including assets, stay in the compiler. Structural paint routing and
+  dash parsing live in `markup-paint`, automatically installed by paint. Composite-only markup
+  with structural children explicitly loads `markup-paint`. Missing hooks produce located
+  `markup-components-unavailable`, `markup-bind-unavailable` or `markup-paint-unavailable`
+  diagnostics with a message/hint naming what to load. See ANIML §9 and WEB; the shared-class
+  registration follows the optional-layer precedent and research/rive-web-runtime.md guidance.
+- Unchanged bundler/minifier/gzip method: markup **8551 → 8010 B** (182 B headroom; preferred
+  7800 B not reached). Registration-only entries, measured `over: 'index'` (web): components
+  **468 B**, paint **300 B**, bind **134 B**, each with a **2048 B** budget. Existing budgets
+  remain unchanged: core+web **17388 B**, components **4079/4096 B**, paint **4171/5120 B**,
+  composite **3810/4096 B**, bind **1551/2048 B**, assets **1450/2048 B**, markup-libraries
+  **1805/2048 B**; full-featured total **40035 B**. Remeasure components after parallel integration:
+  its remaining headroom is only 17 B.
+- Final `VITEST_MAX_WORKERS=2 npm run check` exits 0: **966 tests / 47 files**, including four new Chromium/Firefox
+  hook tests; typecheck, lint, formatting, size gates, 51 AniML artifact checks, browser artifacts
+  and performance reporting pass. Existing tests and their limits are unchanged; no runtime
+  dependencies or core/draw edits. Three new registration bundles ship from build-web.
+- Added a bounded four-worker build for independent outputs, retaining the exact `bundle()`
+  function and byte-for-byte artifact comparisons; a standalone check took 8.010 s. Earlier
+  full runs exposed a new test registration race/empty-node fixture (fixed), stale artifacts
+  during editing (rebuilt), load-related timeouts (no limits raised; new test bundles now cached)
+  and intermittent unchanged bind test undefined-player failures (isolated rerun 2/2 pass).
+  Playwright inserts inline module scripts without awaiting execution, consistent with the test
+  loading before module registration. The final run limits concurrency to two workers; no test
+  source, assertion or timeout was relaxed. A default-concurrency full run was also green before
+  the final browser-only missing-hook guard; later default runs hit the bind race.
+- An incomplete uncommitted `markupFeatures` approach was found at the start, saved in
+  `/tmp/anima-incoming-markup.patch` and replaced from HEAD; its origin is unverified.
+  No push, PR, merge, publishing or Glyphy changes.
+
+- Serial reverse-order sample against the c6406e8 source snapshot, with unchanged tools/perf.ts:
+  baseline `compile: bell 2.32 ms; all 9040 prefixes 780 ms`, final
+  `compile: bell 2.77 ms; all 9040 prefixes 1024 ms`; toolbar **3.94 → 4.02 ms**.
+  The final full-check sample was bell **2.82 ms / 964 ms**, toolbar **3.69 ms**. Timings varied
+  with host load; the slower prefix sweep is a measured caveat, not a claimed speed improvement.
+
+## P5-5 implementation checkpoint — surface drawing (partial acceptance)
+
+- Independently implemented optional `surface`: image fill/stroke patterns (local transforms,
+  RGBA modulation, asset resolver), n-slice image/group/component output (stretch/repeat/hidden),
+  and independent per-paint Gaussian feathering. Renderer-neutral data, diagnostics, static and
+  retained SVG share the same backend. Enabled world feathering reports `unsupported-render`;
+  geometry deformation and inverse patch hit mapping are deferred, with semantics in SPEC.
+- Image paints have an AniML example and round trip. Nested slice/feather AniML remains unimplemented:
+  the structural compiler lacks nested paint targets and scalar array/tuple decoding. Existing
+  markup and web entry source files were kept untouched; `web/src/surface.ts` is a new module entry.
+  See `design/p5/SURFACE-HANDOFF.md` for the exact markup follow-up. Acceptance is **1/3**, with
+  draw/render implementations present for all three. No Rive code or algorithm was copied.
+- Focused verification: **24 tests** pass across core, CLI schema and Chromium/Firefox. Browser
+  pixels include modulation, slice modes, vector/component source drawings, independent feather
+  and host-resolved image replacement across separate bundles. Draw conformance lives under
+  `spec/draw-conformance/`, with snapshot/geometry expectations in `core/test/surface.test.ts`.
+- Sizes, min+gzip: core+web **17388 → 17388 B (0)**; paint **3712/5120**, composite **3816/4096**,
+  assets **1460/2048**, surface **7576/8192** (includes paint registration); components **3477/4096**,
+  bind **1416/2048**; full-featured **43049/102400 B**. Markup **8802/8192 B** remains over its
+  unchanged budget (baseline **8551/8192**); markup-libraries **1726/2048**.
+- Initial baseline `tools/perf.ts`: bell compile 2.50 ms, prefixes 723 ms; frame bell/composite/toolbar
+  **50.0/34.0/40.7 µs**. Shared-host load rose during verification, so later absolute timings are
+  not comparable; paired baseline/current timings and full check result are recorded below.
+- Parity construct/test/module mapping updated for 14 drawing-paint rows, leaving status to the
+  orchestrator; `node tools/parity.ts --check` passes. Schema and all 52 AniML artifact checks pass.
+  No runtime dependencies, publication, push, PR or merge.
+- Full `npm run check`: typecheck, lint and formatting pass; **983 passed / 6 failed**. Three
+  failures are markup fixture/namespace expectations for new `slice`/feather fields (compiler
+  coverage plus two exact-list assertions in `names.test.ts`); these files belong to the parallel
+  markup owner. Three further failures are unchanged timing limits (prefix compilation, CLI
+  pivot example, Chromium standalone-demo build). Prefix test passes alone at **1.90 s** total
+  suite time. No limit was changed. The full check is **not green** and cannot reach the known
+  markup size failure until these test failures are resolved.
+- Same loaded-host paired `tools/perf.ts`, baseline c6406e8 then current: bell/composite/toolbar
+  frames **159.2/106.0/134.3 → 136.6/77.1/82.8 µs**; compile bell **6.53 → 8.48 ms**,
+  prefixes **4741 → 2429 ms**, toolbar **16.39 → 8.92 ms**. Opposing swings show host contention;
+  these measurements establish neither a speedup nor a regression. Initial quieter baseline is
+  above. Baseline used an archived c6406e8 tree with its own workspace links, not current sources.
+- Both other unchanged timing tests pass on isolated rerun: CLI pivot example **1/1**, standalone
+  demo **2/2** (Chromium + Firefox); together with the prefix rerun all three timeouts clear
+  individually. Build-web freshness passes; the final size command still exits 1 solely at markup.
+- Final lower-load frame line: bell/composite/toolbar **49.2/32.5/36.0 µs** vs initial
+  **50.0/34.0/40.7 µs**; bell compile **5.40 ms**, prefixes **975 ms**, toolbar compile **4.27 ms**.
+  Compile results remain noisy across the same session; no timing gate was relaxed. Final
+  typecheck/lint/format pass after the last source change, as do the focused core/CLI assertions.
+
+## Development process changes (owner, 2026-11-07)
+
+Three decisions to speed up development, no format change: (1) self-contained module folders with
+a manifest and a generated index, order from declared dependencies, registry composed from the
+module set (tested in several orders) — today modules mutate core tables at import time and every
+module edits the same shared lists, which is why bind + assets hit 16 conflicts; (2) coders run
+scoped tests for what they touch, the full `npm run check` runs once per PR in CI while the next
+task starts (merge only when green); (3) `tools/new-capability.ts <row-id>` scaffolds a capability
+from its parity row. Scheduled after P5-7 lands and before the next new module; recorded in PLAN.
+
+## D2 — Scoped development tests
+
+- Added `npm run test:scope -- <target…>` for package/module unions, conformance, oracle and changed
+  files, with `--no-browser`, `--browser=chromium|firefox` and `--base=<ref>`. Selection prints every
+  test file; separate Vitest projects keep browser and conformance filters out of unit tests.
+- Ownership is discovered from paths, names and module references, with `moduleFiles` as the
+  manifest migration seam. Shared package files select their package; shared tooling/config selects
+  all packages and tools. No test list is maintained by hand.
+- CI now invokes the complete `npm run check` on every push and PR, preserving failure status through
+  tee and putting size/perf lines in the always-run job summary. AGENTS/ARCHITECTURE describe scoped
+  development and the green-CI merge gate. The default full-suite Vitest config is unchanged.
+- Selector tests: 7/7; new tools typecheck/lint/format pass. Bind with no browser executes all six
+  matching conformance cases (270 tests passed before the expanded reference matcher); bind with
+  Chromium passes 316 tests with Firefox and unrelated conformance cases filtered. An initial
+  conformance title filter selected no cases; corrected for Vitest's ` > ` delimiter and regression
+  tested. No runtime dependencies, budgets, measurement methods or full-suite skips were changed.
+- First full `npm run check`: typecheck/lint/format passed; 996 tests passed and 4 failed
+  (three inherited markup fixture/name expectations for slice/feather, plus the unchanged prefix
+  timing gate under contention). `changed --base=HEAD --no-browser`: 841 passed / the same three
+  markup assertions failed; the prefix gate passed in that run. These are not hidden or loosened.
+- Final review included shared markup API/registry/corpus tests for each module, derived from imports,
+  so generic tests that do not name a module still run. The earlier paint measurement (172.075 s,
+  582 passed / 1 fixture failure) preceded this coverage addition and is not the final scope metric.
+- Sequential `npx vitest run`: **145.371 s**, 51 files, **993 passed / 7 failed**, no skipped tests.
+  Failures: the same three markup expectations, plus unchanged timeouts in CLI authoring, Chromium
+  standalone demo, Firefox components and Firefox surface. Shared-host load prevents a stable
+  speed comparison; none of these timing limits was changed.
+- Final paint scope (after shared markup coverage): **152.876 s**, 30 files, **739 passed / 3
+  inherited markup failures**, 22 unrelated conformance tests filtered. All 20 matching conformance
+  cases execute. Full command above ran every test with no skips. Wall times use Python monotonic
+  timing around the actual npm/npx subprocesses, with identical test limits. Scope reduced the test
+  set but was **5.2% slower** in this sample; no speedup is established on the contended shared host.
+- All requested targets are supported: five packages, discovered module entries (including paint,
+  composite, bind, assets, components and surface), conformance, oracle, changed, plus tools.
+  `--no-browser`, single-engine selection and the changed/base override were exercised. Remaining
+  full-check failures belong to the existing P5 markup/test state, not hidden test exclusions.
+- Checks after the test gate: web artifact freshness and all 52 AniML artifacts pass; perf exits 0
+  (bell compile 2.96 ms, 9040 prefixes 859 ms; bell/composite/toolbar frames 45.0/29.6/27.7 µs;
+  toolbar compile 3.93 ms). Size exits 1 at inherited markup **8255/8192 B**; core+web 17388 B,
+  full-featured 43382 B. Therefore **npm run check is not green**. New tooling typecheck/lint/format
+  pass. No push, PR or merge was performed; D2 is a local implementation commit for integration.
+
+## P5-7 — Surface markup and registration order (2026-11-05)
+
+- Implemented descriptor-driven nested targets, structural object children, scalar arrays and
+  positional tuples. Slice is a node child; feather targets a single or ordered paint while
+  retaining its colour/gradient/image. Empty/disabled feather settings round trip. Added standalone
+  slice/feather examples, all three draw-conformance AniML sources, array/tuple and diagnostic tests.
+  `spec/ANIML.md` documents the syntax and hook lifecycle; `build-animl` checks draw sources too.
+- The lean compiler no longer imports `core/all` through name helpers; the tooling entry does.
+  Generic shape decoding remains shared; surface loads the structural routing hook through
+  `markup-surface`. Document/component scopes share ease-declaration handling, including trimmed
+  names and missing-curve diagnostics, giving components headroom without changing its budget.
+  The optional dependency boundary follows `docs/research/rive-web-runtime.md` §1's discussion of
+  runtime variants. No Rive code, commands or `.riv` files were used.
+- The bind test raced inline ESM evaluation: Playwright's local `addScriptContent` appends the
+  element and returns without awaiting module evaluation. It now waits for actual paint/bind
+  registration. Separately, source upgrades could permanently fail before a compiler/hook/module
+  registered. Failed loads now retain a retry, registration notifies them through the active class,
+  and destruction cancels it. Registration listeners detach with the icon; reconnecting retries
+  retained failed sources. In-flight compiles are not duplicated; a changed registry snapshot
+  retries after failure. Chromium/Firefox tests cover both orders, delayed evaluation, explicit
+  loading, nested component instances and registration during a held library fetch.
+- Separate-bundle compilation now mirrors live document/fill/stroke schema refinements after
+  replaying module entries. Runtime initialization extends image paint types and component
+  listener/action paths outside those entries; replay alone rejected valid image paints. Browser
+  markup tests include image paints with feather and child-component event listeners in both
+  import orders. The shared shape containers are copied so compiler registration cannot mutate
+  the runtime's registry.
+- A second real ordering bug was reproduced on both browsers: the root-content table predates
+  late node registration, so an instance in a component was rejected after markup-first loading.
+  Component bodies now accept current registry node types just as document bodies do. Existing
+  loaded players remain unchanged by registration.
+- Expectations changed: `STATIC.circle` adds `slice` because surface installs it on generic nodes.
+  The exact group attribute list stays unchanged because slice is structural. The provisional
+  core test expecting an explicit `fill-feather` decompile error now asserts successful nested
+  output and exact round trip. Fixture/corpus coverage was extended, including all draw inputs;
+  no coverage, timing limit, budget or measuring method was weakened.
+- `build-web` emits and checks its table directly (13 entries), including surface, bind, assets,
+  components and every markup hook. Deliberately corrupting all 13 artifacts made `--check` reject
+  every one with exit 1; the final check also rejected the corrupted cache manifest. Restoring all artifacts passed. The standalone demo was rebuilt.
+
+- Default-concurrency verification exposed a separate test setup cost: repeated minification
+  hit the unchanged 30 s hook setup and a CLI example's 5 s deadline. Browser tests now reuse
+  artifacts only when SHA-256 hashes of all current source/build/dependency inputs and the output
+  bytes match. Five integrity tests reject changed source, registry, build inputs, dependencies,
+  output and missing cache data. `pretest` checks/builds artifacts before timed tests; stale cache
+  falls back to the original bundler. `tools/size.ts` still calls the original uncached `bundle()`;
+  neither size/perf measurement nor any timeout, assertion, coverage or budget was relaxed.
+
+| Bundle | Before B | After B | Budget/ceiling B |
+|---|---:|---:|---:|
+| core+web | 17388 | 17541 | 30720 |
+| markup | 8255 | 7357 | 8192 |
+| markup-libraries (over web+markup) | 1799 | 1765 | 2048 |
+| markup-components (over web) | 468 | 377 | 2048 |
+| markup-paint (over web) | 300 | 370 | 2048 |
+| markup-surface (over web) | — | 370 | 2048 |
+| markup-bind (over web) | 134 | 128 | 2048 |
+| paint | 4214 | 4283 | 5120 |
+| composite | 3816 | 3886 | 4096 |
+| bind | 1551 | 1546 | 2048 |
+| assets | 1460 | 1527 | 2048 |
+| surface | 7921 | 7921 | 8192 |
+| components | 4079 | 4000 | 4096 |
+| full-featured total | 43382 | 44008 | 102400 |
+| Rive-class total | 43382 | 44008 | 256000 |
+
+- Baseline `tools/perf.ts`: `compile: bell 2.62 ms; all 9040 prefixes 902 ms`;
+  `frame: bell 60.5 µs; composite 43.2 µs`; `frame: toolbar 51.5 µs (step + draw, 4 instances)`;
+  `compile: toolbar 4.39 ms`. Absolute timings vary with shared-host load; the unchanged tests
+  remain the timing gate. Final three-run measurements and verification are recorded below.
+- Early full verification found an incorrectly retained single-paint track in the new ordered
+  image test, stale dist after a final source edit, and duplicate in-flight import fetches; all
+  were corrected. The nested-instance order test was also demonstrated failing before its fix.
+  Task instructions require a local commit only: no push, PR, merge, publication or dependency.
+
+
+Final verification: **three consecutive `npm run check` runs at default concurrency passed**;
+**52 files / 1045 tests**, no skips on each run. Each included typecheck, lint, format, both browser
+engines, raw size measurement, browser/demo and 57 AniML freshness checks, and `tools/perf.ts`.
+All four P5-7 task items are complete. Final run logs are `/tmp/anima-p5-7-final-check-{1,2,3}.log`.
+
+| `tools/perf.ts` metric | Before | Check 1 | Check 2 | Check 3 |
+|---|---:|---:|---:|---:|
+| bell compile (ms) | 2.62 | 2.40 | 2.22 | 2.85 |
+| all 9040 prefixes (ms) | 902 | 780 | 870 | 615 |
+| toolbar compile (ms) | 4.39 | 3.74 | 3.32 | 3.53 |
+| bell frame (µs) | 60.5 | 41.2 | 50.2 | 37.6 |
+| composite frame (µs) | 43.2 | 27.3 | 31.7 | 25.3 |
+| toolbar frame, 4 instances (µs) | 51.5 | 27.8 | 28.1 | 24.8 |
+
+These are the unchanged tool's wall-time observations on a shared host, not a claim of a frame
+speedup. Player/step/draw implementations did not change in P5-7. No packages were published and
+no push, PR or merge was performed; the work is handed back as a local branch commit.
+
+## D1 — Self-contained module folders and generated wiring (2026-11-05)
+
+Moved all six runtime modules (paint, composite, bind, assets, components, surface) plus
+markup-libraries into root `modules/<name>/` folders with core/SVG, markup, web and package-owned
+tests. The shared markup browser entry also has a manifest. Existing package import paths are
+preserved by generated source adapters; no runtime dependencies or format changes were added.
+Packages remain private; standalone package publication is not covered by the source adapters.
+
+`node tools/modules.ts` replaces the hand-maintained core/all registration order, package adapters
+and exports, build-web entries, size module table, markup compiler slots/tooling/browser hook
+registration, and test-scope ownership/aliases. Manifest `after` constraints preserve P5 hook order;
+`sizeOrder` and `buildOrder` preserve aggregate size measurement order and build worker lanes.
+`--check` runs first in `npm run check`. A temporary-repository fixture adds only a probe module's
+files, generates every list, and executes its generated core and SVG registration.
+
+Core registration recomposes stable exported tables/maps from the module declarations, then applies
+wildcards to the final node set. Initializers must tolerate recomposition. Twelve arrival orders
+(all permutations of components/paint/assets, with the remaining modules before and after) compare
+JSON Schema, CLI schema output, 56 loaded example/conformance/draw models and their snapshots, and
+56 AniML compilations. The committed JSON Schema and existing test expectations are unchanged.
+The generator approach continues the existing registry rationale in
+`docs/research/rive-format-and-graph.md`; no Rive source or file conversion was used.
+
+Sizes (min+gzip, exact existing measuring code/budgets; baseline 9b9cc38):
+
+| Entry | Before B | After B | Delta B |
+|---|---:|---:|---:|
+| core+web | 17541 | 17789 | +248 |
+| markup | 7357 | 7355 | -2 |
+| markup-libraries | 1765 | 1750 | -15 |
+| markup-components | 377 | 370 | -7 |
+| markup-paint | 370 | 361 | -9 |
+| markup-surface | 370 | 361 | -9 |
+| markup-bind | 128 | 129 | +1 |
+| paint | 4283 | 4293 | +10 |
+| composite | 3886 | 3845 | -41 |
+| bind | 1546 | 1567 | +21 |
+| assets | 1527 | 1505 | -22 |
+| surface | 7921 | 7942 | +21 |
+| components | 4000 | 3992 | -8 |
+| full-featured / Rive-class | 44008 | 44332 | +324 |
+
+All budgets pass. **The requested unchanged-byte target is not met**: composition/order metadata
+adds 248 B to core+web; module deltas range from -41 to +21 B. No budget or measuring limit was
+raised. The absent canvas placeholder moves out of the size table; a future canvas manifest will
+supply its own entry/budget.
+
+Scoped verification: core/tools 356 tests pass (including order comparisons), tools 34 pass,
+Chromium+Firefox web 154 pass. The first broad scope found a relocated virtual import string
+(fixed with expectations preserved), plus two browser timeouts during overlapping runs. Restoring
+the original build worker assignments and a stable rerun passed all 154 browser tests; no timeout
+or other test limit changed. Final paint scope: 12 files (five module-owned tests, six shared markup integration tests, one
+filtered conformance runner), including only paint's one browser file; 399 selected tests pass,
+3.77 s Vitest / 4.23 s process wall time, versus the previous 30-file browser-inclusive selection.
+One full `npm run check` passed: 55 files / 1055 tests, no skips; types, lint, formatting,
+module wiring, size budgets, browser demo, AniML artifacts, oracle and perf all green. Afterwards,
+parity evidence paths were updated for moved tests and the parity views regenerated (paths only).
+
+Final full-check perf lines: `compile: bell 1.75 ms; all 9040 prefixes 592 ms`;
+`frame: bell 35.1 µs; composite 23.4 µs`;
+`frame: toolbar 25.1 µs (step + draw, 4 instances)`; `compile: toolbar 3.20 ms`.
+An immediate sequential baseline/candidate control using the same unchanged `tools/perf.ts`:
+
+| Workload | Baseline | Candidate |
+|---|---:|---:|
+| bell compile | 1.55 ms | 1.67 ms |
+| all 9040 prefixes | 545 ms | 551 ms |
+| bell frame | 30.6 µs | 32.6 µs |
+| composite frame | 20.9 µs | 21.0 µs |
+| toolbar frame | 23.1 µs | 22.6 µs |
+| toolbar compile | 2.62 ms | 2.68 ms |
+
+These small differences are inside the observed run-to-run spread. Earlier overlapping runs varied
+severalfold, so no precise speedup/regression claim is warranted. The one full check was not repeated;
+post-check changes only update documentation/evidence paths.
+
+## D1 size note (2026-11-07)
+
+Module folders (D1) grew core + web by 248 B (17 541 → 17 789 B min+gzip) for the generated,
+order-independent registration plumbing; every module budget and both use-case totals pass
+(full-featured 44.3 KB / 100 KB). Accepted inside the 30 KB ceiling under the ceilings rule (a reason
+in LOG); to be recovered opportunistically in a later size pass.
+
+## P5 — components, bindings, assets (2026-11-07)
+
+- **AniML libraries and templates** (build time): `<library>`, `<import>`, `<template>`/`<apply>`;
+  the `.ani` stays self-contained. Bell, moon and trash share one press template, built `.ani`
+  byte-identical. In the browser it is the optional `markup-libraries` entry.
+- **`bind`**: an address follows an expression of inputs every step (`<bind target value/>`), the
+  P4a benchmark fix (`examples/progress.animl`).
+- **`components`**: components with their own inputs, state machines and events; instances with
+  bound inputs, pointer routing in local coordinates, bubbling events, scoped addresses;
+  `reserved-input-name`.
+- **`assets`** and the `image` node (fits, alignment, sampling, host resolver, `--embed`); image
+  paints; the new **`surface`** module (n-slice, feathering; world-space feather reports
+  `unsupported-render` in SVG).
+- **Markup split into hooks**: module-specific forms load with their module (markup-components,
+  -paint, -bind, -surface), so the default in-browser compiler stays at 7 357 B.
+- **Real bugs found by a flaky test**: late module registration and schema sync (fixed).
+- **Process** (owner): module folders with manifests and a generated index (order-independent,
+  12 orders tested), scoped tests (`test:scope`) with the full suite in CI, capability scaffolder.
+- **Benchmark** (toolbar): AniML 6/6 (after re-check) in 3 min 43 s, Rive 6/6 in 10 min 48 s.
+  Findings: an on-change condition (P4c), text (P6), script semantics documented.
+- **Oracle**: 17 Rive cases for the P4a features, all within antialiasing tolerances.
+- **Numbers** (P4a → P5): core + web 16 901 → 17 789 B (+ bind/components hooks, + 248 B module
+  plumbing); full-featured page 44.3 KB / 100 KB; markup 7 357 / 8 192 B; paint 4 293, composite
+  3 845, bind 1 567, assets 1 505, components 3 992, surface 7 942 B; compile: bell ~1.6–3 ms, prefix
+  sweep ~550–900 ms (unchanged within noise); frame: bell ~30–60 µs, toolbar ~23–50 µs (load-dependent).
+- **Parity**: 61 rows done (234 / 1 238); 72 rows (asset pipelines, library detach/update, lists,
+  script instances) moved to P5b.
+
+## D3 capability scaffolder (2026-11-06)
+
+`node tools/new-capability.ts <row-id> [--module <name>] [--dry-run]` scaffolds a parity row without
+promoting its status. New modules get manifest/dependency/budget metadata, pure core and SVG
+backends, markup and browser entry stubs, and generated package/CLI/schema/size/scope wiring.
+Each row gets a spec subsection, inert registry template with both spellings, a diagnostic TODO
+test and invalid-fixture folder, conformance inputs/script/expected placeholders, oracle/Rive
+placeholders where a faithful counterpart exists, a compiled AniML/JSON example pair and a TODO
+checklist. Completed rows are rejected to preserve their evidence. No shipped runtime source or
+runtime dependency changed.
+
+`todo.json` (`status: "todo"`, nonempty `reason`) explicitly distinguishes unfinished probes from
+successful evidence. Conformance and oracle runners report TODO tests; build, corpus and decompiler
+checks omit pending conformance sources. Invalid markers and pending cases in the completed oracle
+manifest fail. Registry templates stay inert until a coder composes actual entries, so a scaffold
+cannot accidentally advertise an implemented property. This follows the single-registry rationale
+in `docs/research/rive-format-and-graph.md` and independent-render comparison cautions in
+`docs/research/rive-web-runtime.md`.
+
+Three real rows were scaffolded in a temporary copy, without committing any generated capabilities:
+
+| Row | Module | Changed files | Second run |
+|---|---|---:|---:|
+| animation.seek | motion | 31 | 0 |
+| host-api.coordinate-mapping | interaction | 31 | 0 |
+| data.bind-conditions | data | 31 | 0 |
+
+Parts per new module/row: manifest; four core/SVG/markup/web stubs; registry template; diagnostic
+test and invalid-fixture README; four conformance files (including marker); three oracle files;
+example pair and checklist; spec subsection; inventory plus two changed parity views; nine wiring
+files. Dry-run predicts the exact changed file list without modifying the checkout. Tests cover
+idempotence, preservation of coder edits, a second row in the same module, registration, web
+package typechecking, CLI dry-run output and three explicit TODO test results.
+
+Verification: local tools/markup/conformance scope 472 passed. Three-row scratch scope: 176 passed,
+9 TODO; all generated module budgets pass (motion 11 B, interaction 15 B, data 14 B against 5120 B
+placeholders), core+web unchanged at 17789 B. The first full check found a missed decompiler corpus
+reader and a fixture assumption about an unscaffolded row; both were fixed. The next full check
+had 1057 passing tests and 9 TODO, with one existing Chromium standalone-demo test timing out at
+its unchanged 15-second limit; the Chromium scope then passed 77/77 selected tests. A final full
+check is recorded below. Extra full runs were necessary after these concrete failures; no limits
+or budgets were increased.
+
+Final generated-tree verification: `VITEST_MAX_WORKERS=2 npm run check` exited 0: 56 files passed,
+three all-TODO diagnostic suites, 1058 tests passed and 9 TODO (1067 total), both browser engines,
+oracles, type/lint/format, all size ceilings, module/browser/AniML artifacts and perf. The worker
+setting reduces contention; no test is omitted and no timeout/assertion/budget changes. Default
+concurrency remains subject to the existing standalone-demo timeout described above. No claim of
+a green default-concurrency full run is made. Final log: `/tmp/anima-d3-bounded-check.log`.
+Perf in that scratch run: bell compile 2.03 ms, 9040 prefixes 792 ms; bell/composite frames
+34.6/22.9 µs; toolbar frame 27.0 µs, compile 2.93 ms. These are observations, not a speed change claim.
+All three scratch rows remain outside the commit. No push, PR or merge.

@@ -2,18 +2,32 @@ import '@anima-format/core/all';
 // Rebuild authored AniML through the package API, without invoking the CLI.
 //   node tools/build-animl.ts [--check]
 import { globSync, readFileSync, writeFileSync } from 'node:fs';
+import { pendingReason } from './pending.ts';
+import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { compile } from '@anima-format/markup';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const check = process.argv.includes('--check');
-const files = globSync(['examples/**/*.animl', 'spec/conformance/*/case.animl'], {
-  cwd: root,
-}).sort();
+const files = globSync(
+  ['examples/**/*.animl', 'spec/conformance/*/case.animl', 'spec/draw-conformance/*/case.animl'],
+  {
+    cwd: root,
+  },
+).sort();
 const outputs: { file: string; text: string }[] = [];
 for (const file of files) {
+  const reason = pendingReason(dirname(root + file));
+  if (reason) {
+    console.log(`Pending ${file}: ${reason}`);
+    continue;
+  }
   const source = readFileSync(new URL(file, new URL('../', import.meta.url)), 'utf8');
-  const result = compile(source, { file });
+  if (/^\s*<library\b/.test(source)) continue;
+  const result = compile(source, {
+    file,
+    resolve: (path) => readFileSync(new URL(path, new URL('../', import.meta.url)), 'utf8'),
+  });
   for (const d of result.diagnostics) {
     console.error(
       `${d.file ?? file}:${d.line ?? 1}:${d.column ?? 1}: ${d.severity} ${d.code} ${d.pointer}: ${d.message}${d.hint ? ` (${d.hint})` : ''}`,

@@ -223,7 +223,10 @@ function pointers(value: unknown, p = ''): string[] {
 
 describe('AniML compiler', () => {
   it('builds bell byte for byte, without diagnostics', () => {
-    const result = compile(bell);
+    const result = compile(bell, {
+      file: 'examples/bell.animl',
+      resolve: (path) => readFileSync(new URL('../../../' + path, import.meta.url), 'utf8'),
+    });
     expect(result.diagnostics).toEqual([]);
     expect(result.text).toBe(ani);
     expect(result.doc).toEqual(JSON.parse(ani));
@@ -287,6 +290,29 @@ describe('AniML compiler', () => {
       parseXml(readFileSync(new URL('../../../examples/composite.animl', import.meta.url), 'utf8'))
         .doc.root!,
     );
+    collectPaint(
+      parseXml(readFileSync(new URL('../../../examples/photo.animl', import.meta.url), 'utf8')).doc
+        .root!,
+    );
+    for (const name of ['slice', 'feather'])
+      collectPaint(
+        parseXml(readFileSync(new URL(`../../../examples/${name}.animl`, import.meta.url), 'utf8'))
+          .doc.root!,
+      );
+    collectPaint(
+      parseXml(
+        readFileSync(
+          new URL('../../../spec/draw-conformance/surface-image/case.animl', import.meta.url),
+          'utf8',
+        ),
+      ).doc.root!,
+    );
+    for (const form of ['slice', 'feather', 'imagePaint'])
+      expect(paintElements.some((e) => e.name === form)).toBe(true);
+    collectPaint(
+      parseXml('<anima><instance id="i" component="badge" speed="2" paused="true"/></anima>').doc
+        .root!,
+    );
     const attrs = new Set(
       [...elements, ...paintElements].flatMap((e) => e.attrs.map((a) => a.name)),
     );
@@ -296,7 +322,10 @@ describe('AniML compiler', () => {
 
   it('maps every produced JSON pointer, including containers, comments and vector entries', () => {
     for (const source of [bell, all]) {
-      const result = compile(source);
+      const result = compile(source, {
+        file: 'examples/bell.animl',
+        resolve: (path) => readFileSync(new URL('../../../' + path, import.meta.url), 'utf8'),
+      });
       for (const p of pointers(result.doc)) expect(result.map.has(p), p).toBe(true);
     }
     const result = compile(all);
@@ -446,7 +475,6 @@ describe('AniML compiler', () => {
 
   it.each([
     '<layer name="m" initial="s" mode="additive"><state name="s"/></layer>',
-    '<bind target="dot.x" from="level" map="identity"/>',
     '<timeline name="t" duration="1"><track target="dot.d">0 1; 1 2</track></timeline>',
     '<timeline name="t" duration="1"><track target="dot.scale">0 1 spring(1); 1 2</track></timeline>',
     '<timeline name="t" duration="1" colorSpace="linear"/>',

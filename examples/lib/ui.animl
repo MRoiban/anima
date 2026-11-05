@@ -1,0 +1,8 @@
+<library name="ui">
+  <template name="press" params="hover=hover down=down">
+    <listener on="enter" set="{hover}=true"/>
+    <listener on="leave" set="{hover}=false {down}=false"/>
+    <listener on="down" set="{down}=true"/>
+    <listener on="up" set="{down}=false"/>
+  </template>
+</library>

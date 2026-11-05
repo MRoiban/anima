@@ -1037,7 +1037,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-audio",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.audio-clip",
@@ -1047,7 +1047,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-audio-clip",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.audio-export-source",
@@ -1057,7 +1057,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-audio-export-source",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.audio-import-flac",
@@ -1067,7 +1067,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-audio-import-flac",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.audio-import-mp3",
@@ -1077,7 +1077,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-audio-import-mp3",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.audio-import-wav",
@@ -1087,7 +1087,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-audio-import-wav",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.audio-volume",
@@ -1107,7 +1107,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-blob",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.cdn-disable",
@@ -1117,7 +1117,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-cdn-disable",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.exclude-export",
@@ -1127,7 +1127,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-exclude-export",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.font",
@@ -1137,7 +1137,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-font",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.font-formats",
@@ -1147,7 +1147,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-font-formats",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.font-glyphs-all",
@@ -1157,7 +1157,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-font-glyphs-all",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.font-glyphs-custom",
@@ -1167,7 +1167,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-font-glyphs-custom",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.font-glyphs-used",
@@ -1177,7 +1177,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-font-glyphs-used",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.google-font-import",
@@ -1187,7 +1187,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-google-font-import",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.host-decode-audio",
@@ -1197,7 +1197,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-host-decode-audio",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.host-decode-font",
@@ -1207,26 +1207,26 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-host-decode-font",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.host-decode-image",
   "category": "assets",
   "capability": "Host decode image",
-  "construct": "new: player asset loader API with explicit source resolution: host-decode-image",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-host-decode-image",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
   "id": "assets.image",
   "category": "assets",
   "capability": "Image asset",
-  "construct": "new: assets.<name> / build.assets.<name>: named image resource setting",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-image",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
@@ -1237,7 +1237,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-encoding-astc",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-encoding-bc7",
@@ -1247,7 +1247,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-encoding-bc7",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-encoding-etc2rgba",
@@ -1257,7 +1257,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-encoding-etc2rgba",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-encoding-jpeg",
@@ -1267,7 +1267,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-encoding-jpeg",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-encoding-png",
@@ -1277,7 +1277,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-encoding-png",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-encoding-webp",
@@ -1287,7 +1287,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-encoding-webp",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-export-controls",
@@ -1297,7 +1297,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-export-controls",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-filter-bilinear",
@@ -1307,7 +1307,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-filter-bilinear",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-filter-nearest",
@@ -1317,7 +1317,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-filter-nearest",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-import-jpeg",
@@ -1327,7 +1327,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-import-jpeg",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-import-jpg",
@@ -1337,7 +1337,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-import-jpg",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-import-png",
@@ -1347,7 +1347,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-import-png",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-import-webp",
@@ -1357,7 +1357,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-import-webp",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-wrap-x-clamp",
@@ -1367,7 +1367,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-wrap-x-clamp",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-wrap-x-mirror",
@@ -1377,7 +1377,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-wrap-x-mirror",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-wrap-x-repeat",
@@ -1387,7 +1387,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-wrap-x-repeat",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-wrap-y-clamp",
@@ -1397,7 +1397,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-wrap-y-clamp",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-wrap-y-mirror",
@@ -1407,7 +1407,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-wrap-y-mirror",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.image-wrap-y-repeat",
@@ -1417,16 +1417,16 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-wrap-y-repeat",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.loader",
   "category": "assets",
   "capability": "Custom host loader",
-  "construct": "new: player asset loader API with explicit source resolution: loader",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-loader",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
@@ -1437,7 +1437,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-lottie-import",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.metadata",
@@ -1447,7 +1447,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-metadata",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.psd-layers",
@@ -1457,7 +1457,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-psd-layers",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.replacement-scope-font",
@@ -1467,7 +1467,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-replacement-scope-font",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.replacement-scope-image",
@@ -1477,7 +1477,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-replacement-scope-image",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.script-blob",
@@ -1487,36 +1487,36 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-script-blob",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "assets.storage-embedded",
   "category": "assets",
   "capability": "Embedded storage",
-  "construct": "new: assets.<name>: {type: \"image|font|audio|blob\", storage: \"embedded\", source: ...}",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-storage-embedded",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
   "id": "assets.storage-hosted",
   "category": "assets",
   "capability": "Hosted storage",
-  "construct": "new: assets.<name>: {type: \"image|font|audio|blob\", storage: \"hosted\", source: ...}",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-storage-hosted",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
   "id": "assets.storage-referenced",
   "category": "assets",
   "capability": "Referenced storage",
-  "construct": "new: assets.<name>: {type: \"image|font|audio|blob\", storage: \"referenced\", source: ...}",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-storage-referenced",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
@@ -1527,7 +1527,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-svg-import",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "components.explicit-context",
@@ -1537,7 +1537,7 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-explicit-context",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "components.host-artboard-reference",
@@ -1547,16 +1547,16 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-host-artboard-reference",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "components.host-nested-inputs",
   "category": "components",
   "capability": "Host nested inputs",
-  "construct": "new: components.<name> / nodes[].component: named host-nested-inputs settings; seconds, degrees and grid-unit bounds",
+  "construct": "Player.set/fire/toggle(\"instance.input\")",
   "module": "components",
-  "status": "planned",
-  "test": "oracle/components-host-nested-inputs",
+  "status": "done",
+  "test": "modules/components/test/core/components.test.ts",
   "phase": "P5"
  },
  {
@@ -1567,7 +1567,7 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-inherited-context",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "components.layout-size",
@@ -1577,7 +1577,7 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-layout-size",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "components.leaf-fit",
@@ -1587,26 +1587,26 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-leaf-fit",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "components.library-components",
   "category": "components",
   "capability": "Library components",
-  "construct": "new: components.<name> / nodes[].component: named library-components settings; seconds, degrees and grid-unit bounds",
+  "construct": "AniML library <component>; <instance component=\"ui:name\">",
   "module": "components",
-  "status": "planned",
-  "test": "oracle/components-library-components",
+  "status": "done",
+  "test": "modules/components/test/markup/components.test.ts",
   "phase": "P5"
  },
  {
   "id": "components.library-detach",
   "category": "components",
   "capability": "Detach library dependency",
-  "construct": "new: components.<name> / nodes[].component: named library-detach settings; seconds, degrees and grid-unit bounds",
+  "construct": "anima build resolves component libraries into self-contained .ani",
   "module": "components",
-  "status": "planned",
-  "test": "oracle/components-library-detach",
+  "status": "done",
+  "test": "modules/components/test/markup/components.test.ts",
   "phase": "P5"
  },
  {
@@ -1617,7 +1617,7 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-library-export",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "components.library-models",
@@ -1627,7 +1627,7 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-library-models",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "components.library-update",
@@ -1637,7 +1637,7 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-library-update",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "components.list",
@@ -1647,7 +1647,7 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-list",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "components.list-layout-inheritance",
@@ -1657,7 +1657,7 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-list-layout-inheritance",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "components.list-map",
@@ -1667,7 +1667,7 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-list-map",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "components.list-size-override",
@@ -1677,66 +1677,66 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-list-size-override",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "components.nested-animation",
   "category": "components",
   "capability": "Nested animation playback",
-  "construct": "new: components.<name> / nodes[].component: named nested-animation settings; seconds, degrees and grid-unit bounds",
+  "construct": "components definitions with per-instance timeline players",
   "module": "components",
-  "status": "planned",
-  "test": "oracle/components-nested-animation",
+  "status": "done",
+  "test": "spec/conformance/components-basic",
   "phase": "P5"
  },
  {
   "id": "components.nested-artboard",
   "category": "components",
   "capability": "Nested artboard placement",
-  "construct": "new: components.<name> / nodes[].component: named nested-artboard settings; seconds, degrees and grid-unit bounds",
+  "construct": "components map + transformed instance nodes; scoped draw groups",
   "module": "components",
-  "status": "planned",
-  "test": "oracle/components-nested-artboard",
+  "status": "done",
+  "test": "spec/conformance/components-nested",
   "phase": "P5"
  },
  {
   "id": "components.nested-bool",
   "category": "components",
   "capability": "Nested boolean input",
-  "construct": "new: components.<name> / nodes[].component: named nested-bool settings; seconds, degrees and grid-unit bounds",
+  "construct": "instance bool inputs; scoped set/toggle actions",
   "module": "components",
-  "status": "planned",
-  "test": "oracle/components-nested-bool",
+  "status": "done",
+  "test": "modules/components/test/core/components.test.ts",
   "phase": "P5"
  },
  {
   "id": "components.nested-machine",
   "category": "components",
   "capability": "Nested state machine",
-  "construct": "new: components.<name> / nodes[].component: named nested-machine settings; seconds, degrees and grid-unit bounds",
+  "construct": "one independent Player per instance; scoped layer inspection",
   "module": "components",
-  "status": "planned",
-  "test": "oracle/components-nested-machine",
+  "status": "done",
+  "test": "spec/conformance/components-events",
   "phase": "P5"
  },
  {
   "id": "components.nested-number",
   "category": "components",
   "capability": "Nested numeric input",
-  "construct": "new: components.<name> / nodes[].component: named nested-number settings; seconds, degrees and grid-unit bounds",
+  "construct": "instance number inputs, literals/expressions, bounds",
   "module": "components",
-  "status": "planned",
-  "test": "oracle/components-nested-number",
+  "status": "done",
+  "test": "spec/conformance/components-inputs-bound",
   "phase": "P5"
  },
  {
   "id": "components.nested-pause",
   "category": "components",
   "capability": "Nested pause",
-  "construct": "new: components.<name> / nodes[].component: named nested-pause settings; seconds, degrees and grid-unit bounds",
+  "construct": "instance.paused suspends child stepping",
   "module": "components",
-  "status": "planned",
-  "test": "oracle/components-nested-pause",
+  "status": "done",
+  "test": "spec/conformance/components-basic",
   "phase": "P5"
  },
  {
@@ -1747,7 +1747,7 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-nested-quantize",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "components.nested-remap",
@@ -1757,26 +1757,26 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-nested-remap",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "components.nested-speed",
   "category": "components",
   "capability": "Nested speed",
-  "construct": "new: components.<name> / nodes[].component: named nested-speed settings; seconds, degrees and grid-unit bounds",
+  "construct": "instance.speed multiplies parent dt",
   "module": "components",
-  "status": "planned",
-  "test": "oracle/components-nested-speed",
+  "status": "done",
+  "test": "spec/conformance/components-basic",
   "phase": "P5"
  },
  {
   "id": "components.nested-trigger",
   "category": "components",
   "capability": "Nested trigger input",
-  "construct": "new: components.<name> / nodes[].component: named nested-trigger settings; seconds, degrees and grid-unit bounds",
+  "construct": "fire=\"instance.trigger\"; child listener trigger actions",
   "module": "components",
-  "status": "planned",
-  "test": "oracle/components-nested-trigger",
+  "status": "done",
+  "test": "spec/conformance/components-events",
   "phase": "P5"
  },
  {
@@ -1787,36 +1787,36 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-script-instance",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "components.stateful-input-animation",
   "category": "components",
   "capability": "Animate component inputs",
-  "construct": "new: components.<name> / nodes[].component: named stateful-input-animation settings; seconds, degrees and grid-unit bounds",
+  "construct": "pose/track/bind targets instance.input after parent resolution",
   "module": "components",
-  "status": "planned",
-  "test": "oracle/components-stateful-input-animation",
+  "status": "done",
+  "test": "modules/components/test/core/components.test.ts",
   "phase": "P5"
  },
  {
   "id": "components.stateful-input-forwarding",
   "category": "components",
   "capability": "Forward nested component inputs",
-  "construct": "new: components.<name> / nodes[].component: named stateful-input-forwarding settings; seconds, degrees and grid-unit bounds",
+  "construct": "instance inputs=\"{parentInput}\" via bind evaluator, recursively",
   "module": "components",
-  "status": "planned",
-  "test": "oracle/components-stateful-input-forwarding",
+  "status": "done",
+  "test": "spec/conformance/components-nested",
   "phase": "P5"
  },
  {
   "id": "components.stateful-instance",
   "category": "components",
   "capability": "Per-placement state",
-  "construct": "new: components.<name> / nodes[].component: named stateful-instance settings; seconds, degrees and grid-unit bounds",
+  "construct": "instance owns inputs, clocks, transitions and timelines",
   "module": "components",
-  "status": "planned",
-  "test": "oracle/components-stateful-instance",
+  "status": "done",
+  "test": "modules/components/test/core/components.test.ts",
   "phase": "P5"
  },
  {
@@ -1827,17 +1827,17 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-stateful-output",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "data.bind-components",
   "category": "data",
   "capability": "Bind component properties",
-  "construct": "bind: {\"<address>\": {\"from\": \"level\", \"map\": [0, 1, 0, 1]}}",
+  "construct": "bind: {\"<address>\": \"<input expression>\"} (node properties; instance inputs in P5-2)",
   "module": "data",
-  "status": "spec'd",
-  "test": "oracle/data-bind-components",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
+  "phase": "P5"
  },
  {
   "id": "data.bind-conditions",
@@ -1963,11 +1963,11 @@
   "id": "data.binding-to-target",
   "category": "data",
   "capability": "Source to target binding",
-  "construct": "new: bind.<address>: {from: \"model.property\", mode: \"to-target\"}",
+  "construct": "bind: {\"<address>\": \"<input>\"} (one-way input source; view-model sources in P4e)",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-binding-to-target",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
+  "phase": "P5"
  },
  {
   "id": "data.binding-two-way-prefer-source",
@@ -2003,11 +2003,11 @@
   "id": "data.calculate-add",
   "category": "data",
   "capability": "Calculate: add",
-  "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"add\", operand: 1}",
+  "construct": "bind: a + b",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-calculate-add",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
+  "phase": "P5"
  },
  {
   "id": "data.calculate-asine",
@@ -2063,11 +2063,11 @@
   "id": "data.calculate-divide",
   "category": "data",
   "capability": "Calculate: divide",
-  "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"divide\", operand: 1}",
+  "construct": "bind: a / b",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-calculate-divide",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
+  "phase": "P5"
  },
  {
   "id": "data.calculate-exp",
@@ -2113,11 +2113,11 @@
   "id": "data.calculate-multiply",
   "category": "data",
   "capability": "Calculate: multiply",
-  "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"multiply\", operand: 1}",
+  "construct": "bind: a * b",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-calculate-multiply",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
+  "phase": "P5"
  },
  {
   "id": "data.calculate-power",
@@ -2163,11 +2163,11 @@
   "id": "data.calculate-subtract",
   "category": "data",
   "capability": "Calculate: subtract",
-  "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"subtract\", operand: 1}",
+  "construct": "bind: a - b",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-calculate-subtract",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
+  "phase": "P5"
  },
  {
   "id": "data.calculate-tangent",
@@ -2463,11 +2463,11 @@
   "id": "data.formula-expression",
   "category": "data",
   "capability": "Formula expressions",
-  "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"expression(...)\"}",
+  "construct": "bind expressions: input names, numeric literals, parentheses and precedence",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-formula-expression",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
+  "phase": "P5"
  },
  {
   "id": "data.formula-function-acosine",
@@ -2563,21 +2563,21 @@
   "id": "data.formula-function-max",
   "category": "data",
   "capability": "Formula function: max",
-  "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-max(...)\"}",
+  "construct": "bind: max(a,b)",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-formula-function-max",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
+  "phase": "P5"
  },
  {
   "id": "data.formula-function-min",
   "category": "data",
   "capability": "Formula function: min",
-  "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-min(...)\"}",
+  "construct": "bind: min(a,b)",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-formula-function-min",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
+  "phase": "P5"
  },
  {
   "id": "data.formula-function-pow",
@@ -2643,21 +2643,21 @@
   "id": "data.formula-operator-add",
   "category": "data",
   "capability": "Formula operator: add",
-  "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"operator-add(...)\"}",
+  "construct": "bind: a + b",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-formula-operator-add",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
+  "phase": "P5"
  },
  {
   "id": "data.formula-operator-divide",
   "category": "data",
   "capability": "Formula operator: divide",
-  "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"operator-divide(...)\"}",
+  "construct": "bind: a / b",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-formula-operator-divide",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
+  "phase": "P5"
  },
  {
   "id": "data.formula-operator-modulo",
@@ -2673,21 +2673,21 @@
   "id": "data.formula-operator-multiply",
   "category": "data",
   "capability": "Formula operator: multiply",
-  "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"operator-multiply(...)\"}",
+  "construct": "bind: a * b",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-formula-operator-multiply",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
+  "phase": "P5"
  },
  {
   "id": "data.formula-operator-subtract",
   "category": "data",
   "capability": "Formula operator: subtract",
-  "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"operator-subtract(...)\"}",
+  "construct": "bind: a - b",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-formula-operator-subtract",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
+  "phase": "P5"
  },
  {
   "id": "data.formula-random-always",
@@ -3033,11 +3033,11 @@
   "id": "data.operation-operand-value",
   "category": "data",
   "capability": "Calculation operand: Value",
-  "construct": "new: data.converters.<name>: {type: \"operation-operand-value\", options: {...}}",
+  "construct": "bind numeric literal operand",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-operation-operand-value",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
+  "phase": "P5"
  },
  {
   "id": "data.operation-operand-view-model",
@@ -3223,21 +3223,21 @@
   "id": "data.range-clamp-lower",
   "category": "data",
   "capability": "Range option: clampLower",
-  "construct": "new: data.converters.<name>: {type: \"range-clamp-lower\", options: {...}}",
+  "construct": "bind: max(value, lower)",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-range-clamp-lower",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
+  "phase": "P5"
  },
  {
   "id": "data.range-clamp-upper",
   "category": "data",
   "capability": "Range option: clampUpper",
-  "construct": "new: data.converters.<name>: {type: \"range-clamp-upper\", options: {...}}",
+  "construct": "bind: min(value, upper)",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-range-clamp-upper",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
+  "phase": "P5"
  },
  {
   "id": "data.range-modulo",
@@ -3556,7 +3556,7 @@
   "construct": "node.blend / mix-blend-mode=\"color\"",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend",
   "phase": "P4a"
  },
  {
@@ -3566,7 +3566,7 @@
   "construct": "node.blend / mix-blend-mode=\"color-burn\"",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend",
   "phase": "P4a"
  },
  {
@@ -3576,7 +3576,7 @@
   "construct": "node.blend / mix-blend-mode=\"color-dodge\"",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend",
   "phase": "P4a"
  },
  {
@@ -3586,7 +3586,7 @@
   "construct": "node.blend / mix-blend-mode=\"darken\"",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend",
   "phase": "P4a"
  },
  {
@@ -3596,7 +3596,7 @@
   "construct": "node.blend / mix-blend-mode=\"difference\"",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend",
   "phase": "P4a"
  },
  {
@@ -3606,7 +3606,7 @@
   "construct": "node.blend / mix-blend-mode=\"exclusion\"",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend",
   "phase": "P4a"
  },
  {
@@ -3616,7 +3616,7 @@
   "construct": "node.blend / mix-blend-mode=\"hard-light\"",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend",
   "phase": "P4a"
  },
  {
@@ -3626,7 +3626,7 @@
   "construct": "node.blend / mix-blend-mode=\"hue\"",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend",
   "phase": "P4a"
  },
  {
@@ -3636,7 +3636,7 @@
   "construct": "node.blend / mix-blend-mode=\"lighten\"",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend",
   "phase": "P4a"
  },
  {
@@ -3646,7 +3646,7 @@
   "construct": "node.blend / mix-blend-mode=\"luminosity\"",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend",
   "phase": "P4a"
  },
  {
@@ -3656,7 +3656,7 @@
   "construct": "node.blend / mix-blend-mode=\"multiply\"",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend; tests/oracle/blend-multiply",
   "phase": "P4a"
  },
  {
@@ -3666,7 +3666,7 @@
   "construct": "node.blend / mix-blend-mode=\"overlay\"",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend",
   "phase": "P4a"
  },
  {
@@ -3676,7 +3676,7 @@
   "construct": "node.blend / mix-blend-mode=\"saturation\"",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend",
   "phase": "P4a"
  },
  {
@@ -3686,7 +3686,7 @@
   "construct": "node.blend / mix-blend-mode=\"screen\"",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend; tests/oracle/blend-screen",
   "phase": "P4a"
  },
  {
@@ -3696,7 +3696,7 @@
   "construct": "node.blend / mix-blend-mode=\"soft-light\"",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend",
   "phase": "P4a"
  },
  {
@@ -3706,7 +3706,7 @@
   "construct": "node.blend / mix-blend-mode=\"normal\"",
   "module": "core",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend",
   "phase": "P0"
  },
  {
@@ -3796,7 +3796,7 @@
   "construct": "stroke.dash numeric grid lengths; requires paint",
   "module": "paint",
   "status": "done",
-  "test": "spec/conformance/paint-dash; packages/core/test/paint.test.ts",
+  "test": "spec/conformance/paint-dash; modules/paint/test/core/paint.test.ts; tests/oracle/dashes-absolute",
   "phase": "P4a"
  },
  {
@@ -3806,7 +3806,7 @@
   "construct": "stroke.dashOffset animatable number; grid units or path fraction; requires paint",
   "module": "paint",
   "status": "done",
-  "test": "spec/conformance/paint-dash; packages/core/test/paint.test.ts",
+  "test": "spec/conformance/paint-dash; modules/paint/test/core/paint.test.ts",
   "phase": "P4a"
  },
  {
@@ -3816,7 +3816,7 @@
   "construct": "stroke.dash percentage strings, fractions of full outline length; requires paint",
   "module": "paint",
   "status": "done",
-  "test": "spec/conformance/paint-dash; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts",
+  "test": "spec/conformance/paint-dash; modules/paint/test/core/paint.test.ts; packages/web/test/browser.test.ts; tests/oracle/dashes-percent",
   "phase": "P4a"
  },
  {
@@ -3846,57 +3846,57 @@
   "construct": "ellipse cx/cy/rx/ry",
   "module": "paint",
   "status": "done",
-  "test": "spec/conformance/paint-shape-ellipse; packages/web/test/paint-geometry.test.ts",
+  "test": "spec/conformance/paint-shape-ellipse; modules/paint/test/web/paint-geometry.test.ts; tests/oracle/ellipse",
   "phase": "P4a"
  },
  {
   "id": "drawing-paint.feather-enabled",
   "category": "drawing-paint",
   "capability": "feather enabled",
-  "construct": "new: feather.enabled on a paint",
-  "module": "paint",
-  "status": "planned",
-  "test": "oracle/feather-enabled",
+  "construct": "surface: paint.feather { inner, outer, offset, enabled, space }; local Gaussian falloff; SVG world space reports unsupported-render; AniML pending",
+  "module": "surface",
+  "status": "done",
+  "test": "spec/draw-conformance/surface-feather; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox Gaussian halo/disabled/independent stroke)",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.feather-inner",
   "category": "drawing-paint",
   "capability": "feather inner",
-  "construct": "new: feather.inner on a paint",
-  "module": "paint",
-  "status": "planned",
-  "test": "oracle/feather-inner",
+  "construct": "surface: paint.feather { inner, outer, offset, enabled, space }; local Gaussian falloff; SVG world space reports unsupported-render; AniML pending",
+  "module": "surface",
+  "status": "done",
+  "test": "spec/draw-conformance/surface-feather; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox Gaussian halo/disabled/independent stroke)",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.feather-offset",
   "category": "drawing-paint",
   "capability": "feather offset",
-  "construct": "new: feather.offset on a paint",
-  "module": "paint",
-  "status": "planned",
-  "test": "oracle/feather-offset",
+  "construct": "surface: paint.feather { inner, outer, offset, enabled, space }; local Gaussian falloff; SVG world space reports unsupported-render; AniML pending",
+  "module": "surface",
+  "status": "done",
+  "test": "spec/draw-conformance/surface-feather; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox Gaussian halo/disabled/independent stroke)",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.feather-outer",
   "category": "drawing-paint",
   "capability": "feather outer",
-  "construct": "new: feather.outer on a paint",
-  "module": "paint",
-  "status": "planned",
-  "test": "oracle/feather-outer",
+  "construct": "surface: paint.feather { inner, outer, offset, enabled, space }; local Gaussian falloff; SVG world space reports unsupported-render; AniML pending",
+  "module": "surface",
+  "status": "done",
+  "test": "spec/draw-conformance/surface-feather; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox Gaussian halo/disabled/independent stroke)",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.feather-space",
   "category": "drawing-paint",
   "capability": "feather space",
-  "construct": "new: feather.space on a paint",
-  "module": "paint",
-  "status": "planned",
-  "test": "oracle/feather-space",
+  "construct": "surface: paint.feather { inner, outer, offset, enabled, space }; local Gaussian falloff; SVG world space reports unsupported-render; AniML pending",
+  "module": "surface",
+  "status": "done",
+  "test": "spec/draw-conformance/surface-feather; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox Gaussian halo/disabled/independent stroke)",
   "phase": "P5"
  },
  {
@@ -3966,7 +3966,7 @@
   "construct": "clip: {source,rule}",
   "module": "composite",
   "status": "done",
-  "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
+  "test": "modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts; tests/oracle/clip",
   "phase": "P4a"
  },
  {
@@ -4006,7 +4006,7 @@
   "construct": "fill/stroke.type=linear; x1/y1/x2/y2; requires paint",
   "module": "paint",
   "status": "done",
-  "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts",
+  "test": "spec/conformance/paint-gradient; modules/paint/test/core/paint.test.ts; packages/web/test/browser.test.ts; tests/oracle/linear",
   "phase": "P4a"
  },
  {
@@ -4016,7 +4016,7 @@
   "construct": "gradient stop colour alpha (#rrggbbaa), sampled per channel; requires paint",
   "module": "paint",
   "status": "done",
-  "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts",
+  "test": "spec/conformance/paint-gradient; modules/paint/test/core/paint.test.ts",
   "phase": "P4a"
  },
  {
@@ -4026,7 +4026,7 @@
   "construct": "fill/stroke.type=radial; cx/cy/r/fx/fy; requires paint",
   "module": "paint",
   "status": "done",
-  "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts",
+  "test": "spec/conformance/paint-gradient; modules/paint/test/core/paint.test.ts; packages/web/test/browser.test.ts; tests/oracle/radial",
   "phase": "P4a"
  },
  {
@@ -4036,7 +4036,7 @@
   "construct": "fill/stroke.stops[] {position,color}; indexed animatable stop addresses; requires paint",
   "module": "paint",
   "status": "done",
-  "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts",
+  "test": "spec/conformance/paint-gradient; modules/paint/test/core/paint.test.ts; tests/oracle/animated-stop",
   "phase": "P4a"
  },
  {
@@ -4053,100 +4053,100 @@
   "id": "drawing-paint.image-alignment",
   "category": "drawing-paint",
   "capability": "Image box alignment",
-  "construct": "new: image.align: [x,y]",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "paint",
-  "status": "planned",
-  "test": "oracle/image-alignment",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.image-drawable",
   "category": "drawing-paint",
   "capability": "Scene images",
-  "construct": "new: image node with asset and origin",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "paint",
-  "status": "planned",
-  "test": "oracle/image-drawable",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.image-filter-bilinear",
   "category": "drawing-paint",
   "capability": "bilinear image sampling",
-  "construct": "new: image.sampling: bilinear",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "paint",
-  "status": "planned",
-  "test": "oracle/image-filter-bilinear",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.image-filter-nearest",
   "category": "drawing-paint",
   "capability": "nearest image sampling",
-  "construct": "new: image.sampling: nearest",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "paint",
-  "status": "planned",
-  "test": "oracle/image-filter-nearest",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.image-fit-contain",
   "category": "drawing-paint",
   "capability": "Image fit contain",
-  "construct": "new: image.fit: contain",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "paint",
-  "status": "planned",
-  "test": "oracle/image-fit-contain",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.image-fit-cover",
   "category": "drawing-paint",
   "capability": "Image fit cover",
-  "construct": "new: image.fit: cover",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "paint",
-  "status": "planned",
-  "test": "oracle/image-fit-cover",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.image-fit-fill",
   "category": "drawing-paint",
   "capability": "Image fit fill",
-  "construct": "new: image.fit: fill",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "paint",
-  "status": "planned",
-  "test": "oracle/image-fit-fill",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.image-fit-fit-height",
   "category": "drawing-paint",
   "capability": "Image fit fitHeight",
-  "construct": "new: image.fit: fitHeight",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "paint",
-  "status": "planned",
-  "test": "oracle/image-fit-fit-height",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.image-fit-fit-width",
   "category": "drawing-paint",
   "capability": "Image fit fitWidth",
-  "construct": "new: image.fit: fitWidth",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "paint",
-  "status": "planned",
-  "test": "oracle/image-fit-fit-width",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.image-fit-none",
   "category": "drawing-paint",
   "capability": "Image fit none",
-  "construct": "new: image.fit: none",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "paint",
-  "status": "planned",
-  "test": "oracle/image-fit-none",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
@@ -4157,16 +4157,16 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-fit-resize",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "drawing-paint.image-fit-scale-down",
   "category": "drawing-paint",
   "capability": "Image fit scaleDown",
-  "construct": "new: image.fit: scaleDown",
+  "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
   "module": "paint",
-  "status": "planned",
-  "test": "oracle/image-fit-scale-down",
+  "status": "done",
+  "test": "modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image",
   "phase": "P5"
  },
  {
@@ -4177,7 +4177,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-wrap-clamp",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "drawing-paint.image-wrap-mirror",
@@ -4187,7 +4187,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-wrap-mirror",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "drawing-paint.image-wrap-repeat",
@@ -4197,7 +4197,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-wrap-repeat",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "drawing-paint.mask-alpha",
@@ -4206,7 +4206,7 @@
   "construct": "mask: {source, mode: \"alpha\", sourceDraws}",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha; tests/oracle/alpha-mask",
   "phase": "P4a"
  },
  {
@@ -4216,7 +4216,7 @@
   "construct": "SVG mask covering three viewBoxes",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
   "phase": "P4a"
  },
  {
@@ -4226,7 +4226,7 @@
   "construct": "mask presence; dynamic enable deferred",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
   "phase": "P4a"
  },
  {
@@ -4236,7 +4236,7 @@
   "construct": "mask: {source, mode: \"inverted-alpha\", sourceDraws}",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
   "phase": "P4a"
  },
  {
@@ -4246,7 +4246,7 @@
   "construct": "mask: {source, mode: \"inverted-luminance\", sourceDraws}",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
   "phase": "P4a"
  },
  {
@@ -4256,7 +4256,7 @@
   "construct": "mask: {source, mode: \"luminance\", sourceDraws}",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
   "phase": "P4a"
  },
  {
@@ -4266,7 +4266,7 @@
   "construct": "vector SVG mask (no raster resolution setting)",
   "module": "canvas",
   "status": "planned",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
   "phase": "P10"
  },
  {
@@ -4276,7 +4276,7 @@
   "construct": "mask.sourceDraws",
   "module": "composite",
   "status": "done",
-  "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
+  "test": "modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
   "phase": "P4a"
  },
  {
@@ -4296,77 +4296,77 @@
   "construct": "paints: [{fill|stroke}]",
   "module": "composite",
   "status": "done",
-  "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
+  "test": "modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts; tests/oracle/multiple-paints",
   "phase": "P4a"
  },
  {
   "id": "drawing-paint.n-slice-component",
   "category": "drawing-paint",
   "capability": "N-slice component",
-  "construct": "new: slice regions on component nodes",
-  "module": "paint",
-  "status": "planned",
-  "test": "oracle/n-slice-component",
+  "construct": "surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending",
+  "module": "surface",
+  "status": "done",
+  "test": "spec/draw-conformance/surface-slice; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden)",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.n-slice-cuts",
   "category": "drawing-paint",
   "capability": "Arbitrary slice axes",
-  "construct": "new: slice.x/y cut arrays in grid units",
-  "module": "paint",
-  "status": "planned",
-  "test": "oracle/n-slice-cuts",
+  "construct": "surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending",
+  "module": "surface",
+  "status": "done",
+  "test": "spec/draw-conformance/surface-slice; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden)",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.n-slice-image",
   "category": "drawing-paint",
   "capability": "N-slice image",
-  "construct": "new: slice regions on image nodes",
-  "module": "paint",
-  "status": "planned",
-  "test": "oracle/n-slice-image",
+  "construct": "surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending",
+  "module": "surface",
+  "status": "done",
+  "test": "spec/draw-conformance/surface-slice; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden)",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.n-slice-patch-hidden",
   "category": "drawing-paint",
   "capability": "Slice patch hidden",
-  "construct": "new: slice.patches[].mode: hidden",
-  "module": "paint",
-  "status": "planned",
-  "test": "oracle/n-slice-patch-hidden",
+  "construct": "surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending",
+  "module": "surface",
+  "status": "done",
+  "test": "spec/draw-conformance/surface-slice; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden)",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.n-slice-patch-repeat",
   "category": "drawing-paint",
   "capability": "Slice patch repeat",
-  "construct": "new: slice.patches[].mode: repeat",
-  "module": "paint",
-  "status": "planned",
-  "test": "oracle/n-slice-patch-repeat",
+  "construct": "surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending",
+  "module": "surface",
+  "status": "done",
+  "test": "spec/draw-conformance/surface-slice; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden)",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.n-slice-patch-stretch",
   "category": "drawing-paint",
   "capability": "Slice patch stretch",
-  "construct": "new: slice.patches[].mode: stretch",
-  "module": "paint",
-  "status": "planned",
-  "test": "oracle/n-slice-patch-stretch",
+  "construct": "surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending",
+  "module": "surface",
+  "status": "done",
+  "test": "spec/draw-conformance/surface-slice; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden)",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.n-slice-vector",
   "category": "drawing-paint",
   "capability": "N-slice vector",
-  "construct": "new: slice regions on vector nodes",
-  "module": "paint",
-  "status": "planned",
-  "test": "oracle/n-slice-vector",
+  "construct": "surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending",
+  "module": "surface",
+  "status": "done",
+  "test": "spec/draw-conformance/surface-slice; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden)",
   "phase": "P5"
  },
  {
@@ -4377,7 +4377,7 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/paint-artboard",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "drawing-paint.paint-blend-override",
@@ -4393,20 +4393,20 @@
   "id": "drawing-paint.paint-image",
   "category": "drawing-paint",
   "capability": "Images in paints",
-  "construct": "new: paint.image with optional color modulation",
-  "module": "paint",
-  "status": "planned",
-  "test": "oracle/paint-image",
+  "construct": "surface: fill/stroke type=image, asset, imageWidth/imageHeight, imageX/Y/Rotate/ScaleX/ScaleY, modulate; AniML imagePaint",
+  "module": "surface",
+  "status": "done",
+  "test": "spec/draw-conformance/surface-image; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox image patterns/modulation/resolver)",
   "phase": "P5"
  },
  {
   "id": "drawing-paint.paint-image-transform",
   "category": "drawing-paint",
   "capability": "Image paint mapping",
-  "construct": "new: paint.image transform in grid units and degrees",
-  "module": "paint",
-  "status": "planned",
-  "test": "oracle/paint-image-transform",
+  "construct": "surface: fill/stroke type=image, asset, imageWidth/imageHeight, imageX/Y/Rotate/ScaleX/ScaleY, modulate; AniML imagePaint",
+  "module": "surface",
+  "status": "done",
+  "test": "spec/draw-conformance/surface-image; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox image patterns/modulation/resolver)",
   "phase": "P5"
  },
  {
@@ -4416,7 +4416,7 @@
   "construct": "fill.visible / stroke.visible / paints.i.kind.visible",
   "module": "composite",
   "status": "done",
-  "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
+  "test": "modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts",
   "phase": "P4a"
  },
  {
@@ -4436,7 +4436,7 @@
   "construct": "polygon cx/cy/sides/radius/rotation",
   "module": "paint",
   "status": "done",
-  "test": "spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts",
+  "test": "spec/conformance/paint-shape-polygon; modules/paint/test/web/paint-geometry.test.ts",
   "phase": "P4a"
  },
  {
@@ -4446,7 +4446,7 @@
   "construct": "polygon cornerRadius cutback/quadratic",
   "module": "paint",
   "status": "done",
-  "test": "spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts",
+  "test": "spec/conformance/paint-shape-polygon; modules/paint/test/web/paint-geometry.test.ts; tests/oracle/polygon-rounded",
   "phase": "P4a"
  },
  {
@@ -4466,7 +4466,7 @@
   "construct": "rect corners [tl,tr,br,bl], animated corners.0–3",
   "module": "paint",
   "status": "done",
-  "test": "spec/conformance/paint-shape-corners; packages/web/test/paint-geometry.test.ts",
+  "test": "spec/conformance/paint-shape-corners; modules/paint/test/web/paint-geometry.test.ts; tests/oracle/rect-corners",
   "phase": "P4a"
  },
  {
@@ -4576,7 +4576,7 @@
   "construct": "star cx/cy/points/radius/innerRadius",
   "module": "paint",
   "status": "done",
-  "test": "spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts",
+  "test": "spec/conformance/paint-shape-star; modules/paint/test/web/paint-geometry.test.ts; tests/oracle/star",
   "phase": "P4a"
  },
  {
@@ -4586,7 +4586,7 @@
   "construct": "star cornerRadius cutback/quadratic",
   "module": "paint",
   "status": "done",
-  "test": "spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts",
+  "test": "spec/conformance/paint-shape-star; modules/paint/test/web/paint-geometry.test.ts",
   "phase": "P4a"
  },
  {
@@ -4666,7 +4666,7 @@
   "construct": "stroke.position: center",
   "module": "core",
   "status": "done",
-  "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
+  "test": "modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts",
   "phase": "P0"
  },
  {
@@ -4676,7 +4676,7 @@
   "construct": "stroke.position: inside",
   "module": "composite",
   "status": "done",
-  "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
+  "test": "modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts; tests/oracle/stroke-inside",
   "phase": "P4a"
  },
  {
@@ -4686,7 +4686,7 @@
   "construct": "stroke.position: outside",
   "module": "composite",
   "status": "done",
-  "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
+  "test": "modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts; tests/oracle/stroke-outside",
   "phase": "P4a"
  },
  {
@@ -4696,7 +4696,7 @@
   "construct": "stroke.scale=fixed; vector-effect non-scaling-stroke",
   "module": "paint",
   "status": "done",
-  "test": "spec/conformance/paint-shape-fixed; packages/web/test/paint-geometry.test.ts",
+  "test": "spec/conformance/paint-shape-fixed; modules/paint/test/web/paint-geometry.test.ts",
   "phase": "P4a"
  },
  {
@@ -4716,7 +4716,7 @@
   "construct": "triangle x0/y0/width/height",
   "module": "paint",
   "status": "done",
-  "test": "spec/conformance/paint-shape-triangle; packages/web/test/paint-geometry.test.ts",
+  "test": "spec/conformance/paint-shape-triangle; modules/paint/test/web/paint-geometry.test.ts",
   "phase": "P4a"
  },
  {
@@ -4756,7 +4756,7 @@
   "construct": "path d compatible command-list morph track",
   "module": "paint",
   "status": "done",
-  "test": "spec/conformance/paint-morph; packages/web/test/paint-geometry.test.ts",
+  "test": "spec/conformance/paint-morph; modules/paint/test/web/paint-geometry.test.ts; tests/oracle/path-morph",
   "phase": "P4a"
  },
  {
@@ -5434,7 +5434,7 @@
   "module": "components",
   "status": "planned",
   "test": "browser/artboard-selection",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "host-api.artboard-size",
@@ -5454,7 +5454,7 @@
   "module": "assets",
   "status": "planned",
   "test": "browser/asset-cdn-policy",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "host-api.asset-loader",
@@ -5464,7 +5464,7 @@
   "module": "assets",
   "status": "planned",
   "test": "browser/asset-loader",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "host-api.asset-metadata",
@@ -5474,7 +5474,7 @@
   "module": "assets",
   "status": "planned",
   "test": "browser/asset-metadata",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "host-api.auto-bind",
@@ -5534,7 +5534,7 @@
   "module": "components",
   "status": "planned",
   "test": "browser/bindable-artboards",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "host-api.cleanup",
@@ -6408,7 +6408,7 @@
   "module": "assets",
   "status": "planned",
   "test": "browser/reuse-loaded-file",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "host-api.scroll-hit-policy",
@@ -6568,7 +6568,7 @@
   "module": "assets",
   "status": "planned",
   "test": "browser/wasm-preload",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "host-api.wasm-url",
@@ -6578,7 +6578,7 @@
   "module": "assets",
   "status": "planned",
   "test": "browser/wasm-url",
-  "phase": "P5"
+  "phase": "P5b"
  },
  {
   "id": "input.align-preserve",
@@ -12382,7 +12382,7 @@
   "construct": "drawOrder: {target,position,active}; hold track on drawOrder.active",
   "module": "composite",
   "status": "done",
-  "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
+  "test": "modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts",
   "phase": "P4a"
  },
  {
@@ -12432,7 +12432,7 @@
   "construct": "drawOrder: {target,position,active}; hold track on drawOrder.active",
   "module": "composite",
   "status": "done",
-  "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
+  "test": "modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts",
   "phase": "P4a"
  },
  {
@@ -12442,7 +12442,7 @@
   "construct": "drawOrder: {target,position,active}; hold track on drawOrder.active",
   "module": "composite",
   "status": "done",
-  "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
+  "test": "modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts",
   "phase": "P4a"
  },
  {

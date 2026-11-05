@@ -1,0 +1,25 @@
+{
+  "anima": "0.1",
+  "name": "binding",
+  "grid": 20,
+  "requires": ["bind"],
+  "inputs": {
+    "progress": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "ring",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 8,
+      "stroke": {
+        "color": "#000"
+      }
+    }
+  ],
+  "bind": {
+    "ring.stroke.color": "mix(#000, #fff, progress)"
+  }
+}

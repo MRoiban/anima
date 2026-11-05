@@ -103,9 +103,60 @@ markup with the Rive CLI's local tooling (no account commands, no `.riv` reading
 success against the brief, attempts and validate/render iterations, wall time, and the diagnostics
 and friction hit. A regression against the previous run is a bug fixed before the phase's PR merges.
 
+**Size ceilings** (owner, 2026-11-06; min+gzip; enforced by `tools/size.ts`). Rive's web runtime is
+about 1 MB; Anima stays far below it.
+
+| Use case | What loads | Ceiling |
+|---|---|---|
+| An icon on a page | core + web, plus only the modules that icon uses | core + web ≤ 30 KB; each module ≤ 5–8 KB |
+| Full-featured animation | core + web + most modules, SVG renderer | ≤ 100 KB total |
+| Rive-class scenes | adds the canvas/WebGL renderer, rigging, text | ≤ 200–250 KB total |
+| Tools (playground, CLI) | run locally | no limit |
+
+Rules: core + web is the number that matters (every page pays for it; under 30 KB at full parity).
+Pay only for what you use: new features go into on-demand modules, and an over-budget module is
+split before anyone asks to raise it. Over a module's own budget inside the ceilings is fine with a
+reason in LOG; crossing a use-case ceiling is the owner's call — stop and ask. Over ~250 KB total
+is out of scope: heavy code (canvas/WebGL, rigging, text, scripting) loads only when a document
+needs it. Size is not the only cost: compile time and per-frame cost are tracked next to bytes.
+
+**Development process** (owner, 2026-11-07; no format change):
+
+1. **Self-contained module folders.** Each module is one folder with a manifest (name, `after`
+   dependencies, core code, SVG backend, markup forms, web entry, size budget, docs, tests); a
+   generated index (`--check` in `npm run check`) replaces the hand-kept lists (`core/src/all.ts`,
+   web entries, `tools/size.ts`, markup hooks, build-web). Registration order comes from the declared
+   dependencies; the registry is composed from the set of modules, not mutated in place, and a test
+   registers them in several orders and compares schema and model. Adding a module adds files and
+   edits nothing shared, so parallel coders merge without conflicts.
+   D1 implementation: root `modules/<name>/manifest.ts` + generated package adapters/exports,
+   core/all, markup hooks, build/size/scope tables; `--check` guards wiring. Registration composes
+   the declared set in `after` order; corpus equivalence covers 12 arrival orders. No format change.
+2. **Scoped tests while coding; the full suite in CI.** Coders run a fast scoped command for the
+   module or package they touch (`npm run test:scope -- <module|package>`); the full `npm run check`
+   runs once per PR in GitHub Actions while the next task starts. A PR merges only when CI is green.
+   One full local run before a phase PR only for what CI cannot run.
+   D2 implementation: `tools/test-scope.ts` with derived ownership and scoped Vitest projects;
+   CI invokes the complete check and summarizes size/perf. See AGENTS.md "Testing" for flags.
+3. **Scaffold capabilities from parity rows.** `node tools/new-capability.ts <row-id>` reads the row
+   from `docs/parity/` and generates the skeleton every capability needs (spec section stub,
+   registry entry with both spellings, diagnostic and test stubs, conformance and oracle folders,
+   AniML example and `.ani`, CLI/schema hook, size entry, parity mapping) with TODOs. Coder briefs
+   start with `node tools/new-capability.ts <row-id> --dry-run`, then run without `--dry-run`;
+   use `--module <name>` to override the inventory module (e.g. `motion` for animation rows in
+   `core`). Fill the generated TODO checklist before claiming completion. `todo.json` probes and
+   diagnostic `.todo` tests report pending, never passing; parity status is unchanged. Repeat runs
+   preserve edits and generate no further changes. See AGENTS.md "Adding a capability".
+   D3 implementation: `tools/new-capability.ts`, module-generated CLI/schema/size wiring, paired
+   example, parity views, and explicit pending support in conformance/build/oracle tooling.
+
+Order: after P5-7 (markup) lands — D1 module folders, D2 scoped tests (parallel with D1), D3
+scaffolder (after D1) — before the next new module (P5 merges with them).
+
 **Tracked per phase** (in each phase's LOG entry and PR summary): core + web and every module's
-size (`tools/size.ts`) and compile time (`tools/perf.ts`: one bell compile, and the prefix sweep
-the robustness test runs), with the previous phase's numbers beside them.
+size and the use-case totals (`tools/size.ts`), compile time and per-frame cost (`tools/perf.ts`:
+one bell compile, the prefix sweep the robustness test runs, and step + draw frame for the bell
+and the composite example), with the previous phase's numbers beside them.
 
 Every capability counts as done only with: a spec section, registry entries (both
 syntaxes), diagnostics, conformance cases, an AniML example with its `.ani`, CLI support, a size check
@@ -139,19 +190,31 @@ and an oracle test against Rive.
         shouldn't be a blocker"); still tracked per phase.
   - [x] P4a-7 benchmark friction: pose path strings, group clips, optional clip rule,
         `anima schema pose`, dash caps in the docs.
-  - [ ] P4a oracle cases against the Rive CLI for the paint features (MODULES §5).
-- [ ] P5 Components and assets — **moved up** (owner, 2026-11-06): nested artboards / components,
+  - [x] P4a oracle cases against the Rive CLI for the paint features (MODULES §5) — **before P5
+        merges** (owner, 2026-11-06). 17 cases / 21 committed reference frames;
+        `tools/oracle.test.ts`, measurements and mapping limits in `tests/oracle/README.md`.
+- [x] P5-3 AniML libraries/templates: optional browser layer; unchanged markup size gate restored (see LOG).
+- [x] P5 Components and assets — **moved up** (owner, 2026-11-06): nested artboards / components,
       per-instance inputs, shared glyph and layer libraries (the reuse friction from M5 and from
       authoring the nine Glyphy icons: the same hover/press layer pasted into every file, a glyph
       embedded twice), image/font/audio assets, then images, n-slice and feathering in `paint`;
       **input → value binding** (a number input driving an animatable value; the P4a benchmark's
       one AniML miss) lands here with component inputs.
+  - [x] P5-1 `bind`: typed input expressions, post-state resolution, both syntaxes, CLI schema/inspect/sample,
+        progress example, four conformance cases, optional web module (2048 B budget) and browser tests.
+  - [x] P5-2 `components`: implementation, scoped draw/player inspection, library AniML, toolbar,
+        diagnostics (including registry-derived reserved input names), four conformance cases,
+        Chromium/Firefox runtime and playground tests; optional component/bind/paint markup hooks
+        restore the unchanged size gates. `npm run check`: 966 tests pass; markup 8010/8192 B.
+- [ ] P5b The rest of P5: asset pipelines (encodings, imports), library detach/update, lists,
+      script instances (72 rows).
 - [ ] Pc **Canvas backend, minimal** — brought forward from P10 (owner, 2026-11-06): the draw layer
       rendered to Canvas2D as `@anima-format/web/canvas`; runs every conformance case with a pixel
       comparison against the SVG backend; SVG stays the default for icons. Must exist before P8.
 - [ ] P4b `motion`: eases, typed/string tracks, seek/reverse/work area/quantize, host timeline
       control, animatable pivot.
-- [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad.
+- [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
+      an on-change / previous-value condition (P5 benchmark: 'count increased' took 10 states).
 - [ ] P4d `events`: payloads, open-URL, audio.
 - [ ] P4e `data`: view models, bindings, converters, lists.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras.
@@ -172,3 +235,21 @@ and an oracle test against Rive.
 - Keep the shipped packages dependency-free. CLI-only dependencies are fine.
 - Prefer small commits on a branch per milestone; open PRs against `main`. Ask the user before
   making the repository public or publishing packages.
+
+### P5-5 image and edge implementation checkpoint
+
+- [x] Acceptance: image paints, n-slice and feathering in both syntaxes; full `npm run check` green.
+  `surface` (8192 B budget) provides renderer-neutral image paint, patch and feather data and an SVG
+  backend. Nested slice/feather AniML, examples and round trips are complete in P5-7; see
+  `design/p5/SURFACE-HANDOFF.md`. Image/group/component slices and local feathering have draw
+  conformance and Chromium/Firefox pixels. SVG world feathering still reports `unsupported-render`.
+  No size budget or test limit was raised.
+
+### P5-7 markup and browser integration
+
+- [x] Nested slice/feather forms, ordered paints, descriptor-driven scalar arrays/tuples;
+      standalone examples, draw conformance sources and round trips.
+- [x] Default markup ≤ 7900 B target; every unchanged module budget passes.
+- [x] Browser build emits/checks every table entry, including surface and all markup hooks.
+- [x] Registration order and connected-before-registration recovery covered in Chromium/Firefox;
+      three consecutive `npm run check` runs at default concurrency.

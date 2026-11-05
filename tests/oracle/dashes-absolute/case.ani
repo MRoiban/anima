@@ -1,0 +1,19 @@
+{
+  "anima": "0.1",
+  "name": "dashes-absolute",
+  "grid": 20,
+  "requires": ["paint", "composite"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "path",
+      "d": "M2 10L18 10",
+      "stroke": {
+        "color": "#4263eb",
+        "width": 1,
+        "cap": "butt",
+        "dash": [2, 1]
+      }
+    }
+  ]
+}

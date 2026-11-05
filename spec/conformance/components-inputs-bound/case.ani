@@ -1,0 +1,90 @@
+{
+  "anima": "0.1",
+  "name": "components-inputs-bound",
+  "grid": 20,
+  "requires": ["components", "bind"],
+  "inputs": {
+    "unread": {
+      "type": "number",
+      "default": 3
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "instance",
+      "component": "badge",
+      "inputs": {
+        "count": "{unread}"
+      }
+    },
+    {
+      "id": "b",
+      "type": "instance",
+      "component": "badge",
+      "inputs": {
+        "count": 2
+      }
+    },
+    {
+      "id": "c",
+      "type": "instance",
+      "component": "badge",
+      "inputs": {
+        "count": 2
+      }
+    }
+  ],
+  "timelines": {
+    "drive": {
+      "duration": 1,
+      "tracks": {
+        "c.count": [
+          [0, 0],
+          [1, 8]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "drive",
+        "states": {
+          "drive": {
+            "play": "drive"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "badge": {
+      "grid": 8,
+      "inputs": {
+        "count": {
+          "type": "number",
+          "min": 0,
+          "max": 8
+        }
+      },
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [4, 4],
+          "r": 1,
+          "fill": {
+            "color": "#f00"
+          }
+        }
+      ],
+      "bind": {
+        "dot.r": "count"
+      }
+    }
+  },
+  "bind": {
+    "b.count": "unread * 2"
+  }
+}

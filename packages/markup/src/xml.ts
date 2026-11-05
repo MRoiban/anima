@@ -4,6 +4,9 @@
 import { VERBOSE } from '@anima-format/core';
 
 export interface Pos {
+  file?: string;
+  related?: Pos;
+  locate?: (offset: number) => Pos;
   /** 0-based offset into the text. */
   offset: number;
   /** 1-based line and column. */
@@ -30,6 +33,8 @@ export interface Element {
 }
 
 export interface Text {
+  /** Expanded raw character → original source offset. */
+  offsets?: number[];
   kind: 'text';
   /** Entity-decoded text. */
   value: string;

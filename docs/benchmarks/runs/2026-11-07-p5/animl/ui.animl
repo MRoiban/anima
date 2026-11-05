@@ -1,0 +1,27 @@
+<library name="toolbar-ui">
+  <template name="press">
+    <bool name="hover"/>
+    <bool name="down"/>
+    <listener on="enter" set="hover=true"/>
+    <listener on="leave" set="hover=false down=false"/>
+    <listener on="down" set="down=true"/>
+    <listener on="up" set="down=false"/>
+    <layer name="press" initial="rest">
+      <state name="rest">
+        <pose icon.scale="1"/>
+        <on when="down" to="pressed" blend="0.08"/>
+        <on when="hover" to="hovered" blend="0.12"/>
+      </state>
+      <state name="hovered">
+        <pose icon.scale="1.06"/>
+        <on when="down" to="pressed" blend="0.08"/>
+        <on when="!hover" to="rest" blend="0.12"/>
+      </state>
+      <state name="pressed">
+        <pose icon.scale="0.92"/>
+        <on when="!down and hover" to="hovered" blend="0.12"/>
+        <on when="!down and !hover" to="rest" blend="0.12"/>
+      </state>
+    </layer>
+  </template>
+</library>

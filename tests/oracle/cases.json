@@ -1,0 +1,121 @@
+[
+  {
+    "name": "linear",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "radial",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "animated-stop",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "dashes-absolute",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 110,
+    "maxOverPercent": 0.3
+  },
+  {
+    "name": "dashes-percent",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 110,
+    "maxOverPercent": 0.3
+  },
+  {
+    "name": "ellipse",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 90,
+    "maxOverPercent": 0.4
+  },
+  {
+    "name": "polygon-rounded",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 80,
+    "maxOverPercent": 0.35
+  },
+  {
+    "name": "star",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 80,
+    "maxOverPercent": 0.45
+  },
+  {
+    "name": "rect-corners",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 90,
+    "maxOverPercent": 0.12
+  },
+  {
+    "name": "path-morph",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 65,
+    "maxOverPercent": 0.4
+  },
+  {
+    "name": "blend-multiply",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "blend-screen",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "clip",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 90,
+    "maxOverPercent": 0.4
+  },
+  {
+    "name": "alpha-mask",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 50,
+    "maxOverPercent": 0.25
+  },
+  {
+    "name": "stroke-inside",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "stroke-outside",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "multiple-paints",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  }
+]

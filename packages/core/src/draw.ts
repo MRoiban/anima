@@ -11,6 +11,24 @@ export interface DrawPaint {
   key?: string;
   color?: DrawColor;
   type?: 'linear' | 'radial';
+  image?: {
+    source: string;
+    width: number;
+    height: number;
+    x: number;
+    y: number;
+    rotate: number;
+    scaleX: number;
+    scaleY: number;
+    modulate?: number[];
+  };
+  feather?: {
+    inner: number;
+    outer: number;
+    offset: [number, number];
+    enabled: boolean;
+    space?: string;
+  };
   coordinates?: Record<string, number>;
   stops?: { position: number; color: DrawColor }[];
   rule?: string;
@@ -28,6 +46,15 @@ export interface DrawPaint {
   position?: string;
 }
 export interface Geometry {
+  image?: {
+    asset: string;
+    source: string;
+    width?: number;
+    height?: number;
+    fit: string;
+    align: string;
+    sampling: string;
+  };
   kind: string;
   d?: string;
   cx?: number;
@@ -40,6 +67,8 @@ export interface Geometry {
   rx?: number;
 }
 export interface DrawEntry {
+  /** Scoped identity supplied by nested draw trees. */
+  id?: string;
   node: number;
   kind: string;
   parent: number;
@@ -51,12 +80,20 @@ export interface DrawEntry {
   mask?: DrawNode['mask'];
   clip?: DrawNode['clip'];
   paints?: DrawPaint[];
+  slice?: { x: number[]; y: number[]; width: number; height: number; modes: string[] };
   position?: string;
 }
 export interface DrawTree {
   nodes: DrawEntry[];
   roots: number[];
-  resources: { node: number; kind: string; key?: string; source?: number; paint?: DrawPaint }[];
+  resources: {
+    node: number;
+    kind: string;
+    key?: string;
+    source?: number;
+    paint?: DrawPaint;
+    pointer?: string;
+  }[];
 }
 export interface DrawNode {
   transform: Mat;
@@ -68,6 +105,7 @@ export interface DrawNode {
   blend?: string;
   mask?: { source: number; mode: string; sourceDraws: boolean };
   clip?: { source: number; rule: string };
+  patches?: { source: number[]; target: number[]; mode: string }[];
 }
 export interface DrawFrame {
   /** Resolved sibling ranks, indexed by node. Absent means authored order. */
@@ -194,6 +232,7 @@ export function drawFrame(p: Player): DrawFrame {
     f.nodes[i] = data;
     f.changed.push(i);
   }
+  for (const m of p.model.drawModules!) m.draw?.end?.(p, f);
   f.revision = p.drawRevision;
   return f;
 }

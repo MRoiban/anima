@@ -1,3 +1,5 @@
+import '@anima-format/web/components';
+import '@anima-format/web/bind';
 import '@anima-format/web/paint';
 import { compile, formatMarkup, type MarkupDiagnostic } from '@anima-format/markup';
 import { type LayerInspect, type TimelineM } from '@anima-format/core';
@@ -89,10 +91,15 @@ function showSource(json: boolean) {
 }
 function jump(d: MarkupDiagnostic) {
   showSource(false);
-  const [a, b] = diagnosticRange(text, d);
+  const target =
+    d.file && !d.file.endsWith('/' + filename) && d.file !== filename
+      ? d.related?.find((r) => r.file?.endsWith('/' + filename) || r.file === filename)
+      : d;
+  if (!target) return;
+  const [a, b] = diagnosticRange(text, target);
   source.focus();
   source.setSelectionRange(a, b);
-  source.scrollTop = Math.max(0, ((d.line ?? 1) - 1) * 20 - source.clientHeight / 2);
+  source.scrollTop = Math.max(0, ((target.line ?? 1) - 1) * 20 - source.clientHeight / 2);
   syncScroll();
 }
 function problems(ds: MarkupDiagnostic[]) {
@@ -110,7 +117,7 @@ function problems(ds: MarkupDiagnostic[]) {
     ? ds
         .map(
           (d, i) =>
-            `<li><button class="diag ${d.severity === 'warning' ? 'warn' : ''} ${i === 0 ? 'sel' : ''}" data-diag="${i}"><span class="dot"></span><span class="where">${esc(filename)}:${d.line ?? 1}:${d.column ?? 1}</span><span class="msg">${esc(d.message)} <span class="code-id">${esc(d.code)}</span></span>${d.hint ? `<span class="hint">hint: ${esc(d.hint)}</span>` : ''}</button></li>`,
+            `<li><button class="diag ${d.severity === 'warning' ? 'warn' : ''} ${i === 0 ? 'sel' : ''}" data-diag="${i}"><span class="dot"></span><span class="where">${esc(d.file ?? filename)}:${d.line ?? 1}:${d.column ?? 1}</span><span class="msg">${esc(d.message)} <span class="code-id">${esc(d.code)}</span></span>${d.hint ? `<span class="hint">hint: ${esc(d.hint)}</span>` : ''}</button></li>`,
         )
         .join('')
     : '<li class="empty">No problems. Every change is compiled as you type.</li>';
@@ -134,8 +141,15 @@ function loadIcons() {
     if (paused || scrubbing) host(i).pause?.();
   }
 }
-function compileEdit() {
-  const result = compile(text, { file: filename });
+let compilation = 0;
+async function compileEdit() {
+  const generation = ++compilation;
+  const result = /<import\b/.test(text)
+    ? ((await fetch('/api/compile', { method: 'POST', body: text }).then((r) =>
+        r.json(),
+      )) as ReturnType<typeof compile>)
+    : compile(text, { file: filename });
+  if (generation !== compilation) return;
   problems(result.diagnostics);
   if (!result.doc) {
     $<HTMLButtonElement>('copy').disabled = !compiled.text;
@@ -389,7 +403,17 @@ function update() {
   const p = icon.player;
   if (!p) return;
   const states = p.inspect();
-  states.forEach(updateGraph);
+  states.filter((s) => !s.layer.includes('/')).forEach(updateGraph);
+  let instances = document.getElementById('instance-states');
+  if (!instances) {
+    instances = document.createElement('p');
+    instances.id = 'instance-states';
+    $('layers').after(instances);
+  }
+  instances.textContent = states
+    .filter((s) => s.layer.includes('/'))
+    .map((s) => `${s.layer}: ${s.state}`)
+    .join(' · ');
   if (!scrubbing) {
     const playing = states.find(
       (s) => s.timeline && s.time !== null && p.model.timelines.find((t) => t.name === s.timeline),

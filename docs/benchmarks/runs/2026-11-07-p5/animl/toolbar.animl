@@ -1,0 +1,293 @@
+<anima version="0.1" name="toolbar" grid="20" viewBox="0 0 72 24" requires="components bind">
+  <import src="ui.animl" as="ui"/>
+  <number name="unread" default="3" min="0" max="9"/>
+  <number name="trash" default="0" min="0" max="9"/>
+  <component name="bell-button" grid="20">
+    <glyph name="art" d="M9.493 4.473C9.423 4.49 9.326 4.517 9.256 4.493L8.602 4.66C8.543 4.675 8.464 4.703 8.409 4.73L7.835 5.016L7.366 5.328L6.888 5.748L6.485 6.211C6.428 6.277 6.354 6.377 6.313 6.452L6.009 6.998C5.984 7.043 5.955 7.099 5.939 7.147L5.714 7.805C5.692 7.871 5.666 7.981 5.659 8.05L5.605 8.614L5.605 10.357C5.605 10.417 5.589 10.486 5.579 10.545C5.532 10.817 5.449 11.086 5.338 11.338C5.317 11.387 5.297 11.444 5.27 11.488L4.972 11.98C4.945 12.023 4.907 12.062 4.876 12.102C4.846 12.139 4.818 12.183 4.788 12.218L4.223 12.866C3.945 13.187 3.76 13.793 3.974 14.186C4.04 14.307 4.138 14.394 4.25 14.469C4.326 14.519 4.484 14.621 4.575 14.621L15.38 14.621C15.516 14.621 15.657 14.542 15.762 14.463C16.203 14.128 16.199 13.552 15.949 13.102C15.905 13.022 15.841 12.912 15.778 12.849L15.262 12.333C15.21 12.281 15.161 12.215 15.114 12.156C14.893 11.882 14.696 11.575 14.579 11.241C14.538 11.125 14.522 11.001 14.487 10.883C14.477 10.847 14.455 10.811 14.447 10.776C14.441 10.749 14.445 10.722 14.434 10.697C14.428 10.684 14.398 10.661 14.398 10.658L14.374 8.304C14.35 8.276 14.373 8.247 14.367 8.216L14.24 7.579C14.222 7.485 14.157 7.3 14.115 7.214L13.8 6.572C13.72 6.411 13.607 6.256 13.495 6.115C13.47 6.084 13.444 6.043 13.417 6.017L12.947 5.547C12.927 5.526 12.92 5.529 12.898 5.516C12.883 5.507 12.878 5.481 12.865 5.471L12.413 5.133L11.93 4.86L11.457 4.664L10.924 4.514C10.806 4.481 10.672 4.484 10.551 4.467L10.551 2.953C10.551 2.912 10.512 2.871 10.497 2.835C10.474 2.782 10.458 2.725 10.417 2.681C10.372 2.631 10.297 2.601 10.236 2.578C9.97 2.476 9.694 2.537 9.563 2.807C9.549 2.835 9.494 2.901 9.494 2.929L9.494 4.444C9.494 4.454 9.494 4.463 9.493 4.473ZM4.988 13.492L5.57 12.823L5.897 12.351L6.137 11.92L6.358 11.384C6.407 11.263 6.477 11.018 6.489 10.891L6.545 10.312L6.545 8.664C6.545 8.614 6.568 8.563 6.573 8.512C6.58 8.444 6.573 8.313 6.587 8.257L6.71 7.763C6.721 7.718 6.738 7.661 6.758 7.62L7.019 7.091C7.058 7.011 7.125 6.899 7.182 6.833L7.559 6.399L7.966 6.043C8.038 5.979 8.127 5.927 8.209 5.876C8.503 5.697 8.827 5.552 9.16 5.462C9.221 5.446 9.292 5.422 9.355 5.416L10.001 5.357L10.614 5.413C10.668 5.418 10.728 5.436 10.781 5.449C11.13 5.532 11.472 5.678 11.777 5.869C11.84 5.908 11.913 5.949 11.968 5.997L12.49 6.456C12.575 6.53 12.646 6.628 12.713 6.719C12.983 7.089 13.202 7.524 13.324 7.966C13.343 8.033 13.369 8.111 13.374 8.18L13.422 8.861L13.422 10.639C13.422 10.953 13.543 11.337 13.66 11.626C13.685 11.687 13.709 11.758 13.741 11.815L14.074 12.399L14.402 12.831C14.43 12.868 14.462 12.899 14.492 12.932L14.939 13.423C14.958 13.444 15.03 13.561 15.033 13.584L4.974 13.584L4.988 13.492ZM10.173 17.469C10.219 17.457 10.27 17.455 10.317 17.447C10.414 17.431 10.51 17.412 10.605 17.387C10.759 17.347 10.907 17.289 11.051 17.224C11.154 17.178 11.26 17.133 11.355 17.073C11.622 16.905 11.838 16.646 12.005 16.382C12.185 16.099 12.376 15.685 12.262 15.346C12.18 15.101 11.838 14.963 11.598 15.035C11.507 15.062 11.439 15.133 11.367 15.19C11.348 15.204 11.322 15.216 11.306 15.233C11.289 15.25 11.282 15.299 11.274 15.322C11.231 15.45 11.196 15.587 11.14 15.71C11.101 15.796 11.036 15.869 10.973 15.939C10.712 16.229 10.312 16.462 9.908 16.385C9.864 16.377 9.821 16.362 9.777 16.355C9.721 16.346 9.663 16.346 9.609 16.328C9.567 16.314 9.529 16.285 9.49 16.264C9.432 16.233 9.368 16.208 9.313 16.171C9.28 16.149 9.256 16.115 9.226 16.089C9.2 16.068 9.17 16.053 9.144 16.032C9.08 15.981 9.027 15.917 8.982 15.849C8.89 15.713 8.848 15.547 8.795 15.393C8.777 15.341 8.764 15.275 8.73 15.231C8.676 15.16 8.597 15.123 8.517 15.089C8.441 15.056 8.361 15.024 8.278 15.02C8.155 15.015 8.045 15.079 7.945 15.141C7.929 15.151 7.896 15.183 7.878 15.185C7.831 15.281 7.747 15.389 7.735 15.497C7.722 15.609 7.777 15.702 7.803 15.807C7.818 15.871 7.823 15.939 7.844 16.002C7.873 16.085 7.93 16.162 7.972 16.24C8.027 16.344 8.067 16.457 8.136 16.554C8.356 16.859 8.86 17.208 9.212 17.339C9.521 17.454 9.849 17.458 10.173 17.469Z"/>
+    <group id="icon" pivot="10 10">
+      <path id="art" glyph="art" fill="#141413" fill-rule="evenodd"/>
+    </group>
+    <apply template="ui:press"/>
+    <listener on="click" emit="selected"/>
+  </component>
+  <component name="folder-button" grid="20">
+    <glyph name="art" d="M2.55 10.796L2.55 14.411C2.55 14.778 2.927 15.344 3.223 15.547C3.335 15.624 3.469 15.658 3.593 15.711C3.662 15.741 3.805 15.821 3.877 15.821L16.112 15.821C16.148 15.821 16.196 15.793 16.231 15.782C16.297 15.762 16.363 15.749 16.428 15.725C16.825 15.579 17.164 15.262 17.331 14.873C17.387 14.741 17.418 14.6 17.459 14.463C17.462 14.45 17.47 14.43 17.47 14.419L17.47 7.429C17.47 7.363 17.453 7.29 17.438 7.226C17.344 6.836 17.078 6.469 16.744 6.249C16.632 6.176 16.51 6.131 16.385 6.086C16.328 6.065 16.199 6.001 16.144 6.001L9.864 6.001C9.849 6.001 9.81 5.977 9.8 5.964L8.755 4.568C8.653 4.432 8.168 4.179 7.999 4.179L3.919 4.179C3.878 4.179 3.839 4.212 3.801 4.22C3.726 4.237 3.654 4.247 3.582 4.274C3.373 4.351 3.197 4.494 3.036 4.645C2.997 4.682 2.952 4.719 2.918 4.76C2.819 4.885 2.736 5.037 2.665 5.179C2.614 5.28 2.53 5.463 2.53 5.576L2.53 10.706C2.53 10.739 2.531 10.768 2.55 10.796ZM3.539 14.3L3.539 5.705C3.539 5.536 3.668 5.327 3.815 5.245C3.86 5.22 3.913 5.216 3.962 5.199C3.978 5.194 4.04 5.155 4.047 5.155L7.821 5.155C7.883 5.2 7.964 5.237 8.039 5.257L9.201 6.81C9.295 6.936 9.482 6.996 9.634 6.996L16.009 6.996C16.118 6.996 16.212 7.087 16.288 7.158C16.304 7.173 16.33 7.191 16.342 7.21C16.372 7.259 16.4 7.311 16.431 7.36C16.452 7.406 16.447 7.458 16.461 7.506C16.463 7.512 16.475 7.53 16.475 7.534L16.475 14.329C16.475 14.509 16.233 14.75 16.073 14.806C16.056 14.812 16.027 14.825 16.01 14.825L6.684 14.825C6.672 14.825 6.652 14.838 6.643 14.845L4.028 14.845C3.885 14.845 3.658 14.607 3.599 14.486C3.577 14.441 3.572 14.4 3.566 14.352C3.564 14.342 3.56 14.322 3.554 14.314C3.552 14.311 3.539 14.304 3.539 14.3Z"/>
+    <group id="icon" pivot="10 10">
+      <path id="art" glyph="art" fill="#141413" fill-rule="evenodd"/>
+    </group>
+    <apply template="ui:press"/>
+    <listener on="click" emit="selected"/>
+  </component>
+  <component name="trash-button" grid="20">
+    <glyph name="art" d="M15.348 6.496L16.195 6.496C16.245 6.496 16.298 6.438 16.341 6.414C16.704 6.211 16.591 5.695 16.258 5.529C16.224 5.512 16.154 5.468 16.127 5.468L13.122 5.468L13.122 3.774C13.122 3.711 13.086 3.607 13.06 3.548C13.011 3.441 12.985 3.32 12.932 3.211C12.764 2.861 12.197 2.53 11.844 2.53L8.219 2.53C7.697 2.53 7.056 2.973 6.953 3.501C6.934 3.598 6.869 3.716 6.869 3.81L6.869 5.468L3.914 5.468C3.443 5.468 3.263 6.163 3.631 6.416C3.665 6.439 3.73 6.496 3.762 6.496L4.644 6.496L5.621 16.258C5.655 16.59 6.032 17.134 6.354 17.281C6.485 17.34 6.622 17.375 6.753 17.428C6.778 17.438 6.852 17.47 6.87 17.47L13.096 17.47C13.413 17.47 14.011 17.095 14.15 16.789C14.195 16.688 14.248 16.543 14.299 16.45C14.317 16.418 14.364 16.318 14.365 16.301L15.326 6.541C15.349 6.521 15.346 6.531 15.348 6.496ZM7.855 5.468L7.855 3.89C7.855 3.696 8.124 3.495 8.293 3.495L11.668 3.495C11.836 3.495 12.136 3.672 12.136 3.848L12.136 5.422C12.136 5.438 12.135 5.452 12.132 5.468L7.855 5.468ZM5.635 6.496L14.339 6.496L13.71 12.778L13.406 15.975C13.382 16.223 13.123 16.492 12.853 16.492L7.036 16.492C6.881 16.492 6.6 16.17 6.584 16.019L5.634 6.531C5.633 6.516 5.632 6.512 5.635 6.496ZM8.59 14.774C8.719 14.736 8.946 14.578 8.946 14.428L8.946 8.672C8.946 8.396 8.641 8.216 8.394 8.216C8.231 8.299 8.022 8.333 7.981 8.557C7.978 8.577 7.939 8.627 7.939 8.635L7.939 12.751C7.939 12.782 7.937 12.769 7.96 12.788L7.96 14.382C7.96 14.674 8.349 14.812 8.59 14.774ZM11.653 14.774C11.857 14.714 11.916 14.61 12.031 14.449L12.031 8.576C11.878 8.365 11.812 8.216 11.501 8.216C11.256 8.317 11.217 8.324 11.085 8.565C11.076 8.581 11.045 8.65 11.045 8.654L11.045 14.309C11.045 14.618 11.368 14.819 11.653 14.774Z"/>
+    <group id="icon" pivot="10 10">
+      <path id="art" glyph="art" fill="#141413" fill-rule="evenodd"/>
+    </group>
+    <apply template="ui:press"/>
+    <listener on="click" emit="selected"/>
+  </component>
+  <component name="badge" grid="8">
+    <number name="count" default="0" min="0" max="9"/>
+    <group id="badge" pivot="4 4">
+      <circle id="disc" cx="4" cy="4" r="3.5" fill="#d97757"/>
+      <circle id="dot1" cx="3" cy="4" r="0.5" fill="#ffffff"/>
+      <circle id="dot2" cx="4" cy="4" r="0.5" fill="#ffffff"/>
+      <circle id="dot3" cx="5" cy="4" r="0.5" fill="#ffffff"/>
+    </group>
+    <bind target="dot1.opacity" value="clamp(count - 0, 0, 1)"/>
+    <bind target="dot2.opacity" value="clamp(count - 1, 0, 1)"/>
+    <bind target="dot3.opacity" value="clamp(count - 2, 0, 1)"/>
+    <timeline name="pop" duration="0.25" loop="once">
+      <track target="badge.scale">0 1; 0.125 1.25; 0.25 1</track>
+    </timeline>
+    <layer name="count-motion" initial="boot">
+      <state name="boot">
+        <pose/>
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 2" to="count2"/>
+        <on when="count == 3" to="count3"/>
+        <on when="count == 4" to="count4"/>
+        <on when="count == 5" to="count5"/>
+        <on when="count == 6" to="count6"/>
+        <on when="count == 7" to="count7"/>
+        <on when="count == 8" to="count8"/>
+        <on when="count == 9" to="count9"/>
+      </state>
+      <state name="count0">
+        <pose badge.scale="1" badge.visible="false"/>
+        <on when="count == 1" to="rise1"/>
+        <on when="count == 2" to="rise2"/>
+        <on when="count == 3" to="rise3"/>
+        <on when="count == 4" to="rise4"/>
+        <on when="count == 5" to="rise5"/>
+        <on when="count == 6" to="rise6"/>
+        <on when="count == 7" to="rise7"/>
+        <on when="count == 8" to="rise8"/>
+        <on when="count == 9" to="rise9"/>
+      </state>
+      <state name="count1">
+        <pose badge.scale="1" badge.visible="true"/>
+        <on when="count == 0" to="count0"/>
+        <on when="count == 2" to="rise2"/>
+        <on when="count == 3" to="rise3"/>
+        <on when="count == 4" to="rise4"/>
+        <on when="count == 5" to="rise5"/>
+        <on when="count == 6" to="rise6"/>
+        <on when="count == 7" to="rise7"/>
+        <on when="count == 8" to="rise8"/>
+        <on when="count == 9" to="rise9"/>
+      </state>
+      <state name="rise1" play="pop">
+        <on when="count == 0" to="count0"/>
+        <on when="count == 2" to="rise2"/>
+        <on when="count == 3" to="rise3"/>
+        <on when="count == 4" to="rise4"/>
+        <on when="count == 5" to="rise5"/>
+        <on when="count == 6" to="rise6"/>
+        <on when="count == 7" to="rise7"/>
+        <on when="count == 8" to="rise8"/>
+        <on when="count == 9" to="rise9"/>
+        <on when="@end" to="count1"/>
+      </state>
+      <state name="count2">
+        <pose badge.scale="1" badge.visible="true"/>
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 3" to="rise3"/>
+        <on when="count == 4" to="rise4"/>
+        <on when="count == 5" to="rise5"/>
+        <on when="count == 6" to="rise6"/>
+        <on when="count == 7" to="rise7"/>
+        <on when="count == 8" to="rise8"/>
+        <on when="count == 9" to="rise9"/>
+      </state>
+      <state name="rise2" play="pop">
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 3" to="rise3"/>
+        <on when="count == 4" to="rise4"/>
+        <on when="count == 5" to="rise5"/>
+        <on when="count == 6" to="rise6"/>
+        <on when="count == 7" to="rise7"/>
+        <on when="count == 8" to="rise8"/>
+        <on when="count == 9" to="rise9"/>
+        <on when="@end" to="count2"/>
+      </state>
+      <state name="count3">
+        <pose badge.scale="1" badge.visible="true"/>
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 2" to="count2"/>
+        <on when="count == 4" to="rise4"/>
+        <on when="count == 5" to="rise5"/>
+        <on when="count == 6" to="rise6"/>
+        <on when="count == 7" to="rise7"/>
+        <on when="count == 8" to="rise8"/>
+        <on when="count == 9" to="rise9"/>
+      </state>
+      <state name="rise3" play="pop">
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 2" to="count2"/>
+        <on when="count == 4" to="rise4"/>
+        <on when="count == 5" to="rise5"/>
+        <on when="count == 6" to="rise6"/>
+        <on when="count == 7" to="rise7"/>
+        <on when="count == 8" to="rise8"/>
+        <on when="count == 9" to="rise9"/>
+        <on when="@end" to="count3"/>
+      </state>
+      <state name="count4">
+        <pose badge.scale="1" badge.visible="true"/>
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 2" to="count2"/>
+        <on when="count == 3" to="count3"/>
+        <on when="count == 5" to="rise5"/>
+        <on when="count == 6" to="rise6"/>
+        <on when="count == 7" to="rise7"/>
+        <on when="count == 8" to="rise8"/>
+        <on when="count == 9" to="rise9"/>
+      </state>
+      <state name="rise4" play="pop">
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 2" to="count2"/>
+        <on when="count == 3" to="count3"/>
+        <on when="count == 5" to="rise5"/>
+        <on when="count == 6" to="rise6"/>
+        <on when="count == 7" to="rise7"/>
+        <on when="count == 8" to="rise8"/>
+        <on when="count == 9" to="rise9"/>
+        <on when="@end" to="count4"/>
+      </state>
+      <state name="count5">
+        <pose badge.scale="1" badge.visible="true"/>
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 2" to="count2"/>
+        <on when="count == 3" to="count3"/>
+        <on when="count == 4" to="count4"/>
+        <on when="count == 6" to="rise6"/>
+        <on when="count == 7" to="rise7"/>
+        <on when="count == 8" to="rise8"/>
+        <on when="count == 9" to="rise9"/>
+      </state>
+      <state name="rise5" play="pop">
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 2" to="count2"/>
+        <on when="count == 3" to="count3"/>
+        <on when="count == 4" to="count4"/>
+        <on when="count == 6" to="rise6"/>
+        <on when="count == 7" to="rise7"/>
+        <on when="count == 8" to="rise8"/>
+        <on when="count == 9" to="rise9"/>
+        <on when="@end" to="count5"/>
+      </state>
+      <state name="count6">
+        <pose badge.scale="1" badge.visible="true"/>
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 2" to="count2"/>
+        <on when="count == 3" to="count3"/>
+        <on when="count == 4" to="count4"/>
+        <on when="count == 5" to="count5"/>
+        <on when="count == 7" to="rise7"/>
+        <on when="count == 8" to="rise8"/>
+        <on when="count == 9" to="rise9"/>
+      </state>
+      <state name="rise6" play="pop">
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 2" to="count2"/>
+        <on when="count == 3" to="count3"/>
+        <on when="count == 4" to="count4"/>
+        <on when="count == 5" to="count5"/>
+        <on when="count == 7" to="rise7"/>
+        <on when="count == 8" to="rise8"/>
+        <on when="count == 9" to="rise9"/>
+        <on when="@end" to="count6"/>
+      </state>
+      <state name="count7">
+        <pose badge.scale="1" badge.visible="true"/>
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 2" to="count2"/>
+        <on when="count == 3" to="count3"/>
+        <on when="count == 4" to="count4"/>
+        <on when="count == 5" to="count5"/>
+        <on when="count == 6" to="count6"/>
+        <on when="count == 8" to="rise8"/>
+        <on when="count == 9" to="rise9"/>
+      </state>
+      <state name="rise7" play="pop">
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 2" to="count2"/>
+        <on when="count == 3" to="count3"/>
+        <on when="count == 4" to="count4"/>
+        <on when="count == 5" to="count5"/>
+        <on when="count == 6" to="count6"/>
+        <on when="count == 8" to="rise8"/>
+        <on when="count == 9" to="rise9"/>
+        <on when="@end" to="count7"/>
+      </state>
+      <state name="count8">
+        <pose badge.scale="1" badge.visible="true"/>
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 2" to="count2"/>
+        <on when="count == 3" to="count3"/>
+        <on when="count == 4" to="count4"/>
+        <on when="count == 5" to="count5"/>
+        <on when="count == 6" to="count6"/>
+        <on when="count == 7" to="count7"/>
+        <on when="count == 9" to="rise9"/>
+      </state>
+      <state name="rise8" play="pop">
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 2" to="count2"/>
+        <on when="count == 3" to="count3"/>
+        <on when="count == 4" to="count4"/>
+        <on when="count == 5" to="count5"/>
+        <on when="count == 6" to="count6"/>
+        <on when="count == 7" to="count7"/>
+        <on when="count == 9" to="rise9"/>
+        <on when="@end" to="count8"/>
+      </state>
+      <state name="count9">
+        <pose badge.scale="1" badge.visible="true"/>
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 2" to="count2"/>
+        <on when="count == 3" to="count3"/>
+        <on when="count == 4" to="count4"/>
+        <on when="count == 5" to="count5"/>
+        <on when="count == 6" to="count6"/>
+        <on when="count == 7" to="count7"/>
+        <on when="count == 8" to="count8"/>
+      </state>
+      <state name="rise9" play="pop">
+        <on when="count == 0" to="count0"/>
+        <on when="count == 1" to="count1"/>
+        <on when="count == 2" to="count2"/>
+        <on when="count == 3" to="count3"/>
+        <on when="count == 4" to="count4"/>
+        <on when="count == 5" to="count5"/>
+        <on when="count == 6" to="count6"/>
+        <on when="count == 7" to="count7"/>
+        <on when="count == 8" to="count8"/>
+        <on when="@end" to="count9"/>
+      </state>
+    </layer>
+  </component>
+  <instance id="bell" component="bell-button" x="2" y="2"/>
+  <instance id="folder" component="folder-button" x="26" y="2"/>
+  <instance id="trash-button" component="trash-button" x="50" y="2"/>
+  <instance id="bell-badge" component="badge" x="17" y="2" count="{unread}"/>
+  <instance id="trash-badge" component="badge" x="65" y="2" count="{trash}"/>
+  <listener on="bell.selected" set="unread=0"/>
+</anima>

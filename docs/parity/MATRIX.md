@@ -14,25 +14,25 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Category | Total | done | spec'd | planned | deferred | maybe-later | wont-do |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Drawing and paint | 125 | 63 |  | 62 |  |  |  |
+| Drawing and paint | 125 | 88 |  | 37 |  |  |  |
 | Transforms and draw order | 17 | 12 |  | 5 |  |  |  |
 | Animation | 40 | 16 |  | 24 |  |  |  |
 | State machines | 61 | 25 |  | 36 |  |  |  |
 | Listeners and input | 93 | 13 |  | 80 |  |  |  |
-| Data: view models, binding, converters | 169 |  | 1 | 168 |  |  |  |
+| Data: view models, binding, converters | 169 | 16 |  | 153 |  |  |  |
 | Events | 18 | 2 |  | 16 |  |  |  |
-| Components | 30 |  |  | 30 |  |  |  |
+| Components | 30 | 14 |  | 16 |  |  |  |
 | Text | 61 |  |  | 61 |  |  |  |
 | Layout | 49 |  |  | 49 |  |  |  |
 | Rigging | 23 |  |  | 22 |  | 1 |  |
 | Scripting | 96 |  |  | 71 |  | 25 |  |
 | GPU | 35 |  |  | 8 |  | 27 |  |
-| Assets | 50 |  |  | 50 |  |  |  |
+| Assets | 50 | 6 |  | 44 |  |  |  |
 | Accessibility | 63 | 5 |  | 58 |  |  |  |
 | Host runtime API | 125 | 22 |  | 99 |  | 4 |  |
 | Platforms | 64 | 1 |  | 9 |  | 54 |  |
 | Tooling | 119 | 14 |  | 50 | 1 | 51 | 3 |
-| **Total** | **1238** | **173** | **1** | **898** | **1** | **162** | **3** |
+| **Total** | **1238** | **234** | **0** | **838** | **1** | **162** | **3** |
 
 | Phase | Rows |
 |---|---:|
@@ -42,8 +42,9 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | [P3](#p3) — Done: the playground/inspector and the web host API | 15 |
 | [P3b](#p3b) — The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras | 139 |
 | [P4a](#p4a) — Done: paint and composite on the module system and the draw layer | 46 |
-| [P4](#p4) — Interaction, paint, events and data binding | 381 |
-| [P5](#p5) — Components and assets (moved up: right after P4a) | 117 |
+| [P4](#p4) — Interaction, paint, events and data binding | 365 |
+| [P5](#p5) — Done: components, bindings, assets, images, n-slice and feathering | 61 |
+| [P5b](#p5b) — The rest of P5: asset pipelines (encodings, imports), library detach/update, lists, script instances | 72 |
 | [Pc](#pc) — Canvas backend, minimal (brought forward from P10) | 3 |
 | [P6](#p6) — Text | 67 |
 | [P7](#p7) — Layout | 69 |
@@ -59,7 +60,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `drawing-paint.blend-src-over` | Blend mode srcOver | node.blend / mix-blend-mode="normal" | core | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-src-over` | Blend mode srcOver | node.blend / mix-blend-mode="normal" | core | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend |
 | `drawing-paint.circle` | Circles | circle.center and circle.r | core | done | oracle/circle |
 | `drawing-paint.compound-geometry` | Compound shapes | path.d with multiple subpaths | core | done | oracle/compound-geometry |
 | `drawing-paint.custom-path` | Custom contours | path.d (SVG contours and Z) | core | done | oracle/custom-path |
@@ -75,7 +76,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `drawing-paint.stroke-join-bevel` | bevel joins | stroke.join: bevel | core | done | oracle/stroke-join-bevel |
 | `drawing-paint.stroke-join-miter` | miter joins | stroke.join: miter | core | done | oracle/stroke-join-miter |
 | `drawing-paint.stroke-join-round` | round joins | stroke.join: round | core | done | oracle/stroke-join-round |
-| `drawing-paint.stroke-position-center` | center stroke placement | stroke.position: center | core | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `drawing-paint.stroke-position-center` | center stroke placement | stroke.position: center | core | done | modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts |
 | `drawing-paint.stroke-transform-scaling` | Scaling strokes | stroke.width scales with world transform | core | done | oracle/stroke-transform-scaling |
 | `drawing-paint.trim-single` | Stroke trim | stroke.trimStart/trimEnd/trimOffset on single contour | core | done | oracle/trim-single |
 | `drawing-paint.winding` | Explicit contour winding | path contour direction retained by d | core | done | oracle/winding |
@@ -440,57 +441,57 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `drawing-paint.blend-color` | Blend mode color | node.blend / mix-blend-mode="color" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-color-burn` | Blend mode colorBurn | node.blend / mix-blend-mode="color-burn" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-color-dodge` | Blend mode colorDodge | node.blend / mix-blend-mode="color-dodge" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-darken` | Blend mode darken | node.blend / mix-blend-mode="darken" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-difference` | Blend mode difference | node.blend / mix-blend-mode="difference" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-exclusion` | Blend mode exclusion | node.blend / mix-blend-mode="exclusion" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-hard-light` | Blend mode hardLight | node.blend / mix-blend-mode="hard-light" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-hue` | Blend mode hue | node.blend / mix-blend-mode="hue" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-lighten` | Blend mode lighten | node.blend / mix-blend-mode="lighten" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-luminosity` | Blend mode luminosity | node.blend / mix-blend-mode="luminosity" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-multiply` | Blend mode multiply | node.blend / mix-blend-mode="multiply" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-overlay` | Blend mode overlay | node.blend / mix-blend-mode="overlay" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-saturation` | Blend mode saturation | node.blend / mix-blend-mode="saturation" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-screen` | Blend mode screen | node.blend / mix-blend-mode="screen" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-soft-light` | Blend mode softLight | node.blend / mix-blend-mode="soft-light" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.dash-absolute` | Dash lengths | stroke.dash numeric grid lengths; requires paint | paint | done | spec/conformance/paint-dash; packages/core/test/paint.test.ts |
-| `drawing-paint.dash-offset` | Dash phase | stroke.dashOffset animatable number; grid units or path fraction; requires paint | paint | done | spec/conformance/paint-dash; packages/core/test/paint.test.ts |
-| `drawing-paint.dash-relative` | Relative dashes | stroke.dash percentage strings, fractions of full outline length; requires paint | paint | done | spec/conformance/paint-dash; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
-| `drawing-paint.ellipse` | Ellipses | ellipse cx/cy/rx/ry | paint | done | spec/conformance/paint-shape-ellipse; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.geometry-clip` | Geometry clipping | clip: {source,rule} | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
-| `drawing-paint.gradient-linear` | linear gradients | fill/stroke.type=linear; x1/y1/x2/y2; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
-| `drawing-paint.gradient-opacity` | Gradient opacity | gradient stop colour alpha (#rrggbbaa), sampled per channel; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts |
-| `drawing-paint.gradient-radial` | radial gradients | fill/stroke.type=radial; cx/cy/r/fx/fy; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
-| `drawing-paint.gradient-stops` | Gradient stop animation | fill/stroke.stops[] {position,color}; indexed animatable stop addresses; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts |
-| `drawing-paint.mask-alpha` | alpha subtree masks | mask: {source, mode: "alpha", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
-| `drawing-paint.mask-bounds` | Mask region | SVG mask covering three viewBoxes | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
-| `drawing-paint.mask-enabled` | Toggle layer masks | mask presence; dynamic enable deferred | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
-| `drawing-paint.mask-inverted-alpha` | invertedAlpha subtree masks | mask: {source, mode: "inverted-alpha", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
-| `drawing-paint.mask-inverted-luminance` | invertedLuminance subtree masks | mask: {source, mode: "inverted-luminance", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
-| `drawing-paint.mask-luminance` | luminance subtree masks | mask: {source, mode: "luminance", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
-| `drawing-paint.mask-source-draws` | Visible mask sources | mask.sourceDraws | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
-| `drawing-paint.multiple-paints` | Multiple fills and strokes | paints: [{fill\|stroke}] | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
-| `drawing-paint.paint-visible` | Paint visibility | fill.visible / stroke.visible / paints.i.kind.visible | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
-| `drawing-paint.polygon` | Regular polygons | polygon cx/cy/sides/radius/rotation | paint | done | spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.polygon-rounded` | Rounded polygons | polygon cornerRadius cutback/quadratic | paint | done | spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.rectangle-corner-radii` | Independent rectangle corners | rect corners [tl,tr,br,bl], animated corners.0–3 | paint | done | spec/conformance/paint-shape-corners; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.star` | Stars | star cx/cy/points/radius/innerRadius | paint | done | spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.star-rounded` | Rounded stars | star cornerRadius cutback/quadratic | paint | done | spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.stroke-position-inside` | inside stroke placement | stroke.position: inside | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
-| `drawing-paint.stroke-position-outside` | outside stroke placement | stroke.position: outside | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
-| `drawing-paint.stroke-transform-independent` | Unscaled strokes | stroke.scale=fixed; vector-effect non-scaling-stroke | paint | done | spec/conformance/paint-shape-fixed; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.triangle` | Triangles | triangle x0/y0/width/height | paint | done | spec/conformance/paint-shape-triangle; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.vertex-animation` | Vertex and handle animation | path d compatible command-list morph track | paint | done | spec/conformance/paint-morph; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.blend-color` | Blend mode color | node.blend / mix-blend-mode="color" | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-color-burn` | Blend mode colorBurn | node.blend / mix-blend-mode="color-burn" | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-color-dodge` | Blend mode colorDodge | node.blend / mix-blend-mode="color-dodge" | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-darken` | Blend mode darken | node.blend / mix-blend-mode="darken" | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-difference` | Blend mode difference | node.blend / mix-blend-mode="difference" | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-exclusion` | Blend mode exclusion | node.blend / mix-blend-mode="exclusion" | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-hard-light` | Blend mode hardLight | node.blend / mix-blend-mode="hard-light" | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-hue` | Blend mode hue | node.blend / mix-blend-mode="hue" | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-lighten` | Blend mode lighten | node.blend / mix-blend-mode="lighten" | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-luminosity` | Blend mode luminosity | node.blend / mix-blend-mode="luminosity" | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-multiply` | Blend mode multiply | node.blend / mix-blend-mode="multiply" | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend; tests/oracle/blend-multiply |
+| `drawing-paint.blend-overlay` | Blend mode overlay | node.blend / mix-blend-mode="overlay" | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-saturation` | Blend mode saturation | node.blend / mix-blend-mode="saturation" | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-screen` | Blend mode screen | node.blend / mix-blend-mode="screen" | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend; tests/oracle/blend-screen |
+| `drawing-paint.blend-soft-light` | Blend mode softLight | node.blend / mix-blend-mode="soft-light" | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.dash-absolute` | Dash lengths | stroke.dash numeric grid lengths; requires paint | paint | done | spec/conformance/paint-dash; modules/paint/test/core/paint.test.ts; tests/oracle/dashes-absolute |
+| `drawing-paint.dash-offset` | Dash phase | stroke.dashOffset animatable number; grid units or path fraction; requires paint | paint | done | spec/conformance/paint-dash; modules/paint/test/core/paint.test.ts |
+| `drawing-paint.dash-relative` | Relative dashes | stroke.dash percentage strings, fractions of full outline length; requires paint | paint | done | spec/conformance/paint-dash; modules/paint/test/core/paint.test.ts; packages/web/test/browser.test.ts; tests/oracle/dashes-percent |
+| `drawing-paint.ellipse` | Ellipses | ellipse cx/cy/rx/ry | paint | done | spec/conformance/paint-shape-ellipse; modules/paint/test/web/paint-geometry.test.ts; tests/oracle/ellipse |
+| `drawing-paint.geometry-clip` | Geometry clipping | clip: {source,rule} | composite | done | modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts; tests/oracle/clip |
+| `drawing-paint.gradient-linear` | linear gradients | fill/stroke.type=linear; x1/y1/x2/y2; requires paint | paint | done | spec/conformance/paint-gradient; modules/paint/test/core/paint.test.ts; packages/web/test/browser.test.ts; tests/oracle/linear |
+| `drawing-paint.gradient-opacity` | Gradient opacity | gradient stop colour alpha (#rrggbbaa), sampled per channel; requires paint | paint | done | spec/conformance/paint-gradient; modules/paint/test/core/paint.test.ts |
+| `drawing-paint.gradient-radial` | radial gradients | fill/stroke.type=radial; cx/cy/r/fx/fy; requires paint | paint | done | spec/conformance/paint-gradient; modules/paint/test/core/paint.test.ts; packages/web/test/browser.test.ts; tests/oracle/radial |
+| `drawing-paint.gradient-stops` | Gradient stop animation | fill/stroke.stops[] {position,color}; indexed animatable stop addresses; requires paint | paint | done | spec/conformance/paint-gradient; modules/paint/test/core/paint.test.ts; tests/oracle/animated-stop |
+| `drawing-paint.mask-alpha` | alpha subtree masks | mask: {source, mode: "alpha", sourceDraws} | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha; tests/oracle/alpha-mask |
+| `drawing-paint.mask-bounds` | Mask region | SVG mask covering three viewBoxes | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-enabled` | Toggle layer masks | mask presence; dynamic enable deferred | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-inverted-alpha` | invertedAlpha subtree masks | mask: {source, mode: "inverted-alpha", sourceDraws} | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-inverted-luminance` | invertedLuminance subtree masks | mask: {source, mode: "inverted-luminance", sourceDraws} | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-luminance` | luminance subtree masks | mask: {source, mode: "luminance", sourceDraws} | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-source-draws` | Visible mask sources | mask.sourceDraws | composite | done | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.multiple-paints` | Multiple fills and strokes | paints: [{fill\|stroke}] | composite | done | modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts; tests/oracle/multiple-paints |
+| `drawing-paint.paint-visible` | Paint visibility | fill.visible / stroke.visible / paints.i.kind.visible | composite | done | modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts |
+| `drawing-paint.polygon` | Regular polygons | polygon cx/cy/sides/radius/rotation | paint | done | spec/conformance/paint-shape-polygon; modules/paint/test/web/paint-geometry.test.ts |
+| `drawing-paint.polygon-rounded` | Rounded polygons | polygon cornerRadius cutback/quadratic | paint | done | spec/conformance/paint-shape-polygon; modules/paint/test/web/paint-geometry.test.ts; tests/oracle/polygon-rounded |
+| `drawing-paint.rectangle-corner-radii` | Independent rectangle corners | rect corners [tl,tr,br,bl], animated corners.0–3 | paint | done | spec/conformance/paint-shape-corners; modules/paint/test/web/paint-geometry.test.ts; tests/oracle/rect-corners |
+| `drawing-paint.star` | Stars | star cx/cy/points/radius/innerRadius | paint | done | spec/conformance/paint-shape-star; modules/paint/test/web/paint-geometry.test.ts; tests/oracle/star |
+| `drawing-paint.star-rounded` | Rounded stars | star cornerRadius cutback/quadratic | paint | done | spec/conformance/paint-shape-star; modules/paint/test/web/paint-geometry.test.ts |
+| `drawing-paint.stroke-position-inside` | inside stroke placement | stroke.position: inside | composite | done | modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts; tests/oracle/stroke-inside |
+| `drawing-paint.stroke-position-outside` | outside stroke placement | stroke.position: outside | composite | done | modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts; tests/oracle/stroke-outside |
+| `drawing-paint.stroke-transform-independent` | Unscaled strokes | stroke.scale=fixed; vector-effect non-scaling-stroke | paint | done | spec/conformance/paint-shape-fixed; modules/paint/test/web/paint-geometry.test.ts |
+| `drawing-paint.triangle` | Triangles | triangle x0/y0/width/height | paint | done | spec/conformance/paint-shape-triangle; modules/paint/test/web/paint-geometry.test.ts |
+| `drawing-paint.vertex-animation` | Vertex and handle animation | path d compatible command-list morph track | paint | done | spec/conformance/paint-morph; modules/paint/test/web/paint-geometry.test.ts; tests/oracle/path-morph |
 
 ### Transforms and draw order
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `transforms.animated-draw-order` | Animated draw order | drawOrder: {target,position,active}; hold track on drawOrder.active | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
-| `transforms.draw-target-after` | Draw target after | drawOrder: {target,position,active}; hold track on drawOrder.active | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
-| `transforms.draw-target-before` | Draw target before | drawOrder: {target,position,active}; hold track on drawOrder.active | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `transforms.animated-draw-order` | Animated draw order | drawOrder: {target,position,active}; hold track on drawOrder.active | composite | done | modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts |
+| `transforms.draw-target-after` | Draw target after | drawOrder: {target,position,active}; hold track on drawOrder.active | composite | done | modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts |
+| `transforms.draw-target-before` | Draw target before | drawOrder: {target,position,active}; hold track on drawOrder.active | composite | done | modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts |
 
 ## P4 — Interaction, paint, events and data binding <a id="p4"></a>
 
@@ -669,7 +670,6 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `data.bind-components` | Bind component properties | bind: {"<address>": {"from": "level", "map": [0, 1, 0, 1]}} | data | spec'd | oracle/data-bind-components |
 | `data.bind-conditions` | Bind transition operands | new: bind.<conditions>: {from: "model.property"} | data | planned | oracle/data-bind-conditions |
 | `data.bind-converter-options` | Bind converter options | new: bind.<converter-options>: {from: "model.property"} | data | planned | oracle/data-bind-converter-options |
 | `data.bind-instance-values` | Bind instance values | new: bind.<instance-values>: {from: "model.property"} | data | planned | oracle/data-bind-instance-values |
@@ -682,27 +682,22 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `data.binding-once` | Bind once binding | new: bind.<address>: {from: "model.property", mode: "once"} | data | planned | oracle/data-binding-once |
 | `data.binding-relative` | Relative binding path binding | new: bind.<address>: {from: "model.property", mode: "relative"} | data | planned | oracle/data-binding-relative |
 | `data.binding-to-source` | Target to source binding | new: bind.<address>: {from: "model.property", mode: "to-source"} | data | planned | oracle/data-binding-to-source |
-| `data.binding-to-target` | Source to target binding | new: bind.<address>: {from: "model.property", mode: "to-target"} | data | planned | oracle/data-binding-to-target |
 | `data.binding-two-way-prefer-source` | Two-way, prefer source binding | new: bind.<address>: {from: "model.property", mode: "two-way-prefer-source"} | data | planned | oracle/data-binding-two-way-prefer-source |
 | `data.binding-two-way-prefer-target` | Two-way, prefer target binding | new: bind.<address>: {from: "model.property", mode: "two-way-prefer-target"} | data | planned | oracle/data-binding-two-way-prefer-target |
 | `data.calculate-acosine` | Calculate: acosine | new: data.converters.<name>: {type: "calculate", operation: "acosine", operand: 1} | data | planned | oracle/data-calculate-acosine |
-| `data.calculate-add` | Calculate: add | new: data.converters.<name>: {type: "calculate", operation: "add", operand: 1} | data | planned | oracle/data-calculate-add |
 | `data.calculate-asine` | Calculate: asine | new: data.converters.<name>: {type: "calculate", operation: "asine", operand: 1} | data | planned | oracle/data-calculate-asine |
 | `data.calculate-atangent` | Calculate: atangent | new: data.converters.<name>: {type: "calculate", operation: "atangent", operand: 1} | data | planned | oracle/data-calculate-atangent |
 | `data.calculate-atangent2` | Calculate: atangent2 | new: data.converters.<name>: {type: "calculate", operation: "atangent2", operand: 1} | data | planned | oracle/data-calculate-atangent2 |
 | `data.calculate-ceil` | Calculate: ceil | new: data.converters.<name>: {type: "calculate", operation: "ceil", operand: 1} | data | planned | oracle/data-calculate-ceil |
 | `data.calculate-cosine` | Calculate: cosine | new: data.converters.<name>: {type: "calculate", operation: "cosine", operand: 1} | data | planned | oracle/data-calculate-cosine |
-| `data.calculate-divide` | Calculate: divide | new: data.converters.<name>: {type: "calculate", operation: "divide", operand: 1} | data | planned | oracle/data-calculate-divide |
 | `data.calculate-exp` | Calculate: exp | new: data.converters.<name>: {type: "calculate", operation: "exp", operand: 1} | data | planned | oracle/data-calculate-exp |
 | `data.calculate-floor` | Calculate: floor | new: data.converters.<name>: {type: "calculate", operation: "floor", operand: 1} | data | planned | oracle/data-calculate-floor |
 | `data.calculate-log` | Calculate: log | new: data.converters.<name>: {type: "calculate", operation: "log", operand: 1} | data | planned | oracle/data-calculate-log |
 | `data.calculate-modulo` | Calculate: modulo | new: data.converters.<name>: {type: "calculate", operation: "modulo", operand: 1} | data | planned | oracle/data-calculate-modulo |
-| `data.calculate-multiply` | Calculate: multiply | new: data.converters.<name>: {type: "calculate", operation: "multiply", operand: 1} | data | planned | oracle/data-calculate-multiply |
 | `data.calculate-power` | Calculate: power | new: data.converters.<name>: {type: "calculate", operation: "power", operand: 1} | data | planned | oracle/data-calculate-power |
 | `data.calculate-round` | Calculate: round | new: data.converters.<name>: {type: "calculate", operation: "round", operand: 1} | data | planned | oracle/data-calculate-round |
 | `data.calculate-sine` | Calculate: sine | new: data.converters.<name>: {type: "calculate", operation: "sine", operand: 1} | data | planned | oracle/data-calculate-sine |
 | `data.calculate-squareRoot` | Calculate: squareRoot | new: data.converters.<name>: {type: "calculate", operation: "squareRoot", operand: 1} | data | planned | oracle/data-calculate-squareRoot |
-| `data.calculate-subtract` | Calculate: subtract | new: data.converters.<name>: {type: "calculate", operation: "subtract", operand: 1} | data | planned | oracle/data-calculate-subtract |
 | `data.calculate-tangent` | Calculate: tangent | new: data.converters.<name>: {type: "calculate", operation: "tangent", operand: 1} | data | planned | oracle/data-calculate-tangent |
 | `data.component-public-data` | Component interface properties | new: data.<component-public-data>: named typed declarations with explicit model and instance references | data | planned | oracle/data-component-public-data |
 | `data.converter-boolean-negate` | Negate boolean | new: data.converters.<name>: {type: "converter-boolean-negate", options: {...}} | data | planned | oracle/data-converter-boolean-negate |
@@ -732,7 +727,6 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `data.default-instance` | Default instance | new: data.<default-instance>: named typed declarations with explicit model and instance references | data | planned | oracle/data-default-instance |
 | `data.editor-preview-instance` | Editor preview instance | new: data.<editor-preview-instance>: named typed declarations with explicit model and instance references | data | planned | oracle/data-editor-preview-instance |
 | `data.enum-members` | Custom enum members | new: data.<enum-members>: named typed declarations with explicit model and instance references | data | planned | oracle/data-enum-members |
-| `data.formula-expression` | Formula expressions | new: data.converters.<name>: {type: "formula", expression: "expression(...)"} | data | planned | oracle/data-formula-expression |
 | `data.formula-function-acosine` | Formula function: acosine | new: data.converters.<name>: {type: "formula", expression: "function-acosine(...)"} | data | planned | oracle/data-formula-function-acosine |
 | `data.formula-function-asine` | Formula function: asine | new: data.converters.<name>: {type: "formula", expression: "function-asine(...)"} | data | planned | oracle/data-formula-function-asine |
 | `data.formula-function-atangent` | Formula function: atangent | new: data.converters.<name>: {type: "formula", expression: "function-atangent(...)"} | data | planned | oracle/data-formula-function-atangent |
@@ -742,19 +736,13 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `data.formula-function-exp` | Formula function: exp | new: data.converters.<name>: {type: "formula", expression: "function-exp(...)"} | data | planned | oracle/data-formula-function-exp |
 | `data.formula-function-floor` | Formula function: floor | new: data.converters.<name>: {type: "formula", expression: "function-floor(...)"} | data | planned | oracle/data-formula-function-floor |
 | `data.formula-function-log` | Formula function: log | new: data.converters.<name>: {type: "formula", expression: "function-log(...)"} | data | planned | oracle/data-formula-function-log |
-| `data.formula-function-max` | Formula function: max | new: data.converters.<name>: {type: "formula", expression: "function-max(...)"} | data | planned | oracle/data-formula-function-max |
-| `data.formula-function-min` | Formula function: min | new: data.converters.<name>: {type: "formula", expression: "function-min(...)"} | data | planned | oracle/data-formula-function-min |
 | `data.formula-function-pow` | Formula function: pow | new: data.converters.<name>: {type: "formula", expression: "function-pow(...)"} | data | planned | oracle/data-formula-function-pow |
 | `data.formula-function-random` | Formula function: random | new: data.converters.<name>: {type: "formula", expression: "function-random(...)"} | data | planned | oracle/data-formula-function-random |
 | `data.formula-function-round` | Formula function: round | new: data.converters.<name>: {type: "formula", expression: "function-round(...)"} | data | planned | oracle/data-formula-function-round |
 | `data.formula-function-sine` | Formula function: sine | new: data.converters.<name>: {type: "formula", expression: "function-sine(...)"} | data | planned | oracle/data-formula-function-sine |
 | `data.formula-function-sqrt` | Formula function: sqrt | new: data.converters.<name>: {type: "formula", expression: "function-sqrt(...)"} | data | planned | oracle/data-formula-function-sqrt |
 | `data.formula-function-tangent` | Formula function: tangent | new: data.converters.<name>: {type: "formula", expression: "function-tangent(...)"} | data | planned | oracle/data-formula-function-tangent |
-| `data.formula-operator-add` | Formula operator: add | new: data.converters.<name>: {type: "formula", expression: "operator-add(...)"} | data | planned | oracle/data-formula-operator-add |
-| `data.formula-operator-divide` | Formula operator: divide | new: data.converters.<name>: {type: "formula", expression: "operator-divide(...)"} | data | planned | oracle/data-formula-operator-divide |
 | `data.formula-operator-modulo` | Formula operator: modulo | new: data.converters.<name>: {type: "formula", expression: "operator-modulo(...)"} | data | planned | oracle/data-formula-operator-modulo |
-| `data.formula-operator-multiply` | Formula operator: multiply | new: data.converters.<name>: {type: "formula", expression: "operator-multiply(...)"} | data | planned | oracle/data-formula-operator-multiply |
-| `data.formula-operator-subtract` | Formula operator: subtract | new: data.converters.<name>: {type: "formula", expression: "operator-subtract(...)"} | data | planned | oracle/data-formula-operator-subtract |
 | `data.formula-random-always` | Formula random mode: always | new: data.converters.<name>: {type: "formula", expression: "random-always(...)"} | data | planned | oracle/data-formula-random-always |
 | `data.formula-random-once` | Formula random mode: once | new: data.converters.<name>: {type: "formula", expression: "random-once(...)"} | data | planned | oracle/data-formula-random-once |
 | `data.formula-random-source-change` | Formula random mode: sourceChange | new: data.converters.<name>: {type: "formula", expression: "random-source-change(...)"} | data | planned | oracle/data-formula-random-source-change |
@@ -789,7 +777,6 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `data.list-items` | Explicit list items | new: data.<list-items>: named typed declarations with explicit model and instance references | data | planned | oracle/data-list-items |
 | `data.model-definition` | Typed model definition | new: data.<model-definition>: named typed declarations with explicit model and instance references | data | planned | oracle/data-model-definition |
 | `data.named-instances` | Named instances | new: data.<named-instances>: named typed declarations with explicit model and instance references | data | planned | oracle/data-named-instances |
-| `data.operation-operand-value` | Calculation operand: Value | new: data.converters.<name>: {type: "operation-operand-value", options: {...}} | data | planned | oracle/data-operation-operand-value |
 | `data.operation-operand-view-model` | Calculation operand: ViewModel | new: data.converters.<name>: {type: "operation-operand-view-model", options: {...}} | data | planned | oracle/data-operation-operand-view-model |
 | `data.pad-end` | String pad: end | new: data.converters.<name>: {type: "pad-end", options: {...}} | data | planned | oracle/data-pad-end |
 | `data.pad-start` | String pad: start | new: data.converters.<name>: {type: "pad-start", options: {...}} | data | planned | oracle/data-pad-start |
@@ -808,8 +795,6 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `data.property-text-style` | Text style property | new: data.models.<model>.properties.<name>: {type: "text-style"} | data | planned | oracle/data-property-text-style |
 | `data.property-trigger` | Trigger property | new: data.models.<model>.properties.<name>: {type: "trigger"} | data | planned | oracle/data-property-trigger |
 | `data.property-view-model` | Nested model property | new: data.models.<model>.properties.<name>: {type: "view-model"} | data | planned | oracle/data-property-view-model |
-| `data.range-clamp-lower` | Range option: clampLower | new: data.converters.<name>: {type: "range-clamp-lower", options: {...}} | data | planned | oracle/data-range-clamp-lower |
-| `data.range-clamp-upper` | Range option: clampUpper | new: data.converters.<name>: {type: "range-clamp-upper", options: {...}} | data | planned | oracle/data-range-clamp-upper |
 | `data.range-modulo` | Range option: modulo | new: data.converters.<name>: {type: "range-modulo", options: {...}} | data | planned | oracle/data-range-modulo |
 | `data.range-reverse` | Range option: reverse | new: data.converters.<name>: {type: "range-reverse", options: {...}} | data | planned | oracle/data-range-reverse |
 | `data.script-model-api` | Script model API | new: data.<script-model-api>: named typed declarations with explicit model and instance references | data | planned | oracle/data-script-model-api |
@@ -920,42 +905,100 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.view-model-instances` | Create view model instances | new: typed model instance factory | data | planned | browser/view-model-instances |
 | `host-api.volume` | Artboard volume | new: <anima-icon>.volume | audio | planned | browser/volume |
 
-## P5 — Components and assets (moved up: right after P4a) <a id="p5"></a>
+## P5 — Done: components, bindings, assets, images, n-slice and feathering <a id="p5"></a>
 
 ### Drawing and paint
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `drawing-paint.feather-enabled` | feather enabled | new: feather.enabled on a paint | paint | planned | oracle/feather-enabled |
-| `drawing-paint.feather-inner` | feather inner | new: feather.inner on a paint | paint | planned | oracle/feather-inner |
-| `drawing-paint.feather-offset` | feather offset | new: feather.offset on a paint | paint | planned | oracle/feather-offset |
-| `drawing-paint.feather-outer` | feather outer | new: feather.outer on a paint | paint | planned | oracle/feather-outer |
-| `drawing-paint.feather-space` | feather space | new: feather.space on a paint | paint | planned | oracle/feather-space |
-| `drawing-paint.image-alignment` | Image box alignment | new: image.align: [x,y] | paint | planned | oracle/image-alignment |
-| `drawing-paint.image-drawable` | Scene images | new: image node with asset and origin | paint | planned | oracle/image-drawable |
-| `drawing-paint.image-filter-bilinear` | bilinear image sampling | new: image.sampling: bilinear | paint | planned | oracle/image-filter-bilinear |
-| `drawing-paint.image-filter-nearest` | nearest image sampling | new: image.sampling: nearest | paint | planned | oracle/image-filter-nearest |
-| `drawing-paint.image-fit-contain` | Image fit contain | new: image.fit: contain | paint | planned | oracle/image-fit-contain |
-| `drawing-paint.image-fit-cover` | Image fit cover | new: image.fit: cover | paint | planned | oracle/image-fit-cover |
-| `drawing-paint.image-fit-fill` | Image fit fill | new: image.fit: fill | paint | planned | oracle/image-fit-fill |
-| `drawing-paint.image-fit-fit-height` | Image fit fitHeight | new: image.fit: fitHeight | paint | planned | oracle/image-fit-fit-height |
-| `drawing-paint.image-fit-fit-width` | Image fit fitWidth | new: image.fit: fitWidth | paint | planned | oracle/image-fit-fit-width |
-| `drawing-paint.image-fit-none` | Image fit none | new: image.fit: none | paint | planned | oracle/image-fit-none |
+| `drawing-paint.feather-enabled` | feather enabled | surface: paint.feather { inner, outer, offset, enabled, space }; local Gaussian falloff; SVG world space reports unsupported-render; AniML pending | surface | done | spec/draw-conformance/surface-feather; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox Gaussian halo/disabled/independent stroke) |
+| `drawing-paint.feather-inner` | feather inner | surface: paint.feather { inner, outer, offset, enabled, space }; local Gaussian falloff; SVG world space reports unsupported-render; AniML pending | surface | done | spec/draw-conformance/surface-feather; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox Gaussian halo/disabled/independent stroke) |
+| `drawing-paint.feather-offset` | feather offset | surface: paint.feather { inner, outer, offset, enabled, space }; local Gaussian falloff; SVG world space reports unsupported-render; AniML pending | surface | done | spec/draw-conformance/surface-feather; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox Gaussian halo/disabled/independent stroke) |
+| `drawing-paint.feather-outer` | feather outer | surface: paint.feather { inner, outer, offset, enabled, space }; local Gaussian falloff; SVG world space reports unsupported-render; AniML pending | surface | done | spec/draw-conformance/surface-feather; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox Gaussian halo/disabled/independent stroke) |
+| `drawing-paint.feather-space` | feather space | surface: paint.feather { inner, outer, offset, enabled, space }; local Gaussian falloff; SVG world space reports unsupported-render; AniML pending | surface | done | spec/draw-conformance/surface-feather; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox Gaussian halo/disabled/independent stroke) |
+| `drawing-paint.image-alignment` | Image box alignment | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | paint | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+| `drawing-paint.image-drawable` | Scene images | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | paint | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+| `drawing-paint.image-filter-bilinear` | bilinear image sampling | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | paint | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+| `drawing-paint.image-filter-nearest` | nearest image sampling | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | paint | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+| `drawing-paint.image-fit-contain` | Image fit contain | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | paint | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+| `drawing-paint.image-fit-cover` | Image fit cover | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | paint | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+| `drawing-paint.image-fit-fill` | Image fit fill | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | paint | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+| `drawing-paint.image-fit-fit-height` | Image fit fitHeight | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | paint | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+| `drawing-paint.image-fit-fit-width` | Image fit fitWidth | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | paint | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+| `drawing-paint.image-fit-none` | Image fit none | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | paint | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+| `drawing-paint.image-fit-scale-down` | Image fit scaleDown | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | paint | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+| `drawing-paint.n-slice-component` | N-slice component | surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending | surface | done | spec/draw-conformance/surface-slice; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden) |
+| `drawing-paint.n-slice-cuts` | Arbitrary slice axes | surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending | surface | done | spec/draw-conformance/surface-slice; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden) |
+| `drawing-paint.n-slice-image` | N-slice image | surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending | surface | done | spec/draw-conformance/surface-slice; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden) |
+| `drawing-paint.n-slice-patch-hidden` | Slice patch hidden | surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending | surface | done | spec/draw-conformance/surface-slice; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden) |
+| `drawing-paint.n-slice-patch-repeat` | Slice patch repeat | surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending | surface | done | spec/draw-conformance/surface-slice; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden) |
+| `drawing-paint.n-slice-patch-stretch` | Slice patch stretch | surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending | surface | done | spec/draw-conformance/surface-slice; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden) |
+| `drawing-paint.n-slice-vector` | N-slice vector | surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending | surface | done | spec/draw-conformance/surface-slice; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden) |
+| `drawing-paint.paint-image` | Images in paints | surface: fill/stroke type=image, asset, imageWidth/imageHeight, imageX/Y/Rotate/ScaleX/ScaleY, modulate; AniML imagePaint | surface | done | spec/draw-conformance/surface-image; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox image patterns/modulation/resolver) |
+| `drawing-paint.paint-image-transform` | Image paint mapping | surface: fill/stroke type=image, asset, imageWidth/imageHeight, imageX/Y/Rotate/ScaleX/ScaleY, modulate; AniML imagePaint | surface | done | spec/draw-conformance/surface-image; modules/surface/test/core/surface.test.ts; modules/surface/test/web/surface.test.ts (Chromium+Firefox image patterns/modulation/resolver) |
+
+### Data: view models, binding, converters
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `data.bind-components` | Bind component properties | bind: {"<address>": "<input expression>"} (node properties; instance inputs in P5-2) | data | done | modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.binding-to-target` | Source to target binding | bind: {"<address>": "<input>"} (one-way input source; view-model sources in P4e) | data | done | modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.calculate-add` | Calculate: add | bind: a + b | data | done | modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.calculate-divide` | Calculate: divide | bind: a / b | data | done | modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.calculate-multiply` | Calculate: multiply | bind: a * b | data | done | modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.calculate-subtract` | Calculate: subtract | bind: a - b | data | done | modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.formula-expression` | Formula expressions | bind expressions: input names, numeric literals, parentheses and precedence | data | done | modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.formula-function-max` | Formula function: max | bind: max(a,b) | data | done | modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.formula-function-min` | Formula function: min | bind: min(a,b) | data | done | modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.formula-operator-add` | Formula operator: add | bind: a + b | data | done | modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.formula-operator-divide` | Formula operator: divide | bind: a / b | data | done | modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.formula-operator-multiply` | Formula operator: multiply | bind: a * b | data | done | modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.formula-operator-subtract` | Formula operator: subtract | bind: a - b | data | done | modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.operation-operand-value` | Calculation operand: Value | bind numeric literal operand | data | done | modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.range-clamp-lower` | Range option: clampLower | bind: max(value, lower) | data | done | modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.range-clamp-upper` | Range option: clampUpper | bind: min(value, upper) | data | done | modules/bind/test/core/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+
+### Components
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `components.host-nested-inputs` | Host nested inputs | Player.set/fire/toggle("instance.input") | components | done | modules/components/test/core/components.test.ts |
+| `components.library-components` | Library components | AniML library <component>; <instance component="ui:name"> | components | done | modules/components/test/markup/components.test.ts |
+| `components.library-detach` | Detach library dependency | anima build resolves component libraries into self-contained .ani | components | done | modules/components/test/markup/components.test.ts |
+| `components.nested-animation` | Nested animation playback | components definitions with per-instance timeline players | components | done | spec/conformance/components-basic |
+| `components.nested-artboard` | Nested artboard placement | components map + transformed instance nodes; scoped draw groups | components | done | spec/conformance/components-nested |
+| `components.nested-bool` | Nested boolean input | instance bool inputs; scoped set/toggle actions | components | done | modules/components/test/core/components.test.ts |
+| `components.nested-machine` | Nested state machine | one independent Player per instance; scoped layer inspection | components | done | spec/conformance/components-events |
+| `components.nested-number` | Nested numeric input | instance number inputs, literals/expressions, bounds | components | done | spec/conformance/components-inputs-bound |
+| `components.nested-pause` | Nested pause | instance.paused suspends child stepping | components | done | spec/conformance/components-basic |
+| `components.nested-speed` | Nested speed | instance.speed multiplies parent dt | components | done | spec/conformance/components-basic |
+| `components.nested-trigger` | Nested trigger input | fire="instance.trigger"; child listener trigger actions | components | done | spec/conformance/components-events |
+| `components.stateful-input-animation` | Animate component inputs | pose/track/bind targets instance.input after parent resolution | components | done | modules/components/test/core/components.test.ts |
+| `components.stateful-input-forwarding` | Forward nested component inputs | instance inputs="{parentInput}" via bind evaluator, recursively | components | done | spec/conformance/components-nested |
+| `components.stateful-instance` | Per-placement state | instance owns inputs, clocks, transitions and timelines | components | done | modules/components/test/core/components.test.ts |
+
+### Assets
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `assets.host-decode-image` | Host decode image | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | assets | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+| `assets.image` | Image asset | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | assets | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+| `assets.loader` | Custom host loader | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | assets | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+| `assets.storage-embedded` | Embedded storage | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | assets | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+| `assets.storage-hosted` | Hosted storage | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | assets | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+| `assets.storage-referenced` | Referenced storage | requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?} | assets | done | modules/assets/test/core/assets.test.ts; modules/assets/test/web/assets.test.ts; modules/assets/test/cli/assets.test.ts; conformance/assets-image |
+
+## P5b — The rest of P5: asset pipelines (encodings, imports), library detach/update, lists, script instances <a id="p5b"></a>
+
+### Drawing and paint
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
 | `drawing-paint.image-fit-resize` | Image fit resize | new: image.fit: resize | paint | planned | oracle/image-fit-resize |
-| `drawing-paint.image-fit-scale-down` | Image fit scaleDown | new: image.fit: scaleDown | paint | planned | oracle/image-fit-scale-down |
 | `drawing-paint.image-wrap-clamp` | clamp image wrapping | new: image.wrapX/wrapY: clamp | paint | planned | oracle/image-wrap-clamp |
 | `drawing-paint.image-wrap-mirror` | mirror image wrapping | new: image.wrapX/wrapY: mirror | paint | planned | oracle/image-wrap-mirror |
 | `drawing-paint.image-wrap-repeat` | repeat image wrapping | new: image.wrapX/wrapY: repeat | paint | planned | oracle/image-wrap-repeat |
-| `drawing-paint.n-slice-component` | N-slice component | new: slice regions on component nodes | paint | planned | oracle/n-slice-component |
-| `drawing-paint.n-slice-cuts` | Arbitrary slice axes | new: slice.x/y cut arrays in grid units | paint | planned | oracle/n-slice-cuts |
-| `drawing-paint.n-slice-image` | N-slice image | new: slice regions on image nodes | paint | planned | oracle/n-slice-image |
-| `drawing-paint.n-slice-patch-hidden` | Slice patch hidden | new: slice.patches[].mode: hidden | paint | planned | oracle/n-slice-patch-hidden |
-| `drawing-paint.n-slice-patch-repeat` | Slice patch repeat | new: slice.patches[].mode: repeat | paint | planned | oracle/n-slice-patch-repeat |
-| `drawing-paint.n-slice-patch-stretch` | Slice patch stretch | new: slice.patches[].mode: stretch | paint | planned | oracle/n-slice-patch-stretch |
-| `drawing-paint.n-slice-vector` | N-slice vector | new: slice regions on vector nodes | paint | planned | oracle/n-slice-vector |
 | `drawing-paint.paint-artboard` | Live artboard paint | new: paint.scene references a component | components | planned | oracle/paint-artboard |
-| `drawing-paint.paint-image` | Images in paints | new: paint.image with optional color modulation | paint | planned | oracle/paint-image |
-| `drawing-paint.paint-image-transform` | Image paint mapping | new: paint.image transform in grid units and degrees | paint | planned | oracle/paint-image-transform |
 
 ### Components
 
@@ -963,12 +1006,9 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 |---|---|---|---|---|---|
 | `components.explicit-context` | Explicit component context | new: components.<name> / nodes[].component: named explicit-context settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-explicit-context |
 | `components.host-artboard-reference` | Host bindable artboard | new: components.<name> / nodes[].component: named host-artboard-reference settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-host-artboard-reference |
-| `components.host-nested-inputs` | Host nested inputs | new: components.<name> / nodes[].component: named host-nested-inputs settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-host-nested-inputs |
 | `components.inherited-context` | Inherited component context | new: components.<name> / nodes[].component: named inherited-context settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-inherited-context |
 | `components.layout-size` | Per-instance layout size | new: components.<name> / nodes[].component: named layout-size settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-layout-size |
 | `components.leaf-fit` | Nested fit and alignment | new: components.<name> / nodes[].component: named leaf-fit settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-leaf-fit |
-| `components.library-components` | Library components | new: components.<name> / nodes[].component: named library-components settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-library-components |
-| `components.library-detach` | Detach library dependency | new: components.<name> / nodes[].component: named library-detach settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-library-detach |
 | `components.library-export` | Library export selection | new: components.<name> / nodes[].component: named library-export settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-library-export |
 | `components.library-models` | Library data definitions | new: components.<name> / nodes[].component: named library-models settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-library-models |
 | `components.library-update` | Update library dependency | new: components.<name> / nodes[].component: named library-update settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-library-update |
@@ -976,20 +1016,9 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `components.list-layout-inheritance` | Component list layout inheritance | new: components.<name> / nodes[].component: named list-layout-inheritance settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-list-layout-inheritance |
 | `components.list-map` | Map model to row artboard | new: components.<name> / nodes[].component: named list-map settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-list-map |
 | `components.list-size-override` | Generated item sizing | new: components.<name> / nodes[].component: named list-size-override settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-list-size-override |
-| `components.nested-animation` | Nested animation playback | new: components.<name> / nodes[].component: named nested-animation settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-animation |
-| `components.nested-artboard` | Nested artboard placement | new: components.<name> / nodes[].component: named nested-artboard settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-artboard |
-| `components.nested-bool` | Nested boolean input | new: components.<name> / nodes[].component: named nested-bool settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-bool |
-| `components.nested-machine` | Nested state machine | new: components.<name> / nodes[].component: named nested-machine settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-machine |
-| `components.nested-number` | Nested numeric input | new: components.<name> / nodes[].component: named nested-number settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-number |
-| `components.nested-pause` | Nested pause | new: components.<name> / nodes[].component: named nested-pause settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-pause |
 | `components.nested-quantize` | Nested quantization | new: components.<name> / nodes[].component: named nested-quantize settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-quantize |
 | `components.nested-remap` | Nested time remapping | new: components.<name> / nodes[].component: named nested-remap settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-remap |
-| `components.nested-speed` | Nested speed | new: components.<name> / nodes[].component: named nested-speed settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-speed |
-| `components.nested-trigger` | Nested trigger input | new: components.<name> / nodes[].component: named nested-trigger settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-trigger |
 | `components.script-instance` | Script-created artboard instance | new: components.<name> / nodes[].component: named script-instance settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-script-instance |
-| `components.stateful-input-animation` | Animate component inputs | new: components.<name> / nodes[].component: named stateful-input-animation settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-stateful-input-animation |
-| `components.stateful-input-forwarding` | Forward nested component inputs | new: components.<name> / nodes[].component: named stateful-input-forwarding settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-stateful-input-forwarding |
-| `components.stateful-instance` | Per-placement state | new: components.<name> / nodes[].component: named stateful-instance settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-stateful-instance |
 | `components.stateful-output` | Read-only component outputs | new: components.<name> / nodes[].component: named stateful-output settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-stateful-output |
 
 ### Assets
@@ -1013,8 +1042,6 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `assets.google-font-import` | Google Fonts import | new: assets.<name> / build.assets.<name>: named google-font-import resource setting | assets | planned | oracle/assets-google-font-import |
 | `assets.host-decode-audio` | Host decode audio | new: player asset loader API with explicit source resolution: host-decode-audio | assets | planned | oracle/assets-host-decode-audio |
 | `assets.host-decode-font` | Host decode font | new: player asset loader API with explicit source resolution: host-decode-font | assets | planned | oracle/assets-host-decode-font |
-| `assets.host-decode-image` | Host decode image | new: player asset loader API with explicit source resolution: host-decode-image | assets | planned | oracle/assets-host-decode-image |
-| `assets.image` | Image asset | new: assets.<name> / build.assets.<name>: named image resource setting | assets | planned | oracle/assets-image |
 | `assets.image-encoding-astc` | Image encoding: astc | new: assets.<name> / build.assets.<name>: named image-encoding-astc resource setting | assets | planned | oracle/assets-image-encoding-astc |
 | `assets.image-encoding-bc7` | Image encoding: bc7 | new: assets.<name> / build.assets.<name>: named image-encoding-bc7 resource setting | assets | planned | oracle/assets-image-encoding-bc7 |
 | `assets.image-encoding-etc2rgba` | Image encoding: etc2Rgba | new: assets.<name> / build.assets.<name>: named image-encoding-etc2rgba resource setting | assets | planned | oracle/assets-image-encoding-etc2rgba |
@@ -1034,16 +1061,12 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `assets.image-wrap-y-clamp` | Image Y wrap: clamp | new: assets.<image>.sampling: named image-wrap-y-clamp setting | assets | planned | oracle/assets-image-wrap-y-clamp |
 | `assets.image-wrap-y-mirror` | Image Y wrap: mirror | new: assets.<image>.sampling: named image-wrap-y-mirror setting | assets | planned | oracle/assets-image-wrap-y-mirror |
 | `assets.image-wrap-y-repeat` | Image Y wrap: repeat | new: assets.<image>.sampling: named image-wrap-y-repeat setting | assets | planned | oracle/assets-image-wrap-y-repeat |
-| `assets.loader` | Custom host loader | new: player asset loader API with explicit source resolution: loader | assets | planned | oracle/assets-loader |
 | `assets.lottie-import` | Lottie import | new: assets.<name> / build.assets.<name>: named lottie-import resource setting | assets | planned | oracle/assets-lottie-import |
 | `assets.metadata` | Loader metadata | new: player asset loader API with explicit source resolution: metadata | assets | planned | oracle/assets-metadata |
 | `assets.psd-layers` | Photoshop layers | new: assets.<name> / build.assets.<name>: named psd-layers resource setting | assets | planned | oracle/assets-psd-layers |
 | `assets.replacement-scope-font` | Font replacement scope | new: assets.<name> / build.assets.<name>: named replacement-scope-font resource setting | assets | planned | oracle/assets-replacement-scope-font |
 | `assets.replacement-scope-image` | Image replacement scope | new: assets.<name> / build.assets.<name>: named replacement-scope-image resource setting | assets | planned | oracle/assets-replacement-scope-image |
 | `assets.script-blob` | Script binary lookup | new: assets.<name> / build.assets.<name>: named script-blob resource setting | assets | planned | oracle/assets-script-blob |
-| `assets.storage-embedded` | Embedded storage | new: assets.<name>: {type: "image\|font\|audio\|blob", storage: "embedded", source: ...} | assets | planned | oracle/assets-storage-embedded |
-| `assets.storage-hosted` | Hosted storage | new: assets.<name>: {type: "image\|font\|audio\|blob", storage: "hosted", source: ...} | assets | planned | oracle/assets-storage-hosted |
-| `assets.storage-referenced` | Referenced storage | new: assets.<name>: {type: "image\|font\|audio\|blob", storage: "referenced", source: ...} | assets | planned | oracle/assets-storage-referenced |
 | `assets.svg-import` | SVG import | new: assets.<name> / build.assets.<name>: named svg-import resource setting | assets | planned | oracle/assets-svg-import |
 
 ### Host runtime API
@@ -1396,7 +1419,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `drawing-paint.mask-resolution` | Mask quality | vector SVG mask (no raster resolution setting) | canvas | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-resolution` | Mask quality | vector SVG mask (no raster resolution setting) | canvas | planned | modules/composite/test/web/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
 
 ### GPU
 

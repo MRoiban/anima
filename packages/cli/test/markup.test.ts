@@ -87,7 +87,12 @@ describe('AniML authoring commands', () => {
   });
 
   it('maps CLI glyph hash warnings back to markup', async () => {
-    const f = put('hash.animl', readFileSync(bell, 'utf8').replace('M9.493 4.473', 'M9.494 4.473'));
+    const f = put(
+      'hash.animl',
+      readFileSync(bell, 'utf8')
+        .replace('src="lib/ui.animl"', `src="${join(root, 'examples/lib/ui.animl')}"`)
+        .replace('M9.493 4.473', 'M9.494 4.473'),
+    );
     const r = await cli('validate', f, '--format=json');
     expect(r.code).toBe(0);
     expect(JSON.parse(r.out).diagnostics[0]).toMatchObject({
@@ -270,4 +275,19 @@ describe('markup discovery', () => {
     for (const word of ['build', 'decompile', '.animl', '--ani', 'markup'])
       expect(help).toContain(word);
   });
+});
+
+it('reports imported diagnostics and the application site in CLI text', async () => {
+  const library = put(
+    'ui.animl',
+    '<library name="ui">\n<template name="t"><circle id="dot" cx="bad" cy="0" r="1"/></template></library>',
+  );
+  const file = put(
+    'import.animl',
+    `<anima version="0.1" name="test" grid="20">\n<import src="ui.animl" as="ui"/>\n<apply template="ui:t"/></anima>`,
+  );
+  const r = await cli('validate', file);
+  expect(r.code).toBe(1);
+  expect(r.err).toContain(`${library}:2:`);
+  expect(r.err).toContain(`related: ${file}:3:`);
 });
