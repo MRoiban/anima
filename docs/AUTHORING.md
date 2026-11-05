@@ -385,3 +385,28 @@ for holes. Source transforms apply, but its paint, visibility and opacity do not
   <listener on="click" toggle="done"/>
 </anima>
 ```
+
+## Images and assets
+
+Import both `@anima-format/web/paint` and `@anima-format/web/assets` for image documents.
+Declare an asset, then place it in a box (see `examples/photo.animl`, an original generated PNG):
+
+```xml
+<anima version="0.1" name="photo" grid="24" requires="paint assets">
+  <asset name="photo" type="image" src="photo.png"/>
+  <image id="photo" asset="photo" x0="2" y0="2" width="20" height="20" fit="contain"/>
+</anima>
+```
+
+`contain` preserves the full image; `cover` fills and crops; `fill` stretches. `none`,
+`scale-down`, `fit-width`, and `fit-height` use intrinsic size. Set `align="top-left"` (or
+center/edge/corner names) to position it, and `sampling="nearest"` for pixel art. The box clips
+overflow. Asset `width`/`height` override decoded intrinsic dimensions when needed.
+
+Paths resolve relative to the document URL in the browser and source file in the CLI.
+`anima build photo.animl --embed -o photo.ani` embeds local files as data URIs; only assets
+change. `anima render photo.animl -o photo.png` reads local images directly.
+For hosted assets, assign `icon.assets = (name, info) => urlOrBlob` before loading; promises
+work too. Await `icon.ready` on initial load, or listen for `anima:load` on reload. Failed
+loads emit `anima:error`. Embedded images make no network request. Font/audio/blob declarations
+are accepted now; their playback/text modules follow later.

@@ -143,7 +143,12 @@ function recover(root: Element): Obj {
       };
     else if (el.name === 'color') insert('colors', name, a.value);
     else if (el.name === 'glyph') insert('glyphs', name, p);
-    else if (el.name === 'a11y') d.a11y = p;
+    else if (el.name === 'asset') {
+      const asset: Obj = { ...p, source: p.src };
+      delete asset.src;
+      for (const k of ['width', 'height']) if (asset[k] !== undefined) asset[k] = Number(asset[k]);
+      insert('assets', name, asset);
+    } else if (el.name === 'a11y') d.a11y = p;
     else if (['bool', 'number', 'trigger'].includes(el.name))
       insert('inputs', name, { type: el.name, ...p });
     else if (el.name === 'hit')
@@ -325,6 +330,7 @@ function check(source: string | object) {
       ...Object.keys(ATTR_ORDER),
       ...NODE_ELEMENTS,
       'pose',
+      'asset',
       'linearGradient',
       'radialGradient',
       'stop',

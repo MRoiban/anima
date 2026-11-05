@@ -50,8 +50,10 @@ docs/      architecture, plan, research notes
 ## web (`packages/web`)
 
 - `<anima-icon src="bell.ani">`, an inline `<script type="application/vnd.anima+json">` child, or
-  `el.load(doc)`. The runtime requests nothing on its own: the only fetch is the `src` the page
-  gives it (like `<img src>`), and with an inline document the page makes no requests at all.
+  `el.load(doc)`. The base runtime fetches only the `src` the page gives it (like `<img src>`); inline
+  documents without referenced assets make no requests. The optional assets module decodes image
+  sources relative to that document URL, or asks `icon.assets` for a replacement URL/Blob. Embedded
+  data URIs require no network. Image geometry stays renderer-neutral; SVG owns the clipped viewport.
 - **Shadow DOM.** The element renders into an open shadow root (a `<style>` and the `<svg>`). CSS
   custom properties and `color` inherit through it, so slots theme from the page.
 - **Retained SVG DOM.** Build the tree once from the SVG backend's `sceneTree`: a `<g>` per node carrying its

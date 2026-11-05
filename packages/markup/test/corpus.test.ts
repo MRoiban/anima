@@ -12,7 +12,7 @@ describe('authored AniML corpus', () => {
   it('includes the bell example and all conformance sources', () => {
     expect(files).toContain('examples/bell.animl');
     const cases = globSync('spec/conformance/*/case.ani', { cwd: fileURLToPath(root) }).sort();
-    expect(cases).toHaveLength(32);
+    expect(cases).toHaveLength(33);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
   });
 

@@ -1,5 +1,6 @@
 // HTML build-time embedding (ANIML §9). Scan tags and raw-text elements without reserialising
 // the page: only a matching script's type value and body may change.
+import { formatAni } from '@anima-format/core';
 import { compile, type MarkupDiagnostic } from '@anima-format/markup';
 import { lineCol } from './locate.ts';
 
@@ -12,6 +13,7 @@ interface Edit {
 export function buildHTML(
   source: string,
   file: string,
+  transform?: (doc: object) => void,
 ): {
   text?: string;
   diagnostics: MarkupDiagnostic[];
@@ -102,6 +104,10 @@ export function buildHTML(
       })),
     );
     if (result.text !== undefined) {
+      if (transform && result.doc) {
+        transform(result.doc);
+        result.text = formatAni(result.doc);
+      }
       edits.push({ start: type.start, end: type.end, text: 'application/vnd.anima+json' });
       // HTML raw-text ends at </script even inside a JSON string.
       edits.push({ start: bodyStart, end: bodyEnd, text: result.text.replace(/</g, '\\u003c') });

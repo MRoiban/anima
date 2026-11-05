@@ -655,3 +655,23 @@ The older P4a-6 target remains open (core+web is still 204 B above 16697 B).
 - **Parity**: 46 rows done (173 / 1 238 overall). Images, n-slice and feathering moved to P5; other
   paint rows (angular gradients, gradient transform, trim modes, effect stacks, additive blend)
   stay in P4. **Open:** the Rive oracle cases for these features (MODULES §5) — not yet written.
+
+## P5-4 — assets and image nodes
+
+Assets declare image/font/audio/blob sources and embedded/referenced storage. Images contribute
+renderer-neutral geometry; SVG is a separate backend with a clipped viewport, seven fits,
+nine alignments and bilinear/nearest sampling. The web module decodes images, resolves document-relative
+URLs and host URL/Blob overrides, and reports failures. CLI builds embed local sources without
+changing other document fields; render embeds and decodes disk images through existing resvg.
+AniML uses `src` for asset source and separate `fit`/`align` instead of a partial SVG
+`preserveAspectRatio` alias. No runtime dependency was added. Asset indirection follows the idea in
+[research/§6](research/rive-format-and-graph.md#6-lessons-for-anima), with failure semantics from
+the decided P5 design; draw data follows MODULES §3.1, independently implemented.
+
+Verification: `VITEST_MAX_WORKERS=1 npm run check` green, 38 files / 780 tests, including
+Chromium and Firefox images (all fits, embedded no-network, document-relative sources,
+host Blob replacement and errors). Core+web 16961 B gzip (+60 B from 16901); assets
+1587/2048 B, paint 3709/5120 B incremental. Compile: bell 2.95 ms; all 9040 prefixes
+845 ms. Generated schema, demo/bundles and 40 AniML siblings are current. Parity construct/test
+fields updated for covered rows; statuses left to the orchestrator. No test limit or size budget
+was loosened; the exact conformance corpus count increased by one for the new case.

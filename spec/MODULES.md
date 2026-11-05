@@ -133,7 +133,7 @@ separately bundled modules share the same registry objects rather than private c
 Each browser module has its own budget (`docs/parity/README.md`), measured like the markup module:
 `gzip(bundle(web + module)) − gzip(bundle(web))`, enforced by `tools/size.ts`. The core + web
 budget (25 KB) covers the hook points only. P4a-4 additionally targets its 16697 B baseline.
-Paint is limited to 5120 B, composite to 4096 B and markup to 8192 B incremental.
+Paint is limited to 5120 B, composite to 4096 B, assets to 2048 B and markup to 8192 B incremental.
 
 ## 5. Conformance and oracles
 

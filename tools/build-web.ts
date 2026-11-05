@@ -9,6 +9,7 @@ const js = await bundle(new URL('packages/web/src/index.ts', root).pathname);
 const markup = await bundle(new URL('packages/web/src/markup.ts', root).pathname);
 const paint = await bundle(new URL('packages/web/src/paint.ts', root).pathname);
 const composite = await bundle(new URL('packages/web/src/composite.ts', root).pathname);
+const assets = await bundle(new URL('packages/web/src/assets.ts', root).pathname);
 const check = process.argv.includes('--check');
 mkdirSync(new URL('packages/web/dist/', root), { recursive: true });
 function emit(path: string, text: string, generated = false): void {
@@ -25,6 +26,7 @@ emit('packages/web/dist/anima-icon.js', js, true);
 emit('packages/web/dist/anima-markup.js', markup, true);
 emit('packages/web/dist/anima-paint.js', paint, true);
 emit('packages/web/dist/anima-composite.js', composite, true);
+emit('packages/web/dist/anima-assets.js', assets, true);
 
 const bell = readFileSync(new URL('examples/bell.ani', root), 'utf8');
 const page = readFileSync(new URL('examples/web/template.html', root), 'utf8')

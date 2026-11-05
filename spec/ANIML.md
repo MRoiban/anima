@@ -252,3 +252,12 @@ Multiple paints are repeated `<fillPaint fill="#f00"/>` or
 use `type="linear"` / `type="radial"`, coordinate attributes and nested `<stop>` children on
 these elements. Track addresses keep the JSON paint-array path. A structural selector `for`
 is reserved for registry routing and normally omitted.
+
+## Images and assets
+
+With `requires="paint assets"`, declare `<asset name="photo" type="image" src="photo.png"/>`
+at document level, then `<image id="photo" asset="photo" x0="0" y0="0" width="24"
+height="24" fit="contain" align="center" sampling="bilinear"/>`. `src` maps to asset
+`source`; other attributes retain their JSON spelling. Optional asset fields are `storage`,
+`width`, `height`. Image `fit`/`align` replace SVG's combined `preserveAspectRatio`; there is
+no input alias. Full layout and validation rules are in SPEC's paint and assets chapters.

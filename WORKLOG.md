@@ -1,11 +1,11 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: wave 1 Sol: bind module; AniML libraries/templates; assets+image (parallel). Then components (after bind), n-slice/feather/image paints, P5 benchmark.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: P5-4 assets + image on t3/assets-image-support; commit locally for orchestrator integration.
+State: registry, neutral image geometry, SVG, web decode/resolver, CLI disk embed/render and documentation implemented.
+Verified: npm run check green, 780 tests; core+web 16961 B (+60), assets 1587/2048, paint 3709/5120; bell 2.95 ms.
+Next: orchestrator integrates this local commit; parity statuses remain for orchestrator.
+Don't: push/PR/merge, touch .riv/Rive commands, add runtime dependencies, loosen test or size budgets.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -74,3 +74,7 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 09:30 [owner]: core+web size (16901, +204 over pre-draw-layer) is not a blocker → no final size round; P4a PR after P4a-7 friction fixes
 - 2026-11-06 10:00 [claude]: merged P4a-7 (cd0205d) 5/5; parity 46 rows done in P4a, 29 image/n-slice/feather rows → P5; LOG P4a entry with numbers; opening PR
 - 2026-11-06 10:40 [claude]: PR #10 merged (e0957cb); P5 design decided (design/p5/DESIGN.md: templates/libraries in AniML, components, bind expressions, assets)
+- 2026-11-05 20:36 [sol-assets]: implemented registry/draw/SVG/web decode+resolver/CLI disk embed+render; targeted core+web+CLI assets tests 21 pass, initial size assets 1540/2048 B, core+web +58 B (evidence: vitest assets tests; tools/size.ts); full check pending (unverified).
+- 2026-11-05 20:41 [sol-assets]: first full run found canonical-markup/corpus-oracle updates → fixed formatter output, extended independent asset reader and fixture coverage, raised exact conformance inventory count 32→33; stopped superseded runs and reran npm run check with VITEST_MAX_WORKERS=1 due concurrent worktree memory pressure (unverified).
+- 2026-11-05 20:46 [sol-assets]: serial full run 779 pass/1 fail after validator changed mid-run (cached old module); fresh core assets run 19/19 pass; restarted full check on frozen implementation (evidence: /tmp/p5-assets-serial-check.log; npx vitest run packages/core/test/assets.test.ts).
+- 2026-11-05 20:50 [sol-assets]: final VITEST_MAX_WORKERS=1 npm run check green → 38 files/780 tests; core+web 16961 B (+60), assets 1587/2048, paint 3709/5120, markup 7709/8192, composite 3863/4096; compile bell 2.95 ms / 9040 prefixes 845 ms; generated artifacts current (evidence: /tmp/p5-assets-final.log).

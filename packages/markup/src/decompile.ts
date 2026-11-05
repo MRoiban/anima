@@ -122,6 +122,20 @@ export function decompile(doc: string | object): string {
     ),
   );
   groups.push(
+    entries(d.assets).map(([name, v]) => {
+      const a = obj(v);
+      return element(
+        'asset',
+        a,
+        ['type', 'storage', 'width', 'height'],
+        [
+          ['name', name],
+          ['src', value(a.source)],
+        ],
+      );
+    }),
+  );
+  groups.push(
     d.a11y ? [element('a11y', obj(d.a11y), ['role', 'label', 'activate', 'pressed', 'held'])] : [],
   );
   groups.push(

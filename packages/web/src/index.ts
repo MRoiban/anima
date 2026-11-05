@@ -63,6 +63,7 @@ export class AnimaIcon extends HTMLElement {
   static modules = modules;
   /** Installed by the composite SVG backend; 0.1 scenes keep authored DOM order. */
   declare static orderSVG?: (frame: DrawFrame, elements: [El, Element, Attrs][]) => void;
+  declare static loadAssets?: (icon: AnimaIcon, model: Model) => Promise<void>;
   static observedAttributes = ['src', 'motion', 'label', 'speed', 'paused', 'fit', 'align'];
   /** Registered by @anima-format/web/markup; the runtime never imports a compiler itself. */
   declare static compiler?: (source: string) => { doc?: object; diagnostics: SourceDiagnostic[] };
@@ -213,13 +214,23 @@ export class AnimaIcon extends HTMLElement {
     this.#last = -1;
     this.#states = '';
     this.#held = false;
-    this.player = new Player(model);
-    this.#build(model);
-    this.#motion();
-    this.#aria();
-    if (!this.hasAttribute('paused')) this.#step(0);
-    this.#resolve();
-    this.dispatchEvent(new CustomEvent('anima:load', { detail: this.info }));
+    this.player = undefined;
+    const generation = this.#generation;
+    const finish = () => {
+      if (generation !== this.#generation) return;
+      this.player = new Player(model);
+      this.#build(model);
+      this.#motion();
+      this.#aria();
+      if (!this.hasAttribute('paused')) this.#step(0);
+      this.#resolve();
+      this.dispatchEvent(new CustomEvent('anima:load', { detail: this.info }));
+    };
+    if (model.doc.assets && AnimaIcon.loadAssets) {
+      AnimaIcon.loadAssets(this, model).then(finish, (d: SourceDiagnostic[]) => {
+        if (generation === this.#generation) this.#fail(d);
+      });
+    } else finish();
     return diagnostics;
   }
 

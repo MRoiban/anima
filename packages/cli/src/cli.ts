@@ -29,6 +29,7 @@ import { compile, decompile, formatMarkup, type MarkupDiagnostic } from '@anima-
 import { nodeAttrs } from '../../markup/src/names.ts';
 import { startPlayground } from './playground.ts';
 import { inspectGlyph } from './glyphs.ts';
+import { embedAssets, imageDimensions } from './assets.ts';
 import { buildHTML } from './html.ts';
 import { lineCol, locate, syntaxErrorAt } from './locate.ts';
 import { DARK, LIGHT, type Look, compareSVG, frameSVG, sheetSVG, toPNG } from './render.ts';
@@ -62,7 +63,7 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
   anima fmt <file> [--write | --check]  canonical formatting
   anima new <name> --glyph <file.svg> | --glyphy <project-dir> [-o out.animl] [--ani] [--force]
                                         scaffold AniML whose rest frame is the glyph (--ani for JSON)
-  anima build <file.animl|page.html> [-o out]  compile AniML to canonical .ani or inline JSON
+  anima build <file.animl|page.html> [-o out] [--embed]  compile AniML to canonical .ani or inline JSON
   anima decompile <file.ani> [-o out.animl]    write canonical AniML
   anima schema [type | fill | stroke | a11y | timeline | layer | state | pose | transition | listener | input] [--json-schema]
                                         registry fields, types and markup/.ani spellings
@@ -100,6 +101,7 @@ export async function run(argv: string[], io: IO): Promise<number> {
         glyphy: { type: 'string' },
         force: { type: 'boolean' },
         ani: { type: 'boolean' },
+        embed: { type: 'boolean' },
         'json-schema': { type: 'boolean' },
         list: { type: 'boolean' },
         help: { type: 'boolean', short: 'h' },
@@ -142,7 +144,7 @@ export async function run(argv: string[], io: IO): Promise<number> {
       case 'render':
         return render(file(rest), o, json, io);
       case 'build':
-        return build(file(rest), o.out, json, io);
+        return build(file(rest), o.out, json, io, o.embed);
       case 'decompile': {
         const f = file(rest);
         const r = loaded(f, io, json);
@@ -498,6 +500,23 @@ function render(f: string, o: Record<string, unknown>, json: boolean, io: IO): n
     throw new Usage('render needs -o <file>.svg or <file>.png');
   const { model } = loaded(f, io, json);
   if (!model) return 1;
+  try {
+    embedAssets(model.doc, f, true);
+    imageDimensions(model.doc);
+  } catch {
+    const d: Located[] = [
+      {
+        code: 'asset-load',
+        severity: 'error',
+        pointer: '/assets',
+        message: 'cannot read or decode image asset',
+        hint: 'check the source relative to the document',
+      },
+    ];
+    if (json) io.out(JSON.stringify({ file: f, ok: false, diagnostics: d }));
+    else report(f, d, io);
+    return 1;
+  }
   const over: Record<string, string> = {};
   for (const c of (o.color as string[] | undefined) ?? []) {
     const [k, v] = c.split('=');
@@ -842,13 +861,33 @@ function docs(topic: string | undefined, list: boolean, json: boolean, io: IO): 
   return 0;
 }
 
-function build(f: string, out: string | undefined, json: boolean, io: IO): number {
+function build(f: string, out: string | undefined, json: boolean, io: IO, embed = false): number {
   const source = readFileSync(f, 'utf8');
   let text: string | undefined;
   let diagnostics: MarkupDiagnostic[];
   if (/\.html?$/i.test(f)) ({ text, diagnostics } = buildHTML(source, f));
   else if (f.endsWith('.animl')) ({ text, diagnostics } = compile(source, { file: f }));
   else throw new Usage('build needs a .animl or .html file');
+  if (text !== undefined && embed) {
+    try {
+      if (/\.html?$/i.test(f))
+        ({ text, diagnostics } = buildHTML(source, f, (doc) => embedAssets(doc, f)));
+      else {
+        const doc = JSON.parse(text);
+        embedAssets(doc, f);
+        text = format(doc);
+      }
+    } catch {
+      text = undefined;
+      diagnostics.push({
+        code: 'asset-load',
+        severity: 'error',
+        pointer: '/assets',
+        message: 'cannot read referenced asset',
+        hint: 'check asset sources relative to the document',
+      });
+    }
+  }
   if (json && (text === undefined || out))
     io.out(
       JSON.stringify({

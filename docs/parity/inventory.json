@@ -3404,10 +3404,10 @@
    "rive-wasm/js/src/rive.ts:6405@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: player asset loader API with explicit source resolution: host-decode-image",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "assets",
    "status": "planned",
-   "test": "oracle/assets-host-decode-image",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   },
   "aliases": [
@@ -3437,10 +3437,10 @@
    "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: assets.<name> / build.assets.<name>: named image resource setting",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "assets",
    "status": "planned",
-   "test": "oracle/assets-image",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   }
  },
@@ -3974,10 +3974,10 @@
    "https://rive.app/docs/runtimes/loading-assets"
   ],
   "anima": {
-   "construct": "new: player asset loader API with explicit source resolution: loader",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "assets",
    "status": "planned",
-   "test": "oracle/assets-loader",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   }
  },
@@ -4169,10 +4169,10 @@
    "rive-runtime/include/rive/assets/blob_asset.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: assets.<name>: {type: \"image|font|audio|blob\", storage: \"embedded\", source: ...}",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "assets",
    "status": "planned",
-   "test": "oracle/assets-storage-embedded",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   }
  },
@@ -4209,10 +4209,10 @@
    "rive-runtime/include/rive/assets/blob_asset.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: assets.<name>: {type: \"image|font|audio|blob\", storage: \"hosted\", source: ...}",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "assets",
    "status": "planned",
-   "test": "oracle/assets-storage-hosted",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   }
  },
@@ -4249,10 +4249,10 @@
    "rive-runtime/include/rive/assets/blob_asset.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: assets.<name>: {type: \"image|font|audio|blob\", storage: \"referenced\", source: ...}",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "assets",
    "status": "planned",
-   "test": "oracle/assets-storage-referenced",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   }
  },
@@ -11631,10 +11631,10 @@
    "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: image.align: [x,y]",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/image-alignment",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   }
  },
@@ -11663,10 +11663,10 @@
    "rive-runtime/include/rive/generated/assets/image_asset_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: image node with asset and origin",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/image-drawable",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   }
  },
@@ -11690,10 +11690,10 @@
    "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: image.sampling: bilinear",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/image-filter-bilinear",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   }
  },
@@ -11717,10 +11717,10 @@
    "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: image.sampling: nearest",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/image-filter-nearest",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   }
  },
@@ -11744,10 +11744,10 @@
    "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: image.fit: contain",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/image-fit-contain",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   }
  },
@@ -11771,10 +11771,10 @@
    "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: image.fit: cover",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/image-fit-cover",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   }
  },
@@ -11798,10 +11798,10 @@
    "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: image.fit: fill",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/image-fit-fill",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   }
  },
@@ -11825,10 +11825,10 @@
    "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: image.fit: fitHeight",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/image-fit-fit-height",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   }
  },
@@ -11852,10 +11852,10 @@
    "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: image.fit: fitWidth",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/image-fit-fit-width",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   }
  },
@@ -11879,10 +11879,10 @@
    "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: image.fit: none",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/image-fit-none",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   }
  },
@@ -11933,10 +11933,10 @@
    "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: image.fit: scaleDown",
+   "construct": "requires: [paint, assets]; assets[name] {type, source, storage?, width?, height?}; image {asset, x0, y0, width, height, fit?, align?, sampling?}",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/image-fit-scale-down",
+   "test": "packages/core/test/assets.test.ts; packages/web/test/assets.test.ts; packages/cli/test/assets.test.ts; conformance/assets-image",
    "phase": "P5"
   }
  },
