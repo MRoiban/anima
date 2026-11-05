@@ -82,12 +82,14 @@ no wasm, and the budget met.
 
 ## M5 — Glyphy integration and more icons
 
-- [ ] Animate two more glyphs from `fixtures/glyphs/` using only the CLI, as an authoring test
-      (suggestions: `trash` lid tip on click, `moon` → toggle with `switch` role). Record every
-      friction point in `docs/LOG.md` and fix the worst ones in the format or tooling.
-- [ ] Draft the `glyphy export -f ani` PR for `MRoiban/glyphy` (separate repo; follow its
-      `AGENTS.md`). Don't merge without the user's review.
-- [ ] Agent skill: `skills/anima/SKILL.md` teaching another agent to author `.ani` files with the CLI.
+- [x] Animate two more glyphs from `fixtures/glyphs/` using only the CLI, as an authoring test:
+      `examples/trash.animl` (lid lifts, opens, can shakes) and `examples/moon.animl` (dark-mode
+      switch). Friction in `docs/research/glyphs/`; the worst fixed (bool `activate`, `anima schema`
+      for a11y/transition/listener/input, `inspect` lists glyph subpaths, `render --compare`, inputs in
+      snapshots).
+- [x] Draft the `glyphy export -f animl / -f ani` PR for `MRoiban/glyphy`: MRoiban/glyphy#2 (draft,
+      awaiting the owner's review).
+- [x] Agent skill: `skills/anima/SKILL.md` teaching another agent to author AniML with the CLI.
 
 ## Parity with Rive
 
@@ -100,9 +102,8 @@ and an oracle test against Rive.
       roadmap), generated views checked by `tools/parity.test.ts`.
 - [x] P1 AniML (authoring markup; `spec/ANIML.md`): compiler, decompiler, `anima build`/`decompile`,
       markup in every command and in HTML, optional browser module, round-trip tests, head-to-head.
-- [ ] P2 M5 (Glyphy export draft, two more glyphs in AniML, head-to-head test).
-- [ ] P3 Playground/inspector and the web host API. From the P1 head-to-head: `a11y.activate` may
-      name a bool (keyboard toggles a switch); `anima schema a11y` and `anima schema transition`.
+- [x] P2 M5 (Glyphy export draft, two more glyphs in AniML; the head-to-head ran in P1).
+- [ ] P3 Playground/inspector and the web host API.
 - [ ] P4 Interaction, paint, events, data binding.
 - [ ] P5 Components and assets.
 - [ ] P6 Text.

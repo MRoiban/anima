@@ -61,7 +61,8 @@ function bounds({ segs }: Subpath): BBox {
 }
 
 export function inspectGlyph(d: string) {
-  const boxes = parsePath(d).map(bounds);
+  // Rounded to 0.001 grid units: enough to tell parts apart, free of float noise.
+  const boxes = parsePath(d).map((s) => bounds(s).map((v) => Math.round(v * 1000) / 1000 || 0));
   return boxes.map((bbox, index) => ({
     index,
     bbox,

@@ -294,3 +294,32 @@ names.ts): compiler, decompiler/formatter, CLI, browser module, migration, guide
 orchestrator reviewed and merged each and fixed the seams (out-of-range entity references, hints,
 stale guide text). A flaky Firefox frame-count test traced to Playwright's `click` sending an extra
 `pointermove`; the test now presses and releases.
+
+## M5 — Glyphy export and two more glyphs (2026-11-05)
+
+- **Glyphy export (draft PR MRoiban/glyphy#2).** `glyphy export -f animl` and `-f ani` write one
+  Anima document per picked glyph, byte-identical to `anima new <name> --glyphy <project>` for all
+  11 glyphs of Glyphy's example project (golden files from the Anima CLI, pytest 22 passed). No
+  dependency on Anima: the scaffold is reimplemented in Python. Not to be merged without the owner.
+- **Trash** (`examples/trash.animl`): hover lifts and tilts the lid, click opens it with a squash
+  and shake, press shrinks, reduced motion rests. The lid shares one contour with the body, so the
+  author split the path by hand; the split pieces differed from the glyph by antialiasing at rest
+  (up to 48/255 on a few pixels), so the original path shows at rest and the split parts only in
+  motion — rest frame pixel-identical at four sizes.
+- **Moon** (`examples/moon.animl`): a dark-mode switch; the moon turns and three accent stars pop
+  in with a stagger; reversing mid-toggle continues from the current pose (delta 0 in samples);
+  rest frame pixel-identical. Enter/Space toggle it (below).
+- **Fixes from the friction logs** (`docs/research/glyphs/`):
+  - `a11y.activate` may name a bool: Enter/Space toggle it (switches); triggers fire as before.
+    Web-side only, tested in Chromium and Firefox; core + web +31 B (14 812 B).
+  - `anima schema a11y | transition | listener | input`, from the registry.
+  - `anima inspect` lists every glyph subpath with its bounds and likely holes (`anima new`
+    already pointed there).
+  - `anima render --compare glyph.svg`: rest (or scripted) frame vs the source SVG, same ink,
+    pixel count and max channel difference, exit 1 beyond `--tolerance`. Both glyph agents had
+    written their own harness for this.
+  - `snapshot` addresses may name inputs (`snapshot dark knob.x`); unlisted snapshots unchanged.
+  - AniML §8: `anima fmt` keeps a track's inline or one-key-per-line style.
+- **Agent skill** `skills/anima/SKILL.md`: the AniML loop for agents in other repos.
+- Still open from the friction logs: a missing `npm ci` shows only `ERR_MODULE_NOT_FOUND`; large
+  motion clips silently at the viewBox edge (no warning when an animated part leaves the viewBox).

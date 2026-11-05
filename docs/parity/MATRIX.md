@@ -38,8 +38,8 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 |---|---:|
 | [P0](#p0) — Done: format 0.1, core, CLI, `<anima-icon>` (M0–M4) | 111 |
 | [P1](#p1) — Done: AniML, the authoring markup | 1 |
-| [P2](#p2) — M5: Glyphy export, more glyphs, the head-to-head test | 2 |
-| [P3](#p3) — Playground/inspector and the web host API | 152 |
+| [P2](#p2) — Done: M5, Glyphy export, more glyphs, the head-to-head test | 0 |
+| [P3](#p3) — Playground/inspector and the web host API | 154 |
 | [P4](#p4) — Interaction, paint, events and data binding | 456 |
 | [P5](#p5) — Components and assets | 88 |
 | [P6](#p6) — Text | 67 |
@@ -221,14 +221,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 |---|---|---|---|---|---|
 | `tooling.markup-authoring` | Text scene authoring | anima build source.animl | markup | done | packages/markup/test (compile, round-trip, corpus), packages/cli/test/markup.test.ts |
 
-## P2 — M5: Glyphy export, more glyphs, the head-to-head test <a id="p2"></a>
-
-### Tooling
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `tooling.editor-svg-import` | Editable SVG import | new: Editable SVG import | tooling | planned | cli/editor-svg-import |
-| `tooling.scaffold` | Project scaffolding | new: anima init with AniML, manifest and agent instructions | markup | planned | cli/scaffold |
+## P2 — Done: M5, Glyphy export, more glyphs, the head-to-head test <a id="p2"></a>
 
 ## P3 — Playground/inspector and the web host API <a id="p3"></a>
 
@@ -378,6 +371,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `tooling.editor-machine-graph` | Visual machine graph | new: Visual machine graph | tooling | planned | cli/editor-machine-graph |  |
 | `tooling.editor-open` | Open a cloud editor file | new: open local playground at selected document | tooling | planned | cli/editor-open |  |
 | `tooling.editor-property-inspector` | Visual property editing | new: Visual property editing | tooling | planned | cli/editor-property-inspector |  |
+| `tooling.editor-svg-import` | Editable SVG import | new: Editable SVG import | tooling | planned | cli/editor-svg-import |  |
 | `tooling.editor-timeline` | Visual timeline and work area | new: Visual timeline and work area | tooling | planned | cli/editor-timeline |  |
 | `tooling.environment-doctor` | Environment diagnostics | new: anima doctor | tooling | planned | cli/environment-doctor |  |
 | `tooling.export-png-sequence` | Editor export: PNG sequence | new: Editor export: PNG sequence | tooling | planned | cli/export-png-sequence |  |
@@ -412,6 +406,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `tooling.publish-local` | Runtime export | new: anima build self-contained web distributable | markup | planned | cli/publish-local |  |
 | `tooling.render-presets` | Render presets and queue | new: Render presets and queue | tooling | planned | cli/render-presets |  |
 | `tooling.sample-projects` | Runnable samples | new: anima examples copy | tooling | planned | cli/sample-projects |  |
+| `tooling.scaffold` | Project scaffolding | new: anima init with AniML, manifest and agent instructions | markup | planned | cli/scaffold |  |
 | `tooling.schema-lookup` | Schema property lookup | new: anima schema with inherited/animatable/bindable filters | tooling | planned | cli/schema-lookup |  |
 | `tooling.schema-search` | Schema search and discovery | new: anima schema --search --json | tooling | planned | cli/schema-search |  |
 | `tooling.script-build-constants` | Script build constants and arguments | new: anima script defines and host arguments | tooling | planned | cli/script-build-constants |  |

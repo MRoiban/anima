@@ -11459,7 +11459,7 @@
   "module": "tooling",
   "status": "planned",
   "test": "cli/editor-svg-import",
-  "phase": "P2"
+  "phase": "P3"
  },
  {
   "id": "tooling.editor-timeline",
@@ -12197,7 +12197,7 @@
   "module": "markup",
   "status": "planned",
   "test": "cli/scaffold",
-  "phase": "P2"
+  "phase": "P3"
  },
  {
   "id": "tooling.schema-lookup",

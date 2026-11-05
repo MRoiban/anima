@@ -1,9 +1,9 @@
 # Work log
 
 ## Now
-Goal: M5 (P2) on branch m5-glyphs → PR → merge when green; then Phase B starting with P3 (playground + web host API).
-State: main 45d019a has M0–M4, Phase A, P1 AniML (PR #7 merged).
-Next: wave M5 (Sol): bool activate + schema a11y/transition (format fix from head-to-head); trash and moon-switch glyphs in AniML; glyphy export -f animl/ani draft PR in MRoiban/glyphy (draft only, never merge). Then skills/anima/SKILL.md, LOG, PLAN.
+Goal: M5 PR m5-glyphs → main, merge when green; then Phase B P3 (playground/inspector + web host API).
+State: M5 complete on m5-glyphs: trash + moon glyphs, bool activate, schema topics, inspect subpaths, render --compare, snapshot inputs, skill; glyphy draft PR #2 open (owner review).
+Next: npm run check, PR, merge; then design P3 (playground) — design-first (mockup) before coders.
 Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
 Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
@@ -51,3 +51,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 17:50 [claude]: merged moon toggle (7d186df): 6/6, rest pixel-identical, reversal delta 0, 4 friction points (want: render --compare glyph, inputs in snapshots); sheet checked visually
 - 2026-11-05 18:05 [claude]: merged trash (7d37682): 6/6, rest pixel-identical (original path at rest, split parts in motion), 7 friction points; spec §8 fmt keeps inline tracks (clarified)
 - 2026-11-05 18:20 [claude]: merged format fix (3503c3b): activate may name a bool (keyboard toggles switch, Chromium+Firefox tests), anima schema a11y/transition/listener/input; core+web 14812 B (+31); npm run check 377 pass after demo rebuild; moon gets activate=dark
+- 2026-11-05 18:50 [claude]: merged tooling (ff34197): inspect subpaths, render --compare (moon/trash 0 px), snapshot inputs; bbox rounding; PLAN M5/P2 ticked, P2 parity rows → P3, LOG M5
