@@ -162,3 +162,19 @@ compiler copies the registered entries before compiling; its registry-derived fo
 compilation hooks register through their runtime entries; structural paint handling registers
 through paint or the registration-only markup-paint entry (also used by composite-only markup). Tooling's `core/all` registration is
 folded out of terse browser builds. Both optional bundle import orders are browser-tested.
+
+
+## Testing scopes
+
+`npm run test:scope -- <target…>` runs the affected package/module tests during development;
+`conformance` and `oracle` select their independent runners. `changed` derives targets from the
+branch merge-base with main and working-tree changes (`--base=<ref>` overrides the base).
+`--no-browser` excludes browser files; `--browser=chromium|firefox` filters their engine suites.
+`tools/test-scope-map.ts` discovers ownership from paths, names and module references in tests and
+conformance documents; shared markup API/registry tests accompany every module. Its `moduleFiles` function is the seam for module manifests. Shared files
+select their whole package, and shared config/tooling selects all packages and tools (including
+oracle).
+`vitest.scope.config.ts` uses separate unit, conformance and browser projects so conformance case
+and browser-name filters do not filter unit tests. The default Vitest config always runs every test.
+CI runs `npm run check` on every PR and push and adds size/perf output to the job summary. A green
+CI run is required before merge; see AGENTS.md for the local phase verification policy.

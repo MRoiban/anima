@@ -29,6 +29,22 @@ Local tooling: Node 24 (`node`, `npm`), Python 3.13, `gh` (signed in as MRoiban)
 Chromium headless shell is cached at `~/.cache/ms-playwright/chromium_headless_shell-1248/`; use
 `playwright-core` with `executablePath` pointing at it rather than downloading browsers.
 
+## Testing
+
+During development run `npm run test:scope -- <target…>` for the packages or modules you touch:
+`core`, `markup`, `web`, `cli`, `playground`, module names such as `paint`, `composite`, `bind`,
+`assets`, `components`, `surface`, or `conformance`, `oracle`, `changed`.
+The command prints selected files. Module targets include matching tests across packages and their
+conformance cases, plus shared markup integration/registry tests. Browser tests run only when selected; use `--no-browser` to omit them or
+`--browser=chromium|firefox` for one engine. `changed` compares the merge-base with `main` through
+HEAD plus staged, unstaged and untracked files; override with `--base=<ref>`. Shared core/web changes
+select the whole package; shared tooling/config changes conservatively select all packages and tools
+(including oracle).
+
+CI runs the complete `npm run check` on every PR and push, including Chromium and Firefox, oracle,
+size budgets, generated artifacts and the perf report. Merge only when CI is green. Before a phase
+PR, do one full local run only for what CI cannot run; do not repeatedly run the full suite while coding.
+
 ## Work log
 `WORKLOG.md` (repo root) holds task state outside your context window.
 - **On start and after compaction:** read `WORKLOG.md` and `git log --oneline -15` before acting.

@@ -133,6 +133,8 @@ needs it. Size is not the only cost: compile time and per-frame cost are tracked
    module or package they touch (`npm run test:scope -- <module|package>`); the full `npm run check`
    runs once per PR in GitHub Actions while the next task starts. A PR merges only when CI is green.
    One full local run before a phase PR only for what CI cannot run.
+   D2 implementation: `tools/test-scope.ts` with derived ownership and scoped Vitest projects;
+   CI invokes the complete check and summarizes size/perf. See AGENTS.md "Testing" for flags.
 3. **Scaffold capabilities from parity rows.** `node tools/new-capability.ts <row-id>` reads the row
    from `docs/parity/` and generates the skeleton every capability needs (spec section stub,
    registry entry with both spellings, diagnostic and test stubs, conformance and oracle folders,

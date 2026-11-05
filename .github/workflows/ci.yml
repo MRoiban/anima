@@ -2,7 +2,6 @@ name: ci
 
 on:
   push:
-    branches: [main]
   pull_request:
 
 jobs:
@@ -20,9 +19,22 @@ jobs:
       - run: |
           echo "CHROMIUM_PATH=$(ls -d ~/.cache/ms-playwright/chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell | head -1)" >> "$GITHUB_ENV"
           echo "FIREFOX_PATH=$(ls -d ~/.cache/ms-playwright/firefox-*/firefox/firefox | head -1)" >> "$GITHUB_ENV"
-      - run: npm run typecheck
-      - run: npm run lint
-      - run: npm run format:check
-      - run: npm test
-      - run: npm run size
-      - run: node tools/build-web.ts --check
+      - name: Complete check (tests, both browsers, oracle, size, artifacts, perf)
+        shell: bash
+        run: |
+          set -o pipefail
+          npm run check 2>&1 | tee check.log
+      - name: Size and performance summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '## Size and performance'
+            echo '```text'
+            if [ -f check.log ]; then
+              grep -E ' B min\+gzip|^compile:|^frame:' check.log || echo 'No measurements reached; inspect the check step.'
+            else
+              echo 'Check did not start; inspect preceding steps.'
+            fi
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
