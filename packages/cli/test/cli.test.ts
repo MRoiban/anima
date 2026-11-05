@@ -464,3 +464,28 @@ describe('anima inspect, schema, docs', () => {
     expect((await cli('docs', topics[2]!)).out).toMatch(/^## /);
   });
 });
+
+describe('bind tooling', () => {
+  const progress = join(ROOT, 'examples/progress.animl');
+  it('inspect reports bound addresses in text and JSON', async () => {
+    expect(JSON.parse((await cli('inspect', progress, '--format=json')).out).bound).toEqual([
+      'ring.stroke.trimEnd',
+    ]);
+    expect((await cli('inspect', progress)).out).toContain('bound\n  ring.stroke.trimEnd');
+  });
+  it('schema describes the registry forms', async () => {
+    const r = await cli('schema', 'bind', '--format=json');
+    expect(r.code).toBe(0);
+    expect(JSON.parse(r.out).fields).toEqual([
+      { markup: 'target', ani: 'target', type: 'string', required: true, feature: 'bind' },
+      { markup: 'value', ani: 'value', type: 'string', required: true, feature: 'bind' },
+    ]);
+  });
+  it('sample includes bound addresses after queued input writes', async () => {
+    const script = join(tmp, 'binding.txt');
+    writeFileSync(script, 'set progress 0.375\nadvance 0\nsnapshot\n');
+    const r = await cli('sample', progress, '--script', script);
+    expect(r.code).toBe(0);
+    expect(JSON.parse(r.out).values['ring.stroke.trimEnd']).toBe(0.375);
+  });
+});

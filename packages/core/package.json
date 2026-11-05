@@ -10,7 +10,8 @@
     "./paint": "./src/modules/paint/index.ts",
     "./composite": "./src/modules/composite/index.ts",
     "./paint-svg": "./src/modules/paint/svg.ts",
-    "./composite-svg": "./src/modules/composite/svg.ts"
+    "./composite-svg": "./src/modules/composite/svg.ts",
+    "./bind": "./src/modules/bind/index.ts"
   },
   "files": [
     "src"

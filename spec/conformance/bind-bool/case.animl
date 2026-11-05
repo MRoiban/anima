@@ -1,0 +1,6 @@
+<anima version="0.1" name="binding" grid="20" requires="bind">
+  <bool name="progress"/>
+  <circle id="ring" cx="10" cy="10" r="8" stroke="#000"/>
+  <bind target="ring.visible" value="progress"/>
+  <bind target="ring.x" value="progress"/>
+</anima>

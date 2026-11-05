@@ -130,7 +130,8 @@ function recover(root: Element): Obj {
       p = plain(el);
     const name = a.name!;
     delete p.name;
-    if (NODE_ELEMENTS.includes(el.name)) (d.nodes as unknown[]).push(node(el));
+    if (el.name === 'bind') insert('bind', address(a.target!), a.value);
+    else if (NODE_ELEMENTS.includes(el.name)) (d.nodes as unknown[]).push(node(el));
     else if (el.name === 'meta')
       d.meta = {
         ...base(el),
@@ -325,6 +326,7 @@ function check(source: string | object) {
       ...Object.keys(ATTR_ORDER),
       ...NODE_ELEMENTS,
       'pose',
+      'bind',
       'linearGradient',
       'radialGradient',
       'stop',

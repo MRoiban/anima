@@ -193,7 +193,7 @@ HTML parses `<path/>` and friends as HTML, so markup in a page is wrapped in a s
 ## 10. Reserved for 0.2
 
 The markup forms of the `.ani` features reserved in SPEC §12 are reserved too, and rejected with
-the loader's `reserved` code: `<layer mode="additive">`, `<bind target from map>`, a track target
+the loader's `reserved` code: `<layer mode="additive">`, a track target
 `spring(…)` eases, and `<timeline colorSpace>`.
 
 ## Paint module
@@ -252,3 +252,16 @@ Multiple paints are repeated `<fillPaint fill="#f00"/>` or
 use `type="linear"` / `type="radial"`, coordinate attributes and nested `<stop>` children on
 these elements. Track addresses keep the JSON paint-array path. A structural selector `for`
 is reserved for registry routing and normally omitted.
+
+## Bind module
+
+Declare `requires="bind"` on `<anima>` and import `@anima-format/web/bind` in browser hosts.
+`<bind target="ring.trimEnd" value="progress"/>` compiles to
+`bind: { "ring.stroke.trimEnd": "progress" }`. Both attributes are required; `target` uses
+AniML animation address spelling and `value` is an expression exactly as specified in SPEC's
+bind chapter. Repeat `<bind>` for multiple addresses; duplicate targets are `duplicate-name`.
+For example, `<bind target="dot.fill" value="mix(#000, #fff, progress)"/>` binds a colour and
+`<bind target="dot.visible" value="enabled"/>` binds a bool. Decompilation writes these forms
+after listeners. Loader diagnostics map back to the expression attribute; their message gives
+the character offset within the expression. The deprecated `from`/`map` attributes are rejected.
+See `examples/progress.animl` for a continuously input-driven ring.

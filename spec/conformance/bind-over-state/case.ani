@@ -1,0 +1,39 @@
+{
+  "anima": "0.1",
+  "name": "binding",
+  "grid": 20,
+  "requires": ["bind"],
+  "inputs": {
+    "progress": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "ring",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 8,
+      "stroke": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "base": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {
+              "ring.stroke.trimEnd": 0.9
+            }
+          }
+        }
+      }
+    }
+  },
+  "bind": {
+    "ring.stroke.trimEnd": "progress"
+  }
+}

@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: wave 1 Sol: bind module; AniML libraries/templates; assets+image (parallel). Then components (after bind), n-slice/feather/image paints, P5 benchmark.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: P5-1 bind module complete on t3/add-bind-module; local commit only.
+Verified: VITEST_MAX_WORKERS=1 npm run check green, 826 tests/37 files, Chromium+Firefox, 43 AniML files.
+Sizes: core+web 16934 (+33) B; bind 1369/2048 B; other modules within existing budgets.
+Compile: checked 3.18 ms/1173 ms; baseline 2.96 ms/845 ms; interleaved 2.17→2.20 ms/848→937 ms.
+Next: orchestrator integrates; P5-2 can reuse expression/evaluate and Model.bindings scope hook.
+Don't: push/PR/merge, runtime dependencies, licence, Rive commands/files, relaxed limits/budgets.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -74,3 +75,8 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 09:30 [owner]: core+web size (16901, +204 over pre-draw-layer) is not a blocker → no final size round; P4a PR after P4a-7 friction fixes
 - 2026-11-06 10:00 [claude]: merged P4a-7 (cd0205d) 5/5; parity 46 rows done in P4a, 29 image/n-slice/feather rows → P5; LOG P4a entry with numbers; opening PR
 - 2026-11-06 10:40 [claude]: PR #10 merged (e0957cb); P5 design decided (design/p5/DESIGN.md: templates/libraries in AniML, components, bind expressions, assets)
+- 2026-11-05 20:36 [sol]: P5-1 implementation checkpoint → typecheck green; preliminary core+web 16921 (+20), bind 1320/2048; conformance/browser tests running (unverified); baseline tools initially ERR_MODULE_NOT_FOUND, npm ci fixed tooling.
+- 2026-11-05 20:38 [sol]: targeted bind/corpus/conformance 284 tests pass, Chromium+Firefox next-frame test passes; fixed shared address resolver for separately bundled paint targets and corpus readers/count; full check rerun pending (unverified).
+- 2026-11-05 20:42 [sol]: default-worker check hit unchanged 5 s limits in AniML/core prefix tests under load average ~40/12 CPUs; superseded runs stopped; VITEST_MAX_WORKERS=1 npm run check running with limits unchanged (unverified).
+- 2026-11-05 20:48 [sol]: P5-1 complete → serial npm run check exit 0, 826 tests, both browsers, bind 1369/2048 B, core+web +33 B; docs/PLAN/LOG and parity construct/test mappings updated (evidence: /tmp/anima-bind-serial.log).
+- 2026-11-05 20:49 [sol]: in-process interleaved compile comparison against isolated 0179c9c source → 2.17→2.20 ms (400 each), prefixes 848→937 ms (six each); separate-process prefix medians 839→839 ms; load-sensitive timing recorded (evidence: tools/perf.ts / comparison output).

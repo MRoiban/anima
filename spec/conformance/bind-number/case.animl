@@ -1,0 +1,7 @@
+<anima version="0.1" name="binding" grid="20" requires="bind">
+  <number name="progress"/>
+  <circle id="ring" cx="10" cy="10" r="8" stroke="#000"/>
+  <bind target="ring.trimEnd" value="clamp(progress * 2, 0, 1)"/>
+  <bind target="ring.x" value="(1 / 0) + 2"/>
+  <bind target="ring.y" value="mix(2, 6, progress)"/>
+</anima>

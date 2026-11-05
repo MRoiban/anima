@@ -187,6 +187,19 @@ export function decompile(doc: string | object): string {
       element('listener', l, ['on', 'target', 'hitPadding', 'fire', 'set', 'toggle', 'emit']),
     ),
   );
+  groups.push(
+    entries(d.bind).map(([target, v]) =>
+      element(
+        'bind',
+        {},
+        [],
+        [
+          ['target', address(target)],
+          ['value', String(v)],
+        ],
+      ),
+    ),
+  );
   for (const group of groups.filter((g) => g.length)) {
     group[0]!.blank = root.children.length > 0;
     root.children.push(...group);

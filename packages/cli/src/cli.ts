@@ -413,6 +413,7 @@ function inspect(f: string, json: boolean, io: IO): number {
       events: t.events.map((e) => e[1]),
     })),
     layers,
+    bound: Object.keys(doc.bind ?? {}).filter((a) => a !== '$comment'),
     overlaps: [...writers]
       .filter(([, ls]) => ls.length > 1)
       .map(([a, ls]) => `${a} is written by ${ls.join(', ')} (the last one wins)`),
@@ -482,6 +483,7 @@ function inspect(f: string, json: boolean, io: IO): number {
         ...s.on.map((t: string) => `        ${t}`),
       );
   }
+  if (summary.bound.length) lines.push('', 'bound', ...summary.bound.map((a) => `  ${a}`));
   lines.push('', 'listeners', ...summary.listeners.map((l) => `  ${l}`));
   if (summary.overlaps.length) lines.push('', 'overlaps', ...summary.overlaps.map((x) => `  ${x}`));
   if (summary.warnings.length) lines.push('', 'warnings', ...summary.warnings.map((x) => `  ${x}`));

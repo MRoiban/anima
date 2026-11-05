@@ -1,0 +1,10 @@
+<anima version="0.1" name="binding" grid="20" requires="bind">
+  <number name="progress"/>
+  <circle id="ring" cx="10" cy="10" r="8" stroke="#000"/>
+  <bind target="ring.trimEnd" value="progress"/>
+  <layer name="base" initial="idle">
+    <state name="idle">
+      <pose ring.trimEnd="0.9"/>
+    </state>
+  </layer>
+</anima>

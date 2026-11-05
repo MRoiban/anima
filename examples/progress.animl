@@ -1,0 +1,6 @@
+<anima version="0.1" name="progress" grid="20" requires="bind">
+  <number name="progress" default="0" min="0" max="1"/>
+  <circle id="track" cx="10" cy="10" r="8" opacity="0.25" stroke="#141413" stroke-width="1.5"/>
+  <circle id="ring" cx="10" cy="10" r="8" pivot="10 10" rotate="-90" stroke="#d97757" stroke-width="1.5" trimEnd="0"/>
+  <bind target="ring.trimEnd" value="progress"/>
+</anima>

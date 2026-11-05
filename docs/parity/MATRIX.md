@@ -669,7 +669,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `data.bind-components` | Bind component properties | bind: {"<address>": {"from": "level", "map": [0, 1, 0, 1]}} | data | spec'd | oracle/data-bind-components |
+| `data.bind-components` | Bind component properties | bind: {"<address>": "<input expression>"} (node properties; instance inputs in P5-2) | data | spec'd | packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
 | `data.bind-conditions` | Bind transition operands | new: bind.<conditions>: {from: "model.property"} | data | planned | oracle/data-bind-conditions |
 | `data.bind-converter-options` | Bind converter options | new: bind.<converter-options>: {from: "model.property"} | data | planned | oracle/data-bind-converter-options |
 | `data.bind-instance-values` | Bind instance values | new: bind.<instance-values>: {from: "model.property"} | data | planned | oracle/data-bind-instance-values |
@@ -682,27 +682,27 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `data.binding-once` | Bind once binding | new: bind.<address>: {from: "model.property", mode: "once"} | data | planned | oracle/data-binding-once |
 | `data.binding-relative` | Relative binding path binding | new: bind.<address>: {from: "model.property", mode: "relative"} | data | planned | oracle/data-binding-relative |
 | `data.binding-to-source` | Target to source binding | new: bind.<address>: {from: "model.property", mode: "to-source"} | data | planned | oracle/data-binding-to-source |
-| `data.binding-to-target` | Source to target binding | new: bind.<address>: {from: "model.property", mode: "to-target"} | data | planned | oracle/data-binding-to-target |
+| `data.binding-to-target` | Source to target binding | bind: {"<address>": "<input>"} (one-way input source; view-model sources in P4e) | data | planned | packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
 | `data.binding-two-way-prefer-source` | Two-way, prefer source binding | new: bind.<address>: {from: "model.property", mode: "two-way-prefer-source"} | data | planned | oracle/data-binding-two-way-prefer-source |
 | `data.binding-two-way-prefer-target` | Two-way, prefer target binding | new: bind.<address>: {from: "model.property", mode: "two-way-prefer-target"} | data | planned | oracle/data-binding-two-way-prefer-target |
 | `data.calculate-acosine` | Calculate: acosine | new: data.converters.<name>: {type: "calculate", operation: "acosine", operand: 1} | data | planned | oracle/data-calculate-acosine |
-| `data.calculate-add` | Calculate: add | new: data.converters.<name>: {type: "calculate", operation: "add", operand: 1} | data | planned | oracle/data-calculate-add |
+| `data.calculate-add` | Calculate: add | bind: a + b | data | planned | packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
 | `data.calculate-asine` | Calculate: asine | new: data.converters.<name>: {type: "calculate", operation: "asine", operand: 1} | data | planned | oracle/data-calculate-asine |
 | `data.calculate-atangent` | Calculate: atangent | new: data.converters.<name>: {type: "calculate", operation: "atangent", operand: 1} | data | planned | oracle/data-calculate-atangent |
 | `data.calculate-atangent2` | Calculate: atangent2 | new: data.converters.<name>: {type: "calculate", operation: "atangent2", operand: 1} | data | planned | oracle/data-calculate-atangent2 |
 | `data.calculate-ceil` | Calculate: ceil | new: data.converters.<name>: {type: "calculate", operation: "ceil", operand: 1} | data | planned | oracle/data-calculate-ceil |
 | `data.calculate-cosine` | Calculate: cosine | new: data.converters.<name>: {type: "calculate", operation: "cosine", operand: 1} | data | planned | oracle/data-calculate-cosine |
-| `data.calculate-divide` | Calculate: divide | new: data.converters.<name>: {type: "calculate", operation: "divide", operand: 1} | data | planned | oracle/data-calculate-divide |
+| `data.calculate-divide` | Calculate: divide | bind: a / b | data | planned | packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
 | `data.calculate-exp` | Calculate: exp | new: data.converters.<name>: {type: "calculate", operation: "exp", operand: 1} | data | planned | oracle/data-calculate-exp |
 | `data.calculate-floor` | Calculate: floor | new: data.converters.<name>: {type: "calculate", operation: "floor", operand: 1} | data | planned | oracle/data-calculate-floor |
 | `data.calculate-log` | Calculate: log | new: data.converters.<name>: {type: "calculate", operation: "log", operand: 1} | data | planned | oracle/data-calculate-log |
 | `data.calculate-modulo` | Calculate: modulo | new: data.converters.<name>: {type: "calculate", operation: "modulo", operand: 1} | data | planned | oracle/data-calculate-modulo |
-| `data.calculate-multiply` | Calculate: multiply | new: data.converters.<name>: {type: "calculate", operation: "multiply", operand: 1} | data | planned | oracle/data-calculate-multiply |
+| `data.calculate-multiply` | Calculate: multiply | bind: a * b | data | planned | packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
 | `data.calculate-power` | Calculate: power | new: data.converters.<name>: {type: "calculate", operation: "power", operand: 1} | data | planned | oracle/data-calculate-power |
 | `data.calculate-round` | Calculate: round | new: data.converters.<name>: {type: "calculate", operation: "round", operand: 1} | data | planned | oracle/data-calculate-round |
 | `data.calculate-sine` | Calculate: sine | new: data.converters.<name>: {type: "calculate", operation: "sine", operand: 1} | data | planned | oracle/data-calculate-sine |
 | `data.calculate-squareRoot` | Calculate: squareRoot | new: data.converters.<name>: {type: "calculate", operation: "squareRoot", operand: 1} | data | planned | oracle/data-calculate-squareRoot |
-| `data.calculate-subtract` | Calculate: subtract | new: data.converters.<name>: {type: "calculate", operation: "subtract", operand: 1} | data | planned | oracle/data-calculate-subtract |
+| `data.calculate-subtract` | Calculate: subtract | bind: a - b | data | planned | packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
 | `data.calculate-tangent` | Calculate: tangent | new: data.converters.<name>: {type: "calculate", operation: "tangent", operand: 1} | data | planned | oracle/data-calculate-tangent |
 | `data.component-public-data` | Component interface properties | new: data.<component-public-data>: named typed declarations with explicit model and instance references | data | planned | oracle/data-component-public-data |
 | `data.converter-boolean-negate` | Negate boolean | new: data.converters.<name>: {type: "converter-boolean-negate", options: {...}} | data | planned | oracle/data-converter-boolean-negate |
@@ -732,7 +732,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `data.default-instance` | Default instance | new: data.<default-instance>: named typed declarations with explicit model and instance references | data | planned | oracle/data-default-instance |
 | `data.editor-preview-instance` | Editor preview instance | new: data.<editor-preview-instance>: named typed declarations with explicit model and instance references | data | planned | oracle/data-editor-preview-instance |
 | `data.enum-members` | Custom enum members | new: data.<enum-members>: named typed declarations with explicit model and instance references | data | planned | oracle/data-enum-members |
-| `data.formula-expression` | Formula expressions | new: data.converters.<name>: {type: "formula", expression: "expression(...)"} | data | planned | oracle/data-formula-expression |
+| `data.formula-expression` | Formula expressions | bind expressions: input names, numeric literals, parentheses and precedence | data | planned | packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
 | `data.formula-function-acosine` | Formula function: acosine | new: data.converters.<name>: {type: "formula", expression: "function-acosine(...)"} | data | planned | oracle/data-formula-function-acosine |
 | `data.formula-function-asine` | Formula function: asine | new: data.converters.<name>: {type: "formula", expression: "function-asine(...)"} | data | planned | oracle/data-formula-function-asine |
 | `data.formula-function-atangent` | Formula function: atangent | new: data.converters.<name>: {type: "formula", expression: "function-atangent(...)"} | data | planned | oracle/data-formula-function-atangent |
@@ -742,19 +742,19 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `data.formula-function-exp` | Formula function: exp | new: data.converters.<name>: {type: "formula", expression: "function-exp(...)"} | data | planned | oracle/data-formula-function-exp |
 | `data.formula-function-floor` | Formula function: floor | new: data.converters.<name>: {type: "formula", expression: "function-floor(...)"} | data | planned | oracle/data-formula-function-floor |
 | `data.formula-function-log` | Formula function: log | new: data.converters.<name>: {type: "formula", expression: "function-log(...)"} | data | planned | oracle/data-formula-function-log |
-| `data.formula-function-max` | Formula function: max | new: data.converters.<name>: {type: "formula", expression: "function-max(...)"} | data | planned | oracle/data-formula-function-max |
-| `data.formula-function-min` | Formula function: min | new: data.converters.<name>: {type: "formula", expression: "function-min(...)"} | data | planned | oracle/data-formula-function-min |
+| `data.formula-function-max` | Formula function: max | bind: max(a,b) | data | planned | packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.formula-function-min` | Formula function: min | bind: min(a,b) | data | planned | packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
 | `data.formula-function-pow` | Formula function: pow | new: data.converters.<name>: {type: "formula", expression: "function-pow(...)"} | data | planned | oracle/data-formula-function-pow |
 | `data.formula-function-random` | Formula function: random | new: data.converters.<name>: {type: "formula", expression: "function-random(...)"} | data | planned | oracle/data-formula-function-random |
 | `data.formula-function-round` | Formula function: round | new: data.converters.<name>: {type: "formula", expression: "function-round(...)"} | data | planned | oracle/data-formula-function-round |
 | `data.formula-function-sine` | Formula function: sine | new: data.converters.<name>: {type: "formula", expression: "function-sine(...)"} | data | planned | oracle/data-formula-function-sine |
 | `data.formula-function-sqrt` | Formula function: sqrt | new: data.converters.<name>: {type: "formula", expression: "function-sqrt(...)"} | data | planned | oracle/data-formula-function-sqrt |
 | `data.formula-function-tangent` | Formula function: tangent | new: data.converters.<name>: {type: "formula", expression: "function-tangent(...)"} | data | planned | oracle/data-formula-function-tangent |
-| `data.formula-operator-add` | Formula operator: add | new: data.converters.<name>: {type: "formula", expression: "operator-add(...)"} | data | planned | oracle/data-formula-operator-add |
-| `data.formula-operator-divide` | Formula operator: divide | new: data.converters.<name>: {type: "formula", expression: "operator-divide(...)"} | data | planned | oracle/data-formula-operator-divide |
+| `data.formula-operator-add` | Formula operator: add | bind: a + b | data | planned | packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.formula-operator-divide` | Formula operator: divide | bind: a / b | data | planned | packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
 | `data.formula-operator-modulo` | Formula operator: modulo | new: data.converters.<name>: {type: "formula", expression: "operator-modulo(...)"} | data | planned | oracle/data-formula-operator-modulo |
-| `data.formula-operator-multiply` | Formula operator: multiply | new: data.converters.<name>: {type: "formula", expression: "operator-multiply(...)"} | data | planned | oracle/data-formula-operator-multiply |
-| `data.formula-operator-subtract` | Formula operator: subtract | new: data.converters.<name>: {type: "formula", expression: "operator-subtract(...)"} | data | planned | oracle/data-formula-operator-subtract |
+| `data.formula-operator-multiply` | Formula operator: multiply | bind: a * b | data | planned | packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.formula-operator-subtract` | Formula operator: subtract | bind: a - b | data | planned | packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
 | `data.formula-random-always` | Formula random mode: always | new: data.converters.<name>: {type: "formula", expression: "random-always(...)"} | data | planned | oracle/data-formula-random-always |
 | `data.formula-random-once` | Formula random mode: once | new: data.converters.<name>: {type: "formula", expression: "random-once(...)"} | data | planned | oracle/data-formula-random-once |
 | `data.formula-random-source-change` | Formula random mode: sourceChange | new: data.converters.<name>: {type: "formula", expression: "random-source-change(...)"} | data | planned | oracle/data-formula-random-source-change |
@@ -789,7 +789,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `data.list-items` | Explicit list items | new: data.<list-items>: named typed declarations with explicit model and instance references | data | planned | oracle/data-list-items |
 | `data.model-definition` | Typed model definition | new: data.<model-definition>: named typed declarations with explicit model and instance references | data | planned | oracle/data-model-definition |
 | `data.named-instances` | Named instances | new: data.<named-instances>: named typed declarations with explicit model and instance references | data | planned | oracle/data-named-instances |
-| `data.operation-operand-value` | Calculation operand: Value | new: data.converters.<name>: {type: "operation-operand-value", options: {...}} | data | planned | oracle/data-operation-operand-value |
+| `data.operation-operand-value` | Calculation operand: Value | bind numeric literal operand | data | planned | packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
 | `data.operation-operand-view-model` | Calculation operand: ViewModel | new: data.converters.<name>: {type: "operation-operand-view-model", options: {...}} | data | planned | oracle/data-operation-operand-view-model |
 | `data.pad-end` | String pad: end | new: data.converters.<name>: {type: "pad-end", options: {...}} | data | planned | oracle/data-pad-end |
 | `data.pad-start` | String pad: start | new: data.converters.<name>: {type: "pad-start", options: {...}} | data | planned | oracle/data-pad-start |
@@ -808,8 +808,8 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `data.property-text-style` | Text style property | new: data.models.<model>.properties.<name>: {type: "text-style"} | data | planned | oracle/data-property-text-style |
 | `data.property-trigger` | Trigger property | new: data.models.<model>.properties.<name>: {type: "trigger"} | data | planned | oracle/data-property-trigger |
 | `data.property-view-model` | Nested model property | new: data.models.<model>.properties.<name>: {type: "view-model"} | data | planned | oracle/data-property-view-model |
-| `data.range-clamp-lower` | Range option: clampLower | new: data.converters.<name>: {type: "range-clamp-lower", options: {...}} | data | planned | oracle/data-range-clamp-lower |
-| `data.range-clamp-upper` | Range option: clampUpper | new: data.converters.<name>: {type: "range-clamp-upper", options: {...}} | data | planned | oracle/data-range-clamp-upper |
+| `data.range-clamp-lower` | Range option: clampLower | bind: max(value, lower) | data | planned | packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
+| `data.range-clamp-upper` | Range option: clampUpper | bind: min(value, upper) | data | planned | packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state |
 | `data.range-modulo` | Range option: modulo | new: data.converters.<name>: {type: "range-modulo", options: {...}} | data | planned | oracle/data-range-modulo |
 | `data.range-reverse` | Range option: reverse | new: data.converters.<name>: {type: "range-reverse", options: {...}} | data | planned | oracle/data-range-reverse |
 | `data.script-model-api` | Script model API | new: data.<script-model-api>: named typed declarations with explicit model and instance references | data | planned | oracle/data-script-model-api |

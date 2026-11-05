@@ -263,5 +263,4 @@ export const DOC: Shape = O(
     ),
   },
   ['anima', 'name', 'grid', 'nodes'],
-  { bind: text('data binding arrives in anima 0.2') },
 );

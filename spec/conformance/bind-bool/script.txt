@@ -1,0 +1,8 @@
+advance 0
+snapshot
+set progress true
+advance 0
+snapshot
+set progress false
+advance 0
+snapshot

@@ -1,0 +1,43 @@
+{
+  "anima": "0.1",
+  "name": "progress",
+  "grid": 20,
+  "requires": ["bind"],
+  "inputs": {
+    "progress": {
+      "type": "number",
+      "default": 0,
+      "min": 0,
+      "max": 1
+    }
+  },
+  "nodes": [
+    {
+      "id": "track",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 8,
+      "opacity": 0.25,
+      "stroke": {
+        "color": "#141413",
+        "width": 1.5
+      }
+    },
+    {
+      "id": "ring",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 8,
+      "pivot": [10, 10],
+      "rotate": -90,
+      "stroke": {
+        "color": "#d97757",
+        "width": 1.5,
+        "trimEnd": 0
+      }
+    }
+  ],
+  "bind": {
+    "ring.stroke.trimEnd": "progress"
+  }
+}

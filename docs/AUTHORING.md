@@ -385,3 +385,24 @@ for holes. Source transforms apply, but its paint, visibility and opacity do not
   <listener on="click" toggle="done"/>
 </anima>
 ```
+
+## Bindings
+
+Use `requires="bind"` when a value should follow an input continuously. This ring follows
+`progress` on the next frame with no timeline or transition:
+
+```xml
+<anima version="0.1" name="progress" grid="20" requires="bind">
+  <number name="progress" default="0" min="0" max="1"/>
+  <circle id="ring" cx="10" cy="10" r="8" stroke="#d97757" trimEnd="0"/>
+  <bind target="ring.trimEnd" value="progress"/>
+</anima>
+```
+
+Bindings override state and timeline writes, then clamp to the property's range. Expressions
+accept arithmetic and `min`, `max`, `clamp`, `mix`; bool inputs work directly for visibility or
+as 0/1 in arithmetic. Use `mix(#000, #fff, progress)` for colour. `bind-type` means the expression
+and target disagree; `unknown-input` means an input needs declaring; `bind-syntax` names malformed
+expressions. `anima inspect` lists bound addresses, `anima schema bind` describes the form, and
+`anima sample --script` includes resolved values. Browser hosts import `@anima-format/web/bind`.
+See `examples/progress.animl`; general view-model data binding remains for P4e.

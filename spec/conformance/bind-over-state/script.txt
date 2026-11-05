@@ -1,0 +1,8 @@
+advance 0
+snapshot
+set progress 0.25
+advance 0
+snapshot
+set progress 0.75
+advance 0
+snapshot

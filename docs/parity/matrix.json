@@ -1833,10 +1833,10 @@
   "id": "data.bind-components",
   "category": "data",
   "capability": "Bind component properties",
-  "construct": "bind: {\"<address>\": {\"from\": \"level\", \"map\": [0, 1, 0, 1]}}",
+  "construct": "bind: {\"<address>\": \"<input expression>\"} (node properties; instance inputs in P5-2)",
   "module": "data",
   "status": "spec'd",
-  "test": "oracle/data-bind-components",
+  "test": "packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
   "phase": "P4"
  },
  {
@@ -1963,10 +1963,10 @@
   "id": "data.binding-to-target",
   "category": "data",
   "capability": "Source to target binding",
-  "construct": "new: bind.<address>: {from: \"model.property\", mode: \"to-target\"}",
+  "construct": "bind: {\"<address>\": \"<input>\"} (one-way input source; view-model sources in P4e)",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-binding-to-target",
+  "test": "packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
   "phase": "P4"
  },
  {
@@ -2003,10 +2003,10 @@
   "id": "data.calculate-add",
   "category": "data",
   "capability": "Calculate: add",
-  "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"add\", operand: 1}",
+  "construct": "bind: a + b",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-calculate-add",
+  "test": "packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
   "phase": "P4"
  },
  {
@@ -2063,10 +2063,10 @@
   "id": "data.calculate-divide",
   "category": "data",
   "capability": "Calculate: divide",
-  "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"divide\", operand: 1}",
+  "construct": "bind: a / b",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-calculate-divide",
+  "test": "packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
   "phase": "P4"
  },
  {
@@ -2113,10 +2113,10 @@
   "id": "data.calculate-multiply",
   "category": "data",
   "capability": "Calculate: multiply",
-  "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"multiply\", operand: 1}",
+  "construct": "bind: a * b",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-calculate-multiply",
+  "test": "packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
   "phase": "P4"
  },
  {
@@ -2163,10 +2163,10 @@
   "id": "data.calculate-subtract",
   "category": "data",
   "capability": "Calculate: subtract",
-  "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"subtract\", operand: 1}",
+  "construct": "bind: a - b",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-calculate-subtract",
+  "test": "packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
   "phase": "P4"
  },
  {
@@ -2463,10 +2463,10 @@
   "id": "data.formula-expression",
   "category": "data",
   "capability": "Formula expressions",
-  "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"expression(...)\"}",
+  "construct": "bind expressions: input names, numeric literals, parentheses and precedence",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-formula-expression",
+  "test": "packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
   "phase": "P4"
  },
  {
@@ -2563,20 +2563,20 @@
   "id": "data.formula-function-max",
   "category": "data",
   "capability": "Formula function: max",
-  "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-max(...)\"}",
+  "construct": "bind: max(a,b)",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-formula-function-max",
+  "test": "packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
   "phase": "P4"
  },
  {
   "id": "data.formula-function-min",
   "category": "data",
   "capability": "Formula function: min",
-  "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-min(...)\"}",
+  "construct": "bind: min(a,b)",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-formula-function-min",
+  "test": "packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
   "phase": "P4"
  },
  {
@@ -2643,20 +2643,20 @@
   "id": "data.formula-operator-add",
   "category": "data",
   "capability": "Formula operator: add",
-  "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"operator-add(...)\"}",
+  "construct": "bind: a + b",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-formula-operator-add",
+  "test": "packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
   "phase": "P4"
  },
  {
   "id": "data.formula-operator-divide",
   "category": "data",
   "capability": "Formula operator: divide",
-  "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"operator-divide(...)\"}",
+  "construct": "bind: a / b",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-formula-operator-divide",
+  "test": "packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
   "phase": "P4"
  },
  {
@@ -2673,20 +2673,20 @@
   "id": "data.formula-operator-multiply",
   "category": "data",
   "capability": "Formula operator: multiply",
-  "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"operator-multiply(...)\"}",
+  "construct": "bind: a * b",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-formula-operator-multiply",
+  "test": "packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
   "phase": "P4"
  },
  {
   "id": "data.formula-operator-subtract",
   "category": "data",
   "capability": "Formula operator: subtract",
-  "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"operator-subtract(...)\"}",
+  "construct": "bind: a - b",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-formula-operator-subtract",
+  "test": "packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
   "phase": "P4"
  },
  {
@@ -3033,10 +3033,10 @@
   "id": "data.operation-operand-value",
   "category": "data",
   "capability": "Calculation operand: Value",
-  "construct": "new: data.converters.<name>: {type: \"operation-operand-value\", options: {...}}",
+  "construct": "bind numeric literal operand",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-operation-operand-value",
+  "test": "packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
   "phase": "P4"
  },
  {
@@ -3223,20 +3223,20 @@
   "id": "data.range-clamp-lower",
   "category": "data",
   "capability": "Range option: clampLower",
-  "construct": "new: data.converters.<name>: {type: \"range-clamp-lower\", options: {...}}",
+  "construct": "bind: max(value, lower)",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-range-clamp-lower",
+  "test": "packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
   "phase": "P4"
  },
  {
   "id": "data.range-clamp-upper",
   "category": "data",
   "capability": "Range option: clampUpper",
-  "construct": "new: data.converters.<name>: {type: \"range-clamp-upper\", options: {...}}",
+  "construct": "bind: min(value, upper)",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-range-clamp-upper",
+  "test": "packages/core/test/bind.test.ts; conformance/bind-number; conformance/bind-over-state",
   "phase": "P4"
  },
  {
