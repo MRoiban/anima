@@ -310,7 +310,8 @@ function buildTracks() {
   }
   const pct = (s: number) => (s / t.duration) * 100;
   const ticks = Array.from(
-    { length: Math.min(1000, Math.floor(t.duration / 0.1)) + 1 },
+    // The epsilon keeps 1.4 / 0.1 (13.999…) from dropping the last tick.
+    { length: Math.min(1000, Math.floor(t.duration / 0.1 + 1e-9)) + 1 },
     (_, i) => i * 0.1,
   );
   let html = `<div class="ruler"><div></div><div class="ticks" style="background-size:${10 / t.duration}% 6px">${ticks

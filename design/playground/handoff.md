@@ -1,6 +1,6 @@
 # Playground handoff (P3)
 
-**Design artifact:** `design/playground/mockup.html` (sha256 `dbb8ebda5205…`, branch `p3-playground`).
+**Design artifact:** `design/playground/mockup.html` (sha256 `5cb260be05ea…`, branch `p3-playground`).
 Open it in a browser; the black "mock:" switch (bottom corner) shows the states: valid, errors,
 scrubbing, dark. The switch is mockup chrome, not part of the product.
 
@@ -81,6 +81,14 @@ playhead (→ model timelines + `inspect()`), the mock switch (remove).
   `packages/cli`, tests (unit + a Chromium/Firefox browser test). Must not change
   `packages/core` beyond reading, nor `packages/web/src` (request API additions instead).
 - Agent "host API": `packages/web/src/index.ts` and its tests, the web API doc.
+
+## Revisions after implementation
+
+- Short windows (found at 1280×720 on the real build; the mockup had the same flaw): the preview
+  tile is bounded by the window height too (`min(300px, 100%, 100vh − 560px)`, at least 140 px) and
+  the Preview column scrolls, so the tile never overlaps the inputs. Updated in both.
+- The timeline ruler keeps its first and last labels inside the lane; the editor's focus ring is a
+  1 px inset accent line instead of 2 px.
 
 ## Acceptance
 
