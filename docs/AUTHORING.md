@@ -1,227 +1,300 @@
-# Authoring `.ani` files
+# Authoring in AniML
 
-A guide for agents (and people) who write Anima animations by hand. It assumes you can run the
-`anima` CLI and read its output; you never need a browser. The normative rules are in the spec
-(`anima docs spec`); this guide is about doing the work.
+Write `.animl`; `anima build` produces `.ani` for the runtime. Check motion from markup.
+Read `anima docs markup` for syntax and `anima docs spec` for playback rules.
+Use `anima docs --list` to find topics, then fetch one with `anima docs <topic>`.
 
 ## The loop
 
-Every change goes through the same four commands:
-
 ```sh
-anima validate icon.ani            # 0 = loads; otherwise every error with a line, pointer and hint
-anima inspect icon.ani             # what is animated, the state graph, who writes what
-anima sample icon.ani -e "fire ring; advance 0.2; snapshot swing.rotate"
-anima render icon.ani -o out.png --sheet 8 -e "fire ring"   # look at it
+anima new bell --glyph fixtures/glyphs/bell.svg -o bell.animl
+# Edit bell.animl: add ring input, swing node, timeline, states and listeners (see below).
+anima validate bell.animl
+anima inspect bell.animl
+anima sample bell.animl -e "fire ring; advance 0; advance 0.2; snapshot swing.rotate"
+anima render bell.animl -o sheet.png --sheet 8 -e "fire ring"
+anima build bell.animl -o bell.ani
 ```
 
-Fix every `validate` error before anything else; `sample` and `render` refuse invalid files. Add
-`--format=json` to any command when you want to parse the output. Exit codes: 0 ok, 1 diagnostics,
-2 usage.
+Fix validation errors first. Exit codes: 0 success, 1 diagnostics, 2 usage errors.
+`--format=json` includes codes, source positions, JSON pointers and available hints.
 
 ## Start from the glyph
 
 ```sh
-anima new bell --glyph icons/glyphs/bell.svg       # or: anima new bell --glyphy <glyphy project>
+anima new bell --glyph icons/glyphs/bell.svg
+anima new bell --glyphy path/to/glyphy-project -o bell.animl
 ```
 
-The scaffold embeds the glyph's path data byte for byte, with its SHA-256, as one `path` node
-filled with the `ink` slot (`currentColor`). Its rest frame is pixel-identical to the SVG — keep it
-that way: **at rest, every transform is identity and every added element is invisible** (opacity 0
-or scale 0). Then the animated icon drops in where the static one was.
+The scaffold embeds the path byte for byte with its SHA-256. The Glyphy form also reads
+its pick, grid and metadata. Keep rest transforms at identity and added parts at
+`opacity="0"` or `scale="0"` to preserve the static glyph.
 
-Split the glyph into parts by subpath. Subpaths are numbered from 0 in the order their `M`
-commands appear in `d`. A hole and its outline must stay in one node (they are drawn even-odd
-together):
+Split parts with `subpaths="0 1"`. Indices start at 0, in the order of `M` commands in `d`.
+Keep a hole and its outline together with `fill-rule="evenodd"`. Render parts separately
+when their indices are unclear. `examples/bell.animl` shows the real bell split.
 
-```json
-{ "id": "body",    "type": "path", "glyph": "bell", "subpaths": [0, 1], "fill": { "color": "ink", "rule": "evenodd" } },
-{ "id": "clapper", "type": "path", "glyph": "bell", "subpaths": [2],    "fill": { "color": "ink", "rule": "evenodd" }, "pivot": [10, 9] }
+<!-- fragment -->
+```xml
+<glyph name="shape" d="M2 2L18 2L18 16L2 16ZM4 4L16 4L16 14L4 14ZM8 17L12 17L10 19Z"/>
+<group id="swing" pivot="10 2.5">
+  <path id="body" glyph="shape" subpaths="0 1" fill="currentColor" fill-rule="evenodd"/>
+  <path id="clapper" glyph="shape" subpaths="2" pivot="10 9" fill="currentColor"/>
+</group>
 ```
 
-To find which subpath is which, render each one alone (temporarily set the others' `subpaths`),
-or read the start points: each subpath begins right after an `M` in `d`.
+See `docs/research/glyphy-compat.md` for the grid, outline and stroke conventions.
 
 ## Geometry and pivots
 
-- Everything is in glyph grid units (Glyphy's `grid`, usually 20), y down. Nothing is re-origined:
-  children use the same coordinates as their parents, so Glyphy's numbers work unchanged.
-- To turn or scale a part about a point, give the node a `pivot` in those same coordinates. The bell
-  swings about the top of its handle (`[10, 2.5]`); the clapper lags about `[10, 9]`.
-- Nest groups to compose motion: the clapper is a child of `swing`, so it swings with the bell and
-  adds its own rotation.
-- Motion that leaves the glyph box needs room: set `viewBox` larger than the grid
-  (bell: `[-2, -2, 24, 24]`). The icon is still laid out by its grid box; the bleed overflows.
-- Authored ink (sound waves, sparkles) should match the glyph's stroke weight: Glyphy's `stroke`
-  (1 unit in the anthropic set) with the default round caps and joins. Strokes scale with their
-  node, like the glyph's filled outline.
+Coordinates use grid units, with y down. Children keep their parent's coordinate system;
+nesting does not move the origin to the child's bounds. Positive rotation is clockwise.
+Set `pivot="10 2.5"` to turn or scale about that point (default `0 0`). Nest groups to
+compose motion. Enlarge `viewBox` for bleed; the layout box still uses `grid`.
 
-## Timelines
+Use SVG-style attribute names: `cx`, `cy`, `width`, `height`, `fill`, `fill-rule`,
+`stroke`, `stroke-width`, `stroke-linecap`, `stroke-linejoin`.
+`anima schema <type>` shows both the markup and JSON spellings.
+Rects start at `x0`, `y0`; `x`, `y` translate any node. Arcs take `cx`, `cy`, `r`,
+`from`, `to` and stroke paint. Caps and joins default to `round`; strokes scale with nodes.
+A fill detail needs `fill`; every stroke detail needs `stroke`.
 
-A timeline is a set of tracks keyed by **address** (`<node-id>.<property>`), each a list of
-`[time, value, ease]` keyframes:
+## Timelines and keyframes
 
-```json
-"ring": { "duration": 1.4, "tracks": {
-  "swing.rotate": [[0, 0, "cubic(0.2, 0, 0.3, 1)"], [0.116667, 17.1887, "cubic(0.45, 0, 0.55, 1)"], [1.1, 0]]
-} }
+Tracks target `node-id.attribute`: `dot.fill`, `bar.width`, `wave.stroke-width`,
+`wave.trimEnd`. Times are seconds, angles degrees; scale and opacity have no units.
+
+Each keyframe is `time value [ease]`. Align columns with whitespace, or use `;` inline.
+The ease on a key shapes the segment to the next key. Omit ease on the last key.
+Before the first key and after the last, the endpoint value holds.
+
+```xml
+<anima version="0.1" name="turn" grid="20">
+  <group id="icon" pivot="10 10">
+    <circle id="dot" cx="14" cy="10" r="2" fill="currentColor"/>
+  </group>
+  <ease name="sway" curve="cubic(0.45, 0, 0.55, 1)"/>
+  <timeline name="turn" duration="1" reducedMotion="end">
+    <track target="icon.rotate">
+      0    0    sway
+      0.5  20   sway
+      1    0
+    </track>
+    <track target="dot.scale">0 1 hold; 0.5 1 out; 1 1.2</track>
+  </timeline>
+  <layer name="main" initial="turning">
+    <state name="turning" play="turn"/>
+  </layer>
+</anima>
 ```
 
-- Times are **seconds**, angles **degrees** (positive is clockwise), scale and opacity plain
-  numbers. No frames, radians or percentages anywhere.
-- The ease on a key shapes the segment **to the next key**; the last key's ease is never used.
-- Before the first key the first value holds; after the last, the last value holds.
-- `hold` keeps a value until the next key — use it for "wait, then move" (the dot stays at 0 until
-  0.67 s, then pops).
-- Eases: `linear`, `hold`, `in`, `out`, `inOut`, `cubic(x1, y1, x2, y2)` (CSS `cubic-bezier`), and
-  `elastic(amplitude, period)` (ease-out spring-like overshoot; the bell's dot uses `elastic(1, 0.45)`).
-- `anima schema` lists every animatable property; `anima schema stroke` the paint fields.
+Eases: `linear`, `hold`, `in`, `out`, `inOut`, `cubic(x1, y1, x2, y2)`,
+`elastic(amplitude, period)`. Name reusable curves with `<ease>`; do not shadow built-ins.
+Timelines default to `loop="once"`; alternatives are `loop` and `pingpong`.
+`reducedMotion="end"` jumps to the end; `skip` freezes at the start; `play` runs normally.
+Animate literal hex colours; colour slots and `currentColor` are for host theming.
 
-## States, inputs and listeners
+## States inputs and listeners
 
-Inputs are the only interface between the page and the icon: `bool`, `number` and `trigger`.
-Listeners write inputs from pointer events; layers of states read them.
+Declare every input: `bool`, `number` (optional `min`, `max`) or `trigger`.
+Listeners write inputs; transitions read them:
 
-```json
-"inputs":    { "ring": { "type": "trigger" }, "hover": { "type": "bool" } },
-"listeners": [ { "on": "click", "fire": "ring" }, { "on": "enter", "set": { "hover": true } },
-               { "on": "leave", "set": { "hover": false } } ],
-"machine": { "layers": {
-  "ring":  { "initial": "idle", "states": {
-    "idle":    { "pose": { "dot.scale": 0 }, "on": [{ "when": "ring", "to": "ringing" }] },
-    "ringing": { "play": "ring", "on": [{ "when": "@end", "to": "rested" }] },
-    "rested":  { "pose": { "dot.scale": 1 }, "on": [{ "when": "ring", "to": "ringing" }] } } },
-  "hover": { "initial": "rest", "states": {
-    "rest":  { "pose": {}, "on": [{ "when": "hover", "to": "hover", "blend": 0.18 }] },
-    "hover": { "pose": { "icon.scale": 1.05 }, "on": [{ "when": "!hover", "to": "rest", "blend": 0.22 }] } } } } }
+<!-- fragment -->
+```xml
+<bool name="hover"/>
+<bool name="down"/>
+<trigger name="ring" buffer="0.3"/>
+<group id="icon" pivot="10 10"/>
+<a11y role="button" label="Ring" activate="ring" held="down"/>
+<layer name="main" initial="rest">
+  <state name="rest"><on when="hover and !down" to="over" blend="0.18"/></state>
+  <state name="over">
+    <pose icon.scale="1.05"/>
+    <on when="!hover" to="rest" blend="0.22"/>
+    <on when="ring" to="over" blend="0.09" interruptible="false"/>
+  </state>
+</layer>
+<listener on="click" fire="ring"/>
+<listener on="enter" set="hover=true"/>
+<listener on="down" set="down=true"/>
+<listener on="leave" set="hover=false down=false"/>
+<listener on="up" set="down=false"/>
 ```
 
-- A state is a `pose` (values held still) or `play`s a timeline. Each layer is in one state at a
-  time; layers run together, in order, and a later layer wins where two write the same property.
-  Keep layers to separate properties when you can (`anima inspect` lists overlaps).
-- A property a state does not mention goes back to its rest value (crossfading if `blend` is set).
-  So an empty pose `{}` means "rest".
-- Conditions: `name` (trigger fired, or bool true), `!name`, `level > 0.5`, `@end` (the state's
-  timeline finished; `once` timelines only), `@after(0.3)`, joined with `&&`. For "or", write two
-  transitions.
-- Triggers are dropped at the end of the step if nothing used them. A click during `ringing` above
-  is ignored, by design. If a fire must wait for a crossfade, give the input `"buffer": 0.3`.
-- `"interruptible": false` on a transition lets its crossfade finish before the layer reacts again;
-  the bell uses it so a quick click still shows the press.
-- For buttons, add `"a11y": { "role": "button", "label": "…", "activate": "ring", "held": "down" }`:
-  Enter and Space then fire `activate`, and `held` is true while the key is down.
-- Every timeline has `reducedMotion`: `end` (default; jump to the last frame, events still fire),
-  `skip` (stay on the first frame) or `play`.
+Use `play="timeline-name"` and `@end` for one-shot motion. A state without `play` is a
+pose; without `<pose>` it writes nothing. Later layers win on shared properties;
+inspect reports overlaps. Empty poses return to values below that layer.
+
+Conditions accept `hover`, `!down`, `level > 0.5`, `@after(0.3)` and `@end`, joined with
+`and`. For “or”, write separate transitions. `@end` needs a `once` timeline.
+Use `fire` for triggers, `set="a=true b=false"` for declared bools or numbers,
+and `toggle` for bools. A listener's optional `target` names a node; otherwise it hits
+`<hit>` or the viewBox. For example, `<hit circle="10 10 10.8"/>` sets a hit disc.
+Triggers normally expire after one step. `buffer` keeps an unconsumed trigger pending.
+`interruptible="false"` lets a crossfade finish before another transition can run.
+Keyboard activation uses `a11y`: `activate` names a trigger and `held` names a bool.
 
 ## Checking the motion
 
-`sample` runs a script and prints JSON snapshots; it is the fastest way to check numbers.
-
 ```sh
-anima sample bell.ani -e "pointer move 10 10; advance 0.3; snapshot icon.scale; pointer click 10 10; advance 0.05; snapshot"
+anima render examples/bell.animl -o rest.png
+anima render examples/bell.animl -o sheet.png --sheet 8 -e "fire ring"
+anima render examples/bell.animl -o reduced.png -e "motion reduce; fire ring; advance 0"
 ```
 
-Script commands: `advance <s> [in <n>]`, `set <input> <value>`, `fire <input>`, `toggle <input>`,
-`pointer move|down|up|click <x> <y>`, `pointer leave`, `motion reduce|full`, `snapshot [addresses]`.
-Pointer coordinates are grid units. Each snapshot has `values`, the layer `states`, the `events`
-since the last snapshot, and `settled` (true when nothing will move until an input changes — make
-sure your icon reaches it, or the page keeps animating).
+Scripts accept `advance <seconds> [in <steps>]`, `set <input> <value>`, `fire <input>`,
+`toggle <input>`, `pointer move|down|up|click <x> <y>`, `pointer leave`,
+`motion reduce|full` and `snapshot [addresses]`. Pointer coordinates use grid units.
+Input writes queue until a step; `advance 0` processes them without advancing time.
+Snapshots report values, states, events and `settled`. Check that one-shots settle.
 
-`render` shows it. `--sheet N` draws N frames evenly from the end of the script until the icon
-settles (or `--over <seconds>`), labelled with their time. `--dark` uses ink `#f0eee6` on
-`#1d1d1d`; `--color accent=#e08a6d` overrides a slot. Look at the sheet: check the rest frame is
-the plain glyph, that parts turn about the right pivot, that nothing is clipped by the `viewBox`,
-and that the last frame is where you meant to stop.
+Sheets start at the end of the script and sample until settled, or for `--over <seconds>`.
+Use `--dark` and `--color accent=#e08a6d` to check themes. Check rest parity, pivots,
+clipping and the final pose. Rendered geometry catches errors that valid numbers cannot.
 
 ## Common mistakes
 
-Each with the exact diagnostic `anima validate` prints (line numbers vary).
+Save each bad input below under its marked filename. Run `anima validate <filename>`.
 
-**Property names from other tools.** It is `rotate`, not `rotation`, and `scale`/`scaleX`/`scaleY`:
+**Misspelled attribute. Use `rotate`.**
 
-```
-bell.ani:202:23 error unknown-key /nodes/0/children/1/rotation: unknown key "rotation" — did you mean "rotate"?
-```
-
-**Frames instead of seconds.** Frame 7 at 60 fps is `0.116667`:
-
-```
-bell.ani:219:13 error key-range /timelines/ring/tracks/swing.rotate/1/0: time 7 lies outside [0, 1.4]
-bell.ani:224:13 error key-order /timelines/ring/tracks/swing.rotate/2/0: time 0.283333 does not come after 7 — keyframe times must strictly increase
+<!-- invalid: typo.animl -->
+```text
+<anima version="0.1" name="demo" grid="20">
+<circle id="dot" cx="10" cy="10" r="2" fill="currentColor" roate="5"/>
+</anima>
 ```
 
-**Radians.** There is no diagnostic: `0.3` is a valid angle, just a tiny one. Angles are degrees;
-convert with `× 180 / π` (0.3 rad = 17.1887°). If a swing looks frozen in `render`, check this.
-
-**CSS ease syntax.** It is `cubic(…)`, not `cubic-bezier(…)`:
-
-```
-bell.ani:216:13 error bad-ease /timelines/ring/tracks/swing.rotate/0/2: "cubic-bezier(0.2, 0, 0.3, 1)": not an ease — linear, hold, in, out, inOut, cubic(x1, y1, x2, y2) or elastic(a, p)
+<!-- diagnostics: typo.animl -->
+```text
+typo.animl:2:60 error unknown-attribute <circle> takes no "roate" attribute
+  hint: did you mean "rotate"?
+typo.animl: 1 error
 ```
 
-**Animating a pivot.** Pivots are fixed; move the node instead:
+**Fill detail without paint. Add `fill="currentColor"`.**
 
-```
-bell.ani:518:29 error not-animatable /machine/layers/hover/states/hover/pose/icon.pivot: "pivot" cannot be animated — animate x and y instead
-```
-
-**Animating a colour slot.** Slots are themed by the page (CSS), not animated. Give the paint a hex
-colour if it must change:
-
-```
-bell.ani:458:27 error color-slot-animated /timelines/ring/tracks/dot.fill.color: "dot.fill.color" is animated, so its colour must be a hex literal, not "accent" — slots are not animatable in 0.1
+<!-- invalid: paint.animl -->
+```text
+<anima version="0.1" name="demo" grid="20">
+<circle id="dot" cx="10" cy="10" r="2" fill-rule="evenodd"/>
+</anima>
 ```
 
-**Negating a trigger, or `||`.** Triggers are events, not states; and conditions only have `&&`:
-
-```
-bell.ani:472:25 error input-type /machine/layers/ring/states/idle/on/0/when: trigger "ring" cannot be negated
-bell.ani:507:25 error bad-condition /machine/layers/hover/states/rest/on/0/when: "hover || down": cannot read "hover || down" — terms: name, !name, name OP number, @end, @after(s), joined with &&
-```
-
-**A typo in a state name.** The orphaned state is reported too:
-
-```
-bell.ani:483:23 error unknown-state /machine/layers/ring/states/ringing/on/0/to: no state "rest" in layer "ring" — did you mean "rested"?
-bell.ani:487:21 warning unreachable-state /machine/layers/ring/states/rested: no transition reaches "rested"
+<!-- diagnostics: paint.animl -->
+```text
+paint.animl:2:51 error paint-attribute "fill-rule" needs "fill"
+  hint: add fill="…"
+paint.animl: 1 error
 ```
 
-**`@end` on a looping timeline.** A loop never ends; use `@after(seconds)`:
+**Incomplete keyframe. Supply both time and value.**
 
-```
-bell.ani:483:25 error bad-end /machine/layers/ring/states/ringing/on/0/when: @end needs a "once" timeline; "ring" is loop
-```
-
-**Counting subpaths from 1.** They start at 0:
-
-```
-bell.ani:172:17 error bad-subpath /nodes/0/children/1/children/1/subpaths/0: subpath 3 is out of range (the path has 3)
+<!-- invalid: keyframe.animl -->
+```text
+<anima version="0.1" name="demo" grid="20">
+<group id="icon"/>
+<timeline name="turn" duration="1"><track target="icon.rotate">0</track></timeline>
+</anima>
 ```
 
-**Firing a bool, or setting a trigger.** `fire` is for triggers, `set`/`toggle` for bools and numbers:
-
-```
-bell.ani:565:15 error input-type /listeners/1/fire: "fire" needs a trigger input; "hover" is bool
-```
-
-**A state that transitions to itself on a level.** It would restart every frame:
-
-```
-bell.ani:533:25 error self-transition /machine/layers/hover/states/hover/on/2/when: "hover" → itself needs a trigger, @end or @after term — otherwise it would re-enter every step
+<!-- diagnostics: keyframe.animl -->
+```text
+keyframe.animl:3:64 error bad-keyframe expected time value [ease]
+keyframe.animl: 1 error
 ```
 
-**A re-traced glyph.** When Glyphy re-traces a glyph, its subpaths may be renumbered. Paste the new
-`d`, then validate: the stale hash tells you to re-check every `subpaths` list before updating it.
+**Unknown track target. Use an existing node id.**
 
-```
-bell.ani:14:17 warning hash-mismatch /glyphs/bell/sha256: glyph "bell" changed since its hash was taken — if it was re-traced, check that subpath indices still pick the right parts, then update sha256
+<!-- invalid: target.animl -->
+```text
+<anima version="0.1" name="demo" grid="20">
+<group id="icon"/>
+<timeline name="turn" duration="1"><track target="ghost.rotate">0 0; 1 20</track></timeline>
+</anima>
 ```
 
-**Visible at rest.** No diagnostic either: render the rest frame (`anima render icon.ani -o rest.png`)
-and compare it with the glyph. Added parts need `opacity: 0` or `scale: 0` in the document, and the
-states that show them set them in a pose or timeline.
+<!-- diagnostics: target.animl -->
+```text
+target.animl:3:51 error unknown-address no node "ghost"
+target.animl: 1 error
+```
+
+**Undeclared condition input. Add `<bool name="hover"/>`.**
+
+<!-- invalid: input.animl -->
+```text
+<anima version="0.1" name="demo" grid="20">
+<group id="icon"/>
+<layer name="main" initial="idle"><state name="idle"><on when="hover" to="active"/></state><state name="active"/></layer>
+</anima>
+```
+
+<!-- diagnostics: input.animl -->
+```text
+input.animl:3:64 error unknown-input no input "hover"
+  hint: declare it in "inputs"
+input.animl: 1 error
+```
+
+**Trigger in `set`. Use `fire="ring"`.**
+
+<!-- invalid: trigger.animl -->
+```text
+<anima version="0.1" name="demo" grid="20">
+<group id="icon"/>
+<trigger name="ring"/>
+<listener on="click" set="ring=true"/>
+</anima>
+```
+
+<!-- diagnostics: trigger.animl -->
+```text
+trigger.animl:4:27 error input-type "set" needs a bool or number input; "ring" is trigger
+trigger.animl: 1 error
+```
+
+**Forgotten pivot.** This is valid. Save as `pivot.animl`:
+
+```xml
+<anima version="0.1" name="pivot" grid="20">
+  <circle id="dot" cx="10" cy="4" r="2" rotate="90" fill="currentColor"/>
+</anima>
+```
+
+Run `anima inspect pivot.animl`: its node line is `dot (circle)`, with no pivot.
+Run `anima render pivot.animl -o pivot.svg`: the centre turns to `-4 10`, outside the box.
+Add `pivot="10 4"` to keep the centre fixed. Validation cannot infer the intended hinge.
 
 ## Formatting
 
-`anima fmt --write icon.ani` puts keys in a stable order and each keyframe on its own line, so diffs
-stay readable. It never reorders `machine.layers` (their order matters) or any other map.
+`anima fmt icon.animl` prints formatted markup. Use `--write` to edit the file or `--check`
+to check it. Formatting aligns keyframe columns and keeps comments, element order and named
+eases. It does not reorder layers. Run validation again after edits.
+
+## Markup in HTML
+
+Wrap AniML in a script so HTML does not interpret its node tags:
+
+```html
+<anima-icon>
+  <script type="application/vnd.anima+xml">
+    <anima version="0.1" name="dot" grid="20">
+      <circle id="dot" cx="10" cy="10" r="2" fill="currentColor"/>
+    </anima>
+  </script>
+</anima-icon>
+```
+
+Run `anima build page.html -o page.built.html`. It replaces AniML scripts inside
+`<anima-icon>` with compiled `application/vnd.anima+json` scripts. Load the regular
+`@anima-format/web` runtime on that page.
+The optional `@anima-format/web/markup` module is specified for browser compilation of
+unbuilt markup. This checkout does not export it yet; use the HTML build command here.
+
+## Hand-written ani
+
+Hand-written `.ani` JSON is still valid. It is the runtime format that `anima build`
+produces. `validate`, `inspect`, `sample`, `render` and `fmt` accept it too.
+Follow `anima docs spec` and the JSON spellings in `anima schema`.
+Use `anima decompile icon.ani -o icon.animl` to move authoring to markup.
