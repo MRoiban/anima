@@ -65,7 +65,10 @@ export const PHASES: [string, string][] = [
   ['P4a', 'Done: paint and composite on the module system and the draw layer'],
   ['P4', 'Interaction, paint, events and data binding'],
   ['P5', 'Done: components, bindings, assets, images, n-slice and feathering'],
-  ['P5b', 'The rest of P5: asset pipelines (encodings, imports), library detach/update, lists, script instances'],
+  [
+    'P5b',
+    'The rest of P5: asset pipelines (encodings, imports), library detach/update, lists, script instances',
+  ],
   ['Pc', 'Canvas backend, minimal (brought forward from P10)'],
   ['P6', 'Text'],
   ['P7', 'Layout'],
