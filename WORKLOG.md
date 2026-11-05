@@ -53,3 +53,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 18:20 [claude]: merged format fix (3503c3b): activate may name a bool (keyboard toggles switch, Chromium+Firefox tests), anima schema a11y/transition/listener/input; core+web 14812 B (+31); npm run check 377 pass after demo rebuild; moon gets activate=dark
 - 2026-11-05 18:50 [claude]: merged tooling (ff34197): inspect subpaths, render --compare (moon/trash 0 px), snapshot inputs; bbox rounding; PLAN M5/P2 ticked, P2 parity rows → P3, LOG M5
 - 2026-11-05 19:40 [claude]: PR #8 merged; P3 design done myself (mockup checked at 1440/1000/390, valid/errors/scrub/dark; fixed highlighter, mask sizing, phone overflow); Player.inspect() + test (+150 B gz)
+- 2026-11-05 20:30 [claude]: merged host API (d1313fe): 10/10 items, Chromium+Firefox tests, docs/WEB.md; core+web 15880 B (+918)
