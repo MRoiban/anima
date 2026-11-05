@@ -7,3 +7,4 @@ docs
 *.ani
 package-lock.json
 spec/conformance/**/*.jsonl
+spec/schema

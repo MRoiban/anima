@@ -1,0 +1,35 @@
+{
+ "$comment": "expect unreachable-state at /machine/layers/l/states/r",
+ "anima": "0.1",
+ "name": "t",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "circle",
+   "center": [
+    10,
+    10
+   ],
+   "r": 5,
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ],
+ "machine": {
+  "layers": {
+   "l": {
+    "initial": "s",
+    "states": {
+     "s": {
+      "pose": {}
+     },
+     "r": {
+      "pose": {}
+     }
+    }
+   }
+  }
+ }
+}

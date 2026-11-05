@@ -1,0 +1,22 @@
+{
+ "$comment": "expect arc-fill at /nodes/0/fill",
+ "anima": "0.1",
+ "name": "t",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "arc",
+   "center": [
+    10,
+    10
+   ],
+   "r": 5,
+   "from": 0,
+   "to": 90,
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ]
+}

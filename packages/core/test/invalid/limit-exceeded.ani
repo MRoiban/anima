@@ -1,0 +1,218 @@
+{
+ "$comment": "expect limit-exceeded at /nodes/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0/children/0",
+ "anima": "0.1",
+ "name": "t",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "g0",
+   "type": "group",
+   "children": [
+    {
+     "id": "g1",
+     "type": "group",
+     "children": [
+      {
+       "id": "g2",
+       "type": "group",
+       "children": [
+        {
+         "id": "g3",
+         "type": "group",
+         "children": [
+          {
+           "id": "g4",
+           "type": "group",
+           "children": [
+            {
+             "id": "g5",
+             "type": "group",
+             "children": [
+              {
+               "id": "g6",
+               "type": "group",
+               "children": [
+                {
+                 "id": "g7",
+                 "type": "group",
+                 "children": [
+                  {
+                   "id": "g8",
+                   "type": "group",
+                   "children": [
+                    {
+                     "id": "g9",
+                     "type": "group",
+                     "children": [
+                      {
+                       "id": "g10",
+                       "type": "group",
+                       "children": [
+                        {
+                         "id": "g11",
+                         "type": "group",
+                         "children": [
+                          {
+                           "id": "g12",
+                           "type": "group",
+                           "children": [
+                            {
+                             "id": "g13",
+                             "type": "group",
+                             "children": [
+                              {
+                               "id": "g14",
+                               "type": "group",
+                               "children": [
+                                {
+                                 "id": "g15",
+                                 "type": "group",
+                                 "children": [
+                                  {
+                                   "id": "g16",
+                                   "type": "group",
+                                   "children": [
+                                    {
+                                     "id": "g17",
+                                     "type": "group",
+                                     "children": [
+                                      {
+                                       "id": "g18",
+                                       "type": "group",
+                                       "children": [
+                                        {
+                                         "id": "g19",
+                                         "type": "group",
+                                         "children": [
+                                          {
+                                           "id": "g20",
+                                           "type": "group",
+                                           "children": [
+                                            {
+                                             "id": "g21",
+                                             "type": "group",
+                                             "children": [
+                                              {
+                                               "id": "g22",
+                                               "type": "group",
+                                               "children": [
+                                                {
+                                                 "id": "g23",
+                                                 "type": "group",
+                                                 "children": [
+                                                  {
+                                                   "id": "g24",
+                                                   "type": "group",
+                                                   "children": [
+                                                    {
+                                                     "id": "g25",
+                                                     "type": "group",
+                                                     "children": [
+                                                      {
+                                                       "id": "g26",
+                                                       "type": "group",
+                                                       "children": [
+                                                        {
+                                                         "id": "g27",
+                                                         "type": "group",
+                                                         "children": [
+                                                          {
+                                                           "id": "g28",
+                                                           "type": "group",
+                                                           "children": [
+                                                            {
+                                                             "id": "g29",
+                                                             "type": "group",
+                                                             "children": [
+                                                              {
+                                                               "id": "g30",
+                                                               "type": "group",
+                                                               "children": [
+                                                                {
+                                                                 "id": "g31",
+                                                                 "type": "group",
+                                                                 "children": [
+                                                                  {
+                                                                   "id": "g32",
+                                                                   "type": "group",
+                                                                   "children": [
+                                                                    {
+                                                                     "id": "a",
+                                                                     "type": "circle",
+                                                                     "center": [
+                                                                      10,
+                                                                      10
+                                                                     ],
+                                                                     "r": 5,
+                                                                     "fill": {
+                                                                      "color": "#000"
+                                                                     }
+                                                                    }
+                                                                   ]
+                                                                  }
+                                                                 ]
+                                                                }
+                                                               ]
+                                                              }
+                                                             ]
+                                                            }
+                                                           ]
+                                                          }
+                                                         ]
+                                                        }
+                                                       ]
+                                                      }
+                                                     ]
+                                                    }
+                                                   ]
+                                                  }
+                                                 ]
+                                                }
+                                               ]
+                                              }
+                                             ]
+                                            }
+                                           ]
+                                          }
+                                         ]
+                                        }
+                                       ]
+                                      }
+                                     ]
+                                    }
+                                   ]
+                                  }
+                                 ]
+                                }
+                               ]
+                              }
+                             ]
+                            }
+                           ]
+                          }
+                         ]
+                        }
+                       ]
+                      }
+                     ]
+                    }
+                   ]
+                  }
+                 ]
+                }
+               ]
+              }
+             ]
+            }
+           ]
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

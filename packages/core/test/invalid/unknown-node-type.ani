@@ -1,0 +1,20 @@
+{
+ "$comment": "expect unknown-node-type at /nodes/0/type",
+ "anima": "0.1",
+ "name": "t",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "ellipse",
+   "center": [
+    10,
+    10
+   ],
+   "r": 5,
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ]
+}

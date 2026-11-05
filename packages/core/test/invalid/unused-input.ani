@@ -1,0 +1,25 @@
+{
+ "$comment": "expect unused-input at /inputs/hover",
+ "anima": "0.1",
+ "name": "t",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "circle",
+   "center": [
+    10,
+    10
+   ],
+   "r": 5,
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ],
+ "inputs": {
+  "hover": {
+   "type": "bool"
+  }
+ }
+}

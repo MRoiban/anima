@@ -1,0 +1,17 @@
+{
+ "$comment": "expect no-paint at /nodes/0",
+ "anima": "0.1",
+ "name": "t",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "circle",
+   "center": [
+    10,
+    10
+   ],
+   "r": 5
+  }
+ ]
+}

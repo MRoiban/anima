@@ -1,0 +1,36 @@
+{
+ "$comment": "expect color-slot-animated at /timelines/t/tracks/a.fill.color",
+ "anima": "0.1",
+ "name": "t",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "circle",
+   "center": [
+    10,
+    10
+   ],
+   "r": 5,
+   "fill": {
+    "color": "ink"
+   }
+  }
+ ],
+ "colors": {
+  "ink": "currentColor"
+ },
+ "timelines": {
+  "t": {
+   "duration": 1,
+   "tracks": {
+    "a.fill.color": [
+     [
+      0,
+      "#fff"
+     ]
+    ]
+   }
+  }
+ }
+}

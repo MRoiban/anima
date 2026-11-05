@@ -27,6 +27,9 @@ docs/      architecture, plan, research notes
 2. **Loader.** `parse(text) → Result<Doc, Diagnostic[]>`. Strict by default. Diagnostics carry
    `{ pointer, code, message, hint }`. Resolve → link → validate passes; never partially load.
    Loops are capped and inputs are bounded (fuzz and truncation tests).
+   Structure is checked against shapes declared in the registry (`check.ts`), then references and
+   semantics (`load.ts`). The browser build sets `flags.ts` `VERBOSE = false`, which folds away all
+   message and hint text and the warning passes; codes and pointers stay (spec §2).
 3. **Compiler.** Flattens the doc into arrays: nodes in paint order with parent indices, property
    slots (`Float64Array` for numbers, side arrays for colours/booleans), tracks as typed arrays of
    times/values/ease ids, conditions pre-parsed. Path data is parsed once per glyph and split by

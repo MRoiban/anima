@@ -1,0 +1,220 @@
+// The registry (ARCHITECTURE §core.1): every node type, property and paint field, and the shape of
+// every object in a document. Validation, the JSON Schema, `anima schema`, sampling and the
+// renderers all read it.
+
+export type ValueType = 'number' | 'bool' | 'color';
+
+export interface Prop {
+  type: ValueType;
+  /** Default when the document omits it; undefined means the key is required. */
+  def?: number | boolean;
+  /** Range the resolved value is clamped to, and the document value must lie in. */
+  min?: number;
+  max?: number;
+}
+
+const num = (def?: number, min?: number, max?: number): Prop => ({ type: 'number', def, min, max });
+
+/** Animatable properties every node has (spec §4). */
+export const COMMON: Record<string, Prop> = {
+  x: num(0),
+  y: num(0),
+  rotate: num(0),
+  scale: num(1),
+  scaleX: num(1),
+  scaleY: num(1),
+  opacity: num(1, 0, 1),
+  visible: { type: 'bool', def: true },
+};
+
+export const NODE_TYPES = ['group', 'path', 'circle', 'rect', 'arc'] as const;
+export type NodeType = (typeof NODE_TYPES)[number];
+export const PAINTED: readonly NodeType[] = ['path', 'circle', 'rect', 'arc'];
+
+/** Animatable properties per node type. */
+export const OWN: Record<NodeType, Record<string, Prop>> = {
+  group: {},
+  path: {},
+  circle: { r: num(undefined, 0) },
+  rect: { w: num(undefined, 0), h: num(undefined, 0), rx: num(0, 0) },
+  arc: { r: num(undefined, 0), from: num(), to: num() },
+};
+
+/** Animatable paint fields, addressed `<id>.fill.<field>` / `<id>.stroke.<field>`. */
+export const PAINT: Record<'fill' | 'stroke', Record<string, Prop>> = {
+  fill: { color: { type: 'color' } },
+  stroke: {
+    color: { type: 'color' },
+    width: num(1, 0),
+    trimStart: num(0, 0, 1),
+    trimEnd: num(1, 0, 1),
+    trimOffset: num(0),
+  },
+};
+
+// ---------------------------------------------------------------- document shape
+
+export type Shape =
+  | { k: 'str'; re?: RegExp; of?: readonly string[] }
+  | { k: 'num'; min?: number; max?: number; gt?: number; int?: boolean }
+  | { k: 'bool' }
+  | { k: 'any' }
+  | { k: 'arr'; of: Shape; min?: number }
+  | { k: 'tup'; of: Shape[]; min: number }
+  | { k: 'obj'; p: Record<string, Shape>; req?: string[]; reserved?: Record<string, string> }
+  | { k: 'map'; of: Shape; key?: RegExp }
+  | { k: 'alt'; of: Shape[] }
+  | { k: 'node' };
+
+export const NAME = /^[a-z][a-zA-Z0-9-]*$/;
+export const DOC_NAME = /^[a-z0-9]+(-[a-z0-9]+)*$/;
+
+const S = (re?: RegExp, of?: readonly string[]): Shape => ({ k: 'str', re, of });
+const N = (o: { min?: number; max?: number; gt?: number; int?: boolean } = {}): Shape => ({
+  k: 'num',
+  ...o,
+});
+const B: Shape = { k: 'bool' };
+const A = (of: Shape, min?: number): Shape => ({ k: 'arr', of, min });
+const T = (of: Shape[], min = of.length): Shape => ({ k: 'tup', of, min });
+const O = (p: Record<string, Shape>, req?: string[], reserved?: Record<string, string>): Shape => ({
+  k: 'obj',
+  p,
+  req,
+  reserved,
+});
+const MAP = (of: Shape, key?: RegExp): Shape => ({ k: 'map', of, key });
+const ALT = (...of: Shape[]): Shape => ({ k: 'alt', of });
+const VEC2 = T([N(), N()]);
+const NAMES = ALT(S(NAME), A(S(NAME), 1));
+const propShape = (p: Prop): Shape =>
+  p.type === 'bool' ? B : p.type === 'color' ? S() : N({ min: p.min, max: p.max });
+
+const FILL = O({ color: S(), rule: S(undefined, ['nonzero', 'evenodd']) }, ['color']);
+const STROKE = O(
+  {
+    color: S(),
+    width: propShape(PAINT.stroke.width!),
+    cap: S(undefined, ['butt', 'round', 'square']),
+    join: S(undefined, ['miter', 'round', 'bevel']),
+    trimStart: propShape(PAINT.stroke.trimStart!),
+    trimEnd: propShape(PAINT.stroke.trimEnd!),
+    trimOffset: N(),
+  },
+  ['color'],
+);
+
+/** Non-animatable keys per node type (beyond `id`, `type`, `pivot`). */
+export const STATIC: Record<NodeType, Record<string, Shape>> = {
+  group: { children: A({ k: 'node' }) },
+  path: { glyph: S(NAME), subpaths: A(N({ min: 0, int: true }), 1), d: S() },
+  circle: { center: VEC2 },
+  rect: { x0: N(), y0: N() },
+  arc: { center: VEC2 },
+};
+
+export type ObjShape = Extract<Shape, { k: 'obj' }>;
+const nodeShapes = new Map<NodeType, ObjShape>();
+/** The object shape of one node type. */
+export function nodeShape(type: NodeType): ObjShape {
+  let s = nodeShapes.get(type);
+  if (!s) {
+    const p: Record<string, Shape> = { id: S(NAME), type: S(undefined, NODE_TYPES), pivot: VEC2 };
+    for (const [k, v] of Object.entries({ ...COMMON, ...OWN[type] })) p[k] = propShape(v);
+    Object.assign(p, STATIC[type]);
+    if (PAINTED.includes(type))
+      Object.assign(p, { fill: FILL, stroke: STROKE, knockout: N({ min: 0 }) });
+    const req = [
+      'id',
+      'type',
+      ...Object.keys(OWN[type]).filter((k) => OWN[type][k]!.def === undefined),
+    ];
+    if (type === 'circle' || type === 'arc') req.push('center');
+    if (type === 'rect') req.push('x0', 'y0');
+    s = { k: 'obj', p, req };
+    nodeShapes.set(type, s);
+  }
+  return s;
+}
+
+const VALUE = ALT(N(), B, S());
+const TRANSITION = O({ when: S(), to: S(NAME), blend: N({ min: 0 }), ease: S() }, ['when', 'to']);
+const STATE = O(
+  { pose: MAP(VALUE), play: S(NAME), speed: N({ gt: 0 }), emit: S(NAME), on: A(TRANSITION) },
+  undefined,
+);
+const LAYER = O({ initial: S(NAME), states: MAP(STATE, NAME) }, ['initial', 'states'], {
+  mode: 'additive layers arrive in anima 0.2',
+});
+
+/** The whole document. */
+export const DOC: Shape = O(
+  {
+    $schema: S(),
+    anima: S(),
+    name: S(DOC_NAME),
+    title: S(),
+    grid: N({ gt: 0 }),
+    viewBox: T([N(), N(), N({ gt: 0 }), N({ gt: 0 })]),
+    requires: A(S()),
+    meta: { k: 'any' },
+    colors: MAP(S(), NAME),
+    glyphs: MAP(O({ d: S(), source: S(), pick: S(), sha256: S(/^[0-9a-f]{64}$/) }, ['d']), NAME),
+    a11y: O({
+      role: S(undefined, ['button', 'switch', 'img']),
+      label: S(),
+      activate: S(NAME),
+      pressed: S(NAME),
+      held: S(NAME),
+    }),
+    inputs: MAP(
+      O(
+        {
+          type: S(undefined, ['bool', 'number', 'trigger']),
+          default: ALT(N(), B),
+          min: N(),
+          max: N(),
+          buffer: N({ min: 0 }),
+        },
+        ['type'],
+      ),
+      NAME,
+    ),
+    nodes: A({ k: 'node' }, 1),
+    hit: O({
+      circle: T([N(), N(), N({ gt: 0 })]),
+      rect: T([N(), N(), N({ gt: 0 }), N({ gt: 0 })]),
+    }),
+    timelines: MAP(
+      O(
+        {
+          duration: N({ gt: 0 }),
+          loop: S(undefined, ['once', 'loop', 'pingpong']),
+          reducedMotion: S(undefined, ['play', 'end', 'skip']),
+          tracks: MAP(A(T([N(), VALUE, S()], 2))),
+          events: A(T([N(), S(NAME)])),
+        },
+        ['duration', 'tracks'],
+        { colorSpace: 'colour interpolation spaces arrive in anima 0.2' },
+      ),
+      NAME,
+    ),
+    machine: O({ layers: MAP(LAYER, NAME) }, ['layers']),
+    listeners: A(
+      O(
+        {
+          on: S(undefined, ['enter', 'leave', 'down', 'up', 'click', 'move']),
+          target: S(NAME),
+          hitPadding: N({ min: 0 }),
+          fire: NAMES,
+          set: MAP(ALT(N(), B), NAME),
+          toggle: NAMES,
+          emit: S(NAME),
+        },
+        ['on'],
+      ),
+    ),
+  },
+  ['anima', 'name', 'grid', 'nodes'],
+  { bind: 'data binding arrives in anima 0.2' },
+);

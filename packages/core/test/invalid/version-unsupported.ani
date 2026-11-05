@@ -1,0 +1,20 @@
+{
+ "$comment": "expect version-unsupported at /anima",
+ "anima": "1.0",
+ "name": "t",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "circle",
+   "center": [
+    10,
+    10
+   ],
+   "r": 5,
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ]
+}

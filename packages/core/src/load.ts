@@ -1,0 +1,792 @@
+// Loader: parse → structural check → resolve and validate → Model (spec §2 "Strictness").
+// Never partially loads: either a Model with no errors, or the diagnostics.
+
+import { checkDoc } from './check.ts';
+import { type RGBA, parseHex } from './color.ts';
+import { type Term, parseCondition } from './cond.ts';
+import { type Diagnostic, Diags, ptr, suggest } from './diag.ts';
+import { VERBOSE as V } from './flags.ts';
+import { type EaseFn, hold, linear, parseEase } from './ease.ts';
+import { PathError, type Subpath, parsePath, selectPath } from './path.ts';
+import { COMMON, type NodeType, OWN, PAINT, PAINTED, type Prop, STATIC } from './registry.ts';
+
+export const FORMAT_VERSION = '0.1';
+export const FEATURES = ['knockout'];
+
+export type Value = number | boolean | RGBA;
+type Json = Record<string, unknown>;
+
+/* eslint-disable @typescript-eslint/no-explicit-any -- raw JSON after the structural check */
+type Raw = any;
+
+export interface NodeM {
+  id: string;
+  type: NodeType;
+  raw: Raw;
+  parent: number;
+  children: number[];
+  /** Path nodes: the selected subpaths, and the path data to draw. */
+  geom?: Subpath[];
+  d?: string;
+}
+
+/** An animatable property of one node. */
+export interface Addr {
+  node: number;
+  /** `rotate`, `fill.color`, `stroke.width`, … */
+  key: string;
+  prop: Prop;
+  rest: Value;
+}
+
+export interface TrackM {
+  addr: string;
+  times: number[];
+  values: Value[];
+  eases: EaseFn[];
+}
+
+export interface TimelineM {
+  name: string;
+  duration: number;
+  loop: 'once' | 'loop' | 'pingpong';
+  reduced: 'play' | 'end' | 'skip';
+  tracks: TrackM[];
+  /** Sorted by time. */
+  events: [number, string][];
+}
+
+export interface TransitionM {
+  to: number;
+  terms: Term[];
+  triggers: string[];
+  blend: number;
+  ease: EaseFn;
+}
+
+export interface StateM {
+  name: string;
+  pose?: Map<string, Value>;
+  play?: number;
+  speed: number;
+  emit?: string;
+  on: TransitionM[];
+  /** Addresses this state writes, S(state) in spec §7. */
+  writes: string[];
+}
+
+export interface LayerM {
+  name: string;
+  initial: number;
+  states: StateM[];
+}
+
+export interface InputM {
+  name: string;
+  type: 'bool' | 'number' | 'trigger';
+  def: number | boolean;
+  min: number;
+  max: number;
+  buffer: number;
+}
+
+export interface ListenerM {
+  on: 'enter' | 'leave' | 'down' | 'up' | 'click' | 'move';
+  /** Node index, or -1 for the whole icon. */
+  target: number;
+  pad: number;
+  fire: string[];
+  set: [string, number | boolean][];
+  toggle: string[];
+  emit?: string;
+}
+
+export interface Model {
+  doc: Raw;
+  grid: number;
+  viewBox: [number, number, number, number];
+  colors: Record<string, string>;
+  nodes: NodeM[];
+  ids: Map<string, number>;
+  /** Every animated address, in a stable order. */
+  addrs: Map<string, Addr>;
+  timelines: TimelineM[];
+  layers: LayerM[];
+  inputs: Map<string, InputM>;
+  listeners: ListenerM[];
+}
+
+export interface LoadResult {
+  model?: Model;
+  diagnostics: Diagnostic[];
+}
+
+const LIMITS = { text: 1 << 20, depth: 32, nodes: 2048, keys: 20000, layers: 64, states: 256 };
+
+const asList = (v: unknown): string[] =>
+  v === undefined ? [] : Array.isArray(v) ? v : [v as string];
+
+/** Load a document from text or an already-parsed value. */
+export function load(input: string | object): LoadResult {
+  const d = new Diags();
+  let doc: unknown = input;
+  if (typeof input === 'string') {
+    if (input.length > LIMITS.text) {
+      d.err('limit-exceeded', '', V && `document is larger than ${LIMITS.text} characters`);
+      return { diagnostics: d.list };
+    }
+    try {
+      doc = JSON.parse(input);
+    } catch (e) {
+      d.err('json-syntax', '', V && (e instanceof SyntaxError ? e.message : 'not JSON'));
+      return { diagnostics: d.list };
+    }
+  }
+  if (typeof doc !== 'object' || doc === null || Array.isArray(doc)) {
+    d.err('type', '', V && 'a document is a JSON object');
+    return { diagnostics: d.list };
+  }
+  const v = (doc as Json).anima;
+  if (v !== FORMAT_VERSION) {
+    if (v === undefined)
+      d.err('missing-key', '', V && 'missing "anima"', V && `add "anima": "${FORMAT_VERSION}"`);
+    else
+      d.err(
+        'version-unsupported',
+        '/anima',
+        V && `format version ${JSON.stringify(v)} is not supported`,
+        V && `this runtime reads "${FORMAT_VERSION}"`,
+      );
+    return { diagnostics: d.list };
+  }
+  try {
+    if (!checkDoc(doc, d)) return { diagnostics: d.list };
+    const model = resolve(doc as Raw, d);
+    return d.failed ? { diagnostics: d.list } : { model, diagnostics: d.list };
+  } catch (e) {
+    if (e instanceof RangeError) {
+      d.err('limit-exceeded', '', V && 'document is too deeply nested');
+      return { diagnostics: d.list };
+    }
+    throw e;
+  }
+}
+
+function resolve(doc: Raw, d: Diags): Model {
+  if (/-\d+$/.test(doc.name))
+    d.err(
+      'bad-name',
+      '/name',
+      V && `"${doc.name}" ends in -<digits>`,
+      V && 'Glyphy reserves that suffix for variants',
+    );
+  asList(doc.requires).forEach((f, i) => {
+    if (!FEATURES.includes(f))
+      d.err('unknown-feature', ptr('/requires', i), V && `this runtime does not support "${f}"`);
+  });
+
+  // Colours
+  const colors: Record<string, string> = doc.colors ?? {};
+  for (const [k, c] of Object.entries(colors))
+    if (c !== 'currentColor' && !parseHex(c))
+      d.err(
+        'bad-color',
+        ptr('/colors', k),
+        V && `"${c}" is not a colour`,
+        V && 'use #rgb, #rrggbb, #rrggbbaa or currentColor',
+      );
+  const checkPaint = (c: string, p: string) => {
+    if (c === 'currentColor' || parseHex(c) || Object.hasOwn(colors, c)) return;
+    if (/^[a-z][a-zA-Z0-9-]*$/.test(c))
+      d.err(
+        'unknown-color-slot',
+        p,
+        V && `no colour slot "${c}"`,
+        V && (suggest(c, Object.keys(colors)) ?? 'declare it in "colors"'),
+      );
+    else
+      d.err(
+        'bad-color',
+        p,
+        V && `"${c}" is not a colour`,
+        V && 'use #rgb, #rrggbb, #rrggbbaa, currentColor or a slot name',
+      );
+  };
+
+  // Glyphs
+  const glyphs = new Map<string, { d: string; sp: Subpath[] }>();
+  for (const [k, g] of Object.entries<Raw>(doc.glyphs ?? {})) {
+    if (k === '$comment') continue;
+    const sp = pathOrError(g.d, ptr(ptr('/glyphs', k), 'd'), d);
+    if (sp) glyphs.set(k, { d: g.d, sp });
+  }
+
+  // Nodes, flattened in paint order
+  const nodes: NodeM[] = [];
+  const ids = new Map<string, number>();
+  const walk = (list: Raw[], parent: number, base: string, depth: number) => {
+    list.forEach((raw, i) => {
+      const p = ptr(base, i);
+      if (depth > LIMITS.depth)
+        return d.err('limit-exceeded', p, V && `nodes nest deeper than ${LIMITS.depth}`);
+      if (nodes.length >= LIMITS.nodes)
+        return d.err('limit-exceeded', p, V && `more than ${LIMITS.nodes} nodes`);
+      if (ids.has(raw.id)) d.err('duplicate-id', ptr(p, 'id'), V && `id "${raw.id}" is used twice`);
+      const n: NodeM = { id: raw.id, type: raw.type, raw, parent, children: [] };
+      const idx = nodes.push(n) - 1;
+      ids.set(raw.id, idx);
+      if (parent >= 0) nodes[parent]!.children.push(idx);
+      checkNode(n, p, d, glyphs, checkPaint);
+      if (raw.children) walk(raw.children, idx, ptr(p, 'children'), depth + 1);
+    });
+  };
+  walk(doc.nodes, -1, '/nodes', 1);
+
+  if (doc.hit && Object.keys(doc.hit).filter((k) => k !== '$comment').length !== 1)
+    d.err('bad-value', '/hit', V && 'hit needs exactly one of "circle" or "rect"');
+
+  // Inputs
+  const inputs = new Map<string, InputM>();
+  for (const [name, r] of Object.entries<Raw>(doc.inputs ?? {})) {
+    const p = ptr('/inputs', name);
+    const t = r.type;
+    const wrong = (k: string) => d.err('unknown-key', ptr(p, k), V && `${t} inputs take no "${k}"`);
+    if (t !== 'number') for (const k of ['min', 'max']) if (k in r) wrong(k);
+    if (t !== 'trigger' && 'buffer' in r) wrong('buffer');
+    if (t === 'trigger' && 'default' in r) wrong('default');
+    const min = r.min ?? -Infinity;
+    const max = r.max ?? Infinity;
+    if (min > max) d.err('bad-value', ptr(p, 'max'), V && 'max is less than min');
+    const def = r.default ?? (t === 'number' ? 0 : false);
+    if (t !== 'trigger' && typeof def !== (t === 'bool' ? 'boolean' : 'number'))
+      d.err(
+        'value-type',
+        ptr(p, 'default'),
+        V && `a ${t} input needs a ${t === 'bool' ? 'boolean' : 'number'} default`,
+      );
+    else if (t === 'number' && (def < min || def > max))
+      d.err('bad-value', ptr(p, 'default'), V && 'default lies outside [min, max]');
+    inputs.set(name, { name, type: t, def, min, max, buffer: r.buffer ?? 0 });
+  }
+  const used = new Set<string>();
+  const needInput = (
+    name: string,
+    p: string,
+    types: InputM['type'][],
+    what: string,
+  ): InputM | undefined => {
+    used.add(name);
+    const inp = inputs.get(name);
+    if (!inp)
+      d.err(
+        'unknown-input',
+        p,
+        V && `no input "${name}"`,
+        V && (suggest(name, inputs.keys()) ?? 'declare it in "inputs"'),
+      );
+    else if (!types.includes(inp.type))
+      d.err(
+        'input-type',
+        p,
+        V && `${what} needs a ${types.join(' or ')} input; "${name}" is ${inp.type}`,
+      );
+    return inp;
+  };
+
+  // Addresses
+  const addrs = new Map<string, Addr>();
+  const keyCount = { n: 0 };
+  const address = (a: string, p: string): Addr | undefined => {
+    const r = resolveAddress(a, nodes, ids);
+    if (Array.isArray(r)) return void d.err(r[0], p, r[1], r[2]);
+    if (r.prop.type === 'color' && !Array.isArray(r.rest)) {
+      d.err(
+        'color-slot-animated',
+        p,
+        V && `"${a}" is animated, so its colour must be a hex literal, not "${r.rest}"`,
+        V && 'slots are not animatable in 0.1',
+      );
+      return undefined;
+    }
+    if (!addrs.has(a)) addrs.set(a, r);
+    return r;
+  };
+  const value = (a: Addr, v: unknown, p: string): Value | undefined => {
+    const t = a.prop.type;
+    if (t === 'color') {
+      if (typeof v !== 'string')
+        return void d.err('value-type', p, V && `expected a colour string, got ${typeof v}`);
+      const c = parseHex(v);
+      if (!c) {
+        if (v === 'currentColor' || Object.hasOwn(colors, v))
+          d.err('color-slot-animated', p, V && `animated colours must be hex literals, not "${v}"`);
+        else d.err('bad-color', p, V && `"${v}" is not a colour`);
+      }
+      return c ?? undefined;
+    }
+    if (typeof v !== (t === 'bool' ? 'boolean' : 'number'))
+      return void d.err(
+        'value-type',
+        p,
+        V && `"${a.key}" takes a ${t === 'bool' ? 'boolean' : 'number'}, got ${typeof v}`,
+      );
+    return v as Value;
+  };
+  const ease = (src: string | undefined, p: string): EaseFn => {
+    if (src === undefined) return linear;
+    if (/^spring\(/.test(src))
+      return (d.err('reserved', p, V && 'spring eases arrive in a later anima version'), linear);
+    const e = parseEase(src);
+    if (typeof e === 'string')
+      return (
+        d.err(
+          'bad-ease',
+          p,
+          V && `"${src}": ${e}`,
+          V && 'linear, hold, in, out, inOut, cubic(x1, y1, x2, y2) or elastic(a, p)',
+        ),
+        linear
+      );
+    return e;
+  };
+
+  // Timelines
+  const timelines: TimelineM[] = [];
+  const tlIndex = new Map<string, number>();
+  for (const [name, r] of Object.entries<Raw>(doc.timelines ?? {})) {
+    const p = ptr('/timelines', name);
+    const tl: TimelineM = {
+      name,
+      duration: r.duration,
+      loop: r.loop ?? 'once',
+      reduced: r.reducedMotion ?? 'end',
+      tracks: [],
+      events: [],
+    };
+    for (const [a, keys] of Object.entries<Raw[]>(r.tracks)) {
+      if (a === '$comment') continue;
+      const tp = ptr(ptr(p, 'tracks'), a);
+      const ad = address(a, tp);
+      if (!keys.length) {
+        d.err('empty-track', tp, V && `track "${a}" has no keyframes`);
+        continue;
+      }
+      if ((keyCount.n += keys.length) > LIMITS.keys)
+        d.err('limit-exceeded', tp, V && `more than ${LIMITS.keys} keyframes`);
+      const tr: TrackM = { addr: a, times: [], values: [], eases: [] };
+      keys.forEach((k, i) => {
+        const kp = ptr(tp, i);
+        const [t, val, e] = k;
+        if (t < 0 || t > tl.duration)
+          d.err('key-range', ptr(kp, 0), V && `time ${t} lies outside [0, ${tl.duration}]`);
+        if (i && t <= tr.times[i - 1]!)
+          d.err(
+            'key-order',
+            ptr(kp, 0),
+            V && `time ${t} does not come after ${tr.times[i - 1]}`,
+            V && 'keyframe times must strictly increase',
+          );
+        const ef = ease(e, ptr(kp, 2));
+        if (ad?.prop.type === 'bool' && e !== undefined && ef !== hold)
+          d.err('bad-ease', ptr(kp, 2), V && 'boolean keys only take "hold"');
+        tr.times.push(t);
+        tr.values.push(ad ? (value(ad, val, ptr(kp, 1)) ?? 0) : 0);
+        tr.eases.push(ef);
+      });
+      if (ad) tl.tracks.push(tr);
+    }
+    (r.events ?? []).forEach((ev: [number, string], i: number) => {
+      if (ev[0] < 0 || ev[0] > tl.duration)
+        d.err(
+          'key-range',
+          ptr(ptr(ptr(p, 'events'), i), 0),
+          V && `time ${ev[0]} lies outside [0, ${tl.duration}]`,
+        );
+      tl.events.push([ev[0], ev[1]]);
+    });
+    tl.events.sort((a, b) => a[0] - b[0]);
+    tlIndex.set(name, timelines.push(tl) - 1);
+  }
+
+  // Machine
+  const layers: LayerM[] = [];
+  const layerEntries = Object.entries<Raw>(doc.machine?.layers ?? {}).filter(
+    ([k]) => k !== '$comment',
+  );
+  if (layerEntries.length > LIMITS.layers)
+    d.err('limit-exceeded', '/machine/layers', V && `more than ${LIMITS.layers} layers`);
+  for (const [lname, lr] of layerEntries) {
+    const lp = ptr('/machine/layers', lname);
+    const names = Object.keys(lr.states).filter((k) => k !== '$comment');
+    if (names.length > LIMITS.states)
+      d.err('limit-exceeded', ptr(lp, 'states'), V && `more than ${LIMITS.states} states`);
+    const stateIdx = (n: string, p: string) => {
+      const i = names.indexOf(n);
+      if (i < 0)
+        d.err(
+          'unknown-state',
+          p,
+          V && `no state "${n}" in layer "${lname}"`,
+          V && suggest(n, names),
+        );
+      return i;
+    };
+    const layer: LayerM = {
+      name: lname,
+      initial: stateIdx(lr.initial, ptr(lp, 'initial')),
+      states: [],
+    };
+    names.forEach((sname, si) => {
+      const sr = lr.states[sname];
+      const sp = ptr(ptr(lp, 'states'), sname);
+      const st: StateM = { name: sname, speed: sr.speed ?? 1, emit: sr.emit, on: [], writes: [] };
+      if ('pose' in sr === 'play' in sr)
+        d.err('state-kind', sp, V && `state "${sname}" needs exactly one of "pose" and "play"`);
+      if ('speed' in sr && !('play' in sr))
+        d.err('state-kind', ptr(sp, 'speed'), V && '"speed" only applies to "play" states');
+      if (sr.pose) {
+        st.pose = new Map();
+        for (const [a, val] of Object.entries(sr.pose)) {
+          if (a === '$comment') continue;
+          const pp = ptr(ptr(sp, 'pose'), a);
+          const ad = address(a, pp);
+          const vv = ad && value(ad, val, pp);
+          if (vv !== undefined) st.pose.set(a, vv);
+        }
+        st.writes = [...st.pose.keys()];
+      }
+      let tl: TimelineM | undefined;
+      if (sr.play !== undefined) {
+        const ti = tlIndex.get(sr.play);
+        if (ti === undefined)
+          d.err(
+            'unknown-timeline',
+            ptr(sp, 'play'),
+            V && `no timeline "${sr.play}"`,
+            V && suggest(sr.play, tlIndex.keys()),
+          );
+        else {
+          st.play = ti;
+          tl = timelines[ti]!;
+          st.writes = tl.tracks.map((t) => t.addr);
+        }
+      }
+      (sr.on ?? []).forEach((tr: Raw, ti: number) => {
+        const tp = ptr(ptr(sp, 'on'), ti);
+        const to = stateIdx(tr.to, ptr(tp, 'to'));
+        const terms = parseCondition(tr.when);
+        const t: TransitionM = {
+          to,
+          terms: [],
+          triggers: [],
+          blend: tr.blend ?? 0,
+          ease: ease(tr.ease, ptr(tp, 'ease')),
+        };
+        const wp = ptr(tp, 'when');
+        if (typeof terms === 'string')
+          d.err(
+            'bad-condition',
+            wp,
+            V && `"${tr.when}": ${terms}`,
+            V && 'terms: name, !name, name OP number, @end, @after(s), joined with &&',
+          );
+        else {
+          t.terms = terms;
+          for (const term of terms) {
+            if (term.k === 'is') {
+              const inp = needInput(
+                term.name,
+                wp,
+                ['bool', 'trigger'],
+                term.not ? 'a bare "!name"' : 'a bare name',
+              );
+              if (inp?.type === 'trigger') {
+                if (term.not)
+                  d.err('input-type', wp, V && `trigger "${term.name}" cannot be negated`);
+                t.triggers.push(term.name);
+              }
+            } else if (term.k === 'cmp') needInput(term.name, wp, ['number'], 'a comparison');
+            else if (term.k === 'end' && (!tl || tl.loop !== 'once'))
+              d.err(
+                'bad-end',
+                wp,
+                V &&
+                  (tl
+                    ? `@end needs a "once" timeline; "${tl.name}" is ${tl.loop}`
+                    : '@end needs a "play" state'),
+              );
+          }
+          if (
+            to === si &&
+            !terms.some(
+              (x) =>
+                x.k === 'end' ||
+                x.k === 'after' ||
+                (x.k === 'is' && inputs.get(x.name)?.type === 'trigger'),
+            )
+          )
+            d.err(
+              'self-transition',
+              wp,
+              V && `"${sname}" → itself needs a trigger, @end or @after term`,
+              V && 'otherwise it would re-enter every step',
+            );
+        }
+        st.on.push(t);
+      });
+      layer.states.push(st);
+    });
+    // Reachability from the initial state (a warning: tooling only)
+    if (V && layer.initial >= 0) {
+      const seen = new Set([layer.initial]);
+      const queue = [layer.initial];
+      while (queue.length)
+        for (const t of layer.states[queue.pop()!]!.on)
+          if (t.to >= 0 && !seen.has(t.to)) {
+            seen.add(t.to);
+            queue.push(t.to);
+          }
+      names.forEach((n, i) => {
+        if (!seen.has(i))
+          d.warn(
+            'unreachable-state',
+            ptr(ptr(lp, 'states'), n),
+            V && `no transition reaches "${n}"`,
+          );
+      });
+    }
+    layers.push(layer);
+  }
+
+  // Listeners
+  const listeners: ListenerM[] = [];
+  (doc.listeners ?? []).forEach((r: Raw, i: number) => {
+    const p = ptr('/listeners', i);
+    let target = -1;
+    if (r.target !== undefined) {
+      target = ids.get(r.target) ?? -1;
+      if (target < 0)
+        d.err(
+          'unknown-target',
+          ptr(p, 'target'),
+          V && `no node "${r.target}"`,
+          V && suggest(r.target, ids.keys()),
+        );
+    }
+    if (!['fire', 'set', 'toggle', 'emit'].some((k) => k in r))
+      d.err(
+        'missing-key',
+        p,
+        V && 'listener has no action',
+        V && 'add "fire", "set", "toggle" or "emit"',
+      );
+    const fire = asList(r.fire);
+    const toggle = asList(r.toggle);
+    fire.forEach((n) => needInput(n, ptr(p, 'fire'), ['trigger'], '"fire"'));
+    toggle.forEach((n) => needInput(n, ptr(p, 'toggle'), ['bool'], '"toggle"'));
+    const set: [string, number | boolean][] = [];
+    for (const [n, val] of Object.entries<number | boolean>(r.set ?? {})) {
+      if (n === '$comment') continue;
+      const inp = needInput(n, ptr(ptr(p, 'set'), n), ['bool', 'number'], '"set"');
+      if (
+        inp &&
+        inp.type !== 'trigger' &&
+        typeof val !== (inp.type === 'bool' ? 'boolean' : 'number')
+      )
+        d.err(
+          'input-type',
+          ptr(ptr(p, 'set'), n),
+          V && `"${n}" is ${inp.type}; it cannot be set to ${JSON.stringify(val)}`,
+        );
+      set.push([n, val]);
+    }
+    listeners.push({ on: r.on, target, pad: r.hitPadding ?? 0, fire, set, toggle, emit: r.emit });
+  });
+
+  // Accessibility
+  const a11y = doc.a11y;
+  if (a11y) {
+    if (a11y.activate) needInput(a11y.activate, '/a11y/activate', ['trigger'], '"activate"');
+    if (a11y.pressed) needInput(a11y.pressed, '/a11y/pressed', ['bool'], '"pressed"');
+    if (a11y.held) needInput(a11y.held, '/a11y/held', ['bool'], '"held"');
+    if (a11y.role === 'switch' && !a11y.pressed)
+      d.err(
+        'missing-key',
+        '/a11y',
+        V && 'a switch needs "pressed"',
+        V && 'name the bool input aria-checked follows',
+      );
+  }
+  if (V)
+    for (const n of inputs.keys())
+      if (!used.has(n))
+        d.warn('unused-input', ptr('/inputs', n), V && `nothing reads or writes "${n}"`);
+
+  const vb = doc.viewBox ?? [0, 0, doc.grid, doc.grid];
+  return {
+    doc,
+    grid: doc.grid,
+    viewBox: vb,
+    colors,
+    nodes,
+    ids,
+    addrs,
+    timelines,
+    layers,
+    inputs,
+    listeners,
+  };
+}
+
+function pathOrError(src: string, p: string, d: Diags): Subpath[] | undefined {
+  try {
+    return parsePath(src);
+  } catch (e) {
+    if (!(e instanceof PathError)) throw e;
+    d.err(
+      'bad-path',
+      p,
+      V && `${e.message} at offset ${e.at}`,
+      V && `near "${src.slice(Math.max(0, e.at - 8), e.at + 8)}"`,
+    );
+  }
+}
+
+function checkNode(
+  n: NodeM,
+  p: string,
+  d: Diags,
+  glyphs: Map<string, { d: string; sp: Subpath[] }>,
+  checkPaint: (c: string, p: string) => void,
+): void {
+  const r = n.raw;
+  if (n.type === 'path') {
+    let all: Subpath[] | undefined;
+    let src: string = r.d;
+    if ('glyph' in r === 'd' in r)
+      d.err('path-source', p, V && 'a path needs exactly one of "glyph" and "d"');
+    else if ('glyph' in r) {
+      const g = glyphs.get(r.glyph);
+      if (g) [all, src] = [g.sp, g.d];
+      else if (
+        !d.list.some(
+          (x) => x.code === 'bad-path' && x.pointer === ptr(ptr('/glyphs', r.glyph), 'd'),
+        )
+      )
+        d.err(
+          'unknown-glyph',
+          ptr(p, 'glyph'),
+          V && `no glyph "${r.glyph}"`,
+          V && (suggest(r.glyph, glyphs.keys()) ?? 'declare it in "glyphs"'),
+        );
+    } else all = pathOrError(r.d, ptr(p, 'd'), d);
+    if (all) {
+      const pick: number[] | undefined = r.subpaths;
+      const bad = pick?.findIndex((i, k) => i >= all.length || pick.indexOf(i) !== k) ?? -1;
+      if (pick && bad >= 0)
+        d.err(
+          'bad-subpath',
+          ptr(ptr(p, 'subpaths'), bad),
+          V &&
+            `subpath ${pick[bad]} is ${pick[bad]! >= all.length ? `out of range (the path has ${all.length})` : 'repeated'}`,
+        );
+      else {
+        n.geom = pick ? [...pick].sort((a, b) => a - b).map((i) => all[i]!) : all;
+        n.d = selectPath(src, all, pick);
+      }
+    }
+  }
+  if (!PAINTED.includes(n.type)) return;
+  if (r.fill) checkPaint(r.fill.color, ptr(ptr(p, 'fill'), 'color'));
+  if (r.stroke) checkPaint(r.stroke.color, ptr(ptr(p, 'stroke'), 'color'));
+  if (V && !r.fill && !r.stroke)
+    d.warn('no-paint', p, V && `"${n.id}" has neither fill nor stroke`);
+  if (n.type === 'arc') {
+    if (r.fill)
+      d.err('arc-fill', ptr(p, 'fill'), V && 'arcs are open; they take a stroke, not a fill');
+    const sweep = r.to - r.from;
+    if (!(sweep > 0 && sweep <= 360))
+      d.err(
+        'bad-value',
+        ptr(p, 'to'),
+        V && `to − from is ${sweep}`,
+        V && 'arcs need 0 < to − from ≤ 360',
+      );
+  }
+  const s = r.stroke;
+  if (
+    s &&
+    n.geom &&
+    n.geom.length > 1 &&
+    ['trimStart', 'trimEnd', 'trimOffset'].some((k) => k in s)
+  )
+    d.err(
+      'trim-multi-subpath',
+      ptr(p, 'stroke'),
+      V && `"${n.id}" has ${n.geom.length} subpaths; trims need one`,
+      V && 'select one with "subpaths"',
+    );
+}
+
+const STATIC_PAINT = ['rule', 'cap', 'join'];
+
+/** Resolve `<id>.<property>`; returns an Addr or [code, message, hint]. */
+export function resolveAddress(
+  a: string,
+  nodes: NodeM[],
+  ids: Map<string, number>,
+): Addr | [string, string | false, string | false] {
+  const dot = a.indexOf('.');
+  if (dot < 0)
+    return [
+      'unknown-address',
+      V && `"${a}" is not an address`,
+      V && `addresses look like <node-id>.<property>`,
+    ];
+  const id = a.slice(0, dot);
+  const key = a.slice(dot + 1);
+  const ni = ids.get(id);
+  if (ni === undefined)
+    return ['unknown-address', V && `no node "${id}"`, V && `${suggest(id, ids.keys()) ?? ''}`];
+  const n = nodes[ni]!;
+  if (key === 'd') return ['reserved', V && 'path morphing arrives in anima 0.2', false];
+  const m = /^(fill|stroke)\.(.+)$/.exec(key);
+  if (m) {
+    const paint = m[1] as 'fill' | 'stroke';
+    const field = m[2]!;
+    if (!PAINTED.includes(n.type) || !n.raw[paint])
+      return ['unknown-address', V && `"${id}" has no ${paint}`, false];
+    const prop = PAINT[paint][field];
+    if (!prop) {
+      if (STATIC_PAINT.includes(field))
+        return ['not-animatable', V && `${paint}.${field} cannot be animated`, false];
+      return [
+        'unknown-address',
+        V && `${paint} has no "${field}"`,
+        V && `${suggest(field, Object.keys(PAINT[paint])) ?? ''}`,
+      ];
+    }
+    const raw = n.raw[paint][field];
+    const rest: Value = prop.type === 'color' ? (parseHex(raw) ?? raw) : (raw ?? prop.def);
+    return { node: ni, key, prop, rest };
+  }
+  const props = { ...COMMON, ...OWN[n.type] };
+  const prop = props[key];
+  if (!prop) {
+    if (
+      key in STATIC[n.type] ||
+      ['pivot', 'id', 'type', 'fill', 'stroke', 'knockout'].includes(key)
+    )
+      return [
+        'not-animatable',
+        V && `"${key}" cannot be animated`,
+        V && `${key === 'pivot' || key === 'center' ? 'animate x and y instead' : ''}`,
+      ];
+    return [
+      'unknown-address',
+      V && `${n.type} "${id}" has no property "${key}"`,
+      V && `${suggest(key, Object.keys(props)) ?? ''}`,
+    ];
+  }
+  return { node: ni, key, prop, rest: n.raw[key] ?? prop.def };
+}

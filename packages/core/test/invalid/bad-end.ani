@@ -1,0 +1,41 @@
+{
+ "$comment": "expect bad-end at /machine/layers/l/states/s/on/0/when",
+ "anima": "0.1",
+ "name": "t",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "circle",
+   "center": [
+    10,
+    10
+   ],
+   "r": 5,
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ],
+ "machine": {
+  "layers": {
+   "l": {
+    "initial": "s",
+    "states": {
+     "s": {
+      "pose": {},
+      "on": [
+       {
+        "when": "@end",
+        "to": "r"
+       }
+      ]
+     },
+     "r": {
+      "pose": {}
+     }
+    }
+   }
+  }
+ }
+}

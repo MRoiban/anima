@@ -1,0 +1,21 @@
+{
+ "$comment": "expect bad-path at /glyphs/g/d",
+ "anima": "0.1",
+ "name": "t",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "path",
+   "glyph": "g",
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ],
+ "glyphs": {
+  "g": {
+   "d": "M0 0 L"
+  }
+ }
+}
