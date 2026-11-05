@@ -1,0 +1,17 @@
+{
+ "$comment": "expect trim-multi-subpath at /nodes/0/stroke",
+ "anima": "0.1",
+ "name": "t",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "path",
+   "d": "M0 0L1 1ZM2 2L3 3Z",
+   "stroke": {
+    "color": "#000",
+    "trimEnd": 0.5
+   }
+  }
+ ]
+}

@@ -17,11 +17,13 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "size": "node tools/size.ts",
+    "gen": "node tools/gen-schema.ts",
     "check": "npm run typecheck && npm run lint && npm run format:check && npm test && npm run size"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^24.19.2",
+    "ajv": "^8.20.0",
     "esbuild": "^0.28.2",
     "eslint": "^10.14.0",
     "prettier": "^3.9.10",

@@ -1,0 +1,20 @@
+{
+ "$comment": "expect bad-subpath at /nodes/0/subpaths/1",
+ "anima": "0.1",
+ "name": "t",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "path",
+   "d": "M0 0L1 1Z",
+   "subpaths": [
+    0,
+    3
+   ],
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ]
+}

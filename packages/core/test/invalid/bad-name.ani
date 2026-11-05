@@ -1,0 +1,20 @@
+{
+ "$comment": "expect bad-name at /name",
+ "anima": "0.1",
+ "name": "bell-2",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "circle",
+   "center": [
+    10,
+    10
+   ],
+   "r": 5,
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ]
+}

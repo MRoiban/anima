@@ -1,0 +1,21 @@
+{
+ "$comment": "expect unknown-glyph at /nodes/0/glyph",
+ "anima": "0.1",
+ "name": "t",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "path",
+   "glyph": "bel",
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ],
+ "glyphs": {
+  "bell": {
+   "d": "M0 0L1 1Z"
+  }
+ }
+}

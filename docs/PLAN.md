@@ -24,13 +24,13 @@ When a decision changes the format, change `spec/SPEC.md` in the same commit.
 
 ## M1 — Registry, loader, validator
 
-- [ ] Registry (ARCHITECTURE §core.1) for every 0.1 node type, property and paint field.
-- [ ] Generate `spec/schema/ani.schema.json` from it; test that `examples/*.ani` validate against
+- [x] Registry (ARCHITECTURE §core.1) for every 0.1 node type, property and paint field.
+- [x] Generate `spec/schema/ani.schema.json` from it; test that `examples/*.ani` validate against
       the schema *and* the loader.
-- [ ] Loader with strict diagnostics (pointer, code, message, hint). One test per error code, using
+- [x] Loader with strict diagnostics (pointer, code, message, hint). One test per error code, using
       small broken documents in `packages/core/test/invalid/`.
-- [ ] SVG path parser (full grammar) with subpath splitting; test on all `fixtures/glyphs/*.svg`.
-- [ ] Fuzz/truncation test: every prefix of `bell.ani` either parses or returns diagnostics, never
+- [x] SVG path parser (full grammar) with subpath splitting; test on all `fixtures/glyphs/*.svg`.
+- [x] Fuzz/truncation test: every prefix of `bell.ani` either parses or returns diagnostics, never
       throws.
 
 **Done when** `bell.ani` loads with zero diagnostics and every SPEC "load error" has a test.

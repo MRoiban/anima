@@ -43,3 +43,38 @@ One entry per milestone: what changed, decisions, open issues.
 
 - The 12 KB budget includes the strict validator, because the runtime default is strict. Its
   messages are the largest part; keep them short and measure from M1 on.
+
+## M1 — Registry, loader, validator (2026-11-05)
+
+**Changed**
+
+- `packages/core/src/registry.ts`: every 0.1 node type, animatable property (type, default, range)
+  and paint field, plus the shape of every object in a document. `check.ts` validates structure
+  against those shapes; `schema.ts` turns them into `spec/schema/ani.schema.json` (`npm run gen`; a
+  test fails if the committed file is stale).
+- `load.ts`: strict loader, `load(text | object) → { model?, diagnostics }`. Resolves glyphs,
+  subpaths, addresses, timelines, states, conditions, listeners and a11y into a `Model` the player
+  will compile. Never partially loads.
+- `path.ts`: full SVG path grammar (relative, implicit repeats, H/V/S/T/Q, arcs to cubics), split by
+  subpath with source ranges, so selecting all subpaths of a Glyphy path returns `d` byte for byte.
+- Tests: one broken document per diagnostic code in `packages/core/test/invalid/` (the test also
+  checks every code in SPEC §11.3 has one, and every pointer resolves); examples validate against
+  the schema (Ajv 2020) and the loader; every prefix of `bell.ani` loads or fails cleanly; hostile
+  input (deep nesting, 2 MB, junk) fails with diagnostics; path parsing on all nine glyphs.
+
+**Decisions**
+
+- Structural errors stop the load before semantic checks, so one typo does not cascade into a page
+  of follow-on errors. The fix-and-rerun loop is cheap for agents.
+- `duplicate-key` and `hash-mismatch` are `anima validate` checks (they need a positional JSON
+  tokenizer and SHA-256, which do not belong in the browser bundle); they get their tests in M3.
+- Size: the strict loader alone was 10.4 KB min+gzip. A build flag (`flags.ts`) lets the browser
+  build drop message/hint text and warnings (spec §2 now allows that), bringing it to ~8.7 KB.
+  That is still most of the 12 KB budget, so M4 will need more trimming (see Open).
+
+**Open**
+
+- Budget risk: loader ~8.7 KB gz before the player and the element. Options for M4, in order:
+  tighten loader code, share vocabulary with the player, then (only if needed) move pure-lint
+  errors that cannot affect playback out of the browser build — that would need a spec change and
+  the user's agreement, since the runtime default is strict.

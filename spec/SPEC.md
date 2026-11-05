@@ -60,7 +60,9 @@ keyframe times and unreachable references are **load errors**. A runtime never p
 document: it either loads with no errors or reports every error it found and loads nothing.
 Every diagnostic has a `code`, a `severity` (`error` | `warning`), a JSON `pointer` (RFC 6901) to the
 offending value, a `message` and, where possible, a `hint` (`did you mean "rotate"?`). Warnings never
-stop a load. The codes are listed in §11.3. Duplicate object keys are invalid JSON for `.ani`;
+stop a load. The codes are listed in §11.3. A size-optimised runtime build may drop message and
+hint text (the message is then the code) and skip computing warnings; it still reports every error
+with its code, severity and pointer, and `anima validate` gives the full text. Duplicate object keys are invalid JSON for `.ani`;
 `anima validate` reports them (`duplicate-key`), while runtimes built on a standard JSON parser may
 keep the last value. Keys reserved for a later version (§12) are reported as `reserved`, not as
 unknown keys, so the message can say which version brings them.
@@ -443,7 +445,7 @@ so a 0.1 loader rejects them with `reserved` and a pointer to the version that b
    grid-unit definition if an icon needs it.
 2. **Colour interpolation — non-premultiplied sRGB, 8-bit channels, `floor(c + 0.5)`, clamped.**
    It is what CSS transitions and Rive do, so authors' expectations and the Rive reference agree,
-   and the rule is exactly reproducible. A per-track `"space": "oklab"` is reserved for 0.2.
+   and the rule is exactly reproducible. A timeline key `colorSpace` (e.g. `"oklab"`) is reserved for 0.2.
    (Rive's lossy float round-trip, `docs/research/rive-animation-and-state.md` Lesson A.5, cannot
    happen: values are integers.)
 3. **Keyboard → `down` — explicit.** `a11y.held` names the bool that is true while Enter or Space is

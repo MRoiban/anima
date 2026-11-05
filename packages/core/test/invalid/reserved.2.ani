@@ -1,0 +1,33 @@
+{
+ "$comment": "expect reserved at /timelines/t/tracks/a.d",
+ "anima": "0.1",
+ "name": "t",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "circle",
+   "center": [
+    10,
+    10
+   ],
+   "r": 5,
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ],
+ "timelines": {
+  "t": {
+   "duration": 1,
+   "tracks": {
+    "a.d": [
+     [
+      0,
+      0
+     ]
+    ]
+   }
+  }
+ }
+}

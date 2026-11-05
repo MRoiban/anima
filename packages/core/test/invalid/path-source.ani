@@ -1,0 +1,15 @@
+{
+ "$comment": "expect path-source at /nodes/0",
+ "anima": "0.1",
+ "name": "t",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "path",
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ]
+}
