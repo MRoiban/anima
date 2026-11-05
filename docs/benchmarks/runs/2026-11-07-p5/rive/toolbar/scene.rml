@@ -1,0 +1,705 @@
+<Rive version="1" kind="fragment">
+  <Artboard name="Toolbar" id="0:1" width="864" height="288" x="0" styleId="0:1001" isComponent="false" clip="false" viewModelId="0:10" defaultStateMachineId="0:2">
+    <LayoutComponentStyle id="0:1001" name="Fixed artboard" />
+    <StateMachine name="Interaction" id="0:2">
+      <StateMachineLayer name="Data">
+        <AnyState x="0" y="-120" />
+        <ExitState x="500" y="-120" />
+        <EntryState x="0" y="0" />
+      </StateMachineLayer>
+    </StateMachine>
+    <NestedArtboard name="bell" id="0:20" artboardId="0:30" isStateful="true" x="24" y="24">
+      <NestedStateMachine animationId="0:31" name="Press machine" />
+      <ViewModelInstance viewModelId="0:40" exports="true" id="0:1003" name="bell data">
+        <ViewModelInstanceArtboard viewModelPropertyId="0:43" propertyValue="0:100" />
+        <ViewModelInstanceBoolean viewModelPropertyId="0:41" propertyValue="false" />
+        <ViewModelInstanceBoolean viewModelPropertyId="0:42" propertyValue="false" />
+        <ViewModelInstanceNumber viewModelPropertyId="0:44" propertyValue="3">
+          <DataBindContext sourcePathIds="0:10-0:11" propertyKey="575" twoWay="true" />
+        </ViewModelInstanceNumber>
+      </ViewModelInstance>
+    </NestedArtboard>
+    <NestedArtboard name="folder" id="0:21" artboardId="0:30" isStateful="true" x="312" y="24">
+      <NestedStateMachine animationId="0:31" name="Press machine" />
+      <ViewModelInstance viewModelId="0:40" exports="true" id="0:1005" name="folder data">
+        <ViewModelInstanceArtboard viewModelPropertyId="0:43" propertyValue="0:101" />
+        <ViewModelInstanceBoolean viewModelPropertyId="0:41" propertyValue="false" />
+        <ViewModelInstanceBoolean viewModelPropertyId="0:42" propertyValue="false" />
+        <ViewModelInstanceNumber viewModelPropertyId="0:44" propertyValue="0" />
+      </ViewModelInstance>
+    </NestedArtboard>
+    <NestedArtboard name="trash" id="0:22" artboardId="0:30" isStateful="true" x="600" y="24">
+      <NestedStateMachine animationId="0:31" name="Press machine" />
+      <ViewModelInstance viewModelId="0:40" exports="true" id="0:1007" name="trash data">
+        <ViewModelInstanceArtboard viewModelPropertyId="0:43" propertyValue="0:102" />
+        <ViewModelInstanceBoolean viewModelPropertyId="0:41" propertyValue="false" />
+        <ViewModelInstanceBoolean viewModelPropertyId="0:42" propertyValue="false" />
+        <ViewModelInstanceNumber viewModelPropertyId="0:44" propertyValue="0">
+          <DataBindContext sourcePathIds="0:10-0:12" propertyKey="575" twoWay="true" />
+        </ViewModelInstanceNumber>
+      </ViewModelInstance>
+    </NestedArtboard>
+    <Shape name="White background">
+      <Rectangle width="864" height="288" originX="0" originY="0" />
+      <Fill>
+        <SolidColor colorValue="FFFFFFFF" />
+      </Fill>
+    </Shape>
+  </Artboard>
+  <ViewModel name="Toolbar" id="0:10" defaultInstanceId="0:1002">
+    <ViewModelPropertyNumber name="unread" id="0:11" componentProps="1" />
+    <ViewModelPropertyNumber name="trash" id="0:12" componentProps="1" />
+    <ViewModelInstance name="Default" id="0:1002" exports="true">
+      <ViewModelInstanceNumber viewModelPropertyId="0:11" propertyValue="3" />
+      <ViewModelInstanceNumber viewModelPropertyId="0:12" propertyValue="0" />
+    </ViewModelInstance>
+  </ViewModel>
+  <Artboard name="Bell glyph" id="0:100" width="240" height="240" x="1300" styleId="0:1004" isComponent="true" clip="false">
+    <LayoutComponentStyle id="0:1004" name="Fixed artboard" />
+    <Shape name="bell">
+      <PointsPath isClosed="true">
+        <CubicDetachedVertex x="113.916" y="53.676" inRotation="-1.47112767" inDistance="0.120599" outRotation="2.9033479" outDistance="0.864417" />
+        <CubicDetachedVertex x="111.072" y="53.916" inRotation="0.33029735" inDistance="0.888" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="103.224" y="55.92" inRotation="0.0" inDistance="0.0" outRotation="2.89262995" outDistance="0.730523" />
+        <CubicDetachedVertex x="100.908" y="56.76" inRotation="-0.45634847" inDistance="0.735239" outRotation="0.0" outDistance="0.0" />
+        <StraightVertex x="94.02" y="60.192" />
+        <StraightVertex x="88.392" y="63.936" />
+        <StraightVertex x="82.656" y="68.976" />
+        <CubicDetachedVertex x="77.82" y="74.532" inRotation="0.0" inDistance="0.0" outRotation="2.28315392" outDistance="1.04648" />
+        <CubicDetachedVertex x="75.756" y="77.424" inRotation="-1.0705159" inDistance="1.025702" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="72.108" y="83.976" inRotation="0.0" inDistance="0.0" outRotation="2.07789483" outDistance="0.617738" />
+        <CubicDetachedVertex x="71.268" y="85.764" inRotation="-1.24904577" inDistance="0.607157" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="68.568" y="93.66" inRotation="0.0" inDistance="0.0" outRotation="1.89254688" outDistance="0.834841" />
+        <CubicDetachedVertex x="67.908" y="96.6" inRotation="-1.46969296" inDistance="0.83225" outRotation="0.0" outDistance="0.0" />
+        <StraightVertex x="67.26" y="103.368" />
+        <CubicDetachedVertex x="67.26" y="124.284" inRotation="0.0" inDistance="0.0" outRotation="1.57079633" outDistance="0.72" />
+        <CubicDetachedVertex x="66.948" y="126.54" inRotation="-1.4029004" inDistance="0.718097" outRotation="1.74190086" outDistance="3.31237" />
+        <CubicDetachedVertex x="64.056" y="136.056" inRotation="-1.15589057" inDistance="3.304361" outRotation="1.97568811" outDistance="0.639725" />
+        <CubicDetachedVertex x="63.24" y="137.856" inRotation="-1.02041038" inDistance="0.619484" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="59.664" y="143.76" inRotation="0.0" inDistance="0.0" outRotation="2.13148332" outDistance="0.609288" />
+        <CubicDetachedVertex x="58.512" y="145.224" inRotation="-0.91148626" inDistance="0.607276" outRotation="2.25209455" outDistance="0.571608" />
+        <CubicDetachedVertex x="57.456" y="146.616" inRotation="-0.86217005" inDistance="0.553173" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="50.676" y="154.392" inRotation="0.0" inDistance="0.0" outRotation="2.28453111" outDistance="5.095763" />
+        <CubicDetachedVertex x="47.688" y="170.232" inRotation="-2.06942965" inDistance="5.369849" outRotation="1.07144961" outDistance="1.653955" />
+        <CubicDetachedVertex x="51.0" y="173.628" inRotation="-2.55153244" inDistance="1.617509" outRotation="0.58190512" outDistance="1.09167" />
+        <CubicDetachedVertex x="54.9" y="175.452" inRotation="3.14159265" inDistance="1.092" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="184.56" y="175.452" inRotation="0.0" inDistance="0.0" outRotation="0.0" outDistance="1.632" />
+        <CubicDetachedVertex x="189.144" y="173.556" inRotation="2.49656948" inDistance="1.576802" outRotation="-0.64964043" outDistance="6.645725" />
+        <CubicDetachedVertex x="191.388" y="157.224" inRotation="1.06369782" inDistance="6.177378" outRotation="-2.07363954" outDistance="1.09562" />
+        <CubicDetachedVertex x="189.336" y="154.188" inRotation="0.78539816" inDistance="1.069145" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="183.144" y="147.996" inRotation="0.0" inDistance="0.0" outRotation="-2.35619449" outDistance="0.882469" />
+        <CubicDetachedVertex x="181.368" y="145.872" inRotation="0.89812577" inDistance="0.905185" outRotation="-2.24953015" outDistance="4.224222" />
+        <CubicDetachedVertex x="174.948" y="134.892" inRotation="1.23385481" inDistance="4.246796" outRotation="-1.9105398" outDistance="1.47639" />
+        <CubicDetachedVertex x="173.844" y="130.596" inRotation="1.28245236" inDistance="1.476975" outRotation="-1.84174318" outDistance="0.448357" />
+        <CubicDetachedVertex x="173.364" y="129.312" inRotation="1.34608516" inDistance="0.430832" outRotation="-1.78946527" outDistance="0.331904" />
+        <CubicDetachedVertex x="173.208" y="128.364" inRotation="1.15628945" inDistance="0.327756" outRotation="-2.0032041" outDistance="0.171814" />
+        <CubicDetachedVertex x="172.776" y="127.896" inRotation="1.57079633" inDistance="0.036" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="172.488" y="99.648" inRotation="0.0" inDistance="0.0" outRotation="-2.2794226" outDistance="0.442538" />
+        <CubicDetachedVertex x="172.404" y="98.592" inRotation="1.37961187" inDistance="0.378904" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="170.88" y="90.948" inRotation="0.0" inDistance="0.0" outRotation="-1.75999535" outDistance="1.148495" />
+        <CubicDetachedVertex x="169.38" y="86.568" inRotation="1.11649424" inDistance="1.148495" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="165.6" y="78.864" inRotation="0.0" inDistance="0.0" outRotation="-2.03195638" outDistance="2.157365" />
+        <CubicDetachedVertex x="161.94" y="73.38" inRotation="0.89952458" inDistance="2.160833" outRotation="-2.24945882" outDistance="0.477895" />
+        <CubicDetachedVertex x="161.004" y="72.204" inRotation="0.76653248" inDistance="0.4498" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="155.364" y="66.564" inRotation="0.0" inDistance="0.0" outRotation="-2.33180908" outDistance="0.348" />
+        <CubicDetachedVertex x="154.776" y="66.192" inRotation="0.53370819" inDistance="0.306646" outRotation="-2.60117315" outDistance="0.209914" />
+        <CubicDetachedVertex x="154.38" y="65.652" inRotation="0.65569563" inDistance="0.196815" outRotation="0.0" outDistance="0.0" />
+        <StraightVertex x="148.956" y="61.596" />
+        <StraightVertex x="143.16" y="58.32" />
+        <StraightVertex x="137.484" y="55.968" />
+        <CubicDetachedVertex x="131.088" y="54.168" inRotation="0.0" inDistance="0.0" outRotation="-2.86889832" outDistance="1.470331" />
+        <CubicDetachedVertex x="126.612" y="53.604" inRotation="0.13958224" inDistance="1.466261" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="126.612" y="35.436" inRotation="0.0" inDistance="0.0" outRotation="-1.57079633" outDistance="0.492" />
+        <CubicDetachedVertex x="125.964" y="34.02" inRotation="1.17600521" inDistance="0.468" outRotation="-1.98023354" outDistance="0.693305" />
+        <CubicDetachedVertex x="125.004" y="32.172" inRotation="0.82067764" inDistance="0.721698" outRotation="-2.30361143" outDistance="0.807217" />
+        <CubicDetachedVertex x="122.832" y="30.936" inRotation="0.360566" inDistance="0.782304" outRotation="-2.77542688" outDistance="3.418631" />
+        <CubicDetachedVertex x="114.756" y="33.684" inRotation="-1.11907066" inDistance="3.60122" outRotation="2.03444394" outDistance="0.375659" />
+        <CubicDetachedVertex x="113.928" y="35.148" inRotation="-1.57079633" inDistance="0.336" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="113.928" y="53.328" inRotation="0.0" inDistance="0.0" outRotation="1.57079633" outDistance="0.12" />
+      </PointsPath>
+      <PointsPath isClosed="true">
+        <StraightVertex x="59.856" y="161.904" />
+        <StraightVertex x="66.84" y="153.876" />
+        <StraightVertex x="70.764" y="148.212" />
+        <StraightVertex x="73.644" y="143.04" />
+        <CubicDetachedVertex x="76.296" y="136.608" inRotation="0.0" inDistance="0.0" outRotation="-1.18602255" outDistance="1.56654" />
+        <CubicDetachedVertex x="77.868" y="130.692" inRotation="1.66500482" inDistance="1.530788" outRotation="0.0" outDistance="0.0" />
+        <StraightVertex x="78.54" y="123.744" />
+        <CubicDetachedVertex x="78.54" y="103.968" inRotation="0.0" inDistance="0.0" outRotation="-1.57079633" outDistance="0.6" />
+        <CubicDetachedVertex x="78.876" y="102.144" inRotation="1.66852323" inDistance="0.614934" outRotation="-1.46821647" outDistance="0.820312" />
+        <CubicDetachedVertex x="79.044" y="99.084" inRotation="1.81577499" inDistance="0.692682" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="80.52" y="93.156" inRotation="0.0" inDistance="0.0" outRotation="-1.33105322" outDistance="0.555899" />
+        <CubicDetachedVertex x="81.096" y="91.44" inRotation="2.02464033" inDistance="0.547416" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="84.228" y="85.092" inRotation="0.0" inDistance="0.0" outRotation="-1.11719863" outDistance="1.068" />
+        <CubicDetachedVertex x="86.184" y="81.996" inRotation="2.28315392" inDistance="1.04648" outRotation="0.0" outDistance="0.0" />
+        <StraightVertex x="90.708" y="76.788" />
+        <CubicDetachedVertex x="95.592" y="72.516" inRotation="0.0" inDistance="0.0" outRotation="-0.72664234" outDistance="1.155993" />
+        <CubicDetachedVertex x="98.508" y="70.512" inRotation="2.58518872" inDistance="1.158792" outRotation="-0.54689674" outDistance="4.130459" />
+        <CubicDetachedVertex x="109.92" y="65.544" inRotation="2.87762893" inDistance="4.139374" outRotation="-0.25651661" outDistance="0.756762" />
+        <CubicDetachedVertex x="112.26" y="64.992" inRotation="3.04664095" inDistance="0.759421" outRotation="0.0" outDistance="0.0" />
+        <StraightVertex x="120.012" y="64.284" />
+        <CubicDetachedVertex x="127.368" y="64.956" inRotation="0.0" inDistance="0.0" outRotation="0.09232933" outDistance="0.650772" />
+        <CubicDetachedVertex x="129.372" y="65.388" inRotation="-2.90105841" inDistance="0.654853" outRotation="0.23348492" outDistance="4.304807" />
+        <CubicDetachedVertex x="141.324" y="70.428" inRotation="-2.58210969" inDistance="4.318433" outRotation="0.5543075" outDistance="0.889134" />
+        <CubicDetachedVertex x="143.616" y="71.964" inRotation="-2.42405131" inDistance="0.876" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="149.88" y="77.472" inRotation="0.0" inDistance="0.0" outRotation="0.71632583" outDistance="1.352385" />
+        <CubicDetachedVertex x="152.556" y="80.628" inRotation="-2.20544811" inDistance="1.356053" outRotation="0.94039491" outDistance="5.496472" />
+        <CubicDetachedVertex x="159.888" y="95.592" inRotation="-1.84010881" inDistance="5.502337" outRotation="1.29446905" outDistance="0.835703" />
+        <CubicDetachedVertex x="160.488" y="98.16" inRotation="-1.64313366" inDistance="0.830171" outRotation="0.0" outDistance="0.0" />
+        <StraightVertex x="161.064" y="106.332" />
+        <CubicDetachedVertex x="161.064" y="127.668" inRotation="0.0" inDistance="0.0" outRotation="1.57079633" outDistance="3.768" />
+        <CubicDetachedVertex x="163.92" y="139.512" inRotation="-1.95547183" inDistance="3.741422" outRotation="1.18183945" outDistance="0.79109" />
+        <CubicDetachedVertex x="164.892" y="141.78" inRotation="-2.08235245" inDistance="0.784418" outRotation="0.0" outDistance="0.0" />
+        <StraightVertex x="168.888" y="148.788" />
+        <CubicDetachedVertex x="172.824" y="153.972" inRotation="0.0" inDistance="0.0" outRotation="0.9229849" outDistance="0.556805" />
+        <CubicDetachedVertex x="173.904" y="155.184" inRotation="-2.30861139" inDistance="0.535178" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="179.268" y="161.076" inRotation="0.0" inDistance="0.0" outRotation="0.83535656" outDistance="0.339835" />
+        <CubicDetachedVertex x="180.396" y="163.008" inRotation="-1.70049886" inDistance="0.278338" outRotation="0.0" outDistance="0.0" />
+        <StraightVertex x="59.688" y="163.008" />
+      </PointsPath>
+      <PointsPath isClosed="true">
+        <CubicDetachedVertex x="122.076" y="209.628" inRotation="-3.10765507" inDistance="3.89024" outRotation="-0.25518239" outDistance="0.570473" />
+        <CubicDetachedVertex x="123.804" y="209.364" inRotation="2.97299571" inDistance="0.572112" outRotation="-0.16347644" outDistance="1.179729" />
+        <CubicDetachedVertex x="127.26" y="208.644" inRotation="2.88426894" inDistance="1.178813" outRotation="-0.25412475" outDistance="1.90932" />
+        <CubicDetachedVertex x="132.612" y="206.688" inRotation="2.71758433" inDistance="1.895886" outRotation="-0.42002451" outDistance="1.353662" />
+        <CubicDetachedVertex x="136.26" y="204.876" inRotation="2.57827639" inDistance="1.348332" outRotation="-0.5616235" outDistance="3.785482" />
+        <CubicDetachedVertex x="144.06" y="196.584" inRotation="2.13482484" inDistance="3.748632" outRotation="-1.00429579" outDistance="4.024726" />
+        <CubicDetachedVertex x="147.144" y="184.152" inRotation="1.24639326" inDistance="4.291858" outRotation="-1.89377087" outDistance="3.100299" />
+        <CubicDetachedVertex x="139.176" y="180.42" inRotation="-0.29145679" inDistance="3.006808" outRotation="2.8531631" outDistance="1.139052" />
+        <CubicDetachedVertex x="136.404" y="182.28" inRotation="-0.66963895" inDistance="1.101976" outRotation="2.50656592" outDistance="0.28321" />
+        <CubicDetachedVertex x="135.672" y="182.796" inRotation="-0.81569192" inDistance="0.280143" outRotation="2.35619449" outDistance="0.2885" />
+        <CubicDetachedVertex x="135.288" y="183.864" inRotation="-1.23605949" inDistance="0.292219" outRotation="1.8948888" outDistance="1.620356" />
+        <CubicDetachedVertex x="133.68" y="188.52" inRotation="-1.14355646" inDistance="1.621777" outRotation="1.9965474" outDistance="1.133158" />
+        <CubicDetachedVertex x="131.676" y="191.268" inRotation="-0.83798123" inDistance="1.130104" outRotation="2.30361143" outDistance="4.681861" />
+        <CubicDetachedVertex x="118.896" y="196.62" inRotation="0.18833525" inDistance="4.935269" outRotation="-2.96173915" outDistance="0.536656" />
+        <CubicDetachedVertex x="117.324" y="196.26" inRotation="0.15776874" inDistance="0.53464" outRotation="-2.98224101" outDistance="0.680623" />
+        <CubicDetachedVertex x="115.308" y="195.936" inRotation="0.32175055" inDistance="0.683052" outRotation="-2.8198421" outDistance="0.531263" />
+        <CubicDetachedVertex x="113.88" y="195.168" inRotation="0.49394137" inDistance="0.531534" outRotation="-2.65074087" outDistance="0.789177" />
+        <CubicDetachedVertex x="111.756" y="194.052" inRotation="0.59218668" inDistance="0.795447" outRotation="-2.55359005" outDistance="0.475933" />
+        <CubicDetachedVertex x="110.712" y="193.068" inRotation="0.7140907" inDistance="0.476386" outRotation="-2.46217885" outDistance="0.401059" />
+        <CubicDetachedVertex x="109.728" y="192.384" inRotation="0.67941381" inDistance="0.401059" outRotation="-2.46876011" outDistance="0.982022" />
+        <CubicDetachedVertex x="107.784" y="190.188" inRotation="0.98619507" inDistance="0.978497" outRotation="-2.16555558" outDistance="1.97034" />
+        <CubicDetachedVertex x="105.54" y="184.716" inRotation="1.23933734" inDistance="1.95438" outRotation="-1.90404063" outDistance="0.660327" />
+        <CubicDetachedVertex x="104.76" y="182.772" inRotation="0.91290772" inDistance="0.667269" outRotation="-2.22102379" outDistance="1.070424" />
+        <CubicDetachedVertex x="102.204" y="181.068" inRotation="0.40187065" inDistance="1.043103" outRotation="-2.73194654" outDistance="0.994264" />
+        <CubicDetachedVertex x="99.336" y="180.24" inRotation="0.04815551" inDistance="0.997156" outRotation="-3.10096462" outDistance="1.477219" />
+        <CubicDetachedVertex x="95.34" y="181.692" inRotation="-0.55499573" inDistance="1.411926" outRotation="2.58299334" outDistance="0.226416" />
+        <CubicDetachedVertex x="94.536" y="182.22" inRotation="-0.11065722" inDistance="0.217329" outRotation="2.02607593" outDistance="1.282653" />
+        <CubicDetachedVertex x="92.82" y="185.964" inRotation="-1.46013911" inDistance="1.303975" outRotation="1.68635067" outDistance="1.353023" />
+        <CubicDetachedVertex x="93.636" y="189.684" inRotation="-1.81353284" inDistance="1.298054" outRotation="1.34057674" outDistance="0.788812" />
+        <CubicDetachedVertex x="94.128" y="192.024" inRotation="-1.89254688" inDistance="0.796894" outRotation="1.23465828" outDistance="1.055045" />
+        <CubicDetachedVertex x="95.664" y="194.88" inRotation="-2.0647377" inDistance="1.063067" outRotation="1.08433899" outDistance="1.411773" />
+        <CubicDetachedVertex x="97.632" y="198.648" inRotation="-2.18909269" inDistance="1.428454" outRotation="0.94591009" outDistance="4.512782" />
+        <CubicDetachedVertex x="110.544" y="208.068" inRotation="-2.78531497" inDistance="4.507035" outRotation="0.35628576" outDistance="3.956471" />
+      </PointsPath>
+      <Fill fillRule="evenOdd">
+        <SolidColor colorValue="FF141413" />
+      </Fill>
+    </Shape>
+  </Artboard>
+  <ComponentAsset name="Bell glyph" artboardId="0:100" />
+  <Artboard name="Folder glyph" id="0:101" width="240" height="240" x="1600" styleId="0:1006" isComponent="true" clip="false">
+    <LayoutComponentStyle id="0:1006" name="Fixed artboard" />
+    <Shape name="folder">
+      <PointsPath isClosed="true">
+        <CubicDetachedVertex x="30.6" y="129.552" inRotation="-2.16699547" inDistance="0.406054" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="30.6" y="172.932" inRotation="0.0" inDistance="0.0" outRotation="1.57079633" outDistance="4.404" />
+        <CubicDetachedVertex x="38.676" y="186.564" inRotation="-2.54045325" inDistance="4.307064" outRotation="0.60228735" outDistance="1.630985" />
+        <CubicDetachedVertex x="43.116" y="188.532" inRotation="-2.73767458" inDistance="1.618221" outRotation="0.41012734" outDistance="0.902875" />
+        <CubicDetachedVertex x="46.524" y="189.852" inRotation="3.14159265" inDistance="0.864" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="193.344" y="189.852" inRotation="0.0" inDistance="0.0" outRotation="0.0" outDistance="0.432" />
+        <CubicDetachedVertex x="194.772" y="189.384" inRotation="2.83708177" inDistance="0.440254" outRotation="-0.29423457" outDistance="0.827565" />
+        <CubicDetachedVertex x="197.136" y="188.7" inRotation="2.78788951" inDistance="0.831471" outRotation="-0.35240662" outDistance="5.075943" />
+        <CubicDetachedVertex x="207.972" y="178.476" inRotation="1.97630846" inDistance="5.079984" outRotation="-1.16956753" outDistance="1.720651" />
+        <CubicDetachedVertex x="209.508" y="173.556" inRotation="1.86158333" inDistance="1.716042" outRotation="-1.34399748" outDistance="0.1601" />
+        <CubicDetachedVertex x="209.64" y="173.028" inRotation="1.57079633" inDistance="0.132" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="209.64" y="89.148" inRotation="0.0" inDistance="0.0" outRotation="-1.57079633" outDistance="0.792" />
+        <CubicDetachedVertex x="209.256" y="86.712" inRotation="1.34057674" inDistance="0.788812" outRotation="-1.80731086" outDistance="4.81402" />
+        <CubicDetachedVertex x="200.928" y="74.988" inRotation="0.58245481" inDistance="4.79934" outRotation="-2.56396312" outDistance="1.604279" />
+        <CubicDetachedVertex x="196.62" y="73.032" inRotation="0.34555558" inDistance="1.59424" outRotation="-2.78860227" outDistance="0.728944" />
+        <CubicDetachedVertex x="193.728" y="72.012" inRotation="0.0" inDistance="0.66" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="118.368" y="72.012" inRotation="0.0" inDistance="0.0" outRotation="3.14159265" outDistance="0.18" />
+        <CubicDetachedVertex x="117.6" y="71.568" inRotation="0.9151007" inDistance="0.196815" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="105.06" y="54.816" inRotation="0.0" inDistance="0.0" outRotation="-2.21429744" outDistance="2.04" />
+        <CubicDetachedVertex x="95.988" y="50.148" inRotation="0.0" inDistance="2.028" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="47.028" y="50.148" inRotation="0.0" inDistance="0.0" outRotation="3.14159265" outDistance="0.492" />
+        <CubicDetachedVertex x="45.612" y="50.64" inRotation="-0.20749623" inDistance="0.465996" outRotation="2.91869242" outDistance="0.92283" />
+        <CubicDetachedVertex x="42.984" y="51.288" inRotation="-0.35877067" inDistance="0.922752" outRotation="2.78860227" outDistance="2.672796" />
+        <CubicDetachedVertex x="36.432" y="55.74" inRotation="-0.75335785" inDistance="2.648767" outRotation="2.38250421" outDistance="0.645105" />
+        <CubicDetachedVertex x="35.016" y="57.12" inRotation="-0.87846189" inDistance="0.639162" outRotation="2.24064015" outDistance="1.913464" />
+        <CubicDetachedVertex x="31.98" y="62.148" inRotation="-1.10714872" inDistance="1.90513" outRotation="2.03839648" outDistance="1.357751" />
+        <CubicDetachedVertex x="30.36" y="66.912" inRotation="-1.57079633" inDistance="1.356" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="30.36" y="128.472" inRotation="0.0" inDistance="0.0" outRotation="1.57079633" outDistance="0.396" />
+      </PointsPath>
+      <PointsPath isClosed="true">
+        <CubicDetachedVertex x="42.468" y="171.6" inRotation="1.57079633" inDistance="0.048" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="42.468" y="68.46" inRotation="0.0" inDistance="0.0" outRotation="-1.57079633" outDistance="2.028" />
+        <CubicDetachedVertex x="45.78" y="62.94" inRotation="2.63276305" inDistance="2.019889" outRotation="-0.5070985" outDistance="0.617738" />
+        <CubicDetachedVertex x="47.544" y="62.388" inRotation="2.80764758" inDistance="0.622383" outRotation="-0.30288487" outDistance="0.201157" />
+        <CubicDetachedVertex x="48.564" y="61.86" inRotation="3.14159265" inDistance="0.084" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="93.852" y="61.86" inRotation="0.0" inDistance="0.0" outRotation="0.62783659" outDistance="0.919313" />
+        <CubicDetachedVertex x="96.468" y="63.084" inRotation="-2.88099026" inDistance="0.93145" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="110.412" y="81.72" inRotation="0.0" inDistance="0.0" outRotation="0.92983974" outDistance="1.886406" />
+        <CubicDetachedVertex x="115.608" y="83.952" inRotation="3.14159265" inDistance="1.824" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="192.108" y="83.952" inRotation="0.0" inDistance="0.0" outRotation="0.0" outDistance="1.308" />
+        <CubicDetachedVertex x="195.456" y="85.896" inRotation="-2.39019499" inDistance="1.248058" outRotation="0.75315128" outDistance="0.263181" />
+        <CubicDetachedVertex x="196.104" y="86.52" inRotation="-2.13411259" inDistance="0.269666" outRotation="1.02142184" outDistance="0.689452" />
+        <CubicDetachedVertex x="197.172" y="88.32" inRotation="-2.13488005" inDistance="0.695793" outRotation="1.14253217" outDistance="0.606801" />
+        <CubicDetachedVertex x="197.532" y="90.072" inRotation="-1.85459044" inDistance="0.6" outRotation="1.24904577" outDistance="0.075895" />
+        <CubicDetachedVertex x="197.7" y="90.408" inRotation="-1.57079633" inDistance="0.048" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="197.7" y="171.948" inRotation="0.0" inDistance="0.0" outRotation="1.57079633" outDistance="2.16" />
+        <CubicDetachedVertex x="192.876" y="177.672" inRotation="-0.33667482" inDistance="2.034204" outRotation="2.80230004" outDistance="0.216333" />
+        <CubicDetachedVertex x="192.12" y="177.9" inRotation="0.0" inDistance="0.204" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="80.208" y="177.9" inRotation="0.0" inDistance="0.0" outRotation="3.14159265" outDistance="0.144" />
+        <CubicDetachedVertex x="79.716" y="178.14" inRotation="-0.66104317" inDistance="0.136821" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="48.336" y="178.14" inRotation="0.0" inDistance="0.0" outRotation="3.14159265" outDistance="1.716" />
+        <CubicDetachedVertex x="43.188" y="173.832" inRotation="1.11711517" inDistance="1.615416" outRotation="-2.0255156" outDistance="0.601079" />
+        <CubicDetachedVertex x="42.792" y="172.224" inRotation="1.44644133" inDistance="0.580483" outRotation="-1.76819189" outDistance="0.122376" />
+        <CubicDetachedVertex x="42.648" y="171.768" inRotation="0.92729522" inDistance="0.12" outRotation="-2.15879893" outDistance="0.043267" />
+      </PointsPath>
+      <Fill fillRule="evenOdd">
+        <SolidColor colorValue="FF141413" />
+      </Fill>
+    </Shape>
+  </Artboard>
+  <ComponentAsset name="Folder glyph" artboardId="0:101" />
+  <Artboard name="Trash glyph" id="0:102" width="240" height="240" x="1900" styleId="0:1008" isComponent="true" clip="false">
+    <LayoutComponentStyle id="0:1008" name="Fixed artboard" />
+    <Shape name="trash">
+      <PointsPath isClosed="true">
+        <CubicDetachedVertex x="184.176" y="77.952" inRotation="1.62787711" inDistance="0.420685" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="194.34" y="77.952" inRotation="0.0" inDistance="0.0" outRotation="0.0" outDistance="0.6" />
+        <CubicDetachedVertex x="196.092" y="76.968" inRotation="2.63252177" inDistance="0.590931" outRotation="-0.50990093" outDistance="4.990875" />
+        <CubicDetachedVertex x="195.096" y="66.348" inRotation="0.46244569" inDistance="4.464984" outRotation="-2.67794504" outDistance="0.456158" />
+        <CubicDetachedVertex x="193.524" y="65.616" inRotation="0.0" inDistance="0.324" outRotation="0.0" outDistance="0.0" />
+        <StraightVertex x="157.464" y="65.616" />
+        <CubicDetachedVertex x="157.464" y="45.288" inRotation="0.0" inDistance="0.0" outRotation="-1.57079633" outDistance="0.756" />
+        <CubicDetachedVertex x="156.72" y="42.576" inRotation="1.15572159" inDistance="0.773698" outRotation="-2.00023675" outDistance="1.412232" />
+        <CubicDetachedVertex x="155.184" y="38.532" inRotation="1.11821838" inDistance="1.454428" outRotation="-2.0183163" outDistance="4.658783" />
+        <CubicDetachedVertex x="142.128" y="30.36" inRotation="0.0" inDistance="4.236" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="98.628" y="30.36" inRotation="0.0" inDistance="0.0" outRotation="3.14159265" outDistance="6.264" />
+        <CubicDetachedVertex x="83.436" y="42.012" inRotation="-1.37814007" inDistance="6.455431" outRotation="1.76422365" outDistance="1.18612" />
+        <CubicDetachedVertex x="82.428" y="45.72" inRotation="-1.57079633" inDistance="1.128" outRotation="0.0" outDistance="0.0" />
+        <StraightVertex x="82.428" y="65.616" />
+        <CubicDetachedVertex x="46.968" y="65.616" inRotation="0.0" inDistance="0.0" outRotation="3.14159265" outDistance="5.652" />
+        <CubicDetachedVertex x="43.572" y="76.992" inRotation="-2.53930531" inDistance="5.358951" outRotation="0.59475926" outDistance="0.492585" />
+        <CubicDetachedVertex x="45.144" y="77.952" inRotation="3.14159265" inDistance="0.384" outRotation="0.0" outDistance="0.0" />
+        <StraightVertex x="55.728" y="77.952" />
+        <CubicDetachedVertex x="67.452" y="195.096" inRotation="0.0" inDistance="0.0" outRotation="1.46874247" outDistance="4.004837" />
+        <CubicDetachedVertex x="76.248" y="207.372" inRotation="-2.7133285" inDistance="4.24761" outRotation="0.42317129" outDistance="1.724079" />
+        <CubicDetachedVertex x="81.036" y="209.136" inRotation="-2.75714412" inDistance="1.695783" outRotation="0.38050638" outDistance="0.32311" />
+        <CubicDetachedVertex x="82.44" y="209.64" inRotation="3.14159265" inDistance="0.216" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="157.152" y="209.64" inRotation="0.0" inDistance="0.0" outRotation="0.0" outDistance="3.804" />
+        <CubicDetachedVertex x="169.8" y="201.468" inRotation="1.99717758" inDistance="4.033089" outRotation="-1.15165372" outDistance="1.326855" />
+        <CubicDetachedVertex x="171.588" y="197.4" inRotation="2.07240038" inDistance="1.272792" outRotation="-1.05840687" outDistance="0.440581" />
+        <CubicDetachedVertex x="172.38" y="195.612" inRotation="1.62955215" inDistance="0.204353" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="183.912" y="78.492" inRotation="0.0" inDistance="0.0" outRotation="-0.71574359" outDistance="0.365754" />
+      </PointsPath>
+      <PointsPath isClosed="true">
+        <StraightVertex x="94.26" y="65.616" />
+        <CubicDetachedVertex x="94.26" y="46.68" inRotation="0.0" inDistance="0.0" outRotation="-1.57079633" outDistance="2.328" />
+        <CubicDetachedVertex x="99.516" y="41.94" inRotation="3.14159265" inDistance="2.028" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="140.016" y="41.94" inRotation="0.0" inDistance="0.0" outRotation="0.0" outDistance="2.016" />
+        <CubicDetachedVertex x="145.632" y="46.176" inRotation="-1.57079633" inDistance="2.112" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="145.632" y="65.064" inRotation="0.0" inDistance="0.0" outRotation="1.57079633" outDistance="0.192" />
+        <CubicDetachedVertex x="145.584" y="65.616" inRotation="-1.38544838" inDistance="0.195346" outRotation="0.0" outDistance="0.0" />
+      </PointsPath>
+      <PointsPath isClosed="true">
+        <CubicDetachedVertex x="67.62" y="77.952" inRotation="1.75614428" inDistance="0.195346" outRotation="0.0" outDistance="0.0" />
+        <StraightVertex x="172.068" y="77.952" />
+        <StraightVertex x="164.52" y="153.336" />
+        <CubicDetachedVertex x="160.872" y="191.7" inRotation="0.0" inDistance="0.0" outRotation="1.6672701" outDistance="2.989903" />
+        <CubicDetachedVertex x="154.236" y="197.904" inRotation="0.0" inDistance="3.24" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="84.432" y="197.904" inRotation="0.0" inDistance="0.0" outRotation="3.14159265" outDistance="1.86" />
+        <CubicDetachedVertex x="79.008" y="192.228" inRotation="1.46522997" inDistance="1.822144" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="67.608" y="78.372" inRotation="0.0" inDistance="0.0" outRotation="-1.63736449" outDistance="0.1804" />
+      </PointsPath>
+      <PointsPath isClosed="true">
+        <CubicDetachedVertex x="103.08" y="177.288" inRotation="2.98520386" inDistance="2.927729" outRotation="-0.28647108" outDistance="1.613766" />
+        <CubicDetachedVertex x="107.352" y="173.136" inRotation="1.57079633" inDistance="1.8" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="107.352" y="104.064" inRotation="0.0" inDistance="0.0" outRotation="-1.57079633" outDistance="3.312" />
+        <CubicDetachedVertex x="100.728" y="98.592" inRotation="0.0" inDistance="2.964" outRotation="2.67061021" outDistance="2.194983" />
+        <CubicDetachedVertex x="95.772" y="102.684" inRotation="-1.38976451" inDistance="2.732656" outRotation="1.71968627" outDistance="0.242685" />
+        <CubicDetachedVertex x="95.268" y="103.62" inRotation="-1.57079633" inDistance="0.096" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="95.268" y="153.012" inRotation="0.0" inDistance="0.0" outRotation="1.57079633" outDistance="0.372" />
+        <CubicDetachedVertex x="95.52" y="153.456" inRotation="-2.4511462" inDistance="0.357994" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="95.52" y="172.584" inRotation="0.0" inDistance="0.0" outRotation="1.57079633" outDistance="3.504" />
+      </PointsPath>
+      <PointsPath isClosed="true">
+        <CubicDetachedVertex x="139.836" y="177.288" inRotation="2.98499078" inDistance="3.462369" outRotation="-0.28605144" outDistance="2.551687" />
+        <CubicDetachedVertex x="144.372" y="173.388" inRotation="2.19104581" inDistance="2.374242" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="144.372" y="102.912" inRotation="0.0" inDistance="0.0" outRotation="-2.19818218" outDistance="3.127606" />
+        <CubicDetachedVertex x="138.012" y="98.592" inRotation="0.0" inDistance="3.732" outRotation="2.7505751" outDistance="3.180023" />
+        <CubicDetachedVertex x="133.02" y="102.78" inRotation="-1.06970694" inDistance="3.297381" outRotation="2.08318579" outDistance="0.220291" />
+        <CubicDetachedVertex x="132.54" y="103.848" inRotation="-1.57079633" inDistance="0.048" outRotation="0.0" outDistance="0.0" />
+        <CubicDetachedVertex x="132.54" y="171.708" inRotation="0.0" inDistance="0.0" outRotation="1.57079633" outDistance="3.708" />
+      </PointsPath>
+      <Fill fillRule="evenOdd">
+        <SolidColor colorValue="FF141413" />
+      </Fill>
+    </Shape>
+  </Artboard>
+  <ComponentAsset name="Trash glyph" artboardId="0:102" />
+  <Artboard name="Button" id="0:30" width="240" height="240" x="950" styleId="0:1009" isComponent="true" clip="false" viewModelId="0:40" defaultStateMachineId="0:31">
+    <LayoutComponentStyle id="0:1009" name="Fixed artboard" />
+    <Node name="Press pivot" id="0:32" x="120" y="120">
+      <Node x="-120" y="-120" name="Content">
+        <NestedArtboard name="Badge" artboardId="0:60" isStateful="true" x="228" y="48">
+          <NestedStateMachine animationId="0:61" name="Badge machine" />
+          <ViewModelInstance viewModelId="0:70" exports="true" id="0:1011" name="Badge data">
+            <ViewModelInstanceNumber viewModelPropertyId="0:71" propertyValue="0">
+              <DataBindContext sourcePathIds="0:40-0:44" propertyKey="575" />
+            </ViewModelInstanceNumber>
+            <ViewModelInstanceNumber viewModelPropertyId="0:72" propertyValue="0" />
+          </ViewModelInstance>
+        </NestedArtboard>
+        <NestedArtboard name="Glyph" artboardId="0:100">
+          <DataBindContext sourcePathIds="0:40-0:43" propertyKey="197" />
+        </NestedArtboard>
+        <Shape name="Hit region" id="0:33">
+          <Rectangle width="240" height="240" originX="0" originY="0" />
+          <Fill>
+            <SolidColor colorValue="FFFFFFFF" />
+          </Fill>
+        </Shape>
+      </Node>
+    </Node>
+    <StateMachine name="Interaction" id="0:31">
+      <StateMachineListenerSingle targetId="0:33" listenerTypeValue="enter" name="enter">
+        <ListenerViewModelChange>
+          <BindablePropertyBoolean propertyValue="true">
+            <DataBindContext sourcePathIds="0:40-0:41" propertyKey="634" direction="true" />
+          </BindablePropertyBoolean>
+        </ListenerViewModelChange>
+      </StateMachineListenerSingle>
+      <StateMachineListenerSingle targetId="0:33" listenerTypeValue="exit" name="exit">
+        <ListenerViewModelChange>
+          <BindablePropertyBoolean propertyValue="false">
+            <DataBindContext sourcePathIds="0:40-0:41" propertyKey="634" direction="true" />
+          </BindablePropertyBoolean>
+        </ListenerViewModelChange>
+        <ListenerViewModelChange>
+          <BindablePropertyBoolean propertyValue="false">
+            <DataBindContext sourcePathIds="0:40-0:42" propertyKey="634" direction="true" />
+          </BindablePropertyBoolean>
+        </ListenerViewModelChange>
+      </StateMachineListenerSingle>
+      <StateMachineListenerSingle targetId="0:33" listenerTypeValue="down" name="down">
+        <ListenerViewModelChange>
+          <BindablePropertyBoolean propertyValue="true">
+            <DataBindContext sourcePathIds="0:40-0:42" propertyKey="634" direction="true" />
+          </BindablePropertyBoolean>
+        </ListenerViewModelChange>
+      </StateMachineListenerSingle>
+      <StateMachineListenerSingle targetId="0:33" listenerTypeValue="up" name="up">
+        <ListenerViewModelChange>
+          <BindablePropertyBoolean propertyValue="false">
+            <DataBindContext sourcePathIds="0:40-0:42" propertyKey="634" direction="true" />
+          </BindablePropertyBoolean>
+        </ListenerViewModelChange>
+      </StateMachineListenerSingle>
+      <StateMachineListenerSingle targetId="0:33" listenerTypeValue="click" name="Clear count">
+        <ListenerViewModelChange>
+          <BindablePropertyNumber propertyValue="0">
+            <DataBindContext sourcePathIds="0:40-0:44" propertyKey="636" direction="true" />
+          </BindablePropertyNumber>
+        </ListenerViewModelChange>
+      </StateMachineListenerSingle>
+      <StateMachineLayer name="Shared press">
+        <AnyState x="0" y="-120" />
+        <ExitState x="500" y="-120" />
+        <EntryState x="0" y="0">
+          <StateTransition stateToId="0:51" />
+        </EntryState>
+        <AnimationState id="0:51" animationId="0:54" x="180" y="0">
+          <StateTransition stateToId="0:53" duration="80" enableEarlyExit="true">
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyBoolean>
+                  <DataBindContext sourcePathIds="0:40-0:42" propertyKey="634" />
+                </BindablePropertyBoolean>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueBooleanComparator value="true" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+          <StateTransition stateToId="0:52" duration="120" enableEarlyExit="true">
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyBoolean>
+                  <DataBindContext sourcePathIds="0:40-0:42" propertyKey="634" />
+                </BindablePropertyBoolean>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueBooleanComparator value="false" />
+            </TransitionViewModelCondition>
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyBoolean>
+                  <DataBindContext sourcePathIds="0:40-0:41" propertyKey="634" />
+                </BindablePropertyBoolean>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueBooleanComparator value="true" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+        <AnimationState id="0:52" animationId="0:55" x="360" y="90">
+          <StateTransition stateToId="0:53" duration="80" enableEarlyExit="true">
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyBoolean>
+                  <DataBindContext sourcePathIds="0:40-0:42" propertyKey="634" />
+                </BindablePropertyBoolean>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueBooleanComparator value="true" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+          <StateTransition stateToId="0:51" duration="120" enableEarlyExit="true">
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyBoolean>
+                  <DataBindContext sourcePathIds="0:40-0:42" propertyKey="634" />
+                </BindablePropertyBoolean>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueBooleanComparator value="false" />
+            </TransitionViewModelCondition>
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyBoolean>
+                  <DataBindContext sourcePathIds="0:40-0:41" propertyKey="634" />
+                </BindablePropertyBoolean>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueBooleanComparator value="false" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+        <AnimationState id="0:53" animationId="0:56" x="540" y="180">
+          <StateTransition stateToId="0:52" duration="120" enableEarlyExit="true">
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyBoolean>
+                  <DataBindContext sourcePathIds="0:40-0:42" propertyKey="634" />
+                </BindablePropertyBoolean>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueBooleanComparator value="false" />
+            </TransitionViewModelCondition>
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyBoolean>
+                  <DataBindContext sourcePathIds="0:40-0:41" propertyKey="634" />
+                </BindablePropertyBoolean>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueBooleanComparator value="true" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+          <StateTransition stateToId="0:51" duration="120" enableEarlyExit="true">
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyBoolean>
+                  <DataBindContext sourcePathIds="0:40-0:42" propertyKey="634" />
+                </BindablePropertyBoolean>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueBooleanComparator value="false" />
+            </TransitionViewModelCondition>
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyBoolean>
+                  <DataBindContext sourcePathIds="0:40-0:41" propertyKey="634" />
+                </BindablePropertyBoolean>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueBooleanComparator value="false" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+      </StateMachineLayer>
+    </StateMachine>
+    <LinearAnimation name="Rest" id="0:54" duration="1" fps="120" loopValue="oneShot">
+      <KeyedObject objectId="0:32">
+        <KeyedProperty property="scaleX">
+          <KeyFrameDouble frame="0" value="1" interpolationType="linear" />
+        </KeyedProperty>
+        <KeyedProperty property="scaleY">
+          <KeyFrameDouble frame="0" value="1" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <LinearAnimation name="Hover" id="0:55" duration="1" fps="120" loopValue="oneShot">
+      <KeyedObject objectId="0:32">
+        <KeyedProperty property="scaleX">
+          <KeyFrameDouble frame="0" value="1.06" interpolationType="linear" />
+        </KeyedProperty>
+        <KeyedProperty property="scaleY">
+          <KeyFrameDouble frame="0" value="1.06" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <LinearAnimation name="Down" id="0:56" duration="1" fps="120" loopValue="oneShot">
+      <KeyedObject objectId="0:32">
+        <KeyedProperty property="scaleX">
+          <KeyFrameDouble frame="0" value="0.92" interpolationType="linear" />
+        </KeyedProperty>
+        <KeyedProperty property="scaleY">
+          <KeyFrameDouble frame="0" value="0.92" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+  </Artboard>
+  <ComponentAsset name="Button" artboardId="0:30" />
+  <ViewModel name="Button" id="0:40" defaultInstanceId="0:1010">
+    <ViewModelPropertyBoolean name="hover" id="0:41" componentProps="1" />
+    <ViewModelPropertyBoolean name="down" id="0:42" componentProps="1" />
+    <ViewModelPropertyArtboard name="glyph" id="0:43" componentProps="1" />
+    <ViewModelPropertyNumber name="count" id="0:44" componentProps="1" />
+    <ViewModelInstance name="Default" id="0:1010" exports="true">
+      <ViewModelInstanceBoolean viewModelPropertyId="0:41" propertyValue="false" />
+      <ViewModelInstanceBoolean viewModelPropertyId="0:42" propertyValue="false" />
+      <ViewModelInstanceArtboard viewModelPropertyId="0:43" propertyValue="0:100" />
+      <ViewModelInstanceNumber viewModelPropertyId="0:44" propertyValue="0" />
+    </ViewModelInstance>
+  </ViewModel>
+  <Artboard name="Badge" id="0:60" width="84" height="84" x="2300" styleId="0:1012" isComponent="true" clip="false" viewModelId="0:70" defaultStateMachineId="0:61">
+    <LayoutComponentStyle id="0:1012" name="Fixed artboard" />
+    <Node name="Visible only above zero">
+      <DataBindContext sourcePathIds="0:70-0:71" propertyKey="18" converterId="0:80" />
+      <Node name="Pop pivot" id="0:62">
+        <Text name="Count number" originX="0.5" originY="0.5" sizingValue="autoWidth">
+          <TextStylePaint id="0:91" name="Digits" fontAssetId="0:90" fontSize="48" familyName="Benchmark Digits" styleName="Regular">
+            <Fill>
+              <SolidColor colorValue="FFFFFFFF" />
+            </Fill>
+          </TextStylePaint>
+          <TextValueRun styleId="0:91" text="3" name="Count">
+            <DataBindContext sourcePathIds="0:70-0:71" propertyKey="268" converterId="0:92" />
+          </TextValueRun>
+        </Text>
+        <Shape name="Accent disc" x="0" y="0">
+          <Ellipse width="84" height="84" originX="0.5" originY="0.5" />
+          <Fill>
+            <SolidColor colorValue="FFD97757" />
+          </Fill>
+        </Shape>
+      </Node>
+    </Node>
+    <StateMachine name="Interaction" id="0:61">
+      <StateMachineLayer name="Count increases">
+        <AnyState x="0" y="-120" />
+        <ExitState x="500" y="-120" />
+        <EntryState x="0" y="0">
+          <StateTransition stateToId="0:63" />
+        </EntryState>
+        <AnimationState id="0:63" animationId="0:66" x="180" y="0">
+          <StateTransition stateToId="0:64" duration="0">
+            <TransitionViewModelCondition opValue="greaterThan">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="0:70-0:71" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="0:70-0:72" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+            </TransitionViewModelCondition>
+          </StateTransition>
+          <StateTransition stateToId="0:65" duration="0">
+            <TransitionViewModelCondition opValue="lessThan">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="0:70-0:71" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="0:70-0:72" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+            </TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+        <AnimationState id="0:64" animationId="0:67" reset="true" x="380" y="100">
+          <StateTransition stateToId="0:64" duration="0">
+            <TransitionViewModelCondition opValue="greaterThan">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="0:70-0:71" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="0:70-0:72" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+            </TransitionViewModelCondition>
+          </StateTransition>
+          <StateTransition stateToId="0:65" duration="0">
+            <TransitionViewModelCondition opValue="lessThan">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="0:70-0:71" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyNumber>
+                  <DataBindContext sourcePathIds="0:70-0:72" propertyKey="636" />
+                </BindablePropertyNumber>
+              </TransitionPropertyViewModelComparator>
+            </TransitionViewModelCondition>
+          </StateTransition>
+          <ListenerViewModelChange fromViewModelProperty="true" fromDataBindId="0:1014">
+            <BindablePropertyNumber propertyValue="0">
+              <DataBindContext sourcePathIds="0:70-0:71" propertyKey="636" id="0:1014" />
+              <DataBindContext sourcePathIds="0:70-0:72" propertyKey="636" direction="true" />
+            </BindablePropertyNumber>
+          </ListenerViewModelChange>
+          <StateTransition stateToId="0:63" duration="0" enableExitTime="true" exitTimeIsPercetange="true" exitTime="100" />
+        </AnimationState>
+        <AnimationState id="0:65" animationId="0:66" x="380" y="-100">
+          <ListenerViewModelChange fromViewModelProperty="true" fromDataBindId="0:1015">
+            <BindablePropertyNumber propertyValue="0">
+              <DataBindContext sourcePathIds="0:70-0:71" propertyKey="636" id="0:1015" />
+              <DataBindContext sourcePathIds="0:70-0:72" propertyKey="636" direction="true" />
+            </BindablePropertyNumber>
+          </ListenerViewModelChange>
+          <StateTransition stateToId="0:63" duration="0" enableExitTime="true" exitTimeIsPercetange="true" exitTime="100" />
+        </AnimationState>
+      </StateMachineLayer>
+    </StateMachine>
+    <LinearAnimation name="Still" id="0:66" duration="1" fps="120" loopValue="oneShot">
+      <KeyedObject objectId="0:62">
+        <KeyedProperty property="scaleX">
+          <KeyFrameDouble frame="0" value="1" interpolationType="linear" />
+        </KeyedProperty>
+        <KeyedProperty property="scaleY">
+          <KeyFrameDouble frame="0" value="1" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <LinearAnimation name="Pop" id="0:67" duration="30" fps="120" loopValue="oneShot">
+      <KeyedObject objectId="0:62">
+        <KeyedProperty property="scaleX">
+          <KeyFrameDouble frame="0" value="1" interpolationType="linear" />
+          <KeyFrameDouble frame="15" value="1.25" interpolationType="linear" />
+          <KeyFrameDouble frame="30" value="1" interpolationType="linear" />
+        </KeyedProperty>
+        <KeyedProperty property="scaleY">
+          <KeyFrameDouble frame="0" value="1" interpolationType="linear" />
+          <KeyFrameDouble frame="15" value="1.25" interpolationType="linear" />
+          <KeyFrameDouble frame="30" value="1" interpolationType="linear" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+  </Artboard>
+  <ComponentAsset name="Badge" artboardId="0:60" />
+  <ViewModel name="Badge" id="0:70" defaultInstanceId="0:1013">
+    <ViewModelPropertyNumber name="count" id="0:71" componentProps="1" />
+    <ViewModelPropertyNumber name="previous" id="0:72" componentProps="1" />
+    <ViewModelInstance name="Default" id="0:1013" exports="true">
+      <ViewModelInstanceNumber viewModelPropertyId="0:71" propertyValue="0" />
+      <ViewModelInstanceNumber viewModelPropertyId="0:72" propertyValue="0" />
+    </ViewModelInstance>
+  </ViewModel>
+  <FontAsset id="0:90" name="Benchmark Digits">
+    <FileAssetContents bytes="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" />
+  </FontAsset>
+  <DataConverterToString id="0:92" name="Integer label" decimals="0" round="true" />
+  <DataConverterRangeMapper id="0:80" name="Visible above zero" minInput="0" maxInput="1" minOutput="0" maxOutput="1" clampLower="true" clampUpper="true" />
+</Rive>
