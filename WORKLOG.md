@@ -1,9 +1,9 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Order: P4a (PR now) → P5 components/assets (+ input→value binding) → Pc canvas → P4b–e → P3b → P6–P10.
-State: P4a complete on p4a-paint: 747 tests; core+web 16901 (owner-accepted); paint 3708, composite 3855, markup 7554; parity 173/1238. Oracle cases for P4a open.
-Next: PR p4a-paint → merge when CI green; then P5 design (components, per-instance inputs, binding, libraries, assets).
+Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
+State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
+Next: wave 1 Sol: bind module; AniML libraries/templates; assets+image (parallel). Then components (after bind), n-slice/feather/image paints, P5 benchmark.
 Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
 Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
@@ -73,3 +73,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 09:10 [claude]: merged round 2 (51ac8b7): core+web 16901 (−52, plateau; 204 over), compile speed restored — my interleaved vitest medians b7b6e92 ~1081 ms vs now ~1010 ms; next P4a-7 friction then a final size round (anywhere in core+web), else ask owner
 - 2026-11-06 09:30 [owner]: core+web size (16901, +204 over pre-draw-layer) is not a blocker → no final size round; P4a PR after P4a-7 friction fixes
 - 2026-11-06 10:00 [claude]: merged P4a-7 (cd0205d) 5/5; parity 46 rows done in P4a, 29 image/n-slice/feather rows → P5; LOG P4a entry with numbers; opening PR
+- 2026-11-06 10:40 [claude]: PR #10 merged (e0957cb); P5 design decided (design/p5/DESIGN.md: templates/libraries in AniML, components, bind expressions, assets)
