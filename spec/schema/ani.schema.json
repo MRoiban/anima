@@ -698,6 +698,9 @@
             "visible": {
               "type": "boolean"
             },
+            "d": {
+              "type": "string"
+            },
             "glyph": {
               "type": "string",
               "pattern": "^[a-z][a-zA-Z0-9-]*$"
@@ -709,9 +712,6 @@
                 "minimum": 0
               },
               "minItems": 1
-            },
-            "d": {
-              "type": "string"
             },
             "fill": {
               "type": "object",
@@ -935,6 +935,14 @@
                 },
                 "dashOffset": {
                   "type": "number",
+                  "feature": "paint"
+                },
+                "scale": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "fixed"
+                  ],
                   "feature": "paint"
                 }
               },
@@ -1245,6 +1253,14 @@
                 "dashOffset": {
                   "type": "number",
                   "feature": "paint"
+                },
+                "scale": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "fixed"
+                  ],
+                  "feature": "paint"
                 }
               },
               "additionalProperties": false
@@ -1332,6 +1348,31 @@
             },
             "y0": {
               "type": "number"
+            },
+            "corners": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "number",
+                  "minimum": 0
+                }
+              ],
+              "items": false,
+              "minItems": 4,
+              "maxItems": 4,
+              "feature": "paint"
             },
             "fill": {
               "type": "object",
@@ -1555,6 +1596,14 @@
                 },
                 "dashOffset": {
                   "type": "number",
+                  "feature": "paint"
+                },
+                "scale": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "fixed"
+                  ],
                   "feature": "paint"
                 }
               },
@@ -1875,6 +1924,14 @@
                 "dashOffset": {
                   "type": "number",
                   "feature": "paint"
+                },
+                "scale": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "fixed"
+                  ],
+                  "feature": "paint"
                 }
               },
               "additionalProperties": false
@@ -1891,6 +1948,1312 @@
             "from",
             "to",
             "center"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+            },
+            "type": {
+              "const": "ellipse"
+            },
+            "pivot": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "rotate": {
+              "type": "number"
+            },
+            "scale": {
+              "type": "number"
+            },
+            "scaleX": {
+              "type": "number"
+            },
+            "scaleY": {
+              "type": "number"
+            },
+            "opacity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "visible": {
+              "type": "boolean"
+            },
+            "cx": {
+              "type": "number",
+              "feature": "paint"
+            },
+            "cy": {
+              "type": "number",
+              "feature": "paint"
+            },
+            "rx": {
+              "type": "number",
+              "minimum": 0,
+              "feature": "paint"
+            },
+            "ry": {
+              "type": "number",
+              "minimum": 0,
+              "feature": "paint"
+            },
+            "fill": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string"
+                },
+                "rule": {
+                  "type": "string",
+                  "enum": [
+                    "nonzero",
+                    "evenodd"
+                  ]
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "linear",
+                    "radial"
+                  ],
+                  "feature": "paint"
+                },
+                "x1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "x2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "r": {
+                  "type": "number",
+                  "minimum": 0,
+                  "feature": "paint"
+                },
+                "fx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "fy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "stops": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "position": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "color": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "position",
+                      "color"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 2,
+                  "feature": "paint"
+                }
+              },
+              "additionalProperties": false
+            },
+            "stroke": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "cap": {
+                  "type": "string",
+                  "enum": [
+                    "butt",
+                    "round",
+                    "square"
+                  ]
+                },
+                "join": {
+                  "type": "string",
+                  "enum": [
+                    "miter",
+                    "round",
+                    "bevel"
+                  ]
+                },
+                "trimStart": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "trimEnd": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "trimOffset": {
+                  "type": "number"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "linear",
+                    "radial"
+                  ],
+                  "feature": "paint"
+                },
+                "x1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "x2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "r": {
+                  "type": "number",
+                  "minimum": 0,
+                  "feature": "paint"
+                },
+                "fx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "fy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "stops": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "position": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "color": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "position",
+                      "color"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 2,
+                  "feature": "paint"
+                },
+                "dash": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?%$"
+                      }
+                    ]
+                  },
+                  "minItems": 1,
+                  "feature": "paint"
+                },
+                "dashOffset": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "scale": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "fixed"
+                  ],
+                  "feature": "paint"
+                }
+              },
+              "additionalProperties": false
+            },
+            "knockout": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "cx",
+            "cy",
+            "rx",
+            "ry"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+            },
+            "type": {
+              "const": "polygon"
+            },
+            "pivot": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "rotate": {
+              "type": "number"
+            },
+            "scale": {
+              "type": "number"
+            },
+            "scaleX": {
+              "type": "number"
+            },
+            "scaleY": {
+              "type": "number"
+            },
+            "opacity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "visible": {
+              "type": "boolean"
+            },
+            "cx": {
+              "type": "number",
+              "feature": "paint"
+            },
+            "cy": {
+              "type": "number",
+              "feature": "paint"
+            },
+            "sides": {
+              "type": "integer",
+              "minimum": 3,
+              "maximum": 1024,
+              "feature": "paint"
+            },
+            "radius": {
+              "type": "number",
+              "minimum": 0,
+              "feature": "paint"
+            },
+            "rotation": {
+              "type": "number",
+              "feature": "paint"
+            },
+            "cornerRadius": {
+              "type": "number",
+              "minimum": 0,
+              "feature": "paint"
+            },
+            "fill": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string"
+                },
+                "rule": {
+                  "type": "string",
+                  "enum": [
+                    "nonzero",
+                    "evenodd"
+                  ]
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "linear",
+                    "radial"
+                  ],
+                  "feature": "paint"
+                },
+                "x1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "x2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "r": {
+                  "type": "number",
+                  "minimum": 0,
+                  "feature": "paint"
+                },
+                "fx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "fy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "stops": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "position": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "color": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "position",
+                      "color"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 2,
+                  "feature": "paint"
+                }
+              },
+              "additionalProperties": false
+            },
+            "stroke": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "cap": {
+                  "type": "string",
+                  "enum": [
+                    "butt",
+                    "round",
+                    "square"
+                  ]
+                },
+                "join": {
+                  "type": "string",
+                  "enum": [
+                    "miter",
+                    "round",
+                    "bevel"
+                  ]
+                },
+                "trimStart": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "trimEnd": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "trimOffset": {
+                  "type": "number"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "linear",
+                    "radial"
+                  ],
+                  "feature": "paint"
+                },
+                "x1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "x2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "r": {
+                  "type": "number",
+                  "minimum": 0,
+                  "feature": "paint"
+                },
+                "fx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "fy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "stops": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "position": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "color": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "position",
+                      "color"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 2,
+                  "feature": "paint"
+                },
+                "dash": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?%$"
+                      }
+                    ]
+                  },
+                  "minItems": 1,
+                  "feature": "paint"
+                },
+                "dashOffset": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "scale": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "fixed"
+                  ],
+                  "feature": "paint"
+                }
+              },
+              "additionalProperties": false
+            },
+            "knockout": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "cx",
+            "cy",
+            "sides",
+            "radius"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+            },
+            "type": {
+              "const": "star"
+            },
+            "pivot": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "rotate": {
+              "type": "number"
+            },
+            "scale": {
+              "type": "number"
+            },
+            "scaleX": {
+              "type": "number"
+            },
+            "scaleY": {
+              "type": "number"
+            },
+            "opacity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "visible": {
+              "type": "boolean"
+            },
+            "cx": {
+              "type": "number",
+              "feature": "paint"
+            },
+            "cy": {
+              "type": "number",
+              "feature": "paint"
+            },
+            "points": {
+              "type": "integer",
+              "minimum": 2,
+              "maximum": 1024,
+              "feature": "paint"
+            },
+            "radius": {
+              "type": "number",
+              "minimum": 0,
+              "feature": "paint"
+            },
+            "innerRadius": {
+              "type": "number",
+              "minimum": 0,
+              "feature": "paint"
+            },
+            "cornerRadius": {
+              "type": "number",
+              "minimum": 0,
+              "feature": "paint"
+            },
+            "fill": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string"
+                },
+                "rule": {
+                  "type": "string",
+                  "enum": [
+                    "nonzero",
+                    "evenodd"
+                  ]
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "linear",
+                    "radial"
+                  ],
+                  "feature": "paint"
+                },
+                "x1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "x2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "r": {
+                  "type": "number",
+                  "minimum": 0,
+                  "feature": "paint"
+                },
+                "fx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "fy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "stops": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "position": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "color": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "position",
+                      "color"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 2,
+                  "feature": "paint"
+                }
+              },
+              "additionalProperties": false
+            },
+            "stroke": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "cap": {
+                  "type": "string",
+                  "enum": [
+                    "butt",
+                    "round",
+                    "square"
+                  ]
+                },
+                "join": {
+                  "type": "string",
+                  "enum": [
+                    "miter",
+                    "round",
+                    "bevel"
+                  ]
+                },
+                "trimStart": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "trimEnd": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "trimOffset": {
+                  "type": "number"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "linear",
+                    "radial"
+                  ],
+                  "feature": "paint"
+                },
+                "x1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "x2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "r": {
+                  "type": "number",
+                  "minimum": 0,
+                  "feature": "paint"
+                },
+                "fx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "fy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "stops": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "position": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "color": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "position",
+                      "color"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 2,
+                  "feature": "paint"
+                },
+                "dash": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?%$"
+                      }
+                    ]
+                  },
+                  "minItems": 1,
+                  "feature": "paint"
+                },
+                "dashOffset": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "scale": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "fixed"
+                  ],
+                  "feature": "paint"
+                }
+              },
+              "additionalProperties": false
+            },
+            "knockout": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "cx",
+            "cy",
+            "points",
+            "radius",
+            "innerRadius"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "$comment": {
+              "type": "string"
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+            },
+            "type": {
+              "const": "triangle"
+            },
+            "pivot": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "number"
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2
+            },
+            "x": {
+              "type": "number"
+            },
+            "y": {
+              "type": "number"
+            },
+            "rotate": {
+              "type": "number"
+            },
+            "scale": {
+              "type": "number"
+            },
+            "scaleX": {
+              "type": "number"
+            },
+            "scaleY": {
+              "type": "number"
+            },
+            "opacity": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "visible": {
+              "type": "boolean"
+            },
+            "x0": {
+              "type": "number",
+              "feature": "paint"
+            },
+            "y0": {
+              "type": "number",
+              "feature": "paint"
+            },
+            "width": {
+              "type": "number",
+              "minimum": 0,
+              "feature": "paint"
+            },
+            "height": {
+              "type": "number",
+              "minimum": 0,
+              "feature": "paint"
+            },
+            "fill": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string"
+                },
+                "rule": {
+                  "type": "string",
+                  "enum": [
+                    "nonzero",
+                    "evenodd"
+                  ]
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "linear",
+                    "radial"
+                  ],
+                  "feature": "paint"
+                },
+                "x1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "x2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "r": {
+                  "type": "number",
+                  "minimum": 0,
+                  "feature": "paint"
+                },
+                "fx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "fy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "stops": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "position": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "color": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "position",
+                      "color"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 2,
+                  "feature": "paint"
+                }
+              },
+              "additionalProperties": false
+            },
+            "stroke": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "color": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "cap": {
+                  "type": "string",
+                  "enum": [
+                    "butt",
+                    "round",
+                    "square"
+                  ]
+                },
+                "join": {
+                  "type": "string",
+                  "enum": [
+                    "miter",
+                    "round",
+                    "bevel"
+                  ]
+                },
+                "trimStart": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "trimEnd": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "trimOffset": {
+                  "type": "number"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "linear",
+                    "radial"
+                  ],
+                  "feature": "paint"
+                },
+                "x1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y1": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "x2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "y2": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "cy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "r": {
+                  "type": "number",
+                  "minimum": 0,
+                  "feature": "paint"
+                },
+                "fx": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "fy": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "stops": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "$comment": {
+                        "type": "string"
+                      },
+                      "position": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1
+                      },
+                      "color": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "position",
+                      "color"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "minItems": 2,
+                  "feature": "paint"
+                },
+                "dash": {
+                  "type": "array",
+                  "items": {
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?%$"
+                      }
+                    ]
+                  },
+                  "minItems": 1,
+                  "feature": "paint"
+                },
+                "dashOffset": {
+                  "type": "number",
+                  "feature": "paint"
+                },
+                "scale": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "fixed"
+                  ],
+                  "feature": "paint"
+                }
+              },
+              "additionalProperties": false
+            },
+            "knockout": {
+              "type": "number",
+              "minimum": 0
+            }
+          },
+          "required": [
+            "id",
+            "type",
+            "x0",
+            "y0",
+            "width",
+            "height"
           ],
           "additionalProperties": false
         }

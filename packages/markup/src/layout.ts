@@ -51,7 +51,7 @@ export function keyColumns(text: string): string[][] {
     .map((s) => s.trim())
     .filter(Boolean)
     .map((s) => {
-      const m = /^(\S+)\s+(\S+)(?:\s+(.*))?$/.exec(s);
+      const m = /^(\S+)\s+("(?:\\.|[^"\\])*"|\S+)(?:\s+(.*))?$/.exec(s);
       return m ? [m[1]!, m[2]!, ...(m[3] ? [m[3]] : [])] : [s];
     });
 }

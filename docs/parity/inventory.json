@@ -11033,10 +11033,10 @@
    "rive-runtime/include/rive/generated/shapes/ellipse_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: ellipse with center, radiusX and radiusY",
+   "construct": "ellipse cx/cy/rx/ry",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/ellipse",
+   "test": "spec/conformance/paint-shape-ellipse; packages/web/test/paint-geometry.test.ts",
    "phase": "P4"
   }
  },
@@ -12725,10 +12725,10 @@
    "rive-runtime/include/rive/generated/shapes/polygon_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: polygon with sides and size",
+   "construct": "polygon cx/cy/sides/radius/rotation",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/polygon",
+   "test": "spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts",
    "phase": "P4"
   }
  },
@@ -12752,10 +12752,10 @@
    "rive-runtime/include/rive/generated/shapes/polygon_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: polygon.cornerRadius in grid units",
+   "construct": "polygon cornerRadius cutback/quadratic",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/polygon-rounded",
+   "test": "spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts",
    "phase": "P4"
   }
  },
@@ -12811,10 +12811,10 @@
    "rive-runtime/include/rive/generated/shapes/rectangle_base.hpp:21@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: rect.corners: [topLeft, topRight, bottomRight, bottomLeft]",
+   "construct": "rect corners [tl,tr,br,bl], animated corners.0–3",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/rectangle-corner-radii",
+   "test": "spec/conformance/paint-shape-corners; packages/web/test/paint-geometry.test.ts",
    "phase": "P4"
   }
  },
@@ -13118,10 +13118,10 @@
    "rive-runtime/include/rive/generated/shapes/star_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: star with points and innerRadius",
+   "construct": "star cx/cy/points/radius/innerRadius",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/star",
+   "test": "spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts",
    "phase": "P4"
   }
  },
@@ -13145,10 +13145,10 @@
    "rive-runtime/include/rive/generated/shapes/star_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: star.cornerRadius in grid units",
+   "construct": "star cornerRadius cutback/quadratic",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/star-rounded",
+   "test": "spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts",
    "phase": "P4"
   }
  },
@@ -13443,10 +13443,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/stroke_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: stroke.scale: fixed-grid-units",
+   "construct": "stroke.scale=fixed; vector-effect non-scaling-stroke",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/stroke-transform-independent",
+   "test": "spec/conformance/paint-shape-fixed; packages/web/test/paint-geometry.test.ts",
    "phase": "P4"
   }
  },
@@ -13498,10 +13498,10 @@
    "rive-runtime/include/rive/generated/shapes/triangle_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: triangle with width and height",
+   "construct": "triangle x0/y0/width/height",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/triangle",
+   "test": "spec/conformance/paint-shape-triangle; packages/web/test/paint-geometry.test.ts",
    "phase": "P4"
   }
  },
@@ -13617,10 +13617,10 @@
    "rive-runtime/include/rive/generated/shapes/cubic_detached_vertex_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "<id>.d (path morph track)",
+   "construct": "path d compatible command-list morph track",
    "module": "paint",
    "status": "spec'd",
-   "test": "oracle/vertex-animation",
+   "test": "spec/conformance/paint-morph; packages/web/test/paint-geometry.test.ts",
    "phase": "P4"
   }
  },

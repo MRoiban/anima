@@ -1,6 +1,7 @@
 // The SVG scene: one element structure per document, attribute values per frame. The web runtime
 // builds it as retained DOM; `toSVG` serialises it. Both use exactly these attributes.
 
+import { pathLength } from './path.ts';
 import { modules } from './modules.ts';
 import { formatHex } from './color.ts';
 import type { Mat } from './geom.ts';
@@ -194,13 +195,41 @@ const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').repl
 /** Serialise the player's current frame to a standalone SVG document. */
 export function toSVG(
   p: Player,
-  opts: { paint?: Paint; width?: number; height?: number; background?: string; id?: string } = {},
+  opts: {
+    paint?: Paint;
+    width?: number;
+    height?: number;
+    background?: string;
+    id?: string;
+    staticLengths?: boolean;
+  } = {},
 ): string {
   const paint = opts.paint ?? staticSlots();
   const id = opts.id ?? 'a';
   const { root, defs } = sceneTree(p.model);
   const ser = (el: El): string => {
     const a = attrs(p, el, paint, id);
+    if (opts.staticLengths && a.pathLength === '1') {
+      let length = 0;
+      if (a.d) length = pathLength(a.d);
+      else if (el.tag === 'circle') length = 2 * Math.PI * Number(a.r);
+      else if (el.tag === 'rect') {
+        const w = Number(a.width),
+          h = Number(a.height);
+        const r = Number(a.rx ?? 0),
+          rx = Math.min(r, w / 2),
+          ry = Math.min(r, h / 2);
+        length =
+          2 * (w + h - 2 * rx - 2 * ry) +
+          (rx && ry ? 4 * pathLength(`M${rx} 0A${rx} ${ry} 0 0 1 0 ${ry}`) : 0);
+      }
+      for (const k of ['stroke-dasharray', 'stroke-dashoffset'])
+        if (a[k])
+          a[k] = a[k]!.split(' ')
+            .map((v) => fmt(Number(v) * length))
+            .join(' ');
+      a.pathLength = null;
+    }
     const at = Object.entries(a)
       .filter(([, v]) => v !== null)
       .map(([k, v]) => ` ${k}="${esc(v!)}"`)

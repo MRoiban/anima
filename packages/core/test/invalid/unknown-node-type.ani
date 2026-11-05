@@ -6,7 +6,7 @@
  "nodes": [
   {
    "id": "a",
-   "type": "ellipse",
+   "type": "capsule",
    "center": [
     10,
     10

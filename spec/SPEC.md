@@ -483,8 +483,8 @@ so a 0.1 loader rejects them with `reserved` and a pointer to the version that b
 4. **Additive layers — deferred to 0.2** (reserved layer key `mode`). 0.1 layers override; the
    resolve rule (§7) passes unwritten properties through, so layers that write disjoint properties
    compose already, which covers a breathing idle on one node under a hover tilt on another.
-5. **Path morphing — deferred to 0.2** (address `<id>.d` reserved). Glyphy traces differ in point
-   count and structure even between variants, so morphing needs tooling first.
+5. **Path morphing** is available through the optional paint module for compatible command lists
+   (see the paint chapter). Automatic matching of differing Glyphy traces remains deferred.
 6. **Data binding — deferred to 0.2** (key `bind` reserved, in the shape
    `"bind": { "<address>": { "from": "level", "map": [0, 1, 0, 1] } }`). 0.1 hosts drive values
    through inputs and conditions.
@@ -584,3 +584,83 @@ continues ARCHITECTURE §core.1 and the ideas recorded in
 [format and graph research](../docs/research/rive-format-and-graph.md); the scene keeps the retained
 DOM/dirty-node strategy in [web runtime research](../docs/research/rive-web-runtime.md).
 No algorithm here closely follows Rive runtime source; no additional NOTICE attribution is needed.
+
+### Parametric outlines
+
+The paint module adds painted ellipse (cx,cy,rx,ry), polygon (cx,cy,sides,radius,
+rotation=0,cornerRadius=0), star (cx,cy,points,radius,innerRadius,cornerRadius=0),
+and triangle (x0,y0,width,height). All listed numeric parameters are animatable;
+all lengths use local grid units. AniML element and attribute names equal these names.
+Radii and dimensions are nonnegative. Authored sides are integers 3..1024 and points
+integers 2..1024; sampled counts clamp to these bounds and round to nearest integer,
+ties upward. Polygon vertices advance clockwise from the top, rotated by rotation
+degrees. Star vertices alternate outer/inner radii clockwise from the top outer vertex.
+Triangle vertices are (x0+width/2,y0), (x0+width,y0+height), (x0,y0+height).
+Ellipse paths use two half-ellipse SVG arcs; zero axes produce SVG degenerate outlines.
+
+Polygon/star rounding cuts back cornerRadius on both incident edges, independently
+limited to half each edge's length, then joins the cut points with a quadratic Bézier
+controlled by the original vertex. Straight edges connect the corners. The parameter
+is a cutback distance, rather than an osculating circle radius; concave vertices use
+that same construction. All new shapes render as SVG paths. Hit tests use the current
+outline and the existing 12-chord cubic flattening convention, including morphs.
+Invalid geometry uses registry bad-value diagnostics at the parameter/item; missing
+required geometry uses missing-key. New types without paint use undeclared-feature at type.
+
+### Rectangle corner radii
+
+Rect corners is a four-item nonnegative array [tl,tr,br,bl], AniML corners="1 1 0 0".
+Each value is animatable as tile.corners.0 through .3 (indices without leading zeros).
+The rectangle uses the cutback/quadratic construction above and renders as a path.
+Corners takes precedence over rx; rx remains unchanged without corners. An absent
+corners array cannot be animated. Invalid addresses use unknown-address; invalid array
+length or negative entries use bad-value at the array or offending item.
+
+### Compatible path morphs
+
+The paint-module animation address pathId.d accepts SVG path strings, including when
+rest geometry comes from a glyph and selected subpaths. Keys contain path data, not
+glyph identifiers; compatible glyph data may be used verbatim. Static d needs no module.
+Rest and all keys require identical expanded command lists: same case, letters and
+repetition count. Implicit coordinate repetitions expand; extra moveto pairs become
+lineto. No reversal, resampling or automatic matching occurs. Numeric arguments
+interpolate with eased weight, including relative coordinates and arc parameters.
+Arc flags choose 0 below 0.5, otherwise 1. State blending uses the same rule.
+Intermediate strings use the SVG formatter's five decimal places; exact endpoint
+samples retain their authored strings. Hit tests follow the sampled outline.
+
+Invalid paths produce bad-path at the key value with a valid-path hint; non-strings
+produce value-type. Incompatible commands produce morph-mismatch at the key value,
+with a hint naming the first differing zero-based segment and expected/actual command
+(or end). Every key is checked against rest, keeping state blends compatible.
+AniML encloses path values in JSON double quotes, for example:
+<track target="a.d">0 "M0 0L2 2"; 1 "M0 0L4 4"</track>.
+The compiler, formatter and decompiler preserve spaces inside the quoted value.
+
+### Transform-independent stroke
+
+Stroke scale is normal (default) or fixed, AniML stroke-scale="fixed". It is static.
+Fixed emits SVG vector-effect="non-scaling-stroke": the numeric width passes unchanged
+while node and ancestor scale, rotation and shear transform the outline without
+scaling its stroke. The host SVG viewport follows SVG vector-effect semantics,
+including viewport resizing. This is not an inverse adjustment by one scalar for
+nonuniform transforms. Geometry coordinates and sampled width stay unchanged.
+Invalid scale values produce bad-value at the stroke scale field.
+
+### Static raster lengths
+
+The toSVG option staticLengths:true replaces normalized pathLength="1" dashes/trims
+with natural local outline lengths: both dasharray components and dashoffset multiply
+by length, and pathLength is omitted. CLI frames and sheets enable it because resvg
+ignores pathLength. Default toSVG and browser attributes remain unchanged. Lengths
+include all subpaths and closing edges. Circles use 2πr; rectangles account for their
+clamped elliptical corners; other outlines use current path data, including morphs.
+
+Core pathLength parses into absolute lines/cubics, then recursively subdivides cubics
+by de Casteljau at t=0.5 until control polygon length minus chord is at most 0.0001
+grid units per accepted piece, or depth 20. Accepted pieces contribute the mean of
+polygon and chord length. Arc conversion first uses at most 90° cubic pieces (§3),
+so this tolerance describes subdivision flatness, not the initial arc approximation.
+These are independent constructions, extending the shared scene and registry designs
+in the format/graph and web-runtime research cited above. No algorithm follows Rive
+runtime source; no additional NOTICE attribution is required.

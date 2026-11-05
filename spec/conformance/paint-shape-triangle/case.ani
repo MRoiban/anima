@@ -1,0 +1,42 @@
+{
+  "anima": "0.1",
+  "name": "paint-triangle",
+  "grid": 20,
+  "requires": ["paint"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "triangle",
+      "x0": 2,
+      "y0": 2,
+      "fill": {
+        "color": "#f00"
+      },
+      "width": 16,
+      "height": 16
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "a.width": [
+          [0, 16],
+          [1, 8]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

@@ -36,11 +36,11 @@ export function nodeAttrs(type: NodeType): NodeAttr[] {
   const out: NodeAttr[] = [];
   const ns = nodeShape(type);
   const animatable = (k: string) => k in COMMON || k in OWN[type];
-  for (const key of [
+  for (const key of new Set([
     ...Object.keys(STATIC[type]).filter((k) => k !== 'children'),
     ...Object.keys(OWN[type]),
     ...TRANSFORM,
-  ]) {
+  ])) {
     const shape = ns.p[key]!;
     const name = markupName(shape, key);
     const parts = name.split(' ');

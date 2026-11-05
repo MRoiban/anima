@@ -20,7 +20,7 @@ type Obj = Record<string, unknown>;
 const elements = (e: Element) => e.children.filter((c): c is Element => c.kind === 'element');
 const attrs = (e: Element) => Object.fromEntries(e.attrs.map((a) => [a.name, a.value]));
 const scalar = (s: string): unknown =>
-  s === 'true' || s === 'false' || /^-?\d/.test(s) ? JSON.parse(s) : s;
+  s.startsWith('"') || s === 'true' || s === 'false' || /^-?\d/.test(s) ? JSON.parse(s) : s;
 const vector = (s: string) => s.split(/\s+/).map(Number);
 
 // Independent structural reader for emitted markup: compare every value, not just snapshots.
@@ -69,7 +69,7 @@ function recover(root: Element): Obj {
         parent[key] =
           key === 'dash'
             ? v.split(' ').map((x) => (x.endsWith('%') ? x : Number(x)))
-            : ['pivot', 'subpaths'].includes(key)
+            : ['pivot', 'subpaths', 'corners'].includes(key)
               ? vector(v)
               : scalar(v);
     }
@@ -135,7 +135,7 @@ function recover(root: Element): Obj {
             .trim()
             .split('\n')
             .map((line) => {
-              const m = /^(\S+)\s+(\S+)(?:\s+(.*))?$/.exec(line.trim())!;
+              const m = /^(\S+)\s+("(?:\\.|[^"\\])*"|\S+)(?:\s+(.*))?$/.exec(line.trim())!;
               return [Number(m[1]), scalar(m[2]!), ...(m[3] ? [m[3]] : [])];
             });
         else ((p.events ??= []) as unknown[]).push([Number(attrs(child).at), attrs(child).name]);

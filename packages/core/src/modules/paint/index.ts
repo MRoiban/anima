@@ -1,3 +1,4 @@
+import { geometry } from './geometry.ts';
 // Independently implemented from the SVG paint model; no Rive runtime algorithm is used.
 import type { Module } from '../../modules.ts';
 import { parseHex } from '../../color.ts';
@@ -35,7 +36,7 @@ const stopProps: Record<string, Prop> = {
   color: { type: 'color', feature: 'paint' },
 };
 
-export const paint: Module = {
+const base: Module = {
   name: 'paint',
   entries: [
     {
@@ -226,5 +227,22 @@ export const paint: Module = {
         a['stroke-dashoffset'] = fmt(p.num(i, 'stroke.dashOffset', 0));
       }
     }
+  },
+};
+
+export const paint: Module = {
+  ...base,
+  entries: [...base.entries, ...geometry.entries],
+  outline: geometry.outline,
+  value: geometry.value,
+  interpolate: geometry.interpolate,
+  model: (n, key) => geometry.model?.(n, key) ?? base.model?.(n, key),
+  scene(model, tree) {
+    base.scene?.(model, tree);
+    geometry.scene?.(model, tree);
+  },
+  attrs(p, el, paint, id, a) {
+    base.attrs?.(p, el, paint, id, a);
+    geometry.attrs?.(p, el, paint, id, a);
   },
 };

@@ -1,0 +1,9 @@
+<anima version="0.1" name="paint-ellipse" grid="20" requires="paint">
+  <ellipse id="a" cx="10" cy="10" rx="8" ry="4" fill="#f00"/>
+  <timeline name="t" duration="1">
+    <track target="a.rx">0 8; 1 4</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

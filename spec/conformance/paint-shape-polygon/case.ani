@@ -1,0 +1,43 @@
+{
+  "anima": "0.1",
+  "name": "paint-polygon",
+  "grid": 20,
+  "requires": ["paint"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "polygon",
+      "fill": {
+        "color": "#f00"
+      },
+      "cx": 10,
+      "cy": 10,
+      "sides": 5,
+      "radius": 8,
+      "cornerRadius": 1
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "a.cornerRadius": [
+          [0, 1],
+          [1, 3]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

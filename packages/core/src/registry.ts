@@ -4,7 +4,7 @@
 
 import { text } from './diag.ts';
 
-export type ValueType = 'number' | 'bool' | 'color';
+export type ValueType = 'number' | 'bool' | 'color' | 'path';
 
 export interface Prop {
   type: ValueType;
@@ -103,7 +103,12 @@ const VEC2 = T([N(), N()]);
 const named = (s: Shape, markup: string): Shape => ({ ...s, markup });
 const NAMES = ALT(S(NAME), A(S(NAME), 1));
 const propShape = (p: Prop): Shape => {
-  const s = p.type === 'bool' ? B : p.type === 'color' ? S() : N({ min: p.min, max: p.max });
+  const s =
+    p.type === 'bool'
+      ? B
+      : p.type === 'color' || p.type === 'path'
+        ? S()
+        : N({ min: p.min, max: p.max });
   return { ...s, markup: p.markup, feature: p.feature };
 };
 

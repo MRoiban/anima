@@ -461,7 +461,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `drawing-paint.dash-relative` | Relative dashes | stroke.dash percentage strings, fractions of full outline length; requires paint | paint | planned | spec/conformance/paint-dash; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
 | `drawing-paint.detached-vertex` | detached vertex | new: editable vertices with detached vertex geometry | paint | planned | oracle/detached-vertex |
 | `drawing-paint.effect-order` | Ordered path effect stacks | new: paint.effects ordered array | paint | planned | oracle/effect-order |
-| `drawing-paint.ellipse` | Ellipses | new: ellipse with center, radiusX and radiusY | paint | planned | oracle/ellipse |
+| `drawing-paint.ellipse` | Ellipses | ellipse cx/cy/rx/ry | paint | planned | spec/conformance/paint-shape-ellipse; packages/web/test/paint-geometry.test.ts |
 | `drawing-paint.feather-enabled` | feather enabled | new: feather.enabled on a paint | paint | planned | oracle/feather-enabled |
 | `drawing-paint.feather-inner` | feather inner | new: feather.inner on a paint | paint | planned | oracle/feather-inner |
 | `drawing-paint.feather-offset` | feather offset | new: feather.offset on a paint | paint | planned | oracle/feather-offset |
@@ -512,21 +512,21 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `drawing-paint.paint-image` | Images in paints | new: paint.image with optional color modulation | paint | planned | oracle/paint-image |
 | `drawing-paint.paint-image-transform` | Image paint mapping | new: paint.image transform in grid units and degrees | paint | planned | oracle/paint-image-transform |
 | `drawing-paint.paint-visible` | Paint visibility | new: paints[].visible | paint | planned | oracle/paint-visible |
-| `drawing-paint.polygon` | Regular polygons | new: polygon with sides and size | paint | planned | oracle/polygon |
-| `drawing-paint.polygon-rounded` | Rounded polygons | new: polygon.cornerRadius in grid units | paint | planned | oracle/polygon-rounded |
-| `drawing-paint.rectangle-corner-radii` | Independent rectangle corners | new: rect.corners: [topLeft, topRight, bottomRight, bottomLeft] | paint | planned | oracle/rectangle-corner-radii |
+| `drawing-paint.polygon` | Regular polygons | polygon cx/cy/sides/radius/rotation | paint | planned | spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.polygon-rounded` | Rounded polygons | polygon cornerRadius cutback/quadratic | paint | planned | spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.rectangle-corner-radii` | Independent rectangle corners | rect corners [tl,tr,br,bl], animated corners.0–3 | paint | planned | spec/conformance/paint-shape-corners; packages/web/test/paint-geometry.test.ts |
 | `drawing-paint.rounded-vertex` | rounded vertex | new: editable vertices with rounded vertex geometry | paint | planned | oracle/rounded-vertex |
 | `drawing-paint.shared-effects` | Reusable path effects | new: effects map with reusable trim and dash stacks | paint | planned | oracle/shared-effects |
-| `drawing-paint.star` | Stars | new: star with points and innerRadius | paint | planned | oracle/star |
-| `drawing-paint.star-rounded` | Rounded stars | new: star.cornerRadius in grid units | paint | planned | oracle/star-rounded |
+| `drawing-paint.star` | Stars | star cx/cy/points/radius/innerRadius | paint | planned | spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.star-rounded` | Rounded stars | star cornerRadius cutback/quadratic | paint | planned | spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts |
 | `drawing-paint.straight-vertex` | straight vertex | new: editable vertices with straight vertex geometry | paint | planned | oracle/straight-vertex |
 | `drawing-paint.stroke-position-inside` | inside stroke placement | new: stroke.position: inside | paint | planned | oracle/stroke-position-inside |
 | `drawing-paint.stroke-position-outside` | outside stroke placement | new: stroke.position: outside | paint | planned | oracle/stroke-position-outside |
-| `drawing-paint.stroke-transform-independent` | Unscaled strokes | new: stroke.scale: fixed-grid-units | paint | planned | oracle/stroke-transform-independent |
-| `drawing-paint.triangle` | Triangles | new: triangle with width and height | paint | planned | oracle/triangle |
+| `drawing-paint.stroke-transform-independent` | Unscaled strokes | stroke.scale=fixed; vector-effect non-scaling-stroke | paint | planned | spec/conformance/paint-shape-fixed; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.triangle` | Triangles | triangle x0/y0/width/height | paint | planned | spec/conformance/paint-shape-triangle; packages/web/test/paint-geometry.test.ts |
 | `drawing-paint.trim-sequential` | Sequential contour trim | new: stroke.trim.mode: sequential | paint | planned | oracle/trim-sequential |
 | `drawing-paint.trim-synchronized` | Synchronized contour trim | new: stroke.trim.mode: synchronized | paint | planned | oracle/trim-synchronized |
-| `drawing-paint.vertex-animation` | Vertex and handle animation | <id>.d (path morph track) | paint | spec'd | oracle/vertex-animation |
+| `drawing-paint.vertex-animation` | Vertex and handle animation | path d compatible command-list morph track | paint | spec'd | spec/conformance/paint-morph; packages/web/test/paint-geometry.test.ts |
 
 ### Transforms and draw order
 

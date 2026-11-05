@@ -17,6 +17,7 @@ export const LIGHT: Look = { paint: staticSlots(), color: '#141413' };
 /** One frame as a standalone SVG. */
 export function frameSVG(p: Player, look: Look, size?: number, id = 'a'): string {
   const svg = toSVG(p, {
+    staticLengths: true,
     paint: look.paint,
     background: look.background,
     width: size,

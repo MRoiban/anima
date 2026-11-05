@@ -1,11 +1,11 @@
 # Work log
 
 ## Now
-Goal: P4 in sub-phases P4a–P4e (spec/MODULES.md); now P4a paint on branch p4a-paint (module system pilot).
-State: main c1f1288 = M0–M5, Phase A, P1, P3 (PR #9 merged). Parity 127/1238 done.
-Next: P4a-1 Sol: module system + gradients + dashes; then P4a-2 rest of paint; PR. Images/n-slice/feather wait for P5 assets/components.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: P4a-2 geometry implementation sub-agent; branch t3/paint-geometry-morphing, commit locally only.
+State: all 6 geometry tasks implemented; final npm run check green (581 tests, both browsers).
+Next: orchestrator integrates geometry with composite.ts; report commit (no push/PR).
+Don't: push/PR/merge; touch composite.ts, Rive files/account commands, runtime dependencies or licence.
+Parallel compositing work must be integrated by orchestrator; parity statuses left unchanged.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -58,3 +58,7 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 21:50 [claude]: PR #9 opened; playground first test hit Vitest 5 s default under full load → suite timeout 30 s; npm run check 437 pass
 - 2026-11-05 22:10 [claude]: PR #9 merged (c1f1288); P4 plan: 456 rows → P4a–P4e on a module system; wrote spec/MODULES.md (design)
 - 2026-11-05 23:30 [claude]: merged P4a-1 (ca2ee80): module system 5/5 hooks, paint gradients+dashes; core+web 16461 (+581), paint 2091/5120, markup 6104/6144 (near budget); found resvg ignores pathLength → PNG dashes/trims wrong (fix in P4a-2)
+- 2026-11-05 17:22 [sol geometry]: new shape/corner/morph/fixed-stroke and static PNG length implementation; 7 hand-computed conformance cases; Chromium+Firefox geometry tests passed (evidence: focused vitest 2/2).
+- 2026-11-05 17:22 [sol geometry]: first full checks failed on obsolete fixture expectations, duplicate d spelling, new corpus formatting and stale bundles during edits → repaired; final full check pending (unverified).
+- 2026-11-05 17:24 [sol geometry]: full check passed 580/580 and budgets; review then fixed selected-inline-subpath preservation, added regression and paint.animl pixel dash count → focused tests 23/23; final full rerun pending (evidence: /tmp/anima-geometry-check.log, vitest).
+- 2026-11-05 17:26 [sol geometry]: final npm run check green → 31 files/581 tests, both browsers, generated web and 27 AniML outputs current; paint 3679/5120 B, markup 6524/8192 B, core+web 16519 B (+58 vs checkout) (evidence: /tmp/anima-geometry-final-check.log). No push/PR/merge.

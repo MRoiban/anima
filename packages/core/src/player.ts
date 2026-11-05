@@ -14,6 +14,7 @@ import type {
   TransitionM,
   Value,
 } from './load.ts';
+import { modules } from './modules.ts';
 import { flatten } from './path.ts';
 import { text } from './diag.ts';
 import { VERBOSE as V } from './flags.ts';
@@ -87,15 +88,17 @@ export function sampleTrack(tr: TrackM, t: number): Value {
   const b = tr.values[i + 1]!;
   if (typeof a === 'boolean') return a;
   const w = tr.eases[i]!((t - ts[i]!) / (ts[i + 1]! - ts[i]!));
-  return typeof a === 'number' ? a + ((b as number) - a) * w : lerpColor(a, b as RGBA, w);
+  return lerp(a, b, w);
 }
 
 const lerp = (a: Value, b: Value, w: number): Value =>
-  typeof a === 'number'
-    ? a + ((b as number) - a) * w
-    : typeof a === 'boolean'
-      ? a || (b as boolean)
-      : lerpColor(a, b as RGBA, w);
+  typeof a === 'string'
+    ? ([...modules.values()].map((m) => m.interpolate?.(a, b, w)).find((v) => v !== undefined) ?? a)
+    : typeof a === 'number'
+      ? a + ((b as number) - a) * w
+      : typeof a === 'boolean'
+        ? a || (b as boolean)
+        : lerpColor(a, b as RGBA, w);
 
 export class Player {
   readonly model: Model;
@@ -363,6 +366,10 @@ export class Player {
 
   /** A painted node's outline as polylines in its own coordinates, from current values. */
   #outline(i: number): { pts: number[]; closed: boolean }[] {
+    for (const m of modules.values()) {
+      const out = m.outline?.(this, i);
+      if (out) return out;
+    }
     const n = this.model.nodes[i]!;
     if (n.type === 'path') {
       let f = this.#flat.get(i);

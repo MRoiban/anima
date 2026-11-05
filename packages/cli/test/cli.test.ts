@@ -357,7 +357,9 @@ describe('anima inspect, schema, docs', () => {
       ),
     ).toContain('trimEnd');
     expect(JSON.parse((await cli('schema', '--json-schema')).out).$defs.node).toBeDefined();
-    expect((await cli('schema', 'ellipse')).code).toBe(2);
+    expect((await cli('schema', 'ellipse')).code).toBe(0);
+    for (const type of ['ellipse', 'polygon', 'star', 'triangle', 'rect', 'path'])
+      expect((await cli('schema', type)).out).toContain('paint');
   });
 
   it.each([

@@ -125,7 +125,13 @@ export function decompile(doc: string | object): string {
       for (const [target, keys] of entries(t.tracks)) {
         const track = element('track', {}, [], [['target', address(target)]]);
         track.children.push({
-          text: (keys as unknown[][]).map((k) => k.map(value).join(' ')).join('\n'),
+          text: (keys as unknown[][])
+            .map((k) =>
+              k
+                .map((v, i) => (i === 1 && target.endsWith('.d') ? JSON.stringify(v) : value(v)))
+                .join(' '),
+            )
+            .join('\n'),
         });
         el.children.push(track);
       }

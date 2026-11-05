@@ -319,6 +319,7 @@ export class Compiler {
     throw new Error(VERBOSE ? 'expected a colour literal or slot name' : '');
   }
   private scalar(s: string, color = true): number | boolean | string {
+    if (s.startsWith('"')) return JSON.parse(s) as string;
     if (s === 'true' || s === 'false') return s === 'true';
     if (IS_NUMBER.test(s)) return this.num(s);
     if (color && (NAME.test(s) || parseHex(s))) return s;
@@ -712,7 +713,7 @@ export class Compiler {
     const keys: unknown[][] = [];
     for (const m of value.matchAll(/[^;\r\n]+/g)) {
       const line = m[0];
-      const tokens = [...line.matchAll(/\S+/g)];
+      const tokens = [...line.matchAll(/"(?:\\.|[^"\\])*"|\S+/g)];
       if (!tokens.length) continue;
       const at = (i: number) => this.xml!.pos(offsets[m.index + i] ?? el.at.offset);
       const kp = ptr(p, keys.length);

@@ -1,0 +1,9 @@
+<anima version="0.1" name="paint-triangle" grid="20" requires="paint">
+  <triangle id="a" x0="2" y0="2" width="16" height="16" fill="#f00"/>
+  <timeline name="t" duration="1">
+    <track target="a.width">0 16; 1 8</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

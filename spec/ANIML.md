@@ -194,7 +194,7 @@ HTML parses `<path/>` and friends as HTML, so markup in a page is wrapped in a s
 
 The markup forms of the `.ani` features reserved in SPEC §12 are reserved too, and rejected with
 the loader's `reserved` code: `<layer mode="additive">`, `<bind target from map>`, a track target
-`<id>.d` (path morphing), `spring(…)` eases, and `<timeline colorSpace>`.
+`spring(…)` eases, and `<timeline colorSpace>`.
 
 ## Paint module
 
@@ -225,3 +225,12 @@ Gradient coordinate and stop addresses are identical in both syntaxes, e.g. `dis
 `stroke-dashoffset` (number). The offset's track/pose address `disc.stroke-dashoffset` maps to
 `disc.stroke.dashOffset`. Units, sampling and trim precedence are defined in SPEC's paint chapter.
 Module element/attribute names and canonical order derive from the same registry as `.ani`.
+
+## Paint geometry forms
+
+With requires="paint", ellipse, polygon, star and triangle are painted elements.
+Their attributes match the numeric parameter names in SPEC's paint chapter.
+Rect corners="1 1 0 0" supplies TL/TR/BR/BL; tracks address tile.corners.0 through .3.
+Stroke-scale="fixed" maps to stroke.scale. Morph tracks target pathId.d and enclose
+SVG paths in JSON double quotes: 0 "M0 0L2 2"; 1 "M1 1L3 3".
+See examples/shapes.animl for a complete document and SPEC for bounds and diagnostics.

@@ -116,6 +116,8 @@ and an oracle test against Rive.
     - [x] P4a-1: module registry and all five hooks; linear/radial gradients and absolute/relative
           dashes through spec, diagnostics, AniML, CLI, conformance, examples and both browsers;
           paint budget enforced, core hook delta within 600 B.
+    - [x] P4a-2 geometry implementation: ellipse/polygon/star/triangle, per-corner rects,
+      compatible path morphs, fixed stroke, static raster length normalization; integration/oracles pending.
     - [ ] P4a-1 oracle follow-up: add/run the corresponding Rive cases (MODULES §5); parity statuses
           stay with the orchestrator.
   - [ ] P4b `motion`: eases, typed/string tracks, seek/reverse/work area/quantize, host timeline
