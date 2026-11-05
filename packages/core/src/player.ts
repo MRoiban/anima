@@ -85,66 +85,65 @@ export class Player {
   readonly model: Model;
   /** Animated addresses, in slot order. */
   readonly addrs: string[];
-  private readonly slots = new Map<string, number>();
-  private readonly rest: Value[];
-  private vals: Value[];
-  private readonly inputVals = new Map<string, number | boolean>();
+  readonly #slots = new Map<string, number>();
+  readonly #rest: Value[];
+  #vals: Value[];
+  readonly #inputVals = new Map<string, number | boolean>();
   /** Pending triggers and how long they have been pending. */
-  private readonly pending = new Map<string, number>();
-  private queue: [op: 'set' | 'fire' | 'toggle' | 'emit', name: string, v?: number | boolean][] =
-    [];
-  private readonly layers: LayerRun[];
-  private readonly writes: Write[][][];
-  private entryEvents: AnimaEvent[] = [];
-  private lastSettled = false;
+  readonly #pending = new Map<string, number>();
+  #queue: [op: 'set' | 'fire' | 'toggle' | 'emit', name: string, v?: number | boolean][] = [];
+  readonly #layers: LayerRun[];
+  readonly #writes: Write[][][];
+  #entryEvents: AnimaEvent[] = [];
+  #lastSettled = false;
   /** Slots whose value changed since `takeDirty()`. */
-  private readonly dirtySet = new Set<number>();
+  readonly #dirtySet = new Set<number>();
   /** Reduced motion (spec §10): applies to states entered from now on. */
   reducedMotion = false;
   /** Total step time. */
   time = 0;
   // pointer
-  private over: boolean[];
-  private press: boolean[] | null = null;
-  private pressAt: [number, number] = [0, 0];
-  private pressMoved = 0;
-  private flat = new Map<number, { pts: number[]; closed: boolean }[]>();
+  #over: boolean[];
+  #press: boolean[] | null = null;
+  #pressAt: [number, number] = [0, 0];
+  #pressMoved = 0;
+  #flat = new Map<number, { pts: number[]; closed: boolean }[]>();
 
   constructor(model: Model, opts: { reducedMotion?: boolean } = {}) {
     this.model = model;
     this.reducedMotion = !!opts.reducedMotion;
     this.addrs = [...model.addrs.keys()];
-    this.addrs.forEach((a, i) => this.slots.set(a, i));
-    this.rest = this.addrs.map((a) => model.addrs.get(a)!.rest);
-    this.vals = this.rest.slice();
+    this.addrs.forEach((a, i) => this.#slots.set(a, i));
+    this.#rest = this.addrs.map((a) => model.addrs.get(a)!.rest);
+    this.#vals = this.#rest.slice();
     for (const inp of model.inputs.values())
-      if (inp.type !== 'trigger') this.inputVals.set(inp.name, inp.def);
+      if (inp.type !== 'trigger') this.#inputVals.set(inp.name, inp.def);
     // Per state, the writes it makes: [slot, constant value or track].
-    this.writes = model.layers.map((l) =>
+    this.#writes = model.layers.map((l) =>
       l.states.map((s) =>
         s.pose
-          ? [...s.pose].map(([a, v]): Write => [this.slots.get(a)!, v])
+          ? [...s.pose].map(([a, v]): Write => [this.#slots.get(a)!, v])
           : s.play !== undefined
-            ? model.timelines[s.play]!.tracks.map((t): Write => [this.slots.get(t.addr)!, t])
+            ? model.timelines[s.play]!.tracks.map((t): Write => [this.#slots.get(t.addr)!, t])
             : [],
       ),
     );
-    this.layers = model.layers.map((m) => ({
+    this.#layers = model.layers.map((m) => ({
       m,
       state: m.initial,
       time: 0,
       fade: null,
       frozen: -1,
     }));
-    this.layers.forEach((L) => this.enter(L, L.state, 0, null, 0, null, this.entryEvents));
-    this.over = model.listeners.map(() => false);
-    this.resolve();
-    this.dirtySet.clear();
+    this.#layers.forEach((L) => this.#enter(L, L.state, 0, null, 0, null, this.#entryEvents));
+    this.#over = model.listeners.map(() => false);
+    this.#resolve();
+    this.#dirtySet.clear();
   }
 
   // ------------------------------------------------------------------ host interface
 
-  private input(name: string, types: InputM['type'][]): InputM {
+  #input(name: string, types: InputM['type'][]): InputM {
     const inp = this.model.inputs.get(name);
     if (!inp) throw new Error(`anima: no input "${name}"`);
     if (!types.includes(inp.type)) throw new Error(`anima: input "${name}" is ${inp.type}`);
@@ -153,46 +152,46 @@ export class Player {
 
   /** Queue a write to a bool or number input (applied by the next step). */
   set(name: string, value: number | boolean): void {
-    const inp = this.input(name, ['bool', 'number']);
+    const inp = this.#input(name, ['bool', 'number']);
     if (
       typeof value !== (inp.type === 'bool' ? 'boolean' : 'number') ||
       (typeof value === 'number' && !Number.isFinite(value))
     )
       throw new Error(`anima: input "${name}" takes a ${inp.type}`);
-    this.queue.push(['set', name, value]);
+    this.#queue.push(['set', name, value]);
   }
 
   fire(name: string): void {
-    this.input(name, ['trigger']);
-    this.queue.push(['fire', name]);
+    this.#input(name, ['trigger']);
+    this.#queue.push(['fire', name]);
   }
 
   toggle(name: string): void {
-    this.input(name, ['bool']);
-    this.queue.push(['toggle', name]);
+    this.#input(name, ['bool']);
+    this.#queue.push(['toggle', name]);
   }
 
   /** Current value of a bool or number input (before queued writes). */
   get(name: string): number | boolean | undefined {
-    return this.inputVals.get(name);
+    return this.#inputVals.get(name);
   }
 
   get busy(): boolean {
-    return this.queue.length > 0 || !this.lastSettled;
+    return this.#queue.length > 0 || !this.#lastSettled;
   }
 
   /** Current state of each layer. */
   states(): Record<string, string> {
     const o: Record<string, string> = {};
-    for (const L of this.layers) o[L.m.name] = L.m.states[L.state]!.name;
+    for (const L of this.#layers) o[L.m.name] = L.m.states[L.state]!.name;
     return o;
   }
 
   /** Resolved value of an animated address, colours as hex. */
   value(addr: string): number | boolean | string | undefined {
-    const s = this.slots.get(addr);
+    const s = this.#slots.get(addr);
     if (s === undefined) return undefined;
-    const v = this.vals[s]!;
+    const v = this.#vals[s]!;
     return Array.isArray(v) ? formatHex(v) : v;
   }
 
@@ -205,16 +204,16 @@ export class Player {
 
   /** Slots changed since the last call. */
   takeDirty(): number[] {
-    const d = [...this.dirtySet];
-    this.dirtySet.clear();
+    const d = [...this.#dirtySet];
+    this.#dirtySet.clear();
     return d;
   }
 
   /** A node property's current value (animated or rest), by key (`rotate`, `fill.color`, …). */
   prop(node: number, key: string): Value | string | undefined {
     const n = this.model.nodes[node]!;
-    const s = this.slots.get(n.id + '.' + key);
-    if (s !== undefined) return this.vals[s];
+    const s = this.#slots.get(n.id + '.' + key);
+    if (s !== undefined) return this.#vals[s];
     const dot = key.indexOf('.');
     return dot < 0 ? n.raw[key] : n.raw[key.slice(0, dot)]?.[key.slice(dot + 1)];
   }
@@ -260,37 +259,40 @@ export class Player {
     const now = ls.map((l) => kind !== 'leave' && this.hits(l, x, y));
     const run = (on: ListenerM['on'], when: (i: number) => boolean) =>
       ls.forEach((l, i) => {
-        if (l.on === on && when(i)) this.act(l);
+        if (l.on === on && when(i)) this.#act(l);
       });
-    run('leave', (i) => this.over[i]! && !now[i]);
-    run('enter', (i) => !this.over[i] && now[i]!);
+    run('leave', (i) => this.#over[i]! && !now[i]);
+    run('enter', (i) => !this.#over[i] && now[i]!);
     if (kind === 'move') {
       run('move', (i) => now[i]!);
-      if (this.press)
-        this.pressMoved = Math.max(
-          this.pressMoved,
-          Math.hypot(x - this.pressAt[0], y - this.pressAt[1]),
+      if (this.#press)
+        this.#pressMoved = Math.max(
+          this.#pressMoved,
+          Math.hypot(x - this.#pressAt[0], y - this.#pressAt[1]),
         );
     } else if (kind === 'down') {
       run('down', (i) => now[i]!);
-      this.press = now;
-      this.pressAt = [x, y];
-      this.pressMoved = 0;
+      this.#press = now;
+      this.#pressAt = [x, y];
+      this.#pressMoved = 0;
     } else if (kind === 'up') {
       run('up', (i) => now[i]!);
-      const p = this.press;
-      const moved = Math.max(this.pressMoved, Math.hypot(x - this.pressAt[0], y - this.pressAt[1]));
+      const p = this.#press;
+      const moved = Math.max(
+        this.#pressMoved,
+        Math.hypot(x - this.#pressAt[0], y - this.#pressAt[1]),
+      );
       if (p && moved < 0.5) run('click', (i) => now[i]! && p[i]!);
-      this.press = null;
-    } else this.press = null;
-    this.over = now;
+      this.#press = null;
+    } else this.#press = null;
+    this.#over = now;
   }
 
-  private act(l: ListenerM): void {
-    for (const n of l.fire) this.queue.push(['fire', n]);
-    for (const [n, v] of l.set) this.queue.push(['set', n, v]);
-    for (const n of l.toggle) this.queue.push(['toggle', n]);
-    if (l.emit) this.queue.push(['emit', l.emit]);
+  #act(l: ListenerM): void {
+    for (const n of l.fire) this.#queue.push(['fire', n]);
+    for (const [n, v] of l.set) this.#queue.push(['set', n, v]);
+    for (const n of l.toggle) this.#queue.push(['toggle', n]);
+    if (l.emit) this.#queue.push(['emit', l.emit]);
   }
 
   /** Does the listener's target contain the point? */
@@ -310,7 +312,7 @@ export class Player {
       const m = this.world(i);
       const pad = l.pad / Math.sqrt(Math.abs(m[0] * m[3] - m[1] * m[2]));
       const [lx, ly] = apply(inv, x, y);
-      const polys = this.outline(i);
+      const polys = this.#outline(i);
       const r = n.raw;
       const half = r.stroke ? this.num(i, 'stroke.width', 1) / 2 : 0;
       if (
@@ -332,11 +334,11 @@ export class Player {
   }
 
   /** A painted node's outline as polylines in its own coordinates, from current values. */
-  private outline(i: number): { pts: number[]; closed: boolean }[] {
+  #outline(i: number): { pts: number[]; closed: boolean }[] {
     const n = this.model.nodes[i]!;
     if (n.type === 'path') {
-      let f = this.flat.get(i);
-      if (!f) this.flat.set(i, (f = flatten(n.geom!)));
+      let f = this.#flat.get(i);
+      if (!f) this.#flat.set(i, (f = flatten(n.geom!)));
       return f;
     }
     const r = n.raw;
@@ -361,61 +363,61 @@ export class Player {
 
   step(dt: number): StepResult {
     if (!(dt >= 0)) throw new Error('anima: step needs dt ≥ 0');
-    const events = this.entryEvents;
-    this.entryEvents = [];
+    const events = this.#entryEvents;
+    this.#entryEvents = [];
     this.time += dt;
     // 1. Inputs
-    for (const [op, name, v] of this.queue) {
+    for (const [op, name, v] of this.#queue) {
       if (op === 'fire') {
-        if (!this.pending.has(name)) this.pending.set(name, 0);
-      } else if (op === 'toggle') this.inputVals.set(name, !this.inputVals.get(name));
+        if (!this.#pending.has(name)) this.#pending.set(name, 0);
+      } else if (op === 'toggle') this.#inputVals.set(name, !this.#inputVals.get(name));
       else if (op === 'emit') events.push({ name, layer: null, time: 0 });
       else {
         const inp = this.model.inputs.get(name)!;
-        this.inputVals.set(
+        this.#inputVals.set(
           name,
           typeof v === 'number' ? Math.min(inp.max, Math.max(inp.min, v)) : v!,
         );
       }
     }
-    this.queue = [];
+    this.#queue = [];
     // 2. Clocks
-    const prev = this.layers.map((L) => L.time);
-    for (const L of this.layers) {
+    const prev = this.#layers.map((L) => L.time);
+    for (const L of this.#layers) {
       L.time += dt;
       if (L.fade && (L.fade.t += dt) >= L.fade.dur) L.fade = null;
     }
     // 3. Layers
     const consumed = new Set<string>();
-    const V = this.rest.slice();
-    this.layers.forEach((L, li) => {
+    const V = this.#rest.slice();
+    this.#layers.forEach((L, li) => {
       const st = L.m.states[L.state]!;
       if (st.play !== undefined && L.frozen < 0)
-        this.timelineEvents(L, st, prev[li]! * st.speed, L.time * st.speed, false, events);
+        this.#timelineEvents(L, st, prev[li]! * st.speed, L.time * st.speed, false, events);
       const used = new Set<string>();
       for (let n = 0; ; n++) {
         const cur = L.m.states[L.state]!;
-        const tr = L.fade?.lock ? undefined : cur.on.find((t) => this.holds(t, L, cur, used));
+        const tr = L.fade?.lock ? undefined : cur.on.find((t) => this.#holds(t, L, cur, used));
         if (!tr) break;
         if (n === MAX_CHAIN) {
           events.push({ name: '@limit', layer: L.m.name, time: 0 });
           break;
         }
         const tmp = V.slice();
-        this.write(L, tmp);
+        this.#write(L, tmp);
         const keys = new Set([
           ...(L.fade?.from.keys() ?? []),
-          ...this.writes[li]![L.state]!.map((w) => w[0]),
+          ...this.#writes[li]![L.state]!.map((w) => w[0]),
         ]);
         const snap = new Map([...keys].map((k) => [k, tmp[k]!]));
         for (const t of tr.triggers) {
           used.add(t);
           consumed.add(t);
         }
-        this.enter(
+        this.#enter(
           L,
           tr.to,
-          this.carry(tr, L, cur),
+          this.#carry(tr, L, cur),
           snap,
           tr.blend,
           tr.ease,
@@ -423,7 +425,7 @@ export class Player {
           !tr.interruptible,
         );
       }
-      this.write(L, V);
+      this.#write(L, V);
     });
     // 4. Clamp
     V.forEach((v, i) => {
@@ -433,29 +435,29 @@ export class Player {
       }
     });
     V.forEach((v, i) => {
-      const o = this.vals[i]!;
+      const o = this.#vals[i]!;
       if (Array.isArray(v) && Array.isArray(o) ? v.some((c, k) => c !== o[k]) : v !== o)
-        this.dirtySet.add(i);
+        this.#dirtySet.add(i);
     });
-    this.vals = V;
+    this.#vals = V;
     // 5. Triggers
-    for (const [name, age] of this.pending) {
+    for (const [name, age] of this.#pending) {
       const buf = this.model.inputs.get(name)!.buffer;
-      if (consumed.has(name) || !buf || age + dt > buf) this.pending.delete(name);
-      else this.pending.set(name, age + dt);
+      if (consumed.has(name) || !buf || age + dt > buf) this.#pending.delete(name);
+      else this.#pending.set(name, age + dt);
     }
     // 6. Settled
-    this.lastSettled = !this.pending.size && this.layers.every((L) => this.atRest(L));
-    return { events, settled: this.lastSettled };
+    this.#lastSettled = !this.#pending.size && this.#layers.every((L) => this.#atRest(L));
+    return { events, settled: this.#lastSettled };
   }
 
-  private resolve(): void {
-    const V = this.rest.slice();
-    this.layers.forEach((L) => this.write(L, V));
-    this.vals = V;
+  #resolve(): void {
+    const V = this.#rest.slice();
+    this.#layers.forEach((L) => this.#write(L, V));
+    this.#vals = V;
   }
 
-  private atRest(L: LayerRun): boolean {
+  #atRest(L: LayerRun): boolean {
     if (L.fade) return false;
     const st = L.m.states[L.state]!;
     if (st.play !== undefined && L.frozen < 0) {
@@ -465,17 +467,17 @@ export class Player {
     return !st.on.some((t) => t.terms.some((x) => x.k === 'after' && x.s > L.time));
   }
 
-  private finished(L: LayerRun, st: StateM): boolean {
+  #finished(L: LayerRun, st: StateM): boolean {
     if (st.play === undefined) return false;
     return L.frozen >= 0 || L.time * st.speed >= this.model.timelines[st.play]!.duration;
   }
 
-  private holds(t: TransitionM, L: LayerRun, st: StateM, used: Set<string>): boolean {
+  #holds(t: TransitionM, L: LayerRun, st: StateM, used: Set<string>): boolean {
     return t.terms.every((x) => {
-      if (x.k === 'end') return this.finished(L, st);
+      if (x.k === 'end') return this.#finished(L, st);
       if (x.k === 'after') return L.time >= x.s;
       if (x.k === 'cmp') {
-        const v = this.inputVals.get(x.name) as number;
+        const v = this.#inputVals.get(x.name) as number;
         const c = x.value;
         return x.op === '=='
           ? v === c
@@ -490,13 +492,13 @@ export class Player {
                   : v >= c;
       }
       if (this.model.inputs.get(x.name)!.type === 'trigger')
-        return this.pending.has(x.name) && !used.has(x.name);
-      return !this.inputVals.get(x.name) === x.not;
+        return this.#pending.has(x.name) && !used.has(x.name);
+      return !this.#inputVals.get(x.name) === x.not;
     });
   }
 
   /** Spec §7.3.2(c): overshoot of the time term that made the condition hold. */
-  private carry(t: TransitionM, L: LayerRun, st: StateM): number {
+  #carry(t: TransitionM, L: LayerRun, st: StateM): number {
     let c = 0;
     for (const x of t.terms) {
       if (x.k === 'after') c = Math.max(c, L.time - x.s);
@@ -509,7 +511,7 @@ export class Player {
     return c;
   }
 
-  private enter(
+  #enter(
     L: LayerRun,
     to: number,
     carry: number,
@@ -535,11 +537,11 @@ export class Player {
       L.frozen = tl.reduced === 'end' ? tl.duration : 0;
       if (tl.reduced === 'end')
         for (const [t, name] of tl.events) events.push({ name, layer: L.m.name, time: t });
-    } else this.timelineEvents(L, st, 0, carry * st.speed, true, events);
+    } else this.#timelineEvents(L, st, 0, carry * st.speed, true, events);
   }
 
   /** Timeline events whose played time lies in (a, b] — or [a, b] when `closed`. */
-  private timelineEvents(
+  #timelineEvents(
     L: LayerRun,
     st: StateM,
     a: number,
@@ -575,10 +577,10 @@ export class Player {
   }
 
   /** The resolve rule (spec §7): write layer L's output over V. */
-  private write(L: LayerRun, V: Value[]): void {
-    const li = this.layers.indexOf(L);
+  #write(L: LayerRun, V: Value[]): void {
+    const li = this.#layers.indexOf(L);
     const st = L.m.states[L.state]!;
-    const ws = this.writes[li]![L.state]!;
+    const ws = this.#writes[li]![L.state]!;
     let local = 0;
     if (st.play !== undefined)
       local =
