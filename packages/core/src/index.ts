@@ -26,3 +26,4 @@ export {
 export * from './registry.ts';
 export { jsonSchema } from './schema.ts';
 export { VERBOSE } from './flags.ts';
+export { formatAni } from './format.ts';

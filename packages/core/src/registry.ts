@@ -13,6 +13,8 @@ export interface Prop {
   /** Range the resolved value is clamped to, and the document value must lie in. */
   min?: number;
   max?: number;
+  /** The AniML attribute name, where it differs from the .ani key (spec/ANIML.md §3). */
+  markup?: string;
 }
 
 const num = (def?: number, min?: number, max?: number): Prop => ({ type: 'number', def, min, max });
@@ -38,16 +40,20 @@ export const OWN: Record<NodeType, Record<string, Prop>> = {
   group: {},
   path: {},
   circle: { r: num(undefined, 0) },
-  rect: { w: num(undefined, 0), h: num(undefined, 0), rx: num(0, 0) },
+  rect: {
+    w: { ...num(undefined, 0), markup: 'width' },
+    h: { ...num(undefined, 0), markup: 'height' },
+    rx: num(0, 0),
+  },
   arc: { r: num(undefined, 0), from: num(), to: num() },
 };
 
 /** Animatable paint fields, addressed `<id>.fill.<field>` / `<id>.stroke.<field>`. */
 export const PAINT: Record<'fill' | 'stroke', Record<string, Prop>> = {
-  fill: { color: { type: 'color' } },
+  fill: { color: { type: 'color', markup: 'fill' } },
   stroke: {
-    color: { type: 'color' },
-    width: num(1, 0),
+    color: { type: 'color', markup: 'stroke' },
+    width: { ...num(1, 0), markup: 'stroke-width' },
     trimStart: num(0, 0, 1),
     trimEnd: num(1, 0, 1),
     trimOffset: num(0),
@@ -56,7 +62,8 @@ export const PAINT: Record<'fill' | 'stroke', Record<string, Prop>> = {
 
 // ---------------------------------------------------------------- document shape
 
-export type Shape =
+/** One entry defines both spellings: `markup` is the AniML name where it differs from the key. */
+export type Shape = (
   | { k: 'str'; re?: RegExp; of?: readonly string[] }
   | { k: 'num'; min?: number; max?: number; gt?: number; int?: boolean }
   | { k: 'bool' }
@@ -66,7 +73,11 @@ export type Shape =
   | { k: 'obj'; p: Record<string, Shape>; req?: string[]; reserved?: Record<string, string> }
   | { k: 'map'; of: Shape; key?: RegExp }
   | { k: 'alt'; of: Shape[] }
-  | { k: 'node' };
+  | { k: 'node' }
+) & { markup?: string };
+
+/** The AniML attribute name of a key: its `markup` name, or the key itself. */
+export const markupName = (s: Shape | Prop | undefined, key: string): string => s?.markup ?? key;
 
 export const NAME = /^[a-z][a-zA-Z0-9-]*$/;
 export const DOC_NAME = /^[a-z0-9]+(-[a-z0-9]+)*$/;
@@ -88,17 +99,27 @@ const O = (p: Record<string, Shape>, req?: string[], reserved?: Record<string, s
 const MAP = (of: Shape, key?: RegExp): Shape => ({ k: 'map', of, key });
 const ALT = (...of: Shape[]): Shape => ({ k: 'alt', of });
 const VEC2 = T([N(), N()]);
+const named = (s: Shape, markup: string): Shape => ({ ...s, markup });
 const NAMES = ALT(S(NAME), A(S(NAME), 1));
-const propShape = (p: Prop): Shape =>
-  p.type === 'bool' ? B : p.type === 'color' ? S() : N({ min: p.min, max: p.max });
+const propShape = (p: Prop): Shape => {
+  const s = p.type === 'bool' ? B : p.type === 'color' ? S() : N({ min: p.min, max: p.max });
+  return p.markup ? named(s, p.markup) : s;
+};
 
-const FILL = O({ color: S(), rule: S(undefined, ['nonzero', 'evenodd']) }, ['color']);
+// Paint is flattened onto the node in AniML, with SVG's names (spec/ANIML.md §3).
+const FILL = O(
+  {
+    color: propShape(PAINT.fill.color!),
+    rule: named(S(undefined, ['nonzero', 'evenodd']), 'fill-rule'),
+  },
+  ['color'],
+);
 const STROKE = O(
   {
-    color: S(),
+    color: propShape(PAINT.stroke.color!),
     width: propShape(PAINT.stroke.width!),
-    cap: S(undefined, ['butt', 'round', 'square']),
-    join: S(undefined, ['miter', 'round', 'bevel']),
+    cap: named(S(undefined, ['butt', 'round', 'square']), 'stroke-linecap'),
+    join: named(S(undefined, ['miter', 'round', 'bevel']), 'stroke-linejoin'),
     trimStart: propShape(PAINT.stroke.trimStart!),
     trimEnd: propShape(PAINT.stroke.trimEnd!),
     trimOffset: N(),
@@ -110,9 +131,9 @@ const STROKE = O(
 export const STATIC: Record<NodeType, Record<string, Shape>> = {
   group: { children: A({ k: 'node' }) },
   path: { glyph: S(NAME), subpaths: A(N({ min: 0, int: true }), 1), d: S() },
-  circle: { center: VEC2 },
+  circle: { center: named(VEC2, 'cx cy') },
   rect: { x0: N(), y0: N() },
-  arc: { center: VEC2 },
+  arc: { center: named(VEC2, 'cx cy') },
 };
 
 export type ObjShape = Extract<Shape, { k: 'obj' }>;

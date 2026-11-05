@@ -4,6 +4,7 @@
   "type": "module",
   "workspaces": [
     "packages/core",
+    "packages/markup",
     "packages/web",
     "packages/cli"
   ],
@@ -12,7 +13,7 @@
   },
   "scripts": {
     "test": "vitest run",
-    "typecheck": "tsc -p packages/core && tsc -p packages/core/test && tsc -p packages/web && tsc -p packages/web/test && tsc -p packages/cli && tsc -p tools",
+    "typecheck": "tsc -p packages/core && tsc -p packages/core/test && tsc -p packages/markup && tsc -p packages/markup/test && tsc -p packages/web && tsc -p packages/web/test && tsc -p packages/cli && tsc -p tools",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",

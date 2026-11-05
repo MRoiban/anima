@@ -18,7 +18,7 @@ import {
   runScript,
   staticSlots,
 } from '@anima-format/core';
-import { format } from './fmt.ts';
+import { formatAni as format } from '@anima-format/core';
 import { lineCol, locate, syntaxErrorAt } from './locate.ts';
 import { DARK, LIGHT, type Look, frameSVG, sheetSVG, toPNG } from './render.ts';
 import { nameFromFile, newDoc, readGlyphSVG, readGlyphy, sha256 } from './scaffold.ts';
