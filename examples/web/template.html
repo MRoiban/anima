@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ringing Bell</title>
+    <!-- Template for index.html: `node tools/build-web.ts` inlines the runtime and bell.ani. -->
+    <style>
+      :root {
+        --paper: #faf9f5;
+        --ink: #141413;
+        --muted: #6b6a64;
+        --line: #e3e1d7;
+        --accent: #d97757;
+        --serif: ui-serif, Georgia, 'Times New Roman', serif;
+        --sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+        --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme='light']) {
+          --paper: #1f1e1d;
+          --ink: #f0eee6;
+          --muted: #a3a29a;
+          --line: #3a3934;
+          --accent: #e08a6d;
+          color-scheme: dark;
+        }
+      }
+      :root[data-theme='dark'] {
+        --paper: #1f1e1d;
+        --ink: #f0eee6;
+        --muted: #a3a29a;
+        --line: #3a3934;
+        --accent: #e08a6d;
+        color-scheme: dark;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font: 15px/1.5 var(--sans);
+        display: grid;
+        place-items: center;
+        padding: 32px 16px;
+      }
+      main {
+        width: 100%;
+        max-width: 420px;
+        display: grid;
+        justify-items: center;
+        gap: 20px;
+        text-align: center;
+      }
+      header {
+        display: grid;
+        gap: 4px;
+      }
+      .eyebrow {
+        margin: 0;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+      h1 {
+        margin: 0;
+        font: 400 28px/1.2 var(--serif);
+        letter-spacing: -0.01em;
+      }
+      /* The tile is 24 grid units at 10 px per unit; the icon's box is its 20-unit grid and the
+     motion bleeds 2 units past it on every side, as in the Rive version. */
+      .stage {
+        width: 240px;
+        max-width: 100%;
+        aspect-ratio: 1;
+        display: grid;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 24px;
+        box-sizing: border-box;
+      }
+      anima-icon {
+        width: 200px;
+        height: 200px;
+        color: var(--ink);
+        --anima-accent: var(--accent);
+        border-radius: 12px;
+      }
+      anima-icon:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 22px;
+      }
+      .hint {
+        margin: 0;
+        color: var(--muted);
+        font-size: 14px;
+      }
+      kbd {
+        font: 12px var(--mono);
+        color: var(--ink);
+        border: 1px solid var(--line);
+        border-bottom-width: 2px;
+        border-radius: 4px;
+        padding: 0 5px;
+      }
+      .count {
+        font-variant-numeric: tabular-nums;
+        color: var(--ink);
+      }
+      footer {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      footer code {
+        font: 12px var(--mono);
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <p class="eyebrow">Glyph · 20 px grid · Anima</p>
+        <h1>Ring the bell</h1>
+      </header>
+
+      <div class="stage">
+        <anima-icon id="bell"
+          ><script type="application/vnd.anima+json">
+            <!-- BELL -->
+          </script></anima-icon
+        >
+      </div>
+
+      <p class="hint">
+        Click the bell, or focus it and press <kbd>Enter</kbd>.
+        <span class="count" id="count" aria-live="polite"></span>
+      </p>
+
+      <footer>
+        <code>bell.svg</code> from the Glyphy set, animated in <code>bell.ani</code>, played by
+        <code>&lt;anima-icon&gt;</code>
+      </footer>
+    </main>
+
+    <script type="module">
+      /* RUNTIME */
+
+      // Theming is plain CSS (color and --anima-accent above); the page only counts rings.
+      let rings = 0;
+      const count = document.getElementById('count');
+      document.getElementById('bell').addEventListener('anima:event', (e) => {
+        if (e.detail.name !== 'rang') return;
+        rings += 1;
+        count.textContent = rings === 1 ? 'Rang once.' : `Rang ${rings} times.`;
+      });
+    </script>
+  </body>
+</html>
