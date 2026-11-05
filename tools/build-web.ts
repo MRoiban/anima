@@ -70,7 +70,6 @@ emit('packages/web/dist/anima-paint.js', paint, true);
 emit('packages/web/dist/anima-composite.js', composite, true);
 emit('packages/web/dist/anima-bind.js', bind, true);
 emit('packages/web/dist/anima-assets.js', assets, true);
-emit('packages/web/dist/anima-surface.js', surface, true);
 emit('packages/web/dist/anima-components.js', components, true);
 emit('packages/web/dist/anima-markup-components.js', markupComponents, true);
 emit('packages/web/dist/anima-markup-bind.js', markupBind, true);
