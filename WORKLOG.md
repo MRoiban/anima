@@ -59,3 +59,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 22:10 [claude]: PR #9 merged (c1f1288); P4 plan: 456 rows → P4a–P4e on a module system; wrote spec/MODULES.md (design)
 - 2026-11-05 23:30 [claude]: merged P4a-1 (ca2ee80): module system 5/5 hooks, paint gradients+dashes; core+web 16461 (+581), paint 2091/5120, markup 6104/6144 (near budget); found resvg ignores pathLength → PNG dashes/trims wrong (fix in P4a-2)
 - 2026-11-05 23:45 [claude]: markup budget 6→8 KB (d3e19ef); launched P4a-2 geometry (shapes, corners, morph, fixed stroke, PNG pathLength fix) and P4a-3 compositing (blend, masks, clips, paints, stroke position, draw order) in parallel, separate files
+- 2026-11-06 01:10 [claude]: merged P4a-2 geometry (e7f7dbd): 6/6; paint 3679/5120, core+web 16519; PNG dashes verified visually
