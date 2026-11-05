@@ -102,6 +102,23 @@ for (const [name, engine, paths] of [
         [50, 100],
         [255, 0, 0],
       ],
+      ...([false, true] as const).flatMap((outside) => [
+        [
+          `group clip ${outside ? 'outside' : 'inside'}`,
+          [
+            {
+              id: 'g',
+              type: 'group',
+              x: 2,
+              clip: { source: 'b' },
+              children: [rect('a', '#f00'), rect('c', '#00f', { x0: 5, w: 15 })],
+            },
+            rect('b', '#000', { w: 10, visible: false }),
+          ],
+          [outside ? 150 : 80, 100],
+          outside ? [255, 255, 255] : [0, 0, 255],
+        ] as [string, object[], number[], number[]],
+      ]),
       [
         'paints',
         [

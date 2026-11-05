@@ -137,7 +137,7 @@ and an oracle test against Rive.
         prefix-compile test keeps its original limit). Core + web 17 175 → 16 901 B after two size
         rounds, 204 B above the pre-draw-layer 16 697 B — accepted by the owner (2026-11-06: "it
         shouldn't be a blocker"); still tracked per phase.
-  - [ ] P4a-7 benchmark friction: pose path strings, group clips, optional clip rule,
+  - [x] P4a-7 benchmark friction: pose path strings, group clips, optional clip rule,
         `anima schema pose`, dash caps in the docs.
   - [ ] P4a oracle cases against the Rive CLI for the paint features (MODULES §5).
 - [ ] P5 Components and assets — **moved up** (owner, 2026-11-06): nested artboards / components,

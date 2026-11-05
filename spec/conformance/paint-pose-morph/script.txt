@@ -1,0 +1,18 @@
+advance 0
+snapshot
+fire go
+advance 0
+advance 0.5
+snapshot
+advance 0.5
+snapshot
+fire back
+advance 0
+advance 0.25
+snapshot
+fire go
+advance 0
+advance 0.5
+snapshot
+advance 0.5
+snapshot

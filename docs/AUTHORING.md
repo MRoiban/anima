@@ -343,7 +343,9 @@ Use `paint="stroke"` on a gradient child for a gradient stroke. Animate `disc.fi
 `disc.fill.stops.0.color`, `disc.fill.stops.0.position` or `disc.stroke-dashoffset`. Animated colours
 must be hex literals; unanimated stops may use colour slots. Dash numbers are grid units; percentages
 are fractions of the full path length, with offset expressed as a fraction (0.1 = 10%). A partial
-trim overrides dashes. Validate and render the `.animl` directly as usual.
+trim overrides dashes. Round caps extend each dash by half the stroke width on both ends,
+which can hide short gaps; use `stroke-linecap="butt"` for short dashes.
+Validate and render the `.animl` directly as usual.
 
 ### Optional compositing
 
@@ -353,3 +355,33 @@ stroke position or sibling draw order. Browser pages import `@anima-format/web/c
 or fixed strokes, declare `requires="paint composite"` and import both browser modules.
 Neither module implies the other. See `examples/composite.animl`, SPEC's `composite` chapter
 and ANIML's composite forms. The base runtime continues to refuse unavailable features.
+
+### Pose morphs and group clips
+
+With `requires="paint"`, a pose can write `pathId.d` directly to a path string. Blend between
+poses with `<on blend="…">`. Rest, pose and track paths must have the same expanded commands,
+including case and repetition count; `morph-mismatch` points to the incompatible value.
+`anima schema pose` describes the address map; `anima schema state` shows the containing state.
+
+With `requires="composite"`, put `<clip source="outline"/>` inside a group to clip all its
+children to that painted node's outline. `rule` defaults to `nonzero`; use `rule="evenodd"`
+for holes. Source transforms apply, but its paint, visibility and opacity do not affect the clip.
+
+```xml
+<anima version="0.1" name="pose-clip" grid="20" requires="paint composite">
+  <rect id="outline" x0="0" y0="0" width="10" height="20" fill="#000" visible="false"/>
+  <group id="icon">
+    <clip source="outline"/>
+    <path id="line" d="M2 2L18 18" stroke="#000"/>
+  </group>
+  <bool name="done"/>
+  <layer name="main" initial="rest">
+    <state name="rest">
+      <pose line.d="M2 2L18 18"/>
+      <on when="done" to="done" blend="0.3"/>
+    </state>
+    <state name="done"><pose line.d="M2 18L18 2"/></state>
+  </layer>
+  <listener on="click" toggle="done"/>
+</anima>
+```

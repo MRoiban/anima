@@ -363,6 +363,45 @@ describe('anima inspect, schema, docs', () => {
     expect((await cli('schema', 'rect')).out).toContain('mix-blend-mode');
   });
 
+  it.each([
+    'anima',
+    'meta',
+    'color',
+    'glyph',
+    'hit',
+    'bool',
+    'number',
+    'trigger',
+    'timeline',
+    'track',
+    'event',
+    'ease',
+    'layer',
+    'state',
+    'pose',
+    'on',
+    'linearGradient',
+    'radialGradient',
+    'stop',
+    'fillPaint',
+    'strokePaint',
+  ])('schema exposes authoring element %s from registry shapes', async (topic) => {
+    const result = await cli('schema', topic, '--format=json');
+    expect(result.code, result.err).toBe(0);
+    expect(JSON.parse(result.out).fields.length).toBeGreaterThan(0);
+    expect((await cli('schema', topic)).code).toBe(0);
+  });
+  it('schema pose describes address values and clip describes its default', async () => {
+    const pose = JSON.parse((await cli('schema', 'pose', '--format=json')).out);
+    expect(pose.fields).toContainEqual(
+      expect.objectContaining({ ani: '<address>', type: 'number | bool | string | array<any>' }),
+    );
+    const clip = JSON.parse((await cli('schema', 'clip', '--format=json')).out);
+    expect(clip.fields).toContainEqual(
+      expect.objectContaining({ ani: 'rule', required: false, default: 'nonzero' }),
+    );
+    expect((await cli('schema', 'clip')).out).toContain('(default "nonzero")');
+  });
   it('schema describes node types and paint', async () => {
     expect((await cli('schema', 'circle')).out).toMatch(/r +number/);
     expect(

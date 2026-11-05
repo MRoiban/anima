@@ -233,6 +233,8 @@ Their attributes match the numeric parameter names in SPEC's paint chapter.
 Rect corners="1 1 0 0" supplies TL/TR/BR/BL; tracks address tile.corners.0 through .3.
 Stroke-scale="fixed" maps to stroke.scale. Morph tracks target pathId.d and enclose
 SVG paths in JSON double quotes: 0 "M0 0L2 2"; 1 "M1 1L3 3".
+A pose accepts a path directly in its attribute: <pose pathId.d="M1 1L3 3"/>.
+Pose blending follows the same command-structure rules and diagnostics as tracks.
 See examples/shapes.animl for a complete document and SPEC for bounds and diagnostics.
 ## Composite module
 
@@ -241,8 +243,10 @@ Browser hosts import `@anima-format/web/composite` separately.
 Compositing uses `mix-blend-mode` and `stroke-position` node attributes. Paint visibility uses
 `fill-visible` or `stroke-visible`. Structural children map directly to their JSON objects:
 `<mask source="shape" mode="alpha" source-draws="false"/>`,
-`<clip source="outline" rule="evenodd"/>`, and
+`<clip source="outline" rule="evenodd"/>` (`rule` optional, default `nonzero`), and
 `<drawOrder target="sibling" position="after" active="true"/>`.
+`<clip>` is also allowed inside `<group>` and clips all its children with the source outline.
+The source must be a painted node, even when the target is a group.
 Multiple paints are repeated `<fillPaint fill="#f00"/>` or
 `<strokePaint stroke="#000" stroke-width="2"/>` children, in drawing order. Gradient paints
 use `type="linear"` / `type="radial"`, coordinate attributes and nested `<stop>` children on

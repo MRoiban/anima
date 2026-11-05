@@ -704,12 +704,12 @@
                   "enum": [
                     "nonzero",
                     "evenodd"
-                  ]
+                  ],
+                  "default": "nonzero"
                 }
               },
               "required": [
-                "source",
-                "rule"
+                "source"
               ],
               "additionalProperties": false,
               "feature": "composite"
@@ -1138,12 +1138,12 @@
                   "enum": [
                     "nonzero",
                     "evenodd"
-                  ]
+                  ],
+                  "default": "nonzero"
                 }
               },
               "required": [
-                "source",
-                "rule"
+                "source"
               ],
               "additionalProperties": false,
               "feature": "composite"
@@ -1585,12 +1585,12 @@
                   "enum": [
                     "nonzero",
                     "evenodd"
-                  ]
+                  ],
+                  "default": "nonzero"
                 }
               },
               "required": [
-                "source",
-                "rule"
+                "source"
               ],
               "additionalProperties": false,
               "feature": "composite"
@@ -2571,12 +2571,12 @@
                   "enum": [
                     "nonzero",
                     "evenodd"
-                  ]
+                  ],
+                  "default": "nonzero"
                 }
               },
               "required": [
-                "source",
-                "rule"
+                "source"
               ],
               "additionalProperties": false,
               "feature": "composite"
@@ -3028,12 +3028,12 @@
                   "enum": [
                     "nonzero",
                     "evenodd"
-                  ]
+                  ],
+                  "default": "nonzero"
                 }
               },
               "required": [
-                "source",
-                "rule"
+                "source"
               ],
               "additionalProperties": false,
               "feature": "composite"
@@ -3991,12 +3991,12 @@
                   "enum": [
                     "nonzero",
                     "evenodd"
-                  ]
+                  ],
+                  "default": "nonzero"
                 }
               },
               "required": [
-                "source",
-                "rule"
+                "source"
               ],
               "additionalProperties": false,
               "feature": "composite"
@@ -4708,12 +4708,12 @@
                   "enum": [
                     "nonzero",
                     "evenodd"
-                  ]
+                  ],
+                  "default": "nonzero"
                 }
               },
               "required": [
-                "source",
-                "rule"
+                "source"
               ],
               "additionalProperties": false,
               "feature": "composite"
@@ -5426,12 +5426,12 @@
                   "enum": [
                     "nonzero",
                     "evenodd"
-                  ]
+                  ],
+                  "default": "nonzero"
                 }
               },
               "required": [
-                "source",
-                "rule"
+                "source"
               ],
               "additionalProperties": false,
               "feature": "composite"
@@ -6134,12 +6134,12 @@
                   "enum": [
                     "nonzero",
                     "evenodd"
-                  ]
+                  ],
+                  "default": "nonzero"
                 }
               },
               "required": [
-                "source",
-                "rule"
+                "source"
               ],
               "additionalProperties": false,
               "feature": "composite"

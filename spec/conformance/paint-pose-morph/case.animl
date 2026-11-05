@@ -1,0 +1,15 @@
+<anima version="0.1" name="paint-pose-morph" grid="20" requires="paint">
+  <path id="a" d="M0 0L10 10" stroke="#000"/>
+  <trigger name="go"/>
+  <trigger name="back"/>
+  <layer name="l" initial="s">
+    <state name="s">
+      <pose a.d="M2 2L12 12"/>
+      <on when="go" to="t" blend="1"/>
+    </state>
+    <state name="t">
+      <pose a.d="M6 10L16 20"/>
+      <on when="back" to="s" blend="1"/>
+    </state>
+  </layer>
+</anima>

@@ -586,3 +586,47 @@ Two size rounds took core + web from 17 175 B (after the draw layer) to 16 901 B
 plateaued (−52 B), 204 B above the pre-draw-layer 16 697 B. The owner accepted it: the size is not a
 merge blocker. Compile time was a blocker and is fixed (interleaved Vitest medians ~1 081 ms at
 b7b6e92 vs ~1 010 ms now). Both stay tracked per phase.
+
+
+## P4a-7 — Paint/composite authoring friction (2026-11-05)
+
+Completed the five friction items from the P4a AniML benchmark's “What was hardest” list.
+AniML pose attributes now pass path strings to the existing paint value validator; `.ani` already
+supported those values and the player's morph interpolation. A new hand-calculated conformance
+case covers pose-to-pose morphs, endpoint strings and interruption from the current blended path.
+Invalid pose paths test `bad-path`, `value-type` and `morph-mismatch` with pointers and hints;
+AniML diagnostics also assert mapped line/column positions.
+
+Groups accept registry-declared structural children and keep them separate from their node children.
+The existing draw layer already clips a group correctly, so no backend exception was needed.
+Chromium and Firefox pixel cases cover multiple children under a translated clipped group,
+inside and outside the source outline. `clip.rule` is optional, defaults to `nonzero` in the draw
+tree, and carries that default in the registry, generated JSON Schema and CLI schema output.
+Missing clip sources and invalid rules retain tested diagnostics.
+
+Schema lookup now handles pose address maps, other structural declarations taught by AUTHORING,
+and module element descriptors from the registry. The guide teaches pose morphs and group clips
+with an executable example, plus the half-stroke-width extension at each end of a round-capped dash.
+The registry-first decision follows ARCHITECTURE's registry contract and
+`docs/research/rive-format-and-graph.md`'s generated-definition observations; compatible path
+structures preserve the Glyphy outline constraints in `docs/research/glyphy-compat.md`.
+No Rive code/docs were copied, no `.riv` was read, and no rive commands were run.
+
+Baseline measured with HEAD sources temporarily restored: core+web 16901 B, paint 3708 B,
+composite 3840 B, markup 7502 B min+gzip (optional modules incremental).
+Baseline compile line: `compile: bell 2.41 ms; all 9040 prefixes 883 ms`.
+Final `npm run check` exits 0: all 747 tests in 35 files, no skips (Chromium + Firefox),
+typecheck, lint, formatting, size budgets, browser artifact freshness and all 38 AniML rebuilds.
+Final sizes: core+web **16901 B (unchanged)**, paint **3708 B (unchanged)**, composite
+**3855 B (+15)**, markup **7554 B (+52)**, within the unchanged 25600/5120/4096/8192 B budgets.
+Final compile line: `compile: bell 2.15 ms; all 9040 prefixes 850 ms`.
+Timings are machine-dependent; the original prefix test limit is unchanged.
+Evidence: `/tmp/p4a7-baseline-metrics.log`, `/tmp/p4a7-check-pass.log`.
+Items done: **5/5**; commit is local on `t3/paint-composite-authoring`.
+
+The initial check overlapped edits and hit stale generated bundles plus Firefox timeouts.
+The next full check found the corpus's fixed count (31); it now expects 32, preserving the
+requirement that every case has an AniML source. One new missing-key test initially expected a
+field pointer; it was corrected to the established containing-object pointer.
+No runtime dependencies, licence, test-limit/budget changes, push, PR or merge.
+The older P4a-6 target remains open (core+web is still 204 B above 16697 B).
