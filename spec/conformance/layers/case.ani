@@ -1,84 +1,72 @@
 {
- "anima": "0.1",
- "name": "case",
- "grid": 20,
- "nodes": [
-  {
-   "id": "a",
-   "type": "circle",
-   "center": [
-    10,
-    10
-   ],
-   "r": 5,
-   "pivot": [
-    10,
-    10
-   ],
-   "fill": {
-    "color": "#000"
-   }
-  }
- ],
- "inputs": {
-  "over": {
-   "type": "bool"
-  }
- },
- "timelines": {
-  "ta": {
-   "duration": 1,
-   "tracks": {
-    "a.x": [
-     [
-      0,
-      0
-     ],
-     [
-      1,
-      10
-     ]
-    ]
-   }
-  }
- },
- "machine": {
-  "layers": {
-   "base": {
-    "initial": "run",
-    "states": {
-     "run": {
-      "play": "ta"
-     }
+  "anima": "0.1",
+  "name": "case",
+  "grid": 20,
+  "inputs": {
+    "over": {
+      "type": "bool"
     }
-   },
-   "top": {
-    "initial": "b0",
-    "states": {
-     "b0": {
-      "pose": {},
-      "on": [
-       {
-        "when": "over",
-        "to": "b1",
-        "blend": 0.5
-       }
-      ]
-     },
-     "b1": {
-      "pose": {
-       "a.x": 100
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 5,
+      "pivot": [10, 10],
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "ta": {
+      "duration": 1,
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [1, 10]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "base": {
+        "initial": "run",
+        "states": {
+          "run": {
+            "play": "ta"
+          }
+        }
       },
-      "on": [
-       {
-        "when": "!over",
-        "to": "b0",
-        "blend": 0.5
-       }
-      ]
-     }
+      "top": {
+        "initial": "b0",
+        "states": {
+          "b0": {
+            "pose": {},
+            "on": [
+              {
+                "when": "over",
+                "to": "b1",
+                "blend": 0.5
+              }
+            ]
+          },
+          "b1": {
+            "pose": {
+              "a.x": 100
+            },
+            "on": [
+              {
+                "when": "!over",
+                "to": "b0",
+                "blend": 0.5
+              }
+            ]
+          }
+        }
+      }
     }
-   }
   }
- }
 }

@@ -1,0 +1,35 @@
+<!-- Reduced motion removes crossfades, freezes end/skip timelines and follows finished-state transitions. -->
+<anima version="0.1" name="case" grid="20">
+  <trigger name="ring"/>
+  <bool name="go"/>
+
+  <circle id="a" cx="10" cy="10" r="5" pivot="10 10" fill="#000"/>
+
+  <timeline name="ring" duration="1" reducedMotion="end">
+    <track target="a.x">0 0; 1 10</track>
+    <event at="0.5" name="mid"/>
+  </timeline>
+  <timeline name="wob" duration="1" loop="loop" reducedMotion="skip">
+    <track target="a.y">0 5; 1 15</track>
+  </timeline>
+
+  <layer name="ring" initial="idle">
+    <state name="idle">
+      <pose/>
+      <on when="ring" to="ringing" blend="0.5"/>
+    </state>
+    <state name="ringing" play="ring">
+      <on when="@end" to="rested"/>
+    </state>
+    <state name="rested" emit="rested">
+      <pose a.x="50"/>
+    </state>
+  </layer>
+  <layer name="h" initial="h0">
+    <state name="h0">
+      <pose/>
+      <on when="go" to="h1" blend="1"/>
+    </state>
+    <state name="h1" play="wob"/>
+  </layer>
+</anima>

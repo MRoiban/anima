@@ -1,62 +1,56 @@
 {
- "anima": "0.1",
- "name": "case",
- "grid": 20,
- "nodes": [
-  {
-   "id": "a",
-   "type": "circle",
-   "center": [
-    10,
-    10
-   ],
-   "r": 5,
-   "pivot": [
-    10,
-    10
-   ],
-   "fill": {
-    "color": "#000"
-   }
-  }
- ],
- "inputs": {
-  "on": {
-   "type": "bool"
-  }
- },
- "machine": {
-  "layers": {
-   "l": {
-    "initial": "off",
-    "states": {
-     "off": {
-      "pose": {
-       "a.x": 0
-      },
-      "on": [
-       {
-        "when": "on",
-        "to": "lit",
-        "blend": 1,
-        "interruptible": false
-       }
-      ]
-     },
-     "lit": {
-      "pose": {
-       "a.x": 10
-      },
-      "on": [
-       {
-        "when": "!on",
-        "to": "off",
-        "blend": 1
-       }
-      ]
-     }
+  "anima": "0.1",
+  "name": "case",
+  "grid": 20,
+  "inputs": {
+    "on": {
+      "type": "bool"
     }
-   }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 5,
+      "pivot": [10, 10],
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "off",
+        "states": {
+          "off": {
+            "pose": {
+              "a.x": 0
+            },
+            "on": [
+              {
+                "when": "on",
+                "to": "lit",
+                "blend": 1,
+                "interruptible": false
+              }
+            ]
+          },
+          "lit": {
+            "pose": {
+              "a.x": 10
+            },
+            "on": [
+              {
+                "when": "!on",
+                "to": "off",
+                "blend": 1
+              }
+            ]
+          }
+        }
+      }
+    }
   }
- }
 }

@@ -368,8 +368,11 @@ writes to an unknown input or with the wrong type are rejected by the API, never
 
 ### 11.1 Cases
 
-`spec/conformance/<case>/` holds `case.ani`, `script.txt` and `expected.jsonl`. Every runtime and the
-CLI run the whole suite in CI. Numbers are compared at 1e-6, everything else exactly.
+`spec/conformance/<case>/` holds `case.animl` (the authored source), `case.ani` (the compiled build
+output), `script.txt` and `expected.jsonl`. `case.ani` is the runtime's normative input; hand-written
+`.ani` remains valid. `npm run build:animl` rebuilds the sibling `.ani` files, and
+`node tools/build-animl.ts --check` checks that they are current. Every runtime and the CLI run the
+whole suite in CI. Numbers are compared at 1e-6, everything else exactly.
 
 ### 11.2 Script language
 
