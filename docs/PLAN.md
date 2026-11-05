@@ -109,7 +109,15 @@ and an oracle test against Rive.
         timeline scrubbing, revision-checked Save, responsive screenshots and browser tests.
   - [ ] Integrate and verify the parallel web host API (pause/resume/rate); remaining P3 parity
         rows are tracked separately.
-- [ ] P4 Interaction, paint, events, data binding.
+- [ ] P4 Interaction, paint, events, data binding — 456 capabilities, in five sub-phases on the module
+      system of `spec/MODULES.md` (one PR each):
+  - [ ] P4a `paint` (module system pilot): gradients, dashes, shapes, blend modes, masks/clips,
+        multiple paints, stroke position, trim modes, path morphing, draw order.
+  - [ ] P4b `motion`: eases, typed/string tracks, seek/reverse/work area/quantize, host timeline
+        control, animatable pivot.
+  - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad.
+  - [ ] P4d `events`: payloads, open-URL, audio.
+  - [ ] P4e `data`: view models, bindings, converters, lists.
 - [ ] P5 Components and assets.
 - [ ] P6 Text.
 - [ ] P7 Layout.

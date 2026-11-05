@@ -1,9 +1,9 @@
 # Work log
 
 ## Now
-Goal: P3 PR p3-playground → main, merge when green; then P4 (interaction, paint, events, data binding).
-State: P3 done on p3-playground: Player.inspect, host API (15880 B), anima playground, mockup compared + drift fixed; parity 127/1238 done, P3b holds the rest.
-Next: PR, CI, merge. Then P4 planning: split into modules (interaction, paint, events, data), design specs first.
+Goal: P4 in sub-phases P4a–P4e (spec/MODULES.md); now P4a paint on branch p4a-paint (module system pilot).
+State: main c1f1288 = M0–M5, Phase A, P1, P3 (PR #9 merged). Parity 127/1238 done.
+Next: P4a-1 Sol: module system + gradients + dashes; then P4a-2 rest of paint; PR. Images/n-slice/feather wait for P5 assets/components.
 Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
 Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
@@ -56,3 +56,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 20:30 [claude]: merged host API (d1313fe): 10/10 items, Chromium+Firefox tests, docs/WEB.md; core+web 15880 B (+918)
 - 2026-11-05 21:30 [claude]: merged playground (9f6849a); compared with mockup at 1440/1000/390 + 1280x720 (found overlap, fixed in impl+mockup); parity 15 rows done, rest → P3b; npm run check 437 pass
 - 2026-11-05 21:50 [claude]: PR #9 opened; playground first test hit Vitest 5 s default under full load → suite timeout 30 s; npm run check 437 pass
+- 2026-11-05 22:10 [claude]: PR #9 merged (c1f1288); P4 plan: 456 rows → P4a–P4e on a module system; wrote spec/MODULES.md (design)
