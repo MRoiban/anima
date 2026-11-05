@@ -323,3 +323,22 @@ stale guide text). A flaky Firefox frame-count test traced to Playwright's `clic
 - **Agent skill** `skills/anima/SKILL.md`: the AniML loop for agents in other repos.
 - Still open from the friction logs: a missing `npm ci` shows only `ERR_MODULE_NOT_FOUND`; large
   motion clips silently at the viewBox edge (no warning when an animated part leaves the viewBox).
+
+## P3 — Local playground implementation (2026-11-05, partial phase)
+
+Added `anima playground [file.animl] [--port N]`, a private dependency-free DOM/SVG playground
+workspace and a serve-time self-contained HTML build. Real AniML compiler, real web elements and
+`Player.inspect()` drive source diagnostics, last-valid stage, typed inputs/events, state graphs,
+timeline sampling, formatting and revision-checked single-file Save. Default bell is read-only.
+Keyboard controls, graph text alternatives, focus styling, themes and responsive panels follow the
+P3 mockup. Nine real implementation screenshots and the acceptance report are under
+`design/playground/impl/`; reproduction and the serve-time build decision are in `docs/PLAYGROUND.md`.
+
+`npm run check`: 421 tests, no skips, including Chromium and Firefox; core+web unchanged at
+14962 B gzip, markup 5795 B incremental. The pre-existing stale standalone demo was regenerated
+for the already-landed Player.inspect method. Five measured edit-to-stage rebuilds: 178–273 ms.
+No core/web source changes. P3 remains open: live pause/resume/rate are feature-detected and await
+the parallel host API. Graphs above six states use a vertical list. Sampling is a separate rest-pose
+preview, preserving the distinction between state machines and timeline sampling (research notes
+`rive-animation-and-state.md` A.2/A.6); typed model reuse and sleeping UI inspection follow
+`rive-format-and-graph.md` §6 and `rive-web-runtime.md` lessons 3/8. Local commit only per task.

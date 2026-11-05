@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Anima Playground</title>
+    <style>
+      /* STYLE */
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <header class="bar">
+        <span class="brand">Anima</span
+        ><span class="file"
+          ><b id="filename">Loading…</b> · <span id="saved">saved</span><span id="buildsize"></span
+          ><button id="reload" hidden>Changed on disk · Reload</button></span
+        >
+        <span class="pill ok" id="status" role="status">compiling</span><span class="spacer"></span>
+        <button class="btn" id="format">Format<kbd>⇧⌥F</kbd></button
+        ><button class="btn" id="copy">Copy .ani</button
+        ><button class="btn primary" id="save">Save<kbd>⌘S</kbd></button
+        ><button class="btn" id="theme" aria-pressed="false">Dark</button>
+      </header>
+      <main class="main">
+        <section class="panel editor" aria-label="AniML source">
+          <div class="head">
+            Source <span class="count" id="lines"></span
+            ><span class="right"
+              ><span class="seg"
+                ><button id="animl" aria-pressed="true">.animl</button
+                ><button id="ani" aria-pressed="false">.ani</button></span
+              ></span
+            >
+          </div>
+          <div class="editor-body">
+            <pre class="code" id="code" aria-hidden="true"></pre>
+            <textarea
+              id="source"
+              aria-label="AniML source"
+              spellcheck="false"
+              autocapitalize="off"
+              autocomplete="off"
+              wrap="off"
+            ></textarea>
+          </div>
+          <section class="diags" aria-label="Problems">
+            <div class="head">Problems <span class="count" id="pcount">none</span></div>
+            <ul class="diaglist" id="diags" aria-live="polite"></ul>
+          </section>
+        </section>
+        <section class="panel stage-p" aria-label="Preview">
+          <div class="head">
+            Preview<span class="right"
+              ><span class="seg"
+                ><button id="grid" aria-pressed="true">grid</button
+                ><button id="bounds" aria-pressed="false">bounds</button></span
+              ><span class="seg"
+                ><button id="motion" aria-pressed="false">reduced motion</button></span
+              ></span
+            >
+          </div>
+          <div class="stage">
+            <div class="tile-wrap" id="tilewrap">
+              <div class="tile">
+                <div class="ghost" hidden></div>
+                <anima-icon id="icon" motion="full"></anima-icon
+                ><anima-icon id="sample" motion="full" hidden></anima-icon>
+              </div>
+              <span class="broken-note">showing the last valid build</span>
+            </div>
+            <div class="stage-tools">
+              <div class="sizes" id="sizes"></div>
+              <span class="spacer"></span
+              ><span class="seg"
+                ><button id="normal" aria-pressed="true">1×</button
+                ><button id="slow" aria-pressed="false">¼×</button></span
+              >
+            </div>
+          </div>
+          <section class="inputs" aria-label="Inputs">
+            <div class="head">
+              Inputs <span class="count" id="inputcount"></span
+              ><span class="right"><button class="btn" id="reset">Reset</button></span>
+            </div>
+            <div class="inputs-grid" id="inputs"></div>
+            <div class="events" id="events" role="log" aria-label="Animation events">
+              events <span class="count">none yet</span>
+            </div>
+          </section>
+        </section>
+        <section class="panel machine" aria-label="State machine">
+          <div class="head">State machine <span class="count" id="layercount"></span></div>
+          <div class="layers" id="layers"></div>
+        </section>
+        <section class="panel timeline" aria-label="Timeline">
+          <div class="head">
+            Timeline
+            <span class="tl-tools"
+              ><select id="timeline" aria-label="Timeline"></select
+              ><button class="tbtn" id="play" aria-label="Pause">Ⅱ</button
+              ><button class="tbtn" id="step" aria-label="Step one frame">▸▏</button
+              ><span class="time" id="time">0.000 s</span></span
+            ><span class="right"
+              ><button class="mode" id="mode">live — follows the state machine</button></span
+            >
+          </div>
+          <div class="tracks" id="tracks"></div>
+        </section>
+      </main>
+    </div>
+    <div id="message" role="status"></div>
+    <script type="module">
+      /* SCRIPT */
+    </script>
+  </body>
+</html>
