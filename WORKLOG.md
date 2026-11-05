@@ -62,3 +62,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 01:10 [claude]: merged P4a-2 geometry (e7f7dbd): 6/6; paint 3679/5120, core+web 16519; PNG dashes verified visually
 - 2026-11-06 01:40 [claude]: owner direction recorded (PLAN, LOG, MODULES §3.1 draw layer, docs/benchmarks/agent-native.md; P1 run moved to docs/benchmarks/runs/2026-11-05-p1); P5 moved after P4a; canvas Pc after P5
 - 2026-11-06 03:00 [claude]: merged P4a-3 compositing (46f2ed3) with geometry (10 conflicts resolved, artifacts regenerated): 693 tests pass; paint 7359/5120 over → split into paint + composite modules in P4a-4 with the draw layer; core+web 16697
+- 2026-11-06 03:10 [claude]: launched P4a-4 (draw layer + paint/composite split; Sol xhigh; core+web target ≤16697 B) and the Rive side of the P4a benchmark (AniML side after P4a-4)
