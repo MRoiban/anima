@@ -124,12 +124,18 @@ and an oracle test against Rive.
         Draw tree/frame, independent paint/composite modules and SVG backends implemented; 706 tests
         green, 0.1 example SVG bytes unchanged. Acceptance remains open: core+web 17175 B vs 16697 B
         (+478 B); paint 3771/5120, composite 3874/4096, markup 7326/8192 B.
-  - [ ] P4a-5 agent-native benchmark run with a paint brief (`docs/benchmarks/agent-native.md`).
+  - [x] P4a-5 agent-native benchmark run with a paint brief: AniML 5/6, Rive 5/6
+        (`docs/benchmarks/agent-native.md`).
+  - [ ] P4a-6 size: core + web back to ≤ 16 697 B after the draw layer (race running).
+  - [ ] P4a-7 benchmark friction: pose path strings, group clips, optional clip rule,
+        `anima schema pose`, dash caps in the docs.
   - [ ] P4a oracle cases against the Rive CLI for the paint features (MODULES §5).
 - [ ] P5 Components and assets — **moved up** (owner, 2026-11-06): nested artboards / components,
       per-instance inputs, shared glyph and layer libraries (the reuse friction from M5 and from
       authoring the nine Glyphy icons: the same hover/press layer pasted into every file, a glyph
-      embedded twice), image/font/audio assets, then images, n-slice and feathering in `paint`.
+      embedded twice), image/font/audio assets, then images, n-slice and feathering in `paint`;
+      **input → value binding** (a number input driving an animatable value; the P4a benchmark's
+      one AniML miss) lands here with component inputs.
 - [ ] Pc **Canvas backend, minimal** — brought forward from P10 (owner, 2026-11-06): the draw layer
       rendered to Canvas2D as `@anima-format/web/canvas`; runs every conformance case with a pixel
       comparison against the SVG backend; SVG stays the default for icons. Must exist before P8.
