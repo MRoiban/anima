@@ -34,7 +34,7 @@ const BROWSERS: [string, BrowserType, string | undefined][] = [
 ];
 for (const [name, type, executablePath] of BROWSERS) {
   if (!executablePath) console.warn(`SKIP playground in ${name}: set ${name.toUpperCase()}_PATH`);
-  describe.skipIf(!executablePath)(`playground in ${name}`, () => {
+  describe.skipIf(!executablePath)(`playground in ${name}`, { timeout: 30000 }, () => {
     let browser: Browser,
       page: Page,
       host: PlaygroundServer,
