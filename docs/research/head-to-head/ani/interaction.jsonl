@@ -1,0 +1,9 @@
+{"time":0.075,"values":{"knob.x":0,"track-fill.opacity":0,"knob.scale":1.075},"states":{"toggle":"off","interaction":"hover"},"events":[],"settled":false}
+{"time":0.15,"values":{"knob.x":0,"track-fill.opacity":0,"knob.scale":1.15},"states":{"toggle":"off","interaction":"hover"},"events":[],"settled":true}
+{"time":0.19,"values":{"knob.x":0,"track-fill.opacity":0,"knob.scale":1},"states":{"toggle":"off","interaction":"press"},"events":[],"settled":false}
+{"time":0.23,"values":{"knob.x":0,"track-fill.opacity":0,"knob.scale":0.85},"states":{"toggle":"off","interaction":"press"},"events":[],"settled":true}
+{"time":0.23,"values":{"knob.x":0,"track-fill.opacity":0,"knob.scale":0.85},"states":{"toggle":"on","interaction":"hover"},"events":[],"settled":false}
+{"time":0.305,"values":{"knob.x":1.0332954483785555,"track-fill.opacity":0.12916193104731943,"knob.scale":1},"states":{"toggle":"on","interaction":"hover"},"events":[],"settled":false}
+{"time":0.38,"values":{"knob.x":4,"track-fill.opacity":0.5,"knob.scale":1.15},"states":{"toggle":"on","interaction":"hover"},"events":[],"settled":false}
+{"time":0.455,"values":{"knob.x":6.9667045516214445,"track-fill.opacity":0.8708380689526806,"knob.scale":1.075},"states":{"toggle":"on","interaction":"rest"},"events":[],"settled":false}
+{"time":0.53,"values":{"knob.x":8,"track-fill.opacity":1,"knob.scale":1},"states":{"toggle":"on","interaction":"rest"},"events":[],"settled":true}

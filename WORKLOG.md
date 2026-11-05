@@ -1,12 +1,11 @@
 # Work log
 
 ## Now
-Goal: P1 AniML (authoring markup) → PR from p1-animl; then M5, then Phase B (P3 playground first).
-State: p1-animl 12b642d: contract + Sol compiler + decompiler/formatter merged; round-trip tests green (bell + 13 cases); 274 tests; core+web 14635 B gz.
-Next: wave 2 running (Sol, worktrees from 12b642d): CLI (.animl everywhere, build incl. html, decompile, new→animl); web markup module (baseline 7032 B gz, target ≤6144); migrate conformance+README to .animl.
-Next: wave 3 — rewrite docs/AUTHORING.md for markup (real diagnostics via CLI); wave 4 head-to-head (AniML vs .ani vs Rive RML), then PLAN/LOG, PR, merge, summary.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: head-to-head hand-written .ani dark-mode switch comparison.
+State: switch.ani authored; 11 checks pass, 55 assertions; 6/7 fully verified, accessibility browser state unverified.
+Evidence: docs/research/head-to-head/ani/REPORT.md, four sample traces, four PNG renders.
+Next: commit this comparison on the current branch; parent coordinates integration.
+Don't: read other-format sources, use build/decompile/new, touch .riv, push, open PRs, or merge.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -45,3 +44,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 14:39 [sol]: browser build emits anima-icon.js + anima-markup.js → build-web --check passes; intentional stale markup artifact rejected with exit 1, restored artifact passes; no new runtime dependencies beyond workspace markup, no CLI/core/spec/docs edits, no push/PR/merge.
 - 2026-11-05 15:40 [claude]: merged Sol web markup module (a980e42): markup 5777/6144 B gz, core+web 14781 B (+146); npm run check green: 347 tests, Chromium+Firefox (evidence: npm run check after local dist rebuild)
 - 2026-11-05 16:05 [claude]: merged Sol AUTHORING.md rewrite (8ee957f; 4/4 xml blocks compile, 6/6 diagnostics match, tested); markup hints for undeclared input/colour/glyph; markup 5804 B gz
+- 2026-11-05 13:52 [ani-test]: authored JSON switch → 11 checks/0 check errors, 3 setup/reference errors, 55 assertions; 6/7 verified, a11y browser behavior unverified (evidence: docs/research/head-to-head/ani/REPORT.md).
