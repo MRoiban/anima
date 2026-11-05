@@ -33,25 +33,26 @@ export function parsePath(d: string): Subpath[] {
   const out: Subpath[] = [];
   let i = 0;
   const n = d.length;
+  const fail = (message: string, at = i): never => {
+    throw new PathError(message, at);
+  };
   const ws = () => {
     while (i < n && /[\s,]/.test(d[i]!)) i++;
   };
   const num = (): number => {
     ws();
     const m = /^[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?/.exec(d.slice(i, i + 40));
-    if (!m) throw new PathError(text('expected a number'), i);
+    if (!m) return fail(text('expected a number'));
     i += m[0].length;
     return Number(m[0]);
   };
   const flag = (): number => {
     ws();
-    const c = d[i];
-    if (c !== '0' && c !== '1') throw new PathError(text('expected an arc flag (0 or 1)'), i);
-    i++;
-    return c === '1' ? 1 : 0;
+    const c = d[i++];
+    return c === '0' || c === '1' ? +c : fail(text('expected an arc flag (0 or 1)'), i - 1);
   };
 
-  let cur: Subpath | null = null;
+  let cur: Subpath | undefined;
   let x = 0,
     y = 0,
     sx = 0,
@@ -67,124 +68,87 @@ export function parsePath(d: string): Subpath[] {
   while (i < n) {
     const ch = d[i]!;
     if (/[a-z]/i.test(ch)) {
-      if (!(ch.toLowerCase() in ARGS)) throw new PathError(text(`unknown command "${ch}"`), i);
+      if (!(ch.toLowerCase() in ARGS)) fail(text(`unknown command "${ch}"`));
       cmd = ch;
       i++;
-    } else if (!cmd) {
-      throw new PathError(text('path data must start with a moveto'), i);
-    } else if (cmd === 'z' || cmd === 'Z') {
-      throw new PathError(text('closepath takes no arguments'), i);
-    }
+    } else if (!cmd) fail(text('path data must start with a moveto'));
+    else if (cmd === 'z' || cmd === 'Z') fail(text('closepath takes no arguments'));
     const lc = cmd.toLowerCase();
-    const rel = cmd !== cmd.toUpperCase();
-    if (!cur && lc !== 'm') throw new PathError(text('path data must start with a moveto'), i - 1);
-    if (lc === 'z') {
+    const rel = cmd === lc;
+    if (!cur && lc !== 'm') fail(text('path data must start with a moveto'), i - 1);
+    const start = i - 1; // a moveto's letter
+    const a: number[] = [];
+    for (let k = 0; k < ARGS[lc]!; k++) a.push(lc === 'a' && (k === 3 || k === 4) ? flag() : num());
+    // Make the coordinates absolute: pairs, except h (x), v (y) and the arc's end point.
+    const ox = rel ? x : 0;
+    const oy = rel ? y : 0;
+    if (lc === 'a') {
+      a[5]! += ox;
+      a[6]! += oy;
+    } else if (lc === 'v') a[0]! += oy;
+    else a.forEach((v, k) => (a[k] = v + (k % 2 ? oy : ox)));
+    // S and T become C and Q with the reflected (or current) point as first control.
+    if (lc === 's' || lc === 't')
+      a.unshift(...((lc === 's' ? /[cs]/ : /[qt]/).test(prev) ? [2 * x - cx, 2 * y - cy] : [x, y]));
+    if (lc === 'm') {
+      if (cur) cur.end = start;
+      cur = { start, end: n, absolute: !rel, segs: [] };
+      out.push(cur);
+      seg(M, (x = sx = a[0]!), (y = sy = a[1]!));
+      cmd = rel ? 'l' : 'L'; // implicit lineto after moveto
+    } else if (lc === 'z') {
       seg(Z);
       x = sx;
       y = sy;
-      prev = 'z';
-      ws();
-      continue;
-    }
-    const at = i;
-    const a: number[] = [];
-    for (let k = 0; k < ARGS[lc]!; k++) a.push(lc === 'a' && (k === 3 || k === 4) ? flag() : num());
-    const ox = rel ? x : 0;
-    const oy = rel ? y : 0;
-    switch (lc) {
-      case 'm': {
-        const start = at - 1 >= 0 && /[mM]/.test(d[at - 1]!) ? at - 1 : at;
-        if (cur) cur.end = start;
-        cur = { start, end: n, absolute: cmd === 'M' && d[start] === 'M', segs: [] };
-        out.push(cur);
-        x = sx = a[0]! + ox;
-        y = sy = a[1]! + oy;
-        seg(M, x, y);
-        cmd = rel ? 'l' : 'L'; // implicit lineto after moveto
-        break;
-      }
-      case 'l':
-        seg(L, (x = a[0]! + ox), (y = a[1]! + oy));
-        break;
-      case 'h':
-        seg(L, (x = a[0]! + ox), y);
-        break;
-      case 'v':
-        seg(L, x, (y = a[0]! + oy));
-        break;
-      case 'c':
-        seg(
-          C,
-          a[0]! + ox,
-          a[1]! + oy,
-          (cx = a[2]! + ox),
-          (cy = a[3]! + oy),
-          (x = a[4]! + ox),
-          (y = a[5]! + oy),
-        );
-        break;
-      case 's': {
-        const [rx, ry] = prev === 'c' || prev === 's' ? [2 * x - cx, 2 * y - cy] : [x, y];
-        seg(C, rx, ry, (cx = a[0]! + ox), (cy = a[1]! + oy), (x = a[2]! + ox), (y = a[3]! + oy));
-        break;
-      }
-      case 'q':
-      case 't': {
-        const [qx, qy] =
-          lc === 'q'
-            ? [a[0]! + ox, a[1]! + oy]
-            : prev === 'q' || prev === 't'
-              ? [2 * x - cx, 2 * y - cy]
-              : [x, y];
-        const ex = a[lc === 'q' ? 2 : 0]! + ox;
-        const ey = a[lc === 'q' ? 3 : 1]! + oy;
-        seg(
-          C,
-          x + (2 / 3) * (qx - x),
-          y + (2 / 3) * (qy - y),
-          ex + (2 / 3) * (qx - ex),
-          ey + (2 / 3) * (qy - ey),
-          ex,
-          ey,
-        );
-        [cx, cy, x, y] = [qx, qy, ex, ey];
-        break;
-      }
-      case 'a': {
-        const ex = a[5]! + ox;
-        const ey = a[6]! + oy;
-        arcToCubics(x, y, a[0]!, a[1]!, a[2]!, a[3]!, a[4]!, ex, ey, cur!.segs);
-        x = ex;
-        y = ey;
-        break;
-      }
+    } else if (lc === 'c' || lc === 's') {
+      seg(C, ...a);
+      [cx, cy, x, y] = a.slice(2) as [number, number, number, number];
+    } else if (lc === 'q' || lc === 't') {
+      const [qx, qy, ex, ey] = a as [number, number, number, number];
+      seg(
+        C,
+        x + (2 / 3) * (qx - x),
+        y + (2 / 3) * (qy - y),
+        ex + (2 / 3) * (qx - ex),
+        ey + (2 / 3) * (qy - ey),
+        ex,
+        ey,
+      );
+      [cx, cy, x, y] = a as [number, number, number, number];
+    } else if (lc === 'a') {
+      arcToCubics(x, y, a, cur!.segs);
+      x = a[5]!;
+      y = a[6]!;
+    } else {
+      // l, h, v
+      if (lc === 'h') a.push(y);
+      if (lc === 'v') a.unshift(x);
+      seg(L, (x = a[0]!), (y = a[1]!));
     }
     prev = lc === 'm' ? 'l' : lc;
     ws();
   }
-  if (!out.length) throw new PathError(text('empty path data'), 0);
+  if (!out.length) fail(text('empty path data'), 0);
   return out;
 }
 
-/** Endpoint arc to cubic Béziers (SVG 1.1 F.6.5), at most 90° per piece. */
-function arcToCubics(
-  x1: number,
-  y1: number,
-  rx: number,
-  ry: number,
-  phiDeg: number,
-  fa: number,
-  fs: number,
-  x2: number,
-  y2: number,
-  segs: number[],
-): void {
+/** Endpoint arc (rx ry phi large-arc sweep x2 y2) to cubic Béziers (SVG 1.1 F.6.5), at most 90° per piece. */
+function arcToCubics(x1: number, y1: number, arc: number[], segs: number[]): void {
+  const [, , phiDeg, fa, fs, x2, y2] = arc as [
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+    number,
+  ];
+  let rx = Math.abs(arc[0]!);
+  let ry = Math.abs(arc[1]!);
   if ((x1 === x2 && y1 === y2) || !rx || !ry) {
     if (x1 !== x2 || y1 !== y2) segs.push(L, x2, y2);
     return;
   }
-  rx = Math.abs(rx);
-  ry = Math.abs(ry);
   const phi = (phiDeg * Math.PI) / 180;
   const cos = Math.cos(phi);
   const sin = Math.sin(phi);
