@@ -88,6 +88,13 @@ const base: Module = {
         const base = pointers[i] + '/' + key;
         const bad = (field: string, message: string, hint?: string) =>
           d.err('bad-value', base + (field ? '/' + field : ''), V && message, V && hint);
+        if (p.type === 'image' && !model.doc.requires?.includes('surface'))
+          d.err(
+            'undeclared-feature',
+            base + '/type',
+            V && 'image paints need surface',
+            V && 'add surface to requires',
+          );
         if (p.type === undefined) {
           if (p.color === undefined)
             d.err(
@@ -99,7 +106,7 @@ const base: Module = {
           for (const k of [...coords, 'stops'])
             if (k in p)
               bad(k, 'gradient fields need a gradient type', 'add type: linear or radial');
-        } else {
+        } else if (p.type !== 'image') {
           if (p.color !== undefined)
             bad('color', 'a gradient cannot also have a flat color', 'remove color');
           const fields = p.type === 'linear' ? ['x1', 'y1', 'x2', 'y2'] : ['cx', 'cy', 'r'];
@@ -166,7 +173,7 @@ const base: Module = {
     tree(model, tree) {
       model.nodes.forEach((n, node) => {
         for (const key of ['fill', 'stroke'])
-          if (n.raw[key]?.type)
+          if (n.raw[key]?.type && n.raw[key].type !== 'image')
             tree.resources.push({
               node,
               kind: 'gradient',
@@ -196,7 +203,7 @@ export function enhancePaint(
 ): void {
   const raw = key.split('.').reduce((o, k) => o?.[k], p.model.nodes[i]!.raw);
   if (!raw) return;
-  if (raw.type) {
+  if (raw.type && raw.type !== 'image') {
     paint.color = undefined;
     paint.type = raw.type;
     paint.coordinates = {};

@@ -818,3 +818,49 @@ not a claimed speedup. Local commit only; no push or PR.
 - Updated construct/test on 14 `components.*` parity rows, leaving status/phase to the orchestrator.
   Assets and oracle trees were not edited. No Rive commands, runtime dependencies, licence,
   push, PR or merge. The open P5-2 checkbox records the size-gate blocker honestly.
+
+## P5-5 implementation checkpoint — surface drawing (partial acceptance)
+
+- Independently implemented optional `surface`: image fill/stroke patterns (local transforms,
+  RGBA modulation, asset resolver), n-slice image/group/component output (stretch/repeat/hidden),
+  and independent per-paint Gaussian feathering. Renderer-neutral data, diagnostics, static and
+  retained SVG share the same backend. Enabled world feathering reports `unsupported-render`;
+  geometry deformation and inverse patch hit mapping are deferred, with semantics in SPEC.
+- Image paints have an AniML example and round trip. Nested slice/feather AniML remains unimplemented:
+  the structural compiler lacks nested paint targets and scalar array/tuple decoding. Existing
+  markup and web entry source files were kept untouched; `web/src/surface.ts` is a new module entry.
+  See `design/p5/SURFACE-HANDOFF.md` for the exact markup follow-up. Acceptance is **1/3**, with
+  draw/render implementations present for all three. No Rive code or algorithm was copied.
+- Focused verification: **24 tests** pass across core, CLI schema and Chromium/Firefox. Browser
+  pixels include modulation, slice modes, vector/component source drawings, independent feather
+  and host-resolved image replacement across separate bundles. Draw conformance lives under
+  `spec/draw-conformance/`, with snapshot/geometry expectations in `core/test/surface.test.ts`.
+- Sizes, min+gzip: core+web **17388 → 17388 B (0)**; paint **3712/5120**, composite **3816/4096**,
+  assets **1460/2048**, surface **7576/8192** (includes paint registration); components **3477/4096**,
+  bind **1416/2048**; full-featured **43049/102400 B**. Markup **8802/8192 B** remains over its
+  unchanged budget (baseline **8551/8192**); markup-libraries **1726/2048**.
+- Initial baseline `tools/perf.ts`: bell compile 2.50 ms, prefixes 723 ms; frame bell/composite/toolbar
+  **50.0/34.0/40.7 µs**. Shared-host load rose during verification, so later absolute timings are
+  not comparable; paired baseline/current timings and full check result are recorded below.
+- Parity construct/test/module mapping updated for 14 drawing-paint rows, leaving status to the
+  orchestrator; `node tools/parity.ts --check` passes. Schema and all 52 AniML artifact checks pass.
+  No runtime dependencies, publication, push, PR or merge.
+- Full `npm run check`: typecheck, lint and formatting pass; **983 passed / 6 failed**. Three
+  failures are markup fixture/namespace expectations for new `slice`/feather fields (compiler
+  coverage plus two exact-list assertions in `names.test.ts`); these files belong to the parallel
+  markup owner. Three further failures are unchanged timing limits (prefix compilation, CLI
+  pivot example, Chromium standalone-demo build). Prefix test passes alone at **1.90 s** total
+  suite time. No limit was changed. The full check is **not green** and cannot reach the known
+  markup size failure until these test failures are resolved.
+- Same loaded-host paired `tools/perf.ts`, baseline c6406e8 then current: bell/composite/toolbar
+  frames **159.2/106.0/134.3 → 136.6/77.1/82.8 µs**; compile bell **6.53 → 8.48 ms**,
+  prefixes **4741 → 2429 ms**, toolbar **16.39 → 8.92 ms**. Opposing swings show host contention;
+  these measurements establish neither a speedup nor a regression. Initial quieter baseline is
+  above. Baseline used an archived c6406e8 tree with its own workspace links, not current sources.
+- Both other unchanged timing tests pass on isolated rerun: CLI pivot example **1/1**, standalone
+  demo **2/2** (Chromium + Firefox); together with the prefix rerun all three timeouts clear
+  individually. Build-web freshness passes; the final size command still exits 1 solely at markup.
+- Final lower-load frame line: bell/composite/toolbar **49.2/32.5/36.0 µs** vs initial
+  **50.0/34.0/40.7 µs**; bell compile **5.40 ms**, prefixes **975 ms**, toolbar compile **4.27 ms**.
+  Compile results remain noisy across the same session; no timing gate was relaxed. Final
+  typecheck/lint/format pass after the last source change, as do the focused core/CLI assertions.

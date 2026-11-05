@@ -218,7 +218,7 @@ export const composite: Module = {
           const kind = entry.fill ? 'fill' : 'stroke',
             p = entry[kind]!;
           const paint = { ...p, kind, visible: true } as DrawPaint;
-          if (p.type)
+          if (p.type && String(p.type) !== 'image')
             t.resources.push({
               node: i,
               kind: 'gradient',

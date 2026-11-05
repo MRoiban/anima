@@ -1,11 +1,14 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: wave 1 Sol: bind module; AniML libraries/templates; assets+image (parallel). Then components (after bind), n-slice/feather/image paints, P5 benchmark.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: P5-5 implementation checkpoint; local commit on t3/p5-image-edge-features, no push/PR/merge.
+Verified: surface draw/SVG image paints, n-slice and local feather; 24 focused tests pass (Chromium+Firefox).
+Incomplete: nested slice/feather AniML; handoff design/p5/SURFACE-HANDOFF.md; acceptance 1/3.
+Full check: typecheck/lint/format pass; 983 pass / 6 fail (3 markup assertions, 3 timeouts; all timeouts pass alone).
+Size: core+web 17388 B (+0); paint 3712/5120, composite 3816/4096, assets 1460/2048, surface 7576/8192.
+Blocker: markup 8802/8192 (baseline 8551/8192). Existing markup/web entry source files not edited.
+Next: orchestrator merges markup forms/fixture updates, rechecks unchanged budgets and full check; P5-5 stays unchecked.
+Don't: loosen limits, push/PR/merge, read .riv, use Rive account commands, copy Rive source/docs.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -82,3 +85,6 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 14:40 [claude]: merged P5-3b library split (3b12d00): markup 8093/8192, markup-libraries 1755/2048 over web+markup; size.ts supports per-module base
 - 2026-11-06 15:20 [claude]: merged P4a oracle cases (7b6e847): 17 cases/21 frames vs committed Rive frames, all within AA tolerance (max share over 16: 0.35%); 908 tests
 - 2026-11-06 21:45 [claude]: merged P5-2 components (f4f5705) with assets/libraries (12 conflicts): 962 tests; core+web 17388, components 3477/4096, full 39.7 KB; markup 8551 over → split; perf noisy (load 7): prefix 751–917 ms, toolbar frame 50 µs
+- 2026-11-05 21:55 [sol]: P5-5 surface draw+SVG and image AniML added; baseline npm ci fixed missing workspace tooling; initial retained-browser run failed unregistered instance target, then about:blank asset base → corrected node registry target and browser origin; nested feather/slice AniML remains unimplemented (evidence: surface tests; unverified full check).
+- 2026-11-05 22:06 [sol]: P5-5 checkpoint → image AniML + all three draw/SVG features, 24 focused tests pass; full check 983 pass/6 fail (3 markup coverage expectations + 3 timing failures, all timing reruns pass unchanged); core+web +0, surface 7576/8192, markup remains over (evidence: npm run check; tools/size.ts; design/p5/SURFACE-HANDOFF.md).
+- 2026-11-05 22:08 [sol]: final typecheck/lint/format and generated artifact/parity checks pass; timing-only failures pass unchanged on isolated reruns; final frame bell/composite/toolbar 49.2/32.5/36.0 µs, full check still blocked by 3 markup assertions and markup budget (evidence: targeted Vitest, tools/perf.ts, tools/size.ts).

@@ -1,0 +1,16 @@
+{
+  "paints": [
+    {
+      "kind": "fill",
+      "key": "fill",
+      "color": "#ff0000",
+      "visible": true,
+      "feather": {
+        "inner": 3,
+        "outer": 4.5,
+        "offset": [1, 0],
+        "enabled": true
+      }
+    }
+  ]
+}

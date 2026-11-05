@@ -11060,10 +11060,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/feather_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: feather.enabled on a paint",
-   "module": "paint",
+   "construct": "surface: paint.feather { inner, outer, offset, enabled, space }; local Gaussian falloff; SVG world space reports unsupported-render; AniML pending",
+   "module": "surface",
    "status": "planned",
-   "test": "oracle/feather-enabled",
+   "test": "spec/draw-conformance/surface-feather; packages/core/test/surface.test.ts; packages/web/test/surface.test.ts (Chromium+Firefox Gaussian halo/disabled/independent stroke)",
    "phase": "P5"
   }
  },
@@ -11088,10 +11088,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/feather_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: feather.inner on a paint",
-   "module": "paint",
+   "construct": "surface: paint.feather { inner, outer, offset, enabled, space }; local Gaussian falloff; SVG world space reports unsupported-render; AniML pending",
+   "module": "surface",
    "status": "planned",
-   "test": "oracle/feather-inner",
+   "test": "spec/draw-conformance/surface-feather; packages/core/test/surface.test.ts; packages/web/test/surface.test.ts (Chromium+Firefox Gaussian halo/disabled/independent stroke)",
    "phase": "P5"
   }
  },
@@ -11116,10 +11116,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/feather_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: feather.offset on a paint",
-   "module": "paint",
+   "construct": "surface: paint.feather { inner, outer, offset, enabled, space }; local Gaussian falloff; SVG world space reports unsupported-render; AniML pending",
+   "module": "surface",
    "status": "planned",
-   "test": "oracle/feather-offset",
+   "test": "spec/draw-conformance/surface-feather; packages/core/test/surface.test.ts; packages/web/test/surface.test.ts (Chromium+Firefox Gaussian halo/disabled/independent stroke)",
    "phase": "P5"
   }
  },
@@ -11144,10 +11144,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/feather_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: feather.outer on a paint",
-   "module": "paint",
+   "construct": "surface: paint.feather { inner, outer, offset, enabled, space }; local Gaussian falloff; SVG world space reports unsupported-render; AniML pending",
+   "module": "surface",
    "status": "planned",
-   "test": "oracle/feather-outer",
+   "test": "spec/draw-conformance/surface-feather; packages/core/test/surface.test.ts; packages/web/test/surface.test.ts (Chromium+Firefox Gaussian halo/disabled/independent stroke)",
    "phase": "P5"
   }
  },
@@ -11171,10 +11171,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/feather_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: feather.space on a paint",
-   "module": "paint",
+   "construct": "surface: paint.feather { inner, outer, offset, enabled, space }; local Gaussian falloff; SVG world space reports unsupported-render; AniML pending",
+   "module": "surface",
    "status": "planned",
-   "test": "oracle/feather-space",
+   "test": "spec/draw-conformance/surface-feather; packages/core/test/surface.test.ts; packages/web/test/surface.test.ts (Chromium+Firefox Gaussian halo/disabled/independent stroke)",
    "phase": "P5"
   }
  },
@@ -12327,10 +12327,10 @@
    "rive-runtime/include/rive/generated/layout/n_slicer_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: slice regions on component nodes",
-   "module": "paint",
+   "construct": "surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending",
+   "module": "surface",
    "status": "planned",
-   "test": "oracle/n-slice-component",
+   "test": "spec/draw-conformance/surface-slice; packages/core/test/surface.test.ts; packages/web/test/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden)",
    "phase": "P5"
   }
  },
@@ -12361,10 +12361,10 @@
    "rive schema AxisY --all --json (CLI 1.9.0)"
   ],
   "anima": {
-   "construct": "new: slice.x/y cut arrays in grid units",
-   "module": "paint",
+   "construct": "surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending",
+   "module": "surface",
    "status": "planned",
-   "test": "oracle/n-slice-cuts",
+   "test": "spec/draw-conformance/surface-slice; packages/core/test/surface.test.ts; packages/web/test/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden)",
    "phase": "P5"
   },
   "aliases": [
@@ -12393,10 +12393,10 @@
    "rive-runtime/include/rive/generated/layout/n_slicer_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: slice regions on image nodes",
-   "module": "paint",
+   "construct": "surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending",
+   "module": "surface",
    "status": "planned",
-   "test": "oracle/n-slice-image",
+   "test": "spec/draw-conformance/surface-slice; packages/core/test/surface.test.ts; packages/web/test/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden)",
    "phase": "P5"
   }
  },
@@ -12423,10 +12423,10 @@
    "rive-runtime/include/rive/generated/layout/n_slicer_tile_mode_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: slice.patches[].mode: hidden",
-   "module": "paint",
+   "construct": "surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending",
+   "module": "surface",
    "status": "planned",
-   "test": "oracle/n-slice-patch-hidden",
+   "test": "spec/draw-conformance/surface-slice; packages/core/test/surface.test.ts; packages/web/test/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden)",
    "phase": "P5"
   }
  },
@@ -12453,10 +12453,10 @@
    "rive-runtime/include/rive/generated/layout/n_slicer_tile_mode_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: slice.patches[].mode: repeat",
-   "module": "paint",
+   "construct": "surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending",
+   "module": "surface",
    "status": "planned",
-   "test": "oracle/n-slice-patch-repeat",
+   "test": "spec/draw-conformance/surface-slice; packages/core/test/surface.test.ts; packages/web/test/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden)",
    "phase": "P5"
   }
  },
@@ -12485,10 +12485,10 @@
    "rive schema NSlicerTileMode --all --json (CLI 1.9.0)"
   ],
   "anima": {
-   "construct": "new: slice.patches[].mode: stretch",
-   "module": "paint",
+   "construct": "surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending",
+   "module": "surface",
    "status": "planned",
-   "test": "oracle/n-slice-patch-stretch",
+   "test": "spec/draw-conformance/surface-slice; packages/core/test/surface.test.ts; packages/web/test/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden)",
    "phase": "P5"
   },
   "aliases": [
@@ -12517,10 +12517,10 @@
    "rive-runtime/include/rive/generated/layout/n_slicer_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: slice regions on vector nodes",
-   "module": "paint",
+   "construct": "surface: slice { x, y, width, height, modes } on image/group/instance; rendered-output patches, source-space hit testing; AniML pending",
+   "module": "surface",
    "status": "planned",
-   "test": "oracle/n-slice-vector",
+   "test": "spec/draw-conformance/surface-slice; packages/core/test/surface.test.ts; packages/web/test/surface.test.ts (Chromium+Firefox images/groups/components, stretch/repeat/hidden)",
    "phase": "P5"
   }
  },
@@ -12602,10 +12602,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/paint_image_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: paint.image with optional color modulation",
-   "module": "paint",
+   "construct": "surface: fill/stroke type=image, asset, imageWidth/imageHeight, imageX/Y/Rotate/ScaleX/ScaleY, modulate; AniML imagePaint",
+   "module": "surface",
    "status": "planned",
-   "test": "oracle/paint-image",
+   "test": "spec/draw-conformance/surface-image; packages/core/test/surface.test.ts; packages/web/test/surface.test.ts (Chromium+Firefox image patterns/modulation/resolver)",
    "phase": "P5"
   }
  },
@@ -12634,10 +12634,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/paint_image_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: paint.image transform in grid units and degrees",
-   "module": "paint",
+   "construct": "surface: fill/stroke type=image, asset, imageWidth/imageHeight, imageX/Y/Rotate/ScaleX/ScaleY, modulate; AniML imagePaint",
+   "module": "surface",
    "status": "planned",
-   "test": "oracle/paint-image-transform",
+   "test": "spec/draw-conformance/surface-image; packages/core/test/surface.test.ts; packages/web/test/surface.test.ts (Chromium+Firefox image patterns/modulation/resolver)",
    "phase": "P5"
   }
  },

@@ -13,6 +13,7 @@ const composite = await bundle(new URL('packages/web/src/composite.ts', root).pa
 const components = await bundle(new URL('packages/web/src/components.ts', root).pathname);
 const bind = await bundle(new URL('packages/web/src/bind.ts', root).pathname);
 const assets = await bundle(new URL('packages/web/src/assets.ts', root).pathname);
+const surface = await bundle(new URL('packages/web/src/surface.ts', root).pathname);
 const check = process.argv.includes('--check');
 mkdirSync(new URL('packages/web/dist/', root), { recursive: true });
 function emit(path: string, text: string, generated = false): void {
@@ -32,6 +33,7 @@ emit('packages/web/dist/anima-paint.js', paint, true);
 emit('packages/web/dist/anima-composite.js', composite, true);
 emit('packages/web/dist/anima-bind.js', bind, true);
 emit('packages/web/dist/anima-assets.js', assets, true);
+emit('packages/web/dist/anima-surface.js', surface, true);
 emit('packages/web/dist/anima-components.js', components, true);
 
 const bell = readFileSync(new URL('examples/bell.ani', root), 'utf8');
