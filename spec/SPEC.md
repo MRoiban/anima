@@ -447,6 +447,20 @@ continues to include only animated addresses, never inputs.
 | `unreachable-state` | warning | No transition reaches a state. |
 | `unused-input` | warning | Nothing reads or writes an input. |
 
+### 11.4 Local playground
+
+`anima playground [file.animl] [--port N]` serves a local authoring inspector on `127.0.0.1`
+(default port 4519, next free if occupied). With no file it opens the reference bell as a read-only
+scratch example; Save cannot change it. AniML edits use the strict compiler and its source positions
+(`spec/ANIML.md` §7). Errors keep the last valid document visible, marked as stale. The live stage
+uses the web runtime and the same inputs, listeners and player semantics as a hosted icon.
+
+Timeline scrubbing samples the chosen timeline at the clamped time `[0, duration]` using §5 over
+the document rest pose. It pauses live playback and input controls; returning to live mode resumes
+the saved live state. It does not advance the state machine or emit timeline events. This is an
+inspector view, not a new player stepping mode. Save writes only the opened file; a changed disk
+revision must be reloaded before saving. Details and keyboard controls: `docs/PLAYGROUND.md`.
+
 ## 12. Decisions for 0.1, and what is deferred
 
 These were the open questions of the draft. Each is settled for 0.1; the deferred ones are reserved

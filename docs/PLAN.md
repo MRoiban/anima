@@ -104,6 +104,10 @@ and an oracle test against Rive.
       markup in every command and in HTML, optional browser module, round-trip tests, head-to-head.
 - [x] P2 M5 (Glyphy export draft, two more glyphs in AniML; the head-to-head ran in P1).
 - [ ] P3 Playground/inspector and the web host API.
+  - [x] Local playground package, serve-time build, CLI, source diagnostics, stage/inputs, graphs,
+        timeline scrubbing, revision-checked Save, responsive screenshots and browser tests.
+  - [ ] Integrate and verify the parallel web host API (pause/resume/rate); remaining P3 parity
+        rows are tracked separately.
 - [ ] P4 Interaction, paint, events, data binding.
 - [ ] P5 Components and assets.
 - [ ] P6 Text.

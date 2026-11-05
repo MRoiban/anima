@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: P3 (first part): playground (`anima playground`) per design/playground/{mockup.html,handoff.md} + web host API; branch p3-playground → PR.
-State: main b1941c9 = M0–M5, Phase A, P1 (PRs #7, #8 merged). p3-playground: mockup + handoff + Player.inspect() (core+web 14962 B).
-Next: Sol agents: host API (web) and playground (packages/playground + CLI); then compare real UI vs mockup at 1440/1000/390, fix drift, PR. Rest of P3 rows (a11y module, drawing tools, headless extras) stay open.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: P3 playground implemented per handoff; local commit only (no push/PR/merge).
+Verified: npm run check green, 421 tests / 25 files, no skips (Chromium+Firefox included).
+Verified: core+web unchanged 14962 B gzip; no core/web source edits; CLI smoke passes.
+Artifacts: 9 screenshots + acceptance REPORT in design/playground/impl; 13/15 tracked items met.
+Next: orchestrator integrates host API and verifies live pause/resume/rate (feature-detected, disabled here).
+Don't: edit core/web source, access .riv, run rive, add licence/runtime libraries, push/PR/merge.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -53,3 +54,6 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 18:20 [claude]: merged format fix (3503c3b): activate may name a bool (keyboard toggles switch, Chromium+Firefox tests), anima schema a11y/transition/listener/input; core+web 14812 B (+31); npm run check 377 pass after demo rebuild; moon gets activate=dark
 - 2026-11-05 18:50 [claude]: merged tooling (ff34197): inspect subpaths, render --compare (moon/trash 0 px), snapshot inputs; bbox rounding; PLAN M5/P2 ticked, P2 parity rows → P3, LOG M5
 - 2026-11-05 19:40 [claude]: PR #8 merged; P3 design done myself (mockup checked at 1440/1000/390, valid/errors/scrub/dark; fixed highlighter, mask sizing, phone overflow); Player.inspect() + test (+150 B gz)
+- 2026-11-05 15:48 [sol-playground]: implemented source/server/inspectors → targeted typecheck/lint pass; size 14962 B unchanged; initial tests found wrong expected column (58 vs real 51) and fetch Host override ignored (fixed tests; browser results pending).
+- 2026-11-05 15:57 [sol-playground]: first full check → 418 pass/2 fail, existing web demo stale after prior Player.inspect addition; regenerated with node tools/build-web.ts (no core/web source edit).
+- 2026-11-05 16:02 [sol-playground]: final npm run check → 421/421, 25 files, no skips; core+web 14962 B unchanged; build-web and 16 AniML checks pass. Real CLI smoke HTTP 200/read-only; 9 exact-viewport screenshots; measured edit-to-stage 178–273 ms. 13/15 tracked items met; pause/rate pending parallel host API (REPORT).
