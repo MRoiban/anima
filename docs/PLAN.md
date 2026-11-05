@@ -116,6 +116,9 @@ and an oracle test against Rive.
     - [x] P4a-1: module registry and all five hooks; linear/radial gradients and absolute/relative
           dashes through spec, diagnostics, AniML, CLI, conformance, examples and both browsers;
           paint budget enforced, core hook delta within 600 B.
+    - [ ] P4a-3 compositing acceptance: six areas implemented with conformance and browser coverage;
+          paint size exceeds 5120 B (5768 B before geometry integration); oracle and size follow-up
+          remain with the orchestrator. Additive blend deferred; multiple strokes currently centered.
     - [ ] P4a-1 oracle follow-up: add/run the corresponding Rive cases (MODULES §5); parity statuses
           stay with the orchestrator.
   - [ ] P4b `motion`: eases, typed/string tracks, seek/reverse/work area/quantize, host timeline

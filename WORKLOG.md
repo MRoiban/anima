@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: P4 in sub-phases P4a–P4e (spec/MODULES.md); now P4a paint on branch p4a-paint (module system pilot).
-State: main c1f1288 = M0–M5, Phase A, P1, P3 (PR #9 merged). Parity 127/1238 done.
-Next: P4a-1 Sol: module system + gradients + dashes; then P4a-2 rest of paint; PR. Images/n-slice/feather wait for P5 assets/components.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: P4a-3 compositing on t3/paint-compositing; geometry is a separate agent's work.
+State: six feature areas implemented; spec/schema/AniML/example/parity mappings and nine cases included.
+Verified: final npm run check passes typecheck/lint/format + 623 tests, then fails only paint size.
+Size: core+web 16648 B (+187 from d3e19ef), markup 6727/8192 B; paint 5768/5120 B (648 over).
+Next: orchestrator integrates geometry and resolves size acceptance; parity statuses/oracles remain theirs.
+Don't: push/PR/merge, add runtime deps/licence, touch geometry.ts, copy Rive source/docs, read .riv or run account commands.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -58,3 +59,7 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 21:50 [claude]: PR #9 opened; playground first test hit Vitest 5 s default under full load → suite timeout 30 s; npm run check 437 pass
 - 2026-11-05 22:10 [claude]: PR #9 merged (c1f1288); P4 plan: 456 rows → P4a–P4e on a module system; wrote spec/MODULES.md (design)
 - 2026-11-05 23:30 [claude]: merged P4a-1 (ca2ee80): module system 5/5 hooks, paint gradients+dashes; core+web 16461 (+581), paint 2091/5120, markup 6104/6144 (near budget); found resvg ignores pathLength → PNG dashes/trims wrong (fix in P4a-2)
+- 2026-11-05 16:33 [sol-composite]: compositing + nine conformance cases + schema/AniML complete; prior check 597 tests pass, paint size 5752/5120 fails → optimized to 5721 B; final expanded check running (evidence: /tmp/anima-composite-check.log, node tools/size.ts).
+- 2026-11-05 16:37 [sol-composite]: final implementation frozen; prior full runs 621/622 with formatter timeout then stale paint artifact; isolated formatter 9/9 and regenerated artifacts pass → fresh npm run check running (evidence: /tmp/anima-composite-verification.log).
+- 2026-11-05 16:39 [sol-composite]: exhaustive formatter timeout recurred at 5.2 s under full browser load → increased only that non-browser test to 15 s, retaining all prefix assertions; browser limits unchanged (evidence: /tmp/anima-composite-verification.log).
+- 2026-11-05 16:40 [sol-composite]: final npm run check → 30 files / 623 tests green (both browsers), typecheck/lint/format green; exits 1 only at paint 5768/5120; separate web/AniML/parity freshness checks pass (evidence: /tmp/anima-composite-complete-check.log).

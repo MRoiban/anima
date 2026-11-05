@@ -1,0 +1,12 @@
+<anima version="0.1" name="paint-draw-order" grid="20" requires="paint">
+  <rect id="a" x0="0" y0="0" width="20" height="20" fill="#f00">
+    <drawOrder target="b" position="after"/>
+  </rect>
+  <circle id="b" cx="10" cy="10" r="5" fill="#00f"/>
+  <timeline name="t" duration="1">
+    <track target="a.drawOrder.active">0 true; 1 false</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

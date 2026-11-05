@@ -225,3 +225,14 @@ Gradient coordinate and stop addresses are identical in both syntaxes, e.g. `dis
 `stroke-dashoffset` (number). The offset's track/pose address `disc.stroke-dashoffset` maps to
 `disc.stroke.dashOffset`. Units, sampling and trim precedence are defined in SPEC's paint chapter.
 Module element/attribute names and canonical order derive from the same registry as `.ani`.
+
+Compositing uses `mix-blend-mode` and `stroke-position` node attributes. Paint visibility uses
+`fill-visible` or `stroke-visible`. Structural children map directly to their JSON objects:
+`<mask source="shape" mode="alpha" source-draws="false"/>`,
+`<clip source="outline" rule="evenodd"/>`, and
+`<drawOrder target="sibling" position="after" active="true"/>`.
+Multiple paints are repeated `<fillPaint fill="#f00"/>` or
+`<strokePaint stroke="#000" stroke-width="2"/>` children, in drawing order. Gradient paints
+use `type="linear"` / `type="radial"`, coordinate attributes and nested `<stop>` children on
+these elements. Track addresses keep the JSON paint-array path. A structural selector `for`
+is reserved for registry routing and normally omitted.

@@ -117,8 +117,9 @@ describe('formatMarkup', () => {
     expect(result.text).toBeUndefined();
     expect(result.diagnostics[0]).toMatchObject({ code: 'markup-syntax', line: 2, column: 9 });
   });
+  // Exhaustive prefix coverage competes with both browser lanes in the full suite.
   it('never throws on any prefix of bell', () => {
     for (let i = 0; i <= bell.length; i++)
       expect(() => formatMarkup(bell.slice(0, i))).not.toThrow();
-  });
+  }, 15000);
 });

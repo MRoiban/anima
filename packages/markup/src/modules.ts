@@ -29,35 +29,45 @@ export const structuralMarkup = {
   },
   node(
     compiler: Compiler,
-    el: Element,
+    _el: Element,
     children: Element[],
     o: Record<string, unknown>,
     p: string,
   ): void {
-    if (el.name !== 'group')
-      for (const c of children) {
-        const form = compiler.elements[c.name]!;
-        const selector = c.attrs.find((x) => x.name === form.target!.attribute);
-        const key = selector?.value ?? form.target!.default;
-        if (!form.target!.choices.includes(key)) {
-          compiler.error(
-            'bad-attribute',
-            p,
-            selector?.valueAt ?? c.at,
-            VERBOSE ? 'invalid paint target' : '',
-          );
-          continue;
-        }
-        const parent = compiler.container(o, key, p, c.at);
-        if (parent.color !== undefined || parent.type !== undefined)
-          compiler.error(
-            'paint-attribute',
-            ptr(p, key),
-            c.at,
-            VERBOSE ? 'paint already has a colour or gradient' : '',
-          );
-        Object.assign(parent, compiler.build(c, ptr(p, key)));
+    for (const c of children) {
+      const form = compiler.elements[c.name];
+      if (!form?.target) continue;
+      const selector = c.attrs.find((x) => x.name === form.target!.attribute);
+      const key = selector?.value ?? form.target!.default;
+      if (!form.target!.choices.includes(key)) {
+        compiler.error(
+          'bad-attribute',
+          p,
+          selector?.valueAt ?? c.at,
+          VERBOSE ? 'invalid paint target' : '',
+        );
+        continue;
       }
+      if (form.target!.array) {
+        const list = (o[key] ??= []) as unknown[];
+        list.push({
+          [form.target!.wrapper!]: compiler.build(
+            c,
+            ptr(ptr(p, key), list.length) + '/' + form.target!.wrapper,
+          ),
+        });
+        continue;
+      }
+      const parent = compiler.container(o, key, p, c.at);
+      if (parent.color !== undefined || parent.type !== undefined)
+        compiler.error(
+          'paint-attribute',
+          ptr(p, key),
+          c.at,
+          VERBOSE ? 'paint already has a colour or gradient' : '',
+        );
+      Object.assign(parent, compiler.build(c, ptr(p, key)));
+    }
   },
   form(compiler: Compiler, el: Element): Form | undefined {
     const form = compiler.elements[el.name];
@@ -92,6 +102,7 @@ export const structuralMarkup = {
     for (const [k, s] of Object.entries(form.shape.p)) {
       if (s.k === 'arr' && s.of.element) {
         const list = children.filter((c) => c.name === s.of.element);
+        if (!list.length && !form.shape.req?.includes(k)) continue;
         compiler.put(o, k, [], p, el.at);
         list.forEach((c, i) => (o[k] as unknown[]).push(compiler.build(c, ptr(ptr(p, k), i))));
       } else {

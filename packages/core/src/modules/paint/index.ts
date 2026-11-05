@@ -1,4 +1,5 @@
 // Independently implemented from the SVG paint model; no Rive runtime algorithm is used.
+import { withComposite } from './composite.ts';
 import type { Module } from '../../modules.ts';
 import { parseHex } from '../../color.ts';
 import { color, fmt } from '../../svg.ts';
@@ -35,7 +36,7 @@ const stopProps: Record<string, Prop> = {
   color: { type: 'color', feature: 'paint' },
 };
 
-export const paint: Module = {
+const base: Module = {
   name: 'paint',
   entries: [
     {
@@ -228,3 +229,5 @@ export const paint: Module = {
     }
   },
 };
+
+export const paint: Module = { ...base, init: () => withComposite(base) };

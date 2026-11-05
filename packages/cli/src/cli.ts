@@ -690,17 +690,23 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
       ani: key,
       type: describe(value),
       required: shape.req?.includes(key) ?? false,
-      ...(value.feature ? { feature: value.feature } : {}),
+      ...((value.feature ?? shape.feature) ? { feature: value.feature ?? shape.feature } : {}),
       ...(value.k === 'num' && value.min !== undefined ? { min: value.min } : {}),
     }));
   };
+  const nodeField = topic && nodeShape('path').p[topic];
+  const compositeField =
+    nodeField &&
+    (nodeField.k === 'arr' ? { ...nodeField.of, feature: nodeField.feature } : nodeField);
   const objectFields =
     topic && Object.hasOwn(objectPaths, topic)
       ? fields(
           objectPaths[topic]!,
           topic === 'fill' || topic === 'stroke' ? nodeShape('path').p[topic]! : DOC,
         )
-      : undefined;
+      : compositeField && compositeField.k === 'obj' && !NODE_TYPES.includes(topic as never)
+        ? fields([], compositeField)
+        : undefined;
   let data: unknown;
   if (objectFields)
     data = {

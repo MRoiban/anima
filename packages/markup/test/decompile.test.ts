@@ -87,7 +87,35 @@ function recover(root: Element): Obj {
         color: attrs(s)['stop-color'],
       }));
     }
-    if (e.name === 'group') o.children = elements(e).map(node);
+    for (const child of elements(e)) {
+      const a = attrs(child);
+      if (child.name === 'mask')
+        o.mask = {
+          ...base(child),
+          source: a.source,
+          mode: a.mode,
+          sourceDraws: a['source-draws'] === 'true',
+        };
+      if (child.name === 'clip') o.clip = { ...base(child), source: a.source, rule: a.rule };
+      if (child.name === 'drawOrder')
+        o.drawOrder = {
+          ...base(child),
+          target: a.target,
+          position: a.position,
+          ...(a.active === undefined ? {} : { active: a.active === 'true' }),
+        };
+      if (['fillPaint', 'strokePaint'].includes(child.name)) {
+        const kind = child.name === 'fillPaint' ? 'fill' : 'stroke';
+        const paint: Obj = { ...base(child) };
+        for (const attr of nodeAttrs('rect').filter((v) => v.path[0] === kind))
+          if (a[attr.attr] !== undefined) paint[attr.path[1]!] = scalar(a[attr.attr]!);
+        ((o.paints ??= []) as unknown[]).push({ [kind]: paint });
+      }
+    }
+    if (e.name === 'group')
+      o.children = elements(e)
+        .filter((c) => NODE_ELEMENTS.includes(c.name))
+        .map(node);
     return o;
   };
   const d: Obj = { ...base(root), ...attrs(root), nodes: [] };
@@ -300,6 +328,11 @@ function check(source: string | object) {
       'linearGradient',
       'radialGradient',
       'stop',
+      'mask',
+      'clip',
+      'drawOrder',
+      'fillPaint',
+      'strokePaint',
     ]).toContain(e.name);
     if (e.name !== 'pose') for (const a of e.attrs) expect(attrOrder(e.name)).toContain(a.name);
     elements(e).forEach(names);

@@ -143,7 +143,13 @@ export type ObjShape = Extract<Shape, { k: 'obj' }>;
 export interface ElementForm {
   shape: ObjShape;
   values?: Record<string, string>;
-  target?: { attribute: string; default: string; choices: string[] };
+  target?: {
+    attribute: string;
+    default: string;
+    choices: string[];
+    array?: boolean;
+    wrapper?: string;
+  };
 }
 export const ELEMENTS: Record<string, ElementForm> = {};
 const nodeShapes = new Map<NodeType, ObjShape>();

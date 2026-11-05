@@ -1,0 +1,12 @@
+<anima version="0.1" name="paint-mask-alpha" grid="20" requires="paint">
+  <rect id="a" x0="0" y0="0" width="20" height="20" fill="#f00">
+    <mask source="b" mode="alpha" source-draws="false"/>
+  </rect>
+  <circle id="b" cx="10" cy="10" r="5" fill="#fff"/>
+  <timeline name="t" duration="1">
+    <track target="a.x">0 0; 1 2</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

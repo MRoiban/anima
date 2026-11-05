@@ -13,6 +13,7 @@ import {
   cssSlots,
   load,
   sceneTree,
+  sceneOrder,
   registerModule,
   modules,
 } from '@anima-format/core';
@@ -299,6 +300,7 @@ export class AnimaIcon extends HTMLElement {
         rec[2] = {};
         this.#paint(rec);
       }
+    this.#order();
   }
 
   /** Set a bool or number input. */
@@ -366,6 +368,7 @@ export class AnimaIcon extends HTMLElement {
     this.#root.append(svg);
     this.#layout();
     for (const rec of this.#els) this.#paint(rec);
+    this.#order();
   }
 
   #layout(): void {
@@ -414,13 +417,39 @@ export class AnimaIcon extends HTMLElement {
     }
   }
 
+  #order(): void {
+    const groups = new Map<Element, Map<number, Element>>();
+    for (const [el, dom] of this.#els)
+      if (el.role === 'node') {
+        let top = dom;
+        while (top.parentElement?.getAttribute('data-anima-wrap') === 'true')
+          top = top.parentElement;
+        const parent = top.parentElement!;
+        const group = groups.get(parent) ?? new Map<number, Element>();
+        group.set(el.node, top);
+        groups.set(parent, group);
+      }
+    for (const [parent, group] of groups) {
+      const nodes = [...group.keys()].sort((a, b) => a - b);
+      const ordered = sceneOrder(this.player!, nodes).map((i) => group.get(i)!);
+      if (
+        ordered.some((dom, i) => [...parent.children].filter((d) => ordered.includes(d))[i] !== dom)
+      )
+        for (const dom of ordered) parent.append(dom);
+    }
+  }
+
   #draw(): void {
     const p = this.player!;
     const nodes = new Set(p.takeDirty().map((s) => p.model.addrs.get(p.addrs[s]!)!.node));
     // A visibility change reaches knockout cuts of descendants; just repaint everything then.
-    if ([...nodes].some((n) => p.model.addrs.get(p.model.nodes[n]!.id + '.visible')))
+    if (
+      [...modules.values()].some((m) => m.crossNode) ||
+      [...nodes].some((n) => p.model.addrs.get(p.model.nodes[n]!.id + '.visible'))
+    )
       for (const rec of this.#els) this.#paint(rec);
     else for (const n of nodes) for (const rec of this.#byNode.get(n) ?? []) this.#paint(rec);
+    this.#order();
   }
 
   #aria(): void {

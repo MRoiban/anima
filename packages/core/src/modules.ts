@@ -32,7 +32,10 @@ export interface ModuleEntry {
 }
 export interface Module {
   name: string;
+  init?(): Module;
+  crossNode?: boolean;
   entries: ModuleEntry[];
+  order?(player: Player, nodes: number[]): number[];
   load?(model: Model, raw: Model['doc'], diag: Diags): void;
   /** Resolve additional addresses to the existing number/colour/bool sampling slots. */
   model?(node: NodeM, key: string): Pick<Addr, 'prop' | 'rest'> | undefined;
@@ -46,6 +49,7 @@ export const FEATURES = ['knockout'];
 export function registerModule(m: Module): void {
   if (!/^[a-z]+(?:@[1-9]\d*)?$/.test(m.name)) throw new Error('invalid module name');
   if (modules.has(m.name)) return;
+  m = m.init?.() ?? m;
   for (const e of m.entries) {
     const type = e.target as NodeType;
     if (e.node && !NODE_TYPES.includes(type)) {

@@ -38,6 +38,7 @@ describe('one registry, two spellings', () => {
     );
     expect(attrs('rect')).toEqual(expect.arrayContaining(['x0', 'y0', 'width', 'height', 'rx']));
     expect(attrs('group')).toEqual([
+      'mix-blend-mode',
       'pivot',
       'x',
       'y',
@@ -85,6 +86,13 @@ describe('one registry, two spellings', () => {
             : k in COMMON || k in OWN[t];
         expect(a.animatable, `${t}.${a.attr}`).toBe(anim);
       }
-    expect(Object.keys(STATIC.circle)).toEqual(['center']);
+    expect(Object.keys(STATIC.circle)).toEqual([
+      'center',
+      'blend',
+      'mask',
+      'clip',
+      'drawOrder',
+      'paints',
+    ]);
   });
 });

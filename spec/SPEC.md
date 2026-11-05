@@ -584,3 +584,79 @@ continues ARCHITECTURE §core.1 and the ideas recorded in
 [format and graph research](../docs/research/rive-format-and-graph.md); the scene keeps the retained
 DOM/dirty-node strategy in [web runtime research](../docs/research/rive-web-runtime.md).
 No algorithm here closely follows Rive runtime source; no additional NOTICE attribution is needed.
+
+### Blend modes
+
+`node.blend` (AniML `mix-blend-mode`) selects normal (default), multiply, screen, overlay,
+darken, lighten, color-dodge, color-burn, hard-light, soft-light, difference, exclusion, hue,
+saturation, color or luminosity. It applies CSS `mix-blend-mode` to the node's group, compositing
+against earlier siblings using SVG/CSS semantics. Blend is static. Additive is deferred: SVG
+renderers do not consistently implement CSS `plus-lighter`; source-over is not a faithful substitute.
+
+### Source masks
+
+`mask: { source, mode, sourceDraws }` names a node, selects alpha, luminance, inverted-alpha or
+inverted-luminance, and explicitly controls whether the source also draws in its ordinary place.
+Any false `sourceDraws` use hides that source's ordinary drawing for the document's life.
+The source subtree is shared through a retained definition and SVG `use`; its geometry, local transforms,
+opacity and visibility animate normally. Its ancestors contribute coordinate transforms, but not
+ancestor opacity or visibility. Mask space is the target's parent space. The target transform
+stays inside a permanent, untransformed mask wrapper. Masks cover three viewBoxes, as knockouts do.
+Luminance uses SVG luminance masking. Inversion uses an SVG filter with `feComponentTransfer`
+alpha table `1 0`; inverted luminance first uses `feColorMatrix type="luminanceToAlpha"`, and
+then uses alpha masking. Filter interpolation is sRGB. Source drawing is independent of hiding
+its ordinary copy. Unknown sources, self references and cycles are load errors.
+
+### Geometry clips
+
+`clip: { source, rule }` names a painted node's outline, with rule nonzero or evenodd. Fill,
+stroke, visibility, opacity and source compositing do not affect the clip. Source geometry and
+world transforms animate; coordinates are projected into the target parent space. The SVG
+`clipPath` contains an untransformed path (curves transformed control-point by control-point).
+This avoids nonportable nested groups in clip paths while preserving the Firefox retained-leaf
+rules. Singular target parent transforms yield an empty clip. SVG arcs are converted to cubic
+curves by Anima's existing parser. A group source is `clip-source-not-painted`.
+
+### Ordered paints and visibility
+
+A painted node may replace single `fill` and `stroke` with a nonempty `paints` array. Each entry
+has exactly one `fill` or `stroke` object, using the same flat/gradient/width/dash fields; later
+entries paint over earlier entries. `visible` on any paint defaults true and is hold-only
+animatable. Addresses are `<id>.paints.<index>.<fill|stroke>.<field>`, including gradient stops.
+Indices must exist, and array structure is static. Single paint visibility addresses are
+`<id>.fill.visible` and `<id>.stroke.visible`. Multiple strokes currently require center position;
+noncenter positions on multiple paints are rejected. Paints and single fill/stroke cannot coexist.
+
+### Stroke placement
+
+Single `stroke.position` is center (default), inside or outside. Center uses the original width.
+Inside doubles the width and clips the stroke to the shape's filled outline. Outside doubles the
+width and luminance-masks it by a white viewport with a black filled outline. Fill is drawn once,
+before the stroke. Definition geometry samples the same animated dimensions as the visible shape.
+Masks stay attached for the document's life. Open contours use SVG's implicit closing for the
+filled outline; fill rules apply to both clipping and exclusion. Position is static.
+
+### Sibling draw order
+
+`drawOrder: { target, position, active? }` moves a node before or after a named sibling when
+active (default true). `drawOrder.active` is an ordinary hold-only boolean animation address;
+changing it reapplies rules to authored sibling order. Rules run in authored node order, once
+per frame, removing then inserting their node relative to the target. Multiple rules therefore
+have deterministic precedence. Cyclic target chains and nonsibling targets are rejected.
+Rules involving knockout siblings are rejected because knockout permanently groups earlier nodes.
+Static SVG serializes the current order; web reorders existing DOM siblings without replacing
+nodes or detaching their masks. The extra module `order(player,nodes)` hook returns sibling indices.
+The module `init()` hook constructs registry entries at registration, preserving tree shaking.
+A module may set `crossNode: true` to request repainting all retained attributes after dirty slots;
+this keeps animated source references correct across node and ancestor boundaries.
+
+### Compositing diagnostics
+
+`unknown-source` points at mask/clip source or draw target; `self-reference` and `reference-cycle`
+point at the referencing object. `clip-source-not-painted`, `bad-draw-target`, and `paint-conflict`
+identify incompatible sources, ordering and paint combinations. Each includes a corrective hint.
+Structural validation retains the ordinary registry diagnostics and JSON pointers. These features
+are independently implemented from SVG semantics; no Rive code or algorithms were used.
+The explicit references and retained ordering follow the lessons in
+[format/graph research](../docs/research/rive-format-and-graph.md) §6; the sleeping renderer remains
+as described in [web research](../docs/research/rive-web-runtime.md).

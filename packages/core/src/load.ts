@@ -713,7 +713,7 @@ function checkNode(
   if (!PAINTED.includes(n.type)) return;
   if (r.fill?.color !== undefined) checkPaint(r.fill.color, p + '/fill/color');
   if (r.stroke?.color !== undefined) checkPaint(r.stroke.color, p + '/stroke/color');
-  if (V && !r.fill && !r.stroke)
+  if (V && !r.fill && !r.stroke && !r.paints)
     d.warn('no-paint', p, V && `"${n.id}" has neither fill nor stroke`);
   if (n.type === 'arc') {
     if (r.fill)

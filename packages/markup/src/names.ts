@@ -42,6 +42,7 @@ export function nodeAttrs(type: NodeType): NodeAttr[] {
     ...TRANSFORM,
   ]) {
     const shape = ns.p[key]!;
+    if (shape.element) continue;
     const name = markupName(shape, key);
     const parts = name.split(' ');
     // A vector key spelled as several attributes (center → cx cy).
@@ -71,7 +72,13 @@ export function nodeAttrs(type: NodeType): NodeAttr[] {
 }
 
 /** Keys of a node object that `nodeAttrs` does not cover (handled structurally). */
-export const STRUCTURAL_NODE_KEYS = ['id', 'type', 'children'];
+export const STRUCTURAL_NODE_KEYS = [
+  'id',
+  'type',
+  'children',
+  ...Object.keys(STATIC.group).filter((k) => nodeShape('group').p[k]?.element),
+  'paints',
+];
 
 /** Node element names: one per node type. */
 export const NODE_ELEMENTS: readonly string[] = NODE_TYPES;
