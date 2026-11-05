@@ -1,0 +1,144 @@
+<Rive version="1" kind="fragment">
+  <Artboard name="Dark mode" id="0:1" width="240" height="240" viewModelId="0:100" defaultStateMachineId="0:10" styleId="0:6">
+    <LayoutComponentStyle name="Artboard style" id="0:6"/>
+    <Node name="Knob position" id="0:2" x="72" y="120">
+      <Shape name="Knob" id="0:3">
+        <Ellipse name="Circle" width="62.4" height="62.4" originX="0.5" originY="0.5"/>
+        <Fill name="Ink"><SolidColor colorValue="FF141413"/></Fill>
+      </Shape>
+    </Node>
+    <Shape name="Track outline" x="120" y="120">
+      <Rectangle width="192" height="96" originX="0.5" originY="0.5" cornerRadiusTL="48"/>
+      <Stroke name="Ink" thickness="18"><SolidColor colorValue="FF141413"/></Stroke>
+    </Shape>
+    <Shape name="Track fill" id="0:4" x="120" y="120" opacity="0">
+      <Rectangle width="192" height="96" originX="0.5" originY="0.5" cornerRadiusTL="48"/>
+      <Fill name="Accent"><SolidColor colorValue="FFD97757"/></Fill>
+    </Shape>
+    <Shape name="Full icon hit area" id="0:5" x="120" y="120">
+      <Rectangle width="240" height="240" originX="0.5" originY="0.5"/>
+      <Fill name="Invisible"><SolidColor colorValue="00000000"/></Fill>
+      <SemanticData name="Switch semantics" role="switchControl" label="Dark mode" isToggleable="true">
+        <DataBindContext sourcePathIds="0:100-0:102" propertyKey="1000"/>
+      </SemanticData>
+    </Shape>
+    <StateMachine name="Switch interactions" id="0:10">
+      <StateMachineListener targetId="0:5" name="Toggle">
+        <ListenerInputType listenerTypeValue="click"/>
+        <ListenerInputTypeSemantic listenerTypeValue="semanticAction"><SemanticInput actionType="tap"/></ListenerInputTypeSemantic>
+        <ListenerViewModelChange fromViewModelProperty="true" fromDataBindId="0:110">
+          <BindablePropertyBoolean>
+            <DataBindContext sourcePathIds="0:100-0:102" propertyKey="634" id="0:110" converterId="0:109"/>
+            <DataBindContext sourcePathIds="0:100-0:102" propertyKey="634" direction="true"/>
+          </BindablePropertyBoolean>
+        </ListenerViewModelChange>
+      </StateMachineListener>
+      <StateMachineListenerSingle targetId="0:5" name="Hover enter" listenerTypeValue="enter">
+        <ListenerViewModelChange><BindablePropertyBoolean propertyValue="true"><DataBindContext sourcePathIds="0:100-0:103" propertyKey="634" direction="true"/></BindablePropertyBoolean></ListenerViewModelChange>
+      </StateMachineListenerSingle>
+      <StateMachineListenerSingle targetId="0:5" name="Hover exit" listenerTypeValue="exit">
+        <ListenerViewModelChange><BindablePropertyBoolean propertyValue="false"><DataBindContext sourcePathIds="0:100-0:103" propertyKey="634" direction="true"/></BindablePropertyBoolean></ListenerViewModelChange>
+        <ListenerViewModelChange><BindablePropertyBoolean propertyValue="false"><DataBindContext sourcePathIds="0:100-0:104" propertyKey="634" direction="true"/></BindablePropertyBoolean></ListenerViewModelChange>
+      </StateMachineListenerSingle>
+      <StateMachineListenerSingle targetId="0:5" name="Press" listenerTypeValue="down">
+        <ListenerViewModelChange><BindablePropertyBoolean propertyValue="true"><DataBindContext sourcePathIds="0:100-0:104" propertyKey="634" direction="true"/></BindablePropertyBoolean></ListenerViewModelChange>
+      </StateMachineListenerSingle>
+      <StateMachineListenerSingle targetId="0:5" name="Release" listenerTypeValue="up">
+        <ListenerViewModelChange><BindablePropertyBoolean propertyValue="false"><DataBindContext sourcePathIds="0:100-0:104" propertyKey="634" direction="true"/></BindablePropertyBoolean></ListenerViewModelChange>
+      </StateMachineListenerSingle>
+      <StateMachineLayer name="Toggle" id="0:11">
+        <AnyState x="0" y="-150"/><ExitState x="300" y="-150"/>
+        <EntryState x="-200" y="0"><StateTransition stateToId="0:12"/></EntryState>
+        <AnimationState id="0:12" x="0" y="0" animationId="0:20">
+          <StateTransition stateToId="0:13" duration="0" enableEarlyExit="true">
+            <TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:100-0:102" propertyKey="634"/></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="true"/></TransitionViewModelCondition>
+            <TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:100-0:105" propertyKey="634"/></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="true"/></TransitionViewModelCondition>
+          </StateTransition>
+          <StateTransition stateToId="0:13" duration="300" enableEarlyExit="true" interpolationType="cubic">
+            <CubicEaseInterpolator x1="0.42" y1="0" x2="0.58" y2="1"/>
+            <TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:100-0:102" propertyKey="634"/></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="true"/></TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+        <AnimationState id="0:13" x="300" y="0" animationId="0:21">
+          <StateTransition stateToId="0:12" duration="0" enableEarlyExit="true">
+            <TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:100-0:102" propertyKey="634"/></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="false"/></TransitionViewModelCondition>
+            <TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:100-0:105" propertyKey="634"/></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="true"/></TransitionViewModelCondition>
+          </StateTransition>
+          <StateTransition stateToId="0:12" duration="300" enableEarlyExit="true" interpolationType="cubic">
+            <CubicEaseInterpolator x1="0.42" y1="0" x2="0.58" y2="1"/>
+            <TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:100-0:102" propertyKey="634"/></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="false"/></TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+      </StateMachineLayer>
+      <StateMachineLayer name="Pointer scale" id="0:30">
+        <AnyState x="0" y="-150"/><ExitState x="300" y="-150"/>
+        <EntryState x="-200" y="0"><StateTransition stateToId="0:31"/></EntryState>
+        <AnimationState id="0:31" x="0" y="0" animationId="0:40">
+          <StateTransition stateToId="0:33" duration="80" enableEarlyExit="true">
+            <TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:100-0:104" propertyKey="634"/></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="true"/></TransitionViewModelCondition>
+          </StateTransition>
+          <StateTransition stateToId="0:32" duration="150" enableEarlyExit="true">
+            <TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:100-0:103" propertyKey="634"/></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="true"/></TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+        <AnimationState id="0:32" x="300" y="0" animationId="0:41">
+          <StateTransition stateToId="0:33" duration="80" enableEarlyExit="true">
+            <TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:100-0:104" propertyKey="634"/></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="true"/></TransitionViewModelCondition>
+          </StateTransition>
+          <StateTransition stateToId="0:31" duration="150" enableEarlyExit="true">
+            <TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:100-0:103" propertyKey="634"/></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="false"/></TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+        <AnimationState id="0:33" x="150" y="200" animationId="0:42">
+          <StateTransition stateToId="0:32" duration="150" enableEarlyExit="true">
+            <TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:100-0:104" propertyKey="634"/></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="false"/></TransitionViewModelCondition>
+            <TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:100-0:103" propertyKey="634"/></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="true"/></TransitionViewModelCondition>
+          </StateTransition>
+          <StateTransition stateToId="0:31" duration="150" enableEarlyExit="true">
+            <TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:100-0:104" propertyKey="634"/></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="false"/></TransitionViewModelCondition>
+            <TransitionViewModelCondition><TransitionPropertyViewModelComparator><BindablePropertyBoolean><DataBindContext sourcePathIds="0:100-0:103" propertyKey="634"/></BindablePropertyBoolean></TransitionPropertyViewModelComparator><TransitionValueBooleanComparator value="false"/></TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+      </StateMachineLayer>
+    </StateMachine>
+    <LinearAnimation name="Off" id="0:20" fps="60" duration="1" loopValue="oneShot">
+      <KeyedObject objectId="0:2"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="72"/></KeyedProperty></KeyedObject>
+      <KeyedObject objectId="0:4"><KeyedProperty property="opacity"><KeyFrameDouble frame="0" value="0"/></KeyedProperty></KeyedObject>
+    </LinearAnimation>
+    <LinearAnimation name="On" id="0:21" fps="60" duration="1" loopValue="oneShot">
+      <KeyedObject objectId="0:2"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="168"/></KeyedProperty></KeyedObject>
+      <KeyedObject objectId="0:4"><KeyedProperty property="opacity"><KeyFrameDouble frame="0" value="1"/></KeyedProperty></KeyedObject>
+    </LinearAnimation>
+    <LinearAnimation name="Rest" id="0:40" fps="60" duration="1" loopValue="oneShot">
+      <KeyedObject objectId="0:3">
+        <KeyedProperty property="scaleX"><KeyFrameDouble frame="0" value="1"/></KeyedProperty>
+        <KeyedProperty property="scaleY"><KeyFrameDouble frame="0" value="1"/></KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <LinearAnimation name="Hover" id="0:41" fps="60" duration="1" loopValue="oneShot">
+      <KeyedObject objectId="0:3">
+        <KeyedProperty property="scaleX"><KeyFrameDouble frame="0" value="1.15"/></KeyedProperty>
+        <KeyedProperty property="scaleY"><KeyFrameDouble frame="0" value="1.15"/></KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <LinearAnimation name="Press" id="0:42" fps="60" duration="1" loopValue="oneShot">
+      <KeyedObject objectId="0:3">
+        <KeyedProperty property="scaleX"><KeyFrameDouble frame="0" value="0.85"/></KeyedProperty>
+        <KeyedProperty property="scaleY"><KeyFrameDouble frame="0" value="0.85"/></KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+  </Artboard>
+  <DataConverterBooleanNegate name="Negate on" id="0:109"/>
+  <ViewModel name="Switch" id="0:100" defaultInstanceId="0:101">
+    <ViewModelPropertyBoolean name="on" id="0:102"/>
+    <ViewModelPropertyBoolean name="hover" id="0:103"/>
+    <ViewModelPropertyBoolean name="down" id="0:104"/>
+    <ViewModelPropertyBoolean name="reducedMotion" id="0:105"/>
+    <ViewModelInstance name="Default" id="0:101" exports="true">
+      <ViewModelInstanceBoolean viewModelPropertyId="0:102" propertyValue="false"/>
+      <ViewModelInstanceBoolean viewModelPropertyId="0:103" propertyValue="false"/>
+      <ViewModelInstanceBoolean viewModelPropertyId="0:104" propertyValue="false"/>
+      <ViewModelInstanceBoolean viewModelPropertyId="0:105" propertyValue="false"/>
+    </ViewModelInstance>
+  </ViewModel>
+</Rive>
