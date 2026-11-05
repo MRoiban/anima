@@ -263,28 +263,20 @@ export class Player {
       });
     run('leave', (i) => this.#over[i]! && !now[i]);
     run('enter', (i) => !this.#over[i] && now[i]!);
-    if (kind === 'move') {
-      run('move', (i) => now[i]!);
-      if (this.#press)
-        this.#pressMoved = Math.max(
-          this.#pressMoved,
-          Math.hypot(x - this.#pressAt[0], y - this.#pressAt[1]),
-        );
-    } else if (kind === 'down') {
-      run('down', (i) => now[i]!);
-      this.#press = now;
-      this.#pressAt = [x, y];
-      this.#pressMoved = 0;
-    } else if (kind === 'up') {
-      run('up', (i) => now[i]!);
-      const p = this.#press;
-      const moved = Math.max(
+    run(kind, (i) => now[i]!); // nothing is hit on 'leave'
+    // How far the pointer travelled since down: a click needs it to stay within 0.5 units.
+    if (kind === 'move' || kind === 'up')
+      this.#pressMoved = Math.max(
         this.#pressMoved,
         Math.hypot(x - this.#pressAt[0], y - this.#pressAt[1]),
       );
-      if (p && moved < 0.5) run('click', (i) => now[i]! && p[i]!);
-      this.#press = null;
-    } else this.#press = null;
+    const p = this.#press;
+    if (kind === 'up' && p && this.#pressMoved < 0.5) run('click', (i) => now[i]! && p[i]!);
+    if (kind === 'down') {
+      this.#press = now;
+      this.#pressAt = [x, y];
+      this.#pressMoved = 0;
+    } else if (kind !== 'move') this.#press = null;
     this.#over = now;
   }
 
@@ -468,17 +460,9 @@ export class Player {
       if (x.k === 'cmp') {
         const v = this.#inputVals.get(x.name) as number;
         const c = x.value;
-        return x.op === '=='
-          ? v === c
-          : x.op === '!='
-            ? v !== c
-            : x.op === '<'
-              ? v < c
-              : x.op === '<='
-                ? v <= c
-                : x.op === '>'
-                  ? v > c
-                  : v >= c;
+        return { '==': v === c, '!=': v !== c, '<': v < c, '<=': v <= c, '>': v > c, '>=': v >= c }[
+          x.op
+        ];
       }
       if (this.model.inputs.get(x.name)!.type === 'trigger')
         return this.#pending.has(x.name) && !used.has(x.name);
@@ -543,23 +527,21 @@ export class Player {
     const d = tl.duration;
     const found: [number, number, string][] = []; // [played time, event time, name]
     const inRange = (t: number) => (closed ? t >= a : t > a) && t <= b;
+    const once = tl.loop === 'once';
+    const loop = tl.loop === 'loop';
+    const period = loop ? d : 2 * d;
     tl.events.forEach(([te, name]) => {
-      if (tl.loop === 'once') {
-        if (inRange(te)) found.push([te, te, name]);
-        return;
-      }
-      const period = tl.loop === 'loop' ? d : 2 * d;
-      const k0 = Math.max(0, Math.floor(a / period) - 1);
-      const k1 = Math.min(k0 + 10000, Math.floor(b / period) + 1);
+      // Repeats k0..k1 of the period (a 'once' timeline has just k = 0); pingpong plays each
+      // event twice per period, forwards and back.
+      const k0 = once ? 0 : Math.max(0, Math.floor(a / period) - 1);
+      const k1 = once ? 0 : Math.min(k0 + 10000, Math.floor(b / period) + 1);
       const seen = new Set<number>();
-      for (let k = k0; k <= k1; k++) {
-        const ts = tl.loop === 'loop' ? [te + k * d] : [te + 2 * k * d, 2 * (k + 1) * d - te];
-        for (const t of ts)
+      for (let k = k0; k <= k1; k++)
+        for (const t of loop || once ? [te + k * d] : [te + 2 * k * d, 2 * (k + 1) * d - te])
           if (inRange(t) && !seen.has(t)) {
             seen.add(t);
             found.push([t, te, name]);
           }
-      }
     });
     found.sort((x, y) => x[0] - y[0]);
     for (const [, te, name] of found) events.push({ name, layer: L.m.name, time: te });
