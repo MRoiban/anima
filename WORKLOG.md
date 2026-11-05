@@ -1,11 +1,13 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive (owner 2026-11-06). Order: P4a → P5 → Pc canvas → P4b–e → P3b → P6–P10. Benchmark gate after every phase.
-State: p4a-paint: P4a-1 (modules, gradients, dashes) + P4a-2 (geometry) merged; P4a-3 compositing running (on old SVG hooks).
-Next: merge P4a-3 → P4a-4 draw-layer refactor (MODULES §3.1, Sol xhigh) → P4a-5 benchmark (paint brief, AniML vs Rive) → PR.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: round-2 size ≤16697 B core+web gzip and restore prefix compilation speed.
+Branch: t3/reduce-draw-layer-size-and-load-cost, from 51bc900; no push/PR/merge authorized.
+Size: 16901 B (−52 from 16953); target missed by 204 B. Paint 3708/5120, composite 3840/4096, markup 7502/8192.
+Speed: final alternating b7b6e92/working medians 759/767 ms (+1.1%); individual working 754/1012/767 ms.
+Verified: final npm run check green (706 tests, Chromium + Firefox); 9040 prefixes + 726 frames identical to 51bc900; 363 SVG frames identical to b7b6e92.
+Next: owner integrates local round-2 commit; remaining no-growth size gate is open (+204 B).
+Don't: behavior/expectation/spec/conformance/measurement/budget changes, runtime dependencies, push/PR/merge.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -69,3 +71,7 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 06:00 [claude]: merged AniML benchmark run (6e6aea7): 5/6 (no continuous input binding → P5), 5m13s, 101 lines; Rive 5/6; table + findings in docs/benchmarks/agent-native.md; P4a-7 friction fixes queued after the size race
 - 2026-11-06 07:00 [claude]: size race: A 17017, B 16953 (both verified); combining conflicted in 9 core files → took B; round 2 from B (A's ideas as hints)
 - 2026-11-06 07:30 [claude]: npm run check green (706); found compile/load ~2x slower since draw layer (prefix test 941→1805 ms) → into size round 2
+- 2026-11-05 18:36 [sol]: size failed with missing esbuild → npm ci; baseline 16953 B, markup 7457, paint 3700, composite 3847; CPU profile 2000 compiles/loads captured in /tmp/anima-r2/profiles (evidence: node tools/size.ts; node --cpu-prof /tmp/anima-r2/bench.mjs).
+- 2026-11-05 18:43 [sol]: per-compile node attribute cache + residual round-1 ports + shared player predicates → 16894 B; npm run check green (706 tests, Chromium + Firefox); reverted SVG key-order change and net-regressing refactors (evidence: /tmp/anima-r2/check-first.txt).
+- 2026-11-05 18:55 [sol]: dozens of measure/change/measure candidates → best safe base 16901 B (−52, target +204); rejected SVG ordering and NaN-predicate changes; final paired prefix medians 759/767 ms; parity hashes match 9040 prefixes, 726 full frames and 363 pre-draw SVG frames (evidence: /tmp/anima-r2/verified-paired-prefix.json, *parity.txt, *svg.txt).
+- 2026-11-05 18:58 [sol]: final npm run check exits 0 → 35 files / 706 tests (Chromium + Firefox), all artifact and 37 AniML rebuild checks green; final core+web 16901 B, markup 7502, paint 3708, composite 3840 (evidence: /tmp/anima-r2/check-final.txt); size acceptance still open, no push/PR/merge.

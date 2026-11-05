@@ -199,10 +199,7 @@ export class Player {
   /** Queue a write to a bool or number input (applied by the next step). */
   set(name: string, value: number | boolean): void {
     const inp = this.#input(name, ['bool', 'number']);
-    if (
-      typeof value !== (inp.type === 'bool' ? 'boolean' : 'number') ||
-      (typeof value === 'number' && !Number.isFinite(value))
-    )
+    if (inp.type === 'bool' ? typeof value !== 'boolean' : !Number.isFinite(value))
       throw new Error(V ? `anima: input "${name}" takes a ${inp.type}` : 'anima: ' + name);
     this.#queue.push(['set', name, value]);
   }
@@ -249,7 +246,7 @@ export class Player {
         blend: L.fade ? Math.min(1, L.fade.t / L.fade.dur) : null,
         locked: !!L.fade?.lock,
         timeline: tl?.name ?? null,
-        time: tl ? (L.frozen >= 0 ? L.frozen : loopTime(tl, L.time * st.speed)) : null,
+        time: this.#localTime(L),
       };
     });
   }
@@ -386,9 +383,7 @@ export class Player {
       return (r.stroke || pad > 0) && distance(polys, lx, ly) <= half + pad;
     };
     // the target and its ancestors must be visible
-    for (let i = this.model.nodes[l.target]!.parent; i >= 0; i = this.model.nodes[i]!.parent)
-      if (this.prop(i, 'visible') === false) return false;
-    return test(l.target);
+    return this.visible(l.target) && test(l.target);
   }
 
   /** A painted node's outline as polylines in its own coordinates, from current values. */
@@ -485,14 +480,15 @@ export class Player {
     });
     // 4. Clamp, and note what changed
     V.forEach((v, i) => {
+      const addr = this.model.addrs.get(this.addrs[i]!)!;
       if (typeof v === 'number') {
-        const p = this.model.addrs.get(this.addrs[i]!)!.prop;
+        const p = addr.prop;
         V[i] = v = clamp(v, p.min ?? -Infinity, p.max ?? Infinity);
       }
       const o = this.#vals[i]!;
       if (Array.isArray(v) && Array.isArray(o) ? v.some((c, k) => c !== o[k]) : v !== o)
         this.#dirtySet.add(i);
-      this.drawVersions[this.model.addrs.get(this.addrs[i]!)!.node] = ++this.drawRevision;
+      this.drawVersions[addr.node] = ++this.drawRevision;
     });
     this.#vals = V;
     // 5. Triggers
@@ -616,14 +612,16 @@ export class Player {
     for (const [, te, name] of found) events.push({ name, layer: L.m.name, time: te });
   }
 
+  #localTime(L: LayerRun): number | null {
+    const st = L.m.states[L.state]!;
+    if (st.play === undefined) return null;
+    return L.frozen >= 0 ? L.frozen : loopTime(this.model.timelines[st.play]!, L.time * st.speed);
+  }
+
   /** The resolve rule (spec §7): write layer L's output over V. */
   #write(L: LayerRun, V: Value[]): void {
-    const st = L.m.states[L.state]!;
     const ws = L.w[L.state]!;
-    let local = 0;
-    if (st.play !== undefined)
-      local =
-        L.frozen >= 0 ? L.frozen : loopTime(this.model.timelines[st.play]!, L.time * st.speed);
+    const local = this.#localTime(L) ?? 0;
     const f = L.fade;
     if (!f) {
       for (const [k, sample] of ws) V[k] = sample(local);

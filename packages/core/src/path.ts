@@ -1,6 +1,6 @@
 // SVG 1.1 path data: full grammar in, absolute M/L/C/Z out, split by subpath (spec §3).
 
-import { text } from './diag.ts';
+import { VERBOSE as V } from './flags.ts';
 
 /** Segment opcodes in `Subpath.segs`: M x y, L x y, C x1 y1 x2 y2 x y, Z. */
 export const M = 0;
@@ -42,14 +42,14 @@ export function parsePath(d: string): Subpath[] {
   const num = (): number => {
     ws();
     const m = /^[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?/.exec(d.slice(i, i + 40));
-    if (!m) return fail(text('expected a number'));
+    if (!m) return fail(V ? 'expected a number' : '');
     i += m[0].length;
     return Number(m[0]);
   };
   const flag = (): number => {
     ws();
     const c = d[i++];
-    return c === '0' || c === '1' ? +c : fail(text('expected an arc flag (0 or 1)'), i - 1);
+    return c === '0' || c === '1' ? +c : fail(V ? 'expected an arc flag (0 or 1)' : '', i - 1);
   };
 
   let cur: Subpath | undefined;
@@ -68,14 +68,14 @@ export function parsePath(d: string): Subpath[] {
   while (i < n) {
     const ch = d[i]!;
     if (/[a-z]/i.test(ch)) {
-      if (!(ch.toLowerCase() in ARGS)) fail(text(`unknown command "${ch}"`));
+      if (!(ch.toLowerCase() in ARGS)) fail(V ? `unknown command "${ch}"` : '');
       cmd = ch;
       i++;
-    } else if (!cmd) fail(text('path data must start with a moveto'));
-    else if (cmd === 'z' || cmd === 'Z') fail(text('closepath takes no arguments'));
+    } else if (!cmd) fail(V ? 'path data must start with a moveto' : '');
+    else if (cmd === 'z' || cmd === 'Z') fail(V ? 'closepath takes no arguments' : '');
     const lc = cmd.toLowerCase();
     const rel = cmd === lc;
-    if (!cur && lc !== 'm') fail(text('path data must start with a moveto'), i - 1);
+    if (!cur && lc !== 'm') fail(V ? 'path data must start with a moveto' : '', i - 1);
     const start = i - 1; // a moveto's letter
     const a: number[] = [];
     for (let k = 0; k < ARGS[lc]!; k++) a.push(lc === 'a' && (k === 3 || k === 4) ? flag() : num());
@@ -128,7 +128,7 @@ export function parsePath(d: string): Subpath[] {
     prev = lc === 'm' ? 'l' : lc;
     ws();
   }
-  if (!out.length) fail(text('empty path data'), 0);
+  if (!out.length) fail(V ? 'empty path data' : '', 0);
   return out;
 }
 

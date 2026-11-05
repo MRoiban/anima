@@ -82,15 +82,19 @@ export interface DrawFrame {
 export function drawTree(model: Model): DrawTree {
   let tree = model.draw;
   if (!tree) {
+    const roots: number[] = [];
     tree = {
-      nodes: model.nodes.map((n, node) => ({
-        node,
-        kind: n.type === 'arc' ? 'path' : n.type,
-        parent: n.parent,
-        children: n.children,
-        knockout: n.raw.knockout,
-      })),
-      roots: model.nodes.flatMap((n, i) => (n.parent < 0 ? [i] : [])),
+      nodes: model.nodes.map((n, node) => {
+        if (n.parent < 0) roots.push(node);
+        return {
+          node,
+          kind: n.type === 'arc' ? 'path' : n.type,
+          parent: n.parent,
+          children: n.children,
+          knockout: n.raw.knockout,
+        };
+      }),
+      roots,
       resources: [],
     };
     model.drawModules = [...modules.values()].filter(

@@ -326,7 +326,7 @@ function resolve(doc: Raw, d: Diags): Model {
 
   // Addresses
   const addrs = new Map<string, Addr>();
-  const keyCount = { n: 0 };
+  let keyCount = 0;
   const address = (a: string, p: string): Addr | undefined => {
     const r = resolveAddress(a, nodes, ids);
     if (Array.isArray(r)) return void d.err(r[0], p, r[1], r[2]);
@@ -409,7 +409,7 @@ function resolve(doc: Raw, d: Diags): Model {
         d.err('empty-track', tp, V && `track "${a}" has no keyframes`);
         continue;
       }
-      if ((keyCount.n += keys.length) > LIMITS.keys)
+      if ((keyCount += keys.length) > LIMITS.keys)
         d.err('limit-exceeded', tp, V && `more than ${LIMITS.keys} keyframes`);
       const tr: TrackM = { addr: a, times: [], values: [], eases: [] };
       keys.forEach((k, i) => {
