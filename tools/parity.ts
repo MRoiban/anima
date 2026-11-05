@@ -64,7 +64,8 @@ export const PHASES: [string, string][] = [
   ['P3b', 'The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras'],
   ['P4a', 'Done: paint and composite on the module system and the draw layer'],
   ['P4', 'Interaction, paint, events and data binding'],
-  ['P5', 'Components and assets (moved up: right after P4a)'],
+  ['P5', 'Done: components, bindings, assets, images, n-slice and feathering'],
+  ['P5b', 'The rest of P5: asset pipelines (encodings, imports), library detach/update, lists, script instances'],
   ['Pc', 'Canvas backend, minimal (brought forward from P10)'],
   ['P6', 'Text'],
   ['P7', 'Layout'],
@@ -74,7 +75,7 @@ export const PHASES: [string, string][] = [
 ];
 
 /** Phases whose rows are all done. */
-export const FINISHED = ['P0', 'P1', 'P2', 'P3', 'P4a'];
+export const FINISHED = ['P0', 'P1', 'P2', 'P3', 'P4a', 'P5'];
 
 const ROOT = new URL('../docs/parity/', import.meta.url);
 

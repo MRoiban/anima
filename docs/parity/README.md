@@ -45,7 +45,7 @@ say so and a `NOTICE` file will carry the attribution.
 
 ## What 0.1 already covers
 
-173 of 1 238 capabilities (14 %) are done (111 in 0.1, AniML in P1, 15 in P3, 46 in P4a: paint and composite), concentrated where icons live: transforms (9/17), animation
+234 of 1 238 capabilities (19 %) are done (111 in 0.1, AniML in P1, 15 in P3, 46 in P4a, 61 in P5: components, bindings, assets, images, n-slice, feathering), concentrated where icons live: transforms (9/17), animation
 (16/40), state machines (25/61), drawing and paint (20/125), input (13/93), host API (12/125). The
 large categories with nothing yet are data binding (169), host API (125), scripting (96), text (61),
 assets (50) and layout (49). `MATRIX.md` has the per-category table.
@@ -97,6 +97,7 @@ P4b–e → P3b → P6 → P7 → P8 → P9 → P10, each phase gated by the age
 | P3b | The rest of P3: the `a11y` module (roles, states and focus per node), authoring/drawing tools, headless CLI extras (touch, wheel, gamepad, data streams), timeline editing | Split off when the playground and host API shipped; scheduled after P4 unless a later phase needs a piece earlier. |
 | P4a | `paint`, on the module system and the renderer-neutral draw layer | The most-used Rive features after the basics; the module pilot. |
 | P5 | Components and assets | Moved up (owner): reuse is the main friction agents hit; per-instance inputs now, data-bound instances after P4e. |
+| P5b | The rest of P5: asset pipelines (encodings, imports), library detach/update, lists, script instances | Split off when P5 shipped; scheduled with the phases that need them. |
 | Pc | Canvas backend, minimal | Brought forward from P10 (owner): rigging and large scenes need it; SVG stays the icon default. |
 | P4b–e | `motion`, `interaction`, `events`, `data` | The rest of the first block of Phase B. |
 | P6 | Text | Needs assets (fonts) and binding. |

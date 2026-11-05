@@ -188,7 +188,7 @@ and an oracle test against Rive.
         merges** (owner, 2026-11-06). 17 cases / 21 committed reference frames;
         `tools/oracle.test.ts`, measurements and mapping limits in `tests/oracle/README.md`.
 - [x] P5-3 AniML libraries/templates: optional browser layer; unchanged markup size gate restored (see LOG).
-- [ ] P5 Components and assets — **moved up** (owner, 2026-11-06): nested artboards / components,
+- [x] P5 Components and assets — **moved up** (owner, 2026-11-06): nested artboards / components,
       per-instance inputs, shared glyph and layer libraries (the reuse friction from M5 and from
       authoring the nine Glyphy icons: the same hover/press layer pasted into every file, a glyph
       embedded twice), image/font/audio assets, then images, n-slice and feathering in `paint`;
@@ -200,6 +200,8 @@ and an oracle test against Rive.
         diagnostics (including registry-derived reserved input names), four conformance cases,
         Chromium/Firefox runtime and playground tests; optional component/bind/paint markup hooks
         restore the unchanged size gates. `npm run check`: 966 tests pass; markup 8010/8192 B.
+- [ ] P5b The rest of P5: asset pipelines (encodings, imports), library detach/update, lists,
+      script instances (72 rows).
 - [ ] Pc **Canvas backend, minimal** — brought forward from P10 (owner, 2026-11-06): the draw layer
       rendered to Canvas2D as `@anima-format/web/canvas`; runs every conformance case with a pixel
       comparison against the SVG backend; SVG stays the default for icons. Must exist before P8.

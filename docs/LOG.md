@@ -1136,3 +1136,31 @@ Module folders (D1) grew core + web by 248 B (17 541 → 17 789 B min+gzip) for 
 order-independent registration plumbing; every module budget and both use-case totals pass
 (full-featured 44.3 KB / 100 KB). Accepted inside the 30 KB ceiling under the ceilings rule (a reason
 in LOG); to be recovered opportunistically in a later size pass.
+
+## P5 — components, bindings, assets (2026-11-07)
+
+- **AniML libraries and templates** (build time): `<library>`, `<import>`, `<template>`/`<apply>`;
+  the `.ani` stays self-contained. Bell, moon and trash share one press template, built `.ani`
+  byte-identical. In the browser it is the optional `markup-libraries` entry.
+- **`bind`**: an address follows an expression of inputs every step (`<bind target value/>`), the
+  P4a benchmark fix (`examples/progress.animl`).
+- **`components`**: components with their own inputs, state machines and events; instances with
+  bound inputs, pointer routing in local coordinates, bubbling events, scoped addresses;
+  `reserved-input-name`.
+- **`assets`** and the `image` node (fits, alignment, sampling, host resolver, `--embed`); image
+  paints; the new **`surface`** module (n-slice, feathering; world-space feather reports
+  `unsupported-render` in SVG).
+- **Markup split into hooks**: module-specific forms load with their module (markup-components,
+  -paint, -bind, -surface), so the default in-browser compiler stays at 7 357 B.
+- **Real bugs found by a flaky test**: late module registration and schema sync (fixed).
+- **Process** (owner): module folders with manifests and a generated index (order-independent,
+  12 orders tested), scoped tests (`test:scope`) with the full suite in CI, capability scaffolder.
+- **Benchmark** (toolbar): AniML 6/6 (after re-check) in 3 min 43 s, Rive 6/6 in 10 min 48 s.
+  Findings: an on-change condition (P4c), text (P6), script semantics documented.
+- **Oracle**: 17 Rive cases for the P4a features, all within antialiasing tolerances.
+- **Numbers** (P4a → P5): core + web 16 901 → 17 789 B (+ bind/components hooks, + 248 B module
+  plumbing); full-featured page 44.3 KB / 100 KB; markup 7 357 / 8 192 B; paint 4 293, composite
+  3 845, bind 1 567, assets 1 505, components 3 992, surface 7 942 B; compile: bell ~1.6–3 ms, prefix
+  sweep ~550–900 ms (unchanged within noise); frame: bell ~30–60 µs, toolbar ~23–50 µs (load-dependent).
+- **Parity**: 61 rows done (234 / 1 238); 72 rows (asset pipelines, library detach/update, lists,
+  script instances) moved to P5b.
