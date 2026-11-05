@@ -1,6 +1,7 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
-import { basename } from 'node:path';
+import { globSync } from 'node:fs';
+import { moduleScopes, webEntries, webOwners } from './modules.generated.ts';
 
 export const packages = ['core', 'markup', 'web', 'cli', 'playground'];
 export const conformanceRunner = 'packages/core/test/conformance.test.ts';
@@ -9,38 +10,32 @@ export const filesUnder = (dir: string): string[] =>
     e.isDirectory() ? filesUnder(`${dir}/${e.name}`) : [`${dir}/${e.name}`],
   );
 export const testFiles = () =>
-  [...filesUnder('packages'), ...filesUnder('tools')].filter((f) => f.endsWith('.test.ts'));
+  [
+    ...filesUnder('packages'),
+    ...filesUnder('tools'),
+    ...globSync('modules/*/test/**/*.test.ts'),
+  ].filter((f) => f.endsWith('.test.ts'));
 export const isBrowser = (file: string) =>
   /from ['"]playwright-core['"]/.test(readFileSync(file, 'utf8'));
 const escape = (s: string) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const named = (file: string, name: string) =>
   new RegExp(`(^|[/.\\-])${escape(name)}([/.\\-]|$)`).test(file);
-const references = (file: string, name: string) =>
-  named(file, name) ||
-  new RegExp(`(^|[^a-zA-Z0-9_])${escape(name)}($|[^a-zA-Z0-9_])`).test(readFileSync(file, 'utf8'));
-
-/** Ownership seam: replace discovery here with module manifests when D1 lands. */
+/** Explicit manifest ownership: never pull unrelated browser suites in through their imports. */
 export function moduleFiles(name: string, all = testFiles()) {
-  const files = all.filter((f) => {
-    if (f === conformanceRunner) return false;
-    // Registry/corpus integration tests exercise every registered module without naming it.
-    const sharedMarkup =
-      f.startsWith('packages/markup/') &&
-      /from ['"](?:@anima-format\/core|\.\.\/src\/(?:index|names|compile|decompile|format)\.ts)['"]/.test(
-        readFileSync(f, 'utf8'),
-      );
-    return references(f, name) || sharedMarkup;
-  });
+  const scope = moduleScopes[(webOwners[name] ?? name) as keyof typeof moduleScopes];
+  if (!scope) return { files: [], cases: [] };
+  const owned = new Set(globSync(scope.tests));
+  const files = all.filter((f) => owned.has(f));
   const cases = readdirSync('spec/conformance', { withFileTypes: true })
-    .filter((e) => e.isDirectory())
-    .map((e) => e.name)
-    .filter((c) => references(`spec/conformance/${c}/case.ani`, name));
+    .filter((e) => e.isDirectory() && scope.conformance.some((prefix) => e.name.startsWith(prefix)))
+    .map((e) => e.name);
   return { files, cases };
 }
-export const moduleNames = () =>
-  readdirSync('packages/web/src')
-    .filter((f) => f.endsWith('.ts') && f !== 'index.ts')
-    .map((f) => basename(f, '.ts'));
+export const moduleNames = () => [
+  ...new Set([...Object.keys(moduleScopes), ...webEntries.filter((e) => e !== 'index')]),
+];
+const packageOwns = (file: string, pkg: string) =>
+  file.startsWith(`packages/${pkg}/`) || new RegExp(`^modules/[^/]+/test/${pkg}/`).test(file);
 
 export function changedPaths(base?: string) {
   const git = (...args: string[]) => execFileSync('git', args, { encoding: 'utf8' }).trim();
@@ -56,7 +51,9 @@ export function changedPaths(base?: string) {
 export function targetsForChanges(paths: string[], modules = moduleNames()) {
   const targets = new Set<string>();
   for (const path of paths) {
-    if (path.startsWith('spec/conformance/')) targets.add('conformance');
+    const module = /^modules\/([^/]+)\//.exec(path)?.[1];
+    if (module && modules.includes(module)) targets.add(module);
+    else if (path.startsWith('spec/conformance/')) targets.add('conformance');
     else if (path.startsWith('tests/oracle/') || path.startsWith('tools/oracle'))
       targets.add('oracle');
     else {
@@ -88,7 +85,7 @@ export function selectScope(targets: string[], noBrowser = false, browser?: stri
   let fullConformance = false;
   for (const target of targets) {
     if (packages.includes(target)) {
-      all.filter((f) => f.startsWith(`packages/${target}/`)).forEach((f) => selected.add(f));
+      all.filter((f) => packageOwns(f, target)).forEach((f) => selected.add(f));
       if (target === 'core') fullConformance = true;
     } else if (target === 'conformance') fullConformance = true;
     else if (target === 'tools')

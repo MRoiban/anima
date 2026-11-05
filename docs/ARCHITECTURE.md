@@ -13,6 +13,7 @@ packages/
   web/     <anima-icon> custom element: retained SVG DOM, scheduler, input, a11y
   cli/     anima validate | inspect | sample | render | fmt | new | schema | docs | playground
   playground/ private local editor and inspectors; plain DOM/SVG, compiler + web runtime
+modules/   one manifest + core/SVG/markup/web sources + tests per optional module
 examples/  bell.ani and later icons
 fixtures/  Glyphy glyphs and the Rive reference for the bell
 docs/      architecture, plan, research notes
@@ -106,6 +107,15 @@ The agent's feedback loop. Every command has `--format=json` and typed exit code
 
 ## Packages, names and tooling
 
+Optional implementations live in root `modules/<name>/` folders, grouped by capability across
+package responsibilities. Each `manifest.ts` owns dependency order, core/SVG entry points, markup
+hooks, web entries and their separate byte budgets, test globs, conformance prefixes, docs and
+package adapters/exports. `node tools/modules.ts` generates the source adapters under the existing
+packages, `core/all`, markup-hook registration and `tools/modules.generated.ts` for build, size and
+scope consumers. `--check` runs first in `npm run check`. Public package import paths stay stable;
+source implementations and tests have a single owner. The packages are private development APIs;
+standalone package publication remains deferred. See `spec/MODULES.md` §3 for the manifest contract.
+
 npm workspaces, TypeScript strict (6.0; typescript-eslint does not support 7 yet), Vitest, ESLint,
 Prettier. Sources are erasable-syntax TypeScript with `.ts` import specifiers, so Node 24 runs them
 directly (tests, CLI, tools) with no build step; esbuild bundles the browser build and measures the
@@ -151,7 +161,7 @@ into an ordinary sampling slot. `draw.tree(model, tree)` contributes static reso
 metadata; `draw.frame(player, node, data, entry, frame)` resolves current drawing values. Modules never
 return SVG elements or attributes. `load(model, raw, diag)` runs semantic validation after core
 compilation, before a model can escape the loader. The static draw tree is built only after all
-validation succeeds. Hooks run in registration order and ignore nodes they do not own.
+validation succeeds. Hooks run in dependency order and ignore nodes they do not own.
 Each module's `svg.ts` separately registers its SVG backend using the same draw data for retained
 DOM and `toSVG`. `core/all` registers all modules and SVG backends for authoring; browser builds
 load only explicit imports. See MODULES §3.1 for the Canvas2D seam and change-tracking contract.
@@ -170,8 +180,9 @@ folded out of terse browser builds. Both optional bundle import orders are brows
 `conformance` and `oracle` select their independent runners. `changed` derives targets from the
 branch merge-base with main and working-tree changes (`--base=<ref>` overrides the base).
 `--no-browser` excludes browser files; `--browser=chromium|firefox` filters their engine suites.
-`tools/test-scope-map.ts` discovers ownership from paths, names and module references in tests and
-conformance documents; shared markup API/registry tests accompany every module. Its `moduleFiles` function is the seam for module manifests. Shared files
+`tools/test-scope-map.ts` consumes generated manifest test globs and conformance prefixes;
+shared markup API/registry tests are explicitly listed by module manifests. Module browser scopes
+include only their declared suites. Package scopes include module tests under `test/<package>/`. Shared files
 select their whole package, and shared config/tooling selects all packages and tools (including
 oracle).
 `vitest.scope.config.ts` uses separate unit, conformance and browser projects so conformance case

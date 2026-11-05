@@ -22,7 +22,7 @@ export default tseslint.config(
   },
   {
     // The shipped packages must stay dependency-free and DOM-free (core) at the source level.
-    files: ['packages/core/src/**/*.ts'],
+    files: ['packages/core/src/**/*.ts', 'modules/*/core/**/*.ts'],
     rules: {
       'no-restricted-imports': [
         'error',

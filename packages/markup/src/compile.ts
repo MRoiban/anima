@@ -19,12 +19,7 @@ import {
 } from '@anima-format/core';
 import { libraryCompiler, location } from './library-hooks.ts';
 import { moduleCompiler, componentCompiler, bindCompiler } from './module-hooks.ts';
-import { bindMarkup } from './bind.ts';
-if (VERBOSE) Object.assign(bindCompiler, bindMarkup);
 import { componentMarkup } from './components.ts';
-if (VERBOSE) Object.assign(componentCompiler, componentMarkup);
-import { structuralMarkup } from './modules.ts';
-if (VERBOSE) Object.assign(moduleCompiler, structuralMarkup);
 
 import type { CompileOptions, CompileResult, MarkupDiagnostic } from './index.ts';
 import { aniAddress, nodeAttrs, type NodeAttr } from './names.ts';

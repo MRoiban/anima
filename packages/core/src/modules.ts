@@ -1,5 +1,6 @@
 // Optional modules extend the same registry and the existing sampling/draw pipeline.
 import {
+  resetRegistry,
   ELEMENTS,
   type ElementForm,
   DOC,
@@ -43,6 +44,8 @@ export interface ModuleRegistry {
 }
 export interface Module {
   name: string;
+  /** Ordering constraints among the modules present, not implicit imports. */
+  after?: readonly string[];
   init?(registry: ReadonlyMap<string, Module>, shapes: ModuleRegistry): Module;
   entries: ModuleEntry[];
   resolve?(model: Model, diag: Diags): void;
@@ -61,29 +64,58 @@ export interface Module {
 export const modules = new Map<string, Module>();
 export const FEATURES = ['knockout'];
 
-/** Idempotent by name; a versioned module also enables its unversioned feature. */
+const declarations = new Map<string, Module>();
+
+/** Idempotent by name; compose from declarations, independent of arrival order. */
 export function registerModule(m: Module): void {
   if (!/^[a-z]+(?:@[1-9]\d*)?$/.test(m.name)) throw new Error('invalid module name');
-  if (modules.has(m.name)) return;
-  m =
-    m.init?.(modules, {
-      DOC,
-      nodeShape,
-      PAINTED,
-      FILL,
-      STROKE,
-      PAINT,
-      resolveAddress,
-      load,
-      Player,
-    }) ?? m;
-  for (const e of m.entries) {
-    const targets =
-      e.target === 'node' ? NODE_TYPES : e.target === 'painted' ? PAINTED : [e.target];
-    for (const target of targets) applyEntry(m, e, target);
+  if (declarations.has(m.name)) return;
+  declarations.set(m.name, m);
+  const pending = new Map([...declarations].sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)));
+  const ordered: Module[] = [];
+  while (pending.size) {
+    const ready = [...pending.values()].find((m) =>
+      (m.after ?? []).every((name) => !pending.has(name)),
+    );
+    if (!ready) {
+      declarations.delete(m.name);
+      throw new Error('module dependency cycle');
+    }
+    ordered.push(ready);
+    pending.delete(ready.name);
   }
-  modules.set(m.name, m);
-  FEATURES.push(m.name, ...(m.name.includes('@') ? [m.name.split('@')[0]!] : []));
+  resetRegistry();
+  for (const key of Object.keys(ELEMENTS)) Reflect.deleteProperty(ELEMENTS, key);
+  modules.clear();
+  FEATURES.splice(1);
+  for (let module of ordered) {
+    module =
+      module.init?.(modules, {
+        DOC,
+        nodeShape,
+        PAINTED,
+        FILL,
+        STROKE,
+        PAINT,
+        resolveAddress,
+        load,
+        Player,
+      }) ?? module;
+    modules.set(module.name, module);
+    FEATURES.push(module.name, ...(module.name.includes('@') ? [module.name.split('@')[0]!] : []));
+    for (const e of module.entries) {
+      const targets =
+        e.target === 'node' ? NODE_TYPES : e.target === 'painted' ? PAINTED : [e.target];
+      for (const target of targets) applyEntry(module, e, target);
+    }
+  }
+  // Wildcard contributions are composed across the final node set, including late declarations.
+  for (const module of modules.values())
+    for (const e of module.entries) {
+      if (e.target === 'node' || e.target === 'painted')
+        for (const target of e.target === 'node' ? NODE_TYPES : PAINTED)
+          applyEntry(module, e, target);
+    }
 }
 
 function applyEntry(m: Module, e: ModuleEntry, target: string): void {
@@ -93,10 +125,6 @@ function applyEntry(m: Module, e: ModuleEntry, target: string): void {
     OWN[type] = {};
     STATIC[type] = {};
     if (e.node.painted) (PAINTED as string[]).push(type);
-    for (const previous of modules.values())
-      for (const entry of previous.entries)
-        if (entry.target === 'node' || (entry.target === 'painted' && e.node.painted))
-          applyEntry(previous, entry, type);
   }
   if (NODE_TYPES.includes(type)) {
     for (const [k, v] of Object.entries(e.shapes)) if (!e.props?.[k]) STATIC[type][k] = v;

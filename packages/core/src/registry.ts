@@ -266,3 +266,27 @@ export const DOC: Shape = O(
   },
   ['anima', 'name', 'grid', 'nodes'],
 );
+
+// Capture the base tables once. Recomposition preserves the exported table identities used by
+// separately bundled modules, while derived node shapes are rebuilt from the complete module set.
+const baseTables = [
+  OWN,
+  STATIC,
+  ...Object.values(OWN),
+  ...Object.values(STATIC),
+  ...Object.values(PAINT),
+  (DOC as ObjShape).p,
+  (FILL as ObjShape).p,
+  (STROKE as ObjShape).p,
+].map((table) => [table, { ...table }] as const);
+const baseTypes = NODE_TYPES.length;
+const basePainted = PAINTED.length;
+export function resetRegistry(): void {
+  for (const [table, base] of baseTables) {
+    for (const key of Object.keys(table)) Reflect.deleteProperty(table, key);
+    Object.assign(table, base);
+  }
+  (NODE_TYPES as unknown as string[]).splice(baseTypes);
+  (PAINTED as string[]).splice(basePainted);
+  nodeShapes.clear();
+}
