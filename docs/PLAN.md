@@ -37,15 +37,15 @@ When a decision changes the format, change `spec/SPEC.md` in the same commit.
 
 ## M2 — Sampling and the player
 
-- [ ] Eases per SPEC §5 with golden vectors in `spec/conformance/eases.json` (generate them once
+- [x] Eases per SPEC §5 with golden vectors in `spec/conformance/eases.json` (generate them once
       from an independent implementation, e.g. a Python script in `tools/`, and commit both).
-- [ ] Track sampling, colour lerp, hold semantics.
-- [ ] `Player.step` exactly per SPEC §7, including trigger consumption, crossfade interruption,
+- [x] Track sampling, colour lerp, hold semantics.
+- [x] `Player.step` exactly per SPEC §7, including trigger consumption, crossfade interruption,
       `@end`, events, `settled`.
-- [ ] Conformance cases: at least eases, sampling edges (before first / after last / exact key),
+- [x] Conformance cases: at least eases, sampling edges (before first / after last / exact key),
       loop & pingpong wrap with carry-over, trigger lost vs consumed vs buffered, crossfade
       interruption, two layers writing the same property, `@end`.
-- [ ] **Bell parity:** the swing and clapper angles sampled from `bell.ani` match the Rive keyframes
+- [x] **Bell parity:** the swing and clapper angles sampled from `bell.ani` match the Rive keyframes
       run through the same cubic eases (compute expected values from
       `fixtures/bell/rive-reference/gen_scene.py`'s numbers) to 1e-3°.
 

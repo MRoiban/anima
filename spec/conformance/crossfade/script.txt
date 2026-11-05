@@ -1,0 +1,13 @@
+set on true
+advance 0
+snapshot
+advance 0.5
+snapshot
+# interrupt at 0.75 of the way: the blended 7.5 becomes the new "from"
+set on false
+advance 0.25
+snapshot
+advance 0.5
+snapshot
+advance 0.5
+snapshot

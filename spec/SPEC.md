@@ -212,8 +212,9 @@ literal as its document value, and every keyframe and pose value for it must be 
 A **player** holds: input values, pending triggers, and per layer: the current state, its **state
 time** (seconds since entry), and an optional crossfade (a frozen *from* snapshot, its duration, ease
 and elapsed time). A new player has every input at its default and every layer in its initial state
-at time 0 with no crossfade; its values are resolved as by step 4 below, and nothing else is
-evaluated until the first `step`.
+at time 0 with no crossfade; its values are resolved as by steps 3–4 below, and nothing else is
+evaluated until the first `step`, which reports the initial states' entry events (`emit`s and
+timeline events at time 0) before anything else.
 
 **Resolve rule.** Each layer is a function from the values below it to the values above it. Start
 from the **rest values** (each property's document value, or its registry default). Let `S(state)`

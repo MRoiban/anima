@@ -1,0 +1,25 @@
+fire go
+advance 0.1
+snapshot
+# busy reads no trigger: this fire is lost
+fire go
+advance 0.5
+snapshot
+advance 0.5
+snapshot
+advance 0.1
+snapshot
+fire go
+advance 0.1
+advance 0.8
+# a buffered trigger survives until busy hands back to idle, then chains straight back to busy
+fire keep
+advance 0.1
+advance 0.15
+snapshot
+# a buffered trigger expires after 0.3 s pending
+fire keep
+advance 0.2
+advance 0.2
+advance 0.7
+snapshot

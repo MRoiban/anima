@@ -1,0 +1,54 @@
+{
+ "anima": "0.1",
+ "name": "case",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "circle",
+   "center": [
+    10,
+    10
+   ],
+   "r": 5,
+   "pivot": [
+    10,
+    10
+   ],
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ],
+ "machine": {
+  "layers": {
+   "l": {
+    "initial": "p",
+    "states": {
+     "p": {
+      "pose": {
+       "a.x": 1
+      },
+      "on": [
+       {
+        "when": "@after(0)",
+        "to": "q"
+       }
+      ]
+     },
+     "q": {
+      "pose": {
+       "a.x": 2
+      },
+      "on": [
+       {
+        "when": "@after(0)",
+        "to": "p"
+       }
+      ]
+     }
+    }
+   }
+  }
+ }
+}

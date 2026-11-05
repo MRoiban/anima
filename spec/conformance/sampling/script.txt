@@ -1,0 +1,15 @@
+# before the first key, exact keys, inside a segment, hold, after the last key
+advance 0
+snapshot a.x a.fill.color a.visible
+advance 0.5
+snapshot a.x
+advance 0.25
+snapshot a.x a.fill.color a.visible
+advance 0.25
+snapshot a.x a.fill.color a.visible
+advance 0.25
+snapshot a.x
+advance 0.25
+snapshot a.x
+advance 1
+snapshot a.x a.fill.color a.visible

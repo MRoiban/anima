@@ -1,0 +1,7 @@
+advance 0.5
+snapshot
+fire again
+advance 0.25
+snapshot
+advance 0.5
+snapshot

@@ -4,3 +4,12 @@ export { parsePath, selectPath, flatten, formatSegs, PathError, type Subpath } f
 export { parseEase, cubic, elastic, type EaseFn } from './ease.ts';
 export { parseHex, formatHex, lerpColor, type RGBA } from './color.ts';
 export { parseCondition, type Term } from './cond.ts';
+export {
+  Player,
+  sampleTrack,
+  type AnimaEvent,
+  type StepResult,
+  type PointerKind,
+} from './player.ts';
+export { runScript, ScriptError, type Snapshot } from './script.ts';
+export { localMatrix, mul, invert, apply, IDENTITY, type Mat } from './geom.ts';
