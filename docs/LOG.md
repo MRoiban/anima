@@ -222,3 +222,30 @@ fix is not verified on the platform that showed it; it needs a check on the owne
 Gotchas found on the way: the desktop reports `prefers-reduced-motion: reduce` (the runtime then
 correctly jumps every ring to its end; override `ui.prefersReducedMotion` to test motion), and 60 fps
 X11 capture of a VirtualGL window tears.
+
+## Phase A — Rive capability inventory (2026-11-05)
+
+**Changed**
+
+- `docs/parity/`: `inventory.json` (source of truth), generated `INVENTORY.md`, `MATRIX.md`,
+  `matrix.json`, and the hand-written `README.md` (method, sources, module split, budgets, phase
+  order, oracle tests). `tools/parity.ts` generates the views; `tools/parity.test.ts` checks them.
+- 1 238 capabilities in 18 categories from the Rive CLI 1.9.0 (docs, schema, help), rive-runtime @
+  1c8f5d3 and rive-wasm @ ada7b9f (read-only clones outside the repo), rive.app/docs, and our notes.
+  Four parallel researchers (one per category group) wrote 1 275 rows; 37 duplicates merged.
+
+**Decisions**
+
+- Priorities from the owner: web runtime, AniML, Glyphy and the playground first. 162 capabilities are
+  "maybe-later" (native runtimes, editor round-trip, cloud tooling, low-level GPU API, 3D,
+  parallel/network scripting, video export); 3 are "won't do", all guardrail conflicts (.riv I/O,
+  watermark, Rive account).
+- The playground/inspector moves ahead of the first Phase B block (P3), because it is the owner's main
+  tool and makes every later phase easier to check.
+- Audit: 111 capabilities are done in 0.1; `exit-time-seconds` downgraded to partial.
+- Copy check: one 7-word overlap in 1 238 descriptions against the 179 k-word `rive docs` corpus.
+
+**Open**
+
+- Module budgets are estimates until each phase measures its module.
+- Scripting language: chosen in P9, with the reasoning in the spec.

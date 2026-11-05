@@ -89,6 +89,28 @@ no wasm, and the budget met.
       `AGENTS.md`). Don't merge without the user's review.
 - [ ] Agent skill: `skills/anima/SKILL.md` teaching another agent to author `.ani` files with the CLI.
 
+## Parity with Rive
+
+Full capability parity, the Anima way; see `docs/parity/README.md` for the inventory, matrix, module
+split and budgets. Every capability counts as done only with: a spec section, registry entries (both
+syntaxes), diagnostics, conformance cases, an AniML example with its `.ani`, CLI support, a size check
+and an oracle test against Rive.
+
+- [x] **Phase A — inventory.** 1 238 sourced capabilities in `docs/parity/` (inventory, matrix,
+      roadmap), generated views checked by `tools/parity.test.ts`.
+- [ ] P1 AniML (authoring markup; `spec/ANIML.md`).
+- [ ] P2 M5 (Glyphy export draft, two more glyphs in AniML, head-to-head test).
+- [ ] P3 Playground/inspector and the web host API.
+- [ ] P4 Interaction, paint, events, data binding.
+- [ ] P5 Components and assets.
+- [ ] P6 Text.
+- [ ] P7 Layout.
+- [ ] P8 Rigging.
+- [ ] P9 Scripting.
+- [ ] P10 GPU effects and the canvas/WebGL renderer.
+- Maybe / later: native runtimes, editor round-trip, cloud tooling, low-level GPU, 3D (inventoried,
+  not scheduled).
+
 ## Ground rules
 
 - **No Rive code.** Rive's runtimes are MIT and the research notes cite them for ideas; write
