@@ -69,3 +69,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 06:00 [claude]: merged AniML benchmark run (6e6aea7): 5/6 (no continuous input binding → P5), 5m13s, 101 lines; Rive 5/6; table + findings in docs/benchmarks/agent-native.md; P4a-7 friction fixes queued after the size race
 - 2026-11-06 07:00 [claude]: size race: A 17017, B 16953 (both verified); combining conflicted in 9 core files → took B; round 2 from B (A's ideas as hints)
 - 2026-11-06 07:30 [claude]: npm run check green (706); found compile/load ~2x slower since draw layer (prefix test 941→1805 ms) → into size round 2
+- 2026-11-06 08:10 [claude]: owner health check: prefix test limit restored (original); compile slowdown = merge blocker; measured same-session: ~25% vitest, single compile 2.5–3.0 → 4.5–5.0 ms (1805 ms was under load); tools/perf.ts added to npm run check; full suite 706 pass

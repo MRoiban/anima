@@ -504,3 +504,24 @@ iterations measured 17303 B base / 4662 B composite; moving reorder work into co
 markup into markup, and separating the frame-only SVG API reduced the costs. No validation or
 rendered-output assertions were relaxed to shrink it. The standard 25 KB CI size budget still passes;
 tools/size.ts separately prints the unmet 16697 B draw-layer target.
+
+## P4a compile-time regression and a correction (2026-11-06)
+
+- **What happened.** After the draw layer, the robustness test that compiles every prefix of
+  `bell.animl` hit Vitest's 5 s default in a full run, and I measured it at 1 805 ms against 941 ms
+  before, then raised that test's limit to keep the suite green. The owner (health check) ruled that
+  out: a slower compiler hits every document load and playground keystroke. The limit is back to the
+  original, and the slowdown is a P4a merge blocker like the 478 B size regression.
+- **Measured properly** (same session, both commits, quiet-ish machine):
+
+  | Measure | b7b6e92 (before) | 51bc900 (now) |
+  |---|---:|---:|
+  | Prefix test in Vitest, 3 runs | 939 / 1 163 / 945 ms | 1 239 / 1 209 / 1 298 ms |
+  | `tools/perf.ts` prefix sweep (9 040 compiles), 2 runs | 918 / 953 ms | 1 037 / 1 045 ms |
+  | `tools/perf.ts` one bell compile, median of 200 | 2.5–3.0 ms | 4.5–5.0 ms |
+
+  The 1 805 ms was measured while other agents loaded the machine; the real slowdown is ~25 % in
+  Vitest, ~10 % on the sweep and ~70 % on a single compile — still a regression to fix. The full
+  suite passes with the original limit (706 tests).
+- **From now on:** `tools/perf.ts` prints compile time in `npm run check` next to the sizes, and
+  each phase's LOG entry and PR summary carry both with the previous phase's numbers.

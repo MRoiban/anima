@@ -103,6 +103,10 @@ markup with the Rive CLI's local tooling (no account commands, no `.riv` reading
 success against the brief, attempts and validate/render iterations, wall time, and the diagnostics
 and friction hit. A regression against the previous run is a bug fixed before the phase's PR merges.
 
+**Tracked per phase** (in each phase's LOG entry and PR summary): core + web and every module's
+size (`tools/size.ts`) and compile time (`tools/perf.ts`: one bell compile, and the prefix sweep
+the robustness test runs), with the previous phase's numbers beside them.
+
 Every capability counts as done only with: a spec section, registry entries (both
 syntaxes), diagnostics, conformance cases, an AniML example with its `.ani`, CLI support, a size check
 and an oracle test against Rive.
@@ -126,7 +130,9 @@ and an oracle test against Rive.
         (+478 B); paint 3771/5120, composite 3874/4096, markup 7326/8192 B.
   - [x] P4a-5 agent-native benchmark run with a paint brief: AniML 5/6, Rive 5/6
         (`docs/benchmarks/agent-native.md`).
-  - [ ] P4a-6 size: core + web back to ≤ 16 697 B after the draw layer (race running).
+  - [ ] P4a-6 **merge blockers** from the draw layer: core + web back to ≤ 16 697 B, and compile
+        time back to the pre-draw-layer level (owner, 2026-11-06: the prefix-compile test keeps its
+        original limit; no loosening without the owner).
   - [ ] P4a-7 benchmark friction: pose path strings, group clips, optional clip rule,
         `anima schema pose`, dash caps in the docs.
   - [ ] P4a oracle cases against the Rive CLI for the paint features (MODULES §5).
