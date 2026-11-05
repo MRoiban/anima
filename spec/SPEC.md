@@ -72,7 +72,7 @@ depth 32 nodes, 2 048 nodes, 20 000 keyframes in total, 64 layers, 256 states pe
 
 **Units** *(normative)*: lengths in grid units, y down; time in **seconds**; angles in **degrees**,
 positive clockwise (y down), 0° along +x; opacity, scale and blend weights are plain numbers
-(1 = 100 %). There are no frames, no radians and no percentage flags anywhere in the format.
+(1 = 100 %). There are no frames or radians. The optional paint module adds percentage dash lengths (see its chapter).
 
 ## 3. Glyphs
 
@@ -411,6 +411,7 @@ continues to include only animated addresses, never inputs.
 | `unknown-key` | error | A key is not defined here. Hint: the closest valid key. |
 | `reserved` | error | A key, ease or address reserved for a later version. |
 | `version-unsupported` | error | `anima` is not `"0.1"`. |
+| `undeclared-feature` | error | A module key or address is used without its feature in `requires`; hint: add the feature to `requires`. |
 | `unknown-feature` | error | `requires` names a feature this runtime lacks. |
 | `bad-name` | error | A name breaks its pattern. |
 | `duplicate-id` | error | Two nodes share an id. |
@@ -508,3 +509,78 @@ Other decisions made while freezing 0.1:
   radius 10.8 around the glyph centre).
 - **Exact version match** before 1.0, rather than minor-version feature negotiation.
 - **Cap and join default to `round`**, matching the Glyphy reference sets rather than SVG's `butt`.
+
+## paint
+
+The optional `paint` module (MODULES.md) extends 0.1 documents with `requires: ["paint"]`.
+An unregistered module is `unknown-feature` at `/requires/<index>`, before structural checks.
+Using its keys or animation addresses without declaring it is `undeclared-feature` at that key
+or address, with hint `add "paint" to "requires"`. Ordinary 0.1 documents keep their behaviour.
+
+### Gradients
+
+A `fill` or `stroke` contains either `color` or a gradient, never both. A gradient has `type`:
+
+| Type | Required coordinates (grid units) | Optional coordinates |
+|---|---|---|
+| `linear` | `x1`, `y1`, `x2`, `y2` (start and end) | — |
+| `radial` | `cx`, `cy`, `r` (centre and radius, `r ≥ 0`) | `fx`, `fy` (focal point, each defaults to the corresponding resolved centre coordinate) |
+
+Both have `stops`, an array of at least two `{ position, color }` objects. `position` is 0..1,
+nondecreasing at rest; repeated positions are permitted (hard edges). `color` follows §6, including
+slots, `currentColor` and hex alpha. Fill rule and stroke width/cap/join/trim/dashes remain on the
+paint object. Coordinates belonging to the other gradient type are errors.
+
+Animatable addresses are `<id>.<fill|stroke>.<coordinate>`,
+`<id>.<fill|stroke>.stops.<index>.position` and
+`<id>.<fill|stroke>.stops.<index>.color`. Indices are zero-based decimal integers without leading
+zeros and must exist. Coordinates must belong to the authored gradient; optional focal coordinates
+may be animated even when omitted, with their rest defaults equal to the authored centre.
+`type`, the stop array's length/order and the dash array are not animatable.
+
+Coordinates and positions use §5 number sampling and §7 blending; positions clamp to 0..1 and
+radius to ≥0 after resolving. Stop colours use the existing non-premultiplied sRGB channel sampling
+(including alpha), blending, dirty slots and hex-only animation restriction (§6). A static slot stop
+remains themeable. In SVG, stop positions that cross during animation are displayed at the maximum
+of that position and all earlier positions; sampled values retain their independently clamped values.
+
+Gradients render as `<linearGradient>` / `<radialGradient>` defs, unique per node, paint and icon,
+with `gradientUnits="userSpaceOnUse"`, sRGB colour interpolation and SVG's default `spreadMethod`
+(`pad`). A paint references its def. Coordinates are in the node's untransformed grid space;
+the node transform carries the paint with its geometry. Degenerate gradients and focal points
+outside the radius follow SVG gradient semantics. Knockout geometry and hit tests stay as in §4/§9;
+they do not acquire gradient alpha sampling.
+
+### Dashes
+
+`stroke.dash` is a nonempty array, all nonnegative grid-unit numbers (`[2, 1]`), or all decimal
+percentage strings (`["10%", "5%"]`). Percentage syntax is `0` or a positive decimal integer,
+optionally followed by a decimal fraction, then `%`; signs and exponents are not accepted.
+A percentage refers to the entire outline length, **not** the SVG viewport diagonal. Units cannot
+be mixed, and at least one length must be positive. Odd arrays repeat twice (SVG behaviour).
+The array is static. Each subpath restarts the pattern as in SVG.
+
+`stroke.dashOffset` is an animatable number, default 0, positive or negative. With numeric dashes
+it is in grid units; with percentage dashes it is a fraction of total path length (0.1 = 10%).
+It uses the existing number sampling and blending. SVG uses `pathLength="1"` for relative patterns,
+and emits their lengths as fractions; absolute patterns use natural path units.
+
+**Trim wins:** when resolved `trimEnd − trimStart < 1`, §4's trim dasharray and offset replace the
+authored dashes and offset. A nonpositive trim suppresses the stroke entirely. A full trim permits
+the authored pattern again, using its own units. Animating the offset still samples normally while
+a trim overrides its display. With no dash array, `dashOffset` has no visual effect.
+
+### Diagnostics and implementation
+
+Registry structural errors retain §11.3 codes (`type`, `bad-value`, `missing-key`, `unknown-key`).
+Missing coordinates/stops/paint kind are `missing-key` at the paint object with an add-key hint.
+Unsorted stops, mixed/all-zero dashes, incompatible coordinates and flat colour plus gradient are
+`bad-value` at the offending key with a corrective hint where possible. Invalid stop colours use
+`bad-color` / `unknown-color-slot`; animated slot stops use `color-slot-animated`. Invalid addresses
+are `unknown-address`, and static paint fields are `not-animatable`.
+
+Module algorithms are independently implemented against SVG semantics. The registry approach
+continues ARCHITECTURE §core.1 and the ideas recorded in
+[format and graph research](../docs/research/rive-format-and-graph.md); the scene keeps the retained
+DOM/dirty-node strategy in [web runtime research](../docs/research/rive-web-runtime.md).
+No algorithm here closely follows Rive runtime source; no additional NOTICE attribution is needed.

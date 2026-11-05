@@ -8,6 +8,7 @@ export type ValueType = 'number' | 'bool' | 'color';
 
 export interface Prop {
   type: ValueType;
+  feature?: string;
   /** Default when the document omits it; undefined means the key is required. */
   def?: number | boolean;
   /** Range the resolved value is clamped to, and the document value must lie in. */
@@ -74,7 +75,7 @@ export type Shape = (
   | { k: 'map'; of: Shape; key?: RegExp }
   | { k: 'alt'; of: Shape[] }
   | { k: 'node' }
-) & { markup?: string };
+) & { markup?: string; feature?: string; element?: string };
 
 /** The AniML attribute name of a key: its `markup` name, or the key itself. */
 export const markupName = (s: Shape | Prop | undefined, key: string): string => s?.markup ?? key;
@@ -103,18 +104,18 @@ const named = (s: Shape, markup: string): Shape => ({ ...s, markup });
 const NAMES = ALT(S(NAME), A(S(NAME), 1));
 const propShape = (p: Prop): Shape => {
   const s = p.type === 'bool' ? B : p.type === 'color' ? S() : N({ min: p.min, max: p.max });
-  return p.markup ? named(s, p.markup) : s;
+  return { ...s, markup: p.markup, feature: p.feature };
 };
 
 // Paint is flattened onto the node in AniML, with SVG's names (spec/ANIML.md §3).
-const FILL = O(
+export const FILL = O(
   {
     color: propShape(PAINT.fill.color!),
     rule: named(S(undefined, ['nonzero', 'evenodd']), 'fill-rule'),
   },
   ['color'],
 );
-const STROKE = O(
+export const STROKE = O(
   {
     color: propShape(PAINT.stroke.color!),
     width: propShape(PAINT.stroke.width!),
@@ -137,6 +138,14 @@ export const STATIC: Record<NodeType, Record<string, Shape>> = {
 };
 
 export type ObjShape = Extract<Shape, { k: 'obj' }>;
+
+/** Structural markup supplied by modules; field names still come from shapes. */
+export interface ElementForm {
+  shape: ObjShape;
+  values?: Record<string, string>;
+  target?: { attribute: string; default: string; choices: string[] };
+}
+export const ELEMENTS: Record<string, ElementForm> = {};
 const nodeShapes = new Map<NodeType, ObjShape>();
 /** The object shape of one node type. */
 export function nodeShape(type: NodeType): ObjShape {

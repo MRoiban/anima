@@ -1,3 +1,4 @@
+import '@anima-format/core/all';
 // One broken document per diagnostic code (spec §11.3). Each file is named after the code it must
 // produce and says where in its "$comment": "expect <code> at <pointer>".
 import { readFileSync, readdirSync } from 'node:fs';

@@ -195,3 +195,33 @@ HTML parses `<path/>` and friends as HTML, so markup in a page is wrapped in a s
 The markup forms of the `.ani` features reserved in SPEC §12 are reserved too, and rejected with
 the loader's `reserved` code: `<layer mode="additive">`, `<bind target from map>`, a track target
 `<id>.d` (path morphing), `spring(…)` eases, and `<timeline colorSpace>`.
+
+## Paint module
+
+Declare `requires="paint"` on `<anima>`. A painted node may contain a `<linearGradient>` or
+`<radialGradient>` child for each paint, instead of its flat `fill` / `stroke` attribute:
+
+```xml
+<anima version="0.1" name="paint" grid="20" requires="paint">
+  <circle id="disc" cx="10" cy="10" r="8" stroke="#000"
+      stroke-dasharray="10% 5%" stroke-dashoffset="0.1">
+    <linearGradient x1="2" y1="2" x2="18" y2="18">
+      <stop offset="0" stop-color="#ff000080"/>
+      <stop offset="1" stop-color="#00f"/>
+    </linearGradient>
+  </circle>
+</anima>
+```
+
+`paint="fill"` (default) or `paint="stroke"` selects the paint object. A `linearGradient` requires
+`x1 y1 x2 y2`; `radialGradient` requires `cx cy r` and accepts optional `fx fy`. Each has at least two
+`<stop offset="0…1" stop-color="…"/>` children. These map to the paint's `type`, coordinates and
+`stops: [{position, color}]`. Flat paint and a gradient for the same target, or two gradients for one
+target, are `paint-attribute`; an invalid selector is `bad-attribute`. Stop colours follow §2.
+
+Gradient coordinate and stop addresses are identical in both syntaxes, e.g. `disc.fill.x2`,
+`disc.fill.stops.0.color`, `disc.fill.stops.0.position`, `disc.stroke.fx`. Dashes are node attributes
+`stroke-dasharray` (whitespace/comma-separated lengths, all numbers or all percentages) and
+`stroke-dashoffset` (number). The offset's track/pose address `disc.stroke-dashoffset` maps to
+`disc.stroke.dashOffset`. Units, sampling and trim precedence are defined in SPEC's paint chapter.
+Module element/attribute names and canonical order derive from the same registry as `.ani`.

@@ -1,6 +1,7 @@
 // The SVG scene: one element structure per document, attribute values per frame. The web runtime
 // builds it as retained DOM; `toSVG` serialises it. Both use exactly these attributes.
 
+import { modules } from './modules.ts';
 import { formatHex } from './color.ts';
 import type { Mat } from './geom.ts';
 import type { Model } from './load.ts';
@@ -13,7 +14,9 @@ export interface El {
    * untransformed painted element inside it · wrap: earlier siblings under a knockout's mask ·
    * mask, bg, cutg (the cut's transform group) and cut: the mask.
    */
-  role: 'node' | 'shape' | 'wrap' | 'mask' | 'bg' | 'cutg' | 'cut';
+  role: string;
+  key?: string;
+  index?: number;
   node: number;
   kids: El[];
 }
@@ -64,7 +67,9 @@ export function sceneTree(model: Model): { root: El[]; defs: El[] } {
     return out;
   };
   const roots = model.nodes.flatMap((n, i) => (n.parent < 0 ? [i] : []));
-  return { root: build(roots), defs };
+  const tree = { root: build(roots), defs };
+  for (const m of modules.values()) m.scene?.(model, tree);
+  return tree;
 }
 
 export const fmt = (v: number): string => String(Math.round(v * 1e5) / 1e5 || 0);
@@ -81,7 +86,7 @@ export const staticSlots = (over: Record<string, string> = {}): Paint => ({
   slot: (name, def) => over[name] ?? def,
 });
 
-function color(p: Player, i: number, key: string, paint: Paint): string {
+export function color(p: Player, i: number, key: string, paint: Paint): string {
   const v = p.prop(i, key);
   if (Array.isArray(v)) return formatHex(v);
   const s = v as string;
@@ -123,6 +128,13 @@ function geometry(p: Player, i: number, a: Attrs): void {
 
 /** Current attributes of one element. `id` prefixes mask ids so several icons can share a page. */
 export function attrs(p: Player, el: El, paint: Paint, id: string): Attrs {
+  const a = coreAttrs(p, el, paint, id);
+  for (const m of modules.values()) m.attrs?.(p, el, paint, id, a);
+  return a;
+}
+
+function coreAttrs(p: Player, el: El, paint: Paint, id: string): Attrs {
+  if (el.role.startsWith('module:')) return {};
   const i = el.node;
   const r = p.model.nodes[i]!.raw;
   if (el.role === 'wrap') return { mask: `url(#${id}k${i})` };

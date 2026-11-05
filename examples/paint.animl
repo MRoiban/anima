@@ -1,0 +1,21 @@
+<anima version="0.1" name="paint" title="Paint module" grid="20" requires="paint">
+  <color name="accent" value="#d97757"/>
+  <rect id="panel" x0="2" y0="2" width="16" height="16" rx="3" stroke-width="0.6" stroke-dasharray="8% 4%" stroke-dashoffset="0">
+    <linearGradient x1="2" y1="2" x2="18" y2="18">
+      <stop offset="0" stop-color="#4263eb"/>
+      <stop offset="1" stop-color="#4263eb00"/>
+    </linearGradient>
+    <radialGradient paint="stroke" cx="10" cy="10" r="12" fx="7" fy="7">
+      <stop offset="0" stop-color="accent"/>
+      <stop offset="1" stop-color="#4263eb"/>
+    </radialGradient>
+  </rect>
+  <timeline name="shine" duration="2" loop="pingpong">
+    <track target="panel.fill.x2">0 18; 2 10</track>
+    <track target="panel.fill.stops.0.color">0 #4263eb; 2 #d97757</track>
+    <track target="panel.stroke-dashoffset">0 0; 2 -0.24</track>
+  </timeline>
+  <layer name="paint" initial="shine">
+    <state name="shine" play="shine"/>
+  </layer>
+</anima>

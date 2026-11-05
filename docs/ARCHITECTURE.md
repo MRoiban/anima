@@ -131,3 +131,27 @@ loopback. The client owns source editing, compile diagnostics, model-derived sta
 and a timeline sampler; it uses `Player.inspect()` and `<anima-icon>` rather than implementing a
 second state machine or renderer. It adds no runtime dependencies to core or web. See
 `docs/PLAYGROUND.md` for the build decision, API integration and screenshot reproduction.
+
+## Optional modules (P4a-1)
+
+`ModuleEntry` patches a registry object (`target`: `fill`, `stroke`, `document` or a node type)
+with `shapes`, optional animatable `props`, and an optional replacement `required` list. `node: { painted: true }` declares a new painted node
+type; its load hook may compile its geometry to an existing node model. Registration
+marks each added shape/prop with the module's `feature` and is idempotent by name. `elements` carries
+structural AniML descriptors (object shape, fixed discriminator values and an optional target
+selector); the compiler, decompiler and formatter use them without paint-specific branches.
+
+The `model(node, key)` hook resolves an extra address to `{ prop, rest }`; the loader converts it
+into an ordinary sampling slot. `scene(model, tree)` extends `{ root, defs }` with elements tagged
+`module:<name>`. `attrs(player, el, paint, id, attrs)` updates their per-frame attributes and may
+augment core element attributes; `id` is the renderer's per-instance prefix. `load(model, raw, diag)`
+runs semantic validation after core compilation, before a model can escape the loader. All hooks
+run in registration order. Hooks must ignore documents/elements they do not own. Modules are
+registered before loading documents. `@anima-format/core/all` registers all modules in authoring
+builds; terse browser builds register only the modules explicitly imported by the page.
+
+Module registration and the retained renderer are shared through the active `AnimaIcon` class,
+so separately emitted base, paint and markup bundles use the same runtime. The browser markup
+compiler copies the registered entries before compiling; its optional structural engine is carried
+by paint, so markup-only pages keep the existing 6 KB budget. Tooling's `core/all` registration is
+folded out of terse browser builds. Both optional bundle import orders are browser-tested.

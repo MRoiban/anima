@@ -113,6 +113,11 @@ and an oracle test against Rive.
       system of `spec/MODULES.md` (one PR each):
   - [ ] P4a `paint` (module system pilot): gradients, dashes, shapes, blend modes, masks/clips,
         multiple paints, stroke position, trim modes, path morphing, draw order.
+    - [x] P4a-1: module registry and all five hooks; linear/radial gradients and absolute/relative
+          dashes through spec, diagnostics, AniML, CLI, conformance, examples and both browsers;
+          paint budget enforced, core hook delta within 600 B.
+    - [ ] P4a-1 oracle follow-up: add/run the corresponding Rive cases (MODULES §5); parity statuses
+          stay with the orchestrator.
   - [ ] P4b `motion`: eases, typed/string tracks, seek/reverse/work area/quantize, host timeline
         control, animatable pivot.
   - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad.

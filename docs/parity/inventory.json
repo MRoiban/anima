@@ -10887,10 +10887,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/dash_path_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: stroke.dash lengths in grid units",
+   "construct": "stroke.dash numeric grid lengths; requires paint",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/dash-absolute",
+   "test": "spec/conformance/paint-dash; packages/core/test/paint.test.ts",
    "phase": "P4"
   }
  },
@@ -10915,10 +10915,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/dash_path_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: stroke.dashOffset with explicit units",
+   "construct": "stroke.dashOffset animatable number; grid units or path fraction; requires paint",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/dash-offset",
+   "test": "spec/conformance/paint-dash; packages/core/test/paint.test.ts",
    "phase": "P4"
   }
  },
@@ -10942,10 +10942,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/dash_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: stroke.dash entries with fraction units",
+   "construct": "stroke.dash percentage strings, fractions of full outline length; requires paint",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/dash-relative",
+   "test": "spec/conformance/paint-dash; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts",
    "phase": "P4"
   }
  },
@@ -11487,10 +11487,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/linear_gradient_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: fill or stroke gradient: linear with grid-unit endpoints",
+   "construct": "fill/stroke.type=linear; x1/y1/x2/y2; requires paint",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/gradient-linear",
+   "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts",
    "phase": "P4"
   }
  },
@@ -11514,10 +11514,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/linear_gradient_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: gradient.opacity",
+   "construct": "gradient stop colour alpha (#rrggbbaa), sampled per channel; requires paint",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/gradient-opacity",
+   "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts",
    "phase": "P4"
   }
  },
@@ -11544,10 +11544,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/radial_gradient_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: fill or stroke gradient: radial with grid-unit endpoints",
+   "construct": "fill/stroke.type=radial; cx/cy/r/fx/fy; requires paint",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/gradient-radial",
+   "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts",
    "phase": "P4"
   }
  },
@@ -11572,10 +11572,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/gradient_stop_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: gradient.stops with position and color tracks",
+   "construct": "fill/stroke.stops[] {position,color}; indexed animatable stop addresses; requires paint",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/gradient-stops",
+   "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts",
    "phase": "P4"
   }
  },

@@ -251,8 +251,7 @@ export class Player {
     const n = this.model.nodes[node]!;
     const s = this.#slots.get(n.id + '.' + key);
     if (s !== undefined) return this.#vals[s];
-    const dot = key.indexOf('.');
-    return dot < 0 ? n.raw[key] : n.raw[key.slice(0, dot)]?.[key.slice(dot + 1)];
+    return key.split('.').reduce((v, k) => v?.[k], n.raw);
   }
 
   /** A numeric node property, or `def` when the document leaves it out. */

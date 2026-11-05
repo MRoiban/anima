@@ -1,4 +1,5 @@
 export * from './load.ts';
+export { registerModule, modules, type Module, type ModuleEntry } from './modules.ts';
 export type { Diagnostic } from './diag.ts';
 export { parsePath, selectPath, flatten, formatSegs, PathError, type Subpath } from './path.ts';
 export { parseEase, cubic, elastic, type EaseFn } from './ease.ts';
@@ -28,4 +29,4 @@ export * from './registry.ts';
 export { jsonSchema } from './schema.ts';
 export { VERBOSE } from './flags.ts';
 export { formatAni } from './format.ts';
-export { suggest } from './diag.ts';
+export { suggest, ptr } from './diag.ts';

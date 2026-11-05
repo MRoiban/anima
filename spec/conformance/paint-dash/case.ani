@@ -1,0 +1,71 @@
+{
+  "anima": "0.1",
+  "name": "paint-dash",
+  "grid": 20,
+  "requires": ["paint"],
+  "nodes": [
+    {
+      "id": "absolute",
+      "type": "path",
+      "d": "M0 2L20 2",
+      "stroke": {
+        "color": "#000",
+        "dash": [2, 1]
+      }
+    },
+    {
+      "id": "relative",
+      "type": "path",
+      "d": "M0 10L20 10",
+      "stroke": {
+        "color": "#000",
+        "dash": ["10%", "5%"]
+      }
+    },
+    {
+      "id": "trim",
+      "type": "path",
+      "d": "M0 18L20 18",
+      "stroke": {
+        "color": "#000",
+        "trimEnd": 1,
+        "dash": [2, 1]
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "absolute.stroke.dashOffset": [
+          [0, 0],
+          [1, 4]
+        ],
+        "relative.stroke.dashOffset": [
+          [0, 0],
+          [1, -0.5]
+        ],
+        "trim.stroke.trimEnd": [
+          [0, 1],
+          [1, 0]
+        ],
+        "trim.stroke.dashOffset": [
+          [0, 0],
+          [1, 2]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

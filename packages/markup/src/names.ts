@@ -1,3 +1,4 @@
+import '@anima-format/core/all';
 // The two spellings, from one registry (spec/ANIML.md §3): which AniML attribute carries which `.ani`
 // key on a node, and how animation addresses translate. Compiler and decompiler both use this.
 
@@ -6,6 +7,7 @@ import {
   NODE_TYPES,
   type NodeType,
   OWN,
+  PAINT,
   PAINTED,
   type Shape,
   STATIC,
@@ -27,36 +29,18 @@ export interface NodeAttr {
   animatable: boolean;
 }
 
-const GEOMETRY: Record<NodeType, string[]> = {
-  group: [],
-  path: ['glyph', 'subpaths', 'd'],
-  circle: ['center', 'r'],
-  rect: ['x0', 'y0', 'w', 'h', 'rx'],
-  arc: ['center', 'r', 'from', 'to'],
-};
-const TRANSFORM = ['pivot', 'x', 'y', 'rotate', 'scale', 'scaleX', 'scaleY', 'opacity', 'visible'];
-const PAINT_KEYS: [string, string][] = [
-  ['fill', 'color'],
-  ['fill', 'rule'],
-  ['stroke', 'color'],
-  ['stroke', 'width'],
-  ['stroke', 'cap'],
-  ['stroke', 'join'],
-  ['stroke', 'trimStart'],
-  ['stroke', 'trimEnd'],
-  ['stroke', 'trimOffset'],
-];
-
-const cache = new Map<NodeType, NodeAttr[]>();
+const TRANSFORM = 'pivot x y rotate scale scaleX scaleY opacity visible'.split(' ');
 
 /** The attributes a node element takes, in canonical order (after `id`). */
 export function nodeAttrs(type: NodeType): NodeAttr[] {
-  let out = cache.get(type);
-  if (out) return out;
-  out = [];
+  const out: NodeAttr[] = [];
   const ns = nodeShape(type);
   const animatable = (k: string) => k in COMMON || k in OWN[type];
-  for (const key of [...GEOMETRY[type], ...TRANSFORM]) {
+  for (const key of [
+    ...Object.keys(STATIC[type]).filter((k) => k !== 'children'),
+    ...Object.keys(OWN[type]),
+    ...TRANSFORM,
+  ]) {
     const shape = ns.p[key]!;
     const name = markupName(shape, key);
     const parts = name.split(' ');
@@ -68,19 +52,21 @@ export function nodeAttrs(type: NodeType): NodeAttr[] {
     else out.push({ attr: name, path: [key], shape, animatable: animatable(key) });
   }
   if (PAINTED.includes(type)) {
-    for (const [paint, field] of PAINT_KEYS) {
-      const obj = ns.p[paint] as Extract<Shape, { k: 'obj' }>;
-      const shape = obj.p[field]!;
-      out.push({
-        attr: markupName(shape, field),
-        path: [paint, field],
-        shape,
-        animatable: !['rule', 'cap', 'join'].includes(field),
-      });
+    for (const paint of ['fill', 'stroke']) {
+      for (const field of Object.keys((ns.p[paint] as Extract<Shape, { k: 'obj' }>).p)) {
+        const obj = ns.p[paint] as Extract<Shape, { k: 'obj' }>;
+        const shape = obj.p[field]!;
+        if (shape.element) continue;
+        out.push({
+          attr: markupName(shape, field),
+          path: [paint, field],
+          shape,
+          animatable: field in PAINT[paint as 'fill' | 'stroke'],
+        });
+      }
     }
     out.push({ attr: 'knockout', path: ['knockout'], shape: ns.p.knockout!, animatable: false });
   }
-  cache.set(type, out);
   return out;
 }
 

@@ -1,3 +1,4 @@
+import '@anima-format/core/all';
 // The `anima` command line (ARCHITECTURE §cli). Every command takes --format=json; exit codes are
 // 0 ok, 1 diagnostics or a failed check, 2 usage.
 
@@ -14,6 +15,7 @@ import {
   OWN,
   PAINT,
   PAINTED,
+  nodeShape,
   STATIC,
   ScriptError,
   jsonSchema,
@@ -617,7 +619,10 @@ function scaffold(rest: string[], o: Record<string, unknown>, json: boolean, io:
 function schema(topic: string | undefined, full: boolean, json: boolean, io: IO): number {
   if (full) return (io.out(JSON.stringify(jsonSchema(), null, 2)), 0);
   const props = (
-    rec: Record<string, { type: string; def?: unknown; min?: number; max?: number }>,
+    rec: Record<
+      string,
+      { type: string; def?: unknown; min?: number; max?: number; feature?: string }
+    >,
   ) =>
     Object.entries(rec).map(([k, p]) => ({
       name: k,
@@ -626,6 +631,7 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
       ...(p.min !== undefined ? { min: p.min } : {}),
       ...(p.max !== undefined ? { max: p.max } : {}),
       animatable: true,
+      ...(p.feature ? { feature: p.feature } : {}),
     }));
   const spellings = (t: (typeof NODE_TYPES)[number], paint?: string) =>
     nodeAttrs(t)
@@ -644,13 +650,15 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
     ],
   });
   const objectPaths: Record<string, string[]> = {
+    fill: [],
+    stroke: [],
     a11y: ['a11y'],
     transition: ['machine', 'layers', '*', 'states', '*', 'on', '*'],
     listener: ['listeners', '*'],
     input: ['inputs', '*'],
   };
-  const fields = (path: string[]) => {
-    let shape: Shape = DOC;
+  const fields = (path: string[], root: Shape = DOC) => {
+    let shape = root;
     for (const key of path) {
       if (shape.k === 'obj') shape = shape.p[key]!;
       else if (shape.k === 'map' || shape.k === 'arr') shape = shape.of;
@@ -682,17 +690,38 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
       ani: key,
       type: describe(value),
       required: shape.req?.includes(key) ?? false,
+      ...(value.feature ? { feature: value.feature } : {}),
       ...(value.k === 'num' && value.min !== undefined ? { min: value.min } : {}),
     }));
   };
   const objectFields =
-    topic && Object.hasOwn(objectPaths, topic) ? fields(objectPaths[topic]!) : undefined;
+    topic && Object.hasOwn(objectPaths, topic)
+      ? fields(
+          objectPaths[topic]!,
+          topic === 'fill' || topic === 'stroke' ? nodeShape('path').p[topic]! : DOC,
+        )
+      : undefined;
   let data: unknown;
-  if (objectFields) data = { topic, fields: objectFields };
+  if (objectFields)
+    data = {
+      topic,
+      fields: objectFields,
+      ...(topic === 'fill' || topic === 'stroke'
+        ? {
+            [topic]: props(PAINT[topic] as never),
+            spellings: spellings('path', topic),
+            static: objectFields.filter((f) => !(f.ani in PAINT[topic])).map((f) => f.ani),
+          }
+        : {}),
+    };
   else if (!topic)
     data = {
       nodeTypes: NODE_TYPES.map(typeInfo),
       paint: { fill: props(PAINT.fill as never), stroke: props(PAINT.stroke as never) },
+      paintFields: {
+        fill: fields([], nodeShape('path').p.fill),
+        stroke: fields([], nodeShape('path').p.stroke),
+      },
     };
   else if ((NODE_TYPES as readonly string[]).includes(topic))
     data = typeInfo(topic as (typeof NODE_TYPES)[number]);
@@ -708,12 +737,19 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
     );
   if (json) return (io.out(JSON.stringify(data)), 0);
   const table = (
-    rows: { name: string; type: string; default: unknown; min?: number; max?: number }[],
+    rows: {
+      name: string;
+      type: string;
+      default: unknown;
+      min?: number;
+      max?: number;
+      feature?: string;
+    }[],
   ) =>
     rows
       .map(
         (r) =>
-          `  ${r.name.padEnd(12)} ${r.type.padEnd(7)} default ${JSON.stringify(r.default)}${r.min !== undefined || r.max !== undefined ? `  range [${r.min ?? '-∞'}, ${r.max ?? '∞'}]` : ''}`,
+          `  ${r.name.padEnd(12)} ${r.type.padEnd(7)} default ${JSON.stringify(r.default)}${r.min !== undefined || r.max !== undefined ? `  range [${r.min ?? '-∞'}, ${r.max ?? '∞'}]` : ''}${r.feature ? ` [${r.feature}]` : ''}`,
       )
       .join('\n');
   const mapping = (rows: { markup: string; ani: string }[]) =>
@@ -721,10 +757,16 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
   const show = (d: ReturnType<typeof typeInfo>) =>
     `${d.type}\n animatable (address: <id>.<property>)\n${table(d.animatable)}\n not animatable: ${d.static.join(', ')}\n markup ↔ .ani\n${mapping(d.spellings)}`;
   const paint = (k: 'fill' | 'stroke') =>
-    `${k} (address: <id>.${k}.<field>)\n${table(props(PAINT[k] as never))}\n markup ↔ .ani\n${mapping(spellings('path', k))}`;
+    `${k} (address: <id>.${k}.<field>)\n${table(props(PAINT[k] as never))}\n markup ↔ .ani\n${mapping(spellings('path', k))}\n module fields\n${fields(
+      [],
+      nodeShape('path').p[k],
+    )
+      .filter((f) => f.feature)
+      .map((f) => `  ${f.markup} ↔ ${k}.${f.ani}: ${f.type} [${f.feature}]`)
+      .join('\n')}`;
   if (objectFields)
     io.out(
-      `${topic} (markup ↔ .ani: type)\n${objectFields.map((f) => `  ${f.markup} ↔ ${f.ani}: ${f.type}${f.required ? ' (required)' : ''}`).join('\n')}`,
+      `${topic} (markup ↔ .ani: type)\n${objectFields.map((f) => `  ${f.markup} ↔ ${topic === 'fill' || topic === 'stroke' ? topic + '.' : ''}${f.ani}: ${f.type}${f.required ? ' (required)' : ''}${f.feature ? ` [${f.feature}]` : ''}`).join('\n')}`,
     );
   else if (!topic)
     io.out([...NODE_TYPES.map(typeInfo).map(show), paint('fill'), paint('stroke')].join('\n\n'));

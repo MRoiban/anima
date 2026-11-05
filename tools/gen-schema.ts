@@ -1,3 +1,4 @@
+import '@anima-format/core/all';
 // Writes spec/schema/ani.schema.json from the registry. `npm run gen` runs it.
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { jsonSchema } from '../packages/core/src/schema.ts';

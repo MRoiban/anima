@@ -366,3 +366,33 @@ preview, preserving the distinction between state machines and timeline sampling
   window height and the preview column scrolls; mockup and handoff revised.
 - **Parity:** 15 rows done (host API and playground); the other 139 P3 rows (the `a11y` module,
   drawing tools, headless extras, timeline editing) moved to a new phase P3b.
+
+## P4a-1 — Module system, gradients and dashes (2026-11-05)
+
+- Implemented all five MODULES §3 hooks: registration, load, scene, attrs, and typed address/default
+  resolution into existing player slots. Entries extend existing objects and declare new node types;
+  a synthetic module test authors, decompiles and renders a new node using only entries and a hook.
+  Module keys carry `feature`; schema/CLI expose it; undeclared keys and addresses are rejected.
+- Paint lives in `core/src/modules/paint/` and the optional web entry/bundle. Linear and radial
+  gradients use SVG user-space defs, sampled coordinates, indexed stop positions/colours (alpha and
+  static slots), optional focal points, and existing number/colour blending. Dashes support grid
+  lengths or percentages of path length, animated offsets, and explicit trim precedence.
+- Structural AniML elements derive from module descriptors. CLI, Node compiler, schema generator,
+  conformance runner and AniML builder register all modules; the playground imports paint. Separate
+  browser bundles share the active element registry; both paint/markup import orders are tested.
+  The optional structural compiler engine travels with paint to retain markup's existing budget.
+- Added two hand-computed conformance cases, the paint example, strict diagnostic/source-map tests,
+  Chromium/Firefox pixel tests for both gradient types and dash gaps, retained-def animation tests,
+  and unknown-feature refusal without the module. Existing `.ani` examples/cases rebuild byte for
+  byte; seven parity construct/test mappings updated, statuses unchanged. MODULES design unchanged.
+- Verification: `npm run check` passed, 511 tests / 28 files, no skips (Chromium + Firefox included);
+  typecheck, lint, format, schema/bundle freshness and all 19 AniML builds passed. Core+web 16461 B
+  min+gzip / 25600 B, +581 B from e5170d4 (target ≤600 B); paint 2091 B / 5120 B incremental;
+  markup 6104 B / 6144 B incremental. `node tools/parity.ts` regenerated the mapping views.
+- Corrected during verification: missing esbuild via `npm ci`; initial markup size overflow;
+  new corpus formatting/coverage expectations; separate-bundle structural registry lookup; browser
+  test's reuse of an already-rejected ready promise. Final checks have no outstanding failures.
+- Rive oracle cases/comparisons were not added or run; follow-up remains unchecked in PLAN and
+  parity statuses stay planned. All algorithms were independently implemented from SVG semantics;
+  no Rive source/docs text was copied, no .riv/account command used, no NOTICE/licence added.
+  Local commit only; no push, PR or merge. WORKLOG, research, design and Glyphy remain untouched.

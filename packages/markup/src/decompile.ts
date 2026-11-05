@@ -1,4 +1,4 @@
-import { type NodeType } from '@anima-format/core';
+import { ELEMENTS, markupName, type NodeType } from '@anima-format/core';
 import { markupAddress, nodeAttrs } from './names.ts';
 import { type LayoutElement, render } from './layout.ts';
 
@@ -51,6 +51,27 @@ export function decompile(doc: string | object): string {
       for (const key of a.path) v = obj(v)[key];
       if (a.index !== undefined && v !== undefined) v = (v as unknown[])[a.index];
       if (v !== undefined) el.attrs.push([a.attr, value(v)]);
+    }
+    const structural = (name: string, data: Obj): LayoutElement => {
+      const form = ELEMENTS[name]!;
+      const child = element(name, data, []);
+      for (const [k, s] of Object.entries(form.shape.p)) {
+        if (data[k] === undefined) continue;
+        if (s.k === 'arr' && s.of.element)
+          child.children.push(...(data[k] as Obj[]).map((v) => structural(s.of.element!, v)));
+        else child.attrs.push([markupName(s, k), value(data[k])]);
+      }
+      return child;
+    };
+    for (const [name, form] of Object.entries(ELEMENTS)) {
+      if (!form.target) continue;
+      for (const key of form.target.choices) {
+        const data = obj(n[key]);
+        if (!Object.entries(form.values ?? {}).every(([k, v]) => data[k] === v)) continue;
+        const child = structural(name, data);
+        if (key !== form.target.default) child.attrs.unshift([form.target.attribute, key]);
+        el.children.push(child);
+      }
     }
     el.children.push(...((n.children ?? []) as Obj[]).map(node));
     return el;

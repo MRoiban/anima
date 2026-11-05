@@ -1,3 +1,4 @@
+import '@anima-format/core/all';
 // Rebuild authored AniML through the package API, without invoking the CLI.
 //   node tools/build-animl.ts [--check]
 import { globSync, readFileSync, writeFileSync } from 'node:fs';

@@ -1,0 +1,97 @@
+{
+  "anima": "0.1",
+  "name": "paint-gradient",
+  "grid": 20,
+  "requires": ["paint"],
+  "colors": {
+    "accent": "#00ff00"
+  },
+  "nodes": [
+    {
+      "id": "box",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 20,
+      "h": 20,
+      "fill": {
+        "type": "linear",
+        "x1": 0,
+        "y1": 0,
+        "x2": 20,
+        "y2": 0,
+        "stops": [
+          {
+            "position": 0,
+            "color": "#ff000000"
+          },
+          {
+            "position": 1,
+            "color": "accent"
+          }
+        ]
+      },
+      "stroke": {
+        "type": "radial",
+        "cx": 10,
+        "cy": 10,
+        "r": 8,
+        "fx": 8,
+        "fy": 9,
+        "stops": [
+          {
+            "position": 0,
+            "color": "#fff"
+          },
+          {
+            "position": 1,
+            "color": "#000"
+          }
+        ]
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "box.fill.x1": [
+          [0, 0],
+          [1, 4]
+        ],
+        "box.fill.x2": [
+          [0, 20],
+          [1, 12]
+        ],
+        "box.fill.stops.0.position": [
+          [0, 0],
+          [1, 0.5]
+        ],
+        "box.fill.stops.0.color": [
+          [0, "#ff000000"],
+          [1, "#0000ffff"]
+        ],
+        "box.stroke.r": [
+          [0, 8],
+          [1, 4]
+        ],
+        "box.stroke.fx": [
+          [0, 8],
+          [1, 10]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}
