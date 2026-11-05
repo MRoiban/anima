@@ -1,0 +1,5 @@
+{"time":0,"values":{"knob.x":0,"track-fill.opacity":0,"knob.scale":1},"states":{"toggle":"off","interaction":"rest"},"events":[],"settled":false}
+{"time":0,"values":{"knob.x":8,"track-fill.opacity":1,"knob.scale":1.15},"states":{"toggle":"on","interaction":"hover"},"events":[],"settled":true}
+{"time":0,"values":{"knob.x":0,"track-fill.opacity":0,"knob.scale":1.15},"states":{"toggle":"off","interaction":"hover"},"events":[],"settled":true}
+{"time":0,"values":{"knob.x":8,"track-fill.opacity":1,"knob.scale":1.15},"states":{"toggle":"on","interaction":"hover"},"events":[],"settled":true}
+{"time":0,"values":{"knob.x":0,"track-fill.opacity":0,"knob.scale":1.15},"states":{"toggle":"off","interaction":"hover"},"events":[],"settled":true}
