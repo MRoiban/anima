@@ -78,3 +78,30 @@ One entry per milestone: what changed, decisions, open issues.
   tighten loader code, share vocabulary with the player, then (only if needed) move pure-lint
   errors that cannot affect playback out of the browser build — that would need a spec change and
   the user's agreement, since the runtime default is strict.
+
+## M2 — Sampling and the player (2026-11-05)
+
+**Changed**
+
+- `player.ts`: `Player.step(dt)` per SPEC §7 — inputs, clocks, per-layer timeline events and chained
+  transitions with carried time, frozen crossfade snapshots, the resolve rule, clamping, trigger
+  consumption and buffering, `settled`. Also the §9 pointer model with core hit testing (fill rule,
+  stroke half-width, padding, groups expand to descendants, the top-level `hit` shape) and §10
+  reduced motion. `takeDirty()` reports changed slots for the renderer.
+- `script.ts`: the §11.2 command language, shared by the conformance suite and (M3) `anima sample`.
+- `geom.ts`: matrices per §4 and point-in-polygon / distance-to-polyline hit tests.
+- `tools/gen_eases.py` → `spec/conformance/eases.json`: golden vectors from an independent Python
+  implementation (200-step bisection); the TypeScript eases match to 1e-7.
+- 12 conformance cases in `spec/conformance/` (sampling edges, loop and pingpong wraps with events,
+  triggers consumed/lost/buffered/expired, crossfade interruption, two layers on one property,
+  `@end` chains with carry, the chain cap, re-entry, number conditions, reduced motion, pointer).
+  Their expected values were worked out by hand from the spec (round numbers, linear eases) before
+  the first run; all matched.
+- Bell parity: the swing and clapper angles from `bell.ani`, stepped at 240 Hz, agree with the Rive
+  keyframes read straight out of `gen_scene.py` to 6.0e-5° (bar: 1e-3°).
+
+**Decisions**
+
+- The first `step` reports the initial states' entry events (spec §7, added).
+- The `@limit` chain cap does not keep a player awake: `settled` follows its usual definition, so
+  a broken machine cannot spin the page's frame loop. `anima inspect` (M3) should flag it.

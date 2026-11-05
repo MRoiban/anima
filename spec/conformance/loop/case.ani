@@ -1,0 +1,59 @@
+{
+ "anima": "0.1",
+ "name": "case",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "circle",
+   "center": [
+    10,
+    10
+   ],
+   "r": 5,
+   "pivot": [
+    10,
+    10
+   ],
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ],
+ "timelines": {
+  "t": {
+   "duration": 1,
+   "loop": "loop",
+   "tracks": {
+    "a.x": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      10
+     ]
+    ]
+   },
+   "events": [
+    [
+     0.5,
+     "half"
+    ]
+   ]
+  }
+ },
+ "machine": {
+  "layers": {
+   "l": {
+    "initial": "s",
+    "states": {
+     "s": {
+      "play": "t"
+     }
+    }
+   }
+  }
+ }
+}

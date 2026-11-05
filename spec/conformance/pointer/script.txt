@@ -1,0 +1,12 @@
+pointer move 1 1
+snapshot
+# the scaled circle (r 10 about its centre) is under the pointer
+pointer click 10 10
+snapshot
+# moving 0.6 units between down and up is not a click
+pointer down 10 10
+pointer move 10.6 10
+pointer up 10.6 10
+snapshot
+pointer leave
+snapshot

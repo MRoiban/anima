@@ -1,0 +1,5 @@
+motion reduce
+fire ring
+set go true
+advance 0
+snapshot

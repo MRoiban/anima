@@ -1,0 +1,95 @@
+{
+ "anima": "0.1",
+ "name": "case",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "circle",
+   "center": [
+    10,
+    10
+   ],
+   "r": 5,
+   "pivot": [
+    10,
+    10
+   ],
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ],
+ "timelines": {
+  "one": {
+   "duration": 0.5,
+   "tracks": {
+    "a.x": [
+     [
+      0,
+      0
+     ],
+     [
+      0.5,
+      10
+     ]
+    ]
+   },
+   "events": [
+    [
+     0.5,
+     "done"
+    ]
+   ]
+  },
+  "two": {
+   "duration": 0.5,
+   "tracks": {
+    "a.x": [
+     [
+      0,
+      20
+     ],
+     [
+      0.5,
+      30
+     ]
+    ]
+   }
+  }
+ },
+ "machine": {
+  "layers": {
+   "l": {
+    "initial": "s1",
+    "states": {
+     "s1": {
+      "play": "one",
+      "on": [
+       {
+        "when": "@end",
+        "to": "s2"
+       }
+      ]
+     },
+     "s2": {
+      "play": "two",
+      "emit": "second",
+      "on": [
+       {
+        "when": "@end",
+        "to": "s3"
+       }
+      ]
+     },
+     "s3": {
+      "pose": {
+       "a.x": 99
+      },
+      "emit": "third"
+     }
+    }
+   }
+  }
+ }
+}

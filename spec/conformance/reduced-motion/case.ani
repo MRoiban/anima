@@ -1,0 +1,124 @@
+{
+ "anima": "0.1",
+ "name": "case",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "circle",
+   "center": [
+    10,
+    10
+   ],
+   "r": 5,
+   "pivot": [
+    10,
+    10
+   ],
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ],
+ "inputs": {
+  "ring": {
+   "type": "trigger"
+  },
+  "go": {
+   "type": "bool"
+  }
+ },
+ "timelines": {
+  "ring": {
+   "duration": 1,
+   "reducedMotion": "end",
+   "tracks": {
+    "a.x": [
+     [
+      0,
+      0
+     ],
+     [
+      1,
+      10
+     ]
+    ]
+   },
+   "events": [
+    [
+     0.5,
+     "mid"
+    ]
+   ]
+  },
+  "wob": {
+   "duration": 1,
+   "loop": "loop",
+   "reducedMotion": "skip",
+   "tracks": {
+    "a.y": [
+     [
+      0,
+      5
+     ],
+     [
+      1,
+      15
+     ]
+    ]
+   }
+  }
+ },
+ "machine": {
+  "layers": {
+   "ring": {
+    "initial": "idle",
+    "states": {
+     "idle": {
+      "pose": {},
+      "on": [
+       {
+        "when": "ring",
+        "to": "ringing",
+        "blend": 0.5
+       }
+      ]
+     },
+     "ringing": {
+      "play": "ring",
+      "on": [
+       {
+        "when": "@end",
+        "to": "rested"
+       }
+      ]
+     },
+     "rested": {
+      "pose": {
+       "a.x": 50
+      },
+      "emit": "rested"
+     }
+    }
+   },
+   "h": {
+    "initial": "h0",
+    "states": {
+     "h0": {
+      "pose": {},
+      "on": [
+       {
+        "when": "go",
+        "to": "h1",
+        "blend": 1
+       }
+      ]
+     },
+     "h1": {
+      "play": "wob"
+     }
+    }
+   }
+  }
+ }
+}

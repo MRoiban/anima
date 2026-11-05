@@ -1,0 +1,7 @@
+{"time": 0.5, "values": {"a.x": 5}, "states": {"base": "run", "top": "b0"}, "events": [], "settled": false}
+{"time": 0.75, "values": {"a.x": 7.5}, "states": {"base": "run", "top": "b1"}, "events": [], "settled": false}
+{"time": 1, "values": {"a.x": 55}, "states": {"base": "run", "top": "b1"}, "events": [], "settled": false}
+{"time": 1.25, "values": {"a.x": 100}, "states": {"base": "run", "top": "b1"}, "events": [], "settled": true}
+{"time": 1.5, "values": {"a.x": 100}, "states": {"base": "run", "top": "b0"}, "events": [], "settled": false}
+{"time": 1.75, "values": {"a.x": 55}, "states": {"base": "run", "top": "b0"}, "events": [], "settled": false}
+{"time": 2, "values": {"a.x": 10}, "states": {"base": "run", "top": "b0"}, "events": [], "settled": true}

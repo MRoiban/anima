@@ -1,0 +1,3 @@
+{"time": 0, "values": {"a.x": 0}, "states": {"l": "lo"}, "events": [], "settled": true}
+{"time": 0, "values": {"a.x": 1}, "states": {"l": "hi"}, "events": [], "settled": true}
+{"time": 0, "values": {"a.x": 0}, "states": {"l": "lo"}, "events": [], "settled": true}

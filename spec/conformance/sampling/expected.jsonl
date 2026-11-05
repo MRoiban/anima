@@ -1,0 +1,7 @@
+{"time": 0, "values": {"a.x": 10, "a.fill.color": "#000000", "a.visible": true}, "states": {"l": "s"}, "events": [], "settled": false}
+{"time": 0.5, "values": {"a.x": 10}, "states": {"l": "s"}, "events": [], "settled": false}
+{"time": 0.75, "values": {"a.x": 15, "a.fill.color": "#bf0060", "a.visible": true}, "states": {"l": "s"}, "events": [], "settled": false}
+{"time": 1, "values": {"a.x": 20, "a.fill.color": "#ff0080", "a.visible": false}, "states": {"l": "s"}, "events": [], "settled": false}
+{"time": 1.25, "values": {"a.x": 20}, "states": {"l": "s"}, "events": [], "settled": false}
+{"time": 1.5, "values": {"a.x": 30}, "states": {"l": "s"}, "events": [], "settled": false}
+{"time": 2.5, "values": {"a.x": 30, "a.fill.color": "#ff0080", "a.visible": false}, "states": {"l": "s"}, "events": [], "settled": true}

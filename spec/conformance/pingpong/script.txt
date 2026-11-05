@@ -1,0 +1,9 @@
+# the first step reports the initial state's entry events
+advance 0.4
+snapshot a.y
+advance 1
+snapshot a.y
+advance 1
+snapshot a.y
+advance 2
+snapshot a.y

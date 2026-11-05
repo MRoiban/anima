@@ -1,0 +1,4 @@
+{"time": 0, "values": {"a.x": 0, "a.scale": 2, "a.rotate": 0}, "states": {"l": "idle", "hv": "on", "f": "f0"}, "events": [], "settled": true}
+{"time": 0, "values": {"a.x": 1, "a.scale": 2, "a.rotate": 45}, "states": {"l": "rang", "hv": "on", "f": "f1"}, "events": [], "settled": true}
+{"time": 0, "values": {"a.x": 1, "a.scale": 2, "a.rotate": 0}, "states": {"l": "rang", "hv": "on", "f": "f0"}, "events": [], "settled": true}
+{"time": 0, "values": {"a.x": 1, "a.scale": 1, "a.rotate": 0}, "states": {"l": "rang", "hv": "off", "f": "f0"}, "events": [], "settled": true}

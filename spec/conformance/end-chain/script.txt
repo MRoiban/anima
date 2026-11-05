@@ -1,0 +1,7 @@
+advance 0.25
+snapshot
+advance 0.5
+snapshot
+# 0.75 s past the end of "two": s2 → s3 with the overshoot carried
+advance 1
+snapshot

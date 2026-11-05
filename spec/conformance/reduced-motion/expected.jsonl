@@ -1,0 +1,1 @@
+{"time": 0, "values": {"a.x": 50, "a.y": 5}, "states": {"ring": "rested", "h": "h1"}, "events": [{"name": "mid", "layer": "ring", "time": 0.5}, {"name": "rested", "layer": "ring", "time": 0}], "settled": true}

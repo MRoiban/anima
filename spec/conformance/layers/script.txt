@@ -1,0 +1,16 @@
+advance 0.5
+snapshot
+set over true
+advance 0.25
+snapshot
+advance 0.25
+snapshot
+advance 0.25
+snapshot
+set over false
+advance 0.25
+snapshot
+advance 0.25
+snapshot
+advance 0.25
+snapshot

@@ -1,0 +1,9 @@
+set level 2
+advance 0
+snapshot
+set on true
+advance 0
+snapshot
+set level 0.25
+advance 0
+snapshot

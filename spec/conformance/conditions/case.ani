@@ -1,0 +1,64 @@
+{
+ "anima": "0.1",
+ "name": "case",
+ "grid": 20,
+ "nodes": [
+  {
+   "id": "a",
+   "type": "circle",
+   "center": [
+    10,
+    10
+   ],
+   "r": 5,
+   "pivot": [
+    10,
+    10
+   ],
+   "fill": {
+    "color": "#000"
+   }
+  }
+ ],
+ "inputs": {
+  "level": {
+   "type": "number",
+   "min": 0,
+   "max": 1
+  },
+  "on": {
+   "type": "bool"
+  }
+ },
+ "machine": {
+  "layers": {
+   "l": {
+    "initial": "lo",
+    "states": {
+     "lo": {
+      "pose": {
+       "a.x": 0
+      },
+      "on": [
+       {
+        "when": "level >= 0.5 && on",
+        "to": "hi"
+       }
+      ]
+     },
+     "hi": {
+      "pose": {
+       "a.x": 1
+      },
+      "on": [
+       {
+        "when": "level < 0.5",
+        "to": "lo"
+       }
+      ]
+     }
+    }
+   }
+  }
+ }
+}

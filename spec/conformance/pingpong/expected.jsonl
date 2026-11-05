@@ -1,0 +1,4 @@
+{"time": 0.4, "values": {"a.y": 4}, "states": {"l": "s"}, "events": [{"name": "start", "layer": "l", "time": 0}], "settled": false}
+{"time": 1.4, "values": {"a.y": 6}, "states": {"l": "s"}, "events": [{"name": "turn", "layer": "l", "time": 1}], "settled": false}
+{"time": 2.4, "values": {"a.y": 4}, "states": {"l": "s"}, "events": [{"name": "start", "layer": "l", "time": 0}], "settled": false}
+{"time": 4.4, "values": {"a.y": 4}, "states": {"l": "s"}, "events": [{"name": "turn", "layer": "l", "time": 1}, {"name": "start", "layer": "l", "time": 0}], "settled": false}

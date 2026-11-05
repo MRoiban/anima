@@ -1,0 +1,6 @@
+{"time": 0.1, "values": {"a.x": 10}, "states": {"l": "busy"}, "events": [], "settled": false}
+{"time": 0.6, "values": {"a.x": 10}, "states": {"l": "busy"}, "events": [], "settled": false}
+{"time": 1.1, "values": {"a.x": 0}, "states": {"l": "idle"}, "events": [], "settled": true}
+{"time": 1.2, "values": {"a.x": 0}, "states": {"l": "idle"}, "events": [], "settled": true}
+{"time": 2.35, "values": {"a.x": 10}, "states": {"l": "busy"}, "events": [], "settled": false}
+{"time": 3.45, "values": {"a.x": 0}, "states": {"l": "idle"}, "events": [], "settled": true}
