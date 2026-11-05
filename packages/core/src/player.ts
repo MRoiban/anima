@@ -42,6 +42,8 @@ interface Fade {
 
 interface LayerRun {
   m: LayerM;
+  /** Per state, the writes it makes: [slot, constant value or track]. */
+  w: Write[][];
   state: number;
   time: number;
   fade: Fade | null;
@@ -87,7 +89,7 @@ export class Player {
   readonly model: Model;
   /** Animated addresses, in slot order. */
   readonly addrs: string[];
-  readonly #slots = new Map<string, number>();
+  readonly #slots: Map<string, number>;
   readonly #rest: Value[];
   #vals: Value[];
   readonly #inputVals = new Map<string, number | boolean>();
@@ -95,7 +97,6 @@ export class Player {
   readonly #pending = new Map<string, number>();
   #queue: [op: 'set' | 'fire' | 'toggle' | 'emit', name: string, v?: number | boolean][] = [];
   readonly #layers: LayerRun[];
-  readonly #writes: Write[][][];
   #entryEvents: AnimaEvent[] = [];
   #lastSettled = false;
   /** Slots whose value changed since `takeDirty()`. */
@@ -115,23 +116,19 @@ export class Player {
     this.model = model;
     this.reducedMotion = !!opts.reducedMotion;
     this.addrs = [...model.addrs.keys()];
-    this.addrs.forEach((a, i) => this.#slots.set(a, i));
+    const slots = (this.#slots = new Map(this.addrs.map((a, i) => [a, i])));
     this.#rest = this.addrs.map((a) => model.addrs.get(a)!.rest);
-    this.#vals = this.#rest.slice();
     for (const inp of model.inputs.values())
       if (inp.type !== 'trigger') this.#inputVals.set(inp.name, inp.def);
-    // Per state, the writes it makes: [slot, constant value or track].
-    this.#writes = model.layers.map((l) =>
-      l.states.map((s) =>
-        s.pose
-          ? [...s.pose].map(([a, v]): Write => [this.#slots.get(a)!, v])
-          : s.play !== undefined
-            ? model.timelines[s.play]!.tracks.map((t): Write => [this.#slots.get(t.addr)!, t])
-            : [],
-      ),
-    );
     this.#layers = model.layers.map((m) => ({
       m,
+      w: m.states.map((s) =>
+        s.pose
+          ? [...s.pose].map(([a, v]): Write => [slots.get(a)!, v])
+          : s.play !== undefined
+            ? model.timelines[s.play]!.tracks.map((t): Write => [slots.get(t.addr)!, t])
+            : [],
+      ),
       state: m.initial,
       time: 0,
       fade: null,
@@ -139,8 +136,8 @@ export class Player {
     }));
     this.#layers.forEach((L) => this.#enter(L, L.state, 0, null, 0, null, this.#entryEvents));
     this.#over = model.listeners.map(() => false);
-    this.#resolve();
-    this.#dirtySet.clear();
+    this.#vals = this.#rest.slice();
+    for (const L of this.#layers) this.#write(L, this.#vals);
   }
 
   // ------------------------------------------------------------------ host interface
@@ -310,9 +307,9 @@ export class Player {
       const n = this.model.nodes[i]!;
       if (this.prop(i, 'visible') === false) return false;
       if (n.type === 'group') return n.children.some(test);
-      const inv = invert(this.world(i));
-      if (!inv) return false;
       const m = this.world(i);
+      const inv = invert(m);
+      if (!inv) return false;
       const pad = l.pad / Math.sqrt(Math.abs(m[0] * m[3] - m[1] * m[2]));
       const [lx, ly] = apply(inv, x, y);
       const polys = this.#outline(i);
@@ -408,10 +405,7 @@ export class Player {
         }
         const tmp = V.slice();
         this.#write(L, tmp);
-        const keys = new Set([
-          ...(L.fade?.from.keys() ?? []),
-          ...this.#writes[li]![L.state]!.map((w) => w[0]),
-        ]);
+        const keys = new Set([...(L.fade?.from.keys() ?? []), ...L.w[L.state]!.map((w) => w[0])]);
         const snap = new Map([...keys].map((k) => [k, tmp[k]!]));
         for (const t of tr.triggers) {
           used.add(t);
@@ -430,14 +424,12 @@ export class Player {
       }
       this.#write(L, V);
     });
-    // 4. Clamp
+    // 4. Clamp, and note what changed
     V.forEach((v, i) => {
       if (typeof v === 'number') {
         const p = this.model.addrs.get(this.addrs[i]!)!.prop;
-        V[i] = Math.min(p.max ?? Infinity, Math.max(p.min ?? -Infinity, v));
+        V[i] = v = Math.min(p.max ?? Infinity, Math.max(p.min ?? -Infinity, v));
       }
-    });
-    V.forEach((v, i) => {
       const o = this.#vals[i]!;
       if (Array.isArray(v) && Array.isArray(o) ? v.some((c, k) => c !== o[k]) : v !== o)
         this.#dirtySet.add(i);
@@ -452,12 +444,6 @@ export class Player {
     // 6. Settled
     this.#lastSettled = !this.#pending.size && this.#layers.every((L) => this.#atRest(L));
     return { events, settled: this.#lastSettled };
-  }
-
-  #resolve(): void {
-    const V = this.#rest.slice();
-    this.#layers.forEach((L) => this.#write(L, V));
-    this.#vals = V;
   }
 
   #atRest(L: LayerRun): boolean {
@@ -581,9 +567,8 @@ export class Player {
 
   /** The resolve rule (spec §7): write layer L's output over V. */
   #write(L: LayerRun, V: Value[]): void {
-    const li = this.#layers.indexOf(L);
     const st = L.m.states[L.state]!;
-    const ws = this.#writes[li]![L.state]!;
+    const ws = L.w[L.state]!;
     let local = 0;
     if (st.play !== undefined)
       local =
