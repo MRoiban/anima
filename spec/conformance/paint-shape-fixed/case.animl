@@ -1,0 +1,9 @@
+<anima version="0.1" name="paint-fixed" grid="20" requires="paint">
+  <path id="a" d="M2 10L18 10" stroke="#000" stroke-width="2" stroke-scale="fixed"/>
+  <timeline name="t" duration="1">
+    <track target="a.scale">0 1; 1 2</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

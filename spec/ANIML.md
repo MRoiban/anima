@@ -194,4 +194,61 @@ HTML parses `<path/>` and friends as HTML, so markup in a page is wrapped in a s
 
 The markup forms of the `.ani` features reserved in SPEC §12 are reserved too, and rejected with
 the loader's `reserved` code: `<layer mode="additive">`, `<bind target from map>`, a track target
-`<id>.d` (path morphing), `spring(…)` eases, and `<timeline colorSpace>`.
+`spring(…)` eases, and `<timeline colorSpace>`.
+
+## Paint module
+
+Declare `requires="paint"` on `<anima>`. A painted node may contain a `<linearGradient>` or
+`<radialGradient>` child for each paint, instead of its flat `fill` / `stroke` attribute:
+
+```xml
+<anima version="0.1" name="paint" grid="20" requires="paint">
+  <circle id="disc" cx="10" cy="10" r="8" stroke="#000"
+      stroke-dasharray="10% 5%" stroke-dashoffset="0.1">
+    <linearGradient x1="2" y1="2" x2="18" y2="18">
+      <stop offset="0" stop-color="#ff000080"/>
+      <stop offset="1" stop-color="#00f"/>
+    </linearGradient>
+  </circle>
+</anima>
+```
+
+`paint="fill"` (default) or `paint="stroke"` selects the paint object. A `linearGradient` requires
+`x1 y1 x2 y2`; `radialGradient` requires `cx cy r` and accepts optional `fx fy`. Each has at least two
+`<stop offset="0…1" stop-color="…"/>` children. These map to the paint's `type`, coordinates and
+`stops: [{position, color}]`. Flat paint and a gradient for the same target, or two gradients for one
+target, are `paint-attribute`; an invalid selector is `bad-attribute`. Stop colours follow §2.
+
+Gradient coordinate and stop addresses are identical in both syntaxes, e.g. `disc.fill.x2`,
+`disc.fill.stops.0.color`, `disc.fill.stops.0.position`, `disc.stroke.fx`. Dashes are node attributes
+`stroke-dasharray` (whitespace/comma-separated lengths, all numbers or all percentages) and
+`stroke-dashoffset` (number). The offset's track/pose address `disc.stroke-dashoffset` maps to
+`disc.stroke.dashOffset`. Units, sampling and trim precedence are defined in SPEC's paint chapter.
+Module element/attribute names and canonical order derive from the same registry as `.ani`.
+
+## Paint geometry forms
+
+With requires="paint", ellipse, polygon, star and triangle are painted elements.
+Their attributes match the numeric parameter names in SPEC's paint chapter.
+Rect corners="1 1 0 0" supplies TL/TR/BR/BL; tracks address tile.corners.0 through .3.
+Stroke-scale="fixed" maps to stroke.scale. Morph tracks target pathId.d and enclose
+SVG paths in JSON double quotes: 0 "M0 0L2 2"; 1 "M1 1L3 3".
+A pose accepts a path directly in its attribute: <pose pathId.d="M1 1L3 3"/>.
+Pose blending follows the same command-structure rules and diagnostics as tracks.
+See examples/shapes.animl for a complete document and SPEC for bounds and diagnostics.
+## Composite module
+
+Declare `requires="composite"`; use `requires="paint composite"` when also using paint features.
+Browser hosts import `@anima-format/web/composite` separately.
+Compositing uses `mix-blend-mode` and `stroke-position` node attributes. Paint visibility uses
+`fill-visible` or `stroke-visible`. Structural children map directly to their JSON objects:
+`<mask source="shape" mode="alpha" source-draws="false"/>`,
+`<clip source="outline" rule="evenodd"/>` (`rule` optional, default `nonzero`), and
+`<drawOrder target="sibling" position="after" active="true"/>`.
+`<clip>` is also allowed inside `<group>` and clips all its children with the source outline.
+The source must be a painted node, even when the target is a group.
+Multiple paints are repeated `<fillPaint fill="#f00"/>` or
+`<strokePaint stroke="#000" stroke-width="2"/>` children, in drawing order. Gradient paints
+use `type="linear"` / `type="radial"`, coordinate attributes and nested `<stop>` children on
+these elements. Track addresses keep the JSON paint-array path. A structural selector `for`
+is reserved for registry routing and normally omitted.

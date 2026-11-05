@@ -1,0 +1,24 @@
+<anima version="0.1" name="paint-gradient" grid="20" requires="paint">
+  <color name="accent" value="#00ff00"/>
+  <rect id="box" x0="0" y0="0" width="20" height="20">
+    <linearGradient x1="0" y1="0" x2="20" y2="0">
+      <stop offset="0" stop-color="#ff000000"/>
+      <stop offset="1" stop-color="accent"/>
+    </linearGradient>
+    <radialGradient paint="stroke" cx="10" cy="10" r="8" fx="8" fy="9">
+      <stop offset="0" stop-color="#fff"/>
+      <stop offset="1" stop-color="#000"/>
+    </radialGradient>
+  </rect>
+  <timeline name="t" duration="1">
+    <track target="box.fill.x1">0 0; 1 4</track>
+    <track target="box.fill.x2">0 20; 1 12</track>
+    <track target="box.fill.stops.0.position">0 0; 1 0.5</track>
+    <track target="box.fill.stops.0.color">0 #ff000000; 1 #0000ffff</track>
+    <track target="box.stroke.r">0 8; 1 4</track>
+    <track target="box.stroke.fx">0 8; 1 10</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

@@ -8,6 +8,14 @@ type JSONSchema = Record<string, unknown>;
 const COMMENT = { $comment: { type: 'string' } };
 
 function toSchema(s: Shape): JSONSchema {
+  return {
+    ...shapeSchema(s),
+    ...(s.feature && { feature: s.feature }),
+    ...(s.default !== undefined && { default: s.default }),
+  };
+}
+
+function shapeSchema(s: Shape): JSONSchema {
   switch (s.k) {
     case 'str':
       return {

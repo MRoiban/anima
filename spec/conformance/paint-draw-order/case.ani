@@ -1,0 +1,55 @@
+{
+  "anima": "0.1",
+  "name": "paint-draw-order",
+  "grid": 20,
+  "requires": ["composite"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 20,
+      "h": 20,
+      "fill": {
+        "color": "#f00"
+      },
+      "drawOrder": {
+        "target": "b",
+        "position": "after"
+      }
+    },
+    {
+      "id": "b",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 5,
+      "fill": {
+        "color": "#00f"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "a.drawOrder.active": [
+          [0, true],
+          [1, false]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,3 @@
+{"time":0,"values":{"a.paints.0.fill.visible":true},"states":{"l":"s"},"events":[],"settled":false}
+{"time":0.5,"values":{"a.paints.0.fill.visible":true},"states":{"l":"s"},"events":[],"settled":false}
+{"time":1,"values":{"a.paints.0.fill.visible":false},"states":{"l":"s"},"events":[],"settled":true}

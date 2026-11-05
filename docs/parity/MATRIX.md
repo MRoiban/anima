@@ -14,8 +14,8 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Category | Total | done | spec'd | planned | deferred | maybe-later | wont-do |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Drawing and paint | 125 | 20 | 1 | 104 |  |  |  |
-| Transforms and draw order | 17 | 9 |  | 8 |  |  |  |
+| Drawing and paint | 125 | 63 |  | 62 |  |  |  |
+| Transforms and draw order | 17 | 12 |  | 5 |  |  |  |
 | Animation | 40 | 16 |  | 24 |  |  |  |
 | State machines | 61 | 25 |  | 36 |  |  |  |
 | Listeners and input | 93 | 13 |  | 80 |  |  |  |
@@ -32,7 +32,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | Host runtime API | 125 | 22 |  | 99 |  | 4 |  |
 | Platforms | 64 | 1 |  | 9 |  | 54 |  |
 | Tooling | 119 | 14 |  | 50 | 1 | 51 | 3 |
-| **Total** | **1238** | **127** | **2** | **943** | **1** | **162** | **3** |
+| **Total** | **1238** | **173** | **1** | **898** | **1** | **162** | **3** |
 
 | Phase | Rows |
 |---|---:|
@@ -41,13 +41,15 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | [P2](#p2) — Done: M5, Glyphy export, more glyphs, the head-to-head test | 0 |
 | [P3](#p3) — Done: the playground/inspector and the web host API | 15 |
 | [P3b](#p3b) — The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras | 139 |
-| [P4](#p4) — Interaction, paint, events and data binding | 456 |
-| [P5](#p5) — Components and assets | 88 |
+| [P4a](#p4a) — Done: paint and composite on the module system and the draw layer | 46 |
+| [P4](#p4) — Interaction, paint, events and data binding | 381 |
+| [P5](#p5) — Components and assets (moved up: right after P4a) | 117 |
+| [Pc](#pc) — Canvas backend, minimal (brought forward from P10) | 3 |
 | [P6](#p6) — Text | 67 |
 | [P7](#p7) — Layout | 69 |
 | [P8](#p8) — Rigging | 25 |
 | [P9](#p9) — Scripting | 82 |
-| [P10](#p10) — GPU effects and the canvas/WebGL renderer | 20 |
+| [P10](#p10) — GPU effects and the canvas/WebGL renderer | 17 |
 | [Maybe / later](#maybe-later) | 162 |
 | [Won't do](#wont-do) | 3 |
 
@@ -57,7 +59,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `drawing-paint.blend-src-over` | Blend mode srcOver | default SVG source-over compositing | core | done | oracle/blend-src-over |
+| `drawing-paint.blend-src-over` | Blend mode srcOver | node.blend / mix-blend-mode="normal" | core | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
 | `drawing-paint.circle` | Circles | circle.center and circle.r | core | done | oracle/circle |
 | `drawing-paint.compound-geometry` | Compound shapes | path.d with multiple subpaths | core | done | oracle/compound-geometry |
 | `drawing-paint.custom-path` | Custom contours | path.d (SVG contours and Z) | core | done | oracle/custom-path |
@@ -73,7 +75,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `drawing-paint.stroke-join-bevel` | bevel joins | stroke.join: bevel | core | done | oracle/stroke-join-bevel |
 | `drawing-paint.stroke-join-miter` | miter joins | stroke.join: miter | core | done | oracle/stroke-join-miter |
 | `drawing-paint.stroke-join-round` | round joins | stroke.join: round | core | done | oracle/stroke-join-round |
-| `drawing-paint.stroke-position-center` | center stroke placement | stroke centered on outline | core | done | oracle/stroke-position-center |
+| `drawing-paint.stroke-position-center` | center stroke placement | stroke.position: center | core | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
 | `drawing-paint.stroke-transform-scaling` | Scaling strokes | stroke.width scales with world transform | core | done | oracle/stroke-transform-scaling |
 | `drawing-paint.trim-single` | Stroke trim | stroke.trimStart/trimEnd/trimOffset on single contour | core | done | oracle/trim-single |
 | `drawing-paint.winding` | Explicit contour winding | path contour direction retained by d | core | done | oracle/winding |
@@ -432,6 +434,64 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `tooling.seed` | Deterministic random seed | new: explicit script seed in sample scripts | tooling | planned | cli/seed |  |
 | `tooling.test-assertions` | Script assertions | new: tooling-only script test protocol | tooling | planned | cli/test-assertions |  |
 
+## P4a — Done: paint and composite on the module system and the draw layer <a id="p4a"></a>
+
+### Drawing and paint
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `drawing-paint.blend-color` | Blend mode color | node.blend / mix-blend-mode="color" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-color-burn` | Blend mode colorBurn | node.blend / mix-blend-mode="color-burn" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-color-dodge` | Blend mode colorDodge | node.blend / mix-blend-mode="color-dodge" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-darken` | Blend mode darken | node.blend / mix-blend-mode="darken" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-difference` | Blend mode difference | node.blend / mix-blend-mode="difference" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-exclusion` | Blend mode exclusion | node.blend / mix-blend-mode="exclusion" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-hard-light` | Blend mode hardLight | node.blend / mix-blend-mode="hard-light" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-hue` | Blend mode hue | node.blend / mix-blend-mode="hue" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-lighten` | Blend mode lighten | node.blend / mix-blend-mode="lighten" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-luminosity` | Blend mode luminosity | node.blend / mix-blend-mode="luminosity" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-multiply` | Blend mode multiply | node.blend / mix-blend-mode="multiply" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-overlay` | Blend mode overlay | node.blend / mix-blend-mode="overlay" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-saturation` | Blend mode saturation | node.blend / mix-blend-mode="saturation" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-screen` | Blend mode screen | node.blend / mix-blend-mode="screen" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-soft-light` | Blend mode softLight | node.blend / mix-blend-mode="soft-light" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.dash-absolute` | Dash lengths | stroke.dash numeric grid lengths; requires paint | paint | done | spec/conformance/paint-dash; packages/core/test/paint.test.ts |
+| `drawing-paint.dash-offset` | Dash phase | stroke.dashOffset animatable number; grid units or path fraction; requires paint | paint | done | spec/conformance/paint-dash; packages/core/test/paint.test.ts |
+| `drawing-paint.dash-relative` | Relative dashes | stroke.dash percentage strings, fractions of full outline length; requires paint | paint | done | spec/conformance/paint-dash; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
+| `drawing-paint.ellipse` | Ellipses | ellipse cx/cy/rx/ry | paint | done | spec/conformance/paint-shape-ellipse; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.geometry-clip` | Geometry clipping | clip: {source,rule} | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `drawing-paint.gradient-linear` | linear gradients | fill/stroke.type=linear; x1/y1/x2/y2; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
+| `drawing-paint.gradient-opacity` | Gradient opacity | gradient stop colour alpha (#rrggbbaa), sampled per channel; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts |
+| `drawing-paint.gradient-radial` | radial gradients | fill/stroke.type=radial; cx/cy/r/fx/fy; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
+| `drawing-paint.gradient-stops` | Gradient stop animation | fill/stroke.stops[] {position,color}; indexed animatable stop addresses; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts |
+| `drawing-paint.mask-alpha` | alpha subtree masks | mask: {source, mode: "alpha", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-bounds` | Mask region | SVG mask covering three viewBoxes | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-enabled` | Toggle layer masks | mask presence; dynamic enable deferred | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-inverted-alpha` | invertedAlpha subtree masks | mask: {source, mode: "inverted-alpha", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-inverted-luminance` | invertedLuminance subtree masks | mask: {source, mode: "inverted-luminance", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-luminance` | luminance subtree masks | mask: {source, mode: "luminance", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-source-draws` | Visible mask sources | mask.sourceDraws | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.multiple-paints` | Multiple fills and strokes | paints: [{fill\|stroke}] | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `drawing-paint.paint-visible` | Paint visibility | fill.visible / stroke.visible / paints.i.kind.visible | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `drawing-paint.polygon` | Regular polygons | polygon cx/cy/sides/radius/rotation | paint | done | spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.polygon-rounded` | Rounded polygons | polygon cornerRadius cutback/quadratic | paint | done | spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.rectangle-corner-radii` | Independent rectangle corners | rect corners [tl,tr,br,bl], animated corners.0–3 | paint | done | spec/conformance/paint-shape-corners; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.star` | Stars | star cx/cy/points/radius/innerRadius | paint | done | spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.star-rounded` | Rounded stars | star cornerRadius cutback/quadratic | paint | done | spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.stroke-position-inside` | inside stroke placement | stroke.position: inside | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `drawing-paint.stroke-position-outside` | outside stroke placement | stroke.position: outside | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `drawing-paint.stroke-transform-independent` | Unscaled strokes | stroke.scale=fixed; vector-effect non-scaling-stroke | paint | done | spec/conformance/paint-shape-fixed; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.triangle` | Triangles | triangle x0/y0/width/height | paint | done | spec/conformance/paint-shape-triangle; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.vertex-animation` | Vertex and handle animation | path d compatible command-list morph track | paint | done | spec/conformance/paint-morph; packages/web/test/paint-geometry.test.ts |
+
+### Transforms and draw order
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `transforms.animated-draw-order` | Animated draw order | drawOrder: {target,position,active}; hold track on drawOrder.active | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `transforms.draw-target-after` | Draw target after | drawOrder: {target,position,active}; hold track on drawOrder.active | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `transforms.draw-target-before` | Draw target before | drawOrder: {target,position,active}; hold track on drawOrder.active | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+
 ## P4 — Interaction, paint, events and data binding <a id="p4"></a>
 
 ### Drawing and paint
@@ -440,103 +500,28 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 |---|---|---|---|---|---|
 | `drawing-paint.additive-strength` | Additive blend strength | new: blendAmount: 0..1 | paint | planned | oracle/additive-strength |
 | `drawing-paint.asymmetric-vertex` | asymmetric vertex | new: editable vertices with asymmetric vertex geometry | paint | planned | oracle/asymmetric-vertex |
-| `drawing-paint.blend-additive` | Blend mode additive | new: blend: additive | paint | planned | oracle/blend-additive |
-| `drawing-paint.blend-color` | Blend mode color | new: blend: color | paint | planned | oracle/blend-color |
-| `drawing-paint.blend-color-burn` | Blend mode colorBurn | new: blend: color-burn | paint | planned | oracle/blend-color-burn |
-| `drawing-paint.blend-color-dodge` | Blend mode colorDodge | new: blend: color-dodge | paint | planned | oracle/blend-color-dodge |
-| `drawing-paint.blend-darken` | Blend mode darken | new: blend: darken | paint | planned | oracle/blend-darken |
-| `drawing-paint.blend-difference` | Blend mode difference | new: blend: difference | paint | planned | oracle/blend-difference |
-| `drawing-paint.blend-exclusion` | Blend mode exclusion | new: blend: exclusion | paint | planned | oracle/blend-exclusion |
-| `drawing-paint.blend-hard-light` | Blend mode hardLight | new: blend: hard-light | paint | planned | oracle/blend-hard-light |
-| `drawing-paint.blend-hue` | Blend mode hue | new: blend: hue | paint | planned | oracle/blend-hue |
-| `drawing-paint.blend-lighten` | Blend mode lighten | new: blend: lighten | paint | planned | oracle/blend-lighten |
-| `drawing-paint.blend-luminosity` | Blend mode luminosity | new: blend: luminosity | paint | planned | oracle/blend-luminosity |
-| `drawing-paint.blend-multiply` | Blend mode multiply | new: blend: multiply | paint | planned | oracle/blend-multiply |
-| `drawing-paint.blend-overlay` | Blend mode overlay | new: blend: overlay | paint | planned | oracle/blend-overlay |
-| `drawing-paint.blend-saturation` | Blend mode saturation | new: blend: saturation | paint | planned | oracle/blend-saturation |
-| `drawing-paint.blend-screen` | Blend mode screen | new: blend: screen | paint | planned | oracle/blend-screen |
-| `drawing-paint.blend-soft-light` | Blend mode softLight | new: blend: soft-light | paint | planned | oracle/blend-soft-light |
-| `drawing-paint.dash-absolute` | Dash lengths | new: stroke.dash lengths in grid units | paint | planned | oracle/dash-absolute |
-| `drawing-paint.dash-offset` | Dash phase | new: stroke.dashOffset with explicit units | paint | planned | oracle/dash-offset |
-| `drawing-paint.dash-relative` | Relative dashes | new: stroke.dash entries with fraction units | paint | planned | oracle/dash-relative |
+| `drawing-paint.blend-additive` | Blend mode additive | deferred: plus-lighter lacks consistent SVG renderer support (SPEC paint Blend modes) | paint | planned | SPEC paint Blend modes (deferred; no render claim) |
 | `drawing-paint.detached-vertex` | detached vertex | new: editable vertices with detached vertex geometry | paint | planned | oracle/detached-vertex |
 | `drawing-paint.effect-order` | Ordered path effect stacks | new: paint.effects ordered array | paint | planned | oracle/effect-order |
-| `drawing-paint.ellipse` | Ellipses | new: ellipse with center, radiusX and radiusY | paint | planned | oracle/ellipse |
-| `drawing-paint.feather-enabled` | feather enabled | new: feather.enabled on a paint | paint | planned | oracle/feather-enabled |
-| `drawing-paint.feather-inner` | feather inner | new: feather.inner on a paint | paint | planned | oracle/feather-inner |
-| `drawing-paint.feather-offset` | feather offset | new: feather.offset on a paint | paint | planned | oracle/feather-offset |
-| `drawing-paint.feather-outer` | feather outer | new: feather.outer on a paint | paint | planned | oracle/feather-outer |
-| `drawing-paint.feather-space` | feather space | new: feather.space on a paint | paint | planned | oracle/feather-space |
 | `drawing-paint.fill-rule-clockwise` | Fill rule clockwise | new: fill.rule: clockwise | paint | planned | oracle/fill-rule-clockwise |
-| `drawing-paint.geometry-clip` | Geometry clipping | new: clip: {source, rule, visible} | paint | planned | oracle/geometry-clip |
 | `drawing-paint.geometry-origin` | Parametric geometry origin | new: geometry origin expressed as an explicit point in grid units | paint | planned | oracle/geometry-origin |
 | `drawing-paint.gradient-angular` | angular gradients | new: fill or stroke gradient: angular with grid-unit endpoints | paint | planned | oracle/gradient-angular |
 | `drawing-paint.gradient-channel-binding` | Gradient color channels | new: gradient stop channel property paths | data | planned | oracle/gradient-channel-binding |
-| `drawing-paint.gradient-linear` | linear gradients | new: fill or stroke gradient: linear with grid-unit endpoints | paint | planned | oracle/gradient-linear |
-| `drawing-paint.gradient-opacity` | Gradient opacity | new: gradient.opacity | paint | planned | oracle/gradient-opacity |
-| `drawing-paint.gradient-radial` | radial gradients | new: fill or stroke gradient: radial with grid-unit endpoints | paint | planned | oracle/gradient-radial |
-| `drawing-paint.gradient-stops` | Gradient stop animation | new: gradient.stops with position and color tracks | paint | planned | oracle/gradient-stops |
 | `drawing-paint.gradient-transform` | Gradient transforms | new: gradient.transform using grid units and degrees | paint | planned | oracle/gradient-transform |
-| `drawing-paint.image-alignment` | Image box alignment | new: image.align: [x,y] | paint | planned | oracle/image-alignment |
-| `drawing-paint.image-drawable` | Scene images | new: image node with asset and origin | paint | planned | oracle/image-drawable |
-| `drawing-paint.image-filter-bilinear` | bilinear image sampling | new: image.sampling: bilinear | paint | planned | oracle/image-filter-bilinear |
-| `drawing-paint.image-filter-nearest` | nearest image sampling | new: image.sampling: nearest | paint | planned | oracle/image-filter-nearest |
-| `drawing-paint.image-fit-contain` | Image fit contain | new: image.fit: contain | paint | planned | oracle/image-fit-contain |
-| `drawing-paint.image-fit-cover` | Image fit cover | new: image.fit: cover | paint | planned | oracle/image-fit-cover |
-| `drawing-paint.image-fit-fill` | Image fit fill | new: image.fit: fill | paint | planned | oracle/image-fit-fill |
-| `drawing-paint.image-fit-fit-height` | Image fit fitHeight | new: image.fit: fitHeight | paint | planned | oracle/image-fit-fit-height |
-| `drawing-paint.image-fit-fit-width` | Image fit fitWidth | new: image.fit: fitWidth | paint | planned | oracle/image-fit-fit-width |
-| `drawing-paint.image-fit-none` | Image fit none | new: image.fit: none | paint | planned | oracle/image-fit-none |
-| `drawing-paint.image-fit-resize` | Image fit resize | new: image.fit: resize | paint | planned | oracle/image-fit-resize |
-| `drawing-paint.image-fit-scale-down` | Image fit scaleDown | new: image.fit: scaleDown | paint | planned | oracle/image-fit-scale-down |
-| `drawing-paint.image-wrap-clamp` | clamp image wrapping | new: image.wrapX/wrapY: clamp | paint | planned | oracle/image-wrap-clamp |
-| `drawing-paint.image-wrap-mirror` | mirror image wrapping | new: image.wrapX/wrapY: mirror | paint | planned | oracle/image-wrap-mirror |
-| `drawing-paint.image-wrap-repeat` | repeat image wrapping | new: image.wrapX/wrapY: repeat | paint | planned | oracle/image-wrap-repeat |
-| `drawing-paint.mask-alpha` | alpha subtree masks | new: mask with source and mode alpha | paint | planned | oracle/mask-alpha |
-| `drawing-paint.mask-bounds` | Mask region | new: mask.bounds in grid units | paint | planned | oracle/mask-bounds |
-| `drawing-paint.mask-enabled` | Toggle layer masks | new: mask.visible | paint | planned | oracle/mask-enabled |
-| `drawing-paint.mask-inverted-alpha` | invertedAlpha subtree masks | new: mask with source and mode invertedAlpha | paint | planned | oracle/mask-inverted-alpha |
-| `drawing-paint.mask-inverted-luminance` | invertedLuminance subtree masks | new: mask with source and mode invertedLuminance | paint | planned | oracle/mask-inverted-luminance |
-| `drawing-paint.mask-luminance` | luminance subtree masks | new: mask with source and mode luminance | paint | planned | oracle/mask-luminance |
-| `drawing-paint.mask-source-draws` | Visible mask sources | new: mask.sourceDraws | paint | planned | oracle/mask-source-draws |
 | `drawing-paint.mirrored-vertex` | mirrored vertex | new: editable vertices with mirrored vertex geometry | paint | planned | oracle/mirrored-vertex |
-| `drawing-paint.multiple-paints` | Multiple fills and strokes | new: paints array with fill and stroke entries | paint | planned | oracle/multiple-paints |
-| `drawing-paint.n-slice-component` | N-slice component | new: slice regions on component nodes | paint | planned | oracle/n-slice-component |
-| `drawing-paint.n-slice-cuts` | Arbitrary slice axes | new: slice.x/y cut arrays in grid units | paint | planned | oracle/n-slice-cuts |
-| `drawing-paint.n-slice-image` | N-slice image | new: slice regions on image nodes | paint | planned | oracle/n-slice-image |
-| `drawing-paint.n-slice-patch-hidden` | Slice patch hidden | new: slice.patches[].mode: hidden | paint | planned | oracle/n-slice-patch-hidden |
-| `drawing-paint.n-slice-patch-repeat` | Slice patch repeat | new: slice.patches[].mode: repeat | paint | planned | oracle/n-slice-patch-repeat |
-| `drawing-paint.n-slice-patch-stretch` | Slice patch stretch | new: slice.patches[].mode: stretch | paint | planned | oracle/n-slice-patch-stretch |
-| `drawing-paint.n-slice-vector` | N-slice vector | new: slice regions on vector nodes | paint | planned | oracle/n-slice-vector |
 | `drawing-paint.paint-blend-override` | Per-paint compositing | new: paints[].blend with inherit | paint | planned | oracle/paint-blend-override |
-| `drawing-paint.paint-image` | Images in paints | new: paint.image with optional color modulation | paint | planned | oracle/paint-image |
-| `drawing-paint.paint-image-transform` | Image paint mapping | new: paint.image transform in grid units and degrees | paint | planned | oracle/paint-image-transform |
-| `drawing-paint.paint-visible` | Paint visibility | new: paints[].visible | paint | planned | oracle/paint-visible |
-| `drawing-paint.polygon` | Regular polygons | new: polygon with sides and size | paint | planned | oracle/polygon |
-| `drawing-paint.polygon-rounded` | Rounded polygons | new: polygon.cornerRadius in grid units | paint | planned | oracle/polygon-rounded |
-| `drawing-paint.rectangle-corner-radii` | Independent rectangle corners | new: rect.corners: [topLeft, topRight, bottomRight, bottomLeft] | paint | planned | oracle/rectangle-corner-radii |
 | `drawing-paint.rounded-vertex` | rounded vertex | new: editable vertices with rounded vertex geometry | paint | planned | oracle/rounded-vertex |
 | `drawing-paint.shared-effects` | Reusable path effects | new: effects map with reusable trim and dash stacks | paint | planned | oracle/shared-effects |
-| `drawing-paint.star` | Stars | new: star with points and innerRadius | paint | planned | oracle/star |
-| `drawing-paint.star-rounded` | Rounded stars | new: star.cornerRadius in grid units | paint | planned | oracle/star-rounded |
 | `drawing-paint.straight-vertex` | straight vertex | new: editable vertices with straight vertex geometry | paint | planned | oracle/straight-vertex |
-| `drawing-paint.stroke-position-inside` | inside stroke placement | new: stroke.position: inside | paint | planned | oracle/stroke-position-inside |
-| `drawing-paint.stroke-position-outside` | outside stroke placement | new: stroke.position: outside | paint | planned | oracle/stroke-position-outside |
-| `drawing-paint.stroke-transform-independent` | Unscaled strokes | new: stroke.scale: fixed-grid-units | paint | planned | oracle/stroke-transform-independent |
-| `drawing-paint.triangle` | Triangles | new: triangle with width and height | paint | planned | oracle/triangle |
 | `drawing-paint.trim-sequential` | Sequential contour trim | new: stroke.trim.mode: sequential | paint | planned | oracle/trim-sequential |
 | `drawing-paint.trim-synchronized` | Synchronized contour trim | new: stroke.trim.mode: synchronized | paint | planned | oracle/trim-synchronized |
-| `drawing-paint.vertex-animation` | Vertex and handle animation | <id>.d (path morph track) | paint | spec'd | oracle/vertex-animation |
 
 ### Transforms and draw order
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `transforms.animated-draw-order` | Animated draw order | new: hold tracks on node.drawTarget | paint | planned | conformance/animated-draw-order |
 | `transforms.collapse` | Collapse propagation | new: explicit collapsed subtree state | interaction | planned | conformance/collapse |
 | `transforms.computed-transform-values` | Read computed geometry | new: computed geometry read-only property paths | data | planned | conformance/computed-transform-values |
-| `transforms.draw-target-after` | Draw target after | new: drawRules targets with placement: after | paint | planned | conformance/draw-target-after |
-| `transforms.draw-target-before` | Draw target before | new: drawRules targets with placement: before | paint | planned | conformance/draw-target-before |
 | `transforms.origin-animation` | Animated origins | new: animatable node.pivot in grid units | core | planned | conformance/origin-animation |
 | `transforms.solo` | Solo child selection | new: solo node with active child | interaction | planned | conformance/solo |
 
@@ -935,13 +920,42 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.view-model-instances` | Create view model instances | new: typed model instance factory | data | planned | browser/view-model-instances |
 | `host-api.volume` | Artboard volume | new: <anima-icon>.volume | audio | planned | browser/volume |
 
-## P5 — Components and assets <a id="p5"></a>
+## P5 — Components and assets (moved up: right after P4a) <a id="p5"></a>
 
 ### Drawing and paint
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
+| `drawing-paint.feather-enabled` | feather enabled | new: feather.enabled on a paint | paint | planned | oracle/feather-enabled |
+| `drawing-paint.feather-inner` | feather inner | new: feather.inner on a paint | paint | planned | oracle/feather-inner |
+| `drawing-paint.feather-offset` | feather offset | new: feather.offset on a paint | paint | planned | oracle/feather-offset |
+| `drawing-paint.feather-outer` | feather outer | new: feather.outer on a paint | paint | planned | oracle/feather-outer |
+| `drawing-paint.feather-space` | feather space | new: feather.space on a paint | paint | planned | oracle/feather-space |
+| `drawing-paint.image-alignment` | Image box alignment | new: image.align: [x,y] | paint | planned | oracle/image-alignment |
+| `drawing-paint.image-drawable` | Scene images | new: image node with asset and origin | paint | planned | oracle/image-drawable |
+| `drawing-paint.image-filter-bilinear` | bilinear image sampling | new: image.sampling: bilinear | paint | planned | oracle/image-filter-bilinear |
+| `drawing-paint.image-filter-nearest` | nearest image sampling | new: image.sampling: nearest | paint | planned | oracle/image-filter-nearest |
+| `drawing-paint.image-fit-contain` | Image fit contain | new: image.fit: contain | paint | planned | oracle/image-fit-contain |
+| `drawing-paint.image-fit-cover` | Image fit cover | new: image.fit: cover | paint | planned | oracle/image-fit-cover |
+| `drawing-paint.image-fit-fill` | Image fit fill | new: image.fit: fill | paint | planned | oracle/image-fit-fill |
+| `drawing-paint.image-fit-fit-height` | Image fit fitHeight | new: image.fit: fitHeight | paint | planned | oracle/image-fit-fit-height |
+| `drawing-paint.image-fit-fit-width` | Image fit fitWidth | new: image.fit: fitWidth | paint | planned | oracle/image-fit-fit-width |
+| `drawing-paint.image-fit-none` | Image fit none | new: image.fit: none | paint | planned | oracle/image-fit-none |
+| `drawing-paint.image-fit-resize` | Image fit resize | new: image.fit: resize | paint | planned | oracle/image-fit-resize |
+| `drawing-paint.image-fit-scale-down` | Image fit scaleDown | new: image.fit: scaleDown | paint | planned | oracle/image-fit-scale-down |
+| `drawing-paint.image-wrap-clamp` | clamp image wrapping | new: image.wrapX/wrapY: clamp | paint | planned | oracle/image-wrap-clamp |
+| `drawing-paint.image-wrap-mirror` | mirror image wrapping | new: image.wrapX/wrapY: mirror | paint | planned | oracle/image-wrap-mirror |
+| `drawing-paint.image-wrap-repeat` | repeat image wrapping | new: image.wrapX/wrapY: repeat | paint | planned | oracle/image-wrap-repeat |
+| `drawing-paint.n-slice-component` | N-slice component | new: slice regions on component nodes | paint | planned | oracle/n-slice-component |
+| `drawing-paint.n-slice-cuts` | Arbitrary slice axes | new: slice.x/y cut arrays in grid units | paint | planned | oracle/n-slice-cuts |
+| `drawing-paint.n-slice-image` | N-slice image | new: slice regions on image nodes | paint | planned | oracle/n-slice-image |
+| `drawing-paint.n-slice-patch-hidden` | Slice patch hidden | new: slice.patches[].mode: hidden | paint | planned | oracle/n-slice-patch-hidden |
+| `drawing-paint.n-slice-patch-repeat` | Slice patch repeat | new: slice.patches[].mode: repeat | paint | planned | oracle/n-slice-patch-repeat |
+| `drawing-paint.n-slice-patch-stretch` | Slice patch stretch | new: slice.patches[].mode: stretch | paint | planned | oracle/n-slice-patch-stretch |
+| `drawing-paint.n-slice-vector` | N-slice vector | new: slice regions on vector nodes | paint | planned | oracle/n-slice-vector |
 | `drawing-paint.paint-artboard` | Live artboard paint | new: paint.scene references a component | components | planned | oracle/paint-artboard |
+| `drawing-paint.paint-image` | Images in paints | new: paint.image with optional color modulation | paint | planned | oracle/paint-image |
+| `drawing-paint.paint-image-transform` | Image paint mapping | new: paint.image transform in grid units and degrees | paint | planned | oracle/paint-image-transform |
 
 ### Components
 
@@ -1044,6 +1058,21 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.reuse-loaded-file` | Reuse parsed files | new: cache compiled documents and decoded assets | assets | planned | browser/reuse-loaded-file |
 | `host-api.wasm-preload` | Preload runtime | new: backend preload promise | assets | planned | browser/wasm-preload |
 | `host-api.wasm-url` | Self-host WASM | new: optional backend loader URLs | assets | planned | browser/wasm-url |
+
+## Pc — Canvas backend, minimal (brought forward from P10) <a id="pc"></a>
+
+### Host runtime API
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `host-api.device-pixel-ratio` | Pixel ratio override | new: canvas pixelRatio option | canvas | planned | browser/device-pixel-ratio |
+| `host-api.resize-backing-surface` | Resize drawing surface | new: raster surface resize helper; SVG already scales without backing pixels | canvas | planned | browser/resize-backing-surface |
+
+### Platforms
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `platforms.web-canvas` | Web Canvas2D | new: Web Canvas2D | canvas | planned | platform/web-canvas |
 
 ## P6 — Text <a id="p6"></a>
 
@@ -1367,7 +1396,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `drawing-paint.mask-resolution` | Mask quality | new: mask.resolution | canvas | planned | oracle/mask-resolution |
+| `drawing-paint.mask-resolution` | Mask quality | vector SVG mask (no raster resolution setting) | canvas | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
 
 ### GPU
 
@@ -1386,20 +1415,17 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `host-api.device-pixel-ratio` | Pixel ratio override | new: canvas pixelRatio option | canvas | planned | browser/device-pixel-ratio |
 | `host-api.gpu-canvas` | GPU canvas opt-in | new: optional GPU Canvas extension | gpu | planned | browser/gpu-canvas |
 | `host-api.inkbleed` | Inkbleed antialiasing | new: optional GPU antialiasing mode | gpu | planned | browser/inkbleed |
 | `host-api.multi-artboard-canvas` | Multiple artboards on one canvas | new: scene instances composed within an Anima surface | canvas | planned | browser/multi-artboard-canvas |
 | `host-api.offscreen-surface` | OffscreenCanvas target | new: offscreen raster renderer | canvas | planned | browser/offscreen-surface |
 | `host-api.replay-worker` | Worker-based replay | new: worker replay backend | gpu | planned | browser/replay-worker |
-| `host-api.resize-backing-surface` | Resize drawing surface | new: raster surface resize helper; SVG already scales without backing pixels | canvas | planned | browser/resize-backing-surface |
 | `host-api.shared-offscreen-renderer` | Share GPU context | new: shared GPU surface pool | gpu | planned | browser/shared-offscreen-renderer |
 
 ### Platforms
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `platforms.web-canvas` | Web Canvas2D | new: Web Canvas2D | canvas | planned | platform/web-canvas |
 | `platforms.web-layer-masks` | Web layer-mask backend | new: Web layer-mask backend | gpu | planned | platform/web-layer-masks |
 | `platforms.web-webgl2` | Web WebGL2 | new: Web WebGL2 | gpu | planned | platform/web-webgl2 |
 

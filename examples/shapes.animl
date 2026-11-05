@@ -1,0 +1,16 @@
+<anima version="0.1" name="shapes" grid="20" requires="paint">
+  <ellipse id="oval" cx="5" cy="5" rx="3" ry="2" fill="#d97757"/>
+  <polygon id="pentagon" cx="14" cy="5" sides="5" radius="3" rotation="15" cornerRadius="0.5" fill="#5577aa"/>
+  <star id="spark" cx="5" cy="14" points="5" radius="3" innerRadius="1.5" cornerRadius="0.3" fill="#d97757"/>
+  <triangle id="peak" x0="11" y0="11" width="6" height="6" stroke="#5577aa" stroke-scale="fixed"/>
+  <rect id="tile" x0="8" y0="8" corners="1 1 0 0" width="4" height="4" fill="#5577aa"/>
+  <path id="morph" d="M1 19L5 19" stroke="#d97757"/>
+  <timeline name="t" duration="1" loop="pingpong">
+    <track target="morph.d">0 "M1 19L5 19"; 1 "M1 18L7 18"</track>
+    <track target="tile.corners.0">0 1; 1 0</track>
+    <track target="oval.rx">0 3; 1 2</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

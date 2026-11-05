@@ -1,19 +1,32 @@
 // Loader: parse → structural check → resolve and validate → Model (spec §2 "Strictness").
 // Never partially loads: either a Model with no errors, or the diagnostics.
 
+import { drawTree, type DrawTree } from './draw.ts';
 import { checkDoc } from './check.ts';
 import { type RGBA, parseHex } from './color.ts';
 import { type Term, parseCondition } from './cond.ts';
 import { type Diagnostic, Diags, ptr, suggest } from './diag.ts';
 import { VERBOSE as V } from './flags.ts';
 import { type EaseFn, hold, linear, parseEase } from './ease.ts';
-import { PathError, type Subpath, parsePath, selectPath } from './path.ts';
-import { COMMON, type NodeType, OWN, PAINT, PAINTED, type Prop, STATIC } from './registry.ts';
+import { PathError, type Subpath, parsePath, selectSubpaths } from './path.ts';
+import {
+  COMMON,
+  NAME,
+  type NodeType,
+  OWN,
+  PAINT,
+  PAINTED,
+  type Prop,
+  STATIC,
+  nodeShape,
+  type ObjShape,
+} from './registry.ts';
 
 export const FORMAT_VERSION = '0.1';
-export const FEATURES = ['knockout'];
+export { FEATURES } from './modules.ts';
+import { FEATURES, modules } from './modules.ts';
 
-export type Value = number | boolean | RGBA;
+export type Value = number | boolean | RGBA | string;
 type Json = Record<string, unknown>;
 
 /* eslint-disable @typescript-eslint/no-explicit-any -- raw JSON after the structural check */
@@ -104,6 +117,9 @@ export interface ListenerM {
 }
 
 export interface Model {
+  /** Built after successful validation; stable for the document lifetime. */
+  draw?: DrawTree;
+  drawModules?: import('./modules.ts').Module[];
   doc: Raw;
   grid: number;
   viewBox: [number, number, number, number];
@@ -135,22 +151,34 @@ const entries = <T = Raw>(o: Record<string, T> | undefined): [string, T][] =>
 /** Load a document from text or an already-parsed value. */
 export function load(input: string | object): LoadResult {
   const d = new Diags();
-  const model = parse(input, d);
-  return model && !d.failed ? { model, diagnostics: d.list } : { diagnostics: d.list };
+  if (typeof input !== 'string') return loadDocument(input, d);
+  if (input.length > LIMITS.text) {
+    d.err('limit-exceeded', '', V && `document is larger than ${LIMITS.text} characters`);
+    return { diagnostics: d.list };
+  }
+  let doc: unknown;
+  try {
+    doc = JSON.parse(input);
+  } catch (e) {
+    d.err('json-syntax', '', V && (e instanceof SyntaxError ? e.message : 'not JSON'));
+    return { diagnostics: d.list };
+  }
+  return loadDocument(doc, d);
 }
 
-/** The steps of `load`; stops at the first failing one. */
-function parse(input: string | object, d: Diags): Model | undefined {
-  let doc: unknown = input;
-  if (typeof input === 'string') {
-    if (input.length > LIMITS.text)
-      return d.err('limit-exceeded', '', V && `document is larger than ${LIMITS.text} characters`);
-    try {
-      doc = JSON.parse(input);
-    } catch (e) {
-      return d.err('json-syntax', '', V && (e instanceof SyntaxError ? e.message : 'not JSON'));
-    }
+/** Both input forms share structural/semantic validation and module compilation. */
+function loadDocument(doc: unknown, d: Diags): LoadResult {
+  const model = parse(doc, d);
+  if (model) for (const m of modules.values()) m.load?.(model, model.doc, d);
+  if (model && !d.failed) {
+    drawTree(model);
+    return { model, diagnostics: d.list };
   }
+  return { diagnostics: d.list };
+}
+
+/** Validate and compile a parsed JSON value; stops at the first failing step. */
+function parse(doc: unknown, d: Diags): Model | undefined {
   if (typeof doc !== 'object' || doc === null || Array.isArray(doc))
     return d.err('type', '', V && 'a document is a JSON object');
   const v = (doc as Json).anima;
@@ -163,6 +191,13 @@ function parse(input: string | object, d: Diags): Model | undefined {
           V && `format version ${JSON.stringify(v)} is not supported`,
           V && `this runtime reads "${FORMAT_VERSION}"`,
         );
+  const requires = (doc as Json).requires;
+  if (Array.isArray(requires))
+    requires.forEach((f, i) => {
+      if (typeof f === 'string' && !FEATURES.includes(f))
+        d.err('unknown-feature', '/requires/' + i, V && `this runtime does not support "${f}"`);
+    });
+  if (d.failed) return;
   try {
     if (checkDoc(doc, d)) return resolve(doc as Raw, d);
   } catch (e) {
@@ -179,10 +214,6 @@ function resolve(doc: Raw, d: Diags): Model {
       V && `"${doc.name}" ends in -<digits>`,
       V && 'Glyphy reserves that suffix for variants',
     );
-  asList(doc.requires).forEach((f, i) => {
-    if (!FEATURES.includes(f))
-      d.err('unknown-feature', '/requires/' + i, V && `this runtime does not support "${f}"`);
-  });
 
   // Colours
   const colors: Record<string, string> = doc.colors ?? {};
@@ -196,7 +227,7 @@ function resolve(doc: Raw, d: Diags): Model {
       );
   const checkPaint = (c: string, p: string) => {
     if (c === 'currentColor' || parseHex(c) || Object.hasOwn(colors, c)) return;
-    if (/^[a-z][a-zA-Z0-9-]*$/.test(c))
+    if (NAME.test(c))
       d.err(
         'unknown-color-slot',
         p,
@@ -267,14 +298,15 @@ function resolve(doc: Raw, d: Diags): Model {
       d.err('bad-value', p + '/default', V && 'default lies outside [min, max]');
     inputs.set(name, { name, type: t, def, min, max, buffer: r.buffer ?? 0 });
   }
-  const used = new Set<string>();
+  // Input-use tracking only feeds the verbose unused-input warning.
+  const used = V ? new Set<string>() : undefined;
   const needInput = (
     name: string,
     p: string,
     types: InputM['type'][],
     what: string | false,
   ): InputM | undefined => {
-    used.add(name);
+    used?.add(name);
     const inp = inputs.get(name);
     if (!inp)
       d.err(
@@ -294,10 +326,17 @@ function resolve(doc: Raw, d: Diags): Model {
 
   // Addresses
   const addrs = new Map<string, Addr>();
-  const keyCount = { n: 0 };
+  let keyCount = 0;
   const address = (a: string, p: string): Addr | undefined => {
     const r = resolveAddress(a, nodes, ids);
     if (Array.isArray(r)) return void d.err(r[0], p, r[1], r[2]);
+    if (r.prop.feature && !doc.requires?.includes(r.prop.feature))
+      d.err(
+        'undeclared-feature',
+        p,
+        V && `requires does not declare ${r.prop.feature}`,
+        V && `add "${r.prop.feature}" to "requires"`,
+      );
     if (r.prop.type === 'color' && !Array.isArray(r.rest)) {
       d.err(
         'color-slot-animated',
@@ -311,6 +350,7 @@ function resolve(doc: Raw, d: Diags): Model {
     return r;
   };
   const value = (a: Addr, v: unknown, p: string): Value | undefined => {
+    if (a.prop.type === 'path') return modules.get(a.prop.feature!)?.value?.(a, v, p, d);
     const t = a.prop.type;
     if (t === 'color') {
       if (typeof v !== 'string')
@@ -369,7 +409,7 @@ function resolve(doc: Raw, d: Diags): Model {
         d.err('empty-track', tp, V && `track "${a}" has no keyframes`);
         continue;
       }
-      if ((keyCount.n += keys.length) > LIMITS.keys)
+      if ((keyCount += keys.length) > LIMITS.keys)
         d.err('limit-exceeded', tp, V && `more than ${LIMITS.keys} keyframes`);
       const tr: TrackM = { addr: a, times: [], values: [], eases: [] };
       keys.forEach((k, i) => {
@@ -598,10 +638,14 @@ function resolve(doc: Raw, d: Diags): Model {
   // Accessibility
   const a11y = doc.a11y;
   if (a11y) {
-    if (a11y.activate)
-      needInput(a11y.activate, '/a11y/activate', ['trigger', 'bool'], V && '"activate"');
-    if (a11y.pressed) needInput(a11y.pressed, '/a11y/pressed', ['bool'], V && '"pressed"');
-    if (a11y.held) needInput(a11y.held, '/a11y/held', ['bool'], V && '"held"');
+    for (const key of ['activate', 'pressed', 'held'])
+      if (a11y[key])
+        needInput(
+          a11y[key],
+          '/a11y/' + key,
+          key === 'activate' ? ['trigger', 'bool'] : ['bool'],
+          V && `"${key}"`,
+        );
     if (a11y.role === 'switch' && !a11y.pressed)
       d.err(
         'missing-key',
@@ -612,7 +656,7 @@ function resolve(doc: Raw, d: Diags): Model {
   }
   if (V)
     for (const n of inputs.keys())
-      if (!used.has(n))
+      if (!used!.has(n))
         d.warn('unused-input', ptr('/inputs', n), V && `nothing reads or writes "${n}"`);
 
   const vb = doc.viewBox ?? [0, 0, doc.grid, doc.grid];
@@ -683,15 +727,14 @@ function checkNode(
             `subpath ${pick[bad]} is ${pick[bad]! >= all.length ? `out of range (the path has ${all.length})` : 'repeated'}`,
         );
       else {
-        n.geom = pick ? [...pick].sort((a, b) => a - b).map((i) => all[i]!) : all;
-        n.d = selectPath(src, all, pick);
+        Object.assign(n, selectSubpaths(src, all, pick));
       }
     }
   }
   if (!PAINTED.includes(n.type)) return;
-  if (r.fill) checkPaint(r.fill.color, p + '/fill/color');
-  if (r.stroke) checkPaint(r.stroke.color, p + '/stroke/color');
-  if (V && !r.fill && !r.stroke)
+  for (const kind of ['fill', 'stroke'])
+    if (r[kind]?.color !== undefined) checkPaint(r[kind].color, p + '/' + kind + '/color');
+  if (V && !r.fill && !r.stroke && !r.paints)
     d.warn('no-paint', p, V && `"${n.id}" has neither fill nor stroke`);
   if (n.type === 'arc') {
     if (r.fill)
@@ -720,8 +763,6 @@ function checkNode(
     );
 }
 
-const STATIC_PAINT = ['rule', 'cap', 'join'];
-
 /** Resolve `<id>.<property>`; returns an Addr or [code, message, hint]. */
 export function resolveAddress(
   a: string,
@@ -741,7 +782,11 @@ export function resolveAddress(
   if (ni === undefined)
     return ['unknown-address', V && `no node "${id}"`, V && `${suggest(id, ids.keys()) ?? ''}`];
   const n = nodes[ni]!;
-  if (key === 'd') return ['reserved', V && 'path morphing arrives in anima 0.2', false];
+  for (const m of modules.values()) {
+    const value = m.model?.(n, key);
+    if (value) return { node: ni, key, ...value };
+  }
+  if (key === 'd') return ['reserved', V && 'd animation needs a paint-module path node', false];
   const m = /^(fill|stroke)\.(.+)$/.exec(key);
   if (m) {
     const paint = m[1] as 'fill' | 'stroke';
@@ -750,7 +795,7 @@ export function resolveAddress(
       return ['unknown-address', V && `"${id}" has no ${paint}`, false];
     const prop = PAINT[paint][field];
     if (!prop) {
-      if (STATIC_PAINT.includes(field))
+      if (Object.hasOwn((nodeShape(n.type).p[paint] as ObjShape).p, field))
         return ['not-animatable', V && `${paint}.${field} cannot be animated`, false];
       return [
         'unknown-address',
@@ -759,6 +804,8 @@ export function resolveAddress(
       ];
     }
     const raw = n.raw[paint][field];
+    if (raw === undefined && prop.def === undefined)
+      return ['unknown-address', V && `no value for ${key}`, false];
     const rest: Value = prop.type === 'color' ? (parseHex(raw) ?? raw) : (raw ?? prop.def);
     return { node: ni, key, prop, rest };
   }

@@ -72,7 +72,7 @@ depth 32 nodes, 2 048 nodes, 20 000 keyframes in total, 64 layers, 256 states pe
 
 **Units** *(normative)*: lengths in grid units, y down; time in **seconds**; angles in **degrees**,
 positive clockwise (y down), 0° along +x; opacity, scale and blend weights are plain numbers
-(1 = 100 %). There are no frames, no radians and no percentage flags anywhere in the format.
+(1 = 100 %). There are no frames or radians. The optional paint module adds percentage dash lengths (see its chapter).
 
 ## 3. Glyphs
 
@@ -411,6 +411,7 @@ continues to include only animated addresses, never inputs.
 | `unknown-key` | error | A key is not defined here. Hint: the closest valid key. |
 | `reserved` | error | A key, ease or address reserved for a later version. |
 | `version-unsupported` | error | `anima` is not `"0.1"`. |
+| `undeclared-feature` | error | A module key or address is used without its feature in `requires`; hint: add the feature to `requires`. |
 | `unknown-feature` | error | `requires` names a feature this runtime lacks. |
 | `bad-name` | error | A name breaks its pattern. |
 | `duplicate-id` | error | Two nodes share an id. |
@@ -482,8 +483,8 @@ so a 0.1 loader rejects them with `reserved` and a pointer to the version that b
 4. **Additive layers — deferred to 0.2** (reserved layer key `mode`). 0.1 layers override; the
    resolve rule (§7) passes unwritten properties through, so layers that write disjoint properties
    compose already, which covers a breathing idle on one node under a hover tilt on another.
-5. **Path morphing — deferred to 0.2** (address `<id>.d` reserved). Glyphy traces differ in point
-   count and structure even between variants, so morphing needs tooling first.
+5. **Path morphing** is available through the optional paint module for compatible command lists
+   (see the paint chapter). Automatic matching of differing Glyphy traces remains deferred.
 6. **Data binding — deferred to 0.2** (key `bind` reserved, in the shape
    `"bind": { "<address>": { "from": "level", "map": [0, 1, 0, 1] } }`). 0.1 hosts drive values
    through inputs and conditions.
@@ -508,3 +509,248 @@ Other decisions made while freezing 0.1:
   radius 10.8 around the glyph centre).
 - **Exact version match** before 1.0, rather than minor-version feature negotiation.
 - **Cap and join default to `round`**, matching the Glyphy reference sets rather than SVG's `butt`.
+
+## paint
+
+The optional `paint` module (MODULES.md) extends 0.1 documents with `requires: ["paint"]`.
+An unregistered module is `unknown-feature` at `/requires/<index>`, before structural checks.
+Using its keys or animation addresses without declaring it is `undeclared-feature` at that key
+or address, with hint `add "paint" to "requires"`. Ordinary 0.1 documents keep their behaviour.
+
+### Gradients
+
+A `fill` or `stroke` contains either `color` or a gradient, never both. A gradient has `type`:
+
+| Type | Required coordinates (grid units) | Optional coordinates |
+|---|---|---|
+| `linear` | `x1`, `y1`, `x2`, `y2` (start and end) | — |
+| `radial` | `cx`, `cy`, `r` (centre and radius, `r ≥ 0`) | `fx`, `fy` (focal point, each defaults to the corresponding resolved centre coordinate) |
+
+Both have `stops`, an array of at least two `{ position, color }` objects. `position` is 0..1,
+nondecreasing at rest; repeated positions are permitted (hard edges). `color` follows §6, including
+slots, `currentColor` and hex alpha. Fill rule and stroke width/cap/join/trim/dashes remain on the
+paint object. Coordinates belonging to the other gradient type are errors.
+
+Animatable addresses are `<id>.<fill|stroke>.<coordinate>`,
+`<id>.<fill|stroke>.stops.<index>.position` and
+`<id>.<fill|stroke>.stops.<index>.color`. Indices are zero-based decimal integers without leading
+zeros and must exist. Coordinates must belong to the authored gradient; optional focal coordinates
+may be animated even when omitted, with their rest defaults equal to the authored centre.
+`type`, the stop array's length/order and the dash array are not animatable.
+
+Coordinates and positions use §5 number sampling and §7 blending; positions clamp to 0..1 and
+radius to ≥0 after resolving. Stop colours use the existing non-premultiplied sRGB channel sampling
+(including alpha), blending, dirty slots and hex-only animation restriction (§6). A static slot stop
+remains themeable. In SVG, stop positions that cross during animation are displayed at the maximum
+of that position and all earlier positions; sampled values retain their independently clamped values.
+
+Gradients render as `<linearGradient>` / `<radialGradient>` defs, unique per node, paint and icon,
+with `gradientUnits="userSpaceOnUse"`, sRGB colour interpolation and SVG's default `spreadMethod`
+(`pad`). A paint references its def. Coordinates are in the node's untransformed grid space;
+the node transform carries the paint with its geometry. Degenerate gradients and focal points
+outside the radius follow SVG gradient semantics. Knockout geometry and hit tests stay as in §4/§9;
+they do not acquire gradient alpha sampling.
+
+### Dashes
+
+`stroke.dash` is a nonempty array, all nonnegative grid-unit numbers (`[2, 1]`), or all decimal
+percentage strings (`["10%", "5%"]`). Percentage syntax is `0` or a positive decimal integer,
+optionally followed by a decimal fraction, then `%`; signs and exponents are not accepted.
+A percentage refers to the entire outline length, **not** the SVG viewport diagonal. Units cannot
+be mixed, and at least one length must be positive. Odd arrays repeat twice (SVG behaviour).
+The array is static. Each subpath restarts the pattern as in SVG.
+
+`stroke.dashOffset` is an animatable number, default 0, positive or negative. With numeric dashes
+it is in grid units; with percentage dashes it is a fraction of total path length (0.1 = 10%).
+It uses the existing number sampling and blending. SVG uses `pathLength="1"` for relative patterns,
+and emits their lengths as fractions; absolute patterns use natural path units.
+
+**Trim wins:** when resolved `trimEnd − trimStart < 1`, §4's trim dasharray and offset replace the
+authored dashes and offset. A nonpositive trim suppresses the stroke entirely. A full trim permits
+the authored pattern again, using its own units. Animating the offset still samples normally while
+a trim overrides its display. With no dash array, `dashOffset` has no visual effect.
+
+### Diagnostics and implementation
+
+Registry structural errors retain §11.3 codes (`type`, `bad-value`, `missing-key`, `unknown-key`).
+Missing coordinates/stops/paint kind are `missing-key` at the paint object with an add-key hint.
+Unsorted stops, mixed/all-zero dashes, incompatible coordinates and flat colour plus gradient are
+`bad-value` at the offending key with a corrective hint where possible. Invalid stop colours use
+`bad-color` / `unknown-color-slot`; animated slot stops use `color-slot-animated`. Invalid addresses
+are `unknown-address`, and static paint fields are `not-animatable`.
+
+Module algorithms are independently implemented against SVG semantics. The registry approach
+continues ARCHITECTURE §core.1 and the ideas recorded in
+[format and graph research](../docs/research/rive-format-and-graph.md); the scene keeps the retained
+DOM/dirty-node strategy in [web runtime research](../docs/research/rive-web-runtime.md).
+No algorithm here closely follows Rive runtime source; no additional NOTICE attribution is needed.
+
+### Parametric outlines
+
+The paint module adds painted ellipse (cx,cy,rx,ry), polygon (cx,cy,sides,radius,
+rotation=0,cornerRadius=0), star (cx,cy,points,radius,innerRadius,cornerRadius=0),
+and triangle (x0,y0,width,height). All listed numeric parameters are animatable;
+all lengths use local grid units. AniML element and attribute names equal these names.
+Radii and dimensions are nonnegative. Authored sides are integers 3..1024 and points
+integers 2..1024; sampled counts clamp to these bounds and round to nearest integer,
+ties upward. Polygon vertices advance clockwise from the top, rotated by rotation
+degrees. Star vertices alternate outer/inner radii clockwise from the top outer vertex.
+Triangle vertices are (x0+width/2,y0), (x0+width,y0+height), (x0,y0+height).
+Ellipse paths use two half-ellipse SVG arcs; zero axes produce SVG degenerate outlines.
+
+Polygon/star rounding cuts back cornerRadius on both incident edges, independently
+limited to half each edge's length, then joins the cut points with a quadratic Bézier
+controlled by the original vertex. Straight edges connect the corners. The parameter
+is a cutback distance, rather than an osculating circle radius; concave vertices use
+that same construction. All new shapes render as SVG paths. Hit tests use the current
+outline and the existing 12-chord cubic flattening convention, including morphs.
+Invalid geometry uses registry bad-value diagnostics at the parameter/item; missing
+required geometry uses missing-key. New types without paint use undeclared-feature at type.
+
+### Rectangle corner radii
+
+Rect corners is a four-item nonnegative array [tl,tr,br,bl], AniML corners="1 1 0 0".
+Each value is animatable as tile.corners.0 through .3 (indices without leading zeros).
+The rectangle uses the cutback/quadratic construction above and renders as a path.
+Corners takes precedence over rx; rx remains unchanged without corners. An absent
+corners array cannot be animated. Invalid addresses use unknown-address; invalid array
+length or negative entries use bad-value at the array or offending item.
+
+### Compatible path morphs
+
+The paint-module animation address pathId.d accepts SVG path strings, including when
+rest geometry comes from a glyph and selected subpaths. Keys contain path data, not
+glyph identifiers; compatible glyph data may be used verbatim. Static d needs no module.
+Rest, all keys and all pose values require identical expanded command lists:
+same case, letters and repetition count. Implicit coordinate repetitions expand; extra moveto pairs become
+lineto. No reversal, resampling or automatic matching occurs. Numeric arguments
+interpolate with eased weight, including relative coordinates and arc parameters.
+Arc flags choose 0 below 0.5, otherwise 1. State blending uses the same rule.
+Intermediate strings use the SVG formatter's five decimal places; exact endpoint
+samples retain their authored strings. Hit tests follow the sampled outline.
+
+A state pose may set pathId.d to an SVG path string, using the same validation and
+interpolation as tracks. Invalid paths produce bad-path at the key or pose value with a
+valid-path hint; non-strings produce value-type. Incompatible commands produce morph-mismatch at the key or pose value,
+with a hint naming the first differing zero-based segment and expected/actual command
+(or end). Every key and pose value is checked against rest, keeping state blends compatible.
+AniML encloses path values in JSON double quotes, for example:
+<track target="a.d">0 "M0 0L2 2"; 1 "M0 0L4 4"</track>.
+In a pose attribute, use the path directly: <pose a.d="M0 0L4 4"/>.
+The compiler, formatter and decompiler preserve spaces inside path values.
+
+### Transform-independent stroke
+
+Stroke scale is normal (default) or fixed, AniML stroke-scale="fixed". It is static.
+Fixed emits SVG vector-effect="non-scaling-stroke": the numeric width passes unchanged
+while node and ancestor scale, rotation and shear transform the outline without
+scaling its stroke. The host SVG viewport follows SVG vector-effect semantics,
+including viewport resizing. This is not an inverse adjustment by one scalar for
+nonuniform transforms. Geometry coordinates and sampled width stay unchanged.
+Invalid scale values produce bad-value at the stroke scale field.
+
+### Static raster lengths
+
+The toSVG option staticLengths:true replaces normalized pathLength="1" dashes/trims
+with natural local outline lengths: both dasharray components and dashoffset multiply
+by length, and pathLength is omitted. CLI frames and sheets enable it because resvg
+ignores pathLength. Default toSVG and browser attributes remain unchanged. Lengths
+include all subpaths and closing edges. Circles use 2πr; rectangles account for their
+clamped elliptical corners; other outlines use current path data, including morphs.
+
+Core pathLength parses into absolute lines/cubics, then recursively subdivides cubics
+by de Casteljau at t=0.5 until control polygon length minus chord is at most 0.0001
+grid units per accepted piece, or depth 20. Accepted pieces contribute the mean of
+polygon and chord length. Arc conversion first uses at most 90° cubic pieces (§3),
+so this tolerance describes subdivision flatness, not the initial arc approximation.
+These are independent constructions, extending the shared scene and registry designs
+in the format/graph and web-runtime research cited above. No algorithm follows Rive
+runtime source; no additional NOTICE attribution is required.
+## composite
+
+The optional `composite` module extends 0.1 documents with `requires: ["composite"]`.
+It owns blend modes, source masks, geometry clips, ordered paints/paint visibility,
+stroke placement and sibling draw order. Gradients, dashes, additional geometry,
+corners, morphs and fixed strokes belong to `paint`; using both sets requires
+`requires: ["paint", "composite"]` (AniML `requires="paint composite"`).
+An unavailable module is `unknown-feature`; using an undeclared feature is
+`undeclared-feature` at the offending key/address with an add-feature hint (§11.3).
+Composite alone supports ordinary 0.1 geometry and solid paints.
+
+### Blend modes
+
+`node.blend` (AniML `mix-blend-mode`) selects normal (default), multiply, screen, overlay,
+darken, lighten, color-dodge, color-burn, hard-light, soft-light, difference, exclusion, hue,
+saturation, color or luminosity. It applies CSS `mix-blend-mode` to the node's group, compositing
+against earlier siblings using SVG/CSS semantics. Blend is static. Additive is deferred: SVG
+renderers do not consistently implement CSS `plus-lighter`; source-over is not a faithful substitute.
+
+### Source masks
+
+`mask: { source, mode, sourceDraws }` names a node, selects alpha, luminance, inverted-alpha or
+inverted-luminance, and explicitly controls whether the source also draws in its ordinary place.
+Any false `sourceDraws` use hides that source's ordinary drawing for the document's life.
+The source subtree is shared through a retained definition and SVG `use`; its geometry, local transforms,
+opacity and visibility animate normally. Its ancestors contribute coordinate transforms, but not
+ancestor opacity or visibility. Mask space is the target's parent space. The target transform
+stays inside a permanent, untransformed mask wrapper. Masks cover three viewBoxes, as knockouts do.
+Luminance uses SVG luminance masking. Inversion uses an SVG filter with `feComponentTransfer`
+alpha table `1 0`; inverted luminance first uses `feColorMatrix type="luminanceToAlpha"`, and
+then uses alpha masking. Filter interpolation is sRGB. Source drawing is independent of hiding
+its ordinary copy. Unknown sources, self references and cycles are load errors.
+
+### Geometry clips
+
+`clip: { source, rule? }` names a painted node's outline; optional `rule` is `nonzero`
+(default) or `evenodd`. A painted node or a group may take a clip. A group clip applies
+to its entire child drawing, including nested groups; it does not change the source outline.
+Fill, stroke, visibility, opacity and source compositing do not affect the clip. Source geometry and
+world transforms animate; coordinates are projected into the target parent space. The SVG
+`clipPath` contains an untransformed path (curves transformed control-point by control-point).
+This avoids nonportable nested groups in clip paths while preserving the Firefox retained-leaf
+rules. Singular target parent transforms yield an empty clip. SVG arcs are converted to cubic
+curves by Anima's existing parser. A group source is `clip-source-not-painted`.
+
+### Ordered paints and visibility
+
+A painted node may replace single `fill` and `stroke` with a nonempty `paints` array. Each entry
+has exactly one `fill` or `stroke` object, using the same flat/gradient/width/dash fields; later
+entries paint over earlier entries. `visible` on any paint defaults true and is hold-only
+animatable. Addresses are `<id>.paints.<index>.<fill|stroke>.<field>`, including gradient stops.
+Indices must exist, and array structure is static. Single paint visibility addresses are
+`<id>.fill.visible` and `<id>.stroke.visible`. Multiple strokes currently require center position;
+noncenter positions on multiple paints are rejected. Paints and single fill/stroke cannot coexist.
+
+### Stroke placement
+
+Single `stroke.position` is center (default), inside or outside. Center uses the original width.
+Inside doubles the width and clips the stroke to the shape's filled outline. Outside doubles the
+width and luminance-masks it by a white viewport with a black filled outline. Fill is drawn once,
+before the stroke. Definition geometry samples the same animated dimensions as the visible shape.
+Masks stay attached for the document's life. Open contours use SVG's implicit closing for the
+filled outline; fill rules apply to both clipping and exclusion. Position is static.
+
+### Sibling draw order
+
+`drawOrder: { target, position, active? }` moves a node before or after a named sibling when
+active (default true). `drawOrder.active` is an ordinary hold-only boolean animation address;
+changing it reapplies rules to authored sibling order. Rules run in authored node order, once
+per frame, removing then inserting their node relative to the target. Multiple rules therefore
+have deterministic precedence. Cyclic target chains and nonsibling targets are rejected.
+Rules involving knockout siblings are rejected because knockout permanently groups earlier nodes.
+Static SVG serializes the current order; web reorders existing DOM siblings without replacing
+nodes or detaching their masks. The module's draw hook resolves sibling ranks before rendering.
+Its registry factory binds to the active runtime's shared registry (MODULES §3.1).
+Cross-node draw changes conservatively invalidate dependent draw entries, keeping animated
+source references correct across node and ancestor boundaries.
+
+### Compositing diagnostics
+
+`unknown-source` points at mask/clip source or draw target; `self-reference` and `reference-cycle`
+point at the referencing object. `clip-source-not-painted`, `bad-draw-target`, and `paint-conflict`
+identify incompatible sources, ordering and paint combinations. Each includes a corrective hint.
+Structural validation retains the ordinary registry diagnostics and JSON pointers. These features
+are independently implemented from SVG semantics; no Rive code or algorithms were used.
+The explicit references and retained ordering follow the lessons in
+[format/graph research](../docs/research/rive-format-and-graph.md) §6; the sleeping renderer remains
+as described in [web research](../docs/research/rive-web-runtime.md).

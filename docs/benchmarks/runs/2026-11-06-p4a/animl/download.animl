@@ -1,0 +1,101 @@
+<anima version="0.1" name="download" title="Download" grid="20" requires="paint composite">
+  <color name="ink" value="#141413"/>
+  <a11y role="button" label="Start download" activate="start"/>
+  <number name="progress" default="0" min="0" max="1"/>
+  <bool name="done" default="false"/>
+  <bool name="hover" default="false"/>
+  <trigger name="start"/>
+  <hit circle="10 10 8"/>
+  <!-- 48 equal dash/gap segments = 24 dashes. -->
+  <circle id="track" cx="10" cy="10" r="8" opacity="0.25"
+      stroke="ink" stroke-width="1.5" stroke-linecap="butt" stroke-dasharray="2.0833333333333333% 2.0833333333333333%"/>
+  <!-- Circle outlines begin at 3 o'clock; offset moves the start to noon. -->
+  <circle id="ring" cx="10" cy="10" r="8" trimEnd="0" trimOffset="0.75"
+      stroke-width="1.5" stroke-linecap="round">
+    <linearGradient paint="stroke" x1="2" y1="2" x2="18" y2="18">
+      <stop offset="0" stop-color="#d97757"/>
+      <stop offset="1" stop-color="#f0b49c"/>
+    </linearGradient>
+  </circle>
+  <path id="arrow" d="M10 6L10 13M7 10.5L10 13L13 10.5"
+      stroke="ink" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle id="clip-disc" cx="10" cy="10" r="8" visible="false" fill="ink"/>
+    <!-- The parallelogram's perpendicular width is 2; feathered white edges. -->
+    <path id="band" d="M-2 -2L0.828427 -2L-23.171573 22L-26 22Z" opacity="0">
+      <clip source="clip-disc" rule="nonzero"/>
+      <linearGradient x1="-2" y1="-2" x2="-0.585786" y2="-0.585786">
+        <stop offset="0" stop-color="#ffffff00"/>
+        <stop offset="0.5" stop-color="#ffffff66"/>
+        <stop offset="1" stop-color="#ffffff00"/>
+      </linearGradient>
+    </path>
+  <timeline name="sweep" duration="0.6" reducedMotion="end">
+    <track target="band.x">0 0; 0.6 48</track>
+    <track target="band.opacity">0 1 hold; 0.599999 1; 0.6 0</track>
+  </timeline>
+  <!-- Binding is reserved in 0.1: these five buckets are an explicit approximation. -->
+  <layer name="progress" initial="empty">
+    <state name="empty">
+      <pose ring.trimEnd="0"/>
+      <on when="progress >= 0.875" to="full"/>
+      <on when="progress >= 0.625" to="three-quarters"/>
+      <on when="progress >= 0.375" to="half"/>
+      <on when="progress >= 0.125" to="quarter"/>
+    </state>
+    <state name="quarter">
+      <pose ring.trimEnd="0.25"/>
+      <on when="progress >= 0.875" to="full"/>
+      <on when="progress >= 0.625" to="three-quarters"/>
+      <on when="progress >= 0.375" to="half"/>
+      <on when="progress < 0.125" to="empty"/>
+    </state>
+    <state name="half">
+      <pose ring.trimEnd="0.5"/>
+      <on when="progress >= 0.875" to="full"/>
+      <on when="progress >= 0.625" to="three-quarters"/>
+      <on when="progress < 0.125" to="empty"/>
+      <on when="progress < 0.375" to="quarter"/>
+    </state>
+    <state name="three-quarters">
+      <pose ring.trimEnd="0.75"/>
+      <on when="progress >= 0.875" to="full"/>
+      <on when="progress < 0.125" to="empty"/>
+      <on when="progress < 0.375" to="quarter"/>
+      <on when="progress < 0.625" to="half"/>
+    </state>
+    <state name="full">
+      <pose ring.trimEnd="1"/>
+      <on when="progress < 0.125" to="empty"/>
+      <on when="progress < 0.375" to="quarter"/>
+      <on when="progress < 0.625" to="half"/>
+      <on when="progress < 0.875" to="three-quarters"/>
+    </state>
+  </layer>
+  <timeline name="finish" duration="0.35" reducedMotion="end">
+    <!-- Constant destination tracks: the transition supplies the ease-out morph. -->
+    <track target="arrow.d">0 "M9 12.5L9 12.5M6.5 10L9 12.5L13.5 7.5"</track>
+    <track target="ring.trimEnd">0 1</track>
+    <track target="ring.stroke.stops.1.color">0 #d97757</track>
+  </timeline>
+  <layer name="completion" initial="pending">
+    <state name="pending">
+      <on when="done" to="complete" blend="0.35" ease="out"/>
+    </state>
+    <state name="complete" play="finish">
+      <on when="!done" to="pending" blend="0.35" ease="out"/>
+    </state>
+  </layer>
+  <layer name="hover" initial="rest">
+    <state name="rest"><on when="hover" to="sweeping"/></state>
+    <state name="sweeping" play="sweep"><on when="@end" to="held"/></state>
+    <state name="held"><on when="!hover" to="rest"/></state>
+  </layer>
+  <!-- An observer makes the click-trigger firing visible in sample evidence. -->
+  <layer name="start-observer" initial="waiting">
+    <state name="waiting"><on when="start" to="fired"/></state>
+    <state name="fired" emit="start-fired"><on when="@after(0)" to="waiting"/></state>
+  </layer>
+  <listener on="enter" set="hover=true"/>
+  <listener on="leave" set="hover=false"/>
+  <listener on="click" fire="start"/>
+</anima>

@@ -1,9 +1,9 @@
 # Work log
 
 ## Now
-Goal: P3 PR p3-playground → main, merge when green; then P4 (interaction, paint, events, data binding).
-State: P3 done on p3-playground: Player.inspect, host API (15880 B), anima playground, mockup compared + drift fixed; parity 127/1238 done, P3b holds the rest.
-Next: PR, CI, merge. Then P4 planning: split into modules (interaction, paint, events, data), design specs first.
+Goal: smaller, agent-native Rive. Order: P4a (PR now) → P5 components/assets (+ input→value binding) → Pc canvas → P4b–e → P3b → P6–P10.
+State: P4a complete on p4a-paint: 747 tests; core+web 16901 (owner-accepted); paint 3708, composite 3855, markup 7554; parity 173/1238. Oracle cases for P4a open.
+Next: PR p4a-paint → merge when CI green; then P5 design (components, per-instance inputs, binding, libraries, assets).
 Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
 Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
@@ -56,3 +56,20 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 20:30 [claude]: merged host API (d1313fe): 10/10 items, Chromium+Firefox tests, docs/WEB.md; core+web 15880 B (+918)
 - 2026-11-05 21:30 [claude]: merged playground (9f6849a); compared with mockup at 1440/1000/390 + 1280x720 (found overlap, fixed in impl+mockup); parity 15 rows done, rest → P3b; npm run check 437 pass
 - 2026-11-05 21:50 [claude]: PR #9 opened; playground first test hit Vitest 5 s default under full load → suite timeout 30 s; npm run check 437 pass
+- 2026-11-05 22:10 [claude]: PR #9 merged (c1f1288); P4 plan: 456 rows → P4a–P4e on a module system; wrote spec/MODULES.md (design)
+- 2026-11-05 23:30 [claude]: merged P4a-1 (ca2ee80): module system 5/5 hooks, paint gradients+dashes; core+web 16461 (+581), paint 2091/5120, markup 6104/6144 (near budget); found resvg ignores pathLength → PNG dashes/trims wrong (fix in P4a-2)
+- 2026-11-05 23:45 [claude]: markup budget 6→8 KB (d3e19ef); launched P4a-2 geometry (shapes, corners, morph, fixed stroke, PNG pathLength fix) and P4a-3 compositing (blend, masks, clips, paints, stroke position, draw order) in parallel, separate files
+- 2026-11-06 01:10 [claude]: merged P4a-2 geometry (e7f7dbd): 6/6; paint 3679/5120, core+web 16519; PNG dashes verified visually
+- 2026-11-06 01:40 [claude]: owner direction recorded (PLAN, LOG, MODULES §3.1 draw layer, docs/benchmarks/agent-native.md; P1 run moved to docs/benchmarks/runs/2026-11-05-p1); P5 moved after P4a; canvas Pc after P5
+- 2026-11-06 03:00 [claude]: merged P4a-3 compositing (46f2ed3) with geometry (10 conflicts resolved, artifacts regenerated): 693 tests pass; paint 7359/5120 over → split into paint + composite modules in P4a-4 with the draw layer; core+web 16697
+- 2026-11-06 03:10 [claude]: launched P4a-4 (draw layer + paint/composite split; Sol xhigh; core+web target ≤16697 B) and the Rive side of the P4a benchmark (AniML side after P4a-4)
+- 2026-11-06 03:30 [claude]: merged benchmark P4a Rive run (6688103): 5/6 (reduced motion host-only), 7m14s, 182 lines incl. generator; frames checked visually (mid-morph, clipped sweep); no .riv/scaffold docs committed
+- 2026-11-06 05:00 [claude]: merged P4a-4 draw layer (3e2a00f): 706 tests, 0.1 SVG byte-identical, paint 3771/5120, composite 3874/4096; core+web 17175 (+478 over 16697 target) → size race
+- 2026-11-06 05:10 [claude]: launched size race A+B (core+web 17175 → ≤16697, xhigh) and the AniML side of the P4a benchmark
+- 2026-11-06 06:00 [claude]: merged AniML benchmark run (6e6aea7): 5/6 (no continuous input binding → P5), 5m13s, 101 lines; Rive 5/6; table + findings in docs/benchmarks/agent-native.md; P4a-7 friction fixes queued after the size race
+- 2026-11-06 07:00 [claude]: size race: A 17017, B 16953 (both verified); combining conflicted in 9 core files → took B; round 2 from B (A's ideas as hints)
+- 2026-11-06 07:30 [claude]: npm run check green (706); found compile/load ~2x slower since draw layer (prefix test 941→1805 ms) → into size round 2
+- 2026-11-06 08:10 [claude]: owner health check: prefix test limit restored (original); compile slowdown = merge blocker; measured same-session: ~25% vitest, single compile 2.5–3.0 → 4.5–5.0 ms (1805 ms was under load); tools/perf.ts added to npm run check; full suite 706 pass
+- 2026-11-06 09:10 [claude]: merged round 2 (51ac8b7): core+web 16901 (−52, plateau; 204 over), compile speed restored — my interleaved vitest medians b7b6e92 ~1081 ms vs now ~1010 ms; next P4a-7 friction then a final size round (anywhere in core+web), else ask owner
+- 2026-11-06 09:30 [owner]: core+web size (16901, +204 over pre-draw-layer) is not a blocker → no final size round; P4a PR after P4a-7 friction fixes
+- 2026-11-06 10:00 [claude]: merged P4a-7 (cd0205d) 5/5; parity 46 rows done in P4a, 29 image/n-slice/feather rows → P5; LOG P4a entry with numbers; opening PR

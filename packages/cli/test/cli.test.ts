@@ -340,6 +340,68 @@ describe('anima inspect, schema, docs', () => {
     expect(text).toContain('likely hole of 0');
   });
 
+  it('schema marks gradient and dash keys with their module', async () => {
+    const data = JSON.parse((await cli('schema', 'stroke', '--format=json')).out);
+    for (const name of ['type', 'stops', 'dash', 'dashOffset'])
+      expect(data.fields.find((f: { ani: string }) => f.ani === name).feature).toBe('paint');
+    expect((await cli('schema', 'stroke')).out).toContain(
+      'stroke-dasharray ↔ stroke.dash: array<number | string> [paint]',
+    );
+  });
+
+  it('schema exposes composite objects and SVG spellings', async () => {
+    for (const topic of ['mask', 'clip', 'drawOrder', 'paints']) {
+      const result = await cli('schema', topic, '--format=json');
+      expect(result.code).toBe(0);
+      const data = JSON.parse(result.out);
+      expect(data.fields.length).toBeGreaterThan(0);
+    }
+    const stroke = JSON.parse((await cli('schema', 'stroke', '--format=json')).out);
+    expect(stroke.fields).toContainEqual(
+      expect.objectContaining({ ani: 'position', markup: 'stroke-position', feature: 'composite' }),
+    );
+    expect((await cli('schema', 'rect')).out).toContain('mix-blend-mode');
+  });
+
+  it.each([
+    'anima',
+    'meta',
+    'color',
+    'glyph',
+    'hit',
+    'bool',
+    'number',
+    'trigger',
+    'timeline',
+    'track',
+    'event',
+    'ease',
+    'layer',
+    'state',
+    'pose',
+    'on',
+    'linearGradient',
+    'radialGradient',
+    'stop',
+    'fillPaint',
+    'strokePaint',
+  ])('schema exposes authoring element %s from registry shapes', async (topic) => {
+    const result = await cli('schema', topic, '--format=json');
+    expect(result.code, result.err).toBe(0);
+    expect(JSON.parse(result.out).fields.length).toBeGreaterThan(0);
+    expect((await cli('schema', topic)).code).toBe(0);
+  });
+  it('schema pose describes address values and clip describes its default', async () => {
+    const pose = JSON.parse((await cli('schema', 'pose', '--format=json')).out);
+    expect(pose.fields).toContainEqual(
+      expect.objectContaining({ ani: '<address>', type: 'number | bool | string | array<any>' }),
+    );
+    const clip = JSON.parse((await cli('schema', 'clip', '--format=json')).out);
+    expect(clip.fields).toContainEqual(
+      expect.objectContaining({ ani: 'rule', required: false, default: 'nonzero' }),
+    );
+    expect((await cli('schema', 'clip')).out).toContain('(default "nonzero")');
+  });
   it('schema describes node types and paint', async () => {
     expect((await cli('schema', 'circle')).out).toMatch(/r +number/);
     expect(
@@ -348,7 +410,9 @@ describe('anima inspect, schema, docs', () => {
       ),
     ).toContain('trimEnd');
     expect(JSON.parse((await cli('schema', '--json-schema')).out).$defs.node).toBeDefined();
-    expect((await cli('schema', 'ellipse')).code).toBe(2);
+    expect((await cli('schema', 'ellipse')).code).toBe(0);
+    for (const type of ['ellipse', 'polygon', 'star', 'triangle', 'rect', 'path'])
+      expect((await cli('schema', type)).out).toContain('paint');
   });
 
   it.each([

@@ -4,21 +4,29 @@
 // Node/CLI keep VERBOSE=true and the full authoring diagnostics (SPEC §2).
 import {
   NAME,
+  ELEMENTS,
   NODE_TYPES,
+  nodeShape,
   VERBOSE,
   formatAni,
   load,
   parseEase,
+  parseHex,
   suggest,
+  ptr,
   type NodeType,
   type Shape,
 } from '@anima-format/core';
+import { moduleCompiler } from './module-hooks.ts';
+import { structuralMarkup } from './modules.ts';
+if (VERBOSE) Object.assign(moduleCompiler, structuralMarkup);
+
 import type { CompileOptions, CompileResult, MarkupDiagnostic } from './index.ts';
-import { aniAddress, nodeAttrs } from './names.ts';
+import { aniAddress, nodeAttrs, type NodeAttr } from './names.ts';
 import { parseXml, type Attr, type Element, type Pos, type XmlDocument } from './xml.ts';
 
 type Json = Record<string, unknown>;
-type Kind =
+export type Kind =
   | 'string'
   | 'name'
   | 'number'
@@ -27,17 +35,18 @@ type Kind =
   | 'color'
   | 'names'
   | 'indices'
+  | 'lengths'
   | 'set'
   | 'ease'
   | 'condition'
   | number;
-interface Form {
+export interface Form {
   attrs: Record<string, Kind>;
   required?: string[];
-  children?: string[];
+  children?: readonly string[];
 }
 const NODES: readonly string[] = NODE_TYPES;
-const BUILTINS = ['linear', 'hold', 'in', 'out', 'inOut'];
+const BUILTINS = 'linear hold in out inOut'.split(' ');
 const FORMS: Record<string, Form> = {
   anima: {
     attrs: {
@@ -132,19 +141,25 @@ const FORMS: Record<string, Form> = {
   },
   bind: { attrs: { target: 'string', from: 'string', map: 'string' } },
 };
-const NUMBER = '-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?(?:[eE][+-]?[0-9]+)?';
-const IS_NUMBER = new RegExp(`^${NUMBER}$`);
-const VECTOR = new RegExp(`^${NUMBER}(?:(?:\\s*,\\s*|\\s+)${NUMBER})*$`);
-const ptr = (p: string, k: string | number) =>
-  p + '/' + String(k).replace(/~/g, '~0').replace(/\//g, '~1');
+const IS_NUMBER = /^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/;
+
 const object = (x: unknown): x is Json => typeof x === 'object' && x !== null && !Array.isArray(x);
 const own = (o: Json, k: string, v: unknown) =>
   Object.defineProperty(o, k, { value: v, enumerable: true, configurable: true, writable: true });
 
-class Compiler {
+export class Compiler {
+  readonly elements = ELEMENTS;
   readonly diagnostics: MarkupDiagnostic[] = [];
   readonly map = new Map<string, Pos>();
   private readonly types = new Map<string, NodeType>();
+  // Registry descriptors are stable during one compile. Reuse them for nodes and addresses,
+  // but start fresh next time so modules registered between compiles are always visible.
+  private readonly attributes = new Map<NodeType, NodeAttr[]>();
+  private nodeAttrs = (type: NodeType): NodeAttr[] => {
+    let attrs = this.attributes.get(type);
+    if (!attrs) this.attributes.set(type, (attrs = nodeAttrs(type)));
+    return attrs;
+  };
   private readonly eases = new Map<string, Attr>();
   private readonly resolved = new Map<string, string>();
   private readonly resolving = new Set<string>();
@@ -156,7 +171,7 @@ class Compiler {
     this.opts = opts;
   }
 
-  private error(code: string, p: string, at: Pos, message: string, hint?: string): void {
+  error(code: string, p: string, at: Pos, message: string, hint?: string): void {
     this.diagnostics.push({
       code,
       severity: 'error',
@@ -179,11 +194,11 @@ class Compiler {
     if (value !== null && typeof value === 'object')
       for (const [k, v] of Object.entries(value)) this.mark(ptr(p, k), v, at);
   }
-  private put(o: Json, key: string, value: unknown, p: string, at: Pos): void {
+  put(o: Json, key: string, value: unknown, p: string, at: Pos): void {
     own(o, key, value);
     this.mark(ptr(p, key), value, at);
   }
-  private container(o: Json, key: string, p: string, at: Pos): Json {
+  container(o: Json, key: string, p: string, at: Pos): Json {
     if (!Object.hasOwn(o, key)) this.put(o, key, {}, p, at);
     return o[key] as Json;
   }
@@ -193,14 +208,14 @@ class Compiler {
     return [a, ptr(ptr(p, key), a.length)];
   }
   private address(s: string): string {
-    return aniAddress(s, (id) => this.types.get(id)) ?? s;
+    return aniAddress(s, (id) => this.types.get(id), this.nodeAttrs) ?? s;
   }
 
   private form(el: Element): Form {
     if (NODES.includes(el.name)) {
       const attrs: Record<string, Kind> = { id: 'name' };
       const required = ['id'];
-      for (const a of nodeAttrs(el.name as NodeType)) {
+      for (const a of this.nodeAttrs(el.name as NodeType)) {
         attrs[a.attr] = a.index === undefined ? this.kind(a.shape) : 'number';
         if ((el.name === 'circle' || el.name === 'arc') && ['cx', 'cy', 'r'].includes(a.attr))
           required.push(a.attr);
@@ -208,15 +223,24 @@ class Compiler {
         if (el.name === 'rect' && ['x0', 'y0', 'width', 'height'].includes(a.attr))
           required.push(a.attr);
       }
-      return { attrs, required, children: el.name === 'group' ? [...NODES] : [] };
+      return {
+        attrs,
+        required,
+        children: [
+          ...(el.name === 'group' ? NODES : []),
+          ...(moduleCompiler.nodes?.(this) ?? []).filter((key) =>
+            Object.hasOwn(nodeShape(el.name as NodeType).p, this.elements[key]!.target!.default),
+          ),
+        ],
+      };
     }
-    return FORMS[el.name]!;
+    return moduleCompiler.form?.(this, el) ?? FORMS[el.name]!;
   }
   private kind(s: Shape): Kind {
     if (s.k === 'num') return 'number';
     if (s.k === 'bool') return 'boolean';
     if (s.k === 'tup') return s.of.length;
-    if (s.k === 'arr') return 'indices'; // subpaths are a whitespace-separated index list
+    if (s.k === 'arr') return s.of.k === 'alt' ? 'lengths' : 'indices'; // subpaths are a whitespace-separated index list
     return s.k === 'str' && s.re === NAME ? 'name' : 'string';
   }
 
@@ -264,7 +288,11 @@ class Compiler {
           VERBOSE ? `text is not allowed inside <${el.name}>` : '',
         );
       if (c.kind !== 'element') continue;
-      if (!NODES.includes(c.name) && !Object.hasOwn(FORMS, c.name))
+      if (
+        !NODES.includes(c.name) &&
+        !Object.hasOwn(FORMS, c.name) &&
+        !Object.hasOwn(ELEMENTS, c.name)
+      )
         this.error(
           'unknown-element',
           p,
@@ -272,7 +300,7 @@ class Compiler {
           VERBOSE ? `unknown element <${c.name}>` : '',
           VERBOSE ? suggest(c.name, [...Object.keys(FORMS), ...NODES]) : '',
         );
-      else if (!allowed.includes(c.name))
+      else if (!allowed.includes(c.name) && !(el.name === 'anima' && NODES.includes(c.name)))
         this.error(
           'misplaced-element',
           p,
@@ -294,20 +322,21 @@ class Compiler {
     }
   }
 
-  private num(s: string): number {
-    if (!IS_NUMBER.test(s) || !Number.isFinite(Number(s)))
+  num(s: string): number {
+    const value = Number(s);
+    if (!IS_NUMBER.test(s) || !Number.isFinite(value))
       throw new Error(VERBOSE ? 'expected a finite JSON number' : '');
-    return Number(s);
+    return value;
   }
   private color(s: string): string {
-    if (NAME.test(s) || /^(?:#[0-9a-f]{3}|#[0-9a-f]{6}|#[0-9a-f]{8})$/i.test(s)) return s;
+    if (NAME.test(s) || parseHex(s)) return s;
     throw new Error(VERBOSE ? 'expected a colour literal or slot name' : '');
   }
   private scalar(s: string, color = true): number | boolean | string {
+    if (s.startsWith('"')) return JSON.parse(s) as string;
     if (s === 'true' || s === 'false') return s === 'true';
     if (IS_NUMBER.test(s)) return this.num(s);
-    if (color && (NAME.test(s) || /^(?:#[0-9a-f]{3}|#[0-9a-f]{6}|#[0-9a-f]{8})$/i.test(s)))
-      return s;
+    if (color && (NAME.test(s) || parseHex(s))) return s;
     throw new Error(
       VERBOSE
         ? color
@@ -357,13 +386,14 @@ class Compiler {
       )
       .join(' && ');
   }
-  private read(a: Attr, kind: Kind, p: string): unknown {
+  read(a: Attr, kind: Kind, p: string): unknown {
     const s = a.value.trim();
     try {
       if (typeof kind === 'number') {
-        if (!VECTOR.test(s))
+        const parts = s.split(/\s*,\s*|\s+/);
+        if (parts.some((x) => !IS_NUMBER.test(x)))
           throw new Error(VERBOSE ? 'expected numbers separated by whitespace or one comma' : '');
-        const v = s.split(/\s*,\s*|\s+/).map((x) => this.num(x));
+        const v = parts.map((x) => this.num(x));
         if (kind && v.length !== kind) throw new Error(VERBOSE ? `expected ${kind} numbers` : '');
         return v;
       }
@@ -382,12 +412,14 @@ class Compiler {
           return this.scalar(s);
         case 'color':
           return this.color(s);
+        case 'lengths':
+          return moduleCompiler.lengths?.(this, s);
         case 'indices':
           if (!s) throw new Error(VERBOSE ? 'expected a whitespace-separated index list' : '');
           return s.split(/\s+/).map((x) => this.num(x));
         case 'names': {
           const v = s ? s.split(/\s+/) : [];
-          if (!v.length || v.some((x) => !NAME.test(x)))
+          if (!v.length || (a.name !== 'requires' && v.some((x) => !NAME.test(x))))
             throw new Error(VERBOSE ? 'expected a whitespace-separated name list' : '');
           return v;
         }
@@ -447,7 +479,7 @@ class Compiler {
     own(o, key, this.build(el, ptr(p, key)));
     return true;
   }
-  private build(el: Element, p: string): unknown {
+  build(el: Element, p: string): unknown {
     this.map.set(p, el.at);
     const a = this.attrs(el, p);
     const children = this.children(el, p);
@@ -455,13 +487,16 @@ class Compiler {
     if (!['track', 'event', 'color', 'ease'].includes(el.name)) this.comment(el, o, p);
     if (NODES.includes(el.name)) {
       this.copyNode(el, a, o, p);
+      moduleCompiler.node?.(this, el, children, o, p);
       if (el.name === 'group') {
         this.put(o, 'children', [], p, el.at);
-        for (const c of children) {
+        for (const c of children.filter((c) => NODES.includes(c.name))) {
           const list = o.children as unknown[];
           list.push(this.build(c, ptr(p + '/children', list.length)));
         }
       }
+    } else if (ELEMENTS[el.name]) {
+      moduleCompiler.build?.(this, el, a, children, o, p);
     } else if (el.name === 'track') {
       this.map.set(p, a.get('target')?.valueAt ?? el.at);
       return this.frames(el, p);
@@ -501,7 +536,7 @@ class Compiler {
     } else if (el.name === 'pose') {
       for (const attr of a.values()) {
         const key = this.address(attr.name);
-        const v = this.read(attr, 'value', ptr(p, key));
+        const v = this.read(attr, key.endsWith('.d') ? 'string' : 'value', ptr(p, key));
         if (v !== undefined) this.put(o, key, v, p, attr.valueAt);
       }
     } else {
@@ -615,11 +650,16 @@ class Compiler {
     this.put(o, 'type', el.name, p, el.at);
     const id = attrs.get('id');
     if (id) this.put(o, 'id', this.read(id, 'name', p + '/id'), p, id.valueAt);
-    for (const a of nodeAttrs(el.name as NodeType)) {
+    for (const a of this.nodeAttrs(el.name as NodeType)) {
       const attr = attrs.get(a.attr);
       if (!attr) continue;
       const paint = a.path.length === 2 ? a.path[0] : undefined;
-      if (paint && a.path[1] !== 'color' && !attrs.has(paint))
+      if (
+        paint &&
+        a.path[1] !== 'color' &&
+        !attrs.has(paint) &&
+        !moduleCompiler.hasPaint?.(this, el, paint)
+      )
         this.error(
           'paint-attribute',
           ptr(p, paint),
@@ -687,7 +727,7 @@ class Compiler {
     const keys: unknown[][] = [];
     for (const m of value.matchAll(/[^;\r\n]+/g)) {
       const line = m[0];
-      const tokens = [...line.matchAll(/\S+/g)];
+      const tokens = [...line.matchAll(/"(?:\\.|[^"\\])*"|\S+/g)];
       if (!tokens.length) continue;
       const at = (i: number) => this.xml!.pos(offsets[m.index + i] ?? el.at.offset);
       const kp = ptr(p, keys.length);
@@ -722,6 +762,7 @@ class Compiler {
   }
 
   run(source: string): CompileResult {
+    this.attributes.clear();
     const { doc: xml, errors } = parseXml(source);
     this.xml = xml;
     for (const e of errors) this.error('markup-syntax', '', e.at, VERBOSE ? e.message : '');
@@ -779,6 +820,9 @@ class Compiler {
         const at = this.map.get(p) ?? root.at;
         this.diagnostics.push({
           ...d,
+          ...(VERBOSE && d.code === 'undeclared-feature'
+            ? { hint: `add requires="${d.hint?.split('"')[1]}" to <anima>` }
+            : {}),
           ...(d.hint && DECLARE[d.hint] ? { hint: DECLARE[d.hint] } : {}),
           line: at.line,
           column: at.col,

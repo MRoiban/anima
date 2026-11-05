@@ -1,0 +1,91 @@
+{
+  "anima": "0.1",
+  "name": "paint",
+  "title": "Paint module",
+  "grid": 20,
+  "requires": ["paint"],
+  "colors": {
+    "accent": "#d97757"
+  },
+  "nodes": [
+    {
+      "id": "panel",
+      "type": "rect",
+      "x0": 2,
+      "y0": 2,
+      "w": 16,
+      "h": 16,
+      "rx": 3,
+      "fill": {
+        "type": "linear",
+        "x1": 2,
+        "y1": 2,
+        "x2": 18,
+        "y2": 18,
+        "stops": [
+          {
+            "position": 0,
+            "color": "#4263eb"
+          },
+          {
+            "position": 1,
+            "color": "#4263eb00"
+          }
+        ]
+      },
+      "stroke": {
+        "width": 0.6,
+        "type": "radial",
+        "cx": 10,
+        "cy": 10,
+        "r": 12,
+        "fx": 7,
+        "fy": 7,
+        "stops": [
+          {
+            "position": 0,
+            "color": "accent"
+          },
+          {
+            "position": 1,
+            "color": "#4263eb"
+          }
+        ],
+        "dash": ["8%", "4%"],
+        "dashOffset": 0
+      }
+    }
+  ],
+  "timelines": {
+    "shine": {
+      "duration": 2,
+      "loop": "pingpong",
+      "tracks": {
+        "panel.fill.x2": [
+          [0, 18],
+          [2, 10]
+        ],
+        "panel.fill.stops.0.color": [
+          [0, "#4263eb"],
+          [2, "#d97757"]
+        ],
+        "panel.stroke.dashOffset": [
+          [0, 0],
+          [2, -0.24]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "paint": {
+        "initial": "shine",
+        "states": {
+          "shine": {
+            "play": "shine"
+          }
+        }
+      }
+    }
+  }
+}

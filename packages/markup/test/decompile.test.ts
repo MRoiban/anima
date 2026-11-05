@@ -20,7 +20,7 @@ type Obj = Record<string, unknown>;
 const elements = (e: Element) => e.children.filter((c): c is Element => c.kind === 'element');
 const attrs = (e: Element) => Object.fromEntries(e.attrs.map((a) => [a.name, a.value]));
 const scalar = (s: string): unknown =>
-  s === 'true' || s === 'false' || /^-?\d/.test(s) ? JSON.parse(s) : s;
+  s.startsWith('"') || s === 'true' || s === 'false' || /^-?\d/.test(s) ? JSON.parse(s) : s;
 const vector = (s: string) => s.split(/\s+/).map(Number);
 
 // Independent structural reader for emitted markup: compare every value, not just snapshots.
@@ -65,9 +65,57 @@ function recover(root: Element): Obj {
       const parent = a.path.length === 2 ? ((o[a.path[0]!] ??= {}) as Obj) : o;
       const key = a.path.at(-1)!;
       if (a.index !== undefined) ((parent[key] ??= []) as unknown[])[a.index] = Number(v);
-      else parent[key] = ['pivot', 'subpaths'].includes(key) ? vector(v) : scalar(v);
+      else
+        parent[key] =
+          key === 'dash'
+            ? v.split(' ').map((x) => (x.endsWith('%') ? x : Number(x)))
+            : ['pivot', 'subpaths', 'corners'].includes(key)
+              ? vector(v)
+              : scalar(v);
     }
-    if (e.name === 'group') o.children = elements(e).map(node);
+    for (const g of elements(e).filter((c) =>
+      ['linearGradient', 'radialGradient'].includes(c.name),
+    )) {
+      const a = attrs(g);
+      const key = a.paint ?? 'fill';
+      const target = (o[key] ??= {}) as Obj;
+      target.type = g.name === 'linearGradient' ? 'linear' : 'radial';
+      for (const [k, v] of Object.entries(a)) if (k !== 'paint') target[k] = Number(v);
+      target.stops = elements(g).map((s) => ({
+        ...base(s),
+        position: Number(attrs(s).offset),
+        color: attrs(s)['stop-color'],
+      }));
+    }
+    for (const child of elements(e)) {
+      const a = attrs(child);
+      if (child.name === 'mask')
+        o.mask = {
+          ...base(child),
+          source: a.source,
+          mode: a.mode,
+          sourceDraws: a['source-draws'] === 'true',
+        };
+      if (child.name === 'clip') o.clip = { ...base(child), source: a.source, rule: a.rule };
+      if (child.name === 'drawOrder')
+        o.drawOrder = {
+          ...base(child),
+          target: a.target,
+          position: a.position,
+          ...(a.active === undefined ? {} : { active: a.active === 'true' }),
+        };
+      if (['fillPaint', 'strokePaint'].includes(child.name)) {
+        const kind = child.name === 'fillPaint' ? 'fill' : 'stroke';
+        const paint: Obj = { ...base(child) };
+        for (const attr of nodeAttrs('rect').filter((v) => v.path[0] === kind))
+          if (a[attr.attr] !== undefined) paint[attr.path[1]!] = scalar(a[attr.attr]!);
+        ((o.paints ??= []) as unknown[]).push({ [kind]: paint });
+      }
+    }
+    if (e.name === 'group')
+      o.children = elements(e)
+        .filter((c) => NODE_ELEMENTS.includes(c.name))
+        .map(node);
     return o;
   };
   const d: Obj = { ...base(root), ...attrs(root), nodes: [] };
@@ -115,7 +163,7 @@ function recover(root: Element): Obj {
             .trim()
             .split('\n')
             .map((line) => {
-              const m = /^(\S+)\s+(\S+)(?:\s+(.*))?$/.exec(line.trim())!;
+              const m = /^(\S+)\s+("(?:\\.|[^"\\])*"|\S+)(?:\s+(.*))?$/.exec(line.trim())!;
               return [Number(m[1]), scalar(m[2]!), ...(m[3] ? [m[3]] : [])];
             });
         else ((p.events ??= []) as unknown[]).push([Number(attrs(child).at), attrs(child).name]);
@@ -273,7 +321,19 @@ function check(source: string | object) {
   expect(parsed.errors).toEqual([]);
   const root = parsed.doc.root!;
   const names = (e: Element) => {
-    expect([...Object.keys(ATTR_ORDER), ...NODE_ELEMENTS, 'pose']).toContain(e.name);
+    expect([
+      ...Object.keys(ATTR_ORDER),
+      ...NODE_ELEMENTS,
+      'pose',
+      'linearGradient',
+      'radialGradient',
+      'stop',
+      'mask',
+      'clip',
+      'drawOrder',
+      'fillPaint',
+      'strokePaint',
+    ]).toContain(e.name);
     if (e.name !== 'pose') for (const a of e.attrs) expect(attrOrder(e.name)).toContain(a.name);
     elements(e).forEach(names);
   };

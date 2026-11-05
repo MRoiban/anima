@@ -1,0 +1,13 @@
+<anima version="0.1" name="paint-paints" grid="20" requires="composite">
+  <rect id="a" x0="0" y0="0" width="20" height="20">
+    <fillPaint fill="#f00"/>
+    <strokePaint stroke="#00f" stroke-width="2"/>
+    <fillPaint fill="#0f0" fill-visible="false"/>
+  </rect>
+  <timeline name="t" duration="1">
+    <track target="a.paints.0.fill.visible">0 true; 1 false</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

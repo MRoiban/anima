@@ -1,0 +1,6 @@
+motion reduce
+set done true
+advance 0
+snapshot
+pointer move 10 10
+snapshot

@@ -1,0 +1,56 @@
+{
+  "anima": "0.1",
+  "name": "paint-mask-luminance",
+  "grid": 20,
+  "requires": ["composite"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 20,
+      "h": 20,
+      "fill": {
+        "color": "#f00"
+      },
+      "mask": {
+        "source": "b",
+        "mode": "luminance",
+        "sourceDraws": false
+      }
+    },
+    {
+      "id": "b",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 5,
+      "fill": {
+        "color": "#fff"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [1, 2]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

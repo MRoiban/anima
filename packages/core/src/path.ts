@@ -1,6 +1,6 @@
 // SVG 1.1 path data: full grammar in, absolute M/L/C/Z out, split by subpath (spec §3).
 
-import { text } from './diag.ts';
+import { VERBOSE as V } from './flags.ts';
 
 /** Segment opcodes in `Subpath.segs`: M x y, L x y, C x1 y1 x2 y2 x y, Z. */
 export const M = 0;
@@ -42,14 +42,14 @@ export function parsePath(d: string): Subpath[] {
   const num = (): number => {
     ws();
     const m = /^[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?/.exec(d.slice(i, i + 40));
-    if (!m) return fail(text('expected a number'));
+    if (!m) return fail(V ? 'expected a number' : '');
     i += m[0].length;
     return Number(m[0]);
   };
   const flag = (): number => {
     ws();
     const c = d[i++];
-    return c === '0' || c === '1' ? +c : fail(text('expected an arc flag (0 or 1)'), i - 1);
+    return c === '0' || c === '1' ? +c : fail(V ? 'expected an arc flag (0 or 1)' : '', i - 1);
   };
 
   let cur: Subpath | undefined;
@@ -68,14 +68,14 @@ export function parsePath(d: string): Subpath[] {
   while (i < n) {
     const ch = d[i]!;
     if (/[a-z]/i.test(ch)) {
-      if (!(ch.toLowerCase() in ARGS)) fail(text(`unknown command "${ch}"`));
+      if (!(ch.toLowerCase() in ARGS)) fail(V ? `unknown command "${ch}"` : '');
       cmd = ch;
       i++;
-    } else if (!cmd) fail(text('path data must start with a moveto'));
-    else if (cmd === 'z' || cmd === 'Z') fail(text('closepath takes no arguments'));
+    } else if (!cmd) fail(V ? 'path data must start with a moveto' : '');
+    else if (cmd === 'z' || cmd === 'Z') fail(V ? 'closepath takes no arguments' : '');
     const lc = cmd.toLowerCase();
     const rel = cmd === lc;
-    if (!cur && lc !== 'm') fail(text('path data must start with a moveto'), i - 1);
+    if (!cur && lc !== 'm') fail(V ? 'path data must start with a moveto' : '', i - 1);
     const start = i - 1; // a moveto's letter
     const a: number[] = [];
     for (let k = 0; k < ARGS[lc]!; k++) a.push(lc === 'a' && (k === 3 || k === 4) ? flag() : num());
@@ -128,7 +128,7 @@ export function parsePath(d: string): Subpath[] {
     prev = lc === 'm' ? 'l' : lc;
     ws();
   }
-  if (!out.length) fail(text('empty path data'), 0);
+  if (!out.length) fail(V ? 'empty path data' : '', 0);
   return out;
 }
 
@@ -232,12 +232,25 @@ export function formatSegs(subpaths: Subpath[]): string {
  * `d` byte for byte (spec §1.2).
  */
 export function selectPath(d: string, all: Subpath[], pick?: readonly number[]): string {
-  const idx = pick ? [...pick].sort((a, b) => a - b) : all.map((_, i) => i);
-  if (idx.length === all.length) return d;
-  const chosen = idx.map((i) => all[i]!);
-  if (chosen.every((sp) => sp.absolute))
-    return chosen.map((sp) => d.slice(sp.start, sp.end).trim()).join('');
-  return formatSegs(chosen);
+  return selectSubpaths(d, all, pick).d;
+}
+
+/** Resolve geometry and source-preserving path data together, sorting the selection once. */
+export function selectSubpaths(
+  d: string,
+  all: Subpath[],
+  pick?: readonly number[],
+): { geom: Subpath[]; d: string } {
+  const geom = pick ? [...pick].sort((a, b) => a - b).map((i) => all[i]!) : all;
+  return {
+    geom,
+    d:
+      geom.length === all.length
+        ? d
+        : geom.every((sp) => sp.absolute)
+          ? geom.map((sp) => d.slice(sp.start, sp.end).trim()).join('')
+          : formatSegs(geom),
+  };
 }
 
 /**
@@ -286,4 +299,49 @@ export function flatten(subpaths: Subpath[], steps = 12): { pts: number[]; close
     if (pts.length) out.push({ pts, closed });
   }
   return out;
+}
+
+/**
+ * Natural outline length in local grid units. Cubics use de Casteljau subdivision until
+ * control-polygon length minus chord ≤ tolerance (0.0001 grid units), or depth 20.
+ * Each accepted chord uses (polygon + chord)/2. Arcs use parsePath's ≤90° cubic conversion.
+ */
+export function pathLength(d: string, tolerance = 0.0001): number {
+  const dist = (a: number[], b: number[]) => Math.hypot(a[0]! - b[0]!, a[1]! - b[1]!);
+  const mid = (a: number[], b: number[]) => [(a[0]! + b[0]!) / 2, (a[1]! + b[1]!) / 2];
+  const cubic = (a: number[], b: number[], c: number[], e: number[], depth: number): number => {
+    const chord = dist(a, e),
+      polygon = dist(a, b) + dist(b, c) + dist(c, e);
+    if (depth === 20 || polygon - chord <= tolerance) return (polygon + chord) / 2;
+    const ab = mid(a, b),
+      bc = mid(b, c),
+      ce = mid(c, e),
+      abc = mid(ab, bc),
+      bce = mid(bc, ce),
+      centre = mid(abc, bce);
+    return cubic(a, ab, abc, centre, depth + 1) + cubic(centre, bce, ce, e, depth + 1);
+  };
+  let total = 0;
+  for (const sp of parsePath(d)) {
+    let at = [0, 0],
+      start = at;
+    for (let i = 0; i < sp.segs.length;) {
+      const op = sp.segs[i++]!;
+      if (op === Z) {
+        total += dist(at, start);
+        at = start;
+        continue;
+      }
+      const end = sp.segs.slice(i + (op === C ? 4 : 0), i + (op === C ? 6 : 2));
+      if (op === M) start = end;
+      else
+        total +=
+          op === C
+            ? cubic(at, sp.segs.slice(i, i + 2), sp.segs.slice(i + 2, i + 4), end, 0)
+            : dist(at, end);
+      at = end;
+      i += op === C ? 6 : 2;
+    }
+  }
+  return total;
 }

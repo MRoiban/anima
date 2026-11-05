@@ -1,4 +1,4 @@
-import { type NodeType } from '@anima-format/core';
+import { ELEMENTS, markupName, type NodeType } from '@anima-format/core';
 import { markupAddress, nodeAttrs } from './names.ts';
 import { type LayoutElement, render } from './layout.ts';
 
@@ -52,6 +52,40 @@ export function decompile(doc: string | object): string {
       if (a.index !== undefined && v !== undefined) v = (v as unknown[])[a.index];
       if (v !== undefined) el.attrs.push([a.attr, value(v)]);
     }
+    const structural = (name: string, data: Obj): LayoutElement => {
+      const form = ELEMENTS[name]!;
+      const child = element(name, data, []);
+      for (const [k, s] of Object.entries(form.shape.p)) {
+        if (data[k] === undefined) continue;
+        if (s.k === 'arr' && s.of.element)
+          child.children.push(...(data[k] as Obj[]).map((v) => structural(s.of.element!, v)));
+        else child.attrs.push([markupName(s, k), value(data[k])]);
+      }
+      return child;
+    };
+    const arrays = new Set<string>();
+    for (const [name, form] of Object.entries(ELEMENTS)) {
+      if (!form.target) continue;
+      for (const key of form.target.choices) {
+        if (n[key] === undefined) continue;
+        if (form.target.array) {
+          if (arrays.has(key)) continue;
+          arrays.add(key);
+          for (const entry of n[key] as Obj[])
+            for (const [childName, childForm] of Object.entries(ELEMENTS)) {
+              if (!childForm.target?.array || !childForm.target.choices.includes(key)) continue;
+              const data = entry[childForm.target.wrapper!];
+              if (data) el.children.push(structural(childName, obj(data)));
+            }
+          continue;
+        }
+        const data = obj(n[key]);
+        if (!Object.entries(form.values ?? {}).every(([k, v]) => data[k] === v)) continue;
+        const child = structural(name, data);
+        if (key !== form.target.default) child.attrs.unshift([form.target.attribute, key]);
+        el.children.push(child);
+      }
+    }
     el.children.push(...((n.children ?? []) as Obj[]).map(node));
     return el;
   };
@@ -104,7 +138,13 @@ export function decompile(doc: string | object): string {
       for (const [target, keys] of entries(t.tracks)) {
         const track = element('track', {}, [], [['target', address(target)]]);
         track.children.push({
-          text: (keys as unknown[][]).map((k) => k.map(value).join(' ')).join('\n'),
+          text: (keys as unknown[][])
+            .map((k) =>
+              k
+                .map((v, i) => (i === 1 && target.endsWith('.d') ? JSON.stringify(v) : value(v)))
+                .join(' '),
+            )
+            .join('\n'),
         });
         el.children.push(track);
       }

@@ -1,3 +1,4 @@
+import '@anima-format/web/paint';
 import { compile, formatMarkup, type MarkupDiagnostic } from '@anima-format/markup';
 import { type LayerInspect, type TimelineM } from '@anima-format/core';
 import { AnimaIcon } from '@anima-format/web';

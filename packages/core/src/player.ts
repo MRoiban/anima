@@ -1,7 +1,17 @@
 // The player: spec §7 (step), §8 (state machine), §9 (pointer model), §10 (reduced motion).
 
 import { type RGBA, formatHex, lerpColor } from './color.ts';
-import { type Mat, IDENTITY, apply, distance, inside, invert, localMatrix, mul } from './geom.ts';
+import {
+  type Mat,
+  IDENTITY,
+  clamp,
+  apply,
+  distance,
+  inside,
+  invert,
+  localMatrix,
+  mul,
+} from './geom.ts';
 import type { EaseFn } from './ease.ts';
 import type {
   InputM,
@@ -14,6 +24,7 @@ import type {
   TransitionM,
   Value,
 } from './load.ts';
+import { modules } from './modules.ts';
 import { flatten } from './path.ts';
 import { text } from './diag.ts';
 import { VERBOSE as V } from './flags.ts';
@@ -52,8 +63,8 @@ interface Fade {
 
 interface LayerRun {
   m: LayerM;
-  /** Per state, the writes it makes: [slot, constant value or track]. */
-  w: Write[][];
+  /** Per state, slot samplers of local timeline time. */
+  w: Map<number, (time: number) => Value>[];
   state: number;
   /** The state before the last transition (for inspectors). */
   prev: number;
@@ -63,7 +74,7 @@ interface LayerRun {
   frozen: number;
 }
 
-type Write = [slot: number, value: Value | TrackM];
+type Write = [slot: number, sample: (time: number) => Value];
 
 const MAX_CHAIN = 16;
 
@@ -87,15 +98,17 @@ export function sampleTrack(tr: TrackM, t: number): Value {
   const b = tr.values[i + 1]!;
   if (typeof a === 'boolean') return a;
   const w = tr.eases[i]!((t - ts[i]!) / (ts[i + 1]! - ts[i]!));
-  return typeof a === 'number' ? a + ((b as number) - a) * w : lerpColor(a, b as RGBA, w);
+  return lerp(a, b, w);
 }
 
 const lerp = (a: Value, b: Value, w: number): Value =>
-  typeof a === 'number'
-    ? a + ((b as number) - a) * w
-    : typeof a === 'boolean'
-      ? a || (b as boolean)
-      : lerpColor(a, b as RGBA, w);
+  typeof a === 'string'
+    ? ([...modules.values()].map((m) => m.interpolate?.(a, b, w)).find((v) => v !== undefined) ?? a)
+    : typeof a === 'number'
+      ? a + ((b as number) - a) * w
+      : typeof a === 'boolean'
+        ? a || (b as boolean)
+        : lerpColor(a, b as RGBA, w);
 
 export class Player {
   readonly model: Model;
@@ -113,6 +126,11 @@ export class Player {
   #lastSettled = false;
   /** Slots whose value changed since `takeDirty()`. */
   readonly #dirtySet = new Set<number>();
+  /** Draw consumers track changes independently of takeDirty(). */
+  readonly drawVersions: number[];
+  drawRevision = 0;
+  /** Renderer cache; step output and dirty-slot reads do not depend on it. */
+  declare drawData?: import('./draw.ts').DrawFrame;
   /** Reduced motion (spec §10): applies to states entered from now on. */
   reducedMotion = false;
   /** Total step time. */
@@ -126,6 +144,7 @@ export class Player {
 
   constructor(model: Model, opts: { reducedMotion?: boolean } = {}) {
     this.model = model;
+    this.drawVersions = model.nodes.map(() => 0);
     this.reducedMotion = !!opts.reducedMotion;
     this.addrs = [...model.addrs.keys()];
     const slots = (this.#slots = new Map(this.addrs.map((a, i) => [a, i])));
@@ -134,12 +153,18 @@ export class Player {
       if (inp.type !== 'trigger') this.#inputVals.set(inp.name, inp.def);
     this.#layers = model.layers.map((m) => ({
       m,
-      w: m.states.map((s) =>
-        s.pose
-          ? [...s.pose].map(([a, v]): Write => [slots.get(a)!, v])
-          : s.play !== undefined
-            ? model.timelines[s.play]!.tracks.map((t): Write => [slots.get(t.addr)!, t])
-            : [],
+      w: m.states.map(
+        (s) =>
+          new Map(
+            s.pose
+              ? [...s.pose].map(([a, v]): Write => [slots.get(a)!, () => v])
+              : s.play !== undefined
+                ? model.timelines[s.play]!.tracks.map((t): Write => [
+                    slots.get(t.addr)!,
+                    (time) => sampleTrack(t, time),
+                  ])
+                : [],
+          ),
       ),
       state: m.initial,
       prev: -1,
@@ -160,19 +185,21 @@ export class Player {
 
   #input(name: string, types: InputM['type'][]): InputM {
     const inp = this.model.inputs.get(name);
-    if (!inp) throw new Error(V ? `anima: no input "${name}"` : 'anima: ' + name);
-    if (!types.includes(inp.type))
-      throw new Error(V ? `anima: input "${name}" is ${inp.type}` : 'anima: ' + name);
+    if (!inp || !types.includes(inp.type))
+      throw new Error(
+        V
+          ? inp
+            ? `anima: input "${name}" is ${inp.type}`
+            : `anima: no input "${name}"`
+          : 'anima: ' + name,
+      );
     return inp;
   }
 
   /** Queue a write to a bool or number input (applied by the next step). */
   set(name: string, value: number | boolean): void {
     const inp = this.#input(name, ['bool', 'number']);
-    if (
-      typeof value !== (inp.type === 'bool' ? 'boolean' : 'number') ||
-      (typeof value === 'number' && !Number.isFinite(value))
-    )
+    if (inp.type === 'bool' ? typeof value !== 'boolean' : !Number.isFinite(value))
       throw new Error(V ? `anima: input "${name}" takes a ${inp.type}` : 'anima: ' + name);
     this.#queue.push(['set', name, value]);
   }
@@ -219,7 +246,7 @@ export class Player {
         blend: L.fade ? Math.min(1, L.fade.t / L.fade.dur) : null,
         locked: !!L.fade?.lock,
         timeline: tl?.name ?? null,
-        time: tl ? (L.frozen >= 0 ? L.frozen : loopTime(tl, L.time * st.speed)) : null,
+        time: this.#localTime(L),
       };
     });
   }
@@ -251,8 +278,7 @@ export class Player {
     const n = this.model.nodes[node]!;
     const s = this.#slots.get(n.id + '.' + key);
     if (s !== undefined) return this.#vals[s];
-    const dot = key.indexOf('.');
-    return dot < 0 ? n.raw[key] : n.raw[key.slice(0, dot)]?.[key.slice(dot + 1)];
+    return key.split('.').reduce((v, k) => v?.[k], n.raw);
   }
 
   /** A numeric node property, or `def` when the document leaves it out. */
@@ -357,13 +383,15 @@ export class Player {
       return (r.stroke || pad > 0) && distance(polys, lx, ly) <= half + pad;
     };
     // the target and its ancestors must be visible
-    for (let i = this.model.nodes[l.target]!.parent; i >= 0; i = this.model.nodes[i]!.parent)
-      if (this.prop(i, 'visible') === false) return false;
-    return test(l.target);
+    return this.visible(l.target) && test(l.target);
   }
 
   /** A painted node's outline as polylines in its own coordinates, from current values. */
   #outline(i: number): { pts: number[]; closed: boolean }[] {
+    for (const m of modules.values()) {
+      const out = m.outline?.(this, i);
+      if (out) return out;
+    }
     const n = this.model.nodes[i]!;
     if (n.type === 'path') {
       let f = this.#flat.get(i);
@@ -403,10 +431,7 @@ export class Player {
       else if (op === 'emit') events.push({ name, layer: null, time: 0 });
       else {
         const inp = this.model.inputs.get(name)!;
-        this.#inputVals.set(
-          name,
-          typeof v === 'number' ? Math.min(inp.max, Math.max(inp.min, v)) : v!,
-        );
+        this.#inputVals.set(name, typeof v === 'number' ? clamp(v, inp.min, inp.max) : v!);
       }
     }
     this.#queue = [];
@@ -434,7 +459,7 @@ export class Player {
         }
         const tmp = V.slice();
         this.#write(L, tmp);
-        const keys = new Set([...(L.fade?.from.keys() ?? []), ...L.w[L.state]!.map((w) => w[0])]);
+        const keys = new Set([...(L.fade?.from.keys() ?? []), ...L.w[L.state]!.keys()]);
         const snap = new Map([...keys].map((k) => [k, tmp[k]!]));
         for (const t of tr.triggers) {
           used.add(t);
@@ -455,13 +480,15 @@ export class Player {
     });
     // 4. Clamp, and note what changed
     V.forEach((v, i) => {
+      const addr = this.model.addrs.get(this.addrs[i]!)!;
       if (typeof v === 'number') {
-        const p = this.model.addrs.get(this.addrs[i]!)!.prop;
-        V[i] = v = Math.min(p.max ?? Infinity, Math.max(p.min ?? -Infinity, v));
+        const p = addr.prop;
+        V[i] = v = clamp(v, p.min ?? -Infinity, p.max ?? Infinity);
       }
       const o = this.#vals[i]!;
       if (Array.isArray(v) && Array.isArray(o) ? v.some((c, k) => c !== o[k]) : v !== o)
         this.#dirtySet.add(i);
+      this.drawVersions[addr.node] = ++this.drawRevision;
     });
     this.#vals = V;
     // 5. Triggers
@@ -585,25 +612,23 @@ export class Player {
     for (const [, te, name] of found) events.push({ name, layer: L.m.name, time: te });
   }
 
+  #localTime(L: LayerRun): number | null {
+    const st = L.m.states[L.state]!;
+    if (st.play === undefined) return null;
+    return L.frozen >= 0 ? L.frozen : loopTime(this.model.timelines[st.play]!, L.time * st.speed);
+  }
+
   /** The resolve rule (spec §7): write layer L's output over V. */
   #write(L: LayerRun, V: Value[]): void {
-    const st = L.m.states[L.state]!;
     const ws = L.w[L.state]!;
-    let local = 0;
-    if (st.play !== undefined)
-      local =
-        L.frozen >= 0 ? L.frozen : loopTime(this.model.timelines[st.play]!, L.time * st.speed);
-    const sample = (w: Write): Value =>
-      Array.isArray(w[1]) || typeof w[1] !== 'object'
-        ? (w[1] as Value)
-        : sampleTrack(w[1] as TrackM, local);
+    const local = this.#localTime(L) ?? 0;
     const f = L.fade;
     if (!f) {
-      for (const w of ws) V[w[0]] = sample(w);
+      for (const [k, sample] of ws) V[k] = sample(local);
       return;
     }
     const wgt = f.ease(Math.min(1, f.t / f.dur));
-    const target = new Map(ws.map((w) => [w[0], sample(w)]));
+    const target = new Map([...ws].map(([k, sample]) => [k, sample(local)]));
     for (const k of new Set([...f.from.keys(), ...target.keys()]))
       V[k] = lerp(f.from.get(k) ?? V[k]!, target.get(k) ?? V[k]!, wgt);
   }

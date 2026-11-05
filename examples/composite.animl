@@ -1,0 +1,21 @@
+<anima version="0.1" name="composite" grid="20" requires="composite">
+  <rect id="background" x0="0" y0="0" width="20" height="20" fill="#e8eef8"/>
+  <circle id="source" cx="10" cy="10" r="8" fill="#fff"/>
+  <rect id="card" x0="2" y0="2" mix-blend-mode="multiply" width="16" height="16">
+    <mask source="source" mode="alpha" source-draws="false"/>
+    <fillPaint fill="#ff8844"/>
+    <strokePaint stroke="#203060" stroke-width="2" stroke-visible="true"/>
+  </rect>
+  <circle id="ring" cx="10" cy="10" r="6" fill="#e8eef8" fill-visible="true" stroke="#203060" stroke-width="1" stroke-position="outside">
+    <clip source="source" rule="nonzero"/>
+    <drawOrder target="card" position="after"/>
+  </circle>
+  <timeline name="t" duration="1">
+    <track target="source.x">0 0; 1 2</track>
+    <track target="card.paints.0.fill.visible">0 true; 1 false</track>
+    <track target="ring.drawOrder.active">0 true; 1 false</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

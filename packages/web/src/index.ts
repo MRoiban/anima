@@ -5,14 +5,20 @@
 import {
   type AnimaEvent,
   type Attrs,
+  type DrawFrame,
   type Diagnostic,
   type El,
   type Model,
   Player,
-  attrs,
+  svgAttrs,
   cssSlots,
+  clamp,
   load,
   sceneTree,
+  registerModule,
+  modules,
+  drawFrame,
+  registerSVGBackend,
 } from '@anima-format/core';
 
 export type { AnimaEvent, Diagnostic };
@@ -52,6 +58,11 @@ const motionQuery = () => matchMedia('(prefers-reduced-motion: reduce)');
 let ids = 0;
 
 export class AnimaIcon extends HTMLElement {
+  static registerModule = registerModule;
+  static registerSVGBackend = registerSVGBackend;
+  static modules = modules;
+  /** Installed by the composite SVG backend; 0.1 scenes keep authored DOM order. */
+  declare static orderSVG?: (frame: DrawFrame, elements: [El, Element, Attrs][]) => void;
   static observedAttributes = ['src', 'motion', 'label', 'speed', 'paused', 'fit', 'align'];
   /** Registered by @anima-format/web/markup; the runtime never imports a compiler itself. */
   declare static compiler?: (source: string) => { doc?: object; diagnostics: SourceDiagnostic[] };
@@ -68,7 +79,6 @@ export class AnimaIcon extends HTMLElement {
   #root: ShadowRoot;
   #svg?: SVGSVGElement;
   #els: [El, Element, Attrs][] = [];
-  #byNode = new Map<number, [El, Element, Attrs][]>();
   #last = -1;
   #onScreen = true;
   #states = '';
@@ -174,24 +184,23 @@ export class AnimaIcon extends HTMLElement {
 
   /** Load a document (text or parsed). Returns its diagnostics; errors leave the icon empty. */
   load(doc: string | object, markup = false): SourceDiagnostic[] {
-    if (markup && typeof doc === 'string') {
-      const result = AnimaIcon.compiler?.(doc) ?? {
-        diagnostics: [
-          {
-            code: 'markup-unavailable',
-            severity: 'error' as const,
-            pointer: '',
-            message: 'load @anima-format/web/markup or run anima build page.html',
-          },
-        ],
-      };
-      if (!result.doc) {
-        this.#fail(result.diagnostics);
-        return result.diagnostics;
-      }
-      doc = result.doc;
-    }
-    const { model, diagnostics } = load(doc);
+    const compiled =
+      markup && typeof doc === 'string'
+        ? (AnimaIcon.compiler?.(doc) ?? {
+            diagnostics: [
+              {
+                code: 'markup-unavailable',
+                severity: 'error' as const,
+                pointer: '',
+                message: 'load @anima-format/web/markup or run anima build page.html',
+              },
+            ],
+          })
+        : undefined;
+    const { model, diagnostics } =
+      compiled && !compiled.doc
+        ? { model: undefined, diagnostics: compiled.diagnostics }
+        : load(compiled?.doc ?? doc);
     if (!model) {
       this.#fail(diagnostics);
       return diagnostics;
@@ -281,7 +290,6 @@ export class AnimaIcon extends HTMLElement {
     this.player = undefined;
     this.#svg = undefined;
     this.#els = [];
-    this.#byNode.clear();
     this.#root.replaceChildren();
     this.#held = false;
     this.#aria();
@@ -289,11 +297,10 @@ export class AnimaIcon extends HTMLElement {
 
   /** Repaint retained elements without advancing the player or scheduling a frame. */
   invalidate(): void {
-    if (this.player)
-      for (const rec of this.#els) {
-        rec[2] = {};
-        this.#paint(rec);
-      }
+    if (this.player) {
+      for (const rec of this.#els) rec[2] = {};
+      this.#draw(true);
+    } else this.#order();
   }
 
   /** Set a bool or number input. */
@@ -340,15 +347,11 @@ export class AnimaIcon extends HTMLElement {
     svg.setAttribute('viewBox', `${x} ${y} ${w} ${h}`);
     svg.setAttribute('aria-hidden', 'true');
     this.#els = [];
-    this.#byNode.clear();
     const make = (el: El, parent: Element) => {
       const d = document.createElementNS(SVG, el.tag);
       parent.append(d);
       const rec: [El, Element, Attrs] = [el, d, {}];
       this.#els.push(rec);
-      const list = this.#byNode.get(el.node) ?? [];
-      list.push(rec);
-      this.#byNode.set(el.node, list);
       for (const k of el.kids) make(k, d);
     };
     const { root, defs } = sceneTree(m);
@@ -360,7 +363,7 @@ export class AnimaIcon extends HTMLElement {
     for (const el of root) make(el, svg);
     this.#root.append(svg);
     this.#layout();
-    for (const rec of this.#els) this.#paint(rec);
+    this.#draw(true);
   }
 
   #layout(): void {
@@ -369,18 +372,21 @@ export class AnimaIcon extends HTMLElement {
     if (!svg || !m) return;
     const fit = this.getAttribute('fit');
     const align = this.getAttribute('align') ?? 'center';
-    const positions: Record<string, [string, string]> = {
-      center: ['Mid', 'Mid'],
-      'top-left': ['Min', 'Min'],
-      top: ['Mid', 'Min'],
-      'top-right': ['Max', 'Min'],
-      left: ['Min', 'Mid'],
-      right: ['Max', 'Mid'],
-      'bottom-left': ['Min', 'Max'],
-      bottom: ['Mid', 'Max'],
-      'bottom-right': ['Max', 'Max'],
-    };
-    const [x, y] = Object.hasOwn(positions, align) ? positions[align]! : positions.center!;
+    const valid = [
+      'center',
+      'top-left',
+      'top',
+      'top-right',
+      'left',
+      'right',
+      'bottom-left',
+      'bottom',
+      'bottom-right',
+    ].includes(align);
+    const position = (min: string, max: string) =>
+      valid && align.includes(min) ? 'Min' : valid && align.includes(max) ? 'Max' : 'Mid';
+    const x = position('left', 'right');
+    const y = position('top', 'bottom');
     svg.setAttribute(
       'preserveAspectRatio',
       fit === 'fill' ? 'none' : `x${x}Y${y} ${fit === 'cover' ? 'slice' : 'meet'}`,
@@ -397,25 +403,25 @@ export class AnimaIcon extends HTMLElement {
     } else svg.removeAttribute('style');
   }
 
-  #paint(rec: [El, Element, Attrs]): void {
-    const [el, d, cur] = rec;
-    const next = attrs(this.player!, el, cssSlots, this.#mid);
-    for (const k in next) {
-      const v = next[k]!;
-      if (v === cur[k]) continue;
-      if (v === null) d.removeAttribute(k);
-      else d.setAttribute(k, v);
-      cur[k] = v;
-    }
+  #order(): void {
+    AnimaIcon.orderSVG?.(drawFrame(this.player!), this.#els);
   }
 
-  #draw(): void {
-    const p = this.player!;
-    const nodes = new Set(p.takeDirty().map((s) => p.model.addrs.get(p.addrs[s]!)!.node));
-    // A visibility change reaches knockout cuts of descendants; just repaint everything then.
-    if ([...nodes].some((n) => p.model.addrs.get(p.model.nodes[n]!.id + '.visible')))
-      for (const rec of this.#els) this.#paint(rec);
-    else for (const n of nodes) for (const rec of this.#byNode.get(n) ?? []) this.#paint(rec);
+  #draw(all = false): void {
+    const f = drawFrame(this.player!);
+    const changed = new Set(f.changed);
+    for (const [el, d, cur] of this.#els) {
+      if (!all && !changed.has(el.node)) continue;
+      const next = svgAttrs(f, el, cssSlots, this.#mid);
+      for (const k in next) {
+        const v = next[k]!;
+        if (v === cur[k]) continue;
+        if (v === null) d.removeAttribute(k);
+        else d.setAttribute(k, v);
+        cur[k] = v;
+      }
+    }
+    this.#order();
   }
 
   #aria(): void {
@@ -464,7 +470,7 @@ export class AnimaIcon extends HTMLElement {
       schedule(this, false);
       return;
     }
-    const dt = this.#last < 0 ? 0 : Math.min(MAX_DT, Math.max(0, (now - this.#last) / 1000));
+    const dt = this.#last < 0 ? 0 : clamp((now - this.#last) / 1000, 0, MAX_DT);
     this.#last = now;
     this.#step(dt * this.speed);
   }
