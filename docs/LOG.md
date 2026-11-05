@@ -505,7 +505,6 @@ markup into markup, and separating the frame-only SVG API reduced the costs. No 
 rendered-output assertions were relaxed to shrink it. The standard 25 KB CI size budget still passes;
 tools/size.ts separately prints the unmet 16697 B draw-layer target.
 
-<<<<<<< HEAD
 ## P4a compile-time regression and a correction (2026-11-06)
 
 - **What happened.** After the draw layer, the robustness test that compiles every prefix of
@@ -526,7 +525,7 @@ tools/size.ts separately prints the unmet 16697 B draw-layer target.
   suite passes with the original limit (706 tests).
 - **From now on:** `tools/perf.ts` prints compile time in `npm run check` next to the sizes, and
   each phase's LOG entry and PR summary carry both with the previous phase's numbers.
-=======
+
 
 ## P4a-4 — size race round 2 and compile speed (2026-11-05, size gate still open)
 
@@ -580,4 +579,3 @@ Final verification: `npm run check` exits 0: typecheck, lint, formatting, all 70
 (no skips; Chromium + Firefox, including the unchanged per-frame clapper regression and 0.1 SVG
 compatibility assertions), size budgets, browser artifact freshness, and all 37 AniML rebuild checks.
 The standalone demo was regenerated. This is a local-only partial size handoff; P4a-4/P4a-6 stay open.
->>>>>>> t3/reduce-draw-layer-size-and-load-cost
