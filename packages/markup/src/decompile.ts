@@ -60,6 +60,8 @@ export function decompile(doc: string | object): string {
         if (data[k] === undefined) continue;
         if (s.k === 'arr' && s.of.element)
           child.children.push(...(data[k] as Obj[]).map((v) => structural(s.of.element!, v)));
+        else if (s.k === 'obj' && s.element)
+          child.children.push(structural(s.element, obj(data[k])));
         else child.attrs.push([markupName(s, k), value(data[k])]);
       }
       return child;
@@ -80,7 +82,9 @@ export function decompile(doc: string | object): string {
             }
           continue;
         }
-        const data = obj(n[key]);
+        const target = (form.target.path ?? []).reduce<unknown>((v, part) => obj(v)[part], n[key]);
+        if (target === undefined) continue;
+        const data = obj(target);
         if (!Object.entries(form.values ?? {}).every(([k, v]) => data[k] === v)) continue;
         const child = structural(name, data);
         if (key !== form.target.default) child.attrs.unshift([form.target.attribute, key]);

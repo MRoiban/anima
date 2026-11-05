@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 import { chromium, firefox } from 'playwright-core';
 import { describe, it, expect } from 'vitest';
 import type { AnimaIcon } from '../src/index.ts';
-import { bundle } from '../../../tools/browser-build.ts';
+import { cachedBundle as bundle } from '../../../tools/browser-cache.ts';
 
 for (const [name, engine, paths] of [
   [

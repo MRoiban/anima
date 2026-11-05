@@ -1,0 +1,20 @@
+<anima version="0.1" name="feather" grid="24" requires="paint assets surface">
+  <asset name="tile" type="image"
+      src="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='8'%20height='8'%3E%3Cpath%20fill='%23ff0000'%20d='M0%200h4v8H0z'/%3E%3Cpath%20fill='%230000ff'%20d='M4%200h4v8H4z'/%3E%3C/svg%3E"
+      width="8" height="8"/>
+
+  <rect id="tile" x0="4" y0="4" width="16" height="16" fill="#ff0000">
+    <feather inner="3" outer="3" offset="1 0" enabled="true"/>
+  </rect>
+
+  <timeline name="move" duration="1">
+    <track target="tile.fill.feather.outer">
+      0  3
+      1  6
+    </track>
+  </timeline>
+
+  <layer name="main" initial="run">
+    <state name="run" play="move"/>
+  </layer>
+</anima>

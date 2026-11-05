@@ -226,10 +226,18 @@ and an oracle test against Rive.
 
 ### P5-5 image and edge implementation checkpoint
 
-- [ ] Acceptance: image paints, n-slice and feathering in both syntaxes; full `npm run check` green.
+- [x] Acceptance: image paints, n-slice and feathering in both syntaxes; full `npm run check` green.
   `surface` (8192 B budget) provides renderer-neutral image paint, patch and feather data and an SVG
-  backend; image paints have AniML and CLI schema support. Image/group/component slices and local
-  feathering have draw conformance and Chromium/Firefox pixels. Nested slice/feather AniML and
-  related markup fixture expectations remain with the parallel markup owner; see
-  `design/p5/SURFACE-HANDOFF.md`. SVG world feathering reports `unsupported-render`. Status is
-  deliberately unchecked; no size budget or test limit was raised.
+  backend. Nested slice/feather AniML, examples and round trips are complete in P5-7; see
+  `design/p5/SURFACE-HANDOFF.md`. Image/group/component slices and local feathering have draw
+  conformance and Chromium/Firefox pixels. SVG world feathering still reports `unsupported-render`.
+  No size budget or test limit was raised.
+
+### P5-7 markup and browser integration
+
+- [x] Nested slice/feather forms, ordered paints, descriptor-driven scalar arrays/tuples;
+      standalone examples, draw conformance sources and round trips.
+- [x] Default markup ≤ 7900 B target; every unchanged module budget passes.
+- [x] Browser build emits/checks every table entry, including surface and all markup hooks.
+- [x] Registration order and connected-before-registration recovery covered in Chromium/Firefox;
+      three consecutive `npm run check` runs at default concurrency.

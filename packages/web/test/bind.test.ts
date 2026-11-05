@@ -4,7 +4,7 @@ import { resolve } from 'node:path';
 import { chromium, firefox } from 'playwright-core';
 import { describe, it, expect } from 'vitest';
 import type { AnimaIcon } from '../src/index.ts';
-import { bundle } from '../../../tools/browser-build.ts';
+import { cachedBundle as bundle } from '../../../tools/browser-cache.ts';
 
 for (const [name, engine, paths] of [
   [
@@ -58,6 +58,13 @@ for (const [name, engine, paths] of [
         await page.evaluate(() => customElements.whenDefined('anima-icon'));
         await page.addScriptTag({ type: 'module', content: paint });
         await page.addScriptTag({ type: 'module', content: binding });
+        // Inline module insertion may resolve before evaluation; wait for the registration used below.
+        await page.waitForFunction(() =>
+          (customElements.get('anima-icon') as typeof AnimaIcon).modules.has('bind'),
+        );
+        await page.waitForFunction(() =>
+          (customElements.get('anima-icon') as typeof AnimaIcon).modules.has('paint'),
+        );
         await page.evaluate(async () => {
           const icon = document.querySelector('anima-icon') as AnimaIcon;
           await icon.load({

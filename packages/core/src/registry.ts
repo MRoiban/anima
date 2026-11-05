@@ -154,6 +154,8 @@ export interface ElementForm {
     choices: string[];
     array?: boolean;
     wrapper?: string;
+    /** Object path below the selected target (for example fill.feather). */
+    path?: string[];
   };
 }
 export const ELEMENTS: Record<string, ElementForm> = {};

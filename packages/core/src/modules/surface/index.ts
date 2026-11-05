@@ -44,9 +44,18 @@ function surfaceEntries(): Module['entries'] {
         ...Object.fromEntries(
           Object.entries(imageFields).map(([k, v]) => [k, { ...v, element: 'imagePaint' }]),
         ),
-        feather: { ...feather, markup: target + '-feather' },
+        feather: { ...feather, element: 'feather' },
       },
       elements: {
+        feather: {
+          shape: feather,
+          target: {
+            attribute: 'paint',
+            default: 'fill',
+            choices: ['fill', 'stroke'],
+            path: ['feather'],
+          },
+        },
         imagePaint: {
           shape: image,
           values: { type: 'image' },
@@ -54,7 +63,13 @@ function surfaceEntries(): Module['entries'] {
         },
       },
     })),
-    { target: 'node', shapes: { slice } },
+    {
+      target: 'node',
+      shapes: { slice: { ...slice, element: 'slice' } },
+      elements: {
+        slice: { shape: slice, target: { attribute: 'for', default: 'slice', choices: ['slice'] } },
+      },
+    },
   ];
 }
 let registry: ReadonlyMap<string, Module>;

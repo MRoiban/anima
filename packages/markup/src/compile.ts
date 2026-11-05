@@ -341,7 +341,10 @@ export class Compiler {
           VERBOSE ? `unknown element <${c.name}>` : '',
           VERBOSE ? suggest(c.name, [...Object.keys(FORMS), ...NODES]) : '',
         );
-      else if (!allowed.includes(c.name) && !(el.name === 'anima' && NODES.includes(c.name)))
+      else if (
+        !allowed.includes(c.name) &&
+        !(['anima', 'component'].includes(el.name) && NODES.includes(c.name))
+      )
         this.error(
           'misplaced-element',
           p,
@@ -845,8 +848,29 @@ export class Compiler {
     for (const c of el.children)
       if (c.kind === 'element' && (scoped || c.name !== 'component')) this.collectTypes(c, scoped);
   }
+  collectEases(el: Element, p: string): void {
+    const local = new Set<string>();
+    for (const c of el.children) {
+      if (c.kind !== 'element' || c.name !== 'ease') continue;
+      const n = c.attrs.find((a) => a.name === 'name');
+      const curve = c.attrs.find((a) => a.name === 'curve');
+      if (!n) continue;
+      if (local.has(n.value.trim()) || BUILTINS.includes(n.value.trim()))
+        this.error(
+          'duplicate-name',
+          p,
+          n.valueAt,
+          VERBOSE ? `ease "${n.value}" is already declared or built in` : '',
+        );
+      else if (curve) this.eases.set(n.value.trim(), curve);
+      local.add(n.value.trim());
+      this.read(n, 'name', p);
+    }
+    this.checkEases(local, p);
+  }
   checkEases(names: Iterable<string>, p: string): void {
     for (const name of names) {
+      if (!this.eases.has(name)) continue;
       const curve = this.resolveEase(name);
       if (typeof parseEase(curve) === 'string' && !this.failed)
         this.error(
@@ -891,22 +915,7 @@ export class Compiler {
       return this.result();
     }
     this.collectTypes(root);
-    for (const c of root.children) {
-      if (c.kind !== 'element' || c.name !== 'ease') continue;
-      const n = c.attrs.find((a) => a.name === 'name');
-      const curve = c.attrs.find((a) => a.name === 'curve');
-      if (!n) continue;
-      if (this.eases.has(n.value.trim()) || BUILTINS.includes(n.value.trim()))
-        this.error(
-          'duplicate-name',
-          '',
-          n.valueAt,
-          VERBOSE ? `ease "${n.value}" is already declared or built in` : '',
-        );
-      else if (curve) this.eases.set(n.value.trim(), curve);
-      this.read(n, 'name', '');
-    }
-    this.checkEases(this.eases.keys(), '');
+    this.collectEases(root, '');
     const doc = this.build(root, '') as Json;
     componentCompiler.finish?.(doc);
     if (!this.failed && this.opts.validate !== false) {

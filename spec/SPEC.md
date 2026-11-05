@@ -1029,8 +1029,9 @@ Diagnostics: `slice-cuts` for unordered cuts; `slice-limit` beyond 9 cuts; `slic
 mode count; `slice-bounds` for image intrinsic-bound mismatch; `slice-type` for an unsupported node
 kind. Each points into `slice` and includes a hint. Structural errors use ordinary registry codes.
 `spec/draw-conformance/surface-slice/` records the 9-patch result, including repeat and hidden patches.
-AniML support for nested `slice` remains a markup integration item; this implementation does not
-claim AniML round-trip support for it.
+AniML uses a `<slice x="…" y="…" width="…" height="…" modes="…"/>` node child.
+Cut lists decode to numbers and modes to strings. See [ANIML](ANIML.md#surface-module) and
+`examples/slice.animl` for the syntax and round-trip contract.
 
 ### Feather falloff
 
@@ -1061,4 +1062,6 @@ a message and a hint to use local space. Canvas support is deferred to Pc. Disab
 renders normally. Unknown spaces and negative/nonfinite amounts receive registry diagnostics.
 `spec/draw-conformance/surface-feather/` defines resolved draw data independent of browser rasterization;
 Chromium/Firefox pixel tests check the Gaussian halo, disabled state and independent stroke.
-AniML support for the nested feather object remains a markup integration item.
+AniML uses `<feather paint="fill|stroke" …/>` node children, or a feather child within an ordered
+`fillPaint`/`strokePaint`. It retains the parent paint and preserves empty and disabled settings;
+see [ANIML](ANIML.md#surface-module) and `examples/feather.animl`.

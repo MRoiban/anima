@@ -1,3 +1,4 @@
+import '@anima-format/core/all';
 import './libraries.ts';
 // AniML (spec/ANIML.md): the authoring format. `compile` turns markup into `.ani` (the runtime and
 // conformance format) with a source map, so every diagnostic names a line and column in the markup.

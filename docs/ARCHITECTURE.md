@@ -158,7 +158,7 @@ load only explicit imports. See MODULES §3.1 for the Canvas2D seam and change-t
 
 Module registration and the retained renderer are shared through the active `AnimaIcon` class,
 so separately emitted base, paint and markup bundles use the same runtime. The browser markup
-compiler copies the registered entries before compiling; its registry-derived forms remain in markup (8 KB incremental budget). Component and binding
+compiler copies the registered entries and the live DOC/fill/stroke shape refinements from module initialization before compiling; its registry-derived forms remain in markup (8 KB incremental budget). Component and binding
 compilation hooks register through their runtime entries; structural paint handling registers
 through paint or the registration-only markup-paint entry (also used by composite-only markup). Tooling's `core/all` registration is
 folded out of terse browser builds. Both optional bundle import orders are browser-tested.
@@ -178,3 +178,8 @@ oracle).
 and browser-name filters do not filter unit tests. The default Vitest config always runs every test.
 CI runs `npm run check` on every PR and push and adds size/perf output to the job summary. A green
 CI run is required before merge; see AGENTS.md for the local phase verification policy.
+
+folded out of terse browser builds. Module and compiler registration notify pending source loads through the active element class;
+failed loads retry after late registration and explicit destruction cancels retries. Tooling's
+`core/all` import belongs to the markup package's tooling entry, never its shared name helpers.
+Both optional bundle import orders and delayed registration after connection are browser-tested.
