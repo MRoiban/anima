@@ -1,0 +1,20 @@
+{
+  "anima": "0.1",
+  "name": "star",
+  "grid": 20,
+  "requires": ["paint", "composite"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "star",
+      "fill": {
+        "color": "#4263eb"
+      },
+      "cx": 10,
+      "cy": 10,
+      "points": 5,
+      "radius": 7,
+      "innerRadius": 3.5
+    }
+  ]
+}

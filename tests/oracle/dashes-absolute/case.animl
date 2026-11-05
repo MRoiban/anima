@@ -1,0 +1,1 @@
+<anima version="0.1" name="dashes-absolute" grid="20" requires="paint composite"><path id="a" d="M2 10L18 10" stroke="#4263eb" stroke-width="1" stroke-linecap="butt" stroke-dasharray="2 1"/></anima>

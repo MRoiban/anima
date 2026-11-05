@@ -1,0 +1,39 @@
+{
+  "anima": "0.1",
+  "name": "path-morph",
+  "grid": 20,
+  "requires": ["paint", "composite"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "path",
+      "d": "M3 4L17 4L10 16Z",
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "a.d": [
+          [0, "M3 4L17 4L10 16Z"],
+          [1, "M3 4L17 4L16 16Z"]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

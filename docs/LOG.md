@@ -756,3 +756,28 @@ compiler and the working tree with the unchanged fixed `tools/perf.ts` workload 
 `compile: bell 4.05 ms; all 9040 prefixes 1411 ms` before and
 `compile: bell 2.83 ms; all 9040 prefixes 975 ms` after. Host load varies; these are observations,
 not a claimed speedup. Local commit only; no push or PR.
+
+
+## P4a Rive frame oracles (2026-11-05)
+
+- Added 17 paired scenes / 21 committed Rive reference frames under `tests/oracle/`,
+  plus AniML/compiled `.ani`, Anima renders, raw diff images and exact measurements.
+  Local headless Rive only; no account command, interactive preview, `.riv` read,
+  runtime dependency, push, PR or merge. Reproduction scripts retain no binary build files.
+- `tools/oracle.ts` calls the CLI render implementation and compares raw RGBA pixels;
+  Vitest covers every case and checks compiled fixture freshness. Maximum channel
+  delta and share over threshold 16 both have per-case limits. All 21 frames pass;
+  worst share 0.3507% (star), largest delta 95 (dash endpoints); zero >16 deltas in
+  locally flat reference regions. Per-case numbers: `tests/oracle/README.md` / `metrics.json`.
+- Native Rive corner rounding differs from Anima's specified quadratic cutbacks:
+  Rive oracle paths explicitly encode those curves. Other limits (radial focal points,
+  stop-position versus colour animation, blend coverage) are documented, not overclaimed.
+  Initial outside-stroke join mismatch (190 / 0.264% over threshold) corrected by
+  matching explicit miter joins on both scenes → 1 / 0%. No tolerance was increased.
+- Added oracle paths to the 17 inventory rows actually covered; regenerated parity views.
+- Verification: `VITEST_MAX_WORKERS=2 npm run check` passes types/lint/format and all
+  **863 tests / 39 files**, then fails the inherited **markup 9583/8192 B** budget
+  (no runtime source was changed). First default-worker run had two existing browser
+  failures (Chromium bind undefined player, Firefox playground timeout/server close),
+  both pass with two workers. Web and AniML generated checks and performance check
+  pass separately; strict oracle CLI passes. Full check is explicitly **not green**.

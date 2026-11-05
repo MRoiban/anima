@@ -1,0 +1,25 @@
+{
+  "anima": "0.1",
+  "name": "stroke-inside",
+  "grid": 20,
+  "requires": ["paint", "composite"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 4,
+      "y0": 4,
+      "w": 12,
+      "h": 12,
+      "fill": {
+        "color": "#d97757"
+      },
+      "stroke": {
+        "color": "#4263eb",
+        "width": 1,
+        "join": "miter",
+        "position": "inside"
+      }
+    }
+  ]
+}

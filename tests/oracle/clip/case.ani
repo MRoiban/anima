@@ -1,0 +1,33 @@
+{
+  "anima": "0.1",
+  "name": "clip",
+  "grid": 20,
+  "requires": ["paint", "composite"],
+  "nodes": [
+    {
+      "id": "source",
+      "type": "ellipse",
+      "rx": 6,
+      "fill": {
+        "color": "#00000000"
+      },
+      "cx": 10,
+      "cy": 10,
+      "ry": 4
+    },
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 3,
+      "y0": 3,
+      "w": 14,
+      "h": 14,
+      "fill": {
+        "color": "#4263eb"
+      },
+      "clip": {
+        "source": "source"
+      }
+    }
+  ]
+}
