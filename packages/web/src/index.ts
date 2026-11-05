@@ -17,6 +17,12 @@ import {
 
 export type { AnimaEvent, Diagnostic };
 
+/** Optional source compiler diagnostics may carry authoring positions. */
+export interface SourceDiagnostic extends Diagnostic {
+  line?: number;
+  column?: number;
+}
+
 const SVG = 'http://www.w3.org/2000/svg';
 const MAX_DT = 0.25;
 
@@ -44,6 +50,8 @@ let ids = 0;
 
 export class AnimaIcon extends HTMLElement {
   static observedAttributes = ['src', 'motion', 'label'];
+  /** Registered by @anima-format/web/markup; the runtime never imports a compiler itself. */
+  declare static compiler?: (source: string) => { doc?: object; diagnostics: SourceDiagnostic[] };
 
   /** The player, once loaded (for debugging and tests). */
   player?: Player;
@@ -86,10 +94,15 @@ export class AnimaIcon extends HTMLElement {
   }
 
   connectedCallback(): void {
-    if (!this.player) {
-      const inline = this.querySelector('script[type="application/vnd.anima+json"]');
-      if (inline) this.load(inline.textContent ?? '');
-    }
+    // Let optional modules register after customElements.define upgrades existing elements.
+    queueMicrotask(() => {
+      if (!this.player) {
+        const inline = this.querySelector<HTMLScriptElement>(
+          'script[type="application/vnd.anima+json"],script[type="application/vnd.anima+xml"]',
+        );
+        if (inline) this.load(inline.text, inline.type.endsWith('xml'));
+      }
+    });
     (seen ??= new IntersectionObserver((es) => {
       for (const e of es) (e.target as AnimaIcon).#visible(e.isIntersecting);
     })).observe(this);
@@ -109,7 +122,7 @@ export class AnimaIcon extends HTMLElement {
       fetch(value)
         .then((r) => r.text())
         .then(
-          (t) => this.load(t),
+          (t) => this.load(t, /\.animl(?:[?#]|$)/.test(value)),
           () =>
             this.#fail([
               { code: 'fetch', severity: 'error', pointer: '', message: `cannot fetch ${value}` },
@@ -120,7 +133,24 @@ export class AnimaIcon extends HTMLElement {
   }
 
   /** Load a document (text or parsed). Returns its diagnostics; errors leave the icon empty. */
-  load(doc: string | object): Diagnostic[] {
+  load(doc: string | object, markup = false): SourceDiagnostic[] {
+    if (markup && typeof doc === 'string') {
+      const result = AnimaIcon.compiler?.(doc) ?? {
+        diagnostics: [
+          {
+            code: 'markup-unavailable',
+            severity: 'error' as const,
+            pointer: '',
+            message: 'load @anima-format/web/markup or run anima build page.html',
+          },
+        ],
+      };
+      if (!result.doc) {
+        this.#fail(result.diagnostics);
+        return result.diagnostics;
+      }
+      doc = result.doc;
+    }
     const { model, diagnostics } = load(doc);
     if (!model) {
       this.#fail(diagnostics);
@@ -159,9 +189,9 @@ export class AnimaIcon extends HTMLElement {
     return this.player?.values() ?? {};
   }
 
-  #fail(d: Diagnostic[]): void {
+  #fail(d: SourceDiagnostic[]): void {
     console.error(
-      `anima-icon: cannot load (${d.map((x) => `${x.code} at ${x.pointer || '/'}`).join(', ')}); run anima validate for details`,
+      `anima-icon: ${d.map((x) => `${x.message} at ${x.line ? `${x.line}:${x.column}` : x.pointer || '/'}`).join(', ')}`,
     );
     this.dispatchEvent(new CustomEvent('anima:error', { detail: d }));
     this.#reject(d);

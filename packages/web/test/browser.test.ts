@@ -19,6 +19,7 @@ declare global {
 }
 
 const bell = readFileSync(new URL('../../../examples/bell.ani', import.meta.url), 'utf8');
+const bellMarkup = readFileSync(new URL('../../../examples/bell.animl', import.meta.url), 'utf8');
 /** Browsers to run in: the cached Playwright builds, or CHROMIUM_PATH / FIREFOX_PATH (CI). */
 const BROWSERS: [string, BrowserType, string | undefined][] = [
   [
@@ -87,8 +88,12 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
     let browser: Browser;
     let page: Page;
     let js: string;
+    let markupJs: string;
     beforeAll(async () => {
-      js = await bundle(resolve('packages/web/src/index.ts'));
+      [js, markupJs] = await Promise.all([
+        bundle(resolve('packages/web/src/index.ts')),
+        bundle(resolve('packages/web/src/markup.ts')),
+      ]);
       browser = await type.launch({ executablePath, headless: true });
     }, 30000);
     afterAll(async () => {
@@ -157,6 +162,191 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
       await waitState('ring', 'ringing');
     }
 
+    async function markupPage(source: string, withModule = true, src?: string) {
+      const messages: string[] = [];
+      const requests: string[] = [];
+      page.on('console', (m) => {
+        if (m.type() === 'error') messages.push(m.text());
+      });
+      page.on('request', (r) => requests.push(r.url()));
+      if (src)
+        await page.route('https://anima.test/' + src.split('#')[0], (r) =>
+          r.fulfill({ body: source }),
+        );
+      await page.route('https://anima.test/', (r) =>
+        r.fulfill({
+          contentType: 'text/html',
+          body: `<anima-icon ${src ? `src="${src}"` : ''}>
+          ${src ? '' : `<script type="application/vnd.anima+xml">${source}</script>`}
+          </anima-icon>
+          <script>
+          window.icon = document.querySelector('anima-icon');
+          window.events = [];
+          window.icon.addEventListener('anima:error', e => window.events.push(e.detail));
+          </script>
+          <script type="module">${withModule ? markupJs : js}</script>`,
+        }),
+      );
+      await page.goto('https://anima.test/');
+      await page.evaluate(async () => {
+        await customElements.whenDefined('anima-icon');
+        await window.icon.ready.catch(() => {});
+      });
+      return { messages, requests };
+    }
+
+    it('compiles inline AniML to the same player and SVG as bell.ani with no extra requests', async () => {
+      // Stop automatic frames so paired players receive exactly the same steps.
+      await page.addInitScript(() => {
+        let now = 0;
+        let callbacks: FrameRequestCallback[] = [];
+        performance.now = () => now;
+        window.requestAnimationFrame = (cb) => callbacks.push(cb);
+        window.addEventListener('test:frame', () => {
+          now += 100;
+          const run = callbacks;
+          callbacks = [];
+          for (const cb of run) cb(now);
+        });
+      });
+      const { messages, requests } = await markupPage(bellMarkup);
+      expect(messages).toEqual([]);
+      expect(requests).toEqual(['https://anima.test/']);
+      const snapshots = await page.evaluate(async (doc) => {
+        const compiled = document.createElement('anima-icon');
+        document.body.append(compiled);
+        compiled.load(doc);
+        await compiled.ready;
+        const snapshot = (icon: AnimaIcon) => ({
+          values: icon.values(),
+          states: icon.player!.states(),
+          svg: icon.shadowRoot!.querySelector('svg')!.outerHTML.replace(/a\d+-/g, 'icon-'),
+        });
+        const pairs = [[snapshot(window.icon), snapshot(compiled)]];
+        for (const icon of [window.icon, compiled]) icon.fire('ring');
+        for (let i = 0; i < 4; i++) {
+          window.dispatchEvent(new Event('test:frame'));
+          pairs.push([snapshot(window.icon), snapshot(compiled)]);
+        }
+        for (let i = 0; i < 16; i++) window.dispatchEvent(new Event('test:frame'));
+        pairs.push([snapshot(window.icon), snapshot(compiled)]);
+        return pairs;
+      }, bell);
+      for (const [markup, compiled] of snapshots) expect(markup).toEqual(compiled);
+      expect(snapshots[1]![0]!.states.ring).toBe('ringing');
+      expect(snapshots.at(-1)![0]!.states.ring).toBe('rested');
+    });
+
+    it('compiles .animl src URLs including a query and fragment', async () => {
+      const { messages, requests } = await markupPage(bellMarkup, true, 'bell.animl?v=1#icon');
+      expect(messages).toEqual([]);
+      expect(requests).toEqual(['https://anima.test/', 'https://anima.test/bell.animl?v=1']);
+      expect(await page.evaluate(() => window.icon.player!.model.doc)).toEqual(JSON.parse(bell));
+    });
+
+    it('registers on an already loaded base runtime', async () => {
+      // Importing the optional bundle after the base extends the registered class,
+      // even when the browser bundle contains another copy of the runtime.
+      await mount();
+      await page.addScriptTag({ type: 'module', content: markupJs });
+      await page.waitForFunction(
+        () => !!(customElements.get('anima-icon') as typeof AnimaIcon).compiler,
+      );
+      const result = await page.evaluate(async (source) => {
+        const icon = document.createElement('anima-icon');
+        const script = document.createElement('script');
+        script.type = 'application/vnd.anima+xml';
+        script.textContent = source;
+        icon.append(script);
+        document.body.append(icon);
+        await icon.ready;
+        return icon.player!.model.doc;
+      }, bellMarkup);
+      expect(result).toEqual(JSON.parse(bell));
+    });
+
+    it.each([
+      {
+        source:
+          '<anima version="0.1" name="broken" grid="20">\n  <circle id="dot" cx="bad" cy="2" r="1"/>\n</anima>',
+        code: 'bad-attribute',
+        pointer: '/nodes/0/center',
+        line: 2,
+        column: 24,
+      },
+      {
+        source:
+          '<anima version="0.1" name="broken" grid="20">\n  <circle id="dot" cx="0" cy="2" r="-1"/>\n</anima>',
+        code: 'bad-value',
+        pointer: '/nodes/0/r',
+        line: 2,
+        column: 37,
+      },
+      {
+        source:
+          '<anima version="0.1" name="broken" grid="20">\n  <circle id="dot" cx="&#1114112;" cy="2" r="1"/>\n</anima>',
+        code: 'markup-syntax',
+        pointer: '',
+        line: 2,
+        column: 24,
+      },
+      {
+        source: '<anima>\n<circle></anima>',
+        code: 'markup-syntax',
+        pointer: '',
+        line: 2,
+        column: 9,
+      },
+    ])(
+      'reports $code at $line:$column through anima:error, ready, and console',
+      async ({ source, ...diagnostic }) => {
+        const { messages } = await markupPage(source);
+        const errors = await page.evaluate(async () => ({
+          event: window.events[0],
+          ready: await window.icon.ready.catch((d: unknown) => d),
+          empty: !window.icon.player && !window.icon.shadowRoot!.querySelector('svg'),
+        }));
+        expect(errors.event).toEqual(errors.ready);
+        expect(errors.event).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({ ...diagnostic, severity: 'error', message: diagnostic.code }),
+          ]),
+        );
+        expect(errors.empty).toBe(true);
+        expect(messages.join('\n')).toContain(
+          `${diagnostic.code} at ${diagnostic.line}:${diagnostic.column}`,
+        );
+      },
+    );
+
+    it.each([undefined, 'bell.animl'])(
+      'explains how to enable markup without the module (src=%s)',
+      async (src) => {
+        const { messages, requests } = await markupPage(bellMarkup, false, src);
+        const errors = await page.evaluate(async () => ({
+          event: window.events[0],
+          ready: await window.icon.ready.catch((d: unknown) => d),
+          empty: !window.icon.player,
+        }));
+        expect(errors.event).toEqual(errors.ready);
+        expect(errors.event).toEqual([
+          expect.objectContaining({
+            code: 'markup-unavailable',
+            severity: 'error',
+            pointer: '',
+            message: 'load @anima-format/web/markup or run anima build page.html',
+          }),
+        ]);
+        expect(errors.empty).toBe(true);
+        expect(messages.join('\n')).toContain(
+          'load @anima-format/web/markup or run anima build page.html',
+        );
+        expect(requests).toEqual(
+          src ? ['https://anima.test/', 'https://anima.test/bell.animl'] : ['https://anima.test/'],
+        );
+      },
+    );
+
     it('real mouse hovers, presses, rings, rests with a knockout, and leaves', async () => {
       await mount();
       await hover();
@@ -220,7 +410,10 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
       await page.mouse.move(180, 180);
       await settled();
       const before = await page.evaluate(() => window.rafCalls);
-      await page.mouse.click(180, 180);
+      // mouse.click also sends a pointermove, which can wake its own frame in Firefox.
+      // The pointer is already positioned: count only the real click's down/up work.
+      await page.mouse.down();
+      await page.mouse.up();
       await waitState('ring', 'rested');
       expect((await page.evaluate(() => window.rafCalls)) - before).toBeLessThanOrEqual(2);
       expect(await page.evaluate(() => window.events)).toEqual(['rang', 'start', 'middle', 'end']);

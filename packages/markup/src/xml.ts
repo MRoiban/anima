@@ -1,6 +1,8 @@
 // The XML subset AniML is written in (spec/ANIML.md §1), with positions for every node and attribute
 // value so diagnostics point at the markup. Dependency-free; runs in the browser too.
 
+import { VERBOSE } from '@anima-format/core';
+
 export interface Pos {
   /** 0-based offset into the text. */
   offset: number;
@@ -81,7 +83,7 @@ function decode(s: string, lenient: boolean, bad: (i: number, message?: string) 
       out += m[1] ? NAMED[m[1]]! : String.fromCodePoint(cp);
       i = ENTITY.lastIndex;
     } else if (m) {
-      bad(i, 'numeric character reference is outside the Unicode range');
+      bad(i, VERBOSE ? 'numeric character reference is outside the Unicode range' : '');
       out += m[0];
       i = ENTITY.lastIndex;
     } else {
@@ -119,9 +121,9 @@ export function parseXml(text: string): { doc: XmlDocument; errors: XmlError[] }
   const name = (): string => {
     NAME.lastIndex = i;
     const m = NAME.exec(text);
-    if (!m) fail('expected a name');
+    if (!m) fail(VERBOSE ? 'expected a name' : '');
     i = NAME.lastIndex;
-    if (text[i] === ':') fail('namespace prefixes are not allowed in AniML');
+    if (text[i] === ':') fail(VERBOSE ? 'namespace prefixes are not allowed in AniML' : '');
     return m![0];
   };
   const ws = () => {
@@ -130,21 +132,25 @@ export function parseXml(text: string): { doc: XmlDocument; errors: XmlError[] }
   const comment = (): Comment => {
     const at = i;
     const end = text.indexOf('-->', i + 4);
-    if (end < 0) fail('comment is not closed with -->', at);
+    if (end < 0) fail(VERBOSE ? 'comment is not closed with -->' : '', at);
     const c: Comment = { kind: 'comment', value: text.slice(i + 4, end), at: pos(at) };
     i = end + 3;
     return c;
   };
   const special = () => {
-    if (text.startsWith('<![CDATA[', i)) fail('CDATA sections are not allowed in AniML');
-    if (text.startsWith('<!', i)) fail('DOCTYPE and other declarations are not allowed in AniML');
+    if (text.startsWith('<![CDATA[', i))
+      fail(VERBOSE ? 'CDATA sections are not allowed in AniML' : '');
+    if (text.startsWith('<!', i))
+      fail(VERBOSE ? 'DOCTYPE and other declarations are not allowed in AniML' : '');
     if (text.startsWith('<?', i))
       fail(
-        'processing instructions are not allowed in AniML (only an <?xml …?> declaration at the very start)',
+        VERBOSE
+          ? 'processing instructions are not allowed in AniML (only an <?xml …?> declaration at the very start)'
+          : '',
       );
   };
   const element = (depth: number): Element => {
-    if (depth > 256) fail('elements nest too deeply');
+    if (depth > 256) fail(VERBOSE ? 'elements nest too deeply' : '');
     const at = i;
     i++; // <
     const el: Element = { kind: 'element', name: name(), attrs: [], children: [], at: pos(at) };
@@ -159,24 +165,24 @@ export function parseXml(text: string): { doc: XmlDocument; errors: XmlError[] }
         i++;
         break;
       }
-      if (i >= text.length) fail(`<${el.name}> is not closed`, at);
-      if (i === before) fail('expected whitespace before the attribute');
+      if (i >= text.length) fail(VERBOSE ? `<${el.name}> is not closed` : '', at);
+      if (i === before) fail(VERBOSE ? 'expected whitespace before the attribute' : '');
       const aAt = i;
       const aName = name();
       ws();
-      if (text[i] !== '=') fail(`attribute "${aName}" needs a value (name="value")`);
+      if (text[i] !== '=') fail(VERBOSE ? `attribute "${aName}" needs a value (name="value")` : '');
       i++;
       ws();
       const q = text[i];
-      if (q !== '"' && q !== "'") fail(`the value of "${aName}" must be quoted`);
+      if (q !== '"' && q !== "'") fail(VERBOSE ? `the value of "${aName}" must be quoted` : '');
       const vStart = i + 1;
       const vEnd = text.indexOf(q!, vStart);
-      if (vEnd < 0) fail(`the value of "${aName}" is not closed`, vStart - 1);
+      if (vEnd < 0) fail(VERBOSE ? `the value of "${aName}" is not closed` : '', vStart - 1);
       // A repeated attribute is kept; the compiler reports it as duplicate-attribute.
       el.attrs.push({
         name: aName,
         value: decode(text.slice(vStart, vEnd), true, (k, message) => {
-          if (message) errors.push({ message, at: pos(vStart + k) });
+          if (message !== undefined) errors.push({ message, at: pos(vStart + k) });
         }),
         at: pos(aAt),
         valueAt: pos(vStart),
@@ -185,16 +191,19 @@ export function parseXml(text: string): { doc: XmlDocument; errors: XmlError[] }
     }
     // children
     for (;;) {
-      if (i >= text.length) fail(`<${el.name}> is not closed`, at);
+      if (i >= text.length) fail(VERBOSE ? `<${el.name}> is not closed` : '', at);
       if (text.startsWith('</', i)) {
         const closeAt = i;
         i += 2;
         const n = name();
         ws();
-        if (text[i] !== '>') fail(`expected > after </${n}`);
+        if (text[i] !== '>') fail(VERBOSE ? `expected > after </${n}` : '');
         i++;
         if (n !== el.name)
-          fail(`</${n}> closes <${el.name}> (opened at line ${el.at.line})`, closeAt);
+          fail(
+            VERBOSE ? `</${n}> closes <${el.name}> (opened at line ${el.at.line})` : '',
+            closeAt,
+          );
         return el;
       }
       if (text.startsWith('<!--', i)) {
@@ -212,7 +221,7 @@ export function parseXml(text: string): { doc: XmlDocument; errors: XmlError[] }
       const raw = text.slice(i, end);
       const value = decode(raw, false, (k, message) =>
         errors.push({
-          message: message ?? 'a bare & in text must be written &amp;',
+          message: VERBOSE ? (message ?? 'a bare & in text must be written &amp;') : '',
           at: pos(tAt + k),
         }),
       );
@@ -224,7 +233,7 @@ export function parseXml(text: string): { doc: XmlDocument; errors: XmlError[] }
     if (text.charCodeAt(0) === 0xfeff) i = 1;
     if (text.startsWith('<?xml', i)) {
       const end = text.indexOf('?>', i);
-      if (end < 0) fail('the <?xml declaration is not closed');
+      if (end < 0) fail(VERBOSE ? 'the <?xml declaration is not closed' : '');
       i = end + 2;
     }
     for (;;) {
@@ -235,12 +244,18 @@ export function parseXml(text: string): { doc: XmlDocument; errors: XmlError[] }
         continue;
       }
       if (text[i] !== '<')
-        fail(doc.root ? 'text after the root element' : 'expected the <anima> root element');
+        fail(
+          VERBOSE
+            ? doc.root
+              ? 'text after the root element'
+              : 'expected the <anima> root element'
+            : '',
+        );
       special();
-      if (doc.root) fail('only one root element is allowed');
+      if (doc.root) fail(VERBOSE ? 'only one root element is allowed' : '');
       doc.root = element(0);
     }
-    if (!doc.root) fail('the document is empty: expected <anima …>');
+    if (!doc.root) fail(VERBOSE ? 'the document is empty: expected <anima …>' : '');
   } catch (e) {
     if (!(e instanceof Stop)) throw e;
     doc.root = null;
