@@ -15,8 +15,12 @@ jobs:
           node-version: 24
           cache: npm
       - run: npm ci
+      # Headless Chromium for the <anima-icon> browser tests (packages/web/test).
+      - run: npx playwright-core install --with-deps --only-shell chromium
+      - run: echo "CHROMIUM_PATH=$(ls -d ~/.cache/ms-playwright/chromium_headless_shell-*/chrome-headless-shell-linux64/chrome-headless-shell | head -1)" >> "$GITHUB_ENV"
       - run: npm run typecheck
       - run: npm run lint
       - run: npm run format:check
       - run: npm test
       - run: npm run size
+      - run: node tools/build-web.ts --check
