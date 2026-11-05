@@ -71,13 +71,13 @@ their three failed startup attempts are disclosed separately above.
 Reproduction (from repository root; anima means node packages/cli/src/main.ts):
 
 ```sh
-anima validate docs/research/head-to-head/animl/switch.animl
-anima inspect docs/research/head-to-head/animl/switch.animl
-anima sample docs/research/head-to-head/animl/switch.animl -e 'snapshot; pointer click 1 1; advance 0.15; snapshot; advance 0.15; snapshot; pointer click 19 19; advance 0.3; snapshot'
-anima sample docs/research/head-to-head/animl/switch.animl -e 'pointer click 10 10; advance 0.075; snapshot; pointer click 10 10; snapshot; advance 0.075; snapshot'
-anima sample docs/research/head-to-head/animl/switch.animl --reduced-motion -e 'pointer click 1 19; snapshot; pointer click 19 1; snapshot'
-anima render docs/research/head-to-head/animl/switch.animl -o /tmp/switch.png --sheet 7 --over 0.3 -e 'pointer click 10 10'
-anima build docs/research/head-to-head/animl/switch.animl -o /tmp/switch.ani
+anima validate docs/benchmarks/runs/2026-11-05-p1/animl/switch.animl
+anima inspect docs/benchmarks/runs/2026-11-05-p1/animl/switch.animl
+anima sample docs/benchmarks/runs/2026-11-05-p1/animl/switch.animl -e 'snapshot; pointer click 1 1; advance 0.15; snapshot; advance 0.15; snapshot; pointer click 19 19; advance 0.3; snapshot'
+anima sample docs/benchmarks/runs/2026-11-05-p1/animl/switch.animl -e 'pointer click 10 10; advance 0.075; snapshot; pointer click 10 10; snapshot; advance 0.075; snapshot'
+anima sample docs/benchmarks/runs/2026-11-05-p1/animl/switch.animl --reduced-motion -e 'pointer click 1 19; snapshot; pointer click 19 1; snapshot'
+anima render docs/benchmarks/runs/2026-11-05-p1/animl/switch.animl -o /tmp/switch.png --sheet 7 --over 0.3 -e 'pointer click 10 10'
+anima build docs/benchmarks/runs/2026-11-05-p1/animl/switch.animl -o /tmp/switch.ani
 ```
 
 The browser harness was temporary (/tmp/animl-browser-check.mjs); it bundles the documented web

@@ -21,7 +21,7 @@ declare global {
 
 const bell = readFileSync(new URL('../../../examples/bell.ani', import.meta.url), 'utf8');
 const switchAni = readFileSync(
-  new URL('../../../docs/research/head-to-head/animl/switch.ani', import.meta.url),
+  new URL('../../../docs/benchmarks/runs/2026-11-05-p1/animl/switch.ani', import.meta.url),
   'utf8',
 );
 const bellMarkup = readFileSync(new URL('../../../examples/bell.animl', import.meta.url), 'utf8');
@@ -925,7 +925,7 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
 
     it('toggles a focused switch bool on Enter down and Space up, ignoring repeats', async () => {
       const source = readFileSync(
-        new URL('../../../docs/research/head-to-head/animl/switch.animl', import.meta.url),
+        new URL('../../../docs/benchmarks/runs/2026-11-05-p1/animl/switch.animl', import.meta.url),
         'utf8',
       ).replace('pressed="on"', 'pressed="on" activate="on"');
       const built = compile(source);

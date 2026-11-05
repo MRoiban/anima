@@ -46,15 +46,42 @@ A module is code in three places, all in its own files:
 3. **Tooling**: the CLI, the markup compiler, the playground and the conformance runner always
    register every module, so authoring sees the whole format.
 
-Hook points (names fixed by the first module, P4a):
+Hook points (revised at P4a, owner decision 2026-11-06: rendering is renderer-neutral):
 
-- `registerModule(m: Module)` in core; `Module = { name, entries, load?, model?, scene?, attrs? }`.
+- `registerModule(m: Module)` in core; `Module = { name, entries, load?, model?, value?,
+  interpolate?, outline?, draw? }`.
 - `load(model, raw, diag)`: validate and compile the module's keys after the core loader.
-- `scene(model, el)`: add elements to `sceneTree` (e.g. gradient and mask defs).
-- `attrs(player, el, paint)`: attribute values for the module's elements and extra attributes on
-  core elements, per frame.
-- Animatable values a module adds (e.g. gradient stop colours) use the player's existing slots and
-  sampling: a module declares their value type (number, colour, bool) and default.
+- `model` / `value` / `interpolate`: new animatable value kinds use the player's existing slots and
+  sampling; a module declares their value type and default.
+- `outline(player, node)`: the node's current outline for hit testing.
+- `draw`: the module's contribution to the **draw layer** (§3.1). Modules never produce SVG
+  elements, attributes or canvas calls.
+
+### 3.1 The draw layer
+
+Between the player and every renderer sits one renderer-neutral description of what to draw:
+
+- **Draw tree** (static per document, built once at load): one entry per drawn node — a group
+  (children, isolation for masks/blends), or a shape — plus the document's shared resources
+  (gradients, mask and clip sources) referenced by id. Built by core for 0.1 nodes and extended by
+  each module's `draw.tree` hook.
+- **Draw frame** (per frame, from the player): for every entry its resolved values — local
+  transform, opacity, visibility; geometry (`path` data, or a primitive `circle` / `rect` /
+  `ellipse` the backend may draw natively); paints in order (fill or stroke; solid colour or
+  colour slot, linear / radial gradient with resolved stops; width, cap, join, dash array and
+  offset in grid units, trim, position); clip and mask references with their mode; blend mode.
+  Module `draw.frame` hooks fill in what they own. Unchanged entries are reported unchanged, so a
+  retained backend diffs cheaply.
+- **Backends** turn draw data into output: the **SVG backend** (retained DOM in `<anima-icon>`,
+  and `toSVG` for static output — the default for icons and the only one in core + web), and the
+  **canvas backend** (optional module, `@anima-format/web/canvas`, needed for rigging, meshes and
+  large scenes). A backend may decline a feature it cannot draw faithfully by reporting
+  `unsupported-render` with the feature name; conformance renders every case in every backend and
+  compares pixels within a tolerance.
+
+The SVG backend keeps the retained-SVG rules (docs/ARCHITECTURE.md): transforms on `<g>` wrappers
+only, attributes always present, masks attached for the document's life. The draw layer must not
+grow core + web for icon documents: `tools/size.ts` measures it.
 
 ## 4. Size
 

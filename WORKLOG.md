@@ -1,9 +1,9 @@
 # Work log
 
 ## Now
-Goal: P4 in sub-phases P4a–P4e (spec/MODULES.md); now P4a paint on branch p4a-paint (module system pilot).
-State: main c1f1288 = M0–M5, Phase A, P1, P3 (PR #9 merged). Parity 127/1238 done.
-Next: P4a-1 Sol: module system + gradients + dashes; then P4a-2 rest of paint; PR. Images/n-slice/feather wait for P5 assets/components.
+Goal: smaller, agent-native Rive (owner 2026-11-06). Order: P4a → P5 → Pc canvas → P4b–e → P3b → P6–P10. Benchmark gate after every phase.
+State: p4a-paint: P4a-1 (modules, gradients, dashes) + P4a-2 (geometry) merged; P4a-3 compositing running (on old SVG hooks).
+Next: merge P4a-3 → P4a-4 draw-layer refactor (MODULES §3.1, Sol xhigh) → P4a-5 benchmark (paint brief, AniML vs Rive) → PR.
 Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
 Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
@@ -60,3 +60,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 23:30 [claude]: merged P4a-1 (ca2ee80): module system 5/5 hooks, paint gradients+dashes; core+web 16461 (+581), paint 2091/5120, markup 6104/6144 (near budget); found resvg ignores pathLength → PNG dashes/trims wrong (fix in P4a-2)
 - 2026-11-05 23:45 [claude]: markup budget 6→8 KB (d3e19ef); launched P4a-2 geometry (shapes, corners, morph, fixed stroke, PNG pathLength fix) and P4a-3 compositing (blend, masks, clips, paints, stroke position, draw order) in parallel, separate files
 - 2026-11-06 01:10 [claude]: merged P4a-2 geometry (e7f7dbd): 6/6; paint 3679/5120, core+web 16519; PNG dashes verified visually
+- 2026-11-06 01:40 [claude]: owner direction recorded (PLAN, LOG, MODULES §3.1 draw layer, docs/benchmarks/agent-native.md; P1 run moved to docs/benchmarks/runs/2026-11-05-p1); P5 moved after P4a; canvas Pc after P5

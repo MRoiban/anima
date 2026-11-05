@@ -46,7 +46,7 @@ Verification ledger (chronological Rive runs):
 Supplemental: 1 failed PIL import + 5 successful pixel-measurement runs + 1 equality run; 4 JSON/metadata scripts; final whitelist/source audit. Final pixel equality confirms 00=06=08, 05=07, 05=18.
 
 Reproduce from repository root (headless; no interactive window):
-    cd docs/research/head-to-head/rive/switch
+    cd docs/benchmarks/runs/2026-11-05-p1/rive/switch
     ~/.rive/bin/rive inspect .
     ~/.rive/bin/rive . --commands=commands.txt
     ~/.rive/bin/rive . --commands=continuity.txt

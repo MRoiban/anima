@@ -91,7 +91,7 @@ Resources used: BRIEF.md; historical AUTHORING.md via `git show 178a3a6:docs/AUT
 and git history/status were read for the required workspace bookkeeping.
 
 Trace reproduction (prefix every command with `node packages/cli/src/main.ts` and
-use `docs/research/head-to-head/ani/switch.ani` as FILE):
+use `docs/benchmarks/runs/2026-11-05-p1/ani/switch.ani` as FILE):
 
 ```sh
 sample FILE -e 'snapshot; pointer click 1 1; snapshot; advance 0.075; snapshot; advance 0.075; snapshot; advance 0.15; snapshot; pointer click 19 19; advance 0.15; snapshot; advance 0.15; snapshot'

@@ -93,8 +93,17 @@ no wasm, and the budget met.
 
 ## Parity with Rive
 
-Full capability parity, the Anima way; see `docs/parity/README.md` for the inventory, matrix, module
-split and budgets. Every capability counts as done only with: a spec section, registry entries (both
+Goal (owner, 2026-11-06): **Anima is a smaller Rive, and above all an agent-native one** — full
+parity, the Anima way; see `docs/parity/README.md` for the inventory, matrix, module split and
+budgets.
+
+**Agent-native gate.** After every phase, the standing benchmark (`docs/benchmarks/agent-native.md`)
+gives fresh agents the same brief, built with the phase's features, in AniML + the CLI and in Rive's
+markup with the Rive CLI's local tooling (no account commands, no `.riv` reading). Each run records
+success against the brief, attempts and validate/render iterations, wall time, and the diagnostics
+and friction hit. A regression against the previous run is a bug fixed before the phase's PR merges.
+
+Every capability counts as done only with: a spec section, registry entries (both
 syntaxes), diagnostics, conformance cases, an AniML example with its `.ani`, CLI support, a size check
 and an oracle test against Rive.
 
@@ -104,33 +113,34 @@ and an oracle test against Rive.
       markup in every command and in HTML, optional browser module, round-trip tests, head-to-head.
 - [x] P2 M5 (Glyphy export draft, two more glyphs in AniML; the head-to-head ran in P1).
 - [x] P3 Playground/inspector (`anima playground`) and the web host API (`docs/WEB.md`).
+- [ ] P4a `paint` on the module system of `spec/MODULES.md` (PR):
+  - [x] P4a-1 module system and gradients, dashes.
+  - [x] P4a-2 geometry: ellipse, polygon, star, triangle, corner radii, path morphing, fixed
+        stroke, static path lengths for PNG output.
+  - [ ] P4a-3 compositing: blend modes, masks, clips, multiple paints, stroke position, draw order.
+  - [ ] P4a-4 **renderer-neutral draw layer** (owner, 2026-11-06; `spec/MODULES.md` §3.1): modules
+        describe resolved draw data; the SVG backend turns it into retained DOM and `toSVG`;
+        `paint` converted; core + web for icons must not grow (`tools/size.ts`).
+  - [ ] P4a-5 agent-native benchmark run with a paint brief (`docs/benchmarks/agent-native.md`).
+  - [ ] P4a oracle cases against the Rive CLI for the paint features (MODULES §5).
+- [ ] P5 Components and assets — **moved up** (owner, 2026-11-06): nested artboards / components,
+      per-instance inputs, shared glyph and layer libraries (the reuse friction from M5 and from
+      authoring the nine Glyphy icons: the same hover/press layer pasted into every file, a glyph
+      embedded twice), image/font/audio assets, then images, n-slice and feathering in `paint`.
+- [ ] Pc **Canvas backend, minimal** — brought forward from P10 (owner, 2026-11-06): the draw layer
+      rendered to Canvas2D as `@anima-format/web/canvas`; runs every conformance case with a pixel
+      comparison against the SVG backend; SVG stays the default for icons. Must exist before P8.
+- [ ] P4b `motion`: eases, typed/string tracks, seek/reverse/work area/quantize, host timeline
+      control, animatable pivot.
+- [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad.
+- [ ] P4d `events`: payloads, open-URL, audio.
+- [ ] P4e `data`: view models, bindings, converters, lists.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras.
-  - [x] Local playground package, serve-time build, CLI, source diagnostics, stage/inputs, graphs,
-        timeline scrubbing, revision-checked Save, responsive screenshots and browser tests.
-  - [ ] Integrate and verify the parallel web host API (pause/resume/rate); remaining P3 parity
-        rows are tracked separately.
-- [ ] P4 Interaction, paint, events, data binding — 456 capabilities, in five sub-phases on the module
-      system of `spec/MODULES.md` (one PR each):
-  - [ ] P4a `paint` (module system pilot): gradients, dashes, shapes, blend modes, masks/clips,
-        multiple paints, stroke position, trim modes, path morphing, draw order.
-    - [x] P4a-1: module registry and all five hooks; linear/radial gradients and absolute/relative
-          dashes through spec, diagnostics, AniML, CLI, conformance, examples and both browsers;
-          paint budget enforced, core hook delta within 600 B.
-    - [x] P4a-2 geometry implementation: ellipse/polygon/star/triangle, per-corner rects,
-      compatible path morphs, fixed stroke, static raster length normalization; integration/oracles pending.
-    - [ ] P4a-1 oracle follow-up: add/run the corresponding Rive cases (MODULES §5); parity statuses
-          stay with the orchestrator.
-  - [ ] P4b `motion`: eases, typed/string tracks, seek/reverse/work area/quantize, host timeline
-        control, animatable pivot.
-  - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad.
-  - [ ] P4d `events`: payloads, open-URL, audio.
-  - [ ] P4e `data`: view models, bindings, converters, lists.
-- [ ] P5 Components and assets.
 - [ ] P6 Text.
 - [ ] P7 Layout.
-- [ ] P8 Rigging.
+- [ ] P8 Rigging (on the canvas backend: bones, skinning, meshes).
 - [ ] P9 Scripting.
-- [ ] P10 GPU effects and the canvas/WebGL renderer.
+- [ ] P10 GPU effects and the WebGL renderer.
 - Maybe / later: native runtimes, editor round-trip, cloud tooling, low-level GPU, 3D (inventoried,
   not scheduled).
 

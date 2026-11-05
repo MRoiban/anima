@@ -281,7 +281,7 @@ build` produces, and hand-written `.ani` stays valid. Spec: `spec/ANIML.md`.
   `markup-unavailable`.
 - **Docs**: `docs/AUTHORING.md` teaches AniML; its 4 markup blocks compile and its 6 pasted
   diagnostics match the CLI, both under test.
-- **Head-to-head** (`docs/research/head-to-head/RESULTS.md`): same brief (a dark-mode switch),
+- **Head-to-head** (now `docs/benchmarks/runs/2026-11-05-p1/RESULTS.md`): same brief (a dark-mode switch),
   fresh agents. AniML 7/7 in 3 min 28 s, 51 lines / 1 997 chars, 0 diagnostics; hand-written
   `.ani` 7/7 in 2 min 51 s, 81 lines / 2 427 chars, 0 diagnostics; Rive markup 4/7 in 8 min,
   144 lines / 13 024 chars, the mid-slide reversal jumps with no tool reporting a problem. Both Anima
@@ -414,3 +414,26 @@ Verification: npm run check passed 31 files / 581 tests, Chromium and Firefox; s
 bundles and 27 AniML outputs current. Paint 3679/5120 B min+gzip incremental, markup
 6524/8192 B, core+web 16519 B (+58 versus d3e19ef; existing hook target exceeded by 39 B).
 Implementation commit only, on t3/paint-geometry-morphing; no push, PR or merge.
+
+## Owner direction: a smaller, agent-native Rive (2026-11-06)
+
+The owner made the goal explicit — Anima should be a smaller Rive, and above all an agent-native
+one; full parity stays the point — and decided three things, now in the plan:
+
+1. **Renderer-neutral rendering, now.** The P4a module hooks (`scene` adding SVG elements,
+   `attrs` returning SVG attributes) made every module SVG-only. `spec/MODULES.md` §3.1 replaces
+   them with a draw layer: a static draw tree and per-frame draw data (geometry, paints, clips,
+   masks, blends, values) that backends render — SVG (default, retained DOM and `toSVG`) and
+   canvas. P4a-4 converts `paint` (gradients, dashes, geometry, and the compositing work in flight)
+   before P4a merges; the icon backend must not grow core + web. A minimal Canvas2D backend (phase
+   Pc) comes right after P5, running every conformance case against the SVG backend, so it exists
+   before rigging (P8) needs it — no longer at P10.
+2. **Agent-native is measured, not claimed.** `docs/benchmarks/agent-native.md` is a standing
+   benchmark: after every phase, fresh agents build the same brief with the phase's features in
+   AniML + the CLI and in Rive's markup (local Rive CLI only). Items met, iterations, wall time,
+   size and friction go in a dated table; a regression blocks the phase's PR. The P1 head-to-head is
+   its first run (moved to `docs/benchmarks/runs/2026-11-05-p1/`).
+3. **P5 (components and assets) moves up**, right after P4a: reuse is what agents hit hardest —
+   the owner's thread, authoring all nine Glyphy icons in AniML, pasted the same hover/press layer
+   into every file and embedded a glyph twice (moon's stars reuse the sparkle); M5's friction notes
+   agree. Order now: P4a → P5 → Pc → P4b–e → P3b → P6 → P7 → P8 → P9 → P10.
