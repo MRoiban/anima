@@ -907,3 +907,13 @@ not a claimed speedup. Local commit only; no push or PR.
   **50.0/34.0/40.7 µs**; bell compile **5.40 ms**, prefixes **975 ms**, toolbar compile **4.27 ms**.
   Compile results remain noisy across the same session; no timing gate was relaxed. Final
   typecheck/lint/format pass after the last source change, as do the focused core/CLI assertions.
+
+## Development process changes (owner, 2026-11-07)
+
+Three decisions to speed up development, no format change: (1) self-contained module folders with
+a manifest and a generated index, order from declared dependencies, registry composed from the
+module set (tested in several orders) — today modules mutate core tables at import time and every
+module edits the same shared lists, which is why bind + assets hit 16 conflicts; (2) coders run
+scoped tests for what they touch, the full `npm run check` runs once per PR in CI while the next
+task starts (merge only when green); (3) `tools/new-capability.ts <row-id>` scaffolds a capability
+from its parity row. Scheduled after P5-7 lands and before the next new module; recorded in PLAN.

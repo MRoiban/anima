@@ -120,6 +120,28 @@ reason in LOG; crossing a use-case ceiling is the owner's call — stop and ask.
 is out of scope: heavy code (canvas/WebGL, rigging, text, scripting) loads only when a document
 needs it. Size is not the only cost: compile time and per-frame cost are tracked next to bytes.
 
+**Development process** (owner, 2026-11-07; no format change):
+
+1. **Self-contained module folders.** Each module is one folder with a manifest (name, `after`
+   dependencies, core code, SVG backend, markup forms, web entry, size budget, docs, tests); a
+   generated index (`--check` in `npm run check`) replaces the hand-kept lists (`core/src/all.ts`,
+   web entries, `tools/size.ts`, markup hooks, build-web). Registration order comes from the declared
+   dependencies; the registry is composed from the set of modules, not mutated in place, and a test
+   registers them in several orders and compares schema and model. Adding a module adds files and
+   edits nothing shared, so parallel coders merge without conflicts.
+2. **Scoped tests while coding; the full suite in CI.** Coders run a fast scoped command for the
+   module or package they touch (`npm run test:scope -- <module|package>`); the full `npm run check`
+   runs once per PR in GitHub Actions while the next task starts. A PR merges only when CI is green.
+   One full local run before a phase PR only for what CI cannot run.
+3. **Scaffold capabilities from parity rows.** `node tools/new-capability.ts <row-id>` reads the row
+   from `docs/parity/` and generates the skeleton every capability needs (spec section stub,
+   registry entry with both spellings, diagnostic and test stubs, conformance and oracle folders,
+   AniML example and `.ani`, CLI/schema hook, size entry, parity mapping) with TODOs. Coder briefs
+   use it from now on.
+
+Order: after P5-7 (markup) lands — D1 module folders, D2 scoped tests (parallel with D1), D3
+scaffolder (after D1) — before the next new module (P5 merges with them).
+
 **Tracked per phase** (in each phase's LOG entry and PR summary): core + web and every module's
 size and the use-case totals (`tools/size.ts`), compile time and per-frame cost (`tools/perf.ts`:
 one bell compile, the prefix sweep the robustness test runs, and step + draw frame for the bell

@@ -3,7 +3,7 @@
 ## Now
 Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
 State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: wave 1 Sol: bind module; AniML libraries/templates; assets+image (parallel). Then components (after bind), n-slice/feather/image paints, P5 benchmark.
+Next: P5-7 (markup owner) running → then D1 module folders + D2 scoped tests (parallel) → D3 new-capability scaffolder → P5 AniML benchmark run → P5 PR (full check in CI).
 Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
 Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
@@ -86,3 +86,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-07 00:10 [claude]: merged P5 benchmark Rive run (4b04ee2): 6/6, 10m48s, 997 lines/73k chars incl. generator + self-made digit font; frame 08 checked (badges 3 and 2)
 - 2026-11-07 00:40 [claude]: P5-5 (fe7438f) partial: image paints done; new surface module (n-slice + feather, 7576/8192) without nested AniML forms; 3 markup test failures; held unmerged until P5-6 markup split lands, then one markup-owner follow-up (design/p5/SURFACE-HANDOFF.md on that branch)
 - 2026-11-07 01:30 [claude]: merged P5-6 split (444194; compile interleaved ~867→842 ms, no regression) and P5-5 surface (fe7438f); 988/993 tests (3 markup fixture/name tests, demo); markup 8255 over again → P5-7 markup owner follow-up
+- 2026-11-07 02:00 [owner]: dev process: module folders + generated index (order from deps, composed registry), scoped tests locally / full suite in CI, new-capability scaffolder — recorded in PLAN/LOG; scheduled after P5-7
