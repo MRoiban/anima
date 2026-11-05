@@ -28,7 +28,8 @@ export class Diags {
     if (hint) x.hint = hint;
     this.list.push(x);
   }
-  err(code: string, pointer: string, message?: Text, hint?: Text): void {
+  /** Returns undefined, so `return d.err(…)` ends a function that returns a value or nothing. */
+  err(code: string, pointer: string, message?: Text, hint?: Text): undefined {
     this.add(code, 'error', pointer, message, hint);
   }
   warn(code: string, pointer: string, message?: Text, hint?: Text): void {
