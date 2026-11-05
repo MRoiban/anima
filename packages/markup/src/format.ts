@@ -4,31 +4,7 @@ import { parseXml, type Element } from './xml.ts';
 
 /** Layout-only formatting: retain order, comments, values, and the author's track style. */
 export function formatMarkup(source: string): { text?: string; diagnostics: MarkupDiagnostic[] } {
-  let parsed: ReturnType<typeof parseXml>;
-  try {
-    parsed = parseXml(source);
-  } catch (error) {
-    // parseXml currently lets String.fromCodePoint throw for out-of-range entities.
-    // Keep the public formatter diagnostic-only without changing that shared contract.
-    if (!(error instanceof RangeError)) throw error;
-    const entity = [...source.matchAll(/&#(x[0-9a-fA-F]+|[0-9]+);/g)].find(
-      (m) => (m[1]!.startsWith('x') ? parseInt(m[1]!.slice(1), 16) : Number(m[1])) > 0x10ffff,
-    );
-    const prefix = source.slice(0, entity?.index ?? 0);
-    return {
-      diagnostics: [
-        {
-          code: 'markup-syntax',
-          severity: 'error',
-          pointer: '',
-          message: 'numeric character reference is outside the Unicode range',
-          line: prefix.split('\n').length,
-          column: prefix.length - prefix.lastIndexOf('\n'),
-        },
-      ],
-    };
-  }
-  const { doc, errors } = parsed;
+  const { doc, errors } = parseXml(source);
   if (errors.length)
     return {
       diagnostics: errors.map((e) => ({

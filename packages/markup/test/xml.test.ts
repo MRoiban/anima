@@ -58,6 +58,8 @@ describe('AniML XML subset', () => {
     ['text', 1, 1, /root element/],
     ['<a>x & y</a>', 1, 6, /&amp;/],
     ['<a><!-- open</a>', 1, 4, /comment/],
+    ['<a>&#x110000;</a>', 1, 4, /Unicode range/],
+    ['<a b="x&#1114112;"/>', 1, 8, /Unicode range/],
   ])('%j → error at %i:%i', (src, line, col, msg) => {
     const { doc, errors } = parseXml(src);
     expect(doc.root).toBeNull();

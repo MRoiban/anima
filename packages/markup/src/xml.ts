@@ -66,7 +66,7 @@ const NAMED: Record<string, string> = { amp: '&', lt: '<', gt: '>', quot: '"', a
  * Decode entities. In attribute values a `&` that does not start an entity stands for itself
  * (the AniML leniency); in text it is an error, reported through `bad`.
  */
-function decode(s: string, lenient: boolean, bad: (i: number) => void): string {
+function decode(s: string, lenient: boolean, bad: (i: number, message?: string) => void): string {
   if (!s.includes('&')) return s;
   let out = '';
   for (let i = 0; i < s.length;) {
@@ -76,10 +76,13 @@ function decode(s: string, lenient: boolean, bad: (i: number) => void): string {
     }
     ENTITY.lastIndex = i;
     const m = ENTITY.exec(s);
-    if (m) {
-      out += m[1]
-        ? NAMED[m[1]]!
-        : String.fromCodePoint(m[2] ? parseInt(m[2], 10) : parseInt(m[3]!, 16));
+    const cp = m && !m[1] ? (m[2] ? parseInt(m[2], 10) : parseInt(m[3]!, 16)) : 0;
+    if (m && cp <= 0x10ffff) {
+      out += m[1] ? NAMED[m[1]]! : String.fromCodePoint(cp);
+      i = ENTITY.lastIndex;
+    } else if (m) {
+      bad(i, 'numeric character reference is outside the Unicode range');
+      out += m[0];
       i = ENTITY.lastIndex;
     } else {
       if (!lenient) bad(i);
@@ -172,7 +175,9 @@ export function parseXml(text: string): { doc: XmlDocument; errors: XmlError[] }
       // A repeated attribute is kept; the compiler reports it as duplicate-attribute.
       el.attrs.push({
         name: aName,
-        value: decode(text.slice(vStart, vEnd), true, () => {}),
+        value: decode(text.slice(vStart, vEnd), true, (k, message) => {
+          if (message) errors.push({ message, at: pos(vStart + k) });
+        }),
         at: pos(aAt),
         valueAt: pos(vStart),
       });
@@ -205,8 +210,11 @@ export function parseXml(text: string): { doc: XmlDocument; errors: XmlError[] }
       let end = text.indexOf('<', i);
       if (end < 0) end = text.length;
       const raw = text.slice(i, end);
-      const value = decode(raw, false, (k) =>
-        errors.push({ message: 'a bare & in text must be written &amp;', at: pos(tAt + k) }),
+      const value = decode(raw, false, (k, message) =>
+        errors.push({
+          message: message ?? 'a bare & in text must be written &amp;',
+          at: pos(tAt + k),
+        }),
       );
       el.children.push({ kind: 'text', value, raw, at: pos(tAt) });
       i = end;
