@@ -1,9 +1,9 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive (owner 2026-11-06). Order: P4a → P5 → Pc canvas → P4b–e → P3b → P6–P10. Benchmark gate after every phase.
-State: p4a-paint: P4a-1 (modules, gradients, dashes) + P4a-2 (geometry) merged; P4a-3 compositing running (on old SVG hooks).
-Next: merge P4a-3 → P4a-4 draw-layer refactor (MODULES §3.1, Sol xhigh) → P4a-5 benchmark (paint brief, AniML vs Rive) → PR.
+Goal: smaller, agent-native Rive. Order: P4a (PR now) → P5 components/assets (+ input→value binding) → Pc canvas → P4b–e → P3b → P6–P10.
+State: P4a complete on p4a-paint: 747 tests; core+web 16901 (owner-accepted); paint 3708, composite 3855, markup 7554; parity 173/1238. Oracle cases for P4a open.
+Next: PR p4a-paint → merge when CI green; then P5 design (components, per-instance inputs, binding, libraries, assets).
 Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
 Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
@@ -72,3 +72,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 08:10 [claude]: owner health check: prefix test limit restored (original); compile slowdown = merge blocker; measured same-session: ~25% vitest, single compile 2.5–3.0 → 4.5–5.0 ms (1805 ms was under load); tools/perf.ts added to npm run check; full suite 706 pass
 - 2026-11-06 09:10 [claude]: merged round 2 (51ac8b7): core+web 16901 (−52, plateau; 204 over), compile speed restored — my interleaved vitest medians b7b6e92 ~1081 ms vs now ~1010 ms; next P4a-7 friction then a final size round (anywhere in core+web), else ask owner
 - 2026-11-06 09:30 [owner]: core+web size (16901, +204 over pre-draw-layer) is not a blocker → no final size round; P4a PR after P4a-7 friction fixes
+- 2026-11-06 10:00 [claude]: merged P4a-7 (cd0205d) 5/5; parity 46 rows done in P4a, 29 image/n-slice/feather rows → P5; LOG P4a entry with numbers; opening PR

@@ -630,3 +630,28 @@ requirement that every case has an AniML source. One new missing-key test initia
 field pointer; it was corrected to the established containing-object pointer.
 No runtime dependencies, licence, test-limit/budget changes, push, PR or merge.
 The older P4a-6 target remains open (core+web is still 204 B above 16697 B).
+
+## P4a — paint and composite on the module system and the draw layer (2026-11-06)
+
+- **Module system** (`spec/MODULES.md`): features behind `requires`, registry entries with a
+  `feature`, `undeclared-feature`, per-module browser imports and budgets.
+- **Renderer-neutral draw layer** (owner decision; MODULES §3.1): static draw tree + per-frame draw
+  data; SVG is a backend (retained DOM and `toSVG`); modules contribute `draw` hooks only. 0.1
+  static SVG byte-identical; every browser test unchanged. The canvas backend (phase Pc) plugs in.
+- **`paint`**: linear/radial gradients with animatable stops and end points, dashes (grid units or
+  %, animatable offset), ellipse / polygon / star / triangle with corner rounding, per-corner rect
+  radii, path morphing (tracks and poses; `morph-mismatch`), fixed-width strokes, and static path
+  lengths so PNG renders draw dashes and trims right (resvg ignores `pathLength`).
+- **`composite`**: 16 blend modes (additive deferred), masks (alpha, luminance, inverted), clips
+  (on shapes and groups; `rule` optional), multiple paints, stroke position inside/outside, draw
+  order.
+- **Benchmark** (`docs/benchmarks/agent-native.md`): download button — AniML 5/6 in 5 min 13 s
+  (101 lines), Rive 5/6 in 7 min 14 s (182 lines). AniML's miss, continuous input → value binding,
+  is scheduled in P5; its five friction points were fixed (P4a-7).
+- **Numbers** (previous phase P3 → P4a): core + web 15 880 → 16 901 B (accepted by the owner;
+  +581 B module hooks, then the draw layer); markup 5 805 → 7 554 / 8 192 B; paint 3 708 / 5 120 B;
+  composite 3 855 / 4 096 B; compile time: bell ~2–3 ms, prefix sweep ~600–900 ms on this machine,
+  back to the pre-draw-layer level after the regression fix.
+- **Parity**: 46 rows done (173 / 1 238 overall). Images, n-slice and feathering moved to P5; other
+  paint rows (angular gradients, gradient transform, trim modes, effect stacks, additive blend)
+  stay in P4. **Open:** the Rive oracle cases for these features (MODULES §5) — not yet written.

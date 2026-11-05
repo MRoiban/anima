@@ -14,8 +14,8 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Category | Total | done | spec'd | planned | deferred | maybe-later | wont-do |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Drawing and paint | 125 | 20 | 1 | 104 |  |  |  |
-| Transforms and draw order | 17 | 9 |  | 8 |  |  |  |
+| Drawing and paint | 125 | 63 |  | 62 |  |  |  |
+| Transforms and draw order | 17 | 12 |  | 5 |  |  |  |
 | Animation | 40 | 16 |  | 24 |  |  |  |
 | State machines | 61 | 25 |  | 36 |  |  |  |
 | Listeners and input | 93 | 13 |  | 80 |  |  |  |
@@ -32,7 +32,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | Host runtime API | 125 | 22 |  | 99 |  | 4 |  |
 | Platforms | 64 | 1 |  | 9 |  | 54 |  |
 | Tooling | 119 | 14 |  | 50 | 1 | 51 | 3 |
-| **Total** | **1238** | **127** | **2** | **943** | **1** | **162** | **3** |
+| **Total** | **1238** | **173** | **1** | **898** | **1** | **162** | **3** |
 
 | Phase | Rows |
 |---|---:|
@@ -41,8 +41,9 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | [P2](#p2) — Done: M5, Glyphy export, more glyphs, the head-to-head test | 0 |
 | [P3](#p3) — Done: the playground/inspector and the web host API | 15 |
 | [P3b](#p3b) — The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras | 139 |
-| [P4](#p4) — Interaction, paint, events and data binding | 456 |
-| [P5](#p5) — Components and assets (moved up: right after P4a) | 88 |
+| [P4a](#p4a) — Done: paint and composite on the module system and the draw layer | 46 |
+| [P4](#p4) — Interaction, paint, events and data binding | 381 |
+| [P5](#p5) — Components and assets (moved up: right after P4a) | 117 |
 | [Pc](#pc) — Canvas backend, minimal (brought forward from P10) | 3 |
 | [P6](#p6) — Text | 67 |
 | [P7](#p7) — Layout | 69 |
@@ -433,6 +434,64 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `tooling.seed` | Deterministic random seed | new: explicit script seed in sample scripts | tooling | planned | cli/seed |  |
 | `tooling.test-assertions` | Script assertions | new: tooling-only script test protocol | tooling | planned | cli/test-assertions |  |
 
+## P4a — Done: paint and composite on the module system and the draw layer <a id="p4a"></a>
+
+### Drawing and paint
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `drawing-paint.blend-color` | Blend mode color | node.blend / mix-blend-mode="color" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-color-burn` | Blend mode colorBurn | node.blend / mix-blend-mode="color-burn" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-color-dodge` | Blend mode colorDodge | node.blend / mix-blend-mode="color-dodge" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-darken` | Blend mode darken | node.blend / mix-blend-mode="darken" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-difference` | Blend mode difference | node.blend / mix-blend-mode="difference" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-exclusion` | Blend mode exclusion | node.blend / mix-blend-mode="exclusion" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-hard-light` | Blend mode hardLight | node.blend / mix-blend-mode="hard-light" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-hue` | Blend mode hue | node.blend / mix-blend-mode="hue" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-lighten` | Blend mode lighten | node.blend / mix-blend-mode="lighten" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-luminosity` | Blend mode luminosity | node.blend / mix-blend-mode="luminosity" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-multiply` | Blend mode multiply | node.blend / mix-blend-mode="multiply" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-overlay` | Blend mode overlay | node.blend / mix-blend-mode="overlay" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-saturation` | Blend mode saturation | node.blend / mix-blend-mode="saturation" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-screen` | Blend mode screen | node.blend / mix-blend-mode="screen" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-soft-light` | Blend mode softLight | node.blend / mix-blend-mode="soft-light" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.dash-absolute` | Dash lengths | stroke.dash numeric grid lengths; requires paint | paint | done | spec/conformance/paint-dash; packages/core/test/paint.test.ts |
+| `drawing-paint.dash-offset` | Dash phase | stroke.dashOffset animatable number; grid units or path fraction; requires paint | paint | done | spec/conformance/paint-dash; packages/core/test/paint.test.ts |
+| `drawing-paint.dash-relative` | Relative dashes | stroke.dash percentage strings, fractions of full outline length; requires paint | paint | done | spec/conformance/paint-dash; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
+| `drawing-paint.ellipse` | Ellipses | ellipse cx/cy/rx/ry | paint | done | spec/conformance/paint-shape-ellipse; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.geometry-clip` | Geometry clipping | clip: {source,rule} | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `drawing-paint.gradient-linear` | linear gradients | fill/stroke.type=linear; x1/y1/x2/y2; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
+| `drawing-paint.gradient-opacity` | Gradient opacity | gradient stop colour alpha (#rrggbbaa), sampled per channel; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts |
+| `drawing-paint.gradient-radial` | radial gradients | fill/stroke.type=radial; cx/cy/r/fx/fy; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
+| `drawing-paint.gradient-stops` | Gradient stop animation | fill/stroke.stops[] {position,color}; indexed animatable stop addresses; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts |
+| `drawing-paint.mask-alpha` | alpha subtree masks | mask: {source, mode: "alpha", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-bounds` | Mask region | SVG mask covering three viewBoxes | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-enabled` | Toggle layer masks | mask presence; dynamic enable deferred | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-inverted-alpha` | invertedAlpha subtree masks | mask: {source, mode: "inverted-alpha", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-inverted-luminance` | invertedLuminance subtree masks | mask: {source, mode: "inverted-luminance", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-luminance` | luminance subtree masks | mask: {source, mode: "luminance", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.mask-source-draws` | Visible mask sources | mask.sourceDraws | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.multiple-paints` | Multiple fills and strokes | paints: [{fill\|stroke}] | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `drawing-paint.paint-visible` | Paint visibility | fill.visible / stroke.visible / paints.i.kind.visible | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `drawing-paint.polygon` | Regular polygons | polygon cx/cy/sides/radius/rotation | paint | done | spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.polygon-rounded` | Rounded polygons | polygon cornerRadius cutback/quadratic | paint | done | spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.rectangle-corner-radii` | Independent rectangle corners | rect corners [tl,tr,br,bl], animated corners.0–3 | paint | done | spec/conformance/paint-shape-corners; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.star` | Stars | star cx/cy/points/radius/innerRadius | paint | done | spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.star-rounded` | Rounded stars | star cornerRadius cutback/quadratic | paint | done | spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.stroke-position-inside` | inside stroke placement | stroke.position: inside | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `drawing-paint.stroke-position-outside` | outside stroke placement | stroke.position: outside | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `drawing-paint.stroke-transform-independent` | Unscaled strokes | stroke.scale=fixed; vector-effect non-scaling-stroke | paint | done | spec/conformance/paint-shape-fixed; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.triangle` | Triangles | triangle x0/y0/width/height | paint | done | spec/conformance/paint-shape-triangle; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.vertex-animation` | Vertex and handle animation | path d compatible command-list morph track | paint | done | spec/conformance/paint-morph; packages/web/test/paint-geometry.test.ts |
+
+### Transforms and draw order
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `transforms.animated-draw-order` | Animated draw order | drawOrder: {target,position,active}; hold track on drawOrder.active | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `transforms.draw-target-after` | Draw target after | drawOrder: {target,position,active}; hold track on drawOrder.active | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `transforms.draw-target-before` | Draw target before | drawOrder: {target,position,active}; hold track on drawOrder.active | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+
 ## P4 — Interaction, paint, events and data binding <a id="p4"></a>
 
 ### Drawing and paint
@@ -442,102 +501,27 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `drawing-paint.additive-strength` | Additive blend strength | new: blendAmount: 0..1 | paint | planned | oracle/additive-strength |
 | `drawing-paint.asymmetric-vertex` | asymmetric vertex | new: editable vertices with asymmetric vertex geometry | paint | planned | oracle/asymmetric-vertex |
 | `drawing-paint.blend-additive` | Blend mode additive | deferred: plus-lighter lacks consistent SVG renderer support (SPEC paint Blend modes) | paint | planned | SPEC paint Blend modes (deferred; no render claim) |
-| `drawing-paint.blend-color` | Blend mode color | node.blend / mix-blend-mode="color" | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-color-burn` | Blend mode colorBurn | node.blend / mix-blend-mode="color-burn" | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-color-dodge` | Blend mode colorDodge | node.blend / mix-blend-mode="color-dodge" | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-darken` | Blend mode darken | node.blend / mix-blend-mode="darken" | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-difference` | Blend mode difference | node.blend / mix-blend-mode="difference" | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-exclusion` | Blend mode exclusion | node.blend / mix-blend-mode="exclusion" | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-hard-light` | Blend mode hardLight | node.blend / mix-blend-mode="hard-light" | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-hue` | Blend mode hue | node.blend / mix-blend-mode="hue" | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-lighten` | Blend mode lighten | node.blend / mix-blend-mode="lighten" | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-luminosity` | Blend mode luminosity | node.blend / mix-blend-mode="luminosity" | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-multiply` | Blend mode multiply | node.blend / mix-blend-mode="multiply" | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-overlay` | Blend mode overlay | node.blend / mix-blend-mode="overlay" | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-saturation` | Blend mode saturation | node.blend / mix-blend-mode="saturation" | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-screen` | Blend mode screen | node.blend / mix-blend-mode="screen" | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-soft-light` | Blend mode softLight | node.blend / mix-blend-mode="soft-light" | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.dash-absolute` | Dash lengths | stroke.dash numeric grid lengths; requires paint | paint | planned | spec/conformance/paint-dash; packages/core/test/paint.test.ts |
-| `drawing-paint.dash-offset` | Dash phase | stroke.dashOffset animatable number; grid units or path fraction; requires paint | paint | planned | spec/conformance/paint-dash; packages/core/test/paint.test.ts |
-| `drawing-paint.dash-relative` | Relative dashes | stroke.dash percentage strings, fractions of full outline length; requires paint | paint | planned | spec/conformance/paint-dash; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
 | `drawing-paint.detached-vertex` | detached vertex | new: editable vertices with detached vertex geometry | paint | planned | oracle/detached-vertex |
 | `drawing-paint.effect-order` | Ordered path effect stacks | new: paint.effects ordered array | paint | planned | oracle/effect-order |
-| `drawing-paint.ellipse` | Ellipses | ellipse cx/cy/rx/ry | paint | planned | spec/conformance/paint-shape-ellipse; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.feather-enabled` | feather enabled | new: feather.enabled on a paint | paint | planned | oracle/feather-enabled |
-| `drawing-paint.feather-inner` | feather inner | new: feather.inner on a paint | paint | planned | oracle/feather-inner |
-| `drawing-paint.feather-offset` | feather offset | new: feather.offset on a paint | paint | planned | oracle/feather-offset |
-| `drawing-paint.feather-outer` | feather outer | new: feather.outer on a paint | paint | planned | oracle/feather-outer |
-| `drawing-paint.feather-space` | feather space | new: feather.space on a paint | paint | planned | oracle/feather-space |
 | `drawing-paint.fill-rule-clockwise` | Fill rule clockwise | new: fill.rule: clockwise | paint | planned | oracle/fill-rule-clockwise |
-| `drawing-paint.geometry-clip` | Geometry clipping | clip: {source,rule} | paint | planned | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
 | `drawing-paint.geometry-origin` | Parametric geometry origin | new: geometry origin expressed as an explicit point in grid units | paint | planned | oracle/geometry-origin |
 | `drawing-paint.gradient-angular` | angular gradients | new: fill or stroke gradient: angular with grid-unit endpoints | paint | planned | oracle/gradient-angular |
 | `drawing-paint.gradient-channel-binding` | Gradient color channels | new: gradient stop channel property paths | data | planned | oracle/gradient-channel-binding |
-| `drawing-paint.gradient-linear` | linear gradients | fill/stroke.type=linear; x1/y1/x2/y2; requires paint | paint | planned | spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
-| `drawing-paint.gradient-opacity` | Gradient opacity | gradient stop colour alpha (#rrggbbaa), sampled per channel; requires paint | paint | planned | spec/conformance/paint-gradient; packages/core/test/paint.test.ts |
-| `drawing-paint.gradient-radial` | radial gradients | fill/stroke.type=radial; cx/cy/r/fx/fy; requires paint | paint | planned | spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
-| `drawing-paint.gradient-stops` | Gradient stop animation | fill/stroke.stops[] {position,color}; indexed animatable stop addresses; requires paint | paint | planned | spec/conformance/paint-gradient; packages/core/test/paint.test.ts |
 | `drawing-paint.gradient-transform` | Gradient transforms | new: gradient.transform using grid units and degrees | paint | planned | oracle/gradient-transform |
-| `drawing-paint.image-alignment` | Image box alignment | new: image.align: [x,y] | paint | planned | oracle/image-alignment |
-| `drawing-paint.image-drawable` | Scene images | new: image node with asset and origin | paint | planned | oracle/image-drawable |
-| `drawing-paint.image-filter-bilinear` | bilinear image sampling | new: image.sampling: bilinear | paint | planned | oracle/image-filter-bilinear |
-| `drawing-paint.image-filter-nearest` | nearest image sampling | new: image.sampling: nearest | paint | planned | oracle/image-filter-nearest |
-| `drawing-paint.image-fit-contain` | Image fit contain | new: image.fit: contain | paint | planned | oracle/image-fit-contain |
-| `drawing-paint.image-fit-cover` | Image fit cover | new: image.fit: cover | paint | planned | oracle/image-fit-cover |
-| `drawing-paint.image-fit-fill` | Image fit fill | new: image.fit: fill | paint | planned | oracle/image-fit-fill |
-| `drawing-paint.image-fit-fit-height` | Image fit fitHeight | new: image.fit: fitHeight | paint | planned | oracle/image-fit-fit-height |
-| `drawing-paint.image-fit-fit-width` | Image fit fitWidth | new: image.fit: fitWidth | paint | planned | oracle/image-fit-fit-width |
-| `drawing-paint.image-fit-none` | Image fit none | new: image.fit: none | paint | planned | oracle/image-fit-none |
-| `drawing-paint.image-fit-resize` | Image fit resize | new: image.fit: resize | paint | planned | oracle/image-fit-resize |
-| `drawing-paint.image-fit-scale-down` | Image fit scaleDown | new: image.fit: scaleDown | paint | planned | oracle/image-fit-scale-down |
-| `drawing-paint.image-wrap-clamp` | clamp image wrapping | new: image.wrapX/wrapY: clamp | paint | planned | oracle/image-wrap-clamp |
-| `drawing-paint.image-wrap-mirror` | mirror image wrapping | new: image.wrapX/wrapY: mirror | paint | planned | oracle/image-wrap-mirror |
-| `drawing-paint.image-wrap-repeat` | repeat image wrapping | new: image.wrapX/wrapY: repeat | paint | planned | oracle/image-wrap-repeat |
-| `drawing-paint.mask-alpha` | alpha subtree masks | mask: {source, mode: "alpha", sourceDraws} | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
-| `drawing-paint.mask-bounds` | Mask region | SVG mask covering three viewBoxes | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
-| `drawing-paint.mask-enabled` | Toggle layer masks | mask presence; dynamic enable deferred | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
-| `drawing-paint.mask-inverted-alpha` | invertedAlpha subtree masks | mask: {source, mode: "inverted-alpha", sourceDraws} | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
-| `drawing-paint.mask-inverted-luminance` | invertedLuminance subtree masks | mask: {source, mode: "inverted-luminance", sourceDraws} | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
-| `drawing-paint.mask-luminance` | luminance subtree masks | mask: {source, mode: "luminance", sourceDraws} | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
-| `drawing-paint.mask-source-draws` | Visible mask sources | mask.sourceDraws | paint | planned | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
 | `drawing-paint.mirrored-vertex` | mirrored vertex | new: editable vertices with mirrored vertex geometry | paint | planned | oracle/mirrored-vertex |
-| `drawing-paint.multiple-paints` | Multiple fills and strokes | paints: [{fill\|stroke}] | paint | planned | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
-| `drawing-paint.n-slice-component` | N-slice component | new: slice regions on component nodes | paint | planned | oracle/n-slice-component |
-| `drawing-paint.n-slice-cuts` | Arbitrary slice axes | new: slice.x/y cut arrays in grid units | paint | planned | oracle/n-slice-cuts |
-| `drawing-paint.n-slice-image` | N-slice image | new: slice regions on image nodes | paint | planned | oracle/n-slice-image |
-| `drawing-paint.n-slice-patch-hidden` | Slice patch hidden | new: slice.patches[].mode: hidden | paint | planned | oracle/n-slice-patch-hidden |
-| `drawing-paint.n-slice-patch-repeat` | Slice patch repeat | new: slice.patches[].mode: repeat | paint | planned | oracle/n-slice-patch-repeat |
-| `drawing-paint.n-slice-patch-stretch` | Slice patch stretch | new: slice.patches[].mode: stretch | paint | planned | oracle/n-slice-patch-stretch |
-| `drawing-paint.n-slice-vector` | N-slice vector | new: slice regions on vector nodes | paint | planned | oracle/n-slice-vector |
 | `drawing-paint.paint-blend-override` | Per-paint compositing | new: paints[].blend with inherit | paint | planned | oracle/paint-blend-override |
-| `drawing-paint.paint-image` | Images in paints | new: paint.image with optional color modulation | paint | planned | oracle/paint-image |
-| `drawing-paint.paint-image-transform` | Image paint mapping | new: paint.image transform in grid units and degrees | paint | planned | oracle/paint-image-transform |
-| `drawing-paint.paint-visible` | Paint visibility | fill.visible / stroke.visible / paints.i.kind.visible | paint | planned | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
-| `drawing-paint.polygon` | Regular polygons | polygon cx/cy/sides/radius/rotation | paint | planned | spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.polygon-rounded` | Rounded polygons | polygon cornerRadius cutback/quadratic | paint | planned | spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.rectangle-corner-radii` | Independent rectangle corners | rect corners [tl,tr,br,bl], animated corners.0–3 | paint | planned | spec/conformance/paint-shape-corners; packages/web/test/paint-geometry.test.ts |
 | `drawing-paint.rounded-vertex` | rounded vertex | new: editable vertices with rounded vertex geometry | paint | planned | oracle/rounded-vertex |
 | `drawing-paint.shared-effects` | Reusable path effects | new: effects map with reusable trim and dash stacks | paint | planned | oracle/shared-effects |
-| `drawing-paint.star` | Stars | star cx/cy/points/radius/innerRadius | paint | planned | spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.star-rounded` | Rounded stars | star cornerRadius cutback/quadratic | paint | planned | spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts |
 | `drawing-paint.straight-vertex` | straight vertex | new: editable vertices with straight vertex geometry | paint | planned | oracle/straight-vertex |
-| `drawing-paint.stroke-position-inside` | inside stroke placement | stroke.position: inside | paint | planned | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
-| `drawing-paint.stroke-position-outside` | outside stroke placement | stroke.position: outside | paint | planned | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
-| `drawing-paint.stroke-transform-independent` | Unscaled strokes | stroke.scale=fixed; vector-effect non-scaling-stroke | paint | planned | spec/conformance/paint-shape-fixed; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.triangle` | Triangles | triangle x0/y0/width/height | paint | planned | spec/conformance/paint-shape-triangle; packages/web/test/paint-geometry.test.ts |
 | `drawing-paint.trim-sequential` | Sequential contour trim | new: stroke.trim.mode: sequential | paint | planned | oracle/trim-sequential |
 | `drawing-paint.trim-synchronized` | Synchronized contour trim | new: stroke.trim.mode: synchronized | paint | planned | oracle/trim-synchronized |
-| `drawing-paint.vertex-animation` | Vertex and handle animation | path d compatible command-list morph track | paint | spec'd | spec/conformance/paint-morph; packages/web/test/paint-geometry.test.ts |
 
 ### Transforms and draw order
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `transforms.animated-draw-order` | Animated draw order | drawOrder: {target,position,active}; hold track on drawOrder.active | paint | planned | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
 | `transforms.collapse` | Collapse propagation | new: explicit collapsed subtree state | interaction | planned | conformance/collapse |
 | `transforms.computed-transform-values` | Read computed geometry | new: computed geometry read-only property paths | data | planned | conformance/computed-transform-values |
-| `transforms.draw-target-after` | Draw target after | drawOrder: {target,position,active}; hold track on drawOrder.active | paint | planned | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
-| `transforms.draw-target-before` | Draw target before | drawOrder: {target,position,active}; hold track on drawOrder.active | paint | planned | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
 | `transforms.origin-animation` | Animated origins | new: animatable node.pivot in grid units | core | planned | conformance/origin-animation |
 | `transforms.solo` | Solo child selection | new: solo node with active child | interaction | planned | conformance/solo |
 
@@ -942,7 +926,36 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
+| `drawing-paint.feather-enabled` | feather enabled | new: feather.enabled on a paint | paint | planned | oracle/feather-enabled |
+| `drawing-paint.feather-inner` | feather inner | new: feather.inner on a paint | paint | planned | oracle/feather-inner |
+| `drawing-paint.feather-offset` | feather offset | new: feather.offset on a paint | paint | planned | oracle/feather-offset |
+| `drawing-paint.feather-outer` | feather outer | new: feather.outer on a paint | paint | planned | oracle/feather-outer |
+| `drawing-paint.feather-space` | feather space | new: feather.space on a paint | paint | planned | oracle/feather-space |
+| `drawing-paint.image-alignment` | Image box alignment | new: image.align: [x,y] | paint | planned | oracle/image-alignment |
+| `drawing-paint.image-drawable` | Scene images | new: image node with asset and origin | paint | planned | oracle/image-drawable |
+| `drawing-paint.image-filter-bilinear` | bilinear image sampling | new: image.sampling: bilinear | paint | planned | oracle/image-filter-bilinear |
+| `drawing-paint.image-filter-nearest` | nearest image sampling | new: image.sampling: nearest | paint | planned | oracle/image-filter-nearest |
+| `drawing-paint.image-fit-contain` | Image fit contain | new: image.fit: contain | paint | planned | oracle/image-fit-contain |
+| `drawing-paint.image-fit-cover` | Image fit cover | new: image.fit: cover | paint | planned | oracle/image-fit-cover |
+| `drawing-paint.image-fit-fill` | Image fit fill | new: image.fit: fill | paint | planned | oracle/image-fit-fill |
+| `drawing-paint.image-fit-fit-height` | Image fit fitHeight | new: image.fit: fitHeight | paint | planned | oracle/image-fit-fit-height |
+| `drawing-paint.image-fit-fit-width` | Image fit fitWidth | new: image.fit: fitWidth | paint | planned | oracle/image-fit-fit-width |
+| `drawing-paint.image-fit-none` | Image fit none | new: image.fit: none | paint | planned | oracle/image-fit-none |
+| `drawing-paint.image-fit-resize` | Image fit resize | new: image.fit: resize | paint | planned | oracle/image-fit-resize |
+| `drawing-paint.image-fit-scale-down` | Image fit scaleDown | new: image.fit: scaleDown | paint | planned | oracle/image-fit-scale-down |
+| `drawing-paint.image-wrap-clamp` | clamp image wrapping | new: image.wrapX/wrapY: clamp | paint | planned | oracle/image-wrap-clamp |
+| `drawing-paint.image-wrap-mirror` | mirror image wrapping | new: image.wrapX/wrapY: mirror | paint | planned | oracle/image-wrap-mirror |
+| `drawing-paint.image-wrap-repeat` | repeat image wrapping | new: image.wrapX/wrapY: repeat | paint | planned | oracle/image-wrap-repeat |
+| `drawing-paint.n-slice-component` | N-slice component | new: slice regions on component nodes | paint | planned | oracle/n-slice-component |
+| `drawing-paint.n-slice-cuts` | Arbitrary slice axes | new: slice.x/y cut arrays in grid units | paint | planned | oracle/n-slice-cuts |
+| `drawing-paint.n-slice-image` | N-slice image | new: slice regions on image nodes | paint | planned | oracle/n-slice-image |
+| `drawing-paint.n-slice-patch-hidden` | Slice patch hidden | new: slice.patches[].mode: hidden | paint | planned | oracle/n-slice-patch-hidden |
+| `drawing-paint.n-slice-patch-repeat` | Slice patch repeat | new: slice.patches[].mode: repeat | paint | planned | oracle/n-slice-patch-repeat |
+| `drawing-paint.n-slice-patch-stretch` | Slice patch stretch | new: slice.patches[].mode: stretch | paint | planned | oracle/n-slice-patch-stretch |
+| `drawing-paint.n-slice-vector` | N-slice vector | new: slice regions on vector nodes | paint | planned | oracle/n-slice-vector |
 | `drawing-paint.paint-artboard` | Live artboard paint | new: paint.scene references a component | components | planned | oracle/paint-artboard |
+| `drawing-paint.paint-image` | Images in paints | new: paint.image with optional color modulation | paint | planned | oracle/paint-image |
+| `drawing-paint.paint-image-transform` | Image paint mapping | new: paint.image transform in grid units and degrees | paint | planned | oracle/paint-image-transform |
 
 ### Components
 

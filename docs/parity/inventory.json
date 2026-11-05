@@ -10145,10 +10145,10 @@
   ],
   "anima": {
    "construct": "node.blend / mix-blend-mode=\"color\"",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10178,10 +10178,10 @@
   ],
   "anima": {
    "construct": "node.blend / mix-blend-mode=\"color-burn\"",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10211,10 +10211,10 @@
   ],
   "anima": {
    "construct": "node.blend / mix-blend-mode=\"color-dodge\"",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10244,10 +10244,10 @@
   ],
   "anima": {
    "construct": "node.blend / mix-blend-mode=\"darken\"",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10277,10 +10277,10 @@
   ],
   "anima": {
    "construct": "node.blend / mix-blend-mode=\"difference\"",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10310,10 +10310,10 @@
   ],
   "anima": {
    "construct": "node.blend / mix-blend-mode=\"exclusion\"",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10343,10 +10343,10 @@
   ],
   "anima": {
    "construct": "node.blend / mix-blend-mode=\"hard-light\"",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10376,10 +10376,10 @@
   ],
   "anima": {
    "construct": "node.blend / mix-blend-mode=\"hue\"",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10409,10 +10409,10 @@
   ],
   "anima": {
    "construct": "node.blend / mix-blend-mode=\"lighten\"",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10442,10 +10442,10 @@
   ],
   "anima": {
    "construct": "node.blend / mix-blend-mode=\"luminosity\"",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10475,10 +10475,10 @@
   ],
   "anima": {
    "construct": "node.blend / mix-blend-mode=\"multiply\"",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10508,10 +10508,10 @@
   ],
   "anima": {
    "construct": "node.blend / mix-blend-mode=\"overlay\"",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10541,10 +10541,10 @@
   ],
   "anima": {
    "construct": "node.blend / mix-blend-mode=\"saturation\"",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10574,10 +10574,10 @@
   ],
   "anima": {
    "construct": "node.blend / mix-blend-mode=\"screen\"",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10607,10 +10607,10 @@
   ],
   "anima": {
    "construct": "node.blend / mix-blend-mode=\"soft-light\"",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10889,9 +10889,9 @@
   "anima": {
    "construct": "stroke.dash numeric grid lengths; requires paint",
    "module": "paint",
-   "status": "planned",
+   "status": "done",
    "test": "spec/conformance/paint-dash; packages/core/test/paint.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10917,9 +10917,9 @@
   "anima": {
    "construct": "stroke.dashOffset animatable number; grid units or path fraction; requires paint",
    "module": "paint",
-   "status": "planned",
+   "status": "done",
    "test": "spec/conformance/paint-dash; packages/core/test/paint.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -10944,9 +10944,9 @@
   "anima": {
    "construct": "stroke.dash percentage strings, fractions of full outline length; requires paint",
    "module": "paint",
-   "status": "planned",
+   "status": "done",
    "test": "spec/conformance/paint-dash; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -11035,9 +11035,9 @@
   "anima": {
    "construct": "ellipse cx/cy/rx/ry",
    "module": "paint",
-   "status": "planned",
+   "status": "done",
    "test": "spec/conformance/paint-shape-ellipse; packages/web/test/paint-geometry.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -11064,7 +11064,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/feather-enabled",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11092,7 +11092,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/feather-inner",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11120,7 +11120,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/feather-offset",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11148,7 +11148,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/feather-outer",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11175,7 +11175,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/feather-space",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11367,10 +11367,10 @@
   ],
   "anima": {
    "construct": "clip: {source,rule}",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -11489,9 +11489,9 @@
   "anima": {
    "construct": "fill/stroke.type=linear; x1/y1/x2/y2; requires paint",
    "module": "paint",
-   "status": "planned",
+   "status": "done",
    "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -11516,9 +11516,9 @@
   "anima": {
    "construct": "gradient stop colour alpha (#rrggbbaa), sampled per channel; requires paint",
    "module": "paint",
-   "status": "planned",
+   "status": "done",
    "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -11546,9 +11546,9 @@
   "anima": {
    "construct": "fill/stroke.type=radial; cx/cy/r/fx/fy; requires paint",
    "module": "paint",
-   "status": "planned",
+   "status": "done",
    "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -11574,9 +11574,9 @@
   "anima": {
    "construct": "fill/stroke.stops[] {position,color}; indexed animatable stop addresses; requires paint",
    "module": "paint",
-   "status": "planned",
+   "status": "done",
    "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -11635,7 +11635,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/image-alignment",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11667,7 +11667,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/image-drawable",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11694,7 +11694,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/image-filter-bilinear",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11721,7 +11721,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/image-filter-nearest",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11748,7 +11748,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/image-fit-contain",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11775,7 +11775,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/image-fit-cover",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11802,7 +11802,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/image-fit-fill",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11829,7 +11829,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/image-fit-fit-height",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11856,7 +11856,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/image-fit-fit-width",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11883,7 +11883,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/image-fit-none",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11910,7 +11910,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/image-fit-resize",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11937,7 +11937,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/image-fit-scale-down",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11965,7 +11965,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/image-wrap-clamp",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -11993,7 +11993,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/image-wrap-mirror",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -12021,7 +12021,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/image-wrap-repeat",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -12046,10 +12046,10 @@
   ],
   "anima": {
    "construct": "mask: {source, mode: \"alpha\", sourceDraws}",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -12077,10 +12077,10 @@
   ],
   "anima": {
    "construct": "SVG mask covering three viewBoxes",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -12104,10 +12104,10 @@
   ],
   "anima": {
    "construct": "mask presence; dynamic enable deferred",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -12132,10 +12132,10 @@
   ],
   "anima": {
    "construct": "mask: {source, mode: \"inverted-alpha\", sourceDraws}",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -12160,10 +12160,10 @@
   ],
   "anima": {
    "construct": "mask: {source, mode: \"inverted-luminance\", sourceDraws}",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -12188,10 +12188,10 @@
   ],
   "anima": {
    "construct": "mask: {source, mode: \"luminance\", sourceDraws}",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -12242,10 +12242,10 @@
   ],
   "anima": {
    "construct": "mask.sourceDraws",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -12299,10 +12299,10 @@
   ],
   "anima": {
    "construct": "paints: [{fill|stroke}]",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -12331,7 +12331,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/n-slice-component",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -12365,7 +12365,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/n-slice-cuts",
-   "phase": "P4"
+   "phase": "P5"
   },
   "aliases": [
    "layout.slice-axes"
@@ -12397,7 +12397,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/n-slice-image",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -12427,7 +12427,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/n-slice-patch-hidden",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -12457,7 +12457,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/n-slice-patch-repeat",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -12489,7 +12489,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/n-slice-patch-stretch",
-   "phase": "P4"
+   "phase": "P5"
   },
   "aliases": [
    "layout.slice-patches"
@@ -12521,7 +12521,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/n-slice-vector",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -12606,7 +12606,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/paint-image",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -12638,7 +12638,7 @@
    "module": "paint",
    "status": "planned",
    "test": "oracle/paint-image-transform",
-   "phase": "P4"
+   "phase": "P5"
   }
  },
  {
@@ -12665,10 +12665,10 @@
   ],
   "anima": {
    "construct": "fill.visible / stroke.visible / paints.i.kind.visible",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -12727,9 +12727,9 @@
   "anima": {
    "construct": "polygon cx/cy/sides/radius/rotation",
    "module": "paint",
-   "status": "planned",
+   "status": "done",
    "test": "spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -12754,9 +12754,9 @@
   "anima": {
    "construct": "polygon cornerRadius cutback/quadratic",
    "module": "paint",
-   "status": "planned",
+   "status": "done",
    "test": "spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -12813,9 +12813,9 @@
   "anima": {
    "construct": "rect corners [tl,tr,br,bl], animated corners.0–3",
    "module": "paint",
-   "status": "planned",
+   "status": "done",
    "test": "spec/conformance/paint-shape-corners; packages/web/test/paint-geometry.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -13120,9 +13120,9 @@
   "anima": {
    "construct": "star cx/cy/points/radius/innerRadius",
    "module": "paint",
-   "status": "planned",
+   "status": "done",
    "test": "spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -13147,9 +13147,9 @@
   "anima": {
    "construct": "star cornerRadius cutback/quadratic",
    "module": "paint",
-   "status": "planned",
+   "status": "done",
    "test": "spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -13390,10 +13390,10 @@
   ],
   "anima": {
    "construct": "stroke.position: inside",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -13417,10 +13417,10 @@
   ],
   "anima": {
    "construct": "stroke.position: outside",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -13445,9 +13445,9 @@
   "anima": {
    "construct": "stroke.scale=fixed; vector-effect non-scaling-stroke",
    "module": "paint",
-   "status": "planned",
+   "status": "done",
    "test": "spec/conformance/paint-shape-fixed; packages/web/test/paint-geometry.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -13500,9 +13500,9 @@
   "anima": {
    "construct": "triangle x0/y0/width/height",
    "module": "paint",
-   "status": "planned",
+   "status": "done",
    "test": "spec/conformance/paint-shape-triangle; packages/web/test/paint-geometry.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -13619,9 +13619,9 @@
   "anima": {
    "construct": "path d compatible command-list morph track",
    "module": "paint",
-   "status": "spec'd",
+   "status": "done",
    "test": "spec/conformance/paint-morph; packages/web/test/paint-geometry.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -33815,10 +33815,10 @@
   ],
   "anima": {
    "construct": "drawOrder: {target,position,active}; hold track on drawOrder.active",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -33963,10 +33963,10 @@
   ],
   "anima": {
    "construct": "drawOrder: {target,position,active}; hold track on drawOrder.active",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {
@@ -33995,10 +33995,10 @@
   ],
   "anima": {
    "construct": "drawOrder: {target,position,active}; hold track on drawOrder.active",
-   "module": "paint",
-   "status": "planned",
+   "module": "composite",
+   "status": "done",
    "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
-   "phase": "P4"
+   "phase": "P4a"
   }
  },
  {

@@ -3554,150 +3554,150 @@
   "category": "drawing-paint",
   "capability": "Blend mode color",
   "construct": "node.blend / mix-blend-mode=\"color\"",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.blend-color-burn",
   "category": "drawing-paint",
   "capability": "Blend mode colorBurn",
   "construct": "node.blend / mix-blend-mode=\"color-burn\"",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.blend-color-dodge",
   "category": "drawing-paint",
   "capability": "Blend mode colorDodge",
   "construct": "node.blend / mix-blend-mode=\"color-dodge\"",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.blend-darken",
   "category": "drawing-paint",
   "capability": "Blend mode darken",
   "construct": "node.blend / mix-blend-mode=\"darken\"",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.blend-difference",
   "category": "drawing-paint",
   "capability": "Blend mode difference",
   "construct": "node.blend / mix-blend-mode=\"difference\"",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.blend-exclusion",
   "category": "drawing-paint",
   "capability": "Blend mode exclusion",
   "construct": "node.blend / mix-blend-mode=\"exclusion\"",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.blend-hard-light",
   "category": "drawing-paint",
   "capability": "Blend mode hardLight",
   "construct": "node.blend / mix-blend-mode=\"hard-light\"",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.blend-hue",
   "category": "drawing-paint",
   "capability": "Blend mode hue",
   "construct": "node.blend / mix-blend-mode=\"hue\"",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.blend-lighten",
   "category": "drawing-paint",
   "capability": "Blend mode lighten",
   "construct": "node.blend / mix-blend-mode=\"lighten\"",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.blend-luminosity",
   "category": "drawing-paint",
   "capability": "Blend mode luminosity",
   "construct": "node.blend / mix-blend-mode=\"luminosity\"",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.blend-multiply",
   "category": "drawing-paint",
   "capability": "Blend mode multiply",
   "construct": "node.blend / mix-blend-mode=\"multiply\"",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.blend-overlay",
   "category": "drawing-paint",
   "capability": "Blend mode overlay",
   "construct": "node.blend / mix-blend-mode=\"overlay\"",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.blend-saturation",
   "category": "drawing-paint",
   "capability": "Blend mode saturation",
   "construct": "node.blend / mix-blend-mode=\"saturation\"",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.blend-screen",
   "category": "drawing-paint",
   "capability": "Blend mode screen",
   "construct": "node.blend / mix-blend-mode=\"screen\"",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.blend-soft-light",
   "category": "drawing-paint",
   "capability": "Blend mode softLight",
   "construct": "node.blend / mix-blend-mode=\"soft-light\"",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.blend-src-over",
@@ -3795,9 +3795,9 @@
   "capability": "Dash lengths",
   "construct": "stroke.dash numeric grid lengths; requires paint",
   "module": "paint",
-  "status": "planned",
+  "status": "done",
   "test": "spec/conformance/paint-dash; packages/core/test/paint.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.dash-offset",
@@ -3805,9 +3805,9 @@
   "capability": "Dash phase",
   "construct": "stroke.dashOffset animatable number; grid units or path fraction; requires paint",
   "module": "paint",
-  "status": "planned",
+  "status": "done",
   "test": "spec/conformance/paint-dash; packages/core/test/paint.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.dash-relative",
@@ -3815,9 +3815,9 @@
   "capability": "Relative dashes",
   "construct": "stroke.dash percentage strings, fractions of full outline length; requires paint",
   "module": "paint",
-  "status": "planned",
+  "status": "done",
   "test": "spec/conformance/paint-dash; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.detached-vertex",
@@ -3845,9 +3845,9 @@
   "capability": "Ellipses",
   "construct": "ellipse cx/cy/rx/ry",
   "module": "paint",
-  "status": "planned",
+  "status": "done",
   "test": "spec/conformance/paint-shape-ellipse; packages/web/test/paint-geometry.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.feather-enabled",
@@ -3857,7 +3857,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/feather-enabled",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.feather-inner",
@@ -3867,7 +3867,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/feather-inner",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.feather-offset",
@@ -3877,7 +3877,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/feather-offset",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.feather-outer",
@@ -3887,7 +3887,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/feather-outer",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.feather-space",
@@ -3897,7 +3897,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/feather-space",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.fill-rule-clockwise",
@@ -3964,10 +3964,10 @@
   "category": "drawing-paint",
   "capability": "Geometry clipping",
   "construct": "clip: {source,rule}",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.geometry-origin",
@@ -4005,9 +4005,9 @@
   "capability": "linear gradients",
   "construct": "fill/stroke.type=linear; x1/y1/x2/y2; requires paint",
   "module": "paint",
-  "status": "planned",
+  "status": "done",
   "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.gradient-opacity",
@@ -4015,9 +4015,9 @@
   "capability": "Gradient opacity",
   "construct": "gradient stop colour alpha (#rrggbbaa), sampled per channel; requires paint",
   "module": "paint",
-  "status": "planned",
+  "status": "done",
   "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.gradient-radial",
@@ -4025,9 +4025,9 @@
   "capability": "radial gradients",
   "construct": "fill/stroke.type=radial; cx/cy/r/fx/fy; requires paint",
   "module": "paint",
-  "status": "planned",
+  "status": "done",
   "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.gradient-stops",
@@ -4035,9 +4035,9 @@
   "capability": "Gradient stop animation",
   "construct": "fill/stroke.stops[] {position,color}; indexed animatable stop addresses; requires paint",
   "module": "paint",
-  "status": "planned",
+  "status": "done",
   "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.gradient-transform",
@@ -4057,7 +4057,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-alignment",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.image-drawable",
@@ -4067,7 +4067,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-drawable",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.image-filter-bilinear",
@@ -4077,7 +4077,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-filter-bilinear",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.image-filter-nearest",
@@ -4087,7 +4087,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-filter-nearest",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.image-fit-contain",
@@ -4097,7 +4097,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-fit-contain",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.image-fit-cover",
@@ -4107,7 +4107,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-fit-cover",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.image-fit-fill",
@@ -4117,7 +4117,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-fit-fill",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.image-fit-fit-height",
@@ -4127,7 +4127,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-fit-fit-height",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.image-fit-fit-width",
@@ -4137,7 +4137,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-fit-fit-width",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.image-fit-none",
@@ -4147,7 +4147,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-fit-none",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.image-fit-resize",
@@ -4157,7 +4157,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-fit-resize",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.image-fit-scale-down",
@@ -4167,7 +4167,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-fit-scale-down",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.image-wrap-clamp",
@@ -4177,7 +4177,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-wrap-clamp",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.image-wrap-mirror",
@@ -4187,7 +4187,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-wrap-mirror",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.image-wrap-repeat",
@@ -4197,67 +4197,67 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/image-wrap-repeat",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.mask-alpha",
   "category": "drawing-paint",
   "capability": "alpha subtree masks",
   "construct": "mask: {source, mode: \"alpha\", sourceDraws}",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.mask-bounds",
   "category": "drawing-paint",
   "capability": "Mask region",
   "construct": "SVG mask covering three viewBoxes",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.mask-enabled",
   "category": "drawing-paint",
   "capability": "Toggle layer masks",
   "construct": "mask presence; dynamic enable deferred",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.mask-inverted-alpha",
   "category": "drawing-paint",
   "capability": "invertedAlpha subtree masks",
   "construct": "mask: {source, mode: \"inverted-alpha\", sourceDraws}",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.mask-inverted-luminance",
   "category": "drawing-paint",
   "capability": "invertedLuminance subtree masks",
   "construct": "mask: {source, mode: \"inverted-luminance\", sourceDraws}",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.mask-luminance",
   "category": "drawing-paint",
   "capability": "luminance subtree masks",
   "construct": "mask: {source, mode: \"luminance\", sourceDraws}",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.mask-resolution",
@@ -4274,10 +4274,10 @@
   "category": "drawing-paint",
   "capability": "Visible mask sources",
   "construct": "mask.sourceDraws",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.mirrored-vertex",
@@ -4294,10 +4294,10 @@
   "category": "drawing-paint",
   "capability": "Multiple fills and strokes",
   "construct": "paints: [{fill|stroke}]",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.n-slice-component",
@@ -4307,7 +4307,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/n-slice-component",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.n-slice-cuts",
@@ -4317,7 +4317,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/n-slice-cuts",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.n-slice-image",
@@ -4327,7 +4327,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/n-slice-image",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.n-slice-patch-hidden",
@@ -4337,7 +4337,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/n-slice-patch-hidden",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.n-slice-patch-repeat",
@@ -4347,7 +4347,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/n-slice-patch-repeat",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.n-slice-patch-stretch",
@@ -4357,7 +4357,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/n-slice-patch-stretch",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.n-slice-vector",
@@ -4367,7 +4367,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/n-slice-vector",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.paint-artboard",
@@ -4397,7 +4397,7 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/paint-image",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.paint-image-transform",
@@ -4407,17 +4407,17 @@
   "module": "paint",
   "status": "planned",
   "test": "oracle/paint-image-transform",
-  "phase": "P4"
+  "phase": "P5"
  },
  {
   "id": "drawing-paint.paint-visible",
   "category": "drawing-paint",
   "capability": "Paint visibility",
   "construct": "fill.visible / stroke.visible / paints.i.kind.visible",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.path-measure",
@@ -4435,9 +4435,9 @@
   "capability": "Regular polygons",
   "construct": "polygon cx/cy/sides/radius/rotation",
   "module": "paint",
-  "status": "planned",
+  "status": "done",
   "test": "spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.polygon-rounded",
@@ -4445,9 +4445,9 @@
   "capability": "Rounded polygons",
   "construct": "polygon cornerRadius cutback/quadratic",
   "module": "paint",
-  "status": "planned",
+  "status": "done",
   "test": "spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.rectangle",
@@ -4465,9 +4465,9 @@
   "capability": "Independent rectangle corners",
   "construct": "rect corners [tl,tr,br,bl], animated corners.0–3",
   "module": "paint",
-  "status": "planned",
+  "status": "done",
   "test": "spec/conformance/paint-shape-corners; packages/web/test/paint-geometry.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.rectangle-rounded",
@@ -4575,9 +4575,9 @@
   "capability": "Stars",
   "construct": "star cx/cy/points/radius/innerRadius",
   "module": "paint",
-  "status": "planned",
+  "status": "done",
   "test": "spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.star-rounded",
@@ -4585,9 +4585,9 @@
   "capability": "Rounded stars",
   "construct": "star cornerRadius cutback/quadratic",
   "module": "paint",
-  "status": "planned",
+  "status": "done",
   "test": "spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.straight-vertex",
@@ -4674,20 +4674,20 @@
   "category": "drawing-paint",
   "capability": "inside stroke placement",
   "construct": "stroke.position: inside",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.stroke-position-outside",
   "category": "drawing-paint",
   "capability": "outside stroke placement",
   "construct": "stroke.position: outside",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.stroke-transform-independent",
@@ -4695,9 +4695,9 @@
   "capability": "Unscaled strokes",
   "construct": "stroke.scale=fixed; vector-effect non-scaling-stroke",
   "module": "paint",
-  "status": "planned",
+  "status": "done",
   "test": "spec/conformance/paint-shape-fixed; packages/web/test/paint-geometry.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.stroke-transform-scaling",
@@ -4715,9 +4715,9 @@
   "capability": "Triangles",
   "construct": "triangle x0/y0/width/height",
   "module": "paint",
-  "status": "planned",
+  "status": "done",
   "test": "spec/conformance/paint-shape-triangle; packages/web/test/paint-geometry.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.trim-sequential",
@@ -4755,9 +4755,9 @@
   "capability": "Vertex and handle animation",
   "construct": "path d compatible command-list morph track",
   "module": "paint",
-  "status": "spec'd",
+  "status": "done",
   "test": "spec/conformance/paint-morph; packages/web/test/paint-geometry.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "drawing-paint.winding",
@@ -12380,10 +12380,10 @@
   "category": "transforms",
   "capability": "Animated draw order",
   "construct": "drawOrder: {target,position,active}; hold track on drawOrder.active",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "transforms.axis-scale",
@@ -12430,20 +12430,20 @@
   "category": "transforms",
   "capability": "Draw target after",
   "construct": "drawOrder: {target,position,active}; hold track on drawOrder.active",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "transforms.draw-target-before",
   "category": "transforms",
   "capability": "Draw target before",
   "construct": "drawOrder: {target,position,active}; hold track on drawOrder.active",
-  "module": "paint",
-  "status": "planned",
+  "module": "composite",
+  "status": "done",
   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
-  "phase": "P4"
+  "phase": "P4a"
  },
  {
   "id": "transforms.freeze-transform",
