@@ -46,9 +46,7 @@ export interface CompileResult {
 }
 
 /** Compile AniML to `.ani` (spec/ANIML.md §7). Never throws on bad input. */
-export function compile(_source: string, _opts: CompileOptions = {}): CompileResult {
-  throw new Error('compile: not implemented yet');
-}
+export { compile } from './compile.ts';
 
 /** Canonical AniML for a compiled document (spec/ANIML.md §8). `doc` may be text or parsed. */
 export function decompile(_doc: string | object): string {

@@ -1,0 +1,4 @@
+<!-- expect duplicate-attribute at 3:17 -->
+<anima version="0.1" name="broken" grid="20">
+  <group id="g" id="again"/>
+</anima>

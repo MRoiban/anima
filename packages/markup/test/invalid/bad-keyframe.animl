@@ -1,0 +1,8 @@
+<!-- expect bad-keyframe at 5:7 -->
+<anima version="0.1" name="broken" grid="20">
+  <timeline name="t" duration="1">
+    <track target="g.scale">
+      0
+    </track>
+  </timeline>
+</anima>
