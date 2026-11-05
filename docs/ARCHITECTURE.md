@@ -71,8 +71,8 @@ docs/      architecture, plan, research notes
 - **A11y and motion** per spec §10: role, label, `tabindex`, Enter/Space, `:focus-visible` styling
   hook, `prefers-reduced-motion` with a `motion` attribute override.
 - **Theming.** Slots become `var(--anima-<slot>, default)`; `currentColor` inherits.
-- **API.** Element properties/methods: `set`, `fire`, `play(timeline)` (debug), `ready` promise,
-  `values()`; DOM events: `anima:event` (detail `{ name, layer, time }`), `anima:state`.
+- **API.** See the [web host API reference](WEB.md) for attributes, properties, playback controls,
+  introspection, cleanup, and DOM events.
 - **Debug and replay.** `el.player` is the core `Player`; setting `el.trace = []` records every step,
   pointer event and input write, which converts one-to-one into an `anima sample` script — the
   browser tests use it to check the browser applies exactly what the headless run computes.

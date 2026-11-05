@@ -200,6 +200,382 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
       return { messages, requests };
     }
 
+    async function manualClock() {
+      await page.addInitScript(() => {
+        let now = 0;
+        let id = 0;
+        const callbacks = new Map<number, FrameRequestCallback>();
+        performance.now = () => now;
+        window.requestAnimationFrame = (cb) => {
+          window.rafCalls++;
+          callbacks.set(++id, cb);
+          return id;
+        };
+        window.cancelAnimationFrame = (key) => {
+          callbacks.delete(key);
+        };
+        window.addEventListener('test:frame', () => {
+          now += 100;
+          const run = [...callbacks.values()];
+          callbacks.clear();
+          for (const cb of run) cb(now);
+        });
+      });
+    }
+
+    it('host speed scales frame dt, reflects the attribute, and zero sleeps', async () => {
+      await manualClock();
+      await mount();
+      const result = await page.evaluate(() => {
+        const el = window.icon;
+        const initial = el.speed;
+        el.speed = 0.5;
+        const reflected = el.getAttribute('speed');
+        el.fire('ring');
+        for (let i = 0; i < 3; i++) window.dispatchEvent(new Event('test:frame'));
+        const time = el.player!.inspect()[0]!.time;
+        const steps = el.trace!.filter(([op]) => op === 'step').slice(-3);
+        el.speed = 0;
+        const count = el.trace!.length;
+        window.dispatchEvent(new Event('test:frame'));
+        const stopped = el.trace!.length === count;
+        el.setAttribute('speed', '2');
+        window.dispatchEvent(new Event('test:frame'));
+        const resumed = el.player!.inspect()[0]!.time;
+        const attribute = el.speed;
+        el.speed = -1;
+        const negative = el.speed;
+        el.setAttribute('speed', 'NaN');
+        return {
+          initial,
+          reflected,
+          time,
+          steps,
+          stopped,
+          resumed,
+          attribute,
+          negative,
+          invalid: el.speed,
+        };
+      });
+      expect(result).toMatchObject({
+        initial: 1,
+        reflected: '0.5',
+        time: 0.1,
+        steps: [
+          ['step', 0.05],
+          ['step', 0.05],
+          ['step', 0.05],
+        ],
+        stopped: true,
+        attribute: 2,
+        negative: 1,
+        invalid: 1,
+      });
+      expect(result.resumed).toBeCloseTo(0.3);
+    });
+
+    it('host pause queues writes and pointer/keyboard input; play applies them and resumes', async () => {
+      await manualClock();
+      await mount();
+      const result = await page.evaluate(() => {
+        const el = window.icon;
+        const settled = el.playback;
+        el.pause();
+        const before = el.trace!.filter(([op]) => op === 'step').length;
+        el.set('hover', true);
+        el.fire('ring');
+        el.dispatchEvent(new PointerEvent('pointermove', { clientX: 180, clientY: 180 }));
+        el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+        window.dispatchEvent(new Event('test:frame'));
+        const paused = {
+          playback: el.playback,
+          hover: el.get('hover'),
+          down: el.get('down'),
+          steps: el.trace!.filter(([op]) => op === 'step').length - before,
+        };
+        el.play();
+        const playing = { playback: el.playback, hover: el.get('hover'), down: el.get('down') };
+        window.dispatchEvent(new Event('test:frame'));
+        const time = el.player!.inspect()[0]!.time;
+        for (let i = 0; i < 20; i++) window.dispatchEvent(new Event('test:frame'));
+        return { settled, paused, playing, time, end: el.playback };
+      });
+      expect(result).toEqual({
+        settled: 'settled',
+        paused: { playback: 'paused', hover: false, down: false, steps: 0 },
+        playing: { playback: 'playing', hover: true, down: true },
+        time: 0.1,
+        end: 'settled',
+      });
+    });
+
+    it('host paused attribute starts without stepping, and reset restores defaults and initial states', async () => {
+      await manualClock();
+      await mount();
+      const result = await page.evaluate((doc) => {
+        const el = document.createElement('anima-icon');
+        el.setAttribute('paused', '');
+        el.trace = [];
+        document.body.append(el);
+        el.load(doc);
+        const initial = {
+          playback: el.playback,
+          steps: el.trace.length,
+          states: el.player!.states(),
+        };
+        el.set('hover', true);
+        el.fire('ring');
+        el.play();
+        window.dispatchEvent(new Event('test:frame'));
+        const svg = el.shadowRoot!.querySelector('svg');
+        el.pause();
+        el.set('down', true);
+        el.reset();
+        const reset = {
+          playback: el.playback,
+          hover: el.get('hover'),
+          down: el.get('down'),
+          states: el.player!.states(),
+          connected: el.isConnected,
+        };
+        el.play();
+        for (let i = 0; i < 20; i++) window.dispatchEvent(new Event('test:frame'));
+        return { initial, reset, end: el.player!.states(), hadSVG: !!svg };
+      }, bell);
+      expect(result).toEqual({
+        initial: { playback: 'paused', steps: 0, states: { ring: 'idle', hover: 'rest' } },
+        reset: {
+          playback: 'paused',
+          hover: false,
+          down: false,
+          states: { ring: 'idle', hover: 'rest' },
+          connected: true,
+        },
+        end: { ring: 'idle', hover: 'rest' },
+        hadSVG: true,
+      });
+    });
+
+    it('host destroy is idempotent, detaches scheduler and listeners, and load reattaches once', async () => {
+      await manualClock();
+      await mount();
+      const result = await page.evaluate((doc) => {
+        const el = window.icon;
+        el.fire('ring');
+        window.dispatchEvent(new Event('test:frame'));
+        el.destroy();
+        el.destroy();
+        const count = el.trace!.length;
+        el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+        el.dispatchEvent(new PointerEvent('pointermove'));
+        document.dispatchEvent(new Event('visibilitychange'));
+        window.dispatchEvent(new Event('test:frame'));
+        const empty = {
+          playback: el.playback,
+          info: el.info,
+          svg: !!el.shadowRoot!.querySelector('svg'),
+          unchanged: count === el.trace!.length,
+        };
+        el.load(doc);
+        el.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+        window.dispatchEvent(new Event('test:frame'));
+        const fired = el.trace!.slice(count).filter(([op]) => op === 'fire').length;
+        const state = el.player!.states().ring;
+        el.remove();
+        const disconnected = el.trace!.length;
+        window.dispatchEvent(new Event('test:frame'));
+        const detached = disconnected === el.trace!.length;
+        document.body.append(el);
+        window.dispatchEvent(new Event('test:frame'));
+        return { empty, fired, state, detached, reconnected: el.trace!.length > disconnected };
+      }, bell);
+      expect(result).toEqual({
+        empty: { playback: 'empty', info: null, svg: false, unchanged: true },
+        fired: 1,
+        state: 'ringing',
+        detached: true,
+        reconnected: true,
+      });
+    });
+
+    it('host invalidate repaints once with retained SVG nodes and no steps or queued frames', async () => {
+      await manualClock();
+      await mount();
+      expect(
+        await page.evaluate(() => {
+          const el = window.icon;
+          el.pause();
+          const svg = el.shadowRoot!.querySelector('svg')!;
+          const group = svg.querySelector('g[transform]')!;
+          const original = group.getAttribute('transform');
+          group.setAttribute('transform', 'matrix(2 0 0 2 0 0)');
+          const trace = el.trace!.length;
+          const frames = window.rafCalls;
+          el.invalidate();
+          return {
+            retained: svg === el.shadowRoot!.querySelector('svg'),
+            restored: group.getAttribute('transform') === original,
+            trace: el.trace!.length - trace,
+            frames: window.rafCalls - frames,
+          };
+        }),
+      ).toEqual({ retained: true, restored: true, trace: 0, frames: 0 });
+    });
+
+    it('host info describes the model, get reads committed inputs, and each load emits anima:load', async () => {
+      await mount();
+      const result = await page.evaluate((doc) => {
+        const el = document.createElement('anima-icon');
+        const empty = { info: el.info, playback: el.playback, missing: el.get('absent') };
+        const events: unknown[] = [];
+        el.addEventListener('anima:load', (e) => events.push((e as CustomEvent).detail));
+        document.body.append(el);
+        el.load(doc);
+        const first = el.info!;
+        first.viewBox[0] = 999;
+        const detached = el.info!.viewBox[0] !== 999;
+        el.load(doc);
+        el.reset();
+        return {
+          empty,
+          info: el.info,
+          events,
+          detached,
+          hover: el.get('hover'),
+          trigger: el.get('ring'),
+        };
+      }, bell);
+      expect(result.empty).toEqual({ info: null, playback: 'empty', missing: undefined });
+      expect(result.info).toEqual({
+        name: 'bell',
+        title: 'Bell',
+        grid: 20,
+        viewBox: [-2, -2, 24, 24],
+        inputs: [
+          { name: 'ring', type: 'trigger', default: false },
+          { name: 'hover', type: 'bool', default: false },
+          { name: 'down', type: 'bool', default: false },
+        ],
+        timelines: [{ name: 'ring', duration: 1.4, loop: 'once' }],
+        layers: [
+          { name: 'ring', initial: 'idle', states: ['idle', 'ringing', 'rested'] },
+          { name: 'hover', initial: 'rest', states: ['rest', 'hover', 'press'] },
+        ],
+      });
+      expect(result.events).toEqual([result.info, result.info, result.info]);
+      expect(result.detached).toBe(true);
+      expect(result.hover).toBe(false);
+      expect(result.trigger).toBeUndefined();
+    });
+
+    it('host get and info expose numeric defaults and bounds; reset also works during playback', async () => {
+      await manualClock();
+      await mount();
+      const result = await page.evaluate((source) => {
+        const doc = JSON.parse(source);
+        doc.inputs.amount = { type: 'number', default: 3, min: 1, max: 5 };
+        const el = window.icon;
+        el.load(doc);
+        const input = el.info!.inputs.find((i) => i.name === 'amount');
+        el.set('amount', 99);
+        const queued = el.get('amount');
+        window.dispatchEvent(new Event('test:frame'));
+        const clamped = el.get('amount');
+        el.fire('ring');
+        window.dispatchEvent(new Event('test:frame'));
+        const playing = el.playback;
+        el.reset();
+        const reset = {
+          value: el.get('amount'),
+          playback: el.playback,
+          states: el.player!.states(),
+        };
+        let loaded = 0;
+        el.addEventListener('anima:load', () => loaded++);
+        el.load({ anima: 'invalid' });
+        return {
+          input,
+          queued,
+          clamped,
+          playing,
+          reset,
+          failed: { loaded, playback: el.playback, info: el.info },
+        };
+      }, bell);
+      expect(result).toEqual({
+        input: { name: 'amount', type: 'number', default: 3, min: 1, max: 5 },
+        queued: 3,
+        clamped: 5,
+        playing: 'playing',
+        reset: { value: 3, playback: 'settled', states: { ring: 'idle', hover: 'rest' } },
+        failed: { loaded: 0, playback: 'empty', info: null },
+      });
+    });
+
+    it('host fit and align map all attributes to preserveAspectRatio; none uses intrinsic CSS pixels', async () => {
+      await mount();
+      const result = await page.evaluate(() => {
+        const el = window.icon;
+        const svg = el.shadowRoot!.querySelector('svg')!;
+        const initial = svg.getAttribute('preserveAspectRatio');
+        const values: string[] = [];
+        for (const fit of ['contain', 'cover', 'fill', 'none']) {
+          el.setAttribute('fit', fit);
+          for (const align of [
+            'center',
+            'top-left',
+            'top',
+            'top-right',
+            'left',
+            'right',
+            'bottom-left',
+            'bottom',
+            'bottom-right',
+          ]) {
+            el.setAttribute('align', align);
+            values.push(svg.getAttribute('preserveAspectRatio')!);
+          }
+        }
+        const intrinsic = {
+          width: svg.getBoundingClientRect().width,
+          height: svg.getBoundingClientRect().height,
+        };
+        el.setAttribute('fit', 'contain');
+        el.removeAttribute('align');
+        return {
+          initial,
+          values,
+          intrinsic,
+          restored: svg.getAttribute('preserveAspectRatio'),
+          style: svg.getAttribute('style') || null,
+        };
+      });
+      const alignments = [
+        'xMidYMid',
+        'xMinYMin',
+        'xMidYMin',
+        'xMaxYMin',
+        'xMinYMid',
+        'xMaxYMid',
+        'xMinYMax',
+        'xMidYMax',
+        'xMaxYMax',
+      ];
+      expect(result).toEqual({
+        initial: 'xMidYMid meet',
+        values: [
+          ...alignments.map((a) => a + ' meet'),
+          ...alignments.map((a) => a + ' slice'),
+          ...alignments.map(() => 'none'),
+          ...alignments.map((a) => a + ' meet'),
+        ],
+        intrinsic: { width: 24, height: 24 },
+        restored: 'xMidYMid meet',
+        style: null,
+      });
+    });
+
     it('compiles inline AniML to the same player and SVG as bell.ani with no extra requests', async () => {
       // Stop automatic frames so paired players receive exactly the same steps.
       await page.addInitScript(() => {
@@ -597,7 +973,11 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
       ];
       expect(actual.svg).toEqual({
         tag: 'svg',
-        attrs: { viewBox: model.viewBox.join(' '), 'aria-hidden': 'true' },
+        attrs: {
+          viewBox: model.viewBox.join(' '),
+          'aria-hidden': 'true',
+          preserveAspectRatio: 'xMidYMid meet',
+        },
       });
       expect(actual.elements).toEqual([
         ...(tree.defs.length ? [{ tag: 'defs', attrs: {} }, ...tree.defs.flatMap(flatten)] : []),

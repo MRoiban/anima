@@ -14,7 +14,7 @@ Status: format 0.1, core, CLI and web runtime in progress (see [`docs/PLAN.md`](
 [`docs/AUTHORING.md`](docs/AUTHORING.md) is the guide for writing animations;
 [`examples/bell.animl`](examples/bell.animl) is the reference source (compiled to
 [`examples/bell.ani`](examples/bell.ani)): a bell that tilts on hover and
-rings on click. Open [`examples/web/index.html`](examples/web/index.html) to play it.
+rings on click. See the [web host API](docs/WEB.md) for embedding and playback controls. Open [`examples/web/index.html`](examples/web/index.html) to play it.
 
 Author in AniML and compile with `anima build examples/bell.animl`. A trimmed excerpt of the bell
 source (geometry and other tracks omitted):

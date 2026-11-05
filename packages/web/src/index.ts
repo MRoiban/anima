@@ -34,13 +34,16 @@ let frame = 0;
 function tick(now: number): void {
   frame = 0;
   for (const icon of active) icon.frame(now);
-  if (active.size) frame = requestAnimationFrame(tick);
+  if (active.size && !frame) frame = requestAnimationFrame(tick);
 }
 
 function schedule(icon: AnimaIcon, on: boolean): void {
   if (on) active.add(icon);
   else active.delete(icon);
-  if (active.size && !frame) frame = requestAnimationFrame(tick);
+  if (!active.size && frame) {
+    cancelAnimationFrame(frame);
+    frame = 0;
+  } else if (active.size && !frame) frame = requestAnimationFrame(tick);
 }
 
 let seen: IntersectionObserver | undefined;
@@ -49,7 +52,7 @@ const motionQuery = () => matchMedia('(prefers-reduced-motion: reduce)');
 let ids = 0;
 
 export class AnimaIcon extends HTMLElement {
-  static observedAttributes = ['src', 'motion', 'label'];
+  static observedAttributes = ['src', 'motion', 'label', 'speed', 'paused', 'fit', 'align'];
   /** Registered by @anima-format/web/markup; the runtime never imports a compiler itself. */
   declare static compiler?: (source: string) => { doc?: object; diagnostics: SourceDiagnostic[] };
 
@@ -70,6 +73,11 @@ export class AnimaIcon extends HTMLElement {
   #onScreen = true;
   #states = '';
   #held = false;
+  #listeners?: AbortController;
+  #observing = false;
+  #destroyed = false;
+  #generation = 0;
+  #query = motionQuery();
   #mid = 'a' + ++ids + '-';
 
   constructor() {
@@ -80,6 +88,12 @@ export class AnimaIcon extends HTMLElement {
       this.#reject = rej;
     });
     this.ready.catch(() => {});
+    this.#listen();
+  }
+
+  #listen(): void {
+    if (this.#listeners) return;
+    this.#listeners = new AbortController();
     for (const [type, fn] of [
       ['pointermove', (e: PointerEvent) => this.#ptr('move', e)],
       ['pointerdown', (e: PointerEvent) => e.button === 0 && this.#ptr('down', e)],
@@ -90,46 +104,72 @@ export class AnimaIcon extends HTMLElement {
       ['keyup', (e: KeyboardEvent) => this.#key(e, false)],
       ['blur', () => this.#hold(false)],
     ] as const)
-      this.addEventListener(type, fn as EventListener);
+      this.addEventListener(type, fn as EventListener, { signal: this.#listeners.signal });
   }
 
   connectedCallback(): void {
+    if (this.#destroyed) return;
+    this.#listen();
     // Let optional modules register after customElements.define upgrades existing elements.
     queueMicrotask(() => {
-      if (!this.player) {
+      if (this.isConnected && !this.#destroyed && !this.player) {
         const inline = this.querySelector<HTMLScriptElement>(
           'script[type="application/vnd.anima+json"],script[type="application/vnd.anima+xml"]',
         );
         if (inline) this.load(inline.text, inline.type.endsWith('xml'));
       }
     });
+    this.#observe();
+    if (this.player?.busy) this.#wake();
+  }
+
+  #observe(): void {
+    if (this.#observing || !this.isConnected) return;
+    this.#observing = true;
     (seen ??= new IntersectionObserver((es) => {
       for (const e of es) (e.target as AnimaIcon).#visible(e.isIntersecting);
     })).observe(this);
-    motionQuery().addEventListener('change', this.#motion);
+    this.#query.addEventListener('change', this.#motion);
     document.addEventListener('visibilitychange', this.#motion);
   }
 
   disconnectedCallback(): void {
+    this.#observing = false;
     seen?.unobserve(this);
-    motionQuery().removeEventListener('change', this.#motion);
+    this.#query.removeEventListener('change', this.#motion);
     document.removeEventListener('visibilitychange', this.#motion);
     schedule(this, false);
   }
 
   attributeChangedCallback(name: string, _old: string | null, value: string | null): void {
-    if (name === 'src' && value)
+    if (name === 'src' && value) {
+      const generation = ++this.#generation;
       fetch(value)
         .then((r) => r.text())
         .then(
-          (t) => this.load(t, /\.animl(?:[?#]|$)/.test(value)),
-          () =>
+          (t) => {
+            if (generation === this.#generation) this.load(t, /\.animl(?:[?#]|$)/.test(value));
+          },
+          () => {
+            if (generation !== this.#generation) return;
             this.#fail([
               { code: 'fetch', severity: 'error', pointer: '', message: `cannot fetch ${value}` },
-            ]),
+            ]);
+          },
         );
-    else if (name === 'motion') this.#motion();
+    } else if (name === 'motion') this.#motion();
     else if (name === 'label') this.#aria();
+    else if (name === 'paused') {
+      if (value !== null) schedule(this, false);
+      else if (this.player) {
+        this.#step(0);
+        if (this.player.busy) this.#wake();
+      }
+    } else if (name === 'fit' || name === 'align') this.#layout();
+    else if (name === 'speed') {
+      if (this.speed === 0) schedule(this, false);
+      else if (this.player?.busy) this.#wake();
+    }
   }
 
   /** Load a document (text or parsed). Returns its diagnostics; errors leave the icon empty. */
@@ -156,13 +196,104 @@ export class AnimaIcon extends HTMLElement {
       this.#fail(diagnostics);
       return diagnostics;
     }
+    ++this.#generation;
+    this.#destroyed = false;
+    this.#listen();
+    this.#observe();
+    schedule(this, false);
+    this.#last = -1;
+    this.#states = '';
+    this.#held = false;
     this.player = new Player(model);
     this.#build(model);
     this.#motion();
     this.#aria();
-    this.#step(0);
+    if (!this.hasAttribute('paused')) this.#step(0);
     this.#resolve();
+    this.dispatchEvent(new CustomEvent('anima:load', { detail: this.info }));
     return diagnostics;
+  }
+
+  /** Nonnegative playback rate. Invalid attribute values use 1. */
+  get speed(): number {
+    const value = Number(this.getAttribute('speed') ?? 1);
+    return Number.isFinite(value) && value >= 0 ? value : 1;
+  }
+
+  set speed(value: number) {
+    this.setAttribute('speed', String(Number.isFinite(value) && value >= 0 ? value : 1));
+  }
+
+  get playback(): 'empty' | 'paused' | 'playing' | 'settled' {
+    if (!this.player) return 'empty';
+    if (this.hasAttribute('paused')) return 'paused';
+    return this.player.busy ? 'playing' : 'settled';
+  }
+
+  pause(): void {
+    this.setAttribute('paused', '');
+  }
+
+  play(): void {
+    if (this.hasAttribute('paused')) this.removeAttribute('paused');
+    else if (this.player?.busy) this.#wake();
+  }
+
+  get(name: string): number | boolean | undefined {
+    return this.player?.get(name);
+  }
+
+  /** A detached summary; editing it does not edit the loaded model. */
+  get info() {
+    const m = this.player?.model;
+    if (!m) return null;
+    return {
+      name: m.doc.name,
+      title: m.doc.title,
+      grid: m.grid,
+      viewBox: [...m.viewBox],
+      inputs: [...m.inputs.values()].map((i) => ({
+        name: i.name,
+        type: i.type,
+        default: i.def,
+        ...(i.type === 'number' && Number.isFinite(i.min) ? { min: i.min } : {}),
+        ...(i.type === 'number' && Number.isFinite(i.max) ? { max: i.max } : {}),
+      })),
+      timelines: m.timelines.map((t) => ({ name: t.name, duration: t.duration, loop: t.loop })),
+      layers: m.layers.map((l) => ({
+        name: l.name,
+        initial: l.states[l.initial]!.name,
+        states: l.states.map((s) => s.name),
+      })),
+    };
+  }
+
+  reset(): void {
+    if (this.player) this.load(this.player.model.doc);
+  }
+
+  destroy(): void {
+    ++this.#generation;
+    this.#destroyed = true;
+    this.disconnectedCallback();
+    this.#listeners?.abort();
+    this.#listeners = undefined;
+    this.player = undefined;
+    this.#svg = undefined;
+    this.#els = [];
+    this.#byNode.clear();
+    this.#root.replaceChildren();
+    this.#held = false;
+    this.#aria();
+  }
+
+  /** Repaint retained elements without advancing the player or scheduling a frame. */
+  invalidate(): void {
+    if (this.player)
+      for (const rec of this.#els) {
+        rec[2] = {};
+        this.#paint(rec);
+      }
   }
 
   /** Set a bool or number input. */
@@ -190,6 +321,7 @@ export class AnimaIcon extends HTMLElement {
   }
 
   #fail(d: SourceDiagnostic[]): void {
+    this.destroy();
     console.error(
       `anima-icon: ${d.map((x) => `${x.message} at ${x.line ? `${x.line}:${x.column}` : x.pointer || '/'}`).join(', ')}`,
     );
@@ -227,7 +359,42 @@ export class AnimaIcon extends HTMLElement {
     }
     for (const el of root) make(el, svg);
     this.#root.append(svg);
+    this.#layout();
     for (const rec of this.#els) this.#paint(rec);
+  }
+
+  #layout(): void {
+    const svg = this.#svg;
+    const m = this.player?.model;
+    if (!svg || !m) return;
+    const fit = this.getAttribute('fit');
+    const align = this.getAttribute('align') ?? 'center';
+    const positions: Record<string, [string, string]> = {
+      center: ['Mid', 'Mid'],
+      'top-left': ['Min', 'Min'],
+      top: ['Mid', 'Min'],
+      'top-right': ['Max', 'Min'],
+      left: ['Min', 'Mid'],
+      right: ['Max', 'Mid'],
+      'bottom-left': ['Min', 'Max'],
+      bottom: ['Mid', 'Max'],
+      'bottom-right': ['Max', 'Max'],
+    };
+    const [x, y] = Object.hasOwn(positions, align) ? positions[align]! : positions.center!;
+    svg.setAttribute(
+      'preserveAspectRatio',
+      fit === 'fill' ? 'none' : `x${x}Y${y} ${fit === 'cover' ? 'slice' : 'meet'}`,
+    );
+    if (fit === 'none') {
+      const offset = (part: string, size: number) =>
+        part === 'Min'
+          ? '0px'
+          : `calc(${part === 'Mid' ? 50 : 100}% - ${size * (part === 'Mid' ? 0.5 : 1)}px)`;
+      svg.style.width = m.viewBox[2] + 'px';
+      svg.style.height = m.viewBox[3] + 'px';
+      svg.style.left = offset(x, m.viewBox[2]);
+      svg.style.top = offset(y, m.viewBox[3]);
+    } else svg.removeAttribute('style');
   }
 
   #paint(rec: [El, Element, Attrs]): void {
@@ -293,19 +460,32 @@ export class AnimaIcon extends HTMLElement {
 
   /** Called by the shared loop. */
   frame(now: number): void {
+    if (!this.player || this.hasAttribute('paused') || this.speed === 0 || !this.isConnected) {
+      schedule(this, false);
+      return;
+    }
     const dt = this.#last < 0 ? 0 : Math.min(MAX_DT, Math.max(0, (now - this.#last) / 1000));
     this.#last = now;
-    this.#step(dt);
+    this.#step(dt * this.speed);
   }
 
   #wake(): void {
-    if (!this.player || !this.#onScreen || document.hidden) return;
+    if (
+      !this.player ||
+      this.hasAttribute('paused') ||
+      this.speed === 0 ||
+      !this.isConnected ||
+      !this.#onScreen ||
+      document.hidden
+    )
+      return;
     if (!active.has(this)) this.#last = performance.now();
     schedule(this, true);
   }
 
   #visible(on: boolean): void {
     this.#onScreen = on;
+    if (this.#destroyed) return;
     if (on && this.player?.busy) this.#wake();
     else if (!on) schedule(this, false);
   }
@@ -313,7 +493,7 @@ export class AnimaIcon extends HTMLElement {
   #motion = (): void => {
     if (!this.player) return;
     const m = this.getAttribute('motion');
-    this.player.reducedMotion = m === 'reduce' || (m !== 'full' && motionQuery().matches);
+    this.player.reducedMotion = m === 'reduce' || (m !== 'full' && this.#query.matches);
     if (document.hidden) schedule(this, false);
     else if (this.player.busy) this.#wake();
   };
@@ -333,7 +513,7 @@ export class AnimaIcon extends HTMLElement {
     }
     this.trace?.push(['pointer', kind, x, y]);
     p.pointer(kind, x, y);
-    this.#step(0);
+    if (!this.hasAttribute('paused')) this.#step(0);
     this.#wake();
   }
 

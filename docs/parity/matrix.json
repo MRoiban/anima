@@ -5540,10 +5540,10 @@
   "id": "host-api.cleanup",
   "category": "host-api",
   "capability": "Instance teardown",
-  "construct": "new: <anima-icon>.destroy()",
+  "construct": "`el.destroy()` detaches internal listeners, observers and scheduler; later load reuses host",
   "module": "web",
   "status": "planned",
-  "test": "browser/cleanup",
+  "test": "packages/web/test/browser.test.ts: host destroy is idempotent (Chromium + Firefox)",
   "phase": "P3"
  },
  {
@@ -5850,10 +5850,10 @@
   "id": "host-api.file-introspection",
   "category": "host-api",
   "capability": "Inspect runtime contents",
-  "construct": "new: runtime metadata for scenes, timelines, machines and inputs",
+  "construct": "`el.info` lists metadata, inputs, timelines and layer states; `el.get(name)` reads inputs",
   "module": "tooling",
   "status": "planned",
-  "test": "browser/file-introspection",
+  "test": "packages/web/test/browser.test.ts: host info describes the model (Chromium + Firefox)",
   "phase": "P3"
  },
  {
@@ -6294,10 +6294,10 @@
   "id": "host-api.pause",
   "category": "host-api",
   "capability": "Pause selected playback",
-  "construct": "new: <anima-icon>.pause(name)",
+  "construct": "`el.pause()` or `paused` attribute; queue writes without stepping",
   "module": "web",
   "status": "planned",
-  "test": "browser/pause",
+  "test": "packages/web/test/browser.test.ts: host pause queues writes (Chromium + Firefox)",
   "phase": "P3"
  },
  {
@@ -6314,20 +6314,20 @@
   "id": "host-api.play",
   "category": "host-api",
   "capability": "Play named animation or machine",
-  "construct": "new: <anima-icon>.play(name)",
+  "construct": "`el.play()` removes explicit pause, applies writes, and resumes",
   "module": "web",
   "status": "planned",
-  "test": "browser/play",
+  "test": "packages/web/test/browser.test.ts: host pause queues writes (Chromium + Firefox)",
   "phase": "P3"
  },
  {
   "id": "host-api.playback-state",
   "category": "host-api",
   "capability": "Read playback state",
-  "construct": "new: <anima-icon>.playback",
+  "construct": "`el.playback`: empty, paused, playing, settled",
   "module": "web",
   "status": "planned",
-  "test": "browser/playback-state",
+  "test": "packages/web/test/browser.test.ts: host pause queues writes; host destroy is idempotent (Chromium + Firefox)",
   "phase": "P3"
  },
  {
@@ -6354,10 +6354,10 @@
   "id": "host-api.render-loop-control",
   "category": "host-api",
   "capability": "Suspend drawing loop",
-  "construct": "new: <anima-icon>.suspend()/.resume()",
+  "construct": "`el.speed` / speed attribute; shared scheduler sleeps at zero or explicit pause",
   "module": "web",
   "status": "planned",
-  "test": "browser/render-loop-control",
+  "test": "packages/web/test/browser.test.ts: host speed scales frame dt (Chromium + Firefox)",
   "phase": "P3"
  },
  {
@@ -6384,10 +6384,10 @@
   "id": "host-api.reset",
   "category": "host-api",
   "capability": "Reset playback",
-  "construct": "new: <anima-icon>.reset(options)",
+  "construct": "`el.reset()` restores default inputs and initial states, retaining the host",
   "module": "web",
   "status": "planned",
-  "test": "browser/reset",
+  "test": "packages/web/test/browser.test.ts: host paused attribute starts without stepping (Chromium + Firefox)",
   "phase": "P3"
  },
  {
@@ -6474,10 +6474,10 @@
   "id": "host-api.single-redraw",
   "category": "host-api",
   "capability": "Request one frame",
-  "construct": "new: <anima-icon>.invalidate()",
+  "construct": "`el.invalidate()` repaints retained SVG once without stepping",
   "module": "web",
   "status": "planned",
-  "test": "browser/single-redraw",
+  "test": "packages/web/test/browser.test.ts: host invalidate repaints once (Chromium + Firefox)",
   "phase": "P3"
  },
  {

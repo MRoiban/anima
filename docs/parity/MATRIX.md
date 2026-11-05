@@ -329,22 +329,22 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
 | `host-api.autoplay` | Autoplay | new: <anima-icon autoplay> | web | planned | browser/autoplay |
-| `host-api.cleanup` | Instance teardown | new: <anima-icon>.destroy() | web | planned | browser/cleanup |
+| `host-api.cleanup` | Instance teardown | `el.destroy()` detaches internal listeners, observers and scheduler; later load reuses host | web | planned | packages/web/test/browser.test.ts: host destroy is idempotent (Chromium + Firefox) |
 | `host-api.deprecation-policy` | Deprecation warning controls | new: coded API deprecation diagnostics | tooling | planned | browser/deprecation-policy |
-| `host-api.file-introspection` | Inspect runtime contents | new: runtime metadata for scenes, timelines, machines and inputs | tooling | planned | browser/file-introspection |
+| `host-api.file-introspection` | Inspect runtime contents | `el.info` lists metadata, inputs, timelines and layer states; `el.get(name)` reads inputs | tooling | planned | packages/web/test/browser.test.ts: host info describes the model (Chromium + Firefox) |
 | `host-api.fps-counter` | FPS monitoring | new: inspector performance counters | tooling | planned | browser/fps-counter |
 | `host-api.keyboard-focus` | Keyboard focus integration | new: focus tree and host focus policy | a11y | planned | browser/keyboard-focus |
 | `host-api.low-level-focus` | Manual focus traversal | new: focus tree handle | a11y | planned | browser/low-level-focus |
 | `host-api.low-level-semantics` | Semantic diffs and actions | new: semantic tree adapter API | a11y | planned | browser/low-level-semantics |
-| `host-api.pause` | Pause selected playback | new: <anima-icon>.pause(name) | web | planned | browser/pause |
+| `host-api.pause` | Pause selected playback | `el.pause()` or `paused` attribute; queue writes without stepping | web | planned | packages/web/test/browser.test.ts: host pause queues writes (Chromium + Firefox) |
 | `host-api.performance-marks` | Performance marks | new: opt-in performance marks | tooling | planned | browser/performance-marks |
-| `host-api.play` | Play named animation or machine | new: <anima-icon>.play(name) | web | planned | browser/play |
-| `host-api.playback-state` | Read playback state | new: <anima-icon>.playback | web | planned | browser/playback-state |
-| `host-api.render-loop-control` | Suspend drawing loop | new: <anima-icon>.suspend()/.resume() | web | planned | browser/render-loop-control |
-| `host-api.reset` | Reset playback | new: <anima-icon>.reset(options) | web | planned | browser/reset |
+| `host-api.play` | Play named animation or machine | `el.play()` removes explicit pause, applies writes, and resumes | web | planned | packages/web/test/browser.test.ts: host pause queues writes (Chromium + Firefox) |
+| `host-api.playback-state` | Read playback state | `el.playback`: empty, paused, playing, settled | web | planned | packages/web/test/browser.test.ts: host pause queues writes; host destroy is idempotent (Chromium + Firefox) |
+| `host-api.render-loop-control` | Suspend drawing loop | `el.speed` / speed attribute; shared scheduler sleeps at zero or explicit pause | web | planned | packages/web/test/browser.test.ts: host speed scales frame dt (Chromium + Firefox) |
+| `host-api.reset` | Reset playback | `el.reset()` restores default inputs and initial states, retaining the host | web | planned | packages/web/test/browser.test.ts: host paused attribute starts without stepping (Chromium + Firefox) |
 | `host-api.semantic-overlay` | Accessible semantic tree | new: nested semantic nodes mapped to SVG/DOM | a11y | planned | browser/semantic-overlay |
 | `host-api.shared-frame-scheduler` | Shared frame scheduling | new: Shared frame scheduling | web | planned | browser/shared-frame-scheduler |
-| `host-api.single-redraw` | Request one frame | new: <anima-icon>.invalidate() | web | planned | browser/single-redraw |
+| `host-api.single-redraw` | Request one frame | `el.invalidate()` repaints retained SVG once without stepping | web | planned | packages/web/test/browser.test.ts: host invalidate repaints once (Chromium + Firefox) |
 | `host-api.stop` | Stop selected playback | new: <anima-icon>.stop(name) | web | planned | browser/stop |
 
 ### Platforms
