@@ -1,12 +1,11 @@
 # Work log
 
 ## Now
-Goal: P1 AniML (authoring markup) → PR from p1-animl; then M5, then Phase B (P3 playground first).
-State: p1-animl 12b642d: contract + Sol compiler + decompiler/formatter merged; round-trip tests green (bell + 13 cases); 274 tests; core+web 14635 B gz.
-Next: wave 2 running (Sol, worktrees from 12b642d): CLI (.animl everywhere, build incl. html, decompile, new→animl); web markup module (baseline 7032 B gz, target ≤6144); migrate conformance+README to .animl.
-Next: wave 3 — rewrite docs/AUTHORING.md for markup (real diagnostics via CLI); wave 4 head-to-head (AniML vs .ani vs Rive RML), then PLAN/LOG, PR, merge, summary.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: AniML head-to-head dark-mode switch; local commit only.
+State: switch.animl authored by hand; switch.ani built by CLI; all seven brief items verified.
+Evidence: CLI validate/inspect/sample/render/build; Chromium role, label, checked-state assertions pass.
+Next: hand back committed source and REPORT.md to owner; no push/PR/merge.
+Don't: read other formats' comparison materials, touch .riv files, or change runtime code.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -45,3 +44,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 14:39 [sol]: browser build emits anima-icon.js + anima-markup.js → build-web --check passes; intentional stale markup artifact rejected with exit 1, restored artifact passes; no new runtime dependencies beyond workspace markup, no CLI/core/spec/docs edits, no push/PR/merge.
 - 2026-11-05 15:40 [claude]: merged Sol web markup module (a980e42): markup 5777/6144 B gz, core+web 14781 B (+146); npm run check green: 347 tests, Chromium+Firefox (evidence: npm run check after local dist rebuild)
 - 2026-11-05 16:05 [claude]: merged Sol AUTHORING.md rewrite (8ee957f; 4/4 xml blocks compile, 6/6 diagnostics match, tested); markup hints for undeclared input/colour/glyph; markup 5804 B gz
+- 2026-11-05 13:52 [sol]: AniML head-to-head switch → 7/7 brief items verified; 16 check/build runs clean, 3 CLI startup module errors resolved by npm ci; 51 lines/1997 chars; keyboard activation absent (evidence: REPORT.md, CLI samples, Chromium assertions). Local commit only.
