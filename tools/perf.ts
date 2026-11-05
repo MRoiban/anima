@@ -5,7 +5,9 @@
 import { readFileSync } from 'node:fs';
 import { compile } from '../packages/markup/src/index.ts';
 
-const bell = readFileSync(new URL('../examples/bell.animl', import.meta.url), 'utf8');
+// A fixed, self-contained workload (examples/bell.animl at P4a), so the number only moves when
+// the compiler does, not when the examples are rewritten.
+const bell = readFileSync(new URL('./perf/bell.animl', import.meta.url), 'utf8');
 const options = {
   file: 'examples/bell.animl',
   resolve: (path: string) => readFileSync(new URL('../' + path, import.meta.url), 'utf8'),
