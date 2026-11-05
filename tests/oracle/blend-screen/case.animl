@@ -1,0 +1,1 @@
+<anima version="0.1" name="blend-screen" grid="20" requires="paint composite"><rect id="b" x0="2" y0="2" width="12" height="12" fill="#d97757"/><rect id="a" x0="6" y0="6" width="12" height="12" fill="#4263eb" mix-blend-mode="screen"/></anima>

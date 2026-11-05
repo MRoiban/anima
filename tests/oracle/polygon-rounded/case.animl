@@ -1,0 +1,1 @@
+<anima version="0.1" name="polygon-rounded" grid="20" requires="paint composite"><polygon id="a" cx="10" cy="10" sides="5" radius="7" cornerRadius="1" fill="#4263eb"/></anima>

@@ -1,0 +1,1 @@
+<anima version="0.1" name="ellipse" grid="20" requires="paint composite"><ellipse id="a" cx="10" cy="10" rx="7" ry="4" fill="#4263eb"/></anima>

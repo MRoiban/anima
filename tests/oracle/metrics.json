@@ -1,0 +1,268 @@
+[
+  {
+    "name": "linear",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "radial",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "animated-stop",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "dashes-absolute",
+    "threshold": 16,
+    "maxOverPercent": 0.3,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 95,
+        "over": 151,
+        "overPercent": 0.2621527777777778,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "dashes-percent",
+    "threshold": 16,
+    "maxOverPercent": 0.3,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 95,
+        "over": 151,
+        "overPercent": 0.2621527777777778,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "ellipse",
+    "threshold": 16,
+    "maxOverPercent": 0.4,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 71,
+        "over": 181,
+        "overPercent": 0.3142361111111111,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "polygon-rounded",
+    "threshold": 16,
+    "maxOverPercent": 0.35,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 59,
+        "over": 155,
+        "overPercent": 0.2690972222222222,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "star",
+    "threshold": 16,
+    "maxOverPercent": 0.45,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 59,
+        "over": 202,
+        "overPercent": 0.3506944444444444,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "rect-corners",
+    "threshold": 16,
+    "maxOverPercent": 0.12,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 70,
+        "over": 44,
+        "overPercent": 0.0763888888888889,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "path-morph",
+    "threshold": 16,
+    "maxOverPercent": 0.4,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 47,
+        "over": 144,
+        "overPercent": 0.25,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 47,
+        "over": 192,
+        "overPercent": 0.3333333333333333,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 24,
+        "over": 120,
+        "overPercent": 0.20833333333333334,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "blend-multiply",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "blend-screen",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "clip",
+    "threshold": 16,
+    "maxOverPercent": 0.4,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 71,
+        "over": 184,
+        "overPercent": 0.3194444444444444,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "alpha-mask",
+    "threshold": 16,
+    "maxOverPercent": 0.25,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 36,
+        "over": 96,
+        "overPercent": 0.16666666666666666,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "stroke-inside",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "stroke-outside",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "multiple-paints",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  }
+]

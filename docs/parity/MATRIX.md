@@ -450,39 +450,39 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `drawing-paint.blend-hue` | Blend mode hue | node.blend / mix-blend-mode="hue" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
 | `drawing-paint.blend-lighten` | Blend mode lighten | node.blend / mix-blend-mode="lighten" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
 | `drawing-paint.blend-luminosity` | Blend mode luminosity | node.blend / mix-blend-mode="luminosity" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-multiply` | Blend mode multiply | node.blend / mix-blend-mode="multiply" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-multiply` | Blend mode multiply | node.blend / mix-blend-mode="multiply" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend; tests/oracle/blend-multiply |
 | `drawing-paint.blend-overlay` | Blend mode overlay | node.blend / mix-blend-mode="overlay" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
 | `drawing-paint.blend-saturation` | Blend mode saturation | node.blend / mix-blend-mode="saturation" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.blend-screen` | Blend mode screen | node.blend / mix-blend-mode="screen" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
+| `drawing-paint.blend-screen` | Blend mode screen | node.blend / mix-blend-mode="screen" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend; tests/oracle/blend-screen |
 | `drawing-paint.blend-soft-light` | Blend mode softLight | node.blend / mix-blend-mode="soft-light" | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend |
-| `drawing-paint.dash-absolute` | Dash lengths | stroke.dash numeric grid lengths; requires paint | paint | done | spec/conformance/paint-dash; packages/core/test/paint.test.ts |
+| `drawing-paint.dash-absolute` | Dash lengths | stroke.dash numeric grid lengths; requires paint | paint | done | spec/conformance/paint-dash; packages/core/test/paint.test.ts; tests/oracle/dashes-absolute |
 | `drawing-paint.dash-offset` | Dash phase | stroke.dashOffset animatable number; grid units or path fraction; requires paint | paint | done | spec/conformance/paint-dash; packages/core/test/paint.test.ts |
-| `drawing-paint.dash-relative` | Relative dashes | stroke.dash percentage strings, fractions of full outline length; requires paint | paint | done | spec/conformance/paint-dash; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
-| `drawing-paint.ellipse` | Ellipses | ellipse cx/cy/rx/ry | paint | done | spec/conformance/paint-shape-ellipse; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.geometry-clip` | Geometry clipping | clip: {source,rule} | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
-| `drawing-paint.gradient-linear` | linear gradients | fill/stroke.type=linear; x1/y1/x2/y2; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
+| `drawing-paint.dash-relative` | Relative dashes | stroke.dash percentage strings, fractions of full outline length; requires paint | paint | done | spec/conformance/paint-dash; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts; tests/oracle/dashes-percent |
+| `drawing-paint.ellipse` | Ellipses | ellipse cx/cy/rx/ry | paint | done | spec/conformance/paint-shape-ellipse; packages/web/test/paint-geometry.test.ts; tests/oracle/ellipse |
+| `drawing-paint.geometry-clip` | Geometry clipping | clip: {source,rule} | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts; tests/oracle/clip |
+| `drawing-paint.gradient-linear` | linear gradients | fill/stroke.type=linear; x1/y1/x2/y2; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts; tests/oracle/linear |
 | `drawing-paint.gradient-opacity` | Gradient opacity | gradient stop colour alpha (#rrggbbaa), sampled per channel; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts |
-| `drawing-paint.gradient-radial` | radial gradients | fill/stroke.type=radial; cx/cy/r/fx/fy; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts |
-| `drawing-paint.gradient-stops` | Gradient stop animation | fill/stroke.stops[] {position,color}; indexed animatable stop addresses; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts |
-| `drawing-paint.mask-alpha` | alpha subtree masks | mask: {source, mode: "alpha", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
+| `drawing-paint.gradient-radial` | radial gradients | fill/stroke.type=radial; cx/cy/r/fx/fy; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts; tests/oracle/radial |
+| `drawing-paint.gradient-stops` | Gradient stop animation | fill/stroke.stops[] {position,color}; indexed animatable stop addresses; requires paint | paint | done | spec/conformance/paint-gradient; packages/core/test/paint.test.ts; tests/oracle/animated-stop |
+| `drawing-paint.mask-alpha` | alpha subtree masks | mask: {source, mode: "alpha", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha; tests/oracle/alpha-mask |
 | `drawing-paint.mask-bounds` | Mask region | SVG mask covering three viewBoxes | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
 | `drawing-paint.mask-enabled` | Toggle layer masks | mask presence; dynamic enable deferred | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
 | `drawing-paint.mask-inverted-alpha` | invertedAlpha subtree masks | mask: {source, mode: "inverted-alpha", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
 | `drawing-paint.mask-inverted-luminance` | invertedLuminance subtree masks | mask: {source, mode: "inverted-luminance", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
 | `drawing-paint.mask-luminance` | luminance subtree masks | mask: {source, mode: "luminance", sourceDraws} | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
 | `drawing-paint.mask-source-draws` | Visible mask sources | mask.sourceDraws | composite | done | packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha |
-| `drawing-paint.multiple-paints` | Multiple fills and strokes | paints: [{fill\|stroke}] | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `drawing-paint.multiple-paints` | Multiple fills and strokes | paints: [{fill\|stroke}] | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts; tests/oracle/multiple-paints |
 | `drawing-paint.paint-visible` | Paint visibility | fill.visible / stroke.visible / paints.i.kind.visible | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
 | `drawing-paint.polygon` | Regular polygons | polygon cx/cy/sides/radius/rotation | paint | done | spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.polygon-rounded` | Rounded polygons | polygon cornerRadius cutback/quadratic | paint | done | spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.rectangle-corner-radii` | Independent rectangle corners | rect corners [tl,tr,br,bl], animated corners.0–3 | paint | done | spec/conformance/paint-shape-corners; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.star` | Stars | star cx/cy/points/radius/innerRadius | paint | done | spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.polygon-rounded` | Rounded polygons | polygon cornerRadius cutback/quadratic | paint | done | spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts; tests/oracle/polygon-rounded |
+| `drawing-paint.rectangle-corner-radii` | Independent rectangle corners | rect corners [tl,tr,br,bl], animated corners.0–3 | paint | done | spec/conformance/paint-shape-corners; packages/web/test/paint-geometry.test.ts; tests/oracle/rect-corners |
+| `drawing-paint.star` | Stars | star cx/cy/points/radius/innerRadius | paint | done | spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts; tests/oracle/star |
 | `drawing-paint.star-rounded` | Rounded stars | star cornerRadius cutback/quadratic | paint | done | spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.stroke-position-inside` | inside stroke placement | stroke.position: inside | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
-| `drawing-paint.stroke-position-outside` | outside stroke placement | stroke.position: outside | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts |
+| `drawing-paint.stroke-position-inside` | inside stroke placement | stroke.position: inside | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts; tests/oracle/stroke-inside |
+| `drawing-paint.stroke-position-outside` | outside stroke placement | stroke.position: outside | composite | done | packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts; tests/oracle/stroke-outside |
 | `drawing-paint.stroke-transform-independent` | Unscaled strokes | stroke.scale=fixed; vector-effect non-scaling-stroke | paint | done | spec/conformance/paint-shape-fixed; packages/web/test/paint-geometry.test.ts |
 | `drawing-paint.triangle` | Triangles | triangle x0/y0/width/height | paint | done | spec/conformance/paint-shape-triangle; packages/web/test/paint-geometry.test.ts |
-| `drawing-paint.vertex-animation` | Vertex and handle animation | path d compatible command-list morph track | paint | done | spec/conformance/paint-morph; packages/web/test/paint-geometry.test.ts |
+| `drawing-paint.vertex-animation` | Vertex and handle animation | path d compatible command-list morph track | paint | done | spec/conformance/paint-morph; packages/web/test/paint-geometry.test.ts; tests/oracle/path-morph |
 
 ### Transforms and draw order
 

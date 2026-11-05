@@ -157,8 +157,9 @@ and an oracle test against Rive.
         shouldn't be a blocker"); still tracked per phase.
   - [x] P4a-7 benchmark friction: pose path strings, group clips, optional clip rule,
         `anima schema pose`, dash caps in the docs.
-  - [ ] P4a oracle cases against the Rive CLI for the paint features (MODULES §5) — **before P5
-        merges** (owner, 2026-11-06).
+  - [x] P4a oracle cases against the Rive CLI for the paint features (MODULES §5) — **before P5
+        merges** (owner, 2026-11-06). 17 cases / 21 committed reference frames;
+        `tools/oracle.test.ts`, measurements and mapping limits in `tests/oracle/README.md`.
 - [ ] P5-3 AniML libraries/templates: implementation present; acceptance blocked on the unchanged 8192 B markup budget (see LOG).
 - [ ] P5 Components and assets — **moved up** (owner, 2026-11-06): nested artboards / components,
       per-instance inputs, shared glyph and layer libraries (the reuse friction from M5 and from

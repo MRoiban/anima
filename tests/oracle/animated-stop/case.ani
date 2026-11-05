@@ -1,0 +1,56 @@
+{
+  "anima": "0.1",
+  "name": "animated-stop",
+  "grid": 20,
+  "requires": ["paint", "composite"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 3,
+      "y0": 3,
+      "w": 14,
+      "h": 14,
+      "fill": {
+        "type": "linear",
+        "x1": 3,
+        "y1": 3,
+        "x2": 17,
+        "y2": 17,
+        "stops": [
+          {
+            "position": 0,
+            "color": "#4263eb"
+          },
+          {
+            "position": 1,
+            "color": "#d97757"
+          }
+        ]
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "a.fill.stops.1.position": [
+          [0, 1],
+          [1, 0.3]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

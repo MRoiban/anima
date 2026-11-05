@@ -1,0 +1,1 @@
+<anima version="0.1" name="multiple-paints" grid="20" requires="paint composite"><rect id="a" x0="4" y0="4" width="12" height="12"><fillPaint fill="#d97757"/><strokePaint stroke="#4263eb" stroke-width="2" stroke-linejoin="miter"/><strokePaint stroke="#ffffff" stroke-width="0.5" stroke-linejoin="miter"/></rect></anima>

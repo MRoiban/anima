@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: wave 1 Sol: bind module; AniML libraries/templates; assets+image (parallel). Then components (after bind), n-slice/feather/image paints, P5 benchmark.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: P4a Rive pixel oracles required before P5 merges; branch t3/p4a-rive-oracle-cases.
+Verified: 17 paired scenes / 21 frames, strict per-case budgets pass; oracle Vitest 17/17.
+Verified: no interior differences >16; worst contour share 0.3507% (star), max 95 (dashes).
+State: full suite 863/863 passes with 2 workers; check blocked by inherited markup size 9583/8192 B.
+Next: owner integrate this commit; resolve existing P5 markup size blocker before merge.
+Don't: Rive account commands, interactive preview, .riv reads/conversions, runtime dependencies, push/PR/merge.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -77,3 +78,6 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 10:50 [claude]: P5 wave 1 launched (Sol high): P5-1 bind, P5-3 AniML libraries/templates, P5-4 assets+image; components (P5-2) after bind
 - 2026-11-06 12:00 [claude]: merged P5-3 templates (a119eba): 767 tests, examples byte-identical; markup 9506/8192 over → split library support into its own browser entry; compile time unchanged on fixed workload (interleaved 818–1092 vs 881–995 ms)
 - 2026-11-06 13:00 [claude]: merged P5-1 bind (fdcc4cc): 846 tests, bind 1367/2048; owner size ceilings recorded (PLAN, parity README, table-driven tools/size.ts with totals: full-featured 34.7 KB); per-frame cost in tools/perf.ts; oracle cases scheduled before P5 merge
+- 2026-11-05 21:05 [sol-test]: authored/captured 17 P4a oracles (21 frames), CLI comparisons + Vitest 17/17 pass → no differences beyond AA; initial outside stroke join mismatch 190/0.264% fixed by matching miter (evidence: tests/oracle/metrics.json); npm run check running (unverified).
+- 2026-11-05 21:03 [sol-test]: first npm run check → type/lint/format pass, 861/863 tests pass; existing Chromium bind player undefined and Firefox playground timeout/server-close fail under default workers; retry with VITEST_MAX_WORKERS=2 (unverified); no assertions/timeouts changed.
+- 2026-11-05 21:08 [sol-test]: VITEST_MAX_WORKERS=2 npm run check → types/lint/format and 863/863 tests green, then inherited markup size 9583/8192 B fails; web/animl --check and perf separately pass; oracle --strict passes; no runtime/dependency changes.

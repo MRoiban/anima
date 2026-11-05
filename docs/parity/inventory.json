@@ -10477,7 +10477,7 @@
    "construct": "node.blend / mix-blend-mode=\"multiply\"",
    "module": "composite",
    "status": "done",
-   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend; tests/oracle/blend-multiply",
    "phase": "P4a"
   }
  },
@@ -10576,7 +10576,7 @@
    "construct": "node.blend / mix-blend-mode=\"screen\"",
    "module": "composite",
    "status": "done",
-   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend; tests/oracle/blend-screen",
    "phase": "P4a"
   }
  },
@@ -10890,7 +10890,7 @@
    "construct": "stroke.dash numeric grid lengths; requires paint",
    "module": "paint",
    "status": "done",
-   "test": "spec/conformance/paint-dash; packages/core/test/paint.test.ts",
+   "test": "spec/conformance/paint-dash; packages/core/test/paint.test.ts; tests/oracle/dashes-absolute",
    "phase": "P4a"
   }
  },
@@ -10945,7 +10945,7 @@
    "construct": "stroke.dash percentage strings, fractions of full outline length; requires paint",
    "module": "paint",
    "status": "done",
-   "test": "spec/conformance/paint-dash; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts",
+   "test": "spec/conformance/paint-dash; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts; tests/oracle/dashes-percent",
    "phase": "P4a"
   }
  },
@@ -11036,7 +11036,7 @@
    "construct": "ellipse cx/cy/rx/ry",
    "module": "paint",
    "status": "done",
-   "test": "spec/conformance/paint-shape-ellipse; packages/web/test/paint-geometry.test.ts",
+   "test": "spec/conformance/paint-shape-ellipse; packages/web/test/paint-geometry.test.ts; tests/oracle/ellipse",
    "phase": "P4a"
   }
  },
@@ -11369,7 +11369,7 @@
    "construct": "clip: {source,rule}",
    "module": "composite",
    "status": "done",
-   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
+   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts; tests/oracle/clip",
    "phase": "P4a"
   }
  },
@@ -11490,7 +11490,7 @@
    "construct": "fill/stroke.type=linear; x1/y1/x2/y2; requires paint",
    "module": "paint",
    "status": "done",
-   "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts",
+   "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts; tests/oracle/linear",
    "phase": "P4a"
   }
  },
@@ -11547,7 +11547,7 @@
    "construct": "fill/stroke.type=radial; cx/cy/r/fx/fy; requires paint",
    "module": "paint",
    "status": "done",
-   "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts",
+   "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts; packages/web/test/browser.test.ts; tests/oracle/radial",
    "phase": "P4a"
   }
  },
@@ -11575,7 +11575,7 @@
    "construct": "fill/stroke.stops[] {position,color}; indexed animatable stop addresses; requires paint",
    "module": "paint",
    "status": "done",
-   "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts",
+   "test": "spec/conformance/paint-gradient; packages/core/test/paint.test.ts; tests/oracle/animated-stop",
    "phase": "P4a"
   }
  },
@@ -12048,7 +12048,7 @@
    "construct": "mask: {source, mode: \"alpha\", sourceDraws}",
    "module": "composite",
    "status": "done",
-   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha; tests/oracle/alpha-mask",
    "phase": "P4a"
   }
  },
@@ -12301,7 +12301,7 @@
    "construct": "paints: [{fill|stroke}]",
    "module": "composite",
    "status": "done",
-   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
+   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts; tests/oracle/multiple-paints",
    "phase": "P4a"
   }
  },
@@ -12755,7 +12755,7 @@
    "construct": "polygon cornerRadius cutback/quadratic",
    "module": "paint",
    "status": "done",
-   "test": "spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts",
+   "test": "spec/conformance/paint-shape-polygon; packages/web/test/paint-geometry.test.ts; tests/oracle/polygon-rounded",
    "phase": "P4a"
   }
  },
@@ -12814,7 +12814,7 @@
    "construct": "rect corners [tl,tr,br,bl], animated corners.0–3",
    "module": "paint",
    "status": "done",
-   "test": "spec/conformance/paint-shape-corners; packages/web/test/paint-geometry.test.ts",
+   "test": "spec/conformance/paint-shape-corners; packages/web/test/paint-geometry.test.ts; tests/oracle/rect-corners",
    "phase": "P4a"
   }
  },
@@ -13121,7 +13121,7 @@
    "construct": "star cx/cy/points/radius/innerRadius",
    "module": "paint",
    "status": "done",
-   "test": "spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts",
+   "test": "spec/conformance/paint-shape-star; packages/web/test/paint-geometry.test.ts; tests/oracle/star",
    "phase": "P4a"
   }
  },
@@ -13392,7 +13392,7 @@
    "construct": "stroke.position: inside",
    "module": "composite",
    "status": "done",
-   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
+   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts; tests/oracle/stroke-inside",
    "phase": "P4a"
   }
  },
@@ -13419,7 +13419,7 @@
    "construct": "stroke.position: outside",
    "module": "composite",
    "status": "done",
-   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
+   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts; tests/oracle/stroke-outside",
    "phase": "P4a"
   }
  },
@@ -13620,7 +13620,7 @@
    "construct": "path d compatible command-list morph track",
    "module": "paint",
    "status": "done",
-   "test": "spec/conformance/paint-morph; packages/web/test/paint-geometry.test.ts",
+   "test": "spec/conformance/paint-morph; packages/web/test/paint-geometry.test.ts; tests/oracle/path-morph",
    "phase": "P4a"
   }
  },
