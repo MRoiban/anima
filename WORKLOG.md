@@ -1,11 +1,11 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: P5-7 (markup owner) running → then D1 module folders + D2 scoped tests (parallel) → D3 new-capability scaffolder → P5 AniML benchmark run → P5 PR (full check in CI).
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: D3 capability scaffolder; local commit only on t3/capability-scaffolder.
+State: D3 tool/tests/docs complete; 472 scoped tests green; 3 scratch rows each 31 changed files, reruns 0.
+Verified: generated-tree VITEST_MAX_WORKERS=2 npm run check green (1058 pass, 9 TODO); default standalone-demo timeout remains.
+Next: owner review/integration of the local D3 commit; no further implementation pending.
+Don't: change existing runtime behavior; add runtime dependencies; push, PR or merge.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -92,3 +92,8 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-07 05:15 [claude]: launched D1 module folders (xhigh) and the AniML side of the P5 benchmark (format final for P5)
 - 2026-11-07 07:00 [claude]: merged P5 AniML benchmark run (a80efc3): agent 5/6, re-check 6/6 (pop renders 1.25 with its script; sheet never triggered it); 3m43s vs Rive 10m48s; findings: on-change condition → P4c, text → P6, script set-before-advance documented
 - 2026-11-07 09:30 [claude]: merged D1 module folders (d9510ae): 6 modules + libraries in folders, generator --check, 12 orders identical; core+web 17789 (+248, logged); test:scope paint 12 files/4.2 s; next D3 scaffolder then P5 PR
+- 2026-11-06 00:00 [sol]: D3 scaffold + pending markers implemented; initial tests caught browser registration signature and scratch dependency links → corrected; tools/conformance/markup scoped 472 passed (evidence: /tmp/anima-d3-scoped.log); final checks pending (unverified).
+- 2026-11-06 00:04 [sol]: three scratch rows produced 31 changed files each and zero on rerun; generated-tree scoped tests 176 pass/9 TODO, type/lint/format/size/build checks pass; first full check found decompile pending-folder ENOENT and non-isolated scaffold fixture → corrected, rechecking (evidence: /tmp/anima-d3-full.log).
+- 2026-11-06 00:08 [sol]: generated-tree full retry → 1057 pass/9 TODO, only pre-existing Chromium standalone-demo test timed out at unchanged 15 s; focused browser rerun started (evidence: /tmp/anima-d3-final-check.log).
+- 2026-11-06 00:12 [sol]: Chromium scope passed 77 selected tests; second default-concurrency full retry repeated only standalone-demo timeout (1057 pass/9 TODO) → full generated-tree check with VITEST_MAX_WORKERS=2, no assertion/timeout/budget changes (evidence: /tmp/anima-d3-browser-recheck.log; /tmp/anima-d3-check-retry.log).
+- 2026-11-06 00:16 [sol]: full three-row generated tree passed with VITEST_MAX_WORKERS=2: 1058 pass/9 TODO, all budgets/build/oracle/perf green; core+web 17789 B; scratch files excluded; local D3 commit prepared (evidence: /tmp/anima-d3-bounded-check.log).

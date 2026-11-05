@@ -110,3 +110,11 @@ Full `npm run check` is not green. Web/AniML generated checks and `tools/perf.ts
 pass separately. The first default-worker run had two existing browser failures;
 both passed with two workers without assertion/timeout changes. No runtime source
 or dependency manifest changed in this task.
+
+## Pending capability scaffolds
+
+The capability scaffolder creates `todo.json`, `case.animl` and `rive/README.md` without adding an
+entry to `cases.json`. Tests and `node tools/oracle.ts` report the marker's reason as pending.
+Replace the scene, author/capture independent references, build `.ani`, set explicit comparison
+limits, remove the marker and add the completed manifest entry. A pending case in `cases.json`
+is an error, so an empty scaffold cannot count as a successful oracle.

@@ -199,6 +199,16 @@ same capability, an oracle case (`tests/oracle/<case>/`, see `docs/parity/README
 algorithm closely follows Rive's MIT runtime, the spec says so and `NOTICE` carries the
 attribution.
 
+### Unfinished capability probes
+
+`node tools/new-capability.ts <row-id> [--module <name>] [--dry-run]` creates TODO evidence without
+changing the row's status. A conformance or oracle directory may contain `todo.json` with
+`status: "todo"` and a nonempty `reason`. Runners report these as pending TODO tests; they are never
+passing conformance or parity evidence. AniML generation/corpus validation omits marked conformance
+sources. Invalid markers are errors. Completed oracle manifest entries cannot retain this marker.
+Remove it only after authoring the actual probe, independent expectations/reference frames and
+compiled `.ani`. Existing unmarked cases retain their validation and comparison behavior.
+
 ### Geometry value hooks (paint)
 
 The paint geometry implementation also uses optional module hooks:

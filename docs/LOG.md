@@ -1136,3 +1136,56 @@ Module folders (D1) grew core + web by 248 B (17 541 → 17 789 B min+gzip) for 
 order-independent registration plumbing; every module budget and both use-case totals pass
 (full-featured 44.3 KB / 100 KB). Accepted inside the 30 KB ceiling under the ceilings rule (a reason
 in LOG); to be recovered opportunistically in a later size pass.
+
+## D3 capability scaffolder (2026-11-06)
+
+`node tools/new-capability.ts <row-id> [--module <name>] [--dry-run]` scaffolds a parity row without
+promoting its status. New modules get manifest/dependency/budget metadata, pure core and SVG
+backends, markup and browser entry stubs, and generated package/CLI/schema/size/scope wiring.
+Each row gets a spec subsection, inert registry template with both spellings, a diagnostic TODO
+test and invalid-fixture folder, conformance inputs/script/expected placeholders, oracle/Rive
+placeholders where a faithful counterpart exists, a compiled AniML/JSON example pair and a TODO
+checklist. Completed rows are rejected to preserve their evidence. No shipped runtime source or
+runtime dependency changed.
+
+`todo.json` (`status: "todo"`, nonempty `reason`) explicitly distinguishes unfinished probes from
+successful evidence. Conformance and oracle runners report TODO tests; build, corpus and decompiler
+checks omit pending conformance sources. Invalid markers and pending cases in the completed oracle
+manifest fail. Registry templates stay inert until a coder composes actual entries, so a scaffold
+cannot accidentally advertise an implemented property. This follows the single-registry rationale
+in `docs/research/rive-format-and-graph.md` and independent-render comparison cautions in
+`docs/research/rive-web-runtime.md`.
+
+Three real rows were scaffolded in a temporary copy, without committing any generated capabilities:
+
+| Row | Module | Changed files | Second run |
+|---|---|---:|---:|
+| animation.seek | motion | 31 | 0 |
+| host-api.coordinate-mapping | interaction | 31 | 0 |
+| data.bind-conditions | data | 31 | 0 |
+
+Parts per new module/row: manifest; four core/SVG/markup/web stubs; registry template; diagnostic
+test and invalid-fixture README; four conformance files (including marker); three oracle files;
+example pair and checklist; spec subsection; inventory plus two changed parity views; nine wiring
+files. Dry-run predicts the exact changed file list without modifying the checkout. Tests cover
+idempotence, preservation of coder edits, a second row in the same module, registration, web
+package typechecking, CLI dry-run output and three explicit TODO test results.
+
+Verification: local tools/markup/conformance scope 472 passed. Three-row scratch scope: 176 passed,
+9 TODO; all generated module budgets pass (motion 11 B, interaction 15 B, data 14 B against 5120 B
+placeholders), core+web unchanged at 17789 B. The first full check found a missed decompiler corpus
+reader and a fixture assumption about an unscaffolded row; both were fixed. The next full check
+had 1057 passing tests and 9 TODO, with one existing Chromium standalone-demo test timing out at
+its unchanged 15-second limit; the Chromium scope then passed 77/77 selected tests. A final full
+check is recorded below. Extra full runs were necessary after these concrete failures; no limits
+or budgets were increased.
+
+Final generated-tree verification: `VITEST_MAX_WORKERS=2 npm run check` exited 0: 56 files passed,
+three all-TODO diagnostic suites, 1058 tests passed and 9 TODO (1067 total), both browser engines,
+oracles, type/lint/format, all size ceilings, module/browser/AniML artifacts and perf. The worker
+setting reduces contention; no test is omitted and no timeout/assertion/budget changes. Default
+concurrency remains subject to the existing standalone-demo timeout described above. No claim of
+a green default-concurrency full run is made. Final log: `/tmp/anima-d3-bounded-check.log`.
+Perf in that scratch run: bell compile 2.03 ms, 9040 prefixes 792 ms; bell/composite frames
+34.6/22.9 µs; toolbar frame 27.0 µs, compile 2.93 ms. These are observations, not a speed change claim.
+All three scratch rows remain outside the commit. No push, PR or merge.
