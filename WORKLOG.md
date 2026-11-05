@@ -2,9 +2,9 @@
 
 ## Now
 Goal: P1 AniML (authoring markup) → PR from p1-animl; then M5, then Phase B (P3 playground first).
-State: main has M0–M4 + Phase A (PRs #1–#6 merged). p1-animl: contract committed (spec/ANIML.md, bell.animl, registry markup names, xml.ts, names.ts; d9c0063).
-Next: wave 1 running — Sol compiler (compile.ts) and Sol decompiler+formatter, worktrees from d9c0063; merge both, add round-trip tests.
-Next: wave 2 — CLI (.animl everywhere, build incl. html, decompile, new→animl), web markup module (own budget), migrate conformance + AUTHORING.md; wave 3 head-to-head (AniML vs .ani vs Rive RML).
+State: p1-animl 12b642d: contract + Sol compiler + decompiler/formatter merged; round-trip tests green (bell + 13 cases); 274 tests; core+web 14635 B gz.
+Next: wave 2 running (Sol, worktrees from 12b642d): CLI (.animl everywhere, build incl. html, decompile, new→animl); web markup module (baseline 7032 B gz, target ≤6144); migrate conformance+README to .animl.
+Next: wave 3 — rewrite docs/AUTHORING.md for markup (real diagnostics via CLI); wave 4 head-to-head (AniML vs .ani vs Rive RML), then PLAN/LOG, PR, merge, summary.
 Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
 Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
@@ -34,3 +34,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 15:10 [owner]: Firefox clapper fix confirmed on macOS; name stays Anima with .ani and .animl
 - 2026-11-05 14:20 [claude]: merged Sol decompiler+formatter (0deca93) into p1-animl; parser now reports out-of-range entities → markup tests 49 pass/14 skipped (evidence: npx vitest run packages/markup)
 - 2026-11-05 14:35 [claude]: merged Sol compiler (d575827); round-trip tests on bell + 13 cases pass; full suite 274 pass, size 14635 B gz (evidence: npx vitest run; node tools/size.ts). Spec §8 lists 3 decompile normalisations ($schema, element-less $comment, singleton action lists).
+- 2026-11-05 14:45 [claude]: launched wave 2 (3 Sol agents: CLI, web markup module, migration) from 12b642d; measured markup module baseline 7032 B gz over core+web
