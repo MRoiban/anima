@@ -32906,8 +32906,8 @@
   "anima": {
    "construct": "anima build source.animl",
    "module": "markup",
-   "status": "spec'd",
-   "test": "cli/markup-authoring",
+   "status": "done",
+   "test": "packages/markup/test (compile, round-trip, corpus), packages/cli/test/markup.test.ts",
    "phase": "P1"
   }
  },

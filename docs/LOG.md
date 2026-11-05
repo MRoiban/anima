@@ -250,3 +250,47 @@ X11 capture of a VirtualGL window tears.
 
 - Module budgets are estimates until each phase measures its module.
 - Scripting language: chosen in P9, with the reasoning in the spec.
+
+## P1 — AniML, the authoring markup (2026-11-05)
+
+AniML (`.animl`, `application/vnd.anima+xml`) is now the authoring format; `.ani` is what `anima
+build` produces, and hand-written `.ani` stays valid. Spec: `spec/ANIML.md`.
+
+- **One registry, two spellings.** Markup names live on the registry entries (`markup: 'width'` on
+  `rect.w`, `'fill'` on `fill.color`, `'cx cy'` on `center`, …); `packages/markup/src/names.ts`
+  derives node attributes and address translation from them, so the JSON Schema and the markup
+  cannot drift. `anima schema <type>` shows both.
+- **Compiler** (`compile`): XML subset parser with positions, 10 markup codes, named eases,
+  keyframe text, `and` in conditions, first comment → `$comment`; runs the strict loader and maps
+  every diagnostic back to `file:line:col` through a source map. Loader hints that name a JSON
+  container are said the markup way.
+- **Decompiler and formatter**: canonical layout (aligned keyframe columns, registry attribute
+  order); `formatMarkup` keeps comments, element order and named eases. Three normalisations on
+  `.ani → .animl → .ani` (`$schema`, element-less `$comment`s, one-item action lists), none of
+  which changes playback (§8).
+- **Round trip**: `examples/bell.animl` builds to `examples/bell.ani` byte for byte; every example
+  and conformance case is tested both ways (`.ani → .animl → .ani` canonical, `.animl → .ani →
+  .animl → .ani` stable). Conformance cases are authored as `case.animl` with `case.ani` beside;
+  `tools/build-animl.ts --check` is part of `npm run check`.
+- **CLI**: validate, inspect, sample, render, fmt and new take `.animl` (new scaffolds markup;
+  `--ani` for JSON); `anima build` for `.animl` and for HTML pages (markup inside `<anima-icon>`
+  becomes inline JSON, positions mapped into the HTML file); `anima decompile`; `anima docs markup`.
+- **Browser**: optional `@anima-format/web/markup` compiles inline or fetched AniML. Its own budget:
+  5 804 / 6 144 B min+gzip on top of core + web (from 7 032 B, through the VERBOSE folding);
+  core + web 14 781 B (+146 B for the hook). Without the module, markup reports
+  `markup-unavailable`.
+- **Docs**: `docs/AUTHORING.md` teaches AniML; its 4 markup blocks compile and its 6 pasted
+  diagnostics match the CLI, both under test.
+- **Head-to-head** (`docs/research/head-to-head/RESULTS.md`): same brief (a dark-mode switch),
+  fresh agents. AniML 7/7 in 3 min 28 s, 51 lines / 1 997 chars, 0 diagnostics; hand-written
+  `.ani` 7/7 in 2 min 51 s, 81 lines / 2 427 chars, 0 diagnostics; Rive markup 4/7 in 8 min,
+  144 lines / 13 024 chars, the mid-slide reversal jumps with no tool reporting a problem. Both Anima
+  files re-checked by script (identical values). No markup change indicated; three format gaps
+  scheduled for P3 (keyboard toggle for switches via a bool `activate`, `anima schema` for `a11y`
+  and transitions) and P4 (paint alpha).
+
+Built by GPT-6.1-Sol coders from a committed contract (spec, bell.animl, registry names, parser,
+names.ts): compiler, decompiler/formatter, CLI, browser module, migration, guide, head-to-head; the
+orchestrator reviewed and merged each and fixed the seams (out-of-range entity references, hints,
+stale guide text). A flaky Firefox frame-count test traced to Playwright's `click` sending an extra
+`pointermove`; the test now presses and releases.

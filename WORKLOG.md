@@ -1,10 +1,9 @@
 # Work log
 
 ## Now
-Goal: P1 AniML (authoring markup) → PR from p1-animl; then M5, then Phase B (P3 playground first).
-State: p1-animl 052af3f: compiler, decompiler/fmt, CLI (.animl everywhere, build incl. html, decompile), web markup module (5804/6144 B), conformance in .animl, AUTHORING.md for markup all merged; npm run check green (360 tests).
-Next: head-to-head running (3 Sol, same BRIEF.md: animl / hand .ani / Rive RML) → verify each output myself, write docs/research/head-to-head/RESULTS.md, refine AniML from findings.
-Next: then PLAN P1 tick, LOG entry, PR p1-animl → main, merge when CI green, summary with bell markup. Then M5.
+Goal: P1 AniML → PR p1-animl → main, merge when CI green; then M5 (P2), then Phase B (P3 playground first).
+State: P1 complete on p1-animl: all waves merged, head-to-head done (RESULTS.md), PLAN P1 ticked, LOG entry written.
+Next: npm run check, push, PR, watch CI, merge; post summary with bell markup. Then M5: Glyphy export draft PR (draft only), two glyphs in AniML.
 Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
 Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
@@ -46,3 +45,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 15:40 [claude]: merged Sol web markup module (a980e42): markup 5777/6144 B gz, core+web 14781 B (+146); npm run check green: 347 tests, Chromium+Firefox (evidence: npm run check after local dist rebuild)
 - 2026-11-05 16:05 [claude]: merged Sol AUTHORING.md rewrite (8ee957f; 4/4 xml blocks compile, 6/6 diagnostics match, tested); markup hints for undeclared input/colour/glyph; markup 5804 B gz
 - 2026-11-05 16:15 [claude]: launched head-to-head (3 Sol, high, worktrees from 052af3f): animl / ani / rive, 45 min timebox each
+- 2026-11-05 16:45 [claude]: head-to-head merged + re-checked (AniML 7/7, .ani 7/7, Rive 4/7; switch a11y browser test added); parity row tooling.markup-authoring done (FINISHED phases P0,P1); PLAN/LOG updated
