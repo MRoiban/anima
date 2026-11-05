@@ -68,7 +68,7 @@ becomes the order of the `.ani` map or array). Node elements are painted in docu
 | `meta` | — | JSON object as text | `meta` |
 | `color` | **`name`**, **`value`** | — | `colors[name]` |
 | `glyph` | **`name`**, **`d`**, `source`, `pick`, `sha256` | — | `glyphs[name]` |
-| `a11y` | `role`, `label`, `activate`, `pressed`, `held` | — | `a11y` |
+| `a11y` | `role`, `label`, `activate` (trigger or bool input name), `pressed`, `held` | — | `a11y` |
 | `bool` / `number` / `trigger` | **`name`**; `default` (bool, number); `min`, `max` (number); `buffer` (trigger) | — | `inputs[name]` with that `type` |
 | `hit` | exactly one of `circle` (vector of 3), `rect` (vector of 4) | — | `hit` |
 | `group` | node attributes | node elements | a `group` node with `children` |
@@ -168,8 +168,9 @@ normalisations, none of which changes playback: `$schema` is dropped; a `$commen
 that has no element of its own (`inputs`, `colors`, a `fill` or `stroke`, …) is dropped; and a
 one-item action list (`"fire": ["ring"]`) is written as a single name (`"fire": "ring"`).
 
-`anima fmt x.animl` reformats markup in place of the same canonical layout but keeps the author's
-comments, element order and named eases.
+`anima fmt x.animl` reformats markup into the same canonical layout but keeps the author's
+comments, element order, named eases and track style: a track written inline with `;` stays inline
+(one space between columns), a track written one key per line stays so, with aligned columns.
 
 ## 9. Markup inside HTML
 

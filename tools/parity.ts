@@ -59,7 +59,7 @@ export const CATEGORIES: [string, string][] = [
 export const PHASES: [string, string][] = [
   ['P0', 'Done: format 0.1, core, CLI, `<anima-icon>` (M0–M4)'],
   ['P1', 'Done: AniML, the authoring markup'],
-  ['P2', 'M5: Glyphy export, more glyphs, the head-to-head test'],
+  ['P2', 'Done: M5, Glyphy export, more glyphs, the head-to-head test'],
   ['P3', 'Playground/inspector and the web host API'],
   ['P4', 'Interaction, paint, events and data binding'],
   ['P5', 'Components and assets'],
@@ -71,7 +71,7 @@ export const PHASES: [string, string][] = [
 ];
 
 /** Phases whose rows are all done. */
-export const FINISHED = ['P0', 'P1'];
+export const FINISHED = ['P0', 'P1', 'P2'];
 
 const ROOT = new URL('../docs/parity/', import.meta.url);
 

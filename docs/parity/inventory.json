@@ -31660,7 +31660,7 @@
    "module": "tooling",
    "status": "planned",
    "test": "cli/editor-svg-import",
-   "phase": "P2"
+   "phase": "P3"
   }
  },
  {
@@ -33371,7 +33371,7 @@
    "module": "markup",
    "status": "planned",
    "test": "cli/scaffold",
-   "phase": "P2"
+   "phase": "P3"
   }
  },
  {

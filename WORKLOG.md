@@ -1,9 +1,9 @@
 # Work log
 
 ## Now
-Goal: P1 AniML → PR p1-animl → main, merge when CI green; then M5 (P2), then Phase B (P3 playground first).
-State: P1 complete on p1-animl: all waves merged, head-to-head done (RESULTS.md), PLAN P1 ticked, LOG entry written.
-Next: npm run check, push, PR, watch CI, merge; post summary with bell markup. Then M5: Glyphy export draft PR (draft only), two glyphs in AniML.
+Goal: M5 PR m5-glyphs → main, merge when green; then Phase B P3 (playground/inspector + web host API).
+State: M5 complete on m5-glyphs: trash + moon glyphs, bool activate, schema topics, inspect subpaths, render --compare, snapshot inputs, skill; glyphy draft PR #2 open (owner review).
+Next: npm run check, PR, merge; then design P3 (playground) — design-first (mockup) before coders.
 Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
 Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
@@ -46,3 +46,9 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 16:05 [claude]: merged Sol AUTHORING.md rewrite (8ee957f; 4/4 xml blocks compile, 6/6 diagnostics match, tested); markup hints for undeclared input/colour/glyph; markup 5804 B gz
 - 2026-11-05 16:15 [claude]: launched head-to-head (3 Sol, high, worktrees from 052af3f): animl / ani / rive, 45 min timebox each
 - 2026-11-05 16:45 [claude]: head-to-head merged + re-checked (AniML 7/7, .ani 7/7, Rive 4/7; switch a11y browser test added); parity row tooling.markup-authoring done (FINISHED phases P0,P1); PLAN/LOG updated
+- 2026-11-05 17:05 [claude]: PR #7 merged (45d019a, CI green on 2592cae); branched m5-glyphs
+- 2026-11-05 17:30 [claude]: Glyphy export -f animl/-f ani written myself (delegate cannot target another project): 11/11 glyphs byte-identical to anima new --glyphy, both forms; glyphy pytest 22 passed → DRAFT PR MRoiban/glyphy#2 (f7e483a), not to merge without owner. M5 agents running: format fix, trash, moon.
+- 2026-11-05 17:50 [claude]: merged moon toggle (7d186df): 6/6, rest pixel-identical, reversal delta 0, 4 friction points (want: render --compare glyph, inputs in snapshots); sheet checked visually
+- 2026-11-05 18:05 [claude]: merged trash (7d37682): 6/6, rest pixel-identical (original path at rest, split parts in motion), 7 friction points; spec §8 fmt keeps inline tracks (clarified)
+- 2026-11-05 18:20 [claude]: merged format fix (3503c3b): activate may name a bool (keyboard toggles switch, Chromium+Firefox tests), anima schema a11y/transition/listener/input; core+web 14812 B (+31); npm run check 377 pass after demo rebuild; moon gets activate=dark
+- 2026-11-05 18:50 [claude]: merged tooling (ff34197): inspect subpaths, render --compare (moon/trash 0 px), snapshot inputs; bbox rounding; PLAN M5/P2 ticked, P2 parity rows → P3, LOG M5
