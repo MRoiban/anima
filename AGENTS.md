@@ -1,0 +1,30 @@
+# AGENTS
+
+Anima is an open animation format (`.ani`) and a small web runtime for interactive icons, designed
+to be written by agents and to fit Glyphy-made icon sets.
+
+Start here, in this order:
+
+1. `docs/PLAN.md` — milestones, acceptance criteria, ground rules. Work the next unchecked item.
+2. `spec/SPEC.md` — the normative format. Behaviour not in the spec is not done; change the spec
+   in the same commit as the code.
+3. `docs/ARCHITECTURE.md` — packages and their responsibilities.
+4. `examples/bell.ani` — the reference document; `fixtures/bell/` — what it must reproduce.
+5. `docs/research/` — notes on Rive's runtime (format, animation/state machines, web runtime) and
+   on Glyphy. Read them for ideas and pitfalls; cite them in decisions.
+
+Rules:
+
+- Do not copy Rive source code or Rive's CLI documentation text, and do not read or convert `.riv`
+  files. Rive is inspiration only.
+- Keep `packages/core` and `packages/web` free of runtime dependencies.
+- Every diagnostic has a code, a JSON pointer, a message and, where possible, a hint, and a test.
+- Determinism: anything that changes `Player.step` output needs a conformance case.
+- After each milestone: tests green, PLAN checkboxes updated, an entry in `docs/LOG.md`, a commit on a
+  milestone branch, a PR to `main`.
+- Ask the user before making the repo public, publishing packages, or changing the Glyphy repo
+  beyond a draft PR.
+
+Local tooling: Node 24 (`node`, `npm`), Python 3.13, `gh` (signed in as MRoiban). Playwright's
+Chromium headless shell is cached at `~/.cache/ms-playwright/chromium_headless_shell-1248/`; use
+`playwright-core` with `executablePath` pointing at it rather than downloading browsers.

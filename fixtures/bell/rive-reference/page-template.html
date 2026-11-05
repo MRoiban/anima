@@ -1,0 +1,181 @@
+<title>Ringing Bell</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+  /* One centred specimen: the glyph on a bordered tile, caption below. */
+  :root {
+    --paper: #faf9f5;
+    --ink: #141413;
+    --muted: #6b6a64;
+    --line: #e3e1d7;
+    --accent: #d97757;
+    --serif: ui-serif, Georgia, "Times New Roman", serif;
+    --sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1f1e1d; --ink: #f0eee6; --muted: #a3a29a; --line: #3a3934; --accent: #e08a6d;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #1f1e1d; --ink: #f0eee6; --muted: #a3a29a; --line: #3a3934; --accent: #e08a6d;
+    color-scheme: dark;
+  }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 15px/1.5 var(--sans);
+    display: grid;
+    place-items: center;
+    padding-block: 32px;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+  }
+  main {
+    width: 100%;
+    max-width: 420px;
+    display: grid;
+    justify-items: center;
+    gap: 20px;
+    text-align: center;
+  }
+  header { display: grid; gap: 4px; }
+  .eyebrow {
+    margin: 0;
+    font-size: 12px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  h1 {
+    margin: 0;
+    font: 400 28px/1.2 var(--serif);
+    letter-spacing: -.01em;
+    text-wrap: balance;
+  }
+  .stage {
+    appearance: none;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: transparent;
+    padding: 0;
+    width: 240px;
+    max-width: 100%;
+    aspect-ratio: 1;
+    cursor: pointer;
+    display: block;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .stage:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+  canvas { width: 100%; height: 100%; display: block; border-radius: 24px; }
+  .hint { margin: 0; color: var(--muted); font-size: 14px; }
+  kbd {
+    font: 12px var(--mono);
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-bottom-width: 2px;
+    border-radius: 4px;
+    padding: 0 5px;
+  }
+  .count { font-variant-numeric: tabular-nums; color: var(--ink); }
+  .error { margin: 0; color: var(--accent); font-size: 14px; }
+  footer { font-size: 12px; color: var(--muted); }
+  footer code { font: 12px var(--mono); }
+</style>
+
+<main>
+  <header>
+    <p class="eyebrow">Glyph · 20 px grid · Rive</p>
+    <h1>Ring the bell</h1>
+  </header>
+
+  <button class="stage" id="stage" type="button" aria-label="Ring the bell">
+    <canvas id="bell" width="240" height="240"></canvas>
+  </button>
+
+  <p class="hint">Click the bell, or focus it and press <kbd>Enter</kbd>.
+    <span class="count" id="count" aria-live="polite"></span></p>
+
+  <footer><code>bell.svg</code> from the Glyphy set, animated in RML with the Rive CLI</footer>
+</main>
+
+<!-- The -single build carries its wasm inside the script, so nothing else is fetched. -->
+<script src="https://cdn.jsdelivr.net/npm/@rive-app/canvas-single@2.45.1/rive.js"></script>
+<script>
+(function () {
+  // Built by `rive . --publish` from scene.rml; inlined by make_page.py.
+  var RIV_B64 = "__RIV_BASE64__";
+
+  var canvas = document.getElementById("bell");
+  var stage = document.getElementById("stage");
+  var countEl = document.getElementById("count");
+  var rings = 0;
+
+  function bytes(b64) {
+    var bin = atob(b64), out = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+    return out.buffer;
+  }
+
+  // The page's theme colours go into the file's view model, so the artwork
+  // follows light and dark mode.
+  function cssColor(name) {
+    var hex = getComputedStyle(document.documentElement).getPropertyValue(name).trim().replace("#", "");
+    return (0xff000000 | parseInt(hex, 16)) >>> 0;
+  }
+
+  function showError(msg) {
+    var p = document.createElement("p");
+    p.className = "error";
+    p.textContent = msg;
+    stage.after(p);
+  }
+
+  if (!window.rive) { showError("The Rive runtime didn't load. Check your connection and reload."); return; }
+
+  var r = new rive.Rive({
+    buffer: bytes(RIV_B64),
+    canvas: canvas,
+    artboard: "Bell",
+    stateMachine: "Bell",
+    autoplay: true,
+    autoBind: true,
+    layout: new rive.Layout({ fit: rive.Fit.Contain, alignment: rive.Alignment.Center }),
+    onLoad: function () {
+      r.resizeDrawingSurfaceToCanvas();
+      var vmi = r.viewModelInstance;
+      if (!vmi) { showError("The bell file has no view model, so it can't be themed or rung from the keyboard."); return; }
+
+      function applyTheme() {
+        vmi.color("ink").value = cssColor("--ink");
+        vmi.color("paper").value = cssColor("--paper");
+        vmi.color("accent").value = cssColor("--accent");
+      }
+      applyTheme();
+      var mq = window.matchMedia("(prefers-color-scheme: dark)");
+      if (mq.addEventListener) mq.addEventListener("change", applyTheme);
+      new MutationObserver(applyTheme).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+
+      // The file's own click listener fires `ring`; the page only counts.
+      var ring = vmi.trigger("ring");
+      ring.on(function () {
+        rings += 1;
+        countEl.textContent = rings === 1 ? "Rang once." : "Rang " + rings + " times.";
+      });
+
+      // Enter / Space on the button. A mouse click already reaches the file's
+      // listener, so only keyboard clicks (detail 0) fire the trigger here.
+      stage.addEventListener("click", function (e) {
+        if (e.detail === 0) ring.trigger();
+      });
+    },
+    onLoadError: function () { showError("The bell file couldn't be loaded."); }
+  });
+
+  window.addEventListener("resize", function () { r.resizeDrawingSurfaceToCanvas(); });
+  window.__bell = r;
+})();
+</script>

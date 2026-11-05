@@ -1,0 +1,122 @@
+# Glyphy project. `glyphy measure` rewrites the measured [style] values from the
+# reference icons, except keys listed in style.locked. Everything is editable;
+# any [style] or [trace] key can be overridden per glyph in [glyphs.<name>].
+# Units are grid units unless noted.
+[style]
+grid = 20
+stroke = 1.0
+stroke_tolerance = 0.12
+letter_stroke = [
+    0.95,
+    1.0,
+]
+letter_stroke_target = 0.99
+live = 14.94
+letter_height = 15.97
+pad_min = 1.88
+centring_max = 0.5
+crisp_reference = 0.4
+roughness_reference = 0.23
+roughness_max = 0.0
+locked = []
+
+[trace]
+method = "vector"
+work_scale = 64
+threshold = 128
+speck = 0.25
+fit = true
+correct = true
+stroke_shape = "cross"
+mitre_limit = 2.0
+rounds = 5
+stroke_epsilon = 0.04
+smooth = 0.0
+svg_as_drawn = true
+snap_mode = "corners"
+snap = 0.3
+straighten = 4.0
+offsets = 4
+centring_weight = 0.0
+choose = "crisp"
+weight_crisp_2x = 1.0
+weight_drift = 0.5
+weight_spread = 1.0
+weight_rough = 1.0
+turdsize = 16
+alphamax = 0.9
+opticurve = true
+opttolerance = 0.2
+decimals = 3
+corner_deg = 32.0
+corner_scale = 0.12
+line_tol = 0.03
+min_line = 0.25
+curve_tol = 0.025
+snap_deg = 2.5
+parallel_deg = 2.0
+max_extend = 0.5
+straight_min = 0.5
+vector_mitre_limit = 4.0
+hint = false
+hint_min_len = 0.5
+
+[paths]
+reference = "reference"
+generated = "generated"
+traced = "traced"
+picked = "glyphs"
+out = "out"
+
+[brief]
+variants = 2
+image_size = 1024
+notes = ""
+template = ""
+
+[glyphs.bell]
+concept = "a notification bell with a small clapper arc below"
+kind = "icon"
+
+[glyphs.bookmark]
+concept = "a bookmark ribbon with a V notch at the bottom"
+kind = "icon"
+
+[glyphs.trash]
+concept = "a trash can with lid, handle and two vertical slots"
+kind = "icon"
+
+[glyphs.folder]
+concept = "a folder with a tab on the top left"
+kind = "icon"
+
+[glyphs.home]
+concept = "a house outline with a pitched roof and a door"
+kind = "icon"
+
+[glyphs.pencil]
+concept = "a diagonal pencil pointing to the bottom left"
+kind = "icon"
+
+[glyphs.moon]
+concept = "a crescent moon"
+kind = "icon"
+
+[glyphs.terminal]
+concept = "a terminal window with a prompt chevron and cursor line"
+kind = "icon"
+
+[glyphs.sparkle]
+concept = "a four-pointed sparkle star with concave sides"
+kind = "icon"
+
+[picks]
+bell = "bell-1"
+bookmark = "bookmark-1"
+folder = "folder-1"
+home = "home-1"
+moon = "moon-1"
+pencil = "pencil-2"
+sparkle = "sparkle-1"
+terminal = "terminal-1"
+trash = "trash-1"
