@@ -1,0 +1,6 @@
+{"time":0,"values":{"a.d":"M2 2L12 12"},"states":{"l":"s"},"events":[],"settled":true}
+{"time":0.5,"values":{"a.d":"M4 6L14 16"},"states":{"l":"t"},"events":[],"settled":false}
+{"time":1,"values":{"a.d":"M6 10L16 20"},"states":{"l":"t"},"events":[],"settled":true}
+{"time":1.25,"values":{"a.d":"M5 8L15 18"},"states":{"l":"s"},"events":[],"settled":false}
+{"time":1.75,"values":{"a.d":"M5.5 9L15.5 19"},"states":{"l":"t"},"events":[],"settled":false}
+{"time":2.25,"values":{"a.d":"M6 10L16 20"},"states":{"l":"t"},"events":[],"settled":true}

@@ -12,6 +12,7 @@ import {
   markupName,
   COMMON,
   NODE_TYPES,
+  ELEMENTS,
   OWN,
   PAINT,
   PAINTED,
@@ -63,7 +64,7 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
                                         scaffold AniML whose rest frame is the glyph (--ani for JSON)
   anima build <file.animl|page.html> [-o out]  compile AniML to canonical .ani or inline JSON
   anima decompile <file.ani> [-o out.animl]    write canonical AniML
-  anima schema [type | fill | stroke | a11y | transition | listener | input] [--json-schema]
+  anima schema [type | fill | stroke | a11y | timeline | layer | state | pose | transition | listener | input] [--json-schema]
                                         registry fields, types and markup/.ani spellings
   anima docs [authoring | spec | markup | <section>] [--list]
                                         the authoring guide and the spec
@@ -653,6 +654,22 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
   const objectPaths: Record<string, string[]> = {
     fill: [],
     stroke: [],
+    anima: [],
+    meta: ['meta'],
+    color: ['colors', '*'],
+    glyph: ['glyphs', '*'],
+    hit: ['hit'],
+    timeline: ['timelines', '*'],
+    track: ['timelines', '*', 'tracks'],
+    event: ['timelines', '*', 'events', '*'],
+    layer: ['machine', 'layers', '*'],
+    state: ['machine', 'layers', '*', 'states', '*'],
+    pose: ['machine', 'layers', '*', 'states', '*', 'pose'],
+    ease: ['machine', 'layers', '*', 'states', '*', 'on', '*', 'ease'],
+    on: ['machine', 'layers', '*', 'states', '*', 'on', '*'],
+    bool: ['inputs', '*'],
+    number: ['inputs', '*'],
+    trigger: ['inputs', '*'],
     a11y: ['a11y'],
     transition: ['machine', 'layers', '*', 'states', '*', 'on', '*'],
     listener: ['listeners', '*'],
@@ -665,7 +682,16 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
       else if (shape.k === 'map' || shape.k === 'arr') shape = shape.of;
       else throw new Error('invalid schema registry path');
     }
-    if (shape.k !== 'obj') throw new Error('schema topic must be an object');
+    // Maps (poses/tracks), tuples (events) and scalar declarations are registry shapes too.
+    if (shape.k !== 'obj') {
+      const p =
+        shape.k === 'map'
+          ? { '<address>': shape.of }
+          : shape.k === 'tup'
+            ? Object.fromEntries(shape.of.map((s, i) => [i === 0 ? 'at' : 'name', s]))
+            : { [topic === 'ease' ? 'curve' : 'value']: shape };
+      shape = { k: 'obj', p };
+    }
     const describe = (s: Shape): string => {
       switch (s.k) {
         case 'str':
@@ -691,6 +717,7 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
       ani: key,
       type: describe(value),
       required: shape.req?.includes(key) ?? false,
+      ...(value.default !== undefined ? { default: value.default } : {}),
       ...((value.feature ?? shape.feature) ? { feature: value.feature ?? shape.feature } : {}),
       ...(value.k === 'num' && value.min !== undefined ? { min: value.min } : {}),
     }));
@@ -705,9 +732,11 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
           objectPaths[topic]!,
           topic === 'fill' || topic === 'stroke' ? nodeShape('path').p[topic]! : DOC,
         )
-      : compositeField && compositeField.k === 'obj' && !NODE_TYPES.includes(topic as never)
-        ? fields([], compositeField)
-        : undefined;
+      : topic && ELEMENTS[topic]
+        ? fields([], ELEMENTS[topic]!.shape)
+        : compositeField && compositeField.k === 'obj' && !NODE_TYPES.includes(topic as never)
+          ? fields([], compositeField)
+          : undefined;
   let data: unknown;
   if (objectFields)
     data = {
@@ -740,7 +769,7 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
     };
   else
     throw new Usage(
-      `no schema topic "${topic}" (try a node type, fill, stroke, a11y, transition, listener or input)`,
+      `no schema topic "${topic}" (try a node type, fill, stroke, a11y, timeline, layer, state, pose, transition, listener or input)`,
     );
   if (json) return (io.out(JSON.stringify(data)), 0);
   const table = (
@@ -776,7 +805,7 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
       .join('\n')}`;
   if (objectFields)
     io.out(
-      `${topic} (markup ↔ .ani: type)\n${objectFields.map((f) => `  ${f.markup} ↔ ${topic === 'fill' || topic === 'stroke' ? topic + '.' : ''}${f.ani}: ${f.type}${f.required ? ' (required)' : ''}${f.feature ? ` [${f.feature}]` : ''}`).join('\n')}`,
+      `${topic} (markup ↔ .ani: type)\n${objectFields.map((f) => `  ${f.markup} ↔ ${topic === 'fill' || topic === 'stroke' ? topic + '.' : ''}${f.ani}: ${f.type}${f.required ? ' (required)' : ''}${'default' in f ? ` (default ${JSON.stringify(f.default)})` : ''}${f.feature ? ` [${f.feature}]` : ''}`).join('\n')}`,
     );
   else if (!topic)
     io.out([...NODE_TYPES.map(typeInfo).map(show), paint('fill'), paint('stroke')].join('\n\n'));

@@ -1,0 +1,57 @@
+{
+  "anima": "0.1",
+  "name": "paint-pose-morph",
+  "grid": 20,
+  "requires": ["paint"],
+  "inputs": {
+    "go": {
+      "type": "trigger"
+    },
+    "back": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "path",
+      "d": "M0 0L10 10",
+      "stroke": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "pose": {
+              "a.d": "M2 2L12 12"
+            },
+            "on": [
+              {
+                "when": "go",
+                "to": "t",
+                "blend": 1
+              }
+            ]
+          },
+          "t": {
+            "pose": {
+              "a.d": "M6 10L16 20"
+            },
+            "on": [
+              {
+                "when": "back",
+                "to": "s",
+                "blend": 1
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

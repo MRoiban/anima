@@ -21,6 +21,34 @@ const doc = (nodes: object[]) => ({
   nodes,
 });
 describe('composite paint', () => {
+  it('round trips group clips with an optional default rule', () => {
+    const source = doc([
+      { id: 'g', type: 'group', clip: { source: 'b' }, children: [rect('a')] },
+      rect('b', { w: 10, visible: false }),
+    ]);
+    const result = compile(decompile(source));
+    expect(result.diagnostics).toEqual([]);
+    expect(result.doc).toEqual(source);
+    const svg = toSVG(new Player(load(source).model!));
+    expect(svg).toContain('clip-rule="nonzero"');
+  });
+  it.each([
+    [{}, 'missing-key', '/nodes/0/clip'],
+    [{ source: 'b', rule: 'bad' }, 'bad-value', '/nodes/0/clip/rule'],
+    [{ source: 'missing' }, 'unknown-source', '/nodes/0/clip/source'],
+  ])('diagnoses invalid group clips %j', (clip, code, pointer) => {
+    const source = doc([{ id: 'g', type: 'group', clip, children: [rect('a')] }, rect('b')]);
+    expect(load(source).diagnostics).toContainEqual(expect.objectContaining({ code, pointer }));
+    const result = compile(decompile(source));
+    expect(result.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: code === 'missing-key' ? 'missing-attribute' : code,
+        pointer: code === 'missing-key' ? '/nodes/0/clip' : pointer,
+        line: expect.any(Number),
+        column: expect.any(Number),
+      }),
+    );
+  });
   it.each([
     [
       'unknown-source',

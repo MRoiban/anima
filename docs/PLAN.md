@@ -136,7 +136,7 @@ and an oracle test against Rive.
   - [ ] P4a-6 **merge blockers** from the draw layer: core + web back to ≤ 16 697 B, and compile
         time back to the pre-draw-layer level (owner, 2026-11-06: the prefix-compile test keeps its
         original limit; no loosening without the owner).
-  - [ ] P4a-7 benchmark friction: pose path strings, group clips, optional clip rule,
+  - [x] P4a-7 benchmark friction: pose path strings, group clips, optional clip rule,
         `anima schema pose`, dash caps in the docs.
   - [ ] P4a oracle cases against the Rive CLI for the paint features (MODULES §5).
 - [ ] P5 Components and assets — **moved up** (owner, 2026-11-06): nested artboards / components,

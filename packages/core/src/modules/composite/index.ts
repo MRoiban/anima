@@ -7,7 +7,7 @@ import { VERBOSE as V } from '../../flags.ts';
 const str = (of?: string[]): Shape => ({ k: 'str', of });
 
 const bool: Shape = { k: 'bool' };
-const object = (p: Record<string, Shape>, req: string[] = []): Shape => ({ k: 'obj', p, req });
+const object = (p: Record<string, Shape>, req: string[] = []): ObjShape => ({ k: 'obj', p, req });
 const blends =
   'normal multiply screen overlay darken lighten color-dodge color-burn hard-light soft-light difference exclusion hue saturation color luminosity'.split(
     ' ',
@@ -20,7 +20,10 @@ const mask = object(
   },
   ['source', 'mode', 'sourceDraws'],
 );
-const clip = object({ source: str(), rule: str(['nonzero', 'evenodd']) }, ['source', 'rule']);
+const clip = object(
+  { source: str(), rule: { ...str(['nonzero', 'evenodd']), default: 'nonzero' } },
+  ['source'],
+);
 const order = object({ target: str(), position: str(['before', 'after']), active: bool }, [
   'target',
   'position',
@@ -197,7 +200,13 @@ export const composite: Module = {
           node = t.nodes[i]!;
         node.blend = r.blend;
         node.mask = r.mask ? { ...r.mask, source: m.ids.get(r.mask.source)! } : undefined;
-        node.clip = r.clip ? { ...r.clip, source: m.ids.get(r.clip.source)! } : undefined;
+        node.clip = r.clip
+          ? {
+              rule: clip.p.rule!.default,
+              ...r.clip,
+              source: m.ids.get(r.clip.source)!,
+            }
+          : undefined;
         for (const kind of ['mask', 'clip'] as const)
           if (node[kind]) {
             const source = node[kind]!.source;

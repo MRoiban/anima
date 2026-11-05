@@ -75,7 +75,7 @@ export type Shape = (
   | { k: 'map'; of: Shape; key?: RegExp }
   | { k: 'alt'; of: Shape[] }
   | { k: 'node' }
-) & { markup?: string; feature?: string; element?: string };
+) & { markup?: string; feature?: string; element?: string; default?: unknown };
 
 /** The AniML attribute name of a key: its `markup` name, or the key itself. */
 export const markupName = (s: Shape | Prop | undefined, key: string): string => s?.markup ?? key;

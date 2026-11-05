@@ -6,6 +6,7 @@ import {
   NAME,
   ELEMENTS,
   NODE_TYPES,
+  nodeShape,
   VERBOSE,
   formatAni,
   load,
@@ -225,7 +226,12 @@ export class Compiler {
       return {
         attrs,
         required,
-        children: el.name === 'group' ? NODES : moduleCompiler.nodes?.(this),
+        children: [
+          ...(el.name === 'group' ? NODES : []),
+          ...(moduleCompiler.nodes?.(this) ?? []).filter((key) =>
+            Object.hasOwn(nodeShape(el.name as NodeType).p, this.elements[key]!.target!.default),
+          ),
+        ],
       };
     }
     return moduleCompiler.form?.(this, el) ?? FORMS[el.name]!;
@@ -484,7 +490,7 @@ export class Compiler {
       moduleCompiler.node?.(this, el, children, o, p);
       if (el.name === 'group') {
         this.put(o, 'children', [], p, el.at);
-        for (const c of children) {
+        for (const c of children.filter((c) => NODES.includes(c.name))) {
           const list = o.children as unknown[];
           list.push(this.build(c, ptr(p + '/children', list.length)));
         }
@@ -530,7 +536,7 @@ export class Compiler {
     } else if (el.name === 'pose') {
       for (const attr of a.values()) {
         const key = this.address(attr.name);
-        const v = this.read(attr, 'value', ptr(p, key));
+        const v = this.read(attr, key.endsWith('.d') ? 'string' : 'value', ptr(p, key));
         if (v !== undefined) this.put(o, key, v, p, attr.valueAt);
       }
     } else {

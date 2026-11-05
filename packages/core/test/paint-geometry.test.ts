@@ -97,6 +97,30 @@ describe('paint geometry', () => {
       expect.objectContaining({ code, pointer: '/timelines/t/tracks/a.d/0/1', hint }),
     );
   });
+  it.each([
+    ['M0 0C1 2 3 4 5 6', 'morph-mismatch', 'match segment 1: expected L, got C'],
+    ['M0 0', 'morph-mismatch', 'match segment 1: expected L, got end'],
+    ['no path', 'bad-path', 'use valid SVG path data'],
+    [42, 'value-type', 'use an SVG path string'],
+  ])('diagnoses invalid pose morph %s in both formats', (value, code, hint) => {
+    const d = {
+      ...doc({ type: 'path', d: 'M0 0L2 2' }),
+      machine: { layers: { l: { initial: 's', states: { s: { pose: { 'a.d': value } } } } } },
+    };
+    const expected = { code, pointer: '/machine/layers/l/states/s/pose/a.d', hint };
+    expect(load(d).diagnostics).toContainEqual(expect.objectContaining(expected));
+    // AniML path values are strings; numeric-looking strings reach the path parser.
+    if (typeof value === 'string') {
+      const result = compile(decompile(d));
+      expect(result.diagnostics).toContainEqual(
+        expect.objectContaining({
+          ...expected,
+          line: expect.any(Number),
+          column: expect.any(Number),
+        }),
+      );
+    }
+  });
   it('measures closed lines, cubics and arcs and expands static relative lengths only', () => {
     expect(pathLength('M0 0L3 0L3 4Z')).toBe(12);
     expect(pathLength('M10 0A10 10 0 0 1 0 10')).toBeCloseTo(5 * Math.PI, 2);

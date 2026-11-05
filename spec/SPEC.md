@@ -621,21 +621,23 @@ length or negative entries use bad-value at the array or offending item.
 The paint-module animation address pathId.d accepts SVG path strings, including when
 rest geometry comes from a glyph and selected subpaths. Keys contain path data, not
 glyph identifiers; compatible glyph data may be used verbatim. Static d needs no module.
-Rest and all keys require identical expanded command lists: same case, letters and
-repetition count. Implicit coordinate repetitions expand; extra moveto pairs become
+Rest, all keys and all pose values require identical expanded command lists:
+same case, letters and repetition count. Implicit coordinate repetitions expand; extra moveto pairs become
 lineto. No reversal, resampling or automatic matching occurs. Numeric arguments
 interpolate with eased weight, including relative coordinates and arc parameters.
 Arc flags choose 0 below 0.5, otherwise 1. State blending uses the same rule.
 Intermediate strings use the SVG formatter's five decimal places; exact endpoint
 samples retain their authored strings. Hit tests follow the sampled outline.
 
-Invalid paths produce bad-path at the key value with a valid-path hint; non-strings
-produce value-type. Incompatible commands produce morph-mismatch at the key value,
+A state pose may set pathId.d to an SVG path string, using the same validation and
+interpolation as tracks. Invalid paths produce bad-path at the key or pose value with a
+valid-path hint; non-strings produce value-type. Incompatible commands produce morph-mismatch at the key or pose value,
 with a hint naming the first differing zero-based segment and expected/actual command
-(or end). Every key is checked against rest, keeping state blends compatible.
+(or end). Every key and pose value is checked against rest, keeping state blends compatible.
 AniML encloses path values in JSON double quotes, for example:
 <track target="a.d">0 "M0 0L2 2"; 1 "M0 0L4 4"</track>.
-The compiler, formatter and decompiler preserve spaces inside the quoted value.
+In a pose attribute, use the path directly: <pose a.d="M0 0L4 4"/>.
+The compiler, formatter and decompiler preserve spaces inside path values.
 
 ### Transform-independent stroke
 
@@ -699,8 +701,10 @@ its ordinary copy. Unknown sources, self references and cycles are load errors.
 
 ### Geometry clips
 
-`clip: { source, rule }` names a painted node's outline, with rule nonzero or evenodd. Fill,
-stroke, visibility, opacity and source compositing do not affect the clip. Source geometry and
+`clip: { source, rule? }` names a painted node's outline; optional `rule` is `nonzero`
+(default) or `evenodd`. A painted node or a group may take a clip. A group clip applies
+to its entire child drawing, including nested groups; it does not change the source outline.
+Fill, stroke, visibility, opacity and source compositing do not affect the clip. Source geometry and
 world transforms animate; coordinates are projected into the target parent space. The SVG
 `clipPath` contains an untransformed path (curves transformed control-point by control-point).
 This avoids nonportable nested groups in clip paths while preserving the Firefox retained-leaf
