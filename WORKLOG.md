@@ -67,3 +67,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 05:00 [claude]: merged P4a-4 draw layer (3e2a00f): 706 tests, 0.1 SVG byte-identical, paint 3771/5120, composite 3874/4096; core+web 17175 (+478 over 16697 target) → size race
 - 2026-11-06 05:10 [claude]: launched size race A+B (core+web 17175 → ≤16697, xhigh) and the AniML side of the P4a benchmark
 - 2026-11-06 06:00 [claude]: merged AniML benchmark run (6e6aea7): 5/6 (no continuous input binding → P5), 5m13s, 101 lines; Rive 5/6; table + findings in docs/benchmarks/agent-native.md; P4a-7 friction fixes queued after the size race
+- 2026-11-06 07:00 [claude]: size race: A 17017, B 16953 (both verified); combining conflicted in 9 core files → took B; round 2 from B (A's ideas as hints)
