@@ -10,14 +10,15 @@ When a decision changes the format, change `spec/SPEC.md` in the same commit.
 
 ## M0 — Spec review and repo setup
 
-- [ ] Read `spec/SPEC.md`, `docs/ARCHITECTURE.md` and all four notes in `docs/research/`.
-- [ ] Resolve or explicitly defer every open question in SPEC §12; record the decision in the spec.
-- [ ] Check `examples/bell.ani` against the spec; fix either side so they agree.
-- [ ] npm workspaces monorepo, TypeScript strict, Vitest, ESLint, Prettier; `npm test` runs
+- [x] Read `spec/SPEC.md`, `docs/ARCHITECTURE.md` and all four notes in `docs/research/`.
+- [x] Resolve or explicitly defer every open question in SPEC §12; record the decision in the spec.
+- [x] Check `examples/bell.ani` against the spec; fix either side so they agree.
+- [x] npm workspaces monorepo, TypeScript strict, Vitest, ESLint, Prettier; `npm test` runs
       everything. Node 24 is available locally.
-- [ ] CI (GitHub Actions): typecheck, lint, test, size budget.
-- [ ] Check npm name availability (`anima` and `@anima/*` are probably taken); pick package names
-      and record them.
+- [x] CI (GitHub Actions): typecheck, lint, test, size budget.
+- [x] Check npm name availability (`anima` and `@anima/*` are probably taken); pick package names
+      and record them. *(Working names `@anima-format/{core,web,cli}`, private; see
+      ARCHITECTURE "Packages". Final names are the user's call.)*
 
 **Done when** the spec has no unresolved 0.1 questions and `npm test` runs an empty suite in CI.
 

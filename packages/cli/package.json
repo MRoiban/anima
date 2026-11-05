@@ -1,0 +1,19 @@
+{
+  "name": "@anima-format/cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "anima: validate, inspect, sample, render and scaffold .ani files.",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "bin": {
+    "anima": "./src/main.ts"
+  },
+  "dependencies": {
+    "@anima-format/core": "0.1.0"
+  }
+}

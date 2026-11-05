@@ -1,0 +1,9 @@
+node_modules
+dist
+coverage
+fixtures
+docs
+*.md
+*.ani
+package-lock.json
+spec/conformance/**/*.jsonl

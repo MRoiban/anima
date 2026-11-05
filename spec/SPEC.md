@@ -1,9 +1,8 @@
-# The `.ani` format — draft 0.1
+# The `.ani` format — 0.1
 
-Status: **draft**. This is the design the first implementation builds against. Sections marked
-*(normative)* define behaviour every runtime must reproduce exactly; the conformance suite in
-`spec/conformance/` is the tie-breaker when prose and tests disagree. Open questions are listed at
-the end; resolve them in this file, not only in code.
+Status: **0.1, frozen for the first implementation.** Sections marked *(normative)* define behaviour
+every runtime must reproduce exactly; the conformance suite in `spec/conformance/` is the tie-breaker
+when prose and tests disagree. §12 records the decisions taken for 0.1 and what is deferred.
 
 `examples/bell.ani` is the reference document. Every construct below appears in it unless marked
 *(not in bell)*.
@@ -31,26 +30,43 @@ A `.ani` file is UTF-8 JSON (RFC 8259) with media type `application/vnd.anima+js
 
 | Key | Type | Required | Meaning |
 |---|---|---|---|
-| `anima` | `"MAJOR.MINOR"` | yes | Format version. A runtime refuses an unknown major; a newer minor loads only if every feature it uses is supported (see `requires`). |
-| `name` | kebab-case string | yes | Identifier. Must not end in `-<digits>` (Glyphy reserves that for variants). |
+| `anima` | `"0.1"` | yes | Format version. A 0.1 runtime loads exactly `"0.1"`; before 1.0 every minor version may change the format, so any other value is `version-unsupported`. |
+| `name` | kebab-case string | yes | Identifier, `^[a-z0-9]+(-[a-z0-9]+)*$`. Must not end in `-<digits>` (Glyphy reserves that for variants). |
 | `title` | string | no | Human name. |
-| `grid` | number | yes | Glyph grid size in units (Glyphy's `style.grid`, usually 20). |
-| `viewBox` | `[x, y, w, h]` | no | Drawing area in grid units; defaults to `[0, 0, grid, grid]`. May be larger than the grid so motion has room (bell: `[-2, -2, 24, 24]`). |
-| `requires` | string[] | no | Optional features this file uses beyond the core (e.g. `"knockout"`). A runtime that lacks one refuses the file with a message naming it. |
+| `grid` | number > 0 | yes | Glyph grid size in units (Glyphy's `style.grid`, usually 20). |
+| `viewBox` | `[x, y, w, h]` | no | Drawing area in grid units, `w, h > 0`; defaults to `[0, 0, grid, grid]`. May be larger than the grid so motion has room (bell: `[-2, -2, 24, 24]`). |
+| `requires` | string[] | no | Optional features the file uses. A runtime that lacks one refuses the file (`unknown-feature`). 0.1 defines `"knockout"`; listing it is allowed but not needed. |
+| `meta` | object | no | Free-form metadata (strings, numbers, booleans, arrays and objects of them) that runtimes ignore and tools preserve, e.g. Glyphy's `concept`, `kind`, `stroke`. |
 | `colors` | `{slot: color}` | no | Colour slots, see §6. |
 | `glyphs` | `{name: Glyph}` | no | Embedded path data, see §3. |
 | `a11y` | object | no | See §10. |
 | `inputs` | `{name: Input}` | no | See §8. |
 | `nodes` | Node[] | yes | Scene tree, see §4. |
+| `hit` | `{ "circle": [cx, cy, r] }` or `{ "rect": [x, y, w, h] }` | no | Hit area of the whole icon, see §9. Default: the `viewBox`. |
 | `timelines` | `{name: Timeline}` | no | See §5. |
 | `machine` | object | no | See §8. |
 | `listeners` | Listener[] | no | See §9. |
 
-**Strictness.** Unknown keys, unknown node types, unknown properties, duplicate ids, dangling
-references, type mismatches (a colour keyframe on a number property), non-increasing keyframe times
-and unreachable references are **load errors**. Loaders report every error with a JSON pointer, a
-message and, where possible, a suggestion (`did you mean "rotate"?`). A lenient mode may exist for
-tooling but the runtime default is strict.
+**Names.** Node ids, input, slot, glyph, timeline, layer, state and event names all match
+`^[a-z][a-zA-Z0-9-]*$` (`bad-name`). Names starting with `@` are reserved for built-ins.
+
+**Order.** JSON member order is significant in exactly one place: `machine.layers` (layer order
+decides who writes last, §7). Tools must preserve member order. Everything else that is ordered is
+an array.
+
+**Strictness** *(normative)*. Unknown keys, unknown node types, unknown properties, duplicate ids,
+dangling references, type mismatches (a colour keyframe on a number property), non-increasing
+keyframe times and unreachable references are **load errors**. A runtime never partially loads a
+document: it either loads with no errors or reports every error it found and loads nothing.
+Every diagnostic has a `code`, a `severity` (`error` | `warning`), a JSON `pointer` (RFC 6901) to the
+offending value, a `message` and, where possible, a `hint` (`did you mean "rotate"?`). Warnings never
+stop a load. The codes are listed in §11.3. Duplicate object keys are invalid JSON for `.ani`;
+`anima validate` reports them (`duplicate-key`), while runtimes built on a standard JSON parser may
+keep the last value. Keys reserved for a later version (§12) are reported as `reserved`, not as
+unknown keys, so the message can say which version brings them.
+
+**Limits.** Loaders refuse documents beyond these limits with `limit-exceeded`: 1 MiB of text, nesting
+depth 32 nodes, 2 048 nodes, 20 000 keyframes in total, 64 layers, 256 states per layer.
 
 **Units** *(normative)*: lengths in grid units, y down; time in **seconds**; angles in **degrees**,
 positive clockwise (y down), 0° along +x; opacity, scale and blend weights are plain numbers
@@ -62,133 +78,192 @@ positive clockwise (y down), 0° along +x; opacity, scale and blend weights are 
 "glyphs": { "bell": { "source": "glyphy", "sha256": "…", "d": "M9.493 4.473C…Z" } }
 ```
 
-- `d` is SVG path data. Glyphy writes absolute `M L C Z` only; runtimes must accept the full SVG
-  path grammar but tools emit Glyphy's subset.
-- `sha256` is the hex SHA-256 of the `d` string's UTF-8 bytes. Tools use it to detect a re-traced
-  glyph; a mismatch is a warning from `anima validate`, not a load error.
-- Subpaths are numbered from 0 in the order their `M` commands appear. A path node takes
-  `"subpaths": [i, …]`; omitted means all.
+| Key | Required | Meaning |
+|---|---|---|
+| `d` | yes | SVG path data. Glyphy writes absolute `M L C Z` only; runtimes accept the full SVG 1.1 path grammar (all commands, relative forms, implicit repeats, arcs) but tools emit Glyphy's subset. |
+| `source` | no | Free text naming where the data came from (`"glyphy"`). |
+| `pick` | no | Glyphy's variant stem (`"bell-1"`). |
+| `sha256` | no | Hex SHA-256 of the `d` string's UTF-8 bytes. Tools use it to detect a re-traced glyph; a mismatch is the warning `hash-mismatch` from `anima validate`, not a load error. |
+
+Subpaths are numbered from 0 in the order their `M`/`m` commands appear. A path node takes
+`"subpaths": [i, …]` (distinct, in range, any order — they are always drawn in `d` order); omitted
+means all.
 
 ## 4. Nodes
 
-Every node has `id` (unique, `[a-z][a-z0-9-]*`) and `type`. Paint order is **document order, later
+Every node has `id` (unique across the document) and `type`. Paint order is **document order, later
 on top** (SVG order — the reverse of Rive).
 
 Common properties (all animatable unless noted):
 
-| Property | Default | Meaning |
-|---|---|---|
-| `x`, `y` | 0 | Translation. |
-| `rotate` | 0 | Degrees about `pivot`. |
-| `scale` | 1 | Uniform scale about `pivot`; multiplies `scaleX`/`scaleY`. |
-| `scaleX`, `scaleY` | 1 | Axis scales about `pivot`. |
-| `opacity` | 1 | Group opacity, 0..1 (clamped). |
-| `visible` | true | Boolean, hold-only. |
-| `pivot` | `[0, 0]` | **Not animatable.** Point in the parent's coordinates the transform turns and scales about. |
+| Property | Type | Default | Meaning |
+|---|---|---|---|
+| `x`, `y` | number | 0 | Translation. |
+| `rotate` | number | 0 | Degrees about `pivot`. |
+| `scale` | number | 1 | Uniform scale about `pivot`; multiplies `scaleX`/`scaleY`. |
+| `scaleX`, `scaleY` | number | 1 | Axis scales about `pivot`. |
+| `opacity` | number | 1 | Group opacity, clamped to 0..1 when resolved. |
+| `visible` | boolean | true | Hold-only. An invisible node draws nothing, hits nothing and cuts nothing. |
+| `pivot` | `[x, y]` | `[0, 0]` | **Not animatable.** Point the transform turns and scales about. |
 
 **Transform** *(normative)*: children are authored in the same grid coordinates as their parent (no
 re-origining, so Glyphy geometry is used as-is). A node's local matrix is
 
 `T(x, y) · T(px, py) · R(rotate) · S(scale·scaleX, scale·scaleY) · T(−px, −py)`
 
-and its world matrix is `parent.world · local`.
+and its world matrix is `parent.world · local` (the root's parent is the identity in `viewBox`
+coordinates). Because nothing is re-origined, the pivot is the same point in the node's and its
+parent's coordinates at rest.
 
 Types:
 
-| `type` | Own properties | Notes |
+| `type` | Own keys | Notes |
 |---|---|---|
-| `group` | `children` | |
-| `path` | `glyph`, `subpaths`, or inline `d` | Geometry from a glyph or inline data. |
-| `circle` | `center`, `r` (animatable) | |
-| `rect` | `x0`, `y0`, `w`, `h`, `rx` (w, h, rx animatable) | *(not in bell)* |
-| `arc` | `center`, `r`, `from`, `to` (r, from, to animatable) | Open circular arc, angles in degrees, drawn from `from` to `to` in the direction of increasing angle. |
+| `group` | `children` (Node[]) | |
+| `path` | `glyph` + optional `subpaths`, **or** inline `d` | Exactly one of `glyph` and `d` (`path-source`). |
+| `circle` | `center` `[x, y]`, `r` (animatable, ≥ 0) | Its outline starts at angle 0 and runs in the direction of increasing angle (matters for trims). |
+| `rect` | `x0`, `y0`, `w`, `h`, `rx` (`w`, `h`, `rx` animatable, ≥ 0; `rx` defaults to 0) | *(not in bell)* Outline starts at `(x0 + rx, y0)`, clockwise. |
+| `arc` | `center`, `r`, `from`, `to` (`r`, `from`, `to` animatable) | Open circular arc, angles in degrees, drawn from `from` to `to` in the direction of increasing angle. At rest `0 < to − from ≤ 360` (`bad-value`). Stroke only (`arc-fill`). |
 
 Paint (on `path`, `circle`, `rect`, `arc`):
 
 - `fill`: `{ "color": slot-or-color, "rule": "nonzero" | "evenodd" }` — `rule` defaults to `nonzero`;
   Glyphy glyphs need `evenodd`.
-- `stroke`: `{ "color", "width", "cap": "butt"|"round"|"square", "join": "miter"|"round"|"bevel",
-  "trimStart", "trimEnd", "trimOffset" }` — width and trims animatable; trims are fractions of path
-  length (draw-on effects).
+- `stroke`: `{ "color", "width", "cap", "join", "trimStart", "trimEnd", "trimOffset" }`.
+  `width` defaults to 1, `cap` (`butt`|`round`|`square`) and `join` (`miter`|`round`|`bevel`) default
+  to **`round`** — Glyphy styles carry no cap or join, and the reference sets are round. Trims are
+  fractions of the outline's length: the visible part runs from `trimStart + trimOffset` to
+  `trimEnd + trimOffset`, wrapping around 1 (defaults 0, 1, 0; start and end clamp to 0..1 when
+  resolved). When `trimEnd − trimStart ≤ 0` nothing is stroked (no dots from round caps). Trims are
+  allowed on `circle`, `rect`, `arc` and single-subpath `path`s (`trim-multi-subpath`).
 - Animatable paint addresses: `<id>.fill.color`, `<id>.stroke.color`, `<id>.stroke.width`,
   `<id>.stroke.trimStart|trimEnd|trimOffset`.
-- Stroke width scales with the world transform (SVG default). *(Open question: a
-  `nonScaling` flag for crisp strokes under scale.)*
+- A painted node with neither `fill` nor `stroke` draws nothing (warning `no-paint`); it can still be
+  a listener target.
+- **Stroke width scales with the world transform** *(normative)*, as SVG and Glyphy ink do (§12.1).
 
-**Knockout** (`requires: ["knockout"]` optional in 0.1, implied by use): `"knockout": w` on a painted
-node cuts the node's shape, grown by `w` units, out of every **earlier sibling** in the same group,
-following the node's animated transform. This replaces the "paper-coloured disc" trick, so badges
-work on any background. (bell: the notification dot.)
+**Knockout** *(normative)*: `"knockout": w` (number ≥ 0) on a painted node cuts the node's painted
+area — its fill area if it has a fill, plus its stroke area if it has a stroke — grown by `w` units
+(as if stroked with width `2w`, round joins and caps), out of every **earlier sibling** in the same
+parent, following the node's animated transform. The cut's strength is the node's own resolved
+`opacity`; an invisible node cuts nothing. Later knockouts cut earlier knockout nodes too. This
+replaces the "paper-coloured disc" trick, so badges work on any background. (bell: the
+notification dot cuts the body and clapper.)
 
 ## 5. Timelines
 
 ```json
 "timelines": { "ring": { "duration": 1.4, "loop": "once", "reducedMotion": "end",
-  "tracks": { "swing.rotate": [[0, 0, "cubic(0.2, 0, 0.3, 1)"], [0.1167, 17.189, "…"], [1.1, 0]] },
+  "tracks": { "swing.rotate": [[0, 0, "cubic(0.2, 0, 0.3, 1)"], [0.116667, 17.1887, "…"], [1.1, 0]] },
   "events": [[0.05, "ding"]] } }
 ```
 
-- `duration` seconds (> 0). `loop`: `once` (default) | `loop` | `pingpong`.
-- `tracks` maps a **property address** `"<node-id>.<property>"` to keyframes `[time, value, ease?]`.
-  Times strictly increase and lie in `[0, duration]`. The value type must match the property
-  (number, colour string, boolean).
-- `events` *(not in bell)*: `[time, name]` pairs reported when playback crosses them (§7).
+- `duration` seconds (> 0). `loop`: `once` (default) | `loop` | `pingpong`. `reducedMotion`: §10.
+- `tracks` maps a **property address** `"<node-id>.<property>"` to keyframes `[time, value, ease?]`
+  (at least one). Times strictly increase (`key-order`) and lie in `[0, duration]` (`key-range`).
+  The value type must match the property (number, colour string, boolean) (`value-type`).
+- `events` *(not in bell)*: `[time, name]` pairs, `time` in `[0, duration]`, reported when playback
+  crosses them (§7).
 
 **Sampling** *(normative)*, for track keys `k0 … kn` at local time `t`:
 - `t ≤ t0` → `v0`; `t ≥ tn` → `vn`.
 - Otherwise find `i` with `ti ≤ t < ti+1`; `u = (t − ti) / (ti+1 − ti)`; the **ease on key `i`**
   (the left key of the segment) maps `u → w`; result `vi + (vi+1 − vi) · w`. The ease on the last key
   is never read and should be omitted.
-- Booleans and anything with ease `hold` take `vi` for the whole segment.
-- Colours interpolate per channel in non-premultiplied sRGB 0..255 including alpha, rounded to the
-  nearest integer. *(Open question: linear-light or OKLab; sRGB is the 0.1 rule.)*
+- Booleans take `vi` for the whole segment; their keys may only carry `hold` or no ease (`bad-ease`).
+- **Colours** interpolate per channel in non-premultiplied sRGB, channels 0..255 including alpha:
+  `c = vi.c + (vi+1.c − vi.c) · w`, then `round(c) = floor(c + 0.5)` and clamp to 0..255 (§12.2).
 
-**Eases** *(normative)*:
+**Eases** *(normative)*, written as strings:
 
 | Ease | Definition |
 |---|---|
 | omitted / `linear` | `w = u` |
 | `hold` | `w = 0` |
 | `in`, `out`, `inOut` | `cubic(0.42, 0, 1, 1)`, `cubic(0, 0, 0.58, 1)`, `cubic(0.42, 0, 0.58, 1)` |
-| `cubic(x1, y1, x2, y2)` | CSS `cubic-bezier`: solve `Bx(s) = u` for `s` (Newton, falling back to bisection, to 1e-7), return `By(s)`. `x1, x2 ∈ [0, 1]`; `y` unbounded (overshoot allowed). |
-| `elastic(a, p)` | Ease-out elastic: with `A = max(a, 1)`, `s = p / (2π) · asin(1 / A)`; `w = A · 2^(−10u) · sin((u − s) · 2π / p) + 1`; `w(0) = 0`, `w(1) = 1` exactly. |
+| `cubic(x1, y1, x2, y2)` | CSS `cubic-bezier`: with `Bx`, `By` the Bézier through `(0,0) (x1,y1) (x2,y2) (1,1)`, find the parameter `s ∈ [0, 1]` with `Bx(s) = u` and return `By(s)`. `x1, x2 ∈ [0, 1]` (so the root is unique); `y` unbounded (overshoot allowed). Implementations must be within 1e-7 of the exact root (Newton from the linear guess, falling back to bisection, is sufficient). `w(0) = 0` and `w(1) = 1` exactly. |
+| `elastic(a, p)` | Ease-out elastic, `a ≥ 0`, `p > 0`: with `A = max(a, 1)`, `s = p / (2π) · asin(1 / A)`; `w = A · 2^(−10u) · sin((u − s) · 2π / p) + 1`; `w(0) = 0`, `w(1) = 1` exactly. |
 
-`spring(…)` is reserved for a later minor version. Golden vectors for every ease live in
+Arguments are JSON numbers separated by commas; spaces are optional. `spring(…)` is reserved for a
+later minor version (`reserved`). Golden vectors for every ease live in
 `spec/conformance/eases.json`.
+
+**Local time** *(normative)*. A timeline played for `τ` seconds (state time × `speed`, §8) is at local
+time: `once` → `min(τ, d)`; `loop` → `τ − d·⌊τ/d⌋`; `pingpong` → with `q = τ − 2d·⌊τ/2d⌋`,
+`q ≤ d ? q : 2d − q`. A `once` timeline has **finished** when `τ ≥ d`.
 
 ## 6. Colours
 
 `colors` declares named slots: `{ "ink": "currentColor", "accent": "#d97757" }`. A paint `color` is
-either a slot name or a literal (`#rgb`, `#rrggbb`, `#rrggbbaa`, `currentColor`). In the web runtime
-a slot renders as `var(--anima-<slot>, <default>)`, so pages theme icons with CSS:
-`anima-icon { color: …; --anima-accent: … }`. Slots are not animatable in 0.1; literal paint colours
-are.
+either a slot name or a literal (`#rgb`, `#rrggbb`, `#rrggbbaa`, case-insensitive, or `currentColor`);
+anything else is `bad-color`, and a name that is not a declared slot is `unknown-color-slot`.
+In the web runtime a slot renders as `var(--anima-<slot>, <default>)`, so pages theme icons with CSS:
+`anima-icon { color: …; --anima-accent: … }`. Static renders use the slot's default unless the
+caller overrides it.
+
+Slots are not animatable in 0.1. A paint colour that any track or pose writes must have a hex
+literal as its document value, and every keyframe and pose value for it must be a hex literal
+(`color-slot-animated`).
 
 ## 7. Playback, blending and the step function *(normative)*
 
-A **player** holds: input values, pending triggers, per-layer state (current state, state time,
-optional crossfade), and the resolved property values. `step(dt)` with `dt ≥ 0` seconds does, in
-order:
+A **player** holds: input values, pending triggers, and per layer: the current state, its **state
+time** (seconds since entry), and an optional crossfade (a frozen *from* snapshot, its duration, ease
+and elapsed time). A new player has every input at its default and every layer in its initial state
+at time 0 with no crossfade; its values are resolved as by step 4 below, and nothing else is
+evaluated until the first `step`.
 
-1. **Inputs.** Apply queued writes in arrival order (`set`, `fire`). A fired trigger becomes pending.
-2. **Transitions**, for each layer in declaration order: evaluate the current state's `on` list in
-   order; the first transition whose condition holds is taken (at most one per layer per step).
-   Taking a transition consumes the triggers its condition named. A transition may interrupt a
-   crossfade in progress: the layer's current blended output is frozen as the new "from" pose.
-3. **Clocks.** Advance each layer's state time and crossfade progress by `dt`. `once` timelines clamp
-   at `duration`; `loop` wraps; `pingpong` reflects. Leftover time after a wrap carries over.
-4. **Resolve.** Start every property from its **rest value** (the document value). For each layer in
-   declaration order, compute the layer output — the state's pose or timeline sample, or during a
-   crossfade `lerp(from, to, ease(progress))` per property — and write it over the current value.
-   A property the target state does not set blends toward its rest value. Later layers win where
-   two layers write the same property.
-5. **Events.** Collect, in time order: state-enter `emit`s, then timeline events crossed during this
-   step (including across loop wraps), each tagged with layer and time.
-6. **Triggers.** Clear triggers that no transition consumed this step. (An input may declare
-   `"buffer": seconds` to keep an unconsumed trigger pending for that long.)
-7. Return `{ events, settled }`. `settled` is true when no crossfade is running, every playing
-   timeline is `once` and finished, and no trigger is pending. A settled player needs no frames
-   until an input changes.
+**Resolve rule.** Each layer is a function from the values below it to the values above it. Start
+from the **rest values** (each property's document value, or its registry default). Let `S(state)`
+be the set of addresses a state writes: its pose's keys, or its timeline's tracks. A layer that is
+not crossfading writes `sample(state, p)` for every `p ∈ S(state)` and passes every other property
+through. A layer crossfading from snapshot `F` to state `T` with eased progress `w` writes, for every
+`p ∈ dom(F) ∪ S(T)`, `lerp(a, b, w)` with `a = F[p]` if `p ∈ dom(F)` else the value below, and
+`b = sample(T, p)` if `p ∈ S(T)` else the value below. So a property the target state does not set
+blends back to what is below it — for a single layer, its rest value. `lerp` is linear for numbers,
+per channel with rounding for colours (§5), and for booleans `a || b` while the crossfade runs and
+`b` once it ends. Later layers win where two layers write the same property.
+
+`step(dt)` with `dt ≥ 0` seconds does, in order:
+
+1. **Inputs.** Apply queued writes in arrival order (`set`, `fire`, `toggle`). Number writes clamp to
+   the input's `min`/`max`. A fired trigger becomes pending (firing a pending trigger again is a
+   no-op). Listener `emit` actions add their events now.
+2. **Clocks.** Advance every layer's state time and crossfade elapsed time by `dt`. A crossfade whose
+   elapsed time reaches its duration ends.
+3. **Layers**, in declaration order, each against the values resolved by the layers before it:
+   1. *Timeline events.* Report the current state's timeline events crossed by step 2 (below).
+   2. *Transitions.* Evaluate the current state's `on` list in order; take the first transition whose
+      condition holds. Taking it: (a) freeze the layer's current output for `dom(F) ∪ S(current)` as
+      the new snapshot `F` (this is also what makes interrupting a crossfade smooth); (b) mark the
+      triggers the condition named as consumed by this layer; (c) enter the target: state time =
+      **carry** (the overshoot `t − threshold` of the `@end`/`@after` term that made the condition
+      hold, the largest one if several; else 0), crossfade elapsed = carry; a `blend` of 0 drops the
+      snapshot; (d) report the target's `emit`, then its timeline events in `[0, carry]`. Then
+      evaluate the new state's `on` list the same way. A layer takes at most **16** transitions per
+      step; reaching the cap reports the event `@limit` for that layer and stops its transitions for
+      this step. A trigger already consumed by this layer does not hold for it again in this step.
+   3. *Write* the layer's output over the values (resolve rule).
+4. **Clamp.** Clamp resolved values to their property's range (`opacity`, trims 0..1; `r`, `w`, `h`,
+   `rx`, `stroke.width` ≥ 0).
+5. **Triggers.** A pending trigger that some layer consumed this step is cleared. One that no layer
+   consumed is cleared too, unless its input declares `"buffer": seconds`: then it stays pending until
+   it has been pending for longer than `buffer` seconds of step time, or is consumed.
+6. Return `{ events, settled }`.
+
+**Timeline events.** A play state reports each event whose time, mapped through the loop mode, lies
+in `(τprev, τnow]` of played time, plus events at time 0 when the state is entered; for `loop` an
+event at `te` occurs at `te + k·d`, for `pingpong` at `te + 2kd` and `2(k+1)d − te` (counted once
+when those coincide); a `once` timeline reports nothing after it finishes. Events are reported in
+time order. Each event is `{ name, layer, time }`: `time` is the event's timeline time, or 0 for an
+`emit`; listener events have `layer: null`. Order within one step: listener events, then layer by
+layer in declaration order as described in step 3.
+
+**Settled.** `settled` is true when no trigger is pending and every layer is at rest: no crossfade
+is running, the current state is a pose or a finished `once` timeline (or a timeline frozen by
+reduced motion, §10), and none of the current state's transitions has an `@after(s)` term with
+`s` greater than the state time. A settled player's values cannot change until an input changes, so
+it needs no frames until then.
 
 Large `dt` is processed in one step; runtimes clamp `dt` to 0.25 s per frame for display, but the
 headless `sample` command does not.
@@ -199,9 +274,11 @@ headless `sample` command does not.
 "inputs": { "ring": { "type": "trigger" }, "hover": { "type": "bool" }, "level": { "type": "number", "default": 0, "min": 0, "max": 1 } }
 ```
 
-Types: `bool`, `number`, `trigger`. Inputs are the **only** host interface: the page sets them,
-listeners set them, conditions read them. (Rive moved from state-machine inputs to view models; at
-icon scale one flat typed namespace does both jobs.)
+Types: `bool` (`default` false), `number` (`default` 0, optional `min` ≤ `max`; the default must lie
+in range), `trigger` (optional `buffer` ≥ 0 seconds, default 0). Inputs are the **only** host
+interface: the page sets them, listeners set them, conditions read them. (Rive moved from
+state-machine inputs to view models; at icon scale one flat typed namespace does both jobs.) Host
+writes to an unknown input or with the wrong type are rejected by the API, never ignored.
 
 ```json
 "machine": { "layers": { "ring": { "initial": "idle", "states": {
@@ -209,17 +286,32 @@ icon scale one flat typed namespace does both jobs.)
   "ringing": { "play": "ring", "emit": "rang", "on": [{ "when": "@end", "to": "rested" }] } } } } }
 ```
 
-- A **state** has either `pose` (a map of property address → value, i.e. a timeline of one instant)
-  or `play` (a timeline name, optional `speed`), plus optional `emit` (event name on entry) and `on`.
-- Entering a `play` state restarts its timeline at 0.
-- A **transition** `{ "when", "to", "blend" }`: `blend` is a crossfade duration in seconds (default
-  0); optional `"ease"` shapes the crossfade (default linear).
-- **Conditions** (`when`), a deliberately tiny grammar:
-  `name` (trigger pending, or bool true) · `!name` (bool false) · `name OP number` with
-  `OP ∈ == != < <= > >=` (number inputs) · `@end` (the state's timeline has finished, `once` only) ·
-  `@after(seconds)` (state time reached) · conjunction with `&&`. No `||`: write two transitions.
-- Validation errors: unknown input, a trigger negated, `@end` on a pose state or looping timeline,
-  a state with no way out that is not intended as terminal (warning), unreachable states (warning).
+- A **layer** has `initial` (a state name) and `states`.
+- A **state** has exactly one of `pose` (a map of property address → value, i.e. a timeline of one
+  instant; `{}` writes nothing) or `play` (a timeline name, optional `speed` > 0, default 1), plus
+  optional `emit` (event name on entry) and `on` (transitions) (`state-kind`).
+- Entering a `play` state restarts its timeline at 0; its played time is state time × `speed`.
+- A **transition** `{ "when", "to", "blend", "ease" }`: `when` and `to` are required; `blend` is a
+  crossfade duration in seconds (default 0); `ease` shapes the crossfade (default `linear`). `to` may
+  name the current state (re-entering it restarts its timeline) only if the condition contains a
+  trigger, `@end` or `@after` term (`self-transition`), so it cannot re-fire every step.
+- **Conditions** (`when`), a deliberately tiny grammar (`bad-condition` otherwise):
+
+  ```
+  condition := term ( "&&" term )*
+  term      := "!"? NAME  |  NAME OP NUMBER  |  "@end"  |  "@after(" NUMBER ")"
+  OP        := "==" | "!=" | "<" | "<=" | ">" | ">="
+  ```
+
+  `name` holds when the trigger is pending (and not yet consumed by this layer this step) or the
+  bool is true · `!name` when the bool is false · `name OP number` compares a number input ·
+  `@end` when the state's `once` timeline has finished · `@after(s)` when the state time is at least
+  `s`. All terms must hold. There is no `||`: write two transitions. Whitespace between tokens is
+  ignored.
+- Load errors: unknown input (`unknown-input`); a negated trigger, a bare number or a compared
+  bool/trigger (`input-type`); `@end` on a pose state or a `loop`/`pingpong` timeline (`bad-end`).
+  Warnings: states no transition can reach (`unreachable-state`), inputs nothing reads or writes
+  (`unused-input`).
 
 ## 9. Listeners
 
@@ -228,42 +320,160 @@ icon scale one flat typed namespace does both jobs.)
 ```
 
 - `on`: `enter` | `leave` | `down` | `up` | `click` | `move` *(drag: later)*.
-- `target`: a node id, or omitted for the **whole icon** (the `viewBox`, or the top-level `hit` shape
-  if one is given). Node targets hit-test fill area plus stroke within half its width, plus optional
-  `"hitPadding"` (grid units) on the listener.
-- `click` fires when `down` and `up` land on the same target with the primary button and the pointer
-  moved less than 0.5 grid units.
-- Actions: `fire` (trigger name or list), `set` (input → value), `emit` (event name).
+- `target`: a node id, or omitted for the **whole icon** (the top-level `hit` shape if given, else
+  the `viewBox`). A node target hits where its painted area is: fill area by its fill rule, plus the
+  stroke within half its (world) width, of the node or, for a group, of any painted descendant,
+  grown by the listener's optional `"hitPadding"` (grid units, ≥ 0). Invisible nodes do not hit.
+  Hit testing may approximate curves, but must be exact for points farther than 0.05 units from an
+  edge.
+- Actions, at least one: `fire` (trigger name or list), `set` (`{ input: value }` for bool and
+  number inputs), `toggle` (bool input name or list) *(not in bell)*, `emit` (event name)
+  *(not in bell)*. Action keys run in that order: `fire`, `set`, `toggle`, `emit`.
+- **Pointer model** *(normative)*. The host reports pointer events in grid coordinates:
+  `move(x, y)`, `down(x, y)`, `up(x, y)` (primary button only) and `leave()` (pointer left the icon
+  or was cancelled). For each event, the player updates which targets are under the pointer, then
+  runs listeners, in document order within each group: first `leave` for targets no longer under
+  the pointer, then `enter` for targets newly under it, then `move`/`down`/`up` for targets under it,
+  then `click`. `click` fires on `up` for a target that was also under the `down`, when the pointer
+  moved less than 0.5 grid units in between. `leave()` cancels a press and leaves every target.
 - Listener actions are queued as input writes for the next `step` (§7.1); runtimes call `step(0)`
-  immediately so a press is visible in the same frame.
+  immediately after each pointer event so a press is visible in the same frame.
 
 ## 10. Accessibility and motion
 
-`"a11y": { "role": "button" | "switch" | "img", "label": "…", "activate": "<trigger>", "pressed": "<bool input>" }`
+`"a11y": { "role": "button" | "switch" | "img", "label": "…", "activate": "<trigger>", "pressed": "<bool>", "held": "<bool>" }`
 
-- `button`/`switch`: the element is focusable, exposes the role and label, and Enter/Space fire
-  `activate` (and, for `switch`, `aria-checked` follows `pressed`). Keyboard activation also sets
-  `down` while the key is held if a `down` input exists. *(Open question: make that mapping explicit.)*
+- `button`/`switch`: the element is focusable and exposes the role and `label`. **Enter** fires
+  `activate` on key down (not on repeats); **Space** fires it on key up — as native buttons do.
+  While either key is held, the bool named by `held` (if any) is true. `pressed` names a bool input
+  that `aria-pressed` (`button`) or `aria-checked` (`switch`, where it is required) follows.
 - `img` or no `a11y`: `role="img"` with the label, or `aria-hidden` when there is no label.
-- **Reduced motion.** Each timeline declares `reducedMotion`: `play` | `end` (jump to the final
-  pose; events still fire) | `skip` (stay at the first pose). Default `end`. Crossfades become 0 s.
-  The web runtime follows `prefers-reduced-motion` unless the element sets `motion="full"`.
+- `activate`, `pressed` and `held` must name inputs of the right type (`unknown-input`, `input-type`).
+- **Reduced motion.** Each timeline declares `reducedMotion`: `play` | `end` | `skip`, default `end`.
+  With reduced motion on, entering a play state whose timeline says `end` freezes it at local time
+  `d`, reporting all its events at once; `skip` freezes it at local time 0 and reports none; `play`
+  plays normally. A frozen `once` timeline counts as finished (so `@end` holds at once) and a frozen
+  timeline of any loop mode counts as at rest. Every crossfade takes 0 s. The web runtime follows
+  `prefers-reduced-motion` unless the element sets `motion="full"` (or `motion="reduce"` to force it).
 
 ## 11. Conformance
 
-`spec/conformance/<case>/` holds `case.ani`, `script.txt` (the same command language as
-`anima sample`: `advance 0.1`, `set hover true`, `fire ring`, `pointer click 10 10`, `snapshot`) and
-`expected.jsonl` (resolved property values and events after each `snapshot`, numbers compared at
-1e-6). Every runtime and the CLI run the whole suite in CI.
+### 11.1 Cases
 
-## 12. Open questions
+`spec/conformance/<case>/` holds `case.ani`, `script.txt` and `expected.jsonl`. Every runtime and the
+CLI run the whole suite in CI. Numbers are compared at 1e-6, everything else exactly.
 
-1. Non-scaling strokes (keep Glyphy's 1-unit weight under `scale`) — flag or default?
-2. Colour interpolation space.
-3. Keyboard → `down` mapping for `button`.
-4. Additive layers (e.g. a breathing idle under a hover tilt) — needed before 1.0?
-5. Path morphing between compatible subpaths (`<id>.d` keyframes) — 0.2?
-6. Data binding beyond conditions (e.g. a `number` input driving `bar.scaleX` through a range map) —
-   0.2, as `"bind": { "<address>": { "from": "level", "map": [0, 1, 0, 1] } }`.
-7. Draw-on for Glyphy outlines (Glyphy has no centerlines): stroked mask with trims, or an authored
-   centerline subpath?
+### 11.2 Script language
+
+One command per line; `#` starts a comment. The same language drives `anima sample`.
+
+| Command | Does |
+|---|---|
+| `advance <seconds> [in <n>]` | `step(seconds / n)` `n` times (default 1). |
+| `set <input> <true\|false\|number>` | Queue a write. |
+| `fire <input>` / `toggle <input>` | Queue a fire / toggle. |
+| `pointer move\|down\|up <x> <y>` | Report a pointer event in grid units, then `step(0)`. |
+| `pointer click <x> <y>` | `move`, `down`, `up` at that point, each followed by `step(0)`. |
+| `pointer leave` | Report `leave()`, then `step(0)`. |
+| `motion reduce\|full` | Turn reduced motion on or off for states entered from now on. |
+| `snapshot [address …]` | Print one JSON line (below), optionally limited to the given addresses. |
+
+A snapshot line is `{"time": t, "values": {address: value}, "states": {layer: state},
+"events": [...], "settled": bool}`: `time` is the total step time so far, `values` holds every
+address any track or pose writes (or the listed ones), `events` holds the events reported since the
+previous snapshot, and `settled` is the last step's result.
+
+### 11.3 Diagnostic codes
+
+| Code | Severity | When |
+|---|---|---|
+| `json-syntax` | error | The text is not JSON. The message carries line and column. |
+| `duplicate-key` | error | An object repeats a key (`anima validate`). |
+| `type` | error | A value has the wrong JSON type. |
+| `missing-key` | error | A required key is absent. |
+| `unknown-key` | error | A key is not defined here. Hint: the closest valid key. |
+| `reserved` | error | A key, ease or address reserved for a later version. |
+| `version-unsupported` | error | `anima` is not `"0.1"`. |
+| `unknown-feature` | error | `requires` names a feature this runtime lacks. |
+| `bad-name` | error | A name breaks its pattern. |
+| `duplicate-id` | error | Two nodes share an id. |
+| `unknown-node-type` | error | `type` is not a node type. |
+| `bad-value` | error | A value is out of range or not an allowed option. |
+| `bad-color` | error | A colour string does not parse. |
+| `unknown-color-slot` | error | A paint names a slot that is not declared. |
+| `unknown-glyph` | error | A path names a glyph that is not declared. |
+| `bad-path` | error | Path data does not parse. |
+| `bad-subpath` | error | A subpath index is out of range or repeated. |
+| `path-source` | error | A path has both or neither of `glyph` and `d`. |
+| `arc-fill` | error | An arc has a fill. |
+| `trim-multi-subpath` | error | A stroke with trims on a path of several subpaths. |
+| `unknown-address` | error | A track or pose names an unknown node or property. |
+| `not-animatable` | error | A track or pose writes a property that cannot be animated. |
+| `value-type` | error | A keyframe or pose value has the wrong type. |
+| `color-slot-animated` | error | An animated colour uses a slot or `currentColor`. |
+| `empty-track` | error | A track has no keyframes. |
+| `key-order` | error | Keyframe times do not strictly increase. |
+| `key-range` | error | A keyframe or event time lies outside `[0, duration]`. |
+| `bad-ease` | error | An ease does not parse, has invalid arguments, or eases a boolean. |
+| `unknown-timeline` | error | A state plays a timeline that is not declared. |
+| `unknown-state` | error | `initial` or `to` names a state that is not in the layer. |
+| `state-kind` | error | A state has both or neither of `pose` and `play`, or `speed` without `play`. |
+| `bad-condition` | error | A condition does not parse. |
+| `unknown-input` | error | A condition, listener or `a11y` names an input that is not declared. |
+| `input-type` | error | An input is used in a way its type does not allow. |
+| `bad-end` | error | `@end` on a pose state or a looping timeline. |
+| `self-transition` | error | A transition to the current state with only level terms. |
+| `unknown-target` | error | A listener targets a node that does not exist. |
+| `limit-exceeded` | error | A §2 limit is exceeded. |
+| `hash-mismatch` | warning | A glyph's `sha256` does not match its `d`. |
+| `no-paint` | warning | A painted node has neither fill nor stroke. |
+| `unreachable-state` | warning | No transition reaches a state. |
+| `unused-input` | warning | Nothing reads or writes an input. |
+
+## 12. Decisions for 0.1, and what is deferred
+
+These were the open questions of the draft. Each is settled for 0.1; the deferred ones are reserved
+so a 0.1 loader rejects them with `reserved` and a pointer to the version that brings them.
+
+1. **Non-scaling strokes — no flag; strokes always scale.** Glyphy ink is a filled outline, which
+   scales with its node, so an authored stroke (the bell's waves) must scale the same way to keep
+   matching it. Glyphy's own check allows `stroke ± 0.12`, and the bell's poses (0.95–1.08) stay in
+   it (`docs/research/glyphy-compat.md` §4.5). SVG's `vector-effect: non-scaling-stroke` works in
+   screen pixels, not grid units, so it could not express "keep 1 unit" anyway. Revisit with a
+   grid-unit definition if an icon needs it.
+2. **Colour interpolation — non-premultiplied sRGB, 8-bit channels, `floor(c + 0.5)`, clamped.**
+   It is what CSS transitions and Rive do, so authors' expectations and the Rive reference agree,
+   and the rule is exactly reproducible. A per-track `"space": "oklab"` is reserved for 0.2.
+   (Rive's lossy float round-trip, `docs/research/rive-animation-and-state.md` Lesson A.5, cannot
+   happen: values are integers.)
+3. **Keyboard → `down` — explicit.** `a11y.held` names the bool that is true while Enter or Space is
+   held; nothing is inferred from input names. The bell sets `"held": "down"`.
+4. **Additive layers — deferred to 0.2** (reserved layer key `mode`). 0.1 layers override; the
+   resolve rule (§7) passes unwritten properties through, so layers that write disjoint properties
+   compose already, which covers a breathing idle on one node under a hover tilt on another.
+5. **Path morphing — deferred to 0.2** (address `<id>.d` reserved). Glyphy traces differ in point
+   count and structure even between variants, so morphing needs tooling first.
+6. **Data binding — deferred to 0.2** (key `bind` reserved, in the shape
+   `"bind": { "<address>": { "from": "level", "map": [0, 1, 0, 1] } }`). 0.1 hosts drive values
+   through inputs and conditions.
+7. **Draw-on for Glyphy outlines — deferred to 0.2.** Trims work on authored strokes in 0.1. For
+   glyph ink the likely 0.2 design is a `reveal` mask: an authored centreline subpath, stroked wider
+   than the ink and trimmed, used as a mask so the visible ink stays the exact outline
+   (`docs/research/glyphy-compat.md` §4.5a). It needs a Glyphy centreline export to be practical.
+
+Other decisions made while freezing 0.1:
+
+- **Clocks advance before transitions** (§7). The draft evaluated transitions first, so a finished
+  timeline could report `settled` while its `@end` transition was still pending.
+- **Transitions chain within a step** (cap 16), with time carried over from `@end`/`@after`, so one
+  large `dt` and many small ones reach the same state (Rive allows chains too, capped at 100;
+  `rive-animation-and-state.md` §2.3).
+- **The crossfade source is always a frozen snapshot** of the layer's output at the moment of the
+  transition, not a still-playing timeline. One rule covers both normal transitions and
+  interruptions, and only one timeline is sampled per layer.
+- **Triggers are consumed per layer** and dropped at the end of the step unless the input declares
+  `buffer` (Lesson A.11).
+- **`hit`** is a top-level circle or rect for whole-icon listeners (bell: the Rive file's hit disc,
+  radius 10.8 around the glyph centre).
+- **Exact version match** before 1.0, rather than minor-version feature negotiation.
+- **Cap and join default to `round`**, matching the Glyphy reference sets rather than SVG's `butt`.
