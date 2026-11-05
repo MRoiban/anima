@@ -1,3 +1,4 @@
+import './libraries.ts';
 // AniML (spec/ANIML.md): the authoring format. `compile` turns markup into `.ani` (the runtime and
 // conformance format) with a source map, so every diagnostic names a line and column in the markup.
 
@@ -58,4 +59,4 @@ export { decompile } from './decompile.ts';
 export { formatMarkup } from './format.ts';
 
 export { compileAsync } from './async.ts';
-export { importPath } from './reuse.ts';
+export { importPath } from './libraries.ts';

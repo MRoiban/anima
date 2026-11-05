@@ -7,6 +7,7 @@ import { bundle } from './browser-build.ts';
 const root = new URL('../', import.meta.url);
 const js = await bundle(new URL('packages/web/src/index.ts', root).pathname);
 const markup = await bundle(new URL('packages/web/src/markup.ts', root).pathname);
+const libraries = await bundle(new URL('packages/web/src/markup-libraries.ts', root).pathname);
 const paint = await bundle(new URL('packages/web/src/paint.ts', root).pathname);
 const composite = await bundle(new URL('packages/web/src/composite.ts', root).pathname);
 const check = process.argv.includes('--check');
@@ -23,6 +24,7 @@ function emit(path: string, text: string, generated = false): void {
 }
 emit('packages/web/dist/anima-icon.js', js, true);
 emit('packages/web/dist/anima-markup.js', markup, true);
+emit('packages/web/dist/anima-markup-libraries.js', libraries, true);
 emit('packages/web/dist/anima-paint.js', paint, true);
 emit('packages/web/dist/anima-composite.js', composite, true);
 
@@ -32,5 +34,5 @@ const page = readFileSync(new URL('examples/web/template.html', root), 'utf8')
   .replace('/* RUNTIME */', () => js.trim().replace(/<\/script/gi, '<\\/script'));
 emit('examples/web/index.html', page);
 console.log(
-  `anima-icon.js ${js.length} B; anima-markup.js ${markup.length} B; anima-paint.js ${paint.length} B; anima-composite.js ${composite.length} B; examples/web/index.html ${page.length} B`,
+  `anima-icon.js ${js.length} B; anima-markup.js ${markup.length} B; anima-markup-libraries.js ${libraries.length} B; anima-paint.js ${paint.length} B; anima-composite.js ${composite.length} B; examples/web/index.html ${page.length} B`,
 );

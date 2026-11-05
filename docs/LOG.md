@@ -678,3 +678,22 @@ Both artifact checks pass independently; no `.ani` changed. Final compile line:
 `compile: bell 5.15 ms; all 8935 prefixes 1429 ms`. An immediately subsequent baseline run under
 the same concurrent workload reported `compile: bell 4.41 ms; all 9040 prefixes 1239 ms`.
 The initial baseline timings above came from a quieter run. No budgets or test limits changed.
+
+### P5-3 browser compiler budget fix
+
+Library/template expansion and async import resolution now register through a separate authoring
+layer. The tooling entry registers it automatically, preserving CLI, playground and build behavior.
+Browser markup uses the lean compiler; `@anima-format/web/markup-libraries` opts into the layer,
+including when standalone bundles load in either order. Missing support reports
+`markup-libraries-unavailable` with the entry name and `anima build` hint. This keeps reuse at build
+time as specified in design/p5/DESIGN.md §2 and avoids a runtime resource graph (see
+`docs/research/glyphy-compat.md`). No runtime dependencies, measurement changes or relaxed limits.
+
+`npm run check` passes: 779 tests, including 74 browser cases across Chromium and Firefox; 39
+AniML artifacts checked. Existing browser assertions are unchanged; their setup loads the new
+libraries entry for imported examples. Markup falls from 9506 to **7857/8192 B**; the new layer is
+**1777/2048 B** incremental over web+markup. Core+web stays 16992 B. A serial pair using HEAD's
+compiler and the working tree with the unchanged fixed `tools/perf.ts` workload reports
+`compile: bell 4.05 ms; all 9040 prefixes 1411 ms` before and
+`compile: bell 2.83 ms; all 9040 prefixes 975 ms` after. Host load varies; these are observations,
+not a claimed speedup. Local commit only; no push or PR.

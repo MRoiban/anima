@@ -1,4 +1,5 @@
 // Size budgets: core+web ≤25 KB; markup ≤8 KB, paint ≤5 KB, composite ≤4 KB incremental.
+// Libraries ≤2 KB incremental over web+markup.
 import { gzipSync } from 'node:zlib';
 import { bundle } from './browser-build.ts';
 
@@ -34,3 +35,13 @@ const composite = await bundle(
 const compositeDelta = gzipSync(composite, { level: 9 }).length - gz;
 console.log(`composite: ${compositeDelta} B min+gzip incremental (budget 4096 B)`);
 if (compositeDelta > 4096) process.exitCode = 1;
+
+const libraries = await bundle(
+  new URL('../packages/web/src/markup-libraries.ts', import.meta.url).pathname,
+);
+const librariesDelta =
+  gzipSync(libraries, { level: 9 }).length - gzipSync(markup, { level: 9 }).length;
+console.log(
+  `markup-libraries: ${librariesDelta} B min+gzip incremental over web+markup (budget 2048 B)`,
+);
+if (librariesDelta > 2048) process.exitCode = 1;

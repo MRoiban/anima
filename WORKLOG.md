@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: wave 1 Sol: bind module; AniML libraries/templates; assets+image (parallel). Then components (after bind), n-slice/feather/image paints, P5 benchmark.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: split AniML libraries/templates from browser markup; commit locally only.
+Verified: npm run check green, 779 tests including Chromium + Firefox; 39 AniML artifacts checked.
+Size: markup 9506 → 7857/8192 B; markup-libraries 1777/2048 B incremental; core+web unchanged 16992 B.
+Perf (fixed workload, paired HEAD → working tree): bell 4.05 → 2.83 ms; 9040 prefixes 1411 → 975 ms (variable host load).
+Next: return local commit for integration; P5 bind/assets/components continue in their own worktrees.
+Don't: change limits/measurement, runtime dependencies, core/forms; push, PR or merge.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -76,3 +77,6 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 10:40 [claude]: PR #10 merged (e0957cb); P5 design decided (design/p5/DESIGN.md: templates/libraries in AniML, components, bind expressions, assets)
 - 2026-11-06 10:50 [claude]: P5 wave 1 launched (Sol high): P5-1 bind, P5-3 AniML libraries/templates, P5-4 assets+image; components (P5-2) after bind
 - 2026-11-06 12:00 [claude]: merged P5-3 templates (a119eba): 767 tests, examples byte-identical; markup 9506/8192 over → split library support into its own browser entry; compile time unchanged on fixed workload (interleaved 818–1092 vs 881–995 ms)
+- 2026-11-05 20:52 [sol]: npm ci after ERR_MODULE_NOT_FOUND; split compiler entries and registration → size 7857/8192 B markup, 1777/2048 B libraries; full verification running (unverified).
+- 2026-11-05 20:55 [sol]: first checks failed on 6 new console assertions (console prints message, not code), plus one existing Firefox demo timeout during overlapping runs → corrected new assertion; stopped redundant check; rerun unchanged limits.
+- 2026-11-05 20:58 [sol]: npm run check green → 36 files / 779 tests (74 browser cases), markup 7857 B, libraries 1777 B, 39 AniML artifacts checked; paired HEAD/current tools/perf.ts 4.05/2.83 ms bell and 1411/975 ms prefixes; limits/method unchanged.
