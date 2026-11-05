@@ -3,8 +3,8 @@
 Goal: anything an agent or a designer can make with Rive, they can make with Anima — the Anima way:
 readable names instead of numeric ids, one unit system (seconds, degrees, grid units), strict
 diagnostics with pointers and hints, deterministic playback, and the `validate / inspect / sample /
-render` loop. The icon path (spec 0.1, bell parity, `<anima-icon>`, the 12 KB core + web budget)
-stays as it is; everything new is an optional module declared in `requires`.
+render` loop. The icon path (spec 0.1, bell parity, `<anima-icon>`, the core + web budget)
+stays as it is (its core + web budget is 25 KB since M4; 14.6 KB measured); everything new is an optional module declared in `requires`.
 
 | File | What |
 |---|---|
@@ -58,7 +58,7 @@ pays only for the modules its documents declare. Budgets are min+gzip, measured 
 
 | Module | Carries | Budget |
 |---|---|---:|
-| core + web | the 0.1 icon path (unchanged) | 12 KB |
+| core + web | the 0.1 icon path (unchanged; 14.6 KB measured) | 25 KB |
 | `markup` | the in-browser AniML compiler (optional; pages that ship `.ani` never load it) | 6 KB |
 | `paint` | gradients (linear, radial, angular), feather, clipping and masks, blend modes, dashes, more shapes, image paints | 5 KB |
 | `interaction` | blend states (1D, direct, additive), transition flags, drag, align target, keyboard, focus, gamepad, scroll | 4 KB |
