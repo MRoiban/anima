@@ -58,10 +58,16 @@ export function suggest(word: string, options: Iterable<string>): string | undef
   let bestD = Infinity;
   const lw = word.toLowerCase();
   for (const o of options) {
-    const d = distance(lw, o.toLowerCase());
+    const lo = o.toLowerCase();
+    // A shared stem of 4+ letters (rotation → rotate) counts as close.
+    const stem =
+      lw.length > 3 &&
+      lo.length > 3 &&
+      (lw.startsWith(lo.slice(0, 5)) || lo.startsWith(lw.slice(0, 5)));
+    const d = stem ? 1 : distance(lw, lo);
     if (d < bestD) [best, bestD] = [o, d];
   }
-  return best !== undefined && bestD <= Math.max(2, word.length / 3)
+  return best !== undefined && bestD <= Math.max(2, Math.ceil(word.length / 3))
     ? `did you mean "${best}"?`
     : undefined;
 }

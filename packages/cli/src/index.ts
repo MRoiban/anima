@@ -1,1 +1,1 @@
-export { FORMAT_VERSION } from '@anima-format/core';
+export { run, type IO } from './cli.ts';

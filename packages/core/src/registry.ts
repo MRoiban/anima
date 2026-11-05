@@ -137,8 +137,12 @@ export function nodeShape(type: NodeType): ObjShape {
   return s;
 }
 
-const VALUE = ALT(N(), B, S());
-const TRANSITION = O({ when: S(), to: S(NAME), blend: N({ min: 0 }), ease: S() }, ['when', 'to']);
+// Arrays are accepted structurally so that `pivot`/`center` reach the clearer not-animatable error.
+const VALUE = ALT(N(), B, S(), A({ k: 'any' }));
+const TRANSITION = O(
+  { when: S(), to: S(NAME), blend: N({ min: 0 }), ease: S(), interruptible: B },
+  ['when', 'to'],
+);
 const STATE = O(
   { pose: MAP(VALUE), play: S(NAME), speed: N({ gt: 0 }), emit: S(NAME), on: A(TRANSITION) },
   undefined,
@@ -159,7 +163,7 @@ export const DOC: Shape = O(
     requires: A(S()),
     meta: { k: 'any' },
     colors: MAP(S(), NAME),
-    glyphs: MAP(O({ d: S(), source: S(), pick: S(), sha256: S(/^[0-9a-f]{64}$/) }, ['d']), NAME),
+    glyphs: MAP(O({ source: S(), pick: S(), sha256: S(/^[0-9a-f]{64}$/), d: S() }, ['d']), NAME),
     a11y: O({
       role: S(undefined, ['button', 'switch', 'img']),
       label: S(),
@@ -180,11 +184,11 @@ export const DOC: Shape = O(
       ),
       NAME,
     ),
-    nodes: A({ k: 'node' }, 1),
     hit: O({
       circle: T([N(), N(), N({ gt: 0 })]),
       rect: T([N(), N(), N({ gt: 0 }), N({ gt: 0 })]),
     }),
+    nodes: A({ k: 'node' }, 1),
     timelines: MAP(
       O(
         {

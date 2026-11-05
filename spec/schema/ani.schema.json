@@ -84,9 +84,6 @@
           "$comment": {
             "type": "string"
           },
-          "d": {
-            "type": "string"
-          },
           "source": {
             "type": "string"
           },
@@ -96,6 +93,9 @@
           "sha256": {
             "type": "string",
             "pattern": "^[0-9a-f]{64}$"
+          },
+          "d": {
+            "type": "string"
           }
         },
         "required": [
@@ -187,13 +187,6 @@
         "additionalProperties": false
       }
     },
-    "nodes": {
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/node"
-      },
-      "minItems": 1
-    },
     "hit": {
       "type": "object",
       "properties": {
@@ -242,6 +235,13 @@
         }
       },
       "additionalProperties": false
+    },
+    "nodes": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/node"
+      },
+      "minItems": 1
     },
     "timelines": {
       "type": "object",
@@ -304,6 +304,10 @@
                       },
                       {
                         "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {}
                       }
                     ]
                   },
@@ -402,6 +406,10 @@
                           },
                           {
                             "type": "string"
+                          },
+                          {
+                            "type": "array",
+                            "items": {}
                           }
                         ]
                       }
@@ -439,6 +447,9 @@
                           },
                           "ease": {
                             "type": "string"
+                          },
+                          "interruptible": {
+                            "type": "boolean"
                           }
                         },
                         "required": [

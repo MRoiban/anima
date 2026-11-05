@@ -53,13 +53,13 @@ When a decision changes the format, change `spec/SPEC.md` in the same commit.
 
 ## M3 — CLI
 
-- [ ] `validate`, `inspect`, `sample`, `fmt`, `schema`, `docs` (SPEC §11 script language).
-- [ ] `render` to SVG and PNG, `--sheet` contact sheets. Compare `bell.ani` sheets visually with
+- [x] `validate`, `inspect`, `sample`, `fmt`, `schema`, `docs` (SPEC §11 script language).
+- [x] `render` to SVG and PNG, `--sheet` contact sheets. Compare `bell.ani` sheets visually with
       `fixtures/bell/rive-reference/frames/` (those were rendered with dark-mode colours: ink
       `#f0eee6` on `#1d1d1d`; render the same way for comparison).
-- [ ] `new --glyph` / `--glyphy`. Test: `anima new` on every glyph in `fixtures/glyphs/` renders at
+- [x] `new --glyph` / `--glyphy`. Test: `anima new` on every glyph in `fixtures/glyphs/` renders at
       rest pixel-identical to the source SVG (Glyphy's own tests use a pixel comparison — same idea).
-- [ ] `docs/AUTHORING.md`: a guide written *for agents* (how to build an interaction, how to check it,
+- [x] `docs/AUTHORING.md`: a guide written *for agents* (how to build an interaction, how to check it,
       common mistakes with the exact diagnostic each produces). `anima docs` serves it.
 
 **Done when** an agent can create, validate, sample and render the bell without opening a browser.

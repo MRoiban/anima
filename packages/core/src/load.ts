@@ -62,6 +62,8 @@ export interface TransitionM {
   triggers: string[];
   blend: number;
   ease: EaseFn;
+  /** false: the layer takes no transitions while this crossfade runs. */
+  interruptible: boolean;
 }
 
 export interface StateM {
@@ -481,6 +483,7 @@ function resolve(doc: Raw, d: Diags): Model {
           triggers: [],
           blend: tr.blend ?? 0,
           ease: ease(tr.ease, ptr(tp, 'ease')),
+          interruptible: tr.interruptible ?? true,
         };
         const wp = ptr(tp, 'when');
         if (typeof terms === 'string')

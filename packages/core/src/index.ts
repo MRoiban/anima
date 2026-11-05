@@ -13,3 +13,17 @@ export {
 } from './player.ts';
 export { runScript, ScriptError, type Snapshot } from './script.ts';
 export { localMatrix, mul, invert, apply, IDENTITY, type Mat } from './geom.ts';
+export {
+  sceneTree,
+  attrs,
+  toSVG,
+  cssSlots,
+  staticSlots,
+  cutEmpty,
+  type El,
+  type Attrs,
+  type Paint,
+} from './svg.ts';
+export * from './registry.ts';
+export { jsonSchema } from './schema.ts';
+export { VERBOSE } from './flags.ts';

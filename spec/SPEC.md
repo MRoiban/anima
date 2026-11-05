@@ -236,7 +236,8 @@ per channel with rounding for colours (§5), and for booleans `a || b` while the
    elapsed time reaches its duration ends.
 3. **Layers**, in declaration order, each against the values resolved by the layers before it:
    1. *Timeline events.* Report the current state's timeline events crossed by step 2 (below).
-   2. *Transitions.* Evaluate the current state's `on` list in order; take the first transition whose
+   2. *Transitions.* Unless a non-interruptible crossfade is running (§8), evaluate the current
+      state's `on` list in order; take the first transition whose
       condition holds. Taking it: (a) freeze the layer's current output for `dom(F) ∪ S(current)` as
       the new snapshot `F` (this is also what makes interrupting a crossfade smooth); (b) mark the
       triggers the condition named as consumed by this layer; (c) enter the target: state time =
@@ -294,8 +295,12 @@ writes to an unknown input or with the wrong type are rejected by the API, never
   instant; `{}` writes nothing) or `play` (a timeline name, optional `speed` > 0, default 1), plus
   optional `emit` (event name on entry) and `on` (transitions) (`state-kind`).
 - Entering a `play` state restarts its timeline at 0; its played time is state time × `speed`.
-- A **transition** `{ "when", "to", "blend", "ease" }`: `when` and `to` are required; `blend` is a
-  crossfade duration in seconds (default 0); `ease` shapes the crossfade (default `linear`). `to` may
+- A **transition** `{ "when", "to", "blend", "ease", "interruptible" }`: `when` and `to` are
+  required; `blend` is a crossfade duration in seconds (default 0); `ease` shapes the crossfade
+  (default `linear`). `interruptible` (default `true`): when `false`, the layer takes no transitions
+  while the crossfade this transition started is running, so the target pose is fully reached first
+  (a quick click still shows its press). Triggers are cleared as usual meanwhile — give the input a
+  `buffer` if a fire must survive the crossfade. `to` may
   name the current state (re-entering it restarts its timeline) only if the condition contains a
   trigger, `@end` or `@after` term (`self-transition`), so it cannot re-fire every step.
 - **Conditions** (`when`), a deliberately tiny grammar (`bad-condition` otherwise):
