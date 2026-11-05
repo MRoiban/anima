@@ -1,5 +1,7 @@
 // Transition conditions (spec §8): term ("&&" term)*.
 
+import { text } from './diag.ts';
+
 export type Op = '==' | '!=' | '<' | '<=' | '>' | '>=';
 
 export type Term =
@@ -23,12 +25,12 @@ export function parseCondition(src: string): Term[] | string {
     if (t === '@end') terms.push({ k: 'end' });
     else if ((m = AFTER.exec(t))) {
       const s = Number(m[1]);
-      if (s < 0) return '@after needs a time ≥ 0';
+      if (s < 0) return text('@after needs a time ≥ 0');
       terms.push({ k: 'after', s });
     } else if ((m = IS.exec(t))) terms.push({ k: 'is', name: m[2]!, not: m[1] === '!' });
     else if ((m = CMP.exec(t)))
       terms.push({ k: 'cmp', name: m[1]!, op: m[2] as Op, value: Number(m[3]) });
-    else return t ? `cannot read "${t}"` : 'empty term';
+    else return text(t ? `cannot read "${t}"` : 'empty term');
   }
   return terms;
 }

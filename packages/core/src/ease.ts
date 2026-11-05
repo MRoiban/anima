@@ -1,3 +1,5 @@
+import { text } from './diag.ts';
+
 /** An ease maps segment progress u ∈ [0, 1] to a weight w (spec §5). */
 export type EaseFn = (u: number) => number;
 
@@ -66,14 +68,14 @@ export function parseEase(src: string): EaseFn | string {
   let m = CUBIC.exec(src);
   if (m) {
     const [x1, y1, x2, y2] = m.slice(1).map(Number) as [number, number, number, number];
-    if (x1 < 0 || x1 > 1 || x2 < 0 || x2 > 1) return 'cubic x1 and x2 must lie in [0, 1]';
+    if (x1 < 0 || x1 > 1 || x2 < 0 || x2 > 1) return text('cubic x1 and x2 must lie in [0, 1]');
     return cubic(x1, y1, x2, y2);
   }
   m = ELASTIC.exec(src);
   if (m) {
     const [a, p] = m.slice(1).map(Number) as [number, number];
-    if (a < 0 || p <= 0) return 'elastic needs a ≥ 0 and p > 0';
+    if (a < 0 || p <= 0) return text('elastic needs a ≥ 0 and p > 0');
     return elastic(a, p);
   }
-  return 'not an ease';
+  return text('not an ease');
 }

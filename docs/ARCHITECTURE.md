@@ -45,11 +45,18 @@ docs/      architecture, plan, research notes
 
 ## web (`packages/web`)
 
-- `<anima-icon src="bell.ani">`, or an inline `<script type="application/vnd.anima+json">` child, or
-  `AnimaIcon.from(doc)`. The page owns fetching; the runtime makes no network calls of its own.
-- **Retained SVG DOM.** Build the tree once (`<g>` per node with one `transform` attribute, `<path>`
-  per painted node, `<mask>` for knockouts). Per frame write only dirty attributes. No canvas, no
-  devicePixelRatio handling, crisp at any size.
+- `<anima-icon src="bell.ani">`, an inline `<script type="application/vnd.anima+json">` child, or
+  `el.load(doc)`. The runtime requests nothing on its own: the only fetch is the `src` the page
+  gives it (like `<img src>`), and with an inline document the page makes no requests at all.
+- **Shadow DOM.** The element renders into an open shadow root (a `<style>` and the `<svg>`). CSS
+  custom properties and `color` inherit through it, so slots theme from the page.
+- **Retained SVG DOM.** Build the tree once from the core's `sceneTree`: a `<g>` per node carrying its
+  `transform`, `opacity` and `display`, with the painted element inside it untransformed; `<mask>` for
+  knockouts, attached to a wrapper `<g>` that has no transform of its own. Per frame write only changed
+  attributes, and never remove `transform`/`opacity`/`display` (identity is written out as
+  `matrix(1 0 0 1 0 0)`). These rules came from a Firefox paint bug (LOG, M4 Firefox fix): a transformed
+  leaf inside an animated, masked group was painted stale. No canvas, no devicePixelRatio handling,
+  crisp at any size.
 - **Scheduler.** One shared `requestAnimationFrame` loop for all instances; an instance is in the loop
   only while not `settled`. Inputs, pointer events, attribute changes and visibility wake it. A shared
   `IntersectionObserver` and `document.visibilityState` pause off-screen instances. Clamp display
@@ -66,7 +73,13 @@ docs/      architecture, plan, research notes
 - **Theming.** Slots become `var(--anima-<slot>, default)`; `currentColor` inherits.
 - **API.** Element properties/methods: `set`, `fire`, `play(timeline)` (debug), `ready` promise,
   `values()`; DOM events: `anima:event` (detail `{ name, layer, time }`), `anima:state`.
-- **Budget.** `core + web` ≤ **12 KB min+gzip**, enforced in CI. Rive's web runtime is ~1 MB gzip
+- **Debug and replay.** `el.player` is the core `Player`; setting `el.trace = []` records every step,
+  pointer event and input write, which converts one-to-one into an `anima sample` script — the
+  browser tests use it to check the browser applies exactly what the headless run computes.
+- **Budget.** `core + web` ≤ **25 KB min+gzip**, enforced in CI (`tools/size.ts`); 14.6 KB at M4 with the
+  full strict validator (the owner raised it from 12 KB rather than relax validation; see LOG M4). The bundle is built
+  by `tools/browser-build.ts`: esbuild with terse diagnostics, then terser. `node tools/build-web.ts`
+  writes `packages/web/dist/anima-icon.js` and the standalone demo `examples/web/index.html`. Rive's web runtime is ~1 MB gzip
   (see `docs/research/rive-web-runtime.md`); the point of Anima is to not need that.
 
 ## cli (`packages/cli`)

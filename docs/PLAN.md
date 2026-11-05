@@ -66,16 +66,16 @@ When a decision changes the format, change `spec/SPEC.md` in the same commit.
 
 ## M4 — Web runtime
 
-- [ ] `<anima-icon>` per ARCHITECTURE §web: retained SVG, dirty-attribute writes, shared scheduler
+- [x] `<anima-icon>` per ARCHITECTURE §web: retained SVG, dirty-attribute writes, shared scheduler
       that sleeps when settled, IntersectionObserver/visibility pause, Pointer Events, a11y,
       reduced motion, CSS slots, knockout via `<mask>`.
-- [ ] Playwright tests (Chromium; `playwright-core` + the cached `chrome-headless-shell` work on this
+- [x] Playwright tests (Chromium; `playwright-core` + the cached `chrome-headless-shell` work on this
       machine): bell hover/press/ring/rested, keyboard Enter, reduced motion, dark theme via CSS,
       zero network requests, loop is idle (no rAF callbacks) once settled.
-- [ ] Cross-check: values the browser applies during a scripted run equal `anima sample` output for
+- [x] Cross-check: values the browser applies during a scripted run equal `anima sample` output for
       the same script.
-- [ ] Size budget in CI: core + web ≤ 12 KB min+gzip.
-- [ ] `examples/web/`: a demo page with the bell, standalone (no CDN).
+- [x] Size budget in CI: core + web ≤ 25 KB min+gzip (was 12 KB; raised by the owner, see LOG M4).
+- [x] `examples/web/`: a demo page with the bell, standalone (no CDN).
 
 **Done when** the bell in the browser looks and behaves like the Rive version, with no watermark,
 no wasm, and the budget met.

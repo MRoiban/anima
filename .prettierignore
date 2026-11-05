@@ -9,3 +9,4 @@ package-lock.json
 spec/conformance/**/*.jsonl
 spec/schema
 spec/conformance/eases.json
+examples/web/index.html

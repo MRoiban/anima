@@ -1,13 +1,10 @@
-// Size budget (ARCHITECTURE §web): core + web, minified and gzipped, must stay under 12 KB.
-import { build } from 'esbuild';
+// Size budget (ARCHITECTURE §web): core + web, minified and gzipped, must stay under 25 KB.
 import { gzipSync } from 'node:zlib';
-import { browserBuild } from './browser-build.ts';
+import { bundle } from './browser-build.ts';
 
-const BUDGET = 12 * 1024;
+const BUDGET = 25 * 1024;
 
-const entry = new URL('../packages/web/src/index.ts', import.meta.url).pathname;
-const result = await build({ ...browserBuild(entry), write: false });
-const code = result.outputFiles![0]!.contents;
+const code = await bundle(new URL('../packages/web/src/index.ts', import.meta.url).pathname);
 const gz = gzipSync(code, { level: 9 }).length;
 const line = `core+web: ${code.length} B min, ${gz} B min+gzip (budget ${BUDGET} B)`;
 if (gz > BUDGET) {

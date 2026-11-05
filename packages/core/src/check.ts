@@ -40,41 +40,32 @@ export function checkDoc(value: unknown, d: Diags): boolean {
 
 function check(v: unknown, s: Shape, p: string, d: Diags, depth: number): void {
   if (depth > MAX_DEPTH) return d.err('limit-exceeded', p, V && 'nesting is too deep');
+  if (s.k === 'any') return;
   const k = kind(v);
-  switch (s.k) {
-    case 'any':
-      return;
-    case 'alt': {
-      const hit = s.of.find((o) => shapeKind(o) === k);
-      if (!hit)
-        return d.err('type', p, V && `expected ${s.of.map(shapeKind).join(' or ')}, got ${k}`);
-      return check(v, hit, p, d, depth);
-    }
-    case 'str':
-    case 'num':
-    case 'bool':
-    case 'arr':
-    case 'tup':
-    case 'obj':
-    case 'map':
-    case 'node':
-      if (k !== shapeKind(s) || (k === 'number' && !Number.isFinite(v)))
-        return d.err('type', p, V && `expected ${shapeKind(s)}, got ${k}`);
+  if (s.k === 'alt') {
+    const hit = s.of.find((o) => shapeKind(o) === k);
+    return hit
+      ? check(v, hit, p, d, depth)
+      : d.err('type', p, V && `expected ${s.of.map(shapeKind).join(' or ')}, got ${k}`);
   }
+  if (k !== shapeKind(s) || (k === 'number' && !Number.isFinite(v)))
+    return d.err('type', p, V && `expected ${shapeKind(s)}, got ${k}`);
+  const items = (a: unknown[], of: (i: number) => Shape) =>
+    a.forEach((x, i) => check(x, of(i), p + '/' + i, d, depth + 1));
   switch (s.k) {
     case 'str': {
       const str = v as string;
-      if (s.re && !s.re.test(str))
-        return s.re === NAME || s.re === DOC_NAME
-          ? d.err(
-              'bad-name',
-              p,
-              V && `"${str}" is not a valid name`,
-              V && `names match ${s.re.source}`,
-            )
-          : d.err('bad-value', p, V && `"${str}" does not match ${s.re.source}`);
-      if (s.of && !s.of.includes(str))
+      if (s.re && !s.re.test(str)) {
+        const name = s.re === NAME || s.re === DOC_NAME;
         return d.err(
+          name ? 'bad-name' : 'bad-value',
+          p,
+          V && (name ? `"${str}" is not a valid name` : `"${str}" does not match ${s.re.source}`),
+          V && name && `names match ${s.re.source}`,
+        );
+      }
+      if (s.of && !s.of.includes(str))
+        d.err(
           'bad-value',
           p,
           V && `"${str}" is not one of ${s.of.join(', ')}`,
@@ -97,8 +88,7 @@ function check(v: unknown, s: Shape, p: string, d: Diags, depth: number): void {
       const a = v as unknown[];
       if (s.min && a.length < s.min)
         return d.err('bad-value', p, V && `needs at least ${s.min} item${s.min > 1 ? 's' : ''}`);
-      a.forEach((x, i) => check(x, s.of, ptr(p, i), d, depth + 1));
-      return;
+      return items(a, () => s.of);
     }
     case 'tup': {
       const a = v as unknown[];
@@ -109,8 +99,7 @@ function check(v: unknown, s: Shape, p: string, d: Diags, depth: number): void {
           V &&
             `needs ${s.min === s.of.length ? s.min : `${s.min} to ${s.of.length}`} items, has ${a.length}`,
         );
-      a.forEach((x, i) => check(x, s.of[i]!, ptr(p, i), d, depth + 1));
-      return;
+      return items(a, (i) => s.of[i]!);
     }
     case 'map': {
       for (const [key, x] of Object.entries(v as object)) {
@@ -141,7 +130,7 @@ function check(v: unknown, s: Shape, p: string, d: Diags, depth: number): void {
       if (typeof o.type !== 'string' || !NODE_TYPES.includes(o.type as NodeType))
         return d.err(
           'unknown-node-type',
-          ptr(p, 'type'),
+          p + '/type',
           V && `unknown node type ${JSON.stringify(o.type)}`,
           V && (suggest(String(o.type), NODE_TYPES) ?? `one of ${NODE_TYPES.join(', ')}`),
         );

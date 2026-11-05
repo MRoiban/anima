@@ -142,6 +142,87 @@ a fraction of a frame of press timing in f3/f7.
   arrays reach the `not-animatable` check (`icon.pivot` → "animate x and y instead").
 - Node 24's `JSON.parse` messages no longer carry positions, so the CLI finds syntax errors itself.
 
+## M4 — Web runtime (2026-11-05)
+
+**Changed**
+
+- `packages/web`: `<anima-icon>` renders the core's SVG scene as retained DOM in an open shadow root
+  (slots theme through CSS custom properties, `currentColor` inherits), writes only changed
+  attributes, and shares one `requestAnimationFrame` loop that sleeps when every icon has settled and
+  pauses off-screen (IntersectionObserver) and in hidden tabs. Pointer Events go through the core's
+  pointer model and hit test; keyboard and ARIA follow spec §10; reduced motion follows the media
+  query unless `motion` overrides it. `el.trace` records steps, pointer events and input writes.
+- `tools/browser-build.ts`: esbuild with terse diagnostics, then terser. `tools/build-web.ts` writes
+  `packages/web/dist/anima-icon.js` and the standalone demo `examples/web/index.html` (runtime and
+  `bell.ani` inlined; CI checks it is current).
+- Browser tests (`packages/web/test/browser.test.ts`, headless Chromium via `playwright-core`; CI
+  installs the headless shell): hover/press/ring/rested with the real mouse, keyboard (Enter on down,
+  Space on up, `held`), reduced motion and `motion="full"`, theming by CSS and dark mode, zero
+  network requests and no wasm/canvas/watermark on the demo, the loop sleeping once settled and
+  waking on input, pausing off-screen — and a replay cross-check: a real browser session's trace,
+  run through `anima sample`, gives the same values, states and every SVG attribute.
+
+**Size.** The strict runtime measured 16.4 KB (esbuild) → 15.2 KB (terser). Two parallel attempts
+(GPT-6.1-Sol and Opus 5.5, same brief, separate worktrees) shrank it without removing any check or
+feature: Sol plateaued at 14 950 B, Opus at **14 636 B** (kept: `#private` internals, terse thrown
+text, tighter loader/player/path code). Opus also ran a parity checker over 6 060 documents and 40 k
+random paths: identical diagnostics (codes and pointers in the terse build), player output and SVG.
+Ablation showed the rest is required code: lighter browser validation would only reach ~13.1 KB, and
+under 12 KB would also need DOM hit testing. **The owner raised the budget to 25 KB** instead, so
+the browser keeps full strict validation and the one hit test it shares with the CLI.
+
+**Decisions**
+
+- `src` is the only fetch the runtime makes, and only because the page asked; inline documents make
+  no requests at all.
+- Property-name mangling was tried and dropped (−170 B, breaks string-keyed tables).
+
+**Open**
+
+- The browser renders through the same `attrs()` as `anima render`, so Rive-frame comparisons from
+  M3 carry over; a direct browser screenshot comparison with the Rive frames is not automated.
+
+### M4 — Firefox fix: stale clapper (2026-11-05)
+
+**Report (owner, Firefox on macOS, GPU renderer).** Ringing a second time while hovering, the clapper
+was drawn stationary for ~100 ms while the swing moved, then snapped (~0.2 units) when the runtime
+removed its identity `transform`; the same on first hover. Computed values were smooth; headless
+Chromium and headless Firefox (Linux) rendered correctly.
+
+**Fix** (`packages/core/src/svg.ts`, used by the browser and `anima render`):
+
+1. Transforms live only on `<g>` wrappers: every node is a `<g>` carrying `transform`, `opacity` and
+   `display`; the painted `<path>`/`<circle>`/… inside it is never transformed. The knockout's cut in the
+   `<mask>` gets the same wrapper.
+2. Those three attributes are always present: identity is written `matrix(1 0 0 1 0 0)` and opacity
+   `1`, so no attribute is ever added or removed during playback.
+3. The knockout mask is attached for the document's whole life (no more toggling `mask` while the
+   dot is hidden), on a wrapper with no transform of its own.
+
+`anima new` rest frames stay pixel-identical to the glyph SVGs; the replay test and the Rive frame
+comparison are unchanged. Bundle 14 545 B gz.
+
+**Tests.** The browser suite now runs in Chromium **and Firefox** (Playwright, cached Firefox 157; CI
+installs both). New regression test, in both browsers: the bell with body and clapper recoloured,
+driven by a manual frame clock (rAF and `performance.now` advance only when the test ticks, so a
+screenshot cannot let the runtime step between capture and measurement); first hover, a ring, then a
+second ring while hovering, 201 frames; every frame the pixel centroids of clapper and body must be
+where the player's world matrices put them (≤ 0.1 units at 20 px/unit) and the clapper may not jump
+more than the model moved. Worst error 0.016 (Chromium), 0.019 (Firefox). A mutation that leaves the
+clapper stale on some frames fails it in both browsers (0.37 units).
+
+**GPU-rendered Firefox (not macOS).** On an Agent Desktop with Firefox ESR 153, hardware WebRender on
+an NVIDIA GTX 1650 (`about:support`: "Compositing: WebRender", GL via VirtualGL), the sequence was
+screen-recorded and every captured frame checked against frames rendered from the model (resvg, same
+geometry); 8× slow motion and only frames that held still across two captures, to rule out capture
+tearing. Old build: 1 of 4 runs had a stale-paint episode (4 stable frames, the swing body 0.15 units
+off during the second ring); fixed build: 0 of 4 runs, every frame within 0.08 units (typically 0.012).
+**The macOS symptom itself (stationary clapper, snap at ~1.07 s) did not reproduce on Linux**, so the
+fix is not verified on the platform that showed it; it needs a check on the owner's Mac.
+Gotchas found on the way: the desktop reports `prefers-reduced-motion: reduce` (the runtime then
+correctly jumps every ring to its end; override `ui.prefersReducedMotion` to test motion), and 60 fps
+X11 capture of a VirtualGL window tears.
+
 ## Phase A — Rive capability inventory (2026-11-05)
 
 **Changed**

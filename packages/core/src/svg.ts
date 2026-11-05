@@ -8,47 +8,57 @@ import type { Player } from './player.ts';
 
 export interface El {
   tag: string;
-  /** node: a document node · wrap: earlier siblings under a knockout's mask · mask/bg/cut: the mask. */
-  role: 'node' | 'wrap' | 'mask' | 'bg' | 'cut';
+  /**
+   * node: a `<g>` carrying one document node's transform, opacity and visibility · shape: the node's
+   * untransformed painted element inside it · wrap: earlier siblings under a knockout's mask ·
+   * mask, bg, cutg (the cut's transform group) and cut: the mask.
+   */
+  role: 'node' | 'shape' | 'wrap' | 'mask' | 'bg' | 'cutg' | 'cut';
   node: number;
   kids: El[];
 }
 
 export type Attrs = Record<string, string | null>;
 
-const SHAPE: Record<string, string> = {
-  path: 'path',
-  arc: 'path',
-  circle: 'circle',
-  rect: 'rect',
-  group: 'g',
-};
+const SHAPE: Record<string, string> = { path: 'path', arc: 'path', circle: 'circle', rect: 'rect' };
 
-/** Build the element tree, plus mask definitions, for a model. */
+/**
+ * Build the element tree, plus mask definitions, for a model.
+ *
+ * Structure rules (they keep every browser's paint invalidation simple; see LOG, Firefox fix):
+ * transforms live only on `<g>` wrappers, never on painted leaves; the transform, opacity and
+ * display attributes are always present (identity is written out, never removed); and a knockout's
+ * mask sits on a wrapper with no transform of its own, attached for the document's whole life.
+ */
 export function sceneTree(model: Model): { root: El[]; defs: El[] } {
   const defs: El[] = [];
+  const leaf = (i: number, role: 'shape' | 'cut'): El => ({
+    tag: SHAPE[model.nodes[i]!.type]!,
+    role,
+    node: i,
+    kids: [],
+  });
   const build = (list: number[]): El[] => {
     let out: El[] = [];
     for (const i of list) {
       const n = model.nodes[i]!;
       if (n.raw.knockout !== undefined && out.length) {
         out = [{ tag: 'g', role: 'wrap', node: i, kids: out }];
-        const tag = SHAPE[n.type]!;
         defs.push({
           tag: 'mask',
           role: 'mask',
           node: i,
           kids: [
             { tag: 'rect', role: 'bg', node: i, kids: [] },
-            { tag, role: 'cut', node: i, kids: [] },
+            { tag: 'g', role: 'cutg', node: i, kids: [leaf(i, 'cut')] },
           ],
         });
       }
       out.push({
-        tag: SHAPE[n.type]!,
+        tag: 'g',
         role: 'node',
         node: i,
-        kids: n.type === 'group' ? build(n.children) : [],
+        kids: n.type === 'group' ? build(n.children) : [leaf(i, 'shape')],
       });
     }
     return out;
@@ -59,16 +69,7 @@ export function sceneTree(model: Model): { root: El[]; defs: El[] } {
 
 export const fmt = (v: number): string => String(Math.round(v * 1e5) / 1e5 || 0);
 
-const matrix = (m: Mat): string | null =>
-  Math.abs(m[0] - 1) +
-    Math.abs(m[1]) +
-    Math.abs(m[2]) +
-    Math.abs(m[3] - 1) +
-    Math.abs(m[4]) +
-    Math.abs(m[5]) <
-  1e-9
-    ? null
-    : `matrix(${m.map(fmt).join(' ')})`;
+const matrix = (m: Mat): string => `matrix(${m.map(fmt).join(' ')})`;
 
 export interface Paint {
   /** How a colour slot renders: as a CSS variable (web) or resolved to a value (static). */
@@ -120,60 +121,39 @@ function geometry(p: Player, i: number, a: Attrs): void {
   }
 }
 
-/** Is a knockout's cut empty (nothing to mask)? Then the wrapper drops its mask. */
-export function cutEmpty(p: Player, i: number): boolean {
-  if (!p.visible(i) || !(p.num(i, 'opacity', 1) > 0)) return true;
-  const m = p.local(i);
-  return Math.abs(m[0] * m[3] - m[1] * m[2]) < 1e-12;
-}
-
 /** Current attributes of one element. `id` prefixes mask ids so several icons can share a page. */
 export function attrs(p: Player, el: El, paint: Paint, id: string): Attrs {
   const i = el.node;
-  const n = p.model.nodes[i]!;
-  const r = n.raw;
-  const a: Attrs = {};
-  const op = p.num(i, 'opacity', 1);
-  if (el.role === 'wrap') {
-    a.mask = cutEmpty(p, i) ? null : `url(#${id}k${i})`;
-    return a;
-  }
-  if (el.role === 'mask') {
+  const r = p.model.nodes[i]!.raw;
+  if (el.role === 'wrap') return { mask: `url(#${id}k${i})` };
+  if (el.role === 'mask' || el.role === 'bg') {
+    // The mask and its white background cover three viewBoxes, so cuts may overhang.
     const [x, y, w, h] = p.model.viewBox;
+    const box = { x: fmt(x - w), y: fmt(y - h), width: fmt(3 * w), height: fmt(3 * h) };
+    return el.role === 'bg'
+      ? { ...box, fill: '#fff' }
+      : { id: `${id}k${i}`, maskUnits: 'userSpaceOnUse', ...box };
+  }
+  if (el.role === 'node' || el.role === 'cutg')
     return {
-      id: `${id}k${i}`,
-      maskUnits: 'userSpaceOnUse',
-      x: fmt(x - w),
-      y: fmt(y - h),
-      width: fmt(3 * w),
-      height: fmt(3 * h),
+      transform: matrix(p.local(i)),
+      opacity: fmt(p.num(i, 'opacity', 1)),
+      display: p.prop(i, 'visible') === false ? 'none' : 'inline',
     };
-  }
-  if (el.role === 'bg') {
-    const [x, y, w, h] = p.model.viewBox;
-    return { x: fmt(x - w), y: fmt(y - h), width: fmt(3 * w), height: fmt(3 * h), fill: '#fff' };
-  }
-  a.transform = matrix(p.local(i));
-  a.display = p.prop(i, 'visible') === false ? 'none' : null;
+  const a: Attrs = {};
+  geometry(p, i, a);
   if (el.role === 'cut') {
-    geometry(p, i, a);
-    const grow = 2 * r.knockout;
     const sw = r.stroke ? p.num(i, 'stroke.width', 1) : 0;
-    Object.assign(a, {
+    const width = sw + 2 * r.knockout;
+    return Object.assign(a, {
       fill: r.fill ? '#000' : 'none',
       'fill-rule': r.fill?.rule === 'evenodd' ? 'evenodd' : null,
-      stroke: '#000',
-      'stroke-width': fmt(sw + grow),
+      stroke: width > 0 ? '#000' : 'none',
+      'stroke-width': fmt(width),
       'stroke-linejoin': 'round',
       'stroke-linecap': 'round',
-      opacity: op < 1 ? fmt(op) : null,
     });
-    if (!(sw + grow > 0)) a.stroke = null;
-    return a;
   }
-  a.opacity = op < 1 ? fmt(op) : null;
-  if (n.type === 'group') return a;
-  geometry(p, i, a);
   a.fill = r.fill ? color(p, i, 'fill.color', paint) : 'none';
   a['fill-rule'] = r.fill?.rule === 'evenodd' ? 'evenodd' : null;
   const s = r.stroke;
@@ -223,7 +203,6 @@ export function toSVG(
   const bg = opts.background
     ? `<rect x="${fmt(x)}" y="${fmt(y)}" width="${fmt(w)}" height="${fmt(h)}" fill="${esc(opts.background)}"/>`
     : '';
-  const used = defs.filter((m) => !cutEmpty(p, m.node));
-  const defsText = used.length ? `<defs>${used.map(ser).join('')}</defs>` : '';
+  const defsText = defs.length ? `<defs>${defs.map(ser).join('')}</defs>` : '';
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${[x, y, w, h].map(fmt).join(' ')}"${size}>${defsText}${bg}${root.map(ser).join('')}</svg>`;
 }

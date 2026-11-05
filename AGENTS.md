@@ -28,3 +28,12 @@ Rules:
 Local tooling: Node 24 (`node`, `npm`), Python 3.13, `gh` (signed in as MRoiban). Playwright's
 Chromium headless shell is cached at `~/.cache/ms-playwright/chromium_headless_shell-1248/`; use
 `playwright-core` with `executablePath` pointing at it rather than downloading browsers.
+
+## Work log
+`WORKLOG.md` (repo root) holds task state outside your context window.
+- **On start and after compaction:** read `WORKLOG.md` and `git log --oneline -15` before acting.
+- **Update at checkpoints:** after a milestone, before a risky or long step, when the plan changes, and before you stop. Don't let the context run out with unlogged work.
+- **Now** (top): rewrite it to stay at 10 lines or fewer: goal, verified state, next step, don'ts.
+- **Log** (below): append only, one line per entry: `- YYYY-MM-DD HH:MM [who]: did X → result (evidence: command/number/commit)`. Log failures and dead ends too. Tag anything unchecked `(unverified)`.
+- Facts, not narration. Commit the log with the code it describes.
+- Past ~200 lines: condense the oldest half into a 5-line summary at the top of Log.
