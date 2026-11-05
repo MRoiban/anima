@@ -1,0 +1,16 @@
+{
+  "name": "@anima-format/web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "<anima-icon>: the Anima web runtime (retained SVG, sleeping scheduler, a11y).",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "files": [
+    "src"
+  ],
+  "dependencies": {
+    "@anima-format/core": "0.1.0"
+  }
+}

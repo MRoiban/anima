@@ -50,10 +50,13 @@ docs/      architecture, plan, research notes
   only while not `settled`. Inputs, pointer events, attribute changes and visibility wake it. A shared
   `IntersectionObserver` and `document.visibilityState` pause off-screen instances. Clamp display
   `dt` at 0.25 s.
+- **Layout.** The element's box is the glyph **grid** box, so an animated icon drops in where the
+  static Glyphy SVG was, at the same size; the `<svg>` covers the `viewBox` and overflows the box by
+  the bleed (`overflow: visible`).
 - **Input.** Pointer Events on the host element; map to grid units with the SVG's
-  `getScreenCTM().inverse()`. Use the browser's own hit testing for node targets
-  (`pointer-events: visibleFill/visibleStroke`) and the core hit test only headless. `touch-action`
-  via CSS, never `preventDefault` by default.
+  `getScreenCTM().inverse()` and hand them to the core's `pointer()`, so the browser and headless
+  runs share one hit test and one listener model (spec §9) — the cross-check in M4 depends on it.
+  `touch-action` via CSS, never `preventDefault` by default.
 - **A11y and motion** per spec §10: role, label, `tabindex`, Enter/Space, `:focus-visible` styling
   hook, `prefers-reduced-motion` with a `motion` attribute override.
 - **Theming.** Slots become `var(--anima-<slot>, default)`; `currentColor` inherits.
@@ -77,6 +80,18 @@ The agent's feedback loop. Every command has `--format=json` and typed exit code
 | `anima new <name> --glyph <svg> \| --glyphy <project-dir> <glyph>` | Scaffold a `.ani` with the glyph embedded (hash included) and a rest pose identical to the SVG. |
 | `anima schema [type\|address]` | Registry lookup: properties, types, defaults, animatable. |
 | `anima docs [topic]` | Ships the spec and an authoring guide for agents. |
+
+## Packages, names and tooling
+
+npm workspaces, TypeScript strict (6.0; typescript-eslint does not support 7 yet), Vitest, ESLint,
+Prettier. Sources are erasable-syntax TypeScript with `.ts` import specifiers, so Node 24 runs them
+directly (tests, CLI, tools) with no build step; esbuild bundles the browser build and measures the
+size budget (`tools/size.ts`); `tsc` with `rewriteRelativeImportExtensions` will emit JavaScript
+for publishing. `npm run check` runs everything CI runs.
+
+Working package names (all `private` until the user decides — `anima` and `anima-cli` are taken on
+npm, and whether the `@anima` scope is claimed cannot be checked without logging in):
+`@anima-format/core`, `@anima-format/web`, `@anima-format/cli` (binary `anima`).
 
 ## Glyphy integration
 
