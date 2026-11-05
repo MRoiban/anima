@@ -68,7 +68,7 @@ becomes the order of the `.ani` map or array). Node elements are painted in docu
 | `meta` | — | JSON object as text | `meta` |
 | `color` | **`name`**, **`value`** | — | `colors[name]` |
 | `glyph` | **`name`**, **`d`**, `source`, `pick`, `sha256` | — | `glyphs[name]` |
-| `a11y` | `role`, `label`, `activate`, `pressed`, `held` | — | `a11y` |
+| `a11y` | `role`, `label`, `activate` (trigger or bool input name), `pressed`, `held` | — | `a11y` |
 | `bool` / `number` / `trigger` | **`name`**; `default` (bool, number); `min`, `max` (number); `buffer` (trigger) | — | `inputs[name]` with that `type` |
 | `hit` | exactly one of `circle` (vector of 3), `rect` (vector of 4) | — | `hit` |
 | `group` | node attributes | node elements | a `group` node with `children` |

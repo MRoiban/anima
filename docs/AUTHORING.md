@@ -132,7 +132,7 @@ and `toggle` for bools. A listener's optional `target` names a node; otherwise i
 `<hit>` or the viewBox. For example, `<hit circle="10 10 10.8"/>` sets a hit disc.
 Triggers normally expire after one step. `buffer` keeps an unconsumed trigger pending.
 `interruptible="false"` lets a crossfade finish before another transition can run.
-Keyboard activation uses `a11y`: `activate` names a trigger and `held` names a bool.
+Keyboard activation uses `a11y`: `activate` names a trigger to fire or a bool to toggle, and `held` names a bool.
 
 ## Checking the motion
 

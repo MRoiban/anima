@@ -197,7 +197,7 @@ export const DOC: Shape = O(
     inputs: MAP(
       O(
         {
-          type: S(undefined, ['bool', 'number', 'trigger']),
+          type: named(S(undefined, ['bool', 'number', 'trigger']), 'element name'),
           default: ALT(N(), B),
           min: N(),
           max: N(),

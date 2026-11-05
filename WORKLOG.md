@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: M5 (P2) on branch m5-glyphs → PR → merge when green; then Phase B starting with P3 (playground + web host API).
-State: main 45d019a has M0–M4, Phase A, P1 AniML (PR #7 merged).
-Next: wave M5 (Sol): bool activate + schema a11y/transition (format fix from head-to-head); trash and moon-switch glyphs in AniML; glyphy export -f animl/ani draft PR in MRoiban/glyphy (draft only, never merge). Then skills/anima/SKILL.md, LOG, PLAN.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: implementation sub-agent: bool keyboard activation + registry-derived schema topics; commit only.
+State: branch t3/keyboard-switch-schema from 61655d2; bool activation + four schema topics implemented.
+Baseline: core+web 14781 B gzip; markup 5804 B incremental (`node tools/size.ts`).
+Verified: npm run check reached 369 pass/2 fail (only stale examples/web/index.html); no full-suite skips.
+Next: integrator must regenerate examples/web/index.html, then rerun check.
+Don't: push/PR/merge; edit examples/, docs/research/, tools/; add runtime dependencies/licence; read .riv/run rive.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -47,3 +48,6 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 16:15 [claude]: launched head-to-head (3 Sol, high, worktrees from 052af3f): animl / ani / rive, 45 min timebox each
 - 2026-11-05 16:45 [claude]: head-to-head merged + re-checked (AniML 7/7, .ani 7/7, Rive 4/7; switch a11y browser test added); parity row tooling.markup-authoring done (FINISHED phases P0,P1); PLAN/LOG updated
 - 2026-11-05 17:05 [claude]: PR #7 merged (45d019a, CI green on 2592cae); branched m5-glyphs
+- 2026-11-05 15:10 UTC [sol]: read instructions/spec/architecture/head-to-head; npm ci installed missing esbuild; baseline 14781 B gzip; implemented web bool activation and four schema topics → typecheck passed, first check stopped on test string lint escapes (fixed; full check pending).
+- 2026-11-05 15:12 UTC [sol]: full check passed typecheck/lint/format; tests 367 pass/4 fail → new key test read queued toggle before rAF (fixed to poll input+aria); both demo tests fail because forbidden examples/web/index.html is stale. Size 14812 B gzip (+31), markup 5802 B; build-animl checks 14 files.
+- 2026-11-05 14:14 UTC [sol]: final full check → typecheck/lint/format pass, 369 tests pass/2 fail/no skips (only stale generated demo in Chromium+Firefox); strengthened keyboard timing test rerun 2 pass/38 filtered. Core+web 14812 B gzip (+31), markup 5802 B; build-animl 14/14 pass; build-web --check fails stale forbidden examples/web/index.html. No Player.step change; browser cases replace conformance case.

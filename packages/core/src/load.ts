@@ -598,7 +598,8 @@ function resolve(doc: Raw, d: Diags): Model {
   // Accessibility
   const a11y = doc.a11y;
   if (a11y) {
-    if (a11y.activate) needInput(a11y.activate, '/a11y/activate', ['trigger'], V && '"activate"');
+    if (a11y.activate)
+      needInput(a11y.activate, '/a11y/activate', ['trigger', 'bool'], V && '"activate"');
     if (a11y.pressed) needInput(a11y.pressed, '/a11y/pressed', ['bool'], V && '"pressed"');
     if (a11y.held) needInput(a11y.held, '/a11y/held', ['bool'], V && '"held"');
     if (a11y.role === 'switch' && !a11y.pressed)

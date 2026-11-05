@@ -48,3 +48,29 @@ describe('invalid documents', () => {
     expect(codes.filter((c) => !tested.has(c) && !CLI_ONLY.includes(c))).toEqual([]);
   });
 });
+
+describe('a11y activation input types', () => {
+  it.each(['bool', 'trigger', 'number'])('activate references %s', (type) => {
+    const { model, diagnostics } = load({
+      anima: '0.1',
+      name: 'activation',
+      grid: 20,
+      nodes: [{ id: 'root', type: 'group' }],
+      inputs: { on: { type } },
+      a11y: { role: 'button', activate: 'on' },
+    });
+    if (type === 'number') {
+      expect(model).toBeUndefined();
+      expect(diagnostics).toContainEqual(
+        expect.objectContaining({
+          code: 'input-type',
+          pointer: '/a11y/activate',
+          message: '"activate" needs a trigger or bool input; "on" is number',
+        }),
+      );
+    } else {
+      expect(model).toBeDefined();
+      expect(diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+    }
+  });
+});

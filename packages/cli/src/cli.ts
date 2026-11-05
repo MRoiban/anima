@@ -6,6 +6,9 @@ import { parseArgs } from 'node:util';
 import {
   type Diagnostic,
   type Model,
+  type Shape,
+  DOC,
+  markupName,
   COMMON,
   NODE_TYPES,
   OWN,
@@ -51,8 +54,8 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
                                         scaffold AniML whose rest frame is the glyph (--ani for JSON)
   anima build <file.animl|page.html> [-o out]  compile AniML to canonical .ani or inline JSON
   anima decompile <file.ani> [-o out.animl]    write canonical AniML
-  anima schema [type | fill | stroke] [--json-schema]
-                                        what each node type and paint takes
+  anima schema [type | fill | stroke | a11y | transition | listener | input] [--json-schema]
+                                        registry fields, types and markup/.ani spellings
   anima docs [authoring | spec | markup | <section>] [--list]
                                         the authoring guide and the spec
 
@@ -580,8 +583,53 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
       ...(PAINTED.includes(t) ? ['fill', 'stroke', 'knockout'] : []),
     ],
   });
+  const objectPaths: Record<string, string[]> = {
+    a11y: ['a11y'],
+    transition: ['machine', 'layers', '*', 'states', '*', 'on', '*'],
+    listener: ['listeners', '*'],
+    input: ['inputs', '*'],
+  };
+  const fields = (path: string[]) => {
+    let shape: Shape = DOC;
+    for (const key of path) {
+      if (shape.k === 'obj') shape = shape.p[key]!;
+      else if (shape.k === 'map' || shape.k === 'arr') shape = shape.of;
+      else throw new Error('invalid schema registry path');
+    }
+    if (shape.k !== 'obj') throw new Error('schema topic must be an object');
+    const describe = (s: Shape): string => {
+      switch (s.k) {
+        case 'str':
+          return s.of ? s.of.map((v) => JSON.stringify(v)).join(' | ') : 'string';
+        case 'num':
+          return 'number';
+        case 'bool':
+          return 'bool';
+        case 'alt':
+          return s.of.map(describe).join(' | ');
+        case 'arr':
+          return `array<${describe(s.of)}>`;
+        case 'map':
+          return `map<${describe(s.of)}>`;
+        case 'tup':
+          return `[${s.of.map(describe).join(', ')}]`;
+        default:
+          return s.k;
+      }
+    };
+    return Object.entries(shape.p).map(([key, value]) => ({
+      markup: markupName(value, key),
+      ani: key,
+      type: describe(value),
+      required: shape.req?.includes(key) ?? false,
+      ...(value.k === 'num' && value.min !== undefined ? { min: value.min } : {}),
+    }));
+  };
+  const objectFields =
+    topic && Object.hasOwn(objectPaths, topic) ? fields(objectPaths[topic]!) : undefined;
   let data: unknown;
-  if (!topic)
+  if (objectFields) data = { topic, fields: objectFields };
+  else if (!topic)
     data = {
       nodeTypes: NODE_TYPES.map(typeInfo),
       paint: { fill: props(PAINT.fill as never), stroke: props(PAINT.stroke as never) },
@@ -594,7 +642,10 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
       spellings: spellings('path', topic),
       static: topic === 'fill' ? ['rule'] : ['cap', 'join'],
     };
-  else throw new Usage(`no schema topic "${topic}" (try a node type, fill or stroke)`);
+  else
+    throw new Usage(
+      `no schema topic "${topic}" (try a node type, fill, stroke, a11y, transition, listener or input)`,
+    );
   if (json) return (io.out(JSON.stringify(data)), 0);
   const table = (
     rows: { name: string; type: string; default: unknown; min?: number; max?: number }[],
@@ -611,7 +662,11 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
     `${d.type}\n animatable (address: <id>.<property>)\n${table(d.animatable)}\n not animatable: ${d.static.join(', ')}\n markup ↔ .ani\n${mapping(d.spellings)}`;
   const paint = (k: 'fill' | 'stroke') =>
     `${k} (address: <id>.${k}.<field>)\n${table(props(PAINT[k] as never))}\n markup ↔ .ani\n${mapping(spellings('path', k))}`;
-  if (!topic)
+  if (objectFields)
+    io.out(
+      `${topic} (markup ↔ .ani: type)\n${objectFields.map((f) => `  ${f.markup} ↔ ${f.ani}: ${f.type}${f.required ? ' (required)' : ''}`).join('\n')}`,
+    );
+  else if (!topic)
     io.out([...NODE_TYPES.map(typeInfo).map(show), paint('fill'), paint('stroke')].join('\n\n'));
   else if (topic === 'fill' || topic === 'stroke') io.out(paint(topic));
   else io.out(show(data as ReturnType<typeof typeInfo>));
