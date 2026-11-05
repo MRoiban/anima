@@ -1,0 +1,24 @@
+advance 0
+snapshot unread trash bell-badge/count trash-badge/count bell-badge/badge.visible trash-badge/badge.visible bell-badge/badge.scale bell-badge/dot1.opacity bell-badge/dot2.opacity bell-badge/dot3.opacity
+set trash 2
+set unread 4
+advance 0
+snapshot bell-badge/count trash-badge/count bell-badge/badge.scale trash-badge/badge.scale trash-badge/badge.visible
+advance 0.125
+snapshot bell-badge/badge.scale trash-badge/badge.scale
+advance 0.125
+snapshot bell-badge/badge.scale trash-badge/badge.scale
+set unread 2
+advance 0
+snapshot bell-badge/count bell-badge/badge.scale bell-badge/dot1.opacity bell-badge/dot2.opacity bell-badge/dot3.opacity
+advance 0.125
+snapshot bell-badge/badge.scale
+pointer click 12 12
+advance 0
+snapshot unread bell-badge/count bell-badge/badge.visible trash trash-badge/count trash-badge/badge.visible
+set unread 1
+advance 0
+advance 0.125
+snapshot bell-badge/badge.scale bell-badge/badge.visible bell-badge/dot1.opacity bell-badge/dot2.opacity bell-badge/dot3.opacity
+advance 0.125
+snapshot bell-badge/badge.scale

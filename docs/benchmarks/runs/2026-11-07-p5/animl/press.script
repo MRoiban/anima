@@ -1,0 +1,36 @@
+advance 0
+snapshot bell/icon.scale folder/icon.scale trash-button/icon.scale
+pointer move 12 12
+advance 0.06
+snapshot bell/icon.scale
+advance 0.06
+snapshot bell/icon.scale
+pointer down 12 12
+advance 0.04
+snapshot bell/icon.scale
+advance 0.04
+snapshot bell/icon.scale
+pointer up 12 12
+advance 0.12
+snapshot unread bell/icon.scale
+pointer move 36 12
+advance 0.12
+snapshot folder/icon.scale
+pointer down 36 12
+advance 0.08
+snapshot folder/icon.scale
+pointer up 36 12
+advance 0.12
+snapshot folder/icon.scale
+pointer move 60 12
+advance 0.12
+snapshot trash-button/icon.scale
+pointer down 60 12
+advance 0.08
+snapshot trash-button/icon.scale
+pointer up 60 12
+advance 0.12
+snapshot trash-button/icon.scale
+pointer leave
+advance 0.12
+snapshot bell/icon.scale folder/icon.scale trash-button/icon.scale
