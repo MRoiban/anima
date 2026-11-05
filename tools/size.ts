@@ -3,7 +3,8 @@ import { gzipSync } from 'node:zlib';
 import { bundle } from './browser-build.ts';
 
 const BUDGET = 25 * 1024;
-const MARKUP_BUDGET = 6 * 1024;
+// Raised from 6 KB at P4a (owner-set estimates; see docs/LOG.md P4a): every module adds markup forms.
+const MARKUP_BUDGET = 8 * 1024;
 
 const code = await bundle(new URL('../packages/web/src/index.ts', import.meta.url).pathname);
 const gz = gzipSync(code, { level: 9 }).length;

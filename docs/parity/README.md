@@ -59,7 +59,7 @@ pays only for the modules its documents declare. Budgets are min+gzip, measured 
 | Module | Carries | Budget |
 |---|---|---:|
 | core + web | the 0.1 icon path (unchanged; 14.6 KB measured) | 25 KB |
-| `markup` | the in-browser AniML compiler (optional; pages that ship `.ani` never load it) | 6 KB |
+| `markup` | the in-browser AniML compiler (optional; pages that ship `.ani` never load it); raised from 6 KB at P4a | 8 KB |
 | `paint` | gradients (linear, radial, angular), feather, clipping and masks, blend modes, dashes, more shapes, image paints | 5 KB |
 | `interaction` | blend states (1D, direct, additive), transition flags, drag, align target, keyboard, focus, gamepad, scroll | 4 KB |
 | `events` | event payloads, open-URL events, audio events (Web Audio) | 2 KB |
