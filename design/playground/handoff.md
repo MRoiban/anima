@@ -1,6 +1,6 @@
 # Playground handoff (P3)
 
-**Design artifact:** `design/playground/mockup.html` (sha256 `d1e4ef86694d…`, branch `p3-playground`).
+**Design artifact:** `design/playground/mockup.html` (sha256 `dbb8ebda5205…`, branch `p3-playground`).
 Open it in a browser; the black "mock:" switch (bottom corner) shows the states: valid, errors,
 scrubbing, dark. The switch is mockup chrome, not part of the product.
 
