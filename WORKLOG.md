@@ -2,9 +2,9 @@
 
 ## Now
 Goal: P1 AniML (authoring markup) → PR from p1-animl; then M5, then Phase B (P3 playground first).
-State: p1-animl 12b642d: contract + Sol compiler + decompiler/formatter merged; round-trip tests green (bell + 13 cases); 274 tests; core+web 14635 B gz.
-Next: wave 2 running (Sol, worktrees from 12b642d): CLI (.animl everywhere, build incl. html, decompile, new→animl); web markup module (baseline 7032 B gz, target ≤6144); migrate conformance+README to .animl.
-Next: wave 3 — rewrite docs/AUTHORING.md for markup (real diagnostics via CLI); wave 4 head-to-head (AniML vs .ani vs Rive RML), then PLAN/LOG, PR, merge, summary.
+State: p1-animl 052af3f: compiler, decompiler/fmt, CLI (.animl everywhere, build incl. html, decompile), web markup module (5804/6144 B), conformance in .animl, AUTHORING.md for markup all merged; npm run check green (360 tests).
+Next: head-to-head running (3 Sol, same BRIEF.md: animl / hand .ani / Rive RML) → verify each output myself, write docs/research/head-to-head/RESULTS.md, refine AniML from findings.
+Next: then PLAN P1 tick, LOG entry, PR p1-animl → main, merge when CI green, summary with bell markup. Then M5.
 Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
 Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
@@ -45,3 +45,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 14:39 [sol]: browser build emits anima-icon.js + anima-markup.js → build-web --check passes; intentional stale markup artifact rejected with exit 1, restored artifact passes; no new runtime dependencies beyond workspace markup, no CLI/core/spec/docs edits, no push/PR/merge.
 - 2026-11-05 15:40 [claude]: merged Sol web markup module (a980e42): markup 5777/6144 B gz, core+web 14781 B (+146); npm run check green: 347 tests, Chromium+Firefox (evidence: npm run check after local dist rebuild)
 - 2026-11-05 16:05 [claude]: merged Sol AUTHORING.md rewrite (8ee957f; 4/4 xml blocks compile, 6/6 diagnostics match, tested); markup hints for undeclared input/colour/glyph; markup 5804 B gz
+- 2026-11-05 16:15 [claude]: launched head-to-head (3 Sol, high, worktrees from 052af3f): animl / ani / rive, 45 min timebox each
