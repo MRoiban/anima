@@ -1,0 +1,31 @@
+snapshot
+set progress 0.25
+advance 0
+snapshot
+set progress 0.5
+advance 0
+snapshot
+set progress 0.37
+advance 0
+snapshot
+set progress 0.5
+advance 0
+set done true
+advance 0
+snapshot
+advance 0.175
+snapshot
+advance 0.175
+snapshot
+pointer move 10 10
+snapshot
+advance 0.3
+snapshot
+advance 0.3
+snapshot
+advance 1
+snapshot
+pointer click 10 10
+snapshot
+pointer leave
+snapshot
