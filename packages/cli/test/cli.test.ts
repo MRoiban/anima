@@ -1,7 +1,7 @@
 import { mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { load, Player } from '@anima-format/core';
+import { DOC, markupName, type Shape, load, Player } from '@anima-format/core';
 import { Resvg } from '@resvg/resvg-js';
 import { describe, expect, it } from 'vitest';
 import { run } from '../src/index.ts';
@@ -239,6 +239,47 @@ describe('anima inspect, schema, docs', () => {
     expect(JSON.parse((await cli('schema', '--json-schema')).out).$defs.node).toBeDefined();
     expect((await cli('schema', 'ellipse')).code).toBe(2);
   });
+
+  it.each([
+    ['a11y', ['a11y']],
+    ['transition', ['machine', 'layers', '*', 'states', '*', 'on', '*']],
+    ['listener', ['listeners', '*']],
+    ['input', ['inputs', '*']],
+  ] as const)(
+    'schema %s lists every registry field with both spellings and types',
+    async (topic, path) => {
+      let shape: Shape = DOC;
+      for (const key of path) {
+        if (shape.k === 'obj') shape = shape.p[key]!;
+        else if (shape.k === 'map' || shape.k === 'arr') shape = shape.of;
+      }
+      if (shape.k !== 'obj') throw new Error('expected an object registry');
+      const json = await cli('schema', topic, '--format=json');
+      expect(json.code).toBe(0);
+      const fields = JSON.parse(json.out).fields;
+      expect(fields.map((f: { ani: string }) => f.ani)).toEqual(Object.keys(shape.p));
+      const text = await cli('schema', topic);
+      expect(text.code).toBe(0);
+      for (const [key, value] of Object.entries(shape.p)) {
+        const field = fields.find((f: { ani: string }) => f.ani === key);
+        expect(field.markup).toBe(markupName(value, key));
+        expect(field.type.length).toBeGreaterThan(0);
+        expect(field.required).toBe(shape.req?.includes(key) ?? false);
+        expect(text.out).toContain(`${field.markup} ↔ ${key}: ${field.type}`);
+      }
+      if (topic === 'transition')
+        expect(fields.find((f: { ani: string }) => f.ani === 'blend')).toMatchObject({
+          type: 'number',
+          min: 0,
+        });
+      if (topic === 'input')
+        expect(fields.find((f: { ani: string }) => f.ani === 'type')).toMatchObject({
+          markup: 'element name',
+          type: '"bool" | "number" | "trigger"',
+        });
+      expect((await cli('--help')).out).toContain(topic);
+    },
+  );
 
   it('docs serves the authoring guide, its sections and the spec', async () => {
     expect((await cli('docs')).out).toMatch(/^# Authoring/);

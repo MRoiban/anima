@@ -344,7 +344,10 @@ export class AnimaIcon extends HTMLElement {
     e.preventDefault();
     if (down && e.repeat) return;
     // Enter activates on key down, Space on key up — as native buttons do.
-    if (a.activate && (e.key === 'Enter') === down) this.fire(a.activate);
+    if (a.activate && (e.key === 'Enter') === down) {
+      if (this.player!.model.inputs.get(a.activate)!.type === 'bool') this.toggle(a.activate);
+      else this.fire(a.activate);
+    }
     this.#hold(down);
   }
 

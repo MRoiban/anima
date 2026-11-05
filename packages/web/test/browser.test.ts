@@ -7,6 +7,7 @@ import { chromium, firefox, type Browser, type BrowserType, type Page } from 'pl
 import { PNG } from 'pngjs';
 import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from 'vitest';
 import { attrs, cssSlots, load, runScript, sceneTree, type El } from '../../core/src/index.ts';
+import { compile } from '../../markup/src/index.ts';
 import type { AnimaIcon } from '../src/index.ts';
 import { bundle } from '../../../tools/browser-build.ts';
 
@@ -399,6 +400,46 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
         { polling: 10 },
       );
       expect(await page.evaluate(() => window.icon.player!.get('down'))).toBe(false);
+    });
+
+    it('toggles a focused switch bool on Enter down and Space up, ignoring repeats', async () => {
+      const source = readFileSync(
+        new URL('../../../docs/research/head-to-head/animl/switch.animl', import.meta.url),
+        'utf8',
+      ).replace('pressed="on"', 'pressed="on" activate="on"');
+      const built = compile(source);
+      expect(built.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+      await mount(JSON.stringify(built.doc));
+      const icon = page.locator('anima-icon');
+      await icon.focus();
+      const check = async (on: boolean) => {
+        // Let queued input writes run even when asserting that a key did not toggle.
+        await page.evaluate(() => new Promise<void>((done) => requestAnimationFrame(() => done())));
+        await page.waitForFunction(
+          (value) =>
+            window.icon.player!.get('on') === value &&
+            window.icon.getAttribute('aria-checked') === String(value),
+          on,
+          { polling: 10 },
+        );
+      };
+      await check(false);
+      await page.keyboard.down('Enter');
+      await check(true);
+      await page.keyboard.down('Enter'); // Playwright marks the repeated down as repeat.
+      await check(true);
+      await page.keyboard.up('Enter');
+      await check(true);
+      await page.keyboard.down('Space');
+      await check(true);
+      await page.keyboard.down('Space');
+      await check(true);
+      await page.keyboard.up('Space');
+      await check(false);
+      await page.keyboard.press('Enter');
+      await check(true);
+      await page.keyboard.press('Space');
+      await check(false);
     });
 
     it('exposes switch semantics: aria-checked follows the pressed input on click', async () => {

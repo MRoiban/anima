@@ -349,10 +349,11 @@ writes to an unknown input or with the wrong type are rejected by the API, never
 
 ## 10. Accessibility and motion
 
-`"a11y": { "role": "button" | "switch" | "img", "label": "…", "activate": "<trigger>", "pressed": "<bool>", "held": "<bool>" }`
+`"a11y": { "role": "button" | "switch" | "img", "label": "…", "activate": "<trigger or bool>", "pressed": "<bool>", "held": "<bool>" }`
 
-- `button`/`switch`: the element is focusable and exposes the role and `label`. **Enter** fires
-  `activate` on key down (not on repeats); **Space** fires it on key up — as native buttons do.
+- `button`/`switch`: the element is focusable and exposes the role and `label`. **Enter** activates
+  on key down (not on repeats); **Space** activates on key up — as native buttons do.
+  Activation fires the trigger named by `activate`, or toggles it if it is a bool.
   While either key is held, the bool named by `held` (if any) is true. `pressed` names a bool input
   that `aria-pressed` (`button`) or `aria-checked` (`switch`, where it is required) follows.
 - `img` or no `a11y`: `role="img"` with the label, or `aria-hidden` when there is no label.
@@ -431,7 +432,7 @@ previous snapshot, and `settled` is the last step's result.
 | `state-kind` | error | A state has both or neither of `pose` and `play`, or `speed` without `play`. |
 | `bad-condition` | error | A condition does not parse. |
 | `unknown-input` | error | A condition, listener or `a11y` names an input that is not declared. |
-| `input-type` | error | An input is used in a way its type does not allow. |
+| `input-type` | error | An input is used in a way its type does not allow (`a11y.activate` needs a trigger or bool; `pressed` and `held` need bools). |
 | `bad-end` | error | `@end` on a pose state or a looping timeline. |
 | `self-transition` | error | A transition to the current state with only level terms. |
 | `unknown-target` | error | A listener targets a node that does not exist. |
