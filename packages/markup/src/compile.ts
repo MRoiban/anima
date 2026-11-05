@@ -21,7 +21,7 @@ import { structuralMarkup } from './modules.ts';
 if (VERBOSE) Object.assign(moduleCompiler, structuralMarkup);
 
 import type { CompileOptions, CompileResult, MarkupDiagnostic } from './index.ts';
-import { aniAddress, nodeAttrs } from './names.ts';
+import { aniAddress, nodeAttrs, type NodeAttr } from './names.ts';
 import { parseXml, type Attr, type Element, type Pos, type XmlDocument } from './xml.ts';
 
 type Json = Record<string, unknown>;
@@ -151,6 +151,14 @@ export class Compiler {
   readonly diagnostics: MarkupDiagnostic[] = [];
   readonly map = new Map<string, Pos>();
   private readonly types = new Map<string, NodeType>();
+  // Registry descriptors are stable during one compile. Reuse them for nodes and addresses,
+  // but start fresh next time so modules registered between compiles are always visible.
+  private readonly attributes = new Map<NodeType, NodeAttr[]>();
+  private nodeAttrs = (type: NodeType): NodeAttr[] => {
+    let attrs = this.attributes.get(type);
+    if (!attrs) this.attributes.set(type, (attrs = nodeAttrs(type)));
+    return attrs;
+  };
   private readonly eases = new Map<string, Attr>();
   private readonly resolved = new Map<string, string>();
   private readonly resolving = new Set<string>();
@@ -199,14 +207,14 @@ export class Compiler {
     return [a, ptr(ptr(p, key), a.length)];
   }
   private address(s: string): string {
-    return aniAddress(s, (id) => this.types.get(id)) ?? s;
+    return aniAddress(s, (id) => this.types.get(id), this.nodeAttrs) ?? s;
   }
 
   private form(el: Element): Form {
     if (NODES.includes(el.name)) {
       const attrs: Record<string, Kind> = { id: 'name' };
       const required = ['id'];
-      for (const a of nodeAttrs(el.name as NodeType)) {
+      for (const a of this.nodeAttrs(el.name as NodeType)) {
         attrs[a.attr] = a.index === undefined ? this.kind(a.shape) : 'number';
         if ((el.name === 'circle' || el.name === 'arc') && ['cx', 'cy', 'r'].includes(a.attr))
           required.push(a.attr);
@@ -636,7 +644,7 @@ export class Compiler {
     this.put(o, 'type', el.name, p, el.at);
     const id = attrs.get('id');
     if (id) this.put(o, 'id', this.read(id, 'name', p + '/id'), p, id.valueAt);
-    for (const a of nodeAttrs(el.name as NodeType)) {
+    for (const a of this.nodeAttrs(el.name as NodeType)) {
       const attr = attrs.get(a.attr);
       if (!attr) continue;
       const paint = a.path.length === 2 ? a.path[0] : undefined;
@@ -748,6 +756,7 @@ export class Compiler {
   }
 
   run(source: string): CompileResult {
+    this.attributes.clear();
     const { doc: xml, errors } = parseXml(source);
     this.xml = xml;
     for (const e of errors) this.error('markup-syntax', '', e.at, VERBOSE ? e.message : '');

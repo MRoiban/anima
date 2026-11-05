@@ -297,12 +297,10 @@ export class AnimaIcon extends HTMLElement {
 
   /** Repaint retained elements without advancing the player or scheduling a frame. */
   invalidate(): void {
-    if (this.player)
-      for (const rec of this.#els) {
-        rec[2] = {};
-        this.#paint(rec);
-      }
-    this.#order();
+    if (this.player) {
+      for (const rec of this.#els) rec[2] = {};
+      this.#draw(true);
+    } else this.#order();
   }
 
   /** Set a bool or number input. */
@@ -365,8 +363,7 @@ export class AnimaIcon extends HTMLElement {
     for (const el of root) make(el, svg);
     this.#root.append(svg);
     this.#layout();
-    for (const rec of this.#els) this.#paint(rec);
-    this.#order();
+    this.#draw(true);
   }
 
   #layout(): void {
@@ -406,26 +403,24 @@ export class AnimaIcon extends HTMLElement {
     } else svg.removeAttribute('style');
   }
 
-  #paint(rec: [El, Element, Attrs]): void {
-    const [el, d, cur] = rec;
-    const next = svgAttrs(drawFrame(this.player!), el, cssSlots, this.#mid);
-    for (const k in next) {
-      const v = next[k]!;
-      if (v === cur[k]) continue;
-      if (v === null) d.removeAttribute(k);
-      else d.setAttribute(k, v);
-      cur[k] = v;
-    }
-  }
-
   #order(): void {
     AnimaIcon.orderSVG?.(drawFrame(this.player!), this.#els);
   }
 
-  #draw(): void {
-    const p = this.player!;
-    const changed = new Set(drawFrame(p).changed);
-    for (const rec of this.#els) if (changed.has(rec[0].node)) this.#paint(rec);
+  #draw(all = false): void {
+    const f = drawFrame(this.player!);
+    const changed = new Set(f.changed);
+    for (const [el, d, cur] of this.#els) {
+      if (!all && !changed.has(el.node)) continue;
+      const next = svgAttrs(f, el, cssSlots, this.#mid);
+      for (const k in next) {
+        const v = next[k]!;
+        if (v === cur[k]) continue;
+        if (v === null) d.removeAttribute(k);
+        else d.setAttribute(k, v);
+        cur[k] = v;
+      }
+    }
     this.#order();
   }
 

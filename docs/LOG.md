@@ -505,6 +505,7 @@ markup into markup, and separating the frame-only SVG API reduced the costs. No 
 rendered-output assertions were relaxed to shrink it. The standard 25 KB CI size budget still passes;
 tools/size.ts separately prints the unmet 16697 B draw-layer target.
 
+<<<<<<< HEAD
 ## P4a compile-time regression and a correction (2026-11-06)
 
 - **What happened.** After the draw layer, the robustness test that compiles every prefix of
@@ -525,3 +526,58 @@ tools/size.ts separately prints the unmet 16697 B draw-layer target.
   suite passes with the original limit (706 tests).
 - **From now on:** `tools/perf.ts` prints compile time in `npm run check` next to the sizes, and
   each phase's LOG entry and PR summary carry both with the previous phase's numbers.
+=======
+
+## P4a-4 — size race round 2 and compile speed (2026-11-05, size gate still open)
+
+From 51bc900 (16953 B), ported the remaining applicable ed2406c changes: combined array limits,
+terse parser diagnostic guards, shared player address lookup, finite input checking, and one retained
+SVG attribute-diff loop. Collect draw roots in the node traversal, keep the keyframe count as a scalar,
+and share layer local-time/visibility logic. The draw contract and permanent SVG wrappers/masks remain
+unchanged; the retained-scene guidance in research/rive-web-runtime.md still applies. No Rive source
+or files were used.
+
+CPU profiles of a Node script compiling bell.animl 2000 times and loading bell.ani 2000 times found
+repeated node attribute discovery: nodeAttrs accounted for 7.9% of self samples before, 1.7% after.
+Compiler-local descriptors are now reused by node forms, copying and animation-address translation.
+The cache clears at each run, preserving registrations between compilations. No load validation or
+draw-tree construction was bypassed. The profile script and captures are in /tmp/anima-r2/; command:
+`node --cpu-prof --cpu-prof-dir=/tmp/anima-r2/profiles /tmp/anima-r2/bench.mjs "$PWD"`.
+
+Prefix timing used the unchanged command
+`npx vitest run packages/markup/test/compile.test.ts -t "every prefix" --reporter=verbose`, alternating
+separate b7b6e92 and working checkouts on this machine. Final runs (ms):
+
+| Version | Run 1 | Run 2 | Run 3 | Median |
+| --- | ---: | ---: | ---: | ---: |
+| b7b6e92 | 759 | 733 | 871 | 759 |
+| Round 2 | 754 | 1012 | 767 | 767 |
+
+The median is 1.1% above the same-session pre-draw baseline, within the 10% target. Shared-machine
+wall times vary substantially: earlier paired medians were 989/966 ms and, under higher load,
+1427/1432 ms. Initial single runs were 1072 ms at b7b6e92 and 1150 ms at 51bc900, so this session did
+not reproduce the historical 941/1805 ms ratio. Do not read cross-batch differences as speedups.
+
+Core+web is **16901 B min+gzip**, down 52 B from 16953 B, still **204 B above 16697 B**. Paint is
+3708/5120 B, composite 3840/4096 B and markup 7502/8192 B. All optional module budgets pass.
+Dozens of measured refactor candidates mostly regressed gzip or overlapped round 1, including table-based shape dispatch, registration patch helpers, SVG element factories,
+shared DOM setters and alternative draw-frame loops; these were reverted. A three-byte SVG saving
+changed attribute order and was rejected. Sharing the finish predicate was also rejected because
+`!(time >= duration)` differs from `time < duration` for NaN. A second form cache showed no reliable
+extra speed benefit and was reverted. The no-growth acceptance checkboxes remain open; no budget or
+measurement method was changed.
+
+Additional parity against 51bc900 matches one SHA-256 over all six example compiles, all 9040 bell
+prefix results (documents, text, diagnostics and ordered source maps), and 726 animated frames
+(step results, values, inspection, dirty slots, draw frames and serialized SVG):
+`5c92b25757e9a106ff4a71d77b83994645c67cdbc36e27bc09fcaf76381ad49b`.
+Another 363 SVG frames of bell/moon/trash match b7b6e92 byte for byte, hash
+`d75e6ce2fea1dd65c9be0c75d54c4b6ac35b489657d3b72f9d5b13afcc2838f2`.
+Scripts and raw measurements are under /tmp/anima-r2. Existing tests, expectations, spec and conformance
+files are unchanged. No runtime dependencies, push, PR or merge.
+
+Final verification: `npm run check` exits 0: typecheck, lint, formatting, all 706 tests in 35 files
+(no skips; Chromium + Firefox, including the unchanged per-frame clapper regression and 0.1 SVG
+compatibility assertions), size budgets, browser artifact freshness, and all 37 AniML rebuild checks.
+The standalone demo was regenerated. This is a local-only partial size handoff; P4a-4/P4a-6 stay open.
+>>>>>>> t3/reduce-draw-layer-size-and-load-cost

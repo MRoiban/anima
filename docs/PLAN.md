@@ -126,8 +126,11 @@ and an oracle test against Rive.
         describe resolved draw data; the SVG backend turns it into retained DOM and `toSVG`;
         `paint` converted; core + web for icons must not grow (`tools/size.ts`).
         Draw tree/frame, independent paint/composite modules and SVG backends implemented; 706 tests
-        green, 0.1 example SVG bytes unchanged. Acceptance remains open: core+web 17175 B vs 16697 B
-        (+478 B); paint 3771/5120, composite 3874/4096, markup 7326/8192 B.
+        green, 0.1 example SVG bytes unchanged. Acceptance remains open after size round 2:
+        core+web 16901 B vs 16697 B (+204 B); paint 3708/5120, composite 3840/4096,
+        markup 7502/8192 B.
+        AniML prefix compilation is back within 10% of the same-session pre-draw baseline
+        (759 → 767 ms median); see LOG for measurements and output parity checks.
   - [x] P4a-5 agent-native benchmark run with a paint brief: AniML 5/6, Rive 5/6
         (`docs/benchmarks/agent-native.md`).
   - [ ] P4a-6 **merge blockers** from the draw layer: core + web back to ≤ 16 697 B, and compile

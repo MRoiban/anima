@@ -90,12 +90,15 @@ export const NODE_ELEMENTS: readonly string[] = NODE_TYPES;
 export function aniAddress(
   address: string,
   typeOf: (id: string) => NodeType | undefined,
+  attributes = nodeAttrs,
 ): string | undefined {
   const dot = address.indexOf('.');
   if (dot < 0) return undefined;
   const type = typeOf(address.slice(0, dot));
   if (!type) return undefined;
-  const a = nodeAttrs(type).find((x) => x.attr === address.slice(dot + 1) && x.index === undefined);
+  const a = attributes(type).find(
+    (x) => x.attr === address.slice(dot + 1) && x.index === undefined,
+  );
   return a ? `${address.slice(0, dot)}.${a.path.join('.')}` : undefined;
 }
 

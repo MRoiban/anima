@@ -90,15 +90,14 @@ function check(v: unknown, s: Shape, p: string, d: Diags, depth: number): void {
     case 'arr':
     case 'tup': {
       const a = v as unknown[];
-      if (s.k === 'arr') {
-        if (s.min && a.length < s.min)
-          return d.err('bad-value', p, V && `needs at least ${s.min} item${s.min > 1 ? 's' : ''}`);
-      } else if (a.length < s.min || a.length > s.of.length)
+      if ((s.min && a.length < s.min) || (s.k === 'tup' && a.length > s.of.length))
         return d.err(
           'bad-value',
           p,
           V &&
-            `needs ${s.min === s.of.length ? s.min : `${s.min} to ${s.of.length}`} items, has ${a.length}`,
+            (s.k === 'tup'
+              ? `needs ${s.min === s.of.length ? s.min : `${s.min} to ${s.of.length}`} items, has ${a.length}`
+              : `needs at least ${s.min} item${s.min! > 1 ? 's' : ''}`),
         );
       return a.forEach((x, i) =>
         check(x, s.k === 'arr' ? s.of : s.of[i]!, p + '/' + i, d, depth + 1),
