@@ -2,6 +2,7 @@ import { readFileSync, readdirSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { formatAni, load, type NodeType } from '@anima-format/core';
 import { compile, decompile, formatMarkup, parseXml, type Element } from '../src/index.ts';
+import { pendingReason } from '../../../tools/pending.ts';
 import { aniAddress, nodeAttrs, NODE_ELEMENTS } from '../src/names.ts';
 import { attrOrder, ATTR_ORDER } from '../src/layout.ts';
 
@@ -9,7 +10,11 @@ const read = (p: string) => readFileSync(new URL('../../../' + p, import.meta.ur
 const cases = readdirSync(new URL('../../../spec/conformance/', import.meta.url), {
   withFileTypes: true,
 })
-  .filter((entry) => entry.isDirectory())
+  .filter(
+    (entry) =>
+      entry.isDirectory() &&
+      !pendingReason(new URL('../../../spec/conformance/' + entry.name + '/', import.meta.url)),
+  )
   .map((entry) => entry.name)
   .sort();
 const corpus = [

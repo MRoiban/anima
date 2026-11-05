@@ -65,3 +65,24 @@ Do not edit generated files or shared module lists. `node tools/modules.ts --che
 wiring. Run `npm run test:scope -- <name>` while developing; include shared markup integration tests
 in the manifest where registry changes affect them. Module scopes select their explicitly owned
 browser suites, without following references to other modules.
+
+## Adding a capability
+
+Start coder briefs with `node tools/new-capability.ts <parity-row-id> --dry-run`, then run it
+without `--dry-run`. The module defaults to the inventory's `anima.module`; use `--module motion`
+(or another name) when the inventory's broad bucket needs a dedicated module. Completed rows are
+rejected. Repeated runs preserve coder edits and leave parity status unchanged.
+
+The tool adds module registration/SVG/markup/web skeletons and a size budget when needed, a spec
+subsection, inert registry entry template, diagnostic `.todo` test and invalid-fixture folder,
+conformance and oracle probes, an AniML/JSON example pair, parity mappings and generated wiring.
+Fill every TODO, compose the registry entries into the module, review `after`/budget, and verify
+CLI/schema support. Existing module conformance prefixes are extended automatically.
+
+A probe directory with `todo.json` containing `{"status":"todo","reason":"..."}` is pending:
+conformance and oracle tests report it as TODO, never passing. AniML build/corpus checks omit pending
+conformance sources. Replace the probe and independent expectations, rebuild `.ani`, then remove
+the marker. For oracles, capture references and add a fully specified entry to `tests/oracle/cases.json`;
+a marked case in that completed manifest is an error. No-faithful-counterpart rows get a skip note.
+Run `npm run test:scope -- <module> conformance oracle` while implementing; a scaffold passing checks
+does not meet the capability definition of done in PLAN.

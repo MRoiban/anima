@@ -2,6 +2,7 @@ import '@anima-format/core/all';
 // Runs spec/conformance/*/ (spec §11) and the ease golden vectors.
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
+import { pendingReason } from '../../../tools/pending.ts';
 import { load, parseEase, runScript } from '../src/index.ts';
 
 const DIR = new URL('../../../spec/conformance/', import.meta.url);
@@ -37,18 +38,25 @@ export function diff(a: unknown, b: unknown, path = ''): string | null {
 }
 
 describe('conformance', () => {
-  it.each(cases)('%s', (c) => {
-    const read = (f: string) => readFileSync(new URL(`${c}/${f}`, DIR), 'utf8');
-    const { model, diagnostics } = load(read('case.ani'));
-    expect(diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
-    const got = runScript(model!, read('script.txt')).snapshots;
-    const want = read('expected.jsonl')
-      .trim()
-      .split('\n')
-      .map((l) => JSON.parse(l));
-    expect(got.length).toBe(want.length);
-    want.forEach((w, i) => expect(diff(got[i], w), `snapshot ${i + 1}`).toBeNull());
-  });
+  for (const c of cases) {
+    const reason = pendingReason(new URL(`${c}/`, DIR));
+    if (reason) {
+      it.todo(`${c} (pending: ${reason})`);
+      continue;
+    }
+    it(c, () => {
+      const read = (f: string) => readFileSync(new URL(`${c}/${f}`, DIR), 'utf8');
+      const { model, diagnostics } = load(read('case.ani'));
+      expect(diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+      const got = runScript(model!, read('script.txt')).snapshots;
+      const want = read('expected.jsonl')
+        .trim()
+        .split('\n')
+        .map((l) => JSON.parse(l));
+      expect(got.length).toBe(want.length);
+      want.forEach((w, i) => expect(diff(got[i], w), `snapshot ${i + 1}`).toBeNull());
+    });
+  }
 
   it('eases match the golden vectors to 1e-7', () => {
     const golden = JSON.parse(readFileSync(new URL('eases.json', DIR), 'utf8'));

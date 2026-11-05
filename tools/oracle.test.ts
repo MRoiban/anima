@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { pathToFileURL } from 'node:url';
 import { expect, it } from 'vitest';
-import { cases, measure } from './oracle.ts';
+import { cases, measure, pendingCases } from './oracle.ts';
 
 it.each(cases)('Rive oracle: $name', async (c) => {
   const dir = mkdtempSync(join(tmpdir(), 'anima-oracle-'));
@@ -22,3 +22,5 @@ it.each(cases)('Rive oracle: $name', async (c) => {
     rmSync(dir, { recursive: true, force: true });
   }
 });
+
+for (const c of pendingCases) it.todo(`Rive oracle: ${c.name} (pending: ${c.reason})`);

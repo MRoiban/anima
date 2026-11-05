@@ -1,6 +1,7 @@
 import { globSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
+import { pendingReason } from '../../../tools/pending.ts';
 import { compile, formatMarkup } from '../src/index.ts';
 
 const root = new URL('../../../', import.meta.url);
@@ -10,7 +11,7 @@ const files = globSync(
     cwd: fileURLToPath(root),
   },
 )
-  .filter((f) => !f.startsWith('examples/lib/'))
+  .filter((f) => !f.startsWith('examples/lib/') && !pendingReason(new URL('./', new URL(f, root))))
   .sort();
 
 describe('authored AniML corpus', () => {

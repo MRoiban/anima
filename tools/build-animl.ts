@@ -2,6 +2,8 @@ import '@anima-format/core/all';
 // Rebuild authored AniML through the package API, without invoking the CLI.
 //   node tools/build-animl.ts [--check]
 import { globSync, readFileSync, writeFileSync } from 'node:fs';
+import { pendingReason } from './pending.ts';
+import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { compile } from '@anima-format/markup';
 
@@ -15,6 +17,11 @@ const files = globSync(
 ).sort();
 const outputs: { file: string; text: string }[] = [];
 for (const file of files) {
+  const reason = pendingReason(dirname(root + file));
+  if (reason) {
+    console.log(`Pending ${file}: ${reason}`);
+    continue;
+  }
   const source = readFileSync(new URL(file, new URL('../', import.meta.url)), 'utf8');
   if (/^\s*<library\b/.test(source)) continue;
   const result = compile(source, {

@@ -1,5 +1,6 @@
 import '@anima-format/core/all';
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { pendingReason } from './pending.ts';
+import { globSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { PNG } from 'pngjs';
 import { compile } from '@anima-format/markup';
@@ -14,6 +15,14 @@ export interface OracleCase {
 }
 export const root = new URL('../tests/oracle/', import.meta.url);
 export const cases: OracleCase[] = JSON.parse(readFileSync(new URL('cases.json', root), 'utf8'));
+
+export const pendingCases = globSync('*/todo.json', { cwd: root }).map((path) => ({
+  name: path.split('/')[0]!,
+  reason: pendingReason(new URL('./', new URL(path, root)))!,
+}));
+for (const c of cases)
+  if (pendingReason(new URL(`${c.name}/`, root)))
+    throw Error(`${c.name}: pending oracle must not be in cases.json`);
 
 /** Largest RGBA delta per pixel; no blur, alignment, edge exclusion or colour correction. */
 export function compare(actual: Buffer, reference: Buffer, threshold: number) {
@@ -83,6 +92,7 @@ export async function measure(c: OracleCase, output: URL) {
 }
 
 if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) {
+  for (const c of pendingCases) console.log(`Pending oracle ${c.name}: ${c.reason}`);
   if (process.argv.includes('--build')) {
     for (const c of cases) {
       const dir = new URL(`${c.name}/`, root);

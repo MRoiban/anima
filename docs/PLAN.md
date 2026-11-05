@@ -142,7 +142,13 @@ needs it. Size is not the only cost: compile time and per-frame cost are tracked
    from `docs/parity/` and generates the skeleton every capability needs (spec section stub,
    registry entry with both spellings, diagnostic and test stubs, conformance and oracle folders,
    AniML example and `.ani`, CLI/schema hook, size entry, parity mapping) with TODOs. Coder briefs
-   use it from now on.
+   start with `node tools/new-capability.ts <row-id> --dry-run`, then run without `--dry-run`;
+   use `--module <name>` to override the inventory module (e.g. `motion` for animation rows in
+   `core`). Fill the generated TODO checklist before claiming completion. `todo.json` probes and
+   diagnostic `.todo` tests report pending, never passing; parity status is unchanged. Repeat runs
+   preserve edits and generate no further changes. See AGENTS.md "Adding a capability".
+   D3 implementation: `tools/new-capability.ts`, module-generated CLI/schema/size wiring, paired
+   example, parity views, and explicit pending support in conformance/build/oracle tooling.
 
 Order: after P5-7 (markup) lands — D1 module folders, D2 scoped tests (parallel with D1), D3
 scaffolder (after D1) — before the next new module (P5 merges with them).
