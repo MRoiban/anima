@@ -1129,3 +1129,10 @@ An immediate sequential baseline/candidate control using the same unchanged `too
 These small differences are inside the observed run-to-run spread. Earlier overlapping runs varied
 severalfold, so no precise speedup/regression claim is warranted. The one full check was not repeated;
 post-check changes only update documentation/evidence paths.
+
+## D1 size note (2026-11-07)
+
+Module folders (D1) grew core + web by 248 B (17 541 → 17 789 B min+gzip) for the generated,
+order-independent registration plumbing; every module budget and both use-case totals pass
+(full-featured 44.3 KB / 100 KB). Accepted inside the 30 KB ceiling under the ceilings rule (a reason
+in LOG); to be recovered opportunistically in a later size pass.
