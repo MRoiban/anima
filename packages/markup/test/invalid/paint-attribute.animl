@@ -1,0 +1,4 @@
+<!-- expect paint-attribute at 3:43 -->
+<anima version="0.1" name="broken" grid="20">
+  <path id="p" d="M0 0L1 1" stroke-width="2"/>
+</anima>

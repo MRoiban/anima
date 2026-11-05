@@ -1,0 +1,5 @@
+<!-- expect duplicate-name at 4:16 -->
+<anima version="0.1" name="broken" grid="20">
+  <color name="ink" value="#123"/>
+  <color name="ink" value="#456"/>
+</anima>
