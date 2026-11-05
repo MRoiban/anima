@@ -92,3 +92,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-07 05:15 [claude]: launched D1 module folders (xhigh) and the AniML side of the P5 benchmark (format final for P5)
 - 2026-11-07 07:00 [claude]: merged P5 AniML benchmark run (a80efc3): agent 5/6, re-check 6/6 (pop renders 1.25 with its script; sheet never triggered it); 3m43s vs Rive 10m48s; findings: on-change condition → P4c, text → P6, script set-before-advance documented
 - 2026-11-07 09:30 [claude]: merged D1 module folders (d9510ae): 6 modules + libraries in folders, generator --check, 12 orders identical; core+web 17789 (+248, logged); test:scope paint 12 files/4.2 s; next D3 scaffolder then P5 PR
+- 2026-11-06 11:00 [claude]: merged D3 scaffolder (c7e3012): 31 files per row, idempotent; opening P5 PR (full suite in CI)
