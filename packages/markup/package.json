@@ -6,6 +6,8 @@
   "description": "AniML, the Anima markup: compile .animl to .ani (with a source map), decompile, format.",
   "exports": {
     ".": "./src/index.ts",
+    "./bind": "./src/bind.ts",
+    "./components": "./src/components.ts",
     "./modules": "./src/modules.ts",
     "./module-hooks": "./src/module-hooks.ts",
     "./browser": "./src/browser.ts",

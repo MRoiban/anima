@@ -1,3 +1,4 @@
+import './markup-components.ts';
 import { components } from '@anima-format/core/components';
 import { componentsSVG } from '@anima-format/core/components-svg';
 import './index.ts';

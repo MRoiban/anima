@@ -193,6 +193,22 @@ HTML parses `<path/>` and friends as HTML, so markup in a page is wrapped in a s
   `<import>`, `<template>` and `<apply>` report `markup-libraries-unavailable`, with a hint to load
   that entry or run `anima build`. The default tooling compiler entry always registers this layer;
   the lean `@anima-format/markup/browser` entry uses it only when registered.
+- Module compilation is optional too. `@anima-format/web/components` registers the component
+  compiler hook, and `@anima-format/web/bind` registers the binding hook. Load each alongside
+  `@anima-format/web/markup`, in either order, before loading source. Without its hook,
+  `<component>` / `<instance>` report `markup-components-unavailable` and `<bind>` reports
+  `markup-bind-unavailable`; each diagnostic includes the source position, JSON pointer and
+  a message/hint naming the entry to load (or `anima build`). The registration-only entries
+  `@anima-format/web/markup-components` and `@anima-format/web/markup-bind` are available
+  separately; they do not install their runtime modules or the compiler.
+- Registry-derived forms (including `<asset>` and ordinary module node attributes) remain in
+  markup. Structural paint handling (gradient children, masks, clips, multiple paints and dash
+  lengths) is registered by `@anima-format/web/paint`, or separately by
+  `@anima-format/web/markup-paint`. A composite-only page using structural children must load
+  `markup-paint` alongside `composite` and `markup`; without it those children report
+  `markup-paint-unavailable`, naming `markup-paint` in the message and hint. These hooks are
+  shared through the registered element class, including across separately emitted bundles.
+  Tooling always installs all compiler hooks; CLI and playground compilation are unchanged.
 
 ## 10. Reserved for 0.2
 

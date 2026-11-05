@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: wave 1 Sol: bind module; AniML libraries/templates; assets+image (parallel). Then components (after bind), n-slice/feather/image paints, P5 benchmark.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: browser markup split complete; commit locally only.
+Verified: VITEST_MAX_WORKERS=2 npm run check green (966 tests/47 files); every budget and artifact check passes.
+Sizes: markup 8010/8192 B; hooks components 468 B, paint 300 B, bind 134 B (each ≤2048 B).
+Caveats: components headroom 17 B; default-concurrency bind injection race; prefix sample 780→1024 ms.
+Next: owner integrates/rechecks alongside parallel paint work; no push/PR/merge from this agent.
+Don't: edit core/draw, relax limits or measuring method, add runtime dependencies, publish.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -82,3 +83,14 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 14:40 [claude]: merged P5-3b library split (3b12d00): markup 8093/8192, markup-libraries 1755/2048 over web+markup; size.ts supports per-module base
 - 2026-11-06 15:20 [claude]: merged P4a oracle cases (7b6e847): 17 cases/21 frames vs committed Rive frames, all within AA tolerance (max share over 16: 0.35%); 908 tests
 - 2026-11-06 21:45 [claude]: merged P5-2 components (f4f5705) with assets/libraries (12 conflicts): 962 tests; core+web 17388, components 3477/4096, full 39.7 KB; markup 8551 over → split; perf noisy (load 7): prefix 751–917 ms, toolbar frame 50 µs
+
+- 2026-11-05 20:50 [sol]: preserved incomplete markupFeatures edits in /tmp/anima-incoming-markup.patch, rebuilt split from HEAD; first browser failures exposed incomplete registration → corrected; size 8006 B markup, all budgets pass (evidence: node tools/size.ts); full check pending (unverified).
+- 2026-11-05 20:55 [sol]: full run 963/966 exposed new test module-load race/empty-node fixture and stale generated bundles; corrected test and rebuilt; next run 965/966 hit unchanged Chromium 15 s demo timeout → bounded four-worker build keeps bundle()/artifact checks identical, standalone check 8.010 s; final full run pending (unverified).
+- 2026-11-05 21:04 [sol]: subsequent full runs hit an unchanged bind test undefined-player failure (isolated unchanged rerun 2/2 pass), then load-38 timeouts in new hooks/unchanged demo → cached seven test bundles once without changing 30 s/15 s limits; final check rerunning (unverified).
+
+- 2026-11-05 21:10 [sol]: npm run check fully green (966 tests/47 files, every budget, both artifact checks, perf); baseline remeasure 8551 B vs 8009 B. Serial prefix timings were slower/noisy → missing-hook checks now browser-only, final recheck pending (unverified).
+- 2026-11-05 21:12 [sol]: browser-only guard changed generated markup bundle by 1 raw byte → --check correctly rejected stale dist; rebuilt before final full check artifact phase; no test or budget limit changed (evidence: node tools/build-web.ts).
+- 2026-11-05 21:13 [sol]: guard recheck 965/966: Chromium demo caught stale artifacts before the rebuild finished (the prior entry's "before artifact phase" was incorrect) → full artifacts now rebuilt; final check starts only after build-web --check passes. Guard perf sample: baseline bell 2.32 ms/prefixes 780 ms, current 2.77 ms/1024 ms; timings variable, prefix slowdown remains a measured caveat.
+- 2026-11-05 21:17 [sol]: fully rebuilt default-concurrency guard run 965/966 again hit unchanged bind undefined-player failure; Playwright coreBundle.js:25202 addScriptContent returns immediately for inline module scripts, so module execution is not awaited → bounded-worker final check (`VITEST_MAX_WORKERS=2 npm run check`), keeping every assertion/timeout unchanged (unverified).
+
+- 2026-11-05 21:21 [sol]: final VITEST_MAX_WORKERS=2 npm run check exits 0 → 966 tests/47 files, markup 8010/8192 B, hooks 468/300/134 B, 51 AniML artifacts; default-concurrency full run before guard green, later bind race recorded; PLAN/LOG/spec/WEB updated; local commit next (evidence: /tmp/anima-markup-check-bounded.log).

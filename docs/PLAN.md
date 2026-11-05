@@ -160,7 +160,7 @@ and an oracle test against Rive.
   - [x] P4a oracle cases against the Rive CLI for the paint features (MODULES §5) — **before P5
         merges** (owner, 2026-11-06). 17 cases / 21 committed reference frames;
         `tools/oracle.test.ts`, measurements and mapping limits in `tests/oracle/README.md`.
-- [ ] P5-3 AniML libraries/templates: implementation present; acceptance blocked on the unchanged 8192 B markup budget (see LOG).
+- [x] P5-3 AniML libraries/templates: optional browser layer; unchanged markup size gate restored (see LOG).
 - [ ] P5 Components and assets — **moved up** (owner, 2026-11-06): nested artboards / components,
       per-instance inputs, shared glyph and layer libraries (the reuse friction from M5 and from
       authoring the nine Glyphy icons: the same hover/press layer pasted into every file, a glyph
@@ -169,10 +169,10 @@ and an oracle test against Rive.
       one AniML miss) lands here with component inputs.
   - [x] P5-1 `bind`: typed input expressions, post-state resolution, both syntaxes, CLI schema/inspect/sample,
         progress example, four conformance cases, optional web module (2048 B budget) and browser tests.
-  - [ ] P5-2 `components`: implementation, scoped draw/player inspection, library AniML, toolbar,
+  - [x] P5-2 `components`: implementation, scoped draw/player inspection, library AniML, toolbar,
         diagnostics (including registry-derived reserved input names), four conformance cases,
-        Chromium/Firefox runtime and playground tests are present. Acceptance awaits the parallel
-        markup split: `npm run check` passes tests but still fails the unchanged markup size budget.
+        Chromium/Firefox runtime and playground tests; optional component/bind/paint markup hooks
+        restore the unchanged size gates. `npm run check`: 966 tests pass; markup 8010/8192 B.
 - [ ] Pc **Canvas backend, minimal** — brought forward from P10 (owner, 2026-11-06): the draw layer
       rendered to Canvas2D as `@anima-format/web/canvas`; runs every conformance case with a pixel
       comparison against the SVG backend; SVG stays the default for icons. Must exist before P8.

@@ -17,6 +17,32 @@ The browser package has no runtime dependencies. Load `.ani` through `src`, an i
 </script>
 ```
 
+## Optional markup hooks
+
+Load `@anima-format/web/markup` plus the modules used by the source, before calling `load`
+(or before inline source loads). Components, bind and paint automatically register their markup
+hooks; either module/markup import order works, including with separate built bundles.
+For example:
+
+```js
+import '@anima-format/web/markup';
+import '@anima-format/web/components';
+import '@anima-format/web/bind';
+```
+
+The small `markup-components`, `markup-bind` and `markup-paint` entries register only authoring
+hooks, without loading the compiler or runtime modules. Their built files are
+`anima-markup-components.js`, `anima-markup-bind.js` and `anima-markup-paint.js`.
+A composite-only page with `<clip>`, `<mask>`, `<drawOrder>` or multiple paints must import
+`@anima-format/web/markup-paint` as well as `markup` and `composite`. Registry-derived asset
+forms need only markup and the assets runtime module. Missing hooks produce
+`markup-components-unavailable`, `markup-bind-unavailable` or `markup-paint-unavailable`, with
+source positions and a message/hint naming what to load. Precompile with `anima build` to avoid
+shipping any markup compiler. CLI and playground retain every authoring feature.
+
+The shared registration follows the optional-layer precedent in AniML §9 and the small,
+capability-based runtime guidance in [web runtime research](research/rive-web-runtime.md#lessons-for-anima).
+
 ## Attributes
 
 | Attribute | Meaning |

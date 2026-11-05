@@ -18,7 +18,11 @@ import {
   type Shape,
 } from '@anima-format/core';
 import { libraryCompiler, location } from './library-hooks.ts';
-import { moduleCompiler } from './module-hooks.ts';
+import { moduleCompiler, componentCompiler, bindCompiler } from './module-hooks.ts';
+import { bindMarkup } from './bind.ts';
+if (VERBOSE) Object.assign(bindCompiler, bindMarkup);
+import { componentMarkup } from './components.ts';
+if (VERBOSE) Object.assign(componentCompiler, componentMarkup);
 import { structuralMarkup } from './modules.ts';
 if (VERBOSE) Object.assign(moduleCompiler, structuralMarkup);
 
@@ -143,11 +147,8 @@ const FORMS: Record<string, Form> = {
     required: ['on'],
   },
 };
-FORMS.component = {
-  attrs: { name: 'name', grid: 'number', viewBox: 4 },
-  required: ['name', 'grid'],
-  children: FORMS.anima!.children!.filter((n) => !['component', 'meta'].includes(n)),
-};
+if (VERBOSE)
+  FORMS.component = componentMarkup.componentForm({ name: 'component' } as Element, FORMS.anima!)!;
 const IS_NUMBER = /^-?(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?$/;
 
 const object = (x: unknown): x is Json => typeof x === 'object' && x !== null && !Array.isArray(x);
@@ -156,19 +157,20 @@ const own = (o: Json, k: string, v: unknown) =>
 
 export class Compiler {
   readonly elements = ELEMENTS;
+  readonly builtins = BUILTINS;
   readonly diagnostics: MarkupDiagnostic[] = [];
   readonly map = new Map<string, Pos>();
-  private readonly types = new Map<string, NodeType>();
+  types = new Map<string, NodeType>();
   // Registry descriptors are stable during one compile. Reuse them for nodes and addresses,
   // but start fresh next time so modules registered between compiles are always visible.
   private readonly attributes = new Map<NodeType, NodeAttr[]>();
-  private nodeAttrs = (type: NodeType): NodeAttr[] => {
+  nodeAttrs = (type: NodeType): NodeAttr[] => {
     let attrs = this.attributes.get(type);
     if (!attrs) this.attributes.set(type, (attrs = nodeAttrs(type)));
     return attrs;
   };
-  private readonly eases = new Map<string, Attr>();
-  private readonly resolved = new Map<string, string>();
+  eases = new Map<string, Attr>();
+  resolved = new Map<string, string>();
   private readonly resolving = new Set<string>();
   private readonly finalEases: { key: unknown[]; pointer: string }[] = [];
   private xml: XmlDocument | undefined;
@@ -191,7 +193,7 @@ export class Compiler {
       ...(at.related ? { related: [location(at.related)] } : {}),
     });
   }
-  private get failed(): boolean {
+  get failed(): boolean {
     return this.diagnostics.some((d) => d.severity === 'error');
   }
 
@@ -215,7 +217,7 @@ export class Compiler {
     const a = o[key] as unknown[];
     return [a, ptr(ptr(p, key), a.length)];
   }
-  private address(s: string): string {
+  address(s: string): string {
     return aniAddress(s, (id) => this.types.get(id), this.nodeAttrs) ?? s;
   }
 
@@ -231,10 +233,7 @@ export class Compiler {
         if (el.name === 'rect' && ['x0', 'y0', 'width', 'height'].includes(a.attr))
           required.push(a.attr);
       }
-      if (el.name === 'instance') {
-        required.push('component');
-        for (const a of el.attrs) if (!Object.hasOwn(attrs, a.name)) attrs[a.name] = 'value';
-      }
+      componentCompiler.form?.(el, attrs, required);
       return {
         attrs,
         required,
@@ -246,7 +245,11 @@ export class Compiler {
         ],
       };
     }
-    return moduleCompiler.form?.(this, el) ?? FORMS[el.name]!;
+    return (
+      moduleCompiler.form?.(this, el) ??
+      componentCompiler.componentForm?.(el, FORMS.anima!) ??
+      FORMS[el.name]!
+    );
   }
   private kind(s: Shape): Kind {
     if (s.k === 'num') return 'number';
@@ -256,7 +259,7 @@ export class Compiler {
     return s.k === 'str' && s.re === NAME ? 'name' : 'string';
   }
 
-  private attrs(el: Element, p: string): Map<string, Attr> {
+  attrs(el: Element, p: string): Map<string, Attr> {
     const form = this.form(el);
     const out = new Map<string, Attr>();
     for (const a of el.attrs) {
@@ -288,7 +291,7 @@ export class Compiler {
         );
     return out;
   }
-  private children(el: Element, p: string): Element[] {
+  children(el: Element, p: string): Element[] {
     const out: Element[] = [];
     const allowed = this.form(el).children ?? [];
     for (const c of el.children) {
@@ -300,9 +303,35 @@ export class Compiler {
           VERBOSE ? `text is not allowed inside <${el.name}>` : '',
         );
       if (c.kind !== 'element') continue;
+      // Tooling installs every hook; missing-layer diagnostics belong to lean browser builds.
+      if (!VERBOSE) {
+        const feature =
+          ['component', 'instance'].includes(c.name) && !componentCompiler.enter
+            ? 'components'
+            : c.name === 'bind' && !bindCompiler.build
+              ? 'bind'
+              : !moduleCompiler.node && ELEMENTS[c.name]?.target
+                ? 'paint'
+                : undefined;
+        if (feature) {
+          const hint = `load @anima-format/web/${feature === 'paint' ? 'markup-paint' : feature} or run anima build`;
+          this.diagnostics.push({
+            code: `markup-${feature}-unavailable`,
+            severity: 'error',
+            pointer: p,
+            message: hint,
+            hint,
+            line: c.at.line,
+            column: c.at.col,
+            file: c.at.file ?? this.opts.file,
+          });
+        }
+        if (feature) continue;
+      }
       if (
         !NODES.includes(c.name) &&
         !Object.hasOwn(FORMS, c.name) &&
+        c.name !== 'component' &&
         !Object.hasOwn(ELEMENTS, c.name)
       )
         this.error(
@@ -366,7 +395,7 @@ export class Compiler {
       throw new Error(VERBOSE ? 'wrong number of ease arguments' : '');
     return `${m[1]}(${args.join(', ')})`;
   }
-  private resolveEase(name: string): string {
+  resolveEase(name: string): string {
     if (this.resolved.has(name)) return this.resolved.get(name)!;
     const a = this.eases.get(name)!;
     if (this.resolving.has(name)) {
@@ -487,7 +516,7 @@ export class Compiler {
     }
   }
 
-  private addNamed(o: Json, key: string, el: Element, p: string, at: Pos): boolean {
+  addNamed(o: Json, key: string, el: Element, p: string, at: Pos): boolean {
     if (Object.hasOwn(o, key)) {
       this.error(
         'duplicate-name',
@@ -506,64 +535,12 @@ export class Compiler {
     const a = this.attrs(el, p);
     const children = this.children(el, p);
     const o: Json = {};
-    const savedTypes = el.name === 'component' ? new Map(this.types) : undefined;
-    const savedEases = savedTypes ? new Map(this.eases) : undefined;
-    const savedResolved = savedTypes ? new Map(this.resolved) : undefined;
-    if (savedTypes) {
-      this.resolved.clear();
-      const local = new Set<string>();
-      for (const c of children)
-        if (c.name === 'ease') {
-          const n = c.attrs.find((a) => a.name === 'name'),
-            curve = c.attrs.find((a) => a.name === 'curve');
-          if (n && curve) {
-            if (local.has(n.value) || BUILTINS.includes(n.value))
-              this.error('duplicate-name', p, n.valueAt, VERBOSE ? 'duplicate component ease' : '');
-            local.add(n.value);
-            this.eases.set(n.value, curve);
-          }
-        }
-      for (const n of local) {
-        const curve = this.resolveEase(n);
-        if (typeof parseEase(curve) === 'string' && !this.failed)
-          this.error(
-            curve.startsWith('spring(') ? 'reserved' : 'bad-attribute',
-            p,
-            this.eases.get(n)!.valueAt,
-            VERBOSE ? 'invalid ease curve' : '',
-          );
-      }
-    }
-
-    if (savedTypes) {
-      this.types.clear();
-      const collect = (e: Element) => {
-        const id = e.attrs.find((a) => a.name === 'id');
-        if (NODES.includes(e.name) && id) this.types.set(id.value, e.name as NodeType);
-        for (const c of e.children) if (c.kind === 'element') collect(c);
-      };
-      collect(el);
-    }
+    const leave = componentCompiler.enter?.(this, el, children, p);
     if (!['track', 'event', 'color', 'ease'].includes(el.name)) this.comment(el, o, p);
     if (NODES.includes(el.name)) {
       this.copyNode(el, a, o, p);
       moduleCompiler.node?.(this, el, children, o, p);
-      if (el.name === 'instance') {
-        const known = new Set(['id', ...this.nodeAttrs(el.name as NodeType).map((a) => a.attr)]);
-        for (const [name, attr] of a)
-          if (!known.has(name)) {
-            const inputs = this.container(o, 'inputs', p, attr.valueAt);
-            this.put(
-              inputs,
-              name,
-              /^\{[\s\S]*\}$/.test(attr.value)
-                ? attr.value
-                : this.read(attr, 'value', ptr(p + '/inputs', name)),
-              p + '/inputs',
-              attr.valueAt,
-            );
-          }
-      }
+      componentCompiler.node?.(this, el, a, o, p);
       if (el.name === 'group') {
         this.put(o, 'children', [], p, el.at);
         for (const c of children.filter((c) => NODES.includes(c.name))) {
@@ -572,7 +549,7 @@ export class Compiler {
         }
       }
     } else if (el.name === 'bind') {
-      return a.get('value')?.value ?? '';
+      return bindCompiler.build?.(a);
     } else if (ELEMENTS[el.name]) {
       moduleCompiler.build?.(this, el, a, children, o, p);
     } else if (el.name === 'track') {
@@ -686,38 +663,13 @@ export class Compiler {
       }
     }
     if (el.name === 'asset') delete o.name;
-    if (savedTypes) {
-      this.types.clear();
-      for (const [k, v] of savedTypes) this.types.set(k, v);
-      this.eases.clear();
-      for (const [k, v] of savedEases!) this.eases.set(k, v);
-      this.resolved.clear();
-      for (const [k, v] of savedResolved!) this.resolved.set(k, v);
-    }
+    leave?.();
     return o;
   }
 
   private rootChild(c: Element, o: Json, p: string): void {
     const name = c.attrs.find((a) => a.name === 'name');
-    if (c.name === 'bind') {
-      const target = c.attrs.find((a) => a.name === 'target');
-      const value = c.attrs.find((a) => a.name === 'value');
-      const map = this.container(o, 'bind', p, c.at);
-      const key = this.address(target?.value.trim() ?? '');
-      this.addNamed(map, key, c, p + '/bind', target?.valueAt ?? c.at);
-      this.map.set(ptr(p + '/bind', key), value?.valueAt ?? c.at);
-      return;
-    }
-    if (c.name === 'component') {
-      this.addNamed(
-        this.container(o, 'components', p, c.at),
-        name?.value.trim() ?? '',
-        c,
-        p + '/components',
-        name?.valueAt ?? c.at,
-      );
-      return;
-    }
+    if (bindCompiler.rootChild?.(this, c, o, p)) return;
     if (c.name === 'ease') {
       this.attrs(c, p);
       this.children(c, p);
@@ -727,20 +679,32 @@ export class Compiler {
       const [list, cp] = this.append(o, c.name === 'listener' ? 'listeners' : 'nodes', p, c.at);
       list.push(this.build(c, cp));
     } else if (
-      ['color', 'glyph', 'asset', 'bool', 'number', 'trigger', 'timeline', 'layer'].includes(c.name)
+      [
+        'color',
+        'glyph',
+        'asset',
+        'component',
+        'bool',
+        'number',
+        'trigger',
+        'timeline',
+        'layer',
+      ].includes(c.name)
     ) {
       const key =
         c.name === 'color'
           ? 'colors'
-          : c.name === 'asset'
-            ? 'assets'
-            : c.name === 'glyph'
-              ? 'glyphs'
-              : c.name === 'timeline'
-                ? 'timelines'
-                : c.name === 'layer'
-                  ? 'layers'
-                  : 'inputs';
+          : c.name === 'component'
+            ? 'components'
+            : c.name === 'asset'
+              ? 'assets'
+              : c.name === 'glyph'
+                ? 'glyphs'
+                : c.name === 'timeline'
+                  ? 'timelines'
+                  : c.name === 'layer'
+                    ? 'layers'
+                    : 'inputs';
       const parent = key === 'layers' ? this.container(o, 'machine', p, c.at) : o;
       const base = key === 'layers' ? p + '/machine' : p;
       const map = this.container(parent, key, base, c.at);
@@ -873,6 +837,26 @@ export class Compiler {
     return keys;
   }
 
+  collectTypes(el: Element, scoped = false): void {
+    if (NODES.includes(el.name)) {
+      const id = el.attrs.find((a) => a.name === 'id');
+      if (id) this.types.set(scoped ? id.value : id.value.trim(), el.name as NodeType);
+    }
+    for (const c of el.children)
+      if (c.kind === 'element' && (scoped || c.name !== 'component')) this.collectTypes(c, scoped);
+  }
+  checkEases(names: Iterable<string>, p: string): void {
+    for (const name of names) {
+      const curve = this.resolveEase(name);
+      if (typeof parseEase(curve) === 'string' && !this.failed)
+        this.error(
+          curve.startsWith('spring(') ? 'reserved' : 'bad-attribute',
+          p,
+          this.eases.get(name)!.valueAt,
+          VERBOSE ? (p ? 'invalid ease curve' : `invalid ease curve "${curve}"`) : '',
+        );
+    }
+  }
   run(source: string): CompileResult {
     this.attributes.clear();
     const { doc: xml, errors } = parseXml(source);
@@ -906,14 +890,7 @@ export class Compiler {
       );
       return this.result();
     }
-    const collect = (el: Element) => {
-      if (NODES.includes(el.name)) {
-        const id = el.attrs.find((a) => a.name === 'id');
-        if (id) this.types.set(id.value.trim(), el.name as NodeType);
-      }
-      for (const c of el.children) if (c.kind === 'element' && c.name !== 'component') collect(c);
-    };
-    collect(root);
+    this.collectTypes(root);
     for (const c of root.children) {
       if (c.kind !== 'element' || c.name !== 'ease') continue;
       const n = c.attrs.find((a) => a.name === 'name');
@@ -929,33 +906,9 @@ export class Compiler {
       else if (curve) this.eases.set(n.value.trim(), curve);
       this.read(n, 'name', '');
     }
-    for (const name of this.eases.keys()) {
-      const curve = this.resolveEase(name);
-      if (typeof parseEase(curve) === 'string' && !this.failed)
-        this.error(
-          curve.startsWith('spring(') ? 'reserved' : 'bad-attribute',
-          '',
-          this.eases.get(name)!.valueAt,
-          VERBOSE ? `invalid ease curve "${curve}"` : '',
-        );
-    }
+    this.checkEases(this.eases.keys(), '');
     const doc = this.build(root, '') as Json;
-    // Library resources referenced from a component are resolved at build time; compiled
-    // components are self-contained and the runtime never searches a parent's resource maps.
-    for (const component of Object.values((doc.components ?? {}) as Json)) {
-      const child = component as Json;
-      const text = JSON.stringify(child);
-      for (const key of ['colors', 'glyphs']) {
-        for (const [name, value] of Object.entries((doc[key] ?? {}) as Json)) {
-          if (
-            text.includes(JSON.stringify(name)) &&
-            !Object.hasOwn((child[key] ?? {}) as Json, name)
-          ) {
-            ((child[key] ??= {}) as Json)[name] = value;
-          }
-        }
-      }
-    }
+    componentCompiler.finish?.(doc);
     if (!this.failed && this.opts.validate !== false) {
       for (const d of load(doc).diagnostics) {
         let p = d.pointer;

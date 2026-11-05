@@ -3,4 +3,4 @@ import '@anima-format/markup/libraries';
 import { libraryCompiler } from '@anima-format/markup/library-hooks';
 import { registerLibraries } from './markup.ts';
 registerLibraries(libraryCompiler);
-export { compileAsync } from '@anima-format/markup/browser';
+export { compileAsync } from './markup.ts';

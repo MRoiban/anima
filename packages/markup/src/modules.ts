@@ -11,7 +11,7 @@ const kind = (s: Shape): Kind =>
       : s.k === 'str' && s.re === NAME
         ? 'name'
         : 'string';
-export const structuralMarkup = {
+export const paintMarkup = {
   nodes(compiler: Compiler): string[] {
     return Object.keys(compiler.elements).filter((k) => compiler.elements[k]!.target);
   },
@@ -69,6 +69,9 @@ export const structuralMarkup = {
       Object.assign(parent, compiler.build(c, ptr(p, key)));
     }
   },
+};
+
+export const structuralForms = {
   form(compiler: Compiler, el: Element): Form | undefined {
     const form = compiler.elements[el.name];
     if (form) {
@@ -119,3 +122,5 @@ export const structuralMarkup = {
     }
   },
 };
+
+export const structuralMarkup = { ...paintMarkup, ...structuralForms };

@@ -818,3 +818,46 @@ not a claimed speedup. Local commit only; no push or PR.
 - Updated construct/test on 14 `components.*` parity rows, leaving status/phase to the orchestrator.
   Assets and oracle trees were not edited. No Rive commands, runtime dependencies, licence,
   push, PR or merge. The open P5-2 checkbox records the size-gate blocker honestly.
+
+
+## P5 browser markup compiler split — 2026-11-05
+
+- Component compilation (scoped node types/eases, nested document forms, input initializers and
+  resource copying) and bind address compilation now use optional hooks. Components/bind browser
+  entries register their authoring layers automatically through the active element class. Both
+  import orders and separately emitted bundles work; Node tooling always installs all hooks.
+- Registry-derived forms, including assets, stay in the compiler. Structural paint routing and
+  dash parsing live in `markup-paint`, automatically installed by paint. Composite-only markup
+  with structural children explicitly loads `markup-paint`. Missing hooks produce located
+  `markup-components-unavailable`, `markup-bind-unavailable` or `markup-paint-unavailable`
+  diagnostics with a message/hint naming what to load. See ANIML §9 and WEB; the shared-class
+  registration follows the optional-layer precedent and research/rive-web-runtime.md guidance.
+- Unchanged bundler/minifier/gzip method: markup **8551 → 8010 B** (182 B headroom; preferred
+  7800 B not reached). Registration-only entries, measured `over: 'index'` (web): components
+  **468 B**, paint **300 B**, bind **134 B**, each with a **2048 B** budget. Existing budgets
+  remain unchanged: core+web **17388 B**, components **4079/4096 B**, paint **4171/5120 B**,
+  composite **3810/4096 B**, bind **1551/2048 B**, assets **1450/2048 B**, markup-libraries
+  **1805/2048 B**; full-featured total **40035 B**. Remeasure components after parallel integration:
+  its remaining headroom is only 17 B.
+- Final `VITEST_MAX_WORKERS=2 npm run check` exits 0: **966 tests / 47 files**, including four new Chromium/Firefox
+  hook tests; typecheck, lint, formatting, size gates, 51 AniML artifact checks, browser artifacts
+  and performance reporting pass. Existing tests and their limits are unchanged; no runtime
+  dependencies or core/draw edits. Three new registration bundles ship from build-web.
+- Added a bounded four-worker build for independent outputs, retaining the exact `bundle()`
+  function and byte-for-byte artifact comparisons; a standalone check took 8.010 s. Earlier
+  full runs exposed a new test registration race/empty-node fixture (fixed), stale artifacts
+  during editing (rebuilt), load-related timeouts (no limits raised; new test bundles now cached)
+  and intermittent unchanged bind test undefined-player failures (isolated rerun 2/2 pass).
+  Playwright inserts inline module scripts without awaiting execution, consistent with the test
+  loading before module registration. The final run limits concurrency to two workers; no test
+  source, assertion or timeout was relaxed. A default-concurrency full run was also green before
+  the final browser-only missing-hook guard; later default runs hit the bind race.
+- An incomplete uncommitted `markupFeatures` approach was found at the start, saved in
+  `/tmp/anima-incoming-markup.patch` and replaced from HEAD; its origin is unverified.
+  No push, PR, merge, publishing or Glyphy changes.
+
+- Serial reverse-order sample against the c6406e8 source snapshot, with unchanged tools/perf.ts:
+  baseline `compile: bell 2.32 ms; all 9040 prefixes 780 ms`, final
+  `compile: bell 2.77 ms; all 9040 prefixes 1024 ms`; toolbar **3.94 → 4.02 ms**.
+  The final full-check sample was bell **2.82 ms / 964 ms**, toolbar **3.69 ms**. Timings varied
+  with host load; the slower prefix sweep is a measured caveat, not a claimed speed improvement.
