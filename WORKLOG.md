@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive (owner 2026-11-06). Order: P4a → P5 → Pc canvas → P4b–e → P3b → P6–P10. Benchmark gate after every phase.
-State: p4a-paint: P4a-1 (modules, gradients, dashes) + P4a-2 (geometry) merged; P4a-3 compositing running (on old SVG hooks).
-Next: merge P4a-3 → P4a-4 draw-layer refactor (MODULES §3.1, Sol xhigh) → P4a-5 benchmark (paint brief, AniML vs Rive) → PR.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: source-only size race from 60b29ce; core+web ≤16697 B vs 17175 B, no behavior changes.
+State: best verified 16953 B (−222 B, still 256 B above target); paint 3700 / composite 3847 / markup 7457 B, all within budgets.
+Verify: npm run check passed 706/706, Chromium+Firefox incl. clapper and SVG byte parity; differential 40 docs / 1200 frames / 182 diagnostics matched.
+Profile (esbuild min B): load 9157, player 9128, web 8792, registry 3501, path 3360, SVG 2197, draw 2189.
+Next: owner compares race branches; P4a-4 size acceptance remains open by 256 B.
+Don't: change test expectations/spec/conformance/build measurement/budgets; add runtime deps; push/PR/merge.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -65,3 +66,12 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 03:10 [claude]: launched P4a-4 (draw layer + paint/composite split; Sol xhigh; core+web target ≤16697 B) and the Rive side of the P4a benchmark (AniML side after P4a-4)
 - 2026-11-06 03:30 [claude]: merged benchmark P4a Rive run (6688103): 5/6 (reduced motion host-only), 7m14s, 182 lines incl. generator; frames checked visually (mid-morph, clipped sweep); no .riv/scaffold docs committed
 - 2026-11-06 05:00 [claude]: merged P4a-4 draw layer (3e2a00f): 706 tests, 0.1 SVG byte-identical, paint 3771/5120, composite 3874/4096; core+web 17175 (+478 over 16697 target) → size race
+- 2026-11-05 17:45 [sol]: baseline tools failed ERR_MODULE_NOT_FOUND → npm ci; baseline 17175 B confirmed, git-source esbuild profile vs b7b6e92 saved in /tmp/anima-profile-{HEAD,b7b6e92}.json.
+- 2026-11-05 17:45 [sol]: formatter import-time split removed from base + small loader/player/validator/layout refactors → 17036 B measured (unverified); SVG factory, address consolidation, event handler loop, draw-paint mutation and square factoring reverted after larger gzip outputs.
+- 2026-11-05 18:06 [sol]: best source candidate + generated web demo → npm run check passed (35 files / 706 tests, no skips; Chromium+Firefox incl. per-frame clapper; 0.1 SVG hashes unchanged); size 16992 B, paint 3763, composite 3913, markup 7399.
+- 2026-11-05 18:06 [sol]: exact historical bundle comparison → b7b6e92 42693 min / 16697 gzip; 60b29ce 43810 / 17175; candidate 43266 / 16992 (evidence: /tmp/anima-size-race/profile.json); initial full check stopped only on stale generated demo, rebuilt.
+- 2026-11-05 18:12 [sol]: compiled per-state slot samplers remove frame-time value/track discrimination → 16986 B measured (unverified), paint 3757 / composite 3909 / markup 7393; extra address caching and comparison switch grew gzip and were reverted.
+- 2026-11-05 18:23 [sol]: shared text/object loader + common web failure path → best 16953 B (−222 B vs 60b29ce; +256 B vs target), paint 3700/5120, composite 3847/4096, markup 7457/8192 (evidence: node tools/size.ts; /tmp/anima-size-race/profile-final.json).
+- 2026-11-05 18:23 [sol]: final npm run check passed → 35 files / 706 tests, no skips, Chromium+Firefox with per-frame clapper and pinned 0.1 SVG bytes; 37 AniML files checked (evidence: /tmp/anima-size-race/check-best.log, exit 0).
+- 2026-11-05 18:23 [sol]: differential against original 60b29ce sources → 40 documents / 1200 stepped frames (step, values, states, inspect, dirty, draw, SVG) and 182 string/object/error diagnostic comparisons matched exactly.
+- 2026-11-05 18:23 [sol]: final tested file reversions all grew gzip; shared primitive geometry added 21 B and was reverted → retained draw/backend separation and SVG wrapper/mask rules (docs/ARCHITECTURE.md; docs/research/rive-web-runtime.md); no spec/tests/conformance/tool/budget/dependency changes, generated web demo refreshed.

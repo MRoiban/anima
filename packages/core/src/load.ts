@@ -8,9 +8,10 @@ import { type Term, parseCondition } from './cond.ts';
 import { type Diagnostic, Diags, ptr, suggest } from './diag.ts';
 import { VERBOSE as V } from './flags.ts';
 import { type EaseFn, hold, linear, parseEase } from './ease.ts';
-import { PathError, type Subpath, parsePath, selectPath } from './path.ts';
+import { PathError, type Subpath, parsePath, selectSubpaths } from './path.ts';
 import {
   COMMON,
+  NAME,
   type NodeType,
   OWN,
   PAINT,
@@ -150,7 +151,24 @@ const entries = <T = Raw>(o: Record<string, T> | undefined): [string, T][] =>
 /** Load a document from text or an already-parsed value. */
 export function load(input: string | object): LoadResult {
   const d = new Diags();
-  const model = parse(input, d);
+  if (typeof input !== 'string') return loadDocument(input, d);
+  if (input.length > LIMITS.text) {
+    d.err('limit-exceeded', '', V && `document is larger than ${LIMITS.text} characters`);
+    return { diagnostics: d.list };
+  }
+  let doc: unknown;
+  try {
+    doc = JSON.parse(input);
+  } catch (e) {
+    d.err('json-syntax', '', V && (e instanceof SyntaxError ? e.message : 'not JSON'));
+    return { diagnostics: d.list };
+  }
+  return loadDocument(doc, d);
+}
+
+/** Both input forms share structural/semantic validation and module compilation. */
+function loadDocument(doc: unknown, d: Diags): LoadResult {
+  const model = parse(doc, d);
   if (model) for (const m of modules.values()) m.load?.(model, model.doc, d);
   if (model && !d.failed) {
     drawTree(model);
@@ -159,18 +177,8 @@ export function load(input: string | object): LoadResult {
   return { diagnostics: d.list };
 }
 
-/** The steps of `load`; stops at the first failing one. */
-function parse(input: string | object, d: Diags): Model | undefined {
-  let doc: unknown = input;
-  if (typeof input === 'string') {
-    if (input.length > LIMITS.text)
-      return d.err('limit-exceeded', '', V && `document is larger than ${LIMITS.text} characters`);
-    try {
-      doc = JSON.parse(input);
-    } catch (e) {
-      return d.err('json-syntax', '', V && (e instanceof SyntaxError ? e.message : 'not JSON'));
-    }
-  }
+/** Validate and compile a parsed JSON value; stops at the first failing step. */
+function parse(doc: unknown, d: Diags): Model | undefined {
   if (typeof doc !== 'object' || doc === null || Array.isArray(doc))
     return d.err('type', '', V && 'a document is a JSON object');
   const v = (doc as Json).anima;
@@ -219,7 +227,7 @@ function resolve(doc: Raw, d: Diags): Model {
       );
   const checkPaint = (c: string, p: string) => {
     if (c === 'currentColor' || parseHex(c) || Object.hasOwn(colors, c)) return;
-    if (/^[a-z][a-zA-Z0-9-]*$/.test(c))
+    if (NAME.test(c))
       d.err(
         'unknown-color-slot',
         p,
@@ -290,14 +298,15 @@ function resolve(doc: Raw, d: Diags): Model {
       d.err('bad-value', p + '/default', V && 'default lies outside [min, max]');
     inputs.set(name, { name, type: t, def, min, max, buffer: r.buffer ?? 0 });
   }
-  const used = new Set<string>();
+  // Input-use tracking only feeds the verbose unused-input warning.
+  const used = V ? new Set<string>() : undefined;
   const needInput = (
     name: string,
     p: string,
     types: InputM['type'][],
     what: string | false,
   ): InputM | undefined => {
-    used.add(name);
+    used?.add(name);
     const inp = inputs.get(name);
     if (!inp)
       d.err(
@@ -629,10 +638,14 @@ function resolve(doc: Raw, d: Diags): Model {
   // Accessibility
   const a11y = doc.a11y;
   if (a11y) {
-    if (a11y.activate)
-      needInput(a11y.activate, '/a11y/activate', ['trigger', 'bool'], V && '"activate"');
-    if (a11y.pressed) needInput(a11y.pressed, '/a11y/pressed', ['bool'], V && '"pressed"');
-    if (a11y.held) needInput(a11y.held, '/a11y/held', ['bool'], V && '"held"');
+    for (const key of ['activate', 'pressed', 'held'])
+      if (a11y[key])
+        needInput(
+          a11y[key],
+          '/a11y/' + key,
+          key === 'activate' ? ['trigger', 'bool'] : ['bool'],
+          V && `"${key}"`,
+        );
     if (a11y.role === 'switch' && !a11y.pressed)
       d.err(
         'missing-key',
@@ -643,7 +656,7 @@ function resolve(doc: Raw, d: Diags): Model {
   }
   if (V)
     for (const n of inputs.keys())
-      if (!used.has(n))
+      if (!used!.has(n))
         d.warn('unused-input', ptr('/inputs', n), V && `nothing reads or writes "${n}"`);
 
   const vb = doc.viewBox ?? [0, 0, doc.grid, doc.grid];
@@ -714,14 +727,13 @@ function checkNode(
             `subpath ${pick[bad]} is ${pick[bad]! >= all.length ? `out of range (the path has ${all.length})` : 'repeated'}`,
         );
       else {
-        n.geom = pick ? [...pick].sort((a, b) => a - b).map((i) => all[i]!) : all;
-        n.d = selectPath(src, all, pick);
+        Object.assign(n, selectSubpaths(src, all, pick));
       }
     }
   }
   if (!PAINTED.includes(n.type)) return;
-  if (r.fill?.color !== undefined) checkPaint(r.fill.color, p + '/fill/color');
-  if (r.stroke?.color !== undefined) checkPaint(r.stroke.color, p + '/stroke/color');
+  for (const kind of ['fill', 'stroke'])
+    if (r[kind]?.color !== undefined) checkPaint(r[kind].color, p + '/' + kind + '/color');
   if (V && !r.fill && !r.stroke && !r.paints)
     d.warn('no-paint', p, V && `"${n.id}" has neither fill nor stroke`);
   if (n.type === 'arc') {

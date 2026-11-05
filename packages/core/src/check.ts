@@ -13,8 +13,7 @@ import {
   nodeShape,
 } from './registry.ts';
 
-const kind = (v: unknown): string =>
-  v === null ? 'null' : Array.isArray(v) ? 'array' : typeof v === 'object' ? 'object' : typeof v;
+const kind = (v: unknown): string => (v === null ? 'null' : Array.isArray(v) ? 'array' : typeof v);
 
 const shapeKind = (s: Shape): string =>
   s.k === 'str'
@@ -59,8 +58,6 @@ function check(v: unknown, s: Shape, p: string, d: Diags, depth: number): void {
   }
   if (k !== shapeKind(s) || (k === 'number' && !Number.isFinite(v)))
     return d.err('type', p, V && `expected ${shapeKind(s)}, got ${k}`);
-  const items = (a: unknown[], of: (i: number) => Shape) =>
-    a.forEach((x, i) => check(x, of(i), p + '/' + i, d, depth + 1));
   switch (s.k) {
     case 'str': {
       const str = v as string;
@@ -84,31 +81,28 @@ function check(v: unknown, s: Shape, p: string, d: Diags, depth: number): void {
     }
     case 'num': {
       const n = v as number;
-      if (
-        (s.min !== undefined && n < s.min) ||
-        (s.max !== undefined && n > s.max) ||
-        (s.gt !== undefined && n <= s.gt)
-      )
+      // The type check above guarantees finite values; omitted limits are unbounded.
+      if (n < (s.min ?? -Infinity) || n > (s.max ?? Infinity) || n <= (s.gt ?? -Infinity))
         return d.err('bad-value', p, V && `${n} is out of range`, V && rangeText(s));
       if (s.int && !Number.isInteger(n)) d.err('bad-value', p, V && `${n} is not an integer`);
       return;
     }
-    case 'arr': {
-      const a = v as unknown[];
-      if (s.min && a.length < s.min)
-        return d.err('bad-value', p, V && `needs at least ${s.min} item${s.min > 1 ? 's' : ''}`);
-      return items(a, () => s.of);
-    }
+    case 'arr':
     case 'tup': {
       const a = v as unknown[];
-      if (a.length < s.min || a.length > s.of.length)
+      if (s.k === 'arr') {
+        if (s.min && a.length < s.min)
+          return d.err('bad-value', p, V && `needs at least ${s.min} item${s.min > 1 ? 's' : ''}`);
+      } else if (a.length < s.min || a.length > s.of.length)
         return d.err(
           'bad-value',
           p,
           V &&
             `needs ${s.min === s.of.length ? s.min : `${s.min} to ${s.of.length}`} items, has ${a.length}`,
         );
-      return items(a, (i) => s.of[i]!);
+      return a.forEach((x, i) =>
+        check(x, s.k === 'arr' ? s.of : s.of[i]!, p + '/' + i, d, depth + 1),
+      );
     }
     case 'map': {
       for (const [key, x] of Object.entries(v as object)) {

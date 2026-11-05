@@ -2,6 +2,10 @@
 
 export type Mat = [number, number, number, number, number, number];
 
+/** Clamp a numeric value to inclusive bounds. */
+export const clamp = (v: number, min: number, max: number): number =>
+  Math.min(max, Math.max(min, v));
+
 export const IDENTITY: Mat = [1, 0, 0, 1, 0, 0];
 
 export const mul = (m: Mat, n: Mat): Mat => [

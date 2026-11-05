@@ -1,7 +1,17 @@
 // The player: spec §7 (step), §8 (state machine), §9 (pointer model), §10 (reduced motion).
 
 import { type RGBA, formatHex, lerpColor } from './color.ts';
-import { type Mat, IDENTITY, apply, distance, inside, invert, localMatrix, mul } from './geom.ts';
+import {
+  type Mat,
+  IDENTITY,
+  clamp,
+  apply,
+  distance,
+  inside,
+  invert,
+  localMatrix,
+  mul,
+} from './geom.ts';
 import type { EaseFn } from './ease.ts';
 import type {
   InputM,
@@ -53,8 +63,8 @@ interface Fade {
 
 interface LayerRun {
   m: LayerM;
-  /** Per state, the writes it makes: [slot, constant value or track]. */
-  w: Write[][];
+  /** Per state, slot samplers of local timeline time. */
+  w: Map<number, (time: number) => Value>[];
   state: number;
   /** The state before the last transition (for inspectors). */
   prev: number;
@@ -64,7 +74,7 @@ interface LayerRun {
   frozen: number;
 }
 
-type Write = [slot: number, value: Value | TrackM];
+type Write = [slot: number, sample: (time: number) => Value];
 
 const MAX_CHAIN = 16;
 
@@ -143,12 +153,18 @@ export class Player {
       if (inp.type !== 'trigger') this.#inputVals.set(inp.name, inp.def);
     this.#layers = model.layers.map((m) => ({
       m,
-      w: m.states.map((s) =>
-        s.pose
-          ? [...s.pose].map(([a, v]): Write => [slots.get(a)!, v])
-          : s.play !== undefined
-            ? model.timelines[s.play]!.tracks.map((t): Write => [slots.get(t.addr)!, t])
-            : [],
+      w: m.states.map(
+        (s) =>
+          new Map(
+            s.pose
+              ? [...s.pose].map(([a, v]): Write => [slots.get(a)!, () => v])
+              : s.play !== undefined
+                ? model.timelines[s.play]!.tracks.map((t): Write => [
+                    slots.get(t.addr)!,
+                    (time) => sampleTrack(t, time),
+                  ])
+                : [],
+          ),
       ),
       state: m.initial,
       prev: -1,
@@ -169,9 +185,14 @@ export class Player {
 
   #input(name: string, types: InputM['type'][]): InputM {
     const inp = this.model.inputs.get(name);
-    if (!inp) throw new Error(V ? `anima: no input "${name}"` : 'anima: ' + name);
-    if (!types.includes(inp.type))
-      throw new Error(V ? `anima: input "${name}" is ${inp.type}` : 'anima: ' + name);
+    if (!inp || !types.includes(inp.type))
+      throw new Error(
+        V
+          ? inp
+            ? `anima: input "${name}" is ${inp.type}`
+            : `anima: no input "${name}"`
+          : 'anima: ' + name,
+      );
     return inp;
   }
 
@@ -415,10 +436,7 @@ export class Player {
       else if (op === 'emit') events.push({ name, layer: null, time: 0 });
       else {
         const inp = this.model.inputs.get(name)!;
-        this.#inputVals.set(
-          name,
-          typeof v === 'number' ? Math.min(inp.max, Math.max(inp.min, v)) : v!,
-        );
+        this.#inputVals.set(name, typeof v === 'number' ? clamp(v, inp.min, inp.max) : v!);
       }
     }
     this.#queue = [];
@@ -446,7 +464,7 @@ export class Player {
         }
         const tmp = V.slice();
         this.#write(L, tmp);
-        const keys = new Set([...(L.fade?.from.keys() ?? []), ...L.w[L.state]!.map((w) => w[0])]);
+        const keys = new Set([...(L.fade?.from.keys() ?? []), ...L.w[L.state]!.keys()]);
         const snap = new Map([...keys].map((k) => [k, tmp[k]!]));
         for (const t of tr.triggers) {
           used.add(t);
@@ -469,7 +487,7 @@ export class Player {
     V.forEach((v, i) => {
       if (typeof v === 'number') {
         const p = this.model.addrs.get(this.addrs[i]!)!.prop;
-        V[i] = v = Math.min(p.max ?? Infinity, Math.max(p.min ?? -Infinity, v));
+        V[i] = v = clamp(v, p.min ?? -Infinity, p.max ?? Infinity);
       }
       const o = this.#vals[i]!;
       if (Array.isArray(v) && Array.isArray(o) ? v.some((c, k) => c !== o[k]) : v !== o)
@@ -606,17 +624,13 @@ export class Player {
     if (st.play !== undefined)
       local =
         L.frozen >= 0 ? L.frozen : loopTime(this.model.timelines[st.play]!, L.time * st.speed);
-    const sample = (w: Write): Value =>
-      Array.isArray(w[1]) || typeof w[1] !== 'object'
-        ? (w[1] as Value)
-        : sampleTrack(w[1] as TrackM, local);
     const f = L.fade;
     if (!f) {
-      for (const w of ws) V[w[0]] = sample(w);
+      for (const [k, sample] of ws) V[k] = sample(local);
       return;
     }
     const wgt = f.ease(Math.min(1, f.t / f.dur));
-    const target = new Map(ws.map((w) => [w[0], sample(w)]));
+    const target = new Map([...ws].map(([k, sample]) => [k, sample(local)]));
     for (const k of new Set([...f.from.keys(), ...target.keys()]))
       V[k] = lerp(f.from.get(k) ?? V[k]!, target.get(k) ?? V[k]!, wgt);
   }
