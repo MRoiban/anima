@@ -1,11 +1,11 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive (owner 2026-11-06). Order: P4a → P5 → Pc canvas → P4b–e → P3b → P6–P10. Benchmark gate after every phase.
-State: p4a-paint: P4a-1 (modules, gradients, dashes) + P4a-2 (geometry) merged; P4a-3 compositing running (on old SVG hooks).
-Next: merge P4a-3 → P4a-4 draw-layer refactor (MODULES §3.1, Sol xhigh) → P4a-5 benchmark (paint brief, AniML vs Rive) → PR.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: P4a AniML benchmark download icon; commit locally only.
+State: source + compiled output + PNGs ready; strict score 5/6; progress uses quarter buckets.
+Verified: 31 CLI checks (22 pass/9 initial failures), 3 assertion runs; final validation clean.
+Next: owner evaluates benchmark; no push, PR, merge, other-format materials or implementation reads.
+Don't: claim continuous progress binding; it is deferred in documented 0.1.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -65,3 +65,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 03:10 [claude]: launched P4a-4 (draw layer + paint/composite split; Sol xhigh; core+web target ≤16697 B) and the Rive side of the P4a benchmark (AniML side after P4a-4)
 - 2026-11-06 03:30 [claude]: merged benchmark P4a Rive run (6688103): 5/6 (reduced motion host-only), 7m14s, 182 lines incl. generator; frames checked visually (mid-morph, clipped sweep); no .riv/scaffold docs committed
 - 2026-11-06 05:00 [claude]: merged P4a-4 draw layer (3e2a00f): 706 tests, 0.1 SVG byte-identical, paint 3771/5120, composite 3874/4096; core+web 17175 (+478 over 16697 target) → size race
+- 2026-11-05 17:40 [sol benchmark]: AniML download strict 5/6, quarter-bucket progress limitation; 35 checks incl 31 CLI, 12 document errors fixed → final validation clean, compiled sample parity and pixels pass (evidence: animl/REPORT.md, runs.jsonl, pixels.json).

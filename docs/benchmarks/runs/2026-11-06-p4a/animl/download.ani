@@ -1,0 +1,389 @@
+{
+  "anima": "0.1",
+  "name": "download",
+  "title": "Download",
+  "grid": 20,
+  "requires": ["paint", "composite"],
+  "colors": {
+    "ink": "#141413"
+  },
+  "a11y": {
+    "role": "button",
+    "label": "Start download",
+    "activate": "start"
+  },
+  "inputs": {
+    "progress": {
+      "type": "number",
+      "default": 0,
+      "min": 0,
+      "max": 1
+    },
+    "done": {
+      "type": "bool",
+      "default": false
+    },
+    "hover": {
+      "type": "bool",
+      "default": false
+    },
+    "start": {
+      "type": "trigger"
+    }
+  },
+  "hit": {
+    "circle": [10, 10, 8]
+  },
+  "nodes": [
+    {
+      "id": "track",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 8,
+      "opacity": 0.25,
+      "stroke": {
+        "color": "ink",
+        "width": 1.5,
+        "cap": "butt",
+        "dash": ["2.0833333333333333%", "2.0833333333333333%"]
+      }
+    },
+    {
+      "id": "ring",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 8,
+      "stroke": {
+        "width": 1.5,
+        "cap": "round",
+        "trimEnd": 0,
+        "trimOffset": 0.75,
+        "type": "linear",
+        "x1": 2,
+        "y1": 2,
+        "x2": 18,
+        "y2": 18,
+        "stops": [
+          {
+            "position": 0,
+            "color": "#d97757"
+          },
+          {
+            "position": 1,
+            "color": "#f0b49c"
+          }
+        ]
+      }
+    },
+    {
+      "id": "arrow",
+      "type": "path",
+      "d": "M10 6L10 13M7 10.5L10 13L13 10.5",
+      "stroke": {
+        "color": "ink",
+        "width": 1.5,
+        "cap": "round",
+        "join": "round"
+      }
+    },
+    {
+      "id": "clip-disc",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 8,
+      "visible": false,
+      "fill": {
+        "color": "ink"
+      }
+    },
+    {
+      "id": "band",
+      "type": "path",
+      "d": "M-2 -2L0.828427 -2L-23.171573 22L-26 22Z",
+      "opacity": 0,
+      "fill": {
+        "type": "linear",
+        "x1": -2,
+        "y1": -2,
+        "x2": -0.585786,
+        "y2": -0.585786,
+        "stops": [
+          {
+            "position": 0,
+            "color": "#ffffff00"
+          },
+          {
+            "position": 0.5,
+            "color": "#ffffff66"
+          },
+          {
+            "position": 1,
+            "color": "#ffffff00"
+          }
+        ]
+      },
+      "clip": {
+        "source": "clip-disc",
+        "rule": "nonzero"
+      }
+    }
+  ],
+  "timelines": {
+    "sweep": {
+      "duration": 0.6,
+      "reducedMotion": "end",
+      "tracks": {
+        "band.x": [
+          [0, 0],
+          [0.6, 48]
+        ],
+        "band.opacity": [
+          [0, 1, "hold"],
+          [0.599999, 1],
+          [0.6, 0]
+        ]
+      }
+    },
+    "finish": {
+      "$comment": "Constant destination tracks: the transition supplies the ease-out morph.",
+      "duration": 0.35,
+      "reducedMotion": "end",
+      "tracks": {
+        "arrow.d": [
+          [0, "M9 12.5L9 12.5M6.5 10L9 12.5L13.5 7.5"]
+        ],
+        "ring.stroke.trimEnd": [
+          [0, 1]
+        ],
+        "ring.stroke.stops.1.color": [
+          [0, "#d97757"]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "progress": {
+        "initial": "empty",
+        "states": {
+          "empty": {
+            "pose": {
+              "ring.stroke.trimEnd": 0
+            },
+            "on": [
+              {
+                "when": "progress >= 0.875",
+                "to": "full"
+              },
+              {
+                "when": "progress >= 0.625",
+                "to": "three-quarters"
+              },
+              {
+                "when": "progress >= 0.375",
+                "to": "half"
+              },
+              {
+                "when": "progress >= 0.125",
+                "to": "quarter"
+              }
+            ]
+          },
+          "quarter": {
+            "pose": {
+              "ring.stroke.trimEnd": 0.25
+            },
+            "on": [
+              {
+                "when": "progress >= 0.875",
+                "to": "full"
+              },
+              {
+                "when": "progress >= 0.625",
+                "to": "three-quarters"
+              },
+              {
+                "when": "progress >= 0.375",
+                "to": "half"
+              },
+              {
+                "when": "progress < 0.125",
+                "to": "empty"
+              }
+            ]
+          },
+          "half": {
+            "pose": {
+              "ring.stroke.trimEnd": 0.5
+            },
+            "on": [
+              {
+                "when": "progress >= 0.875",
+                "to": "full"
+              },
+              {
+                "when": "progress >= 0.625",
+                "to": "three-quarters"
+              },
+              {
+                "when": "progress < 0.125",
+                "to": "empty"
+              },
+              {
+                "when": "progress < 0.375",
+                "to": "quarter"
+              }
+            ]
+          },
+          "three-quarters": {
+            "pose": {
+              "ring.stroke.trimEnd": 0.75
+            },
+            "on": [
+              {
+                "when": "progress >= 0.875",
+                "to": "full"
+              },
+              {
+                "when": "progress < 0.125",
+                "to": "empty"
+              },
+              {
+                "when": "progress < 0.375",
+                "to": "quarter"
+              },
+              {
+                "when": "progress < 0.625",
+                "to": "half"
+              }
+            ]
+          },
+          "full": {
+            "pose": {
+              "ring.stroke.trimEnd": 1
+            },
+            "on": [
+              {
+                "when": "progress < 0.125",
+                "to": "empty"
+              },
+              {
+                "when": "progress < 0.375",
+                "to": "quarter"
+              },
+              {
+                "when": "progress < 0.625",
+                "to": "half"
+              },
+              {
+                "when": "progress < 0.875",
+                "to": "three-quarters"
+              }
+            ]
+          }
+        }
+      },
+      "completion": {
+        "initial": "pending",
+        "states": {
+          "pending": {
+            "pose": {},
+            "on": [
+              {
+                "when": "done",
+                "to": "complete",
+                "blend": 0.35,
+                "ease": "out"
+              }
+            ]
+          },
+          "complete": {
+            "play": "finish",
+            "on": [
+              {
+                "when": "!done",
+                "to": "pending",
+                "blend": 0.35,
+                "ease": "out"
+              }
+            ]
+          }
+        }
+      },
+      "hover": {
+        "initial": "rest",
+        "states": {
+          "rest": {
+            "pose": {},
+            "on": [
+              {
+                "when": "hover",
+                "to": "sweeping"
+              }
+            ]
+          },
+          "sweeping": {
+            "play": "sweep",
+            "on": [
+              {
+                "when": "@end",
+                "to": "held"
+              }
+            ]
+          },
+          "held": {
+            "pose": {},
+            "on": [
+              {
+                "when": "!hover",
+                "to": "rest"
+              }
+            ]
+          }
+        }
+      },
+      "start-observer": {
+        "initial": "waiting",
+        "states": {
+          "waiting": {
+            "pose": {},
+            "on": [
+              {
+                "when": "start",
+                "to": "fired"
+              }
+            ]
+          },
+          "fired": {
+            "pose": {},
+            "emit": "start-fired",
+            "on": [
+              {
+                "when": "@after(0)",
+                "to": "waiting"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "enter",
+      "set": {
+        "hover": true
+      }
+    },
+    {
+      "on": "leave",
+      "set": {
+        "hover": false
+      }
+    },
+    {
+      "on": "click",
+      "fire": "start"
+    }
+  ]
+}

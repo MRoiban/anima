@@ -1,0 +1,128 @@
+[
+  {
+    "phase": "initial",
+    "command": "validate",
+    "exit": 1,
+    "errors": [
+      {
+        "code": "misplaced-element",
+        "message": "clip inside group"
+      },
+      {
+        "code": "bad-attribute",
+        "message": "pose path expected number, boolean or colour"
+      }
+    ],
+    "warnings": []
+  },
+  {
+    "phase": "initial",
+    "command": "inspect",
+    "exit": 1,
+    "errors": [
+      {
+        "code": "misplaced-element",
+        "message": "clip inside group"
+      },
+      {
+        "code": "bad-attribute",
+        "message": "pose path expected number, boolean or colour"
+      }
+    ],
+    "warnings": []
+  },
+  {
+    "phase": "initial",
+    "command": "sample",
+    "exit": 1,
+    "errors": [
+      {
+        "code": "misplaced-element",
+        "message": "clip inside group"
+      },
+      {
+        "code": "bad-attribute",
+        "message": "pose path expected number, boolean or colour"
+      }
+    ],
+    "warnings": []
+  },
+  {
+    "phase": "clip rule",
+    "command": "validate",
+    "exit": 1,
+    "errors": [
+      {
+        "code": "missing-attribute",
+        "message": "clip needs rule"
+      }
+    ],
+    "warnings": []
+  },
+  {
+    "phase": "clip rule",
+    "command": "inspect",
+    "exit": 1,
+    "errors": [
+      {
+        "code": "missing-attribute",
+        "message": "clip needs rule"
+      }
+    ],
+    "warnings": []
+  },
+  {
+    "phase": "clip rule",
+    "command": "sample",
+    "exit": 1,
+    "errors": [
+      {
+        "code": "missing-attribute",
+        "message": "clip needs rule"
+      }
+    ],
+    "warnings": []
+  },
+  {
+    "phase": "condition",
+    "command": "validate",
+    "exit": 1,
+    "errors": [
+      {
+        "code": "bad-condition",
+        "message": "@after 0"
+      }
+    ],
+    "warnings": [
+      "no-paint: clip-disc has neither fill nor stroke"
+    ]
+  },
+  {
+    "phase": "condition",
+    "command": "inspect",
+    "exit": 1,
+    "errors": [
+      {
+        "code": "bad-condition",
+        "message": "@after 0"
+      }
+    ],
+    "warnings": [
+      "no-paint: clip-disc has neither fill nor stroke"
+    ]
+  },
+  {
+    "phase": "condition",
+    "command": "sample",
+    "exit": 1,
+    "errors": [
+      {
+        "code": "bad-condition",
+        "message": "@after 0"
+      }
+    ],
+    "warnings": [
+      "no-paint: clip-disc has neither fill nor stroke"
+    ]
+  }
+]
