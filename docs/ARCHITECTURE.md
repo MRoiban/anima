@@ -158,6 +158,7 @@ load only explicit imports. See MODULES §3.1 for the Canvas2D seam and change-t
 
 Module registration and the retained renderer are shared through the active `AnimaIcon` class,
 so separately emitted base, paint and markup bundles use the same runtime. The browser markup
-compiler copies the registered entries before compiling; its structural engine is carried
-by markup itself (8 KB incremental budget), so paint and composite do not duplicate it. Tooling's `core/all` registration is
+compiler copies the registered entries before compiling; its registry-derived forms remain in markup (8 KB incremental budget). Component and binding
+compilation hooks register through their runtime entries; structural paint handling registers
+through paint or the registration-only markup-paint entry (also used by composite-only markup). Tooling's `core/all` registration is
 folded out of terse browser builds. Both optional bundle import orders are browser-tested.

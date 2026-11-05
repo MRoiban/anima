@@ -1,3 +1,4 @@
+import './markup-paint.ts';
 // Optional browser module, including when the base runtime is already a separate bundle.
 import { paintSVG } from '@anima-format/core/paint-svg';
 import { paint } from '@anima-format/core/paint';

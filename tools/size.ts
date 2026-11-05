@@ -21,6 +21,10 @@ const MODULES: { name: string; budget: number; heavy?: boolean; over?: string }[
   { name: 'markup', budget: 8 * KB },
   // Measured on top of web + markup, which it extends.
   { name: 'markup-libraries', budget: 2 * KB, over: 'markup' },
+  // Registration-only layers extend web; components/bind also import them automatically.
+  { name: 'markup-components', budget: 2 * KB, over: 'index' },
+  { name: 'markup-paint', budget: 2 * KB, over: 'index' },
+  { name: 'markup-bind', budget: 2 * KB, over: 'index' },
   { name: 'paint', budget: 5 * KB },
   { name: 'composite', budget: 4 * KB },
   { name: 'bind', budget: 2 * KB },
@@ -47,7 +51,7 @@ for (const m of present) {
   if (m.budget > MODULE_CEILING) throw new Error(`${m.name}: budget above the module ceiling`);
   const under = m.over ? gz(await bundle(src(m.over))) : base;
   const delta = gz(await bundle(src(m.name))) - under;
-  const what = m.over ? `over web+${m.over}` : 'incremental';
+  const what = m.over === 'index' ? 'over web' : m.over ? `over web+${m.over}` : 'incremental';
   report(`${m.name}: ${delta} B min+gzip ${what} (budget ${m.budget} B)`, delta > m.budget);
 }
 

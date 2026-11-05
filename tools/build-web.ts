@@ -2,17 +2,54 @@
 // demo (examples/web/index.html: base bundle and bell.ani inlined, so it makes no requests).
 //   node tools/build-web.ts [--check]   (--check: fail if the demo or existing bundles are stale)
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { bundle } from './browser-build.ts';
+import { Worker } from 'node:worker_threads';
 
 const root = new URL('../', import.meta.url);
-const js = await bundle(new URL('packages/web/src/index.ts', root).pathname);
-const markup = await bundle(new URL('packages/web/src/markup.ts', root).pathname);
-const libraries = await bundle(new URL('packages/web/src/markup-libraries.ts', root).pathname);
-const paint = await bundle(new URL('packages/web/src/paint.ts', root).pathname);
-const composite = await bundle(new URL('packages/web/src/composite.ts', root).pathname);
-const components = await bundle(new URL('packages/web/src/components.ts', root).pathname);
-const bind = await bundle(new URL('packages/web/src/bind.ts', root).pathname);
-const assets = await bundle(new URL('packages/web/src/assets.ts', root).pathname);
+const entries = [
+  'index',
+  'markup',
+  'markup-libraries',
+  'paint',
+  'composite',
+  'components',
+  'bind',
+  'assets',
+  'markup-components',
+  'markup-bind',
+  'markup-paint',
+];
+const outputs = new Map<string, string>();
+await Promise.all(
+  Array.from(
+    { length: 4 },
+    (_, lane) =>
+      new Promise<void>((resolve, reject) => {
+        const worker = new Worker(new URL('./browser-build-worker.ts', import.meta.url), {
+          workerData: entries
+            .filter((_, i) => i % 4 === lane)
+            .map((name) => new URL(`packages/web/src/${name}.ts`, root).pathname),
+        });
+        worker.on('message', ([path, code]: [string, string]) => outputs.set(path, code));
+        worker.on('error', reject);
+        worker.on('exit', (code) =>
+          code === 0 ? resolve() : reject(Error(`browser build worker exited ${code}`)),
+        );
+      }),
+  ),
+);
+const [
+  js,
+  markup,
+  libraries,
+  paint,
+  composite,
+  components,
+  bind,
+  assets,
+  markupComponents,
+  markupBind,
+  markupPaint,
+] = entries.map((name) => outputs.get(new URL(`packages/web/src/${name}.ts`, root).pathname)!);
 const check = process.argv.includes('--check');
 mkdirSync(new URL('packages/web/dist/', root), { recursive: true });
 function emit(path: string, text: string, generated = false): void {
@@ -33,6 +70,9 @@ emit('packages/web/dist/anima-composite.js', composite, true);
 emit('packages/web/dist/anima-bind.js', bind, true);
 emit('packages/web/dist/anima-assets.js', assets, true);
 emit('packages/web/dist/anima-components.js', components, true);
+emit('packages/web/dist/anima-markup-components.js', markupComponents, true);
+emit('packages/web/dist/anima-markup-bind.js', markupBind, true);
+emit('packages/web/dist/anima-markup-paint.js', markupPaint, true);
 
 const bell = readFileSync(new URL('examples/bell.ani', root), 'utf8');
 const page = readFileSync(new URL('examples/web/template.html', root), 'utf8')

@@ -12,7 +12,10 @@
     "./bind": "./src/bind.ts",
     "./assets": "./src/assets.ts",
     "./markup-libraries": "./src/markup-libraries.ts",
-    "./components": "./src/components.ts"
+    "./components": "./src/components.ts",
+    "./markup-components": "./src/markup-components.ts",
+    "./markup-paint": "./src/markup-paint.ts",
+    "./markup-bind": "./src/markup-bind.ts"
   },
   "files": [
     "src"
