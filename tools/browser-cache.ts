@@ -16,6 +16,9 @@ export function browserFingerprint(base = root): string {
   const files = globSync(
     [
       'packages/{core,markup,web}/src/**/*.ts',
+      'modules/*/{core,web,markup}/**/*.ts',
+      'modules/*/manifest.ts',
+      'tools/modules.generated.ts',
       'packages/{core,markup,web}/package.json',
       'packages/{core,markup,web}/tsconfig.json',
       'tools/browser*.ts',

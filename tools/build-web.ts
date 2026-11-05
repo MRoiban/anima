@@ -6,21 +6,7 @@ import { Worker } from 'node:worker_threads';
 import { browserFingerprint, digest, type BrowserCache } from './browser-cache.ts';
 
 const root = new URL('../', import.meta.url);
-const entries = [
-  'index',
-  'markup',
-  'markup-libraries',
-  'paint',
-  'composite',
-  'components',
-  'bind',
-  'assets',
-  'markup-components',
-  'markup-bind',
-  'markup-paint',
-  'surface',
-  'markup-surface',
-];
+import { webEntries as entries } from './modules.generated.ts';
 const outputs = new Map<string, string>();
 await Promise.all(
   Array.from(

@@ -1,11 +1,13 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: P5-7 (markup owner) running → then D1 module folders + D2 scoped tests (parallel) → D3 new-capability scaffolder → P5 AniML benchmark run → P5 PR (full check in CI).
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: D1 implemented on t3/self-contained-module-folders; local commit only.
+Verified: one full npm run check green, 55 files / 1055 tests; 12 module-arrival orders equivalent.
+Layout: 6/6 runtime modules + markup-libraries moved; manifest-generated adapters/exports/hooks/build/size/scopes.
+Metrics: paint 12 files / 4.23 s wall; core+web 17789 B (+248), all budgets pass; control perf within observed noise.
+Deviation: unchanged-byte target unmet; source adapters assume private monorepo, standalone packaging deferred.
+Next: parent review/integration; no pushes/PRs/merges from this branch.
+Don’t: loosen limits/budgets/measurement, add runtime dependencies, publish, or touch Rive/Glyphy.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -89,3 +91,7 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-07 02:00 [owner]: dev process: module folders + generated index (order from deps, composed registry), scoped tests locally / full suite in CI, new-capability scaffolder — recorded in PLAN/LOG; scheduled after P5-7
 - 2026-11-07 03:30 [claude]: merged D2 scoped tests (482bc30): test:scope -- paint --no-browser 6 s / 23 files vs full ~145 s; with browser the paint target is too broad (30 files) → tighten via module manifests in D1; CI job summary prints size/perf
 - 2026-11-07 05:00 [claude]: merged P5-7 (0cde698): 4/4; 3 consecutive full checks green at default concurrency (1045 tests); markup 7357/8192; real late-registration/schema-sync bugs fixed; next D1 module folders
+
+- 2026-11-05 00:00 [codex]: D1 started; esbuild missing → npm ci succeeded; baseline measurements pending (unverified).
+- 2026-11-05 23:44 [codex]: D1 folders/generator/composition implemented → core/tools 356 pass incl. 12 orders; paint 12 files/4.74 s; broad scope found relocated virtual import path (fixed, 357 pass) and 2 browser timeouts under overlapping runs; stable rerun pending (unverified).
+- 2026-11-05 23:52 [codex]: D1 final verification → npm run check green (55 files/1055 tests, no skips); paint 12 files/399 selected tests/4.23 s wall; sizes/perf in docs/LOG.md; parity evidence paths regenerated + tools scope 34 pass; local commit next. Initial D1 00:00 timestamp was a placeholder, not the actual start time.

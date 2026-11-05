@@ -53,3 +53,15 @@ PR, do one full local run only for what CI cannot run; do not repeatedly run the
 - **Log** (below): append only, one line per entry: `- YYYY-MM-DD HH:MM [who]: did X → result (evidence: command/number/commit)`. Log failures and dead ends too. Tag anything unchecked `(unverified)`.
 - Facts, not narration. Commit the log with the code it describes.
 - Past ~200 lines: condense the oldest half into a 5-line summary at the top of Log.
+
+## Adding a module
+
+Add only files under `modules/<name>/`: a `manifest.ts` plus its core/SVG, markup, web and
+`test/<package>/` files as applicable. Follow `spec/MODULES.md` §3 and an existing manifest for
+`after`, byte and markup-hook budgets, test globs, conformance prefixes, docs and public adapters.
+Keep runtime code within its package responsibility: core stays pure and DOM-free; web owns DOM.
+Run `node tools/modules.ts` and commit its generated adapters/tables/package exports with the module.
+Do not edit generated files or shared module lists. `node tools/modules.ts --check` rejects stale
+wiring. Run `npm run test:scope -- <name>` while developing; include shared markup integration tests
+in the manifest where registry changes affect them. Module scopes select their explicitly owned
+browser suites, without following references to other modules.

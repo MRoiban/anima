@@ -6,18 +6,18 @@
   "description": "<anima-icon>: the Anima web runtime (retained SVG, sleeping scheduler, a11y).",
   "exports": {
     ".": "./src/index.ts",
-    "./markup": "./src/markup.ts",
-    "./paint": "./src/paint.ts",
-    "./composite": "./src/composite.ts",
-    "./bind": "./src/bind.ts",
-    "./assets": "./src/assets.ts",
-    "./markup-libraries": "./src/markup-libraries.ts",
     "./components": "./src/components.ts",
     "./markup-components": "./src/markup-components.ts",
-    "./markup-paint": "./src/markup-paint.ts",
+    "./bind": "./src/bind.ts",
     "./markup-bind": "./src/markup-bind.ts",
-    "./markup-surface": "./src/markup-surface.ts",
-    "./surface": "./src/surface.ts"
+    "./assets": "./src/assets.ts",
+    "./markup": "./src/markup.ts",
+    "./markup-libraries": "./src/markup-libraries.ts",
+    "./paint": "./src/paint.ts",
+    "./markup-paint": "./src/markup-paint.ts",
+    "./composite": "./src/composite.ts",
+    "./surface": "./src/surface.ts",
+    "./markup-surface": "./src/markup-surface.ts"
   },
   "files": [
     "src"

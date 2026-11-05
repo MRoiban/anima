@@ -15,25 +15,7 @@ const MODULE_CEILING = 8 * KB;
 const FULL_CEILING = 100 * KB;
 const RIVE_CLASS_CEILING = 250 * KB;
 
-/** Browser modules: entry under packages/web/src, budget, and whether it is heavy (Rive-class only). */
-const MODULES: { name: string; budget: number; heavy?: boolean; over?: string }[] = [
-  // Raised from 6 KB at P4a (docs/LOG.md P4a): every module adds markup forms.
-  { name: 'markup', budget: 8 * KB },
-  // Measured on top of web + markup, which it extends.
-  { name: 'markup-libraries', budget: 2 * KB, over: 'markup' },
-  // Registration-only layers extend web; components/bind also import them automatically.
-  { name: 'markup-components', budget: 2 * KB, over: 'index' },
-  { name: 'markup-paint', budget: 2 * KB, over: 'index' },
-  { name: 'markup-surface', budget: 2 * KB, over: 'index' },
-  { name: 'markup-bind', budget: 2 * KB, over: 'index' },
-  { name: 'paint', budget: 5 * KB },
-  { name: 'composite', budget: 4 * KB },
-  { name: 'bind', budget: 2 * KB },
-  { name: 'assets', budget: 2 * KB },
-  { name: 'surface', budget: 8 * KB },
-  { name: 'components', budget: 4 * KB },
-  { name: 'canvas', budget: 8 * KB, heavy: true },
-];
+import { moduleBudgets as MODULES } from './modules.generated.ts';
 
 const src = (name: string) => new URL(`../packages/web/src/${name}.ts`, import.meta.url).pathname;
 const gz = (code: string) => gzipSync(code, { level: 9 }).length;

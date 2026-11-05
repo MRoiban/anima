@@ -129,6 +129,9 @@ needs it. Size is not the only cost: compile time and per-frame cost are tracked
    dependencies; the registry is composed from the set of modules, not mutated in place, and a test
    registers them in several orders and compares schema and model. Adding a module adds files and
    edits nothing shared, so parallel coders merge without conflicts.
+   D1 implementation: root `modules/<name>/manifest.ts` + generated package adapters/exports,
+   core/all, markup hooks, build/size/scope tables; `--check` guards wiring. Registration composes
+   the declared set in `after` order; corpus equivalence covers 12 arrival orders. No format change.
 2. **Scoped tests while coding; the full suite in CI.** Coders run a fast scoped command for the
    module or package they touch (`npm run test:scope -- <module|package>`); the full `npm run check`
    runs once per PR in GitHub Actions while the next task starts. A PR merges only when CI is green.

@@ -1053,3 +1053,79 @@ All four P5-7 task items are complete. Final run logs are `/tmp/anima-p5-7-final
 These are the unchanged tool's wall-time observations on a shared host, not a claim of a frame
 speedup. Player/step/draw implementations did not change in P5-7. No packages were published and
 no push, PR or merge was performed; the work is handed back as a local branch commit.
+
+## D1 — Self-contained module folders and generated wiring (2026-11-05)
+
+Moved all six runtime modules (paint, composite, bind, assets, components, surface) plus
+markup-libraries into root `modules/<name>/` folders with core/SVG, markup, web and package-owned
+tests. The shared markup browser entry also has a manifest. Existing package import paths are
+preserved by generated source adapters; no runtime dependencies or format changes were added.
+Packages remain private; standalone package publication is not covered by the source adapters.
+
+`node tools/modules.ts` replaces the hand-maintained core/all registration order, package adapters
+and exports, build-web entries, size module table, markup compiler slots/tooling/browser hook
+registration, and test-scope ownership/aliases. Manifest `after` constraints preserve P5 hook order;
+`sizeOrder` and `buildOrder` preserve aggregate size measurement order and build worker lanes.
+`--check` runs first in `npm run check`. A temporary-repository fixture adds only a probe module's
+files, generates every list, and executes its generated core and SVG registration.
+
+Core registration recomposes stable exported tables/maps from the module declarations, then applies
+wildcards to the final node set. Initializers must tolerate recomposition. Twelve arrival orders
+(all permutations of components/paint/assets, with the remaining modules before and after) compare
+JSON Schema, CLI schema output, 56 loaded example/conformance/draw models and their snapshots, and
+56 AniML compilations. The committed JSON Schema and existing test expectations are unchanged.
+The generator approach continues the existing registry rationale in
+`docs/research/rive-format-and-graph.md`; no Rive source or file conversion was used.
+
+Sizes (min+gzip, exact existing measuring code/budgets; baseline 9b9cc38):
+
+| Entry | Before B | After B | Delta B |
+|---|---:|---:|---:|
+| core+web | 17541 | 17789 | +248 |
+| markup | 7357 | 7355 | -2 |
+| markup-libraries | 1765 | 1750 | -15 |
+| markup-components | 377 | 370 | -7 |
+| markup-paint | 370 | 361 | -9 |
+| markup-surface | 370 | 361 | -9 |
+| markup-bind | 128 | 129 | +1 |
+| paint | 4283 | 4293 | +10 |
+| composite | 3886 | 3845 | -41 |
+| bind | 1546 | 1567 | +21 |
+| assets | 1527 | 1505 | -22 |
+| surface | 7921 | 7942 | +21 |
+| components | 4000 | 3992 | -8 |
+| full-featured / Rive-class | 44008 | 44332 | +324 |
+
+All budgets pass. **The requested unchanged-byte target is not met**: composition/order metadata
+adds 248 B to core+web; module deltas range from -41 to +21 B. No budget or measuring limit was
+raised. The absent canvas placeholder moves out of the size table; a future canvas manifest will
+supply its own entry/budget.
+
+Scoped verification: core/tools 356 tests pass (including order comparisons), tools 34 pass,
+Chromium+Firefox web 154 pass. The first broad scope found a relocated virtual import string
+(fixed with expectations preserved), plus two browser timeouts during overlapping runs. Restoring
+the original build worker assignments and a stable rerun passed all 154 browser tests; no timeout
+or other test limit changed. Final paint scope: 12 files (five module-owned tests, six shared markup integration tests, one
+filtered conformance runner), including only paint's one browser file; 399 selected tests pass,
+3.77 s Vitest / 4.23 s process wall time, versus the previous 30-file browser-inclusive selection.
+One full `npm run check` passed: 55 files / 1055 tests, no skips; types, lint, formatting,
+module wiring, size budgets, browser demo, AniML artifacts, oracle and perf all green. Afterwards,
+parity evidence paths were updated for moved tests and the parity views regenerated (paths only).
+
+Final full-check perf lines: `compile: bell 1.75 ms; all 9040 prefixes 592 ms`;
+`frame: bell 35.1 µs; composite 23.4 µs`;
+`frame: toolbar 25.1 µs (step + draw, 4 instances)`; `compile: toolbar 3.20 ms`.
+An immediate sequential baseline/candidate control using the same unchanged `tools/perf.ts`:
+
+| Workload | Baseline | Candidate |
+|---|---:|---:|
+| bell compile | 1.55 ms | 1.67 ms |
+| all 9040 prefixes | 545 ms | 551 ms |
+| bell frame | 30.6 µs | 32.6 µs |
+| composite frame | 20.9 µs | 21.0 µs |
+| toolbar frame | 23.1 µs | 22.6 µs |
+| toolbar compile | 2.62 ms | 2.68 ms |
+
+These small differences are inside the observed run-to-run spread. Earlier overlapping runs varied
+severalfold, so no precise speedup/regression claim is warranted. The one full check was not repeated;
+post-check changes only update documentation/evidence paths.

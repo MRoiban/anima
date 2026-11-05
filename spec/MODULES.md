@@ -41,16 +41,67 @@ loader and the formatter keep deriving from one place. A module's entries carry 
 
 ## 3. Where the code lives
 
-A module is code in three places, all in its own files:
+Each optional module has one source folder at the repository root:
 
-1. **Core** (`packages/core/src/modules/<name>/`): registry entries, loader hooks (validate and
-   compile its keys into the model), player hooks (new animatable value kinds, sampling), and draw
-   hooks (renderer-neutral tree and resolved frame data). Each module's `svg.ts` is its separate
-   browser/static SVG backend; it receives draw data, never a Player or raw document.
-2. **Web** (`packages/web/src/<name>.ts`): `import '@anima-format/web/<name>'` registers the module
-   with the runtime, like `@anima-format/web/markup`. A page that never imports it never loads it.
-3. **Tooling**: the CLI, the markup compiler, the playground and the conformance runner always
-   register every module, so authoring sees the whole format.
+```
+modules/<name>/
+  manifest.ts           tooling metadata; named `after` export for runtime ordering
+  core/index.ts         registry entries and pure loader/player/draw hooks (when applicable)
+  core/svg.ts           SVG backend (when applicable)
+  markup/index.ts       compiler forms/hooks not expressible by registry descriptors
+  web/index.ts          optional browser registration
+  web/markup.ts         optional registration-only markup entry (when applicable)
+  test/<package>/       core, markup, web and CLI tests owned by this module
+```
+
+Paint, composite, bind, assets, components and surface follow this layout. Bind needs no SVG
+backend; assets/composite/surface supply structural AniML forms through their core descriptors and
+share paint's structural engine. Markup-libraries owns its markup expansion, async resolver, hook
+slots, web entry and tests in the same layout. The shared markup browser entry has a small manifest
+under `modules/markup/`; the base compiler/parser remain in `packages/markup`.
+
+The default manifest export declares:
+
+- `name` and `after`: ordering constraints among installed module manifests. Runtime `after` orders
+  only the modules present; it does not import another module. The current chain preserves the P5
+  execution order: components → bind → assets → paint → composite → surface. This also puts surface
+  after the paint refinements and nested drawing hooks it extends.
+- `core`: implementation entry/export and optional SVG entry/export.
+- `web`: browser entry names, byte budgets, optional measurement base (`over`) and heavy-class flag.
+  Registration-only markup entries have separate hook budgets. `sizeOrder` preserves the existing
+  aggregate measurement import order; `buildOrder` preserves the browser worker lane assignments; new entries may omit it and follow the existing entries.
+- `adapters` and `exports`: package source adapter paths mapped to local implementations, and public
+  package subpaths. These preserve all existing `@anima-format/{core,markup,web}` imports, including
+  internal compatibility paths. The adapters contain no implementation or runtime dependencies.
+- `markupHook`: optional typed compiler slot and implementation exports. Descriptor-only modules
+  need no additional hook slot.
+- `tests`, `conformance`, `docs`: explicit test globs, conformance case-name prefixes and docs files.
+  Test ownership includes shared markup registry/corpus integration tests where needed; browser
+  ownership is explicit and never inferred from mentions/imports of other modules.
+
+`node tools/modules.ts` discovers manifests, validates dependencies, and generates core/all,
+package adapters/exports, browser build entries, size tables, compiler hook registration and test
+scope tables. `--check` is part of `npm run check` and fails without writing when wiring is stale.
+Generated files are committed, but never edited by hand. A new module requires additions only under
+its folder plus generator output; `tools/modules.test.ts` proves this in a temporary repository.
+No shared hand-written index changes are needed. Existing source package exports remain the
+repository's development API; package publishing is still deferred (all packages are private).
+
+Core registration composes the base tables plus the complete declared module set in dependency
+order, with lexical ordering of simultaneously ready modules. Exported table/map identities stay
+stable for separately bundled browser entries. Recomposition rebuilds cached node shapes and applies
+wildcard contributions to the final node set, so a late node receives earlier modules' fields without
+recursive replay inside `applyEntry`. Initializers can run again during recomposition and must keep
+registration setup idempotent. Duplicate registration by name remains a no-op. Runtime dependency
+cycles throw before changing the active registry; manifest cycles and missing dependencies fail the
+generator. `packages/core/test/module-order.test.ts` exercises 12 arrival orders (all permutations of
+components/paint/assets with the other modules before and after), comparing JSON Schema, CLI schema
+output, loaded models and snapshots for every example/conformance document, and corpus AniML output.
+
+Tooling (`core/all`, CLI, playground and conformance runner) registers the entire generated module
+set. Browser builds load only explicit imports. The layout changes no document syntax or semantics. The single-source registry/generation principle
+continues the existing design rationale in `docs/research/rive-format-and-graph.md` (generated type
+metadata); no Rive implementation or file conversion is involved.
 
 Hook points (revised at P4a, owner decision 2026-11-06: rendering is renderer-neutral):
 
