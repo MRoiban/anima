@@ -6,7 +6,7 @@ State: main has M0–M4 + Phase A (PRs #1–#6 merged). p1-animl: contract commi
 Next: wave 1 running — Sol compiler (compile.ts) and Sol decompiler+formatter, worktrees from d9c0063; merge both, add round-trip tests.
 Next: wave 2 — CLI (.animl everywhere, build incl. html, decompile, new→animl), web markup module (own budget), migrate conformance + AUTHORING.md; wave 3 head-to-head (AniML vs .ani vs Rive RML).
 Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner: verify Firefox clapper fix on macOS; package names; licence.
+Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -31,3 +31,4 @@ Open for owner: verify Firefox clapper fix on macOS; package names; licence.
 - 2026-11-05 14:20 [claude]: GPU Firefox (Linux WebRender, GTX 1650): old 1/4 runs stale episode, fixed 0/4; macOS symptom not reproduced → fix unverified on macOS (evidence: /data/agent-workspaces/anima-ff/*-run*.json)
 - 2026-11-05 14:40 [claude]: merged PR #5 (Phase A) and #6 (M4 incl. Firefox fix) → main 62cee1b
 - 2026-11-05 15:00 [claude]: P1 contract on p1-animl (23839c7, d9c0063): ANIML spec, bell.animl, registry markup names, xml parser (18 tests), names.ts (4 tests); launched Sol compiler (xhigh) + decompiler/formatter (high)
+- 2026-11-05 15:10 [owner]: Firefox clapper fix confirmed on macOS; name stays Anima with .ani and .animl

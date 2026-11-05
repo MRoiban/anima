@@ -219,6 +219,7 @@ tearing. Old build: 1 of 4 runs had a stale-paint episode (4 stable frames, the 
 off during the second ring); fixed build: 0 of 4 runs, every frame within 0.08 units (typically 0.012).
 **The macOS symptom itself (stationary clapper, snap at ~1.07 s) did not reproduce on Linux**, so the
 fix is not verified on the platform that showed it; it needs a check on the owner's Mac.
+**Update:** the owner confirmed the fix on macOS Firefox (2026-11-05): the clapper no longer snaps.
 Gotchas found on the way: the desktop reports `prefers-reduced-motion: reduce` (the runtime then
 correctly jumps every ring to its end; override `ui.prefersReducedMotion` to test motion), and 60 fps
 X11 capture of a VirtualGL window tears.
