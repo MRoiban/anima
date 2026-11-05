@@ -105,3 +105,39 @@ One entry per milestone: what changed, decisions, open issues.
 - The first `step` reports the initial states' entry events (spec §7, added).
 - The `@limit` chain cap does not keep a player awake: `settled` follows its usual definition, so
   a broken machine cannot spin the page's frame loop. `anima inspect` (M3) should flag it.
+
+## M3 — CLI (2026-11-05)
+
+**Changed**
+
+- `packages/cli`: `anima validate | inspect | sample | render | fmt | new | schema | docs`, each with
+  `--format=json` and exit codes 0/1/2. `validate` adds the two checks that need more than the core:
+  `duplicate-key` (a positional JSON scanner, which also gives every diagnostic a line and column)
+  and `hash-mismatch` (SHA-256 of glyph data). PNG output uses `@resvg/resvg-js` (CLI-only).
+- `packages/core/src/svg.ts`: the SVG scene (element tree + per-frame attributes) shared by
+  `toSVG` and, in M4, the web runtime, so both draw exactly the same thing. Knockouts are
+  `<mask>`s that are dropped while the cut is empty, keeping the rest frame mask-free.
+- `docs/AUTHORING.md`: the agent guide, with the exact diagnostic for each common mistake (taken
+  from real `anima validate` runs). `anima docs` serves it, by section, and the spec.
+- Tests: every command; `anima new` on all nine glyphs renders at rest **pixel-identical** to the
+  source SVG at 16, 20, 48 and 200 px; `fmt` round-trips the bell; and a comparison with the Rive
+  reference frames (`packages/cli/src/compare.ts`, run directly for a side-by-side PNG).
+
+**Rive comparison** (mean |Δ| per RGB channel, 0–255, 240×240, dark colours):
+rest 0.19 · hover 0.20 · ring f3 2.76 · f7 3.47 · f17 0.38 · f27 0.26 · f57 0.24 · rested 0.22 ·
+out 0.21. The residue is anti-aliasing (Rive draws each wave as one cubic, Anima as a true arc) and
+a fraction of a frame of press timing in f3/f7.
+
+**Decisions**
+
+- **`interruptible` (spec §8, new).** The first comparison showed f3/f7 off by 11–14: in Rive a
+  transition's crossfade cannot be interrupted unless "early exit" is set, so a click shows the press
+  dip before the release; Anima let the release cancel it in the same frame, so a quick click showed
+  no press at all. Anima keeps interruptible as the default (smoother hover in/out) and adds
+  `"interruptible": false` per transition; the bell's hover layer uses it. New conformance case
+  `uninterruptible`.
+- `render` applies the script's queued inputs (`step(0)`) before drawing, so `-e "fire ring"` starts
+  the ring at frame 0.
+- Suggestions also match shared 5-letter stems (`rotation` → `rotate`), and pose values that are
+  arrays reach the `not-animatable` check (`icon.pivot` → "animate x and y instead").
+- Node 24's `JSON.parse` messages no longer carry positions, so the CLI finds syntax errors itself.

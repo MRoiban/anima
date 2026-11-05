@@ -38,9 +38,10 @@ docs/      architecture, plan, research notes
    `set(name, value)`, `fire(name)`, `pointer(kind, x, y)` (core hit-testing on flattened geometry so
    headless runs can click), `values()` (resolved property snapshot), `dirty` (slot indices changed
    since the last read — the renderer only touches those).
-5. **Static SVG.** `toSVG(player | doc, options)` serialises the current resolved scene to a
+5. **Static SVG** (`svg.ts`: `sceneTree` + `attrs`, serialised by `toSVG`; the web runtime builds the
+   same tree as DOM). `toSVG(player | doc, options)` serialises the current resolved scene to a
    standalone SVG string. Used by the CLI renderer, by server-side rendering, and as the no-JS
-   fallback. At rest it must reproduce the Glyphy SVG (same `d`, `fill-rule`, `currentColor`).
+   fallback. At rest it must reproduce the Glyphy SVG (same `d`, `fill-rule`, `currentColor`); tested pixel for pixel on every fixture glyph.
 
 ## web (`packages/web`)
 

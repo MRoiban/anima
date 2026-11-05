@@ -30,6 +30,8 @@ export interface StepResult {
 export type PointerKind = 'move' | 'down' | 'up' | 'leave';
 
 interface Fade {
+  /** Started by a non-interruptible transition: no transitions until it ends. */
+  lock: boolean;
   from: Map<number, Value>;
   dur: number;
   ease: EaseFn;
@@ -209,7 +211,7 @@ export class Player {
   }
 
   /** A node property's current value (animated or rest), by key (`rotate`, `fill.color`, …). */
-  prop(node: number, key: string): Value | undefined {
+  prop(node: number, key: string): Value | string | undefined {
     const n = this.model.nodes[node]!;
     const s = this.slots.get(n.id + '.' + key);
     if (s !== undefined) return this.vals[s];
@@ -217,7 +219,8 @@ export class Player {
     return dot < 0 ? n.raw[key] : n.raw[key.slice(0, dot)]?.[key.slice(dot + 1)];
   }
 
-  private num(node: number, key: string, def: number): number {
+  /** A numeric node property, or `def` when the document leaves it out. */
+  num(node: number, key: string, def: number): number {
     const v = this.prop(node, key);
     return typeof v === 'number' ? v : def;
   }
@@ -392,7 +395,7 @@ export class Player {
       const used = new Set<string>();
       for (let n = 0; ; n++) {
         const cur = L.m.states[L.state]!;
-        const tr = cur.on.find((t) => this.holds(t, L, cur, used));
+        const tr = L.fade?.lock ? undefined : cur.on.find((t) => this.holds(t, L, cur, used));
         if (!tr) break;
         if (n === MAX_CHAIN) {
           events.push({ name: '@limit', layer: L.m.name, time: 0 });
@@ -409,7 +412,16 @@ export class Player {
           used.add(t);
           consumed.add(t);
         }
-        this.enter(L, tr.to, this.carry(tr, L, cur), snap, tr.blend, tr.ease, events);
+        this.enter(
+          L,
+          tr.to,
+          this.carry(tr, L, cur),
+          snap,
+          tr.blend,
+          tr.ease,
+          events,
+          !tr.interruptible,
+        );
       }
       this.write(L, V);
     });
@@ -505,6 +517,7 @@ export class Player {
     blend: number,
     ease: EaseFn | null,
     events: AnimaEvent[],
+    lock = false,
   ): void {
     const st = L.m.states[to]!;
     L.state = to;
@@ -512,7 +525,9 @@ export class Player {
     L.frozen = -1;
     if (this.reducedMotion) blend = 0;
     L.fade =
-      snap && blend > 0 && carry < blend ? { from: snap, dur: blend, ease: ease!, t: carry } : null;
+      snap && blend > 0 && carry < blend
+        ? { lock, from: snap, dur: blend, ease: ease!, t: carry }
+        : null;
     if (st.emit) events.push({ name: st.emit, layer: L.m.name, time: 0 });
     if (st.play === undefined) return;
     const tl = this.model.timelines[st.play]!;

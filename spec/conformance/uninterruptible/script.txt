@@ -1,0 +1,14 @@
+set on true
+advance 0
+advance 0.5
+snapshot
+# the crossfade into "lit" cannot be interrupted: !on waits until it ends
+set on false
+advance 0.25
+snapshot
+advance 0.25
+snapshot
+advance 0.5
+snapshot
+advance 0.5
+snapshot
