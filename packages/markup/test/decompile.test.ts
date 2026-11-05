@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { formatAni, load, type NodeType } from '@anima-format/core';
-import { compile, decompile, parseXml, type Element } from '../src/index.ts';
+import { compile, decompile, formatMarkup, parseXml, type Element } from '../src/index.ts';
 import { aniAddress, nodeAttrs, NODE_ELEMENTS } from '../src/names.ts';
 import { attrOrder, ATTR_ORDER } from '../src/layout.ts';
 
@@ -301,20 +301,25 @@ describe('decompile', () => {
   });
 });
 
-let compilerReady = true;
-try {
-  compile('<anima version="0.1" name="probe" grid="20"/>');
-} catch (e) {
-  if (e instanceof Error && e.message.includes('not implemented')) compilerReady = false;
-  else throw e;
-}
-describe.skipIf(!compilerReady)(
-  'round-trip (skipped while compile throws "not implemented")',
-  () => {
-    it.each(corpus)('%s builds back to canonical .ani', (_name, source) => {
-      const result = compile(decompile(source!));
-      expect(result.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
-      expect(result.text).toBe(formatAni(JSON.parse(source!)));
-    });
-  },
-);
+describe('round-trip', () => {
+  it.each(corpus)('%s: .ani → AniML → .ani gives the canonical .ani', (_name, source) => {
+    const result = compile(decompile(source!));
+    expect(result.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+    expect(result.text).toBe(formatAni(JSON.parse(source!)));
+  });
+  it.each(corpus)('%s: AniML → .ani → AniML → .ani is stable', (_name, source) => {
+    const ani1 = compile(decompile(source!)).text!;
+    const animl = decompile(ani1);
+    const ani2 = compile(animl).text!;
+    expect(ani2).toBe(ani1);
+    expect(decompile(ani2)).toBe(animl);
+  });
+  it('examples/bell.animl builds to examples/bell.ani byte for byte, and survives the round trip', () => {
+    const built = compile(read('examples/bell.animl'), { file: 'examples/bell.animl' });
+    expect(built.diagnostics).toEqual([]);
+    expect(built.text).toBe(read('examples/bell.ani'));
+    const again = compile(decompile(built.text!)).text;
+    expect(again).toBe(built.text);
+    expect(compile(formatMarkup(read('examples/bell.animl')).text!).text).toBe(built.text);
+  });
+});
