@@ -10,6 +10,7 @@ Don't: relax the 12 KB budget or strictness without the user; mangle property na
 Don't: spawn non-Sol sub-agents (user rule), > 5 at once; touch .riv files or Rive account commands (publish/push/pull).
 
 ## Log
+- 2026-11-05 15:15 [claude]: entries before this one were back-filled from git history and PRs; their times are approximate (unverified)
 - 2026-11-05 11:05 [claude]: M0 spec 0.1 + monorepo + CI → PR #1 merged (evidence: gh pr view 1, merge 1901923)
 - 2026-11-05 11:40 [claude]: M1 registry/loader/diagnostics/schema/path parser → PR #2 merged (0defae8)
 - 2026-11-05 12:10 [claude]: M2 player, 12 hand-computed conformance cases, bell parity 6.0e-5° → PR #3 merged (18f98ed)
