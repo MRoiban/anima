@@ -1,9 +1,9 @@
 # Work log
 
 ## Now
-Goal: M5 PR m5-glyphs → main, merge when green; then Phase B P3 (playground/inspector + web host API).
-State: M5 complete on m5-glyphs: trash + moon glyphs, bool activate, schema topics, inspect subpaths, render --compare, snapshot inputs, skill; glyphy draft PR #2 open (owner review).
-Next: npm run check, PR, merge; then design P3 (playground) — design-first (mockup) before coders.
+Goal: P3 (first part): playground (`anima playground`) per design/playground/{mockup.html,handoff.md} + web host API; branch p3-playground → PR.
+State: main b1941c9 = M0–M5, Phase A, P1 (PRs #7, #8 merged). p3-playground: mockup + handoff + Player.inspect() (core+web 14962 B).
+Next: Sol agents: host API (web) and playground (packages/playground + CLI); then compare real UI vs mockup at 1440/1000/390, fix drift, PR. Rest of P3 rows (a11y module, drawing tools, headless extras) stay open.
 Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
 Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
@@ -52,3 +52,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-05 18:05 [claude]: merged trash (7d37682): 6/6, rest pixel-identical (original path at rest, split parts in motion), 7 friction points; spec §8 fmt keeps inline tracks (clarified)
 - 2026-11-05 18:20 [claude]: merged format fix (3503c3b): activate may name a bool (keyboard toggles switch, Chromium+Firefox tests), anima schema a11y/transition/listener/input; core+web 14812 B (+31); npm run check 377 pass after demo rebuild; moon gets activate=dark
 - 2026-11-05 18:50 [claude]: merged tooling (ff34197): inspect subpaths, render --compare (moon/trash 0 px), snapshot inputs; bbox rounding; PLAN M5/P2 ticked, P2 parity rows → P3, LOG M5
+- 2026-11-05 19:40 [claude]: PR #8 merged; P3 design done myself (mockup checked at 1440/1000/390, valid/errors/scrub/dark; fixed highlighter, mask sizing, phone overflow); Player.inspect() + test (+150 B gz)
