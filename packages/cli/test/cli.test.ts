@@ -349,6 +349,20 @@ describe('anima inspect, schema, docs', () => {
     );
   });
 
+  it('schema exposes composite objects and SVG spellings', async () => {
+    for (const topic of ['mask', 'clip', 'drawOrder', 'paints']) {
+      const result = await cli('schema', topic, '--format=json');
+      expect(result.code).toBe(0);
+      const data = JSON.parse(result.out);
+      expect(data.fields.length).toBeGreaterThan(0);
+    }
+    const stroke = JSON.parse((await cli('schema', 'stroke', '--format=json')).out);
+    expect(stroke.fields).toContainEqual(
+      expect.objectContaining({ ani: 'position', markup: 'stroke-position', feature: 'paint' }),
+    );
+    expect((await cli('schema', 'rect')).out).toContain('mix-blend-mode');
+  });
+
   it('schema describes node types and paint', async () => {
     expect((await cli('schema', 'circle')).out).toMatch(/r +number/);
     expect(

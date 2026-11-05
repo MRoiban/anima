@@ -10111,10 +10111,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blend: additive",
+   "construct": "deferred: plus-lighter lacks consistent SVG renderer support (SPEC paint Blend modes)",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/blend-additive",
+   "test": "SPEC paint Blend modes (deferred; no render claim)",
    "phase": "P4"
   }
  },
@@ -10144,10 +10144,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blend: color",
+   "construct": "node.blend / mix-blend-mode=\"color\"",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/blend-color",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
    "phase": "P4"
   }
  },
@@ -10177,10 +10177,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blend: color-burn",
+   "construct": "node.blend / mix-blend-mode=\"color-burn\"",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/blend-color-burn",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
    "phase": "P4"
   }
  },
@@ -10210,10 +10210,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blend: color-dodge",
+   "construct": "node.blend / mix-blend-mode=\"color-dodge\"",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/blend-color-dodge",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
    "phase": "P4"
   }
  },
@@ -10243,10 +10243,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blend: darken",
+   "construct": "node.blend / mix-blend-mode=\"darken\"",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/blend-darken",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
    "phase": "P4"
   }
  },
@@ -10276,10 +10276,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blend: difference",
+   "construct": "node.blend / mix-blend-mode=\"difference\"",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/blend-difference",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
    "phase": "P4"
   }
  },
@@ -10309,10 +10309,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blend: exclusion",
+   "construct": "node.blend / mix-blend-mode=\"exclusion\"",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/blend-exclusion",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
    "phase": "P4"
   }
  },
@@ -10342,10 +10342,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blend: hard-light",
+   "construct": "node.blend / mix-blend-mode=\"hard-light\"",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/blend-hard-light",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
    "phase": "P4"
   }
  },
@@ -10375,10 +10375,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blend: hue",
+   "construct": "node.blend / mix-blend-mode=\"hue\"",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/blend-hue",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
    "phase": "P4"
   }
  },
@@ -10408,10 +10408,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blend: lighten",
+   "construct": "node.blend / mix-blend-mode=\"lighten\"",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/blend-lighten",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
    "phase": "P4"
   }
  },
@@ -10441,10 +10441,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blend: luminosity",
+   "construct": "node.blend / mix-blend-mode=\"luminosity\"",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/blend-luminosity",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
    "phase": "P4"
   }
  },
@@ -10474,10 +10474,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blend: multiply",
+   "construct": "node.blend / mix-blend-mode=\"multiply\"",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/blend-multiply",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
    "phase": "P4"
   }
  },
@@ -10507,10 +10507,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blend: overlay",
+   "construct": "node.blend / mix-blend-mode=\"overlay\"",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/blend-overlay",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
    "phase": "P4"
   }
  },
@@ -10540,10 +10540,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blend: saturation",
+   "construct": "node.blend / mix-blend-mode=\"saturation\"",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/blend-saturation",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
    "phase": "P4"
   }
  },
@@ -10573,10 +10573,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blend: screen",
+   "construct": "node.blend / mix-blend-mode=\"screen\"",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/blend-screen",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
    "phase": "P4"
   }
  },
@@ -10606,10 +10606,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blend: soft-light",
+   "construct": "node.blend / mix-blend-mode=\"soft-light\"",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/blend-soft-light",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
    "phase": "P4"
   }
  },
@@ -10639,10 +10639,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "default SVG source-over compositing",
+   "construct": "node.blend / mix-blend-mode=\"normal\"",
    "module": "core",
    "status": "done",
-   "test": "oracle/blend-src-over",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-blend",
    "phase": "P0"
   }
  },
@@ -11366,10 +11366,10 @@
    "rive-runtime/include/rive/generated/shapes/clipping_shape_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: clip: {source, rule, visible}",
+   "construct": "clip: {source,rule}",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/geometry-clip",
+   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
    "phase": "P4"
   }
  },
@@ -12045,10 +12045,10 @@
    "rive-runtime/include/rive/generated/layer_mask_base.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: mask with source and mode alpha",
+   "construct": "mask: {source, mode: \"alpha\", sourceDraws}",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/mask-alpha",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
    "phase": "P4"
   }
  },
@@ -12076,10 +12076,10 @@
    "rive-runtime/include/rive/generated/layer_mask_base.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: mask.bounds in grid units",
+   "construct": "SVG mask covering three viewBoxes",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/mask-bounds",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
    "phase": "P4"
   }
  },
@@ -12103,10 +12103,10 @@
    "rive-runtime/include/rive/generated/layer_mask_base.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: mask.visible",
+   "construct": "mask presence; dynamic enable deferred",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/mask-enabled",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
    "phase": "P4"
   }
  },
@@ -12131,10 +12131,10 @@
    "rive-runtime/include/rive/generated/layer_mask_base.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: mask with source and mode invertedAlpha",
+   "construct": "mask: {source, mode: \"inverted-alpha\", sourceDraws}",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/mask-inverted-alpha",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
    "phase": "P4"
   }
  },
@@ -12159,10 +12159,10 @@
    "rive-runtime/include/rive/generated/layer_mask_base.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: mask with source and mode invertedLuminance",
+   "construct": "mask: {source, mode: \"inverted-luminance\", sourceDraws}",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/mask-inverted-luminance",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
    "phase": "P4"
   }
  },
@@ -12187,10 +12187,10 @@
    "rive-runtime/include/rive/generated/layer_mask_base.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: mask with source and mode luminance",
+   "construct": "mask: {source, mode: \"luminance\", sourceDraws}",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/mask-luminance",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
    "phase": "P4"
   }
  },
@@ -12214,10 +12214,10 @@
    "rive-runtime/include/rive/generated/layer_mask_base.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: mask.resolution",
+   "construct": "vector SVG mask (no raster resolution setting)",
    "module": "canvas",
    "status": "planned",
-   "test": "oracle/mask-resolution",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
    "phase": "P10"
   }
  },
@@ -12241,10 +12241,10 @@
    "rive-runtime/include/rive/generated/layer_mask_base.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: mask.sourceDraws",
+   "construct": "mask.sourceDraws",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/mask-source-draws",
+   "test": "packages/web/test/paint-composite.test.ts; spec/conformance/paint-mask-alpha",
    "phase": "P4"
   }
  },
@@ -12298,10 +12298,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/stroke_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: paints array with fill and stroke entries",
+   "construct": "paints: [{fill|stroke}]",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/multiple-paints",
+   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
    "phase": "P4"
   }
  },
@@ -12664,10 +12664,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/stroke_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: paints[].visible",
+   "construct": "fill.visible / stroke.visible / paints.i.kind.visible",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/paint-visible",
+   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
    "phase": "P4"
   }
  },
@@ -13362,10 +13362,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/stroke_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "stroke centered on outline",
+   "construct": "stroke.position: center",
    "module": "core",
    "status": "done",
-   "test": "oracle/stroke-position-center",
+   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
    "phase": "P0"
   }
  },
@@ -13389,10 +13389,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/stroke_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: stroke.position: inside",
+   "construct": "stroke.position: inside",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/stroke-position-inside",
+   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
    "phase": "P4"
   }
  },
@@ -13416,10 +13416,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/stroke_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: stroke.position: outside",
+   "construct": "stroke.position: outside",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/stroke-position-outside",
+   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
    "phase": "P4"
   }
  },
@@ -33814,10 +33814,10 @@
    "rive-runtime/include/rive/generated/draw_rules_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: hold tracks on node.drawTarget",
+   "construct": "drawOrder: {target,position,active}; hold track on drawOrder.active",
    "module": "paint",
    "status": "planned",
-   "test": "conformance/animated-draw-order",
+   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
    "phase": "P4"
   }
  },
@@ -33962,10 +33962,10 @@
    "rive-runtime/include/rive/generated/draw_target_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: drawRules targets with placement: after",
+   "construct": "drawOrder: {target,position,active}; hold track on drawOrder.active",
    "module": "paint",
    "status": "planned",
-   "test": "conformance/draw-target-after",
+   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
    "phase": "P4"
   }
  },
@@ -33994,10 +33994,10 @@
    "rive-runtime/include/rive/generated/draw_target_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: drawRules targets with placement: before",
+   "construct": "drawOrder: {target,position,active}; hold track on drawOrder.active",
    "module": "paint",
    "status": "planned",
-   "test": "conformance/draw-target-before",
+   "test": "packages/core/test/paint-composite.test.ts; packages/web/test/paint-composite.test.ts",
    "phase": "P4"
   }
  },

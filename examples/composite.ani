@@ -1,0 +1,110 @@
+{
+  "anima": "0.1",
+  "name": "composite",
+  "grid": 20,
+  "requires": ["paint"],
+  "nodes": [
+    {
+      "id": "background",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 20,
+      "h": 20,
+      "fill": {
+        "color": "#e8eef8"
+      }
+    },
+    {
+      "id": "source",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 8,
+      "fill": {
+        "color": "#fff"
+      }
+    },
+    {
+      "id": "card",
+      "type": "rect",
+      "x0": 2,
+      "y0": 2,
+      "w": 16,
+      "h": 16,
+      "blend": "multiply",
+      "mask": {
+        "source": "source",
+        "mode": "alpha",
+        "sourceDraws": false
+      },
+      "paints": [
+        {
+          "fill": {
+            "color": "#ff8844"
+          }
+        },
+        {
+          "stroke": {
+            "color": "#203060",
+            "width": 2,
+            "visible": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "ring",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 6,
+      "fill": {
+        "color": "#e8eef8",
+        "visible": true
+      },
+      "stroke": {
+        "color": "#203060",
+        "width": 1,
+        "position": "outside"
+      },
+      "clip": {
+        "source": "source",
+        "rule": "nonzero"
+      },
+      "drawOrder": {
+        "target": "card",
+        "position": "after"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "source.x": [
+          [0, 0],
+          [1, 2]
+        ],
+        "card.paints.0.fill.visible": [
+          [0, true],
+          [1, false]
+        ],
+        "ring.drawOrder.active": [
+          [0, true],
+          [1, false]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

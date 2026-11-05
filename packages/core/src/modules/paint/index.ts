@@ -1,5 +1,6 @@
 import { geometry } from './geometry.ts';
 // Independently implemented from the SVG paint model; no Rive runtime algorithm is used.
+import { withComposite } from './composite.ts';
 import type { Module } from '../../modules.ts';
 import { parseHex } from '../../color.ts';
 import { color, fmt } from '../../svg.ts';
@@ -230,7 +231,7 @@ const base: Module = {
   },
 };
 
-export const paint: Module = {
+const withGeometry: Module = {
   ...base,
   entries: [...base.entries, ...geometry.entries],
   outline: geometry.outline,
@@ -246,3 +247,5 @@ export const paint: Module = {
     geometry.attrs?.(p, el, paint, id, a);
   },
 };
+
+export const paint: Module = { ...withGeometry, init: () => withComposite(withGeometry) };

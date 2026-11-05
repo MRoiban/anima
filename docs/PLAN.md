@@ -117,7 +117,7 @@ and an oracle test against Rive.
   - [x] P4a-1 module system and gradients, dashes.
   - [x] P4a-2 geometry: ellipse, polygon, star, triangle, corner radii, path morphing, fixed
         stroke, static path lengths for PNG output.
-  - [ ] P4a-3 compositing: blend modes, masks, clips, multiple paints, stroke position, draw order.
+  - [x] P4a-3 compositing: blend modes, masks, clips, multiple paints, stroke position, draw order.
   - [ ] P4a-4 **renderer-neutral draw layer** (owner, 2026-11-06; `spec/MODULES.md` §3.1): modules
         describe resolved draw data; the SVG backend turns it into retained DOM and `toSVG`;
         `paint` converted; core + web for icons must not grow (`tools/size.ts`).

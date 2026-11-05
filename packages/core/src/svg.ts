@@ -73,6 +73,11 @@ export function sceneTree(model: Model): { root: El[]; defs: El[] } {
   return tree;
 }
 
+export function sceneOrder(p: Player, nodes: number[]): number[] {
+  for (const m of modules.values()) nodes = m.order?.(p, nodes) ?? nodes;
+  return nodes;
+}
+
 export const fmt = (v: number): string => String(Math.round(v * 1e5) / 1e5 || 0);
 
 const matrix = (m: Mat): string => `matrix(${m.map(fmt).join(' ')})`;
@@ -207,6 +212,14 @@ export function toSVG(
   const paint = opts.paint ?? staticSlots();
   const id = opts.id ?? 'a';
   const { root, defs } = sceneTree(p.model);
+  const ordered = (els: El[]): El[] => {
+    if (new Set(els.map((el) => el.node)).size !== els.length) return els;
+    const out = sceneOrder(
+      p,
+      els.map((el) => el.node),
+    );
+    return out.map((i) => els.find((el) => el.node === i)!);
+  };
   const ser = (el: El): string => {
     const a = attrs(p, el, paint, id);
     if (opts.staticLengths && a.pathLength === '1') {
@@ -235,7 +248,7 @@ export function toSVG(
       .map(([k, v]) => ` ${k}="${esc(v!)}"`)
       .join('');
     return el.kids.length
-      ? `<${el.tag}${at}>${el.kids.map(ser).join('')}</${el.tag}>`
+      ? `<${el.tag}${at}>${ordered(el.kids).map(ser).join('')}</${el.tag}>`
       : `<${el.tag}${at}/>`;
   };
   const [x, y, w, h] = p.model.viewBox;
@@ -245,5 +258,5 @@ export function toSVG(
     ? `<rect x="${fmt(x)}" y="${fmt(y)}" width="${fmt(w)}" height="${fmt(h)}" fill="${esc(opts.background)}"/>`
     : '';
   const defsText = defs.length ? `<defs>${defs.map(ser).join('')}</defs>` : '';
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${[x, y, w, h].map(fmt).join(' ')}"${size}>${defsText}${bg}${root.map(ser).join('')}</svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${[x, y, w, h].map(fmt).join(' ')}"${size}>${defsText}${bg}${ordered(root).map(ser).join('')}</svg>`;
 }

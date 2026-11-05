@@ -63,9 +63,22 @@ export function decompile(doc: string | object): string {
       }
       return child;
     };
+    const arrays = new Set<string>();
     for (const [name, form] of Object.entries(ELEMENTS)) {
       if (!form.target) continue;
       for (const key of form.target.choices) {
+        if (n[key] === undefined) continue;
+        if (form.target.array) {
+          if (arrays.has(key)) continue;
+          arrays.add(key);
+          for (const entry of n[key] as Obj[])
+            for (const [childName, childForm] of Object.entries(ELEMENTS)) {
+              if (!childForm.target?.array || !childForm.target.choices.includes(key)) continue;
+              const data = entry[childForm.target.wrapper!];
+              if (data) el.children.push(structural(childName, obj(data)));
+            }
+          continue;
+        }
         const data = obj(n[key]);
         if (!Object.entries(form.values ?? {}).every(([k, v]) => data[k] === v)) continue;
         const child = structural(name, data);

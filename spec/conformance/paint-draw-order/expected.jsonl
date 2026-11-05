@@ -1,0 +1,3 @@
+{"time":0,"values":{"a.drawOrder.active":true},"states":{"l":"s"},"events":[],"settled":false}
+{"time":0.5,"values":{"a.drawOrder.active":true},"states":{"l":"s"},"events":[],"settled":false}
+{"time":1,"values":{"a.drawOrder.active":false},"states":{"l":"s"},"events":[],"settled":true}

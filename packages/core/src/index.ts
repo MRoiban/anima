@@ -17,6 +17,7 @@ export { runScript, ScriptError, type Snapshot } from './script.ts';
 export { localMatrix, mul, invert, apply, IDENTITY, type Mat } from './geom.ts';
 export {
   sceneTree,
+  sceneOrder,
   attrs,
   toSVG,
   cssSlots,

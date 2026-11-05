@@ -437,3 +437,28 @@ one; full parity stays the point — and decided three things, now in the plan:
    the owner's thread, authoring all nine Glyphy icons in AniML, pasted the same hover/press layer
    into every file and embedded a glyph twice (moon's stars reuse the sparkle); M5's friction notes
    agree. Order now: P4a → P5 → Pc → P4b–e → P3b → P6 → P7 → P8 → P9 → P10.
+## P4a-3 — compositing implementation, local branch (2026-11-05)
+
+- Added blend modes, named alpha/luminance/inverted masks, geometry clips, ordered paints and paint
+  visibility, single-stroke placement, and hold activation of sibling draw rules. All module code
+  is in `composite.ts`; `paint/index.ts` composes its hooks at registration. Retained masks wrap
+  transformed node groups permanently; source definitions are shared and remain animated when
+  ordinary source drawing is hidden. Clip outlines are projected to parent space because nested
+  groups inside SVG clip paths did not render in either browser. No Rive source/algorithms used.
+- Added generic module init/order/cross-node invalidation hooks and repeated structural paint forms
+  in AniML. `anima schema` exposes mask/clip/drawOrder/paints; schema and authoring artifacts are
+  regenerated. Nine hand-computed conformance cases and `examples/composite.animl` cover the features.
+  Parity construct/test mappings updated; statuses remain for the orchestrator.
+- Acceptance remains incomplete: paint 5768/5120 B incremental before geometry integration
+  (+3677 B relative to P4a-1's 2091 B); core+web 16648 B (+187 B from d3e19ef), markup 6727/8192 B.
+  Projected clips, shared source trees and reuse of paint sampling/rendering account for the module
+  growth. Budget has not been raised. Additive blending is deferred for renderer inconsistency;
+  multiple-paint strokes currently reject inside/outside placement. Rive oracles were not run.
+- Verification issues encountered: a full run hit the existing exhaustive formatter test's 5 s
+  timeout under parallel load (isolated rerun passed in 1.27 s); an edit during a later run made
+  the paint artifact stale (regenerated). It recurred at 5.2 s in a fresh run; the exhaustive non-browser test now has a 15 s timeout,
+  preserving every prefix and assertion. Browser assertions and timeouts were not changed.
+- Final verification: `npm run check` passes typecheck, lint, formatting and all 623 tests across
+  30 files (including Chromium and Firefox), then exits 1 only at paint size 5768/5120 B. Separate
+  `build-web --check`, `build-animl --check` (29 files) and `parity --check` pass. No budget changes,
+  push, PR or merge. This remains a partial acceptance handoff for size and geometry integration.
