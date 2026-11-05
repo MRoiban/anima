@@ -103,9 +103,27 @@ markup with the Rive CLI's local tooling (no account commands, no `.riv` reading
 success against the brief, attempts and validate/render iterations, wall time, and the diagnostics
 and friction hit. A regression against the previous run is a bug fixed before the phase's PR merges.
 
+**Size ceilings** (owner, 2026-11-06; min+gzip; enforced by `tools/size.ts`). Rive's web runtime is
+about 1 MB; Anima stays far below it.
+
+| Use case | What loads | Ceiling |
+|---|---|---|
+| An icon on a page | core + web, plus only the modules that icon uses | core + web ≤ 30 KB; each module ≤ 5–8 KB |
+| Full-featured animation | core + web + most modules, SVG renderer | ≤ 100 KB total |
+| Rive-class scenes | adds the canvas/WebGL renderer, rigging, text | ≤ 200–250 KB total |
+| Tools (playground, CLI) | run locally | no limit |
+
+Rules: core + web is the number that matters (every page pays for it; under 30 KB at full parity).
+Pay only for what you use: new features go into on-demand modules, and an over-budget module is
+split before anyone asks to raise it. Over a module's own budget inside the ceilings is fine with a
+reason in LOG; crossing a use-case ceiling is the owner's call — stop and ask. Over ~250 KB total
+is out of scope: heavy code (canvas/WebGL, rigging, text, scripting) loads only when a document
+needs it. Size is not the only cost: compile time and per-frame cost are tracked next to bytes.
+
 **Tracked per phase** (in each phase's LOG entry and PR summary): core + web and every module's
-size (`tools/size.ts`) and compile time (`tools/perf.ts`: one bell compile, and the prefix sweep
-the robustness test runs), with the previous phase's numbers beside them.
+size and the use-case totals (`tools/size.ts`), compile time and per-frame cost (`tools/perf.ts`:
+one bell compile, the prefix sweep the robustness test runs, and step + draw frame for the bell
+and the composite example), with the previous phase's numbers beside them.
 
 Every capability counts as done only with: a spec section, registry entries (both
 syntaxes), diagnostics, conformance cases, an AniML example with its `.ani`, CLI support, a size check
@@ -139,7 +157,8 @@ and an oracle test against Rive.
         shouldn't be a blocker"); still tracked per phase.
   - [x] P4a-7 benchmark friction: pose path strings, group clips, optional clip rule,
         `anima schema pose`, dash caps in the docs.
-  - [ ] P4a oracle cases against the Rive CLI for the paint features (MODULES §5).
+  - [ ] P4a oracle cases against the Rive CLI for the paint features (MODULES §5) — **before P5
+        merges** (owner, 2026-11-06).
 - [ ] P5-3 AniML libraries/templates: implementation present; acceptance blocked on the unchanged 8192 B markup budget (see LOG).
 - [ ] P5 Components and assets — **moved up** (owner, 2026-11-06): nested artboards / components,
       per-instance inputs, shared glyph and layer libraries (the reuse friction from M5 and from

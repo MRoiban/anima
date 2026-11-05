@@ -76,3 +76,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 10:40 [claude]: PR #10 merged (e0957cb); P5 design decided (design/p5/DESIGN.md: templates/libraries in AniML, components, bind expressions, assets)
 - 2026-11-06 10:50 [claude]: P5 wave 1 launched (Sol high): P5-1 bind, P5-3 AniML libraries/templates, P5-4 assets+image; components (P5-2) after bind
 - 2026-11-06 12:00 [claude]: merged P5-3 templates (a119eba): 767 tests, examples byte-identical; markup 9506/8192 over → split library support into its own browser entry; compile time unchanged on fixed workload (interleaved 818–1092 vs 881–995 ms)
+- 2026-11-06 13:00 [claude]: merged P5-1 bind (fdcc4cc): 846 tests, bind 1367/2048; owner size ceilings recorded (PLAN, parity README, table-driven tools/size.ts with totals: full-featured 34.7 KB); per-frame cost in tools/perf.ts; oracle cases scheduled before P5 merge

@@ -76,6 +76,11 @@ pays only for the modules its documents declare. Budgets are min+gzip, measured 
 
 Budgets are first estimates; each phase measures its module and records it in `docs/LOG.md`.
 
+**Ceilings** (owner, 2026-11-06; min+gzip): core + web ≤ 30 KB; each module ≤ 5–8 KB (split before
+raising); a full-featured page (core + web + every SVG-path module) ≤ 100 KB; a Rive-class page
+(adding canvas/WebGL, rigging, text, scripting) ≤ 200–250 KB; tools unlimited. Crossing a use-case
+ceiling is the owner's call. `tools/size.ts` checks every module's budget and both totals.
+
 ## Phase order
 
 Weighted toward what the owner uses: the web runtime, AniML, Glyphy and the playground first. Since

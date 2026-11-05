@@ -707,3 +707,14 @@ The initial baseline timings above came from a quieter run. No budgets or test l
   covered. Status/module/phase decisions remain with the orchestrator; view models and instance
   input destinations remain P4e / P5-2. No Rive commands or oracle runs, dependencies, licence,
   push, PR or merge.
+
+## Size ceilings (owner, 2026-11-06)
+
+Size is now a clear line, not a per-phase argument (min+gzip; Rive's web runtime is about 1 MB):
+core + web ≤ 30 KB (16.9–17.0 KB now); each module ≤ 5–8 KB, split before raising; full-featured
+page ≤ 100 KB (34.7 KB now: core + web + markup + paint + composite + bind); Rive-class page
+≤ 200–250 KB; tools unlimited. Crossing a use-case ceiling is the owner's call. `tools/size.ts` is
+now table-driven: every module's budget, the module ceiling, and both use-case totals (one bundle
+per class, so shared code counts once). `tools/perf.ts` adds per-frame cost (Player.step +
+drawFrame: bell ~85–115 µs, composite example ~55–70 µs on this machine, varying with load) next
+to compile time. The Rive oracle cases for P4a are scheduled before P5 merges.
