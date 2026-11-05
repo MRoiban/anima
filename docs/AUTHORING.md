@@ -31,6 +31,9 @@ its pick, grid and metadata. Keep rest transforms at identity and added parts at
 `opacity="0"` or `scale="0"` to preserve the static glyph.
 
 Split parts with `subpaths="0 1"`. Indices start at 0, in the order of `M` commands in `d`.
+`anima inspect bell.animl` lists each glyph's indices and bounding boxes in grid units
+(`minX minY maxX maxY`), also available with `--format=json`. A “likely hole” hint means
+only that another subpath's bbox contains it; inspect the geometry before splitting.
 Keep a hole and its outline together with `fill-rule="evenodd"`. Render parts separately
 when their indices are unclear. `examples/bell.animl` shows the real bell split.
 
@@ -42,6 +45,20 @@ when their indices are unclear. `examples/bell.animl` shows the real bell split.
   <path id="clapper" glyph="shape" subpaths="2" pivot="10 9" fill="currentColor"/>
 </group>
 ```
+
+Check source parity directly, without an external comparison harness:
+
+```sh
+anima render bell.animl --compare fixtures/glyphs/bell.svg
+anima render bell.animl --compare fixtures/glyphs/bell.svg --size 256 --tolerance 0 -o diff.png
+```
+
+Comparison renders both SVGs at the same square size (default 256), on transparency,
+with `currentColor` set to black regardless of `--current` or `--dark`. Explicit paint
+colours and slot overrides still apply. It reports differing RGBA pixels, maximum channel
+difference and pass/fail; exit 1 means a channel exceeds `--tolerance` (0–255, default 0).
+The optional diff PNG shows maximum channel differences as grayscale (black is identical).
+Use `--at` or a script to check a later frame; `--sheet` cannot be combined with comparison.
 
 See `docs/research/glyphy-compat.md` for the grid, outline and stroke conventions.
 
@@ -146,7 +163,11 @@ Scripts accept `advance <seconds> [in <steps>]`, `set <input> <value>`, `fire <i
 `toggle <input>`, `pointer move|down|up|click <x> <y>`, `pointer leave`,
 `motion reduce|full` and `snapshot [addresses]`. Pointer coordinates use grid units.
 Input writes queue until a step; `advance 0` processes them without advancing time.
-Snapshots report values, states, events and `settled`. Check that one-shots settle.
+Snapshots report values, states, events and `settled`. Select bool/number inputs alongside
+animated addresses with `snapshot dark knob.x`; input values appear under their names.
+They reflect applied values, so step first to process queued writes. Triggers have no
+persistent value. Without a list, snapshots still contain only animated addresses.
+Check that one-shots settle.
 
 Sheets start at the end of the script and sample until settled, or for `--over <seconds>`.
 Use `--dark` and `--color accent=#e08a6d` to check themes. Check rest parity, pivots,

@@ -134,6 +134,112 @@ describe('anima render', () => {
     }
   });
 
+  it('compares same-size black-ink renders with a source SVG and reports failure', async () => {
+    const source = join(ROOT, 'fixtures/glyphs/bell.svg');
+    const generated = join(tmp, 'compare-bell.ani');
+    await cli('new', 'bell', '--glyph', source, '-o', generated, '--force');
+    const good = await cli('render', generated, '--compare', source, '--format=json');
+    expect(good.code).toBe(0);
+    expect(JSON.parse(good.out)).toMatchObject({
+      differingPixels: 0,
+      maxChannelDifference: 0,
+      pass: true,
+    });
+    const bad = await cli(
+      'render',
+      BELL,
+      '--compare',
+      source,
+      '--current',
+      '#ff0000',
+      '--format=json',
+    );
+    expect(bad.code).toBe(1);
+    expect(JSON.parse(bad.out).differingPixels).toBeGreaterThan(0);
+  });
+
+  it('compares AniML frames, normalizes ink and viewport, and writes a tolerance diff', async () => {
+    const source = join(ROOT, 'fixtures/glyphs/moon.svg');
+    const generated = join(tmp, 'compare-moon.animl');
+    expect((await cli('new', 'moon', '--glyph', source, '-o', generated, '--force')).code).toBe(0);
+    const good = await cli(
+      'render',
+      generated,
+      '--compare',
+      source,
+      '--current',
+      '#ff0000',
+      '--dark',
+      '--format=json',
+    );
+    expect(good.code, good.err).toBe(0);
+    expect(JSON.parse(good.out)).toMatchObject({ size: 256, pass: true, differingPixels: 0 });
+    const diff = join(tmp, 'diff.png');
+    const frame = await cli(
+      'render',
+      join(ROOT, 'examples/moon.animl'),
+      '--compare',
+      source,
+      '-e',
+      'toggle dark; advance 0',
+      '--at',
+      '0.3',
+      '--size',
+      '32',
+      '-o',
+      diff,
+      '--format=json',
+    );
+    expect(frame.code, frame.err).toBe(1);
+    expect(JSON.parse(frame.out)).toMatchObject({ size: 32, pass: false });
+    expect(JSON.parse(frame.out).maxChannelDifference).toBeGreaterThan(0);
+    const png = new Resvg(
+      `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><image width="32" height="32" href="data:image/png;base64,${readFileSync(diff).toString('base64')}"/></svg>`,
+    ).render();
+    expect(png.width).toBe(32);
+    expect(png.height).toBe(32);
+    const tolerated = await cli(
+      'render',
+      join(ROOT, 'examples/moon.animl'),
+      '--compare',
+      source,
+      '-e',
+      'toggle dark; advance 0',
+      '--at',
+      '0.3',
+      '--size',
+      '32',
+      '--tolerance',
+      '255',
+      '--format=json',
+    );
+    expect(tolerated.code).toBe(0);
+    expect(JSON.parse(tolerated.out)).toMatchObject({
+      pass: true,
+      pixelsBeyondTolerance: 0,
+      differingPixels: JSON.parse(frame.out).differingPixels,
+    });
+    expect((await cli('render', generated, '--compare', source)).out).toContain(
+      'PASS: 0 differing pixels',
+    );
+  });
+
+  it.each([
+    ['--tolerance', '-1'],
+    ['--tolerance', '256'],
+    ['--tolerance', 'NaN'],
+    ['--tolerance', '0.5'],
+    ['--size', '0'],
+    ['--size', 'NaN'],
+    ['--sheet', '2'],
+    ['-o', 'diff.svg'],
+  ])('rejects invalid compare options %s %s', async (flag, value) => {
+    expect(
+      (await cli('render', BELL, '--compare', join(ROOT, 'fixtures/glyphs/bell.svg'), flag, value))
+        .code,
+    ).toBe(2);
+  });
+
   it('matches the Rive reference frames', async () => {
     for (const [frame, , diff] of await compareWithRive()) expect(diff, frame).toBeLessThan(4);
   });
@@ -226,7 +332,12 @@ describe('anima inspect, schema, docs', () => {
     const s = JSON.parse(r.out);
     expect(s.layers.map((l: { name: string }) => l.name)).toEqual(['ring', 'hover']);
     expect(s.overlaps).toEqual([]);
-    expect((await cli('inspect', BELL)).out).toMatch(/ringing: play ring, emit rang/);
+    expect(s.glyphs.bell.subpaths.length).toBeGreaterThan(0);
+    expect(s.glyphs.bell.subpaths[0]).toHaveProperty('bbox');
+    const text = (await cli('inspect', BELL)).out;
+    expect(text).toMatch(/ringing: play ring, emit rang/);
+    expect(text).toContain('glyphs (bbox:');
+    expect(text).toContain('likely hole of 0');
   });
 
   it('schema describes node types and paint', async () => {
