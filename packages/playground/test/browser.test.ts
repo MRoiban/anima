@@ -58,7 +58,8 @@ for (const [name, type, executablePath] of BROWSERS) {
         reducedMotion: 'no-preference',
         colorScheme: 'light',
       });
-      page.setDefaultTimeout(6000);
+      // Generous: the full suite runs both browsers in parallel with the web tests.
+      page.setDefaultTimeout(15000);
       await page.goto(host.url);
       await page.waitForFunction(() => !!document.querySelector<AnimaIcon>('#icon')?.player);
     });
