@@ -6,7 +6,7 @@ import { chromium, firefox } from 'playwright-core';
 import { expect, it } from 'vitest';
 import { PNG } from 'pngjs';
 import { load, Player, toSVG } from '../../core/src/index.ts';
-import { bundle } from '../../../tools/browser-build.ts';
+import { cachedBundle as bundle } from '../../../tools/browser-cache.ts';
 import type { AnimaIcon } from '../src/index.ts';
 const doc = () => JSON.parse(readFileSync('examples/image-paints.ani', 'utf8'));
 for (const [name, type, path] of [

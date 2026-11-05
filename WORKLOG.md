@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: wave 1 Sol: bind module; AniML libraries/templates; assets+image (parallel). Then components (after bind), n-slice/feather/image paints, P5 benchmark.
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: P5-7 complete on t3/animl-surface-markup-hooks (base ab11a92).
+Verified: three consecutive default npm run check passes; 52 files / 1045 tests, no skips; 57 AniML artifacts; 13 browser entries + cache manifest freshness.
+Size B: core+web 17541; markup 7357/8192; components 4000/4096; surface 7921/8192; every module/hook within its unchanged budget.
+Perf: before/three-run after table in docs/LOG.md; compile/frame measuring methods unchanged.
+Next: hand off local commit for parent integration. No push, PR, merge or publication authorized.
+Don't: loosen tests/budgets/measurement; add runtime deps; read .riv/run Rive; modify Glyphy.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -86,3 +87,20 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-07 00:10 [claude]: merged P5 benchmark Rive run (4b04ee2): 6/6, 10m48s, 997 lines/73k chars incl. generator + self-made digit font; frame 08 checked (badges 3 and 2)
 - 2026-11-07 00:40 [claude]: P5-5 (fe7438f) partial: image paints done; new surface module (n-slice + feather, 7576/8192) without nested AniML forms; 3 markup test failures; held unmerged until P5-6 markup split lands, then one markup-owner follow-up (design/p5/SURFACE-HANDOFF.md on that branch)
 - 2026-11-07 01:30 [claude]: merged P5-6 split (444194; compile interleaved ~867→842 ms, no regression) and P5-5 surface (fe7438f); 988/993 tests (3 markup fixture/name tests, demo); markup 8255 over again → P5-7 markup owner follow-up
+- 2026-11-05 21:41 [sol]: P5-7 baseline tools failed without dependencies → npm ci; size fails markup 8255/8192; perf baseline recorded above (evidence: tools/size.ts, tools/perf.ts).
+- 2026-11-05 21:41 [sol]: nested surface forms, generic scalar decoding, conformance sources and runtime retries pass focused tests; all budgets now pass (markup 7282, components 3994 B); Playwright coreBundle addScriptContent does not await inline ESM (evidence: 420 focused tests, tools/size.ts).
+- 2026-11-05 21:44 [sol]: first full-check attempt found new ordered-image test retained old fill track address and markup dist was stale after final source edit → corrected track to paints.1.stroke.imageX; rebuild/restart verification (evidence: /tmp/anima-p5-7-check-1.log, targeted ordered-image failure).
+- 2026-11-05 21:46 [sol]: first full attempt completed 1025/1030; two additional failures exposed duplicate library requests from retrying an in-flight async source → registration retries now wait for failed attempts, with a revision check for modules arriving during compilation (unverified; evidence: check-1 log).
+- 2026-11-05 21:48 [sol]: browser regressions pass 88/88 in Chromium/Firefox, including one-request inline imports and a module registering during a held import; generic ease refactor hardened against absent curves with regression tests (evidence: /tmp/anima-p5-7-browser.log; latter unverified).
+- 2026-11-05 21:51 [sol]: added nested-instance import-order regression → fails on both browsers at /components/pair with misplaced-element when markup loads first; fix will allow current registry node types in component bodies like document bodies (evidence: /tmp/anima-p5-7-nested-order.log).
+- 2026-11-05 21:52 [sol]: nested-instance order fix passes both browsers; preliminary full check passes 1035 tests and all sizes; all 13 stale artifacts rejected/restored; starting three fresh full checks on unchanged final code (evidence: nested-order-fixed.log, check-1.log, stale.log under /tmp/anima-p5-7-*).
+- 2026-11-05 21:55 [sol]: stopped final-check coordinator before completion to correct registration-listener ownership: listeners now attach with observation, detach on disconnect, and pending sources retry on reconnect (unverified; prevents retaining detached icons).
+- 2026-11-05 21:57 [sol]: lifecycle/order hook suite passes 18/18 and typecheck passes; aborted run also hit unchanged 5 s prefix limit while extra verification overlapped → final sequence will run without overlapping build/test work (evidence: hooks-final.log and stopped check-1.log under /tmp/anima-p5-7-*).
+- 2026-11-05 22:01 [sol]: direct browser imagePaint compile across separate bundles reproduced bad-value at /nodes/0/fill/type: surface enum extension lived only in runtime init, not replayable entries → added optional registry preparation hooks and a surface-only enum preparation; final sequence paused for regression coverage (unverified; direct browser diagnostic recorded in tool output).
+- 2026-11-05 22:05 [sol]: replaced the surface-specific preparation experiment with generic live DOC/fill/stroke shape synchronization after module replay, also covering scoped component listener/action schemas without adding component-hook bytes (unverified; evidence: web markup/index source and expanded order tests).
+- 2026-11-05 22:07 [sol]: live-registry fix passes 18 browser hook tests in Chromium/Firefox, including image paints and scoped component events; size passes (markup 7337, components 4000, surface 7921 B), demo rebuilt → starting final three-run sequence with no concurrent verification work (evidence: registry-final.log, sizes-final.log under /tmp/anima-p5-7-*).
+- 2026-11-05 22:11 [sol]: expanded ordered-paint round-trip coverage to numeric/percentage dash arrays; structural decoding now delegates union length arrays to the existing optional lengths hook, matching node attribute decoding; stopped incomplete final run before this correction (unverified).
+- 2026-11-05 22:14 [sol]: new dash test correctly hit the existing one-unit validator when mixing grid lengths and percentages → tests now cover valid uniform numeric/percentage arrays and explicitly preserve rejection of mixed units; no validator or limit changed (evidence: targeted surface test bad-value).
+- 2026-11-05 22:20 [sol]: default full run failed unchanged CLI 5 s test and 30 s markup-hook setup (repeated minification); added hash-verified artifact reuse for browser tests plus pretest freshness check, retaining raw bundle() for size measurement; 5 cache integrity tests pass, full check running (evidence: browser-cache.test.ts, /tmp/anima-p5-7-cache-check.log).
+- 2026-11-05 22:27 [sol]: final three default npm run check runs pass 1045/1045 without skips, all sizes/freshness/perf green; defaults/limits unchanged (evidence: /tmp/anima-p5-7-final-check-1.log, -2.log, -3.log; metrics in docs/LOG.md).
+- 2026-11-05 22:27 [sol]: final negative freshness check rejected all 13 entry artifacts plus cache manifest; restored artifacts pass; PLAN/handoff/LOG updated for 4/4 completion and local commit (evidence: /tmp/anima-p5-7-final-stale.log).

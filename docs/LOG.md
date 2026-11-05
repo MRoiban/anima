@@ -907,3 +907,97 @@ not a claimed speedup. Local commit only; no push or PR.
   **50.0/34.0/40.7 µs**; bell compile **5.40 ms**, prefixes **975 ms**, toolbar compile **4.27 ms**.
   Compile results remain noisy across the same session; no timing gate was relaxed. Final
   typecheck/lint/format pass after the last source change, as do the focused core/CLI assertions.
+
+## P5-7 — Surface markup and registration order (2026-11-05)
+
+- Implemented descriptor-driven nested targets, structural object children, scalar arrays and
+  positional tuples. Slice is a node child; feather targets a single or ordered paint while
+  retaining its colour/gradient/image. Empty/disabled feather settings round trip. Added standalone
+  slice/feather examples, all three draw-conformance AniML sources, array/tuple and diagnostic tests.
+  `spec/ANIML.md` documents the syntax and hook lifecycle; `build-animl` checks draw sources too.
+- The lean compiler no longer imports `core/all` through name helpers; the tooling entry does.
+  Generic shape decoding remains shared; surface loads the structural routing hook through
+  `markup-surface`. Document/component scopes share ease-declaration handling, including trimmed
+  names and missing-curve diagnostics, giving components headroom without changing its budget.
+  The optional dependency boundary follows `docs/research/rive-web-runtime.md` §1's discussion of
+  runtime variants. No Rive code, commands or `.riv` files were used.
+- The bind test raced inline ESM evaluation: Playwright's local `addScriptContent` appends the
+  element and returns without awaiting module evaluation. It now waits for actual paint/bind
+  registration. Separately, source upgrades could permanently fail before a compiler/hook/module
+  registered. Failed loads now retain a retry, registration notifies them through the active class,
+  and destruction cancels it. Registration listeners detach with the icon; reconnecting retries
+  retained failed sources. In-flight compiles are not duplicated; a changed registry snapshot
+  retries after failure. Chromium/Firefox tests cover both orders, delayed evaluation, explicit
+  loading, nested component instances and registration during a held library fetch.
+- Separate-bundle compilation now mirrors live document/fill/stroke schema refinements after
+  replaying module entries. Runtime initialization extends image paint types and component
+  listener/action paths outside those entries; replay alone rejected valid image paints. Browser
+  markup tests include image paints with feather and child-component event listeners in both
+  import orders. The shared shape containers are copied so compiler registration cannot mutate
+  the runtime's registry.
+- A second real ordering bug was reproduced on both browsers: the root-content table predates
+  late node registration, so an instance in a component was rejected after markup-first loading.
+  Component bodies now accept current registry node types just as document bodies do. Existing
+  loaded players remain unchanged by registration.
+- Expectations changed: `STATIC.circle` adds `slice` because surface installs it on generic nodes.
+  The exact group attribute list stays unchanged because slice is structural. The provisional
+  core test expecting an explicit `fill-feather` decompile error now asserts successful nested
+  output and exact round trip. Fixture/corpus coverage was extended, including all draw inputs;
+  no coverage, timing limit, budget or measuring method was weakened.
+- `build-web` emits and checks its table directly (13 entries), including surface, bind, assets,
+  components and every markup hook. Deliberately corrupting all 13 artifacts made `--check` reject
+  every one with exit 1; the final check also rejected the corrupted cache manifest. Restoring all artifacts passed. The standalone demo was rebuilt.
+
+- Default-concurrency verification exposed a separate test setup cost: repeated minification
+  hit the unchanged 30 s hook setup and a CLI example's 5 s deadline. Browser tests now reuse
+  artifacts only when SHA-256 hashes of all current source/build/dependency inputs and the output
+  bytes match. Five integrity tests reject changed source, registry, build inputs, dependencies,
+  output and missing cache data. `pretest` checks/builds artifacts before timed tests; stale cache
+  falls back to the original bundler. `tools/size.ts` still calls the original uncached `bundle()`;
+  neither size/perf measurement nor any timeout, assertion, coverage or budget was relaxed.
+
+| Bundle | Before B | After B | Budget/ceiling B |
+|---|---:|---:|---:|
+| core+web | 17388 | 17541 | 30720 |
+| markup | 8255 | 7357 | 8192 |
+| markup-libraries (over web+markup) | 1799 | 1765 | 2048 |
+| markup-components (over web) | 468 | 377 | 2048 |
+| markup-paint (over web) | 300 | 370 | 2048 |
+| markup-surface (over web) | — | 370 | 2048 |
+| markup-bind (over web) | 134 | 128 | 2048 |
+| paint | 4214 | 4283 | 5120 |
+| composite | 3816 | 3886 | 4096 |
+| bind | 1551 | 1546 | 2048 |
+| assets | 1460 | 1527 | 2048 |
+| surface | 7921 | 7921 | 8192 |
+| components | 4079 | 4000 | 4096 |
+| full-featured total | 43382 | 44008 | 102400 |
+| Rive-class total | 43382 | 44008 | 256000 |
+
+- Baseline `tools/perf.ts`: `compile: bell 2.62 ms; all 9040 prefixes 902 ms`;
+  `frame: bell 60.5 µs; composite 43.2 µs`; `frame: toolbar 51.5 µs (step + draw, 4 instances)`;
+  `compile: toolbar 4.39 ms`. Absolute timings vary with shared-host load; the unchanged tests
+  remain the timing gate. Final three-run measurements and verification are recorded below.
+- Early full verification found an incorrectly retained single-paint track in the new ordered
+  image test, stale dist after a final source edit, and duplicate in-flight import fetches; all
+  were corrected. The nested-instance order test was also demonstrated failing before its fix.
+  Task instructions require a local commit only: no push, PR, merge, publication or dependency.
+
+
+Final verification: **three consecutive `npm run check` runs at default concurrency passed**;
+**52 files / 1045 tests**, no skips on each run. Each included typecheck, lint, format, both browser
+engines, raw size measurement, browser/demo and 57 AniML freshness checks, and `tools/perf.ts`.
+All four P5-7 task items are complete. Final run logs are `/tmp/anima-p5-7-final-check-{1,2,3}.log`.
+
+| `tools/perf.ts` metric | Before | Check 1 | Check 2 | Check 3 |
+|---|---:|---:|---:|---:|
+| bell compile (ms) | 2.62 | 2.40 | 2.22 | 2.85 |
+| all 9040 prefixes (ms) | 902 | 780 | 870 | 615 |
+| toolbar compile (ms) | 4.39 | 3.74 | 3.32 | 3.53 |
+| bell frame (µs) | 60.5 | 41.2 | 50.2 | 37.6 |
+| composite frame (µs) | 43.2 | 27.3 | 31.7 | 25.3 |
+| toolbar frame, 4 instances (µs) | 51.5 | 27.8 | 28.1 | 24.8 |
+
+These are the unchanged tool's wall-time observations on a shared host, not a claim of a frame
+speedup. Player/step/draw implementations did not change in P5-7. No packages were published and
+no push, PR or merge was performed; the work is handed back as a local branch commit.

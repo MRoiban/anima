@@ -11,6 +11,32 @@ const kind = (s: Shape): Kind =>
       : s.k === 'str' && s.re === NAME
         ? 'name'
         : 'string';
+// Structural arrays contain scalar tokens; tuple arity and enum/range constraints still belong
+// to the strict loader. Preserve the attribute origin for each decoded entry.
+function readShape(compiler: Compiler, a: Attr, shape: Shape, p: string): unknown {
+  if (shape.k === 'arr' && shape.of.k === 'alt') return compiler.read(a, 'lengths', p);
+  if (shape.k === 'arr' || shape.k === 'tup') {
+    const text = a.value.trim();
+    const parts = text ? text.split(/\s*,\s*|\s+/) : [];
+    if (parts.some((value) => !value))
+      compiler.error(
+        'bad-attribute',
+        p,
+        a.valueAt,
+        VERBOSE ? 'expected scalar tokens separated by whitespace or single commas' : '',
+        VERBOSE ? 'remove empty list items' : '',
+      );
+    return parts.map((value, i) =>
+      readShape(
+        compiler,
+        { ...a, value },
+        shape.k === 'arr' ? shape.of : (shape.of[i] ?? shape.of[0]!),
+        ptr(p, i),
+      ),
+    );
+  }
+  return compiler.read(a, kind(shape), p);
+}
 export const paintMarkup = {
   nodes(compiler: Compiler): string[] {
     return Object.keys(compiler.elements).filter((k) => compiler.elements[k]!.target);
@@ -44,7 +70,8 @@ export const paintMarkup = {
           'bad-attribute',
           p,
           selector?.valueAt ?? c.at,
-          VERBOSE ? 'invalid paint target' : '',
+          VERBOSE ? 'invalid structural target' : '',
+          VERBOSE ? `choose ${form.target.choices.join(' or ')}` : '',
         );
         continue;
       }
@@ -58,15 +85,30 @@ export const paintMarkup = {
         });
         continue;
       }
-      const parent = compiler.container(o, key, p, c.at);
-      if (parent.color !== undefined || parent.type !== undefined)
+      let parent = o;
+      let pointer = p;
+      let present = false;
+      for (const part of [key, ...(form.target.path ?? [])]) {
+        present = Object.hasOwn(parent, part);
+        parent = compiler.container(parent, part, pointer, c.at);
+        pointer = ptr(pointer, part);
+      }
+      if (!form.values && present)
+        compiler.error(
+          'duplicate-name',
+          pointer,
+          c.at,
+          VERBOSE ? 'object declared twice' : '',
+          VERBOSE ? 'keep one child per target' : '',
+        );
+      if (!form.target.path && (parent.color !== undefined || parent.type !== undefined))
         compiler.error(
           'paint-attribute',
           ptr(p, key),
           c.at,
           VERBOSE ? 'paint already has a colour or gradient' : '',
         );
-      Object.assign(parent, compiler.build(c, ptr(p, key)));
+      Object.assign(parent, compiler.build(c, pointer));
     }
   },
 };
@@ -79,6 +121,7 @@ export const structuralForms = {
       const children: string[] = [];
       for (const [k, s] of Object.entries(form.shape.p)) {
         if (s.k === 'arr' && s.of.element) children.push(s.of.element);
+        else if (s.k === 'obj' && s.element) children.push(s.element);
         else attrs[markupName(s, k)] = k === 'color' ? 'color' : kind(s);
       }
       if (form.target) attrs[form.target.attribute] = 'string';
@@ -86,7 +129,11 @@ export const structuralForms = {
         attrs,
         children,
         required: form.shape.req
-          ?.filter((k) => form.shape.p[k]?.k !== 'arr')
+          ?.filter(
+            (k) =>
+              !children.includes(form.shape.p[k]?.element ?? '') &&
+              !(form.shape.p[k]?.k === 'arr' && form.shape.p[k].of.element),
+          )
           .map((k) => markupName(form.shape.p[k], k)),
       };
     }
@@ -108,13 +155,38 @@ export const structuralForms = {
         if (!list.length && !form.shape.req?.includes(k)) continue;
         compiler.put(o, k, [], p, el.at);
         list.forEach((c, i) => (o[k] as unknown[]).push(compiler.build(c, ptr(ptr(p, k), i))));
+      } else if (s.k === 'obj' && s.element) {
+        const list = children.filter((c) => c.name === s.element);
+        for (const c of list) {
+          const target = compiler.elements[c.name]?.target;
+          const selector = c.attrs.find((a) => a.name === target?.attribute);
+          if (selector && selector.value !== form.target?.wrapper)
+            compiler.error(
+              'bad-attribute',
+              ptr(p, k),
+              selector.valueAt,
+              VERBOSE ? 'nested paint target must match its wrapper' : '',
+              VERBOSE ? 'omit paint or use the enclosing paint kind' : '',
+            );
+          if (Object.hasOwn(o, k))
+            compiler.error(
+              'duplicate-name',
+              ptr(p, k),
+              c.at,
+              VERBOSE ? 'object declared twice' : '',
+              VERBOSE ? 'keep one child per target' : '',
+            );
+          else o[k] = compiler.build(c, ptr(p, k));
+        }
       } else {
         const attr = a.get(markupName(s, k));
         if (attr)
           compiler.put(
             o,
             k,
-            compiler.read(attr, k === 'color' ? 'color' : kind(s), ptr(p, k)),
+            k === 'color'
+              ? compiler.read(attr, 'color', ptr(p, k))
+              : readShape(compiler, attr, s, ptr(p, k)),
             p,
             attr.valueAt,
           );

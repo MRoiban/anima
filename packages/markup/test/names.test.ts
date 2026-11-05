@@ -1,3 +1,4 @@
+import '@anima-format/core/all';
 import { describe, expect, it } from 'vitest';
 import {
   COMMON,
@@ -93,6 +94,7 @@ describe('one registry, two spellings', () => {
       'clip',
       'drawOrder',
       'paints',
+      'slice',
     ]);
   });
 });

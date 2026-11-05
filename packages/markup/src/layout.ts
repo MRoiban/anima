@@ -37,7 +37,7 @@ export function attrOrder(name: string): string[] {
     return [
       ...(form.target ? [form.target.attribute] : []),
       ...Object.entries(form.shape.p)
-        .filter(([, s]) => s.k !== 'arr')
+        .filter(([, s]) => !(s.k === 'arr' && s.of.element) && !(s.k === 'obj' && s.element))
         .map(([k, s]) => markupName(s, k)),
     ];
   return NODE_ELEMENTS.includes(name)

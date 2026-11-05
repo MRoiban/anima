@@ -2,8 +2,7 @@
 import { componentMarkup } from '@anima-format/markup/components';
 import './index.ts';
 import type { AnimaIcon } from './index.ts';
-(
-  customElements.get('anima-icon') as typeof AnimaIcon & {
-    markupComponents?: typeof componentMarkup;
-  }
-).markupComponents = componentMarkup;
+(customElements.get('anima-icon') as typeof AnimaIcon).registerMarkup(
+  'components',
+  componentMarkup,
+);

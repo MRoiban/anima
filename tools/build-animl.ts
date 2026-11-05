@@ -7,9 +7,12 @@ import { compile } from '@anima-format/markup';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const check = process.argv.includes('--check');
-const files = globSync(['examples/**/*.animl', 'spec/conformance/*/case.animl'], {
-  cwd: root,
-}).sort();
+const files = globSync(
+  ['examples/**/*.animl', 'spec/conformance/*/case.animl', 'spec/draw-conformance/*/case.animl'],
+  {
+    cwd: root,
+  },
+).sort();
 const outputs: { file: string; text: string }[] = [];
 for (const file of files) {
   const source = readFileSync(new URL(file, new URL('../', import.meta.url)), 'utf8');

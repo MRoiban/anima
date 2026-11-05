@@ -195,7 +195,7 @@ HTML parses `<path/>` and friends as HTML, so markup in a page is wrapped in a s
   the lean `@anima-format/markup/browser` entry uses it only when registered.
 - Module compilation is optional too. `@anima-format/web/components` registers the component
   compiler hook, and `@anima-format/web/bind` registers the binding hook. Load each alongside
-  `@anima-format/web/markup`, in either order, before loading source. Without its hook,
+  `@anima-format/web/markup`, in either order. Inline and fetched sources also recover when a module arrives after the icon is connected. Without its hook,
   `<component>` / `<instance>` report `markup-components-unavailable` and `<bind>` reports
   `markup-bind-unavailable`; each diagnostic includes the source position, JSON pointer and
   a message/hint naming the entry to load (or `anima build`). The registration-only entries
@@ -208,7 +208,14 @@ HTML parses `<path/>` and friends as HTML, so markup in a page is wrapped in a s
   `markup-paint` alongside `composite` and `markup`; without it those children report
   `markup-paint-unavailable`, naming `markup-paint` in the message and hint. These hooks are
   shared through the registered element class, including across separately emitted bundles.
-  Tooling always installs all compiler hooks; CLI and playground compilation are unchanged.
+  `surface` also loads `markup-surface` (the structural routing hook), including image paints,
+  slices and feathering. Tooling's main entry registers all modules and hooks; the lean browser
+  entry imports neither `core/all` nor the tooling entry. CLI and playground compilation are unchanged.
+- Failed source loads retain their source and retry when compiler hooks or runtime modules register.
+  The initial attempt still reports diagnostics through `anima:error` and rejects its `ready` promise;
+  a registration-triggered attempt installs a fresh `ready` promise. A later successful load clears
+  the retained source. An explicit `destroy()` cancels retries. Registrations never replace an
+  already loaded player. This applies to inline scripts, fetched sources and explicit `load` calls.
 
 ## 10. Reserved for 0.2
 
@@ -362,3 +369,40 @@ declaration, with its line/column). This includes `x`, `y`, other transform attr
 `type`, `component`, `inputs`, `opacity`, `visible`, `speed`, `paused` and installed module keys
 such as `blend`, `mask` or `clip`. Instance properties keep their ordinary attribute and address;
 rename a conflicting input, for example to `pos-x`. The registry's instance shape defines the set.
+
+
+## Surface module
+
+Declare `requires="surface"` in addition to the modules used by the node/paint. Browser markup
+loads `@anima-format/web/surface` (which includes paint and `markup-surface`) alongside `markup`.
+The optional registration-only `markup-surface` entry installs structural routing without a runtime.
+
+`<slice x="0 2 6 8" y="0 2 6 8" width="16" height="16" modes="…"/>` is a child of an image,
+group or instance and maps to `node.slice`. Cut lists are numbers. Optional `modes` is a row-major
+list of `stretch`, `repeat` and `hidden`; omission defaults to stretch. The strict loader owns
+cut ordering, bounds, count, mode count and supported node types, as specified in SPEC's surface
+chapter. See `examples/slice.animl`.
+
+`<feather paint="fill" inner="1" outer="2" offset="1 -2" enabled="true" space="local"/>` maps to
+`node.fill.feather`; `paint="stroke"` selects `node.stroke.feather`. The selector defaults to fill.
+The existing flat colour, gradient or image paint stays intact, regardless of child order.
+An ordered `<fillPaint>` or `<strokePaint>` may contain `<feather …/>`; its paint is inferred from
+the wrapper, and an explicit selector must match it. Duplicate objects at a target are
+`duplicate-name`; a mismatched nested selector is `bad-attribute`. Empty `<feather/>` preserves
+an explicitly authored default object. Decompilation emits these children, including empty and
+disabled settings, without materialising defaults. See `examples/feather.animl`.
+
+`<imagePaint asset="tile" image-width="8" image-height="8"/>` replaces the selected paint's colour
+or gradient with an image paint; `paint` defaults to fill. Transform attributes are `image-x`,
+`image-y`, `image-rotate`, `image-scale-x`, `image-scale-y`; `modulate` is a hex colour. Ordered
+paints use these attributes directly on `<fillPaint type="image" …>` / `<strokePaint type="image" …>`.
+Image paints additionally require assets and paint. Feathering's Gaussian model and SVG's
+world-space limitation are specified in SPEC; this syntax makes no additional rendering promise.
+
+Structural descriptors route a selected node key through an optional nested object path (for
+example, fill → feather). Object shapes with an element name emit/consume child elements;
+arrays whose items name an element remain repeated child elements. Other structural arrays and
+tuples are scalar token lists, separated by whitespace or single commas. Their registry item
+shapes determine number, boolean or string decoding, including positional tuple member types.
+String tokens cannot contain whitespace or commas. Tuple arity, enums, ranges and minimum array
+lengths are checked by the strict loader; diagnostics retain the attribute origin and item pointer.

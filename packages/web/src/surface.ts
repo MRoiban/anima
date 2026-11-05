@@ -1,3 +1,4 @@
+import './markup-surface.ts';
 // Optional surface module; existing web entries remain independent.
 import { surface } from '@anima-format/core/surface';
 import { surfaceSVG } from '@anima-format/core/surface-svg';

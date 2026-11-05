@@ -5,7 +5,7 @@ import { chromium, firefox, type Browser } from 'playwright-core';
 import { PNG } from 'pngjs';
 import { beforeAll, afterAll, describe, it, expect } from 'vitest';
 import type { AnimaIcon } from '../src/index.ts';
-import { bundle } from '../../../tools/browser-build.ts';
+import { cachedBundle as bundle } from '../../../tools/browser-cache.ts';
 
 const rect = (id: string, color: string, extra: object = {}) => ({
   id,

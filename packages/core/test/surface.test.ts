@@ -200,9 +200,10 @@ it('rejects slicing individual vector nodes with an actionable diagnostic', () =
     }),
   );
 });
-it('does not silently drop feather fields during decompilation while nested markup support is pending', () => {
+it('preserves feather fields as nested markup during decompilation', () => {
   const d = document();
   Object.assign(d.nodes[0]!.fill, { feather: { inner: 1 } });
-  expect(decompile(d)).toContain('fill-feather=');
-  expect(compile(decompile(d)).diagnostics.length).toBeGreaterThan(0);
+  expect(decompile(d)).toContain('<feather inner="1"/>');
+  expect(compile(decompile(d)).diagnostics).toEqual([]);
+  expect(compile(decompile(d)).doc).toEqual(d);
 });

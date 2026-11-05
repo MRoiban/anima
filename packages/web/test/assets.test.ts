@@ -4,7 +4,7 @@ import { homedir } from 'node:os';
 import { resolve } from 'node:path';
 import { chromium, firefox, type BrowserType } from 'playwright-core';
 import { describe, expect, it } from 'vitest';
-import { bundle } from '../../../tools/browser-build.ts';
+import { cachedBundle as bundle } from '../../../tools/browser-cache.ts';
 import { compile } from '../../markup/src/index.ts';
 import { PNG } from 'pngjs';
 import type { AnimaIcon } from '../src/index.ts';

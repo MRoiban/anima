@@ -4,9 +4,12 @@ import { describe, expect, it } from 'vitest';
 import { compile, formatMarkup } from '../src/index.ts';
 
 const root = new URL('../../../', import.meta.url);
-const files = globSync(['examples/**/*.animl', 'spec/conformance/**/*.animl'], {
-  cwd: fileURLToPath(root),
-})
+const files = globSync(
+  ['examples/**/*.animl', 'spec/conformance/**/*.animl', 'spec/draw-conformance/**/*.animl'],
+  {
+    cwd: fileURLToPath(root),
+  },
+)
   .filter((f) => !f.startsWith('examples/lib/'))
   .sort();
 
@@ -16,6 +19,9 @@ describe('authored AniML corpus', () => {
     const cases = globSync('spec/conformance/*/case.ani', { cwd: fileURLToPath(root) }).sort();
     expect(cases).toHaveLength(41);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
+    const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
+    expect(drawCases).toHaveLength(3);
+    for (const file of drawCases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
   });
 
   it.each(files)('%s builds byte for byte to its sibling .ani', (file) => {

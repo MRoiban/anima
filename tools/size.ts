@@ -24,6 +24,7 @@ const MODULES: { name: string; budget: number; heavy?: boolean; over?: string }[
   // Registration-only layers extend web; components/bind also import them automatically.
   { name: 'markup-components', budget: 2 * KB, over: 'index' },
   { name: 'markup-paint', budget: 2 * KB, over: 'index' },
+  { name: 'markup-surface', budget: 2 * KB, over: 'index' },
   { name: 'markup-bind', budget: 2 * KB, over: 'index' },
   { name: 'paint', budget: 5 * KB },
   { name: 'composite', budget: 4 * KB },

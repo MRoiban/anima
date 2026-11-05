@@ -294,6 +294,21 @@ describe('AniML compiler', () => {
       parseXml(readFileSync(new URL('../../../examples/photo.animl', import.meta.url), 'utf8')).doc
         .root!,
     );
+    for (const name of ['slice', 'feather'])
+      collectPaint(
+        parseXml(readFileSync(new URL(`../../../examples/${name}.animl`, import.meta.url), 'utf8'))
+          .doc.root!,
+      );
+    collectPaint(
+      parseXml(
+        readFileSync(
+          new URL('../../../spec/draw-conformance/surface-image/case.animl', import.meta.url),
+          'utf8',
+        ),
+      ).doc.root!,
+    );
+    for (const form of ['slice', 'feather', 'imagePaint'])
+      expect(paintElements.some((e) => e.name === form)).toBe(true);
     collectPaint(
       parseXml('<anima><instance id="i" component="badge" speed="2" paused="true"/></anima>').doc
         .root!,

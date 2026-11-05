@@ -16,6 +16,7 @@
     "./markup-components": "./src/markup-components.ts",
     "./markup-paint": "./src/markup-paint.ts",
     "./markup-bind": "./src/markup-bind.ts",
+    "./markup-surface": "./src/markup-surface.ts",
     "./surface": "./src/surface.ts"
   },
   "files": [

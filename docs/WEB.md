@@ -117,3 +117,12 @@ recommendations in [web runtime research](research/rive-web-runtime.md#lessons-f
 | `anima:error` | Diagnostic array | Failed load; also logged to the console. Does not bubble. |
 | `anima:event` | `{ name, layer, time }` | Authored runtime event. Bubbles across shadow boundaries. |
 | `anima:state` | Object mapping layer names to current states | State change. Bubbles across shadow boundaries. |
+
+
+P5 module registration: inline/fetched sources and failed explicit `load` calls retry when a
+compiler hook or runtime module registers later. The failed attempt still emits `anima:error`
+and rejects its `ready`; the retry replaces `ready` with the new attempt's promise. Successful
+loads stop retrying, and explicit `destroy()` cancels retained sources. Modules can load before
+or after markup support and after the icon is connected. A loaded player's state is preserved
+when unrelated modules register. Registration listeners detach when an icon disconnects; a retained
+failed source retries on reconnection, including when its modules arrived while disconnected.

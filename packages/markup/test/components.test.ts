@@ -104,3 +104,59 @@ it('locates reserved input declarations and leaves instance transforms unambiguo
     }),
   );
 });
+
+it('shares ease declaration rules across document and component scopes', () => {
+  const source = `<anima version="0.1" name="eases" grid="8" requires="components">
+    <ease name="soft" curve="out"/>
+    <component name="badge" grid="8">
+      <ease name=" soft " curve="in"/>
+      <circle id="dot" cx="4" cy="4" r="1" fill="#000"/>
+      <timeline name="grow" duration="1"><track target="dot.r">0 1 soft; 1 2</track></timeline>
+    </component>
+    <instance id="b" component="badge"/>
+  </anima>`;
+  const result = compile(source);
+  expect(result.diagnostics).toEqual([]);
+  expect(result.doc).toMatchObject({
+    components: {
+      badge: {
+        timelines: {
+          grow: {
+            tracks: {
+              'dot.r': [
+                [0, 1, 'in'],
+                [1, 2],
+              ],
+            },
+          },
+        },
+      },
+    },
+  });
+  expect(
+    compile(
+      source.replace(
+        '<ease name=" soft " curve="in"/>',
+        '<ease name="soft" curve="in"/><ease name=" soft " curve="hold"/>',
+      ),
+    ).diagnostics,
+  ).toContainEqual(
+    expect.objectContaining({ code: 'duplicate-name', pointer: '/components/badge', line: 4 }),
+  );
+});
+
+it('keeps missing ease attributes diagnostic in both declaration scopes', () => {
+  for (const body of [
+    '<ease name="missing"/>',
+    '<component name="badge" grid="8"><ease name="missing"/></component>',
+  ]) {
+    const result = compile(
+      `<anima version="0.1" name="eases" grid="8" requires="components">${body}</anima>`,
+    );
+    expect(result.doc).toBeUndefined();
+    expect(result.diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'missing-attribute', hint: expect.any(String), line: 1 }),
+    );
+    expect(result.diagnostics.some((d) => d.code === 'markup-syntax')).toBe(false);
+  }
+});

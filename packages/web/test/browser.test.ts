@@ -9,7 +9,7 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from
 import { attrs, cssSlots, load, runScript, sceneTree, type El } from '../../core/src/index.ts';
 import { compile } from '../../markup/src/index.ts';
 import type { AnimaIcon } from '../src/index.ts';
-import { bundle } from '../../../tools/browser-build.ts';
+import { cachedBundle as bundle } from '../../../tools/browser-cache.ts';
 
 declare global {
   interface Window {
