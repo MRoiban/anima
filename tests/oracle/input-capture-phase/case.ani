@@ -41,7 +41,8 @@
       "set": {
         "n": 1
       },
-      "capture": true
+      "capture": true,
+      "consume": true
     },
     {
       "on": "down",

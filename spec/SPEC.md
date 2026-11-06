@@ -1445,7 +1445,9 @@ inside their owning component. These hooks are independent of pointer enter/leav
 
 `focusKey(key, down=true, shift=false)` handles ArrowLeft/Right/Up/Down on down;
 key up is inert. Tab traverses next/previous only with an authored tabStops opt-in.
-This hook lets the input module share the same deterministic keyboard policy.
+This hook lets the input module share the same deterministic keyboard policy. Input key listeners
+consume normal keyboard delivery by default (`propagate: true` opts into continued delivery);
+this does not suppress the subsequent focus navigation hook or native Enter/Space activation.
 
 ### AniML and browser mapping
 
@@ -1693,6 +1695,23 @@ conformance cases and native-oracle evidence. A documented oracle skip is not na
 ## input
 
 Optional P4c input behavior is specified in [the input contract](../modules/input/SPEC.md).
+Capture listeners run from the outermost ancestor down to the target, with authored order at
+equal depth. A `consume: true` capture listener stops delivery before inner capture or normal
+listeners. Normal keyboard listeners stop delivery by default; `propagate: true` (AniML
+`propagate="true"`) passes the key on, while `consume: true` takes precedence. Capture listeners
+only stop delivery with explicit consume. This policy includes nested component keys and all
+three keyboard phases; unmatched key/modifier filters never claim a key. Focus navigation and
+native Enter/Space activation retain the focus/host policies above.
+
+Preserve-offset alignment intentionally differs from the measured native Rive probe. Anima
+stores target origin minus grab point at pointer-down, then adds that offset to each pointer
+position in parent coordinates. In `tests/oracle/input-align-preserve`, the origin is x=80,
+the grab is x=88 (offset -8), and the move is x=104: Anima yields x=96 and retains it after
+release; native Rive yields x=80 at both observations (absolute delta 16). This is an
+intentional difference recorded separately, never a passing oracle or a relaxed tolerance.
+Snap alignment agrees. See the retained native command/number dumps and
+`docs/research/rive-web-runtime.md` lessons 2, 5 and 6 for the core/host boundary rationale.
+
 Generic registry attributes and the sample command dispatcher are integrated. Per-row native
 oracle captures remain pending where marked; this is not a claim that the whole phase is done.
 

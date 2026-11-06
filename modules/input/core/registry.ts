@@ -6,6 +6,7 @@ export const listenerFields: Record<string, Shape> = {
   button: num(0),
   capture: { k: 'bool' },
   consume: { k: 'bool' },
+  propagate: { k: 'bool' },
   key: str(),
   modifiers: str(),
   index: num(0),

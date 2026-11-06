@@ -182,8 +182,8 @@ if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) 
   const findings = [];
   for (const f of findingCases) {
     const frames = await measure(f.case, new URL(`${f.name}/anima/`, root));
-    findings.push({ name: f.name, reason: f.reason, frames });
-    console.log(`Finding ${f.name}`, JSON.stringify(frames));
+    findings.push({ name: f.name, status: f.status, reason: f.reason, frames });
+    console.log(`${f.status} ${f.name}`, JSON.stringify(frames));
   }
   writeFileSync(new URL('findings-metrics.json', root), JSON.stringify(findings, null, 2) + '\n');
   if (process.argv.includes('--strict') && results.some((r) => r.frames.some((f) => !f.pass)))

@@ -22,7 +22,8 @@ New listener JSON keys and AniML attributes use identical spelling:
 | --- | --- |
 | `button` | DOM numbering: 0 primary (default), 1 middle, 2 secondary. Applies to down/up/click/drag phases. |
 | `capture` | Run outermost to innermost before normal target/ancestor handling. Default false. |
-| `consume` | Stop remaining listeners for this event phase, after this listener's actions. Default false. |
+| `consume` | Stop remaining delivery for this event, including inner capture and normal listeners, after this listener's actions. Default false. |
+| `propagate` | Normal keyboard listener passes the key to remaining listeners/ancestors when true. Default false; `consume` takes precedence. No effect on pointer/gamepad events or capture listeners. |
 | `key` | Exact DOM `KeyboardEvent.key`, or `*`/omitted for any key. |
 | `modifiers` | Exact held modifier set, in `shift+control+alt+meta` order; omit unheld tokens. Empty means none. Omission means any modifier set. |
 | `index` | Exact nonnegative gamepad slot, omitted for any. |
@@ -39,7 +40,7 @@ so ordinary `bind` expressions can move a target. Write-only listeners are actio
 normalizes them with an empty `set` map for the existing action compiler. Decompilation preserves that normalization. AniML uses a JSON-valued `write` attribute,
 for example `write='{"x":"dragX"}'`, derived from the generic listener registry. `align=preserve` stores the target's initial x/y minus
 the initial grab point in parent space; `snap` uses no offset. Singular parents produce no
-coordinate writes. Capture ordering uses depth, then authored order; normal delivery bubbles
+coordinate writes. Capture ordering is outermost ancestor (including the icon) down to the target, then authored order at equal depth; a consuming ancestor prevents inner listeners from running. Normal capture listeners do not implicitly consume. Normal delivery uses depth, then authored order; normal delivery bubbles
 from deepest to shallowest, retaining authored order within a scope.
 
 ## Contacts and hit policy
@@ -83,7 +84,7 @@ by keyboard focus. Explicit `target` overrides `keyTarget`, which overrides logi
 `key(down|up,key,{repeat?,shift?,control?,alt?,meta?,target?})` produces exactly one phase:
 repeat replaces down, never adds a second down. Target is a node ID (including a dotted component descendant), default logical focus or whole icon. Explicit
 options override the controller's optional `keyTarget`. Delivery follows target then ancestors,
-with capture and consume as above. Pointer enablement does not exclude keyboard/gamepad delivery.
+with capture and consume as above. A matching normal keyboard listener handles the key and stops further delivery by default; `propagate: true` (AniML `propagate="true"`) opts into passing it on. Unmatched listeners never stop delivery. This applies to down, repeat and up, including component boundaries. Capture listeners retain explicit `consume` semantics. Logical focus arrow/opted-in Tab navigation runs after authored key delivery, even when consumed; modifiers still suppress navigation. Pointer enablement does not exclude keyboard/gamepad delivery.
 Native Enter/Space activation remains the host's §10 behavior alongside authored key listeners.
 
 `scroll(x,y,deltaX,deltaY,{phase?,time?})` uses finite positions/deltas and a logical timestamp in

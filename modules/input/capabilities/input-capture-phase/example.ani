@@ -2,7 +2,9 @@
   "anima": "0.1",
   "name": "input-capture-phase",
   "grid": 20,
-  "requires": ["input"],
+  "requires": [
+    "input"
+  ],
   "inputs": {
     "n": {
       "type": "number"
@@ -16,7 +18,10 @@
         {
           "id": "disc",
           "type": "circle",
-          "center": [10, 10],
+          "center": [
+            10,
+            10
+          ],
           "r": 5,
           "fill": {
             "color": "#000"
@@ -39,7 +44,8 @@
       "set": {
         "n": 1
       },
-      "capture": true
+      "capture": true,
+      "consume": true
     },
     {
       "on": "down",

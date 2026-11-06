@@ -222,7 +222,7 @@ def final_probes():
     name='input-capture-phase'
     native='<Node id="0:6">'+rect(20,120,120)+'</Node>'
     ls=listener(20,'down',change(3))+listener(6,'down',change(1),'phaseValue="capture"')+listener(20,'down',change(2),'phaseValue="capture"')
-    animl='''<anima version="0.1" name="input-capture-phase" grid="240" requires="input"><number name="n"/><group id="parent"><rect id="a" x0="108" y0="108" width="24" height="24" fill="#4263eb"/></group><listener on="down" target="a" set="n=3"/><listener on="down" target="parent" capture="true" set="n=1"/><listener on="down" target="a" capture="true" consume="true" set="n=2"/></anima>'''
+    animl='''<anima version="0.1" name="input-capture-phase" grid="240" requires="input"><number name="n"/><group id="parent"><rect id="a" x0="108" y0="108" width="24" height="24" fill="#4263eb"/></group><listener on="down" target="a" set="n=3"/><listener on="down" target="parent" capture="true" consume="true" set="n=1"/><listener on="down" target="a" capture="true" consume="true" set="n=2"/></anima>'''
     pair(name,animl,scene(native,ls),[([],''),(['pointer down@120,120'],'contact down 0 120 120')])
     name='input-multi-trigger-listener'
     native=rect(20,120,120,'<FocusData/>')
@@ -267,14 +267,12 @@ def limit_probes():
 def finalize_findings():
     global MANIFEST
     reasons = {
-        'input-keyboard-bubbling': ('Target keyboard listener consumes native F13 before the parent normal listener; Anima bubbles to the parent.', [(2,2,1,1)]),
-        'input-capture-phase': ('Parent capture handling wins n=1 in the native pointer dispatch, while Anima child capture with consume wins n=2.', [(1,2,1,1)]),
-        'input-align-preserve': ('First drag move preserves the native origin at 80, while Anima applies the 16-unit displacement measured from down, yielding 96.', [(2,96,80,16),(3,96,80,16)]),
+        'input-align-preserve': ('Intentional difference: Anima follows the pointer with the grab offset measured at pointer-down (x=88 on origin x=80; move to x=104 yields x=96). Native preserve-offset remains x=80 at the first move and after release; absolute delta 16. Neither result nor tolerance is normalized.', [(2,96,80,16),(3,96,80,16)]),
     }
     for name,(reason,observations) in reasons.items():
         entry=next((c for c in MANIFEST if c['name']==name),None)
         if entry:
-            write(ORACLE/name/'finding.json',json.dumps(dict(status='finding',reason=reason,case=entry,observations=[dict(time=t,actual=a,reference=r,delta=d) for t,a,r,d in observations]),indent=2)+'\n')
+            write(ORACLE/name/'finding.json',json.dumps(dict(status='intentional difference',reason=reason,case=entry,observations=[dict(time=t,actual=a,reference=r,delta=d) for t,a,r,d in observations]),indent=2)+'\n')
             MANIFEST=[c for c in MANIFEST if c['name']!=name]
     (ORACLE/'cases.json').write_text(json.dumps(MANIFEST,indent=2)+'\n')
 

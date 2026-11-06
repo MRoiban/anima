@@ -53,6 +53,7 @@ export interface InputListener {
   button?: number;
   capture?: boolean;
   consume?: boolean;
+  propagate?: boolean;
   key?: string;
   modifiers?: string;
   index?: number;

@@ -174,7 +174,8 @@ export class InputController {
         if (value !== undefined) this.player.set(name, value);
       }
       claimed = true;
-      if (l.consume) return { handled: true, consumed: true };
+      if (l.consume || (on.startsWith('key-') && !l.capture && !l.propagate))
+        return { handled: true, consumed: true };
     }
     return { handled: claimed, consumed: false };
   }
