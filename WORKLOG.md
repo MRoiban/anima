@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: AniML P5b playlist benchmark delivered; local commit only on t3/animl-playlist-scene.
-Verified: source/built validate;81 assertions+6912 exact pixels;next-frame host edits retain state;5/6 conservative.
-Limits: repeated-row browser audio absent despite root control success;titleChars auxiliary;catalog media.
-Report: docs/benchmarks/runs/2026-11-06-p5b/animl/REPORT.md;38 check runs,27 total error occurrences.
-Don't: push, PR, merge; read forbidden format runs/native/oracle/runtime sources.
+Goal: P5b-10 all six requested fixes implemented and verified; assigned branch only.
+Verified: scope3729 pass/44TODO; owned Chromium+Firefox68/68; registration/schema18/18.
+Checks: strict oracle253/449 exit0 (23 inherited findings/26 samples); all static/generated/size/perf0.
+Bytes: core+web20362; assets1713+assetio659; media2665; events3793; lists4573; data8034; derive2360.
+Next: fresh benchmark rerun by another agent; no phase promotion claimed; report modules/assets/P5B-10-REPORT.md.
+Don't: push/PR/merge, touch benchmark/parity/protected inputs or other owners' runtimes; no limits changed.
 
 ## Log
 - 2026-11-06 23:40 [P5b-8]: condensed oldest half per 200-line rule; M0–M5/P1/P3 established spec, runtime, AniML and icons; Glyphy remains draft-only (evidence: prior WORKLOG at 0c5028a; PRs1–6).
@@ -143,3 +144,13 @@ Don't: push, PR, merge; read forbidden format runs/native/oracle/runtime sources
 
 - 2026-11-07 00:25 [AniML benchmark]: completed 604s run;24 CLI+14 auxiliary checks,24 check errors+3 startup/docs errors;5/6 strict, root audio0.2/0.8 succeeds while repeats silent → sources/media/built ANI/samples/renders/report ready for local commit (evidence: animl/REPORT.md, evidence/metrics.json).
 - 2026-11-07 [claude]: AniML P5b playlist 5/6 (item 4: repeated-row audio silent in browser) — regression vs P4e rerun 6/6 → P5b-10 fixes: repeated-instance audio, build --embed for component assets, $list.length as repeat count, inherited asset scope + pointers, docs contradictions/missing page, inspect slot noise
+
+- 2026-11-07 00:45 [P5b-10]: read required contracts/benchmark/evidence/history; identified repeat audio ownership and root-only build traversal; npm ci started (unverified).
+
+- 2026-11-07 00:43 [P5b-10]: implemented list audio owner routing, scoped asset catalogs, recursive library-aware embed, numeric repeat paths, derive string lengths and live inspect slots → focused505 pass/8TODO; events32/32 in both engines including trusted clip starts [0,.2,.8] (evidence: /tmp/p5b10-core5.txt; /tmp/p5b10-audio-browser2.txt).
+- 2026-11-07 00:43 [P5b-10]: split assetio before assets growth; fixed self-reference retaining unused assets code (surface8966→7968 without budget changes); image listener conformance exposed missing outline, fixed in assets. Initial fixture/syntax/input assumptions corrected; cold bundle test setup moved into beforeAll with unchanged deadlines (evidence: /tmp/p5b10-{core2,core3,core4,size-dev,size2,audio-browser}.txt).
+
+- 2026-11-07 00:46 [P5b-10]: frozen-runtime size passes all gates (core+web20362/full109889); schema regenerated for audio asset-ref; recursive component-image preloading and list-clone resources covered. Broad3727pass/44TODO/1Firefox preload timeout; isolated preload2/2 passes; parallel setup reduced round trips, scope reruns one worker (evidence: /tmp/p5b10-{size-final,scope-final,image-debug}.txt).
+
+- 2026-11-07 00:53 [P5b-10]: final requested scope3729/44TODO + explicit owned browsers68/68 + registration/schema18/18; oracle253/449 exit0 with23 inherited findings/26 samples; all static/generated/size/perf exit0 → report/evidence ready for local commit (evidence: modules/assets/verification/p5b10/checks.json).
+- 2026-11-07 00:53 [P5b-10]: final protected-path audit shows no benchmark/parity/measurement-input/other-owner changes; strengthened root build diagnostic assertion; fresh benchmark and quiet paired performance remain unverified (evidence: git diff --name-only; P5B-10-REPORT.md).

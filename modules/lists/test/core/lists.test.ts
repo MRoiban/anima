@@ -333,3 +333,34 @@ it('retains mixed model identity when a component shares an enclosing data graph
   p.step(0);
   expect(p.values()).toMatchObject({ 'container/rows/0/dot.r': 3, 'container/rows/1/dot.r': 9 });
 });
+
+it('accepts list length as count and reconciles live count growth and shrink', () => {
+  const document = doc();
+  document.nodes.push({ id: 'dots', type: 'repeat', count: '$players.length', component: 'row' });
+  const p = player(document);
+  p.step(0);
+  const run = listState(p)!.runs[1]!;
+  const first = run.items[0]!.player;
+  expect(run.items).toHaveLength(2);
+  const values = dataState(p)!.read('$players') as object[];
+  values.push(values[0]!);
+  p.step(0);
+  expect(run.items).toHaveLength(3);
+  expect(run.items[0]!.player).toBe(first);
+  values.splice(0);
+  p.step(0);
+  expect(run.items).toHaveLength(0);
+});
+it('rejects nonnumeric repeat count at the authored count property', () => {
+  const document = doc();
+  document.nodes[0]!.count = '$players';
+  delete document.nodes[0]!.list;
+  expect(load(document).diagnostics).toContainEqual(
+    expect.objectContaining({
+      code: 'list-source',
+      pointer: '/nodes/0/count',
+      message: 'repeat source is not a readable number',
+      hint: expect.stringContaining('$items.length'),
+    }),
+  );
+});

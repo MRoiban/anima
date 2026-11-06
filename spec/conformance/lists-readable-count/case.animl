@@ -1,0 +1,21 @@
+<anima version="0.1" name="length-count" grid="20" requires="components lists data bind derive">
+  <model name="Item">
+    <string name="title" default="Hi"/>
+  </model>
+  <model name="Board">
+    <list name="items" default="[{&quot;title&quot;:&quot;Dawn&quot;},{&quot;title&quot;:&quot;Tide&quot;}]" of="Item"/>
+    <string name="title" default="Hi"/>
+    <string name="label" value="$title"/>
+    <number name="chars" value="$label.length"/>
+  </model>
+  <instance name="main" model="Board" default="true"/>
+  <component name="row" grid="20">
+    <trigger name="tap"/>
+    <number name="clicks"/>
+    <circle id="dot" cx="5" cy="5" r="1" fill="#000"/>
+    <listener on="click" target="dot" fire="tap" set="clicks=clicks+1"/>
+    <bind target="dot.r" value="$chars"/>
+  </component>
+  <repeat id="rows" count="$items.length" component="row"/>
+  <repeat id="chars" count="$title.length" component="row"/>
+</anima>

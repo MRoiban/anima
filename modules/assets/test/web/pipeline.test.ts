@@ -51,13 +51,105 @@ for (const [name, type, executablePath] of browsers)
     beforeAll(async () => {
       shared = await type.launch({ executablePath, headless: true });
       await Promise.all(
-        ['index', 'media', 'paint', 'paint-sampling', 'assets', 'canvas'].map((entry) =>
-          bundle(resolve('packages/web/src/' + entry + '.ts')),
-        ),
+        [
+          'index',
+          'media',
+          'paint',
+          'paint-sampling',
+          'assets',
+          'canvas',
+          'components',
+          'data',
+          'bind',
+          'lists',
+        ].map((entry) => bundle(resolve('packages/web/src/' + entry + '.ts'))),
       );
     }, 60000);
     afterAll(async () => {
       await shared?.close();
+    });
+    it('preloads component-only images relative to src and shares their resolved resources with repeated players', async () => {
+      const context = await shared.newContext();
+      try {
+        const page = await context.newPage();
+        await page.route('https://anima.test/**', (route) =>
+          route.fulfill({
+            contentType: 'text/html',
+            body: '<anima-icon paused style="width:80px;height:80px"></anima-icon>',
+          }),
+        );
+        await page.goto('https://anima.test/');
+        await page.route('https://anima.test/icons/cover.png', (route) =>
+          route.fulfill({
+            contentType: 'image/png',
+            body: Buffer.from(uri.split(',')[1]!, 'base64'),
+          }),
+        );
+        await page.route('https://anima.test/icons/doc.ani', (route) =>
+          route.fulfill({
+            contentType: 'application/json',
+            body: JSON.stringify({
+              anima: '0.1',
+              name: 'component-images',
+              grid: 8,
+              requires: ['assets', 'paint', 'components', 'data', 'bind', 'lists'],
+              data: { models: { Board: { properties: { n: { type: 'number', default: 2 } } } } },
+              components: {
+                row: {
+                  grid: 8,
+                  assets: { cover: { type: 'image', source: 'cover.png' } },
+                  nodes: [
+                    {
+                      id: 'image',
+                      type: 'image',
+                      asset: 'cover',
+                      x0: 0,
+                      y0: 0,
+                      width: 4,
+                      height: 4,
+                      sampling: 'nearest',
+                    },
+                  ],
+                },
+              },
+              nodes: [{ id: 'rows', type: 'repeat', count: '$n', component: 'row', dx: 4 }],
+            }),
+          }),
+        );
+        await Promise.all(
+          ['paint', 'assets', 'components', 'data', 'bind', 'lists'].map(async (name) =>
+            page.addScriptTag({
+              type: 'module',
+              content: await bundle(resolve('packages/web/src/' + name + '.ts')),
+            }),
+          ),
+        );
+        const hrefs = await page.evaluate(async () => {
+          const icon = document.querySelector('anima-icon') as AnimaIcon;
+          const loaded = new Promise<void>((resolve, reject) => {
+            icon.addEventListener('anima:load', () => resolve(), { once: true });
+            icon.addEventListener('anima:error', (e) => reject((e as CustomEvent).detail), {
+              once: true,
+            });
+          });
+          icon.setAttribute('src', 'https://anima.test/icons/doc.ani');
+          await loaded;
+          return [...icon.shadowRoot!.querySelectorAll('image')].map((image) =>
+            image.getAttribute('href'),
+          );
+        });
+        expect(hrefs).toEqual([
+          'https://anima.test/icons/cover.png',
+          'https://anima.test/icons/cover.png',
+        ]);
+        const pixels = PNG.sync.read(await page.locator('anima-icon').screenshot());
+        for (const x of [5, 45])
+          expect([
+            ...pixels.data.slice((5 * pixels.width + x) * 4, (5 * pixels.width + x) * 4 + 4),
+          ]).toEqual([255, 0, 0, 255]);
+      } finally {
+        await context.close();
+      }
     });
     it('enforces local policy; provides detached metadata and lazy cached blob/audio bytes through the resolver', async () => {
       const browser = await shared.newContext();

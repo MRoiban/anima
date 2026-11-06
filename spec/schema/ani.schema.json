@@ -2657,6 +2657,7 @@
                       "type": "string",
                       "enum": [
                         "image",
+                        "audio",
                         "font",
                         "blob"
                       ]

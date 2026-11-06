@@ -30,7 +30,7 @@ const property: ObjShape = {
     system: string,
     of: string,
     model: string,
-    assetType: { k: 'str', of: ['image', 'font', 'blob'], markup: 'type' },
+    assetType: { k: 'str', of: ['image', 'audio', 'font', 'blob'], markup: 'type' },
     public: bool,
     label: string,
   },

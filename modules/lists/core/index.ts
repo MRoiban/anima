@@ -63,7 +63,14 @@ export const lists: Module & {
     return {
       ...lists,
       resolve(model, d) {
-        resolve(model, d, data, components, shared.Player);
+        resolve(
+          model,
+          d,
+          data,
+          components,
+          shared.Player,
+          registry.get('assets') as typeof import('../../assets/core/index.ts').assets | undefined,
+        );
       },
       draw: {
         tree(model, tree) {
@@ -188,6 +195,7 @@ function resolve(
   data: DataModule,
   components: ComponentModule,
   Child: typeof Player,
+  assets?: typeof import('../../assets/core/index.ts').assets,
 ) {
   if (!model.doc.requires?.includes('lists')) return;
   if (!model.doc.requires?.includes('components') || !model.doc.requires?.includes('data')) {
@@ -260,13 +268,13 @@ function resolve(
       );
     const path = raw.list ?? raw.count ?? '$invalid';
     const prop = property(data, model, path);
-    if (prop?.type !== (raw.count ? 'number' : 'list'))
+    if (raw.count ? model.inputs.get(path)?.type !== 'number' : prop?.type !== 'list')
       error(
         d,
         'list-source',
         at + (raw.count ? '/count' : '/list'),
-        'repeat source has the wrong type',
-        'use a list, or a number with count',
+        'repeat source is not a readable ' + (raw.count ? 'number' : 'list'),
+        'use list="$items" or count with a numeric data path, including $items.length',
       );
     const choices = new Map<string, Model>();
     for (const [key] of typeof raw.component === 'string'
@@ -357,6 +365,8 @@ function resolve(
     };
     Object.defineProperty(p, 'model', { value: clone });
     components.forkModel(model, clone);
+    const resources = assets?.resolvedAssets.get(model);
+    if (resources) assets!.resolvedAssets.set(clone, resources);
     data.compiled.set(clone, c);
     dynamicTrees.add(draw);
     drawings.set(p, {

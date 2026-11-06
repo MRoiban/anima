@@ -1,5 +1,5 @@
 import '@anima-format/core/all';
-import { mkdtempSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { afterAll, expect, it, vi } from 'vitest';
@@ -501,4 +501,61 @@ it('keeps Blob payloads opaque when their bytes resemble media containers', asyn
     expect(doc.assets.bytes).not.toHaveProperty('duration');
     expect(load(doc).diagnostics).toEqual([]);
   }
+});
+
+it('embeds component-local assets from imported libraries and renders after the sources are removed', async () => {
+  const source = join(dir, 'library-source');
+  mkdirSync(source);
+  writeFileSync(join(source, 'cover.png'), bytes);
+  writeFileSync(
+    join(source, 'rows.animl'),
+    `<library name="rows">
+    <component name="row" grid="8">
+      <asset name="cover" type="image" src="cover.png"/>
+      <asset name="sound" type="audio" src="../self.wav" start="0.01" end="0.05"/>
+      <image id="cover" asset="cover" x0="0" y0="0" width="8" height="8" fit="resize"/>
+    </component>
+  </library>`,
+  );
+  const file = join(dir, 'library-main.animl');
+  writeFileSync(
+    file,
+    `<anima version="0.1" name="library-main" grid="8" requires="assets paint components">
+    <import src="library-source/rows.animl" as="rows"/>
+    <instance id="row" component="rows:row"/>
+  </anima>`,
+  );
+  const output = join(dir, 'standalone.ani');
+  const built = await cli('build', file, '--embed', '-o', output);
+  expect(built.code, built.err).toBe(0);
+  const document = JSON.parse(readFileSync(output, 'utf8'));
+  const component = Object.values(document.components)[0] as {
+    assets: Record<string, { source: string; storage: string; duration?: number }>;
+  };
+  expect(component.assets.cover).toMatchObject({
+    source: 'data:image/png;base64,' + bytes.toString('base64'),
+    storage: 'embedded',
+  });
+  expect(component.assets.sound).toMatchObject({ storage: 'embedded', duration: 0.1 });
+  expect(component.assets.sound!.source).toMatch(/^data:audio\/wav;base64,/);
+  rmSync(source, { recursive: true });
+  rmSync(file);
+  const image = join(dir, 'standalone.png');
+  const rendered = await cli('render', output, '--size=8', '-o', image);
+  expect(rendered.code, rendered.err).toBe(0);
+  const pixels = PNG.sync.read(readFileSync(image));
+  expect([...pixels.data.slice(0, 4)]).toEqual([255, 0, 0, 255]);
+  expect([...pixels.data.slice(28, 32)]).toEqual([0, 0, 255, 255]);
+});
+it('reports the exact component-local asset source on an embed failure', async () => {
+  const d = {
+    components: { row: { assets: { cover: { type: 'image' as const, source: 'absent.png' } } } },
+  };
+  expect(await buildAssets(d, join(dir, 'missing.animl'), true)).toEqual([
+    expect.objectContaining({
+      code: 'asset-load',
+      pointer: '/components/row/assets/cover/source',
+      hint: expect.any(String),
+    }),
+  ]);
 });

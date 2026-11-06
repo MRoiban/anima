@@ -3,7 +3,9 @@
 Declare `lists`, `components` and `data`; expressions also need `bind`. A repeat node is
 `{id,type:"repeat",list:"$items",component:"row",dx?,dy?,size?}` or uses `count:"$n"` instead
 of `list`. Exactly one source is required (`list-source`). List sources must be model lists;
-count sources must be numbers. Count uses `number-to-list`: floor, clamp negatives to zero,
+count sources may be any readable numeric data path, including `$items.length`, `$main:n`,
+`$parent.n` and (with `derive`) `$title.length`. A nonnumeric path is `list-source` at the
+`count` property, with accepted source forms in its hint. Count uses `number-to-list`: floor, clamp negatives to zero,
 and preserve identity by index. More than 256 live instances is `limit-exceeded`.
 
 AniML: `<repeat id="rows" list="$items" component="row" dx="2" dy="4" size="20 4"/>`.

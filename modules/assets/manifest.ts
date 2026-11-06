@@ -1,4 +1,4 @@
-export const after = ['bind'];
+export const after = ['bind', 'components'];
 export default {
   name: 'assets',
   after,
@@ -14,6 +14,7 @@ export default {
       buildOrder: 7,
       sizeOrder: 9,
       budget: 2048,
+      over: 'assetio',
     },
   ],
   adapters: {

@@ -1027,7 +1027,13 @@ malformed encoding is `bad-data-uri` at the source. An empty source is `missing-
 an absent source is `missing-key` at the asset object. Messages carry a repair hint.
 
 AniML declares `<asset name="photo" type="image" src="photo.png" storage="referenced"/>`
-at document level; registry `source` maps to `src`. All other field spellings match JSON.
+at document or component level; registry `source` maps to `src`. All other field spellings match JSON.
+A component resolves asset names in its own catalog, then its enclosing component/document catalogs
+up to the root. A local declaration shadows the same outer name, even if its type is wrong.
+This scope applies to image nodes, image/audio `asset-ref` values and event audio clips. Missing or
+wrong-kind references report the offending node, event or data property/value JSON pointer;
+default data asset errors point to `/data/models/<model>/properties/<property>/default`.
+Image hit targets use their current rectangular bounds, including animated width/height.
 
 The browser module `@anima-format/web/assets` registers assets and the SVG image backend;
 image documents also import `@anima-format/web/paint`. Images decode before `anima:load` and
@@ -1040,7 +1046,9 @@ to the loaded model; source declarations are preserved. Superseded loads cannot 
 Audio/blob byte access and policy are specified below; fonts remain declarations.
 
 `anima build --embed` embeds local referenced assets (paths relative to the source file), sets
-storage to `embedded`, and changes no fields outside the assets map. It supports AniML and
+storage to `embedded`, and visits root and component-local catalogs, including imported libraries.
+Imported sources resolve relative to the file declaring that asset; diagnostics keep the complete
+component asset pointer. The built file's embedded assets work after the source tree is removed. It supports AniML and
 AniML scripts in HTML. Already embedded assets are unchanged. Other URL schemes cannot be read
 by this disk build and report `asset-load`; HTTP asset fetching is a browser host responsibility.
 `anima render` embeds local image sources and decodes intrinsic sizes through resvg before
@@ -1078,7 +1086,8 @@ retry after a failure, and emit `asset-load` before rejecting with its diagnosti
 reject with RangeError. Audio decoding remains the consumer's responsibility; events uses Web
 Audio on demand after activation, as specified in events. Clip events start at `start` and play
 for `end-start`; invalid decoded bounds emit `event-audio-load`. Neither policy nor media IO changes
-Player.step output. Keeping media in its own entry follows the optional consumer principle in
+Player.step output. The assets entry imports a separately budgeted `assetio` host-IO entry automatically, and preloads
+images in reachable component catalogs as well as the root. Keeping media in its own entry follows the optional consumer principle in
 `docs/research/rive-web-runtime.md` §1; no native code or document format is copied.
 
 Build inspects local and embedded PNG/JPEG/WebP/WAV/MP3/FLAC signatures, dimensions or duration.
@@ -2119,6 +2128,11 @@ The event delivery/subscription separation follows the host/runtime concerns rec
 `docs/research/rive-web-runtime.md` §§2–3; no Rive implementation or documentation text is used.
 
 
+Repeated event audio resolves its emitting player through both ordinary component placements and
+list indices (for example `rows.1.inside.play`). Decode caches use asset declaration identity, so
+reordering different component catalogs with the same clip name cannot replay another row's audio.
+The host still observes the scoped event and the ordinary Web Audio start call after activation.
+
 ## contour
 
 The optional `contour` module (5120 B browser budget) contains authoring geometry and path
@@ -2533,7 +2547,11 @@ A component with no `data` declaration sees its parent's context when lists is d
 <!-- capability: data.converter-number-to-list -->
 ### Count repetition
 `count: "$n"` is `count="$n"`. It floors nonnegative counts and retains players by index.
-Counts above 256 are rejected; shrinking releases the removed indices.
+Counts above 256 are rejected; shrinking releases the removed indices. Any readable numeric data
+path is accepted, including `$items.length`, named/relative numeric paths and (with `derive`)
+`$title.length`. Nonnumeric paths report `list-source` at `/nodes/<index>/count` with the accepted
+source forms. `anima inspect` lists only the repeated input slots in the current initial list/count,
+including triggers; reserved potential slots for absent rows are omitted.
 
 ## nested
 

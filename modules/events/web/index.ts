@@ -76,7 +76,7 @@ export function eventURL(value: string, base: string): URL | undefined {
 interface AudioState {
   context: AudioContext;
   gain: GainNode;
-  buffers: Map<string, Promise<AudioBuffer>>;
+  buffers: Map<object, Promise<AudioBuffer>>;
   sources: Set<AudioBufferSourceNode>;
 }
 const audio = new WeakMap<AnimaIcon, AudioState>();
@@ -86,13 +86,24 @@ async function sound(icon: AnimaIcon, event: AnimaEvent): Promise<void> {
   const model = icon.player?.model;
   let owner = icon.player;
   let scope = '';
-  for (const part of event.name.split('.').slice(0, -1)) {
-    const child = (
-      owner?.nested as { players?: Map<string, NonNullable<AnimaIcon['player']>> } | undefined
-    )?.players?.get(part);
-    if (!child) break;
+  const parts = event.name.split('.').slice(0, -1);
+  while (owner && parts.length) {
+    let id = parts.shift()!;
+    let child = (
+      owner.nested as { players?: Map<string, NonNullable<AnimaIcon['player']>> } | undefined
+    )?.players?.get(id);
+    if (!child) {
+      const lists = Icon.modules.get('lists') as
+        typeof import('../../lists/core/index.ts').lists | undefined;
+      const run = lists
+        ?.listState(owner)
+        ?.runs.find((r) => owner!.model.nodes[r.spec.node]!.id === id);
+      child = run?.items.find((i) => String(i.index) === parts[0])?.player;
+      if (child) id += '.' + parts.shift();
+    }
+    if (!child) return;
     owner = child;
-    scope += part + '.';
+    scope += id + '.';
   }
   const ownerDoc = owner?.model.doc;
   const asset = ownerDoc?.assets?.[event.audio!];
@@ -108,7 +119,7 @@ async function sound(icon: AnimaIcon, event: AnimaEvent): Promise<void> {
       audio.set(icon, (a = { context, gain, buffers: new Map(), sources: new Set() }));
     }
     await a.context.resume();
-    let buffer = a.buffers.get(assetName);
+    let buffer = a.buffers.get(asset);
     if (!buffer) {
       buffer = (async () => {
         const source = icon.resolveAsset
@@ -130,7 +141,7 @@ async function sound(icon: AnimaIcon, event: AnimaEvent): Promise<void> {
               });
         return a!.context.decodeAudioData(bytes);
       })();
-      a.buffers.set(assetName, buffer);
+      a.buffers.set(asset, buffer);
     }
     const decoded = await buffer;
     if (icon.player?.model !== model || audio.get(icon) !== a || !icon.isConnected) return;
@@ -156,7 +167,7 @@ async function sound(icon: AnimaIcon, event: AnimaEvent): Promise<void> {
     else source.start();
   } catch {
     if (audio.get(icon) !== a) return;
-    a?.buffers.delete(assetName);
+    a?.buffers.delete(asset);
     emit(icon, 'error', [
       {
         code: 'event-audio-load',

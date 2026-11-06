@@ -1,0 +1,1 @@
+{"time":0,"values":{"$items.0.cover":"cover","$items.0.clip":"tone"},"states":{},"events":[{"name":"rows.0.play","layer":null,"time":0,"audio":"tone","volume":1}],"settled":true}

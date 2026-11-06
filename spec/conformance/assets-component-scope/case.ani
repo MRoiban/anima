@@ -1,0 +1,91 @@
+{
+  "anima": "0.1",
+  "name": "asset-scope",
+  "grid": 20,
+  "requires": ["components", "lists", "data", "bind", "assets", "paint", "events"],
+  "nodes": [
+    {
+      "id": "rows",
+      "type": "repeat",
+      "list": "$items",
+      "component": "row"
+    }
+  ],
+  "components": {
+    "row": {
+      "grid": 20,
+      "nodes": [
+        {
+          "id": "cover",
+          "type": "image",
+          "x0": 0,
+          "y0": 0,
+          "asset": "cover",
+          "width": 4,
+          "height": 4
+        }
+      ],
+      "listeners": [
+        {
+          "on": "click",
+          "target": "cover",
+          "emit": "play"
+        }
+      ],
+      "eventDefs": {
+        "play": {
+          "audio": "tone"
+        }
+      },
+      "data": "Item"
+    }
+  },
+  "assets": {
+    "cover": {
+      "type": "image",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAG0lEQVR4AWP8r8HwnwEPYGIgAJgYCAAmBgIAABjwAi5tDXySAAAAAElFTkSuQmCC"
+    },
+    "tone": {
+      "type": "audio",
+      "source": "data:audio/wav;base64,AAAA",
+      "start": 0.2,
+      "end": 1
+    }
+  },
+  "data": {
+    "models": {
+      "Item": {
+        "properties": {
+          "cover": {
+            "type": "asset-ref",
+            "default": "cover",
+            "assetType": "image"
+          },
+          "clip": {
+            "type": "asset-ref",
+            "default": "tone",
+            "assetType": "audio"
+          }
+        }
+      },
+      "Board": {
+        "properties": {
+          "items": {
+            "type": "list",
+            "default": [
+              {}
+            ],
+            "of": "Item"
+          }
+        }
+      }
+    },
+    "instances": {
+      "board": {
+        "model": "Board",
+        "default": true,
+        "values": {}
+      }
+    }
+  }
+}

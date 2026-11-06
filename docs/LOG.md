@@ -2285,3 +2285,25 @@ All budgets hold. Canonical oracle inputs/parity statuses stay unchanged; module
 captures are not promoted into the central manifest. Foreign-file component/data handles and
 comparative quiet-machine perf remain pending. No phase promotion, push, PR or merge. Full status,
 measurements and failures: modules/nested/P5B-8-REPORT.md.
+
+
+## P5b-10 — benchmark format/tooling gaps (2026-11-07)
+
+Repeated-row audio now finds list-owned players through indexed event scopes instead of looking only
+in ordinary nested players. Trusted Chromium/Firefox clicks observe Web Audio starts at [0,.2,.8],
+including a component inside a repeated row. Build embeds component/library-local assets using
+source-file provenance; component catalogs inherit with nearest-scope shadowing. Audio asset-ref
+kinds, exact property diagnostics, rectangular image hits, numeric repeat length paths, derive-owned
+string lengths, current inspect slots and contradictory docs are covered by regressions and two new
+independent conformance cases. Assets was split into automatically imported assetio before growth.
+The optional host-IO split follows web research §1; scoped metadata follows graph research §6.
+
+Requested scope3729 pass/44TODO, explicit owned browsers68/68; strict oracle253/449 exit0 with23
+inherited findings/26 samples retained. Static/generated/size/perf checks all0. Core+web20362 B
+unchanged; assets1713 over assetio659, media2665, events3793, lists4573, data8034, derive2360;
+full109889/131072. Bell compile2.63ms, bell/composite/toolbar frames106.9/68.9/78.9µs under shared
+load; quiet comparative performance unverified. Initial fixture/format/pointer failures and Firefox
+setup timeouts are retained in the report; no thresholds, timeouts or existing budgets changed.
+Benchmark files/parity statuses/protected inputs and other owners' runtimes are untouched. Fresh
+benchmark rerun remains required for the phase gate. Branch-only commit; no push, PR or merge.
+See modules/assets/P5B-10-REPORT.md and verification/p5b10/ for details and full outputs.

@@ -23,7 +23,7 @@ export interface Property {
   system?: string;
   of?: string;
   model?: string;
-  assetType?: 'image' | 'font' | 'blob';
+  assetType?: 'image' | 'audio' | 'font' | 'blob';
   public?: boolean;
   label?: string;
 }

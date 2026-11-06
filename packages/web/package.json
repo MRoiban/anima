@@ -6,6 +6,7 @@
   "description": "<anima-icon>: the Anima web runtime (retained SVG, sleeping scheduler, a11y).",
   "exports": {
     ".": "./src/index.ts",
+    "./assetio": "./src/assetio.ts",
     "./canvas": "./src/canvas.ts",
     "./components": "./src/components.ts",
     "./markup-components": "./src/markup-components.ts",

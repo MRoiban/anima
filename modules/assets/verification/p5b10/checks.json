@@ -1,0 +1,62 @@
+{
+  "scope": {
+    "exit": 0,
+    "workers": 1,
+    "passed": 3729,
+    "todo": 44,
+    "filesPassed": 68,
+    "filesSkipped": 12
+  },
+  "explicitBrowsers": {
+    "exit": 0,
+    "files": 6,
+    "passed": 68,
+    "engines": ["Chromium", "Firefox"]
+  },
+  "oracle": {
+    "exit": 0,
+    "cases": 253,
+    "samples": 449,
+    "failedSamples": 0,
+    "inheritedFindings": 23,
+    "findingSamples": 26
+  },
+  "sizes": {
+    "coreWeb": 20362,
+    "assetio": 659,
+    "assetsOverAssetio": 1713,
+    "media": 2665,
+    "events": 3793,
+    "lists": 4573,
+    "data": 8034,
+    "derive": 2360,
+    "bindUnchanged": 2038,
+    "full": 109889,
+    "riveClass": 115174
+  },
+  "perf": {
+    "exit": 0,
+    "bellCompileMs": 2.63,
+    "bellPrefixCount": 9040,
+    "bellPrefixesMs": 1693,
+    "bellFrameUs": 106.9,
+    "compositeFrameUs": 68.9,
+    "toolbarFrameUs": 78.9,
+    "toolbarCompileMs": 8.31,
+    "quietComparison": "unverified"
+  },
+  "static": {
+    "typecheck": 0,
+    "eslint": 0,
+    "prettier": 0,
+    "modules": 0,
+    "animl": 0,
+    "web": 0
+  },
+  "freshBenchmark": "not run; assigned to another agent",
+  "registrationAndSchema": {
+    "exit": 0,
+    "passed": 18,
+    "files": 2
+  }
+}
