@@ -3,7 +3,7 @@
     <channel name="v" type="uint" value="0"/>
   </circle>
   <timeline name="t" duration="2">
-    <track target="a.channels.v">0 0; 1 4294967295</track>
+    <track target="a.channels.v">0 0; 0.3333333333333333 7; 0.6666666666666666 42; 1 2147483520</track>
   </timeline>
   <layer name="l" initial="s">
     <state name="s" play="t"/>

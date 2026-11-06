@@ -225,14 +225,15 @@ and an oracle test against Rive.
   - [x] Local implementation behind `requires="motion"`; both syntaxes, CLI/schema and host APIs.
   - [x] 27 new conformance cases; existing 41 unchanged; Chromium + Firefox host coverage.
   - [x] Seven native frame probes / 25 frames, max delta 1 with unchanged comparison method.
-  - [x] Fifteen pending probes disposed by P4b-2 below; native uint finding remains open.
+  - [x] Fifteen pending probes disposed by P4b-2 below; uint observation-path limit documented.
   - [x] P4b-3 declarative clock handoff/reversal, aligned step/loop exits, held/input-driven
         clocks; ten conformance cases; `anima docs <module>` chapters; sync example 6/6 via
         seven sample scripts / 66 snapshots. Full verification and measurements: LOG P4b-3.
         No phase-completion claim. Local size/perf and final verification: LOG P4b.
-  - [x] P4b-2 motion oracle probe dispositions: 15/15 (6 verified, 8 skip-noted,
-        1 uint dump finding: -1 vs 4294967295). Scoped suite has one explicit expected
-        failure; strict oracle remains red. See tests/oracle/MOTION-PROBES.md.
+  - [x] P4b-2 motion oracle probe dispositions: 15/15 (7 verified, 8 skip-noted). Uint oracle uses
+        exactly observable values through 2147483520; Anima independently round-trips
+        4294967295. Historical number-dump -1 is a documented observation-path limit,
+        with no expected failure. See tests/oracle/MOTION-PROBES.md.
 
 - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
       an on-change / previous-value condition (P5 benchmark: 'count increased' took 10 states).

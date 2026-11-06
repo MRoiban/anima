@@ -144,9 +144,17 @@ using `enableExitTime="true"` made all four frames match, without changing Anima
 The elastic probes use amplitude 1 and period 0.5. They do not establish equivalence
 for Rive's amplitude-below-one ramp or period-zero fallback: Anima keeps the existing
 specified elastic formula and rejects zero periods. The remaining 15 probes are now disposed in [MOTION-PROBES.md](MOTION-PROBES.md):
-six verified comparisons, eight no-faithful-counterpart skips, and one uint dump
-finding. There are no pending motion markers. The scoped suite includes an explicit
-expected failure for uint; the strict oracle command remains red on that finding.
+seven verified comparisons and eight no-faithful-counterpart skips. There are no
+pending motion markers or expected failures. The uint probe compares fresh dumps at
+0/0.5/0.8/1.1/2 s: both sides report 0/7/42/2147483520/2147483520, tolerance 0.
+A fresh attempt at 2147483647 yielded a number dump of 2147483648 (delta 1);
+2147483520 is the nearest lower float32-representable integer to 2^31.
+The former full-range observation is retained only as a note: at 0/0.5 s both
+reported 0; at 1.1/2 s Anima reported 4294967295 and Rive's number dump reported -1
+(absolute difference 4294967296). Anima's value is correct for uint; the number dump's
+signed conversion is an observation-path limit and says nothing about Anima's
+behaviour. The full maximum is tested independently in Anima conformance and the
+typed-channel round-trip test. See MOTION-PROBES.md for details and reproduction.
 New data comparisons are exact; existing image budgets are unchanged. Native
 fractional origins are not claimed equivalent to Anima pivots: the new pivot scene
 uses independently keyed parent/child translations to express the same transform.

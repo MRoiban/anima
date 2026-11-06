@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 """Author independent motion comparisons and recapture with the offline command runner."""
+import argparse
 import json
 import subprocess
 from pathlib import Path
+
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--only', help='Capture only this named probe')
+args = parser.parse_args()
 
 ROOT = Path(__file__).resolve().parents[2] / 'tests/oracle'
 RIVE = str(Path.home() / '.rive/bin/rive')
@@ -33,6 +38,8 @@ def viewmodel(kind, value):
 
 
 def save(name, ani, scene, times, commands=None, model='', **options):
+    if args.only and name != args.only:
+        return None
     d = ROOT / name
     r = d / 'rive'
     (r / 'frames').mkdir(exist_ok=True)
@@ -98,13 +105,15 @@ for discrete in [False, True]:
 
 for name, kind, first,last,tag,propkey in [
     ('animation-keys-string','String','one two','three','String',246),
-    ('animation-keys-unsigned-integer','Number','0','4294967295','Uint',870),
+    ('animation-keys-unsigned-integer','Number','0','2147483520','Uint',870),
 ]:
     custom = 'String' if kind == 'String' else 'Trigger'
     scene = f'<CustomPropertyGroup><CustomProperty{custom} id="0:44" propertyValue="{first}"><DataBindContext sourcePathIds="0:40-0:42" propertyKey="{propkey}" direction="true"/></CustomProperty{custom}></CustomPropertyGroup>'
-    scene += animation('0:100',keys('0:44','propertyValue',[(0,first),(60,last)],tag,True))+playing()
+    values = [(0,first),(60,last)] if kind == 'String' else [(0,0),(20,7),(40,42),(60,2147483520)]
+    scene += animation('0:100',keys('0:44','propertyValue',values,tag,True))+playing()
     ani = (ROOT/name/'case.animl').read_text().split('requires="motion">',1)[1].rsplit('</anima>',1)[0]
-    selected.append(save(name,ani,scene,[0,0.5,1.1,2],model=viewmodel(kind,first),values={'address':'a.channels.v','path':'v','tolerance':0}, **({'finding':'uint data-binding dump returns -1 for 4294967295; delta 4294967296'} if kind == 'Number' else {})))
+    times = [0,0.5,1.1,2] if kind == 'String' else [0,0.5,0.8,1.1,2]
+    selected.append(save(name,ani,scene,times,model=viewmodel(kind,first),values={'address':'a.channels.v','path':'v','tolerance':0}))
 
 # Joystick is a native timeline sampler driven by commands/data, including backwards jumps.
 # This compares seek/scrub poses only; host clock/event guarantees remain API tests.
@@ -123,7 +132,11 @@ for scrub in [False,True]:
         scripts[str(t)] = '\n'.join(sequence)
     selected.append(save(name,ani,scene,times,commands,viewmodel('Number',0),scripts=scripts))
 
+selected = [c for c in selected if c is not None]
 manifest = json.loads((ROOT/'cases.json').read_text())
 names = {c['name'] for c in selected}
-(ROOT/'cases.json').write_text(json.dumps([c for c in manifest if c['name'] not in names]+selected,indent=2)+'\n')
+updates = {c['name']: c for c in selected}
+existing = {c['name'] for c in manifest}
+manifest = [updates.get(c['name'], c) for c in manifest] + [c for c in selected if c['name'] not in existing]
+(ROOT/'cases.json').write_text(json.dumps(manifest,indent=2)+'\n')
 print('Captured', ', '.join(names))

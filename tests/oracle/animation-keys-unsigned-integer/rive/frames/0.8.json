@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "artboard": "Oracle",
+  "stateMachine": "s",
+  "viewModel": {
+    "name": "Default",
+    "viewModel": "Model",
+    "properties": [
+      {
+        "name": "v",
+        "path": "v",
+        "type": "number",
+        "value": 42,
+        "changed": true
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}
