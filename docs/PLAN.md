@@ -237,7 +237,7 @@ and an oracle test against Rive.
 
 - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
       an on-change / previous-value condition (P5 benchmark: 'count increased' took 10 states).
-- [ ] P4d `events`: payloads, open-URL, audio.
+- [x] P4d `events`: payloads, open-URL, audio; expression actions and `mod`/`floor` conditions.
   - [x] Local implementation: 32/33 requested rows; script-event-context deferred to P9.
         Events 3418/4096 B, core+web +266 B; 7 conformance cases and Chromium/Firefox coverage.
         Evidence: `modules/events/RESULTS.md`.

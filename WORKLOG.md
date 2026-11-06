@@ -110,3 +110,4 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 14:00 [claude]: P4d benchmark: AniML 3/6 (no increment in listener actions → state ladder; milestones capped), Rive 5/6 (payload fields not in log); fix P4d-3: expressions in set actions + mod in conditions, then AniML rerun
 - 2026-11-07 19:00 [claude]: merged P4d-3 (7da8ef8): expression actions/fields, mod/floor, 7 cases, share example 6/6; core+web 19767 (+420), bind 1866/2048; one oracle probe pending
 - 2026-11-07 20:00 [claude]: P4d AniML rerun (6116c5e) 5/6 (from 3/6; audio audible unverifiable), 33 lines; fixed inspect printing compiled code for expressions (toString = source, bind 1880/2048)
+- 2026-11-07 22:30 [claude]: P4d bookkeeping: 33 rows done (292/1238), modulo intentional difference spec'd, LOG with numbers (perf interleaved: no regression); opening PR

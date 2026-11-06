@@ -1521,6 +1521,13 @@ boundary, including `step(0)` calls. Unknown local event names are `unknown-even
 Pending actions keep the player unsettled; callbacks never recursively re-enter a step.
 Components retain their existing scoped listener spelling and next-parent-step semantics.
 
+Conditions and event fields that read an input changed by a listener action see the **new**
+value in the step that applies the action: a click that sets `count = count + 1` and a
+transition `when="mod(count, 5) == 0"` report the milestone at counts 5, 10, 15, … This is an
+**intentional difference** from the measured Rive behaviour (`tests/oracle/data-bind-listener-actions`),
+where the same scene reports at counts 6, 11, 16, … because its condition still sees the value
+from before the increment. Anima follows what the author wrote.
+
 For documents requiring events, state exits additionally report `@state-end`, then
 `@transition-start`, each with `{payload:{state}}` (source state for end, target for start).
 A completed blend reports `@transition-end` once with the target state. A state may additionally name

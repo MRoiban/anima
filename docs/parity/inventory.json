@@ -2196,9 +2196,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/animation-key-event-target)",
-   "phase": "P4"
+   "phase": "P4d"
   },
   "aliases": [
    "events.timeline-fire"
@@ -2485,9 +2485,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/animation-loop-callback/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -3042,9 +3042,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/assets-audio-volume/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -5351,9 +5351,9 @@
   "anima": {
    "construct": "bind input expression set values; SPEC bind / Input expressions in actions; modules/events/examples/share.animl",
    "module": "data",
-   "status": "planned",
+   "status": "done",
    "test": "modules/bind/test/core/data-bind-listener-actions.test.ts; spec/conformance/data-bind-listener-actions; tests/oracle/data-bind-listener-actions; tests/oracle/bind-action-clamp; tests/oracle/bind-condition-modulo (exact post-click observations; immediate timing finding in immediate-probe/finding.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -13678,9 +13678,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-audio/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -13706,9 +13706,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-host-delivery/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -13758,9 +13758,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-host-url-policy/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -13816,9 +13816,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-payload-boolean)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -13850,9 +13850,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-payload-key-bind)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -13881,9 +13881,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-payload-number); tests/oracle/bind-event-expression; tests/oracle/bind-condition-modulo (new-count expressions, exact post-click dumps/reports)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -13912,9 +13912,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-payload-string)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -13969,9 +13969,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-state-end)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -13998,9 +13998,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-transition-end)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -14027,9 +14027,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-transition-start)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -14057,9 +14057,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-url)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -14085,9 +14085,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url-target-blank/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -14113,9 +14113,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url-target-parent/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -14141,9 +14141,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url-target-self/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -14169,9 +14169,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url-target-top/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -15603,9 +15603,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-automatic-url-events/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -16274,9 +16274,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-advance/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -16301,9 +16301,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-draw/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -16328,9 +16328,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-load/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -16355,9 +16355,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-loaderror/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -16382,9 +16382,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-loop/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -16409,9 +16409,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-pause/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -16436,9 +16436,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-play/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -16463,9 +16463,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-riveevent/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -16490,9 +16490,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-statechange/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -16517,9 +16517,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-stop/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -16545,9 +16545,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-subscriptions/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -18565,9 +18565,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-volume/skip.json)",
-   "phase": "P4"
+   "phase": "P4d"
   }
  },
  {
@@ -19073,9 +19073,9 @@
   "anima": {
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
-   "status": "planned",
+   "status": "done",
    "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle finding (tests/oracle/input-event-listener/finding.json)",
-   "phase": "P4"
+   "phase": "P4d"
   },
   "aliases": [
    "events.listener-receive"

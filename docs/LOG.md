@@ -1698,3 +1698,30 @@ fields updated, statuses unchanged. Scoped bind/events/oracle: 876 pass, 87 scop
 exclusions; format/lint/tools typecheck/wiring/parity checks pass. No runtime/spec
 changes, new skips, tolerance increases, push/PR/merge or .riv reads. See
 modules/events/P4D-3-ORACLE-RESULTS.md for limits and numbered findings.
+
+## P4d — events (2026-11-07)
+
+- **`events` module**: typed event payloads (number, bool, string; bindable fields), URL events that
+  never navigate by themselves (the host opts in through a URL policy; only http(s) and same-origin
+  relative URLs; never `javascript:`), audio events through Web Audio (decode on demand, volume, no
+  autoplay before a gesture), timeline/state/transition lifecycle events, `<anima-icon>` lifecycle
+  events and a subscription API; `anima sample` shows payloads. Script event context waits for P9.
+- **Expression actions** (from the benchmark): `set="count=count+1"`, expression event fields,
+  `mod`/`floor` in conditions; several sets in one action read one snapshot; results clamp to the
+  input's range.
+- **Time-boundary rule**: a clock that reaches an authored time within 1e-9 s counts as reached
+  (event crossing, exit times, `exitNext`, transition completion, wraps); 9 conformance cases, no
+  existing expectation changed.
+- **Oracle**: events re-audited with real CLI runs (the first agent wrongly assumed no event output):
+  9 verified + 4 expression-action cases (104 exact observations, 30 events), 23 evidence-backed
+  skips (host callbacks, audible audio, URL policy). Intentional differences, specified and recorded
+  with numbers: listeners act on the next step (Rive: same frame); conditions see values changed by
+  the step's actions (milestone at 5/10/15 vs Rive 6/11/16). Keys at 1 s: Anima frame 60, Rive 61
+  (cause unproven).
+- **Benchmark** (share button): AniML 3/6 → 5/6 after expression actions (33 lines); Rive 5/6
+  (payload fields not visible headlessly). Audible output is unverifiable headlessly in both.
+- **Numbers** (main → P4d): core + web 19 012 → 19 767 B (+266 events hooks, +420 expression actions;
+  inside 30 KB); events 3 551 / 4 096 B; bind 1 880 / 2 048 B; full-featured 55.9 KB / 100 KB;
+  Rive-class 60.1 KB / 250 KB; compile (interleaved with main, 5 rounds, load ~10): prefix sweep
+  median 694 ms main vs 678 ms P4d, min 577 vs 610 ms — unchanged within noise.
+- **Parity**: 33 rows done (292 / 1 238).
