@@ -1,0 +1,36 @@
+advance 0
+snapshot
+set $players.0.score 1499
+advance 0
+snapshot
+set $players.0.score 1500
+advance 0
+snapshot
+advance 0.25
+snapshot
+set $players.0.score 1800
+advance 0
+snapshot
+set $players.0.score 1500
+advance 0
+snapshot
+set $players.0.score 1499
+advance 0
+snapshot
+set $players.0.score 1600
+advance 0
+snapshot
+set $players.0.score 0
+advance 0
+snapshot
+pointer down 5 18
+pointer move 35 18
+snapshot
+pointer move 36 18
+snapshot
+pointer move 5 18
+snapshot
+pointer move 27.5 18
+snapshot
+pointer up 27.5 18
+snapshot

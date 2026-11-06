@@ -175,3 +175,5 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-06 10:57 [sol]: CLI inspect/sample → list Lin/3/2/radius6 and converter labels 25 percent/1,234.50 confirmed; exploratory bare click command rejected (requires pointer click); no guide command used that invalid form. Findings and parity unchanged.
 - 2026-11-06 [claude]: merged P4e-6 (AUTHORING data section, dataCodes, convert differences); data 8191/8192 (+145 B for the code table)
 - 2026-11-06 [claude]: launched AniML benchmark run (after AUTHORING data section) and P4e-7 parity bookkeeping (214 P4 rows → P4e done or a real phase; 41 uncovered data rows to check)
+
+- 2026-11-06 10:03 [codex-test]: P4e AniML scoreboard → 5/6 strict, 15 checks, 9 total errors including setup/docs; source/build parity and 27 ranking cases pass (evidence: benchmark animl/REPORT.md, verify.py).

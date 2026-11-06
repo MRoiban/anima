@@ -1,0 +1,53 @@
+scoreboard (grid 40, viewBox 0 0 40 20)
+
+glyphs (bbox: minX minY maxX maxY, grid units; hole hints use bbox containment only)
+
+nodes
+  ada (circle) animates properties.label, fill.color
+  adaBar (rect) animates stroke.width, fill.color, w
+  lin (circle) animates properties.label, fill.color
+  linBar (rect) animates stroke.width, fill.color, w
+  sam (circle) animates properties.label, fill.color
+  samBar (rect) animates stroke.width, fill.color, w
+  track (path)
+  slider (group)
+    knob (circle) animates x
+
+inputs: $main:players.length (number), $main:players.0.name (string), $main:players.0.score (number), $main:players.0.colour (color), $main:players.1.name (string), $main:players.1.score (number), $main:players.1.colour (color), $main:players.2.name (string), $main:players.2.score (number), $main:players.2.colour (color)
+
+timelines
+
+machine
+  layer leader (writes adaBar.stroke.width, linBar.stroke.width, samBar.stroke.width)
+    *ada: pose {"adaBar.stroke.width":0.5,"linBar.stroke.width":0,"samBar.stroke.width":0}
+        $players.1.score > $players.0.score && $players.1.score >= $players.2.score → lin
+        $players.2.score > $players.0.score && $players.2.score > $players.1.score → sam
+     lin: pose {"adaBar.stroke.width":0,"linBar.stroke.width":0.5,"samBar.stroke.width":0}
+        $players.0.score >= $players.1.score && $players.0.score >= $players.2.score → ada
+        $players.2.score > $players.0.score && $players.2.score > $players.1.score → sam
+     sam: pose {"adaBar.stroke.width":0,"linBar.stroke.width":0,"samBar.stroke.width":0.5}
+        $players.0.score >= $players.1.score && $players.0.score >= $players.2.score → ada
+        $players.1.score > $players.0.score && $players.1.score >= $players.2.score → lin
+  layer milestones (writes nothing)
+    *below: pose {}
+        $players.0.score >= 1500 → above
+     above: pose {}, emit milestone
+        $players.0.score < 1500 → below
+
+bound
+  ada.fill.color
+  adaBar.fill.color
+  adaBar.w
+  ada.properties.label
+  lin.fill.color
+  linBar.fill.color
+  linBar.w
+  lin.properties.label
+  sam.fill.color
+  samBar.fill.color
+  samBar.w
+  sam.properties.label
+  knob.x
+
+listeners
+  drag-start|drag|drag-end on knob → write x → $players.0.score

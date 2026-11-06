@@ -1,0 +1,19 @@
+advance 0
+pointer down 23.75 18
+pointer move 27.5 18
+snapshot $players.0.score knob.x adaBar.width ada.properties.label
+pointer move 20 18
+snapshot $players.0.score knob.x adaBar.width ada.properties.label
+pointer move 40 18
+snapshot $players.0.score knob.x adaBar.width ada.properties.label
+pointer move 0 18
+snapshot $players.0.score knob.x adaBar.width ada.properties.label
+pointer up 0 18
+set $players.0.score 1000
+advance 0
+snapshot $players.0.score knob.x adaBar.width ada.properties.label
+pointer down 20.5 18
+pointer move 23.5 18
+snapshot $players.0.score knob.x adaBar.width ada.properties.label
+pointer up 23.5 18
+snapshot $players.0.score knob.x

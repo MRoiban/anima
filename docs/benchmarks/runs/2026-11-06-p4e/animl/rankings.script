@@ -1,0 +1,136 @@
+advance 0
+set $players.0.score 0
+set $players.1.score 0
+set $players.2.score 0
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 0
+set $players.1.score 0
+set $players.2.score 980
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 0
+set $players.1.score 0
+set $players.2.score 1500
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 0
+set $players.1.score 980
+set $players.2.score 0
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 0
+set $players.1.score 980
+set $players.2.score 980
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 0
+set $players.1.score 980
+set $players.2.score 1500
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 0
+set $players.1.score 1500
+set $players.2.score 0
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 0
+set $players.1.score 1500
+set $players.2.score 980
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 0
+set $players.1.score 1500
+set $players.2.score 1500
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 980
+set $players.1.score 0
+set $players.2.score 0
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 980
+set $players.1.score 0
+set $players.2.score 980
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 980
+set $players.1.score 0
+set $players.2.score 1500
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 980
+set $players.1.score 980
+set $players.2.score 0
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 980
+set $players.1.score 980
+set $players.2.score 980
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 980
+set $players.1.score 980
+set $players.2.score 1500
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 980
+set $players.1.score 1500
+set $players.2.score 0
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 980
+set $players.1.score 1500
+set $players.2.score 980
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 980
+set $players.1.score 1500
+set $players.2.score 1500
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 1500
+set $players.1.score 0
+set $players.2.score 0
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 1500
+set $players.1.score 0
+set $players.2.score 980
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 1500
+set $players.1.score 0
+set $players.2.score 1500
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 1500
+set $players.1.score 980
+set $players.2.score 0
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 1500
+set $players.1.score 980
+set $players.2.score 980
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 1500
+set $players.1.score 980
+set $players.2.score 1500
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 1500
+set $players.1.score 1500
+set $players.2.score 0
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 1500
+set $players.1.score 1500
+set $players.2.score 980
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 1500
+set $players.1.score 1500
+set $players.2.score 1500
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
