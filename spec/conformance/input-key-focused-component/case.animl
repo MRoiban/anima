@@ -6,8 +6,8 @@
     <circle id="disc" cx="10" cy="10" r="5" fill="#000">
       <focus/>
     </circle>
-    <listener on="key-down" target="disc" set="n=3" consume="true" key="k"/>
-    <listener on="key-down" target="disc" set="n=4" key="j"/>
+    <listener on="key-down" target="disc" set="n=3" key="k"/>
+    <listener on="key-down" target="disc" set="n=4" propagate="true" key="j"/>
   </component>
 
   <instance id="child" component="child"/>

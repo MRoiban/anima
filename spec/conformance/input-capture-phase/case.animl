@@ -6,6 +6,6 @@
   </group>
 
   <listener on="down" target="disc" set="n=3"/>
-  <listener on="down" target="parent" set="n=1" capture="true"/>
+  <listener on="down" target="parent" set="n=1" capture="true" consume="true"/>
   <listener on="down" target="disc" set="n=2" capture="true" consume="true"/>
 </anima>

@@ -219,7 +219,8 @@ for (const order of [
                   nodes: d.nodes.slice(0, 3),
                   inputs: { key: { type: 'number' } },
                   listeners: [
-                    { on: 'key-down', target: 'a', key: 'k', consume: true, set: { key: 7 } },
+                    { on: 'key-down', target: 'a', key: 'k', set: { key: 7 } },
+                    { on: 'key-down', target: 'a', key: 'p', propagate: true, set: { key: 8 } },
                   ],
                 },
               },
@@ -234,6 +235,13 @@ for (const order of [
           expect(
             await page.evaluate(() => document.querySelector('anima-icon')!.get('outer')),
           ).toBe(1);
+          await page.keyboard.press('p');
+          expect(
+            await page.evaluate(() => document.querySelector('anima-icon')!.get('child.key')),
+          ).toBe(8);
+          expect(
+            await page.evaluate(() => document.querySelector('anima-icon')!.get('outer')),
+          ).toBe(2);
           await page.keyboard.press('ArrowRight');
           expect(
             await page.evaluate(() => document.querySelector('anima-icon')!.get('outer')),

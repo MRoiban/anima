@@ -1110,6 +1110,10 @@
             "type": "boolean",
             "feature": "input"
           },
+          "propagate": {
+            "type": "boolean",
+            "feature": "input"
+          },
           "key": {
             "type": "string",
             "feature": "input"

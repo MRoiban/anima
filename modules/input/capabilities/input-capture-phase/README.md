@@ -7,4 +7,6 @@ Contract: [SPEC](../../SPEC.md#input-capture-phase). Registry entries compose `.
 
 Evidence: `spec/conformance/input-capture-phase`, paired example, `invalid.json` tested by `test/core/evidence.test.ts`,
 and browser/API assertions in `test/web/browser.test.ts` and `test/core/runtime.test.ts`.
-Schema and CLI sample are tested for this row. Oracle: pending; native capture remains separate.
+Schema and CLI sample are tested for this row. Oracle: verified with unchanged native values and zero tolerance.
+
+Native parent claiming maps to explicit Anima consume=true; capture sorting was already outer-first.

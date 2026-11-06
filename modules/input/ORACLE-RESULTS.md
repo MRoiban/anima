@@ -1,29 +1,35 @@
 # STATUS / VERIFY / METRIC / DEVIATIONS / PROBLEMS
 
-STATUS: Original 36 pending input probes disposed; all 16 invalid focus skips replaced.
-All 15 earlier input skips also revisited: seven cursor-intent comparisons captured, eight
-browser-host limits retained with individual captures. Runtime code and parity statuses unchanged.
+STATUS: Three original input findings resolved as **two verified / one intentional difference**.
+Keyboard target listeners stop delivery by default; `propagate="true"` opts into passing on.
+Capture ordering remains outermost ancestor to target. A consuming ancestor stops inner delivery.
 
-VERIFY: Final requested scoped suite: **1426 passed / 119 out-of-scope conformance skips**,
-13 files, Chromium and Firefox. Prettier, ESLint, `npx tsc -p tools`, generated parity and
-AniML corpus checks pass. Strict oracle exits **0**: **104 completed cases / 295 samples**;
-three findings measured and printed separately. All references in this pass recaptured
-with `python3 tests/oracle/capture.py --interaction` before final verification. Reproduction:
-`python3 tests/oracle/capture.py --interaction` authors and recaptures only this pass;
-`node tools/oracle.ts --build --strict` compares completed probes and prints findings separately.
-`npm run test:scope -- input focus oracle`, `npx prettier --check .`, `npx eslint .`.
-The capture script uses only full-path local headless commands and deletes generated .riv files
-without reading them. No scaffold documentation was created or copied.
+VERIFY: Fresh full-path local native recapture of input-capture-phase, input-keyboard-bubbling,
+and input-align-preserve. `node tools/oracle.ts --strict` exits 0: **106 completed cases / 300 samples**.
+The two promoted cases retain tolerance zero and unchanged native scenes, commands and values.
+The alignment pair remains outside cases.json, with failing observations retained.
+Requested scoped tests, formatting, lint and browser results are recorded in docs/LOG.md.
 
-METRIC: Original input 36 → **27 verified / 6 skip-noted / 3 findings**.
-Focus 16 → **16 verified / 0 skip-noted / 0 findings**.
-Earlier input 15 skips → 7 cursor-intent verified / 8 host limits evidenced.
-Whole input module 54 → **37 verified / 14 skip-noted / 3 findings**.
-Two supplemental rendering probes compare Solo and collapse, with max channel delta 1,
-zero pixels over 16, unchanged new axis-aligned budget max 2 / 0%.
-The integer `times` in interaction cases label observation steps, not elapsed seconds; each
-manifest script specifies the full equivalent command prefix.
-All discrete input values, cursor requests and focus ids compare exactly, tolerance zero.
+METRIC: Original pending input 36 → **29 verified / 6 skip-noted / 1 intentional difference**.
+Whole input module 54 → **39 verified / 14 skip-noted / 1 intentional difference**.
+Focus remains **16 verified / 0 skips / 0 findings**. Findings **3 → verified 2 / intentional 1**.
+
+Capture evidence correction: the existing runtime sorter already used ascending capture depth.
+The original Anima probe ran a non-consuming parent followed by a consuming child, yielding 2;
+native parent capture claimed the event and yielded 1. The paired Anima parent now explicitly
+sets consume=true to map that native claim. This is a fixture/contract correction, not evidence
+of a newly fixed sorting bug. Independent hand-authored conformance vectors retain both the
+non-consuming outer→inner sequence and a consuming ancestor blocking the target.
+
+Keyboard F13 now yields 1 on both sides (previous Anima 2, native 1); unmatched F12 still
+reaches the ancestor and yields 2. Default consumption also crosses component boundaries.
+Browser tests cover native Enter/Space activation, arrows, Tab and explicit propagation.
+
+PROBLEMS: Preserve-offset is an intentional difference, never a pass: grab x=88 on origin x=80,
+move to x=104 → Anima x=96 versus native x=80, absolute delta 16 at move and after release.
+Its finding.json status is "intentional difference"; strict mode prints that status separately,
+writes findings-metrics.json and retains pass=false for both differing samples. No tolerance,
+reference timing or coordinates changed. Strict success certifies completed cases only.
 
 DEVIATIONS: A verified row means the concrete probe is verified, not every host API or possible
 parameter. Pointer and hit-query rows compare observable delivery, not the return shape of an
@@ -51,18 +57,6 @@ nonempty names. Browser tests retain responsibility for CSS/OS cursor applicatio
 The separation follows docs/research/rive-web-runtime.md lessons 2, 5 and 6; fresh captures,
 not research notes, provide the comparison evidence.
 
-PROBLEMS: Three unresolved disagreements are findings, not skips, adjusted references or
-expected failures. Completed cases remain in cases.json. finding.json carries the independently
-captured failing pair; strict mode prints it and writes findings-metrics.json separately. Exit 0
-means completed comparisons pass, not universal interaction parity. The evidence test preserves
-the exact measured discrepancy so a changed result requires re-evaluation.
-
-1. Keyboard bubbling: F13 ends at Anima n=2 versus native n=1, absolute delta **1**.
-2. Pointer capture ordering: child capture/consume ends at Anima n=2 versus native n=1,
-   absolute delta **1**. Parent capture wins in the native dispatch.
-3. Preserve-offset alignment: on the first drag move and after release Anima n=96 versus
-   native n=80, absolute delta **16**. Snap alignment agrees exactly. This probe grabs x=88
-   on a node at x=80 and moves to x=104; no reference timing or coordinate was changed.
 
 ## Per-row decisions
 
@@ -78,12 +72,12 @@ the exact measured discrepancy so a changed result requires re-evaluation.
 | host-api.pointer-exit | verified | tests/oracle/host-api-pointer-exit/rive/commands.txt |
 | host-api.scroll-hit-policy | skip | tests/oracle/host-api-scroll-hit-policy/skip.json |
 | host-api.scroll-latching | skip | tests/oracle/host-api-scroll-latching/skip.json |
-| input.align-preserve | finding | tests/oracle/input-align-preserve/finding.json |
+| input.align-preserve | intentional difference | tests/oracle/input-align-preserve/finding.json |
 | input.align-snap | verified | tests/oracle/input-align-snap/rive/commands.txt |
 | input.bounded-hit-tests | verified | tests/oracle/input-bounded-hit-tests/rive/commands.txt |
 | input.button-middle | skip | tests/oracle/input-button-middle/skip.json |
 | input.button-secondary | skip | tests/oracle/input-button-secondary/skip.json |
-| input.capture-phase | finding | tests/oracle/input-capture-phase/finding.json |
+| input.capture-phase | verified | tests/oracle/input-capture-phase/rive/commands.txt |
 | input.cursor-arrow | verified | tests/oracle/input-cursor-arrow/rive/commands.txt |
 | input.cursor-hidden | verified | tests/oracle/input-cursor-hidden/rive/commands.txt |
 | input.cursor-intent | verified | tests/oracle/input-cursor-intent/rive/commands.txt |
@@ -108,7 +102,7 @@ the exact measured discrepancy so a changed result requires re-evaluation.
 | input.key-modifiers | verified | tests/oracle/input-key-modifiers/rive/commands.txt |
 | input.key-repeat | verified | tests/oracle/input-key-repeat/rive/commands.txt |
 | input.key-up | verified | tests/oracle/input-key-up/rive/commands.txt |
-| input.keyboard-bubbling | finding | tests/oracle/input-keyboard-bubbling/finding.json |
+| input.keyboard-bubbling | verified | tests/oracle/input-keyboard-bubbling/rive/commands.txt |
 | input.multi-touch | verified | tests/oracle/input-multi-touch/rive/commands.txt |
 | input.multi-trigger-listener | verified | tests/oracle/input-multi-trigger-listener/rive/commands.txt |
 | input.opaque-targets | verified | tests/oracle/input-opaque-targets/rive/commands.txt |

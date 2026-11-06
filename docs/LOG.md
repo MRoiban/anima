@@ -1614,3 +1614,60 @@ No reference/tolerance/runtime change hides those findings; no phase or parity-s
 Scoped input/focus/oracle tests 1426 pass, 119 out-of-scope conformance skips; Chromium/Firefox.
 Prettier, ESLint, tooling tsc, parity and AniML corpus checks pass. No push/PR/merge.
 See modules/input/ORACLE-RESULTS.md for reproduction and per-row observation limits.
+
+## P4c input oracle decisions (2026-11-06)
+
+Keyboard normal listeners now stop delivery by default on down, repeat and up, including
+component descendants. Registry boolean `propagate` opts into continued delivery; explicit
+consume wins. Capture remains outermost-first with authored ordering at equal depth and
+explicit consumption. Focus navigation runs after delivery; native Enter/Space stays in the
+host, following docs/research/rive-web-runtime.md lessons 2, 5 and 6.
+
+The capture finding was misdiagnosed as sorting: HEAD already sorted ascending capture depth.
+Its original non-consuming Anima parent allowed the consuming child to overwrite 1 with 2.
+Native parent capture claimed delivery. The oracle now explicitly consumes at the Anima
+parent to express that native claim. No native scene, coordinate, timing or tolerance changed.
+Fresh local CLI captures reproduce parent n=1 and keyboard F13 n=1 (unmatched F12 n=2).
+
+Preserve-offset is an intentional difference: origin 80, grab 88, move 104 means Anima 96,
+while native remains 80 at move and release (delta 16). Separate finding metrics retain
+pass=false, and the evidence test checks that; it is never promoted to successful cases.
+
+Changed conformance cases (independent expectations, no regeneration from runtime):
+
+- `spec/conformance/input-capture-phase`: parent explicitly consumes; expected n=1 instead
+  of 2 because inner capture and normal listeners cannot run.
+- `spec/conformance/input-keyboard-bubbling`: F13 expected n=1 instead of 2 because the
+  matching target stops delivery; unmatched key still reaches parent n=2.
+- `spec/conformance/input-key-focused-component`: k uses default consumption; j opts into
+  propagation. Existing parent/child expectations stay 1/3 and 2/4.
+- `modules/input/conformance/capture-order.json` (new): reverse-authored three-depth chain
+  must emit capture outer→inner→target before normal target→inner→outer.
+- `modules/input/conformance/capture-consume.json` (new): consuming outer ancestor emits
+  only its own event, excluding inner capture and normal delivery.
+- `modules/input/conformance/key-default-stop.json` (new): down/repeat/up emit only target.
+- `modules/input/conformance/key-propagate.json` (new): down/repeat/up emit target then parent.
+- `modules/input/conformance/key-consume-precedence.json` (new): consume overrides propagate
+  in every keyboard phase, so only target emits.
+
+Browser component probe checks default stop and explicit propagation; existing navigation,
+Tab, Enter/Space and pointer-focus assertions retain their limits. Registry schema/AniML
+round-trip and invalid-boolean diagnostic checks cover the new field. The independent markup
+test reader now recognizes its boolean type.
+
+Verification: `VITEST_MAX_WORKERS=2 npm run test:scope -- input focus machine components
+oracle conformance` passes **48 files / 1702 tests**, including input/focus Chromium and Firefox.
+Unbounded rerun passed 1697 with five Firefox timeouts under load; bounded rerun keeps all
+limits and coverage unchanged. `node tools/oracle.ts --strict` exits 0 (**106 completed cases /
+300 samples**, two promoted exact-value cases); preserve-offset remains separate with pass=false.
+Generated schema rebuilt; wiring and AniML corpus checks pass. Size checks pass: input
+**6007/8192 B**, focus **3846/4096 B**, core+web **19048 B**, full-featured **64879 B**.
+Prettier, ESLint and tools typecheck pass. No push, PR, merge, parity status change, runtime
+dependency or tolerance adjustment. Initial scoped pass: 1699 passed, stale oracle build
+and component propagation fixture failed; corrected. Subsequent run exposed canonical markup
+and the independent test-reader boolean list; corrected. It also hit a timing test under load
+and exited 143 before completing; no limits were changed. npm ci restored missing tooling.
+
+Final core-test typecheck caught two test-only accesses through the generic Doc shape; explicit
+listener-shape casts fixed them. `npx tsc -p packages/core/test` and the focused 56-test
+evidence suite pass; final whole-repo Prettier and ESLint checks pass.

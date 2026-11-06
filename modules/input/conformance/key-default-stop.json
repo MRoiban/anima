@@ -1,0 +1,63 @@
+{
+  "document": {
+    "anima": "0.1",
+    "name": "routing",
+    "grid": 20,
+    "requires": ["input"],
+    "nodes": [
+      {
+        "id": "outer",
+        "type": "group",
+        "children": [
+          {
+            "id": "inner",
+            "type": "group",
+            "children": [
+              {
+                "id": "disc",
+                "type": "circle",
+                "center": [10, 10],
+                "r": 5,
+                "fill": {
+                  "color": "#000"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "listeners": [
+      {
+        "on": "key-down|key-repeat|key-up",
+        "target": "disc",
+        "propagate": false,
+        "consume": false,
+        "emit": "target"
+      },
+      {
+        "on": "key-down|key-repeat|key-up",
+        "target": "outer",
+        "emit": "parent"
+      }
+    ]
+  },
+  "script": ["key down F13 - disc", "key repeat F13 - disc", "key up F13 - disc"],
+  "expected": [
+    {
+      "inputs": {},
+      "events": ["target"],
+      "states": {}
+    },
+    {
+      "inputs": {},
+      "events": ["target"],
+      "states": {}
+    },
+    {
+      "inputs": {},
+      "events": ["target"],
+      "states": {}
+    }
+  ]
+}

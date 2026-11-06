@@ -40,7 +40,7 @@ for (const c of pendingCases) it.todo(`Rive oracle: ${c.name} (pending: ${c.reas
 
 // Findings remain measurements, separate from successful oracle comparisons.
 it.each(findingCases)('retains numerical evidence: $name', async (f) => {
-  expect(f.status).toBe('finding');
+  expect(['finding', 'intentional difference']).toContain(f.status);
   expect(cases.some((c) => c.name === f.name)).toBe(false);
   expect(pendingCases.some((c) => c.name === f.name)).toBe(false);
   const dir = mkdtempSync(join(tmpdir(), 'anima-finding-'));
@@ -48,6 +48,7 @@ it.each(findingCases)('retains numerical evidence: $name', async (f) => {
     const metrics = await measure(f.case, pathToFileURL(dir + '/'));
     for (const observation of f.observations) {
       const m = metrics.find((v) => v.time === observation.time)!;
+      expect(m.pass).toBe(false);
       expect(m).toMatchObject({
         actual: observation.actual,
         reference: observation.reference,

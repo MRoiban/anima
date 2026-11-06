@@ -59,7 +59,6 @@
           "set": {
             "n": 3
           },
-          "consume": true,
           "key": "k"
         },
         {
@@ -68,6 +67,7 @@
           "set": {
             "n": 4
           },
+          "propagate": true,
           "key": "j"
         }
       ]

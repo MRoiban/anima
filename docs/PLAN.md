@@ -248,7 +248,10 @@ and an oracle test against Rive.
       P4c-2/P4c-4 integration: 54/54 implementation evidence sets, 18/54 strictly complete
       (3 captured + 15 documented host-only oracle skips); 36 native probes disposed: 27 verified, six evidenced limits, three numerical findings.
       Generic AniML fields, components event kinds and input/focus/machine seams integrated.
-      Oracle pass recorded in modules/input/ORACLE-RESULTS.md; three disagreements and phase gates remain; parity statuses unchanged.
+      Oracle pass recorded in modules/input/ORACLE-RESULTS.md; phase gates remain; parity statuses unchanged.
+  - [x] P4c input finding decisions: capture parent claim mapped explicitly, default keyboard
+        consumption with propagate opt-in, preserve-offset intentional difference; two verified
+        zero-tolerance probes and one separately recorded difference (96 versus 80).
   - [x] P4c-4 interaction integration: generic fields, exact focus round-trips, event kinds,
         key/pointer/guard seams and per-row implementation evidence (modules/input/REPORT.md).
 - [ ] P4d `events`: payloads, open-URL, audio.

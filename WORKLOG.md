@@ -1,10 +1,13 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now: P4c interaction (branch p4c-interaction; modules machine, input, focus) and P4d events (branch p4d-events) in parallel; then P4e data, P5b, P3b, P6–P10.
-State: main a02c0be = through P4b (PR #13). Parity 259/1238. core+web 19012; full-featured 51.4 KB.
-Next: merge agents per branch; before pushing a merge run browser tests for the seams; benchmark per phase; PR per phase.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4c input finding decisions implemented; commit only, no push/PR/merge.
+Verified: 1702 scoped tests / 48 files green with VITEST_MAX_WORKERS=2; Chromium+Firefox included.
+Oracle: strict exit 0, 106 cases/300 samples; findings 3 → verified 2 / intentional 1.
+Capture was already outer-first; paired native parent claim now maps to explicit consume.
+Keyboard stops by default; propagate opts in. Preserve alignment retains 96 vs 80 (delta 16).
+Next: orchestrator review/integration; phase gates and parity statuses unchanged.
+Don't: read .riv, use remote Rive commands, loosen tolerances, push/PR/merge.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -109,3 +112,8 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 10:00 [claude]: merged P4c-1 machine (dd995fa): 26/26, 37 cases, 18 oracle-verified, machine 5736/8192, core+web +36, generic AniML extension; seam: 17 focus decompile round-trips lose node 'focus' objects (generic extension lacks node-object fields) → integration agent P4c-4
 - 2026-11-07 12:00 [claude]: merged P4c-4 integration (9cc628a): input 18/54 strict (36 await oracle), focus round trips 17/17, core+web +0; perf under load avg 16: min-of-4 prefixes main 973 vs branch 955 ms (no regression; re-measure quiet before PR)
 - 2026-11-07 15:00 [claude]: merged P4c oracle (d6da97a): focus 16/16, input 27 verified/6 skips/3 findings. Decisions: capture-phase order → fix (parent first, DOM/Rive); keyboard target listener stops propagation (opt-in bubble) → fix; align-preserve kept (Anima follows the grab offset) → intentional difference
+- 2026-11-06 03:40 [sol]: inspected three findings; capture algorithm already outer-first, native parent claim requires explicit Anima consume; npm ci restored missing tools (verification pending).
+- 2026-11-06 03:52 [sol]: strict oracle 106 cases/300 samples passes after fresh native recapture; initial scoped failures corrected (stale .ani, propagation/canonical fixtures, independent reader boolean list); subsequent run exited 143 under load, final rerun pending.
+- 2026-11-06 03:53 [sol]: all functional assertions pass; scoped run 1697 passed/5 Firefox timeouts under load; rerunning with VITEST_MAX_WORKERS=2, unchanged limits. Strict oracle, lint, prettier, tools tsc, wiring/corpus and all size budgets pass (input 6007/8192 B).
+- 2026-11-06 03:54 [sol]: bounded requested scoped suite passes 1702/1702 (48 files), including input/focus Chromium+Firefox; strict 106 cases/300 samples, lint/format/tools tsc/wiring/corpus/size green; ready for commit.
+- 2026-11-06 03:54 [sol]: core-test typecheck found generic Doc test access types; fixed casts → tsc core/test and focused evidence 56/56 pass, final lint/format green; committing implementation and evidence.

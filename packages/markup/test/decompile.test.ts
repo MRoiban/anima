@@ -71,6 +71,7 @@ function recover(root: Element): Obj {
         'button',
         'capture',
         'consume',
+        'propagate',
         'index',
         'control',
       ].includes(k)

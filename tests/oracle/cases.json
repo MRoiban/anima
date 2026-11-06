@@ -1319,5 +1319,38 @@
       "path": "cursor",
       "tolerance": 0
     }
+  },
+  {
+    "name": "input-capture-phase",
+    "times": [0, 1],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 120 120\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-keyboard-bubbling",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nkey down F12 - a\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nkey down F12 - a\nadvance 0\nadvance 0\nkey down F13 - a\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
   }
 ]

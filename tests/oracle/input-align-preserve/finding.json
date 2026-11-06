@@ -1,6 +1,6 @@
 {
-  "status": "finding",
-  "reason": "First drag move preserves the native origin at 80, while Anima applies the 16-unit displacement measured from down, yielding 96.",
+  "status": "intentional difference",
+  "reason": "Intentional difference: Anima follows the pointer with the grab offset measured at pointer-down (x=88 on origin x=80; move to x=104 yields x=96). Native preserve-offset remains x=80 at the first move and after release; absolute delta 16. Neither result nor tolerance is normalized.",
   "case": {
     "name": "input-align-preserve",
     "times": [0, 1, 2, 3],

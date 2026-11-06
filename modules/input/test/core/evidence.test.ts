@@ -48,3 +48,22 @@ for (const { row } of rows) {
     }
   });
 }
+
+it('propagate is a registry boolean shared by AniML, JSON schema and decompilation', () => {
+  const source = `<anima version="0.1" name="propagate" grid="20" requires="input"><number name="n"/><circle id="disc" cx="10" cy="10" r="5" fill="#000"/><listener on="key-down" target="disc" set="n=1" propagate="true"/></anima>`;
+  const c = compile(source);
+  expect(c.diagnostics).toEqual([]);
+  expect(schema(c.doc)).toBe(true);
+  expect(compile(decompile(c.doc!)).doc).toEqual(c.doc);
+  expect((c.doc!.listeners as { propagate: boolean }[])[0]!.propagate).toBe(true);
+  const invalid = structuredClone(c.doc!);
+  (invalid.listeners as { propagate: unknown }[])[0]!.propagate = 'yes';
+  expect(schema(invalid)).toBe(false);
+  expect(load(invalid).diagnostics).toContainEqual(
+    expect.objectContaining({
+      code: 'type',
+      pointer: '/listeners/0/propagate',
+      message: 'expected boolean, got string',
+    }),
+  );
+});

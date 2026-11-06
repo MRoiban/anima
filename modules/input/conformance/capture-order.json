@@ -1,0 +1,84 @@
+{
+  "document": {
+    "anima": "0.1",
+    "name": "routing",
+    "grid": 20,
+    "requires": ["input"],
+    "nodes": [
+      {
+        "id": "outer",
+        "type": "group",
+        "children": [
+          {
+            "id": "inner",
+            "type": "group",
+            "children": [
+              {
+                "id": "disc",
+                "type": "circle",
+                "center": [10, 10],
+                "r": 5,
+                "fill": {
+                  "color": "#000"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "listeners": [
+      {
+        "on": "down",
+        "target": "disc",
+        "capture": false,
+        "emit": "target"
+      },
+      {
+        "on": "down",
+        "target": "disc",
+        "capture": true,
+        "emit": "capture-target"
+      },
+      {
+        "on": "down",
+        "target": "inner",
+        "capture": true,
+        "emit": "capture-inner"
+      },
+      {
+        "on": "down",
+        "target": "outer",
+        "capture": true,
+        "emit": "capture-outer"
+      },
+      {
+        "on": "down",
+        "target": "inner",
+        "capture": false,
+        "emit": "bubble-inner"
+      },
+      {
+        "on": "down",
+        "target": "outer",
+        "capture": false,
+        "emit": "bubble-outer"
+      }
+    ]
+  },
+  "script": ["contact down 0 10 10"],
+  "expected": [
+    {
+      "inputs": {},
+      "events": [
+        "capture-outer",
+        "capture-inner",
+        "capture-target",
+        "target",
+        "bubble-inner",
+        "bubble-outer"
+      ],
+      "states": {}
+    }
+  ]
+}
