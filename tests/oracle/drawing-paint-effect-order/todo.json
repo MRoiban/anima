@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "drawing-paint-effect-order: implementation/browser evidence exists; independent native oracle comparison is not completed. Angular/additive/per-paint modes cannot use the SVG-only oracle runner."
+}

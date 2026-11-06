@@ -134,7 +134,9 @@ and tuple fields retain their ordinary attribute forms. Compound object/map/arra
 use JSON-valued attributes (normal XML escaping applies); existing listener `set`,
 `fire` and `toggle` retain their assignment/name-list syntax. Structural containers
 (`states`, `on`, `pose`, `tracks`, `events`) remain children. Scalar module fields on
-`document` also become `<anima>` attributes. No per-module compiler hook is needed
+`document` also become `<anima>` attributes. Compound document fields opt in to a
+JSON-valued attribute by declaring an explicit `markup` name without an `element`;
+this preserves existing structural containers. No per-module compiler hook is needed
 for these attributes; `packages/markup/test/module-fields.test.ts` covers all five
 non-node targets, aliases, compounds and rejection of unknown fields. Descriptor
 caches last one compilation, so late registration is visible to the next compile.
@@ -201,7 +203,9 @@ independently of whether `sourceDraws` hides their ordinary drawing. Source ance
 apply, ancestor opacity/visibility do not. Geometry clips ignore source paint and visibility.
 
 Colours are literal colours/`currentColor` or `{slot, fallback}`. Gradient coordinates/stops are
-resolved in local grid space; stops already obey the nondecreasing rule. Paints include fill rule,
+resolved in local grid space; stops already obey the nondecreasing rule. Paints may override `geometry` with a resolved path (for ordered stroke effects and winding
+compilation), independently of the node outline and other paints. Entries may carry an authored
+JSON `pointer` for exact backend diagnostics. Paints include fill rule,
 visibility, stroke width/cap/join, trim fractions/offset, dashes in local grid units, position
 and scale mode. Relative authored dashes also retain `dashNormalized`/`dashOffsetNormalized`
 fractions so SVG can preserve normalized pathLength output, including zero-length outlines;

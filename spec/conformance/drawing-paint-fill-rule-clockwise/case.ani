@@ -1,0 +1,17 @@
+{
+  "anima": "0.1",
+  "name": "drawing-paint-fill-rule-clockwise",
+  "grid": 20,
+  "requires": ["contour"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "path",
+      "d": "M2 2H18V18H2Z M5 5V15H15V5Z",
+      "fill": {
+        "color": "#4263eb",
+        "winding": "clockwise"
+      }
+    }
+  ]
+}

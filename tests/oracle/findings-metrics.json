@@ -92,6 +92,118 @@
     ]
   },
   {
+    "name": "drawing-paint-trim-synchronized",
+    "status": "finding",
+    "reason": "Native screenshot differs from the independent Anima construction under the fixed comparison limits. The cause is not established; this is not verified parity.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 95,
+        "over": 26,
+        "overPercent": 0.04513888888888889,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-trim-sequential",
+    "status": "finding",
+    "reason": "Native screenshot differs from the independent Anima construction under the fixed comparison limits. The cause is not established; this is not verified parity.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 95,
+        "over": 25,
+        "overPercent": 0.043402777777777776,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-straight-vertex",
+    "status": "finding",
+    "reason": "Native screenshot differs from the independent Anima construction under the fixed comparison limits. The cause is not established; this is not verified parity.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 153,
+        "over": 162,
+        "overPercent": 0.28125,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-rounded-vertex",
+    "status": "intentional difference",
+    "reason": "Anima specifies quadratic cutback rounding; native rounding is not asserted equivalent. The captured screenshots disagree under fixed limits.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 153,
+        "over": 175,
+        "overPercent": 0.3038194444444444,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-mirrored-vertex",
+    "status": "finding",
+    "reason": "Native screenshot differs from the independent Anima construction under the fixed comparison limits. The cause is not established; this is not verified parity.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 142,
+        "over": 216,
+        "overPercent": 0.375,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-gradient-transform",
+    "status": "finding",
+    "reason": "Native screenshot differs from the independent Anima construction under the fixed comparison limits. The cause is not established; this is not verified parity.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 151,
+        "over": 45809,
+        "overPercent": 79.52951388888889,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-detached-vertex",
+    "status": "finding",
+    "reason": "Native screenshot differs from the independent Anima construction under the fixed comparison limits. The cause is not established; this is not verified parity.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 153,
+        "over": 100,
+        "overPercent": 0.1736111111111111,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-asymmetric-vertex",
+    "status": "finding",
+    "reason": "Native screenshot differs from the independent Anima construction under the fixed comparison limits. The cause is not established; this is not verified parity.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 141,
+        "over": 206,
+        "overPercent": 0.3576388888888889,
+        "pass": false
+      }
+    ]
+  },
+  {
     "name": "bind-condition-modulo/immediate-probe",
     "reason": "Immediate post-click observation differs: Anima emits at clicks 5/10/15/20/25; Rive at 6/11/16/21 with observed payloads 6/11/16/21 (5 versus 4 events, one-click lag). An extra native advance 1 settles each click and the separate completed case then matches. No elapsed-frame equivalence claimed.",
     "frames": [

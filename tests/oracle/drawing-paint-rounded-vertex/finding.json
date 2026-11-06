@@ -1,0 +1,11 @@
+{
+  "status": "intentional difference",
+  "reason": "Anima specifies quadratic cutback rounding; native rounding is not asserted equivalent. The captured screenshots disagree under fixed limits.",
+  "case": {
+    "name": "drawing-paint-rounded-vertex",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 110,
+    "maxOverPercent": 0.3
+  }
+}

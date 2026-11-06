@@ -1,0 +1,3 @@
+<anima version="0.1" name="host-api-renderer" grid="20">
+  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+</anima>

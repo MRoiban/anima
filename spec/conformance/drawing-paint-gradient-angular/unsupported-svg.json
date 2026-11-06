@@ -1,0 +1,4 @@
+{
+  "code": "unsupported-render",
+  "reason": "SVG has no faithful native angular gradient primitive; canvas supports createConicGradient."
+}

@@ -277,6 +277,9 @@ and an oracle test against Rive.
         See `modules/events/P4D-3-RESULTS.md`; four exact post-click comparative oracles and one immediate-timing finding in `tests/oracle/ACTION-EXPRESSIONS.md`.
   - [ ] Parent integration, phase benchmark and parity promotion/PR.
 - [ ] P4e `data`: view models, bindings, converters, lists.
+      Paint/backend subtask is partial: 18 rows mapped, 3/18 strict local completion;
+      SVG per-paint blending, clockwise hits and oracle evidence remain open.
+      See `modules/paint/REPORT.md`; no phase completion or parity promotion is claimed.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide
       whether switching to reduced motion stops in-progress loops at once (P4b benchmark).
 - [ ] P6 Text.

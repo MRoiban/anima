@@ -19,6 +19,8 @@ export const webEntries = [
   'motion',
   'events',
   'machine',
+  'contour',
+  'mix',
 ];
 export const webOwners: Record<string, string> = {
   canvas: 'canvas',
@@ -37,6 +39,8 @@ export const webOwners: Record<string, string> = {
   paint: 'paint',
   'markup-paint': 'paint',
   composite: 'composite',
+  contour: 'contour',
+  mix: 'mix',
   surface: 'surface',
   'markup-surface': 'surface',
 };
@@ -66,6 +70,8 @@ export const moduleBudgets: {
   { name: 'motion', budget: 8192 },
   { name: 'events', budget: 4096 },
   { name: 'machine', budget: 8192 },
+  { name: 'contour', budget: 5120 },
+  { name: 'mix', budget: 5120 },
 ];
 export const moduleScopes = {
   canvas: {
@@ -342,6 +348,8 @@ export const moduleScopes = {
       'paint-morph',
       'paint-pose-morph',
       'paint-shape-',
+      'drawing-paint-gradient-transform',
+      'drawing-paint-gradient-angular',
     ],
   },
   composite: {
@@ -355,6 +363,40 @@ export const moduleScopes = {
       'packages/markup/test/names.test.ts',
     ],
     conformance: ['paint-blend', 'paint-clip', 'paint-draw-order', 'paint-mask-'],
+  },
+  contour: {
+    tests: [
+      'modules/contour/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+    ],
+    conformance: [
+      'drawing-paint-straight-vertex',
+      'drawing-paint-mirrored-vertex',
+      'drawing-paint-asymmetric-vertex',
+      'drawing-paint-detached-vertex',
+      'drawing-paint-rounded-vertex',
+      'drawing-paint-geometry-origin',
+      'drawing-paint-trim-sequential',
+      'drawing-paint-trim-synchronized',
+      'drawing-paint-effect-order',
+      'drawing-paint-shared-effects',
+      'drawing-paint-fill-rule-clockwise',
+    ],
+  },
+  mix: {
+    tests: [
+      'modules/mix/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+    ],
+    conformance: [
+      'drawing-paint-blend-additive',
+      'drawing-paint-additive-strength',
+      'drawing-paint-paint-blend-override',
+      'host-api-renderer',
+      'host-api-factory',
+    ],
   },
   surface: {
     tests: [

@@ -117,7 +117,13 @@ export function decompile(doc: string | object): string {
     [['version', value(d.anima)]],
   );
   for (const f of elementFields('anima'))
-    if (d[f.key] !== undefined) root.attrs.push([f.attr, value(d[f.key])]);
+    if (d[f.key] !== undefined)
+      root.attrs.push([
+        f.attr,
+        ['obj', 'map', 'arr', 'alt'].includes(f.shape.k)
+          ? JSON.stringify(d[f.key])
+          : value(d[f.key]),
+      ]);
   const groups: LayoutElement[][] = [];
   if (d.meta !== undefined) {
     const meta = element('meta', obj(d.meta), []);

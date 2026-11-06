@@ -10049,10 +10049,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: blendAmount: 0..1",
-   "module": "paint",
+   "construct": "node.mix.strength / paint.blendAmount scales additive source contribution",
+   "module": "mix",
    "status": "planned",
-   "test": "oracle/additive-strength",
+   "test": "modules/mix/test/core; spec/conformance/drawing-paint-additive-strength; tests/oracle/drawing-paint-additive-strength (see REPORT.md)",
    "phase": "P4"
   }
  },
@@ -10078,10 +10078,10 @@
    "rive-runtime/include/rive/generated/shapes/cubic_asymmetric_vertex_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: editable vertices with asymmetric vertex geometry",
-   "module": "paint",
+   "construct": "contour vertices/geometryOrigin",
+   "module": "contour",
    "status": "planned",
-   "test": "oracle/asymmetric-vertex",
+   "test": "modules/contour/test/core; spec/conformance/drawing-paint-asymmetric-vertex; tests/oracle/drawing-paint-asymmetric-vertex (see REPORT.md)",
    "phase": "P4"
   }
  },
@@ -10111,10 +10111,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "deferred: plus-lighter lacks consistent SVG renderer support (SPEC paint Blend modes)",
-   "module": "paint",
+   "construct": "node.mix.mode additive / paint.blend additive; canvas lighter, SVG unsupported-render",
+   "module": "mix",
    "status": "planned",
-   "test": "SPEC paint Blend modes (deferred; no render claim)",
+   "test": "modules/mix/test/core; spec/conformance/drawing-paint-blend-additive; tests/oracle/drawing-paint-blend-additive (see REPORT.md)",
    "phase": "P4"
   }
  },
@@ -10972,10 +10972,10 @@
    "rive-runtime/include/rive/generated/shapes/cubic_detached_vertex_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: editable vertices with detached vertex geometry",
-   "module": "paint",
+   "construct": "contour vertices/geometryOrigin",
+   "module": "contour",
    "status": "planned",
-   "test": "oracle/detached-vertex",
+   "test": "modules/contour/test/core; spec/conformance/drawing-paint-detached-vertex; tests/oracle/drawing-paint-detached-vertex (see REPORT.md)",
    "phase": "P4"
   }
  },
@@ -11003,10 +11003,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/trim_path_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: paint.effects ordered array",
-   "module": "paint",
+   "construct": "stroke.trim / ordered stroke.effects and document.effects",
+   "module": "contour",
    "status": "planned",
-   "test": "oracle/effect-order",
+   "test": "modules/contour/test/core; spec/conformance/drawing-paint-effect-order; tests/oracle/drawing-paint-effect-order (see REPORT.md)",
    "phase": "P4"
   }
  },
@@ -11198,10 +11198,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/fill_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: fill.rule: clockwise",
-   "module": "paint",
+   "construct": "fill.winding clockwise: positive local y-down winding; rendering only, hit testing pending",
+   "module": "contour",
    "status": "planned",
-   "test": "oracle/fill-rule-clockwise",
+   "test": "modules/contour/test/core; spec/conformance/drawing-paint-fill-rule-clockwise; tests/oracle/drawing-paint-fill-rule-clockwise (see REPORT.md)",
    "phase": "P4"
   }
  },
@@ -11397,10 +11397,10 @@
    "rive-runtime/include/rive/generated/shapes/ellipse_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: geometry origin expressed as an explicit point in grid units",
-   "module": "paint",
+   "construct": "contour vertices/geometryOrigin",
+   "module": "contour",
    "status": "planned",
-   "test": "oracle/geometry-origin",
+   "test": "modules/contour/test/core; spec/conformance/drawing-paint-geometry-origin; tests/oracle/drawing-paint-geometry-origin (see REPORT.md)",
    "phase": "P4"
   }
  },
@@ -11427,10 +11427,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/angular_gradient_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: fill or stroke gradient: angular with grid-unit endpoints",
+   "construct": "fill/stroke.type angular; canvas createConicGradient, SVG unsupported-render",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/gradient-angular",
+   "test": "modules/paint/test/core; spec/conformance/drawing-paint-gradient-angular; tests/oracle/drawing-paint-gradient-angular (see REPORT.md)",
    "phase": "P4"
   }
  },
@@ -11603,10 +11603,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/linear_gradient_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: gradient.transform using grid units and degrees",
+   "construct": "fill/stroke.gradientTransform affine matrix; SVG and canvas; native transform observation disagrees",
    "module": "paint",
    "status": "planned",
-   "test": "oracle/gradient-transform",
+   "test": "modules/paint/test/core; spec/conformance/drawing-paint-gradient-transform; tests/oracle/drawing-paint-gradient-transform (see REPORT.md)",
    "phase": "P4"
   }
  },
@@ -12269,10 +12269,10 @@
    "rive-runtime/include/rive/generated/shapes/cubic_mirrored_vertex_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: editable vertices with mirrored vertex geometry",
-   "module": "paint",
+   "construct": "contour vertices/geometryOrigin",
+   "module": "contour",
    "status": "planned",
-   "test": "oracle/mirrored-vertex",
+   "test": "modules/contour/test/core; spec/conformance/drawing-paint-mirrored-vertex; tests/oracle/drawing-paint-mirrored-vertex (see REPORT.md)",
    "phase": "P4"
   }
  },
@@ -12574,10 +12574,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/stroke_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: paints[].blend with inherit",
-   "module": "paint",
+   "construct": "fill/stroke.blend with inherit; ordered paints supported; Firefox verification pending",
+   "module": "mix",
    "status": "planned",
-   "test": "oracle/paint-blend-override",
+   "test": "modules/mix/test/core; spec/conformance/drawing-paint-paint-blend-override; tests/oracle/drawing-paint-paint-blend-override (see REPORT.md)",
    "phase": "P4"
   }
  },
@@ -12866,10 +12866,10 @@
    "rive-runtime/include/rive/generated/shapes/straight_vertex_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: editable vertices with rounded vertex geometry",
-   "module": "paint",
+   "construct": "contour vertices/geometryOrigin",
+   "module": "contour",
    "status": "planned",
-   "test": "oracle/rounded-vertex",
+   "test": "modules/contour/test/core; spec/conformance/drawing-paint-rounded-vertex; tests/oracle/drawing-paint-rounded-vertex (see REPORT.md)",
    "phase": "P4"
   }
  },
@@ -13027,10 +13027,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/target_effect_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: effects map with reusable trim and dash stacks",
-   "module": "paint",
+   "construct": "stroke.trim / ordered stroke.effects and document.effects",
+   "module": "contour",
    "status": "planned",
-   "test": "oracle/shared-effects",
+   "test": "modules/contour/test/core; spec/conformance/drawing-paint-shared-effects; tests/oracle/drawing-paint-shared-effects (see REPORT.md)",
    "phase": "P4"
   }
  },
@@ -13173,10 +13173,10 @@
    "rive-runtime/include/rive/generated/shapes/straight_vertex_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: editable vertices with straight vertex geometry",
-   "module": "paint",
+   "construct": "contour vertices/geometryOrigin",
+   "module": "contour",
    "status": "planned",
-   "test": "oracle/straight-vertex",
+   "test": "modules/contour/test/core; spec/conformance/drawing-paint-straight-vertex; tests/oracle/drawing-paint-straight-vertex (see REPORT.md)",
    "phase": "P4"
   }
  },
@@ -13525,10 +13525,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/trim_path_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: stroke.trim.mode: sequential",
-   "module": "paint",
+   "construct": "stroke.trim / ordered stroke.effects and document.effects",
+   "module": "contour",
    "status": "planned",
-   "test": "oracle/trim-sequential",
+   "test": "modules/contour/test/core; spec/conformance/drawing-paint-trim-sequential; tests/oracle/drawing-paint-trim-sequential (see REPORT.md)",
    "phase": "P4"
   }
  },
@@ -13581,10 +13581,10 @@
    "rive-runtime/include/rive/generated/shapes/paint/trim_path_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: stroke.trim.mode: synchronized",
-   "module": "paint",
+   "construct": "stroke.trim / ordered stroke.effects and document.effects",
+   "module": "contour",
    "status": "planned",
-   "test": "oracle/trim-synchronized",
+   "test": "modules/contour/test/core; spec/conformance/drawing-paint-trim-synchronized; tests/oracle/drawing-paint-trim-synchronized (see REPORT.md)",
    "phase": "P4"
   }
  },
@@ -16569,10 +16569,10 @@
    "rive-runtime/include/rive/factory.hpp:32@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: Custom resource factory",
-   "module": "paint",
+   "construct": "AnimaIcon.renderers[name] factory owns backend resources; IconRenderer.draw(DrawFrame) and lifecycle",
+   "module": "mix",
    "status": "planned",
-   "test": "browser/factory",
+   "test": "modules/canvas/test/web/canvas.test.ts (customFactory, both engines); tests/oracle/host-api-factory/skip.json",
    "phase": "P4"
   }
  },
@@ -18073,10 +18073,10 @@
    "rive-runtime/include/rive/renderer.hpp:333@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: Custom renderer bridge",
-   "module": "paint",
+   "construct": "AnimaIcon.renderers[name] factory owns backend resources; IconRenderer.draw(DrawFrame) and lifecycle",
+   "module": "mix",
    "status": "planned",
-   "test": "browser/renderer",
+   "test": "modules/canvas/test/web/canvas.test.ts (customFactory, both engines); tests/oracle/host-api-renderer/skip.json",
    "phase": "P4"
   }
  },

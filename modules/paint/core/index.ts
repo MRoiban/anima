@@ -15,15 +15,21 @@ const stop: ObjShape = {
   req: ['position', 'color'],
 };
 const shapes: Record<string, Shape> = {
-  type: { k: 'str', of: ['linear', 'radial'] },
+  type: { k: 'str', of: ['linear', 'radial', 'angular'] },
   ...Object.fromEntries(coords.map((k) => [k, number(k === 'r' ? 0 : undefined)])),
+  gradientTransform: {
+    k: 'tup',
+    of: Array.from({ length: 6 }, () => number()),
+    min: 6,
+    markup: 'gradient-transform',
+  },
   stops: { k: 'arr', of: { ...stop, element: 'stop' }, min: 2 },
 };
 for (const s of Object.values(shapes)) s.element = 'gradient';
 const gradientForm = (type: string, fields: string[]) => ({
   shape: {
     k: 'obj' as const,
-    p: Object.fromEntries([...fields, 'stops'].map((k) => [k, shapes[k]!])),
+    p: Object.fromEntries([...fields, 'stops', 'gradientTransform'].map((k) => [k, shapes[k]!])),
     req: [...fields, 'stops'],
   },
   values: { type },
@@ -47,13 +53,17 @@ const base: Module = {
       props,
       required: [],
       elements: {
+        angularGradient: gradientForm('angular', ['x1', 'y1', 'x2', 'y2']),
         linearGradient: gradientForm('linear', ['x1', 'y1', 'x2', 'y2']),
         radialGradient: {
           ...gradientForm('radial', ['cx', 'cy', 'r', 'fx', 'fy']),
           shape: {
             k: 'obj',
             p: Object.fromEntries(
-              ['cx', 'cy', 'r', 'fx', 'fy', 'stops'].map((k) => [k, shapes[k]!]),
+              ['cx', 'cy', 'r', 'fx', 'fy', 'stops', 'gradientTransform'].map((k) => [
+                k,
+                shapes[k]!,
+              ]),
             ),
             req: ['cx', 'cy', 'r', 'stops'],
           },
@@ -105,13 +115,13 @@ const base: Module = {
               V && 'paint needs a color or gradient type',
               V && 'add color or type with gradient coordinates and stops',
             );
-          for (const k of [...coords, 'stops'])
+          for (const k of [...coords, 'stops', 'gradientTransform'])
             if (k in p)
               bad(k, 'gradient fields need a gradient type', 'add type: linear or radial');
         } else if (p.type !== 'image') {
           if (p.color !== undefined)
             bad('color', 'a gradient cannot also have a flat color', 'remove color');
-          const fields = p.type === 'linear' ? ['x1', 'y1', 'x2', 'y2'] : ['cx', 'cy', 'r'];
+          const fields = p.type !== 'radial' ? ['x1', 'y1', 'x2', 'y2'] : ['cx', 'cy', 'r'];
           for (const k of [...fields, 'stops'])
             if (!(k in p)) d.err('missing-key', base, V && `gradient needs ${k}`, V && `add ${k}`);
           for (const k of coords)
@@ -142,6 +152,16 @@ const base: Module = {
             }
           });
         }
+        if (
+          p.gradientTransform &&
+          p.gradientTransform[0] * p.gradientTransform[3] ===
+            p.gradientTransform[1] * p.gradientTransform[2]
+        )
+          bad(
+            'gradientTransform',
+            'gradient transform must be invertible',
+            'use a nonsingular affine matrix',
+          );
         if (p.dash) {
           if (p.dash.some((x: unknown) => typeof x !== typeof p.dash[0]))
             bad(
@@ -173,7 +193,13 @@ const base: Module = {
   },
   draw: {
     tree(model, tree) {
+      const paths: string[] = [],
+        counts = new Map<number, number>();
       model.nodes.forEach((n, node) => {
+        const j = counts.get(n.parent) ?? 0;
+        counts.set(n.parent, j + 1);
+        paths[node] = (n.parent < 0 ? '/nodes' : paths[n.parent] + '/children') + '/' + j;
+        tree.nodes[node]!.pointer = paths[node];
         for (const key of ['fill', 'stroke'])
           if (n.raw[key]?.type && n.raw[key].type !== 'image')
             tree.resources.push({
@@ -206,10 +232,11 @@ export function enhancePaint(
   const raw = key.split('.').reduce((o, k) => o?.[k], p.model.nodes[i]!.raw);
   if (!raw) return;
   if (raw.type && raw.type !== 'image') {
+    paint.gradientTransform = raw.gradientTransform;
     paint.color = undefined;
     paint.type = raw.type;
     paint.coordinates = {};
-    for (const k of raw.type === 'linear'
+    for (const k of raw.type !== 'radial'
       ? ['x1', 'y1', 'x2', 'y2']
       : ['cx', 'cy', 'r', 'fx', 'fy'])
       paint.coordinates[k] = p.num(

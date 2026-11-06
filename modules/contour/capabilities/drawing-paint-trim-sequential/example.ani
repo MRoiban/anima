@@ -1,0 +1,22 @@
+{
+  "anima": "0.1",
+  "name": "drawing-paint-trim-sequential",
+  "grid": 20,
+  "requires": ["contour"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "path",
+      "d": "M2 4L8 4M2 10L18 10",
+      "stroke": {
+        "color": "#4263eb",
+        "width": 0.5,
+        "trim": {
+          "start": 0,
+          "end": 0.5,
+          "mode": "sequential"
+        }
+      }
+    }
+  ]
+}

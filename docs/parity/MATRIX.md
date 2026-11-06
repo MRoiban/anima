@@ -728,23 +728,23 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `drawing-paint.additive-strength` | Additive blend strength | new: blendAmount: 0..1 | paint | planned | oracle/additive-strength |
-| `drawing-paint.asymmetric-vertex` | asymmetric vertex | new: editable vertices with asymmetric vertex geometry | paint | planned | oracle/asymmetric-vertex |
-| `drawing-paint.blend-additive` | Blend mode additive | deferred: plus-lighter lacks consistent SVG renderer support (SPEC paint Blend modes) | paint | planned | SPEC paint Blend modes (deferred; no render claim) |
-| `drawing-paint.detached-vertex` | detached vertex | new: editable vertices with detached vertex geometry | paint | planned | oracle/detached-vertex |
-| `drawing-paint.effect-order` | Ordered path effect stacks | new: paint.effects ordered array | paint | planned | oracle/effect-order |
-| `drawing-paint.fill-rule-clockwise` | Fill rule clockwise | new: fill.rule: clockwise | paint | planned | oracle/fill-rule-clockwise |
-| `drawing-paint.geometry-origin` | Parametric geometry origin | new: geometry origin expressed as an explicit point in grid units | paint | planned | oracle/geometry-origin |
-| `drawing-paint.gradient-angular` | angular gradients | new: fill or stroke gradient: angular with grid-unit endpoints | paint | planned | oracle/gradient-angular |
+| `drawing-paint.additive-strength` | Additive blend strength | node.mix.strength / paint.blendAmount scales additive source contribution | mix | planned | modules/mix/test/core; spec/conformance/drawing-paint-additive-strength; tests/oracle/drawing-paint-additive-strength (see REPORT.md) |
+| `drawing-paint.asymmetric-vertex` | asymmetric vertex | contour vertices/geometryOrigin | contour | planned | modules/contour/test/core; spec/conformance/drawing-paint-asymmetric-vertex; tests/oracle/drawing-paint-asymmetric-vertex (see REPORT.md) |
+| `drawing-paint.blend-additive` | Blend mode additive | node.mix.mode additive / paint.blend additive; canvas lighter, SVG unsupported-render | mix | planned | modules/mix/test/core; spec/conformance/drawing-paint-blend-additive; tests/oracle/drawing-paint-blend-additive (see REPORT.md) |
+| `drawing-paint.detached-vertex` | detached vertex | contour vertices/geometryOrigin | contour | planned | modules/contour/test/core; spec/conformance/drawing-paint-detached-vertex; tests/oracle/drawing-paint-detached-vertex (see REPORT.md) |
+| `drawing-paint.effect-order` | Ordered path effect stacks | stroke.trim / ordered stroke.effects and document.effects | contour | planned | modules/contour/test/core; spec/conformance/drawing-paint-effect-order; tests/oracle/drawing-paint-effect-order (see REPORT.md) |
+| `drawing-paint.fill-rule-clockwise` | Fill rule clockwise | fill.winding clockwise: positive local y-down winding; rendering only, hit testing pending | contour | planned | modules/contour/test/core; spec/conformance/drawing-paint-fill-rule-clockwise; tests/oracle/drawing-paint-fill-rule-clockwise (see REPORT.md) |
+| `drawing-paint.geometry-origin` | Parametric geometry origin | contour vertices/geometryOrigin | contour | planned | modules/contour/test/core; spec/conformance/drawing-paint-geometry-origin; tests/oracle/drawing-paint-geometry-origin (see REPORT.md) |
+| `drawing-paint.gradient-angular` | angular gradients | fill/stroke.type angular; canvas createConicGradient, SVG unsupported-render | paint | planned | modules/paint/test/core; spec/conformance/drawing-paint-gradient-angular; tests/oracle/drawing-paint-gradient-angular (see REPORT.md) |
 | `drawing-paint.gradient-channel-binding` | Gradient color channels | new: gradient stop channel property paths | data | planned | oracle/gradient-channel-binding |
-| `drawing-paint.gradient-transform` | Gradient transforms | new: gradient.transform using grid units and degrees | paint | planned | oracle/gradient-transform |
-| `drawing-paint.mirrored-vertex` | mirrored vertex | new: editable vertices with mirrored vertex geometry | paint | planned | oracle/mirrored-vertex |
-| `drawing-paint.paint-blend-override` | Per-paint compositing | new: paints[].blend with inherit | paint | planned | oracle/paint-blend-override |
-| `drawing-paint.rounded-vertex` | rounded vertex | new: editable vertices with rounded vertex geometry | paint | planned | oracle/rounded-vertex |
-| `drawing-paint.shared-effects` | Reusable path effects | new: effects map with reusable trim and dash stacks | paint | planned | oracle/shared-effects |
-| `drawing-paint.straight-vertex` | straight vertex | new: editable vertices with straight vertex geometry | paint | planned | oracle/straight-vertex |
-| `drawing-paint.trim-sequential` | Sequential contour trim | new: stroke.trim.mode: sequential | paint | planned | oracle/trim-sequential |
-| `drawing-paint.trim-synchronized` | Synchronized contour trim | new: stroke.trim.mode: synchronized | paint | planned | oracle/trim-synchronized |
+| `drawing-paint.gradient-transform` | Gradient transforms | fill/stroke.gradientTransform affine matrix; SVG and canvas; native transform observation disagrees | paint | planned | modules/paint/test/core; spec/conformance/drawing-paint-gradient-transform; tests/oracle/drawing-paint-gradient-transform (see REPORT.md) |
+| `drawing-paint.mirrored-vertex` | mirrored vertex | contour vertices/geometryOrigin | contour | planned | modules/contour/test/core; spec/conformance/drawing-paint-mirrored-vertex; tests/oracle/drawing-paint-mirrored-vertex (see REPORT.md) |
+| `drawing-paint.paint-blend-override` | Per-paint compositing | fill/stroke.blend with inherit; ordered paints supported; Firefox verification pending | mix | planned | modules/mix/test/core; spec/conformance/drawing-paint-paint-blend-override; tests/oracle/drawing-paint-paint-blend-override (see REPORT.md) |
+| `drawing-paint.rounded-vertex` | rounded vertex | contour vertices/geometryOrigin | contour | planned | modules/contour/test/core; spec/conformance/drawing-paint-rounded-vertex; tests/oracle/drawing-paint-rounded-vertex (see REPORT.md) |
+| `drawing-paint.shared-effects` | Reusable path effects | stroke.trim / ordered stroke.effects and document.effects | contour | planned | modules/contour/test/core; spec/conformance/drawing-paint-shared-effects; tests/oracle/drawing-paint-shared-effects (see REPORT.md) |
+| `drawing-paint.straight-vertex` | straight vertex | contour vertices/geometryOrigin | contour | planned | modules/contour/test/core; spec/conformance/drawing-paint-straight-vertex; tests/oracle/drawing-paint-straight-vertex (see REPORT.md) |
+| `drawing-paint.trim-sequential` | Sequential contour trim | stroke.trim / ordered stroke.effects and document.effects | contour | planned | modules/contour/test/core; spec/conformance/drawing-paint-trim-sequential; tests/oracle/drawing-paint-trim-sequential (see REPORT.md) |
+| `drawing-paint.trim-synchronized` | Synchronized contour trim | stroke.trim / ordered stroke.effects and document.effects | contour | planned | modules/contour/test/core; spec/conformance/drawing-paint-trim-synchronized; tests/oracle/drawing-paint-trim-synchronized (see REPORT.md) |
 
 ### Transforms and draw order
 
@@ -961,10 +961,10 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.data-string` | View model string | new: typed data.string(path) | data | planned | browser/data-string |
 | `host-api.data-subscriptions` | Property subscriptions | new: data property subscriptions | data | planned | browser/data-subscriptions |
 | `host-api.data-trigger` | View model trigger | new: typed data.trigger(path) | data | planned | browser/data-trigger |
-| `host-api.factory` | Custom resource factory | new: Custom resource factory | paint | planned | browser/factory |
+| `host-api.factory` | Custom resource factory | AnimaIcon.renderers[name] factory owns backend resources; IconRenderer.draw(DrawFrame) and lifecycle | mix | planned | modules/canvas/test/web/canvas.test.ts (customFactory, both engines); tests/oracle/host-api-factory/skip.json |
 | `host-api.global-models` | Global view models | new: document-scoped shared data contexts | data | planned | browser/global-models |
 | `host-api.nested-models` | Nested view model paths | new: typed property paths | data | planned | browser/nested-models |
-| `host-api.renderer` | Custom renderer bridge | new: Custom renderer bridge | paint | planned | browser/renderer |
+| `host-api.renderer` | Custom renderer bridge | AnimaIcon.renderers[name] factory owns backend resources; IconRenderer.draw(DrawFrame) and lifecycle | mix | planned | modules/canvas/test/web/canvas.test.ts (customFactory, both engines); tests/oracle/host-api-renderer/skip.json |
 | `host-api.view-model-discovery` | Discover view models | new: scene.data.models() | data | planned | browser/view-model-discovery |
 | `host-api.view-model-instances` | Create view model instances | new: typed model instance factory | data | planned | browser/view-model-instances |
 

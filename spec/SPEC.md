@@ -609,9 +609,10 @@ A `fill` or `stroke` contains either `color` or a gradient, never both. A gradie
 | Type | Required coordinates (grid units) | Optional coordinates |
 |---|---|---|
 | `linear` | `x1`, `y1`, `x2`, `y2` (start and end) | — |
+| `angular` | `x1`, `y1`, `x2`, `y2` (centre and initial ray) | — |
 | `radial` | `cx`, `cy`, `r` (centre and radius, `r ≥ 0`) | `fx`, `fy` (focal point, each defaults to the corresponding resolved centre coordinate) |
 
-Both have `stops`, an array of at least two `{ position, color }` objects. `position` is 0..1,
+All have `stops`, an array of at least two `{ position, color }` objects. `position` is 0..1,
 nondecreasing at rest; repeated positions are permitted (hard edges). `color` follows §6, including
 slots, `currentColor` and hex alpha. Fill rule and stroke width/cap/join/trim/dashes remain on the
 paint object. Coordinates belonging to the other gradient type are errors.
@@ -635,6 +636,26 @@ with `gradientUnits="userSpaceOnUse"`, sRGB colour interpolation and SVG's defau
 the node transform carries the paint with its geometry. Degenerate gradients and focal points
 outside the radius follow SVG gradient semantics. Knockout geometry and hit tests stay as in §4/§9;
 they do not acquire gradient alpha sampling.
+
+### Angular gradients and affine gradient transforms
+
+`type: "angular"` uses `(x1,y1)` as its centre and the ray to `(x2,y2)` as
+position zero. Positions increase clockwise in SVG's y-down local coordinates over one full
+turn. Coincident endpoints use the positive x axis. Stops pad to the first/last colour and
+may repeat; the seam joins position one back to zero. Coordinates/stops animate like linear
+gradients. AniML uses `<angularGradient x1="…" y1="…" x2="…" y2="…">` with `<stop>` children.
+Canvas uses `createConicGradient`. SVG refuses angular gradient resources with
+`unsupported-render`, a paint `/type` pointer and a hint to use canvas; it never substitutes
+linear/radial interpolation or a finite wedge approximation.
+
+Every gradient accepts static `gradientTransform` (AniML `gradient-transform`), six finite
+numbers `[a,b,c,d,e,f]`. It maps gradient coordinates by
+`(x,y) → (a*x+c*y+e,b*x+d*y+f)` before the node transform, affecting paint only.
+Translations are grid units; linear coefficients are dimensionless (rotation coefficients
+are cosine/sine of the desired angle). A singular matrix is `bad-value` at
+`/gradientTransform`, with an invertibility hint. Non-gradient paints reject the field.
+SVG emits `gradientTransform="matrix(…)"`; canvas paints the transformed gradient into a layer masked by the independently drawn
+geometry, preserving stroke widths under nonuniform matrices. The matrix is static and theme slots still resolve normally.
 
 ### Dashes
 
@@ -755,6 +776,8 @@ so this tolerance describes subdivision flatness, not the initial arc approximat
 These are independent constructions, extending the shared scene and registry designs
 in the format/graph and web-runtime research cited above. No algorithm follows Rive
 runtime source; no additional NOTICE attribution is required.
+
+
 ## composite
 
 The optional `composite` module extends 0.1 documents with `requires: ["composite"]`.
@@ -1965,3 +1988,129 @@ normal XML escaping. Neither form changes timeline `<event at="…" name="…"/>
 
 The event delivery/subscription separation follows the host/runtime concerns recorded in
 `docs/research/rive-web-runtime.md` §§2–3; no Rive implementation or documentation text is used.
+
+
+## contour
+
+The optional `contour` module (5120 B browser budget) contains authoring geometry and path
+operations. Declare `requires: ["contour"]`; gradients additionally require paint, ordered
+paints additionally require composite. Core hooks contribute resolved geometry, never backend
+commands. This follows MODULES §3.1 and the separation discussed in
+[web runtime research](../docs/research/rive-web-runtime.md#lessons-for-anima).
+All algorithms below are independent constructions, not adaptations of Rive source.
+
+### Editable vertex authoring forms and geometry origin
+
+A `contour` node has `vertices`, at least two objects `{point:[x,y], kind, …}`, optional
+`closed` (default false), and optional `geometryOrigin:[x,y]` (default `[0,0]`). It accepts
+ordinary painted-node transforms/fills/strokes. Each vertex point is in grid units; origin is
+subtracted from every point before ordinary node transforms, independently of paint coordinates.
+AniML `<contour>` uses `vertices="[…JSON…]"`, `closed="true"`, and
+`geometry-origin="x y"`. The array is explicitly JSON-valued in the registry. Node/paint
+fields, schema and CLI names derive from the ordinary registry. Authoring fields are static;
+editing means reloading revised vertex data. Path morphing remains the paint module's `d` API.
+
+Vertex kinds compile to an ordinary path shared by SVG, canvas and the outline hook:
+
+| kind | Optional fields and construction |
+| --- | --- |
+| straight | No handles; adjacent edges are lines unless the neighbour supplies a cubic handle. |
+| mirrored | `handle:[dx,dy]`, default zero; outgoing is handle, incoming is its exact negative. |
+| asymmetric | `outgoing:[dx,dy]`, `incoming:[dx,dy]`, defaults zero. Outgoing supplies direction and length; incoming supplies length only, projected opposite outgoing. Nonzero incoming length requires a nonzero outgoing direction. |
+| detached | `incoming` and `outgoing` vectors, independently positioned, default zero. |
+| rounded | `radius ≥ 0`, default zero. Cut each adjacent edge by min(radius, half edge length) and join cuts with a quadratic through the authored point. Open endpoints do not round. |
+
+A cubic edge uses source outgoing and destination incoming controls (point plus vector).
+A closed contour joins the last vertex to the first, then closes. Fields belonging to another
+kind produce `bad-value` at that vertex field with a corrective hint; invalid array sizes,
+coordinates, kinds and negative radii retain structural diagnostics. This is an explicit,
+deterministic authoring contract; it does not assert equality with native circular rounding.
+
+### Sequential and synchronized trim; ordered/shared effects
+
+`stroke.trim` is `{start?,end?,offset?,mode?}`: defaults 0,1,0,`sequential`. Start/end are
+fractions in 0..1. Offset is an arbitrary fraction of one turn. Sequential trim measures the
+concatenation of all subpath lengths in authored order; synchronized trim applies the same
+fractions independently to each subpath. A nonpositive end−start draws nothing; a full span
+keeps all geometry; other spans begin at `(start+offset) mod 1`, wrapping at one.
+
+`stroke.effects` is an ordered JSON array of trim/dash objects or shared-stack names.
+A trim is `{type:"trim",start?,end?,offset?,mode?}`. A dash is
+`{type:"dash",dash:[nonnegative grid lengths…],offset?}`. Odd dash arrays repeat twice;
+at least one entry must be positive. Positive offsets advance into the pattern. Dashes restart
+at each input subpath. Each operation consumes the previous operation's output, so trim after
+dash measures the remaining dash fragments, while dash after trim restarts at each trimmed
+fragment. Effects alter stroke geometry only, preserving fill geometry and the hit outline.
+
+Document `effects` maps names to arrays of effect objects, expanded by name at each use.
+Shared arrays cannot contain references, so cycles are impossible. Each use starts from its
+own node geometry. AniML uses JSON-valued root `effects` and stroke `effects` / `trim`
+attributes, with ordinary XML escaping. Compound document fields explicitly opt in via their
+registry markup name; existing document containers retain their structural forms.
+`unknown-source` identifies a missing stack name at its exact array index. A dash without
+positive length or fields of the wrong effect kind is `bad-value`, with field pointer and hint.
+An effect stack and `trim`, or either plus legacy `dash` / `trimStart` / `trimEnd` /
+`trimOffset`, is `paint-conflict`; move all operations into one stack. Legacy stroke behaviour
+is unchanged. Effects are static; changing the stack requires reloading the document.
+
+Cubic path segments are subdivided at the midpoint until control-polygon length minus chord
+is at most 0.0001 local grid units (maximum depth 20). Operations slice the resulting segments
+by Euclidean length. Geometry is compiled into resolved per-paint paths; neither backend uses
+its own dash/trim approximation. Existing path-length/dash algorithms are unchanged.
+
+### Clockwise fill
+
+`fill.winding: "clockwise"` (AniML `fill-winding="clockwise"`) selects strictly positive
+winding, overriding the ordinary fill `rule` for rendering. In local SVG y-down coordinates,
+a clockwise contour contributes +1, counterclockwise −1. The filled region contains exactly
+points whose total winding is greater than zero; nonzero negative regions are empty. Open
+contours implicitly close. This applies to self-intersections, not merely signed whole-contour
+area. The operation runs in local geometry space before transforms (a reflected node remains
+filled). It compiles to nonoverlapping trapezoids split at endpoints and edge intersections;
+curves use the same subdivision rule as effects. Both backends fill that ordinary path nonzero.
+Stroke geometry is unchanged. Core pointer hit testing currently uses the base fill rule;
+this limitation prevents claiming full clockwise-fill parity, even when render comparisons pass.
+
+## mix
+
+The optional `mix` module (5120 B browser budget) refines backend compositing. Declare
+`requires: ["mix"]`; base node blend and ordered paints still require composite.
+
+### Additive blend and strength
+
+`node.mix: {mode, strength?}` selects a node compositor. Mode accepts the existing composite
+blend names plus `additive`; strength defaults one and is in 0..1. `mix` and node `blend`
+cannot coexist (`paint-conflict` at `/mix` with an instruction to choose one).
+`<group mix="{&quot;mode&quot;:&quot;additive&quot;,&quot;strength&quot;:0.5}">` illustrates the
+JSON-valued AniML spelling. `node.mix.strength` is an ordinary animatable number address.
+
+Additive means Canvas2D `lighter`: sum premultiplied source and destination components,
+clamping to the output range. Strength multiplies the source premultiplied contribution
+(including alpha); zero contributes nothing, one is full addition. It is not interpolation
+between source-over and additive. Strength has no effect on other compositors. SVG refuses
+additive nodes or paints with `unsupported-render`, reason and a canvas hint because
+`plus-lighter` is not consistently supported by the supported SVG engines/static renderer.
+
+### Per-paint blend override
+
+Fill and stroke objects accept static `blend`, default `inherit`, selecting any node mix mode,
+and animatable `blendAmount` in 0..1 (AniML `fill-blend`, `stroke-blend`,
+`fill-blend-amount`, `stroke-blend-amount`). If any paint overrides blending, the node blend
+is moved to each paint: inherit chooses the node blend, explicit mode replaces it. Paints
+compose in authored order, then ordinary node opacity/masking/group isolation applies.
+`blendAmount` scales an additive paint's source contribution; it has no effect on other modes.
+Canvas uses each paint's compositor. SVG refuses non-normal per-paint overrides with
+`unsupported-render`: nested SVG blending does not compose against the same backdrop in
+Firefox and Chromium. No faithful portable SVG support is claimed for this row.
+A node without paint overrides retains the existing group compositor exactly.
+
+### Host renderer and factory mapping
+
+`AnimaIcon.renderers[name] = icon => renderer` is the host factory. It creates an `IconRenderer`
+whose `draw(DrawFrame,force)`, `layout()`, `point(x,y)`, `connect()`, `disconnect()` and
+`destroy()` implement the backend bridge. Factories own their paths, gradients, buffers, image
+decoding and resource caches; there is no mandatory global resource superclass or per-verb
+bridge. A custom backend may inject its own resource factory through that closure. The core
+contract is the draw frame, including transforms, geometry, paints, clipping and opacity, so
+playback is shared. Browser tests create and release host-owned paths and gradients in both
+engines. These host-only API rows have no observable Rive screenshot counterpart.

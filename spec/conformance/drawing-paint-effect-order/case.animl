@@ -1,0 +1,3 @@
+<anima version="0.1" name="drawing-paint-effect-order" grid="20" requires="contour">
+  <path id="a" d="M2 4L8 4M2 10L18 10" stroke="#4263eb" stroke-width="0.5" effects="[{&quot;type&quot;:&quot;dash&quot;,&quot;dash&quot;:[2,2]},{&quot;type&quot;:&quot;trim&quot;,&quot;start&quot;:0.2,&quot;end&quot;:0.8}]"/>
+</anima>

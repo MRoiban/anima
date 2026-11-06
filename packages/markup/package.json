@@ -17,7 +17,9 @@
     "./motion": "./src/motion.ts",
     "./events": "./src/events.ts",
     "./machine": "./src/machine.ts",
-    "./modules": "./src/modules.ts"
+    "./modules": "./src/modules.ts",
+    "./contour": "./src/contour.ts",
+    "./mix": "./src/mix.ts"
   },
   "files": [
     "src"

@@ -22,7 +22,7 @@ export function elementFields(name: string): { key: string; attr: string; shape:
   return Object.entries(shape?.p ?? {})
     .filter(([key, s]) =>
       name === 'anima'
-        ? !!s.feature && ['num', 'bool', 'str'].includes(s.k)
+        ? !!s.feature && (['num', 'bool', 'str'].includes(s.k) || (!!s.markup && !s.element))
         : !(
             { state: ['pose', 'on'], layer: ['states'], timeline: ['tracks', 'events'] } as Record<
               string,

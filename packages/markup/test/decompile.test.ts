@@ -100,20 +100,29 @@ function recover(root: Element): Obj {
         parent[key] =
           key === 'dash'
             ? v.split(' ').map((x) => (x.endsWith('%') ? x : Number(x)))
-            : ['pivot', 'subpaths', 'corners'].includes(key)
+            : ['pivot', 'subpaths', 'corners', 'geometryOrigin'].includes(key)
               ? vector(v)
               : v.startsWith('{"') || v.startsWith('[')
                 ? JSON.parse(v)
                 : scalar(v);
     }
     for (const g of elements(e).filter((c) =>
-      ['linearGradient', 'radialGradient'].includes(c.name),
+      ['linearGradient', 'radialGradient', 'angularGradient'].includes(c.name),
     )) {
       const a = attrs(g);
       const key = a.paint ?? 'fill';
       const target = (o[key] ??= {}) as Obj;
-      target.type = g.name === 'linearGradient' ? 'linear' : 'radial';
-      for (const [k, v] of Object.entries(a)) if (k !== 'paint') target[k] = Number(v);
+      target.type =
+        g.name === 'linearGradient'
+          ? 'linear'
+          : g.name === 'angularGradient'
+            ? 'angular'
+            : 'radial';
+      for (const [k, v] of Object.entries(a))
+        if (k !== 'paint') {
+          if (k === 'gradient-transform') target.gradientTransform = vector(v);
+          else target[k] = Number(v);
+        }
       target.stops = elements(g).map((s) => ({
         ...base(s),
         position: Number(attrs(s).offset),
@@ -168,6 +177,7 @@ function recover(root: Element): Obj {
     return o;
   };
   const d: Obj = { ...base(root), ...attrs(root), nodes: [] };
+  if (typeof d.effects === 'string') d.effects = JSON.parse(d.effects);
   d.anima = d.version;
   delete d.version;
   d.grid = Number(d.grid);
@@ -408,6 +418,7 @@ function check(source: string | object) {
       'asset',
       'linearGradient',
       'radialGradient',
+      'angularGradient',
       'stop',
       'mask',
       'clip',

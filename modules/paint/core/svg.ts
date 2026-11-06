@@ -7,7 +7,23 @@ import {
   type Paint,
 } from '../../../packages/core/src/svg.ts';
 
-export function gradientTree(node: number, key: string, paint: DrawPaint) {
+export class UnsupportedPaintRenderError extends Error {
+  readonly code = 'unsupported-render';
+  readonly hint = 'use the canvas renderer for angular gradients';
+  readonly pointer: string;
+  constructor(pointer: string, key: string) {
+    super('SVG cannot faithfully render angular gradients');
+    this.pointer = `${pointer}/${key.replaceAll('.', '/')}/type`;
+  }
+}
+
+export function gradientTree(
+  node: number,
+  key: string,
+  paint: DrawPaint,
+  pointer = `/nodes/${node}`,
+) {
+  if (paint.type === 'angular') throw new UnsupportedPaintRenderError(pointer, key);
   return {
     tag: paint.type + 'Gradient',
     role: 'module:paint',
@@ -43,6 +59,8 @@ export function gradientAttrs(
       gradientUnits: 'userSpaceOnUse',
       'color-interpolation': 'sRGB',
     });
+    if (p.gradientTransform)
+      a.gradientTransform = `matrix(${p.gradientTransform.map(fmt).join(' ')})`;
     for (const k in p.coordinates) a[k] = fmt(p.coordinates[k]!);
   }
 }
@@ -72,7 +90,7 @@ export const paintSVG: SVGBackend = {
       if (resource.kind === 'gradient') {
         // Stop count and kind are static resource metadata, populated by draw.tree.
         const p = resource as typeof resource & { paint: DrawPaint };
-        tree.defs.push(gradientTree(p.node, p.key!, p.paint));
+        tree.defs.push(gradientTree(p.node, p.key!, p.paint, draw.nodes[p.node]!.pointer));
       }
   },
   attrs(f, el, paint, id, a) {

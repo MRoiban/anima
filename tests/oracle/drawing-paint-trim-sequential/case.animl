@@ -1,0 +1,3 @@
+<anima version="0.1" name="drawing-paint-trim-sequential" grid="20" requires="contour">
+  <path id="a" d="M2 4L8 4M2 10L18 10" stroke="#4263eb" stroke-width="0.5" stroke-linecap="butt" stroke-linejoin="miter" trim="{&quot;start&quot;:0,&quot;end&quot;:0.5,&quot;mode&quot;:&quot;sequential&quot;}"/>
+</anima>

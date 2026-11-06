@@ -1,0 +1,57 @@
+{
+  "anima": "0.1",
+  "name": "drawing-paint-additive-strength",
+  "grid": 20,
+  "requires": ["mix", "composite"],
+  "nodes": [
+    {
+      "id": "back",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 20,
+      "h": 20,
+      "fill": {
+        "color": "#204060"
+      }
+    },
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 4,
+      "y0": 4,
+      "w": 12,
+      "h": 12,
+      "fill": {
+        "color": "#804020"
+      },
+      "mix": {
+        "mode": "additive",
+        "strength": 0.5
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "a.mix.strength": [
+          [0, 0],
+          [1, 1]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}
