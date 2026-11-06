@@ -1,0 +1,104 @@
+{
+  "anima": "0.1",
+  "name": "length-count",
+  "grid": 20,
+  "requires": ["components", "lists", "data", "bind", "derive"],
+  "nodes": [
+    {
+      "id": "rows",
+      "type": "repeat",
+      "count": "$items.length",
+      "component": "row"
+    },
+    {
+      "id": "chars",
+      "type": "repeat",
+      "count": "$title.length",
+      "component": "row"
+    }
+  ],
+  "components": {
+    "row": {
+      "grid": 20,
+      "inputs": {
+        "tap": {
+          "type": "trigger"
+        },
+        "clicks": {
+          "type": "number"
+        }
+      },
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [5, 5],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "listeners": [
+        {
+          "on": "click",
+          "target": "dot",
+          "fire": "tap",
+          "set": {
+            "clicks": "clicks+1"
+          }
+        }
+      ],
+      "bind": {
+        "dot.r": "$chars"
+      }
+    }
+  },
+  "data": {
+    "models": {
+      "Item": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "default": "Hi"
+          }
+        }
+      },
+      "Board": {
+        "properties": {
+          "items": {
+            "type": "list",
+            "default": [
+              {
+                "title": "Dawn"
+              },
+              {
+                "title": "Tide"
+              }
+            ],
+            "of": "Item"
+          },
+          "title": {
+            "type": "string",
+            "default": "Hi"
+          },
+          "label": {
+            "type": "string",
+            "value": "$title"
+          },
+          "chars": {
+            "type": "number",
+            "value": "$label.length"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Board",
+        "default": true,
+        "values": {}
+      }
+    }
+  }
+}

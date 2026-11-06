@@ -330,3 +330,81 @@ it('coerces bool-valued computed number expressions to 0/1', () => {
   p.step(0);
   expect(p.get('$players.2.numeric')).toBe(1);
 });
+
+it('reads live, read-only string lengths in bindings, computed chains, named/model/list paths', () => {
+  const p = player({
+    anima: '0.1',
+    name: 'string-length',
+    grid: 20,
+    requires: ['data', 'derive', 'bind'],
+    data: {
+      models: {
+        Item: {
+          properties: {
+            title: { type: 'string', default: '' },
+            chars: { type: 'number', value: '$title.length' },
+          },
+        },
+        Board: {
+          properties: {
+            title: { type: 'string', default: 'Dawn' },
+            label: { type: 'string', value: '$title' },
+            chars: { type: 'number', value: '$label.length' },
+            otherChars: { type: 'number', value: '$other:title.length' },
+            child: { type: 'model-ref', model: 'Item', default: { title: 'Tide' } },
+            items: { type: 'list', of: 'Item', default: [{ title: 'Ember' }] },
+          },
+        },
+      },
+      instances: {
+        main: { model: 'Board', default: true },
+        other: { model: 'Item', values: { title: 'Moss' } },
+      },
+    },
+    nodes: [{ id: 'bar', type: 'rect', x0: 0, y0: 0, w: 1, h: 1 }],
+    bind: { 'bar.w': '$title.length' },
+  });
+  p.step(0);
+  expect(p.value('bar.w')).toBe(4);
+  expect(
+    ['$label.length', '$chars', '$otherChars', '$child.chars', '$items.0.chars'].map((key) =>
+      p.get(key),
+    ),
+  ).toEqual([4, 4, 4, 4, 5]);
+  p.set('$title', 'LongerTitle');
+  p.set('$child.title', '');
+  p.set('$items.0.title', 'A😀');
+  p.step(0);
+  expect(p.value('bar.w')).toBe(11);
+  expect(
+    ['$label.length', '$chars', '$child.chars', '$items.0.chars'].map((key) => p.get(key)),
+  ).toEqual([11, 11, 0, 3]);
+  expect(p.model.inputs.get('$title.length')?.readonly).toBe(true);
+  expect(() => p.set('$title.length', 20)).toThrow(/read-only/);
+});
+it('detects a computed dependency cycle through string length', () => {
+  const result = load({
+    anima: '0.1',
+    name: 'length-cycle',
+    grid: 20,
+    requires: ['data', 'derive', 'bind', 'convert'],
+    converters: { format: { type: 'number-format' } },
+    nodes: [{ id: 'dot', type: 'circle', center: [5, 5], r: 1 }],
+    data: {
+      models: {
+        Item: {
+          properties: {
+            title: { type: 'string', value: '$chars', convert: 'format' },
+            chars: { type: 'number', value: '$title.length' },
+          },
+        },
+      },
+    },
+  });
+  expect(result.diagnostics).toContainEqual(
+    expect.objectContaining({
+      code: 'derive-cycle',
+      pointer: '/data/models/Item/properties/title/value',
+    }),
+  );
+});

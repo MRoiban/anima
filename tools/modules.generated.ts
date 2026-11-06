@@ -13,6 +13,7 @@ export const webEntries = [
   'markup-paint',
   'surface',
   'markup-surface',
+  'assetio',
   'canvas',
   'focus',
   'input',
@@ -34,6 +35,7 @@ export const webEntries = [
   'mix',
 ];
 export const webOwners: Record<string, string> = {
+  assetio: 'assetio',
   canvas: 'canvas',
   components: 'components',
   'markup-components': 'components',
@@ -83,9 +85,10 @@ export const moduleBudgets: {
   { name: 'paint', buildOrder: 3, sizeOrder: 6, budget: 5120 },
   { name: 'composite', buildOrder: 4, sizeOrder: 7, budget: 4096 },
   { name: 'bind', buildOrder: 6, sizeOrder: 8, budget: 2048 },
-  { name: 'assets', buildOrder: 7, sizeOrder: 9, budget: 2048 },
+  { name: 'assets', buildOrder: 7, sizeOrder: 9, budget: 2048, over: 'assetio' },
   { name: 'surface', buildOrder: 11, sizeOrder: 10, budget: 8192 },
   { name: 'components', buildOrder: 5, sizeOrder: 11, budget: 4096 },
+  { name: 'assetio', budget: 2048 },
   { name: 'canvas', budget: 8192, heavy: true },
   { name: 'focus', budget: 4096 },
   { name: 'input', budget: 8192 },
@@ -107,6 +110,7 @@ export const moduleBudgets: {
   { name: 'mix', budget: 5120 },
 ];
 export const moduleScopes = {
+  assetio: { tests: ['modules/assets/test/**/*.test.ts'], conformance: [] },
   canvas: {
     tests: ['modules/canvas/test/**/*.test.ts', 'packages/markup/test/corpus.test.ts'],
     conformance: [

@@ -213,6 +213,10 @@ and an oracle test against Rive.
       at most 6 KB to the full-featured page.
   - P5b-1 lists/context implementation and eight capability probes delivered; see
     `modules/lists/REPORT.md`. Performance non-regression remains unverified under shared load.
+  - P5b-10 fixes benchmark format/tooling gaps: repeat-scoped browser audio, component/library
+    asset embedding and inherited catalogs, readable numeric repeat counts, string length paths,
+    current repeat inputs in inspect, and authoring docs. Implementation verification is recorded
+    in `modules/assets/P5B-10-REPORT.md`; a fresh benchmark rerun is still required for the phase gate.
 - [x] Pc **Canvas backend, minimal** — brought forward from P10 (owner, 2026-11-06): the draw layer
       rendered to Canvas2D as `@anima-format/web/canvas`; runs every conformance case with a pixel
       comparison against the SVG backend; SVG stays the default for icons. Must exist before P8.

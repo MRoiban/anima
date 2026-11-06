@@ -12,10 +12,12 @@ const pending = new WeakMap<object, { parent: Model; inherit: boolean }>();
 export const parents = new WeakMap<Player, Player>();
 export const inherited = new WeakSet<Model>();
 export function install(data: DataModule, components: ComponentModule): void {
+  const previousKey = components.componentKey;
+  const previousLoad = components.loadComponent;
   components.componentKey = (model, name) => {
     const c = data.compiled.get(model);
     return (
-      name +
+      (previousKey?.(model, name) ?? name) +
       ':' +
       c?.document.instances?.[c.defaultName]?.model +
       ':' +
@@ -35,8 +37,11 @@ export function install(data: DataModule, components: ComponentModule): void {
           data: { ...doc.data, model: itemModel ?? c.document.instances![c.defaultName]!.model },
         };
     }
-    pending.set(doc, { parent: p, inherit: shares });
-    return run(doc);
+    const load = (document: typeof doc) => {
+      pending.set(document, { parent: p, inherit: shares });
+      return run(document);
+    };
+    return previousLoad ? previousLoad(p, _name, doc, shares, load, itemModel) : load(doc);
   };
   data.prepareContext = (model, d) => {
     if (!model.doc.requires?.includes('lists')) return;

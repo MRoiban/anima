@@ -69,7 +69,10 @@ it('reports missing referenced files for build and render', async () => {
     const r = await cli(...cmd, '--format=json');
     expect(r.code).toBe(1);
     expect(JSON.parse(r.out).diagnostics).toContainEqual(
-      expect.objectContaining({ code: 'asset-load', pointer: '/assets' }),
+      expect.objectContaining({
+        code: 'asset-load',
+        pointer: cmd[0] === 'build' ? '/assets/photo/source' : '/assets',
+      }),
     );
   }
 });

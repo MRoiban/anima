@@ -78,6 +78,26 @@ export const assets: Module & { resolvedAssets: typeof resolvedAssets } = {
   resolvedAssets,
   name: 'assets',
   after,
+  init(registry) {
+    const components = registry.get('components') as
+      import('../../components/core/index.ts').ComponentModule | undefined;
+    if (components) {
+      const previous = components.loadComponent;
+      const key = components.componentKey;
+      const catalogs = new WeakMap<object, number>();
+      let serial = 0;
+      components.componentKey = (model, name) => {
+        const catalog = model.doc.assets ?? model.doc;
+        if (!catalogs.has(catalog)) catalogs.set(catalog, ++serial);
+        return (key?.(model, name) ?? name) + ':' + catalogs.get(catalog);
+      };
+      components.loadComponent = (parent, name, doc, shares, run, itemModel) => {
+        if (parent.doc.assets) doc = { ...doc, assets: { ...parent.doc.assets, ...doc.assets } };
+        return previous ? previous(parent, name, doc, shares, run, itemModel) : run(doc);
+      };
+    }
+    return { ...this, init: undefined };
+  },
   entries: [
     {
       target: 'document',
@@ -109,6 +129,23 @@ export const assets: Module & { resolvedAssets: typeof resolvedAssets } = {
       required: ['id', 'type', 'asset', 'x0', 'y0', 'width', 'height'],
     },
   ],
+  prepare(model) {
+    if (model.doc.requires?.includes('assets')) model.doc.assets ??= {};
+  },
+  outline(p, i) {
+    const n = p.model.nodes[i]!;
+    if (String(n.type) !== 'image') return;
+    const x = n.raw.x0,
+      y = n.raw.y0;
+    const right = x + p.num(i, 'width', n.raw.width);
+    const bottom = y + p.num(i, 'height', n.raw.height);
+    return [{ pts: [x, y, right, y, right, bottom, x, bottom], closed: true }];
+  },
+  fillContains(p, i, polys, x, y) {
+    if (String(p.model.nodes[i]!.type) !== 'image') return;
+    const [left, top, right, , , bottom] = polys[0]!.pts;
+    return x >= left! && x <= right! && y >= top! && y <= bottom!;
+  },
   load(_model, raw, d) {
     const records: Record<string, Asset> = raw.assets ?? {};
     for (const [name, a] of Object.entries(records)) {

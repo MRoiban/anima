@@ -14,7 +14,10 @@ interface Edit {
 export function buildHTML(
   source: string,
   file: string,
-  transform?: (doc: object) => void,
+  transform?: (
+    doc: import('./build-assets.ts').AssetDocument,
+    map: import('@anima-format/markup').CompileResult['map'],
+  ) => void,
 ): {
   text?: string;
   diagnostics: MarkupDiagnostic[];
@@ -123,7 +126,7 @@ export function buildHTML(
     );
     if (result.text !== undefined) {
       if (transform && result.doc) {
-        transform(result.doc);
+        transform(result.doc, result.map);
         result.text = formatAni(result.doc);
       }
       edits.push({ start: type.start, end: type.end, text: 'application/vnd.anima+json' });

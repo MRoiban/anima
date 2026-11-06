@@ -7,16 +7,22 @@ import type { Diagnostic } from '@anima-format/core';
 import { sniff, type AssetInfo } from './asset-info.ts';
 import { encodeImage, validateWebP, ImageEncoder } from './encode.ts';
 
+export interface AssetDocument {
+  assets?: Record<string, Asset>;
+  components?: Record<string, AssetDocument>;
+}
 export async function buildAssets(
-  doc: { assets?: Record<string, Asset> },
+  doc: AssetDocument,
   file: string,
   embed: boolean,
   encoder?: ImageEncoder,
+  sourceFile: (pointer: string) => string = () => file,
+  base = '',
 ): Promise<Diagnostic[]> {
   if (!encoder) {
     const owned = new ImageEncoder();
     try {
-      return await buildAssets(doc, file, embed, owned);
+      return await buildAssets(doc, file, embed, owned, sourceFile, base);
     } finally {
       await owned.close();
     }
@@ -31,10 +37,10 @@ export async function buildAssets(
       }
       continue;
     }
-    const pointer = '/assets/' + name.replaceAll('~', '~0').replaceAll('/', '~1');
+    const pointer = base + '/assets/' + name.replaceAll('~', '~0').replaceAll('/', '~1');
     let field = '/source';
     try {
-      const url = new URL(asset.source, pathToFileURL(resolve(file)));
+      const url = new URL(asset.source, pathToFileURL(resolve(sourceFile(pointer + '/source'))));
       // Disk builds never fetch network assets. Encoding requires local bytes.
       if (!['file:', 'data:'].includes(url.protocol)) {
         if (embed || asset.encode) throw Error('disk build cannot fetch remote assets');
@@ -158,7 +164,7 @@ export async function buildAssets(
             ? code
             : 'asset-load',
         severity: 'error',
-        pointer: code === 'ENOENT' ? '/assets' : pointer + field,
+        pointer: pointer + field,
         message: error instanceof Error ? error.message : 'cannot build asset',
         hint:
           code === 'build-encoder-unavailable'
@@ -166,6 +172,19 @@ export async function buildAssets(
             : 'check source bytes, MIME, extension and encoding options relative to the document',
       });
     }
+  }
+  for (const [name, component] of Object.entries(doc.components ?? {})) {
+    if (name === '$comment') continue;
+    diagnostics.push(
+      ...(await buildAssets(
+        component,
+        file,
+        embed,
+        encoder,
+        sourceFile,
+        base + '/components/' + name.replaceAll('~', '~0').replaceAll('/', '~1'),
+      )),
+    );
   }
   return diagnostics;
 }

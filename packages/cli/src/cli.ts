@@ -1,3 +1,4 @@
+import { listState } from '../../../modules/lists/core/index.ts';
 import '@anima-format/core/all';
 // The `anima` command line (ARCHITECTURE §cli). Every command takes --format=json; exit codes are
 // 0 ok, 1 diagnostics or a failed check, 2 usage.
@@ -490,6 +491,32 @@ function inspect(f: string, json: boolean, io: IO): number {
   const preview = new Player(m);
   preview.step(0);
   const instances = preview.inspect().filter((l) => l.layer.includes('/'));
+  const slots = new Map<string, string>();
+  const inputs = (player: Player, prefix = '') => {
+    const repeated = listState(player)?.runs ?? [];
+    const ids = repeated.map((r) => player.model.nodes[r.spec.node]!.id + '.');
+    for (const name of player.model.inputs.keys())
+      if (!(prefix && name.startsWith('$')) && !ids.some((id) => name.startsWith(id)))
+        slots.set(prefix + name, player.model.inputs.get(name)!.type);
+    for (const run of repeated) {
+      for (const item of run.items)
+        inputs(
+          item.player,
+          prefix + player.model.nodes[run.spec.node]!.id + '.' + item.index + '.',
+        );
+      const base = prefix + player.model.nodes[run.spec.node]!.id + '.';
+      for (const name of slots.keys())
+        if (
+          name.startsWith(base) &&
+          !run.items.some((item) => name.startsWith(base + item.index + '.'))
+        )
+          slots.delete(name);
+    }
+    for (const [id, child] of (player.nested as { players?: Map<string, Player> } | undefined)
+      ?.players ?? [])
+      inputs(child, prefix + id + '.');
+  };
+  inputs(preview);
   const summary = {
     instances,
     name: doc.name,
@@ -503,7 +530,7 @@ function inspect(f: string, json: boolean, io: IO): number {
       ]),
     ),
     nodes: m.nodes.flatMap((n, i) => (n.parent < 0 ? [node(i)] : [])),
-    inputs: Object.fromEntries([...m.inputs.values()].map((i) => [i.name, i.type])),
+    inputs: Object.fromEntries(slots),
     timelines: m.timelines.map((t) => ({
       name: t.name,
       duration: t.duration,
@@ -1015,20 +1042,42 @@ async function build(
   const source = readFileSync(f, 'utf8');
   let text: string | undefined;
   let diagnostics: MarkupDiagnostic[];
+  let sourceMap: import('@anima-format/markup').CompileResult['map'] | undefined;
   if (/\.html?$/i.test(f)) ({ text, diagnostics } = buildHTML(source, f));
   else if (f.endsWith('.animl'))
-    ({ text, diagnostics } = compile(source, {
+    ({
+      text,
+      diagnostics,
+      map: sourceMap,
+    } = compile(source, {
       file: f,
       resolve: (path) => readFileSync(path, 'utf8'),
     }));
   else throw new Usage('build needs a .animl or .html file');
   if (text !== undefined) {
-    const docs: { assets?: Record<string, import('@anima-format/core/assets').Asset> }[] = [];
-    if (/\.html?$/i.test(f)) buildHTML(source, f, (doc) => docs.push(doc));
-    else docs.push(JSON.parse(text));
+    const docs: import('./build-assets.ts').AssetDocument[] = [];
+    const maps: (typeof sourceMap)[] = [];
+    if (/\.html?$/i.test(f))
+      buildHTML(source, f, (doc, map) => {
+        docs.push(doc);
+        maps.push(map);
+      });
+    else {
+      docs.push(JSON.parse(text));
+      maps.push(sourceMap);
+    }
     const encoder = new ImageEncoder();
     try {
-      for (const doc of docs) diagnostics.push(...(await buildAssets(doc, f, embed, encoder)));
+      for (const [i, doc] of docs.entries())
+        diagnostics.push(
+          ...(await buildAssets(
+            doc,
+            f,
+            embed,
+            encoder,
+            (pointer) => maps[i]?.get(pointer)?.file ?? f,
+          )),
+        );
     } finally {
       await encoder.close();
     }

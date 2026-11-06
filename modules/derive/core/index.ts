@@ -7,7 +7,7 @@ import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import type { DataModule } from '../../data/core/index.ts';
 import type { Property } from '../../data/core/types.ts';
 import type { DataState } from '../../data/core/storage.ts';
-import { accepts, normalize } from '../../data/core/storage.ts';
+import { accepts, normalize, inputFor } from '../../data/core/storage.ts';
 import type { Expression } from '../../bind/core/expression.ts';
 import { after } from '../manifest.ts';
 
@@ -79,6 +79,19 @@ function prepare(
   if (!model.doc.requires?.includes('derive')) return;
   const c = data.compiled.get(model);
   if (!c) return;
+  for (const [path, ref] of [...c.refs]) {
+    if (ref.property.type !== 'string') continue;
+    const property: Property = { type: 'number' };
+    const input = inputFor(property, String(ref.input.def).length, path + '.length', true);
+    c.refs.set(path + '.length', {
+      ...ref,
+      keys: [...ref.keys, 'length'],
+      property,
+      input,
+      readonly: true,
+    });
+    model.inputs.set(path + '.length', input);
+  }
   const defs = c.document.models;
   const plans = new Map<Property, Expression>();
   const points = new Map<Property, string>();
@@ -99,6 +112,7 @@ function prepare(
       if (p.type === 'model-ref') relative(p.model!, prefix + key + '.', [...stack, name]);
       else if (!['list', 'trigger'].includes(p.type))
         types.set(prefix + key, p.type === 'enum' ? 'string' : p.type);
+      if (p.type === 'string') types.set(prefix + key + '.length', 'number');
     }
   };
   for (const [name, def] of Object.entries(defs)) {
@@ -162,6 +176,7 @@ function prepare(
     let p: Property | undefined;
     for (let i = 0; i < keys.length; i++) {
       p = defs[name]?.properties[keys[i]!];
+      if (p?.type === 'string' && keys[i + 1] === 'length') return p;
       if (p?.type === 'model-ref') name = p.model!;
       else if (p?.type === 'list') {
         name = p.of!;
@@ -311,6 +326,8 @@ function prepare(
       }
       const value = object[key!];
       if (!tail.length) return value;
+      if (p.type === 'string' && tail.length === 1 && tail[0] === 'length')
+        return String(value).length;
       if (p.type === 'model-ref') return read(value as Record<string, unknown>, p.model!, tail);
       if (p.type === 'list') {
         const [index, ...rest] = tail;

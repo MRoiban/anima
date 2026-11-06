@@ -56,11 +56,15 @@ for (const [name, engine, executablePath] of [
       events: string,
       assets: string,
       components: string;
+    let repeatModules: string[];
     beforeAll(async () => {
       [base, events, assets, components] = await Promise.all(
         ['index', 'events', 'assets', 'components'].map((n) =>
           bundle(new URL(`../../../../packages/web/src/${n}.ts`, import.meta.url).pathname),
         ),
+      );
+      repeatModules = await Promise.all(
+        ['data', 'bind', 'lists'].map((n) => bundle(resolve('packages/web/src/' + n + '.ts'))),
       );
       browser = await engine.launch({
         executablePath,
@@ -94,6 +98,114 @@ for (const [name, engine, executablePath] of [
     afterEach(async () => {
       await page.close();
     });
+    it.each([false, true])(
+      'plays a trusted repeated-row click (nested=%s), using its scoped clip',
+      async (nested) => {
+        for (const content of [assets, components, ...repeatModules])
+          await page.addScriptTag({ type: 'module', content });
+        await page.waitForFunction(() =>
+          (customElements.get('anima-icon') as typeof AnimaIcon).modules.has('lists'),
+        );
+        const wave =
+          'data:audio/wav;base64,' +
+          readFileSync(new URL('../../examples/share-tone.wav', import.meta.url)).toString(
+            'base64',
+          );
+        const result = await page.evaluate(
+          ({ wave, nested }) => {
+            window.audioLog = [];
+            window.observed = [];
+            Object.defineProperty(window, 'AudioContext', {
+              value: class {
+                destination = {};
+                async resume() {}
+                async close() {}
+                createGain() {
+                  return { gain: { value: 1 }, connect() {}, disconnect() {} };
+                }
+                async decodeAudioData(bytes: ArrayBuffer) {
+                  if (new TextDecoder().decode(bytes.slice(0, 4)) !== 'RIFF')
+                    throw Error('not WAV');
+                  window.audioLog.push('decode');
+                  return { duration: 2 };
+                }
+                createBufferSource() {
+                  return {
+                    connect() {},
+                    disconnect() {},
+                    stop() {},
+                    start(...args: number[]) {
+                      window.audioLog.push(JSON.stringify(args));
+                    },
+                  };
+                }
+              },
+            });
+            const leaf = {
+              grid: 20,
+              nodes: [{ id: 'hit', type: 'circle', center: [5, 5], r: 4, fill: { color: '#000' } }],
+              listeners: [{ on: 'click', target: 'hit', emit: 'play' }],
+              eventDefs: { play: { audio: 'tone' } },
+            };
+            const row = {
+              ...leaf,
+              assets: { tone: { type: 'audio', source: wave, start: 0.2, end: 1 } },
+              ...(nested
+                ? {
+                    nodes: [{ id: 'inside', type: 'instance', component: 'leaf' }],
+                    listeners: [],
+                    eventDefs: {},
+                  }
+                : {}),
+            };
+            const icon = window.eventIcon;
+            icon.on('event', ({ detail }) => window.observed.push(detail.name));
+            icon.on('error', ({ detail }) => window.observed.push(JSON.stringify(detail)));
+            const diagnostics = icon.load({
+              anima: '0.1',
+              name: 'repeat-audio',
+              grid: 20,
+              requires: ['events', 'assets', 'components', 'data', 'bind', 'lists'],
+              assets: {
+                tone: { type: 'audio', source: 'data:audio/wav;base64,AAAA', start: 0, end: 0.5 },
+              },
+              data: {
+                models: {
+                  Board: { properties: { items: { type: 'list', of: 'Item', default: [{}, {}] } } },
+                  Item: { properties: {} },
+                },
+              },
+              components: { row, leaf },
+              nodes: [{ id: 'rows', type: 'repeat', list: '$items', component: 'row', dy: 10 }],
+            });
+            icon.play();
+            return diagnostics;
+          },
+          { wave, nested },
+        );
+        expect(result.filter((d) => d.severity === 'error')).toEqual([]);
+        const selector = nested
+          ? 'g[id$="rows/1/inside/hit"] circle'
+          : 'g[id$="rows/1/hit"] circle';
+        await page.locator('anima-icon').locator(selector).click();
+        await page.waitForFunction(
+          () => window.audioLog.some((s) => s.startsWith('[')),
+          undefined,
+          { polling: 10 },
+        );
+        expect(
+          await page.evaluate(() => ({
+            audio: window.audioLog,
+            events: window.observed,
+            active: navigator.userActivation.hasBeenActive,
+          })),
+        ).toEqual({
+          audio: ['decode', '[0,0.2,0.8]'],
+          events: [nested ? 'rows.1.inside.play' : 'rows.1.play'],
+          active: true,
+        });
+      },
+    );
     it('delivers payloads, advance/draw/state and supports unsubscribe/deduplication', async () => {
       const result = await page.evaluate(() => {
         const i = window.eventIcon,

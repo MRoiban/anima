@@ -144,3 +144,109 @@ describe('assets', () => {
     }
   });
 });
+
+it('resolves image/audio references from enclosing catalogs, with nearest scope shadowing and distinct cached children', () => {
+  const source = (n: string) => 'data:image/png;base64,' + n;
+  const result = load({
+    anima: '0.1',
+    name: 'scoped',
+    grid: 20,
+    requires: ['components', 'assets', 'paint', 'data'],
+    assets: {
+      cover: { type: 'image', source: source('AAAA') },
+      tone: { type: 'audio', source: 'data:audio/wav;base64,AAAA' },
+    },
+    data: {
+      models: {
+        Item: {
+          properties: {
+            image: { type: 'asset-ref', assetType: 'image', default: 'cover' },
+            clip: { type: 'asset-ref', assetType: 'audio', default: 'tone' },
+          },
+        },
+      },
+    },
+    components: {
+      leaf: {
+        grid: 20,
+        nodes: [{ id: 'cover', type: 'image', asset: 'cover', x0: 0, y0: 0, width: 4, height: 4 }],
+      },
+      wrapper: {
+        grid: 20,
+        assets: { cover: { type: 'image', source: source('BBBB') } },
+        nodes: [{ id: 'child', type: 'instance', component: 'leaf' }],
+      },
+    },
+    nodes: [
+      { id: 'direct', type: 'instance', component: 'leaf' },
+      { id: 'wrapped', type: 'instance', component: 'wrapper' },
+    ],
+  });
+  expect(result.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+  const p = new Player(result.model!);
+  p.step(0);
+  const f = drawFrame(p);
+  const images = f.nodes.flatMap((n) => n.geometry?.image?.source ?? []);
+  expect(images).toEqual([source('AAAA'), source('BBBB')]);
+});
+it.each([
+  ['missing', 'audio'],
+  ['cover', 'audio'],
+  ['tone', 'image'],
+])('points a bad scoped asset-ref %s/%s at its default property', (name, assetType) => {
+  const result = load({
+    anima: '0.1',
+    name: 'bad-scope',
+    grid: 20,
+    requires: ['components', 'assets', 'data'],
+    assets: {
+      cover: { type: 'image', source: 'data:image/png;base64,AAAA' },
+      tone: { type: 'audio', source: 'data:audio/wav;base64,AAAA' },
+    },
+    components: {
+      row: {
+        grid: 20,
+        nodes: [{ id: 'dot', type: 'circle', center: [5, 5], r: 1 }],
+        data: {
+          models: {
+            Row: { properties: { clip: { type: 'asset-ref', assetType, default: name } } },
+          },
+        },
+      },
+    },
+    nodes: [{ id: 'row', type: 'instance', component: 'row' }],
+  });
+  expect(result.diagnostics).toContainEqual(
+    expect.objectContaining({
+      code: 'data-asset',
+      pointer: '/components/row/data/models/Row/properties/clip/default',
+      message: expect.any(String),
+      hint: expect.any(String),
+    }),
+  );
+});
+it('points a missing inherited image at the image node asset property', () => {
+  const result = load({
+    anima: '0.1',
+    name: 'bad-image',
+    grid: 20,
+    requires: ['components', 'assets', 'paint'],
+    assets: { other: { type: 'image', source: 'data:image/png;base64,AAAA' } },
+    components: {
+      row: {
+        grid: 20,
+        nodes: [
+          { id: 'cover', type: 'image', asset: 'missing', x0: 0, y0: 0, width: 4, height: 4 },
+        ],
+      },
+    },
+    nodes: [{ id: 'row', type: 'instance', component: 'row' }],
+  });
+  expect(result.diagnostics).toContainEqual(
+    expect.objectContaining({
+      code: 'unknown-asset',
+      pointer: '/components/row/nodes/0/asset',
+      hint: expect.any(String),
+    }),
+  );
+});

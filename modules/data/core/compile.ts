@@ -63,7 +63,7 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
       )
         error(dataCodes['model'], at, 'unknown referenced model');
       if (p.type === 'asset-ref' && !p.assetType)
-        error(dataCodes['property'], at, 'asset-ref needs assetType image, font or blob');
+        error(dataCodes['property'], at, 'asset-ref needs assetType image, audio, font or blob');
     }
   }
   let expanded = 0;
@@ -207,7 +207,9 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
         )
           error(
             dataCodes['asset'],
-            loc,
+            Object.hasOwn(overrides, k)
+              ? loc
+              : ptr(ptr('/data/models', modelName) + '/properties', k) + '/default',
             'asset reference kind does not match',
             'declare an asset of the requested kind',
           );

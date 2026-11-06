@@ -455,7 +455,12 @@ center/edge/corner names) to position it, and `sampling="nearest"` for pixel art
 overflow. Asset `width`/`height` override decoded intrinsic dimensions when needed.
 
 Paths resolve relative to the document URL in the browser and source file in the CLI.
-`anima build photo.animl --embed -o photo.ani` embeds local files as data URIs; only assets
+Components inherit asset names from their enclosing component/document, with local declarations
+shadowing outer ones. Image/audio asset-ref values use this same lookup, so shared data models do
+not need a catalog copied into every row. Image nodes can be click targets using their bounds.
+
+`anima build photo.animl --embed -o photo.ani` embeds local files as data URIs, including component
+catalogs and imported libraries (paths relative to the declaring source file); only assets
 change. `anima render photo.animl -o photo.png` reads local images directly.
 For hosted assets, assign `icon.assets = (name, info) => urlOrBlob` before loading; promises
 work too. Await `icon.ready` on initial load, or listen for `anima:load` on reload. Failed
@@ -669,7 +674,7 @@ Declare `requires="data bind"` for view models and bindings, adding `convert` fo
 converters. A model declares types; an instance stores values. This complete document declares
 every supported property type. `type` on an `asset-ref` is the asset kind, not a model name.
 Empty asset references need no asset declaration; nonempty references must name a declared asset
-of the same kind (`image`, `font` or `blob`, with `requires="assets"`).
+of the same kind (`image`, `audio`, `font` or `blob`, with `requires="assets"`).
 
 ```xml
 <anima version="0.1" name="data-types" grid="20" requires="data bind">
@@ -963,16 +968,22 @@ radians keep doubles; measured native differences are float32 storage precision.
 native dump is an observation limit. The unchanged findings and exact paths are linked in
 `anima docs convert`; they remain findings, not passing oracle comparisons.
 
-Not implemented: the 13 pending data inventory rows include data-backed keyframes, layout/text
-consumers, script inputs/model API/scripted converters, upward-relative component lookup, editor
-preview selection, export filtering, artboard references, contextual list-position properties and
-text-style properties. The converter-options row's named integration now exists, but its inventory
+Remaining data work includes layout/text consumers, scripting and text-style properties.
+Data-backed keyframes, relative component contexts, component-valued properties, exported instance
+discovery and contextual list indices are implemented; see the examples below. The converter-options row's named integration now exists, but its inventory
 status remains pending. The four pending convert rows cover HSL/component-format markers,
 retained number-to-model-list creation, counter delivery into trigger destinations and scripted
 converters. Scalar/index-list/boolean functions do not imply those broader capabilities. System
 enums declare vocabulary only; they do not implement future layout/text consumers.
 
+With `derive`, use `$title.length` directly in bindings or computed number properties; it is a
+read-only count of UTF-16 code units and follows title-only edits. For example
+`<number name="titleChars" value="$title.length"/>` needs no separately maintained auxiliary value.
+
 ## Lists
+
+Use `count="$tracks.length"` for a live dot counter. Any readable numeric data path is accepted.
+`anima inspect` lists the currently existing repeated input slots, including triggers.
 
 Add `lists components data` to `requires` and import `@anima-format/web/lists` alongside
 components, data and bind. A repeat creates one component player per list item. Bindings in that
@@ -1068,7 +1079,7 @@ instances, `get('$main:score')` for an explicit read. `.boolean`, `.color`, `.en
 `.list`, `.image`, `.font` work like `.number`. `.trigger('$pulse').fire()` sends a
 signal. Catch `DataError` to inspect `code`, `pointer`, `message`, `hint`.
 
-`examples/page.html` is a self-contained page using the built browser bundles.
+`examples/web/index.html` is a self-contained page using the built browser bundles.
 See `anima docs host` for the complete host contract.
 
 ## Editing page data (host-edit module)
@@ -1183,8 +1194,8 @@ Instance JSON `exported: true` is AniML `export="true"`. Hosts importing `dataSt
 exported authored `{name,model}` records. Internal private instances remain usable in bindings;
 the existing host/host-edit all-instance list keeps its own behavior.
 
-Data-bound keyframe values (`value="$peak"`) remain pending: the shared timeline sampler needs
-a player-aware value hook before each instance can read its own current data safely.
+Data-bound keyframe values (`value="$peak"`) read each player's current data; import `data` and
+`motion`. The following example also shows the element form.
 
 ### Live key values and component selections
 

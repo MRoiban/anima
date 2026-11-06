@@ -45,7 +45,9 @@ The system vocabulary is an Anima contract (native CLI dumps expose no members):
 `model`. Values use a named instance string, `{instance: name}`, `{model,values}` or inline
 values when the model is fixed. Named references retain identity, including through lists.
 Nested defaults instantiate the referenced model; cyclic default/reference graphs are rejected.
-`asset-ref` requires `assetType: image|font|blob`; its value is an asset id or empty string.
+`asset-ref` requires `assetType: image|audio|font|blob`; its value is an asset id or empty string. Asset names resolve in the component catalog, then
+enclosing catalogs up to the root; local names shadow outer names. Invalid defaults identify the
+property `/default`, and invalid instance values identify their own `/values/<property>` pointer.
 A nonempty initial reference must name an asset with the matching type. Asset decoding and
 replacement consumers remain owned by assets and the future host API.
 
@@ -77,7 +79,7 @@ without lists, local default and explicitly named paths work. Opaque lists/model
 AniML uses `<model name="Player" global="true">`, typed child declarations (`<number>`,
 `<string>`, `<bool>`, `<color>`, `<trigger>`, `<enum>`, `<list>`, `<model-ref>`, `<asset-ref>`), and
 `<instance name="main" model="Player" default="true"><set path="score" value="12"/></instance>`.
-Property attributes follow JSON names; asset declarations use `type="image|font|blob"`.
+Property attributes follow JSON names; asset declarations use `type="image|audio|font|blob"`.
 Named model instances do not require the components markup bundle. A placed component instance
 retains its separate `id`/`component` form and requires components.
 Initial compound values use JSON in `value`; enum member lists use whitespace, or JSON entries

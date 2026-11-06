@@ -1,0 +1,19 @@
+<anima version="0.1" name="asset-scope" grid="20" requires="components lists data bind assets paint events">
+  <asset name="cover" type="image"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAG0lEQVR4AWP8r8HwnwEPYGIgAJgYCAAmBgIAABjwAi5tDXySAAAAAElFTkSuQmCC"/>
+  <asset name="tone" type="audio" src="data:audio/wav;base64,AAAA" start="0.2" end="1"/>
+  <model name="Item">
+    <asset-ref name="cover" default="cover" type="image"/>
+    <asset-ref name="clip" default="tone" type="audio"/>
+  </model>
+  <model name="Board">
+    <list name="items" default="[{}]" of="Item"/>
+  </model>
+  <instance name="board" model="Board" default="true"/>
+  <component name="row" grid="20" data="Item">
+    <event-def name="play" audio="tone"/>
+    <image id="cover" asset="cover" x0="0" y0="0" width="4" height="4"/>
+    <listener on="click" target="cover" emit="play"/>
+  </component>
+  <repeat id="rows" list="$items" component="row"/>
+</anima>

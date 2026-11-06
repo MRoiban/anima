@@ -1,0 +1,239 @@
+
+> test:scope
+> node tools/test-scope.ts lists media events assets data derive cli markup conformance oracle
+
+Scopes: lists, media, events, assets, data, derive, cli, markup, conformance, oracle
+  unit: modules/assets/test/cli/assets.test.ts
+  unit: modules/assets/test/cli/pipeline.test.ts
+  unit: modules/assets/test/core/assets.test.ts
+  unit: modules/assets/test/core/pipeline.test.ts
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/convert/test/cli/convert.test.ts
+  unit: modules/convert/test/markup/convert.test.ts
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/data/test/cli/extras.test.ts
+  unit: modules/data/test/core/components.test.ts
+  unit: modules/data/test/core/conformance.test.ts
+  unit: modules/data/test/core/data-bind-converter-options.test.ts
+  unit: modules/data/test/core/data-bind-keyframes.test.ts
+  unit: modules/data/test/core/data-bind-layout.test.ts
+  unit: modules/data/test/core/data-bind-script-inputs.test.ts
+  unit: modules/data/test/core/data-bind-text.test.ts
+  unit: modules/data/test/core/data-binding-relative.test.ts
+  unit: modules/data/test/core/data-editor-preview-instance.test.ts
+  unit: modules/data/test/core/data-instance-export.test.ts
+  unit: modules/data/test/core/data-property-artboard.test.ts
+  unit: modules/data/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/data/test/core/data-property-text-style.test.ts
+  unit: modules/data/test/core/data-script-model-api.test.ts
+  unit: modules/data/test/core/data-scripted-converter.test.ts
+  unit: modules/data/test/core/diagnostics.test.ts
+  unit: modules/data/test/core/extras.test.ts
+  unit: modules/data/test/core/input.test.ts
+  unit: modules/data/test/core/oracle.test.ts
+  unit: modules/data/test/core/runtime.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: modules/derive/test/cli/derive.test.ts
+  unit: modules/derive/test/core/derive.test.ts
+  unit: modules/derive/test/core/oracle.test.ts
+  unit: modules/events/test/cli/events.test.ts
+  unit: modules/events/test/core/events.test.ts
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host/test/cli/host.test.ts
+  unit: modules/lists/test/cli/lists.test.ts
+  unit: modules/lists/test/core/components-explicit-context.test.ts
+  unit: modules/lists/test/core/components-inherited-context.test.ts
+  unit: modules/lists/test/core/components-list-map.test.ts
+  unit: modules/lists/test/core/components-list-size-override.test.ts
+  unit: modules/lists/test/core/components-list.test.ts
+  unit: modules/lists/test/core/data-binding-relative.test.ts
+  unit: modules/lists/test/core/data-converter-number-to-list.test.ts
+  unit: modules/lists/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/lists/test/core/lists.test.ts
+  unit: modules/markup-libraries/test/cli/library.test.ts
+  unit: modules/markup-libraries/test/markup/extras.test.ts
+  unit: modules/markup-libraries/test/markup/reuse.test.ts
+  unit: modules/motion/test/cli/data-keys.test.ts
+  unit: modules/motion/test/cli/motion.test.ts
+  unit: modules/nested/test/cli/nested.test.ts
+  unit: modules/paint/test/cli/advanced.test.ts
+  unit: modules/paint/test/cli/paint-geometry.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: modules/surface/test/cli/surface.test.ts
+  unit: modules/surface/test/markup/surface.test.ts
+  unit: packages/cli/test/authoring.test.ts
+  unit: packages/cli/test/cli.test.ts
+  unit: packages/cli/test/glyphs.test.ts
+  unit: packages/cli/test/markup.test.ts
+  unit: packages/cli/test/render.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: packages/markup/test/xml.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/assets/test/web/assets.test.ts
+  browser: modules/assets/test/web/pipeline.test.ts
+  browser: modules/data/test/web/browser.test.ts
+  browser: modules/derive/test/web/browser.test.ts
+  browser: modules/events/test/web/events.browser.test.ts
+  browser: modules/lists/test/web/lists.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-4d45f41e
+
+ ❯ |scope-unit| modules/assets/test/cli/assets.test.ts (2 tests | 1 failed) 652ms
+   × reports missing referenced files for build and render 24ms
+ ❯ |scope-unit| packages/markup/test/corpus.test.ts (935 tests | 2 failed) 5463ms
+   ❯ authored AniML corpus (935)
+     × spec/conformance/assets-component-scope/case.animl is canonically formatted 21ms
+     × spec/conformance/lists-readable-count/case.animl is canonically formatted 7ms
+ ❯ |scope-browser| modules/assets/test/web/pipeline.test.ts (20 tests | 2 failed) 35975ms
+   ❯ Firefox asset pipeline (10)
+     × enforces local policy; provides detached metadata and lazy cached blob/audio bytes through the resolver 5012ms
+     × matches independently enumerated repeat/mirror/clamp texels in canvas, including axis overrides and resize 5003ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > enforces local policy; provides detached metadata and lazy cached blob/audio bytes through the resolver
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:62:5
+     60|       await shared?.close();
+     61|     });
+     62|     it('enforces local policy; provides detached metadata and lazy cac…
+       |     ^
+     63|       const browser = await shared.newContext();
+     64|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > matches independently enumerated repeat/mirror/clamp texels in canvas, including axis overrides and resize
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:396:31
+    394|       }
+    395|     });
+    396|     it.each(['svg', 'canvas'])(
+       |                               ^
+    397|       'matches independently enumerated repeat/mirror/clamp texels in …
+    398|       async (renderer) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/assets-component-scope/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="asset-scop…' to be '<anima version="0.1" name="asset-scop…' // Object.is equality
+
+- Expected
++ Received
+
+@@ -1,10 +1,16 @@
+  <anima version="0.1" name="asset-scope" grid="20" requires="components lists data bind assets paint events">
+-   <asset name="cover" type="image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAG0lEQVR4AWP8r8HwnwEPYGIgAJgYCAAmBgIAABjwAi5tDXySAAAAAElFTkSuQmCC"/>
++   <asset name="cover" type="image"
++       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAG0lEQVR4AWP8r8HwnwEPYGIgAJgYCAAmBgIAABjwAi5tDXySAAAAAElFTkSuQmCC"/>
+    <asset name="tone" type="audio" src="data:audio/wav;base64,AAAA" start="0.2" end="1"/>
+-   <model name="Item"><asset-ref name="cover" type="image" default="cover"/><asset-ref name="clip" type="audio" default="tone"/></model>
++   <model name="Item">
++     <asset-ref name="cover" default="cover" type="image"/>
++     <asset-ref name="clip" default="tone" type="audio"/>
++   </model>
+-   <model name="Board"><list name="items" of="Item" default='[{}]'/></model>
++   <model name="Board">
++     <list name="items" default="[{}]" of="Item"/>
++   </model>
+    <instance name="board" model="Board" default="true"/>
+    <component name="row" grid="20" data="Item">
+      <event-def name="play" audio="tone"/>
+      <image id="cover" asset="cover" x0="0" y0="0" width="4" height="4"/>
+      <listener on="click" target="cover" emit="play"/>
+
+ ❯ packages/markup/test/corpus.test.ts:50:25
+     48|     const result = formatMarkup(source);
+     49|     expect(result.diagnostics).toEqual([]);
+     50|     expect(result.text).toBe(source);
+       |                         ^
+     51|   });
+     52| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/lists-readable-count/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="length-cou…' to be '<anima version="0.1" name="length-cou…' // Object.is equality
+
+- Expected
++ Received
+
+@@ -1,16 +1,19 @@
+  <anima version="0.1" name="length-count" grid="20" requires="components lists data bind derive">
+-   <model name="Item"><string name="title" default="Hi"/></model>
++   <model name="Item">
++     <string name="title" default="Hi"/>
++   </model>
+    <model name="Board">
+-     <list name="items" of="Item" default='[{"title":"Dawn"},{"title":"Tide"}]'/>
++     <list name="items" default="[{&quot;title&quot;:&quot;Dawn&quot;},{&quot;title&quot;:&quot;Tide&quot;}]" of="Item"/>
+      <string name="title" default="Hi"/>
+      <string name="label" value="$title"/>
+      <number name="chars" value="$label.length"/>
+    </model>
+    <instance name="main" model="Board" default="true"/>
+    <component name="row" grid="20">
+-     <trigger name="tap"/><number name="clicks"/>
++     <trigger name="tap"/>
++     <number name="clicks"/>
+      <circle id="dot" cx="5" cy="5" r="1" fill="#000"/>
+      <listener on="click" target="dot" fire="tap" set="clicks=clicks+1"/>
+      <bind target="dot.r" value="$chars"/>
+    </component>
+    <repeat id="rows" count="$items.length" component="row"/>
+
+ ❯ packages/markup/test/corpus.test.ts:50:25
+     48|     const result = formatMarkup(source);
+     49|     expect(result.diagnostics).toEqual([]);
+     50|     expect(result.text).toBe(source);
+       |                         ^
+     51|   });
+     52| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  |scope-unit| modules/assets/test/cli/assets.test.ts > reports missing referenced files for build and render
+AssertionError: expected [ { code: 'asset-load', …(4) } ] to deep equally contain ObjectContaining{…}
+
+- Expected:
+ObjectContaining {
+  "code": "asset-load",
+  "pointer": "/assets",
+}
+
++ Received:
+[
+  {
+    "code": "asset-load",
+    "hint": "check source bytes, MIME, extension and encoding options relative to the document",
+    "message": "ENOENT: no such file or directory, open '/tmp/anima-assets-uBcveX/missing.png'",
+    "pointer": "/assets/photo/source",
+    "severity": "error",
+  },
+]
+
+ ❯ modules/assets/test/cli/assets.test.ts:71:43
+     69|     const r = await cli(...cmd, '--format=json');
+     70|     expect(r.code).toBe(1);
+     71|     expect(JSON.parse(r.out).diagnostics).toContainEqual(
+       |                                           ^
+     72|       expect.objectContaining({ code: 'asset-load', pointer: '/assets'…
+     73|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  3 failed | 65 passed | 12 skipped (80)
+      Tests  5 failed | 3721 passed | 44 todo (3770)
+   Start at  00:39:19
+   Duration  56.26s (tests 82%, import 13%, transform 4%)

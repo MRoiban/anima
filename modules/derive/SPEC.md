@@ -52,3 +52,13 @@ accepts a write to the derived destination and keeps it (1 accepted write) until
 change; Anima rejects it with `read-only-path` (0). The captured evidence is the read-only skip in
 `tests/oracle/`; it is recorded, never counted as a passing comparison.
 
+
+## String length paths
+
+With `derive`, every readable string data path also exposes a numeric, read-only `.length`:
+`$title.length`, `$other:title.length`, `$child.title.length`, `$items.0.title.length` and relative
+component paths. The length is JavaScript UTF-16 code units (empty string 0; `A😀` 3), not grapheme
+clusters. It updates from the current string, including computed strings, at the ordinary binding
+position and works in bindings, computed properties, repeat counts, samples and data reads.
+Computed dependencies through `.length` participate in cycle detection; writes report `read-only-path`.
+No new bind grammar or per-character converter is added.
