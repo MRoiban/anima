@@ -1,0 +1,272 @@
+{
+  "anima": "0.1",
+  "name": "sync",
+  "title": "Sync",
+  "grid": 20,
+  "requires": ["motion", "bind"],
+  "colors": {
+    "ink": "#141413",
+    "accent": "#d97757"
+  },
+  "a11y": {
+    "role": "button",
+    "label": "Sync",
+    "activate": "syncing",
+    "pressed": "syncing"
+  },
+  "inputs": {
+    "syncing": {
+      "type": "bool"
+    },
+    "hover": {
+      "type": "bool"
+    },
+    "phase": {
+      "type": "number",
+      "default": 0,
+      "min": 0,
+      "max": 1
+    }
+  },
+  "hit": {
+    "rect": [0, 0, 20, 20]
+  },
+  "nodes": [
+    {
+      "id": "peek",
+      "type": "group",
+      "pivot": [10, 10],
+      "children": [
+        {
+          "id": "arrows",
+          "type": "group",
+          "pivot": [10, 10],
+          "children": [
+            {
+              "id": "top",
+              "type": "arc",
+              "center": [10, 10],
+              "r": 6,
+              "from": -165,
+              "to": -15,
+              "stroke": {
+                "color": "ink",
+                "width": 1.5,
+                "cap": "round"
+              }
+            },
+            {
+              "id": "top-tip",
+              "type": "path",
+              "d": "M14.064 7.447L15.796 8.447L16.796 6.715",
+              "stroke": {
+                "color": "ink",
+                "width": 1.5,
+                "cap": "round",
+                "join": "round"
+              }
+            },
+            {
+              "id": "bottom",
+              "type": "arc",
+              "center": [10, 10],
+              "r": 6,
+              "from": 15,
+              "to": 165,
+              "stroke": {
+                "color": "ink",
+                "width": 1.5,
+                "cap": "round"
+              }
+            },
+            {
+              "id": "bottom-tip",
+              "type": "path",
+              "d": "M5.936 12.553L4.204 11.553L3.204 13.285",
+              "stroke": {
+                "color": "ink",
+                "width": 1.5,
+                "cap": "round",
+                "join": "round"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "check",
+      "type": "path",
+      "d": "M7 10L9.2 12.2L13 8",
+      "pivot": [10, 10],
+      "scale": 0,
+      "stroke": {
+        "color": "accent",
+        "width": 1.5,
+        "cap": "round",
+        "join": "round"
+      }
+    }
+  ],
+  "timelines": {
+    "turn": {
+      "duration": 1.2,
+      "loop": "loop",
+      "reducedMotion": "skip",
+      "tracks": {
+        "arrows.rotate": [
+          [0, 0],
+          [1.2, 360]
+        ]
+      },
+      "quantize": 10
+    },
+    "pop": {
+      "duration": 0.6,
+      "reducedMotion": "end",
+      "tracks": {
+        "check.scale": [
+          [0, 0, "elastic(1, 0.3)"],
+          [0.6, 1]
+        ]
+      }
+    },
+    "peek-motion": {
+      "duration": 0.4,
+      "reducedMotion": "end",
+      "tracks": {
+        "peek.scale": [
+          [0, 1],
+          [0.4, 1.1]
+        ]
+      }
+    },
+    "wait": {
+      "duration": 1.2,
+      "loop": "loop",
+      "reducedMotion": "skip",
+      "tracks": {
+        "check.scale": [
+          [0, 0],
+          [1.2, 0]
+        ]
+      },
+      "quantize": 10
+    }
+  },
+  "machine": {
+    "layers": {
+      "hover": {
+        "initial": "rest",
+        "states": {
+          "rest": {
+            "play": "peek-motion",
+            "on": [
+              {
+                "when": "hover",
+                "to": "forward",
+                "sync": true
+              }
+            ],
+            "hold": true
+          },
+          "forward": {
+            "play": "peek-motion",
+            "on": [
+              {
+                "when": "!hover",
+                "to": "reverse",
+                "sync": true
+              }
+            ]
+          },
+          "reverse": {
+            "play": "peek-motion",
+            "speed": -1,
+            "on": [
+              {
+                "when": "hover",
+                "to": "forward",
+                "sync": true
+              }
+            ]
+          }
+        }
+      },
+      "rotation": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "play": "turn",
+            "on": [
+              {
+                "when": "syncing",
+                "to": "spin"
+              }
+            ],
+            "time": "phase * 1.2"
+          },
+          "spin": {
+            "play": "turn",
+            "on": [
+              {
+                "when": "!syncing",
+                "to": "idle",
+                "sync": true,
+                "exitNext": "step"
+              }
+            ]
+          }
+        }
+      },
+      "completion": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "play": "wait",
+            "on": [
+              {
+                "when": "syncing",
+                "to": "running"
+              }
+            ],
+            "time": "phase * 1.2"
+          },
+          "running": {
+            "play": "wait",
+            "on": [
+              {
+                "when": "!syncing",
+                "to": "done",
+                "exitNext": "step"
+              }
+            ]
+          },
+          "done": {
+            "play": "pop",
+            "on": [
+              {
+                "when": "syncing",
+                "to": "running"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "enter",
+      "set": {
+        "hover": true
+      }
+    },
+    {
+      "on": "leave",
+      "set": {
+        "hover": false
+      }
+    }
+  ]
+}

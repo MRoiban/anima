@@ -1,0 +1,6 @@
+{"time":0.75,"values":{"a.x":6},"states":{"l":"forward"},"events":[{"name":"mid","layer":"l","time":0.5}],"settled":false}
+{"time":0.75,"values":{"a.x":6},"states":{"l":"reverse"},"events":[],"settled":false}
+{"time":0.875,"values":{"a.x":5},"states":{"l":"reverse"},"events":[],"settled":false}
+{"time":1.25,"values":{"a.x":8},"states":{"l":"forward"},"events":[],"settled":true}
+{"time":2,"values":{"a.x":2},"states":{"l":"reverse"},"events":[{"name":"mid","layer":"l","time":0.5}],"settled":false}
+{"time":2.25,"values":{"a.x":0},"states":{"l":"reverse"},"events":[],"settled":true}

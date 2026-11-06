@@ -1,11 +1,11 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: P5-7 (markup owner) running → then D1 module folders + D2 scoped tests (parallel) → D3 new-capability scaffolder → P5 AniML benchmark run → P5 PR (full check in CI).
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: P4b-3 declarative motion controls and sync benchmark proof complete, committed locally.
+Verified: 10 new conformance cases; scope 728/728; sync 6/6 (7 scripts, 66 snapshots).
+Full: 1380 pass + 15 pre-existing oracle TODOs with VITEST_MAX_WORKERS=2; default had 2 browser timeouts.
+Next: parent integrates/reviews local commit; P4b oracle captures and phase closure remain with parent.
+Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -93,5 +93,14 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-07 07:00 [claude]: merged P5 AniML benchmark run (a80efc3): agent 5/6, re-check 6/6 (pop renders 1.25 with its script; sheet never triggered it); 3m43s vs Rive 10m48s; findings: on-change condition → P4c, text → P6, script set-before-advance documented
 - 2026-11-07 09:30 [claude]: merged D1 module folders (d9510ae): 6 modules + libraries in folders, generator --check, 12 orders identical; core+web 17789 (+248, logged); test:scope paint 12 files/4.2 s; next D3 scaffolder then P5 PR
 - 2026-11-06 11:00 [claude]: merged D3 scaffolder (c7e3012): 31 files per row, idempotent; opening P5 PR (full suite in CI)
-- 2026-11-06 16:00 [claude]: merged Pc-1 canvas (d7fb13d) into pc-canvas: canvas 4114/8192, core+web 17963 (+174), 326/338 cross-backend comparisons; findings are SVG-side (Chromium pathLength on circles, inverted-luminance aliasing, one image frame) → Pc-2
-- 2026-11-06 21:00 [claude]: merged Pc-2 (6595b11): 338/338 both engines, full check green 1442; parity Pc 3 rows done (237/1238); opening Pc PR
+- 2026-11-06 18:00 [claude]: merged P4b-1 motion (7685c3f) into p4b-motion: 22 rows implemented, 7 oracle-verified, 15 oracle probes pending; motion 4982/8192, core+web 18290 (+501 hooks); perf improved; benchmark brief P4b (sync button) written
+- 2026-11-06 19:00 [claude]: merged P4b AniML benchmark run (4f5f72b): 4/6 — gaps: declarative reverse-from-current, stop at next quantized step + hold, input-bound timeline clock (scrub took 13 states), no 'anima docs motion' → P4b-3
+- 2026-11-06 20:00 [claude]: merged P4b Rive run (72a1145): 5/6 (reduced motion host-only), 5m19s, 911 lines; recorded both P4b rows; AniML rerun planned after P4b-3
+- 2026-11-06 22:00 [claude]: merged P4b-2 (b1a9ef5): 15/15 probes disposed (6 verified, 8 skip-noted, 1 finding: Rive's number dump reports uint 2^32-1 as -1 — observation-path conversion, not Anima); fix: compare in-range values, document the dump note
+- 2026-11-06 23:00 [claude]: PR #12 (Pc canvas) merged (86d2c43); merged main into p4b-motion (7 conflicts: generated wiring regenerated, corpus 71 cases); scoped changed 1149 pass + 1 expected fail
+- 2026-11-07 00:30 [claude]: merged P4b-3 (dbbbfed): sync/exitNext/hold/input time, 10 cases, sync example 6/6; fixed docs topics for web-only modules (canvas); scoped motion+cli+canvas green
+- 2026-11-07 01:30 [claude]: merged P4b-4 (aa7dc76): strict oracle exit 0, 71 samples; uint in-range exact; Rive dump float32 rounding documented
+- 2026-11-07 02:30 [claude]: merged P4b AniML rerun (afc413d): 5/6 (from 4/6); 'stall' was advance 0 (re-check completes); reduced-motion mid-loop = spec decision → P3b
+- 2026-11-07 03:00 [claude]: P4b bookkeeping: 22 rows done (259/1238), LOG with numbers (core+web 19012, +1049 logged); opening PR
+- 2026-11-07 04:00 [claude]: PR #13 CI red: canvas cross-backend harness hard-coded its module list → motion cases unknown-feature; generator now emits packages/web/src/all-modules.ts, harness uses it; canvas test 524 pass. Lesson: run browser tests for the merge's seams before pushing a phase PR
+- 2026-11-07 05:00 [claude]: PR #13 CI red again: timeouts from CPU starvation (module-order 4.7 s locally vs 30 s limit hit in CI) + scaffolder test used a now-done row; npm test now runs unit (15 s, 1229) then browser --maxWorkers=2 (2.5 min, 718); limits unchanged

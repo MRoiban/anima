@@ -1,10 +1,6 @@
 import '@anima-format/core/all';
-import '../../../../packages/web/src/paint.ts';
-import '../../../../packages/web/src/composite.ts';
-import '../../../../packages/web/src/assets.ts';
-import '../../../../packages/web/src/components.ts';
-import '../../../../packages/web/src/bind.ts';
-import '../../../../packages/web/src/surface.ts';
+// Every runtime module (generated), so any conformance case or example can play here.
+import '../../../../packages/web/src/all-modules.ts';
 import {
   runScript,
   drawFrame,

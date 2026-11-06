@@ -1,0 +1,5 @@
+timeline t loop loop
+timeline t seek 0.75
+timeline t speed -1
+advance 0.5
+snapshot

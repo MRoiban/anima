@@ -1,0 +1,6 @@
+{
+  "status": "skip",
+  "reason": "Native KeyFrameId has consuming properties such as Solo.activeComponentId that select geometry. Anima reference channels store validated scene-node IDs without changing geometry. No arbitrary node-ID data channel is exposed in the headless data dump; a Solo frame would test different semantics.",
+  "evidence": "Rive CLI 1.9.0: --help; headless commands help; schema queries; local docs animascript/api/artboard, data and format.",
+  "tests": ["modules/motion/test/core/typed-oracle.test.ts"]
+}

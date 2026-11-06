@@ -1751,11 +1751,11 @@
    "rive-runtime/include/rive/generated/animation/cubic_value_interpolator_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: valueCubic(time1,value1,time2,value2)",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/cubic-value",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/animation-cubic-value/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "modules/motion/test/core/animation-cubic-value.test.ts; spec/conformance/animation-cubic-value; modules/motion/test/web/browser.test.ts; tests/oracle/animation-cubic-value",
+   "phase": "P4b"
   }
  },
  {
@@ -1807,11 +1807,11 @@
    "rive-runtime/include/rive/generated/animation/elastic_interpolator_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: elastic-in(amplitude,period)",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/elastic-in",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/animation-elastic-in/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "modules/motion/test/core/animation-elastic-in.test.ts; spec/conformance/animation-elastic-in; modules/motion/test/web/browser.test.ts; tests/oracle/animation-elastic-in",
+   "phase": "P4b"
   }
  },
  {
@@ -1836,11 +1836,11 @@
    "rive-runtime/include/rive/generated/animation/elastic_interpolator_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: elastic-in-out(amplitude,period)",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/elastic-in-out",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/animation-elastic-in-out/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "modules/motion/test/core/animation-elastic-in-out.test.ts; spec/conformance/animation-elastic-in-out; modules/motion/test/web/browser.test.ts; tests/oracle/animation-elastic-in-out",
+   "phase": "P4b"
   }
  },
  {
@@ -1976,11 +1976,11 @@
    "rive-runtime/include/rive/generated/animation/linear_animation_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: player.timeline(name).loop override",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/host-loop-override",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/animation-host-loop-override/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-loop-override/skip.json (no faithful headless counterpart)",
+   "phase": "P4b"
   }
  },
  {
@@ -2007,11 +2007,11 @@
    "rive-runtime/include/rive/generated/animation/linear_animation_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: player timeline playback controls",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/host-play-pause-stop",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/animation-host-play-pause-stop/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-play-pause-stop/skip.json (no faithful headless counterpart)",
+   "phase": "P4b"
   }
  },
  {
@@ -2309,11 +2309,11 @@
    "rive-runtime/include/rive/generated/animation/keyframe_id_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: reference hold track",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/keys-reference",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/animation-keys-reference/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "modules/motion/test/core/typed-oracle.test.ts; tests/oracle/animation-keys-reference/skip.json (no faithful headless counterpart)",
+   "phase": "P4b"
   }
  },
  {
@@ -2337,11 +2337,11 @@
    "rive-runtime/include/rive/generated/animation/keyframe_int_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: typed signed integer track",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/keys-signed-integer",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/animation-keys-signed-integer/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "modules/motion/test/core/typed-oracle.test.ts; tests/oracle/animation-keys-signed-integer/skip.json (no faithful headless counterpart)",
+   "phase": "P4b"
   }
  },
  {
@@ -2365,11 +2365,11 @@
    "rive-runtime/include/rive/generated/animation/keyframe_string_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: string hold track",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/keys-string",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/animation-keys-string/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "tests/oracle/animation-keys-string; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
+   "phase": "P4b"
   }
  },
  {
@@ -2393,11 +2393,11 @@
    "rive-runtime/include/rive/generated/animation/keyframe_uint_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: typed unsigned integer track",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/keys-unsigned-integer",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/animation-keys-unsigned-integer/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "tests/oracle/animation-keys-unsigned-integer (0/7/42/2147483520, tolerance 0); modules/motion/test/core/typed-oracle.test.ts (4294967295 round-trip); spec/conformance/animation-keys-unsigned-integer",
+   "phase": "P4b"
   }
  },
  {
@@ -2621,11 +2621,11 @@
    "rive-runtime/include/rive/generated/animation/keyframe_id_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: discrete assignment rules for reference and string tracks",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/mix-discrete",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/animation-mix-discrete/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "tests/oracle/animation-mix-discrete; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
+   "phase": "P4b"
   }
  },
  {
@@ -2649,11 +2649,11 @@
    "rive-runtime/include/rive/generated/animation/keyframe_double_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: player.applyTimeline(name,time,{mix})",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/mix-numeric",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/animation-mix-numeric/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "tests/oracle/animation-mix-numeric; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
+   "phase": "P4b"
   }
  },
  {
@@ -2677,11 +2677,11 @@
    "rive-runtime/include/rive/generated/animation/linear_animation_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: timeline.quantize: samplesPerSecond",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/quantized-playback",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/animation-quantized-playback/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "modules/motion/test/core/animation-quantized-playback.test.ts; spec/conformance/animation-quantized-playback; modules/motion/test/web/browser.test.ts; tests/oracle/animation-quantized-playback",
+   "phase": "P4b"
   }
  },
  {
@@ -2707,11 +2707,11 @@
    "rive-runtime/include/rive/generated/animation/animation_state_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: negative timeline/state speed with reverse event crossing",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/reverse",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/animation-reverse/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "modules/motion/test/core/animation-reverse.test.ts; spec/conformance/animation-reverse; modules/motion/test/web/browser.test.ts; tests/oracle/animation-reverse",
+   "phase": "P4b"
   }
  },
  {
@@ -2790,11 +2790,11 @@
    "rive-runtime/include/rive/generated/animation/linear_animation_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: player.timeline(name).seek(seconds)",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/seek",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/animation-seek/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "tests/oracle/animation-seek; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
+   "phase": "P4b"
   }
  },
  {
@@ -2846,11 +2846,11 @@
    "rive-runtime/include/rive/generated/animation/linear_animation_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: timeline.work: [startSeconds,endSeconds]",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/work-area",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/animation-work-area/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "modules/motion/test/core/animation-work-area.test.ts; spec/conformance/animation-work-area; modules/motion/test/web/browser.test.ts; tests/oracle/animation-work-area",
+   "phase": "P4b"
   }
  },
  {
@@ -15405,11 +15405,11 @@
    "rive-wasm/js/src/rive_advanced.mjs.d.ts:894@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: Animation metadata and clock",
-   "module": "core",
-   "status": "planned",
-   "test": "browser/animation-metadata",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/host-api-animation-metadata/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-animation-metadata/skip.json (no faithful headless counterpart)",
+   "phase": "P4b"
   }
  },
  {
@@ -17356,11 +17356,11 @@
    "rive-wasm/js/src/rive_advanced.mjs.d.ts:877@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: explicit timeline instances and mix weight",
-   "module": "core",
-   "status": "planned",
-   "test": "browser/low-level-animation",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/host-api-low-level-animation/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-animation/skip.json (no faithful headless counterpart)",
+   "phase": "P4b"
   }
  },
  {
@@ -17448,11 +17448,11 @@
    "rive-wasm/js/src/rive_advanced.mjs.d.ts:756@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: typed scene node handles",
-   "module": "core",
-   "status": "planned",
-   "test": "browser/low-level-scene-query",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/host-api-low-level-scene-query/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-scene-query/skip.json (no faithful headless counterpart)",
+   "phase": "P4b"
   }
  },
  {
@@ -17611,11 +17611,11 @@
    "rive-wasm/js/src/rive.ts:1555@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: named machine instances with deterministic composition order",
-   "module": "core",
-   "status": "planned",
-   "test": "browser/multi-state-machine",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/host-api-multi-state-machine/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-multi-state-machine/skip.json (no faithful headless counterpart)",
+   "phase": "P4b"
   }
  },
  {
@@ -18255,11 +18255,11 @@
    "rive-wasm/js/src/rive.ts:4189@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: Player.seek(timeline,time)",
-   "module": "core",
-   "status": "planned",
-   "test": "browser/scrub",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/host-api-scrub/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "tests/oracle/host-api-scrub; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
+   "phase": "P4b"
   }
  },
  {
@@ -28359,11 +28359,11 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "partial: @after(s) counts seconds in the state; exit time relative to the source animation (and as a fraction of it) is new",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/exit-time-seconds",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/state-machine-exit-time-seconds/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "modules/motion/test/core/state-machine-exit-time-seconds.test.ts; spec/conformance/state-machine-exit-time-seconds; modules/motion/test/web/browser.test.ts; tests/oracle/state-machine-exit-time-seconds",
+   "phase": "P4b"
   }
  },
  {
@@ -34156,11 +34156,11 @@
    "rive-runtime/include/rive/generated/component_origin_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: animatable node.pivot in grid units",
-   "module": "core",
-   "status": "planned",
-   "test": "conformance/origin-animation",
-   "phase": "P4"
+   "construct": "SPEC motion; modules/motion/capabilities/transforms-origin-animation/example.animl; modules/motion/core/",
+   "module": "motion",
+   "status": "done",
+   "test": "tests/oracle/transforms-origin-animation; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
+   "phase": "P4b"
   }
  },
  {

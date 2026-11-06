@@ -1,0 +1,44 @@
+{
+  "anima": "0.1",
+  "name": "animation-work-area",
+  "grid": 20,
+  "requires": ["motion"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 2,
+      "y0": 8,
+      "w": 2,
+      "h": 4,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 2,
+      "loop": "loop",
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [2, 8]
+        ]
+      },
+      "work": [0.5, 1.5]
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

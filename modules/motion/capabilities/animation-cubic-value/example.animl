@@ -1,0 +1,9 @@
+<anima version="0.1" name="animation-cubic-value" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <timeline name="t" duration="2">
+    <track target="a.x">0 0 value-cubic(0.3333333333333333,8,0.6666666666666666,8); 2 0</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

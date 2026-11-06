@@ -1,0 +1,11 @@
+<anima version="0.1" name="animation-keys-string" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000">
+    <channel name="v" type="string" value="&quot;one two&quot;"/>
+  </circle>
+  <timeline name="t" duration="2">
+    <track target="a.channels.v">0 "one two"; 1 "three"</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

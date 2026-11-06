@@ -12,6 +12,7 @@
     "./bind": "./src/modules/bind/index.ts",
     "./assets": "./src/modules/assets/index.ts",
     "./assets-svg": "./src/modules/assets/svg.ts",
+    "./motion": "./src/modules/motion/index.ts",
     "./paint": "./src/modules/paint/index.ts",
     "./paint-svg": "./src/modules/paint/svg.ts",
     "./composite": "./src/modules/composite/index.ts",

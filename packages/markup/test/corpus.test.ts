@@ -6,7 +6,12 @@ import { compile, formatMarkup } from '../src/index.ts';
 
 const root = new URL('../../../', import.meta.url);
 const files = globSync(
-  ['examples/**/*.animl', 'spec/conformance/**/*.animl', 'spec/draw-conformance/**/*.animl'],
+  [
+    'examples/**/*.animl',
+    'modules/*/examples/**/*.animl',
+    'spec/conformance/**/*.animl',
+    'spec/draw-conformance/**/*.animl',
+  ],
   {
     cwd: fileURLToPath(root),
   },
@@ -19,7 +24,7 @@ describe('authored AniML corpus', () => {
     expect(files).toContain('examples/bell.animl');
     const cases = globSync('spec/conformance/*/case.ani', { cwd: fileURLToPath(root) }).sort();
     // Pc adds three completed host probes; this is an exact corpus census, not a limit.
-    expect(cases).toHaveLength(44);
+    expect(cases).toHaveLength(81);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);

@@ -406,3 +406,45 @@ tuples are scalar token lists, separated by whitespace or single commas. Their r
 shapes determine number, boolean or string decoding, including positional tuple member types.
 String tokens cannot contain whitespace or commas. Tuple arity, enums, ranges and minimum array
 lengths are checked by the strict loader; diagnostics retain the attribute origin and item pointer.
+
+## Motion authoring
+
+With `requires="motion"`, timelines also accept `speed`, `quantize` (positive samples
+per second) and `work="start end"`. States accept signed/zero speeds; transitions
+accept either `exit="seconds"` or `exitFraction="fraction"`. Numeric left keys can use
+`value-cubic(x1,value1,x2,value2)` and weight eases can use `elastic-in(a,p)` or
+`elastic-in-out(a,p)`. All use the JSON names verbatim; semantics are in SPEC's motion
+chapter. Nodes accept animatable `pivotX` and `pivotY` (falling back to `pivot`).
+
+A node's typed data is declared with `<channel name="count" type="int" value="0"/>`
+or `<channel name="label" type="string" value='"Hello world"'/>`. Types are `int`,
+`uint`, `string`, `reference`; a reference's string value names an existing node.
+Channel keys and pose values are addressed `dot.channels.label`; strings are quoted
+JSON strings, entity-escaped where necessary in XML attributes. They always hold:
+`<track target="dot.channels.label">0 "Ready"; 1 "Done"</track>`. Channel elements may
+appear inside any node; they are metadata and add no painted child. Named machines
+use `<machine name="accent"><layer name="tone" initial="idle">...</layer></machine>`;
+top-level `<layer>` continues to define the default machine. See
+[examples/motion.animl](../examples/motion.animl) for a complete source.
+
+### Declarative clock controls
+
+Motion states accept `hold="true"` or `time="phase * 1.2"` (the latter also requires `bind`).
+Transitions accept `sync="true"` and `exitNext="step"` or `exitNext="loop"`.
+`sync` transfers a clock between states playing the same timeline; `hold` freezes its entry
+clock. A time expression owns the clock; after a synced entry it seeks only when its evaluated
+value changes. `exitNext` finishes the current quantized interval before transitioning, with
+overshoot carried to the target. It requires persistent input conditions, not time/trigger terms.
+Exact boundaries, cancellation, event intervals, work areas, reduced motion and diagnostics
+are normative in SPEC's **Declarative timeline control** subsection.
+
+```xml
+<state name="idle" play="turn" time="phase * 1.2">
+  <on when="syncing" to="spin" sync="true"/>
+</state>
+<state name="spin" play="turn">
+  <on when="!syncing" to="idle" exitNext="step" sync="true"/>
+</state>
+```
+
+The complete sync button is [modules/motion/examples/sync.animl](../modules/motion/examples/sync.animl).

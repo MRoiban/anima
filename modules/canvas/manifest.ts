@@ -11,5 +11,5 @@ export default {
     'host-api-resize-backing-surface',
     'platforms-web-canvas',
   ],
-  docs: ['spec/MODULES.md', 'docs/WEB.md', 'docs/AUTHORING.md'],
+  docs: ['spec/SPEC.md', 'spec/MODULES.md', 'docs/WEB.md', 'docs/AUTHORING.md'],
 };

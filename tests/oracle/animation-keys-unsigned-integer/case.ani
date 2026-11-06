@@ -1,0 +1,48 @@
+{
+  "anima": "0.1",
+  "name": "animation-keys-unsigned-integer",
+  "grid": 20,
+  "requires": ["motion"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "channels": {
+        "v": {
+          "type": "uint",
+          "value": 0
+        }
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 2,
+      "tracks": {
+        "a.channels.v": [
+          [0, 0],
+          [0.3333333333333333, 7],
+          [0.6666666666666666, 42],
+          [1, 2147483520]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

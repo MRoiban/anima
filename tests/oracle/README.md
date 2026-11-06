@@ -118,3 +118,43 @@ entry to `cases.json`. Tests and `node tools/oracle.ts` report the marker's reas
 Replace the scene, author/capture independent references, build `.ani`, set explicit comparison
 limits, remove the marker and add the completed manifest entry. A pending case in `cases.json`
 is an error, so an empty scaffold cannot count as a successful oracle.
+
+## P4b motion probes
+
+Seven additional independently authored native Rive scenes cover value-cubic,
+elastic-in, elastic-in-out, quantized sampling, reverse, work areas, and exit time in
+source-animation seconds with a state speed multiplier. They add 25 frames, using
+axis-aligned integer rectangles: every measured frame has max delta 1 and 0% of pixels
+over 16. Their new budgets are max delta 2 and 0%; existing budgets/methods are unchanged.
+Regenerate with `python3 modules/motion/capture-oracles.py` and
+`python3 modules/motion/capture-exit-oracle.py`, then `node tools/oracle.ts --build`.
+The scripts only author RML and invoke local headless commands; they delete generated
+binary outputs without reading them. Rive CLI 1.9.0, EGL device / 4x MSAA as above.
+
+Quantization uses 2 samples/second and off-grid samples 0.75 and 1.25 seconds. The
+first attempt omitted Anima's quantize attribute; adding it fixed those samples.
+At nominal 2 seconds, the native runner's accumulated float clock remained just below
+the final quantization boundary (rendering the 1.5-second pose). The native command
+therefore advances an additional 1 ms before the final screenshot, testing the
+clamped once endpoint; Anima renders the exact endpoint at 2 seconds. This adjustment
+is confined to reference capture timing, not a tolerance or runtime change. Exit-time
+capture initially used a numeric flags attribute that did not enable the RML flag;
+using `enableExitTime="true"` made all four frames match, without changing Anima.
+
+The elastic probes use amplitude 1 and period 0.5. They do not establish equivalence
+for Rive's amplitude-below-one ramp or period-zero fallback: Anima keeps the existing
+specified elastic formula and rejects zero periods. The remaining 15 probes are now disposed in [MOTION-PROBES.md](MOTION-PROBES.md):
+seven verified comparisons and eight no-faithful-counterpart skips. There are no
+pending motion markers or expected failures. The uint probe compares fresh dumps at
+0/0.5/0.8/1.1/2 s: both sides report 0/7/42/2147483520/2147483520, tolerance 0.
+A fresh attempt at 2147483647 yielded a number dump of 2147483648 (delta 1);
+2147483520 is the nearest lower float32-representable integer to 2^31.
+The former full-range observation is retained only as a note: at 0/0.5 s both
+reported 0; at 1.1/2 s Anima reported 4294967295 and Rive's number dump reported -1
+(absolute difference 4294967296). Anima's value is correct for uint; the number dump's
+signed conversion is an observation-path limit and says nothing about Anima's
+behaviour. The full maximum is tested independently in Anima conformance and the
+typed-channel round-trip test. See MOTION-PROBES.md for details and reproduction.
+New data comparisons are exact; existing image budgets are unchanged. Native
+fractional origins are not claimed equivalent to Anima pivots: the new pivot scene
+uses independently keyed parent/child translations to express the same transform.

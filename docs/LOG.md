@@ -1218,6 +1218,90 @@ Perf in that scratch run: bell compile 2.03 ms, 9040 prefixes 792 ms; bell/compo
 34.6/22.9 µs; toolbar frame 27.0 µs, compile 2.93 ms. These are observations, not a speed change claim.
 All three scratch rows remain outside the commit. No push, PR or merge.
 
+## P4b motion — implementation checkpoint
+
+The optional `motion` feature now owns cubic value curves, reflected elastic in/in-out eases,
+typed int/uint/string/node-reference hold channels, discrete and numeric mixing, quantized/work
+clocks, signed timeline/state speeds and event crossing, source-animation exit seconds/fractions,
+animated pivot coordinates, explicit timeline instances, named machines, metadata and typed node
+handles. Core/web additions are playback/registry/sampling/wake hooks; the runtime policy and
+host controls live under `modules/motion/`. Both syntaxes round-trip; the CLI uses the same player.
+No runtime dependencies, copied Rive implementation/docs, account operations, binary reads,
+pushes, PRs or merges. `new-capability --help` now prints usage; its dry-run also preserves existing
+oracle files when predicting writes. All 22 requested rows were scaffolded with dry-run first.
+
+27 hand-computed conformance cases were added; all 41 existing cases and their sources/scripts/
+expectations are unchanged. Motion scope: 604 passing tests, including 18 Chromium/Firefox host
+tests; 15 independent native observations remain explicit pending tests. The module-order test
+now discovers remaining runtime modules from manifests, preserving all 12 arrival orders and its
+original time/size limits. The independent decompiler reader was extended to cover the new syntax.
+
+Seven native Rive frame probes (25 frames) cover value-cubic, elastic in/in-out, quantize, reverse,
+work areas and source exit time with state speed. Max channel difference is 1 for every frame,
+0% pixels over 16; new rectangle budgets are 2 / 0%, with existing tolerances unchanged. The
+quantized native endpoint capture needs a 1 ms overshoot to reach its clamped endpoint after float
+accumulation; this and the initial omitted Anima quantize attribute / incorrect RML flag spelling
+are documented in `tests/oracle/README.md`. No mismatching frames were accepted by raising a limit.
+
+Completion is **partial**: 22 implementations, 7/22 with the full native-frame gate; 15 native API/
+consumer observations remain pending. Reference channels cover node ids rather than arbitrary
+resources; handles cover current node types, not future bones/text. Native fractional origins
+also move geometry and are not claimed equivalent to Anima's transform-only pivots. Elastic
+amplitude-below-one / zero-period behavior follows Anima's existing definition, not native Rive's
+ramp/fallback. These mappings and missing evidence are in capability READMEs and parity reasons;
+all row statuses are left unchanged for the orchestrator. P4b stays unchecked.
+
+Measured with unchanged tools, before → after: core+web 17789 → 18290 B (+501 B of hooks);
+motion 4982 / 8192 B; full-featured 49891 / 102400 B. All other module ceilings pass.
+`tools/perf.ts`: bell compile 2.21 → 1.92 ms; 9040 prefixes 794 → 652 ms; frame bell
+52.9 → 37.5 µs, composite 30.8 → 24.7 µs, toolbar 39.0 → 26.7 µs; toolbar compile
+4.62 → 3.49 ms. These are single before/after observations, not a speedup claim.
+Final verification: separate `npx prettier --check .` and `npx eslint .` passed. The required
+default `npm run check` passed 1298 tests with 15 pending, but hit the existing Chromium
+standalone-demo test's unchanged 15-second timeout (also recorded at D3). Its isolated rerun
+passed in 6.44 s. `VITEST_MAX_WORKERS=2 npm run check` then exited 0: 82 files, 1299 passing
+tests and 15 explicitly pending native-oracle observations; both browser engines, all type/lint/
+format checks, seven new and 17 existing native oracles, all size ceilings, generated module/
+web/AniML artifacts and the perf report. No checks were omitted and no limits changed. A separate
+checkout's full browser suite was also running during the initial run; contention is a possible
+cause, not established. Logs: `/tmp/anima-motion-full-check.log`,
+`/tmp/anima-motion-full-check-bounded.log`, `/tmp/motion-demo-rerun.txt`.
+
+Final full-check perf lines (machine-dependent, without claiming a speedup):
+
+```text
+compile: bell 2.64 ms; all 9040 prefixes 680 ms
+frame: bell 36.7 µs; composite 23.5 µs
+frame: toolbar 24.8 µs (step + draw, 4 instances)
+compile: toolbar 3.16 ms
+```
+
+Compared with the initial 2.21 ms / 794 ms, 52.9 / 30.8 / 39.0 µs and 4.62 ms,
+the single bell-compile median varied upward in the final run while the fixed prefix sweep
+and frame timings remained below the initial observations. The earlier after sample is retained
+above to show the timing variability. The original performance test limits are unchanged.
+
+
+## P4b-2 — motion oracle probe dispositions (2026-11-06)
+
+Resolved all 15 pending motion markers: 6 oracle-verified, 8 documented no-faithful-counterpart
+skips, 1 retained uint dump finding. Four new image probes add 15 frames (max delta 1,
+0% over 16); boolean/string dumps match exactly. Native uint dump is -1 versus Anima
+4294967295 at 1.1/2 s (delta 4294967296, tolerance 0). No tolerance changed.
+`tests/oracle/MOTION-PROBES.md` records every mapping, capture, skip reason and test path.
+Native pivot uses equivalent nested transforms; seek/scrub compare poses through a native
+Joystick, with host clock/event guarantees covered by browser tests. Rive CLI local commands
+only; no account operations, interactive preview, copied docs or binary reads/conversions.
+
+Scoped suite with `VITEST_MAX_WORKERS=2 npm run test:scope -- motion oracle conformance`:
+34 files, 620 pass + 1 explicit expected failure. A separate ordinary test requires the exact
+uint discrepancy; `node tools/oracle.ts --strict` exits 1. This is not full native parity.
+An earlier default-worker run hit the existing bell-prefix 5 s timeout while other tooling
+ran; no timeout/assertion changed. `npx tsc -p tools` passed. No runtime behavior changed.
+
+Final `npx prettier --check .`, `npx eslint .`, generated parity/module checks and
+full local oracle recapture passed their checks; strict comparison reproduced only the uint finding.
+
 ## Pc — optional Canvas2D backend (partial; local implementation)
 
 `@anima-format/web/canvas` installs `renderer="canvas"`; SVG stays the default. The module consumes
@@ -1330,3 +1414,113 @@ same scheduler, visibility pause and reduced motion as SVG.
   71.7 / 285.0 µs. The standalone-demo test no longer rebuilds bundles (it used to time out under load).
 - **Benchmark**: none for Pc — it adds no authoring surface (a renderer choice); the P5 and P4b runs
   stand.
+
+## P4b-3 — Declarative timeline control (2026-11-06 01:05 UTC)
+
+Implemented the three sync-button gaps behind motion: transition `sync`, transition `exitNext`
+(`step`/`loop`), state `hold`, and bind-backed state `time` expressions. Normative semantics are
+in SPEC's motion / Declarative timeline control; both syntaxes, schema, decompile/fmt and
+CLI samples use the existing player. State time/fades stay in core; selected clocks and armed
+boundaries stay in motion, expression compilation in bind. No runtime dependency added.
+Input-controlled states accept a synced capture until their evaluated expression changes,
+so a completed rotation holds without snapping to stale phase. Decimal boundary equality
+samples the exact boundary, and transition priority chooses the source event cutoff.
+
+Added ten hand-computed conformance cases: reverse, interruptible fade, boundary hold,
+stop cancellation, decimal boundary, competing-gate priority, reverse work-loop boundary,
+input scrub, synced input handoff and reduced motion. Existing conformance cases are unchanged.
+New diagnostic, round-trip, CLI docs/sample, named-machine isolation and Chromium/Firefox tests
+cover the controls. `anima docs <module>` serves every module chapter and lists it in `--list`.
+AUTHORING has Timeline control; the new sync example's 64 lines / 2,931 characters replace the
+benchmark's 144-line / 5,485-character behaviour attempt without modifying that record.
+
+Acceptance: `python modules/motion/examples/verify.py` → 6/6 items, 7 committed scripts,
+66 snapshots. Independent scalar assertions verify ticks/wrap, finish-current-step + held
+angle + elastic overshoot, same-timeline hover reversal and turnaround, phase scrub, reduced
+still/instant completion and rest geometry/visibility. Evidence lives beside the example.
+The CLI test replays every committed sample. No host timeline operations in the scripts.
+
+Verification: scoped motion/bind/conformance 728/728; standalone `npx prettier --check .`
+and `npx eslint .` passed. First full attempt stopped at an unused parameter type error
+(fixed). Default full run: 1,378 pass, 2 pre-existing browser test timeouts (demo 15 s,
+Firefox late registration 5 s), 15 existing oracle TODOs. Complete retry with
+`VITEST_MAX_WORKERS=2 npm run check`: 83 files, 1,380 pass, 15 existing oracle TODOs,
+including both browsers, all oracle comparisons, generated artifacts, original size budgets
+and perf method. No test limit, timeout, budget, assertion tolerance or measuring tool was
+relaxed; only worker scheduling changed after the default run failed. Load average was 13.38
+at the failure checkpoint; contention is plausible, not established. Full logs:
+`/tmp/motion-p4b3-final-check.log`, `/tmp/motion-p4b3-bounded-check.log`.
+
+Final measured lines (unchanged tools; timings are machine-dependent):
+
+```text
+core+web: 18376 B min+gzip (ceiling 30720 B)
+bind: 1676 B min+gzip incremental (budget 2048 B)
+motion: 6026 B min+gzip incremental (budget 8192 B)
+full-featured total: 51149 B min+gzip (ceiling 102400 B)
+compile: bell 2.43 ms; all 9040 prefixes 854 ms
+frame: bell 48.0 µs; composite 25.6 µs
+frame: toolbar 29.4 µs (step + draw, 4 instances)
+compile: toolbar 4.46 ms
+```
+
+Previous P4b-1 core+web: 18,290 B; motion: 4,982 / 8,192 B. Previous full-check perf:
+bell compile 2.64 ms, 9,040 prefixes 680 ms, frame bell 36.7 µs / composite 23.5 µs /
+toolbar 24.8 µs, toolbar compile 3.16 ms. These are separate observations, not a speed claim.
+
+Deviations: used the existing implementation worktree branch at p4b-motion HEAD. The required
+capability dry-run/run for `animation.reverse` predicted/created redundant existing-row parity
+mappings and two pending markers; all five generated changes were immediately reverted.
+No final oracle, parity or benchmark-record changes. No new oracle parity claim: another
+agent owns those captures, and P4b remains incomplete. No Rive commands/source/docs copying,
+binary reads, pushes, PRs or merges. Final changes are committed locally only.
+
+## P4b uint oracle observation correction (2026-11-06)
+
+Removed the permanent uint expected failure and its finding-only assertion.
+Anima's uint maximum 4294967295 is correct; the historical Rive number dump -1
+(delta 4294967296 at 1.1/2 s) is retained in oracle README/MOTION-PROBES as an
+observation-path limit, not a runtime comparison. No runtime or format semantics changed.
+
+Fresh local Rive CLI headless data captures compare 0, 7, 42 and 2147483520 at
+0/0.5/0.8/1.1/2 s, with exact tolerance 0. A fresh attempt at 2147483647 dumped
+2147483648 (delta 1), so the near-top probe uses the nearest lower float32-representable
+integer. Both raw limitations are documented; no tolerance was loosened. Capture supports
+`--only animation-keys-unsigned-integer` and preserves manifest order. Generated binary
+outputs were deleted without reading; no account operations or documentation text copied.
+
+Added an Anima regression using the existing maximum-uint conformance scene:
+AniML → JSON → AniML → JSON retains the exact key 4294967295, then load/playback
+checks hold, exact boundary, endpoint and backwards seek. Parity test/reason fields
+and generated views now identify both the exact native comparison and independent
+Anima full-range coverage; status and phase remain with the integrating owner.
+
+Verification: `node tools/oracle.ts --strict` exit 0; all five uint samples delta 0.
+`npm run test:scope -- motion oracle`: 35 files passed, 675 tests passed / 45 skipped.
+`npx prettier --check .`, `npx eslint .`, parity generated-view and diff checks passed.
+Initial oracle run lacked dependencies; `npm ci` restored tooling. No full-suite claim,
+push, PR or merge. Local commit only.
+
+## P4b — motion (2026-11-07)
+
+- **`motion` module** (feature `motion`): elastic-in / elastic-in-out and value-cubic eases;
+  integer (signed/unsigned), string and reference hold tracks with discrete mixing; timeline
+  `quantize`, `work` area, negative speed / reverse with event crossing; exit time relative to the
+  source animation; animatable `pivot`. Host/player API: per-timeline seek and scrub, play / pause /
+  stop and loop override, explicit timeline instances with mix weights, named state-machine
+  instances, animation metadata, typed node handles (docs/WEB.md).
+- **Declarative timeline control** (from the benchmark): `sync` (reverse from the current point),
+  `exitNext="step|loop"` and `hold` (finish the step, keep the frame), an input-driven timeline
+  `time` (scrub by binding); `anima docs <module>` for every module chapter.
+- **Verification**: 37 new conformance cases; 6 Rive oracle cases verified (pivot, seek, scrub,
+  discrete and numeric mixing, strings) plus uint in range; 8 rows with documented
+  no-faithful-counterpart notes (host-runtime APIs the headless Rive CLI cannot observe), covered by
+  browser and unit tests; strict oracle exits 0. Rive's data dump reports uint 4294967295 as −1 and
+  2147483647 as 2147483648 (documented, not compared).
+- **Benchmark** (sync button): AniML 4/6 → 5/6 after the declarative controls (4 min 46 s, 64 lines);
+  Rive 5/6 (5 min 19 s, 911 lines). Open: reduced motion switched mid-loop (spec decision, P3b).
+- **Numbers** (main after Pc → P4b): core + web 17 963 → 19 012 B (+1 049 B: motion hooks in core
+  and web plus the declarative controls; inside the 30 KB ceiling); motion 6 009 / 8 192 B;
+  full-featured 51.4 KB / 100 KB; Rive-class 55.6 KB / 250 KB; compile bell 2.08 ms, prefix sweep
+  712 ms; frame bell 39.2 µs, composite 25.8 µs, toolbar 29.3 µs (load-dependent).
+- **Parity**: 22 rows done (259 / 1 238).

@@ -1,0 +1,16 @@
+<anima version="0.1" name="motion-discrete-fade" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000">
+    <channel name="s" type="string" value="&quot;idle&quot;"/>
+    <channel name="n" type="int" value="0"/>
+  </circle>
+  <trigger name="go"/>
+  <layer name="l" initial="idle">
+    <state name="idle">
+      <pose a.channels.s="&quot;idle&quot;" a.channels.n="0" a.x="0"/>
+      <on when="go" to="next" blend="1"/>
+    </state>
+    <state name="next">
+      <pose a.channels.s="&quot;next&quot;" a.channels.n="2" a.x="10"/>
+    </state>
+  </layer>
+</anima>

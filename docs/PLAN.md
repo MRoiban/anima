@@ -220,13 +220,27 @@ and an oracle test against Rive.
         No tolerance/budget/timeout increase; 0.1 SVG bytes unchanged. See canvas RESULTS.md for
         measured costs and the three retained explicit feature limits; phase/parity bookkeeping
         remains with the integrating owner.
-- [ ] P4b `motion`: eases, typed/string tracks, seek/reverse/work area/quantize, host timeline
+- [x] P4b `motion`: eases, typed/string tracks, seek/reverse/work area/quantize, host timeline
       control, animatable pivot.
+  - [x] Local implementation behind `requires="motion"`; both syntaxes, CLI/schema and host APIs.
+  - [x] 27 new conformance cases; existing 41 unchanged; Chromium + Firefox host coverage.
+  - [x] Seven native frame probes / 25 frames, max delta 1 with unchanged comparison method.
+  - [x] Fifteen pending probes disposed by P4b-2 below; uint observation-path limit documented.
+  - [x] P4b-3 declarative clock handoff/reversal, aligned step/loop exits, held/input-driven
+        clocks; ten conformance cases; `anima docs <module>` chapters; sync example 6/6 via
+        seven sample scripts / 66 snapshots. Full verification and measurements: LOG P4b-3.
+        No phase-completion claim. Local size/perf and final verification: LOG P4b.
+  - [x] P4b-2 motion oracle probe dispositions: 15/15 (7 verified, 8 skip-noted). Uint oracle uses
+        exactly observable values through 2147483520; Anima independently round-trips
+        4294967295. Historical number-dump -1 is a documented observation-path limit,
+        with no expected failure. See tests/oracle/MOTION-PROBES.md.
+
 - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
       an on-change / previous-value condition (P5 benchmark: 'count increased' took 10 states).
 - [ ] P4d `events`: payloads, open-URL, audio.
 - [ ] P4e `data`: view models, bindings, converters, lists.
-- [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras.
+- [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide
+      whether switching to reduced motion stops in-progress loops at once (P4b benchmark).
 - [ ] P6 Text.
 - [ ] P7 Layout.
 - [ ] P8 Rigging (on the canvas backend: bones, skinning, meshes).

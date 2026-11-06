@@ -6,11 +6,15 @@ if (VERBOSE) Object.assign(componentCompiler, componentMarkup);
 import { bindMarkup } from '../../../modules/bind/markup/index.ts';
 export const bindCompiler: Partial<typeof bindMarkup> = {};
 if (VERBOSE) Object.assign(bindCompiler, bindMarkup);
+import { motionMarkup } from '../../../modules/motion/markup/index.ts';
+export const motionCompiler: Partial<typeof motionMarkup> = {};
+if (VERBOSE) Object.assign(motionCompiler, motionMarkup);
 import { structuralMarkup, structuralForms } from '../../../modules/paint/markup/index.ts';
 export const moduleCompiler: Partial<typeof structuralMarkup> = {};
 if (VERBOSE) Object.assign(moduleCompiler, structuralMarkup);
 export function prepareModuleMarkup(hooks: Record<string, object>): void {
   Object.assign(componentCompiler, hooks['components']);
   Object.assign(bindCompiler, hooks['bind']);
+  Object.assign(motionCompiler, hooks['motion']);
   Object.assign(moduleCompiler, structuralForms, hooks['paint']);
 }

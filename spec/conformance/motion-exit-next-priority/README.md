@@ -1,0 +1,1 @@
+Both gates become eligible in the large step. Declaration order chooses loop, so events through .75 are reported and the captured loop boundary folds to zero; the lower-priority step gate must not truncate at .5.

@@ -1,0 +1,13 @@
+advance 0
+snapshot
+set phase 0.75
+advance 0
+snapshot
+advance 10
+snapshot
+set phase 2
+advance 0
+snapshot
+set phase -1
+advance 0
+snapshot

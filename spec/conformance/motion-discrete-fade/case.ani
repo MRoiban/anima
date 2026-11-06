@@ -1,0 +1,62 @@
+{
+  "anima": "0.1",
+  "name": "motion-discrete-fade",
+  "grid": 20,
+  "requires": ["motion"],
+  "inputs": {
+    "go": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "channels": {
+        "s": {
+          "type": "string",
+          "value": "idle"
+        },
+        "n": {
+          "type": "int",
+          "value": 0
+        }
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {
+              "a.channels.s": "idle",
+              "a.channels.n": 0,
+              "a.x": 0
+            },
+            "on": [
+              {
+                "when": "go",
+                "to": "next",
+                "blend": 1
+              }
+            ]
+          },
+          "next": {
+            "pose": {
+              "a.channels.s": "next",
+              "a.channels.n": 2,
+              "a.x": 10
+            }
+          }
+        }
+      }
+    }
+  }
+}

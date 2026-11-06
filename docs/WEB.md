@@ -129,6 +129,54 @@ or after markup support and after the icon is connected. A loaded player's state
 when unrelated modules register. Registration listeners detach when an icon disconnects; a retained
 failed source retries on reconnection, including when its modules arrived while disconnected.
 
+## Motion module
+
+Import `@anima-format/web/motion` and declare `requires="motion"` in AniML (or
+`requires: ["motion"]` in JSON). The module can register before or after the base
+runtime/markup module and retries a source that was waiting for motion.
+It installs the same methods on `Player` and `<anima-icon>`:
+
+| Method/property | Meaning |
+| --- | --- |
+| `animations` | Detached `{name,duration,speed,quantize,work:[start,end],loop}[]`; quantize is null when absent. All times in seconds. |
+| `timeline(name)` | Reuse/create the default `TimelineInstance` for that timeline. |
+| `createTimeline(name, {name?,mix?,speed?,loop?})` | Independent instance; explicit name required when another instance uses the default name. |
+| `seek(name, seconds)` | Seek its default instance in the authored work area; returns the handle. |
+| `scrub(name, progress)` | Pause its default instance and seek normalized work-area progress. |
+| `applyTimeline(name, seconds, {mix?})` | Pause, seek and weight the default instance. |
+| `machine(name)` | Create/reuse a named machine instance from `machines[name]`. |
+| `node(id, type?)` | Typed handle `{id,type,get(key),local,world}` or undefined for a missing id/type. |
+
+A timeline handle exposes `info`, `time` (read/write seconds), `mix` (0–1), `speed`
+(finite, signed), `loop` (`once`, `loop`, `pingpong`; assign null to restore authored),
+`playing`, `finished`, and `didLoop`. Methods are `play()`, `pause()`, `stop()`,
+`seek(seconds)`, `scrub(progress)`, `advance(dt)` and `apply(mix?)`. All controls return
+the handle except `advance`, which returns crossed events. Manual `advance` moves
+only that instance; a later player step resolves its pose. It does not dispatch DOM
+events itself. Metadata is detached; node handles remain bound to the player that
+created them, so acquire new ones after load/reset.
+
+Machine handles expose `name`, `mix`, `player`, `set`, `fire`, `get`, `states`, and
+`play/pause/stop`. Their inputs are independent of the default machine. Pause holds
+its pose; stop removes its contribution and retains state for resume. The composition
+order is the order in which instances were created; each step starts with rest/default
+layers, then bindings, then these instances. Numeric values interpolate sequentially;
+typed channels and bools assign at any positive mix. Zero mix writes nothing.
+
+Core controls take effect when `Player.step(dt)` next resolves, including `step(0)`.
+On the element, handle changes wake the shared scheduler; a paused element retains
+pending changes until `play()`. For deterministic paused inspection, call
+`icon.player.step(0)` then `icon.invalidate()`. Global `icon.play()/pause()` and its
+nonnegative `speed` attribute retain their existing meaning; reverse speed is on the
+individual timeline handle. Finishing/pausing all instances lets the scheduler sleep.
+Authored timeline events use the instance name as their layer; named-machine events
+use `instance/layer`. Seek/scrub emit no crossed events. Stale handles do not wake a
+newly loaded player.
+
+Player `states()` and `inspect()` include named machines under `instance/layer`;
+`anima:state` therefore also reports their state changes without overwriting default
+layer names. A stopped machine retains its state for inspection and resume.
+
 ## Optional Canvas2D backend
 
 ```html

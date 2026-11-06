@@ -313,6 +313,10 @@ export class AnimaIcon extends HTMLElement {
     const finish = () => {
       if (generation !== this.#generation) return;
       this.player = new Player(model);
+      const player = this.player;
+      player.onChange = () => {
+        if (this.player === player) this.#wake();
+      };
       this.#build(model);
       this.#motion();
       this.#aria();

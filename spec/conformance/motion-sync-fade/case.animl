@@ -1,0 +1,19 @@
+<anima version="0.1" name="motion-sync-fade" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <bool name="hover"/>
+  <timeline name="t" duration="1">
+    <track target="a.x">0 0; 1 8</track>
+    <event at="0.5" name="mid"/>
+  </timeline>
+  <layer name="l" initial="rest">
+    <state name="rest" play="t" hold="true">
+      <on when="hover" to="forward" blend="0.25" sync="true"/>
+    </state>
+    <state name="forward" play="t">
+      <on when="!hover" to="reverse" blend="0.25" sync="true"/>
+    </state>
+    <state name="reverse" play="t" speed="-1">
+      <on when="hover" to="forward" blend="0.25" sync="true"/>
+    </state>
+  </layer>
+</anima>

@@ -1,0 +1,8 @@
+instance one t 0.5
+timeline one pause
+timeline one seek 1
+instance two t 0.25
+timeline two pause
+timeline two seek 2
+advance 0
+snapshot

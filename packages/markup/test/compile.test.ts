@@ -313,6 +313,10 @@ describe('AniML compiler', () => {
       parseXml('<anima><instance id="i" component="badge" speed="2" paused="true"/></anima>').doc
         .root!,
     );
+    collectPaint(
+      parseXml(readFileSync(new URL('../../../examples/motion.animl', import.meta.url), 'utf8')).doc
+        .root!,
+    );
     const attrs = new Set(
       [...elements, ...paintElements].flatMap((e) => e.attrs.map((a) => a.name)),
     );

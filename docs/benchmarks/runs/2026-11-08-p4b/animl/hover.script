@@ -1,0 +1,18 @@
+advance 0
+pointer move 10 10
+advance 0.2
+snapshot
+pointer leave
+snapshot
+advance 0.1
+snapshot
+advance 0.1
+snapshot
+advance 0.2
+snapshot
+pointer move 10 10
+advance 0.4
+snapshot
+pointer leave
+advance 0.4
+snapshot

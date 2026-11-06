@@ -1,0 +1,5 @@
+{"time":0.35,"values":{"arrows.rotate":90,"check.scale":0,"peek.scale":1},"states":{"hover":"rest","rotation":"spin","completion":"running"},"events":[],"settled":false}
+{"time":0.35,"values":{"arrows.rotate":0,"check.scale":0,"peek.scale":1},"states":{"hover":"rest","rotation":"q0","completion":"done"},"events":[],"settled":false}
+{"time":0.43999999999999995,"values":{"arrows.rotate":0,"check.scale":1.3535533905932737,"peek.scale":1},"states":{"hover":"rest","rotation":"q0","completion":"done"},"events":[],"settled":false}
+{"time":0.95,"values":{"arrows.rotate":0,"check.scale":1,"peek.scale":1},"states":{"hover":"rest","rotation":"q0","completion":"done"},"events":[],"settled":true}
+{"time":2.95,"values":{"arrows.rotate":0,"check.scale":1,"peek.scale":1},"states":{"hover":"rest","rotation":"q0","completion":"done"},"events":[],"settled":true}

@@ -57,6 +57,7 @@ export interface TrackM {
   times: number[];
   values: Value[];
   eases: EaseFn[];
+  sample?: (time: number) => Value;
 }
 
 export interface TimelineM {
@@ -116,7 +117,52 @@ export interface ListenerM {
   emit?: string;
 }
 
+export interface PlaybackPolicy {
+  readonly busy: boolean;
+  states(): Record<string, string>;
+  inspect(): import('./player.ts').LayerInspect[];
+  reduce(
+    t: TimelineM,
+    speed: number,
+    end: boolean,
+    layer: string,
+    events: import('./player.ts').AnimaEvent[],
+  ): number;
+  enter(
+    run: object,
+    from: StateM | undefined,
+    to: StateM,
+    transition: TransitionM | undefined,
+    carry: number,
+  ): void;
+  prepare(
+    run: object,
+    state: StateM,
+    dt: number,
+    eligible: (transition: TransitionM) => boolean,
+  ): void;
+  rest(run: object, state: StateM): boolean;
+  local(timeline: TimelineM, elapsed: number, speed: number, run: object): number;
+  duration(timeline: TimelineM, speed: number, run: object): number;
+  events(
+    timeline: TimelineM,
+    a: number,
+    b: number,
+    closed: boolean,
+    layer: string,
+    out: import('./player.ts').AnimaEvent[],
+    speed: number,
+    run: object,
+  ): void;
+  gate(transition: TransitionM, state: StateM, elapsed: number, run: object): boolean;
+  carry(transition: TransitionM, state: StateM, elapsed: number, run: object): number | undefined;
+  pivot(player: import('./player.ts').Player, node: number): [number, number];
+  compose(dt: number, values: Value[], events: import('./player.ts').AnimaEvent[]): boolean;
+}
 export interface Model {
+  /** Optional bind-module expressions controlling motion state clocks. */
+  timeBindings?: Map<StateM, (scope: ReadonlyMap<string, number | boolean>) => number>;
+  playback?: (player: import('./player.ts').Player) => PlaybackPolicy;
   nesting?: (player: import('./player.ts').Player) => import('./player.ts').PlayerExtension;
   /** Optional post-state bindings; evaluators receive the current named inputs. */
   bindings?: Map<string, (scope: ReadonlyMap<string, number | boolean>) => Value>;
@@ -368,8 +414,9 @@ function resolve(doc: Raw, d: Diags): Model {
     return r;
   };
   const value = (a: Addr, v: unknown, p: string): Value | undefined => {
-    if (a.prop.type === 'path') return modules.get(a.prop.feature!)?.value?.(a, v, p, d);
     const t = a.prop.type;
+    if (t !== 'number' && t !== 'bool' && t !== 'color')
+      return modules.get(a.prop.feature!)?.value?.(a, v, p, d);
     if (t === 'color') {
       if (typeof v !== 'string')
         return void d.err('value-type', p, V && `expected a colour string, got ${typeof v}`);
@@ -393,6 +440,10 @@ function resolve(doc: Raw, d: Diags): Model {
     if (src === undefined) return linear;
     if (/^spring\(/.test(src))
       return (d.err('reserved', p, V && 'spring eases arrive in a later anima version'), linear);
+    for (const m of modules.values()) {
+      const e = m.ease?.(src, p, d);
+      if (e) return e;
+    }
     const e = parseEase(src);
     if (typeof e === 'string')
       return (
@@ -449,7 +500,10 @@ function resolve(doc: Raw, d: Diags): Model {
         tr.values.push(ad ? (value(ad, val, kp + '/1') ?? 0) : 0);
         tr.eases.push(ef);
       });
-      if (ad) tl.tracks.push(tr);
+      if (ad) {
+        for (const m of modules.values()) m.track?.(tr, ad, keys, tp, d);
+        tl.tracks.push(tr);
+      }
     }
     (r.events ?? []).forEach((ev: [number, string], i: number) => {
       if (ev[0] < 0 || ev[0] > tl.duration)
@@ -494,6 +548,13 @@ function resolve(doc: Raw, d: Diags): Model {
       const sr = lr.states[sname];
       const sp = ptr(lp + '/states', sname);
       const st: StateM = { name: sname, speed: sr.speed ?? 1, emit: sr.emit, on: [], writes: [] };
+      if (st.speed <= 0 && !doc.requires?.includes('motion'))
+        d.err(
+          'undeclared-feature',
+          sp + '/speed',
+          V && 'nonpositive speed requires motion',
+          V && 'add "motion" to "requires"',
+        );
       if ('pose' in sr === 'play' in sr)
         d.err('state-kind', sp, V && `state "${sname}" needs exactly one of "pose" and "play"`);
       if ('speed' in sr && !('play' in sr))

@@ -1,0 +1,4 @@
+timeline t pause
+timeline t seek 1.5
+advance 0
+snapshot

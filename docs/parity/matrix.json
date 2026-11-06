@@ -643,11 +643,11 @@
   "id": "animation.cubic-value",
   "category": "animation",
   "capability": "Cubic value curves",
-  "construct": "new: valueCubic(time1,value1,time2,value2)",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/cubic-value",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/animation-cubic-value/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "modules/motion/test/core/animation-cubic-value.test.ts; spec/conformance/animation-cubic-value; modules/motion/test/web/browser.test.ts; tests/oracle/animation-cubic-value",
+  "phase": "P4b"
  },
  {
   "id": "animation.duration",
@@ -663,21 +663,21 @@
   "id": "animation.elastic-in",
   "category": "animation",
   "capability": "Elastic in",
-  "construct": "new: elastic-in(amplitude,period)",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/elastic-in",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/animation-elastic-in/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "modules/motion/test/core/animation-elastic-in.test.ts; spec/conformance/animation-elastic-in; modules/motion/test/web/browser.test.ts; tests/oracle/animation-elastic-in",
+  "phase": "P4b"
  },
  {
   "id": "animation.elastic-in-out",
   "category": "animation",
   "capability": "Elastic in-out",
-  "construct": "new: elastic-in-out(amplitude,period)",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/elastic-in-out",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/animation-elastic-in-out/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "modules/motion/test/core/animation-elastic-in-out.test.ts; spec/conformance/animation-elastic-in-out; modules/motion/test/web/browser.test.ts; tests/oracle/animation-elastic-in-out",
+  "phase": "P4b"
  },
  {
   "id": "animation.elastic-out",
@@ -723,21 +723,21 @@
   "id": "animation.host-loop-override",
   "category": "animation",
   "capability": "Host loop override",
-  "construct": "new: player.timeline(name).loop override",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/host-loop-override",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/animation-host-loop-override/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-loop-override/skip.json (no faithful headless counterpart)",
+  "phase": "P4b"
  },
  {
   "id": "animation.host-play-pause-stop",
   "category": "animation",
   "capability": "Host playback controls",
-  "construct": "new: player timeline playback controls",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/host-play-pause-stop",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/animation-host-play-pause-stop/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-play-pause-stop/skip.json (no faithful headless counterpart)",
+  "phase": "P4b"
  },
  {
   "id": "animation.joystick-handle",
@@ -833,41 +833,41 @@
   "id": "animation.keys-reference",
   "category": "animation",
   "capability": "reference keyframes",
-  "construct": "new: reference hold track",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/keys-reference",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/animation-keys-reference/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "modules/motion/test/core/typed-oracle.test.ts; tests/oracle/animation-keys-reference/skip.json (no faithful headless counterpart)",
+  "phase": "P4b"
  },
  {
   "id": "animation.keys-signed-integer",
   "category": "animation",
   "capability": "signed-integer keyframes",
-  "construct": "new: typed signed integer track",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/keys-signed-integer",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/animation-keys-signed-integer/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "modules/motion/test/core/typed-oracle.test.ts; tests/oracle/animation-keys-signed-integer/skip.json (no faithful headless counterpart)",
+  "phase": "P4b"
  },
  {
   "id": "animation.keys-string",
   "category": "animation",
   "capability": "string keyframes",
-  "construct": "new: string hold track",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/keys-string",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/animation-keys-string/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "tests/oracle/animation-keys-string; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
+  "phase": "P4b"
  },
  {
   "id": "animation.keys-unsigned-integer",
   "category": "animation",
   "capability": "unsigned-integer keyframes",
-  "construct": "new: typed unsigned integer track",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/keys-unsigned-integer",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/animation-keys-unsigned-integer/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "tests/oracle/animation-keys-unsigned-integer (0/7/42/2147483520, tolerance 0); modules/motion/test/core/typed-oracle.test.ts (4294967295 round-trip); spec/conformance/animation-keys-unsigned-integer",
+  "phase": "P4b"
  },
  {
   "id": "animation.linear-interpolation",
@@ -943,41 +943,41 @@
   "id": "animation.mix-discrete",
   "category": "animation",
   "capability": "Discrete mix writes",
-  "construct": "new: discrete assignment rules for reference and string tracks",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/mix-discrete",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/animation-mix-discrete/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "tests/oracle/animation-mix-discrete; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
+  "phase": "P4b"
  },
  {
   "id": "animation.mix-numeric",
   "category": "animation",
   "capability": "Weighted numeric application",
-  "construct": "new: player.applyTimeline(name,time,{mix})",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/mix-numeric",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/animation-mix-numeric/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "tests/oracle/animation-mix-numeric; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
+  "phase": "P4b"
  },
  {
   "id": "animation.quantized-playback",
   "category": "animation",
   "capability": "Quantized playback",
-  "construct": "new: timeline.quantize: samplesPerSecond",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/quantized-playback",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/animation-quantized-playback/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "modules/motion/test/core/animation-quantized-playback.test.ts; spec/conformance/animation-quantized-playback; modules/motion/test/web/browser.test.ts; tests/oracle/animation-quantized-playback",
+  "phase": "P4b"
  },
  {
   "id": "animation.reverse",
   "category": "animation",
   "capability": "Reverse playback",
-  "construct": "new: negative timeline/state speed with reverse event crossing",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/reverse",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/animation-reverse/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "modules/motion/test/core/animation-reverse.test.ts; spec/conformance/animation-reverse; modules/motion/test/web/browser.test.ts; tests/oracle/animation-reverse",
+  "phase": "P4b"
  },
  {
   "id": "animation.script-interpolator",
@@ -1003,11 +1003,11 @@
   "id": "animation.seek",
   "category": "animation",
   "capability": "Host timeline seeking",
-  "construct": "new: player.timeline(name).seek(seconds)",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/seek",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/animation-seek/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "tests/oracle/animation-seek; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
+  "phase": "P4b"
  },
  {
   "id": "animation.speed",
@@ -1023,11 +1023,11 @@
   "id": "animation.work-area",
   "category": "animation",
   "capability": "Playback work area",
-  "construct": "new: timeline.work: [startSeconds,endSeconds]",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/work-area",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/animation-work-area/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "modules/motion/test/core/animation-work-area.test.ts; spec/conformance/animation-work-area; modules/motion/test/web/browser.test.ts; tests/oracle/animation-work-area",
+  "phase": "P4b"
  },
  {
   "id": "assets.audio",
@@ -5420,11 +5420,11 @@
   "id": "host-api.animation-metadata",
   "category": "host-api",
   "capability": "Animation metadata and clock",
-  "construct": "new: Animation metadata and clock",
-  "module": "core",
-  "status": "planned",
-  "test": "browser/animation-metadata",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/host-api-animation-metadata/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-animation-metadata/skip.json (no faithful headless counterpart)",
+  "phase": "P4b"
  },
  {
   "id": "host-api.artboard-selection",
@@ -6100,11 +6100,11 @@
   "id": "host-api.low-level-animation",
   "category": "host-api",
   "capability": "Animation mixing control",
-  "construct": "new: explicit timeline instances and mix weight",
-  "module": "core",
-  "status": "planned",
-  "test": "browser/low-level-animation",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/host-api-low-level-animation/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-animation/skip.json (no faithful headless counterpart)",
+  "phase": "P4b"
  },
  {
   "id": "host-api.low-level-focus",
@@ -6130,11 +6130,11 @@
   "id": "host-api.low-level-scene-query",
   "category": "host-api",
   "capability": "Scene component lookup",
-  "construct": "new: typed scene node handles",
-  "module": "core",
-  "status": "planned",
-  "test": "browser/low-level-scene-query",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/host-api-low-level-scene-query/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-scene-query/skip.json (no faithful headless counterpart)",
+  "phase": "P4b"
  },
  {
   "id": "host-api.low-level-scroll",
@@ -6190,11 +6190,11 @@
   "id": "host-api.multi-state-machine",
   "category": "host-api",
   "capability": "Multiple concurrent state machines",
-  "construct": "new: named machine instances with deterministic composition order",
-  "module": "core",
-  "status": "planned",
-  "test": "browser/multi-state-machine",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/host-api-multi-state-machine/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-multi-state-machine/skip.json (no faithful headless counterpart)",
+  "phase": "P4b"
  },
  {
   "id": "host-api.multitouch",
@@ -6434,11 +6434,11 @@
   "id": "host-api.scrub",
   "category": "host-api",
   "capability": "Scrub timeline",
-  "construct": "new: Player.seek(timeline,time)",
-  "module": "core",
-  "status": "planned",
-  "test": "browser/scrub",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/host-api-scrub/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "tests/oracle/host-api-scrub; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
+  "phase": "P4b"
  },
  {
   "id": "host-api.semantic-overlay",
@@ -10214,11 +10214,11 @@
   "id": "state-machine.exit-time-seconds",
   "category": "state-machine",
   "capability": "Absolute exit time",
-  "construct": "partial: @after(s) counts seconds in the state; exit time relative to the source animation (and as a fraction of it) is new",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/exit-time-seconds",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/state-machine-exit-time-seconds/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "modules/motion/test/core/state-machine-exit-time-seconds.test.ts; spec/conformance/state-machine-exit-time-seconds; modules/motion/test/web/browser.test.ts; tests/oracle/state-machine-exit-time-seconds",
+  "phase": "P4b"
  },
  {
   "id": "state-machine.input-boolean",
@@ -12499,11 +12499,11 @@
   "id": "transforms.origin-animation",
   "category": "transforms",
   "capability": "Animated origins",
-  "construct": "new: animatable node.pivot in grid units",
-  "module": "core",
-  "status": "planned",
-  "test": "conformance/origin-animation",
-  "phase": "P4"
+  "construct": "SPEC motion; modules/motion/capabilities/transforms-origin-animation/example.animl; modules/motion/core/",
+  "module": "motion",
+  "status": "done",
+  "test": "tests/oracle/transforms-origin-animation; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
+  "phase": "P4b"
  },
  {
   "id": "transforms.rotation",

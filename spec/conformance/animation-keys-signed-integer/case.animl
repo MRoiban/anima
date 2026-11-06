@@ -1,0 +1,11 @@
+<anima version="0.1" name="animation-keys-signed-integer" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000">
+    <channel name="v" type="int" value="-2"/>
+  </circle>
+  <timeline name="t" duration="2">
+    <track target="a.channels.v">0 -2; 1 3</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

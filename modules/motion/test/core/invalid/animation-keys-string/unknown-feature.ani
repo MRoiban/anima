@@ -1,0 +1,57 @@
+{
+  "anima": "0.1",
+  "name": "animation-keys-string",
+  "grid": 20,
+  "requires": [
+    "missing-motion"
+  ],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [
+        0,
+        0
+      ],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "channels": {
+        "v": {
+          "type": "string",
+          "value": "one two"
+        }
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 2,
+      "tracks": {
+        "a.channels.v": [
+          [
+            0,
+            "one two"
+          ],
+          [
+            1,
+            "three"
+          ]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

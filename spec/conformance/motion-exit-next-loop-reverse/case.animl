@@ -1,0 +1,13 @@
+<anima version="0.1" name="motion-exit-next-loop-reverse" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <bool name="stop"/>
+  <timeline name="t" duration="1" loop="loop" speed="-2" work="0.25 0.75">
+    <track target="a.x">0 0; 1 8</track>
+  </timeline>
+  <layer name="l" initial="spin">
+    <state name="spin" play="t">
+      <on when="stop" to="held" sync="true" exitNext="loop"/>
+    </state>
+    <state name="held" play="t" hold="true"/>
+  </layer>
+</anima>

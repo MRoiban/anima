@@ -1,0 +1,28 @@
+advance 0
+snapshot
+set phase 0.04
+advance 0
+snapshot
+set phase 0.12
+advance 0
+snapshot
+set phase 0.2
+advance 0
+snapshot
+set phase 0.5
+advance 0
+snapshot
+set phase 0.99
+advance 0
+snapshot
+set phase 1
+advance 0
+snapshot
+set phase 0
+advance 0
+snapshot
+set syncing true
+advance 0
+set phase 0.9
+advance 0.105
+snapshot

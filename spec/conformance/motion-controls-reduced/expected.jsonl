@@ -1,0 +1,3 @@
+{"time":0.375,"values":{"a.x":0},"states":{"l":"spin"},"events":[],"settled":true}
+{"time":0.375,"values":{"a.x":0},"states":{"l":"idle"},"events":[],"settled":true}
+{"time":3.375,"values":{"a.x":0},"states":{"l":"idle"},"events":[],"settled":true}

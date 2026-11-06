@@ -1,0 +1,69 @@
+{
+  "anima": "0.1",
+  "name": "motion-controls-reduced",
+  "grid": 20,
+  "requires": ["motion", "bind"],
+  "inputs": {
+    "syncing": {
+      "type": "bool"
+    },
+    "phase": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "loop": "loop",
+      "reducedMotion": "skip",
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [1, 8]
+        ]
+      },
+      "quantize": 4
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "play": "t",
+            "on": [
+              {
+                "when": "syncing",
+                "to": "spin"
+              }
+            ],
+            "time": "phase"
+          },
+          "spin": {
+            "play": "t",
+            "on": [
+              {
+                "when": "!syncing",
+                "to": "idle",
+                "sync": true,
+                "exitNext": "step"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

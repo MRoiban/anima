@@ -1,3 +1,4 @@
+import { motionCompiler } from './module-hooks.ts';
 import { parseXml, type Element } from './xml.ts';
 import { ELEMENTS, markupName, type NodeType } from '@anima-format/core';
 import { markupAddress, nodeAttrs } from './names.ts';
@@ -47,6 +48,7 @@ export function decompile(doc: string | object): string {
   });
   const node = (n: Obj): LayoutElement => {
     const el = element(n.type as string, n, ['id']);
+    el.children.push(...(motionCompiler.channels?.(n) ?? []));
     for (const a of nodeAttrs(n.type as NodeType)) {
       let v: unknown = n;
       for (const key of a.path) v = obj(v)[key];
@@ -180,14 +182,23 @@ export function decompile(doc: string | object): string {
   groups.push(
     entries(d.timelines).map(([name, v]) => {
       const t = obj(v);
-      const el = element('timeline', t, ['duration', 'loop', 'reducedMotion'], [['name', name]]);
+      const el = element(
+        'timeline',
+        t,
+        ['duration', 'loop', 'reducedMotion', 'speed', 'quantize', 'work'],
+        [['name', name]],
+      );
       for (const [target, keys] of entries(t.tracks)) {
         const track = element('track', {}, [], [['target', address(target)]]);
         track.children.push({
           text: (keys as unknown[][])
             .map((k) =>
               k
-                .map((v, i) => (i === 1 && target.endsWith('.d') ? JSON.stringify(v) : value(v)))
+                .map((v, i) =>
+                  i === 1 && (target.endsWith('.d') || target.includes('.channels.'))
+                    ? JSON.stringify(v)
+                    : value(v),
+                )
                 .join(' '),
             )
             .join('\n'),
@@ -202,31 +213,56 @@ export function decompile(doc: string | object): string {
       return el;
     }),
   );
-  groups.push(
-    entries(obj(d.machine).layers).map(([name, v]) => {
+  const machineLayers = (machine: unknown): LayoutElement[] =>
+    entries(obj(machine).layers).map(([name, v]) => {
       const l = obj(v);
       const el = element('layer', l, ['initial'], [['name', name]]);
       for (const [name, v] of entries(l.states)) {
         const s = obj(v);
-        const state = element('state', s, ['play', 'speed', 'emit'], [['name', name]]);
+        const state = element(
+          'state',
+          s,
+          ['play', 'speed', 'emit', 'hold', 'time'],
+          [['name', name]],
+        );
         if (s.pose !== undefined)
           state.children.push(
             element(
               'pose',
               obj(s.pose),
               [],
-              entries(s.pose).map(([k, v]) => [address(k), value(v)]),
+              entries(s.pose).map(([k, v]) => [
+                address(k),
+                k.includes('.channels.') && typeof v === 'string' ? JSON.stringify(v) : value(v),
+              ]),
             ),
           );
         state.children.push(
           ...((s.on ?? []) as Obj[]).map((on) =>
-            element('on', on, ['when', 'to', 'blend', 'ease', 'interruptible']),
+            element('on', on, [
+              'when',
+              'to',
+              'blend',
+              'ease',
+              'interruptible',
+              'exit',
+              'exitFraction',
+              'sync',
+              'exitNext',
+            ]),
           ),
         );
         el.children.push(state);
       }
       return el;
-    }),
+    });
+  groups.push(machineLayers(d.machine));
+  groups.push(
+    entries(d.machines).map(([name, machine]) => ({
+      name: 'machine',
+      attrs: [['name', name]],
+      children: machineLayers(machine),
+    })),
   );
   groups.push(
     ((d.listeners ?? []) as Obj[]).map((l) =>

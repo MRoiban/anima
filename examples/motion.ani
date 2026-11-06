@@ -1,0 +1,94 @@
+{
+  "anima": "0.1",
+  "name": "motion",
+  "grid": 20,
+  "requires": ["motion"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 2,
+      "pivot": [10, 10],
+      "fill": {
+        "color": "#000"
+      },
+      "pivotX": 10,
+      "pivotY": 10,
+      "channels": {
+        "count": {
+          "type": "int",
+          "value": 0
+        },
+        "label": {
+          "type": "string",
+          "value": "Ready"
+        },
+        "target": {
+          "type": "reference",
+          "value": "dot"
+        }
+      }
+    }
+  ],
+  "timelines": {
+    "bounce": {
+      "duration": 2,
+      "loop": "pingpong",
+      "tracks": {
+        "dot.y": [
+          [0, 0, "value-cubic(0.3333333333333333, -8, 0.6666666666666666, -8)"],
+          [2, 0]
+        ],
+        "dot.pivotX": [
+          [0, 10],
+          [2, 14]
+        ],
+        "dot.channels.count": [
+          [0, 0],
+          [1, -1],
+          [2, 2]
+        ],
+        "dot.channels.label": [
+          [0, "Ready"],
+          [1, "Bouncing"],
+          [2, "Done"]
+        ]
+      },
+      "events": [
+        [1, "apex"]
+      ],
+      "speed": 1,
+      "quantize": 12,
+      "work": [0.25, 1.75]
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "bounce",
+        "states": {
+          "bounce": {
+            "play": "bounce"
+          }
+        }
+      }
+    }
+  },
+  "machines": {
+    "accent": {
+      "layers": {
+        "tone": {
+          "initial": "small",
+          "states": {
+            "small": {
+              "pose": {
+                "dot.scale": 0.75
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

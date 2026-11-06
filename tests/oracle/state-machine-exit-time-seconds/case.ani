@@ -1,0 +1,66 @@
+{
+  "anima": "0.1",
+  "name": "state-machine-exit-time-seconds",
+  "grid": 20,
+  "requires": ["motion"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 2,
+      "y0": 8,
+      "w": 2,
+      "h": 4,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 2,
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [2, 8]
+        ]
+      }
+    },
+    "u": {
+      "duration": 1,
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [1, 0]
+        ],
+        "a.y": [
+          [0, 0],
+          [1, 4]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t",
+            "speed": 2,
+            "on": [
+              {
+                "when": "@after(0)",
+                "to": "next",
+                "exit": 1
+              }
+            ]
+          },
+          "next": {
+            "play": "u"
+          }
+        }
+      }
+    }
+  }
+}

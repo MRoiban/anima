@@ -1,0 +1,20 @@
+<anima version="0.1" name="motion-machine-fade" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <trigger name="go"/>
+  <layer name="base" initial="rest">
+    <state name="rest">
+      <pose a.x="2" a.y="3"/>
+    </state>
+  </layer>
+  <machine name="overlay">
+    <layer name="l" initial="idle">
+      <state name="idle">
+        <pose a.x="10"/>
+        <on when="go" to="next" blend="1"/>
+      </state>
+      <state name="next">
+        <pose a.y="7"/>
+      </state>
+    </layer>
+  </machine>
+</anima>

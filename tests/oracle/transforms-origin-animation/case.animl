@@ -1,0 +1,1 @@
+<anima version="0.1" name="transforms-origin-animation" grid="20" requires="motion"><rect id="a" x0="8" y0="8" width="2" height="4" rotate="180" fill="#4263eb"/><timeline name="t" duration="2"><track target="a.pivotX">0 6;2 8</track><track target="a.pivotY">0 7;2 9</track></timeline><layer name="l" initial="s"><state name="s" play="t"/></layer></anima>

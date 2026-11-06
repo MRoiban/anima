@@ -8,7 +8,8 @@ root = Path(__file__).resolve().parent
 for case in json.loads((root / 'cases.json').read_text()):
     project = root / case['name'] / 'rive'
     try:
-        for old in (project / 'frames').glob('*.png'):
+        suffix = 'json' if case.get('values') else 'png'
+        for old in (project / 'frames').glob(f'*.{suffix}'):
             old.unlink()
         result = subprocess.run(
             [str(Path.home() / '.rive/bin/rive'), '.', '--commands=commands.txt'],
@@ -17,7 +18,7 @@ for case in json.loads((root / 'cases.json').read_text()):
         if 'err ' in result.stdout:
             raise RuntimeError(result.stdout + result.stderr)
         for time in case['times']:
-            assert (project / 'frames' / f'{time}.png').is_file(), case['name']
+            assert (project / 'frames' / f'{time}.{suffix}').is_file(), case['name']
         print(case['name'], 'captured')
     finally:
         # Never read/convert the build's binary artifacts or retain them for commit.

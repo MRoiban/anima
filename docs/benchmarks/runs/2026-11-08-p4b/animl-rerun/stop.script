@@ -1,0 +1,21 @@
+advance 0
+set syncing true
+advance 0
+advance 0.237
+snapshot arrows.rotate check.scale
+set syncing false
+advance 0
+snapshot arrows.rotate check.scale
+advance 0.062
+snapshot arrows.rotate check.scale
+advance 0.001
+snapshot arrows.rotate check.scale
+advance 0.09
+snapshot arrows.rotate check.scale
+advance 0.51
+snapshot arrows.rotate check.scale
+advance 2
+snapshot arrows.rotate check.scale
+set phase 0.67
+advance 0
+snapshot arrows.rotate check.scale

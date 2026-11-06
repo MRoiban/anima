@@ -1,0 +1,4 @@
+{"time":0.2,"values":{"arrows.rotate":0,"check.scale":0,"peek.scale":1.05},"states":{"hover":"rest","rotation":"q0","completion":"idle"},"events":[],"settled":false}
+{"time":0.2,"values":{"arrows.rotate":0,"check.scale":0,"peek.scale":1.05},"states":{"hover":"rest","rotation":"q0","completion":"idle"},"events":[],"settled":false}
+{"time":0.30000000000000004,"values":{"arrows.rotate":0,"check.scale":0,"peek.scale":1.025},"states":{"hover":"rest","rotation":"q0","completion":"idle"},"events":[],"settled":false}
+{"time":0.4,"values":{"arrows.rotate":0,"check.scale":0,"peek.scale":1},"states":{"hover":"rest","rotation":"q0","completion":"idle"},"events":[],"settled":true}

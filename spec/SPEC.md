@@ -232,7 +232,7 @@ per channel with rounding for colours (§5), and for booleans `a || b` while the
 1. **Inputs.** Apply queued writes in arrival order (`set`, `fire`, `toggle`). Number writes clamp to
    the input's `min`/`max`. A fired trigger becomes pending (firing a pending trigger again is a
    no-op). Listener `emit` actions add their events now.
-2. **Clocks.** Advance every layer's state time and crossfade elapsed time by `dt`. A crossfade whose
+2. **Clocks.** Motion clock expressions and `exitNext` gates prepare here (motion chapter). Advance every layer's state time and crossfade elapsed time by `dt`. A crossfade whose
    elapsed time reaches its duration ends.
 3. **Layers**, in declaration order, each against the values resolved by the layers before it:
    1. *Timeline events.* Report the current state's timeline events crossed by step 2 (below).
@@ -804,11 +804,14 @@ as described in [web research](../docs/research/rive-web-runtime.md).
 
 The optional `bind` module requires `requires: ["bind"]`. At document level,
 `bind: { "ring.stroke.trimEnd": "progress" }` maps animatable addresses to expressions.
-Every step evaluates bindings after all state layers resolve and before property clamping (§7),
+Property bindings evaluate after all state layers resolve and before property clamping (§7),
 so a binding overrides a pose, timeline or crossfade on the same address. Resolved bound
 addresses appear in `Player.values()`, `anima sample` snapshots, dirty slots and `anima inspect`
 (the `bound` list). Inputs still apply in queued arrival order. A settled binding sleeps until
 an input write wakes the player; its value changes on the next step, including `step(0)`.
+
+A motion play state may also use `time: "expression"`; see **Declarative timeline control**.
+These are clock expressions evaluated before sampling, rather than property bindings.
 
 ### Expressions and types
 
@@ -1073,6 +1076,256 @@ Chromium/Firefox pixel tests check the Gaussian halo, disabled state and indepen
 AniML uses `<feather paint="fill|stroke" …/>` node children, or a feather child within an ordered
 `fillPaint`/`strokePaint`. It retains the parent paint and preserves empty and disabled settings;
 see [ANIML](ANIML.md#surface-module) and `examples/feather.animl`.
+
+## motion
+
+`requires: ["motion"]` opts into this chapter; AniML uses `requires="motion"`.
+Loading the module alone does not change a 0.1 document's playback. It adds no renderer,
+network operations or runtime dependencies. All times and work bounds are seconds.
+The design follows the independent-playback, explicit composition and unit-consistency
+lessons in [animation research](../docs/research/rive-animation-and-state.md#1-linear-animations)
+and the small imperative handle in [web research](../docs/research/rive-web-runtime.md).
+No Rive code is used. The elastic formulas below are reflections of Anima's existing
+specified elastic-out formula, not an implementation of Rive's amplitude ramp or period-zero fallback.
+
+### Curves
+
+<!-- capability: animation.elastic-in -->
+<!-- capability: animation.elastic-in-out -->
+`elastic-in(a,p)` is `1 - elastic(a,p)(1-u)`; `elastic-in-out(a,p)` is
+`elastic-in(a,p)(2u)/2` for `u < 1/2`, otherwise `1/2 + elastic(a,p)(2u-1)/2`.
+Both require finite `a >= 0`, `p > 0`, and have exact 0/1 endpoints. The same strings
+work on left keys and transition eases, with the same arguments in both syntaxes.
+Invalid motion curves report `bad-ease` at the ease; a missing requirement reports
+`undeclared-feature`, with a hint to add motion.
+
+<!-- capability: animation.cubic-value -->
+`value-cubic(x1,y1,x2,y2)` on a **numeric** left key is a value curve rather than a
+weight. Solve the existing monotone cubic x curve for parameter `s`; evaluate the
+cubic with ordinate controls `(leftValue,y1,y2,rightValue)`. The time controls are
+normalized fractions in `[0,1]`; ordinate controls use the property's units. All
+arguments must be finite. Equal endpoints can therefore move between the keys.
+Endpoints, holds, before-first and after-last sampling retain §5 rules. A value curve
+on colours, discrete channels, or transition eases is `bad-ease`; it cannot shape a
+crossfade. Invalid controls are `bad-ease` with a syntax/range hint. The sampler is
+compiled per segment; there is no mutable interpolator shared between tracks.
+
+### Typed channels and mixing
+
+<!-- capability: animation.keys-signed-integer -->
+<!-- capability: animation.keys-unsigned-integer -->
+<!-- capability: animation.keys-string -->
+<!-- capability: animation.keys-reference -->
+A node can declare `channels: { name: { type, value } }`, where `type` is `int`,
+`uint`, `string`, or `reference`. A channel is addressed `node.channels.name` in
+tracks and poses. `int` and `uint` hold 32-bit integers (signed or unsigned);
+`string` holds arbitrary strings, including whitespace and empty strings;
+`reference` holds an existing node id in this scene. They are typed scene data,
+readable through node handles; a reference channel does not implicitly swap geometry
+or a paint. Future consumers must explicitly define what they do with the reference.
+AniML declares `<channel name="label" type="string" value='"Ready"'/>` inside its
+node, and uses quoted JSON strings in keyframe text. Numerical channel values use
+ordinary numbers. A channel value in a pose also uses a quoted JSON string when
+string-valued. The registry defines both spellings and generates CLI/schema output.
+
+All four types are hold-only: left value until the exact next key. An explicit ease
+other than `hold` is `bad-ease`. Invalid integer values are `motion-integer` at the
+value, with the allowed interval as hint; wrong string values are `value-type`;
+unresolved references are `motion-reference` with an existing-node hint. Validation
+covers document values, keyframes and poses. Structural channel/name errors use §11 codes.
+
+<!-- capability: animation.mix-discrete -->
+<!-- capability: animation.mix-numeric -->
+A motion document's discrete channels and bool properties replace the incoming value
+for **any positive mix**, including at the start of a crossfade. An explicit instance mix of zero writes
+nothing. Numbers, colours and morphable paths use the existing interpolation rules.
+An explicit instance writes `mix(incoming, sample, weight)` in composition order;
+weights are clamped to `[0,1]`. These bool rules apply only to motion documents;
+ordinary 0.1 bool crossfades still use §7's OR rule. During a state crossfade, a
+channel absent from the target immediately passes through the value below it.
+
+### Timeline clock
+
+<!-- capability: animation.quantized-playback -->
+<!-- capability: animation.work-area -->
+<!-- capability: animation.reverse -->
+A timeline may declare `speed` (finite, default 1), `quantize` (finite samples/second,
+strictly positive), and `work: [start,end]` with `0 <= start < end <= duration`.
+AniML uses attributes `speed`, `quantize`, `work="start end"`. Invalid work bounds
+report `motion-work` at `/timelines/<name>/work`, with an interval hint. Structural
+nonpositive quantization or nonfinite numbers use the existing range/type diagnostics.
+
+A play state's speed multiplies the timeline's speed. Negative speed starts at the
+work end; positive or zero starts at its start. The source clock is this start plus
+`stateTime * effectiveSpeed`. Fold that clock into the work interval using §5 loop
+or pingpong rules, or clamp for once. Quantize only the **sample** time down on the
+absolute timeline grid (`floor(time*quantize)/quantize`), clamped to work start; an
+exact work end remains exact. Keys outside the work interval remain valid and can
+influence interpolation inside it. Events outside it never fire.
+
+Event crossings use the unquantized source clock. Forward intervals exclude the
+previous time and include the new one; reverse intervals include the new time and
+exclude the previous time. On entry include both bounds. Loop and pingpong crossings
+retain carry, emit each authored event once per crossing, deduplicate pingpong turns,
+and sort in travel order; coincident events retain authored time/order. Start and end
+are distinct authored events even when their loop crossings coincide. The existing
+10,000-period enumeration bound remains unchanged. A once state finishes after
+`workSpan / abs(effectiveSpeed)` state seconds. Zero speed holds and has infinite
+completion time. State-machine zero-speed play states stay busy because transitions
+may still depend on state time; explicit zero-speed timeline instances can sleep.
+Reduced end/skip uses the directional work endpoint/start; end reports only the
+work-area events, in travel order, including both ends. Frozen instances sample the
+endpoint without looping it back to the start.
+
+<!-- capability: state-machine.exit-time-seconds -->
+A transition may add `exit` (nonnegative source-animation seconds) or `exitFraction`
+(a fraction in `[0,1]` of its work span), never both. AniML uses the same names.
+This is an additional gate on `when`, evaluated before entering the target. It measures
+absolute source-animation distance since entry, including loops, before quantization,
+so state and timeline speeds both matter; it is not wall/state time. It requires a
+play source and must lie within its work span (`motion-exit`, pointing at the exit,
+with a source/interval hint). Carry is the state-time overshoot of the gate, capped by
+any existing time-condition carry; an input-only condition uses the gate's carry.
+This avoids passing target time that predates the last gate becoming eligible.
+
+### Declarative timeline control
+
+These forms require `motion`; omitted fields preserve existing playback, including all 0.1
+behaviour. AniML uses the JSON names verbatim. They extend §7's clock/transition passes,
+not the post-state property-binding pass.
+
+- A transition's `sync: true` transfers the **unquantized local time** from source to target,
+  instead of restarting at the directional start. Both states must play the same timeline
+  (`motion-sync` at `/machine/layers/<layer>/states/<state>/on/<index>/sync`, with a same-timeline
+  hint). Work-area folding/clamping happens before transfer; quantization happens only at sample.
+  The target uses its own speed from that time. A once target completes after its remaining
+  directional distance, so `speed: -1` reverses from the current position and entering the forward
+  state again turns around immediately. State time and fade elapsed still reset to carry (§7);
+  interruptible fades still freeze the current output as their source. Sync does not replay
+  timeline entry events at the transfer point; events crossed during target carry are reported.
+- A play state's `hold: true` freezes its clock at the entry time (directional start normally,
+  transferred local time with `sync`). It continues writing the same sampled tracks. State time,
+  `@after`, input conditions and crossfades keep running. Holding does not itself satisfy `@end`.
+  A held state can settle once its fade and future `@after` waits finish. `hold` and `time` are
+  exclusive; either on a pose reports `motion-control` at the state (conflict at `/time`), with
+  a hint to choose a play clock.
+- A transition's `exitNext: "step" | "loop"` waits for the next clock boundary while its `when`
+  remains true. At the start of §7 step 2, after queued inputs apply, arm the gate from the
+  source clock **before advancing dt**. `step` uses the next local quantize grid point in the
+  direction of travel, or the work endpoint if earlier; without quantize it uses the work
+  endpoint. `loop` uses the next work endpoint (each turning point for pingpong). A request
+  observed exactly on a boundary is immediately eligible (clock comparisons within 1e-10 s
+  count as equal). Changing the condition to false cancels the armed gate; a later request
+  computes a new boundary. Frozen reduced-motion and zero-speed clocks are immediately eligible.
+  The source clock and its timeline event interval stop at that boundary, even for a large dt;
+  excess state time carries into the target (and its fade). A synced held target therefore
+  captures the boundary, not the overshooting frame. Transition priority and the 16-transition
+  cap stay as in §7. Locked fades do not arm gates. `exitNext` requires an autonomous play
+  source (no hold/time) and persistent bool/number terms only; it cannot combine with triggers,
+  `@end`, `@after`, `exit` or `exitFraction` (`motion-exit` at `/exitNext`, with an autonomous-source
+  and persistent-condition hint).
+- A play state's `time: "expression"` additionally requires `bind`. It evaluates the bind
+  grammar against this player's inputs, producing local timeline seconds clamped to its work
+  area. It owns the clock instead of advancing it; speed has no effect. It samples with the
+  timeline's loop and quantize rules (a loop's end folds to its start). An ordinary entry
+  evaluates the expression immediately. A synced entry keeps the transferred time and records
+  the current expression value; the next **different evaluated value** seeks to that value.
+  Thus completion can hold its angle until the author changes `phase`, without a snap to a
+  stale phase on entry. A change that evaluates to the same clamped value is not a seek.
+  Expressions update after inputs apply and before transitions/sample, including `step(0)`;
+  they also initialize the constructor's initial state. Seeking emits no timeline events,
+  does not complete `@end`, and can settle like a held clock. Errors use bind's existing codes
+  at the state's `/time`; missing `bind` reports `undeclared-feature` there with an add-bind hint.
+
+Held clocks report state `emit`s, but do not synthesize timeline events on entry or while held.
+The pre-existing `exit`/`exitFraction` gates retain their elapsed-state-time × absolute effective
+speed measurement; they do not observe seeks or the captured clock offset. `exitNext` instead
+observes the selected autonomous clock and is restricted to that clock kind above.
+
+Reduced-motion entry policy takes precedence over these clock controls, using the same
+fixed directional endpoints and event policy as other motion play states. Time/hold states
+still obey that frozen entry pose. Ordinary property bindings retain their post-state priority.
+Named machines and component players own independent control clocks and input scopes.
+
+Decision: put clock selection on states and clock handoff on transitions, keeping inputs as the
+single listener interface. This follows the separation of state time, animation time and fade
+snapshots discussed in [animation/state research](../docs/research/rive-animation-and-state.md)
+and the sleep-when-settled lesson in [web runtime research](../docs/research/rive-web-runtime.md).
+No animation is cloned and no property-read feedback is added to bind expressions.
+
+### Animated transform origin
+
+<!-- capability: transforms.origin-animation -->
+`pivotX` and `pivotY` are numeric animatable node properties, with the same AniML names.
+Each falls back to the corresponding component of the existing `pivot` vector, then
+zero. They feed exactly the transform in §4, so drawing, world matrices and hit testing
+use the same animated origin. The vector `pivot` remains a static convenience;
+tracks address its independent scalar coordinates. Existing bind expressions may
+also target those coordinates when bind and motion are both required.
+
+### Explicit runtime instances
+
+<!-- capability: animation.host-loop-override -->
+<!-- capability: animation.host-play-pause-stop -->
+<!-- capability: animation.seek -->
+<!-- capability: host-api.animation-metadata -->
+<!-- capability: host-api.low-level-animation -->
+<!-- capability: host-api.low-level-scene-query -->
+<!-- capability: host-api.multi-state-machine -->
+<!-- capability: host-api.scrub -->
+The optional module installs the following API on `Player` and `<anima-icon>`;
+see [WEB](../docs/WEB.md#motion-module) for signatures and host scheduling.
+Missing motion requirements reject calls; absent names and invalid finite-number
+arguments throw. No implicit timeline instance is created by document timelines.
+A default `timeline(name)` is created on first use; `createTimeline(name,{name,mix,
+speed,loop})` creates an independent clock. Instance names are unique across timelines
+and machines. Instances compose after ordinary layers and bindings, before clamping,
+in **creation order**. They restart from the values below them on every step; there
+is no accumulating weighted drift. Each named machine resolves its layers against the values below its instance, including
+return-to-underlying crossfades. Only the properties actually written by a named
+machine's active/fading states and bindings contribute, never all of its rest slots.
+
+`seek(seconds)` clamps into the work area without emitting crossed events or changing
+play/pause; `scrub(progress)` clamps progress to `[0,1]`, seeks over that area, and
+pauses. A sought loop end folds to the start when sampled; reduced frozen endpoints
+are the exception above. `play` retains the clock, `pause` retains its writes, and
+`stop` resets to the directional start and removes its writes. Setting `loop` overrides
+the authored mode; null restores it. Negative instance speed reverses from the current
+clock. `advance(dt)` moves just this clock and returns crossed events; `apply(mix?)`
+enables its writes. Values resolve on the next `Player.step`, including `step(0)`;
+explicit manual advance does not dispatch DOM events. `didLoop` is reset on advance
+and indicates that this advance crossed a work boundary (including once completion).
+Changing metadata returned by `info` or `animations` cannot change the model.
+
+`machines: { name: { layers } }` declares named machine definitions; AniML uses
+`<machine name="name"><layer ...>...</layer></machine>`. `machine(name)` instantiates
+one lazily with independent inputs and clocks over the shared scene. Its controls
+support play/pause/stop, mix, set/fire/get and states. Stop removes writes and suspends
+its state without resetting it; play resumes it. Paused machines hold their writes.
+Their events use `instance/layer` as layer name. Their states are queried on the
+instance and also appear as `instance/layer` in the player's states and inspector,
+so they do not collide with the default machine's layer names. Definitions
+are validated even before instantiation. `node(id,type?)` returns a typed read handle
+or undefined for an absent id/type; it reads resolved properties and local/world
+transforms. It does not fabricate bone or text handles before those node types exist.
+
+### Conformance, CLI and oracle limits
+
+Each capability marker above maps to its same-named `modules/motion/capabilities/`
+example, test, and `spec/conformance/<hyphenated-id>/` case. Expected scalar values
+are hand-computed, including 6 for the equal-endpoint cubic midpoint, 1/32 for elastic-in
+at 1/2 with period 1/2, and sequential numeric mixes. Existing unmarked conformance
+sources, scripts and expectations are unchanged.
+
+The §11 script also accepts `timeline <name> play|pause|stop`, `timeline <name>
+seek|scrub|speed|mix <number>`, `timeline <name> loop once|loop|pingpong|authored`,
+`instance <id> <timeline> [mix]`, and `machine <name> play|pause|stop|mix|set|fire`
+(with the input/value arguments for set/fire). Host operations resolve on an explicit
+`advance`, which can be zero. CLI validate/build/decompile/fmt/schema/inspect/sample/render
+use the same registry and player; no separate motion evaluator is introduced.
+
+Native frame oracle mappings and unsupported observations are recorded per capability
+and in the oracle README. A browser/API test is not evidence of a Rive frame match.
 
 ## canvas
 

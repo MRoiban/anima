@@ -1,0 +1,17 @@
+motion reduce
+advance 0
+snapshot
+set syncing true
+advance 0
+snapshot
+advance 0.35
+snapshot
+advance 2
+snapshot
+set syncing false
+advance 0
+snapshot
+advance 0.09
+snapshot
+advance 0.51
+snapshot

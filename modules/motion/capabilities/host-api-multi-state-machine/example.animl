@@ -1,0 +1,22 @@
+<anima version="0.1" name="host-api-multi-state-machine" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <layer name="l" initial="s">
+    <state name="s">
+      <pose a.x="1" a.y="2"/>
+    </state>
+  </layer>
+  <machine name="one">
+    <layer name="l" initial="s">
+      <state name="s">
+        <pose a.x="4"/>
+      </state>
+    </layer>
+  </machine>
+  <machine name="two">
+    <layer name="l" initial="s">
+      <state name="s">
+        <pose a.x="8"/>
+      </state>
+    </layer>
+  </machine>
+</anima>

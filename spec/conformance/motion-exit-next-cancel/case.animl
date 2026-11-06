@@ -1,0 +1,15 @@
+<anima version="0.1" name="motion-exit-next-cancel" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <bool name="syncing" default="true"/>
+  <timeline name="t" duration="1" loop="loop" quantize="4">
+    <track target="a.x">0 0; 1 8</track>
+    <event at="0.5" name="mid"/>
+    <event at="0.75" name="late"/>
+  </timeline>
+  <layer name="l" initial="spin">
+    <state name="spin" play="t">
+      <on when="!syncing" to="held" sync="true" exitNext="step"/>
+    </state>
+    <state name="held" play="t" hold="true"/>
+  </layer>
+</anima>
