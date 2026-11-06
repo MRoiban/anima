@@ -1,0 +1,2 @@
+{"time":0.5,"values":{"a.channels.v":"one two"},"states":{"l":"s"},"events":[],"settled":false}
+{"time":1,"values":{"a.channels.v":"three"},"states":{"l":"s"},"events":[],"settled":false}

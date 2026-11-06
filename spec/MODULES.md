@@ -247,3 +247,22 @@ Formatter-only registry shapes may specify `format: <shape>` to reuse canonical 
 without changing structural validation. Components reuse the document shape for their nested
 self-contained documents. Module initialization also receives the active `nodeShape` resolver;
 components derive reserved input names from the instance shape, including optional node keys.
+
+### Playback hooks (motion)
+
+Registry entries may also target `timeline`, `state`, and `transition`; recomposition
+resets these shape tables as it does nodes. A refinement with `feature: ''` preserves
+an existing base field's spelling; motion validates its expanded speed range against
+the document requirement. `Module.ease` extends left-key/transition weight parsing;
+`Module.track` compiles a custom `TrackM.sample(time)` for module value kinds/curves.
+`Prop.discrete` marks an address whose state crossfade replaces rather than interpolates.
+
+`Model.playback(player)` constructs a per-player `PlaybackPolicy` before state entry.
+It supplies local time, completion duration, event crossings, reduced-motion endpoint
+handling, extra transition gating/carry, optional transform origin, and post-binding
+composition before clamping. Absent this factory, the 0.1 paths are unchanged. The
+base player exposes `writes()` for exact active/fading address coverage and an
+`onChange` wake callback. The active registry supplies its own `Player`, `sampleTrack`
+and `mixValues` so separately bundled modules share sampling and value interpolation
+with other modules. Motion's API implementation and clock policy live in its module,
+not in core/web. It needs no SVG backend; its scaffold backend is an empty declaration.

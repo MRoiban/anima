@@ -4,13 +4,15 @@
 
 import { text } from './diag.ts';
 
-export type ValueType = 'number' | 'bool' | 'color' | 'path';
+export type ValueType =
+  'number' | 'bool' | 'color' | 'path' | 'int' | 'uint' | 'string' | 'reference';
 
 export interface Prop {
   type: ValueType;
   feature?: string;
+  discrete?: boolean;
   /** Default when the document omits it; undefined means the key is required. */
-  def?: number | boolean;
+  def?: number | boolean | string;
   /** Range the resolved value is clamped to, and the document value must lie in. */
   min?: number;
   max?: number;
@@ -184,17 +186,29 @@ export function nodeShape(type: NodeType): ObjShape {
 
 // Arrays are accepted structurally so that `pivot`/`center` reach the clearer not-animatable error.
 const VALUE = ALT(N(), B, S(), A({ k: 'any' }));
-const TRANSITION = O(
+export const TRANSITION = O(
   { when: S(), to: S(NAME), blend: N({ min: 0 }), ease: S(), interruptible: B },
   ['when', 'to'],
 );
-const STATE = O(
+export const STATE = O(
   { pose: MAP(VALUE), play: S(NAME), speed: N({ gt: 0 }), emit: S(NAME), on: A(TRANSITION) },
   undefined,
 );
 const LAYER = O({ initial: S(NAME), states: MAP(STATE, NAME) }, ['initial', 'states'], {
   mode: text('additive layers arrive in anima 0.2'),
 });
+
+export const TIMELINE = O(
+  {
+    duration: N({ gt: 0 }),
+    loop: S(undefined, ['once', 'loop', 'pingpong']),
+    reducedMotion: S(undefined, ['play', 'end', 'skip']),
+    tracks: MAP(A(T([N(), VALUE, S()], 2))),
+    events: A(T([N(), S(NAME)])),
+  },
+  ['duration', 'tracks'],
+  { colorSpace: text('colour interpolation spaces arrive in anima 0.2') },
+);
 
 /** The whole document. */
 export const DOC: Shape = O(
@@ -234,20 +248,7 @@ export const DOC: Shape = O(
       rect: T([N(), N(), N({ gt: 0 }), N({ gt: 0 })]),
     }),
     nodes: A({ k: 'node' }, 1),
-    timelines: MAP(
-      O(
-        {
-          duration: N({ gt: 0 }),
-          loop: S(undefined, ['once', 'loop', 'pingpong']),
-          reducedMotion: S(undefined, ['play', 'end', 'skip']),
-          tracks: MAP(A(T([N(), VALUE, S()], 2))),
-          events: A(T([N(), S(NAME)])),
-        },
-        ['duration', 'tracks'],
-        { colorSpace: text('colour interpolation spaces arrive in anima 0.2') },
-      ),
-      NAME,
-    ),
+    timelines: MAP(TIMELINE, NAME),
     machine: O({ layers: MAP(LAYER, NAME) }, ['layers']),
     listeners: A(
       O(
@@ -276,6 +277,9 @@ const baseTables = [
   ...Object.values(STATIC),
   ...Object.values(PAINT),
   (DOC as ObjShape).p,
+  (TIMELINE as ObjShape).p,
+  (STATE as ObjShape).p,
+  (TRANSITION as ObjShape).p,
   (FILL as ObjShape).p,
   (STROKE as ObjShape).p,
 ].map((table) => [table, { ...table }] as const);

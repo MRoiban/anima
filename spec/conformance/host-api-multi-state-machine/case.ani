@@ -1,0 +1,62 @@
+{
+  "anima": "0.1",
+  "name": "host-api-multi-state-machine",
+  "grid": 20,
+  "requires": ["motion"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "pose": {
+              "a.x": 1,
+              "a.y": 2
+            }
+          }
+        }
+      }
+    }
+  },
+  "machines": {
+    "one": {
+      "layers": {
+        "l": {
+          "initial": "s",
+          "states": {
+            "s": {
+              "pose": {
+                "a.x": 4
+              }
+            }
+          }
+        }
+      }
+    },
+    "two": {
+      "layers": {
+        "l": {
+          "initial": "s",
+          "states": {
+            "s": {
+              "pose": {
+                "a.x": 8
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

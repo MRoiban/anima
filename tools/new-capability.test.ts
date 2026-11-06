@@ -37,7 +37,12 @@ function scratch() {
 
 it('plans without writing, is idempotent, and generates a registered, typechecked module', async () => {
   const root = scratch();
-  const id = 'animation.work-area';
+  const id = 'animation.frame-grid';
+  mkdirSync(resolve(root, 'tests/oracle/animation-frame-grid/rive'), { recursive: true });
+  writeFileSync(
+    resolve(root, 'tests/oracle/animation-frame-grid/rive/README.md'),
+    'Existing reference notes\n',
+  );
   const read = (p: string) => readFileSync(resolve(root, p), 'utf8');
   try {
     const inventory = read('docs/parity/inventory.json');
@@ -51,8 +56,11 @@ it('plans without writing, is idempotent, and generates a registered, typechecke
     expect(read('docs/parity/inventory.json')).toBe(inventory);
     expect(plan).toContain('modules/capabilityprobe/core/index.ts');
     expect(plan).toContain('packages/web/src/capabilityprobe.ts');
-    expect(plan).toContain('spec/conformance/animation-work-area/todo.json');
+    expect(plan).toContain('spec/conformance/animation-frame-grid/todo.json');
     expect(await scaffold(root, id, 'capabilityprobe')).toEqual(plan);
+    expect(read('tests/oracle/animation-frame-grid/rive/README.md')).toBe(
+      'Existing reference notes\n',
+    );
     expect(await scaffold(root, id, 'capabilityprobe')).toEqual([]);
     expect(await generate(root, true)).toEqual([]);
     const rows: Row[] = JSON.parse(read('docs/parity/inventory.json'));
@@ -60,8 +68,8 @@ it('plans without writing, is idempotent, and generates a registered, typechecke
     expect(rows.find((r) => r.id === id)!.anima.status).toBe('planned');
     for (const [path, text] of Object.entries(outputs(rows)))
       expect(read(`docs/parity/${path}`)).toBe(text);
-    expect(pendingReason(resolve(root, 'spec/conformance/animation-work-area'))).toContain(id);
-    expect(pendingReason(resolve(root, 'tests/oracle/animation-work-area'))).toContain(id);
+    expect(pendingReason(resolve(root, 'spec/conformance/animation-frame-grid'))).toContain(id);
+    expect(pendingReason(resolve(root, 'tests/oracle/animation-frame-grid'))).toContain(id);
     const url = pathToFileURL(resolve(root, 'packages/core/src/all.ts')).href;
     const registry = pathToFileURL(resolve(root, 'packages/core/src/modules.ts')).href;
     const result = execFileSync(
@@ -97,7 +105,7 @@ it('plans without writing, is idempotent, and generates a registered, typechecke
           ANIMA_TEST_SCOPE: JSON.stringify({
             unit: [
               'tools/oracle.test.ts',
-              'modules/capabilityprobe/test/core/animation-work-area.test.ts',
+              'modules/capabilityprobe/test/core/animation-frame-grid.test.ts',
             ],
             conformance: ['packages/core/test/conformance.test.ts'],
             browser: [],
@@ -115,18 +123,18 @@ it('plans without writing, is idempotent, and generates a registered, typechecke
       )
       .filter(
         (test: { fullName: string }) =>
-          test.fullName.includes('animation-work-area') ||
-          test.fullName.includes('animation.work-area: diagnostic'),
+          test.fullName.includes('animation-frame-grid') ||
+          test.fullName.includes('animation.frame-grid: diagnostic'),
       );
     expect(probes).toHaveLength(3);
     expect(probes.every((test: { status: string }) => test.status === 'todo')).toBe(true);
     // Preserve coder edits and add a second capability to the same module.
     writeFileSync(
-      resolve(root, 'modules/capabilityprobe/capabilities/animation-work-area/registry.ts'),
+      resolve(root, 'modules/capabilityprobe/capabilities/animation-frame-grid/registry.ts'),
       '// coder edit\n',
     );
     await scaffold(root, 'animation.seek', 'capabilityprobe');
-    expect(read('modules/capabilityprobe/capabilities/animation-work-area/registry.ts')).toBe(
+    expect(read('modules/capabilityprobe/capabilities/animation-frame-grid/registry.ts')).toBe(
       '// coder edit\n',
     );
     expect(await scaffold(root, 'animation.seek', 'capabilityprobe')).toEqual([]);
@@ -140,7 +148,7 @@ it('rejects invalid requests without writes and notes unsupported oracle counter
   try {
     const before = readFileSync(resolve(root, 'spec/SPEC.md'), 'utf8');
     await expect(scaffold(root, 'missing')).rejects.toThrow('Unknown parity row');
-    await expect(scaffold(root, 'animation.work-area', '../bad')).rejects.toThrow('Module name');
+    await expect(scaffold(root, 'animation.frame-grid', '../bad')).rejects.toThrow('Module name');
     await expect(scaffold(root, 'animation.speed')).rejects.toThrow('already done');
     expect(readFileSync(resolve(root, 'spec/SPEC.md'), 'utf8')).toBe(before);
     const files = await scaffold(root, 'tooling.binary-rive-io');
@@ -170,4 +178,13 @@ it('requires an explicit nonempty pending marker', () => {
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
+});
+
+it('prints help without treating the flag as a parity row', () => {
+  for (const flag of ['--help', '-h'])
+    expect(
+      execFileSync(process.execPath, [resolve(source, 'tools/new-capability.ts'), flag], {
+        encoding: 'utf8',
+      }),
+    ).toContain('Usage:');
 });

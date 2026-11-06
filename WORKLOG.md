@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now in parallel: Pc canvas backend (branch pc-canvas) and P4b motion (branch p4b-motion); then P4c–e, P5b, P3b, P6–P10.
-State: main dfbfcfc = through P5 + process changes (PR #11). Parity 234/1238. core+web 17789; full-featured 44.3 KB.
-Next: merge each agent's work into its branch, benchmark per phase, PR per phase (full suite in CI). Before every push: prettier --check . and eslint (CI failed once on formatting).
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: P4b motion implementation on this isolated branch; local commit only, no push/PR/merge.
+State: 22 implementations; 27 new conformance cases; scope 604 pass incl. 18 browser tests; 7 native probes/25 frames; 15 oracle observations pending.
+Baseline: core+web 17789 B; compile bell 2.21 ms/prefixes 794 ms; frames bell 52.9/composite 30.8/toolbar 39.0 µs.
+Verified: prettier/eslint pass; bounded full check 1299 pass/15 pending; default demo timeout then isolated pass. Size motion 4982 B, core+web 18290 B (+501).
+Next: hand off local commit; P4b and parity statuses remain incomplete pending 15 native observations.
+Don't: read/convert .riv, run account commands, copy Rive code/docs, add runtime dependencies, raise limits/budgets, spawn agents.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -94,3 +95,9 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-07 09:30 [claude]: merged D1 module folders (d9510ae): 6 modules + libraries in folders, generator --check, 12 orders identical; core+web 17789 (+248, logged); test:scope paint 12 files/4.2 s; next D3 scaffolder then P5 PR
 - 2026-11-06 11:00 [claude]: merged D3 scaffolder (c7e3012): 31 files per row, idempotent; opening P5 PR (full suite in CI)
 - 2026-11-06 12:00 [claude]: PR #11 merged (dfbfcfc, CI green after a formatting fix); launching Pc canvas and P4b motion in parallel (module folders make it conflict-free)
+- 2026-11-06 01:08 [sol]: P4b scaffolded all 22 rows after fixing --help; independent conformance authoring caught exit carry bug → corrected; scoped motion/conformance/oracle 304 pass, 22 pending oracle (evidence: /tmp/motion-browser-tests.txt).
+- 2026-11-06 01:26 [sol]: P4b scope 604 pass/15 pending, tools 9 pass, 12-order registration test green; native exit flag fixed → 7 probes/25 frames match (evidence: /tmp/motion-final-scope.txt, /tmp/motion-tools2-tests.txt, /tmp/motion-oracle-measure4.txt).
+- 2026-11-06 01:26 [sol]: measured core+web +501 B, motion 4971/8192 B; perf bell 1.92 ms/prefixes 652 ms, frames 37.5/24.7/26.7 µs (evidence: /tmp/anima-motion-after-size.txt, /tmp/anima-motion-after-perf.txt).
+- 2026-11-06 01:30 [sol]: required default full check → 1298 pass/15 pending, one unchanged Chromium standalone-demo 15 s timeout; no limits changed; isolated rerun and bounded full retry next (evidence: /tmp/anima-motion-full-check.log).
+- 2026-11-06 01:31 [sol]: isolated unchanged Chromium demo test → 1 pass in 6.44 s; bounded full retry started with VITEST_MAX_WORKERS=2 (evidence: /tmp/motion-demo-rerun.txt).
+- 2026-11-06 01:35 [sol]: VITEST_MAX_WORKERS=2 npm run check exited 0 → 82 files/1299 pass/15 pending, both engines, all artifacts/budgets; final motion 4982 B/core+web 18290 B, perf bell 2.64 ms/prefixes 680 ms, frames 36.7/23.5/24.8 µs (evidence: /tmp/anima-motion-full-check-bounded.log).

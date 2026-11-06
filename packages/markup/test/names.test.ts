@@ -40,6 +40,8 @@ describe('one registry, two spellings', () => {
     expect(attrs('rect')).toEqual(expect.arrayContaining(['x0', 'y0', 'width', 'height', 'rx']));
     expect(attrs('group')).toEqual([
       'mix-blend-mode',
+      'pivotX',
+      'pivotY',
       'pivot',
       'x',
       'y',
@@ -89,6 +91,7 @@ describe('one registry, two spellings', () => {
       }
     expect(Object.keys(STATIC.circle)).toEqual([
       'center',
+      'channels',
       'blend',
       'mask',
       'clip',

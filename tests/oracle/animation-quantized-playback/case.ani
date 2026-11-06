@@ -1,0 +1,43 @@
+{
+  "anima": "0.1",
+  "name": "animation-quantized-playback",
+  "grid": 20,
+  "requires": ["motion"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 2,
+      "y0": 8,
+      "w": 2,
+      "h": 4,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 2,
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [2, 8]
+        ]
+      },
+      "quantize": 2
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

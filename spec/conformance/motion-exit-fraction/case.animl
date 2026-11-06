@@ -1,0 +1,12 @@
+<anima version="0.1" name="motion-exit-fraction" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <timeline name="t" duration="2">
+    <track target="a.x">0 0; 2 20</track>
+  </timeline>
+  <layer name="l" initial="first">
+    <state name="first" play="t" speed="2">
+      <on when="@after(0)" to="next" exitFraction="0.5"/>
+    </state>
+    <state name="next" play="t"/>
+  </layer>
+</anima>

@@ -1,0 +1,12 @@
+<anima version="0.1" name="animation-reverse" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <timeline name="t" duration="2" work="0.5 1.5">
+    <track target="a.x">0 0; 2 20</track>
+    <event at="0.5" name="low"/>
+    <event at="1" name="mid"/>
+    <event at="1.5" name="high"/>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t" speed="-1"/>
+  </layer>
+</anima>

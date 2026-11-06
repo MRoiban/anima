@@ -1,0 +1,2 @@
+{"time":0.6,"values":{"a.x":9},"states":{"l":"s"},"events":[{"name":"high","layer":"l","time":1.5},{"name":"mid","layer":"l","time":1}],"settled":false}
+{"time":1.1,"values":{"a.x":5},"states":{"l":"s"},"events":[{"name":"low","layer":"l","time":0.5}],"settled":true}

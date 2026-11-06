@@ -1,0 +1,7 @@
+machine two play
+machine one play
+advance 0
+snapshot
+machine one stop
+advance 0
+snapshot

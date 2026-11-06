@@ -1,0 +1,4 @@
+motion reduce
+timeline t play
+advance 0
+snapshot

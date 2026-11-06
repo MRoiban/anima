@@ -1217,3 +1217,66 @@ a green default-concurrency full run is made. Final log: `/tmp/anima-d3-bounded-
 Perf in that scratch run: bell compile 2.03 ms, 9040 prefixes 792 ms; bell/composite frames
 34.6/22.9 µs; toolbar frame 27.0 µs, compile 2.93 ms. These are observations, not a speed change claim.
 All three scratch rows remain outside the commit. No push, PR or merge.
+
+## P4b motion — implementation checkpoint
+
+The optional `motion` feature now owns cubic value curves, reflected elastic in/in-out eases,
+typed int/uint/string/node-reference hold channels, discrete and numeric mixing, quantized/work
+clocks, signed timeline/state speeds and event crossing, source-animation exit seconds/fractions,
+animated pivot coordinates, explicit timeline instances, named machines, metadata and typed node
+handles. Core/web additions are playback/registry/sampling/wake hooks; the runtime policy and
+host controls live under `modules/motion/`. Both syntaxes round-trip; the CLI uses the same player.
+No runtime dependencies, copied Rive implementation/docs, account operations, binary reads,
+pushes, PRs or merges. `new-capability --help` now prints usage; its dry-run also preserves existing
+oracle files when predicting writes. All 22 requested rows were scaffolded with dry-run first.
+
+27 hand-computed conformance cases were added; all 41 existing cases and their sources/scripts/
+expectations are unchanged. Motion scope: 604 passing tests, including 18 Chromium/Firefox host
+tests; 15 independent native observations remain explicit pending tests. The module-order test
+now discovers remaining runtime modules from manifests, preserving all 12 arrival orders and its
+original time/size limits. The independent decompiler reader was extended to cover the new syntax.
+
+Seven native Rive frame probes (25 frames) cover value-cubic, elastic in/in-out, quantize, reverse,
+work areas and source exit time with state speed. Max channel difference is 1 for every frame,
+0% pixels over 16; new rectangle budgets are 2 / 0%, with existing tolerances unchanged. The
+quantized native endpoint capture needs a 1 ms overshoot to reach its clamped endpoint after float
+accumulation; this and the initial omitted Anima quantize attribute / incorrect RML flag spelling
+are documented in `tests/oracle/README.md`. No mismatching frames were accepted by raising a limit.
+
+Completion is **partial**: 22 implementations, 7/22 with the full native-frame gate; 15 native API/
+consumer observations remain pending. Reference channels cover node ids rather than arbitrary
+resources; handles cover current node types, not future bones/text. Native fractional origins
+also move geometry and are not claimed equivalent to Anima's transform-only pivots. Elastic
+amplitude-below-one / zero-period behavior follows Anima's existing definition, not native Rive's
+ramp/fallback. These mappings and missing evidence are in capability READMEs and parity reasons;
+all row statuses are left unchanged for the orchestrator. P4b stays unchecked.
+
+Measured with unchanged tools, before → after: core+web 17789 → 18290 B (+501 B of hooks);
+motion 4982 / 8192 B; full-featured 49891 / 102400 B. All other module ceilings pass.
+`tools/perf.ts`: bell compile 2.21 → 1.92 ms; 9040 prefixes 794 → 652 ms; frame bell
+52.9 → 37.5 µs, composite 30.8 → 24.7 µs, toolbar 39.0 → 26.7 µs; toolbar compile
+4.62 → 3.49 ms. These are single before/after observations, not a speedup claim.
+Final verification: separate `npx prettier --check .` and `npx eslint .` passed. The required
+default `npm run check` passed 1298 tests with 15 pending, but hit the existing Chromium
+standalone-demo test's unchanged 15-second timeout (also recorded at D3). Its isolated rerun
+passed in 6.44 s. `VITEST_MAX_WORKERS=2 npm run check` then exited 0: 82 files, 1299 passing
+tests and 15 explicitly pending native-oracle observations; both browser engines, all type/lint/
+format checks, seven new and 17 existing native oracles, all size ceilings, generated module/
+web/AniML artifacts and the perf report. No checks were omitted and no limits changed. A separate
+checkout's full browser suite was also running during the initial run; contention is a possible
+cause, not established. Logs: `/tmp/anima-motion-full-check.log`,
+`/tmp/anima-motion-full-check-bounded.log`, `/tmp/motion-demo-rerun.txt`.
+
+Final full-check perf lines (machine-dependent, without claiming a speedup):
+
+```text
+compile: bell 2.64 ms; all 9040 prefixes 680 ms
+frame: bell 36.7 µs; composite 23.5 µs
+frame: toolbar 24.8 µs (step + draw, 4 instances)
+compile: toolbar 3.16 ms
+```
+
+Compared with the initial 2.21 ms / 794 ms, 52.9 / 30.8 / 39.0 µs and 4.62 ms,
+the single bell-compile median varied upward in the final run while the fixed prefix sweep
+and frame timings remained below the initial observations. The earlier after sample is retained
+above to show the timing variability. The original performance test limits are unchanged.

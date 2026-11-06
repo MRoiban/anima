@@ -1,0 +1,77 @@
+{
+  "anima": "0.1",
+  "name": "state-machine-exit-time-seconds",
+  "grid": 20,
+  "requires": [
+    "missing-motion"
+  ],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [
+        0,
+        0
+      ],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 2,
+      "tracks": {
+        "a.x": [
+          [
+            0,
+            0
+          ],
+          [
+            2,
+            20
+          ]
+        ]
+      }
+    },
+    "u": {
+      "duration": 1,
+      "tracks": {
+        "a.y": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            4
+          ]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t",
+            "speed": 2,
+            "on": [
+              {
+                "when": "@after(0)",
+                "to": "next",
+                "exit": 1
+              }
+            ]
+          },
+          "next": {
+            "play": "u"
+          }
+        }
+      }
+    }
+  }
+}

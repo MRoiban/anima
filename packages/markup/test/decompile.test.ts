@@ -52,6 +52,9 @@ function recover(root: Element): Obj {
         'max',
         'buffer',
         'duration',
+        'quantize',
+        'exit',
+        'exitFraction',
         'speed',
         'blend',
         'interruptible',
@@ -59,9 +62,11 @@ function recover(root: Element): Obj {
         'hitPadding',
       ].includes(k)
         ? scalar(v)
-        : k === 'when'
-          ? v.replace(/\band\b/g, '&&')
-          : v;
+        : k === 'work'
+          ? vector(v)
+          : k === 'when'
+            ? v.replace(/\band\b/g, '&&')
+            : v;
     return o;
   };
   const node = (e: Element): Obj => {
@@ -96,6 +101,8 @@ function recover(root: Element): Obj {
     }
     for (const child of elements(e)) {
       const a = attrs(child);
+      if (child.name === 'channel')
+        ((o.channels ??= {}) as Obj)[a.name!] = { type: a.type, value: scalar(a.value!) };
       if (child.name === 'mask')
         o.mask = {
           ...base(child),
@@ -147,7 +154,19 @@ function recover(root: Element): Obj {
       delete component.name;
       delete component.anima;
       insert('components', name, component);
-    } else if (el.name === 'bind') insert('bind', address(a.target!), a.value);
+    } else if (el.name === 'machine')
+      insert(
+        'machines',
+        name,
+        recover({
+          ...root,
+          children: [
+            ...elements(root).filter((c) => NODE_ELEMENTS.includes(c.name)),
+            ...elements(el),
+          ],
+        }).machine,
+      );
+    else if (el.name === 'bind') insert('bind', address(a.target!), a.value);
     else if (NODE_ELEMENTS.includes(el.name)) (d.nodes as unknown[]).push(node(el));
     else if (el.name === 'meta')
       d.meta = {
@@ -358,6 +377,8 @@ function check(source: string | object) {
       'drawOrder',
       'fillPaint',
       'strokePaint',
+      'channel',
+      'machine',
     ]).toContain(e.name);
     if (e.name !== 'pose')
       for (const a of e.attrs) {

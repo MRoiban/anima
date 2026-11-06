@@ -1,6 +1,9 @@
 // Optional modules extend the same registry and the existing sampling/draw pipeline.
 import {
   resetRegistry,
+  TIMELINE,
+  STATE,
+  TRANSITION,
   ELEMENTS,
   type ElementForm,
   DOC,
@@ -19,7 +22,7 @@ import {
 } from './registry.ts';
 import type { Diags } from './diag.ts';
 import { load, resolveAddress, type Addr, type Model, type NodeM, type Value } from './load.ts';
-import { Player } from './player.ts';
+import { Player, sampleTrack, mixValues } from './player.ts';
 import type { DrawTree, DrawNode, DrawEntry, DrawFrame } from './draw.ts';
 
 export interface ModuleEntry {
@@ -36,6 +39,8 @@ export interface ModuleRegistry {
   nodeShape: typeof nodeShape;
   load: typeof load;
   Player: typeof Player;
+  sampleTrack: typeof sampleTrack;
+  mixValues: typeof mixValues;
   resolveAddress: typeof resolveAddress;
   PAINTED: typeof PAINTED;
   FILL: typeof FILL;
@@ -48,6 +53,14 @@ export interface Module {
   after?: readonly string[];
   init?(registry: ReadonlyMap<string, Module>, shapes: ModuleRegistry): Module;
   entries: ModuleEntry[];
+  ease?(source: string, pointer: string, diag: Diags): import('./ease.ts').EaseFn | undefined;
+  track?(
+    track: import('./load.ts').TrackM,
+    addr: Addr,
+    keys: unknown[][],
+    pointer: string,
+    diag: Diags,
+  ): void;
   resolve?(model: Model, diag: Diags): void;
   load?(model: Model, raw: Model['doc'], diag: Diags): void;
   /** Resolve additional addresses to the existing number/colour/bool sampling slots. */
@@ -100,6 +113,8 @@ export function registerModule(m: Module): void {
         resolveAddress,
         load,
         Player,
+        sampleTrack,
+        mixValues,
       }) ?? module;
     modules.set(module.name, module);
     FEATURES.push(module.name, ...(module.name.includes('@') ? [module.name.split('@')[0]!] : []));
@@ -140,12 +155,18 @@ function applyEntry(m: Module, e: ModuleEntry, target: string): void {
       ? FILL
       : target === 'stroke'
         ? STROKE
-        : target === 'document'
-          ? DOC
-          : nodeShape(target as NodeType)
+        : target === 'timeline'
+          ? TIMELINE
+          : target === 'state'
+            ? STATE
+            : target === 'transition'
+              ? TRANSITION
+              : target === 'document'
+                ? DOC
+                : nodeShape(target as NodeType)
   ) as ObjShape;
   if (e.node) s.p.type = { ...s.p.type!, feature: m.name };
-  for (const [k, v] of Object.entries(e.shapes)) s.p[k] = { ...v, feature: m.name };
+  for (const [k, v] of Object.entries(e.shapes)) s.p[k] = { ...v, feature: v.feature ?? m.name };
   Object.assign(ELEMENTS, e.elements);
   if (e.required) s.req = e.required;
 }

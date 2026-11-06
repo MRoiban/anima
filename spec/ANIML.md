@@ -406,3 +406,23 @@ tuples are scalar token lists, separated by whitespace or single commas. Their r
 shapes determine number, boolean or string decoding, including positional tuple member types.
 String tokens cannot contain whitespace or commas. Tuple arity, enums, ranges and minimum array
 lengths are checked by the strict loader; diagnostics retain the attribute origin and item pointer.
+
+## Motion authoring
+
+With `requires="motion"`, timelines also accept `speed`, `quantize` (positive samples
+per second) and `work="start end"`. States accept signed/zero speeds; transitions
+accept either `exit="seconds"` or `exitFraction="fraction"`. Numeric left keys can use
+`value-cubic(x1,value1,x2,value2)` and weight eases can use `elastic-in(a,p)` or
+`elastic-in-out(a,p)`. All use the JSON names verbatim; semantics are in SPEC's motion
+chapter. Nodes accept animatable `pivotX` and `pivotY` (falling back to `pivot`).
+
+A node's typed data is declared with `<channel name="count" type="int" value="0"/>`
+or `<channel name="label" type="string" value='"Hello world"'/>`. Types are `int`,
+`uint`, `string`, `reference`; a reference's string value names an existing node.
+Channel keys and pose values are addressed `dot.channels.label`; strings are quoted
+JSON strings, entity-escaped where necessary in XML attributes. They always hold:
+`<track target="dot.channels.label">0 "Ready"; 1 "Done"</track>`. Channel elements may
+appear inside any node; they are metadata and add no painted child. Named machines
+use `<machine name="accent"><layer name="tone" initial="idle">...</layer></machine>`;
+top-level `<layer>` continues to define the default machine. See
+[examples/motion.animl](../examples/motion.animl) for a complete source.

@@ -1,0 +1,12 @@
+<anima version="0.1" name="animation-keys-reference" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000">
+    <channel name="v" type="reference" value="&quot;a&quot;"/>
+  </circle>
+  <circle id="b" cx="1" cy="1" r="1" fill="#000"/>
+  <timeline name="t" duration="2">
+    <track target="a.channels.v">0 "a"; 1 "b"</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

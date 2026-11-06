@@ -1,0 +1,4 @@
+advance 0.6
+snapshot
+advance 0.5
+snapshot

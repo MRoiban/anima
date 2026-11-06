@@ -18,7 +18,7 @@ import {
   type Shape,
 } from '@anima-format/core';
 import { libraryCompiler, location } from './library-hooks.ts';
-import { moduleCompiler, componentCompiler, bindCompiler } from './module-hooks.ts';
+import { moduleCompiler, componentCompiler, bindCompiler, motionCompiler } from './module-hooks.ts';
 import { componentMarkup } from './components.ts';
 
 import type { CompileOptions, CompileResult, MarkupDiagnostic } from './index.ts';
@@ -229,7 +229,7 @@ export class Compiler {
           required.push(a.attr);
       }
       componentCompiler.form?.(el, attrs, required);
-      return {
+      const base: Form = {
         attrs,
         required,
         children: [
@@ -239,12 +239,13 @@ export class Compiler {
           ),
         ],
       };
+      return motionCompiler.form?.(el, base) ?? base;
     }
-    return (
+    const base =
       moduleCompiler.form?.(this, el) ??
       componentCompiler.componentForm?.(el, FORMS.anima!) ??
-      FORMS[el.name]!
-    );
+      FORMS[el.name]!;
+    return motionCompiler.form?.(el, base ?? { attrs: {} }) ?? base;
   }
   private kind(s: Shape): Kind {
     if (s.k === 'num') return 'number';
@@ -327,6 +328,7 @@ export class Compiler {
         !NODES.includes(c.name) &&
         !Object.hasOwn(FORMS, c.name) &&
         c.name !== 'component' &&
+        !(['channel', 'machine'].includes(c.name) && motionCompiler.form) &&
         !Object.hasOwn(ELEMENTS, c.name)
       )
         this.error(
@@ -539,6 +541,7 @@ export class Compiler {
       this.copyNode(el, a, o, p);
       moduleCompiler.node?.(this, el, children, o, p);
       componentCompiler.node?.(this, el, a, o, p);
+      motionCompiler.node?.(this, el, children, o, p);
       if (el.name === 'group') {
         this.put(o, 'children', [], p, el.at);
         for (const c of children.filter((c) => NODES.includes(c.name))) {
@@ -667,7 +670,8 @@ export class Compiler {
 
   private rootChild(c: Element, o: Json, p: string): void {
     const name = c.attrs.find((a) => a.name === 'name');
-    if (bindCompiler.rootChild?.(this, c, o, p)) return;
+    if (bindCompiler.rootChild?.(this, c, o, p) || motionCompiler.rootChild?.(this, c, o, p))
+      return;
     if (c.name === 'ease') {
       this.attrs(c, p);
       this.children(c, p);

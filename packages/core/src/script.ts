@@ -1,5 +1,6 @@
 // The command language of `anima sample` and the conformance suite (spec §11.2). Tooling only.
 
+import type { TimelineInstance } from '../../../modules/motion/core/api.ts';
 import type { Model } from './load.ts';
 import { type AnimaEvent, Player } from './player.ts';
 
@@ -27,6 +28,7 @@ export function runScript(
 ): { snapshots: Snapshot[]; player: Player } {
   const p = new Player(model, opts);
   const out: Snapshot[] = [];
+  const instances = new Map<string, TimelineInstance>();
   let events: AnimaEvent[] = [];
   let settled = false;
   const step = (dt: number) => {
@@ -93,6 +95,52 @@ export function runScript(
             p.pointer(k, x, y);
             step(0);
           }
+          break;
+        }
+        case 'instance': {
+          if (args.length < 2 || args.length > 3)
+            throw new ScriptError('use "instance <id> <timeline> [mix]"', line);
+          instances.set(
+            args[0]!,
+            p.createTimeline(args[1]!, {
+              name: args[0]!,
+              mix: args[2] === undefined ? 1 : num(args[2], 'mix'),
+            }),
+          );
+          break;
+        }
+        case 'timeline': {
+          const name = args[0]!,
+            op = args[1];
+          const t = instances.get(name) ?? p.timeline(name);
+          if (op === 'play' || op === 'pause' || op === 'stop') t[op]();
+          else if (op === 'seek' || op === 'scrub') t[op](num(args[2], op));
+          else if (op === 'speed' || op === 'mix') t[op] = num(args[2], op);
+          else if (op === 'loop' && ['once', 'loop', 'pingpong', 'authored'].includes(args[2]!))
+            t.loop = args[2] === 'authored' ? null : (args[2] as TimelineInstance['loop']);
+          else
+            throw new ScriptError(
+              'use "timeline <name> play|pause|stop|seek|scrub|speed|mix|loop [value]"',
+              line,
+            );
+          break;
+        }
+        case 'machine': {
+          const m = p.machine(args[0]!),
+            op = args[1];
+          if (op === 'play' || op === 'pause' || op === 'stop') m[op]();
+          else if (op === 'mix') m.mix = num(args[2], 'mix');
+          else if (op === 'fire') m.fire(args[2]!);
+          else if (op === 'set')
+            m.set(
+              args[2]!,
+              args[3] === 'true' ? true : args[3] === 'false' ? false : num(args[3], 'value'),
+            );
+          else
+            throw new ScriptError(
+              'use "machine <name> play|pause|stop|mix|fire|set [value …]"',
+              line,
+            );
           break;
         }
         case 'motion':

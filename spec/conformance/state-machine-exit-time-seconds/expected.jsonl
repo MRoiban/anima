@@ -1,0 +1,2 @@
+{"time":0.75,"values":{"a.x":0,"a.y":1},"states":{"l":"next"},"events":[],"settled":false}
+{"time":1.5,"values":{"a.x":0,"a.y":4},"states":{"l":"next"},"events":[],"settled":true}

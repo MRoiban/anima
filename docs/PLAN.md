@@ -213,6 +213,11 @@ and an oracle test against Rive.
       comparison against the SVG backend; SVG stays the default for icons. Must exist before P8.
 - [ ] P4b `motion`: eases, typed/string tracks, seek/reverse/work area/quantize, host timeline
       control, animatable pivot.
+  - [x] Local implementation behind `requires="motion"`; both syntaxes, CLI/schema and host APIs.
+  - [x] 27 new conformance cases; existing 41 unchanged; Chromium + Firefox host coverage.
+  - [x] Seven native frame probes / 25 frames, max delta 1 with unchanged comparison method.
+  - [ ] Fifteen native API/consumer/origin observations remain pending; reasons in parity rows.
+        No phase-completion claim. Local size/perf and final verification: LOG P4b.
 - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
       an on-change / previous-value condition (P5 benchmark: 'count increased' took 10 states).
 - [ ] P4d `events`: payloads, open-URL, audio.

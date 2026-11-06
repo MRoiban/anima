@@ -1,0 +1,52 @@
+{
+  "anima": "0.1",
+  "name": "host-api-low-level-scene-query",
+  "grid": 20,
+  "requires": [
+    "missing-motion"
+  ],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [
+        0,
+        0
+      ],
+      "r": 1,
+      "rotate": 90,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 2,
+      "tracks": {
+        "a.pivotX": [
+          [
+            0,
+            0
+          ],
+          [
+            2,
+            4
+          ]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}
