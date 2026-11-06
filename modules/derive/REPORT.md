@@ -1,8 +1,9 @@
 # P4e-8 implementation report
 
-Status: all three format fixes implemented and locally verified. Fresh native evidence for
-computed model storage remains **unverified**, blocked by the installed CLI version. This is
-not a claim of complete native parity or phase completion. Branch: `t3/computed-bind-expressions`,
+Status: all three format fixes implemented and locally verified. Fresh native follow-up
+on 2026-11-06 now captures computed model outputs and bind logic with CLI 1.9.1:
+**9 exact cases; read-only parity is an evidenced skip**. See the final section. This is
+not a claim of complete native parity. Implementation branch: `t3/computed-bind-expressions`,
 starting at `27407a1`. Main implementation commit: `85409b0`; bounded-scalar follow-up is committed
 separately. Local commits only; no push, PR or merge.
 
@@ -80,7 +81,8 @@ New codes, each tested with pointer/message/hint: `read-only-path`, `derive-cycl
 `derive-converter`. Parser errors retain bind codes; syntax hints identify the token and allowed
 operators. Computed malformed-string parser errors also become complete load diagnostics.
 
-Fresh native capture could not start: permitted local `schema` and `docs` commands both refuse
+**Historical implementation-time block (resolved by the follow-up below):** fresh native
+capture could not start. Permitted local `schema` and `docs` commands both refuse
 installed Rive 1.9.0 because 1.9.1 is required. The task prohibits updating. Existing converter
 observations are linked in oracle/README.md, but are **not** evidence for computed model storage.
 No new native comparison or evidenced skip is claimed. No `.riv` or CLI scaffold/docs text was
@@ -104,3 +106,55 @@ semantics. Both fixes have unit coverage and independently calculated snapshots 
 scoreboard conformance case. A final stale generated derive bundle was also detected after the
 reference validation change, regenerated, and rechecked before commit. Final broad scope is
 3,365 passed with unchanged limits.
+
+
+## Fresh native follow-up, 2026-11-06
+
+Rive CLI 1.9.1 now runs permitted local queries and headless command dumps. The
+follow-up owns only oracle fixtures, derive evidence/tests and this work log;
+no runtime, tool threshold, budget, parity status, push, PR or merge changes.
+
+Added **9 completed cases** to `tests/oracle/cases.json`: `derive-score-label`,
+`derive-list-relative`, and `bind-logic-{lt,le,eq,ne,and,or,not}`. Across **75
+snapshots / 186 typed observations**, all values agree exactly (zero tolerance).
+Two derive cases cover grouped score labels, clamped formula values, three
+independent list items and changes to every item's source. Seven logic cases each
+drive both a number and bool destination across nine boundary/truth vectors.
+
+The native equivalent is a converter result bridged through a scene custom
+property into model storage. Logic uses transition comparators, conjunction of
+conditions and alternative transitions; formula tokens have no comparison/logic
+operators in the local catalogue. Native captures sample settled values after
+explicit advances. This does not establish expression syntax, short-circuiting,
+precedence, per-step latency or arbitrary float64 equivalence.
+
+**Evidenced skip, not a decided intentional difference:** native read-only parity
+for this composition. Native accepts `label=manual` (**1 accepted write; Anima
+0**), retains it after one more frame, then recomputes `1,501 pts` when score
+changes to 1501. The skip references raw dumps and the test requiring Anima's
+`read-only-path` rejection. It is excluded from completed cases. No new numerical
+mismatch finding was found; all 18 inherited findings remain unchanged.
+
+Sources, reproduction, exact mappings and evidence boundaries:
+[oracle/README.md](oracle/README.md), [schema investigation](oracle/SCHEMA-NOTES.md).
+
+Follow-up branch: `t3/derive-bind-oracle-captures-1`. Final verification:
+
+- `node tools/oracle.ts --strict`: **exit 0**, **225 cases / 419 samples**, no
+  failing completed samples; **18 inherited findings unchanged**.
+- `npm run test:scope -- derive bind oracle --no-browser`: **exit 0**, **2,446
+  passed / 367 filtered skips / 15 existing TODO**, 15 files passed.
+- `npx prettier --check .`, `npx eslint .`, `npm run typecheck`: **exit 0**.
+- Native capture driver and source-only regeneration: **exit 0**. All 216
+  inherited manifest entries and metric records are unchanged; `tools/oracle.ts`
+  and `findings-metrics.json` are byte-identical to the starting branch.
+
+Development failures: the initial Prettier check flagged three new/edited files;
+formatting fixed them. The staged whitespace check also caught extra trailing
+blank lines in capture logs and one source; normalized their final newline in the
+driver and fixtures. Bare `npx tsc --noEmit` printed help and exited 1 because
+there is no root tsconfig; the declared `npm run typecheck` subsequently passed.
+The schema query for `DataConverterCondition` was rejected (unknown type), which
+motivated the evidenced transition-comparator mapping rather than inventing a
+converter. No oracle mismatch was repaired by adjusting an expectation or limit.
+Machine-readable results: [verification/native-follow-up.json](verification/native-follow-up.json).

@@ -1,108 +1,18 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. P4e merged (PR #16, 912b6c7). Now P5b on branch p5b (design/p5b/DESIGN.md); then P3b, P6–P10.
-State: main = P4e. Parity 547/1238. core+web 20109; full 93.6/100 KB (P5b ≤ +6 KB). Rive CLI 1.9.1, `update` allowed (owner).
-Next: wave 1 (Sol): lists, host-edit, assets, derive oracle follow-up; wave 2: data extras, components extras, benchmark.
-Don't: push to main; touch bind/host (full) — new modules instead; modify oracle findings or benchmark records; loosen budgets/tests.
+Goal: completed P4e derive/bind native oracle follow-up on t3/derive-bind-oracle-captures-1; local commit only.
+Verified: Rive 1.9.1, 9 exact cases/75 snapshots/186 typed values; read-only parity evidenced skip (native accepts writes).
+Checks: strict225 cases/419 samples exit0; scope2446 pass/367 filtered/15 TODO; Prettier/ESLint/typecheck pass; 18 old findings unchanged.
+Next: parent reviews/integrates local commit; no pending implementation work in this test-only follow-up.
+Don't: change runtime/oracle limits/parity statuses; no push/PR/merge; no prohibited Rive commands or binary files.
 
 ## Log
-- 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
-- 2026-11-05 12:05 [claude]: M0 spec 0.1 + monorepo + CI → PR #1 merged (evidence: gh pr view 1, merge 1901923)
-- 2026-11-05 12:18 [claude]: M1 registry/loader/diagnostics/schema/path parser → PR #2 merged (0defae8)
-- 2026-11-05 12:25 [claude]: M2 player, 12 hand-computed conformance cases, bell parity 6.0e-5° → PR #3 merged (18f98ed)
-- 2026-11-05 12:39 [claude]: M3 CLI + AUTHORING.md; added `interruptible` after Rive frame diff (f3/f7 Δ 11–14 → 2.8–3.5) → PR #4 merged (591d0ce)
-- 2026-11-05 12:50 [claude]: M4 runtime works in Chromium (no requests but the page) but bundle 16371 B esbuild → 15222 B terser (evidence: node tools/size.ts)
-- 2026-11-05 12:48 [claude]: dead end: property mangling −170 B and broke path parser table → reverted
-- 2026-11-05 12:49 [claude]: ablation: semantic loader 5199 B, check.ts 838 B, pointer+hit 1271 B; no-validation build still ~12.4 KB → budget needs code shrink, not less strictness
-- 2026-11-05 12:56 [sol]: size race (Sol) partial 15222 → 14950 B, plateau (t3/shrink-browser-bundle f92a45e)
-- 2026-11-05 12:57 [sol]: browser tests 8/8 incl. trace replay vs anima sample → merged into m4-web (c1e45b5)
-- 2026-11-05 13:00 [claude]: launched Phase A researchers r1–r4 (Sol, high); maybe-later status per user priorities
-- 2026-11-05 13:10 [sol]: Phase A r4 done: 313 rows (host-api 129, platforms 65, tooling 119; 87 maybe-later, 3 wont-do), all sourced (evidence: /data/t3/scratch/anima-parity/r4.json)
-- 2026-11-05 13:11 [sol]: Phase A r3 done: 281 rows (text 65, layout 59, rigging 25, scripting 97, gpu 35), validated (evidence: /data/t3/scratch/anima-parity/r3.json)
-- 2026-11-05 13:11 [sol]: Phase A r1 done: 336 rows (drawing-paint 125, transforms 17, animation 40, state-machine 61, input 93) (evidence: /data/t3/scratch/anima-parity/r1.json)
-- 2026-11-05 13:13 [sol]: Phase A r2 done: 345 rows (data 169, events 22, components 31, assets 50, a11y 73); all four researchers done, 1275 rows
-- 2026-11-05 13:18 [claude]: Phase A synthesized: 1238 rows after 37 merges, 111 done / 958 planned / 162 maybe-later / 3 wont-do; copy check 1 overlap → PR #5 (phase-a-parity, worktree ../anima-phase-a), waiting on CI
-- 2026-11-05 13:30 [opus]: size race (Opus) 15222 → 14636 B, plateau, parity-checked over 6060 docs (t3/shrink-browser-bundle-1 59713c7) → merged into m4-web
-- 2026-11-05 13:35 [claude]: owner chose budget 25 KB (after lighter validation re-measured at ~13.1 KB, not 11–11.5) → strict browser stays
-- 2026-11-05 14:20 [claude]: Firefox stale-clapper fix (g wrappers carry transforms, attrs never removed, mask always attached) + Firefox lane + per-frame regression test (201 frames, worst 0.019) → 130 tests green
-- 2026-11-05 14:20 [claude]: GPU Firefox (Linux WebRender, GTX 1650): old 1/4 runs stale episode, fixed 0/4; macOS symptom not reproduced → fix unverified on macOS (evidence: /data/agent-workspaces/anima-ff/*-run*.json)
-- 2026-11-05 14:40 [claude]: merged PR #5 (Phase A) and #6 (M4 incl. Firefox fix) → main 62cee1b
-- 2026-11-05 15:00 [claude]: P1 contract on p1-animl (23839c7, d9c0063): ANIML spec, bell.animl, registry markup names, xml parser (18 tests), names.ts (4 tests); launched Sol compiler (xhigh) + decompiler/formatter (high)
-- 2026-11-05 15:10 [owner]: Firefox clapper fix confirmed on macOS; name stays Anima with .ani and .animl
-- 2026-11-05 14:20 [claude]: merged Sol decompiler+formatter (0deca93) into p1-animl; parser now reports out-of-range entities → markup tests 49 pass/14 skipped (evidence: npx vitest run packages/markup)
-- 2026-11-05 14:35 [claude]: merged Sol compiler (d575827); round-trip tests on bell + 13 cases pass; full suite 274 pass, size 14635 B gz (evidence: npx vitest run; node tools/size.ts). Spec §8 lists 3 decompile normalisations ($schema, element-less $comment, singleton action lists).
-- 2026-11-05 14:45 [claude]: launched wave 2 (3 Sol agents: CLI, web markup module, migration) from 12b642d; measured markup module baseline 7032 B gz over core+web
-- 2026-11-05 15:05 [claude]: merged Sol migration (596085a): 13/13 case.animl build byte-for-byte, tools/build-animl.ts --check, corpus test; bell.animl reformatted canonically → 303 tests, 1 Firefox timing test failed once under load (2 agents running), 3/3 reruns of packages/web green (flaky, cause unverified)
-- 2026-11-05 15:20 [claude]: merged Sol CLI (2a597ae): .animl in validate/inspect/sample/render/fmt/new, build (.animl + page.html), decompile, schema both spellings, docs markup → cli+markup 221 tests pass; validate of bad .animl prints bad.animl:2:40 unknown-attribute + hint
-- 2026-11-05 14:34 [sol]: initial size command failed (esbuild absent) → npm ci installed local tooling; npm ci --ignore-scripts --dry-run accepts workspace dependency addition without lock edit.
-- 2026-11-05 14:34 [sol]: module+compiler hook 6996 B markup → VERBOSE folding 5776 B; queued inline loading fixes upgrade-before-registration; final measured 5777 B markup / 14781 B core+web (+146) (evidence: node tools/size.ts).
-- 2026-11-05 14:34 [sol]: first browser run 25 pass/5 fail: 4 inline-upgrade errors fixed via microtask; existing Firefox frame-count assertion 3 vs ≤2 (unresolved); targeted new tests then 12 pass/18 filtered; 141 unchanged markup tests pass.
-- 2026-11-05 14:38 [sol]: full verification 289 pass/3 fail → new parity test incorrectly expected reduce to jump an already-running timeline; corrected with deterministic full-duration ticks; reduced-motion trace identifies Playwright mouse.click's extra pointermove as third wake, now down/up with unchanged ≤2-frame assertion.
-- 2026-11-05 14:39 [sol]: final requested verify chain passed → 16 files / 292 tests, no skips (36 browser tests across Chromium+Firefox; 141 unchanged markup tests); core+web 14781 B gzip (+146/150 allowance), markup 5777/6144 B incremental.
-- 2026-11-05 14:39 [sol]: browser build emits anima-icon.js + anima-markup.js → build-web --check passes; intentional stale markup artifact rejected with exit 1, restored artifact passes; no new runtime dependencies beyond workspace markup, no CLI/core/spec/docs edits, no push/PR/merge.
-- 2026-11-05 15:40 [claude]: merged Sol web markup module (a980e42): markup 5777/6144 B gz, core+web 14781 B (+146); npm run check green: 347 tests, Chromium+Firefox (evidence: npm run check after local dist rebuild)
-- 2026-11-05 16:05 [claude]: merged Sol AUTHORING.md rewrite (8ee957f; 4/4 xml blocks compile, 6/6 diagnostics match, tested); markup hints for undeclared input/colour/glyph; markup 5804 B gz
-- 2026-11-05 16:15 [claude]: launched head-to-head (3 Sol, high, worktrees from 052af3f): animl / ani / rive, 45 min timebox each
-- 2026-11-05 16:45 [claude]: head-to-head merged + re-checked (AniML 7/7, .ani 7/7, Rive 4/7; switch a11y browser test added); parity row tooling.markup-authoring done (FINISHED phases P0,P1); PLAN/LOG updated
-- 2026-11-05 17:05 [claude]: PR #7 merged (45d019a, CI green on 2592cae); branched m5-glyphs
-- 2026-11-05 17:30 [claude]: Glyphy export -f animl/-f ani written myself (delegate cannot target another project): 11/11 glyphs byte-identical to anima new --glyphy, both forms; glyphy pytest 22 passed → DRAFT PR MRoiban/glyphy#2 (f7e483a), not to merge without owner. M5 agents running: format fix, trash, moon.
-- 2026-11-05 17:50 [claude]: merged moon toggle (7d186df): 6/6, rest pixel-identical, reversal delta 0, 4 friction points (want: render --compare glyph, inputs in snapshots); sheet checked visually
-- 2026-11-05 18:05 [claude]: merged trash (7d37682): 6/6, rest pixel-identical (original path at rest, split parts in motion), 7 friction points; spec §8 fmt keeps inline tracks (clarified)
-- 2026-11-05 18:20 [claude]: merged format fix (3503c3b): activate may name a bool (keyboard toggles switch, Chromium+Firefox tests), anima schema a11y/transition/listener/input; core+web 14812 B (+31); npm run check 377 pass after demo rebuild; moon gets activate=dark
-- 2026-11-05 18:50 [claude]: merged tooling (ff34197): inspect subpaths, render --compare (moon/trash 0 px), snapshot inputs; bbox rounding; PLAN M5/P2 ticked, P2 parity rows → P3, LOG M5
-- 2026-11-05 19:40 [claude]: PR #8 merged; P3 design done myself (mockup checked at 1440/1000/390, valid/errors/scrub/dark; fixed highlighter, mask sizing, phone overflow); Player.inspect() + test (+150 B gz)
-- 2026-11-05 20:30 [claude]: merged host API (d1313fe): 10/10 items, Chromium+Firefox tests, docs/WEB.md; core+web 15880 B (+918)
-- 2026-11-05 21:30 [claude]: merged playground (9f6849a); compared with mockup at 1440/1000/390 + 1280x720 (found overlap, fixed in impl+mockup); parity 15 rows done, rest → P3b; npm run check 437 pass
-- 2026-11-05 21:50 [claude]: PR #9 opened; playground first test hit Vitest 5 s default under full load → suite timeout 30 s; npm run check 437 pass
-- 2026-11-05 22:10 [claude]: PR #9 merged (c1f1288); P4 plan: 456 rows → P4a–P4e on a module system; wrote spec/MODULES.md (design)
-- 2026-11-05 23:30 [claude]: merged P4a-1 (ca2ee80): module system 5/5 hooks, paint gradients+dashes; core+web 16461 (+581), paint 2091/5120, markup 6104/6144 (near budget); found resvg ignores pathLength → PNG dashes/trims wrong (fix in P4a-2)
-- 2026-11-05 23:45 [claude]: markup budget 6→8 KB (d3e19ef); launched P4a-2 geometry (shapes, corners, morph, fixed stroke, PNG pathLength fix) and P4a-3 compositing (blend, masks, clips, paints, stroke position, draw order) in parallel, separate files
-- 2026-11-06 01:10 [claude]: merged P4a-2 geometry (e7f7dbd): 6/6; paint 3679/5120, core+web 16519; PNG dashes verified visually
-- 2026-11-06 01:40 [claude]: owner direction recorded (PLAN, LOG, MODULES §3.1 draw layer, docs/benchmarks/agent-native.md; P1 run moved to docs/benchmarks/runs/2026-11-05-p1); P5 moved after P4a; canvas Pc after P5
-- 2026-11-06 03:00 [claude]: merged P4a-3 compositing (46f2ed3) with geometry (10 conflicts resolved, artifacts regenerated): 693 tests pass; paint 7359/5120 over → split into paint + composite modules in P4a-4 with the draw layer; core+web 16697
-- 2026-11-06 03:10 [claude]: launched P4a-4 (draw layer + paint/composite split; Sol xhigh; core+web target ≤16697 B) and the Rive side of the P4a benchmark (AniML side after P4a-4)
-- 2026-11-06 03:30 [claude]: merged benchmark P4a Rive run (6688103): 5/6 (reduced motion host-only), 7m14s, 182 lines incl. generator; frames checked visually (mid-morph, clipped sweep); no .riv/scaffold docs committed
-- 2026-11-06 05:00 [claude]: merged P4a-4 draw layer (3e2a00f): 706 tests, 0.1 SVG byte-identical, paint 3771/5120, composite 3874/4096; core+web 17175 (+478 over 16697 target) → size race
-- 2026-11-06 05:10 [claude]: launched size race A+B (core+web 17175 → ≤16697, xhigh) and the AniML side of the P4a benchmark
-- 2026-11-06 06:00 [claude]: merged AniML benchmark run (6e6aea7): 5/6 (no continuous input binding → P5), 5m13s, 101 lines; Rive 5/6; table + findings in docs/benchmarks/agent-native.md; P4a-7 friction fixes queued after the size race
-- 2026-11-06 07:00 [claude]: size race: A 17017, B 16953 (both verified); combining conflicted in 9 core files → took B; round 2 from B (A's ideas as hints)
-- 2026-11-06 07:30 [claude]: npm run check green (706); found compile/load ~2x slower since draw layer (prefix test 941→1805 ms) → into size round 2
-- 2026-11-06 08:10 [claude]: owner health check: prefix test limit restored (original); compile slowdown = merge blocker; measured same-session: ~25% vitest, single compile 2.5–3.0 → 4.5–5.0 ms (1805 ms was under load); tools/perf.ts added to npm run check; full suite 706 pass
-- 2026-11-06 09:10 [claude]: merged round 2 (51ac8b7): core+web 16901 (−52, plateau; 204 over), compile speed restored — my interleaved vitest medians b7b6e92 ~1081 ms vs now ~1010 ms; next P4a-7 friction then a final size round (anywhere in core+web), else ask owner
-- 2026-11-06 09:30 [owner]: core+web size (16901, +204 over pre-draw-layer) is not a blocker → no final size round; P4a PR after P4a-7 friction fixes
-- 2026-11-06 10:00 [claude]: merged P4a-7 (cd0205d) 5/5; parity 46 rows done in P4a, 29 image/n-slice/feather rows → P5; LOG P4a entry with numbers; opening PR
-- 2026-11-06 10:40 [claude]: PR #10 merged (e0957cb); P5 design decided (design/p5/DESIGN.md: templates/libraries in AniML, components, bind expressions, assets)
-- 2026-11-06 10:50 [claude]: P5 wave 1 launched (Sol high): P5-1 bind, P5-3 AniML libraries/templates, P5-4 assets+image; components (P5-2) after bind
-- 2026-11-06 12:00 [claude]: merged P5-3 templates (a119eba): 767 tests, examples byte-identical; markup 9506/8192 over → split library support into its own browser entry; compile time unchanged on fixed workload (interleaved 818–1092 vs 881–995 ms)
-- 2026-11-06 13:00 [claude]: merged P5-1 bind (fdcc4cc): 846 tests, bind 1367/2048; owner size ceilings recorded (PLAN, parity README, table-driven tools/size.ts with totals: full-featured 34.7 KB); per-frame cost in tools/perf.ts; oracle cases scheduled before P5 merge
-- 2026-11-06 13:15 [claude]: launched P5-2 components (xhigh) and P4a Rive oracle cases (tests/oracle, committed Rive frames, CI compares Anima renders); running: assets, markup-libraries split, components, oracle (4)
-- 2026-11-06 14:00 [claude]: merged P5-4 assets (b04b23d) with bind (16 conflicts resolved): 879 tests; core+web 17083, assets 1544, full-featured 36.2 KB; markup 9722 over (split running)
-- 2026-11-06 14:40 [claude]: merged P5-3b library split (3b12d00): markup 8093/8192, markup-libraries 1755/2048 over web+markup; size.ts supports per-module base
-- 2026-11-06 15:20 [claude]: merged P4a oracle cases (7b6e847): 17 cases/21 frames vs committed Rive frames, all within AA tolerance (max share over 16: 0.35%); 908 tests
-- 2026-11-06 21:45 [claude]: merged P5-2 components (f4f5705) with assets/libraries (12 conflicts): 962 tests; core+web 17388, components 3477/4096, full 39.7 KB; markup 8551 over → split; perf noisy (load 7): prefix 751–917 ms, toolbar frame 50 µs
-- 2026-11-06 22:00 [claude]: launched P5-6 markup split (component forms), P5-5 n-slice/feather/image paints, and the Rive side of the P5 benchmark (toolbar brief); AniML side after P5-5/P5-6
-- 2026-11-07 00:10 [claude]: merged P5 benchmark Rive run (4b04ee2): 6/6, 10m48s, 997 lines/73k chars incl. generator + self-made digit font; frame 08 checked (badges 3 and 2)
-- 2026-11-07 00:40 [claude]: P5-5 (fe7438f) partial: image paints done; new surface module (n-slice + feather, 7576/8192) without nested AniML forms; 3 markup test failures; held unmerged until P5-6 markup split lands, then one markup-owner follow-up (design/p5/SURFACE-HANDOFF.md on that branch)
-- 2026-11-07 01:30 [claude]: merged P5-6 split (444194; compile interleaved ~867→842 ms, no regression) and P5-5 surface (fe7438f); 988/993 tests (3 markup fixture/name tests, demo); markup 8255 over again → P5-7 markup owner follow-up
-- 2026-11-07 02:00 [owner]: dev process: module folders + generated index (order from deps, composed registry), scoped tests locally / full suite in CI, new-capability scaffolder — recorded in PLAN/LOG; scheduled after P5-7
-- 2026-11-07 03:30 [claude]: merged D2 scoped tests (482bc30): test:scope -- paint --no-browser 6 s / 23 files vs full ~145 s; with browser the paint target is too broad (30 files) → tighten via module manifests in D1; CI job summary prints size/perf
-- 2026-11-07 05:00 [claude]: merged P5-7 (0cde698): 4/4; 3 consecutive full checks green at default concurrency (1045 tests); markup 7357/8192; real late-registration/schema-sync bugs fixed; next D1 module folders
-- 2026-11-07 05:15 [claude]: launched D1 module folders (xhigh) and the AniML side of the P5 benchmark (format final for P5)
-- 2026-11-07 07:00 [claude]: merged P5 AniML benchmark run (a80efc3): agent 5/6, re-check 6/6 (pop renders 1.25 with its script; sheet never triggered it); 3m43s vs Rive 10m48s; findings: on-change condition → P4c, text → P6, script set-before-advance documented
-- 2026-11-07 09:30 [claude]: merged D1 module folders (d9510ae): 6 modules + libraries in folders, generator --check, 12 orders identical; core+web 17789 (+248, logged); test:scope paint 12 files/4.2 s; next D3 scaffolder then P5 PR
-- 2026-11-06 11:00 [claude]: merged D3 scaffolder (c7e3012): 31 files per row, idempotent; opening P5 PR (full suite in CI)
-- 2026-11-06 18:00 [claude]: merged P4b-1 motion (7685c3f) into p4b-motion: 22 rows implemented, 7 oracle-verified, 15 oracle probes pending; motion 4982/8192, core+web 18290 (+501 hooks); perf improved; benchmark brief P4b (sync button) written
-- 2026-11-06 19:00 [claude]: merged P4b AniML benchmark run (4f5f72b): 4/6 — gaps: declarative reverse-from-current, stop at next quantized step + hold, input-bound timeline clock (scrub took 13 states), no 'anima docs motion' → P4b-3
-- 2026-11-06 20:00 [claude]: merged P4b Rive run (72a1145): 5/6 (reduced motion host-only), 5m19s, 911 lines; recorded both P4b rows; AniML rerun planned after P4b-3
-- 2026-11-06 22:00 [claude]: merged P4b-2 (b1a9ef5): 15/15 probes disposed (6 verified, 8 skip-noted, 1 finding: Rive's number dump reports uint 2^32-1 as -1 — observation-path conversion, not Anima); fix: compare in-range values, document the dump note
-- 2026-11-06 23:00 [claude]: PR #12 (Pc canvas) merged (86d2c43); merged main into p4b-motion (7 conflicts: generated wiring regenerated, corpus 71 cases); scoped changed 1149 pass + 1 expected fail
-- 2026-11-07 00:30 [claude]: merged P4b-3 (dbbbfed): sync/exitNext/hold/input time, 10 cases, sync example 6/6; fixed docs topics for web-only modules (canvas); scoped motion+cli+canvas green
-- 2026-11-07 01:30 [claude]: merged P4b-4 (aa7dc76): strict oracle exit 0, 71 samples; uint in-range exact; Rive dump float32 rounding documented
-- 2026-11-07 02:30 [claude]: merged P4b AniML rerun (afc413d): 5/6 (from 4/6); 'stall' was advance 0 (re-check completes); reduced-motion mid-loop = spec decision → P3b
-- 2026-11-07 03:00 [claude]: P4b bookkeeping: 22 rows done (259/1238), LOG with numbers (core+web 19012, +1049 logged); opening PR
-- 2026-11-07 04:00 [claude]: PR #13 CI red: canvas cross-backend harness hard-coded its module list → motion cases unknown-feature; generator now emits packages/web/src/all-modules.ts, harness uses it; canvas test 524 pass. Lesson: run browser tests for the merge's seams before pushing a phase PR
-- 2026-11-07 05:00 [claude]: PR #13 CI red again: timeouts from CPU starvation (module-order 4.7 s locally vs 30 s limit hit in CI) + scaffolder test used a now-done row; npm test now runs unit (15 s, 1229) then browser --maxWorkers=2 (2.5 min, 718); limits unchanged
+- 2026-11-06 16:59 [codex-test]: condensed oldest half of log per >200-line rule; M0–M4 established spec/CLI/web, PRs #1–6 merged; original 25 KB owner budget decision retained in docs (evidence: 1901923, 0defae8, 18f98ed, 591d0ce, 62cee1b).
+- 2026-11-06 16:59 [codex-test]: historical summary: P1 AniML, M5 icons, P3 host/playground merged; Glyphy draft PR #2 requires owner before merge; Firefox stale-clapper fix confirmed by owner on macOS (evidence: 45d019a, c1f1288, WORKLOG history in git).
+- 2026-11-06 16:59 [codex-test]: historical summary: P4a draw layer/paint/composite and perf repair merged; owner accepted 16901 B core+web; benchmarks each 5/6, continuous input binding deferred (evidence: 3e2a00f, 51ac8b7, cd0205d, e0957cb).
+- 2026-11-06 16:59 [codex-test]: historical summary: P5 bind/templates/assets/components and capability scaffolder landed; P5 PR followed; Pc canvas PR #12 merged; Rive uint full-range number dump is an observation limit, not Anima bug (evidence: c7e3012, 86d2c43, b1a9ef5).
+- 2026-11-06 16:59 [codex-test]: historical summary: P4b motion closed, 22 rows, AniML benchmark improved 4/6→5/6; strict oracle exit0/71 samples; CI starvation resolved by unit/browser separation and two browser workers with unchanged limits (evidence: dbbbfed, aa7dc76, afc413d, a02c0be).
 - 2026-11-07 05:30 [claude]: PR #13 merged (a02c0be); P4c split into modules machine/input/focus (3 agents) + P4d events (1 agent)
 - 2026-11-07 07:00 [claude]: merged P4c-3 focus (1ad668a): 16/16 rows, 3924/4096 B, core+web +0; its 16 oracle skips say 'Rive CLI unavailable' but ~/.rive/bin/rive works (agent likely used bare 'rive') → re-capture with the P4c oracle pass
 - 2026-11-07 09:00 [claude]: P4c-2 input (0dd104a) partial: 3/54 strict, broad implementation in modules/input + integration.patch (shared compile/decompile/script hooks); held unmerged until P4c-1 machine lands with the generic AniML field extension; then one integration agent (input via the generic extension, focus↔input key routing, components event registry, per-row evidence) + P4c oracle pass
@@ -200,3 +110,11 @@ Don't: push to main; touch bind/host (full) — new modules instead; modify orac
 - 2026-11-06 [claude]: PR #16 green → merged (912b6c7). Owner updated Rive CLI to 1.9.1; `update` now allowed (memory rive-cli-rules). P5b design written; 19 rows moved (fonts→P6, GPU formats→P10, layout→P7, scripting→P9, PSD→later): 93 P5b rows
 - 2026-11-06 [claude]: launched P5b wave 1 (Sol): P5b-1 lists (xhigh), P5b-2 host-edit (xhigh), P5b-3 assets/sampling/import (xhigh), P4e follow-up derive + bind-comparison Rive captures (high)
 - 2026-11-06 17:50 [claude]: wave 1 died at launch: root disk full (21 MB free, 88 agent worktrees = 12 GB) → T3 SQLITE_FULL; 0 commits on all 4 branches. Removed 86 clean worktrees (branches kept) → 13 GB free; kept 2 dirty ones (saved in refs/wip). Relaunching wave 1
+
+- 2026-11-06 16:50 [codex-test]: read contracts/history/oracle implementation; Rive schema/docs succeed on 1.9.1; node_modules absent → npm ci started; comparisons will probe transition comparators (unverified).
+
+- 2026-11-06 16:59 [codex-test]: fresh Rive 1.9.1 captures → 9 exact cases/75 snapshots/186 typed values; read-only parity skip preserves native accepted write1 vs Anima0; strict oracle225 cases/419 samples exit0, inherited216 metrics and18 findings unchanged; scope2446 pass/367 filtered/15 TODO.
+
+- 2026-11-06 17:01 [codex-test]: final evidence/docs/tests ready → Prettier/ESLint/typecheck green; generator capture/regeneration exit0; initial three formatting warnings and bare-tsc no-config failure resolved; no runtime/tool/threshold/status edits or native binaries; local commit next.
+
+- 2026-11-06 17:03 [codex-test]: staging audit caught trailing blank lines in9 native logs/1 AniML source → normalized final newlines in driver/fixtures; no observed values changed; ownership/native-binary/baseline-integrity audits pass.

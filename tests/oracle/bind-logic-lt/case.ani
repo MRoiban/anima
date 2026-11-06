@@ -1,0 +1,49 @@
+{
+  "anima": "0.1",
+  "name": "bind-logic-lt",
+  "grid": 20,
+  "requires": ["data", "bind"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "properties": {
+        "number": {
+          "type": "number"
+        },
+        "bool": {
+          "type": "bool"
+        }
+      }
+    }
+  ],
+  "bind": {
+    "dot.properties.number": "$left < $right",
+    "dot.properties.bool": "$left < $right"
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "left": {
+            "type": "number"
+          },
+          "right": {
+            "type": "number"
+          },
+          "a": {
+            "type": "bool"
+          },
+          "b": {
+            "type": "bool"
+          }
+        }
+      }
+    }
+  }
+}

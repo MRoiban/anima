@@ -1,0 +1,62 @@
+[
+  {
+    "click": 0,
+    "values": {
+      "$players.0.score": 1250,
+      "$players.0.label": "1,250 pts",
+      "$players.0.bounded": 12.5,
+      "$players.1.score": 980,
+      "$players.1.label": "980 pts",
+      "$players.1.bounded": 10,
+      "$players.2.score": 40,
+      "$players.2.label": "40 pts",
+      "$players.2.bounded": 10
+    },
+    "events": []
+  },
+  {
+    "click": 1,
+    "values": {
+      "$players.0.score": 1250,
+      "$players.0.label": "1,250 pts",
+      "$players.0.bounded": 12.5,
+      "$players.1.score": 980,
+      "$players.1.label": "980 pts",
+      "$players.1.bounded": 10,
+      "$players.2.score": 1500,
+      "$players.2.label": "1,500 pts",
+      "$players.2.bounded": 15
+    },
+    "events": []
+  },
+  {
+    "click": 2,
+    "values": {
+      "$players.0.score": 980,
+      "$players.0.label": "980 pts",
+      "$players.0.bounded": 10,
+      "$players.1.score": 980,
+      "$players.1.label": "980 pts",
+      "$players.1.bounded": 10,
+      "$players.2.score": 1500,
+      "$players.2.label": "1,500 pts",
+      "$players.2.bounded": 15
+    },
+    "events": []
+  },
+  {
+    "click": 3,
+    "values": {
+      "$players.0.score": 980,
+      "$players.0.label": "980 pts",
+      "$players.0.bounded": 10,
+      "$players.1.score": 40,
+      "$players.1.label": "40 pts",
+      "$players.1.bounded": 10,
+      "$players.2.score": 1500,
+      "$players.2.label": "1,500 pts",
+      "$players.2.bounded": 15
+    },
+    "events": []
+  }
+]

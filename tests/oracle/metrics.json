@@ -9036,5 +9036,1439 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "bind-logic-lt",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "bind-logic-le",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "bind-logic-eq",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "bind-logic-ne",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "bind-logic-and",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "bind-logic-or",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "bind-logic-not",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "derive-score-label",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$score": 1250,
+              "$label": "1,250 pts",
+              "$bounded": 12.5
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$score": 980,
+              "$label": "980 pts",
+              "$bounded": 10
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "$score": 40,
+              "$label": "40 pts",
+              "$bounded": 10
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "$score": 1500,
+              "$label": "1,500 pts",
+              "$bounded": 15
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "$score": 0,
+              "$label": "0 pts",
+              "$bounded": 10
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "$score": 2000,
+              "$label": "2,000 pts",
+              "$bounded": 20
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "$score": 2500,
+              "$label": "2,500 pts",
+              "$bounded": 20
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "$score": 1250,
+              "$label": "1,250 pts",
+              "$bounded": 12.5
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$score": 1250,
+              "$label": "1,250 pts",
+              "$bounded": 12.5
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$score": 980,
+              "$label": "980 pts",
+              "$bounded": 10
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "$score": 40,
+              "$label": "40 pts",
+              "$bounded": 10
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "$score": 1500,
+              "$label": "1,500 pts",
+              "$bounded": 15
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "$score": 0,
+              "$label": "0 pts",
+              "$bounded": 10
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "$score": 2000,
+              "$label": "2,000 pts",
+              "$bounded": 20
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "$score": 2500,
+              "$label": "2,500 pts",
+              "$bounded": 20
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "$score": 1250,
+              "$label": "1,250 pts",
+              "$bounded": 12.5
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "derive-list-relative",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$players.0.score": 1250,
+              "$players.0.label": "1,250 pts",
+              "$players.0.bounded": 12.5,
+              "$players.1.score": 980,
+              "$players.1.label": "980 pts",
+              "$players.1.bounded": 10,
+              "$players.2.score": 40,
+              "$players.2.label": "40 pts",
+              "$players.2.bounded": 10
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$players.0.score": 1250,
+              "$players.0.label": "1,250 pts",
+              "$players.0.bounded": 12.5,
+              "$players.1.score": 980,
+              "$players.1.label": "980 pts",
+              "$players.1.bounded": 10,
+              "$players.2.score": 1500,
+              "$players.2.label": "1,500 pts",
+              "$players.2.bounded": 15
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "$players.0.score": 980,
+              "$players.0.label": "980 pts",
+              "$players.0.bounded": 10,
+              "$players.1.score": 980,
+              "$players.1.label": "980 pts",
+              "$players.1.bounded": 10,
+              "$players.2.score": 1500,
+              "$players.2.label": "1,500 pts",
+              "$players.2.bounded": 15
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "$players.0.score": 980,
+              "$players.0.label": "980 pts",
+              "$players.0.bounded": 10,
+              "$players.1.score": 40,
+              "$players.1.label": "40 pts",
+              "$players.1.bounded": 10,
+              "$players.2.score": 1500,
+              "$players.2.label": "1,500 pts",
+              "$players.2.bounded": 15
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$players.0.score": 1250,
+              "$players.0.label": "1,250 pts",
+              "$players.0.bounded": 12.5,
+              "$players.1.score": 980,
+              "$players.1.label": "980 pts",
+              "$players.1.bounded": 10,
+              "$players.2.score": 40,
+              "$players.2.label": "40 pts",
+              "$players.2.bounded": 10
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$players.0.score": 1250,
+              "$players.0.label": "1,250 pts",
+              "$players.0.bounded": 12.5,
+              "$players.1.score": 980,
+              "$players.1.label": "980 pts",
+              "$players.1.bounded": 10,
+              "$players.2.score": 1500,
+              "$players.2.label": "1,500 pts",
+              "$players.2.bounded": 15
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "$players.0.score": 980,
+              "$players.0.label": "980 pts",
+              "$players.0.bounded": 10,
+              "$players.1.score": 980,
+              "$players.1.label": "980 pts",
+              "$players.1.bounded": 10,
+              "$players.2.score": 1500,
+              "$players.2.label": "1,500 pts",
+              "$players.2.bounded": 15
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "$players.0.score": 980,
+              "$players.0.label": "980 pts",
+              "$players.0.bounded": 10,
+              "$players.1.score": 40,
+              "$players.1.label": "40 pts",
+              "$players.1.bounded": 10,
+              "$players.2.score": 1500,
+              "$players.2.label": "1,500 pts",
+              "$players.2.bounded": 15
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
   }
 ]
