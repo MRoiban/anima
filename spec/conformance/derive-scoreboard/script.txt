@@ -1,5 +1,5 @@
 advance 0
-snapshot $players.0.label $players.1.label $players.2.label a.x b.x c.x
+snapshot $players.0.leading $players.2.leading $players.0.bounded $players.2.bounded $players.0.label $players.1.label $players.2.label a.x b.x c.x
 set $players.2.score 1500
 advance 0
-snapshot $players.2.label $players.2.milestone a.x b.x c.x
+snapshot $players.2.leading $players.2.bounded $players.2.label $players.2.milestone a.x b.x c.x

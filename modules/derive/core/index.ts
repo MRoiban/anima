@@ -298,6 +298,7 @@ function prepare(
             },
           ) as Value;
         if (!report) {
+          if (p.type === 'number' && typeof value === 'boolean') value = Number(value);
           if (typeof value === 'number' && !Number.isFinite(value)) value = 0;
           if (!accepts(p, value)) throw new Error('anima: derive-type ' + points.get(p));
           value = normalize(p, value);

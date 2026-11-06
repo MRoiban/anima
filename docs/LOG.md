@@ -2162,3 +2162,12 @@ schema/docs requiring 1.9.1, and updating is prohibited. No new passing native c
 claimed. Upward component lookup remains pending (`data.binding-relative`). No benchmark,
 inventory, measurement inputs, thresholds, budgets or timeouts were changed. Development failures,
 fixes and native evidence limits are in modules/derive/REPORT.md. Local branch commit only.
+
+
+P4e-8 bounded-scalar follow-up: computed numbers bypass the stored-property fallback-zero bounds
+check and bool results coerce to 0/1 before number validation/clamping. Unit tests and independent
+scoreboard snapshots cover positive minima, bounds and comparison outputs. Final requested scope
+**3365 passed / 43 existing TODO**, extra conformance/core run **389 passed / 15 existing TODO**;
+strict oracle remains exit 0. Final sizes: data **7420/8192**, derive **2117/4096**, full-featured
+**93573/102400 B**; core+web **20107** and bind **2048/2048 B** unchanged. Generated artifacts
+were regenerated/rechecked after the last validation fix. Main commit **85409b0**, follow-up local.

@@ -17,7 +17,9 @@ computed destinations with `read-only-path`, an authored JSON pointer, message a
 handle `.set()` throws `DataError` with the same code. Write the source properties instead.
 `derive-type` rejects non-scalar or incompatible declarations; `derive-converter` identifies
 missing converters. Expression errors retain bind codes. Computed values use the declared scalar
-normalization and numeric bounds. State and converter caches belong to each player/instance.
+normalization and numeric bounds. Computed numbers evaluate the expression before initial
+bounds are applied; the stored-property fallback zero is not an initial computed value. Bool
+results become 0/1 for number properties before clamping. State and converter caches belong to each player/instance.
 
 The scope-and-binding approach follows the metadata separation in
 [graph research](../../docs/research/rive-format-and-graph.md) §6 and avoids feedback iteration

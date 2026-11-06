@@ -3,8 +3,8 @@
 ## Now
 Goal: P4e-8 implementation complete; fresh native computed-property evidence remains blocked.
 Branch: t3/computed-bind-expressions; local commit only; no push, PR or merge.
-Verified: scope 3362 pass/43 TODO; final reference tests 35/35; strict oracle 216 cases/410 samples.
-Sizes: core+web 20107; full 93550; derive 2103/4096, data 7413/8192, bind 2048/2048 B.
+Verified: scope 3365 pass/43 TODO; final reference tests 35/35; strict oracle 216 cases/410 samples.
+Sizes: core+web 20107; full 93573; derive 2117/4096, data 7420/8192, bind 2048/2048 B.
 Next: parent native capture with permitted CLI version, fresh benchmark agent, phase integration.
 Don't: modify benchmark/inventory/measurement inputs or loosen limits; upward lookup remains pending.
 
@@ -187,3 +187,8 @@ Don't: modify benchmark/inventory/measurement inputs or loosen limits; upward lo
 
 - 2026-11-06 11:45 [codex]: final requested scope 3362 pass/43 TODO; reference follow-up 35/35 and shared checks 9/9 → no test failures (evidence: modules/derive/verification/tests.txt).
 - 2026-11-06 11:45 [codex]: strict oracle 216 cases/410 samples/0 failing strict, 18 findings retained; budgets/static/artifacts pass; no consistent perf regression → report/evidence prepared, fresh native storage oracle unverified (evidence: modules/derive/REPORT.md and verification/).
+
+- 2026-11-06 11:53 [codex]: final artifact check caught stale derive bundle after converter-reference fix → regenerated browser bundles and check passed before 85409b0.
+- 2026-11-06 11:53 [codex]: final scalar edge review found positive-min fallback validation and computed bool→number coercion gaps → fixed both; independent scoreboard conformance extended; final follow-up verification running (unverified).
+
+- 2026-11-06 11:56 [codex]: bounded/coercion follow-up → scope 3365 pass/43 TODO, independent conformance 389 pass/15 TODO, strict oracle exit 0; data 7420, derive 2117, full 93573 B, all limits unchanged (evidence: modules/derive/verification/).

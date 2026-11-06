@@ -3,7 +3,8 @@
 Status: all three format fixes implemented and locally verified. Fresh native evidence for
 computed model storage remains **unverified**, blocked by the installed CLI version. This is
 not a claim of complete native parity or phase completion. Branch: `t3/computed-bind-expressions`,
-starting at `27407a1`. Local commit only; no push, PR or merge.
+starting at `27407a1`. Main implementation commit: `85409b0`; bounded-scalar follow-up is committed
+separately. Local commits only; no push, PR or merge.
 
 ## Behavior
 
@@ -43,20 +44,21 @@ See verification/size.txt for the complete measurement output.
 | core + web | 20,055 | 20,107 | 30,720 |
 | markup | 7,884 | 7,912 | 8,192 |
 | bind | 1,858 | 2,048 | 2,048 |
-| data | 8,191 | 7,413 | 8,192 |
-| derive | — | 2,103 | 4,096 |
+| data | 8,191 | 7,420 | 8,192 |
+| derive | — | 2,117 | 4,096 |
 | convert | 6,161 | 6,327 | 8,192 |
 | host | 3,924 | 4,042 | 4,096 |
-| full-featured | 91,462 | 93,550 | 102,400 |
-| Rive-class | — | 98,281 | 256,000 |
+| full-featured | 91,462 | 93,573 | 102,400 |
+| Rive-class | — | 98,306 | 256,000 |
 
 Bind has zero remaining byte headroom. Markup is 12 B above the historical P5-7 7,900 B target; its unchanged 8,192 B module budget passes. Core/web's 52-byte increase is the shared scalar guard
 expression path; derive itself remains opt-in.
 
 ## Verification
 
-- Requested scope: **3,362 passed / 43 existing TODO / 0 failures**, 82 files passed and 13 pending
+- Requested scope: **3,365 passed / 43 existing TODO / 0 failures**, 82 files passed and 13 pending
   files. Includes Chromium and Firefox for bind, data, derive, convert, host and machine.
+- Final bounded/coercion regression + conformance run: **389 passed / 15 existing TODO**.
 - Final converter-reference hardening: **35/35** derive/core/CLI and convert integration tests.
   Includes a new rejection test preventing a missing authored converter from borrowing another
   document's previously registered name. Shared core/module-generator checks: **9/9**.
@@ -93,3 +95,12 @@ limit while other builds ran; isolated unchanged tests and the subsequent full r
 passed. An early event test used a string literal instead of the specified `input` field and was
 corrected; the actual computed event payload is now asserted. None of these failures is hidden by
 a looser assertion, timeout, budget or oracle threshold.
+
+
+Follow-up edge review: computed numbers with positive minima originally reached stored-default
+zero validation before their expressions ran; they now bypass that fallback check. Computed bool
+results for number properties now coerce to 0/1 before scalar validation/clamping, matching bind
+semantics. Both fixes have unit coverage and independently calculated snapshots in the existing
+scoreboard conformance case. A final stale generated derive bundle was also detected after the
+reference validation change, regenerated, and rechecked before commit. Final broad scope is
+3,365 passed with unchanged limits.

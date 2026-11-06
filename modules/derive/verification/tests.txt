@@ -3,12 +3,23 @@ Requested scope: VITEST_MAX_WORKERS=1 npm run test:scope -- derive data bind con
 
 
  Test Files  82 passed | 13 skipped (95)
-      Tests  3362 passed | 43 todo (3405)
-   Start at  11:38:32
-   Duration  179.86s (tests 88%, import 11%, transform 1%)
+      Tests  3365 passed | 43 todo (3408)
+   Start at  11:51:42
+   Duration  153.39s (tests 89%, import 10%, transform 1%)
 
 
-Final converter-reference follow-up:
+Bounded scalar/conformance follow-up:
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-96a40d78
+
+
+ Test Files  2 passed (2)
+      Tests  389 passed | 15 todo (404)
+   Start at  11:52:43
+   Duration  1.35s (transform 45%, tests 35%, import 19%, worker 1%)
+
+
+Converter reference follow-up:
 
  RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-96a40d78
 

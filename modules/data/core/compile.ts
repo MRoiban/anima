@@ -185,6 +185,7 @@ export function prepare(model: Model, d: Diags): void {
       else {
         if (
           p.type === 'number' &&
+          p.value === undefined &&
           (Number(value) < (p.min ?? -Infinity) || Number(value) > (p.max ?? Infinity))
         )
           error(dataCodes['type'], loc, 'initial value lies outside number limits');

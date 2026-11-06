@@ -286,3 +286,44 @@ it('does not borrow an authored converter from a previously loaded document', ()
     }),
   );
 });
+it('validates computed numbers from their expression instead of the fallback zero, then clamps', () => {
+  const raw = {
+    anima: '0.1',
+    name: 'bounded-derived',
+    grid: 20,
+    requires: ['data', 'bind', 'derive'],
+    nodes: [{ id: 'dot', type: 'circle', center: [10, 10], r: 1 }],
+    data: {
+      models: {
+        P: {
+          properties: {
+            n: { type: 'number', default: 3 },
+            bounded: { type: 'number', min: 10, max: 20, value: '$n * 4' },
+          },
+        },
+      },
+    },
+  };
+  const p = player(raw);
+  expect(p.get('$bounded')).toBe(12);
+  p.set('$n', 10);
+  p.step(0);
+  expect(p.get('$bounded')).toBe(20);
+  p.set('$n', -10);
+  p.step(0);
+  expect(p.get('$bounded')).toBe(10);
+});
+it('coerces bool-valued computed number expressions to 0/1', () => {
+  const raw = doc();
+  (raw.data.models.Player.properties as Record<string, unknown>).numeric = {
+    type: 'number',
+    value: '$score >= 1000',
+  };
+  const p = player(raw);
+  p.step(0);
+  expect(p.get('$players.0.numeric')).toBe(1);
+  expect(p.get('$players.2.numeric')).toBe(0);
+  p.set('$players.2.score', 1500);
+  p.step(0);
+  expect(p.get('$players.2.numeric')).toBe(1);
+});
