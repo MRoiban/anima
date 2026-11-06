@@ -1751,10 +1751,10 @@
    "rive-runtime/include/rive/generated/animation/cubic_value_interpolator_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: valueCubic(time1,value1,time2,value2)",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/animation-cubic-value/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/cubic-value",
+   "test": "modules/motion/test/core/animation-cubic-value.test.ts; spec/conformance/animation-cubic-value; modules/motion/test/web/browser.test.ts; tests/oracle/animation-cubic-value",
    "phase": "P4"
   }
  },
@@ -1807,10 +1807,10 @@
    "rive-runtime/include/rive/generated/animation/elastic_interpolator_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: elastic-in(amplitude,period)",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/animation-elastic-in/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/elastic-in",
+   "test": "modules/motion/test/core/animation-elastic-in.test.ts; spec/conformance/animation-elastic-in; modules/motion/test/web/browser.test.ts; tests/oracle/animation-elastic-in",
    "phase": "P4"
   }
  },
@@ -1836,10 +1836,10 @@
    "rive-runtime/include/rive/generated/animation/elastic_interpolator_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: elastic-in-out(amplitude,period)",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/animation-elastic-in-out/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/elastic-in-out",
+   "test": "modules/motion/test/core/animation-elastic-in-out.test.ts; spec/conformance/animation-elastic-in-out; modules/motion/test/web/browser.test.ts; tests/oracle/animation-elastic-in-out",
    "phase": "P4"
   }
  },
@@ -1976,11 +1976,12 @@
    "rive-runtime/include/rive/generated/animation/linear_animation_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: player.timeline(name).loop override",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/animation-host-loop-override/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/host-loop-override",
-   "phase": "P4"
+   "test": "modules/motion/test/core/animation-host-loop-override.test.ts; spec/conformance/animation-host-loop-override; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-loop-override",
+   "phase": "P4",
+   "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-host-loop-override/README.md."
   }
  },
  {
@@ -2007,11 +2008,12 @@
    "rive-runtime/include/rive/generated/animation/linear_animation_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: player timeline playback controls",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/animation-host-play-pause-stop/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/host-play-pause-stop",
-   "phase": "P4"
+   "test": "modules/motion/test/core/animation-host-play-pause-stop.test.ts; spec/conformance/animation-host-play-pause-stop; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-play-pause-stop",
+   "phase": "P4",
+   "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-host-play-pause-stop/README.md."
   }
  },
  {
@@ -2309,11 +2311,12 @@
    "rive-runtime/include/rive/generated/animation/keyframe_id_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: reference hold track",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/animation-keys-reference/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/keys-reference",
-   "phase": "P4"
+   "test": "modules/motion/test/core/animation-keys-reference.test.ts; spec/conformance/animation-keys-reference; modules/motion/test/web/browser.test.ts; tests/oracle/animation-keys-reference",
+   "phase": "P4",
+   "reason": "Anima reference channels hold validated node IDs; native Rive references can select other resource/object kinds. No faithful native consumer/frame mapping is claimed."
   }
  },
  {
@@ -2337,11 +2340,12 @@
    "rive-runtime/include/rive/generated/animation/keyframe_int_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: typed signed integer track",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/animation-keys-signed-integer/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/keys-signed-integer",
-   "phase": "P4"
+   "test": "modules/motion/test/core/animation-keys-signed-integer.test.ts; spec/conformance/animation-keys-signed-integer; modules/motion/test/web/browser.test.ts; tests/oracle/animation-keys-signed-integer",
+   "phase": "P4",
+   "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-keys-signed-integer/README.md."
   }
  },
  {
@@ -2365,11 +2369,12 @@
    "rive-runtime/include/rive/generated/animation/keyframe_string_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: string hold track",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/animation-keys-string/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/keys-string",
-   "phase": "P4"
+   "test": "modules/motion/test/core/animation-keys-string.test.ts; spec/conformance/animation-keys-string; modules/motion/test/web/browser.test.ts; tests/oracle/animation-keys-string",
+   "phase": "P4",
+   "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-keys-string/README.md."
   }
  },
  {
@@ -2393,11 +2398,12 @@
    "rive-runtime/include/rive/generated/animation/keyframe_uint_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: typed unsigned integer track",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/animation-keys-unsigned-integer/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/keys-unsigned-integer",
-   "phase": "P4"
+   "test": "modules/motion/test/core/animation-keys-unsigned-integer.test.ts; spec/conformance/animation-keys-unsigned-integer; modules/motion/test/web/browser.test.ts; tests/oracle/animation-keys-unsigned-integer",
+   "phase": "P4",
+   "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-keys-unsigned-integer/README.md."
   }
  },
  {
@@ -2621,11 +2627,12 @@
    "rive-runtime/include/rive/generated/animation/keyframe_id_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: discrete assignment rules for reference and string tracks",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/animation-mix-discrete/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/mix-discrete",
-   "phase": "P4"
+   "test": "modules/motion/test/core/animation-mix-discrete.test.ts; spec/conformance/animation-mix-discrete; modules/motion/test/web/browser.test.ts; tests/oracle/animation-mix-discrete",
+   "phase": "P4",
+   "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-mix-discrete/README.md."
   }
  },
  {
@@ -2649,11 +2656,12 @@
    "rive-runtime/include/rive/generated/animation/keyframe_double_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: player.applyTimeline(name,time,{mix})",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/animation-mix-numeric/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/mix-numeric",
-   "phase": "P4"
+   "test": "modules/motion/test/core/animation-mix-numeric.test.ts; spec/conformance/animation-mix-numeric; modules/motion/test/web/browser.test.ts; tests/oracle/animation-mix-numeric",
+   "phase": "P4",
+   "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-mix-numeric/README.md."
   }
  },
  {
@@ -2677,10 +2685,10 @@
    "rive-runtime/include/rive/generated/animation/linear_animation_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: timeline.quantize: samplesPerSecond",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/animation-quantized-playback/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/quantized-playback",
+   "test": "modules/motion/test/core/animation-quantized-playback.test.ts; spec/conformance/animation-quantized-playback; modules/motion/test/web/browser.test.ts; tests/oracle/animation-quantized-playback",
    "phase": "P4"
   }
  },
@@ -2707,10 +2715,10 @@
    "rive-runtime/include/rive/generated/animation/animation_state_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: negative timeline/state speed with reverse event crossing",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/animation-reverse/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/reverse",
+   "test": "modules/motion/test/core/animation-reverse.test.ts; spec/conformance/animation-reverse; modules/motion/test/web/browser.test.ts; tests/oracle/animation-reverse",
    "phase": "P4"
   }
  },
@@ -2790,11 +2798,12 @@
    "rive-runtime/include/rive/generated/animation/linear_animation_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: player.timeline(name).seek(seconds)",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/animation-seek/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/seek",
-   "phase": "P4"
+   "test": "modules/motion/test/core/animation-seek.test.ts; spec/conformance/animation-seek; modules/motion/test/web/browser.test.ts; tests/oracle/animation-seek",
+   "phase": "P4",
+   "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-seek/README.md."
   }
  },
  {
@@ -2846,10 +2855,10 @@
    "rive-runtime/include/rive/generated/animation/linear_animation_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: timeline.work: [startSeconds,endSeconds]",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/animation-work-area/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/work-area",
+   "test": "modules/motion/test/core/animation-work-area.test.ts; spec/conformance/animation-work-area; modules/motion/test/web/browser.test.ts; tests/oracle/animation-work-area",
    "phase": "P4"
   }
  },
@@ -15405,11 +15414,12 @@
    "rive-wasm/js/src/rive_advanced.mjs.d.ts:894@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: Animation metadata and clock",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/host-api-animation-metadata/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "browser/animation-metadata",
-   "phase": "P4"
+   "test": "modules/motion/test/core/host-api-animation-metadata.test.ts; spec/conformance/host-api-animation-metadata; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-animation-metadata",
+   "phase": "P4",
+   "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/host-api-animation-metadata/README.md."
   }
  },
  {
@@ -17356,11 +17366,12 @@
    "rive-wasm/js/src/rive_advanced.mjs.d.ts:877@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: explicit timeline instances and mix weight",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/host-api-low-level-animation/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "browser/low-level-animation",
-   "phase": "P4"
+   "test": "modules/motion/test/core/host-api-low-level-animation.test.ts; spec/conformance/host-api-low-level-animation; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-animation",
+   "phase": "P4",
+   "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/host-api-low-level-animation/README.md."
   }
  },
  {
@@ -17448,11 +17459,12 @@
    "rive-wasm/js/src/rive_advanced.mjs.d.ts:756@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: typed scene node handles",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/host-api-low-level-scene-query/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "browser/low-level-scene-query",
-   "phase": "P4"
+   "test": "modules/motion/test/core/host-api-low-level-scene-query.test.ts; spec/conformance/host-api-low-level-scene-query; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-scene-query",
+   "phase": "P4",
+   "reason": "Typed handles cover current Anima scene node types. Bone and text-run handles require the future rigging/text modules; no faithful counterpart for those types exists yet."
   }
  },
  {
@@ -17611,11 +17623,12 @@
    "rive-wasm/js/src/rive.ts:1555@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: named machine instances with deterministic composition order",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/host-api-multi-state-machine/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "browser/multi-state-machine",
-   "phase": "P4"
+   "test": "modules/motion/test/core/host-api-multi-state-machine.test.ts; spec/conformance/host-api-multi-state-machine; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-multi-state-machine",
+   "phase": "P4",
+   "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/host-api-multi-state-machine/README.md."
   }
  },
  {
@@ -18255,11 +18268,12 @@
    "rive-wasm/js/src/rive.ts:4189@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: Player.seek(timeline,time)",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/host-api-scrub/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "browser/scrub",
-   "phase": "P4"
+   "test": "modules/motion/test/core/host-api-scrub.test.ts; spec/conformance/host-api-scrub; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-scrub",
+   "phase": "P4",
+   "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/host-api-scrub/README.md."
   }
  },
  {
@@ -28359,10 +28373,10 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "partial: @after(s) counts seconds in the state; exit time relative to the source animation (and as a fraction of it) is new",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/state-machine-exit-time-seconds/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/exit-time-seconds",
+   "test": "modules/motion/test/core/state-machine-exit-time-seconds.test.ts; spec/conformance/state-machine-exit-time-seconds; modules/motion/test/web/browser.test.ts; tests/oracle/state-machine-exit-time-seconds",
    "phase": "P4"
   }
  },
@@ -34156,11 +34170,12 @@
    "rive-runtime/include/rive/generated/component_origin_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: animatable node.pivot in grid units",
-   "module": "core",
+   "construct": "SPEC motion; modules/motion/capabilities/transforms-origin-animation/example.animl; modules/motion/core/",
+   "module": "motion",
    "status": "planned",
-   "test": "conformance/origin-animation",
-   "phase": "P4"
+   "test": "modules/motion/test/core/transforms-origin-animation.test.ts; spec/conformance/transforms-origin-animation; modules/motion/test/web/browser.test.ts; tests/oracle/transforms-origin-animation",
+   "phase": "P4",
+   "reason": "Anima pivots change transform centres without moving local geometry; native Rive fractional shape origins also change geometry. Native origin frame equivalence is not claimed."
   }
  },
  {

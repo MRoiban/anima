@@ -1,0 +1,65 @@
+{
+  "anima": "0.1",
+  "name": "motion-machine-fade",
+  "grid": 20,
+  "requires": ["motion"],
+  "inputs": {
+    "go": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "base": {
+        "initial": "rest",
+        "states": {
+          "rest": {
+            "pose": {
+              "a.x": 2,
+              "a.y": 3
+            }
+          }
+        }
+      }
+    }
+  },
+  "machines": {
+    "overlay": {
+      "layers": {
+        "l": {
+          "initial": "idle",
+          "states": {
+            "idle": {
+              "pose": {
+                "a.x": 10
+              },
+              "on": [
+                {
+                  "when": "go",
+                  "to": "next",
+                  "blend": 1
+                }
+              ]
+            },
+            "next": {
+              "pose": {
+                "a.y": 7
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

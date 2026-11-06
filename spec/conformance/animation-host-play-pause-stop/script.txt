@@ -1,0 +1,12 @@
+timeline t play
+advance 0.5
+snapshot
+timeline t pause
+advance 0.5
+snapshot
+timeline t play
+advance 0.5
+snapshot
+timeline t stop
+advance 0
+snapshot

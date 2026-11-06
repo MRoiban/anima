@@ -1,0 +1,6 @@
+<anima version="0.1" name="host-api-low-level-animation" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <timeline name="t" duration="2">
+    <track target="a.x">0 0; 2 20</track>
+  </timeline>
+</anima>

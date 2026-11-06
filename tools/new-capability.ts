@@ -200,7 +200,7 @@ export async function scaffold(root: string, id: string, moduleName?: string): P
 export async function dryRun(root: string, id: string, moduleName?: string) {
   const scratch = mkdtempSync(resolve(tmpdir(), 'anima-capability-plan-'));
   try {
-    for (const path of ['modules', 'packages', 'spec', 'docs', 'tools'])
+    for (const path of ['modules', 'packages', 'spec', 'docs', 'tools', 'tests'])
       cpSync(resolve(root, path), resolve(scratch, path), {
         recursive: true,
         filter: (p) => !p.includes('/node_modules') && !p.includes('/dist'),
@@ -213,6 +213,10 @@ export async function dryRun(root: string, id: string, moduleName?: string) {
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   try {
     const args = process.argv.slice(2);
+    if (args.includes('--help') || args.includes('-h')) {
+      console.log('Usage: node tools/new-capability.ts <row-id> [--module <name>] [--dry-run]');
+      process.exit(0);
+    }
     const id = args.shift();
     let name: string | undefined;
     let dry = false;

@@ -1,0 +1,38 @@
+{
+  "anima": "0.1",
+  "name": "animation-mix-discrete",
+  "grid": 20,
+  "requires": ["motion"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "channels": {
+        "label": {
+          "type": "string",
+          "value": "idle"
+        }
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 2,
+      "tracks": {
+        "a.visible": [
+          [0, false],
+          [2, true]
+        ],
+        "a.channels.label": [
+          [0, "moving"],
+          [2, "done"]
+        ]
+      }
+    }
+  }
+}

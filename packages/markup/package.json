@@ -12,6 +12,7 @@
     "./bind": "./src/bind.ts",
     "./libraries": "./src/libraries.ts",
     "./library-hooks": "./src/library-hooks.ts",
+    "./motion": "./src/motion.ts",
     "./modules": "./src/modules.ts"
   },
   "files": [

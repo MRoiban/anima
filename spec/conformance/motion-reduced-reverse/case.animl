@@ -1,0 +1,8 @@
+<anima version="0.1" name="motion-reduced-reverse" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <timeline name="t" duration="2" loop="loop" speed="-1" work="0.5 1.5">
+    <track target="a.x">0 0; 2 20</track>
+    <event at="0" name="outside"/>
+    <event at="1" name="inside"/>
+  </timeline>
+</anima>

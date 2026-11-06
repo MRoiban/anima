@@ -1,0 +1,8 @@
+screenshot frames/0.png
+advance 750ms
+screenshot frames/0.75.png
+advance 500ms
+screenshot frames/1.25.png
+advance 750ms
+advance 1ms
+screenshot frames/2.png

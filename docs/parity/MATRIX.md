@@ -519,34 +519,34 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 ### Transforms and draw order
 
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `transforms.collapse` | Collapse propagation | new: explicit collapsed subtree state | interaction | planned | conformance/collapse |
-| `transforms.computed-transform-values` | Read computed geometry | new: computed geometry read-only property paths | data | planned | conformance/computed-transform-values |
-| `transforms.origin-animation` | Animated origins | new: animatable node.pivot in grid units | core | planned | conformance/origin-animation |
-| `transforms.solo` | Solo child selection | new: solo node with active child | interaction | planned | conformance/solo |
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `transforms.collapse` | Collapse propagation | new: explicit collapsed subtree state | interaction | planned | conformance/collapse |  |
+| `transforms.computed-transform-values` | Read computed geometry | new: computed geometry read-only property paths | data | planned | conformance/computed-transform-values |  |
+| `transforms.origin-animation` | Animated origins | SPEC motion; modules/motion/capabilities/transforms-origin-animation/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/transforms-origin-animation.test.ts; spec/conformance/transforms-origin-animation; modules/motion/test/web/browser.test.ts; tests/oracle/transforms-origin-animation | Anima pivots change transform centres without moving local geometry; native Rive fractional shape origins also change geometry. Native origin frame equivalence is not claimed. |
+| `transforms.solo` | Solo child selection | new: solo node with active child | interaction | planned | conformance/solo |  |
 
 ### Animation
 
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `animation.cubic-value` | Cubic value curves | new: valueCubic(time1,value1,time2,value2) | core | planned | conformance/cubic-value |
-| `animation.elastic-in` | Elastic in | new: elastic-in(amplitude,period) | core | planned | conformance/elastic-in |
-| `animation.elastic-in-out` | Elastic in-out | new: elastic-in-out(amplitude,period) | core | planned | conformance/elastic-in-out |
-| `animation.host-loop-override` | Host loop override | new: player.timeline(name).loop override | core | planned | conformance/host-loop-override |
-| `animation.host-play-pause-stop` | Host playback controls | new: player timeline playback controls | core | planned | conformance/host-play-pause-stop |
-| `animation.key-event-target` | Keyed event callbacks | new: timeline event object references and payloads | events | planned | conformance/key-event-target |
-| `animation.keys-reference` | reference keyframes | new: reference hold track | core | planned | conformance/keys-reference |
-| `animation.keys-signed-integer` | signed-integer keyframes | new: typed signed integer track | core | planned | conformance/keys-signed-integer |
-| `animation.keys-string` | string keyframes | new: string hold track | core | planned | conformance/keys-string |
-| `animation.keys-unsigned-integer` | unsigned-integer keyframes | new: typed unsigned integer track | core | planned | conformance/keys-unsigned-integer |
-| `animation.loop-callback` | Loop notifications | new: timeline loop event | events | planned | conformance/loop-callback |
-| `animation.mix-discrete` | Discrete mix writes | new: discrete assignment rules for reference and string tracks | core | planned | conformance/mix-discrete |
-| `animation.mix-numeric` | Weighted numeric application | new: player.applyTimeline(name,time,{mix}) | core | planned | conformance/mix-numeric |
-| `animation.quantized-playback` | Quantized playback | new: timeline.quantize: samplesPerSecond | core | planned | conformance/quantized-playback |
-| `animation.reverse` | Reverse playback | new: negative timeline/state speed with reverse event crossing | core | planned | conformance/reverse |
-| `animation.seek` | Host timeline seeking | new: player.timeline(name).seek(seconds) | core | planned | conformance/seek |
-| `animation.work-area` | Playback work area | new: timeline.work: [startSeconds,endSeconds] | core | planned | conformance/work-area |
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `animation.cubic-value` | Cubic value curves | SPEC motion; modules/motion/capabilities/animation-cubic-value/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-cubic-value.test.ts; spec/conformance/animation-cubic-value; modules/motion/test/web/browser.test.ts; tests/oracle/animation-cubic-value |  |
+| `animation.elastic-in` | Elastic in | SPEC motion; modules/motion/capabilities/animation-elastic-in/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-elastic-in.test.ts; spec/conformance/animation-elastic-in; modules/motion/test/web/browser.test.ts; tests/oracle/animation-elastic-in |  |
+| `animation.elastic-in-out` | Elastic in-out | SPEC motion; modules/motion/capabilities/animation-elastic-in-out/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-elastic-in-out.test.ts; spec/conformance/animation-elastic-in-out; modules/motion/test/web/browser.test.ts; tests/oracle/animation-elastic-in-out |  |
+| `animation.host-loop-override` | Host loop override | SPEC motion; modules/motion/capabilities/animation-host-loop-override/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-host-loop-override.test.ts; spec/conformance/animation-host-loop-override; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-loop-override | Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-host-loop-override/README.md. |
+| `animation.host-play-pause-stop` | Host playback controls | SPEC motion; modules/motion/capabilities/animation-host-play-pause-stop/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-host-play-pause-stop.test.ts; spec/conformance/animation-host-play-pause-stop; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-play-pause-stop | Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-host-play-pause-stop/README.md. |
+| `animation.key-event-target` | Keyed event callbacks | new: timeline event object references and payloads | events | planned | conformance/key-event-target |  |
+| `animation.keys-reference` | reference keyframes | SPEC motion; modules/motion/capabilities/animation-keys-reference/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-keys-reference.test.ts; spec/conformance/animation-keys-reference; modules/motion/test/web/browser.test.ts; tests/oracle/animation-keys-reference | Anima reference channels hold validated node IDs; native Rive references can select other resource/object kinds. No faithful native consumer/frame mapping is claimed. |
+| `animation.keys-signed-integer` | signed-integer keyframes | SPEC motion; modules/motion/capabilities/animation-keys-signed-integer/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-keys-signed-integer.test.ts; spec/conformance/animation-keys-signed-integer; modules/motion/test/web/browser.test.ts; tests/oracle/animation-keys-signed-integer | Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-keys-signed-integer/README.md. |
+| `animation.keys-string` | string keyframes | SPEC motion; modules/motion/capabilities/animation-keys-string/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-keys-string.test.ts; spec/conformance/animation-keys-string; modules/motion/test/web/browser.test.ts; tests/oracle/animation-keys-string | Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-keys-string/README.md. |
+| `animation.keys-unsigned-integer` | unsigned-integer keyframes | SPEC motion; modules/motion/capabilities/animation-keys-unsigned-integer/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-keys-unsigned-integer.test.ts; spec/conformance/animation-keys-unsigned-integer; modules/motion/test/web/browser.test.ts; tests/oracle/animation-keys-unsigned-integer | Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-keys-unsigned-integer/README.md. |
+| `animation.loop-callback` | Loop notifications | new: timeline loop event | events | planned | conformance/loop-callback |  |
+| `animation.mix-discrete` | Discrete mix writes | SPEC motion; modules/motion/capabilities/animation-mix-discrete/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-mix-discrete.test.ts; spec/conformance/animation-mix-discrete; modules/motion/test/web/browser.test.ts; tests/oracle/animation-mix-discrete | Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-mix-discrete/README.md. |
+| `animation.mix-numeric` | Weighted numeric application | SPEC motion; modules/motion/capabilities/animation-mix-numeric/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-mix-numeric.test.ts; spec/conformance/animation-mix-numeric; modules/motion/test/web/browser.test.ts; tests/oracle/animation-mix-numeric | Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-mix-numeric/README.md. |
+| `animation.quantized-playback` | Quantized playback | SPEC motion; modules/motion/capabilities/animation-quantized-playback/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-quantized-playback.test.ts; spec/conformance/animation-quantized-playback; modules/motion/test/web/browser.test.ts; tests/oracle/animation-quantized-playback |  |
+| `animation.reverse` | Reverse playback | SPEC motion; modules/motion/capabilities/animation-reverse/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-reverse.test.ts; spec/conformance/animation-reverse; modules/motion/test/web/browser.test.ts; tests/oracle/animation-reverse |  |
+| `animation.seek` | Host timeline seeking | SPEC motion; modules/motion/capabilities/animation-seek/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-seek.test.ts; spec/conformance/animation-seek; modules/motion/test/web/browser.test.ts; tests/oracle/animation-seek | Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-seek/README.md. |
+| `animation.work-area` | Playback work area | SPEC motion; modules/motion/capabilities/animation-work-area/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-work-area.test.ts; spec/conformance/animation-work-area; modules/motion/test/web/browser.test.ts; tests/oracle/animation-work-area |  |
 
 ### State machines
 
@@ -569,7 +569,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `state-machine.entry-state` | Conditional entry state | new: layer entry transition list | interaction | planned | conformance/entry-state |
 | `state-machine.exit-state` | Exit states | new: state kind exit | interaction | planned | conformance/exit-state |
 | `state-machine.exit-time-relative` | Relative exit time | new: transition.exitFraction; @end for one-shot 100% case | interaction | planned | conformance/exit-time-relative |
-| `state-machine.exit-time-seconds` | Absolute exit time | partial: @after(s) counts seconds in the state; exit time relative to the source animation (and as a fraction of it) is new | core | planned | conformance/exit-time-seconds |
+| `state-machine.exit-time-seconds` | Absolute exit time | SPEC motion; modules/motion/capabilities/state-machine-exit-time-seconds/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/state-machine-exit-time-seconds.test.ts; spec/conformance/state-machine-exit-time-seconds; modules/motion/test/web/browser.test.ts; tests/oracle/state-machine-exit-time-seconds |
 | `state-machine.literal-artboard` | artboard comparison literal | new: typed artboard literal in when expression | data | planned | conformance/literal-artboard |
 | `state-machine.literal-asset` | asset comparison literal | new: typed asset literal in when expression | data | planned | conformance/literal-asset |
 | `state-machine.literal-boolean` | boolean comparison literal | new: typed boolean literal in when expression | data | planned | conformance/literal-boolean |
@@ -853,57 +853,57 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 ### Host runtime API
 
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `host-api.animation-metadata` | Animation metadata and clock | new: Animation metadata and clock | core | planned | browser/animation-metadata |
-| `host-api.auto-bind` | Automatic data binding | new: <anima-icon auto-bind> | data | planned | browser/auto-bind |
-| `host-api.automatic-url-events` | Automatic URL actions | new: explicit host URL action policy | events | planned | browser/automatic-url-events |
-| `host-api.batched-binding` | Batch binding updates | new: data binding transaction | data | planned | browser/batched-binding |
-| `host-api.bind-view-model` | Explicit model binding | new: <anima-icon>.bind(instance) | data | planned | browser/bind-view-model |
-| `host-api.coordinate-mapping` | Coordinate transforms | new: Coordinate transforms | interaction | planned | browser/coordinate-mapping |
-| `host-api.data-artboard` | View model artboard | new: typed data.artboard(path) | data | planned | browser/data-artboard |
-| `host-api.data-boolean` | View model boolean | new: typed data.boolean(path) | data | planned | browser/data-boolean |
-| `host-api.data-color` | View model color | new: typed data.color(path) | data | planned | browser/data-color |
-| `host-api.data-enum` | View model enum | new: typed data.enum(path) | data | planned | browser/data-enum |
-| `host-api.data-font` | View model font | new: typed data.font(path) | data | planned | browser/data-font |
-| `host-api.data-image` | View model image | new: typed data.image(path) | data | planned | browser/data-image |
-| `host-api.data-list` | View model lists | new: typed data lists | data | planned | browser/data-list |
-| `host-api.data-number` | View model number | new: typed data.number(path) | data | planned | browser/data-number |
-| `host-api.data-reflection` | Property reflection | new: inspectable typed data schema | data | planned | browser/data-reflection |
-| `host-api.data-string` | View model string | new: typed data.string(path) | data | planned | browser/data-string |
-| `host-api.data-subscriptions` | Property subscriptions | new: data property subscriptions | data | planned | browser/data-subscriptions |
-| `host-api.data-trigger` | View model trigger | new: typed data.trigger(path) | data | planned | browser/data-trigger |
-| `host-api.dom-listener-control` | Automatic pointer wiring | new: <anima-icon interactive> | interaction | planned | browser/dom-listener-control |
-| `host-api.event-advance` | Callback: Advance | new: anima:advance DOM event | events | planned | browser/event-advance |
-| `host-api.event-draw` | Callback: Draw | new: anima:draw DOM event | events | planned | browser/event-draw |
-| `host-api.event-load` | Callback: Load | new: anima:load DOM event | events | planned | browser/event-load |
-| `host-api.event-loaderror` | Callback: LoadError | new: anima:loaderror DOM event | events | planned | browser/event-loaderror |
-| `host-api.event-loop` | Callback: Loop | new: anima:loop DOM event | events | planned | browser/event-loop |
-| `host-api.event-pause` | Callback: Pause | new: anima:pause DOM event | events | planned | browser/event-pause |
-| `host-api.event-play` | Callback: Play | new: anima:play DOM event | events | planned | browser/event-play |
-| `host-api.event-riveevent` | Callback: RiveEvent | new: anima:riveevent DOM event | events | planned | browser/event-riveevent |
-| `host-api.event-statechange` | Callback: StateChange | new: anima:statechange DOM event | events | planned | browser/event-statechange |
-| `host-api.event-stop` | Callback: Stop | new: anima:stop DOM event | events | planned | browser/event-stop |
-| `host-api.event-subscriptions` | Subscribe to player events | new: DOM event lifecycle callbacks | events | planned | browser/event-subscriptions |
-| `host-api.factory` | Custom resource factory | new: Custom resource factory | paint | planned | browser/factory |
-| `host-api.gamepad` | Gamepad wiring | new: opt-in gamepad adapter | interaction | planned | browser/gamepad |
-| `host-api.global-models` | Global view models | new: document-scoped shared data contexts | data | planned | browser/global-models |
-| `host-api.low-level-animation` | Animation mixing control | new: explicit timeline instances and mix weight | core | planned | browser/low-level-animation |
-| `host-api.low-level-pointer` | Manual pointer forwarding | Player.pointer(kind,x,y), extend with pointer IDs | interaction | planned | browser/low-level-pointer |
-| `host-api.low-level-scene-query` | Scene component lookup | new: typed scene node handles | core | planned | browser/low-level-scene-query |
-| `host-api.low-level-scroll` | Manual scroll forwarding | new: Player.scroll(x,y,dx,dy) | interaction | planned | browser/low-level-scroll |
-| `host-api.manual-gamepad-batch` | Manual gamepad batches | new: Manual gamepad batches | interaction | planned | browser/manual-gamepad-batch |
-| `host-api.multi-state-machine` | Multiple concurrent state machines | new: named machine instances with deterministic composition order | core | planned | browser/multi-state-machine |
-| `host-api.multitouch` | Multiple touch contacts | new: pointer-id aware core.pointer | interaction | planned | browser/multitouch |
-| `host-api.nested-models` | Nested view model paths | new: typed property paths | data | planned | browser/nested-models |
-| `host-api.pointer-exit` | Synthetic pointer exit policy | new: pointer exit policy | interaction | planned | browser/pointer-exit |
-| `host-api.renderer` | Custom renderer bridge | new: Custom renderer bridge | paint | planned | browser/renderer |
-| `host-api.scroll-hit-policy` | Scroll target inspection | new: Scroll target inspection | interaction | planned | browser/scroll-hit-policy |
-| `host-api.scroll-latching` | Scroll gesture lifecycle | new: Scroll gesture lifecycle | interaction | planned | browser/scroll-latching |
-| `host-api.scrub` | Scrub timeline | new: Player.seek(timeline,time) | core | planned | browser/scrub |
-| `host-api.view-model-discovery` | Discover view models | new: scene.data.models() | data | planned | browser/view-model-discovery |
-| `host-api.view-model-instances` | Create view model instances | new: typed model instance factory | data | planned | browser/view-model-instances |
-| `host-api.volume` | Artboard volume | new: <anima-icon>.volume | audio | planned | browser/volume |
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `host-api.animation-metadata` | Animation metadata and clock | SPEC motion; modules/motion/capabilities/host-api-animation-metadata/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/host-api-animation-metadata.test.ts; spec/conformance/host-api-animation-metadata; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-animation-metadata | Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/host-api-animation-metadata/README.md. |
+| `host-api.auto-bind` | Automatic data binding | new: <anima-icon auto-bind> | data | planned | browser/auto-bind |  |
+| `host-api.automatic-url-events` | Automatic URL actions | new: explicit host URL action policy | events | planned | browser/automatic-url-events |  |
+| `host-api.batched-binding` | Batch binding updates | new: data binding transaction | data | planned | browser/batched-binding |  |
+| `host-api.bind-view-model` | Explicit model binding | new: <anima-icon>.bind(instance) | data | planned | browser/bind-view-model |  |
+| `host-api.coordinate-mapping` | Coordinate transforms | new: Coordinate transforms | interaction | planned | browser/coordinate-mapping |  |
+| `host-api.data-artboard` | View model artboard | new: typed data.artboard(path) | data | planned | browser/data-artboard |  |
+| `host-api.data-boolean` | View model boolean | new: typed data.boolean(path) | data | planned | browser/data-boolean |  |
+| `host-api.data-color` | View model color | new: typed data.color(path) | data | planned | browser/data-color |  |
+| `host-api.data-enum` | View model enum | new: typed data.enum(path) | data | planned | browser/data-enum |  |
+| `host-api.data-font` | View model font | new: typed data.font(path) | data | planned | browser/data-font |  |
+| `host-api.data-image` | View model image | new: typed data.image(path) | data | planned | browser/data-image |  |
+| `host-api.data-list` | View model lists | new: typed data lists | data | planned | browser/data-list |  |
+| `host-api.data-number` | View model number | new: typed data.number(path) | data | planned | browser/data-number |  |
+| `host-api.data-reflection` | Property reflection | new: inspectable typed data schema | data | planned | browser/data-reflection |  |
+| `host-api.data-string` | View model string | new: typed data.string(path) | data | planned | browser/data-string |  |
+| `host-api.data-subscriptions` | Property subscriptions | new: data property subscriptions | data | planned | browser/data-subscriptions |  |
+| `host-api.data-trigger` | View model trigger | new: typed data.trigger(path) | data | planned | browser/data-trigger |  |
+| `host-api.dom-listener-control` | Automatic pointer wiring | new: <anima-icon interactive> | interaction | planned | browser/dom-listener-control |  |
+| `host-api.event-advance` | Callback: Advance | new: anima:advance DOM event | events | planned | browser/event-advance |  |
+| `host-api.event-draw` | Callback: Draw | new: anima:draw DOM event | events | planned | browser/event-draw |  |
+| `host-api.event-load` | Callback: Load | new: anima:load DOM event | events | planned | browser/event-load |  |
+| `host-api.event-loaderror` | Callback: LoadError | new: anima:loaderror DOM event | events | planned | browser/event-loaderror |  |
+| `host-api.event-loop` | Callback: Loop | new: anima:loop DOM event | events | planned | browser/event-loop |  |
+| `host-api.event-pause` | Callback: Pause | new: anima:pause DOM event | events | planned | browser/event-pause |  |
+| `host-api.event-play` | Callback: Play | new: anima:play DOM event | events | planned | browser/event-play |  |
+| `host-api.event-riveevent` | Callback: RiveEvent | new: anima:riveevent DOM event | events | planned | browser/event-riveevent |  |
+| `host-api.event-statechange` | Callback: StateChange | new: anima:statechange DOM event | events | planned | browser/event-statechange |  |
+| `host-api.event-stop` | Callback: Stop | new: anima:stop DOM event | events | planned | browser/event-stop |  |
+| `host-api.event-subscriptions` | Subscribe to player events | new: DOM event lifecycle callbacks | events | planned | browser/event-subscriptions |  |
+| `host-api.factory` | Custom resource factory | new: Custom resource factory | paint | planned | browser/factory |  |
+| `host-api.gamepad` | Gamepad wiring | new: opt-in gamepad adapter | interaction | planned | browser/gamepad |  |
+| `host-api.global-models` | Global view models | new: document-scoped shared data contexts | data | planned | browser/global-models |  |
+| `host-api.low-level-animation` | Animation mixing control | SPEC motion; modules/motion/capabilities/host-api-low-level-animation/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/host-api-low-level-animation.test.ts; spec/conformance/host-api-low-level-animation; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-animation | Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/host-api-low-level-animation/README.md. |
+| `host-api.low-level-pointer` | Manual pointer forwarding | Player.pointer(kind,x,y), extend with pointer IDs | interaction | planned | browser/low-level-pointer |  |
+| `host-api.low-level-scene-query` | Scene component lookup | SPEC motion; modules/motion/capabilities/host-api-low-level-scene-query/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/host-api-low-level-scene-query.test.ts; spec/conformance/host-api-low-level-scene-query; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-scene-query | Typed handles cover current Anima scene node types. Bone and text-run handles require the future rigging/text modules; no faithful counterpart for those types exists yet. |
+| `host-api.low-level-scroll` | Manual scroll forwarding | new: Player.scroll(x,y,dx,dy) | interaction | planned | browser/low-level-scroll |  |
+| `host-api.manual-gamepad-batch` | Manual gamepad batches | new: Manual gamepad batches | interaction | planned | browser/manual-gamepad-batch |  |
+| `host-api.multi-state-machine` | Multiple concurrent state machines | SPEC motion; modules/motion/capabilities/host-api-multi-state-machine/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/host-api-multi-state-machine.test.ts; spec/conformance/host-api-multi-state-machine; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-multi-state-machine | Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/host-api-multi-state-machine/README.md. |
+| `host-api.multitouch` | Multiple touch contacts | new: pointer-id aware core.pointer | interaction | planned | browser/multitouch |  |
+| `host-api.nested-models` | Nested view model paths | new: typed property paths | data | planned | browser/nested-models |  |
+| `host-api.pointer-exit` | Synthetic pointer exit policy | new: pointer exit policy | interaction | planned | browser/pointer-exit |  |
+| `host-api.renderer` | Custom renderer bridge | new: Custom renderer bridge | paint | planned | browser/renderer |  |
+| `host-api.scroll-hit-policy` | Scroll target inspection | new: Scroll target inspection | interaction | planned | browser/scroll-hit-policy |  |
+| `host-api.scroll-latching` | Scroll gesture lifecycle | new: Scroll gesture lifecycle | interaction | planned | browser/scroll-latching |  |
+| `host-api.scrub` | Scrub timeline | SPEC motion; modules/motion/capabilities/host-api-scrub/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/host-api-scrub.test.ts; spec/conformance/host-api-scrub; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-scrub | Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/host-api-scrub/README.md. |
+| `host-api.view-model-discovery` | Discover view models | new: scene.data.models() | data | planned | browser/view-model-discovery |  |
+| `host-api.view-model-instances` | Create view model instances | new: typed model instance factory | data | planned | browser/view-model-instances |  |
+| `host-api.volume` | Artboard volume | new: <anima-icon>.volume | audio | planned | browser/volume |  |
 
 ## P5 — Done: components, bindings, assets, images, n-slice and feathering <a id="p5"></a>
 

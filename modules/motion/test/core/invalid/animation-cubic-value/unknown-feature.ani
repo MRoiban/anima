@@ -1,0 +1,52 @@
+{
+  "anima": "0.1",
+  "name": "animation-cubic-value",
+  "grid": 20,
+  "requires": [
+    "missing-motion"
+  ],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [
+        0,
+        0
+      ],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 2,
+      "tracks": {
+        "a.x": [
+          [
+            0,
+            0,
+            "value-cubic(0.3333333333333333,8,0.6666666666666666,8)"
+          ],
+          [
+            2,
+            0
+          ]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  }
+}

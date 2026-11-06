@@ -118,3 +118,35 @@ entry to `cases.json`. Tests and `node tools/oracle.ts` report the marker's reas
 Replace the scene, author/capture independent references, build `.ani`, set explicit comparison
 limits, remove the marker and add the completed manifest entry. A pending case in `cases.json`
 is an error, so an empty scaffold cannot count as a successful oracle.
+
+## P4b motion probes
+
+Seven additional independently authored native Rive scenes cover value-cubic,
+elastic-in, elastic-in-out, quantized sampling, reverse, work areas, and exit time in
+source-animation seconds with a state speed multiplier. They add 25 frames, using
+axis-aligned integer rectangles: every measured frame has max delta 1 and 0% of pixels
+over 16. Their new budgets are max delta 2 and 0%; existing budgets/methods are unchanged.
+Regenerate with `python3 modules/motion/capture-oracles.py` and
+`python3 modules/motion/capture-exit-oracle.py`, then `node tools/oracle.ts --build`.
+The scripts only author RML and invoke local headless commands; they delete generated
+binary outputs without reading them. Rive CLI 1.9.0, EGL device / 4x MSAA as above.
+
+Quantization uses 2 samples/second and off-grid samples 0.75 and 1.25 seconds. The
+first attempt omitted Anima's quantize attribute; adding it fixed those samples.
+At nominal 2 seconds, the native runner's accumulated float clock remained just below
+the final quantization boundary (rendering the 1.5-second pose). The native command
+therefore advances an additional 1 ms before the final screenshot, testing the
+clamped once endpoint; Anima renders the exact endpoint at 2 seconds. This adjustment
+is confined to reference capture timing, not a tolerance or runtime change. Exit-time
+capture initially used a numeric flags attribute that did not enable the RML flag;
+using `enableExitTime="true"` made all four frames match, without changing Anima.
+
+The elastic probes use amplitude 1 and period 0.5. They do not establish equivalence
+for Rive's amplitude-below-one ramp or period-zero fallback: Anima keeps the existing
+specified elastic formula and rejects zero periods. Other motion rows retain explicit
+pending markers: an image cannot observe host handle identity, metadata, independent
+advance/apply clocks, or typed channel storage; no native API observation is claimed.
+Reference channels currently resolve scene nodes, not arbitrary Rive resource objects.
+Typed scene queries expose current node types, not future bones or text runs. Animated
+Anima pivots and Rive fractional origins have different geometry semantics; the native
+origin comparison remains pending. These limits are also recorded in the parity rows.

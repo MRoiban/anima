@@ -1,0 +1,24 @@
+<anima version="0.1" name="motion" grid="20" requires="motion">
+  <circle id="dot" cx="10" cy="10" r="2" pivotX="10" pivotY="10" pivot="10 10" fill="#000">
+    <channel name="count" type="int" value="0"/>
+    <channel name="label" type="string" value="&quot;Ready&quot;"/>
+    <channel name="target" type="reference" value="&quot;dot&quot;"/>
+  </circle>
+  <timeline name="bounce" duration="2" loop="pingpong" speed="1" quantize="12" work="0.25 1.75">
+    <track target="dot.y">0 0 value-cubic(0.3333333333333333, -8, 0.6666666666666666, -8); 2 0</track>
+    <track target="dot.pivotX">0 10; 2 14</track>
+    <track target="dot.channels.count">0 0; 1 -1; 2 2</track>
+    <track target="dot.channels.label">0 "Ready"; 1 "Bouncing"; 2 "Done"</track>
+    <event at="1" name="apex"/>
+  </timeline>
+  <layer name="main" initial="bounce">
+    <state name="bounce" play="bounce"/>
+  </layer>
+  <machine name="accent">
+    <layer name="tone" initial="small">
+      <state name="small">
+        <pose dot.scale="0.75"/>
+      </state>
+    </layer>
+  </machine>
+</anima>

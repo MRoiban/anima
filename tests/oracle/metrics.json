@@ -264,5 +264,229 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "animation-cubic-value",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 2,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "animation-elastic-in",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 2,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "animation-elastic-in-out",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 2,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "animation-quantized-playback",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.75,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1.25,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 2,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "animation-reverse",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 2,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "animation-work-area",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.25,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.75,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1.25,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "state-machine-exit-time-seconds",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.25,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.75,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1.5,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
   }
 ]

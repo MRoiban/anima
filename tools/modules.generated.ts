@@ -13,6 +13,7 @@ export const webEntries = [
   'markup-paint',
   'surface',
   'markup-surface',
+  'motion',
 ];
 export const webOwners: Record<string, string> = {
   components: 'components',
@@ -22,6 +23,7 @@ export const webOwners: Record<string, string> = {
   assets: 'assets',
   markup: 'markup',
   'markup-libraries': 'markup-libraries',
+  motion: 'motion',
   paint: 'paint',
   'markup-paint': 'paint',
   composite: 'composite',
@@ -48,6 +50,7 @@ export const moduleBudgets: {
   { name: 'assets', buildOrder: 7, sizeOrder: 9, budget: 2048 },
   { name: 'surface', buildOrder: 11, sizeOrder: 10, budget: 8192 },
   { name: 'components', buildOrder: 5, sizeOrder: 11, budget: 4096 },
+  { name: 'motion', budget: 8192 },
 ];
 export const moduleScopes = {
   components: {
@@ -89,6 +92,41 @@ export const moduleScopes = {
   },
   markup: { tests: ['packages/web/test/markup-hooks.test.ts'], conformance: [] },
   'markup-libraries': { tests: ['modules/markup-libraries/test/**/*.test.ts'], conformance: [] },
+  motion: {
+    tests: [
+      'modules/motion/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+      'packages/markup/test/compile.test.ts',
+      'packages/markup/test/decompile.test.ts',
+      'packages/markup/test/format.test.ts',
+    ],
+    conformance: [
+      'motion-',
+      'animation-cubic-value',
+      'animation-elastic-in',
+      'animation-elastic-in-out',
+      'animation-host-loop-override',
+      'animation-host-play-pause-stop',
+      'animation-keys-reference',
+      'animation-keys-signed-integer',
+      'animation-keys-string',
+      'animation-keys-unsigned-integer',
+      'animation-mix-discrete',
+      'animation-mix-numeric',
+      'animation-quantized-playback',
+      'animation-reverse',
+      'animation-seek',
+      'animation-work-area',
+      'host-api-animation-metadata',
+      'host-api-low-level-animation',
+      'host-api-low-level-scene-query',
+      'host-api-multi-state-machine',
+      'host-api-scrub',
+      'state-machine-exit-time-seconds',
+      'transforms-origin-animation',
+    ],
+  },
   paint: {
     tests: [
       'modules/paint/test/**/*.test.ts',

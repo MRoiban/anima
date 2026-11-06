@@ -1,0 +1,15 @@
+<anima version="0.1" name="state-machine-exit-time-seconds" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <timeline name="t" duration="2">
+    <track target="a.x">0 0; 2 20</track>
+  </timeline>
+  <timeline name="u" duration="1">
+    <track target="a.y">0 0; 1 4</track>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t" speed="2">
+      <on when="@after(0)" to="next" exit="1"/>
+    </state>
+    <state name="next" play="u"/>
+  </layer>
+</anima>
