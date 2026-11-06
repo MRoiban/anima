@@ -1,0 +1,95 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[04:34:19.985] rive  deferred replay: inline
+[04:34:20.012] rive  built (10449 bytes, 26ms, 0 errors, 0 warnings)
+[04:34:20.013] rive  showing Share [1/1]
+[04:34:20.013] rive  viewport 240x240 @1x
+ok advance
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[04:34:20.044] rive  wrote timing-rest.png
+ok screenshot: timing-rest.png
+[04:34:20.045] rive  wrote timing-rest.log
+ok data-dump: timing-rest.log
+ok pointer
+[04:34:20.045] rive  event shared
+[04:34:20.045] rive  sound click: triggered
+ok advance
+[04:34:20.045] rive  wrote timing-click1.log
+ok data-dump: timing-click1.log
+[04:34:20.049] rive  wrote timing-f01.png
+ok screenshot: timing-f01.png
+ok advance
+[04:34:20.055] rive  wrote timing-f09.png
+ok screenshot: timing-f09.png
+ok advance
+[04:34:20.060] rive  wrote timing-f12.png
+ok screenshot: timing-f12.png
+ok advance
+[04:34:20.065] rive  wrote timing-f15.png
+ok screenshot: timing-f15.png
+ok advance
+[04:34:20.070] rive  wrote timing-f24.png
+ok screenshot: timing-f24.png
+[04:34:20.070] rive  event pulse-done
+ok advance
+ok advance
+ok pointer
+[04:34:20.070] rive  event shared
+[04:34:20.070] rive  sound click: triggered
+[04:34:20.070] rive  event pulse-done
+ok advance
+ok pointer
+[04:34:20.070] rive  event shared
+[04:34:20.070] rive  sound click: triggered
+[04:34:20.070] rive  event pulse-done
+ok advance
+ok pointer
+[04:34:20.070] rive  event shared
+[04:34:20.070] rive  sound click: triggered
+[04:34:20.070] rive  event pulse-done
+ok advance
+ok pointer
+[04:34:20.070] rive  event shared
+[04:34:20.070] rive  sound click: triggered
+[04:34:20.070] rive  event milestone
+[04:34:20.070] rive  url https://example.org/thanks
+[04:34:20.070] rive  event pulse-done
+ok advance
+[04:34:20.070] rive  wrote timing-click5.log
+ok data-dump: timing-click5.log
+ok pointer
+[04:34:20.070] rive  event shared
+[04:34:20.070] rive  sound click: triggered
+[04:34:20.070] rive  event pulse-done
+ok advance
+ok pointer
+[04:34:20.070] rive  event shared
+[04:34:20.070] rive  sound click: triggered
+[04:34:20.070] rive  event pulse-done
+ok advance
+ok pointer
+[04:34:20.070] rive  event shared
+[04:34:20.070] rive  sound click: triggered
+[04:34:20.071] rive  event pulse-done
+ok advance
+ok pointer
+[04:34:20.071] rive  event shared
+[04:34:20.071] rive  sound click: triggered
+[04:34:20.071] rive  event pulse-done
+ok advance
+ok pointer
+[04:34:20.071] rive  event shared
+[04:34:20.071] rive  sound click: triggered
+[04:34:20.071] rive  event milestone
+[04:34:20.071] rive  url https://example.org/thanks
+[04:34:20.071] rive  event pulse-done
+ok advance
+[04:34:20.071] rive  wrote timing-click10.log
+ok data-dump: timing-click10.log
+ok pointer
+[04:34:20.071] rive  event shared
+[04:34:20.071] rive  sound click: triggered
+[04:34:20.071] rive  event pulse-done
+ok advance
+[04:34:20.071] rive  wrote timing-click11.log
+ok data-dump: timing-click11.log
+ok quit
