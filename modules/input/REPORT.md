@@ -1,3 +1,6 @@
+Oracle follow-up: the original 36 pending probes and all earlier skips are now disposed in
+[ORACLE-RESULTS.md](ORACLE-RESULTS.md). The implementation handoff below records the earlier state.
+
 # STATUS / VERIFY / METRIC / DEVIATIONS / PROBLEMS
 
 ## STATUS

@@ -1,6 +1,13 @@
 {
   "status": "skip",
-  "reason": "The CLI supplies synthetic controller input and cannot reproduce navigator.getGamepads polling, visibility/focus gating or browser-host teardown. Browser tests stub browser polling and focus gating.",
-  "evidence": "Local Rive CLI 1.9.0 --help and headless input command surface; no browser DOM is exposed by those captures.",
+  "reason": "Synthetic gamepad events are observable; browser polling and visibility/focus gating require navigator and a DOM host, which the native runner does not provide.",
+  "captureEvidence": [
+    "tests/oracle/input-gamepad-host/rive/scene.rml",
+    "tests/oracle/input-gamepad-host/rive/commands.txt",
+    "tests/oracle/input-gamepad-host/rive/session.txt",
+    "tests/oracle/input-gamepad-host/rive/frames/0.json",
+    "tests/oracle/input-gamepad-host/rive/frames/0.semantics.json",
+    "tests/oracle/input-gamepad-host/rive/frames/limit.png"
+  ],
   "tests": ["modules/input/test/core/runtime.test.ts", "modules/input/test/web/browser.test.ts"]
 }

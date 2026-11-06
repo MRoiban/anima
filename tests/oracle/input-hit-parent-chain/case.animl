@@ -1,9 +1,1 @@
-<anima version="0.1" name="input-hit-parent-chain" grid="20" requires="input">
-  <number name="n"/>
-
-  <group id="parent" pointerEnabled="false">
-    <circle id="disc" cx="10" cy="10" r="5" fill="#000"/>
-  </group>
-
-  <listener on="down" target="disc" write="{&quot;pointerId&quot;:&quot;n&quot;}"/>
-</anima>
+<anima version="0.1" name="input-hit-parent-chain" grid="20" requires="input"><number name="n"/><group id="parent"><circle id="a" cx="10" cy="10" r="5" fill="#4263eb"/></group><listener on="down" target="parent" set="n=1"/></anima>

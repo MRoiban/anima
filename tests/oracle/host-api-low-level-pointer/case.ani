@@ -1,0 +1,32 @@
+{
+  "anima": "0.1",
+  "name": "host-api-low-level-pointer",
+  "grid": 240,
+  "requires": ["input"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [120, 120],
+      "r": 60,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "down",
+      "target": "a",
+      "set": {},
+      "write": {
+        "x": "n"
+      }
+    }
+  ]
+}

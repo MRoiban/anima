@@ -1,10 +1,12 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now: P4c interaction (branch p4c-interaction; modules machine, input, focus) and P4d events (branch p4d-events) in parallel; then P4e data, P5b, P3b, P6–P10.
-State: main a02c0be = through P4b (PR #13). Parity 259/1238. core+web 19012; full-featured 51.4 KB.
-Next: merge agents per branch; before pushing a merge run browser tests for the seams; benchmark per phase; PR per phase.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: input/focus native oracle evidence complete; no push/PR/merge.
+Branch: t3/input-focus-oracle-coverage, base aca99d3.
+Verified: input36 → 27 verified/6 skips/3 findings; focus16 → 16 verified; seven extra cursor comparisons.
+Checks: scoped 1426 pass/119 out-of-scope skips; strict oracle0 (104 cases/295 samples), format/lint/types/parity/corpus pass.
+Next: owner reviews three numerical findings and phase gates; see modules/input/ORACLE-RESULTS.md.
+Don't: equate strict0 with full parity; read .riv; loosen tolerances; publish/push/PR/merge.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -108,3 +110,5 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 09:00 [claude]: P4c-2 input (0dd104a) partial: 3/54 strict, broad implementation in modules/input + integration.patch (shared compile/decompile/script hooks); held unmerged until P4c-1 machine lands with the generic AniML field extension; then one integration agent (input via the generic extension, focus↔input key routing, components event registry, per-row evidence) + P4c oracle pass
 - 2026-11-07 10:00 [claude]: merged P4c-1 machine (dd995fa): 26/26, 37 cases, 18 oracle-verified, machine 5736/8192, core+web +36, generic AniML extension; seam: 17 focus decompile round-trips lose node 'focus' objects (generic extension lacks node-object fields) → integration agent P4c-4
 - 2026-11-07 12:00 [claude]: merged P4c-4 integration (9cc628a): input 18/54 strict (36 await oracle), focus round trips 17/17, core+web +0; perf under load avg 16: min-of-4 prefixes main 973 vs branch 955 ms (no regression; re-measure quiet before PR)
+- 2026-11-06 04:42 [sol-test]: captured input/focus; 36 → 27 verified/6 limits/3 findings; focus16 exact; seven earlier cursor skips now observed → final checks pending (evidence: tests/oracle/*/rive/session.txt; modules/input/ORACLE-RESULTS.md).
+- 2026-11-06 04:43 [sol-test]: final scoped1426 pass/119 filtered; strict0 (104 cases/295 samples); format/lint/tools-tsc/parity/corpus green → ready for local commit (evidence: modules/input/ORACLE-RESULTS.md; findings-metrics.json).

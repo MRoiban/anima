@@ -10,4 +10,6 @@ All runtime implementation stays in modules/focus; shared script commands are th
 
 The components module currently validates an exhaustive event-kind list. Focus init wraps its composed resolve hook and removes only unknown-event diagnostics for local focus/blur listeners in focus-declaring documents. Prefer incorporating focus/blur into the components resolver's recognized input-kind seam when consolidating modules; preserve tests for component-local listeners. Nested players already expose a players map, reused without changing components source.
 
-Final module size: 3924/4096 B incremental, core+web delta 0. Rive CLI absent (exit 127); 16 explicit skip.json files, zero new reference captures.
+Original module size: 3924/4096 B incremental, core+web delta 0. The original CLI-absent claim
+was invalid: `~/.rive/bin/rive` works. The oracle follow-up replaces all 16 skips with real
+headless captures and exact logical focus/data comparisons; see `../input/ORACLE-RESULTS.md`.

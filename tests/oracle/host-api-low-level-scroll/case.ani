@@ -1,0 +1,34 @@
+{
+  "anima": "0.1",
+  "name": "host-api-low-level-scroll",
+  "grid": 240,
+  "requires": ["input"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 240,
+      "h": 200,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "scroll",
+      "target": "a",
+      "set": {},
+      "write": {
+        "deltaY": "n"
+      }
+    }
+  ]
+}

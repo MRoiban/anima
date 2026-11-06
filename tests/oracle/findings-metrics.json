@@ -1,0 +1,101 @@
+[
+  {
+    "name": "input-keyboard-bubbling",
+    "reason": "Target keyboard listener consumes native F13 before the parent normal listener; Anima bubbles to the parent.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": 0,
+        "reference": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "actual": 2,
+        "reference": 2,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 2,
+        "actual": 2,
+        "reference": 1,
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "input-capture-phase",
+    "reason": "Parent capture handling wins n=1 in the native pointer dispatch, while Anima child capture with consume wins n=2.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": 0,
+        "reference": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "actual": 2,
+        "reference": 1,
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "input-align-preserve",
+    "reason": "First drag move preserves the native origin at 80, while Anima applies the 16-unit displacement measured from down, yielding 96.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": 80,
+        "reference": 80,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "actual": 80,
+        "reference": 80,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 2,
+        "actual": 96,
+        "reference": 80,
+        "maxDiff": 16,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      },
+      {
+        "time": 3,
+        "actual": 96,
+        "reference": 80,
+        "maxDiff": 16,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  }
+]

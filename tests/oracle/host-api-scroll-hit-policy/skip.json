@@ -1,6 +1,13 @@
 {
   "status": "skip",
-  "reason": "Headless scroll injection has no surrounding browser page and cannot observe wheel defaultPrevented or DOM native page scrolling. Browser tests check handled, unhandled and latched wheel delivery.",
-  "evidence": "Local Rive CLI 1.9.0 --help and headless input command surface; no browser DOM is exposed by those captures.",
+  "reason": "The runner can inject wheel input, but no surrounding browser page or WheelEvent.defaultPrevented is exposed. Native scroll output cannot establish prevention of page scrolling.",
+  "captureEvidence": [
+    "tests/oracle/host-api-scroll-hit-policy/rive/scene.rml",
+    "tests/oracle/host-api-scroll-hit-policy/rive/commands.txt",
+    "tests/oracle/host-api-scroll-hit-policy/rive/session.txt",
+    "tests/oracle/host-api-scroll-hit-policy/rive/frames/0.json",
+    "tests/oracle/host-api-scroll-hit-policy/rive/frames/0.semantics.json",
+    "tests/oracle/host-api-scroll-hit-policy/rive/frames/limit.png"
+  ],
   "tests": ["modules/input/test/core/runtime.test.ts", "modules/input/test/web/browser.test.ts"]
 }

@@ -1,0 +1,38 @@
+{
+  "anima": "0.1",
+  "name": "input-align-snap",
+  "grid": 240,
+  "requires": ["input"],
+  "inputs": {
+    "n": {
+      "type": "number",
+      "default": 80
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": -12,
+      "y0": -12,
+      "w": 24,
+      "h": 24,
+      "x": 80,
+      "y": 100,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "drag",
+      "target": "a",
+      "set": {},
+      "write": {
+        "x": "n"
+      },
+      "align": "snap"
+    }
+  ]
+}

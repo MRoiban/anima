@@ -1,6 +1,13 @@
 {
   "status": "skip",
-  "reason": "The CLI injects one synthetic gamepad event at a time; it exposes no atomic validated multi-controller host batch with rollback on a bad later record. Pure batch tests verify all-or-nothing validation and copied arrays.",
-  "evidence": "Local Rive CLI 1.9.0 --help and headless input command surface; no browser DOM is exposed by those captures.",
+  "reason": "Native single-pad injection exposes no validated atomic batch or rollback on a bad later record. This row concerns a host batch API rather than synthetic control delivery.",
+  "captureEvidence": [
+    "tests/oracle/host-api-manual-gamepad-batch/rive/scene.rml",
+    "tests/oracle/host-api-manual-gamepad-batch/rive/commands.txt",
+    "tests/oracle/host-api-manual-gamepad-batch/rive/session.txt",
+    "tests/oracle/host-api-manual-gamepad-batch/rive/frames/0.json",
+    "tests/oracle/host-api-manual-gamepad-batch/rive/frames/0.semantics.json",
+    "tests/oracle/host-api-manual-gamepad-batch/rive/frames/limit.png"
+  ],
   "tests": ["modules/input/test/core/runtime.test.ts", "modules/input/test/web/browser.test.ts"]
 }

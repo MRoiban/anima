@@ -1,6 +1,13 @@
 {
   "status": "skip",
-  "reason": "The headless CLI injects input directly and does not install or remove browser DOM event listeners. Browser tests disable automatic handlers and confirm manual input remains available.",
-  "evidence": "Local Rive CLI 1.9.0 --help and headless input command surface; no browser DOM is exposed by those captures.",
+  "reason": "The native runner dispatches input directly and exposes no browser add/removeEventListener lifecycle. Manual dispatch is observable, DOM handler teardown is not.",
+  "captureEvidence": [
+    "tests/oracle/host-api-dom-listener-control/rive/scene.rml",
+    "tests/oracle/host-api-dom-listener-control/rive/commands.txt",
+    "tests/oracle/host-api-dom-listener-control/rive/session.txt",
+    "tests/oracle/host-api-dom-listener-control/rive/frames/0.json",
+    "tests/oracle/host-api-dom-listener-control/rive/frames/0.semantics.json",
+    "tests/oracle/host-api-dom-listener-control/rive/frames/limit.png"
+  ],
   "tests": ["modules/input/test/core/runtime.test.ts", "modules/input/test/web/browser.test.ts"]
 }

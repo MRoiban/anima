@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "artboard": "Interaction",
+  "roots": [
+    {
+      "id": 1,
+      "role": "button",
+      "roleValue": 1,
+      "label": "a",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 128,
+      "traitFlags": 96,
+      "bounds": { "x": 88, "y": 28, "width": 24, "height": 24 },
+      "children": []
+    },
+    {
+      "id": 2,
+      "role": "button",
+      "roleValue": 1,
+      "label": "b",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 96,
+      "bounds": { "x": 88, "y": 108, "width": 24, "height": 24 },
+      "children": []
+    },
+    {
+      "id": 3,
+      "role": "button",
+      "roleValue": 1,
+      "label": "c",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 96,
+      "bounds": { "x": 88, "y": 188, "width": 24, "height": 24 },
+      "children": []
+    }
+  ]
+}

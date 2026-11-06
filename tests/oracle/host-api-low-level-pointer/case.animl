@@ -1,7 +1,1 @@
-<anima version="0.1" name="host-api-low-level-pointer" grid="20" requires="input">
-  <number name="n"/>
-
-  <circle id="disc" cx="10" cy="10" r="5" fill="#000"/>
-
-  <listener on="down" target="disc" write="{&quot;pointerId&quot;:&quot;n&quot;}"/>
-</anima>
+<anima version="0.1" name="host-api-low-level-pointer" grid="240" requires="input"><number name="n"/><circle id="a" cx="120" cy="120" r="60" fill="#4263eb"/><listener on="down" target="a" write='{"x":"n"}'/></anima>

@@ -1,7 +1,1 @@
-<anima version="0.1" name="input-gamepad-button-phases" grid="20" requires="input">
-  <number name="n"/>
-
-  <circle id="disc" cx="10" cy="10" r="5" fill="#000"/>
-
-  <listener on="gamepad-button" control="0" phase="release" write="{&quot;value&quot;:&quot;n&quot;}"/>
-</anima>
+<anima version="0.1" name="input-gamepad-button-phases" grid="20" requires="input"><number name="n"/><rect id="a" x0="2" y0="7" width="4" height="4" fill="#4263eb"/><listener on="gamepad-button" control="0" phase="release" write='{"value":"n"}'/></anima>

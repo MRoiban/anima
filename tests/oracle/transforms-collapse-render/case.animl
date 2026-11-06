@@ -1,0 +1,1 @@
+<anima version="0.1" name="transforms-collapse" grid="240" requires="input"><number name="n"/><group id="parent" collapsed="true"><rect id="a" x0="48" y0="108" width="24" height="24" fill="#4263eb"/><rect id="b" x0="168" y0="108" width="24" height="24" fill="#4263eb"/></group><listener on="down" target="a" set="n=1"/><listener on="down" target="b" set="n=2"/></anima>

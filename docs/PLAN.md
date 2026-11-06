@@ -238,7 +238,7 @@ and an oracle test against Rive.
 - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
       an on-change / previous-value condition (P5 benchmark: 'count increased' took 10 states).
 - [x] P4c-3 `focus`: traversal/scopes, pointer focus, focus/blur, component targets and real DOM
-      focus; 16 conformance probes, Chromium + Firefox. Rive captures unavailable; explicit skip notes.
+      focus; 16 conformance probes, Chromium + Firefox. 16 native focus/data oracle comparisons captured with the full-path CLI.
 
   - [x] P4c-1 `machine`: assigned 25 inventory rows + previous-value condition; 37 conformance
         cases, 18 native oracle cases/45 frames + eight documented skips; 5736/8192 B. Generic
@@ -246,9 +246,9 @@ and an oracle test against Rive.
         Full phase integration/benchmark/CI remains; see modules/machine/REPORT.md.
 
       P4c-2/P4c-4 integration: 54/54 implementation evidence sets, 18/54 strictly complete
-      (3 captured + 15 documented host-only oracle skips); 36 native captures pending.
+      (3 captured + 15 documented host-only oracle skips); 36 native probes disposed: 27 verified, six evidenced limits, three numerical findings.
       Generic AniML fields, components event kinds and input/focus/machine seams integrated.
-      P4c remains incomplete pending the separate oracle pass and phase gates; parity statuses unchanged.
+      Oracle pass recorded in modules/input/ORACLE-RESULTS.md; three disagreements and phase gates remain; parity statuses unchanged.
   - [x] P4c-4 interaction integration: generic fields, exact focus round-trips, event kinds,
         key/pointer/guard seams and per-row implementation evidence (modules/input/REPORT.md).
 - [ ] P4d `events`: payloads, open-URL, audio.

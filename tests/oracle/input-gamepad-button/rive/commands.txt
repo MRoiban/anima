@@ -1,0 +1,17 @@
+advance 0
+advance 0
+advance 0
+data-dump frames/0.json
+semantics frames/0.semantics.json
+gamepad connect
+advance 0
+data-dump frames/1.json
+semantics frames/1.semantics.json
+gamepad button@0:0.75
+advance 0
+data-dump frames/2.json
+semantics frames/2.semantics.json
+gamepad button@0:up
+advance 0
+data-dump frames/3.json
+semantics frames/3.semantics.json

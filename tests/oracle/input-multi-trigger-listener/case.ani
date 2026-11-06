@@ -1,0 +1,34 @@
+{
+  "anima": "0.1",
+  "name": "input-multi-trigger-listener",
+  "grid": 240,
+  "requires": ["input"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 108,
+      "y0": 108,
+      "w": 24,
+      "h": 24,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "down|up|key-down",
+      "target": "a",
+      "set": {
+        "n": 1
+      },
+      "key": "a"
+    }
+  ]
+}

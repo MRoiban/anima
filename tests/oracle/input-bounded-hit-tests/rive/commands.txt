@@ -1,0 +1,17 @@
+advance 0
+advance 0
+advance 0
+data-dump frames/0.json
+semantics frames/0.semantics.json
+pointer down@174,174
+advance 0
+data-dump frames/1.json
+semantics frames/1.semantics.json
+pointer down@120,120
+advance 0
+data-dump frames/2.json
+semantics frames/2.semantics.json
+pointer up@120,120
+advance 0
+data-dump frames/3.json
+semantics frames/3.semantics.json

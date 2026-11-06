@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "Per-contact enablement is an Anima host controller operation. The runner rejects the enable operation and exposes no equivalent per-contact gate. Ordinary scene visibility is not per-ID suppression.",
+  "captureEvidence": [
+    "tests/oracle/input-pointer-enable/rive/scene.rml",
+    "tests/oracle/input-pointer-enable/rive/commands.txt",
+    "tests/oracle/input-pointer-enable/rive/session.txt",
+    "tests/oracle/input-pointer-enable/rive/frames/0.json",
+    "tests/oracle/input-pointer-enable/rive/frames/1.json",
+    "tests/oracle/input-pointer-enable/rive/frames/1.semantics.json",
+    "tests/oracle/input-pointer-enable/rive/frames/limit.png"
+  ],
+  "tests": ["modules/input/test/core/runtime.test.ts"]
+}

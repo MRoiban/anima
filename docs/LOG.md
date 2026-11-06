@@ -1602,3 +1602,15 @@ core+web19048 (+0 from edf9eec,+36 from main), markup7663/8192,full64848,class68
 Perf (unchanged method, variable host load): bell4.22ms/prefix1204ms; frames64.9/37.6/39.8µs;
 toolbar compile5.80ms. Archived same-session baseline and comparison lines, failed initial runs
 and limitations are recorded in modules/input/REPORT.md. No overall performance improvement claim.
+
+## P4c interaction oracle follow-up (2026-11-06)
+
+Original 36 input pending probes: 27 verified, six individually evidenced runner limits,
+three findings. All 16 focus skips replaced by exact data + semantics comparisons. Earlier
+15 input skips re-decided: seven cursor-intent comparisons and eight evidenced host limits.
+Strict oracle exit 0, 104 completed cases / 295 samples; disagreements separately reported:
+keyboard bubbling delta 1, pointer capture delta 1, preserve-offset first move/release delta 16.
+No reference/tolerance/runtime change hides those findings; no phase or parity-status completion.
+Scoped input/focus/oracle tests 1426 pass, 119 out-of-scope conformance skips; Chromium/Firefox.
+Prettier, ESLint, tooling tsc, parity and AniML corpus checks pass. No push/PR/merge.
+See modules/input/ORACLE-RESULTS.md for reproduction and per-row observation limits.

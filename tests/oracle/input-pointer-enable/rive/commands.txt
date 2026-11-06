@@ -1,0 +1,14 @@
+advance 0
+advance 0
+data-dump frames/0.json
+semantics frames/0.semantics.json
+pointer down@120,120
+pointer-enable 7 false
+pointer enable:7@120,120
+gamepad connect
+gamepad axis@1:-0.25
+pointer wheel@120,100:0,-24:1
+advance 0
+data-dump frames/1.json
+semantics frames/1.semantics.json
+screenshot frames/limit.png

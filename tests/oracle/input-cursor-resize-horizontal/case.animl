@@ -1,4 +1,1 @@
-<!-- TODO: input.cursor-resize-horizontal; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="input-cursor-resize-horizontal" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
-</anima>
+<anima version="0.1" name="input-cursor-resize-horizontal" grid="240" requires="input"><rect id="a" x0="108" y0="108" width="24" height="24" fill="#4263eb" cursor="resize-horizontal"/></anima>

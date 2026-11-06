@@ -158,3 +158,16 @@ typed-channel round-trip test. See MOTION-PROBES.md for details and reproduction
 New data comparisons are exact; existing image budgets are unchanged. Native
 fractional origins are not claimed equivalent to Anima pivots: the new pivot scene
 uses independently keyed parent/child translations to express the same transform.
+
+## P4c input and focus observations
+
+See [the interaction oracle report](../../modules/input/ORACLE-RESULTS.md) for all row outcomes,
+reproduction commands, observation boundaries and three numerical disagreements. The new
+completed discrete comparisons use tolerance zero; the two axis-aligned render probes use
+max 2 / 0% without changing existing limits. Focus is compared through both semantics and
+view-model data. Cursor data observes intent, not OS cursor rendering.
+
+`finding.json` holds a separately classified failing pair and its numerical observations.
+It is excluded from successful cases, measured by strict mode into `findings-metrics.json`,
+and printed as Finding. Its evidence test preserves the observations, without test.fails or
+changing a reference. Strict exit 0 certifies completed cases only.

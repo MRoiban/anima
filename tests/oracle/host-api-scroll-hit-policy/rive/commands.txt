@@ -1,0 +1,10 @@
+advance 0
+pointer down@120,120
+gamepad connect
+gamepad axis@0:0.5
+touch down:7@120,120
+dom defaultPrevented
+advance 0
+data-dump frames/0.json
+semantics frames/0.semantics.json
+screenshot frames/limit.png
