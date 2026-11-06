@@ -58,9 +58,9 @@ export function paintExtras(
     if (p.type && a[key] !== 'none') a[key] = `url(#${id}p${node}-${key})`;
     if (p.kind === 'stroke') {
       if (p.dash && !a['stroke-dasharray']) {
-        a.pathLength = p.dashNormalized ? '1' : null;
-        a['stroke-dasharray'] = (p.dashNormalized ?? p.dash).map(fmt).join(' ');
-        a['stroke-dashoffset'] = fmt(p.dashOffsetNormalized ?? p.dashOffset!);
+        a.pathLength = null;
+        a['stroke-dasharray'] = p.dash.map(fmt).join(' ');
+        a['stroke-dashoffset'] = fmt(p.dashOffset!);
       }
       if (p.scale === 'fixed') a['vector-effect'] = 'non-scaling-stroke';
     }

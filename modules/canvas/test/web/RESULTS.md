@@ -1,89 +1,108 @@
-# Pc implementation verification
+# Pc-2 implementation verification
 
-**Pc is incomplete. Full check is red.** All numeric comparison limits remain unchanged.
+**All 338 cross-backend comparisons are within the original limits.** The corpus contains
+59 visual documents / 169 authored frames per engine, hence 338 comparisons **total**, rather
+than 338 per engine. `measurements.json` retains every frame's raw maximum and over-16 count/share.
+No tolerance, test timeout, budget, screenshot size or measuring method was loosened.
 
-The required default-concurrency `npm run check` finished with **1413 passed / 14 failed**:
-12 pixel findings below; the corpus census expected 41 rather than the new 44 cases (fixed and
-scoped verification passed); the previously documented Chromium standalone-demo test exceeded its
-unchanged 15 s timeout. The demo subsequently passed alone in both engines. A later canvas+web
-scope reproduced the 12 pixel findings and demo timeout, plus an idle-test race; draining pending
-paint notifications before the unchanged 200 ms idle interval fixed that race in targeted checks.
-No green full check is claimed, and the full suite was not repeated after these scoped fixes.
+Final default-concurrency `npm run check`: **60 files / 1442 tests passed**, no skips, in 98.30 s
+(test phase). Typecheck, ESLint, Prettier, module generation, every size budget, all 14 browser
+artifacts and 60 AniML artifacts pass. An earlier full check also passed 1440 tests before final
+review added the clamped border-texel correction and its two browser regressions.
+The development scope `canvas composite bind` passes **831 tests**; 31 excluded conformance
+cases are scope selection, not source skips. The broader preceding `canvas paint composite assets
+bind web` run passed its existing tests after attribute-expectation updates; its only remaining
+failures were new probes overconstraining Firefox's byte quantization. Those probes now assert
+exact half-pixel alpha/interior texels and exact source opacity 0/0.25 results. No corpus assertion
+changed to accommodate those probes.
 
-Final verification: typecheck, ESLint, Prettier, module generation, all size budgets, browser
-artifacts (14 entries) and AniML artifacts (60 documents) pass. Core/conformance/oracle/markup scope:
-**184/184**. Canvas host tests: **14/14** across both engines; isolated demo/colour/interaction
-recheck: **8/8**. No TODO probes or test skips are used to hide canvas findings. Vitest's reported
-skips on targeted runs are name-filter exclusions, not source-level skips.
+## Cross-backend comparison
 
-Final min+gzip sizes (unchanged measuring method): canvas **4114/8192 B**, core+web **17963 B**
-against **17789 B** before Pc (**+174 B**, only the renderer hook; no core source edits),
-SVG full-featured total **44537 B**, Rive-class total **48570/256000 B** (47.4/250 KiB).
-All pre-existing module budgets pass without an increase.
+| Engine | Before within / frames | Pc-2 within / frames | Worst channel delta | Worst share over 16 |
+| --- | ---: | ---: | ---: | ---: |
+| Chromium | 160 / 169 | 169 / 169 | 92 | 0.206597% |
+| Firefox | 166 / 169 | 169 / 169 | 128 | 0.260417% |
 
-The final browser-only bell cost is **394.0 µs/frame Chromium / 438.3 µs/frame Firefox** (step +
-draw, 600 frames, median of 3 after warm-up). Under full-suite contention, before the single-paint
-opacity optimization, the same probe observed 1044.8 / 1313.3 µs; these are not a speedup claim.
-Node's unchanged perf workload: bell compile 2.29 ms / 9040 prefixes 686 ms; bell/composite/toolbar
-step+draw 43.7 / 28.1 / 32.6 µs; toolbar compile 4.37 ms. Previous logged P5/D3 scratch numbers were
-2.03 ms / 792 ms, 34.6 / 22.9 / 27.0 µs and 2.93 ms respectively, from another session/load.
-No Node Canvas line is added: Node 24 lacks DOM Path2D and Canvas2D; browser measurement is required.
+Both backends render at 240×240. Each pixel uses the maximum raw RGBA channel difference;
+counts are strictly over 16. Raw failure PNGs remain under ignored `artifacts/`; rerun
+`npm run test:scope -- canvas` to regenerate measurements. Historical PNGs can remain after a
+passing run; JSON from the current run is authoritative.
 
-Fully rendered feature groups (21): Path2D paths; primitives/parametric shapes; solid colours;
-CSS slots/currentColor; linear gradients; radial gradients; stroke width/cap/join; grid dashes;
-fixed strokes; transforms; visibility; isolated opacity; clips; alpha/inverted-alpha masks;
-luminance/inverted-luminance masks; blend modes; images; image patterns/modulation;
-components/instances; n-slice; knockouts.
+### Resolved causes
 
-Partial groups (3): trims (partial fixed-stroke trims decline); local feather (nonuniform/sheared
-local transforms decline); world feather (nonuniform viewport scaling declines). These report
-`unsupported-render`; world feather **does** support nonuniform node transforms.
-Thus 21/24 groups are implemented across their declared transform modes; 3/24 have explicit limits.
-This count describes implemented paths, not passed pixel parity; findings below take precedence.
+- **Dashes and trims (paint, bind-number, bind-over-state):** SVG's `pathLength="1"` normalized
+  against engine-local primitive lengths, including Chromium's 49.941574 for an r=8 circle rather
+  than core's 50.265482. Both live and static SVG now emit absolute grid lengths. Paint, SVG and
+  Canvas share core's length function and one cached measurement per retained geometry owner;
+  transforms/paint/trim changes reuse it, while path/radius/dimensions/corners invalidate it.
+  Tests pin cache reuse, geometry invalidation, units and separately bundled bind/paint behavior.
+- **Inverted luminance:** `luminanceToAlpha` ignores input alpha, losing source opacity and curved
+  edge coverage. `feComposite operator="in" in2="SourceGraphic"` restores coverage before alpha
+  inversion. The mask remains permanently attached and transforms stay on retained groups.
+  The three formerly failing frames now have worst delta **14 Chromium / 1 Firefox**, with zero
+  over-16 pixels. Source-opacity probes additionally cover invisible and quarter-opacity sources.
+- **assets-image frame 1:** at width 15 the fitted image spans y=82.5..157.5 device pixels.
+  Nearest `drawImage` snapped those outer edges; smoothing mode changes made no difference, and
+  fit math and decode timing were correct. Canvas now extends the border texels into the antialias fringe and applies a geometric
+  rectangle clip, preserving half-pixel alpha 128 in both engines without moving the fitted
+  rectangle. The fringe is one device pixel, mapped through the inverse transform. Direct
+  regressions check both edges, exact interior texels, and distinct red/blue borders at fractional
+  coordinates. Image/viewport bounds intersect before clipping so coincident edges do not
+  multiply coverage. A repeating-shader prototype was rejected because it sampled the opposite border
+  outside the texel rectangle; nonrepeating shaders dropped that coverage. Chromium's former delta 129 / 300
+  over-16 pixels becomes **1 / 0**. Firefox's remaining SVG raster edge difference is **128 /
+  150 (0.260417%)**, within its unchanged limits. Bilinear sampling keeps its existing draw path.
 
-Host operations are not static Rive image capabilities; the three generated oracle directories
-carry explicit no-faithful-counterpart notes. No Rive command was run.
+The standalone-demo test rebuilt/minified all **14** browser entries separately inside each
+engine's unchanged **15 s** timeout. It now validates the source fingerprint, bundle hash and
+exact template/bell/runtime bytes, then runs the same browser assertions. `pretest` and the full
+check still rebuild/check every artifact. No stale output is accepted. The bind module registration
+wait now polls wall time, since polling its deliberately stopped fake rAF clock could deadlock;
+its next-frame input assertions and timeout are unchanged.
 
-## Cross-backend findings
+## Static compatibility and costs
 
-59 visual documents, 169 authored frames per engine; **326/338 comparisons within limits**.
-Every frame's maximum and raw over-threshold pixel count/share is committed in `measurements.json`
-(from the required full run); the subsequent canvas+web scope reproduced all 12 raster findings.
-Both backends render at 240×240, threshold strictly >16. Raw failure PNGs remain in ignored
-`artifacts/`; rerun `npm run test:scope -- canvas` to regenerate.
+**0.1 static SVG byte-identical: yes.** Bell, moon and trash retain all three original SHA-256
+expectations (default and `staticLengths` output at rest and three stepped times). No 0.1 output
+or byte expectation changed. `staticLengths` remains an accepted compatibility option; all SVG
+now uses absolute lengths. Extended dash/trim and mask output changes are correctness fixes
+documented in SPEC and LOG. No runtime dependency was added.
 
-| Engine | Within / frames | Worst channel delta | Worst share over 16 |
-| --- | ---: | ---: | ---: |
-| Chromium | 160 / 169 | 255 | 0.934028% |
-| Firefox | 166 / 169 | 254 | 0.649306% |
+Browser frame costs below use the same harness on baseline **4bed807** and Pc-2 runtime source,
+with the same bundler/minifier: 600 frames at 1/60 s, one warm-up, median of three, sequential
+browsers/revisions with no test suite running. SVG measures retained attribute diff/order; Canvas
+measures raster submission. Host scheduling, events/a11y, presentation and vsync are excluded.
+These are observations, not completed GPU timings or a general speedup claim.
 
-| Engine | Finding | Frame indexes | Max | Share over 16 |
-| --- | --- | --- | ---: | ---: |
-| Chromium | `examples/paint.ani` | 0 | 172 | 0.934028% |
-| Chromium | `examples/paint.ani` | 1 | 172 | 0.918403% |
-| Chromium | `spec/conformance/paint-mask-inverted-luminance/case.ani` | 0 | 254 | 0.631944% |
-| Chromium | `spec/conformance/paint-mask-inverted-luminance/case.ani` | 1 | 254 | 0.631944% |
-| Chromium | `spec/conformance/paint-mask-inverted-luminance/case.ani` | 2 | 254 | 0.631944% |
-| Chromium | `spec/conformance/bind-over-state/case.ani` | 1 | 255 | 0.276042% |
-| Chromium | `spec/conformance/bind-over-state/case.ani` | 2 | 255 | 0.527778% |
-| Chromium | `spec/conformance/bind-number/case.ani` | 1 | 255 | 0.385417% |
-| Chromium | `spec/conformance/assets-image/case.ani` | 1 | 129 | 0.520833% |
-| Firefox | `spec/conformance/paint-mask-inverted-luminance/case.ani` | 0 | 254 | 0.649306% |
-| Firefox | `spec/conformance/paint-mask-inverted-luminance/case.ani` | 1 | 254 | 0.649306% |
-| Firefox | `spec/conformance/paint-mask-inverted-luminance/case.ani` | 2 | 254 | 0.649306% |
+| Engine | Workload | SVG before → after (µs/frame) | Canvas before → after (µs/frame) |
+| --- | --- | ---: | ---: |
+| Chromium | bell | 87.5 → 80.7 | 292.8 → 254.2 |
+| Firefox | bell | 90.0 → 71.7 | 388.3 → 285.0 |
+| Chromium | animated paint / relative dashes | 45.5 → 41.8 | 55.3 → 36.3 |
+| Firefox | animated paint / relative dashes | 55.0 → 35.0 | 291.7 → 260.0 |
 
-Chromium normalized circle dashes/trims differ from Canvas grid-length dashes. An investigative
-browser probe measured `getTotalLength()` = 49.941574 for an SVG r=8 circle, versus 2πr = 50.265482;
-normalization is a suspected contributor, not a proven complete explanation. Canvas retains core
-length semantics. Inverted-luminance mask edges are visibly aliased in the existing SVG filter
-output, whereas Canvas coverage is smooth. The image-frame difference also remains open.
-Fixing the default SVG backend or broadening a raster tolerance is not smuggled into this task.
+The retained-geometry length cache removes repeated path subdivision from the animated paint
+workload. Bell timings vary; it exercises neither percentage dashes nor trims. Full-suite browser
+perf observations are retained separately in `measurements.json`, since contention is different.
+Full-suite bell observations (different contention): SVG/Canvas **244.7/649.2 µs Chromium** and
+**150.0/498.3 µs Firefox**. Node's unchanged `tools/perf.ts`: bell compile **1.84 ms**, all 9040
+prefixes **547 ms**; bell/composite/toolbar step + draw **31.7/20.8/23.6 µs**; toolbar compile
+**2.93 ms**. Pc-1's separately logged Node line was 2.29 ms / 686 ms; 43.7/28.1/32.6 µs;
+4.37 ms. These are different session/load observations, not a controlled speedup claim.
 
-An additional fractional image-modulation probe observed a 128→129 red-channel Canvas readback in
-Firefox at alpha 128 (byte premultiplication); the exact primary-channel modulation/alpha test
-passes. No raster limit was widened. The initial rounded-corner classifier omission was corrected
-to use the predeclared curved-geometry class; neither numeric class limit changed.
+Final min+gzip sizes (unchanged measuring method): core+web **18452/30720 B**, versus **17963 B**
+at Pc-1 (**+489 B**, the shared natural-length path now ships in live SVG); canvas **3991/8192 B**
+versus **4114 B**; paint **3935/5120 B**, composite **3904/4096 B**, bind **1554/2048 B**,
+assets **1513/2048 B**, surface **7536/8192 B**, components **4000/4096 B**, markup **7358/8192 B**.
+All remaining markup hook/library budgets pass. SVG full-featured total **44639/102400 B**;
+Rive-class total **48796/256000 B**. No ceiling or measuring method changed.
 
-No Rive command/source/binary was used. The module has no runtime dependencies. SVG remains the
-default. Actual implementation branch: `t3/canvas-renderer-backend` (owner integration branch:
-`pc-canvas`). No push, PR or merge. Host/backend parity rows remain planned because Pc is unfinished.
+Implemented groups remain **21/24**, with the same explicit partial modes: fixed-stroke partial
+trims; local feather under nonuniform/sheared transforms; world feather under nonuniform viewport
+scaling. These emit `unsupported-render`; no new mode is silently accepted. SVG stays the default.
+The original design/reference rationale remains the repository's
+[web runtime research](../../../../docs/research/rive-web-runtime.md#lessons-for-anima) and
+[retained-SVG architecture](../../../../docs/ARCHITECTURE.md).
+
+Actual implementation branch: `t3/svg-canvas-renderer-parity`, based on `pc-canvas` at 4bed807.
+Local commit only; no push, PR, merge, Rive command, Rive source or binary reading.

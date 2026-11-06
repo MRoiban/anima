@@ -214,8 +214,12 @@ and an oracle test against Rive.
   - [x] Opt-in heavy canvas module, DPR/ResizeObserver, draw-frame traversal and tiny host hook.
   - [x] Both-engine visual corpus comparison, feature limits and measurements recorded in
         `modules/canvas/test/web/README.md` and `RESULTS.md`.
-  - [ ] Resolve 12 strict raster findings (9 Chromium, 3 Firefox) and obtain a green full check.
-        Pc and its parity rows remain open; no tolerance/budget increase.
+  - [x] Resolve 12 strict raster findings (9 Chromium, 3 Firefox) and obtain a green full check.
+        Pc-2: 169/169 frames per engine (338 total), full check 1442 tests green at default
+        concurrency; cached absolute SVG lengths, mask coverage and fractional nearest-image edges.
+        No tolerance/budget/timeout increase; 0.1 SVG bytes unchanged. See canvas RESULTS.md for
+        measured costs and the three retained explicit feature limits; phase/parity bookkeeping
+        remains with the integrating owner.
 - [ ] P4b `motion`: eases, typed/string tracks, seek/reverse/work area/quantize, host timeline
       control, animatable pivot.
 - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;

@@ -1,6 +1,8 @@
 import '@anima-format/core/all';
-import { describe, expect, it } from 'vitest';
+import * as paths from '../src/path.ts';
+import { describe, expect, it, vi } from 'vitest';
 import {
+  geometryLength,
   drawFrame,
   drawTree,
   load,
@@ -24,6 +26,32 @@ function player(nodes: object[], extra: object = {}) {
   return new Player(result.model!);
 }
 describe('renderer-neutral draw contract', () => {
+  it('caches outline measurements through transform/paint changes and invalidates changed geometry', () => {
+    const measure = vi.spyOn(paths, 'pathLength');
+    try {
+      const owner = {};
+      const g = { kind: 'path', d: 'M0 0L3 0L3 4Z' };
+      expect(geometryLength(g, owner)).toBe(12);
+      expect(geometryLength({ ...g }, owner)).toBe(12);
+      expect(measure).toHaveBeenCalledTimes(1);
+      expect(geometryLength({ ...g, d: 'M0 0L6 0L6 8Z' }, owner)).toBe(24);
+      expect(measure).toHaveBeenCalledTimes(2);
+      expect(geometryLength({ kind: 'circle', r: 8 }, owner)).toBe(16 * Math.PI);
+      expect(geometryLength({ kind: 'circle', r: 4 }, owner)).toBe(8 * Math.PI);
+      const rect = { kind: 'rect', width: 10, height: 8, rx: 2 };
+      expect(geometryLength(rect, owner)).toBeCloseTo(20 + 4 * Math.PI, 2);
+      expect(geometryLength({ ...rect, width: 12 }, owner)).toBeCloseTo(24 + 4 * Math.PI, 2);
+      expect(geometryLength({ ...rect, height: 10 }, owner)).toBeCloseTo(24 + 4 * Math.PI, 2);
+      expect(geometryLength({ ...rect, rx: 0 }, owner)).toBe(36);
+      // SVG rect clamps rx and ry independently when only rx is authored.
+      expect(geometryLength({ kind: 'rect', width: 4, height: 8, rx: 4 }, owner)).toBeCloseTo(
+        19.3796,
+        2,
+      );
+    } finally {
+      measure.mockRestore();
+    }
+  });
   it('builds the static tree at load and retains unchanged records independently of dirty reads', () => {
     const p = player([circle('a'), circle('b')], {
       timelines: {

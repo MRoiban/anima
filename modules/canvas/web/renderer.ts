@@ -1,8 +1,7 @@
 // Canvas2D consumes only the resolved draw frame. No second player or SVG rasterization.
 import type { AnimaIcon, IconRenderer } from '../../../packages/web/src/index.ts';
 import type { DrawColor, DrawFrame, DrawPaint, Geometry, Mat } from '@anima-format/core';
-import { drawOrder, IDENTITY, mul, invert } from '@anima-format/core';
-import { pathLength } from '../../../packages/core/src/path.ts';
+import { drawOrder, geometryLength, IDENTITY, mul, invert } from '@anima-format/core';
 
 type Ctx = CanvasRenderingContext2D;
 const context = (c: HTMLCanvasElement) => c.getContext('2d')!;
@@ -14,14 +13,6 @@ function path(g?: Geometry): Path2D {
   else if (g.kind === 'rect' || g.kind === 'image')
     p.roundRect(g.x!, g.y!, g.width!, g.height!, g.rx ?? 0);
   return p;
-}
-function length(g: Geometry): number {
-  if (g.d) return pathLength(g.d);
-  if (g.kind === 'circle') return 2 * Math.PI * g.r!;
-  const w = g.width!,
-    h = g.height!,
-    r = Math.min(g.rx ?? 0, w / 2, h / 2);
-  return 2 * (w + h - 4 * r) + 2 * Math.PI * r;
 }
 export class CanvasRenderer implements IconRenderer {
   readonly canvas = document.createElement('canvas');
@@ -427,17 +418,44 @@ export class CanvasRenderer implements IconRenderer {
       const factor = (lo: string, hi: string) =>
         r.align.includes(lo) ? 0 : r.align.includes(hi) ? 1 : 0.5;
       ctx.save();
-      ctx.beginPath();
-      ctx.rect(g.x!, g.y!, w, h);
-      ctx.clip();
       ctx.imageSmoothingEnabled = r.sampling !== 'nearest';
-      ctx.drawImage(
-        image,
-        g.x! + (w - dw) * factor('left', 'right'),
-        g.y! + (h - dh) * factor('top', 'bottom'),
-        dw,
-        dh,
-      );
+      const x = g.x! + (w - dw) * factor('left', 'right'),
+        y = g.y! + (h - dh) * factor('top', 'bottom');
+      if (r.sampling === 'nearest') {
+        // Nearest drawImage snaps its outer edges. Extend the border texels into
+        // the one-device-pixel AA fringe, then let a geometric clip own coverage.
+        // Unlike a repeating shader, this clamps colours at fractional boundaries.
+        // Intersect fitted image and viewport before clipping: two coincident
+        // fractional clips would multiply coverage instead of preserving it.
+        const left = Math.max(g.x!, x),
+          top = Math.max(g.y!, y);
+        const right = Math.min(g.x! + w, x + dw),
+          bottom = Math.min(g.y! + h, y + dh);
+        ctx.beginPath();
+        ctx.rect(left, top, Math.max(0, right - left), Math.max(0, bottom - top));
+        ctx.clip();
+        const inv = ctx.getTransform().inverse();
+        const px = Math.abs(inv.a) + Math.abs(inv.c),
+          py = Math.abs(inv.b) + Math.abs(inv.d);
+        const iw = image.naturalWidth,
+          ih = image.naturalHeight;
+        for (const [sx, sw, dx, width] of [
+          [0, 1, x - px, px],
+          [0, iw, x, dw],
+          [iw - 1, 1, x + dw, px],
+        ])
+          for (const [sy, sh, dy, height] of [
+            [0, 1, y - py, py],
+            [0, ih, y, dh],
+            [ih - 1, 1, y + dh, py],
+          ])
+            ctx.drawImage(image, sx!, sy!, sw!, sh!, dx!, dy!, width!, height!);
+      } else {
+        ctx.beginPath();
+        ctx.rect(g.x!, g.y!, w, h);
+        ctx.clip();
+        ctx.drawImage(image, x, y, dw, dh);
+      }
       ctx.restore();
       return;
     }
@@ -563,7 +581,7 @@ export class CanvasRenderer implements IconRenderer {
           this.#unsupported('fixed stroke trim', i, p.key);
           return;
         }
-        const len = length(this.#frame!.nodes[i]!.geometry!);
+        const len = geometryLength(this.#frame!.nodes[i]!.geometry!, this.#frame!.tree.nodes[i]);
         ctx.setLineDash([fraction * len, (1 - fraction) * len]);
         ctx.lineDashOffset = -((((t.start + t.offset) % 1) + 1) % 1) * len;
       }

@@ -1,11 +1,11 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: P5-7 (markup owner) running → then D1 module folders + D2 scoped tests (parallel) → D3 new-capability scaffolder → P5 AniML benchmark run → P5 PR (full check in CI).
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: Pc-2 backend parity on t3/svg-canvas-renderer-parity; commit locally only.
+State: final default npm run check green, 60 files/1442 tests; all 338 pixel comparisons pass.
+Next: integrating owner reviews the local commit; RESULTS/measurements/SPEC/PLAN/LOG updated.
+Don't: loosen any threshold/budget/timeout/method; add runtime deps; read .riv/run Rive; push/PR/merge.
+Verification required: scoped canvas paint composite assets bind web; Prettier, ESLint, full check.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -94,3 +94,12 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-07 09:30 [claude]: merged D1 module folders (d9510ae): 6 modules + libraries in folders, generator --check, 12 orders identical; core+web 17789 (+248, logged); test:scope paint 12 files/4.2 s; next D3 scaffolder then P5 PR
 - 2026-11-06 11:00 [claude]: merged D3 scaffolder (c7e3012): 31 files per row, idempotent; opening P5 PR (full suite in CI)
 - 2026-11-06 16:00 [claude]: merged Pc-1 canvas (d7fb13d) into pc-canvas: canvas 4114/8192, core+web 17963 (+174), 326/338 cross-backend comparisons; findings are SVG-side (Chromium pathLength on circles, inverted-luminance aliasing, one image frame) → Pc-2
+- 2026-11-06 00:33 [sol Pc-2]: npm ci installed tooling; baseline browser SVG/Canvas bell Chromium 147.5/453.5 µs, Firefox 91.7/381.7 µs (600 frames, median 3; baseline build overlapped).
+- 2026-11-06 00:33 [sol Pc-2]: probes confirm luminanceToAlpha loses coverage (254→14 Chromium/1 Firefox after SourceGraphic alpha multiply); image failure is nearest drawImage half-pixel boundary snapping (129→1 Chromium with pattern geometric fill), smoothing/fit/decode unchanged.
+- 2026-11-06 00:33 [sol Pc-2]: first unit scope 517 pass/2 stale normalized-SVG expectations; updated for grid lengths. Broad scope exposed fake-rAF registration polling deadlock and stale bind/web expectations; fixed polling clock and expected attributes. New source-opacity .5 probe differs by one byte across engines; replaced with exact 1/3-alpha probe (unverified).
+- 2026-11-06 00:36 [sol Pc-2]: broad scope 1192 pass/6 fail, all 338 raster comparisons within limits and three unchanged 0.1 SVG hashes pass; second scope 1031 pass/2 new-probe failures only (half-alpha Firefox RGB unpremultiplication, source-opacity filter byte quantization). Assert exact image coverage/interior texels and use opacity 0/.25 probes without altering corpus metrics or limits.
+- 2026-11-06 00:36 [sol Pc-2]: nearest pattern fill also needs an explicit geometric clip in Firefox; raw half-pixel alpha now 128 in both engines, with 39 vs 40 unpremultiplied green. Original demo 15 s limit retained; artifact fingerprint/hash + exact template bytes replace redundant 14-entry builds inside each demo test.
+- 2026-11-06 00:40 [sol Pc-2]: scoped canvas/composite/bind 831 pass; explicit Prettier/ESLint pass; first default-concurrency full check green (60 files/1440 tests, 79.75 s; all size/artifact/perf checks pass). No original test limit changed.
+- 2026-11-06 00:40 [sol Pc-2]: final review found nearest repeat-shader wraps a red/blue border at fractional x=.75 (blue64 instead of red64), while no-repeat drops it → replaced prototype with border-texel extension through the geometric clip; added exact RGBA edge regression; canvas scope and final full check required (unverified).
+- 2026-11-06 00:42 [sol Pc-2]: new red/blue probe initially lacked required paint declaration, then exposed double fractional clipping (alpha 16/143 instead of 64/191) → intersect image/viewport first and clip once; exact edge probes rerun (unverified). Corpus limits and existing metrics unchanged.
+- 2026-11-06 00:46 [sol Pc-2]: final exact image edge probes 4/4; final default npm run check green (60 files/1442 tests, 98.30 s), all 338 comparisons pass; explicit Prettier/ESLint, every size ceiling, 14 browser + 60 AniML artifacts pass. Core+web 18452 B, canvas 3991 B; original 0.1 hashes unchanged. Final metrics/PLAN/LOG recorded; local commit next.

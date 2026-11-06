@@ -156,6 +156,66 @@ for (const [name, engine, paths] of [
         },
         15000,
       );
+    it('keeps nearest image texels and half-pixel fitted-edge coverage', async () => {
+      await page.evaluate(
+        (doc) => window.canvasTest.mount(doc, 'canvas', 'advance 0.5'),
+        JSON.parse(readFileSync('spec/conformance/assets-image/case.ani', 'utf8')),
+      );
+      const pixels = await page.evaluate(() => {
+        const ctx = window.canvasTest.renderer.canvas.getContext('2d')!;
+        return [81, 82, 83, 156, 157, 158].map((y) => [...ctx.getImageData(50, y, 1, 1).data]);
+      });
+      // Assert geometric coverage directly; unpremultiplying half-alpha green
+      // reads 39 in Firefox and 40 in Chromium. Interiors retain the exact texel.
+      expect(pixels.map((p) => p[3])).toEqual([0, 128, 255, 255, 128, 0]);
+      expect(pixels.slice(2, 4)).toEqual([
+        [255, 40, 0, 255],
+        [255, 40, 0, 255],
+      ]);
+    });
+    it('clamps border texels at fractional image edges instead of repeating or dropping them', async () => {
+      const source = new PNG({ width: 2, height: 1 });
+      source.data.set([255, 0, 0, 255, 0, 0, 255, 255]);
+      const doc = {
+        anima: '0.1',
+        name: 'fractional-image',
+        grid: 24,
+        requires: ['paint', 'assets'],
+        nodes: [
+          {
+            id: 'image',
+            type: 'image',
+            asset: 'image',
+            x0: 0.075,
+            y0: 0.1,
+            width: 2,
+            height: 0.8,
+            fit: 'fill',
+            sampling: 'nearest',
+          },
+        ],
+        assets: {
+          image: {
+            type: 'image',
+            storage: 'embedded',
+            width: 2,
+            height: 1,
+            source: 'data:image/png;base64,' + PNG.sync.write(source).toString('base64'),
+          },
+        },
+      };
+      await page.evaluate((doc) => window.canvasTest.mount(doc, 'canvas'), doc);
+      const pixels = await page.evaluate(() => {
+        const ctx = window.canvasTest.renderer.canvas.getContext('2d')!;
+        return [0, 1, 19, 20].map((x) => [...ctx.getImageData(x, 4, 1, 1).data]);
+      });
+      expect(pixels).toEqual([
+        [255, 0, 0, 64],
+        [255, 0, 0, 255],
+        [0, 0, 255, 255],
+        [0, 0, 255, 191],
+      ]);
+    });
     it('uses DPR, resizes without stepping, and skips unchanged revisions', async () => {
       await page.evaluate(
         (doc) => window.canvasTest.mount(doc, 'canvas'),
@@ -371,16 +431,16 @@ for (const [name, engine, paths] of [
         ]),
       ).toEqual([255, 0, 0, 128]);
     });
-    it('measures canvas step + draw in a real browser', async () => {
-      await page.evaluate(
-        (doc) => window.canvasTest.mount(doc, 'canvas'),
-        JSON.parse(readFileSync('examples/bell.ani', 'utf8')),
-      );
+    it.each(['svg', 'canvas'])('measures %s step + draw in a real browser', async (backend) => {
+      await page.evaluate(({ doc, backend }) => window.canvasTest.mount(doc, backend), {
+        doc: JSON.parse(readFileSync('examples/bell.ani', 'utf8')),
+        backend,
+      });
       const us = await page.evaluate(() => window.canvasTest.perf());
       console.log(
-        `${name} canvas bell: ${us.toFixed(1)} µs/frame (step + draw, 600 frames, median of 3)`,
+        `${name} ${backend} bell: ${us.toFixed(1)} µs/frame (step + draw, 600 frames, median of 3)`,
       );
-      metrics.push({ perf: 'bell', microseconds: us });
+      metrics.push({ perf: 'bell', backend, microseconds: us });
       expect(us).toBeGreaterThan(0);
     });
   });

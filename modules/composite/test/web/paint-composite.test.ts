@@ -93,6 +93,20 @@ for (const [name, engine, paths] of [
                   : [255, 54, 54],
           ] as [string, object[], number[], number[]],
       ),
+      ...([0, 0.25] as const).map(
+        (opacity) =>
+          [
+            'inverted-luminance source opacity ' + opacity,
+            [
+              rect('a', '#f00', {
+                mask: { source: 'b', mode: 'inverted-luminance', sourceDraws: false },
+              }),
+              rect('b', '#fff', { opacity }),
+            ],
+            [100, 100],
+            [255, Math.round(255 * opacity), Math.round(255 * opacity)],
+          ] as [string, object[], number[], number[]],
+      ),
       [
         'clip',
         [

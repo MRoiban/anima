@@ -1,4 +1,3 @@
-import { execFileSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { resolve } from 'node:path';
@@ -9,7 +8,7 @@ import { afterAll, afterEach, beforeAll, beforeEach, describe, expect, it } from
 import { attrs, cssSlots, load, runScript, sceneTree, type El } from '../../core/src/index.ts';
 import { compile } from '../../markup/src/index.ts';
 import type { AnimaIcon } from '../src/index.ts';
-import { cachedBundle as bundle } from '../../../tools/browser-cache.ts';
+import { cachedBundle as bundle, readCachedBundle } from '../../../tools/browser-cache.ts';
 
 declare global {
   interface Window {
@@ -210,8 +209,8 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
       expect(attributes).toEqual({
         units: 'userSpaceOnUse',
         radial: '10',
-        dash: '0.1 0.1',
-        length: '1',
+        dash: '2 2',
+        length: null,
       });
       const image = PNG.sync.read(await page.locator('anima-icon').screenshot());
       const pixel = (x: number, y: number) => [
@@ -1127,7 +1126,14 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
     });
 
     it('ships a current standalone demo with only its file document request and no canvas/wasm/watermark', async () => {
-      execFileSync(process.execPath, ['tools/build-web.ts', '--check'], { encoding: 'utf8' });
+      // pretest checks every browser artifact once, before workers contend for CPU.
+      // Still reject stale source/output and demo bytes here, without rebuilding 14 bundles.
+      const runtime = readCachedBundle(resolve('packages/web/src/index.ts'));
+      expect(runtime, 'run node tools/build-web.ts before browser tests').toBeDefined();
+      const expected = readFileSync(resolve('examples/web/template.html'), 'utf8')
+        .replace('<!-- BELL -->', () => bell.trim().replace(/<\//g, '<\\/'))
+        .replace('/* RUNTIME */', () => runtime!.trim().replace(/<\/script/gi, '<\\/script'));
+      expect(readFileSync(resolve('examples/web/index.html'), 'utf8')).toBe(expected);
       const requests: string[] = [];
       page.on('request', (r) => requests.push(r.url()));
       const url = pathToFileURL(resolve('examples/web/index.html')).href;
