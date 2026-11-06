@@ -1,8 +1,13 @@
 {
   "status": "skip",
-  "reason": "Local Rive CLI docs workflow/headless commands expose screenshots, semantics and view-model dumps, but no reported-event stream or host Web Audio/DOM/navigation observation. Pixel captures cannot prove event timing, typed payloads, subscriptions or host policy. No equivalence is claimed.",
+  "reason": "Local capture reports authored events and data, but does not expose the browser host API for host-api.event-load: no JS on/off subscription lifecycle, DOM event dispatch, load/error callbacks or host playback callbacks are observable in this native command runner. Authored event reports do not establish that host API behaviour.",
   "tests": [
     "modules/events/test/core/events.test.ts",
     "modules/events/test/web/events.browser.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/host-api-event-load/rive/session.txt",
+    "tests/oracle/host-api-event-load/rive/data.json",
+    "tests/oracle/host-api-event-load/rive/semantics.json"
   ]
 }

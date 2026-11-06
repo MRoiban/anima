@@ -1,0 +1,5 @@
+advance 1
+advance 60
+data-dump data.json
+semantics semantics.json
+quit

@@ -1,0 +1,17 @@
+{
+  "reason": "Rive event listeners fire their response in the triggering frame; Anima deliberately queues actions for the next step (spec events). Exact frame comparison disagrees, not a missing CLI observation path. Boundary keys also differ under float clocks.",
+  "case": {
+    "name": "input-event-listener",
+    "times": [1.1],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "events": {
+      "fps": 60,
+      "script": "script.txt",
+      "reference": "rive/events.json",
+      "omitLifecycle": false,
+      "urls": false
+    }
+  }
+}

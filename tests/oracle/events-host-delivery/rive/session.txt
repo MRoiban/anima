@@ -1,0 +1,15 @@
+ok advance
+ok advance
+ok data-dump: data.json
+ok semantics: semantics.json
+ok quit
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[03:54:07.038] rive  deferred replay: inline
+[03:54:07.041] rive  built (285 bytes, 3ms, 0 errors, 0 warnings)
+[03:54:07.041] rive  showing Oracle [1/1]
+[03:54:07.041] rive  viewport 240x240 @1x
+[03:54:07.041] rive  url https://example.org/probe
+[03:54:07.041] rive  event ping
+[03:54:07.041] rive  event ping
+[03:54:07.041] rive  wrote data.json
+[03:54:07.041] rive  wrote semantics.json

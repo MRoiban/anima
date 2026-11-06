@@ -2197,7 +2197,7 @@
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/animation-key-event-target/skip.json)",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/animation-key-event-target)",
    "phase": "P4"
   },
   "aliases": [
@@ -13817,7 +13817,7 @@
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-payload-boolean/skip.json)",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-payload-boolean)",
    "phase": "P4"
   }
  },
@@ -13851,7 +13851,7 @@
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-payload-key-bind/skip.json)",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-payload-key-bind)",
    "phase": "P4"
   }
  },
@@ -13882,7 +13882,7 @@
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-payload-number/skip.json)",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-payload-number)",
    "phase": "P4"
   }
  },
@@ -13913,7 +13913,7 @@
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-payload-string/skip.json)",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-payload-string)",
    "phase": "P4"
   }
  },
@@ -13970,7 +13970,7 @@
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-state-end/skip.json)",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-state-end)",
    "phase": "P4"
   }
  },
@@ -13999,7 +13999,7 @@
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-transition-end/skip.json)",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-transition-end)",
    "phase": "P4"
   }
  },
@@ -14028,7 +14028,7 @@
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-transition-start/skip.json)",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-transition-start)",
    "phase": "P4"
   }
  },
@@ -14058,7 +14058,7 @@
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url/skip.json)",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-url)",
    "phase": "P4"
   }
  },
@@ -19074,7 +19074,7 @@
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/input-event-listener/skip.json)",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle finding (tests/oracle/input-event-listener/finding.json)",
    "phase": "P4"
   },
   "aliases": [

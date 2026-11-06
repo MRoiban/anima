@@ -1,0 +1,35 @@
+{
+  "time": 1.1,
+  "actual": [
+    {
+      "frame": 16,
+      "name": "first"
+    },
+    {
+      "frame": 31,
+      "name": "second"
+    },
+    {
+      "frame": 60,
+      "name": "last"
+    }
+  ],
+  "reference": [
+    {
+      "frame": 15,
+      "name": "first"
+    },
+    {
+      "frame": 30,
+      "name": "second"
+    },
+    {
+      "frame": 61,
+      "name": "last"
+    }
+  ],
+  "maxDiff": 1,
+  "over": 1,
+  "overPercent": 100,
+  "pass": false
+}

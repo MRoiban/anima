@@ -91,3 +91,13 @@ Opening URLs requires explicit host opt-in; HTTP(S) and relative same-origin che
 - input.event-listener
 
 Deferred: events.script-event-context — P9 owns scripting and there is no VM/context yet.
+
+## Oracle correction after independent CLI runs
+
+The earlier “no reported-event observation stream” claim above is incorrect. The installed
+`~/.rive/bin/rive` reports events and URLs in headless session logs. The independent
+[oracle re-audit](ORACLE-RESULTS.md) re-decided all 33 original skips: nine verified comparisons,
+23 specific host/output/target/context skips and one listener-order finding. Two additional
+boundary-timing findings limit otherwise verified timeline/state/transition probes. See the
+re-audit for exact numbers and the payload data-dump mapping; the original no-capture count
+must not be used as the current verification state.

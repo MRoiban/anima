@@ -1,0 +1,14 @@
+[
+  {
+    "frame": 30,
+    "name": "exit"
+  },
+  {
+    "frame": 30,
+    "name": "begin"
+  },
+  {
+    "frame": 45,
+    "name": "done"
+  }
+]
