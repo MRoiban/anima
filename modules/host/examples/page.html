@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" />
+  <title>Anima host data</title>
+  <script type="module" src="../../../packages/web/dist/anima-icon.js"></script>
+  <script type="module" src="../../../packages/web/dist/anima-data.js"></script>
+  <script type="module" src="../../../packages/web/dist/anima-host.js"></script>
+  <anima-icon auto-bind src="score.ani" style="font-size: 120px"></anima-icon>
+  <label>Score <input type="range" min="0" max="9" value="4" /></label>
+  <output>4</output>
+  <script type="module">
+    const icon = document.querySelector('anima-icon');
+    icon.addEventListener('anima:load', () => {
+      const score = icon.data.number('$score');
+      score.on('change', (value) => {
+        document.querySelector('output').value = value;
+      });
+      document.querySelector('input').oninput = (event) => {
+        score.set(Number(event.target.value));
+      };
+    });
+  </script>
+</html>

@@ -1,10 +1,11 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
-State: p4e-data has data core merged (60/73 rows, 13 pending; data 8181/8192, bind 2046/2048; core+web 20021; full 81.8 KB). P4e-5 paint running.
-Next: convert integration (needs a split: data/bind have 11 B / 2 B headroom) + host API; benchmark (scoreboard); quiet-machine perf; PR.
-Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests.
+Goal: P4e-3 optional host data API on t3/host-data-api; module-owned implementation complete, shared integration pending.
+State: host 3879/4096 B; core+web unchanged 20021 B; full 85387 B. Final host tests 30 pass/1 CLI docs failure; broad scope 4201 pass/6 fail/45 TODO.
+Verified: strict oracle 0; typecheck/lint/format/wiring/build checks pass; bell compile 2.44 ms, frame 44.6 µs (no observed regression).
+Next: integrate spec/AUTHORING sections and data code-table export (modules/host/INTEGRATION.md); fix canvas asset-load fixtures; recheck broad scope.
+Don't: push/PR/merge; change parity status, budgets/tests/tolerances, data/bind/convert or protected measurement inputs.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -137,3 +138,7 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-06 09:18 [codex/data]: startup regeneration failed with missing prettier/esbuild/workspace dependencies → npm ci restored tooling. Initial text-conflict join overmatched WORKLOG → restored conflict text and reapplied bounded matching before generation; verified merged cases/statuses retained.
 - 2026-11-06 [claude]: reviewed P4e-1 → merged into p4e-data. In-process A/B (taskset, 40 alternations) bell frame min 31.5/31.6/32.2 µs p4e/data/main, compile 1.97/1.70/1.92 ms → no data regression; agent's 2× composite/toolbar frames were load noise (evidence: scratchpad perf/ab.mjs). Prefix sweep inconclusive (p4e-data vs main p25 215/183 ms) → re-measure quiet before PR
 - 2026-11-06 [claude]: decided internal-trigger listener (Anima 9 vs Rive 0) = intentional difference: change listeners fire for every source, after the step; finding stays recorded
+- 2026-11-06 09:41 [sol-host]: scaffold dry-run/run; restored shared scaffold edits outside ownership; initial host API → size 2650/4096 B, core+web 20021 B; initial tests 7 pass/5 fail (empty validator scene), typecheck failed (erasable syntax, structuredClone typing); fixes in progress (unverified).
+- 2026-11-06 09:57 [sol-host]: host API, snapshots/batching/order, per-player binding, runtime creation/list validation and native trigger routing implemented; 22 unit tests pass/1 CLI docs failure; prior Chromium+Firefox 4/4 pass incl callback wake → final late-load coverage pending; native scalar/nested/list comparisons 16 exact, trigger final n=9 (scene listener +1-step difference), JS callback order evidenced skip.
+- 2026-11-06 10:32 [sol-host]: native capture retries (missing frames directory, wrong cwd) resolved with project-local commands; generated canvas metrics initially failed formatting → raw outputs preserved in /tmp/host-canvas-artifacts, ignored outputs cleaned; no Rive binary/scaffold docs retained.
+- 2026-11-06 10:32 [sol-host]: P4e-3 host implementation + evidence + handoff complete within ownership → final host 30 pass/1 retained docs failure; broad 4201 pass/6 fail/45 TODO (docs, 4 canvas asset-load, 1 machine timeout; exact machine rerun passes); size 3879/4096, core+web 20021, full 85387; strict oracle/typecheck/eslint/prettier/modules/build checks pass; perf bell 2.44 ms / 44.6 µs (evidence: requested commands; modules/host/REPORT.md). Shared diagnostic table and shared docs/spec remain unmet; no push/PR.

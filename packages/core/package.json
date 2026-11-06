@@ -23,6 +23,7 @@
     "./composite-svg": "./src/modules/composite/svg.ts",
     "./contour": "./src/modules/contour/index.ts",
     "./data": "./src/modules/data/index.ts",
+    "./host": "./src/modules/host/index.ts",
     "./mix": "./src/modules/mix/index.ts",
     "./surface": "./src/modules/surface/index.ts",
     "./surface-svg": "./src/modules/surface/svg.ts"

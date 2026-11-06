@@ -1,0 +1,21 @@
+{
+  "description": "Independent arithmetic: final writes are score=7,label=Grace; callback writes 11 next step; per-step subscription insertion order, detached final-frame reads.",
+  "script": [
+    {
+      "op": "batch",
+      "writes": [
+        ["score", 5],
+        ["score", 7],
+        ["label", "Grace"]
+      ]
+    },
+    { "op": "step" },
+    { "op": "step" },
+    { "op": "step" }
+  ],
+  "expected": [
+    ["score", 7, "Grace", 7],
+    ["label", "Grace", 7, 7],
+    ["score", 11, "Grace", 11]
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "anima": "0.1",
+  "name": "host-score",
+  "grid": 20,
+  "requires": ["data"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#d97757"
+      }
+    }
+  ],
+  "bind": {
+    "dot.r": "$score"
+  },
+  "data": {
+    "models": {
+      "Score": {
+        "properties": {
+          "score": {
+            "type": "number",
+            "default": 4,
+            "min": 0,
+            "max": 9
+          },
+          "label": {
+            "type": "string",
+            "default": "Ada"
+          },
+          "pulse": {
+            "type": "trigger"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Score",
+        "default": true,
+        "values": {}
+      }
+    }
+  }
+}
