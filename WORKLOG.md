@@ -1,11 +1,10 @@
 # Work log
 
 ## Now
-Goal: P4b-3 declarative motion controls and sync benchmark proof complete, committed locally.
-Verified: 10 new conformance cases; scope 728/728; sync 6/6 (7 scripts, 66 snapshots).
-Full: 1380 pass + 15 pre-existing oracle TODOs with VITEST_MAX_WORKERS=2; default had 2 browser timeouts.
-Next: parent integrates/reviews local commit; P4b oracle captures and phase closure remain with parent.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4d AniML benchmark rerun complete; local commit only.
+Verified: 11 CLI checks and 2 evidence checks pass; 84 snapshots; strict 5/6 items.
+Next: parent reviews animl-rerun/REPORT.md and audio playback limitation.
+Don’t: push, open PR, merge, inspect prohibited benchmark/reference sources.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -109,3 +108,4 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 13:00 [claude]: merged P4d-2 (342bef2): 1e-9 s boundary rule, 9 cases, transition boundary matches Rive, keys 15/30/60 vs Rive 15/30/61 (cause unproven); listener next-step spec'd; full check 2530; P4d benchmark brief (share button) written
 - 2026-11-07 14:00 [claude]: P4d benchmark: AniML 3/6 (no increment in listener actions → state ladder; milestones capped), Rive 5/6 (payload fields not in log); fix P4d-3: expressions in set actions + mod in conditions, then AniML rerun
 - 2026-11-07 19:00 [claude]: merged P4d-3 (7da8ef8): expression actions/fields, mod/floor, 7 cases, share example 6/6; core+web 19767 (+420), bind 1866/2048; one oracle probe pending
+- 2026-11-06 04:07 [codex]: P4d AniML rerun → 5/6 strict, audio request only; 13 checks green, 4 setup ERR_MODULE_NOT_FOUND fixed with npm ci (evidence: animl-rerun/REPORT.md, checks.jsonl, verification.txt).

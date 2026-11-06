@@ -1,0 +1,28 @@
+share — Share (grid 20, viewBox 0 0 20 20)
+
+glyphs (bbox: minX minY maxX maxY, grid units; hole hints use bbox containment only)
+
+nodes
+  links (path)
+  left (circle) pivot 5,10 animates scale
+  top (circle) pivot 15,5 animates scale
+  bottom (circle) pivot 15,15 animates scale
+
+inputs: count (number), pulse (trigger)
+
+timelines
+  pulse: 0.4s once, reduced motion: end, events pulse-done
+    writes left.scale, top.scale, bottom.scale
+
+machine
+  layer main (writes left.scale, top.scale, bottom.scale)
+    *idle: pose {}
+        pulse && mod(count, 5) == 0 → pulsing
+        pulse → pulsing
+     pulsing: play pulse, emit shared
+        pulse && mod(count, 5) == 0 → pulsing
+        pulse → pulsing
+        @end → idle
+
+listeners
+  click → fire pulse, set count=(scope) => (expected === 'number' ? Number(evaluate(e, scope)) : evaluate(e, scope))

@@ -1,0 +1,12 @@
+{"time":0,"values":{"count":0,"left.scale":1,"top.scale":1,"bottom.scale":1},"states":{"main":"idle"},"events":[],"settled":true}
+{"time":0,"values":{"count":1,"left.scale":1,"top.scale":1,"bottom.scale":1},"states":{"main":"pulsing"},"events":[{"name":"@state-end","layer":"main","time":0,"payload":{"state":"idle"}},{"name":"@transition-start","layer":"main","time":0,"payload":{"state":"pulsing"}},{"name":"@transition-end","layer":"main","time":0,"payload":{"state":"pulsing"}},{"name":"shared","layer":"main","time":0,"payload":{"count":1,"channel":"button"},"audio":"tone","volume":0.4}],"settled":false}
+{"time":0.05,"values":{"count":1,"left.scale":1.1,"top.scale":1,"bottom.scale":1},"states":{"main":"pulsing"},"events":[],"settled":false}
+{"time":0.1,"values":{"count":1,"left.scale":1.2,"top.scale":1.1,"bottom.scale":1},"states":{"main":"pulsing"},"events":[],"settled":false}
+{"time":0.15000000000000002,"values":{"count":1,"left.scale":1.3,"top.scale":1.2,"bottom.scale":1.1},"states":{"main":"pulsing"},"events":[],"settled":false}
+{"time":0.2,"values":{"count":1,"left.scale":1.2,"top.scale":1.3,"bottom.scale":1.2},"states":{"main":"pulsing"},"events":[],"settled":false}
+{"time":0.25,"values":{"count":1,"left.scale":1.1,"top.scale":1.2,"bottom.scale":1.3},"states":{"main":"pulsing"},"events":[],"settled":false}
+{"time":0.3,"values":{"count":1,"left.scale":1,"top.scale":1.1,"bottom.scale":1.2000000000000002},"states":{"main":"pulsing"},"events":[],"settled":false}
+{"time":0.35,"values":{"count":1,"left.scale":1,"top.scale":1,"bottom.scale":1.1},"states":{"main":"pulsing"},"events":[],"settled":false}
+{"time":0.39899999999999997,"values":{"count":1,"left.scale":1,"top.scale":1,"bottom.scale":1.0020000000000002},"states":{"main":"pulsing"},"events":[],"settled":false}
+{"time":0.39999999999999997,"values":{"count":1,"left.scale":1,"top.scale":1,"bottom.scale":1},"states":{"main":"idle"},"events":[{"name":"pulse-done","layer":"main","time":0.4},{"name":"@state-end","layer":"main","time":0,"payload":{"state":"pulsing"}},{"name":"@transition-start","layer":"main","time":0,"payload":{"state":"idle"}},{"name":"@transition-end","layer":"main","time":0,"payload":{"state":"idle"}}],"settled":true}
+{"time":1.4,"values":{"count":1,"left.scale":1,"top.scale":1,"bottom.scale":1},"states":{"main":"idle"},"events":[],"settled":true}
