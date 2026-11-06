@@ -1,0 +1,17 @@
+<anima version="0.1" name="host-edit-board" grid="20" requires="data">
+  <model name="Board">
+    <number name="score" default="2"/>
+    <color name="accent" default="#d97757"/>
+    <enum name="mood" values="calm happy"/>
+    <list name="tracks" of="Track"/>
+  </model>
+  <model name="Track">
+    <string name="title" default="Untitled"/>
+    <number name="duration" default="3"/>
+  </model>
+  <instance name="main" model="Board" default="true">
+    <set path="tracks" value="[{&quot;title&quot;:&quot;First&quot;},{&quot;title&quot;:&quot;Second&quot;}]"/>
+  </instance>
+  <circle id="dot" cx="10" cy="10" r="1" fill="#d97757"/>
+  <bind target="dot.r" value="$score"/>
+</anima>

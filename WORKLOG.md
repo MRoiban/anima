@@ -119,3 +119,12 @@ Don't: change runtime/oracle limits/parity statuses; no push/PR/merge; no prohib
 
 - 2026-11-06 17:03 [codex-test]: staging audit caught trailing blank lines in9 native logs/1 AniML source → normalized final newlines in driver/fixtures; no observed values changed; ownership/native-binary/baseline-integrity audits pass.
 - 2026-11-06 [claude]: merged P4e follow-up (9 verified derive/bind-logic cases, 186 checks; read-only write = evidenced skip, recorded as intentional difference in derive SPEC); oracle strict 0 (225 cases)
+- 2026-11-06 17:10 [host-edit]: npm ci restored tools; all 27 scaffold dry/run pairs reject host-edit name (lowercase-only validator); manual module + generated wiring, initial size/typecheck pass (evidence: modules/host-edit/verification/scaffold.txt; /tmp/host-edit-size-initial.txt).
+
+- 2026-11-06 18:09 [host-edit]: focused 23/23 pass incl. 4 Chromium/Firefox load-order cases; native 14/14 exact; strict oracle/perf/typecheck/ESLint exit 0. Earlier browser failures: missing child asset declaration, about:blank base URL, one cold-build timeout; causes fixed without changing limits. Broader scope running (evidence: /tmp/host-edit-tests5.txt; modules/host-edit/verification/).
+
+- 2026-11-06 18:31 [host-edit]: broad scope 4936 pass/43 TODO at one worker; shared modelTypes initialized before host construction, helper inserts publish item types; invalid steps preserve queued writes → follow-up 2766 pass/43 TODO incl. Chromium+Firefox; final artifacts/size/full-scope rerun pending (evidence: verification/tests.txt, metadata.txt).
+
+- 2026-11-06 18:48 [host-edit]: final source → 4938 pass/43 TODO, strict oracle 216/410 with 18 retained findings, all budgets/static/artifacts/perf green; raw ignored canvas metrics preserved then cleaned for formatter; older half of work log condensed per rule (evidence: modules/host-edit/verification/).
+- 2026-11-06 18:48 [host-edit]: recorded dead ends: scaffold/runtime hyphen rejection (temporary key hostedit), native positional command-file error corrected to --commands=, namespace lint failure replaced by typed constructor export; no limits, inputs or parity statuses changed (evidence: REPORT.md, scaffold.txt, native session.txt).
+- 2026-11-06 18:53 [host-edit]: fresh declared-image native capture: scalar write after switching accepted; both image writes rejected at path; refreshed evidence → 23/23 module unit/CLI/oracle tests pass, formatter green (evidence: native session.txt, verification/native-followup.txt).

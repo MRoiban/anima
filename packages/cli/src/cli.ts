@@ -875,7 +875,7 @@ function docs(topic: string | undefined, list: boolean, json: boolean, io: IO): 
   const chapters = [...spec.matchAll(/^## (.+)$/gm)];
   // Module chapters are the one-word lower-case headings (`## paint`); web-only modules such as
   // `canvas` have a chapter but nothing registered in core.
-  const moduleTopics = chapters.filter((m) => /^[a-z]+$/.test(m[1]!));
+  const moduleTopics = chapters.filter((m) => /^[a-z]+(?:-[a-z]+)*$/.test(m[1]!));
   if (list) {
     const topics = [
       ...new Set([

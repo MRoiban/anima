@@ -1,0 +1,61 @@
+{
+  "branch": "t3/host-data-editing-1",
+  "scoped": {
+    "command": "VITEST_MAX_WORKERS=2 npm run test:scope -- host-edit host data web conformance oracle",
+    "exitCode": 0,
+    "passed": 4938,
+    "todo": 43,
+    "moduleTests": 27,
+    "moduleBrowserCases": 4
+  },
+  "oracle": {
+    "command": "node tools/oracle.ts --strict",
+    "exitCode": 0,
+    "cases": 216,
+    "samples": 410,
+    "strictFailures": 0,
+    "retainedFindings": 18,
+    "freshCoreComparisons": 16
+  },
+  "sizes": {
+    "exitCode": 0,
+    "coreWeb": 20109,
+    "host": 4042,
+    "hostEdit": 3143,
+    "hostEditBudget": 4096,
+    "fullFeatured": 95965,
+    "suppliedBaseline": 93575,
+    "delta": 2390,
+    "riveClass": 100701
+  },
+  "static": {
+    "typecheck": 0,
+    "eslint": 0,
+    "prettier": 0,
+    "modules": 0,
+    "webArtifacts": 0,
+    "animlArtifacts": 0
+  },
+  "perf": {
+    "exitCode": 0,
+    "bellCompileMs": 2.51,
+    "prefixes": 9040,
+    "prefixMs": 778,
+    "bellFrameUs": 46.4,
+    "compositeFrameUs": 31.4,
+    "toolbarFrameUs": 26.5,
+    "toolbarCompileMs": 5.0
+  },
+  "rows": {
+    "implementedOrInherited": 20,
+    "pending": 7
+  },
+  "pushPRMerge": false,
+  "freshNativeFollowup": {
+    "command": "npm run test:scope -- host-edit --no-browser",
+    "exitCode": 0,
+    "passed": 23,
+    "declaredImageWritesRejected": 2,
+    "restoredScalarWriteAccepted": true
+  }
+}

@@ -25,6 +25,7 @@ export const webEntries = [
   'markup-convert',
   'derive',
   'host',
+  'host-edit',
   'mix',
 ];
 export const webOwners: Record<string, string> = {
@@ -50,6 +51,7 @@ export const webOwners: Record<string, string> = {
   'markup-convert': 'convert',
   derive: 'derive',
   host: 'host',
+  'host-edit': 'host-edit',
   surface: 'surface',
   'markup-surface': 'surface',
   mix: 'mix',
@@ -86,6 +88,7 @@ export const moduleBudgets: {
   { name: 'markup-convert', budget: 2048, over: 'index' },
   { name: 'derive', budget: 4096 },
   { name: 'host', budget: 4096 },
+  { name: 'host-edit', budget: 4096 },
   { name: 'mix', budget: 5120 },
 ];
 export const moduleScopes = {
@@ -515,6 +518,7 @@ export const moduleScopes = {
     conformance: ['derive-', 'bind-comparisons'],
   },
   host: { tests: ['modules/host/test/**/*.test.ts'], conformance: [] },
+  'host-edit': { tests: ['modules/host-edit/test/**/*.test.ts'], conformance: [] },
   surface: {
     tests: [
       'modules/surface/test/**/*.test.ts',

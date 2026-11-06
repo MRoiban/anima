@@ -1,0 +1,15 @@
+{
+  "reasoning": "Start with inline 5 and shared 7. Append 11 and default 3, prepend 2: [2,5,7,11,3]. Swap indices 1/2: [2,7,5,11,3]. Remove index 3: [2,7,5,3]. Retained first-item accessor edits 5 to 17 at its new index. Remove that identity: [2,7,3]. Original list array and shared 7 object survive every edit. Values are independently enumerated, never produced by Player.",
+  "script": [
+    { "op": "add", "count": 11 },
+    { "op": "add" },
+    { "op": "insert", "index": 0, "count": 2 },
+    { "op": "swap", "a": 1, "b": 2 },
+    { "op": "remove", "index": 3 },
+    { "op": "step", "expected": [2, 7, 5, 3] },
+    { "op": "nested", "count": 17 },
+    { "op": "step", "expected": [2, 7, 17, 3] },
+    { "op": "remove-item" },
+    { "op": "step", "expected": [2, 7, 3] }
+  ]
+}

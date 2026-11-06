@@ -1,0 +1,21 @@
+data-dump frames/initial.json
+data tint=DDAABBCC
+data mood=happy
+data team/title=Gold
+advance 0
+data-dump frames/changed.json
+artboard small
+data-dump frames/selected.json
+artboard Data
+data score=4
+data-dump frames/restored.json
+data image=photo
+data image=data:image/png;base64,iVBORw0KGgo=
+data items=blue
+data-create Team
+data-bind main
+data-add items blue
+data-insert items 0 blue
+data-remove items 0
+data-swap items 0 1
+quit

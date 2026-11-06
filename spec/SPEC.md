@@ -2232,6 +2232,14 @@ Import the host entry alongside `data`; it adds no document fields or AniML spel
 typed handles, reflection, instances, binding, batched writes, change subscriptions delivered after
 the step that made the change, and the web `auto-bind` attribute.
 
+## host-edit
+
+Optional page-data editing is specified in [modules/host-edit/SPEC.md](../modules/host-edit/SPEC.md).
+Import `host-edit` alongside `host` and `data`; it adds no document fields. It provides
+identity-preserving list mutation, default and named instance discovery, colour and enum helpers,
+image replacement on the web, nested component player access, component root selection and a
+constructor readiness promise. Its runtime registration key is `hostedit`.
+
 ## convert
 
 Optional feature `convert`, after `bind` and `data`; no runtime dependencies. JSON declarations are a

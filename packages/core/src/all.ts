@@ -27,6 +27,7 @@ import { data } from '../../../modules/data/core/index.ts';
 import { convert } from '../../../modules/convert/core/index.ts';
 import { derive } from '../../../modules/derive/core/index.ts';
 import { host } from '../../../modules/host/core/index.ts';
+import { hostEdit } from '../../../modules/host-edit/core/index.ts';
 import { surface } from '../../../modules/surface/core/index.ts';
 import { surfaceSVG } from '../../../modules/surface/core/svg.ts';
 import { mix } from '../../../modules/mix/core/index.ts';
@@ -57,6 +58,7 @@ if (VERBOSE) {
   registerModule(convert);
   registerModule(derive);
   registerModule(host);
+  registerModule(hostEdit);
   registerModule(surface);
   registerSVGBackend('surface', surfaceSVG);
   registerModule(mix);
