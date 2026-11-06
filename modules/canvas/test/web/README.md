@@ -32,7 +32,11 @@ in the host and core, with the canvas viewport inverse replacing SVG's CTM only 
 Canvas needs DOM Path2D and a real CanvasRenderingContext2D, absent in Node 24. Per-frame cost is
 therefore measured here: bell, step + draw, 600 × 1/60 s frames, ring every 90 frames, one warm-up
 and median of three timed runs. This includes raster submission and offscreen composition but not
-presentation/vsync. `tools/perf.ts` retains its existing Node measurements unchanged.
+presentation/vsync. The same probe now measures SVG too: the host's retained-attribute diff and
+composite ordering consume the draw frame, with the same step clock, warm-up and timed runs.
+Scheduling, host events/a11y and presentation/vsync are excluded from both. SVG submits DOM
+attributes while Canvas submits raster commands; these are CPU submission costs, not a comparison
+of completed GPU work. `tools/perf.ts` retains its existing Node measurements unchanged.
 
 The separation and comparison cautions follow
 [the repository's web research](../../../../docs/research/rive-web-runtime.md#lessons-for-anima).

@@ -1,9 +1,9 @@
 import { after } from '../manifest.ts';
-import { geometry, outlineLength } from './geometry.ts';
+import { geometry } from './geometry.ts';
 // Independently implemented from the SVG paint model; no Rive runtime algorithm is used.
 import type { Module } from '../../../packages/core/src/modules.ts';
 import { parseHex } from '../../../packages/core/src/color.ts';
-import { drawColor } from '../../../packages/core/src/draw.ts';
+import { drawColor, geometryLength } from '../../../packages/core/src/draw.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import type { ObjShape, Prop, Shape } from '../../../packages/core/src/registry.ts';
 
@@ -233,7 +233,7 @@ export function enhancePaint(
       relative ? parseFloat(String(x)) / 100 : +x,
     );
     const offset = p.num(i, key + '.dashOffset', 0);
-    const length = relative ? outlineLength(geometry) : 1;
+    const length = relative ? geometryLength(geometry, p.model.draw!.nodes[i]) : 1;
     paint.dash = array.map((v: number) => v * length);
     paint.dashOffset = offset * length;
     if (relative) {

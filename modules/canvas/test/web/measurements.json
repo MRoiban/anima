@@ -1,6 +1,124 @@
 {
-  "run": "required full npm run check (default concurrency), 2026-11-06",
-  "note": "Final canvas+web scope reproduced the same 12 raster findings after single-paint opacity/pool cleanup. Timings here are from the full run, not an isolated benchmark.",
+  "run": "Pc-2 final npm run check (default concurrency), 2026-11-06; 60 files / 1442 tests passed",
+  "note": "169 frames per engine, 338 total. Limits, raw RGBA delta, >16 threshold, 240x240 viewport and screenshot comparison are unchanged. Browser perf in these arrays is from the final full run under contention; isolated baseline/current observations are separate.",
+  "browserPerfComparison": {
+    "baseline": "4bed807",
+    "method": "Same current harness on baseline/current runtime sources, same bundle/minify options; sequential browsers/revisions, no test suite running. Step + draw, 600 frames, one warm-up, median of 3. SVG retained DOM attribute diff/order; Canvas raster submission. No presentation/vsync.",
+    "results": [
+      {
+        "name": "Chromium",
+        "revision": "before",
+        "file": "bell",
+        "backend": "svg",
+        "microseconds": 87.5
+      },
+      {
+        "name": "Chromium",
+        "revision": "before",
+        "file": "bell",
+        "backend": "canvas",
+        "microseconds": 292.8333334128062
+      },
+      {
+        "name": "Chromium",
+        "revision": "before",
+        "file": "paint",
+        "backend": "svg",
+        "microseconds": 45.49999992052714
+      },
+      {
+        "name": "Chromium",
+        "revision": "before",
+        "file": "paint",
+        "backend": "canvas",
+        "microseconds": 55.33333341280619
+      },
+      {
+        "name": "Chromium",
+        "revision": "after",
+        "file": "bell",
+        "backend": "svg",
+        "microseconds": 80.66666642824809
+      },
+      {
+        "name": "Chromium",
+        "revision": "after",
+        "file": "bell",
+        "backend": "canvas",
+        "microseconds": 254.16666666666666
+      },
+      {
+        "name": "Chromium",
+        "revision": "after",
+        "file": "paint",
+        "backend": "svg",
+        "microseconds": 41.83333317438761
+      },
+      {
+        "name": "Chromium",
+        "revision": "after",
+        "file": "paint",
+        "backend": "canvas",
+        "microseconds": 36.333333253860474
+      },
+      {
+        "name": "Firefox",
+        "revision": "before",
+        "file": "bell",
+        "backend": "svg",
+        "microseconds": 90
+      },
+      {
+        "name": "Firefox",
+        "revision": "before",
+        "file": "bell",
+        "backend": "canvas",
+        "microseconds": 388.3333333333333
+      },
+      {
+        "name": "Firefox",
+        "revision": "before",
+        "file": "paint",
+        "backend": "svg",
+        "microseconds": 55
+      },
+      {
+        "name": "Firefox",
+        "revision": "before",
+        "file": "paint",
+        "backend": "canvas",
+        "microseconds": 291.6666666666667
+      },
+      {
+        "name": "Firefox",
+        "revision": "after",
+        "file": "bell",
+        "backend": "svg",
+        "microseconds": 71.66666666666667
+      },
+      {
+        "name": "Firefox",
+        "revision": "after",
+        "file": "bell",
+        "backend": "canvas",
+        "microseconds": 285
+      },
+      {
+        "name": "Firefox",
+        "revision": "after",
+        "file": "paint",
+        "backend": "svg",
+        "microseconds": 35
+      },
+      {
+        "name": "Firefox",
+        "revision": "after",
+        "file": "paint",
+        "backend": "canvas",
+        "microseconds": 260
+      }
+    ]
+  },
   "browsers": {
     "Chromium": [
       {
@@ -113,9 +231,9 @@
       },
       {
         "name": "examples/paint.ani#0",
-        "max": 172,
-        "over": 538,
-        "percent": 0.9340277777777777,
+        "max": 29,
+        "over": 5,
+        "percent": 0.008680555555555556,
         "tolerance": {
           "max": 128,
           "percent": 0.5,
@@ -125,9 +243,9 @@
       },
       {
         "name": "examples/paint.ani#1",
-        "max": 172,
-        "over": 529,
-        "percent": 0.9184027777777777,
+        "max": 29,
+        "over": 5,
+        "percent": 0.008680555555555556,
         "tolerance": {
           "max": 128,
           "percent": 0.5,
@@ -1121,9 +1239,9 @@
       },
       {
         "name": "spec/conformance/paint-mask-inverted-luminance/case.ani#0",
-        "max": 254,
-        "over": 364,
-        "percent": 0.6319444444444444,
+        "max": 14,
+        "over": 0,
+        "percent": 0,
         "tolerance": {
           "max": 128,
           "percent": 0.5,
@@ -1133,9 +1251,9 @@
       },
       {
         "name": "spec/conformance/paint-mask-inverted-luminance/case.ani#1",
-        "max": 254,
-        "over": 364,
-        "percent": 0.6319444444444444,
+        "max": 14,
+        "over": 0,
+        "percent": 0,
         "tolerance": {
           "max": 128,
           "percent": 0.5,
@@ -1145,9 +1263,9 @@
       },
       {
         "name": "spec/conformance/paint-mask-inverted-luminance/case.ani#2",
-        "max": 254,
-        "over": 364,
-        "percent": 0.6319444444444444,
+        "max": 14,
+        "over": 0,
+        "percent": 0,
         "tolerance": {
           "max": 128,
           "percent": 0.5,
@@ -1865,9 +1983,9 @@
       },
       {
         "name": "spec/conformance/bind-over-state/case.ani#1",
-        "max": 255,
-        "over": 159,
-        "percent": 0.2760416666666667,
+        "max": 64,
+        "over": 56,
+        "percent": 0.09722222222222222,
         "tolerance": {
           "max": 128,
           "percent": 0.5,
@@ -1877,9 +1995,9 @@
       },
       {
         "name": "spec/conformance/bind-over-state/case.ani#2",
-        "max": 255,
-        "over": 304,
-        "percent": 0.5277777777777778,
+        "max": 64,
+        "over": 92,
+        "percent": 0.15972222222222224,
         "tolerance": {
           "max": 128,
           "percent": 0.5,
@@ -1901,9 +2019,9 @@
       },
       {
         "name": "spec/conformance/bind-number/case.ani#1",
-        "max": 255,
-        "over": 222,
-        "percent": 0.3854166666666667,
+        "max": 68,
+        "over": 79,
+        "percent": 0.13715277777777776,
         "tolerance": {
           "max": 128,
           "percent": 0.5,
@@ -2009,9 +2127,9 @@
       },
       {
         "name": "spec/conformance/assets-image/case.ani#1",
-        "max": 129,
-        "over": 300,
-        "percent": 0.5208333333333333,
+        "max": 1,
+        "over": 0,
+        "percent": 0,
         "tolerance": {
           "max": 128,
           "percent": 0.5,
@@ -2033,7 +2151,13 @@
       },
       {
         "perf": "bell",
-        "microseconds": 1044.833333492279
+        "backend": "svg",
+        "microseconds": 244.6666669845581
+      },
+      {
+        "perf": "bell",
+        "backend": "canvas",
+        "microseconds": 649.1666666666666
       }
     ],
     "Firefox": [
@@ -2147,9 +2271,9 @@
       },
       {
         "name": "examples/paint.ani#0",
-        "max": 32,
-        "over": 1,
-        "percent": 0.001736111111111111,
+        "max": 2,
+        "over": 0,
+        "percent": 0,
         "tolerance": {
           "max": 128,
           "percent": 0.5,
@@ -2159,9 +2283,9 @@
       },
       {
         "name": "examples/paint.ani#1",
-        "max": 32,
-        "over": 1,
-        "percent": 0.001736111111111111,
+        "max": 3,
+        "over": 0,
+        "percent": 0,
         "tolerance": {
           "max": 128,
           "percent": 0.5,
@@ -2183,7 +2307,7 @@
       },
       {
         "name": "examples/progress.ani#0",
-        "max": 1,
+        "max": 2,
         "over": 0,
         "percent": 0,
         "tolerance": {
@@ -3155,9 +3279,9 @@
       },
       {
         "name": "spec/conformance/paint-mask-inverted-luminance/case.ani#0",
-        "max": 254,
-        "over": 374,
-        "percent": 0.6493055555555556,
+        "max": 1,
+        "over": 0,
+        "percent": 0,
         "tolerance": {
           "max": 128,
           "percent": 0.5,
@@ -3167,9 +3291,9 @@
       },
       {
         "name": "spec/conformance/paint-mask-inverted-luminance/case.ani#1",
-        "max": 254,
-        "over": 374,
-        "percent": 0.6493055555555556,
+        "max": 1,
+        "over": 0,
+        "percent": 0,
         "tolerance": {
           "max": 128,
           "percent": 0.5,
@@ -3179,9 +3303,9 @@
       },
       {
         "name": "spec/conformance/paint-mask-inverted-luminance/case.ani#2",
-        "max": 254,
-        "over": 374,
-        "percent": 0.6493055555555556,
+        "max": 1,
+        "over": 0,
+        "percent": 0,
         "tolerance": {
           "max": 128,
           "percent": 0.5,
@@ -3899,7 +4023,7 @@
       },
       {
         "name": "spec/conformance/bind-over-state/case.ani#1",
-        "max": 7,
+        "max": 0,
         "over": 0,
         "percent": 0,
         "tolerance": {
@@ -3911,7 +4035,7 @@
       },
       {
         "name": "spec/conformance/bind-over-state/case.ani#2",
-        "max": 16,
+        "max": 0,
         "over": 0,
         "percent": 0,
         "tolerance": {
@@ -4043,7 +4167,7 @@
       },
       {
         "name": "spec/conformance/assets-image/case.ani#1",
-        "max": 126,
+        "max": 128,
         "over": 150,
         "percent": 0.26041666666666663,
         "tolerance": {
@@ -4067,7 +4191,13 @@
       },
       {
         "perf": "bell",
-        "microseconds": 1313.3333333333333
+        "backend": "svg",
+        "microseconds": 150
+      },
+      {
+        "perf": "bell",
+        "backend": "canvas",
+        "microseconds": 498.3333333333333
       }
     ]
   }

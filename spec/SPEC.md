@@ -541,6 +541,8 @@ Let the box be W×H and the intrinsic size I×J. The image is scaled and clipped
 `align` is `center` (default), `top-left`, `top`, `top-right`, `left`, `right`,
 `bottom-left`, `bottom`, or `bottom-right`. Each axis places the scaled image at 0,
 (box−image)/2, or box−image. Overflow is always clipped, including `none`.
+The fitted image rectangle has geometric edge coverage even at fractional device coordinates;
+nearest sampling selects texels without snapping that rectangle to whole pixels.
 `sampling` is `bilinear` (default) or `nearest`; SVG maps these to `image-rendering="auto"`
 and `image-rendering="pixelated"`. The browser's final display scaling remains host-controlled.
 
@@ -599,8 +601,10 @@ The array is static. Each subpath restarts the pattern as in SVG.
 
 `stroke.dashOffset` is an animatable number, default 0, positive or negative. With numeric dashes
 it is in grid units; with percentage dashes it is a fraction of total path length (0.1 = 10%).
-It uses the existing number sampling and blending. SVG uses `pathLength="1"` for relative patterns,
-and emits their lengths as fractions; absolute patterns use natural path units.
+It uses the existing number sampling and blending. Every backend resolves relative patterns to
+natural local outline lengths using the core length algorithm below. Live and static SVG emit
+absolute dasharray and dashoffset values, without `pathLength` normalization: browser engines'
+internal primitive-length approximations must not change authored dash or trim lengths.
 
 **Trim wins:** when resolved `trimEnd − trimStart < 1`, §4's trim dasharray and offset replace the
 authored dashes and offset. A nonpositive trim suppresses the stroke entirely. A full trim permits
@@ -686,13 +690,15 @@ including viewport resizing. This is not an inverse adjustment by one scalar for
 nonuniform transforms. Geometry coordinates and sampled width stay unchanged.
 Invalid scale values produce bad-value at the stroke scale field.
 
-### Static raster lengths
+### Shared outline lengths
 
-The toSVG option staticLengths:true replaces normalized pathLength="1" dashes/trims
-with natural local outline lengths: both dasharray components and dashoffset multiply
-by length, and pathLength is omitted. CLI frames and sheets enable it because resvg
-ignores pathLength. Default toSVG and browser attributes remain unchanged. Lengths
-include all subpaths and closing edges. Circles use 2πr; rectangles account for their
+All renderers use natural local outline lengths for relative dashes and trims: both
+dasharray components and dashoffset multiply by core's length before output rounding.
+SVG omits `pathLength`. The `toSVG` option `staticLengths` remains accepted for compatibility;
+absolute lengths are now unconditional, including live retained SVG and default `toSVG`.
+Measurements are cached per retained geometry owner; path/radius/dimension/corner changes
+invalidate the measurement, while transforms, colours and trim/offset changes reuse it.
+Lengths include all subpaths and closing edges. Circles use 2πr; rectangles account for their
 clamped elliptical corners; other outlines use current path data, including morphs.
 
 Core pathLength parses into absolute lines/cubics, then recursively subdivides cubics
@@ -733,7 +739,9 @@ ancestor opacity or visibility. Mask space is the target's parent space. The tar
 stays inside a permanent, untransformed mask wrapper. Masks cover three viewBoxes, as knockouts do.
 Luminance uses SVG luminance masking. Inversion uses an SVG filter with `feComponentTransfer`
 alpha table `1 0`; inverted luminance first uses `feColorMatrix type="luminanceToAlpha"`, and
-then uses alpha masking. Filter interpolation is sRGB. Source drawing is independent of hiding
+then multiplies that alpha by `SourceGraphic` alpha with `feComposite operator="in"` before
+inverting it and using alpha masking. This preserves source opacity and antialias coverage,
+which `luminanceToAlpha` alone discards. Filter interpolation is sRGB. Source drawing is independent of hiding
 its ordinary copy. Unknown sources, self references and cycles are load errors.
 
 ### Geometry clips

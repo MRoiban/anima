@@ -117,14 +117,14 @@ describe('paint rendering and sampling', () => {
       'stroke-dasharray': '2 1',
       'stroke-dashoffset': '0',
     });
-    expect(leaf(p, 1)).toMatchObject({ pathLength: '1', 'stroke-dasharray': '0.1 0.05' });
+    expect(leaf(p, 1)).toMatchObject({ pathLength: null, 'stroke-dasharray': '2 1' });
     expect(leaf(p, 2)).toMatchObject({ pathLength: null, 'stroke-dasharray': '2 1' });
     p.step(0.5);
     expect(leaf(p, 0)['stroke-dashoffset']).toBe('2');
-    expect(leaf(p, 1)['stroke-dashoffset']).toBe('-0.25');
+    expect(leaf(p, 1)['stroke-dashoffset']).toBe('-5');
     expect(leaf(p, 2)).toMatchObject({
-      pathLength: '1',
-      'stroke-dasharray': '0.5 0.5',
+      pathLength: null,
+      'stroke-dasharray': '10 10',
       'stroke-dashoffset': '0',
     });
     p.step(0.5);

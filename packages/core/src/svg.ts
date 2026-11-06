@@ -1,8 +1,8 @@
 // The SVG scene: one element structure per document, attribute values per frame. The web runtime
 // builds it as retained DOM; `toSVG` serialises it. Both use exactly these attributes.
 
-import { pathLength } from './path.ts';
 import {
+  geometryLength,
   drawTree,
   drawFrame,
   drawOrder,
@@ -130,6 +130,7 @@ export function paintAttrs(
   s: DrawPaint | undefined,
   paint: Paint,
   a: Attrs,
+  length = 1,
 ): void {
   a.fill = fill ? paintColor(fill.color, paint) : 'none';
   a['fill-rule'] = fill?.rule === 'evenodd' ? 'evenodd' : null;
@@ -141,9 +142,10 @@ export function paintAttrs(
       'stroke-width': fmt(s.width!),
       'stroke-linecap': s.cap!,
       'stroke-linejoin': s.join!,
-      pathLength: t ? '1' : null,
-      'stroke-dasharray': t && len < 1 ? `${fmt(len)} ${fmt(1 - len)}` : null,
-      'stroke-dashoffset': t && len < 1 ? fmt(-((((t.start + t.offset) % 1) + 1) % 1)) : null,
+      pathLength: null,
+      'stroke-dasharray': t && len < 1 ? `${fmt(len * length)} ${fmt((1 - len) * length)}` : null,
+      'stroke-dashoffset':
+        t && len < 1 ? fmt(-((((t.start + t.offset) % 1) + 1) % 1) * length) : null,
     });
   }
 }
@@ -190,7 +192,13 @@ function coreAttrs(f: DrawFrame, el: El, paint: Paint, id: string): Attrs {
       'stroke-linecap': 'round',
     });
   }
-  paintAttrs(fill, stroke, paint, a);
+  paintAttrs(
+    fill,
+    stroke,
+    paint,
+    a,
+    stroke?.trim && stroke.trim.end - stroke.trim.start < 1 ? geometryLength(n.geometry, entry) : 1,
+  );
   return a;
 }
 
@@ -205,6 +213,7 @@ export function toSVG(
     height?: number;
     background?: string;
     id?: string;
+    /** Compatibility option: all SVG output now uses natural local lengths. */
     staticLengths?: boolean;
   } = {},
 ): string {
@@ -222,27 +231,6 @@ export function toSVG(
   };
   const ser = (el: El): string => {
     const a = svgAttrs(frame, el, paint, id);
-    if (opts.staticLengths && a.pathLength === '1') {
-      let length = 0;
-      if (a.d) length = pathLength(a.d);
-      else if (el.tag === 'circle') length = 2 * Math.PI * Number(a.r);
-      else if (el.tag === 'rect') {
-        const w = Number(a.width),
-          h = Number(a.height);
-        const r = Number(a.rx ?? 0),
-          rx = Math.min(r, w / 2),
-          ry = Math.min(r, h / 2);
-        length =
-          2 * (w + h - 2 * rx - 2 * ry) +
-          (rx && ry ? 4 * pathLength(`M${rx} 0A${rx} ${ry} 0 0 1 0 ${ry}`) : 0);
-      }
-      for (const k of ['stroke-dasharray', 'stroke-dashoffset'])
-        if (a[k])
-          a[k] = a[k]!.split(' ')
-            .map((v) => fmt(Number(v) * length))
-            .join(' ');
-      a.pathLength = null;
-    }
     const at = Object.entries(a)
       .filter(([, v]) => v !== null)
       .map(([k, v]) => ` ${k}="${esc(v!)}"`)

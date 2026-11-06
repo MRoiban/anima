@@ -63,7 +63,10 @@ export const compositeSVG: SVGBackend = {
               tree.defs.push(
                 element('filter', el.node, 'invert', [
                   ...(r.mask!.mode.endsWith('luminance')
-                    ? [element('feColorMatrix', el.node, 'luminance')]
+                    ? [
+                        element('feColorMatrix', el.node, 'luminance'),
+                        element('feComposite', el.node, 'coverage'),
+                      ]
                     : []),
                   element('feComponentTransfer', el.node, 'transfer', [
                     element('feFuncA', el.node, 'invert-alpha'),
@@ -220,6 +223,11 @@ export const compositeSVG: SVGBackend = {
     }
     if (key === 'luminance') {
       a.type = 'luminanceToAlpha';
+      return;
+    }
+    if (key === 'coverage') {
+      // luminanceToAlpha discards input alpha; restore opacity and edge coverage.
+      Object.assign(a, { operator: 'in', in2: 'SourceGraphic' });
       return;
     }
     if (key === 'transfer') return;

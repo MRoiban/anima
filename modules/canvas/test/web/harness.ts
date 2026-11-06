@@ -5,7 +5,15 @@ import '../../../../packages/web/src/assets.ts';
 import '../../../../packages/web/src/components.ts';
 import '../../../../packages/web/src/bind.ts';
 import '../../../../packages/web/src/surface.ts';
-import { runScript, drawFrame } from '@anima-format/core';
+import {
+  runScript,
+  drawFrame,
+  sceneTree,
+  svgAttrs,
+  cssSlots,
+  type El,
+  type Attrs,
+} from '@anima-format/core';
 import { AnimaIcon } from '../../../../packages/web/src/index.ts';
 import '../../web/index.ts';
 import type { CanvasRenderer } from '../../web/index.ts';
@@ -52,12 +60,40 @@ const harness = {
   },
   perf() {
     const p = this.icon.player!;
+    // Same retained attribute diff as the host, without scheduling, events or vsync.
+    // Canvas keeps its original step + renderer.draw workload.
+    const svg = this.icon.shadowRoot!.querySelector('svg');
+    const tree = sceneTree(p.model);
+    const flatten = (el: El): El[] => [el, ...el.kids.flatMap(flatten)];
+    const els = [...tree.defs.flatMap(flatten), ...tree.root.flatMap(flatten)];
+    const dom = svg ? [...svg.querySelectorAll('*')].filter((el) => el.localName !== 'defs') : [];
+    const records = els.map((el, i) => [el, dom[i]!, {} as Attrs] as const);
+    const draw = () => {
+      const f = drawFrame(p);
+      if (!svg) return renderer.draw(f, false);
+      const changed = new Set(f.changed);
+      for (const [el, d, cur] of records) {
+        if (!changed.has(el.node)) continue;
+        const next = svgAttrs(f, el, cssSlots, 'perf');
+        for (const k in next) {
+          const v = next[k]!;
+          if (v === cur[k]) continue;
+          if (v === null) d.removeAttribute(k);
+          else d.setAttribute(k, v);
+          cur[k] = v;
+        }
+      }
+      Icon.orderSVG?.(
+        f,
+        records.map(([el, d, cur]) => [el, d, cur]),
+      );
+    };
     const run = () => {
       const t = performance.now();
       for (let i = 0; i < 600; i++) {
         if (i % 90 === 0 && p.model.inputs.has('ring')) p.fire('ring');
         p.step(1 / 60);
-        renderer.draw(drawFrame(p), false);
+        draw();
       }
       return ((performance.now() - t) * 1000) / 600;
     };

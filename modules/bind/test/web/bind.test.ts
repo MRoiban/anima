@@ -58,12 +58,16 @@ for (const [name, engine, paths] of [
         await page.evaluate(() => customElements.whenDefined('anima-icon'));
         await page.addScriptTag({ type: 'module', content: paint });
         await page.addScriptTag({ type: 'module', content: binding });
-        // Inline module insertion may resolve before evaluation; wait for the registration used below.
-        await page.waitForFunction(() =>
-          (customElements.get('anima-icon') as typeof AnimaIcon).modules.has('bind'),
+        // Registration must not poll the fake rAF clock, which is intentionally not ticking yet.
+        await page.waitForFunction(
+          () => (customElements.get('anima-icon') as typeof AnimaIcon).modules.has('bind'),
+          undefined,
+          { polling: 10 },
         );
-        await page.waitForFunction(() =>
-          (customElements.get('anima-icon') as typeof AnimaIcon).modules.has('paint'),
+        await page.waitForFunction(
+          () => (customElements.get('anima-icon') as typeof AnimaIcon).modules.has('paint'),
+          undefined,
+          { polling: 10 },
         );
         await page.evaluate(async () => {
           const icon = document.querySelector('anima-icon') as AnimaIcon;
@@ -105,7 +109,7 @@ for (const [name, engine, paths] of [
           before: 0,
           queued: 0,
           after: 0.625,
-          dash: '0.625 0.375',
+          dash: '31.41593 18.84956',
           busy: false,
         });
       } finally {

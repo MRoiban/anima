@@ -121,7 +121,7 @@ describe('paint geometry', () => {
       );
     }
   });
-  it('measures closed lines, cubics and arcs and expands static relative lengths only', () => {
+  it('measures closed lines, cubics and arcs and shares absolute relative lengths between static and live SVG', () => {
     expect(pathLength('M0 0L3 0L3 4Z')).toBe(12);
     expect(pathLength('M10 0A10 10 0 0 1 0 10')).toBeCloseTo(5 * Math.PI, 2);
     const r = load(
@@ -132,10 +132,9 @@ describe('paint geometry', () => {
       }),
     );
     const p = new Player(r.model!);
-    expect(toSVG(p)).toContain(
-      'pathLength="1" stroke-dasharray="0.1 0.05" stroke-dashoffset="0.1"',
-    );
+    expect(toSVG(p)).toContain('stroke-dasharray="2 1" stroke-dashoffset="2"');
     const svg = toSVG(p, { staticLengths: true });
+    expect(svg).toBe(toSVG(p));
     expect(svg).not.toContain('pathLength');
     expect(svg).toContain('stroke-dasharray="2 1" stroke-dashoffset="2"');
   });
