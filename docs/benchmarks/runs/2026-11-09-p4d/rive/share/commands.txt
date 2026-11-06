@@ -1,0 +1,22 @@
+help
+advance 0
+screenshot rest.png
+data-dump rest.json
+pointer click@120,120
+data-dump click1.json
+screenshot start.png
+advance 8
+screenshot pulse.png
+advance 16
+screenshot end.png
+advance 1
+pointer click@120,120
+advance 25
+pointer click@120,120
+advance 25
+pointer click@120,120
+advance 25
+pointer click@120,120
+data-dump click5.json
+advance 25
+quit
