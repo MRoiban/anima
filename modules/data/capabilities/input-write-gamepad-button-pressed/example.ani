@@ -1,0 +1,38 @@
+{
+  "anima": "0.1",
+  "name": "data-probe",
+  "grid": 20,
+  "requires": ["data", "bind", "input"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "gamepad-button",
+      "set": {
+        "$value": false
+      },
+      "control": 0,
+      "value": "gamepad-button-pressed:0"
+    }
+  ],
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "bool"
+          }
+        }
+      }
+    }
+  }
+}

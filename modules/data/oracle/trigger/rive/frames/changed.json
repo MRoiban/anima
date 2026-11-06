@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "artboard": "Interaction",
+  "stateMachine": "interaction",
+  "viewModel": {
+    "name": "Default",
+    "viewModel": "Model",
+    "properties": [
+      {
+        "name": "pulse",
+        "path": "pulse",
+        "type": "trigger",
+        "changed": true
+      },
+      {
+        "name": "n",
+        "path": "n",
+        "type": "number",
+        "value": 9,
+        "changed": true
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}

@@ -23,7 +23,7 @@ type Host = AnimaIcon & {
   play?: () => void;
   reset?: () => void;
   invalidate?: () => void;
-  get?: (name: string) => number | boolean | undefined;
+  get?: (name: string) => ReturnType<AnimaIcon['get']>;
   playback?: string;
   info?: unknown;
 };

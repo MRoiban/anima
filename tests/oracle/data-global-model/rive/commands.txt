@@ -1,0 +1,8 @@
+advance 0
+advance 0
+data-dump frames/initial.json
+data source=7
+advance 0
+advance 0
+data-dump frames/changed.json
+quit

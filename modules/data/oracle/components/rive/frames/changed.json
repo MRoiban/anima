@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "artboard": "Parent",
+  "stateMachine": "main",
+  "viewModel": {
+    "name": "parent",
+    "viewModel": "ParentModel",
+    "properties": [
+      {
+        "name": "a",
+        "path": "a",
+        "type": "viewModel",
+        "value": {
+          "name": "main",
+          "viewModel": "Score",
+          "properties": [
+            {
+              "name": "observed",
+              "path": "a/observed",
+              "type": "number",
+              "value": 7,
+              "changed": true
+            },
+            {
+              "name": "value",
+              "path": "a/value",
+              "type": "number",
+              "value": 7,
+              "changed": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "b",
+        "path": "b",
+        "type": "viewModel",
+        "value": {
+          "name": "other",
+          "viewModel": "Score",
+          "properties": [
+            {
+              "name": "observed",
+              "path": "b/observed",
+              "type": "number",
+              "value": 8,
+              "changed": true
+            },
+            {
+              "name": "value",
+              "path": "b/value",
+              "type": "number",
+              "value": 8,
+              "changed": false
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "globals": [],
+  "nested": [
+    {
+      "path": "a",
+      "artboard": "Badge",
+      "viewModels": [
+        {
+          "name": "main",
+          "viewModel": "Score",
+          "properties": [
+            {
+              "name": "observed",
+              "path": "observed",
+              "type": "number",
+              "value": 7
+            },
+            {
+              "name": "value",
+              "path": "value",
+              "type": "number",
+              "value": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "b",
+      "artboard": "Badge",
+      "viewModels": [
+        {
+          "name": "other",
+          "viewModel": "Score",
+          "properties": [
+            {
+              "name": "observed",
+              "path": "observed",
+              "type": "number",
+              "value": 8
+            },
+            {
+              "name": "value",
+              "path": "value",
+              "type": "number",
+              "value": 8
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

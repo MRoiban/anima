@@ -1994,3 +1994,20 @@ No push, PR, merge into main, benchmark rerun or parity-status promotion by this
   compile (interleaved with main, 4 rounds, load ~6): prefix sweep median ~660 ms both, bell
   ~2.5–2.8 ms; frame bell ~38–41 µs both.
 - **Parity**: 95 rows done (387 / 1 238).
+
+
+## P4e-1 data runtime checkpoint (partial)
+
+- Added typed view models, reusable/nested/list instances, named/default/global contexts, `$` paths,
+  binding directions and converter hooks, scalar/custom property writes, change listeners and
+  gradient channel targets. Generic typed/preparation/binding/after-child hooks preserve base inputs.
+- Independent implementation; research rationale is in modules/data/SPEC.md. No runtime dependencies,
+  Rive source/CLI text copying, .riv reading/conversion, push, PR, merge or publication.
+- Sixty row conformance cases plus two ordering vectors; 39 exact native comparison cases and 21
+  evidenced CLI limits. One separately recorded internal-trigger listener finding: Anima 9, Rive 0.
+  Thirteen assigned rows remain pending; parity statuses and the phase checkbox remain unchanged.
+- Latest broad scoped run: 60 files / 2540 passing tests / 39 TODO, Chromium and Firefox included.
+  The prefix robustness test timed out once under concurrent load; subsequent runs passed without
+  changing its 5000 ms limit. Full phase CI/benchmark and the parallel convert/host integration remain.
+- Final size/performance measurements are recorded in modules/data/REPORT.md. Bind stays below 2048 B;
+  data stays below 8192 B. Components reuses the shared expression compiler and stays below 4096 B.

@@ -1,10 +1,12 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
-State: main 49d418c = through P4c/P4d (PRs #14, #15). Parity 387/1238. core+web 19831; full-featured 69.7 KB.
-Next: data core + convert + paint leftovers in parallel; host API after data core; benchmark (scoreboard); PR.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4e-1 data implementation on t3/data-view-model-bindings; commit only.
+State: models/scopes/bindings/listeners/custom properties implemented; native scalar and reference captures retained.
+Verified: broad scope 1970 pass before last additions; current data unit 549 pass; bind 2001 B, components 3165 B, data ~7994 B (re-measure final).
+Next: finish browser shared-registry fixes, independent conformance probes, docs/evidence, scoped checks, metrics, local commit.
+Don't: push/PR/merge, read .riv/source/docs text, change decided design or relax measuring/test limits.
+Pending coverage: keyframe/text/layout/script/artboard/text-style/contextual-index and upward-relative rows lack design/consumer.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -116,3 +118,7 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-08 02:00 [claude]: merged P4c-7 (62a23c6): main with P4d integrated, full check 4227 pass, oracle 120 cases strict 0; core+web 19831; next P4c AniML benchmark rerun → PR
 - 2026-11-08 03:30 [claude]: P4c rerun 6/6; parity 95 rows done (387/1238); LOG with numbers (perf interleaved: no regression); opening PR
 - 2026-11-08 04:00 [claude]: PR #15 merged (49d418c); P4e design written (modules data + convert, $ paths, binding modes, converters, host API)
+- 2026-11-06 07:21 [codex/data]: read task/design/contracts; npm ci fixed missing prettier; identified out-of-design rows → recorded as coverage blockers (unverified).
+- 2026-11-06 07:21 [codex/data]: implemented typed $ scopes, data storage, modes/converter hooks, listeners/custom props; broad scoped run 1970 pass/1 legacy bool-literal failure → removed literal extension; components now uses shared bind evaluator (2001/2048 B bind, 3165/4096 B components).
+- 2026-11-06 07:21 [codex/data]: captured native scalar/reference/system model dumps with local --commands; eight scalar values match; system dump has empty enum values (evidence: modules/data/oracle/*/rive/frames). Browser exposed unshared resolver and missing optional instance type → fixes under test (unverified).
+- 2026-11-06 07:21 [codex/data]: final-data checkpoints: 60 row conformance vectors + 1 shared-child ordering vector, 24 exact native cases + 18 evidenced system-enum limits; 13 row gaps explicitly pending (evidence: modules/data/ROWS.json).

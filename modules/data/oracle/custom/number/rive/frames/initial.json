@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "artboard": "Custom",
+  "stateMachine": "main",
+  "viewModel": {
+    "name": "main",
+    "viewModel": "Root",
+    "properties": [
+      {
+        "name": "value",
+        "path": "value",
+        "type": "number",
+        "value": 7,
+        "changed": true
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}

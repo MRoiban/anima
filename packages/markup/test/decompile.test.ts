@@ -50,6 +50,9 @@ function recover(root: Element): Obj {
         ['entry', 'exit', 'actions'].includes(k) && v.startsWith('{')
           ? JSON.parse(v)
           : [
+                'global',
+                'exported',
+                'public',
                 'default',
                 'min',
                 'max',
@@ -173,6 +176,7 @@ function recover(root: Element): Obj {
   d.grid = Number(d.grid);
   if (d.machineSeed !== undefined) d.machineSeed = Number(d.machineSeed);
   if (d.viewBox) d.viewBox = vector(d.viewBox as string);
+  if (typeof d.data === 'string' && d.data.startsWith('{')) d.data = JSON.parse(d.data);
   if (d.requires) d.requires = (d.requires as string).split(' ');
   const insert = (key: string, name: string, v: unknown) => (((d[key] ??= {}) as Obj)[name] = v);
   for (const el of elements(root)) {
@@ -180,7 +184,40 @@ function recover(root: Element): Obj {
       p = plain(el);
     const name = a.name!;
     delete p.name;
-    if (el.name === 'component') {
+    if (el.name === 'model') {
+      const data = (d.data ??= {}) as Obj,
+        models = (data.models ??= {}) as Obj,
+        properties: Obj = {};
+      for (const child of elements(el)) {
+        const ca = attrs(child),
+          prop = plain(child);
+        delete prop.name;
+        if (prop.values !== undefined) prop.values = String(prop.values).split(' ');
+        if (prop.type !== undefined) {
+          prop.assetType = prop.type;
+          delete prop.type;
+        }
+        properties[ca.name!] = { type: child.name, ...prop };
+      }
+      models[name] = { ...p, properties };
+    } else if (el.name === 'enum') {
+      const data = (d.data ??= {}) as Obj;
+      ((data.enums ??= {}) as Obj)[name] = a.values!.startsWith('[')
+        ? JSON.parse(a.values!)
+        : a.values!.split(' ');
+    } else if (el.name === 'instance' && a.model && !a.id) {
+      const data = (d.data ??= {}) as Obj,
+        values: Obj = {};
+      for (const child of elements(el)) {
+        const ca = attrs(child);
+        try {
+          values[ca.path!] = JSON.parse(ca.value!);
+        } catch {
+          values[ca.path!] = ca.value;
+        }
+      }
+      ((data.instances ??= {}) as Obj)[name] = { ...p, values };
+    } else if (el.name === 'component') {
       const component = recover({ ...el, name: 'anima' });
       delete component.name;
       delete component.anima;
@@ -197,8 +234,10 @@ function recover(root: Element): Obj {
           ],
         }).machine,
       );
-    else if (el.name === 'bind') insert('bind', address(a.target!), a.value);
-    else if (NODE_ELEMENTS.includes(el.name)) (d.nodes as unknown[]).push(node(el));
+    else if (el.name === 'bind') {
+      const { target, ...spec } = a;
+      insert('bind', address(target!), Object.keys(spec).length === 1 ? a.value : spec);
+    } else if (NODE_ELEMENTS.includes(el.name)) (d.nodes as unknown[]).push(node(el));
     else if (el.name === 'meta')
       d.meta = {
         ...base(el),
@@ -270,10 +309,11 @@ function recover(root: Element): Obj {
     } else if (el.name === 'listener') {
       if (a.set !== undefined)
         p.set = Object.fromEntries(
-          [...a.set.matchAll(/([a-z][\w.-]*)=([\s\S]*?)(?=\s+[a-z][\w.-]*=|$)/g)].map((m) => [
-            m[1]!,
-            scalar(m[2]!.trim()),
-          ]),
+          [
+            ...a.set.matchAll(
+              /((?:\$[\w-]+:)?\$?[a-z][\w.-]*)=([\s\S]*?)(?=\s+(?:\$[\w-]+:)?\$?[a-z][\w.-]*=|$)/g,
+            ),
+          ].map((m) => [m[1]!, scalar(m[2]!.trim())]),
         );
       for (const k of ['fire', 'toggle']) if (a[k]?.includes(' ')) p[k] = a[k]!.split(' ');
       ((d.listeners ??= []) as unknown[]).push(p);
@@ -419,10 +459,17 @@ function check(source: string | object) {
       'machine',
       'event-def',
       'audio-volume',
+      'model',
+      'enum',
+      'list',
+      'model-ref',
+      'asset-ref',
+      'string',
+      'set',
     ]).toContain(e.name);
     if (e.name !== 'pose')
       for (const a of e.attrs) {
-        if (e.name === 'instance' && !attrOrder(e.name).includes(a.name)) {
+        if (e.name === 'instance' && attrs(e).id && !attrOrder(e.name).includes(a.name)) {
           const component = (expected.components as Obj)[attrs(e).component!] as Obj;
           expect(Object.keys(component.inputs as Obj)).toContain(a.name);
         } else expect(attrOrder(e.name)).toContain(a.name);

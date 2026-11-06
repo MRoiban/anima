@@ -277,6 +277,11 @@ and an oracle test against Rive.
         See `modules/events/P4D-3-RESULTS.md`; four exact post-click comparative oracles and one immediate-timing finding in `tests/oracle/ACTION-EXPRESSIONS.md`.
   - [ ] Parent integration, phase benchmark and parity promotion/PR.
 - [ ] P4e `data`: view models, bindings, converters, lists.
+  - [x] P4e-1 runtime checkpoint: typed models/instances/paths, modes and converter hooks, data writes,
+        custom properties, component sharing and gradient channels; 60 row conformance cases plus two
+        ordering vectors; 39 native comparisons, 21 evidenced skips. Local commit only.
+  - [ ] P4e-1 completion: decide the internal-trigger listener finding and resolve thirteen pending
+        design/consumer/integration rows. See `modules/data/REPORT.md` and `ROWS.json`.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide
       whether switching to reduced motion stops in-progress loops at once (P4b benchmark).
 - [ ] P6 Text.

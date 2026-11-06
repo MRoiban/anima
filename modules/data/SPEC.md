@@ -1,0 +1,103 @@
+# Data contract (P4e-1)
+
+This chapter implements design/p4e/DESIGN.md §2–4 and §6. It is independent code;
+no algorithm follows Rive source. The graph metadata/typed scope choice follows
+[graph research](../../docs/research/rive-format-and-graph.md) §6. Snapshot writes and
+next-step change listeners avoid the feedback described in
+[state research](../../docs/research/rive-animation-and-state.md) §C. Native host subscriptions
+remain a separate task, consistent with [web research](../../docs/research/rive-web-runtime.md) §4.
+
+Declare `data`. Existing 0.1 inputs and their queue order are unchanged. `data.models` maps model
+names to `{properties,global?}`. Each property has `type`: `number`, `string`, `bool`, `color`,
+`trigger`, `enum`, `list`, `model-ref`, `asset-ref`. Number defaults to 0 and supports finite
+`min`/`max`; subsequent writes clamp. String defaults to empty, bool to false, color to black;
+colors use existing hex syntax and straight RGBA byte values. Triggers are signals with no
+stored default. Enum requires `values` (unique keys), `enum` (a declaration in `data.enums`),
+or `system` (one of the declared names in `core/enums.ts`); its default is its first key.
+`data.enums` entries are strings or `{key,label?}`; member order defines indices.
+System enums only declare vocabulary here; future layout/text consumers are not implemented.
+
+`list` contains model instances; `of` optionally constrains the model. `model-ref` requires
+`model`. Values use a named instance string, `{instance: name}`, `{model,values}` or inline
+values when the model is fixed. Named references retain identity, including through lists.
+Nested defaults instantiate the referenced model; cyclic default/reference graphs are rejected.
+`asset-ref` requires `assetType: image|font|blob`; its value is an asset id or empty string.
+A nonempty initial reference must name an asset with the matching type. Asset decoding and
+replacement consumers remain owned by assets and the future host API.
+
+`data.instances` maps names to `{model,values?,default?,exported?,label?}`. At most one authored
+instance is default. `data.model` selects the default model; otherwise the flagged instance,
+then the first instance, supplies the default. If none exists, an implicit `default` instance
+is constructed. `preview` and `exported` are retained metadata; editor selection/runtime export
+filtering remain pending. Expansion is bounded to 32 levels and 4096 objects.
+
+Paths are `$property`, `$nested.property`, `$list.0.property`, `$list.length`, or
+`$instance:property`. The default form and named form alias the same storage. List length is
+read-only. Scalar paths are typed inputs to existing conditions, bindings, actions, component
+initializers and event payload fields. Trigger aliases share one pending signal. Number guards
+support existing arithmetic; string/enum guards support `==`/`!=` with double-quoted literals.
+Bare boolean guards retain the existing rule. The full upward-relative lookup row is pending;
+local default and explicitly named paths work. Opaque lists/models can be converter sources.
+
+AniML uses `<model name="Player" global="true">`, typed child declarations (`<number>`,
+`<string>`, `<bool>`, `<color>`, `<trigger>`, `<enum>`, `<list>`, `<model-ref>`, `<asset-ref>`), and
+`<instance name="main" model="Player" default="true"><set path="score" value="12"/></instance>`.
+Property attributes follow JSON names; asset declarations use `type="image|font|blob"`.
+Initial compound values use JSON in `value`; enum member lists use whitespace, or JSON entries
+for root enum display labels. Optional root `data='{"preview":"main","model":"Player"}'`
+retains metadata while child declarations populate models/instances. Node placements use
+`data="main"`; components declare `data="Player"` as their public model. Each child has local
+storage unless explicitly bound to a parent instance. Global-model named instances share their
+storage through the component tree. Each root player remains independent.
+
+Bindings retain the old string form and add `{value,mode?,prefer?,convert?,options?}`.
+Modes are `to-target` (default), `to-source`, `two-way`, `once`. Reverse modes require a direct
+writable scalar path with a compatible type. Binding evaluation runs after layer resolution
+at the existing binding position, before clamping/events/child steps. All sources sample one
+post-state snapshot. Reverse writes apply after all bindings in authored order. Two-way tracks
+source changes and the target's underlying animated/rest value; simultaneous changes use
+`prefer: source` (default) or `target`. The initial step counts both as changed. Once converts
+once and retains that result. No binding iteration or same-frame reentry occurs.
+
+Converters register by name through the composed data module's `registerConverter(name, fn)`;
+`fn(value, options, ctx)` returns a value. Context is `{player,dt,direction,get,state}`; state is
+player-local, direction is forward/reverse. `$` option strings resolve from the current model.
+Converter definitions and formulas belong to the separate convert task. Bind exposes
+`registerFunction(name,arity,fn)` and `parse`; all shared input-expression consumers use the
+registered bind evaluator. See INTERFACE.md for the integration seam.
+
+Custom node `properties` infer number/bool/string from literals or accept typed
+`{type,default,values?}` declarations for number/bool/string/color/enum/trigger. AniML
+`data-label="x"` is `properties.label: "x"`; canonical output may use JSON `properties`.
+Targets/sources are `node.properties.name`; string/enum channels are discrete and hold-only.
+A custom trigger uses `fire="node.properties.name"` and a matching trigger condition.
+Gradient stop channels `fill|stroke.stops.N.red|green|blue|alpha` are byte channels in [0,255].
+They override the corresponding resolved stop color after ordinary binding resolution.
+
+Listeners retain snapshot `set` expressions and add `copy="$a -> $b"` and
+`on="change:$path"`. Change compares the step's final value to its previous final value;
+multiple writes coalesce. Matching listener actions queue for the following step (including
+step(0)), keep the player unsettled, and never recursively rerun a step. Trigger change listeners
+observe signal occurrences rather than a stored boolean. `value="focused"` replaces set values
+with target focus (requires focus). `gamepad-axis:N`, `gamepad-button-pressed:N`,
+`gamepad-button-value:N`, `gamepad-changed-value:N` read input's current controller snapshot
+(requires input), with listener `index` selecting the controller and `control` the fallback
+control index. Existing `write` field maps also accept data paths. Source/destination types must
+match. Sample `set $path` accepts typed scalar values, including quoted strings and hex colors;
+selected snapshots accept all scalar paths and print colors canonically.
+
+Data diagnostics carry codes/pointers/messages/hints: `data-model`, `data-property`, `data-type`,
+`data-enum`, `data-instance`, `data-cycle`, `data-path`, `data-readonly`, `data-asset`,
+`data-binding`, `data-converter`, `data-copy`, `data-value-source`, plus existing structural,
+expression and bounded-expansion diagnostics. Deterministic vectors live in spec/conformance;
+raw native comparisons and evidenced CLI limits live under oracle/. ROWS.json distinguishes
+implementation, native verification, skips and pending work. No phase completion is claimed.
+
+### Native trigger-listener finding
+
+The state/custom trigger probes expose a native `changed: true` signal but leave the native
+view-model listener's numeric destination at 0. Anima's after-step signal listener writes 9.
+A host `data pulse=1` does run the native listener and matches Anima's host-fired probe.
+This difference is retained as a failing comparison in
+`tests/oracle/input-data-listener/internal-trigger-difference/`, separately from passing signal
+occurrence cases. It needs an owner decision; trigger-listener parity is not complete.

@@ -1,0 +1,91 @@
+{
+  "schema": 1,
+  "artboard": "Data",
+  "stateMachine": "main",
+  "viewModel": {
+    "name": "main",
+    "viewModel": "Score",
+    "properties": [
+      {
+        "name": "team",
+        "path": "team",
+        "type": "viewModel",
+        "value": {
+          "name": "blue",
+          "viewModel": "Team",
+          "properties": [
+            {
+              "name": "title",
+              "path": "team/title",
+              "type": "string",
+              "value": "Blue",
+              "changed": false
+            }
+          ]
+        }
+      },
+      {
+        "name": "items",
+        "path": "items",
+        "type": "list",
+        "size": 1,
+        "items": [
+          {
+            "name": "blue",
+            "viewModel": "Team",
+            "properties": [
+              {
+                "name": "title",
+                "path": "items[0]/title",
+                "type": "string",
+                "value": "Blue",
+                "changed": false
+              }
+            ]
+          }
+        ],
+        "changed": false
+      },
+      {
+        "name": "mood",
+        "path": "mood",
+        "type": "enum",
+        "enumType": "Mood",
+        "value": "calm",
+        "index": 0,
+        "values": ["calm", "happy"],
+        "changed": false
+      },
+      {
+        "name": "score",
+        "path": "score",
+        "type": "number",
+        "value": 4,
+        "changed": false
+      },
+      {
+        "name": "label",
+        "path": "label",
+        "type": "string",
+        "value": "Ada",
+        "changed": false
+      },
+      {
+        "name": "active",
+        "path": "active",
+        "type": "boolean",
+        "value": false,
+        "changed": false
+      },
+      {
+        "name": "tint",
+        "path": "tint",
+        "type": "color",
+        "value": "44112233",
+        "changed": false
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}

@@ -1,0 +1,20 @@
+<anima version="0.1" name="data-probe" grid="20" requires="data bind">
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+
+  <timeline name="t" duration="1">
+    <track target="dot.x">
+      0  1
+      1  11
+    </track>
+  </timeline>
+
+  <model name="Root">
+    <number name="value" default="4"/>
+  </model>
+
+  <layer name="m" initial="a">
+    <state name="a" play="t"/>
+  </layer>
+
+  <bind target="dot.x" value="$value" mode="two-way" prefer="source"/>
+</anima>

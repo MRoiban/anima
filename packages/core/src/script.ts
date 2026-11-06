@@ -1,3 +1,4 @@
+import { formatHex } from './color.ts';
 // The command language of `anima sample` and the conformance suite (spec §11.2). Tooling only.
 
 import { COMMON, OWN, PAINT, markupName } from './registry.ts';
@@ -40,7 +41,10 @@ export function runScript(
   };
   text.split('\n').forEach((raw, i) => {
     const line = i + 1;
-    const words = raw.replace(/#.*/, '').trim().split(/\s+/).filter(Boolean);
+    const dataSet = /^\s*set\s+(\$\S+)\s+("(?:[^"\\]|\\.)*"|#[\da-fA-F]+)\s*(?:#.*)?$/.exec(raw);
+    const words = dataSet
+      ? ['set', dataSet[1]!, dataSet[2]!]
+      : raw.replace(/#.*/, '').trim().split(/\s+/).filter(Boolean);
     if (!words.length) return;
     const [cmd, ...args] = words;
     const num = (s: string | undefined, what: string) => {
@@ -67,7 +71,17 @@ export function runScript(
         }
         case 'set': {
           if (args.length !== 2) throw new ScriptError('use "set <input> <value>"', line);
-          const v = args[1] === 'true' ? true : args[1] === 'false' ? false : num(args[1], 'value');
+          const type = model.inputs.get(args[0]!)?.type;
+          const v =
+            args[0]!.startsWith('$') && (type === 'string' || type === 'color')
+              ? args[1]!.startsWith('"')
+                ? JSON.parse(args[1]!)
+                : args[1]!
+              : args[1] === 'true'
+                ? true
+                : args[1] === 'false'
+                  ? false
+                  : num(args[1], 'value');
           p.set(args[0]!, v);
           break;
         }
@@ -210,7 +224,7 @@ export function runScript(
                   `"${a}" is not an animated address or a bool/number input`,
                   line,
                 );
-              pick[canonical] = v;
+              pick[canonical] = Array.isArray(v) ? formatHex(v) : v;
             }
             values = pick;
           }

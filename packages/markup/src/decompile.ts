@@ -1,5 +1,5 @@
 import { elementFields, compoundField } from './fields.ts';
-import { motionCompiler, eventsCompiler } from './module-hooks.ts';
+import { motionCompiler, eventsCompiler, dataCompiler } from './module-hooks.ts';
 import { parseXml, type Element } from './xml.ts';
 import { ELEMENTS, markupName, type NodeType } from '@anima-format/core';
 import { markupAddress, nodeAttrs } from './names.ts';
@@ -114,7 +114,7 @@ export function decompile(doc: string | object): string {
     'anima',
     d,
     ['name', 'title', 'grid', 'viewBox', 'requires'],
-    [['version', value(d.anima)]],
+    [['version', value(d.anima)], ...(dataCompiler.rootAttrs?.(d) ?? [])],
   );
   for (const f of elementFields('anima'))
     if (d[f.key] !== undefined) root.attrs.push([f.attr, value(d[f.key])]);
@@ -247,6 +247,7 @@ export function decompile(doc: string | object): string {
       return el;
     });
   groups.push(eventsCompiler.definitions?.(d) ?? []);
+  groups.push(dataCompiler.definitions?.(d) ?? []);
   groups.push(machineLayers(d.machine));
   groups.push(
     entries(d.machines).map(([name, machine]) => ({
@@ -264,7 +265,9 @@ export function decompile(doc: string | object): string {
         [],
         [
           ['target', address(target)],
-          ['value', String(v)],
+          ...Object.entries(typeof v === 'string' ? { value: v } : (v as Obj)).map(
+            ([k, v]): [string, string] => [k, k === 'options' ? JSON.stringify(v) : String(v)],
+          ),
         ],
       ),
     ),

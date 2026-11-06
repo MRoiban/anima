@@ -21,6 +21,7 @@ import { paint } from '../../../modules/paint/core/index.ts';
 import { paintSVG } from '../../../modules/paint/core/svg.ts';
 import { composite } from '../../../modules/composite/core/index.ts';
 import { compositeSVG } from '../../../modules/composite/core/svg.ts';
+import { data } from '../../../modules/data/core/index.ts';
 import { surface } from '../../../modules/surface/core/index.ts';
 import { surfaceSVG } from '../../../modules/surface/core/svg.ts';
 if (VERBOSE) {
@@ -43,6 +44,7 @@ if (VERBOSE) {
   registerSVGBackend('paint', paintSVG);
   registerModule(composite);
   registerSVGBackend('composite', compositeSVG);
+  registerModule(data);
   registerModule(surface);
   registerSVGBackend('surface', surfaceSVG);
 }

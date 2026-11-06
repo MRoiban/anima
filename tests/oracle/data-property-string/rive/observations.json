@@ -1,0 +1,16 @@
+[
+  {
+    "click": 0,
+    "values": {
+      "$value": "Ada"
+    },
+    "events": []
+  },
+  {
+    "click": 1,
+    "values": {
+      "$value": "Grace"
+    },
+    "events": []
+  }
+]

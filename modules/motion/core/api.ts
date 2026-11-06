@@ -224,7 +224,7 @@ export class MachineInstance {
     this.player.fire(name);
     this.#owner.wake();
   }
-  get(name: string): number | boolean | undefined {
+  get(name: string): import('../../../packages/core/src/load.ts').Value | undefined {
     return this.player.get(name);
   }
   states(): Record<string, string> {

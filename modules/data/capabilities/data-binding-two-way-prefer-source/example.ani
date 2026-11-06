@@ -1,0 +1,59 @@
+{
+  "anima": "0.1",
+  "name": "data-probe",
+  "grid": 20,
+  "requires": ["data", "bind"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "dot.x": [
+          [0, 1],
+          [1, 11]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "m": {
+        "initial": "a",
+        "states": {
+          "a": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  },
+  "bind": {
+    "dot.x": {
+      "value": "$value",
+      "mode": "two-way",
+      "prefer": "source"
+    }
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "number",
+            "default": 4
+          }
+        }
+      }
+    }
+  }
+}

@@ -22,6 +22,7 @@
     "./paint": "./src/paint.ts",
     "./markup-paint": "./src/markup-paint.ts",
     "./composite": "./src/composite.ts",
+    "./data": "./src/data.ts",
     "./surface": "./src/surface.ts",
     "./markup-surface": "./src/markup-surface.ts"
   },

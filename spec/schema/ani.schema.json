@@ -483,12 +483,14 @@
                               "fire": {
                                 "anyOf": [
                                   {
-                                    "type": "string"
+                                    "type": "string",
+                                    "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                   },
                                   {
                                     "type": "array",
                                     "items": {
-                                      "type": "string"
+                                      "type": "string",
+                                      "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                     },
                                     "minItems": 1
                                   }
@@ -500,6 +502,9 @@
                                   "$comment": {
                                     "type": "string"
                                   }
+                                },
+                                "propertyNames": {
+                                  "pattern": "^\\$comment$|^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                 },
                                 "additionalProperties": {
                                   "anyOf": [
@@ -519,12 +524,14 @@
                               "toggle": {
                                 "anyOf": [
                                   {
-                                    "type": "string"
+                                    "type": "string",
+                                    "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                   },
                                   {
                                     "type": "array",
                                     "items": {
-                                      "type": "string"
+                                      "type": "string",
+                                      "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                     },
                                     "minItems": 1
                                   }
@@ -603,12 +610,14 @@
                               "fire": {
                                 "anyOf": [
                                   {
-                                    "type": "string"
+                                    "type": "string",
+                                    "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                   },
                                   {
                                     "type": "array",
                                     "items": {
-                                      "type": "string"
+                                      "type": "string",
+                                      "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                     },
                                     "minItems": 1
                                   }
@@ -620,6 +629,9 @@
                                   "$comment": {
                                     "type": "string"
                                   }
+                                },
+                                "propertyNames": {
+                                  "pattern": "^\\$comment$|^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                 },
                                 "additionalProperties": {
                                   "anyOf": [
@@ -639,12 +651,14 @@
                               "toggle": {
                                 "anyOf": [
                                   {
-                                    "type": "string"
+                                    "type": "string",
+                                    "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                   },
                                   {
                                     "type": "array",
                                     "items": {
-                                      "type": "string"
+                                      "type": "string",
+                                      "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                     },
                                     "minItems": 1
                                   }
@@ -792,14 +806,15 @@
                           "anyOf": [
                             {
                               "type": "string",
-                              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                             },
                             {
                               "type": "array",
                               "items": {
                                 "type": "string",
-                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
-                              }
+                                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
+                              },
+                              "minItems": 1
                             }
                           ]
                         },
@@ -807,14 +822,15 @@
                           "anyOf": [
                             {
                               "type": "string",
-                              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                             },
                             {
                               "type": "array",
                               "items": {
                                 "type": "string",
-                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
-                              }
+                                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
+                              },
+                              "minItems": 1
                             }
                           ]
                         },
@@ -830,7 +846,7 @@
                             }
                           },
                           "propertyNames": {
-                            "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+                            "pattern": "^\\$comment$|^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                           },
                           "additionalProperties": {
                             "anyOf": [
@@ -860,14 +876,15 @@
                           "anyOf": [
                             {
                               "type": "string",
-                              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                             },
                             {
                               "type": "array",
                               "items": {
                                 "type": "string",
-                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
-                              }
+                                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
+                              },
+                              "minItems": 1
                             }
                           ]
                         },
@@ -875,14 +892,15 @@
                           "anyOf": [
                             {
                               "type": "string",
-                              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                             },
                             {
                               "type": "array",
                               "items": {
                                 "type": "string",
-                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
-                              }
+                                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
+                              },
+                              "minItems": 1
                             }
                           ]
                         },
@@ -898,7 +916,7 @@
                             }
                           },
                           "propertyNames": {
-                            "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+                            "pattern": "^\\$comment$|^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                           },
                           "additionalProperties": {
                             "anyOf": [
@@ -954,12 +972,14 @@
                         "fire": {
                           "anyOf": [
                             {
-                              "type": "string"
+                              "type": "string",
+                              "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                             },
                             {
                               "type": "array",
                               "items": {
-                                "type": "string"
+                                "type": "string",
+                                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                               },
                               "minItems": 1
                             }
@@ -971,6 +991,9 @@
                             "$comment": {
                               "type": "string"
                             }
+                          },
+                          "propertyNames": {
+                            "pattern": "^\\$comment$|^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                           },
                           "additionalProperties": {
                             "anyOf": [
@@ -990,12 +1013,14 @@
                         "toggle": {
                           "anyOf": [
                             {
-                              "type": "string"
+                              "type": "string",
+                              "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                             },
                             {
                               "type": "array",
                               "items": {
-                                "type": "string"
+                                "type": "string",
+                                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                               },
                               "minItems": 1
                             }
@@ -1017,12 +1042,14 @@
                         "fire": {
                           "anyOf": [
                             {
-                              "type": "string"
+                              "type": "string",
+                              "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                             },
                             {
                               "type": "array",
                               "items": {
-                                "type": "string"
+                                "type": "string",
+                                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                               },
                               "minItems": 1
                             }
@@ -1034,6 +1061,9 @@
                             "$comment": {
                               "type": "string"
                             }
+                          },
+                          "propertyNames": {
+                            "pattern": "^\\$comment$|^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                           },
                           "additionalProperties": {
                             "anyOf": [
@@ -1053,12 +1083,14 @@
                         "toggle": {
                           "anyOf": [
                             {
-                              "type": "string"
+                              "type": "string",
+                              "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                             },
                             {
                               "type": "array",
                               "items": {
-                                "type": "string"
+                                "type": "string",
+                                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                               },
                               "minItems": 1
                             }
@@ -1197,7 +1229,7 @@
           },
           "on": {
             "type": "string",
-            "pattern": "(?:(?:^(?:focus|blur|enter|leave|down|up|click|move|[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)+)$)|(?:^(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected)(?:\\|(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected))*$)|^event:[a-z][a-zA-Z0-9-]*$)"
+            "pattern": "(?:(?:(?:^(?:focus|blur|enter|leave|down|up|click|move|[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)+)$)|(?:^(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected)(?:\\|(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected))*$)|^event:[a-z][a-zA-Z0-9-]*$))|^change:\\$[\\w:.-]+$"
           },
           "target": {
             "type": "string",
@@ -1211,13 +1243,13 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*$"
+                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
               },
               {
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "pattern": "^[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*$"
+                  "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                 },
                 "minItems": 1
               }
@@ -1231,7 +1263,7 @@
               }
             },
             "propertyNames": {
-              "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*$"
+              "pattern": "^\\$comment$|^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
             },
             "additionalProperties": {
               "anyOf": [
@@ -1252,13 +1284,13 @@
             "anyOf": [
               {
                 "type": "string",
-                "pattern": "^[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*$"
+                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
               },
               {
                 "type": "array",
                 "items": {
                   "type": "string",
-                  "pattern": "^[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*$"
+                  "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                 },
                 "minItems": 1
               }
@@ -1342,6 +1374,14 @@
               "snap"
             ],
             "feature": "input"
+          },
+          "copy": {
+            "type": "string",
+            "feature": "data"
+          },
+          "value": {
+            "type": "string",
+            "feature": "data"
           }
         },
         "required": [
@@ -1371,9 +1411,57 @@
         }
       },
       "additionalProperties": {
-        "type": "string"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "$comment": {
+                "type": "string"
+              },
+              "value": {
+                "type": "string"
+              },
+              "mode": {
+                "type": "string",
+                "enum": [
+                  "to-target",
+                  "to-source",
+                  "two-way",
+                  "once"
+                ]
+              },
+              "prefer": {
+                "type": "string",
+                "enum": [
+                  "source",
+                  "target"
+                ]
+              },
+              "convert": {
+                "type": "string"
+              },
+              "options": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": {}
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "feature": "data"
+          }
+        ]
       },
-      "feature": "bind"
+      "feature": "bind|data"
     },
     "assets": {
       "type": "object",
@@ -1549,12 +1637,14 @@
                                 "fire": {
                                   "anyOf": [
                                     {
-                                      "type": "string"
+                                      "type": "string",
+                                      "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                     },
                                     {
                                       "type": "array",
                                       "items": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                       },
                                       "minItems": 1
                                     }
@@ -1566,6 +1656,9 @@
                                     "$comment": {
                                       "type": "string"
                                     }
+                                  },
+                                  "propertyNames": {
+                                    "pattern": "^\\$comment$|^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                   },
                                   "additionalProperties": {
                                     "anyOf": [
@@ -1585,12 +1678,14 @@
                                 "toggle": {
                                   "anyOf": [
                                     {
-                                      "type": "string"
+                                      "type": "string",
+                                      "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                     },
                                     {
                                       "type": "array",
                                       "items": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                       },
                                       "minItems": 1
                                     }
@@ -1669,12 +1764,14 @@
                                 "fire": {
                                   "anyOf": [
                                     {
-                                      "type": "string"
+                                      "type": "string",
+                                      "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                     },
                                     {
                                       "type": "array",
                                       "items": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                       },
                                       "minItems": 1
                                     }
@@ -1686,6 +1783,9 @@
                                     "$comment": {
                                       "type": "string"
                                     }
+                                  },
+                                  "propertyNames": {
+                                    "pattern": "^\\$comment$|^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                   },
                                   "additionalProperties": {
                                     "anyOf": [
@@ -1705,12 +1805,14 @@
                                 "toggle": {
                                   "anyOf": [
                                     {
-                                      "type": "string"
+                                      "type": "string",
+                                      "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                     },
                                     {
                                       "type": "array",
                                       "items": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                       },
                                       "minItems": 1
                                     }
@@ -1858,14 +1960,15 @@
                             "anyOf": [
                               {
                                 "type": "string",
-                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                               },
                               {
                                 "type": "array",
                                 "items": {
                                   "type": "string",
-                                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
-                                }
+                                  "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
+                                },
+                                "minItems": 1
                               }
                             ]
                           },
@@ -1873,14 +1976,15 @@
                             "anyOf": [
                               {
                                 "type": "string",
-                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                               },
                               {
                                 "type": "array",
                                 "items": {
                                   "type": "string",
-                                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
-                                }
+                                  "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
+                                },
+                                "minItems": 1
                               }
                             ]
                           },
@@ -1896,7 +2000,7 @@
                               }
                             },
                             "propertyNames": {
-                              "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+                              "pattern": "^\\$comment$|^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                             },
                             "additionalProperties": {
                               "anyOf": [
@@ -1926,14 +2030,15 @@
                             "anyOf": [
                               {
                                 "type": "string",
-                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                               },
                               {
                                 "type": "array",
                                 "items": {
                                   "type": "string",
-                                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
-                                }
+                                  "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
+                                },
+                                "minItems": 1
                               }
                             ]
                           },
@@ -1941,14 +2046,15 @@
                             "anyOf": [
                               {
                                 "type": "string",
-                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                               },
                               {
                                 "type": "array",
                                 "items": {
                                   "type": "string",
-                                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
-                                }
+                                  "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
+                                },
+                                "minItems": 1
                               }
                             ]
                           },
@@ -1964,7 +2070,7 @@
                               }
                             },
                             "propertyNames": {
-                              "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+                              "pattern": "^\\$comment$|^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                             },
                             "additionalProperties": {
                               "anyOf": [
@@ -2020,12 +2126,14 @@
                           "fire": {
                             "anyOf": [
                               {
-                                "type": "string"
+                                "type": "string",
+                                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                               },
                               {
                                 "type": "array",
                                 "items": {
-                                  "type": "string"
+                                  "type": "string",
+                                  "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                 },
                                 "minItems": 1
                               }
@@ -2037,6 +2145,9 @@
                               "$comment": {
                                 "type": "string"
                               }
+                            },
+                            "propertyNames": {
+                              "pattern": "^\\$comment$|^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                             },
                             "additionalProperties": {
                               "anyOf": [
@@ -2056,12 +2167,14 @@
                           "toggle": {
                             "anyOf": [
                               {
-                                "type": "string"
+                                "type": "string",
+                                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                               },
                               {
                                 "type": "array",
                                 "items": {
-                                  "type": "string"
+                                  "type": "string",
+                                  "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                 },
                                 "minItems": 1
                               }
@@ -2083,12 +2196,14 @@
                           "fire": {
                             "anyOf": [
                               {
-                                "type": "string"
+                                "type": "string",
+                                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                               },
                               {
                                 "type": "array",
                                 "items": {
-                                  "type": "string"
+                                  "type": "string",
+                                  "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                 },
                                 "minItems": 1
                               }
@@ -2100,6 +2215,9 @@
                               "$comment": {
                                 "type": "string"
                               }
+                            },
+                            "propertyNames": {
+                              "pattern": "^\\$comment$|^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                             },
                             "additionalProperties": {
                               "anyOf": [
@@ -2119,12 +2237,14 @@
                           "toggle": {
                             "anyOf": [
                               {
-                                "type": "string"
+                                "type": "string",
+                                "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                               },
                               {
                                 "type": "array",
                                 "items": {
-                                  "type": "string"
+                                  "type": "string",
+                                  "pattern": "^(?:\\$[a-zA-Z][\\w-]*(?::[a-zA-Z][\\w-]*)?(?:\\.[\\w-]+)*|[a-z][\\w-]*(?:\\.[\\w-]+)*)$"
                                 },
                                 "minItems": 1
                               }
@@ -2357,6 +2477,199 @@
       "minimum": 0,
       "maximum": 4294967295,
       "feature": "machine"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "$comment": {
+          "type": "string"
+        },
+        "models": {
+          "type": "object",
+          "properties": {
+            "$comment": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "$comment": {
+                "type": "string"
+              },
+              "properties": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string",
+                      "enum": [
+                        "number",
+                        "string",
+                        "bool",
+                        "color",
+                        "trigger",
+                        "enum",
+                        "list",
+                        "model-ref",
+                        "asset-ref"
+                      ]
+                    },
+                    "default": {},
+                    "min": {
+                      "type": "number"
+                    },
+                    "max": {
+                      "type": "number"
+                    },
+                    "values": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "enum": {
+                      "type": "string"
+                    },
+                    "system": {
+                      "type": "string"
+                    },
+                    "of": {
+                      "type": "string"
+                    },
+                    "model": {
+                      "type": "string"
+                    },
+                    "assetType": {
+                      "type": "string",
+                      "enum": [
+                        "image",
+                        "font",
+                        "blob"
+                      ]
+                    },
+                    "public": {
+                      "type": "boolean"
+                    },
+                    "label": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "type"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "global": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "properties"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "instances": {
+          "type": "object",
+          "properties": {
+            "$comment": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "$comment": {
+                "type": "string"
+              },
+              "model": {
+                "type": "string"
+              },
+              "default": {
+                "type": "boolean"
+              },
+              "exported": {
+                "type": "boolean"
+              },
+              "label": {
+                "type": "string"
+              },
+              "values": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  }
+                },
+                "additionalProperties": {}
+              }
+            },
+            "required": [
+              "model"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "enums": {
+          "type": "object",
+          "properties": {
+            "$comment": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "$comment": {
+                      "type": "string"
+                    },
+                    "key": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "key"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            },
+            "minItems": 1
+          }
+        },
+        "model": {
+          "type": "string"
+        },
+        "preview": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "models"
+      ],
+      "additionalProperties": false,
+      "feature": "data"
     }
   },
   "required": [
@@ -2672,6 +2985,16 @@
               ],
               "additionalProperties": false,
               "feature": "composite"
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {},
+              "feature": "data"
             },
             "slice": {
               "type": "object",
@@ -3882,6 +4205,16 @@
               },
               "minItems": 1,
               "feature": "composite"
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {},
+              "feature": "data"
             },
             "slice": {
               "type": "object",
@@ -5095,6 +5428,16 @@
               },
               "minItems": 1,
               "feature": "composite"
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {},
+              "feature": "data"
             },
             "slice": {
               "type": "object",
@@ -6336,6 +6679,16 @@
               "minItems": 1,
               "feature": "composite"
             },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {},
+              "feature": "data"
+            },
             "slice": {
               "type": "object",
               "properties": {
@@ -7559,6 +7912,16 @@
               "minItems": 1,
               "feature": "composite"
             },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {},
+              "feature": "data"
+            },
             "slice": {
               "type": "object",
               "properties": {
@@ -7950,6 +8313,20 @@
               ],
               "additionalProperties": false,
               "feature": "composite"
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {},
+              "feature": "data"
+            },
+            "data": {
+              "type": "string",
+              "feature": "data"
             },
             "slice": {
               "type": "object",
@@ -8359,6 +8736,16 @@
               ],
               "additionalProperties": false,
               "feature": "composite"
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {},
+              "feature": "data"
             },
             "slice": {
               "type": "object",
@@ -9440,6 +9827,16 @@
               },
               "minItems": 1,
               "feature": "composite"
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {},
+              "feature": "data"
             },
             "slice": {
               "type": "object",
@@ -10667,6 +11064,16 @@
               },
               "minItems": 1,
               "feature": "composite"
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {},
+              "feature": "data"
             },
             "slice": {
               "type": "object",
@@ -11896,6 +12303,16 @@
               "minItems": 1,
               "feature": "composite"
             },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {},
+              "feature": "data"
+            },
             "slice": {
               "type": "object",
               "properties": {
@@ -13113,6 +13530,16 @@
               },
               "minItems": 1,
               "feature": "composite"
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {},
+              "feature": "data"
             },
             "slice": {
               "type": "object",

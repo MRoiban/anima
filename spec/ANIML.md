@@ -526,3 +526,16 @@ Typed event payload fields use the existing JSON payload attribute:
 Number/bool/color expression fields require bind and resolve at event reporting after state
 resolution and bindings, as existing input payload fields do. String fields keep literal braces.
 Examples and executable evidence: `modules/events/examples/share.animl` and `share-evidence/`.
+
+## Data models and binding modes
+
+The optional data forms and their exact JSON equivalents are normative in
+[modules/data/SPEC.md](../modules/data/SPEC.md). Root `<model>` and named `<instance model="…">`
+children declare models and values; node `<instance id="…" component="…" data="main">` remains
+a placement. Components declare public data with `data="Player"`. All model property types use
+named typed child elements. Compound initial values use JSON in `<set path="…" value="…"/>`.
+A root `data` JSON attribute retains model/preview metadata; it is merged with child declarations.
+Custom `data-label="x"` maps to node `properties.label`; canonical output uses the `properties`
+JSON attribute. `<bind>` adds `mode`, `prefer`, `convert`, `options`. Listener `copy` and `value`
+are generic registry attributes; `$` paths are allowed in assignment keys and trigger lists.
+See modules/data/examples/scoreboard.animl and the per-row conformance sources.

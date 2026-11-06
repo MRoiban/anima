@@ -1965,3 +1965,89 @@ normal XML escaping. Neither form changes timeline `<event at="…" name="…"/>
 
 The event delivery/subscription separation follows the host/runtime concerns recorded in
 `docs/research/rive-web-runtime.md` §§2–3; no Rive implementation or documentation text is used.
+
+## data
+
+The optional `data` module generalizes typed inputs with view models, scalar and reference properties,
+named instances, `$` paths, binding direction modes, data-writing listeners and node custom properties.
+Its normative contract, step position, spellings, diagnostics and explicit pending limits are in
+[modules/data/SPEC.md](../modules/data/SPEC.md). `data` bindings resolve in §7's existing binding
+position, after layers and before clamping/reporting/children. Change listeners queue for the next
+step; no callback re-enters the machine. Existing 0.1 input behavior is unchanged.
+
+Capability evidence and incomplete rows are enumerated in
+[modules/data/ROWS.json](../modules/data/ROWS.json). No phase-completion claim is made.
+
+<!-- capability: data.bind-conditions -->
+<!-- capability: data.bind-converter-options -->
+<!-- capability: data.bind-instance-values -->
+<!-- capability: data.bind-keyframes -->
+<!-- capability: data.bind-layout -->
+<!-- capability: data.bind-script-inputs -->
+<!-- capability: data.bind-text -->
+<!-- capability: data.binding-absolute -->
+<!-- capability: data.binding-once -->
+<!-- capability: data.binding-relative -->
+<!-- capability: data.binding-to-source -->
+<!-- capability: data.binding-two-way-prefer-source -->
+<!-- capability: data.binding-two-way-prefer-target -->
+<!-- capability: data.component-public-data -->
+<!-- capability: data.custom-property-boolean -->
+<!-- capability: data.custom-property-color -->
+<!-- capability: data.custom-property-enum -->
+<!-- capability: data.custom-property-number -->
+<!-- capability: data.custom-property-string -->
+<!-- capability: data.custom-property-trigger -->
+<!-- capability: data.default-instance -->
+<!-- capability: data.editor-preview-instance -->
+<!-- capability: data.enum-members -->
+<!-- capability: data.global-model -->
+<!-- capability: data.instance-export -->
+<!-- capability: data.list-items -->
+<!-- capability: data.model-definition -->
+<!-- capability: data.named-instances -->
+<!-- capability: data.operation-operand-view-model -->
+<!-- capability: data.property-artboard -->
+<!-- capability: data.property-asset-blob -->
+<!-- capability: data.property-asset-font -->
+<!-- capability: data.property-asset-image -->
+<!-- capability: data.property-boolean -->
+<!-- capability: data.property-color -->
+<!-- capability: data.property-enum-custom -->
+<!-- capability: data.property-enum-system -->
+<!-- capability: data.property-list -->
+<!-- capability: data.property-number -->
+<!-- capability: data.property-string -->
+<!-- capability: data.property-symbol-list-index -->
+<!-- capability: data.property-text-style -->
+<!-- capability: data.property-trigger -->
+<!-- capability: data.property-view-model -->
+<!-- capability: data.script-model-api -->
+<!-- capability: data.scripted-converter -->
+<!-- capability: data.state-action-trigger -->
+<!-- capability: data.system-enum-horizontal-text-align -->
+<!-- capability: data.system-enum-layout-alignment -->
+<!-- capability: data.system-enum-layout-direction -->
+<!-- capability: data.system-enum-layout-display -->
+<!-- capability: data.system-enum-layout-flex-direction -->
+<!-- capability: data.system-enum-layout-position -->
+<!-- capability: data.system-enum-layout-position-units -->
+<!-- capability: data.system-enum-layout-scale-type -->
+<!-- capability: data.system-enum-layout-wrap -->
+<!-- capability: data.system-enum-scroll-direction -->
+<!-- capability: data.system-enum-semantic-check-state -->
+<!-- capability: data.system-enum-text-box -->
+<!-- capability: data.system-enum-text-overflow -->
+<!-- capability: data.system-enum-text-trim-bottom -->
+<!-- capability: data.system-enum-text-trim-top -->
+<!-- capability: data.system-enum-vertical-text-align -->
+<!-- capability: data.system-enum-word-wrap -->
+<!-- capability: drawing-paint.gradient-channel-binding -->
+<!-- capability: input.data-listener -->
+<!-- capability: input.write-data-constant -->
+<!-- capability: input.write-data-copy -->
+<!-- capability: input.write-focused -->
+<!-- capability: input.write-gamepad-axis -->
+<!-- capability: input.write-gamepad-button-pressed -->
+<!-- capability: input.write-gamepad-button-value -->
+<!-- capability: input.write-gamepad-changed-value -->

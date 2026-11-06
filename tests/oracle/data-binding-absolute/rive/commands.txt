@@ -1,0 +1,8 @@
+data-dump frames/initial.json
+data score=9
+data label=Grace
+data active=true
+data tint=DDAABBCC
+advance 0
+data-dump frames/changed.json
+quit

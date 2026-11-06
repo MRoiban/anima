@@ -1,0 +1,20 @@
+[
+  {
+    "click": 0,
+    "values": {
+      "a/dot.x": 3,
+      "b/dot.x": 3,
+      "$g:value": 3
+    },
+    "events": []
+  },
+  {
+    "click": 1,
+    "values": {
+      "a/dot.x": 7,
+      "b/dot.x": 7,
+      "$g:value": 7
+    },
+    "events": []
+  }
+]

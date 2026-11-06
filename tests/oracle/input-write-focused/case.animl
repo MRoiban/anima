@@ -1,0 +1,12 @@
+<anima version="0.1" name="oracle-data" grid="20" requires="data bind focus">
+  <circle id="dot" cx="10" cy="10" r="8" fill="#000">
+    <focus/>
+  </circle>
+
+  <model name="Root">
+    <bool name="value"/>
+    <number name="source" default="4"/>
+  </model>
+
+  <listener on="focus" target="dot" set="$value=false" value="focused"/>
+</anima>

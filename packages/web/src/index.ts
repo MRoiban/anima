@@ -364,7 +364,7 @@ export class AnimaIcon extends HTMLElement {
     else if (this.player?.busy) this.#wake();
   }
 
-  get(name: string): number | boolean | undefined {
+  get(name: string): import('../../core/src/load.ts').Value | undefined {
     return this.player?.get(name);
   }
 

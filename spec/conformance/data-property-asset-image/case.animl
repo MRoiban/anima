@@ -1,0 +1,10 @@
+<anima version="0.1" name="data-probe" grid="20" requires="data bind assets">
+  <asset name="first" type="image" src="first.bin"/>
+  <asset name="second" type="image" src="second.bin"/>
+
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+
+  <model name="Root">
+    <asset-ref name="value" default="first" type="image"/>
+  </model>
+</anima>
