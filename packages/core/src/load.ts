@@ -144,6 +144,7 @@ export interface PlaybackPolicy {
   rest(run: object, state: StateM): boolean;
   local(timeline: TimelineM, elapsed: number, speed: number, run: object): number;
   duration(timeline: TimelineM, speed: number, run: object): number;
+  finished(timeline: TimelineM, elapsed: number, run: object): boolean;
   events(
     timeline: TimelineM,
     a: number,

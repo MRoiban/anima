@@ -1,0 +1,22 @@
+advance 0
+snapshot
+advance 0.25 in 15
+snapshot
+advance 0
+snapshot
+advance 0.25 in 15
+snapshot
+advance 0
+snapshot
+advance 0.05 in 3
+snapshot
+advance 0
+snapshot
+advance 0.2 in 12
+snapshot
+advance 0
+snapshot
+advance 0.25 in 15
+snapshot
+advance 0
+snapshot

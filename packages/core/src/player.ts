@@ -26,6 +26,7 @@ import type {
   Value,
 } from './load.ts';
 import { modules } from './modules.ts';
+import { reached, snapTime, foldTime } from './time.ts';
 import { flatten } from './path.ts';
 import { text } from './diag.ts';
 import { VERBOSE as V } from './flags.ts';
@@ -98,10 +99,8 @@ const MAX_CHAIN = 16;
 
 const loopTime = (tl: TimelineM, tau: number): number => {
   const d = tl.duration;
-  if (tl.loop === 'once') return Math.min(tau, d);
-  if (tl.loop === 'loop') return tau - d * Math.floor(tau / d);
-  const q = tau - 2 * d * Math.floor(tau / (2 * d));
-  return q <= d ? q : 2 * d - q;
+  if (tl.loop === 'once') return Math.min(snapTime(snapTime(tau, 0), d), d);
+  return foldTime(tau, d, tl.loop === 'pingpong');
 };
 
 /** Spec §5 sampling. */
@@ -109,10 +108,11 @@ export function sampleTrack(tr: TrackM, t: number): Value {
   if (tr.sample) return tr.sample(t);
   const ts = tr.times;
   const n = ts.length - 1;
-  if (t <= ts[0]!) return tr.values[0]!;
-  if (t >= ts[n]!) return tr.values[n]!;
+  if (!reached(t, ts[0]!)) return tr.values[0]!;
+  if (reached(t, ts[n]!)) return tr.values[n]!;
   let i = 0;
-  while (ts[i + 1]! <= t) i++;
+  while (reached(t, ts[i + 1]!)) i++;
+  t = snapTime(t, ts[i]!);
   const a = tr.values[i]!;
   const b = tr.values[i + 1]!;
   if (typeof a === 'boolean') return a;
@@ -491,7 +491,7 @@ export class Player {
         (t) => !L.fade?.lock && this.#holds(t, L, L.m.states[L.state]!, new Set(), true),
       );
       L.time += dt;
-      if (L.fade && (L.fade.t += dt) >= L.fade.dur) {
+      if (L.fade && reached((L.fade.t += dt), L.fade.dur)) {
         L.fade = null;
         this.model.eventSignal?.(
           events,
@@ -567,7 +567,7 @@ export class Player {
     // 5. Triggers
     for (const [name, age] of this.#pending) {
       const buf = this.model.inputs.get(name)!.buffer;
-      if (consumed.has(name) || !buf || age + dt > buf) this.#pending.delete(name);
+      if (consumed.has(name) || !buf || !reached(buf, age + dt)) this.#pending.delete(name);
       else this.#pending.set(name, age + dt);
     }
     this.model.reportEvents?.(this, events);
@@ -588,16 +588,10 @@ export class Player {
     const st = L.m.states[L.state]!;
     if (st.play !== undefined && L.frozen < 0) {
       const tl = this.model.timelines[st.play]!;
-      if (
-        !this.playbackPolicy?.rest(L, st) &&
-        (tl.loop !== 'once' ||
-          (this.playbackPolicy
-            ? L.time < this.playbackPolicy.duration(tl, st.speed, L)
-            : L.time * st.speed < tl.duration))
-      )
+      if (!this.playbackPolicy?.rest(L, st) && (tl.loop !== 'once' || !this.#finished(L, st)))
         return false;
     }
-    return !st.on.some((t) => t.terms.some((x) => x.k === 'after' && x.s > L.time));
+    return !st.on.some((t) => t.terms.some((x) => x.k === 'after' && !reached(L.time, x.s)));
   }
 
   #finished(L: LayerRun, st: StateM): boolean {
@@ -605,8 +599,8 @@ export class Player {
     return (
       L.frozen >= 0 ||
       (this.playbackPolicy
-        ? L.time >= this.playbackPolicy.duration(this.model.timelines[st.play]!, st.speed, L)
-        : L.time * st.speed >= this.model.timelines[st.play]!.duration)
+        ? this.playbackPolicy.finished(this.model.timelines[st.play]!, L.time, L)
+        : reached(L.time * st.speed, this.model.timelines[st.play]!.duration))
     );
   }
 
@@ -614,7 +608,7 @@ export class Player {
     return (
       t.terms.every((x) => {
         if (x.k === 'end') return this.#finished(L, st);
-        if (x.k === 'after') return L.time >= x.s;
+        if (x.k === 'after') return reached(L.time, x.s);
         if (x.k === 'cmp') {
           const v = this.get(x.name) as number;
           const c = x.value;
@@ -694,7 +688,7 @@ export class Player {
     L.frozen = -1;
     if (this.reducedMotion) blend = 0;
     L.fade =
-      snap && blend > 0 && carry < blend
+      snap && blend > 0 && !reached(carry, blend)
         ? { lock, from: snap, dur: blend, ease: ease!, t: carry }
         : null;
     if (transition && !L.fade)
@@ -736,18 +730,21 @@ export class Player {
     if (!source.length || b < a) return;
     const d = tl.duration;
     const found: [number, number, string][] = []; // [played time, event time, name]
-    const inRange = (t: number) => (closed ? t >= a : t > a) && t <= b;
+    const inRange = (t: number) => (closed ? reached(t, a) : !reached(a, t)) && reached(b, t);
     const once = tl.loop === 'once';
     const loop = tl.loop === 'loop';
     const period = loop ? d : 2 * d;
     source.forEach(([te, name]) => {
       // Repeats k0..k1 of the period (a 'once' timeline has just k = 0); pingpong plays each
-      // event twice per period, forwards and back.
+      // interior event twice per period. Endpoints have one canonical occurrence series,
+      // avoiding two algebraically equal but binary64-distinct turn times.
       const k0 = once ? 0 : Math.max(0, Math.floor(a / period) - 1);
       const k1 = once ? 0 : Math.min(k0 + 10000, Math.floor(b / period) + 1);
       const seen = new Set<number>();
       for (let k = k0; k <= k1; k++)
-        for (const t of loop || once ? [te + k * d] : [te + 2 * k * d, 2 * (k + 1) * d - te])
+        for (const t of loop || once || te === 0 || te === d
+          ? [te + k * period]
+          : [te + 2 * k * d, 2 * (k + 1) * d - te])
           if (inRange(t) && !seen.has(t)) {
             seen.add(t);
             found.push([t, te, name]);

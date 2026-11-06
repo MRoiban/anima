@@ -2,6 +2,7 @@
 import type { StateM, TransitionM, TimelineM } from '../../../packages/core/src/load.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
 import { bounds, clock, position, timing } from './clock.ts';
+import { reached, snapTime, timeFloor } from '../../../packages/core/src/time.ts';
 export const stateControls = new WeakMap<StateM, { hold?: boolean }>();
 export const syncs = new WeakSet<TransitionM>();
 export const nextExits = new WeakMap<TransitionM, 'step' | 'loop'>();
@@ -46,8 +47,8 @@ export class StateClocks {
   }
   raw(run: object, elapsed: number): number {
     const c = this.#runs.get(run)!;
-    // Gates accept boundary equality within 1e-10; sample that exact boundary too.
-    if (Number.isFinite(c.limit) && elapsed >= c.limit - 1e-10) elapsed = c.limit;
+    // A reached gate also bounds the source sample and event interval.
+    if (Number.isFinite(c.limit) && reached(elapsed, c.limit)) elapsed = c.limit;
     return (
       c.start + (this.controlled(c.state) ? 0 : Math.min(elapsed, c.limit) * this.rate(c.state))
     );
@@ -94,14 +95,14 @@ export class StateClocks {
     else {
       const raw = this.raw(run, r.time),
         local = position(t, raw, t.loop, false);
-      const segment = Math.floor((raw - a) / (b - a));
+      const segment = timeFloor(raw - a, b - a);
       const forward = rate > 0 !== (t.loop === 'pingpong' && Math.abs(segment % 2) === 1);
       const q = nextExits.get(tr) === 'step' ? timing.get(t)?.quantize : undefined;
       const rounded = q ? Math.round(local * q) / q : forward ? a : b;
       const exact =
-        Math.abs(local - rounded) < 1e-10 ||
-        Math.abs(local - a) < 1e-10 ||
-        Math.abs(local - b) < 1e-10;
+        snapTime(local, rounded) === rounded ||
+        snapTime(local, a) === a ||
+        snapTime(local, b) === b;
       const boundary = exact
         ? local
         : q
@@ -135,13 +136,21 @@ export class StateClocks {
   gate(run: object, s: StateM, tr: TransitionM, elapsed: number): boolean {
     if (!nextExits.has(tr)) return true;
     const at = this.arm(run, s, tr);
-    if (elapsed + 1e-10 < at) return false;
+    if (!reached(elapsed, at)) return false;
     // The first eligible transition in declaration order owns the source event/sample cutoff.
     this.#runs.get(run)!.limit = at;
     return true;
   }
   carry(run: object, s: StateM, tr: TransitionM, elapsed: number): number | undefined {
     return nextExits.has(tr) ? Math.max(0, elapsed - this.arm(run, s, tr)) : undefined;
+  }
+  finished(t: TimelineM, elapsed: number, run: object): boolean {
+    const c = this.#runs.get(run)!;
+    if (this.controlled(c.state)) return false;
+    const rate = this.rate(c.state),
+      [a, b] = bounds(t);
+    const raw = this.raw(run, elapsed);
+    return rate < 0 ? reached(a, raw) : rate > 0 && reached(raw, b);
   }
   duration(t: TimelineM, speed: number, run: object): number {
     const c = this.#runs.get(run)!;

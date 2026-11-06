@@ -1540,3 +1540,122 @@ core/web/markup and motion are documented in MODULES. Parent owns phase integrat
 parity promotion and PR; this implementation is committed locally only.
 
 - P4d oracle re-audit: 33/33 skip rows re-decided with local Rive headless runs; 9 exact paired event cases, 23 evidence-backed host/output/target/context skips, 1 listener-order finding. Retained two further boundary timing findings; no tolerance/runtime/spec changes. See modules/events/ORACLE-RESULTS.md and tests/oracle/findings-metrics.json. Local commit only; no push/PR/merge.
+
+## P4d-2 — deterministic clock boundaries (2026-11-06)
+
+SPEC §5 now defines binary64 seconds and a fixed absolute **1e-9 s** boundary rule.
+Events/sample keys/once completion/exit distances compare in timeline seconds; after/fade/buffer
+and armed exitNext gates compare in their state/fade seconds. Shared helpers cover forward and
+reverse half-open intervals (both bounds), sampling including typed/value-cubic tracks, source
+completion, fades including carried entry, @after, trigger expiry, settled, quantize, work/loop/
+pingpong folding and independent-instance completion/loop flags. No accumulated clock rounding,
+relative epsilon or microsecond lattice: authored tiny times remain valid. Grid-index floors
+recognize the snapped tick directly to avoid a second floating-point division rounding below it.
+Motion's separate 1e-10 allowance is removed; base and motion completion use source seconds at
+non-unit speeds. Core and web retain zero runtime dependencies and share the same player/helpers.
+The clock/presentation split follows the time-unit pitfalls in
+`docs/research/rive-animation-and-state.md` §1 and host scheduling separation in
+`docs/research/rive-web-runtime.md` §§2–3; no upstream source or docs text is used.
+
+**Conformance expectation inventory: nine added cases; zero inherited expectation files changed.**
+All 88 inherited cases pass unchanged at the original comparison tolerance. New expected tables
+use integer frame arithmetic, linear/hold formulas and declared step order, independently of
+Player output; no runtime snapshot was copied over an expected file.
+
+- `clock-boundaries`: 60 Hz event/hold/bool keys 15/30/60, @after at 30, locked fade release at 45,
+  @end at 60 and zero-step deduplication; freezes the former one-frame drift as authored timing.
+- `clock-boundaries-epsilon`: outside/inside the fixed epsilon, two distinct sub-nanosecond-spaced
+  events preserved, hold key and once completion recognized early, subsequent zero/tiny steps quiet.
+- `clock-boundaries-wrap`: loop seam folds to start; pingpong turns/endpoints and coincident distinct
+  endpoint events survive six accumulated 60 Hz steps per 0.1 s turn and multi-wrap carry
+  without duplication.
+- `clock-boundary-buffer`: buffered trigger retained within epsilon and consumed on the next step;
+  a second trigger expires strictly beyond epsilon and cannot be consumed afterwards.
+- `motion-boundary-work`: nonzero work origin, forward loop/reverse pingpong, quantize ticks,
+  typed integer keys, value-cubic sampling and unquantized event crossings share the rule;
+  the 0.75 s work turn remains exact with 10 Hz quantize (not rounded down to 0.7), and
+  the decimal work-start entry event reports once.
+- `motion-boundary-exits`: absolute source exit with speed 2 at frame 15, exitFraction at 30,
+  exitNext step at 15 and synced held sampling capture the authored boundary.
+- `motion-boundary-instances`: reverse/forward independent once endpoints, loop seam, quantized
+  sample, completion/settled and zero-step deduplication use the same rule as machine clocks.
+- `events-boundary-frames`: exact lifecycle exit/start at 30 and completion at 45, with listener
+  response at 31 proving the intentional next-step queue rather than re-entering frame 30.
+- `events-boundary-carry`: a single large dt carries a blend to within 0.5 ns of completion;
+  end reports immediately before entry emit, the exact target pose settles, and later steps stay quiet.
+
+**Oracle dispositions and numbers (fresh local headless captures).** Finding 1 is explicitly an
+**intentional difference**, never a parity pass: sources at 13/28 in both; listener responses
+Anima 14/29, Rive 13/28. SPEC events keeps next-step actions because a step cannot re-enter itself
+or recursively cascade. Finding 2 remains documented: keys at 0.25/0.5/1 s now Anima **15/30/60**
+(previously 16/31/60), Rive **15/30/61**. The capture establishes Rive's final one-frame difference,
+not its internal cause; drift is unproven. Finding 3 is now a verified completed case:
+`events-transition-end/boundary-probe`, 0.5 s exit / 0.25 s fade, Anima **30/30/45** (formerly
+31/31/46), Rive **30/30/45**. Boundary probes matching Rive: **1/2**. `cases.json` grows 40→41;
+remaining two findings retain exact failing comparisons in `findings-metrics.json`. Old and new
+per-probe `comparison.json` records, metrics and the report are updated explicitly. No tolerance,
+reference event/frame, cap, budget or test timeout changed. Fresh session logs differ only in wall
+clock stamps and key-probe build duration (3→9 ms); native events.json files are byte-identical. No .riv file was read/converted.
+
+Verification: scoped core/events/motion/conformance/oracle **1206/1206**, including Chromium and
+Firefox. Strict oracle **exit 0**, all 41 completed cases; the two findings are printed separately.
+Early development failures were stale oracle finding numbers (expected), missing tracks in two
+new unit fixtures, new AniML canonical formatting/corpus census, and JSON Prettier formatting;
+corrected without changing runtime expectations, limits or comparison methods.
+`npx prettier --check .` and `npx eslint .` both exit 0. All final scoped tests pass (61 files).
+A raw early performance comparison was contaminated by host load (load average rose to 18.6),
+so original HEAD and the boundary-rule implementation were bundled identically for Node (only import.meta file URLs
+preserved), then measured in alternating HEAD/current/current/HEAD order with tools/perf.ts's
+unchanged workloads. No checkout or reference data changed for these read-only baseline builds.
+Observed ranges below show current timings within baseline host noise (bell frame upper edge
++0.6 µs, ~0.6%); they are not portable performance guarantees.
+
+| Unchanged workload | HEAD 692ea37 (2 runs) | Boundary implementation (2 runs) |
+|---|---:|---:|
+| compile: bell | 3.51–6.08 ms | 4.75–5.64 ms |
+| compile: all 9040 prefixes | 1139–1707 ms | 1405–1463 ms |
+| frame: bell | 94.7–101.3 µs | 96.7–101.9 µs |
+| frame: composite | 35.3–78.2 µs | 55.4–66.4 µs |
+| frame: toolbar (4 instances) | 58.1–76.8 µs | 60.9–73.1 µs |
+| compile: toolbar | 7.89–10.06 ms | 8.55–9.38 ms |
+
+Final review found a new decimal-endpoint regression: for work [0.2,0.75], forward and
+reflected pingpong formulas represented the same start occurrence as adjacent binary64 values,
+so the epsilon rule admitted both. The preliminary full check was **stopped** during browsers
+(after 1404 unit tests passed) to fix this. Endpoint occurrences now use one canonical series;
+interior events still use both travel directions and distinct authored endpoints remain distinct.
+Added exact regression assertions and extended `clock-boundaries-wrap` / `motion-boundary-work`
+expectations above. This aborted preliminary run is a deviation from the requested one-run
+process; only the completed final run below verifies the final source. The alternating perf
+table above precedes this endpoint-only enumeration fix; final raw tools/perf.ts lines follow.
+
+**Final completed verification:** `npm run check` **exit 0**: 1406 unit + 1124 Chromium/Firefox
+browser tests = **2530 passed**, zero failures/TODOs/skips. Unit duration 29.95 s; browser duration
+198.67 s. Module wiring, all package/tool typechecks, lint, formatting, every size budget, 16 browser
+entries and 116 AniML files are current. Separate final requested scope **1206/1206**; separate
+Prettier, ESLint and strict oracle each exit 0. Exactly one full check completed on final source;
+one earlier attempt was aborted as described above. No push, PR or merge.
+
+Final min+gzip sizes: core+web **19347/30720 B** (from 19278, **+69 B**), motion **6078/8192 B**
+(from 6006, +72 B), events **3419/4096 B** (from 3418, +1 B). Full-featured SVG **55014/102400 B**
+(from 54867, +147 B); Rive-class **59245/256000 B** (from 59100, +145 B). Other modules all pass:
+markup 7440/8192, markup-libraries 1774/2048, markup-components 374/2048, markup-paint 371/2048,
+markup-surface 371/2048, markup-bind 126/2048, paint 3935/5120, composite 3873/4096,
+bind 1664/2048, assets 1516/2048, surface 7545/8192, components 3986/4096, canvas 3989/8192 B.
+
+Final unchanged tools/perf.ts lines from the completed full check:
+
+```text
+compile: bell 2.57 ms; all 9040 prefixes 578 ms
+frame: bell 38.1 µs; composite 21.3 µs
+frame: toolbar 28.6 µs (step + draw, 4 instances)
+compile: toolbar 3.08 ms
+```
+
+Original unbundled HEAD baseline at task start: compile bell 2.20 ms / prefixes 730 ms;
+frame bell 49.6 µs / composite 34.4 µs / toolbar 40.8 µs; compile toolbar 4.70 ms.
+The alternating measurements above establish the load noise; no sustained compile/frame
+regression was observed. These numbers do not establish a speedup.
+
+Checkout deviation: supplied HEAD was 692ea37 on `t3/event-boundary-tolerance`, containing the
+merged p4d-events work. Used that checkout/branch without resetting or creating another checkout.

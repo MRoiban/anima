@@ -389,5 +389,19 @@
         }
       }
     }
+  },
+  {
+    "name": "events-transition-end/boundary-probe",
+    "times": [1.1],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "events": {
+      "fps": 60,
+      "script": "script.txt",
+      "reference": "events.json",
+      "omitLifecycle": true,
+      "urls": false
+    }
   }
 ]

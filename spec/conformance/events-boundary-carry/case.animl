@@ -1,0 +1,12 @@
+<anima version="0.1" name="events-boundary-carry" grid="20" requires="events">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <layer name="l" initial="s">
+    <state name="s" endEmit="exit">
+      <pose a.x="0"/>
+      <on when="@after(0.25)" to="done" blend="0.25" startEmit="begin" endEmit="ended"/>
+    </state>
+    <state name="done" emit="entry">
+      <pose a.x="10"/>
+    </state>
+  </layer>
+</anima>

@@ -1,0 +1,25 @@
+<anima version="0.1" name="clock-boundary-buffer" grid="20">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <trigger name="go" buffer="0.5"/>
+  <trigger name="late" buffer="0.5"/>
+  <bool name="ready"/>
+  <bool name="lateReady"/>
+  <layer name="kept" initial="s">
+    <state name="s">
+      <pose/>
+      <on when="go &amp;&amp; ready" to="done"/>
+    </state>
+    <state name="done" emit="kept">
+      <pose/>
+    </state>
+  </layer>
+  <layer name="expired" initial="s">
+    <state name="s">
+      <pose/>
+      <on when="late &amp;&amp; lateReady" to="done"/>
+    </state>
+    <state name="done" emit="expired">
+      <pose/>
+    </state>
+  </layer>
+</anima>

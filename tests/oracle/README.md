@@ -161,16 +161,24 @@ uses independently keyed parent/child translations to express the same transform
 
 ## P4d events re-audit
 
-Nine event cases now compare ordered reports at exact 60 fps frame indices, including
+Ten event cases now compare ordered reports at exact 60 fps frame indices, including
 observed typed payload fields. Reproduce with `python3 tests/oracle/capture.py --events`.
 The native CLI reports plain events and URLs in session logs. Outward custom-property
 bindings expose payload source values in data dumps at the firing frame. URL targets
 and browser host callbacks remain outside that observation surface.
 
-Three explicitly classified disagreements are printed separately by the strict command
+After the SPEC §5 `1e-9` second boundary rule, the 0.5-second transition boundary
+probe is verified: exit/start at frame 30, completion at 45 in both runtimes. Of the two
+boundary probes, **1/2** matches Rive exactly. The key boundary probe remains a finding:
+Anima 15/30/60 versus freshly recaptured Rive 15/30/61 for 0.25/0.5/1-second keys.
+The capture establishes the final one-frame difference, not the cause of Rive's frame 61.
+
+Two explicitly classified disagreements are printed separately by the strict command
 and recorded in `findings-metrics.json`; their tests preserve the exact observed mismatch.
-They are excluded from the completed `cases.json` set. Strict exit 0 is consequently
-not a claim that those findings match. Retained skip evidence can be recaptured with
+The listener case is an **intentional difference**, with Anima responses at 14/29 versus
+Rive 13/28 (sources 13/28 in both): a step cannot re-enter itself. These two findings are
+excluded from the completed `cases.json` set; the listener case is never a parity pass.
+Strict exit 0 means the 41 completed cases pass, not that those findings match. Retained skip evidence can be recaptured with
 `python3 tests/oracle/capture.py --skip-evidence`. See
 [the full per-row report](../../modules/events/ORACLE-RESULTS.md) for all 33 decisions,
 comparison mappings, payload limitations and the one-frame timing disagreements.

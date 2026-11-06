@@ -167,6 +167,39 @@ notification dot cuts the body and clapper.)
 - `events` *(not in bell)*: `[time, name]` pairs, `time` in `[0, duration]`, reported when playback
   crosses them (§7).
 
+**Clock boundaries** *(normative, every runtime)*. Time calculations use IEEE-754 binary64
+seconds. Use the absolute constant `ε = 1e-9` seconds in the clock being compared (state,
+fade, or unquantized timeline seconds, after speed/offset conversion). A clock `t` has
+**reached** a boundary `b` iff `t ≥ b − ε`; it is strictly before it otherwise. This
+applies to event crossings, key sampling, `@after`/`@end`, exit/exitFraction/exitNext,
+fade completion (including entry carry), trigger-buffer expiry and settled detection.
+A strict "later than" comparison means `!reached(b, t)` (`b < t − ε`). Never scale ε with
+elapsed time, frame rate, speed or duration; never round the accumulated clock or `dt` to a time grid.
+Carry remains `max(0, t − b)`, so early recognition introduces no negative target time.
+Events, sampling, once completion and `exit`/`exitFraction` compare in source-timeline
+seconds; `@after`, fades, buffer ages and armed `exitNext` state-time gates compare in
+state/fade seconds. Authored times, input/value comparisons and validation ranges retain
+their exact meaning.
+
+For forward events use `!reached(previous, event) && reached(now, event)`; on entry replace
+the first test with `reached(event, previous)`. For reverse events use
+`!reached(event, previous) && reached(event, now)`, likewise including the previous bound
+on entry. Thus an event recognized within ε fires once, including across `step(0)`;
+nearby distinct authored events retain their identity and authored ordering. A pingpong
+endpoint has one occurrence per full period: enumerate it with the authored endpoint
+plus an integer multiple of the period, never both the forward and reflected formulas
+(they can differ by a binary64 rounding bit). This does not merge distinct authored events.
+
+For sampling choose the last key reached by `t` (or the first if none), snapping `t`
+to that key when within ε before interpolating. For repeating clocks and work areas,
+snap the offset from work start to the nearest integer multiple of the work span when
+within ε, before folding; a loop boundary folds to the start and a pingpong turn to
+its endpoint. Grid-index floor operations recognize that integer tick directly,
+avoiding a second division rounding below it. Quantize similarly recognizes a sample
+grid point within ε; otherwise it floors as usual. Halfway ties choose the greater
+grid index. This local comparison rule preserves arbitrary authored sub-microsecond
+times without imposing integer-microsecond rounding on all frames or changing clock speed.
+
 **Sampling** *(normative)*, for track keys `k0 … kn` at local time `t`:
 - `t ≤ t0` → `v0`; `t ≥ tn` → `vn`.
 - Otherwise find `i` with `ti ≤ t < ti+1`; `u = (t − ti) / (ti+1 − ti)`; the **ease on key `i`**
@@ -233,7 +266,7 @@ per channel with rounding for colours (§5), and for booleans `a || b` while the
    the input's `min`/`max`. A fired trigger becomes pending (firing a pending trigger again is a
    no-op). Listener `emit` actions add their events now.
 2. **Clocks.** Motion clock expressions and `exitNext` gates prepare here (motion chapter). Advance every layer's state time and crossfade elapsed time by `dt`. A crossfade whose
-   elapsed time reaches its duration ends.
+   elapsed time reaches its duration ends (using §5 clock boundaries).
 3. **Layers**, in declaration order, each against the values resolved by the layers before it:
    1. *Timeline events.* Report the current state's timeline events crossed by step 2 (below).
    2. *Transitions.* Unless a non-interruptible crossfade is running (§8), evaluate the current
@@ -1214,8 +1247,8 @@ not the post-state property-binding pass.
   source clock **before advancing dt**. `step` uses the next local quantize grid point in the
   direction of travel, or the work endpoint if earlier; without quantize it uses the work
   endpoint. `loop` uses the next work endpoint (each turning point for pingpong). A request
-  observed exactly on a boundary is immediately eligible (clock comparisons within 1e-10 s
-  count as equal). Changing the condition to false cancels the armed gate; a later request
+  observed exactly on a boundary is immediately eligible (using the §5 clock-boundary rule).
+  Changing the condition to false cancels the armed gate; a later request
   computes a new boundary. Frozen reduced-motion and zero-speed clocks are immediately eligible.
   The source clock and its timeline event interval stop at that boundary, even for a large dt;
   excess state time carries into the target (and its fade). A synced held target therefore
@@ -1422,9 +1455,12 @@ context and invalidates outstanding decodes. Browser resume/fetch/decode failure
 `anima:error` diagnostic `event-audio-load`; they do not change deterministic player output.
 
 Local listeners may use `on: "event:<name>"` to queue their existing fire/set/toggle/emit
-actions for the next step. Unknown local event names are `unknown-event`. Pending actions keep
-the player unsettled; callbacks never recursively re-enter a step. Components retain their
-existing scoped listener spelling and next-parent-step semantics.
+actions for the next step. This is an **intentional difference** from Rive's same-frame
+listener response: a step cannot re-enter itself, so event-caused writes cannot affect
+its own transitions or recursively run an event cascade. All runtimes keep this queue
+boundary, including `step(0)` calls. Unknown local event names are `unknown-event`.
+Pending actions keep the player unsettled; callbacks never recursively re-enter a step.
+Components retain their existing scoped listener spelling and next-parent-step semantics.
 
 For documents requiring events, state exits additionally report `@state-end`, then
 `@transition-start`, each with `{payload:{state}}` (source state for end, target for start).

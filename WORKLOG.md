@@ -1,11 +1,14 @@
 # Work log
 
 ## Now
-Goal: P4b-3 declarative motion controls and sync benchmark proof complete, committed locally.
-Verified: 10 new conformance cases; scope 728/728; sync 6/6 (7 scripts, 66 snapshots).
-Full: 1380 pass + 15 pre-existing oracle TODOs with VITEST_MAX_WORKERS=2; default had 2 browser timeouts.
-Next: parent integrates/reviews local commit; P4b oracle captures and phase closure remain with parent.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4d-2 clock boundary rule and intentional next-step listeners complete; local commit only.
+Verified: scope 1206; full check 2530 (1406 unit + 1124 browser), strict oracle/format/lint exit 0.
+Rule: binary64 absolute 1e-9 s; 9 new conformance cases, 88 inherited expectations unchanged.
+Oracle: keys Anima15/30/60 vs Rive15/30/61; transition30/30/45 both; boundary1/2.
+Size: core+web19347 (+69), motion6078, events3419 B; every budget green; perf within host noise.
+Next: parent review/integration; branch t3/event-boundary-tolerance, no push/PR/merge.
+Deviation: preliminary full check aborted to fix decimal pingpong duplicate; final full check green.
+Don't: Rive source/.riv reads/account ops; change tolerances; publish; delegate.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -106,3 +109,10 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 05:00 [claude]: PR #13 CI red again: timeouts from CPU starvation (module-order 4.7 s locally vs 30 s limit hit in CI) + scaffolder test used a now-done row; npm test now runs unit (15 s, 1229) then browser --maxWorkers=2 (2.5 min, 718); limits unchanged
 - 2026-11-07 08:00 [claude]: merged P4d events (3e98a55) into p4d-events: 32/33 rows (script context → P9), events 3418/4096, core+web 19278 (+266); 31 oracle skips claim no event output but the P4a Rive run's session logs showed emitted events → oracle pass to capture them
 - 2026-11-07 11:00 [claude]: merged events oracle (048768a): 9 verified/23 skips/3 findings. Decisions: listener next-step reaction kept (spec'd as intentional difference); boundary-time drift (0.25 s fires frame 16 vs Rive 15) → epsilon boundary rule (P4d-2)
+- 2026-11-06 04:15 [sol]: backfilled P4d-2 start (original time unverified); actual checkout branch differs from brief, using supplied HEAD 692ea37; perf initially failed missing workspace package → npm ci succeeded.
+- 2026-11-06 04:12 [sol]: P4d-2 spec/core/motion + 9 conformance cases; scoped 1203 pass; recaptured two native probes → transition verified, key 1s and intentional listener differences retained (evidence: /tmp/anima-boundary-scope-complete.log; strict oracle exit 0).
+- 2026-11-06 04:15 [sol]: final source-clock completion and exact off-grid turn shared by core/motion → scope 1204 pass, Prettier and ESLint exit 0; alternating HEAD/current perf samples show strong shared-host noise (unverified final metric).
+- 2026-11-06 04:17 [sol]: alternating original HEAD/final perf ranges overlap host noise; prettier/eslint exit 0 → starting the single full npm run check (evidence: /tmp/anima-boundary-perf-final.log; /tmp/anima-boundary-full-check.log).
+- 2026-11-06 04:22 [sol]: manual decimal work [0.2,0.75] probe found duplicate pingpong entry under epsilon → stopped preliminary full check after 1404 unit passes; canonical endpoint occurrence series + exact regression tests added, scope rerunning (unverified).
+- 2026-11-06 04:24 [sol]: decimal endpoint fix verified → scope 1206/1206, Prettier/ESLint and fresh strict oracle exit 0; corrected final full check running (evidence: /tmp/anima-boundary-scope-final-complete.log; /tmp/anima-boundary-oracle-complete.log).
+- 2026-11-06 04:29 [sol]: final full check exit 0 → 1406 unit + 1124 browser = 2530; 16 web entries/116 AniML files current, every byte budget green; scope1206 and strict oracle0; documentation finalized for local commit (evidence: /tmp/anima-boundary-check-final.log, docs/LOG.md P4d-2).
