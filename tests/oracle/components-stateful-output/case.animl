@@ -1,0 +1,8 @@
+<anima version="0.1" name="components-stateful-output" grid="20" requires="components nested bind">
+  <component name="row" grid="10">
+    <number name="count" default="6"/>
+    <circle id="dot" cx="5" cy="5" r="1" fill="#000"/>
+    <output name="done" value="count"/>
+  </component>
+  <instance id="badge" component="row"/>
+</anima>

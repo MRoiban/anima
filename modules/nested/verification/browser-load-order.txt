@@ -1,0 +1,44 @@
+
+> test:scope
+> node tools/test-scope.ts nested --browser=chromium
+
+Scopes: nested
+  unit: modules/nested/test/core/nested.test.ts
+  unit: modules/nested/test/core/state-machine-literal-artboard.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/nested/test/web/nested.test.ts
+  cases: ^conformance > (components-leaf-fit|components-library-export|components-library-models|components-library-update|components-nested-quantize|components-nested-remap|components-stateful-output|data-property-artboard|state-machine-literal-artboard)$
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-7fa51d22
+
+ ❯ |scope-browser| modules/nested/test/web/nested.test.ts (6 tests | 1 failed | 3 skipped) 4397ms
+   ❯ Chromium nested components (3)
+     × swaps live SVG/canvas instances with separate bundles: index,nested,data,bind,components 1509ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/nested/test/web/nested.test.ts > Chromium nested components > swaps live SVG/canvas instances with separate bundles: index,nested,data,bind,components
+AssertionError: expected undefined to be '2' // Object.is equality
+
+- Expected:
+"2"
+
++ Received:
+undefined
+
+ ❯ modules/nested/test/web/nested.test.ts:22:146
+
+
+Caused by: Error: Matcher did not succeed in time.
+ ❯ modules/nested/test/web/nested.test.ts:22:4
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 4 passed | 1 skipped (6)
+      Tests  1 failed | 918 passed | 427 skipped | 1 todo (1347)
+   Start at  22:04:59
+   Duration  5.99s (tests 49%, transform 26%, import 24%, worker 1%)

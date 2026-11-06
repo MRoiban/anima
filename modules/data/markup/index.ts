@@ -19,10 +19,11 @@ const propertyNames = [
   'list',
   'model-ref',
   'asset-ref',
+  'component',
 ];
 export const dataMarkup = {
   form(el: Element, base: Form): Form {
-    if (el.name === 'anima' || el.name === 'component')
+    if (el.name === 'anima' || (el.name === 'component' && el.attrs.some((a) => a.name === 'grid')))
       return {
         ...base,
         attrs: {
@@ -66,7 +67,7 @@ export const dataMarkup = {
       };
     if (el.name === 'set')
       return { attrs: { path: 'string', value: 'string' }, required: ['path', 'value'] };
-    if (['string', 'enum', 'list', 'model-ref', 'asset-ref'].includes(el.name))
+    if (['string', 'enum', 'list', 'model-ref', 'asset-ref', 'component'].includes(el.name))
       return {
         attrs: {
           name: 'string',

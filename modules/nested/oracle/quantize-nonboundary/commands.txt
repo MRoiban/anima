@@ -1,0 +1,5 @@
+advance 0.12s
+data-dump frames/first.json
+advance 0.14s
+data-dump frames/second.json
+quit

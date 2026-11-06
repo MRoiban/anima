@@ -1,0 +1,6 @@
+advance 0
+snapshot rows/0/outputs.done rows/1/outputs.done indicator.opacity
+pointer click 15 5
+snapshot rows/0/outputs.done rows/1/outputs.done indicator.opacity
+advance 0
+snapshot rows/0/outputs.done rows/1/outputs.done indicator.opacity

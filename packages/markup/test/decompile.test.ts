@@ -182,6 +182,7 @@ function recover(root: Element): Obj {
   };
   const d: Obj = { ...base(root), ...attrs(root), nodes: [] };
   if (typeof d.effects === 'string') d.effects = JSON.parse(d.effects);
+  if (typeof d.outputs === 'string') d.outputs = JSON.parse(d.outputs);
   d.anima = d.version;
   delete d.version;
   d.grid = Number(d.grid);
@@ -513,6 +514,10 @@ function check(source: string | object) {
         if (e.name === 'instance' && attrs(e).id && !attrOrder(e.name).includes(a.name)) {
           const component = (expected.components as Obj)[attrs(e).component!] as Obj;
           expect(Object.keys(component.inputs as Obj)).toContain(a.name);
+        } else if (e.name === 'component' && a.name === 'outputs') {
+          expect(JSON.parse(a.value)).toEqual(
+            ((expected.components as Obj)[attrs(e).name!] as Obj).outputs,
+          );
         } else expect(attrOrder(e.name)).toContain(a.name);
       }
     elements(e).forEach(names);

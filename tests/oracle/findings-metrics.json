@@ -552,6 +552,52 @@
     ]
   },
   {
+    "name": "components-nested-quantize",
+    "status": "finding",
+    "reason": "Native exact-boundary nested quantization at 0.12s + 0.13s gives x1→2; Anima gives x1→3 (delta 1). At nonboundary 0.12s + 0.14s both give x1→3. This supports a precision-boundary explanation rather than per-step truncation; that explanation is an inference. Limits and original observations are unchanged.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "badge/dot.x": 1
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "badge/dot.x": 3
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "badge/dot.x": 1
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "badge/dot.x": 2
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
     "name": "bind-condition-modulo/immediate-probe",
     "reason": "Immediate post-click observation differs: Anima emits at clicks 5/10/15/20/25; Rive at 6/11/16/21 with observed payloads 6/11/16/21 (5 versus 4 events, one-click lag). An extra native advance 1 settles each click and the separate completed case then matches. No elapsed-frame equivalence claimed.",
     "frames": [

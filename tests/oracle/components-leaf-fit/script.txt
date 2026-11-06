@@ -1,0 +1,4 @@
+advance 0
+snapshot badge/dot.r
+pointer click 15 5
+snapshot badge/dot.r

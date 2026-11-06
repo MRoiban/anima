@@ -1,11 +1,13 @@
 # Work log
 
 ## Now
-Goal: completed P4e derive/bind native oracle follow-up on t3/derive-bind-oracle-captures-1; local commit only.
-Verified: Rive 1.9.1, 9 exact cases/75 snapshots/186 typed values; read-only parity evidenced skip (native accepts writes).
-Checks: strict225 cases/419 samples exit0; scope2446 pass/367 filtered/15 TODO; Prettier/ESLint/typecheck pass; 18 old findings unchanged.
-Next: parent reviews/integrates local commit; no pending implementation work in this test-only follow-up.
-Don't: change runtime/oracle limits/parity statuses; no push/PR/merge; no prohibited Rive commands or binary files.
+Goal: P5b-6 components extras; local branch commit only, task partial (8 implemented / 10).
+Implemented: optional nested time/fit/scalar outputs/component selection; component data type; local library export/models/update.
+Verified: 3379 scoped pass/53 TODO, both engines; 9 independent conformance cases; strict oracle250/446 exit0.
+Bytes: core+web20109 unchanged; components4055/4096, nested4409/5120, data7574/8192, full106275/131072.
+Open: paint Canvas hook; shared typed component literal; 3 library native captures; retained quantization delta1 finding.
+Next: hand off blockers/evidence in modules/nested/REPORT.md; phase/PLAN and parity statuses remain incomplete/unchanged.
+Don't: change other-owned modules/guard parser, tools/old inputs/limits; no push/PR/merge.
 
 ## Log
 - 2026-11-06 16:59 [codex-test]: condensed oldest half of log per >200-line rule; M0–M4 established spec/CLI/web, PRs #1–6 merged; original 25 KB owner budget decision retained in docs (evidence: 1901923, 0defae8, 18f98ed, 591d0ce, 62cee1b).
@@ -156,3 +158,19 @@ Don't: change runtime/oracle limits/parity statuses; no push/PR/merge; no prohib
 
 - 2026-11-06 19:24 [assets]: committed P5b-3 partial implementation on t3/implement-assets-capabilities; 698 owned/generated/evidence files, clean staged whitespace; no push/PR/merge (evidence: git commit; modules/assets/REPORT.md).
 - 2026-11-06 [claude]: merged P5b-3 assets (partial: 12 native-passing rows, 6 findings, 19 pending; assets 2001/2048, media 2317/3072, paint 4557, paint-sampling 548/1024, markup 7913/8192) → full-featured 102,269 / 131,072 B. Seams: corpus count 373/399 → 408; assets browser pipeline test launched a browser per test (1–2 s inside 5 s) → one browser per engine in beforeAll, fresh context per test (Firefox 0.3–0.8 s). JPEG CLI test 185 ms idle; failed only when unit+browser ran together (CI runs them sequentially)
+
+- 2026-11-06 20:00 [components]: read P5b-6 contracts and seams; npm ci restores absent dependencies; extra runtime will use optional modules to protect current budgets (unverified).
+
+- 2026-11-06 21:00 [components]: implemented optional nested clocks/fit/outputs/dynamic selection, local library models/export selection/update; 914 focused tests pass, 8 independent conformance probes compile; initial full scope exposed stale census and new fixture/schema vocabulary, corrected by extending coverage (evidence: /tmp/p5b6-nested7.log).
+- 2026-11-06 21:00 [components]: native remap capture required linear interpolation plus positive flush deltas; 6→3→9→3 now observed. Native quantize .12+.13 gives x1→2 vs cumulative clock x1→3, finding retained; component paint blocked by private Canvas dispatch/offscreen seam, typed component guard left to other owner (unverified final checks).
+
+- 2026-11-06 21:16 [components]: isolated browser markup replay needed nested init retained; output changes now keep parent awake for next binding pass. Scoped 950 pass, Chromium four probes pass; native captures 4 exact cases/8 snapshots plus quantization finding1; inherited oracle records and1238 statuses unchanged (evidence: /tmp/p5b6-unit11.log, /tmp/p5b6-browser6.log, /tmp/p5b6-audit.py).
+
+- 2026-11-06 21:26 [components]: nonboundary native quantization .12+.14 matches x1→3; prior per-delta explanation was unsupported, corrected to precision-boundary inference while preserving original .25 delta1. Extra module-order test exposed inherited host-edit export-name harness bug; helper now reads manifest.core.export (evidence: oracle/quantize-nonboundary, /tmp/p5b6-module-order.log).
+
+- 2026-11-06 21:30 [components]: broad scope3367 pass/53TODO; later-choice alias ranges/fields now covered; added secondary-choice event bubbling conformance and cross-choice collision rejection. All byte budgets pass: components4026, nested4353, data7574, core+web20109, full106188. Extra module-order harness now compares all12 signatures but exceeds unchanged30s under concurrent load (44.3s); quiet recheck pending (evidence: /tmp/p5b6-scope-final3.log, /tmp/p5b6-size-last.log).
+
+- 2026-11-06 21:52 [components]: all scalar output types (including color) now use value equality for wakeups; repeat-created players receive output getters/values and readonly aliases without lists edits. Added independent repeat-output click/binding vector, corpus417; nested932 pass. Quiet12-order registration check passes23.8s at unchanged30s; full3371 pass before final output follow-up (evidence: /tmp/p5b6-repeat.log, /tmp/p5b6-module-order-quiet.log, verification/scope.txt).
+
+- 2026-11-06 22:11 [components]: frozen source3379 pass/53TODO incl. both engines; static/artifacts/size/perf/strict oracle all exit0; core+web20109, components4055, nested4409, data7574, full106275. Four rows native verified, quantization finding1 retained, three library-native/two hook blockers pending; all245 baseline cases/24 findings/1238 statuses unchanged (evidence: modules/nested/REPORT.md, verification/checks.txt, audit.txt).
+- 2026-11-06 22:14 [components]: final prettier/audit green; staged whitespace check found trailing blank lines in raw test logs, removed only trailing whitespace → numbers retained; local commit prepared (evidence: git diff --cached --check).

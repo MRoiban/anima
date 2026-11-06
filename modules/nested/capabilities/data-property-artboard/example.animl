@@ -1,0 +1,14 @@
+<anima version="0.1" name="data-property-artboard" grid="20" requires="components data bind nested">
+  <model name="Card">
+    <component name="card" default="row"/>
+  </model>
+  <component name="row" grid="10">
+    <circle id="dot" cx="5" cy="5" r="1" fill="#000"/>
+    <bind target="dot.r" value="2"/>
+  </component>
+  <component name="box" grid="10">
+    <rect id="rect" x0="0" y0="0" width="3" height="4" fill="#f00"/>
+    <bind target="rect.width" value="4"/>
+  </component>
+  <instance id="badge" component="$card"/>
+</anima>

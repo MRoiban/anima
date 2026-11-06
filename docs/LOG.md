@@ -2237,3 +2237,23 @@ Firefox; 35 new independent conformance cases, two audio-format probes pending. 
 Clamp currently retains legacy transparent margins rather than native edge extension and remains
 incomplete. See modules/assets/REPORT.md for exact findings, byte budgets, validation and deviations.
 No phase completion or parity status promotion is claimed; no push/PR/merge.
+
+
+## P5b-6 — Component controls and local libraries, partial (2026-11-06)
+
+Optional `nested` adds absolute/quantized child clocks, viewBox fitting, read-only scalar outputs
+(including repeat-created players), and component-valued selection with instance rebuilding.
+Libraries add export selection, model definitions and local-only checked vendoring refresh through
+`anima library update`. Eight rows are implemented; four have passing native readback, quantization
+retains a delta of 1 at .12+.13s (the .12+.14s control matches), and three library-native probes are pending.
+Component paint awaits the Canvas custom-source seam; typed component literals await the shared bind
+extension. No phase completion, parity status promotion, or new oracle skip is claimed.
+
+Verification: 3,379 scoped tests pass / 53 TODO across Chromium and Firefox; nine independent conformance
+cases / 18 snapshots; strict oracle exits 0 (250 cases / 446 samples, 25 findings / 28 collection samples).
+All 245 prior oracle cases, 24 findings and 1,238 parity statuses are unchanged. Static/generated checks,
+size and perf pass without changed limits. Core+web remains 20,109 B; components 4,055/4,096,
+nested 4,409/5,120, data 7,574/8,192, markup 7,915/8,192, markup-components 755/2,048,
+markup-libraries 1,949/2,048; full 106,275/131,072 (+4,006 vs 102,269). Comparative performance non-regression
+is unverified. Details, measured failures and handoff gaps: modules/nested/REPORT.md. Local commit only;
+no push/PR/merge.

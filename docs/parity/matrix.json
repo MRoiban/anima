@@ -1584,10 +1584,10 @@
   "id": "components.leaf-fit",
   "category": "components",
   "capability": "Nested fit and alignment",
-  "construct": "new: components.<name> / nodes[].component: named leaf-fit settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
+  "construct": "modules/nested/SPEC.md",
+  "module": "nested",
   "status": "planned",
-  "test": "oracle/components-leaf-fit",
+  "test": "modules/nested/test/core/nested.test.ts; modules/nested/test/web/nested.test.ts; spec/conformance/components-leaf-fit; tests/oracle/components-leaf-fit",
   "phase": "P5b"
  },
  {
@@ -1614,30 +1614,30 @@
   "id": "components.library-export",
   "category": "components",
   "capability": "Library export selection",
-  "construct": "new: components.<name> / nodes[].component: named library-export settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
+  "construct": "modules/markup-libraries/SPEC.md",
+  "module": "markup-libraries",
   "status": "planned",
-  "test": "oracle/components-library-export",
+  "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-export; tests/oracle/components-library-export",
   "phase": "P5b"
  },
  {
   "id": "components.library-models",
   "category": "components",
   "capability": "Library data definitions",
-  "construct": "new: components.<name> / nodes[].component: named library-models settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
+  "construct": "modules/markup-libraries/SPEC.md",
+  "module": "markup-libraries",
   "status": "planned",
-  "test": "oracle/components-library-models",
+  "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-models; tests/oracle/components-library-models",
   "phase": "P5b"
  },
  {
   "id": "components.library-update",
   "category": "components",
   "capability": "Update library dependency",
-  "construct": "new: components.<name> / nodes[].component: named library-update settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
+  "construct": "modules/markup-libraries/SPEC.md",
+  "module": "markup-libraries",
   "status": "planned",
-  "test": "oracle/components-library-update",
+  "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-update; tests/oracle/components-library-update",
   "phase": "P5b"
  },
  {
@@ -1744,20 +1744,20 @@
   "id": "components.nested-quantize",
   "category": "components",
   "capability": "Nested quantization",
-  "construct": "new: components.<name> / nodes[].component: named nested-quantize settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
+  "construct": "modules/nested/SPEC.md",
+  "module": "nested",
   "status": "planned",
-  "test": "oracle/components-nested-quantize",
+  "test": "modules/nested/test/core/nested.test.ts; modules/nested/test/web/nested.test.ts; spec/conformance/components-nested-quantize; tests/oracle/components-nested-quantize",
   "phase": "P5b"
  },
  {
   "id": "components.nested-remap",
   "category": "components",
   "capability": "Nested time remapping",
-  "construct": "new: components.<name> / nodes[].component: named nested-remap settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
+  "construct": "modules/nested/SPEC.md",
+  "module": "nested",
   "status": "planned",
-  "test": "oracle/components-nested-remap",
+  "test": "modules/nested/test/core/nested.test.ts; modules/nested/test/web/nested.test.ts; spec/conformance/components-nested-remap; tests/oracle/components-nested-remap",
   "phase": "P5b"
  },
  {
@@ -1824,10 +1824,10 @@
   "id": "components.stateful-output",
   "category": "components",
   "capability": "Read-only component outputs",
-  "construct": "new: components.<name> / nodes[].component: named stateful-output settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
+  "construct": "modules/nested/SPEC.md",
+  "module": "nested",
   "status": "planned",
-  "test": "oracle/components-stateful-output",
+  "test": "modules/nested/test/core/nested.test.ts; modules/nested/test/web/nested.test.ts; spec/conformance/components-stateful-output; tests/oracle/components-stateful-output",
   "phase": "P5b"
  },
  {
@@ -3074,10 +3074,10 @@
   "id": "data.property-artboard",
   "category": "data",
   "capability": "Artboard property",
-  "construct": "TODO: modules/data/capabilities/data-property-artboard/registry.ts; spec/SPEC.md (Artboard property); modules/data/capabilities/data-property-artboard/example.animl",
+  "construct": "modules/nested/SPEC.md",
   "module": "data",
   "status": "planned",
-  "test": "TODO: modules/data/test/core/data-property-artboard.test.ts; spec/conformance/data-property-artboard; tests/oracle/data-property-artboard",
+  "test": "modules/nested/test/core/nested.test.ts; modules/nested/test/web/nested.test.ts; spec/conformance/data-property-artboard; tests/oracle/data-property-artboard",
   "phase": "P5b"
  },
  {
@@ -4374,10 +4374,10 @@
   "id": "drawing-paint.paint-artboard",
   "category": "drawing-paint",
   "capability": "Live artboard paint",
-  "construct": "new: paint.scene references a component",
+  "construct": "Pending: modules/componentpaint/README.md",
   "module": "components",
   "status": "planned",
-  "test": "oracle/paint-artboard",
+  "test": "modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts; spec/conformance/drawing-paint-paint-artboard; tests/oracle/drawing-paint-paint-artboard",
   "phase": "P5b"
  },
  {
@@ -10266,10 +10266,10 @@
   "id": "state-machine.literal-artboard",
   "category": "state-machine",
   "capability": "artboard comparison literal",
-  "construct": "new: typed artboard literal in when expression",
+  "construct": "Pending: modules/nested/SPEC.md",
   "module": "data",
   "status": "planned",
-  "test": "conformance/literal-artboard",
+  "test": "modules/nested/test/core/state-machine-literal-artboard.test.ts; spec/conformance/state-machine-literal-artboard; tests/oracle/state-machine-literal-artboard",
   "phase": "P5b"
  },
  {

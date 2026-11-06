@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "artboard": "Board",
+  "stateMachine": "main",
+  "viewModel": {
+    "name": "main",
+    "viewModel": "Card",
+    "properties": [
+      {
+        "name": "card",
+        "path": "card",
+        "type": "artboard",
+        "artboard": "",
+        "changed": false
+      }
+    ]
+  },
+  "globals": [],
+  "nested": [
+    {
+      "path": "badge",
+      "artboard": "box",
+      "inherits": true
+    }
+  ]
+}

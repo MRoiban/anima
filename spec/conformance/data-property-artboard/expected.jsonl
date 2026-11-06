@@ -1,0 +1,4 @@
+{"time":0,"values":{"badge/dot.r":2},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"badge/rect.w":4},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"seen":false,"badge/rect.w":4},"states":{},"events":[{"name":"badge.selected","layer":null,"time":0}],"settled":false}
+{"time":0,"values":{"seen":true,"badge/rect.w":4},"states":{},"events":[],"settled":true}

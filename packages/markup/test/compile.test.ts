@@ -316,7 +316,7 @@ describe('AniML compiler', () => {
       expect(paintElements.some((e) => e.name === form)).toBe(true);
     collectPaint(
       parseXml(
-        '<anima><instance id="i" component="badge" speed="2" paused="true" data="main"/></anima>',
+        '<anima><instance id="i" component="badge" speed="2" paused="true" data="main" time="$t" fps="12" fit="contain" align="right" size="20 10"/></anima>',
       ).doc.root!,
     );
     collectPaint(

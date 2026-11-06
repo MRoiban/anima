@@ -31,6 +31,8 @@ import { host } from '../../../modules/host/core/index.ts';
 import { hostEdit } from '../../../modules/host-edit/core/index.ts';
 import { lists } from '../../../modules/lists/core/index.ts';
 import { listsSVG } from '../../../modules/lists/core/svg.ts';
+import { nested } from '../../../modules/nested/core/index.ts';
+import { nestedSVG } from '../../../modules/nested/core/svg.ts';
 import { surface } from '../../../modules/surface/core/index.ts';
 import { surfaceSVG } from '../../../modules/surface/core/svg.ts';
 import { mix } from '../../../modules/mix/core/index.ts';
@@ -65,6 +67,8 @@ if (VERBOSE) {
   registerModule(hostEdit);
   registerModule(lists);
   registerSVGBackend('lists', listsSVG);
+  registerModule(nested);
+  registerSVGBackend('nested', nestedSVG);
   registerModule(surface);
   registerSVGBackend('surface', surfaceSVG);
   registerModule(mix);

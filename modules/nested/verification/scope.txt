@@ -1,0 +1,67 @@
+
+> test:scope
+> node tools/test-scope.ts components lists markup markup-libraries cli conformance oracle nested componentpaint
+
+Scopes: components, lists, markup, markup-libraries, cli, conformance, oracle, nested, componentpaint
+  unit: modules/assets/test/cli/assets.test.ts
+  unit: modules/assets/test/cli/pipeline.test.ts
+  unit: modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/components/test/core/components.test.ts
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/convert/test/cli/convert.test.ts
+  unit: modules/convert/test/markup/convert.test.ts
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: modules/derive/test/cli/derive.test.ts
+  unit: modules/events/test/cli/events.test.ts
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host/test/cli/host.test.ts
+  unit: modules/lists/test/cli/lists.test.ts
+  unit: modules/lists/test/core/components-explicit-context.test.ts
+  unit: modules/lists/test/core/components-inherited-context.test.ts
+  unit: modules/lists/test/core/components-list-map.test.ts
+  unit: modules/lists/test/core/components-list-size-override.test.ts
+  unit: modules/lists/test/core/components-list.test.ts
+  unit: modules/lists/test/core/data-binding-relative.test.ts
+  unit: modules/lists/test/core/data-converter-number-to-list.test.ts
+  unit: modules/lists/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/lists/test/core/lists.test.ts
+  unit: modules/markup-libraries/test/cli/library.test.ts
+  unit: modules/markup-libraries/test/markup/extras.test.ts
+  unit: modules/markup-libraries/test/markup/reuse.test.ts
+  unit: modules/motion/test/cli/motion.test.ts
+  unit: modules/nested/test/cli/nested.test.ts
+  unit: modules/nested/test/core/nested.test.ts
+  unit: modules/nested/test/core/state-machine-literal-artboard.test.ts
+  unit: modules/paint/test/cli/advanced.test.ts
+  unit: modules/paint/test/cli/paint-geometry.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: modules/surface/test/cli/surface.test.ts
+  unit: modules/surface/test/markup/surface.test.ts
+  unit: packages/cli/test/authoring.test.ts
+  unit: packages/cli/test/cli.test.ts
+  unit: packages/cli/test/glyphs.test.ts
+  unit: packages/cli/test/markup.test.ts
+  unit: packages/cli/test/render.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: packages/markup/test/xml.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/components/test/web/components.test.ts
+  browser: modules/lists/test/web/lists.test.ts
+  browser: modules/nested/test/web/nested.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-7fa51d22
+
+
+ Test Files  52 passed | 2 skipped (54)
+      Tests  3379 passed | 53 todo (3432)
+   Start at  23:06:08
+   Duration  102.99s (tests 82%, import 17%)

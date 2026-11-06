@@ -5,7 +5,8 @@ import type { Module } from '../../src/modules.ts';
 const order = process.argv[2]!.split(',');
 for (const name of order) {
   const exported = await import(`../../../../modules/${name}/core/index.ts`);
-  registerModule(exported[name] as Module);
+  const { default: manifest } = await import(`../../../../modules/${name}/manifest.ts`);
+  registerModule(exported[manifest.core.export] as Module);
 }
 // Schema and models captured before tooling's all-module import can mask missing registration.
 const schema = jsonSchema();

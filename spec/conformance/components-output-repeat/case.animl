@@ -1,0 +1,20 @@
+<anima version="0.1" name="components-output-repeat" grid="20" requires="components nested lists data bind">
+  <model name="Item">
+    <number name="score"/>
+  </model>
+  <model name="Board">
+    <list name="items" of="Item"/>
+  </model>
+  <instance name="main" model="Board" default="true">
+    <set path="items" value="[{&quot;score&quot;:2},{&quot;score&quot;:4}]"/>
+  </instance>
+  <component name="row" grid="10" data="Item">
+    <bool name="active"/>
+    <circle id="dot" cx="5" cy="5" r="2" fill="#000"/>
+    <output name="done" value="$score > 2 and active"/>
+    <listener on="click" toggle="active"/>
+  </component>
+  <repeat id="rows" list="$items" component="row" dx="10"/>
+  <circle id="indicator" cx="5" cy="15" r="1" fill="#000"/>
+  <bind target="indicator.opacity" value="rows.1.outputs.done"/>
+</anima>

@@ -1,0 +1,38 @@
+{
+  "anima": "0.1",
+  "name": "components-stateful-output",
+  "grid": 20,
+  "requires": ["components", "nested", "bind"],
+  "nodes": [
+    {
+      "id": "badge",
+      "type": "instance",
+      "component": "row"
+    }
+  ],
+  "components": {
+    "row": {
+      "grid": 10,
+      "inputs": {
+        "count": {
+          "type": "number",
+          "default": 6
+        }
+      },
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [5, 5],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "outputs": {
+        "done": "count"
+      }
+    }
+  }
+}

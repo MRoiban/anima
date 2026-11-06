@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "Needs a renderer-neutral custom paint/offscreen source hook in Canvas; no faithful implementation within assigned ownership."
+}
