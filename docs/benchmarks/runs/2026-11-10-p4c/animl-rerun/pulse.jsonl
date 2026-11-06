@@ -1,0 +1,11 @@
+{"time":0,"values":{"volume":0.5,"speaker.scale":1},"states":{"blend":"level","feedback":"idle"},"events":[],"settled":false}
+{"time":0,"values":{"volume":0.6,"speaker.scale":1},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}
+{"time":0.1,"values":{"volume":0.6,"speaker.scale":1.08},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}
+{"time":0.2,"values":{"volume":0.6,"speaker.scale":1},"states":{"blend":"level","feedback":"idle"},"events":[],"settled":false}
+{"time":0.30000000000000004,"values":{"volume":0.4,"speaker.scale":1},"states":{"blend":"level","feedback":"idle"},"events":[],"settled":false}
+{"time":0.35000000000000003,"values":{"volume":0.7,"speaker.scale":1.04},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}
+{"time":0.35000000000000003,"values":{"volume":0.8,"speaker.scale":1},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}
+{"time":0.45000000000000007,"values":{"volume":0.8,"speaker.scale":1.08},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}
+{"time":0.45000000000000007,"values":{"volume":0.2,"speaker.scale":1.08},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}
+{"time":0.55,"values":{"volume":0.2,"speaker.scale":1},"states":{"blend":"level","feedback":"idle"},"events":[],"settled":false}
+{"time":0.65,"values":{"volume":0.2,"speaker.scale":1},"states":{"blend":"level","feedback":"idle"},"events":[],"settled":false}

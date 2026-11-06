@@ -1,10 +1,11 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now: P4c interaction (branch p4c-interaction; modules machine, input, focus) and P4d events (branch p4d-events) in parallel; then P4e data, P5b, P3b, P6–P10.
-State: main a02c0be = through P4b (PR #13). Parity 259/1238. core+web 19012; full-featured 51.4 KB.
-Next: merge agents per branch; before pushing a merge run browser tests for the seams; benchmark per phase; PR per phase.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4c AniML volume-control benchmark rerun, committed locally only.
+Verified: 6/6 behavior items; source/built samples match; 370 comparisons pass.
+Evidence: docs/benchmarks/runs/2026-11-10-p4c/animl-rerun/REPORT.md.
+Next: orchestrator review of benchmark evidence.
+Don't: push/PR/merge; read forbidden benchmark runs, oracle or .riv files.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -114,3 +115,4 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 21:00 [claude]: merged P4c-6 (68637ce): 6/6 docs/tooling fixes; @after(0) was a runtime bug (see LOG), fixed with machine-change-pulse case; scoped 1673 pass
 - 2026-11-07 23:30 [claude]: PR #14 (P4d) merged; main into p4c conflicts in 29 files (compile/decompile, components events, oracle tooling) → delegated integration P4c-7
 - 2026-11-08 02:00 [claude]: merged P4c-7 (62a23c6): main with P4d integrated, full check 4227 pass, oracle 120 cases strict 0; core+web 19831; next P4c AniML benchmark rerun → PR
+- 2026-11-06 05:14 [codex]: AniML volume rerun → 6/6, 19 checks, 370 comparisons; 6 setup ERR_MODULE_NOT_FOUND resolved by npm ci (evidence: animl-rerun/REPORT.md, verify.py).
