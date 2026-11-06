@@ -2,7 +2,6 @@
 import { existsSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { resolve } from 'node:path';
-import { chromium } from 'playwright-core';
 import { Resvg } from '@resvg/resvg-js';
 import { PNG } from 'pngjs';
 import type { AssetInfo } from './asset-info.ts';
@@ -27,6 +26,8 @@ async function browserImage(
   if (!existsSync(executablePath)) throw unavailable();
   let browser;
   try {
+    // Loaded on first use: importing Playwright at module load cost every CLI command ~0.3–0.5 s.
+    const { chromium } = await import('playwright-core');
     browser = await chromium.launch({ executablePath, headless: true });
   } catch {
     throw unavailable();

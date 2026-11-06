@@ -4,8 +4,10 @@ import { registerModule, jsonSchema, load, Player, runScript } from '../../src/i
 import type { Module } from '../../src/modules.ts';
 const order = process.argv[2]!.split(',');
 for (const name of order) {
-  const exported = await import(`../../../../modules/${name}/core/index.ts`);
-  registerModule(exported[name] as Module);
+  // The manifest names the core export (folder `host-edit` exports `hostedit`).
+  const manifest = (await import(`../../../../modules/${name}/manifest.ts`)).default;
+  const exported = await import(`../../../../modules/${name}/${manifest.core.entry}`);
+  registerModule(exported[manifest.core.export] as Module);
 }
 // Schema and models captured before tooling's all-module import can mask missing registration.
 const schema = jsonSchema();

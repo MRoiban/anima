@@ -1,4 +1,5 @@
-import { execFileSync } from 'node:child_process';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import { fileURLToPath } from 'node:url';
 import { expect, it } from 'vitest';
 import { discover } from '../../../tools/modules.ts';
@@ -18,14 +19,25 @@ it('composes identical schemas, CLI schemas, loaded corpus models and AniML in 1
     [...part, ...remaining],
     [...remaining].reverse().concat(part),
   ]);
-  let baseline: string | undefined;
-  for (const order of orders) {
-    const output = execFileSync(
-      process.execPath,
-      [fileURLToPath(new URL('./helpers/module-order.ts', import.meta.url)), order.join(',')],
-      { encoding: 'utf8', maxBuffer: 32 * 1024 * 1024 },
-    );
-    baseline ??= output;
-    expect(output, order.join(',')).toBe(baseline);
-  }
+  // Each order runs in its own fresh process; they are independent, so run two at a time (the
+  // corpus grows every phase and twelve sequential processes reached the limit). Every output must
+  // still equal the first order's.
+  const run = promisify(execFile);
+  const helper = fileURLToPath(new URL('./helpers/module-order.ts', import.meta.url));
+  const outputs: string[] = new Array(orders.length);
+  let next = 0;
+  await Promise.all(
+    Array.from({ length: 2 }, async () => {
+      while (next < orders.length) {
+        const i = next++;
+        outputs[i] = (
+          await run(process.execPath, [helper, orders[i]!.join(',')], {
+            encoding: 'utf8',
+            maxBuffer: 32 * 1024 * 1024,
+          })
+        ).stdout;
+      }
+    }),
+  );
+  for (const [i, order] of orders.entries()) expect(outputs[i], order.join(',')).toBe(outputs[0]);
 }, 30_000);

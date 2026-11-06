@@ -160,8 +160,10 @@ it('installs no compute wrapper for documents with no computed declarations', ()
   }
   const p = player(raw);
   expect(dataState(p)).toBeDefined();
+  // No derive wrapper: the scope factory is still data's own. (Since P5b-1, data itself records
+  // each value's model in modelTypes for lists, so that map is no longer a sign of derive.)
   expect(p.model.inputScope).toBe(createScope);
-  expect(dataState(p)?.modelTypes).toBeUndefined();
+  expect(dataState(p)?.modelTypes).toBeInstanceOf(WeakMap);
 });
 it('supports every scalar kind, literal expression spelling, and aliases', () => {
   const result = compile(`<anima version="0.1" name="scalars" grid="20" requires="data bind derive">
