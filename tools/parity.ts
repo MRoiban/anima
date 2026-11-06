@@ -72,6 +72,10 @@ export const PHASES: [string, string][] = [
     'P4d',
     'Done: events — payloads, URL events with a host policy, audio, lifecycle events, expression actions',
   ],
+  [
+    'P4e',
+    'Done: data — view models, $ paths, binding modes, converters, host data API, paint leftovers',
+  ],
   ['P4', 'Interaction, paint, events and data binding'],
   ['P5', 'Done: components, bindings, assets, images, n-slice and feathering'],
   [
@@ -87,7 +91,7 @@ export const PHASES: [string, string][] = [
 ];
 
 /** Phases whose rows are all done. */
-export const FINISHED = ['P0', 'P1', 'P2', 'P3', 'P4a', 'P4b', 'P4c', 'P4d', 'P5', 'Pc'];
+export const FINISHED = ['P0', 'P1', 'P2', 'P3', 'P4a', 'P4b', 'P4c', 'P4d', 'P4e', 'P5', 'Pc'];
 
 const ROOT = new URL('../docs/parity/', import.meta.url);
 
