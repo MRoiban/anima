@@ -26,6 +26,7 @@
     "./data": "./src/modules/data/index.ts",
     "./convert": "./src/modules/convert/index.ts",
     "./derive": "./src/modules/derive/index.ts",
+    "./host-values": "./src/modules/host-values/index.ts",
     "./host": "./src/modules/host/index.ts",
     "./host-edit": "./src/modules/host-edit/index.ts",
     "./lists": "./src/modules/lists/index.ts",

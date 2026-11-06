@@ -169,3 +169,12 @@ Don't: change measurement inputs/parity statuses or unowned runtimes; no push/PR
 - 2026-11-06 22:03 [codex/P5b-5]: finalized 10 conformance cases/30 exact native observations; scope4218 pass/2 failures reproduced at a5fa00a/63 TODO, final data2369 pass; strict245/441 exit0; static/artifact/size pass (core+web20147, bind2048, data7908, convert6569); keyframes/canonical oracle/export counterpart/perf gate pending (evidence: modules/data/verification/p5b5/summary.json).
 - 2026-11-06 22:03 [codex/P5b-5]: standalone perf slower frames under concurrent load; paired A/B bell112.81→111.70, composite71.83→74.28, toolbar79.08→76.27 µs, compile7.37→7.14 ms → no quiet no-regression claim; verification-script ESLint globals fixed with explicit Node imports, lint passes (evidence: verification/p5b5/perf-*.txt, eslint.txt).
 - 2026-11-06 [claude]: merged P5b-5 data extras (10 rows; bind-keyframes pending: player-aware sampling; core+web 20,147 +38, data 7908, convert 6569, bind 2048)
+
+- 2026-11-06 21:43 [host-seams]: read contracts/history; npm ci restored dependencies; split value construction and added shared queue/projection → initial 51 host unit tests pass (evidence: /tmp/p5b-host1.txt); new globals/cache unverified.
+
+- 2026-11-06 21:55 [host-seams]: shared FIFO/globals/repeat/cache contracts → focused70 pass incl both engines; repeated named globals needed slot-based rebinding (fixed; core60 pass). Explicit loadModel hook; source/decoder failure entries evict; full scope running (unverified).
+
+- 2026-11-06 22:12 [host-seams]: final size exit0 (host3424/4096, values1154/2048, edit3409/4096, core+web20150 +41, full103330 +1061); oracle strict exit0 (245/441, 24 findings/27 samples), typecheck/ESLint/modules pass; broad rerun pending after stale demo rebuild; formatting raw-output cleanup pending (evidence: modules/host-edit/verification/p5b4/).
+
+- 2026-11-06 22:15 [host-seams]: frozen-source requested scope5579 pass/59 TODO (541.77s, both engines); static/artifact/size/oracle checks exit0; raw Canvas metrics preserved unchanged at /tmp/anima-p5b4-raw-artifacts/ and ignored outputs cleaned for Prettier → report/evidence ready for branch-only commit (evidence: modules/host-edit/P5B-4-REPORT.md, verification/p5b4/checks.json).
+- 2026-11-06 [claude]: merged P5b-4 host seams (host 3424 over host-values 1154; host-edit 3409; core+web +41 for the loader hook; contract test lists × host-edit in both engines)

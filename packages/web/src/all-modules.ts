@@ -12,6 +12,7 @@ import './events.ts';
 import './focus.ts';
 import './host.ts';
 import './host-edit.ts';
+import './host-values.ts';
 import './input.ts';
 import './lists.ts';
 import './machine.ts';

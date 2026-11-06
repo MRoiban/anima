@@ -1,6 +1,6 @@
 # P5b-2 host-edit implementation report
 
-Status: implemented extension with seven blocked rows; not full P5b-2 completion. Local branch
+Status after P5b-4: queue, globals and document cache seams implemented; four component-value rows remain pending. See P5B-4-REPORT.md for current verification. The remainder records the original P5b-2 delivery. Local branch
 `t3/host-data-editing-1` only; no push, PR or merge. The commit SHA is supplied in the handoff.
 
 ## Delivered

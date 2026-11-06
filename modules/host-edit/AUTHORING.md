@@ -29,8 +29,7 @@ To insert a shared or mixed-model item, pass `icon.data.instance('named')` or th
 by `icon.data.create('Track', values)`. `defaultInstance()` discovers but does not bind the default.
 
 List helpers preserve stored item objects for the lists module's repeat matching. Whole-list
-`.set()` remains a replacement. In a step mixing helpers with ordinary host `.set()` writes,
-helpers apply first; use separate steps when the order matters.
+`.set()` remains a replacement. Helpers and ordinary host `.set()` writes apply in call order in the same step.
 
 With components imported, `icon.instance('badge').data` addresses the existing child's models.
 `<anima-icon component="badge" src="icons.ani">` selects a component as root. Set the component
@@ -50,3 +49,15 @@ set declared asset names, while URLs and Blobs require the web consumer.
 
 For typed constructor readiness, import `AnimaIcon` from `@anima-format/web/host-edit` and await
 `AnimaIcon.ready` after all desired module imports. The base web constructor has no preload cost.
+
+Global models expose their named slots through `icon.data.globals()`. Replace one with
+`icon.data.setGlobal('settings', icon.data.create('Settings', { volume: 0.5 }))`; the following
+step updates existing root/child handles and bindings together. The target must be an authored
+instance of a model declared `global="true"`; a replacement must come from this player's API.
+
+With host-edit loaded, icons using the same absolute src, resolver function, asset policy and
+component selection share successful source parsing and initial image decoding. Set assets and
+assetPolicy before src. Resolvers shared by identity should resolve the same resource for each
+consumer. Writes and replacement images remain per-icon. `icon.loadModel(model)` (or host-edit's `icon.load(model)`) accepts an
+already compiled Model and creates fresh player state; asset-bearing documents keep local models
+and asset records while using cached parsed data and initial decodes.
