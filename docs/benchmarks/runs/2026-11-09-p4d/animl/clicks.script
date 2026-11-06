@@ -1,0 +1,107 @@
+advance 0
+snapshot count
+# click 1
+pointer click 5 10
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 0.4
+snapshot count left.scale upper.scale lower.scale
+advance 0
+# click 2
+pointer click 5 10
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 0.4
+snapshot count left.scale upper.scale lower.scale
+advance 0
+# click 3
+pointer click 5 10
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 0.4
+snapshot count left.scale upper.scale lower.scale
+advance 0
+# click 4
+pointer click 5 10
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 0.4
+snapshot count left.scale upper.scale lower.scale
+advance 0
+# click 5
+pointer click 5 10
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 0.4
+snapshot count left.scale upper.scale lower.scale
+advance 0
+# click 6
+pointer click 5 10
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 0.4
+snapshot count left.scale upper.scale lower.scale
+advance 0
+# click 7
+pointer click 5 10
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 0.4
+snapshot count left.scale upper.scale lower.scale
+advance 0
+# click 8
+pointer click 5 10
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 0.4
+snapshot count left.scale upper.scale lower.scale
+advance 0
+# click 9
+pointer click 5 10
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 0.4
+snapshot count left.scale upper.scale lower.scale
+advance 0
+# click 10
+pointer click 5 10
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 0.4
+snapshot count left.scale upper.scale lower.scale
+advance 0
+# click 11
+pointer click 5 10
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 0.4
+snapshot count left.scale upper.scale lower.scale
+advance 0
+# click 12
+pointer click 5 10
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 0.4
+snapshot count left.scale upper.scale lower.scale
+advance 0
+# click 13
+pointer click 5 10
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 0.4
+snapshot count left.scale upper.scale lower.scale
+advance 0
+# click 14
+pointer click 5 10
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 0.4
+snapshot count left.scale upper.scale lower.scale
+advance 0
+# click 15
+pointer click 5 10
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 0.4
+snapshot count left.scale upper.scale lower.scale
+advance 0

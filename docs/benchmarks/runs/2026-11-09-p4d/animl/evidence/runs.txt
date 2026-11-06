@@ -1,0 +1,46 @@
+First command: 2026-11-06 03:32:09 UTC (date, pwd, WORKLOG, git log, permitted brief/benchmark overview).
+All CLI invocations use node packages/cli/src/main.ts from repository root.
+
+Learning/bootstrap (not included in check total):
+01 --help: ERR_MODULE_NOT_FOUND @anima-format/core
+02 docs --list: ERR_MODULE_NOT_FOUND @anima-format/core
+03 docs events: ERR_MODULE_NOT_FOUND @anima-format/core
+04 docs markup: ERR_MODULE_NOT_FOUND @anima-format/core
+npm ci: exit 0; 10 moderate audit vulnerabilities; install-scripts warning for esbuild.
+05 --help: success
+06 docs --list: success
+07 docs events: success
+08 docs markup: success
+09 docs states-inputs-and-listeners: success
+10 docs checking-the-motion: success
+11 docs bindings: success
+12 schema listener: success
+13 docs spec (saved in /tmp, only permitted CLI output): success
+14 schema asset: success
+15 schema state: success
+
+Check runs (paths below relative to this animl directory; no document diagnostics):
+01 anima validate share.animl -> evidence/validate.txt, exit 0
+02 anima inspect share.animl -> evidence/inspect.txt, exit 0
+03 anima sample share.animl -s pulse.script -> evidence/pulse.jsonl, exit 0
+04 anima sample share.animl -s clicks.script -> evidence/clicks.jsonl, exit 0
+05 anima sample share.animl -s interrupt.script -> evidence/interrupt.jsonl, exit 0
+06 anima render share.animl -o evidence/rest.svg -> evidence/render-rest-svg.txt, exit 0
+07 anima render share.animl -o evidence/rest.png --size 240 -> evidence/render-rest-png.txt, exit 0
+08 anima render share.animl -o evidence/pulse-sheet.png --sheet 9 --over 0.4 -s start.script --size 240 -> evidence/render-sheet.txt, exit 0
+09 anima render share.animl --compare expected-rest.svg --size 240 -o evidence/rest-diff.png -> evidence/rest-compare.json (text output), exit 0
+10 anima build share.animl --embed -o share.ani -> evidence/build.txt, exit 0
+11 anima sample share.animl -s rest.script -> evidence/rest.jsonl, exit 0
+12 anima sample share.ani -s clicks.script -> evidence/built-clicks.jsonl, exit 0
+13 python3 verify.py -> evidence/verify.txt, exit 0
+14 git diff --check -> evidence/diff-check.txt, exit 0 (untracked files not checked at this point)
+15 git diff --cached --check -> evidence/staged-diff-check.txt, exit 0 (actual staged artifacts)
+
+Totals: 12 CLI check/validate/inspect/sample/render/build runs; 15 checks including independent
+Python assertions and both git whitespace checks. Four errors, all bootstrap ERR_MODULE_NOT_FOUND;
+zero document diagnostics, sample errors, assertion failures or render/build errors.
+Other evidence reads, one image view, audio generation, source-size counting, git status/add/commit,
+report writing and timestamps are not check/validate/build/render/sample invocations.
+
+Additional non-check tool error: functions.exec JavaScript SyntaxError: Unexpected identifier name.
+The first report-writing tool call did not execute; corrected quoting on retry. Total errors: 5.

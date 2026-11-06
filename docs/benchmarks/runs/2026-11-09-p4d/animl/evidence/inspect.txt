@@ -1,0 +1,72 @@
+share (grid 20, viewBox 0 0 20 20)
+
+glyphs (bbox: minX minY maxX maxY, grid units; hole hints use bbox containment only)
+
+nodes
+  links (path)
+  left (circle) pivot 5,10 animates scale
+  upper (circle) pivot 15,5 animates scale
+  lower (circle) pivot 15,15 animates scale
+
+inputs: count (number), clicked (trigger), pulse (trigger)
+
+timelines
+  pulse: 0.4s once, reduced motion: end, events shared, pulse-done
+    writes left.scale, upper.scale, lower.scale
+
+machine
+  layer motion (writes left.scale, upper.scale, lower.scale)
+    *rest: pose {}
+        pulse → playing
+     playing: play pulse
+        pulse → playing
+        @end → rest
+  layer counter (writes nothing)
+    *zero: pose {}
+        clicked → one
+     one: pose {}, emit count-one
+        clicked → two
+     two: pose {}, emit count-two
+        clicked → three
+     three: pose {}, emit count-three
+        clicked → four
+     four: pose {}, emit count-four
+        clicked → five
+     five: pose {}, emit count-five
+        clicked → six
+     six: pose {}, emit count-six
+        clicked → seven
+     seven: pose {}, emit count-seven
+        clicked → eight
+     eight: pose {}, emit count-eight
+        clicked → nine
+     nine: pose {}, emit count-nine
+        clicked → ten
+     ten: pose {}, emit count-ten
+        clicked → ten
+  layer fifths (writes nothing)
+    *zero: pose {}
+        clicked → one
+     one: pose {}
+        clicked → two
+     two: pose {}
+        clicked → three
+     three: pose {}
+        clicked → four
+     four: pose {}
+        clicked → fifth
+     fifth: pose {}, emit milestone
+        clicked → one
+
+listeners
+  click → fire clicked
+  event:count-one → fire pulse, set count=1
+  event:count-two → fire pulse, set count=2
+  event:count-three → fire pulse, set count=3
+  event:count-four → fire pulse, set count=4
+  event:count-five → fire pulse, set count=5
+  event:count-six → fire pulse, set count=6
+  event:count-seven → fire pulse, set count=7
+  event:count-eight → fire pulse, set count=8
+  event:count-nine → fire pulse, set count=9
+  event:count-ten → fire pulse, set count=10

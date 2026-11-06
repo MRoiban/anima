@@ -1,0 +1,4 @@
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 1
+snapshot count left.scale upper.scale lower.scale

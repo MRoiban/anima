@@ -1,11 +1,11 @@
 # Work log
 
 ## Now
-Goal: P4b-3 declarative motion controls and sync benchmark proof complete, committed locally.
-Verified: 10 new conformance cases; scope 728/728; sync 6/6 (7 scripts, 66 snapshots).
-Full: 1380 pass + 15 pre-existing oracle TODOs with VITEST_MAX_WORKERS=2; default had 2 browser timeouts.
-Next: parent integrates/reviews local commit; P4b oracle captures and phase closure remain with parent.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: isolated P4d AniML share benchmark; commit locally only.
+Verified: 12 CLI runs + independent assertions; 15 clicks; rest pixel diff 0; built/source samples equal.
+Result: strict 3/6; counter saturates at 10; audio playback unverified (requests + own WAV checked).
+Next: parent re-checks REPORT.md and raw evidence under runs/2026-11-09-p4d/animl.
+Don’t: push/PR/merge; read competing-format materials, .riv, implementation source or oracle files.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -107,3 +107,4 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 08:00 [claude]: merged P4d events (3e98a55) into p4d-events: 32/33 rows (script context → P9), events 3418/4096, core+web 19278 (+266); 31 oracle skips claim no event output but the P4a Rive run's session logs showed emitted events → oracle pass to capture them
 - 2026-11-07 11:00 [claude]: merged events oracle (048768a): 9 verified/23 skips/3 findings. Decisions: listener next-step reaction kept (spec'd as intentional difference); boundary-time drift (0.25 s fires frame 16 vs Rive 15) → epsilon boundary rule (P4d-2)
 - 2026-11-07 13:00 [claude]: merged P4d-2 (342bef2): 1e-9 s boundary rule, 9 cases, transition boundary matches Rive, keys 15/30/60 vs Rive 15/30/61 (cause unproven); listener next-step spec'd; full check 2530; P4d benchmark brief (share button) written
+- 2026-11-06 03:37 [codex]: P4d AniML benchmark → 3/6 strict; literal-only writes force ten-click count limit; samples/embedded WAV/rest parity verified (evidence: animl/evidence/verify.txt; 12 CLI runs, 4 dependency bootstrap errors).
