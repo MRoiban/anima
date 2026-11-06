@@ -1,0 +1,4 @@
+pointer down 10 10
+snapshot count
+pointer up 10 10
+snapshot count

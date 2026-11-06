@@ -132,3 +132,40 @@ it('rejects implicit clock conflicts and unbounded random totals', () => {
     expect.objectContaining({ code: 'machine-clock', pointer: '/machine/layers/l/states/a/on/0' }),
   );
 });
+
+it.each([
+  ['bind-syntax', 'count +'],
+  ['bind-type', '#fff'],
+  ['unknown-input', 'missing+1'],
+])('machine actions share listener %s diagnostics', (code, expression) => {
+  const d = read('machine-action-expressions');
+  d.machine.layers.main.states.idle.enterActions.set.count = expression;
+  expect(load(d).diagnostics).toContainEqual(
+    expect.objectContaining({
+      code,
+      pointer: '/machine/layers/main/states/idle/enterActions/set/count',
+      message: expect.any(String),
+      hint: expect.any(String),
+    }),
+  );
+});
+it('transition action ownership accepts either feature and still rejects neither', () => {
+  for (const feature of ['bind', 'machine']) {
+    const d = read('bind-machine-actions');
+    d.requires = [feature];
+    const states = d.machine.layers.main.states;
+    delete states.idle.entry;
+    delete states.idle.exit;
+    delete states.next.entry;
+    states.idle.on[0].actions = { set: { count: 1 } };
+    expect(load(d).diagnostics.filter((v) => v.severity === 'error')).toEqual([]);
+    d.requires = [];
+    expect(load(d).diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'undeclared-feature',
+        pointer: '/machine/layers/main/states/idle/on/0/actions',
+        hint: 'add "bind" or "machine" to "requires"',
+      }),
+    );
+  }
+});

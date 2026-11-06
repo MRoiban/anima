@@ -1,0 +1,49 @@
+{
+  "anima": "0.1",
+  "name": "motion-boundary-instances",
+  "grid": 20,
+  "requires": ["motion"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "once": {
+      "duration": 1,
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [1, 10]
+        ]
+      },
+      "events": [
+        [0.2, "lo"],
+        [0.7, "hi"]
+      ],
+      "quantize": 10,
+      "work": [0.2, 0.7]
+    },
+    "loop": {
+      "duration": 1,
+      "loop": "loop",
+      "tracks": {
+        "a.y": [
+          [0, 0],
+          [1, 10]
+        ]
+      },
+      "events": [
+        [0.45, "mid"]
+      ],
+      "quantize": 10,
+      "work": [0.2, 0.7]
+    }
+  }
+}

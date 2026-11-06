@@ -1,0 +1,46 @@
+{
+  "anima": "0.1",
+  "name": "bind-action-event-listener",
+  "grid": 20,
+  "requires": ["bind", "events"],
+  "inputs": {
+    "count": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 2,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {},
+            "entry": {
+              "emit": "ready"
+            }
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "event:ready",
+      "set": {
+        "count": "count+1"
+      },
+      "emit": "write"
+    }
+  ]
+}

@@ -1,5 +1,54 @@
 [
   {
+    "name": "input-event-listener",
+    "reason": "Intentional difference (SPEC events): Anima listener responses occur on the next step to prevent step re-entry and recursive cascades. Sources: frames 13/28 in both; responses: Anima 14/29, Rive 13/28. This exact disagreement is retained, never a pass.",
+    "frames": [
+      {
+        "time": 1.1,
+        "actual": [
+          {
+            "frame": 13,
+            "name": "first"
+          },
+          {
+            "frame": 14,
+            "name": "second"
+          },
+          {
+            "frame": 28,
+            "name": "first"
+          },
+          {
+            "frame": 29,
+            "name": "second"
+          }
+        ],
+        "reference": [
+          {
+            "frame": 13,
+            "name": "first"
+          },
+          {
+            "frame": 13,
+            "name": "second"
+          },
+          {
+            "frame": 28,
+            "name": "first"
+          },
+          {
+            "frame": 28,
+            "name": "second"
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
     "name": "input-align-preserve",
     "status": "intentional difference",
     "reason": "Intentional difference: Anima follows the pointer with the grab offset measured at pointer-down (x=88 on origin x=80; move to x=104 yields x=96). Native preserve-offset remains x=80 at the first move and after release; absolute delta 16. Neither result nor tolerance is normalized.",
@@ -36,6 +85,491 @@
         "actual": 96,
         "reference": 80,
         "maxDiff": 16,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "bind-condition-modulo/immediate-probe",
+    "reason": "Immediate post-click observation differs: Anima emits at clicks 5/10/15/20/25; Rive at 6/11/16/21 with observed payloads 6/11/16/21 (5 versus 4 events, one-click lag). An extra native advance 1 settles each click and the separate completed case then matches. No elapsed-frame equivalence claimed.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "count": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "count": 1
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "count": 2
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "count": 3
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "count": 4
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "count": 5
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 5
+                }
+              }
+            ]
+          },
+          {
+            "click": 6,
+            "values": {
+              "count": 6
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "count": 7
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "count": 8
+            },
+            "events": []
+          },
+          {
+            "click": 9,
+            "values": {
+              "count": 9
+            },
+            "events": []
+          },
+          {
+            "click": 10,
+            "values": {
+              "count": 10
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 10
+                }
+              }
+            ]
+          },
+          {
+            "click": 11,
+            "values": {
+              "count": 11
+            },
+            "events": []
+          },
+          {
+            "click": 12,
+            "values": {
+              "count": 12
+            },
+            "events": []
+          },
+          {
+            "click": 13,
+            "values": {
+              "count": 13
+            },
+            "events": []
+          },
+          {
+            "click": 14,
+            "values": {
+              "count": 14
+            },
+            "events": []
+          },
+          {
+            "click": 15,
+            "values": {
+              "count": 15
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 15
+                }
+              }
+            ]
+          },
+          {
+            "click": 16,
+            "values": {
+              "count": 16
+            },
+            "events": []
+          },
+          {
+            "click": 17,
+            "values": {
+              "count": 17
+            },
+            "events": []
+          },
+          {
+            "click": 18,
+            "values": {
+              "count": 18
+            },
+            "events": []
+          },
+          {
+            "click": 19,
+            "values": {
+              "count": 19
+            },
+            "events": []
+          },
+          {
+            "click": 20,
+            "values": {
+              "count": 20
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 20
+                }
+              }
+            ]
+          },
+          {
+            "click": 21,
+            "values": {
+              "count": 21
+            },
+            "events": []
+          },
+          {
+            "click": 22,
+            "values": {
+              "count": 22
+            },
+            "events": []
+          },
+          {
+            "click": 23,
+            "values": {
+              "count": 23
+            },
+            "events": []
+          },
+          {
+            "click": 24,
+            "values": {
+              "count": 24
+            },
+            "events": []
+          },
+          {
+            "click": 25,
+            "values": {
+              "count": 25
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 25
+                }
+              }
+            ]
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "count": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "count": 1
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "count": 2
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "count": 3
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "count": 4
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "count": 5
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "count": 6
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 6
+                }
+              }
+            ]
+          },
+          {
+            "click": 7,
+            "values": {
+              "count": 7
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "count": 8
+            },
+            "events": []
+          },
+          {
+            "click": 9,
+            "values": {
+              "count": 9
+            },
+            "events": []
+          },
+          {
+            "click": 10,
+            "values": {
+              "count": 10
+            },
+            "events": []
+          },
+          {
+            "click": 11,
+            "values": {
+              "count": 11
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 11
+                }
+              }
+            ]
+          },
+          {
+            "click": 12,
+            "values": {
+              "count": 12
+            },
+            "events": []
+          },
+          {
+            "click": 13,
+            "values": {
+              "count": 13
+            },
+            "events": []
+          },
+          {
+            "click": 14,
+            "values": {
+              "count": 14
+            },
+            "events": []
+          },
+          {
+            "click": 15,
+            "values": {
+              "count": 15
+            },
+            "events": []
+          },
+          {
+            "click": 16,
+            "values": {
+              "count": 16
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 16
+                }
+              }
+            ]
+          },
+          {
+            "click": 17,
+            "values": {
+              "count": 17
+            },
+            "events": []
+          },
+          {
+            "click": 18,
+            "values": {
+              "count": 18
+            },
+            "events": []
+          },
+          {
+            "click": 19,
+            "values": {
+              "count": 19
+            },
+            "events": []
+          },
+          {
+            "click": 20,
+            "values": {
+              "count": 20
+            },
+            "events": []
+          },
+          {
+            "click": 21,
+            "values": {
+              "count": 21
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 21
+                }
+              }
+            ]
+          },
+          {
+            "click": 22,
+            "values": {
+              "count": 22
+            },
+            "events": []
+          },
+          {
+            "click": 23,
+            "values": {
+              "count": 23
+            },
+            "events": []
+          },
+          {
+            "click": 24,
+            "values": {
+              "count": 24
+            },
+            "events": []
+          },
+          {
+            "click": 25,
+            "values": {
+              "count": 25
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "animation-key-event-target/boundary-probe",
+    "reason": "After the SPEC 1e-9 s boundary rule, keys at 0.25/0.5/1 s report at Anima frames 15/30/60 versus freshly recaptured Rive 15/30/61. First two now agree; the last remains an exact one-frame disagreement. The native capture does not establish the cause of Rive frame 61; no tolerance or reference correction.",
+    "frames": [
+      {
+        "time": 1.1,
+        "actual": [
+          {
+            "frame": 15,
+            "name": "first"
+          },
+          {
+            "frame": 30,
+            "name": "second"
+          },
+          {
+            "frame": 60,
+            "name": "last"
+          }
+        ],
+        "reference": [
+          {
+            "frame": 15,
+            "name": "first"
+          },
+          {
+            "frame": 30,
+            "name": "second"
+          },
+          {
+            "frame": 61,
+            "name": "last"
+          }
+        ],
+        "maxDiff": 1,
         "over": 1,
         "overPercent": 100,
         "pass": false

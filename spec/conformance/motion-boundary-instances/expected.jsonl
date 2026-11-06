@@ -1,0 +1,6 @@
+{"time":0,"values":{"a.x":7,"a.y":2},"states":{},"events":[],"settled":false}
+{"time":0.25,"values":{"a.x":4,"a.y":4},"states":{},"events":[{"name":"mid","layer":"two","time":0.45}],"settled":false}
+{"time":0.5,"values":{"a.x":2,"a.y":2},"states":{},"events":[{"name":"lo","layer":"one","time":0.2}],"settled":false}
+{"time":0.5,"values":{"a.x":2,"a.y":2},"states":{},"events":[],"settled":false}
+{"time":0.5,"values":{"a.x":2,"a.y":2},"states":{},"events":[],"settled":true}
+{"time":1,"values":{"a.x":7,"a.y":0},"states":{},"events":[{"name":"hi","layer":"one","time":0.7}],"settled":true}

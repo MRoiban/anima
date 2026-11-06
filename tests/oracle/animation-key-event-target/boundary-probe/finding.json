@@ -1,0 +1,17 @@
+{
+  "reason": "After the SPEC 1e-9 s boundary rule, keys at 0.25/0.5/1 s report at Anima frames 15/30/60 versus freshly recaptured Rive 15/30/61. First two now agree; the last remains an exact one-frame disagreement. The native capture does not establish the cause of Rive frame 61; no tolerance or reference correction.",
+  "case": {
+    "name": "animation-key-event-target/boundary-probe",
+    "times": [1.1],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "events": {
+      "fps": 60,
+      "script": "script.txt",
+      "reference": "events.json",
+      "omitLifecycle": false,
+      "urls": false
+    }
+  }
+}

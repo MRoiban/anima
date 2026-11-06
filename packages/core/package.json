@@ -15,6 +15,7 @@
     "./focus": "./src/modules/focus/index.ts",
     "./input": "./src/modules/input/index.ts",
     "./motion": "./src/modules/motion/index.ts",
+    "./events": "./src/modules/events/index.ts",
     "./machine": "./src/modules/machine/index.ts",
     "./paint": "./src/modules/paint/index.ts",
     "./paint-svg": "./src/modules/paint/svg.ts",

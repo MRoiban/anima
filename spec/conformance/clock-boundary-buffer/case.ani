@@ -1,0 +1,72 @@
+{
+  "anima": "0.1",
+  "name": "clock-boundary-buffer",
+  "grid": 20,
+  "inputs": {
+    "go": {
+      "type": "trigger",
+      "buffer": 0.5
+    },
+    "late": {
+      "type": "trigger",
+      "buffer": 0.5
+    },
+    "ready": {
+      "type": "bool"
+    },
+    "lateReady": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "kept": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "pose": {},
+            "on": [
+              {
+                "when": "go && ready",
+                "to": "done"
+              }
+            ]
+          },
+          "done": {
+            "pose": {},
+            "emit": "kept"
+          }
+        }
+      },
+      "expired": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "pose": {},
+            "on": [
+              {
+                "when": "late && lateReady",
+                "to": "done"
+              }
+            ]
+          },
+          "done": {
+            "pose": {},
+            "emit": "expired"
+          }
+        }
+      }
+    }
+  }
+}

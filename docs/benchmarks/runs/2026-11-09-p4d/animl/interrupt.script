@@ -1,0 +1,10 @@
+advance 0
+pointer click 5 10
+advance 0
+snapshot count
+advance 0.1
+pointer click 5 10
+advance 0
+snapshot count left.scale upper.scale lower.scale
+advance 0.4
+snapshot count left.scale upper.scale lower.scale

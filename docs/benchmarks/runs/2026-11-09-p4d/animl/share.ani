@@ -1,0 +1,407 @@
+{
+  "$comment": "Literal-only listener writes limit the counter to ten; the milestone cycle is unbounded.",
+  "anima": "0.1",
+  "name": "share",
+  "grid": 20,
+  "requires": ["events", "assets"],
+  "colors": {
+    "ink": "#141413",
+    "accent": "#d97757"
+  },
+  "a11y": {
+    "role": "button",
+    "label": "Share",
+    "activate": "clicked"
+  },
+  "inputs": {
+    "count": {
+      "type": "number",
+      "default": 0
+    },
+    "clicked": {
+      "type": "trigger"
+    },
+    "pulse": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "links",
+      "type": "path",
+      "d": "M5 10L15 5M5 10L15 15",
+      "stroke": {
+        "color": "ink",
+        "width": 1.5
+      }
+    },
+    {
+      "id": "left",
+      "type": "circle",
+      "center": [5, 10],
+      "r": 2,
+      "pivot": [5, 10],
+      "fill": {
+        "color": "ink"
+      }
+    },
+    {
+      "id": "upper",
+      "type": "circle",
+      "center": [15, 5],
+      "r": 2,
+      "pivot": [15, 5],
+      "fill": {
+        "color": "ink"
+      }
+    },
+    {
+      "id": "lower",
+      "type": "circle",
+      "center": [15, 15],
+      "r": 2,
+      "pivot": [15, 15],
+      "fill": {
+        "color": "ink"
+      }
+    }
+  ],
+  "timelines": {
+    "pulse": {
+      "duration": 0.4,
+      "loop": "once",
+      "tracks": {
+        "left.scale": [
+          [0, 1],
+          [0.15, 1.3],
+          [0.3, 1],
+          [0.4, 1]
+        ],
+        "upper.scale": [
+          [0, 1],
+          [0.05, 1],
+          [0.2, 1.3],
+          [0.35, 1],
+          [0.4, 1]
+        ],
+        "lower.scale": [
+          [0, 1],
+          [0.1, 1],
+          [0.25, 1.3],
+          [0.4, 1]
+        ]
+      },
+      "events": [
+        [0, "shared"],
+        [0.4, "pulse-done"]
+      ]
+    }
+  },
+  "machine": {
+    "layers": {
+      "motion": {
+        "initial": "rest",
+        "states": {
+          "rest": {
+            "pose": {},
+            "on": [
+              {
+                "when": "pulse",
+                "to": "playing"
+              }
+            ]
+          },
+          "playing": {
+            "play": "pulse",
+            "on": [
+              {
+                "when": "pulse",
+                "to": "playing"
+              },
+              {
+                "when": "@end",
+                "to": "rest"
+              }
+            ]
+          }
+        }
+      },
+      "counter": {
+        "initial": "zero",
+        "states": {
+          "zero": {
+            "pose": {},
+            "on": [
+              {
+                "when": "clicked",
+                "to": "one"
+              }
+            ]
+          },
+          "one": {
+            "pose": {},
+            "emit": "count-one",
+            "on": [
+              {
+                "when": "clicked",
+                "to": "two"
+              }
+            ]
+          },
+          "two": {
+            "pose": {},
+            "emit": "count-two",
+            "on": [
+              {
+                "when": "clicked",
+                "to": "three"
+              }
+            ]
+          },
+          "three": {
+            "pose": {},
+            "emit": "count-three",
+            "on": [
+              {
+                "when": "clicked",
+                "to": "four"
+              }
+            ]
+          },
+          "four": {
+            "pose": {},
+            "emit": "count-four",
+            "on": [
+              {
+                "when": "clicked",
+                "to": "five"
+              }
+            ]
+          },
+          "five": {
+            "pose": {},
+            "emit": "count-five",
+            "on": [
+              {
+                "when": "clicked",
+                "to": "six"
+              }
+            ]
+          },
+          "six": {
+            "pose": {},
+            "emit": "count-six",
+            "on": [
+              {
+                "when": "clicked",
+                "to": "seven"
+              }
+            ]
+          },
+          "seven": {
+            "pose": {},
+            "emit": "count-seven",
+            "on": [
+              {
+                "when": "clicked",
+                "to": "eight"
+              }
+            ]
+          },
+          "eight": {
+            "pose": {},
+            "emit": "count-eight",
+            "on": [
+              {
+                "when": "clicked",
+                "to": "nine"
+              }
+            ]
+          },
+          "nine": {
+            "pose": {},
+            "emit": "count-nine",
+            "on": [
+              {
+                "when": "clicked",
+                "to": "ten"
+              }
+            ]
+          },
+          "ten": {
+            "pose": {},
+            "emit": "count-ten",
+            "on": [
+              {
+                "when": "clicked",
+                "to": "ten"
+              }
+            ]
+          }
+        }
+      },
+      "fifths": {
+        "initial": "zero",
+        "states": {
+          "zero": {
+            "pose": {},
+            "on": [
+              {
+                "when": "clicked",
+                "to": "one"
+              }
+            ]
+          },
+          "one": {
+            "pose": {},
+            "on": [
+              {
+                "when": "clicked",
+                "to": "two"
+              }
+            ]
+          },
+          "two": {
+            "pose": {},
+            "on": [
+              {
+                "when": "clicked",
+                "to": "three"
+              }
+            ]
+          },
+          "three": {
+            "pose": {},
+            "on": [
+              {
+                "when": "clicked",
+                "to": "four"
+              }
+            ]
+          },
+          "four": {
+            "pose": {},
+            "on": [
+              {
+                "when": "clicked",
+                "to": "fifth"
+              }
+            ]
+          },
+          "fifth": {
+            "pose": {},
+            "emit": "milestone",
+            "on": [
+              {
+                "when": "clicked",
+                "to": "one"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "click",
+      "fire": "clicked"
+    },
+    {
+      "on": "event:count-one",
+      "fire": "pulse",
+      "set": {
+        "count": 1
+      }
+    },
+    {
+      "on": "event:count-two",
+      "fire": "pulse",
+      "set": {
+        "count": 2
+      }
+    },
+    {
+      "on": "event:count-three",
+      "fire": "pulse",
+      "set": {
+        "count": 3
+      }
+    },
+    {
+      "on": "event:count-four",
+      "fire": "pulse",
+      "set": {
+        "count": 4
+      }
+    },
+    {
+      "on": "event:count-five",
+      "fire": "pulse",
+      "set": {
+        "count": 5
+      }
+    },
+    {
+      "on": "event:count-six",
+      "fire": "pulse",
+      "set": {
+        "count": 6
+      }
+    },
+    {
+      "on": "event:count-seven",
+      "fire": "pulse",
+      "set": {
+        "count": 7
+      }
+    },
+    {
+      "on": "event:count-eight",
+      "fire": "pulse",
+      "set": {
+        "count": 8
+      }
+    },
+    {
+      "on": "event:count-nine",
+      "fire": "pulse",
+      "set": {
+        "count": 9
+      }
+    },
+    {
+      "on": "event:count-ten",
+      "fire": "pulse",
+      "set": {
+        "count": 10
+      }
+    }
+  ],
+  "assets": {
+    "tone": {
+      "type": "audio",
+      "source": "data:audio/wav;base64,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",
+      "storage": "embedded"
+    }
+  },
+  "eventDefs": {
+    "shared": {
+      "payload": {
+        "count": {
+          "type": "number",
+          "input": "count"
+        },
+        "channel": {
+          "type": "string",
+          "value": "button"
+        }
+      },
+      "audio": "tone"
+    },
+    "milestone": {
+      "url": "https://example.org/thanks",
+      "target": "_blank"
+    }
+  }
+}

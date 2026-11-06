@@ -1,10 +1,11 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now: P4c interaction (branch p4c-interaction; modules machine, input, focus) and P4d events (branch p4d-events) in parallel; then P4e data, P5b, P3b, P6–P10.
-State: main a02c0be = through P4b (PR #13). Parity 259/1238. core+web 19012; full-featured 51.4 KB.
-Next: merge agents per branch; before pushing a merge run browser tests for the seams; benchmark per phase; PR per phase.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4c-7 integration complete; local merge commit only on t3/resolve-p4c-p4d-merge.
+State: merged origin/main 789b8a5; 29 conflicts resolved; full check 4227 pass; strict oracle 120/314 exit 0.
+Evidence: modules/machine/P4C-7-REPORT.md; 221 cases/244 AniML sources/19 browser entries; core+web 19831 B.
+Next: parent integrates this local commit, reruns phase benchmark, owns phase closure/PR.
+Don't: run Rive/read .riv/source/docs; loosen limits/budgets/tolerances/methods; push/PR/merge main.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -113,3 +114,17 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 17:30 [claude]: P4c benchmark: AniML 5/6 (arrow increments need P4d-3 expression actions), Rive 6/6; plan: P4d PR first, then main into p4c, doc fixes, AniML rerun, P4c PR
 - 2026-11-07 21:00 [claude]: merged P4c-6 (68637ce): 6/6 docs/tooling fixes; @after(0) was a runtime bug (see LOG), fixed with machine-change-pulse case; scoped 1673 pass
 - 2026-11-07 23:30 [claude]: PR #14 (P4d) merged; main into p4c conflicts in 29 files (compile/decompile, components events, oracle tooling) → delegated integration P4c-7
+
+- 2026-11-07 08:00 [claude]: merged P4d events (3e98a55) into p4d-events: 32/33 rows (script context → P9), events 3418/4096, core+web 19278 (+266); 31 oracle skips claim no event output but the P4a Rive run's session logs showed emitted events → oracle pass to capture them
+- 2026-11-07 11:00 [claude]: merged events oracle (048768a): 9 verified/23 skips/3 findings. Decisions: listener next-step reaction kept (spec'd as intentional difference); boundary-time drift (0.25 s fires frame 16 vs Rive 15) → epsilon boundary rule (P4d-2)
+- 2026-11-07 13:00 [claude]: merged P4d-2 (342bef2): 1e-9 s boundary rule, 9 cases, transition boundary matches Rive, keys 15/30/60 vs Rive 15/30/61 (cause unproven); listener next-step spec'd; full check 2530; P4d benchmark brief (share button) written
+- 2026-11-07 14:00 [claude]: P4d benchmark: AniML 3/6 (no increment in listener actions → state ladder; milestones capped), Rive 5/6 (payload fields not in log); fix P4d-3: expressions in set actions + mod in conditions, then AniML rerun
+- 2026-11-07 19:00 [claude]: merged P4d-3 (7da8ef8): expression actions/fields, mod/floor, 7 cases, share example 6/6; core+web 19767 (+420), bind 1866/2048; one oracle probe pending
+- 2026-11-07 20:00 [claude]: P4d AniML rerun (6116c5e) 5/6 (from 3/6; audio audible unverifiable), 33 lines; fixed inspect printing compiled code for expressions (toString = source, bind 1880/2048)
+- 2026-11-07 22:30 [claude]: P4d bookkeeping: 33 rows done (292/1238), modulo intentional difference spec'd, LOG with numbers (perf interleaved: no regression); opening PR
+- 2026-11-06 23:40 [codex]: merged origin/main into t3/resolve-p4c-p4d-merge → 29 conflicts; union resolutions in progress (unverified; evidence: /tmp/anima-conflicts.txt)
+- 2026-11-06 05:56 [codex]: integrated generic AniML + bind expressions + components event namespace; fixed machine completion/crossing/canonical-transition seams and isolated browser replay → scoped 2010/2010, core/CLI 963/963, both-engine browser seam 4/4; five added conformance cases (evidence: /tmp/anima-scope3.log, /tmp/anima-core-cli.log, /tmp/anima-browser-seams2.log)
+- 2026-11-06 05:56 [codex]: initial scope found reader/census/schema expectation failures; new clock vectors caught pingpong period error, browser seam caught lost event kinds; corrected; last scope 1711 pass/one new fixture attribute-order failure corrected (evidence: /tmp/anima-scope4.log); strict oracle union 120 cases/314 samples/4 findings exits 0; final regeneration underway (unverified)
+- 2026-11-06 06:01 [codex]: stopped first full-check attempt after 2487 unit passes during browsers; review proved 0.58*100=57.99999999999999 would quantize a blend to 0.57 → return snapped tick directly, add independent machine-boundaries-blend case (evidence: /tmp/anima-full-check-aborted.log); full run must restart, single-attempt process deviation
+- 2026-11-06 06:09 [codex]: final static gates + npm run check exit 0 → 2493 unit/1734 browser, all budgets/artifacts/perf pass; strict oracle exit 0 (120 cases/314 samples/4 findings); local commit next (evidence: /tmp/anima-full-check-final.log, /tmp/anima-oracle-verified.log, modules/machine/P4C-7-REPORT.md)
+- 2026-11-06 06:09 [codex]: timestamp correction: first integration checkpoint stamped 23:40 was entered incorrectly; its wall time is unverified; append order records the work sequence

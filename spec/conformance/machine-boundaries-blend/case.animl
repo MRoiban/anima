@@ -1,0 +1,9 @@
+<anima version="0.1" name="machine-boundaries-blend" grid="20" requires="machine motion">
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+  <timeline name="t" duration="1" quantize="100" work="0.2 0.75">
+    <track target="dot.x">0 0; 1 1</track>
+  </timeline>
+  <layer name="main" initial="s">
+    <state name="s" play="t" mix="{&quot;mode&quot;:&quot;direct&quot;,&quot;children&quot;:[{&quot;play&quot;:&quot;t&quot;}]}"/>
+  </layer>
+</anima>

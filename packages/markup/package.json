@@ -15,6 +15,7 @@
     "./libraries": "./src/libraries.ts",
     "./library-hooks": "./src/library-hooks.ts",
     "./motion": "./src/motion.ts",
+    "./events": "./src/events.ts",
     "./machine": "./src/machine.ts",
     "./modules": "./src/modules.ts"
   },

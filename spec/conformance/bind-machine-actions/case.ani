@@ -1,0 +1,70 @@
+{
+  "anima": "0.1",
+  "name": "bind-machine-actions",
+  "grid": 20,
+  "requires": ["bind"],
+  "inputs": {
+    "count": {
+      "type": "number"
+    },
+    "copy": {
+      "type": "number"
+    },
+    "go": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 2,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {},
+            "on": [
+              {
+                "when": "go",
+                "to": "next",
+                "actions": {
+                  "set": {
+                    "count": "count*2"
+                  }
+                }
+              }
+            ],
+            "entry": {
+              "set": {
+                "count": 1
+              }
+            },
+            "exit": {
+              "set": {
+                "count": "count+1"
+              }
+            }
+          },
+          "next": {
+            "pose": {},
+            "entry": {
+              "set": {
+                "count": "count+1",
+                "copy": "count"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "status": "skip",
+  "reason": "Local AudioEvent capture reports sound and decode/trigger status for a locally generated WAV, but no rendered amplitude, Web Audio gain composition or host element volume API. Report presence is observable; audible output and Anima host/resource/event gain multiplication are not established by this CLI session.",
+  "tests": [
+    "modules/events/test/core/events.test.ts",
+    "modules/events/test/web/events.browser.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/host-api-volume/rive/session.txt",
+    "tests/oracle/host-api-volume/rive/data.json",
+    "tests/oracle/host-api-volume/rive/semantics.json"
+  ]
+}

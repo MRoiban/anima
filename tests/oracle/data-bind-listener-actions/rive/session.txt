@@ -1,0 +1,107 @@
+ok data-dump: frames/0.json
+ok pointer
+ok advance
+ok data-dump: frames/1.json
+ok pointer
+ok advance
+ok data-dump: frames/2.json
+ok pointer
+ok advance
+ok data-dump: frames/3.json
+ok pointer
+ok advance
+ok data-dump: frames/4.json
+ok pointer
+ok advance
+ok data-dump: frames/5.json
+ok pointer
+ok advance
+ok data-dump: frames/6.json
+ok pointer
+ok advance
+ok data-dump: frames/7.json
+ok pointer
+ok advance
+ok data-dump: frames/8.json
+ok pointer
+ok advance
+ok data-dump: frames/9.json
+ok pointer
+ok advance
+ok data-dump: frames/10.json
+ok pointer
+ok advance
+ok data-dump: frames/11.json
+ok pointer
+ok advance
+ok data-dump: frames/12.json
+ok pointer
+ok advance
+ok data-dump: frames/13.json
+ok pointer
+ok advance
+ok data-dump: frames/14.json
+ok pointer
+ok advance
+ok data-dump: frames/15.json
+ok pointer
+ok advance
+ok data-dump: frames/16.json
+ok pointer
+ok advance
+ok data-dump: frames/17.json
+ok pointer
+ok advance
+ok data-dump: frames/18.json
+ok pointer
+ok advance
+ok data-dump: frames/19.json
+ok pointer
+ok advance
+ok data-dump: frames/20.json
+ok pointer
+ok advance
+ok data-dump: frames/21.json
+ok pointer
+ok advance
+ok data-dump: frames/22.json
+ok pointer
+ok advance
+ok data-dump: frames/23.json
+ok pointer
+ok advance
+ok data-dump: frames/24.json
+ok pointer
+ok advance
+ok data-dump: frames/25.json
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[05:07:31.806] rive  deferred replay: inline
+[05:07:31.812] rive  built (338 bytes, 5ms, 0 errors, 0 warnings)
+[05:07:31.812] rive  showing Oracle [1/1]
+[05:07:31.813] rive  viewport 240x240 @1x
+[05:07:31.813] rive  wrote frames/0.json
+[05:07:31.813] rive  wrote frames/1.json
+[05:07:31.813] rive  wrote frames/2.json
+[05:07:31.813] rive  wrote frames/3.json
+[05:07:31.813] rive  wrote frames/4.json
+[05:07:31.813] rive  wrote frames/5.json
+[05:07:31.813] rive  wrote frames/6.json
+[05:07:31.813] rive  wrote frames/7.json
+[05:07:31.813] rive  wrote frames/8.json
+[05:07:31.813] rive  wrote frames/9.json
+[05:07:31.814] rive  wrote frames/10.json
+[05:07:31.814] rive  wrote frames/11.json
+[05:07:31.814] rive  wrote frames/12.json
+[05:07:31.814] rive  wrote frames/13.json
+[05:07:31.814] rive  wrote frames/14.json
+[05:07:31.814] rive  wrote frames/15.json
+[05:07:31.814] rive  wrote frames/16.json
+[05:07:31.814] rive  wrote frames/17.json
+[05:07:31.814] rive  wrote frames/18.json
+[05:07:31.814] rive  wrote frames/19.json
+[05:07:31.814] rive  wrote frames/20.json
+[05:07:31.814] rive  wrote frames/21.json
+[05:07:31.814] rive  wrote frames/22.json
+[05:07:31.814] rive  wrote frames/23.json
+[05:07:31.814] rive  wrote frames/24.json
+[05:07:31.814] rive  wrote frames/25.json

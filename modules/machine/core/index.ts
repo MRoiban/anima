@@ -2,7 +2,7 @@ import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Diags } from '../../../packages/core/src/diag.ts';
 import { ptr } from '../../../packages/core/src/diag.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
-import type { StateM } from '../../../packages/core/src/load.ts';
+import { inputExpression, type ActionM, type StateM } from '../../../packages/core/src/load.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
 import { BindError, expression, evaluate } from '../../bind/core/expression.ts';
 import { after } from '../manifest.ts';
@@ -10,6 +10,7 @@ import { entries } from './registry.ts';
 import { MachinePolicy, install } from './runtime.ts';
 import {
   states,
+  compiledActions,
   transitions,
   type Source,
   type Actions,
@@ -26,12 +27,14 @@ const err = (
   message: string,
   hint = 'check the machine field and its referenced input, state or timeline',
 ) => d.err(code, p, V && message, V && hint);
+let compileValue = inputExpression;
 export const machine: Module = {
   name: 'machine',
   after,
   entries,
   init(_modules, shared) {
     install(shared.sampleTrack, shared.mixValues);
+    compileValue = shared.inputExpression;
     return { ...machine, init: undefined };
   },
   load(model, raw, d) {
@@ -45,12 +48,26 @@ export const machine: Module = {
       return i;
     };
     const actions = (a: Actions | undefined, p: string) => {
+      if (!a) return;
+      const set: ActionM['set'] = [];
       for (const name of list(a?.fire)) input(name, 'trigger', p + '/fire');
       for (const name of list(a?.toggle)) input(name, 'bool', p + '/toggle');
       for (const [name, val] of Object.entries(a?.set ?? {})) {
         if (name === '$comment') continue;
-        input(name, typeof val === 'boolean' ? 'bool' : 'number', ptr(p + '/set', name));
+        const pointer = ptr(p + '/set', name);
+        if (typeof val === 'string') {
+          const i = model.inputs.get(name);
+          input(name, i?.type === 'bool' ? 'bool' : 'number', pointer);
+          if (i && i.type !== 'trigger') {
+            const evaluate = compileValue(model, val, i.type, pointer, d, (n) => used.add(n));
+            if (evaluate) set.push([name, evaluate]);
+          }
+        } else {
+          input(name, typeof val === 'boolean' ? 'bool' : 'number', pointer);
+          set.push([name, val]);
+        }
       }
+      compiledActions.set(a, { fire: list(a.fire), toggle: list(a.toggle), set, emit: a.emit });
     };
     const number = (src: Source | undefined, p: string): ((p: Player) => number) => {
       if (src === undefined || typeof src === 'number') return () => src ?? 1;
@@ -234,6 +251,8 @@ export const machine: Module = {
             );
 
           actions(tr.actions, tp + '/actions');
+          // Machine owns queued transition actions; core's bind-only form is immediate.
+          t.actions = undefined;
           actions(tr.endActions, tp + '/endActions');
           if (
             states.get(layer.states[t.to]!)?.kind === 'any' ||

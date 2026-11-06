@@ -8,7 +8,7 @@ export const action: Shape = {
   k: 'obj',
   p: {
     fire: names,
-    set: { k: 'map', of: { k: 'alt', of: [num, bool] } },
+    set: { k: 'map', of: { k: 'alt', of: [num, bool, { ...str, feature: 'bind' }] } },
     toggle: names,
     emit: str,
   },
@@ -73,7 +73,7 @@ export const entries: ModuleEntry[] = [
       continue: bool,
       exitRatio: { k: 'num', min: 0, max: 1 },
       blendRatio: { k: 'num', min: 0 },
-      actions: action,
+      actions: { ...action, feature: 'bind|machine' },
       endActions: action,
       change: {
         k: 'obj',

@@ -80,7 +80,7 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
       left = node('color', start, () => value!);
     } else if (/^[a-z]/.test(word)) {
       if (token === '(') {
-        if (!['min', 'max', 'clamp', 'mix'].includes(word))
+        if (!['min', 'max', 'clamp', 'mix', 'floor', 'mod'].includes(word))
           fail('bind-syntax', 'unknown function', start);
         next();
         const args = [parse()];
@@ -89,7 +89,7 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
           args.push(parse());
         }
         take(')');
-        if (args.length !== (word === 'min' || word === 'max' ? 2 : 3))
+        if (args.length !== (word === 'floor' ? 1 : ['min', 'max', 'mod'].includes(word) ? 2 : 3))
           fail('bind-syntax', 'wrong argument count', start);
         const [a, b, c] = args as [Expression, Expression, Expression];
         const color = word === 'mix' && a.type === 'color' && b.type === 'color';
@@ -102,8 +102,10 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
               b.evaluate(s) as import('../../../packages/core/src/color.ts').RGBA,
               number(c, s),
             );
-          const x = number(a, s),
-            y = number(b, s);
+          const x = number(a, s);
+          if (word === 'floor') return Math.floor(x);
+          const y = number(b, s);
+          if (word === 'mod') return x - y * Math.floor(x / y);
           return word === 'min'
             ? Math.min(x, y)
             : word === 'max'

@@ -1,0 +1,100 @@
+{
+  "anima": "0.1",
+  "name": "machine-action-expressions",
+  "grid": 20,
+  "requires": ["machine", "bind"],
+  "inputs": {
+    "count": {
+      "type": "number",
+      "default": 1,
+      "max": 20
+    },
+    "copy": {
+      "type": "number"
+    },
+    "flag": {
+      "type": "bool"
+    },
+    "enabled": {
+      "type": "bool",
+      "default": true
+    },
+    "go": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {},
+            "on": [
+              {
+                "when": "go",
+                "to": "next",
+                "actions": {
+                  "set": {
+                    "count": "count*2",
+                    "copy": "count"
+                  },
+                  "emit": "edge"
+                },
+                "endActions": {
+                  "set": {
+                    "count": "count+1"
+                  },
+                  "emit": "done"
+                }
+              }
+            ],
+            "enterActions": {
+              "set": {
+                "count": "count+1",
+                "copy": "count"
+              }
+            },
+            "exitActions": {
+              "set": {
+                "count": "count+1"
+              },
+              "emit": "left"
+            }
+          },
+          "next": {
+            "pose": {},
+            "enterActions": {
+              "set": {
+                "count": "count+1",
+                "copy": "count"
+              },
+              "emit": "arrived"
+            }
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "click",
+      "set": {
+        "count": "count+100",
+        "copy": "count",
+        "flag": "enabled"
+      }
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{"time":0.0,"values":{"a.x":0,"a.y":0},"states":{"loop":"s","ping":"s"},"events":[{"name":"start","layer":"loop","time":0.0},{"name":"start","layer":"ping","time":0.0}],"settled":false}
+{"time":0.1,"values":{"a.x":0,"a.y":10},"states":{"loop":"s","ping":"s"},"events":[{"name":"start","layer":"loop","time":0.0},{"name":"end","layer":"loop","time":0.1},{"name":"end","layer":"ping","time":0.1}],"settled":false}
+{"time":0.1,"values":{"a.x":0,"a.y":10},"states":{"loop":"s","ping":"s"},"events":[],"settled":false}
+{"time":0.2,"values":{"a.x":0,"a.y":0},"states":{"loop":"s","ping":"s"},"events":[{"name":"start","layer":"loop","time":0.0},{"name":"end","layer":"loop","time":0.1},{"name":"start","layer":"ping","time":0.0}],"settled":false}
+{"time":0.4,"values":{"a.x":0,"a.y":0},"states":{"loop":"s","ping":"s"},"events":[{"name":"start","layer":"loop","time":0.0},{"name":"end","layer":"loop","time":0.1},{"name":"start","layer":"loop","time":0.0},{"name":"end","layer":"loop","time":0.1},{"name":"end","layer":"ping","time":0.1},{"name":"start","layer":"ping","time":0.0}],"settled":false}

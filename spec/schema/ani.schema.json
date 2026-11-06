@@ -474,53 +474,6 @@
                           "interruptible": {
                             "type": "boolean"
                           },
-                          "exit": {
-                            "type": "number",
-                            "minimum": 0,
-                            "feature": "motion"
-                          },
-                          "exitFraction": {
-                            "type": "number",
-                            "minimum": 0,
-                            "maximum": 1,
-                            "feature": "motion"
-                          },
-                          "sync": {
-                            "type": "boolean",
-                            "feature": "motion"
-                          },
-                          "exitNext": {
-                            "type": "string",
-                            "enum": [
-                              "step",
-                              "loop"
-                            ],
-                            "feature": "motion"
-                          },
-                          "disabled": {
-                            "type": "boolean",
-                            "feature": "machine"
-                          },
-                          "weight": {
-                            "type": "number",
-                            "minimum": 0,
-                            "feature": "machine"
-                          },
-                          "continue": {
-                            "type": "boolean",
-                            "feature": "machine"
-                          },
-                          "exitRatio": {
-                            "type": "number",
-                            "minimum": 0,
-                            "maximum": 1,
-                            "feature": "machine"
-                          },
-                          "blendRatio": {
-                            "type": "number",
-                            "minimum": 0,
-                            "feature": "machine"
-                          },
                           "actions": {
                             "type": "object",
                             "properties": {
@@ -555,6 +508,10 @@
                                     },
                                     {
                                       "type": "boolean"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "feature": "bind"
                                     }
                                   ]
                                 }
@@ -578,6 +535,63 @@
                               }
                             },
                             "additionalProperties": false,
+                            "feature": "bind|machine"
+                          },
+                          "exit": {
+                            "type": "number",
+                            "minimum": 0,
+                            "feature": "motion"
+                          },
+                          "exitFraction": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1,
+                            "feature": "motion"
+                          },
+                          "sync": {
+                            "type": "boolean",
+                            "feature": "motion"
+                          },
+                          "exitNext": {
+                            "type": "string",
+                            "enum": [
+                              "step",
+                              "loop"
+                            ],
+                            "feature": "motion"
+                          },
+                          "startEmit": {
+                            "type": "string",
+                            "pattern": "^[a-z][a-zA-Z0-9-]*$",
+                            "feature": "events"
+                          },
+                          "endEmit": {
+                            "type": "string",
+                            "pattern": "^[a-z][a-zA-Z0-9-]*$",
+                            "feature": "events"
+                          },
+                          "disabled": {
+                            "type": "boolean",
+                            "feature": "machine"
+                          },
+                          "weight": {
+                            "type": "number",
+                            "minimum": 0,
+                            "feature": "machine"
+                          },
+                          "continue": {
+                            "type": "boolean",
+                            "feature": "machine"
+                          },
+                          "exitRatio": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1,
+                            "feature": "machine"
+                          },
+                          "blendRatio": {
+                            "type": "number",
+                            "minimum": 0,
                             "feature": "machine"
                           },
                           "endActions": {
@@ -614,6 +628,10 @@
                                     },
                                     {
                                       "type": "boolean"
+                                    },
+                                    {
+                                      "type": "string",
+                                      "feature": "bind"
                                     }
                                   ]
                                 }
@@ -764,6 +782,142 @@
                         "additionalProperties": false
                       }
                     },
+                    "entry": {
+                      "type": "object",
+                      "properties": {
+                        "$comment": {
+                          "type": "string"
+                        },
+                        "fire": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              }
+                            }
+                          ]
+                        },
+                        "toggle": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              }
+                            }
+                          ]
+                        },
+                        "emit": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                        },
+                        "set": {
+                          "type": "object",
+                          "properties": {
+                            "$comment": {
+                              "type": "string"
+                            }
+                          },
+                          "propertyNames": {
+                            "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+                          },
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "additionalProperties": false,
+                      "feature": "bind"
+                    },
+                    "exit": {
+                      "type": "object",
+                      "properties": {
+                        "$comment": {
+                          "type": "string"
+                        },
+                        "fire": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              }
+                            }
+                          ]
+                        },
+                        "toggle": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              }
+                            }
+                          ]
+                        },
+                        "emit": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                        },
+                        "set": {
+                          "type": "object",
+                          "properties": {
+                            "$comment": {
+                              "type": "string"
+                            }
+                          },
+                          "propertyNames": {
+                            "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+                          },
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "additionalProperties": false,
+                      "feature": "bind"
+                    },
                     "hold": {
                       "type": "boolean",
                       "feature": "motion"
@@ -771,6 +925,11 @@
                     "time": {
                       "type": "string",
                       "feature": "motion"
+                    },
+                    "endEmit": {
+                      "type": "string",
+                      "pattern": "^[a-z][a-zA-Z0-9-]*$",
+                      "feature": "events"
                     },
                     "kind": {
                       "type": "string",
@@ -820,6 +979,10 @@
                               },
                               {
                                 "type": "boolean"
+                              },
+                              {
+                                "type": "string",
+                                "feature": "bind"
                               }
                             ]
                           }
@@ -879,6 +1042,10 @@
                               },
                               {
                                 "type": "boolean"
+                              },
+                              {
+                                "type": "string",
+                                "feature": "bind"
                               }
                             ]
                           }
@@ -1030,7 +1197,7 @@
           },
           "on": {
             "type": "string",
-            "pattern": "(?:^(?:focus|blur|enter|leave|down|up|click|move|[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)+)$)|(?:^(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected)(?:\\|(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected))*$)"
+            "pattern": "(?:(?:^(?:focus|blur|enter|leave|down|up|click|move|[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)+)$)|(?:^(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected)(?:\\|(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected))*$)|^event:[a-z][a-zA-Z0-9-]*$)"
           },
           "target": {
             "type": "string",
@@ -1073,6 +1240,10 @@
                 },
                 {
                   "type": "boolean"
+                },
+                {
+                  "type": "string",
+                  "feature": "bind"
                 }
               ]
             }
@@ -1369,53 +1540,6 @@
                             "interruptible": {
                               "type": "boolean"
                             },
-                            "exit": {
-                              "type": "number",
-                              "minimum": 0,
-                              "feature": "motion"
-                            },
-                            "exitFraction": {
-                              "type": "number",
-                              "minimum": 0,
-                              "maximum": 1,
-                              "feature": "motion"
-                            },
-                            "sync": {
-                              "type": "boolean",
-                              "feature": "motion"
-                            },
-                            "exitNext": {
-                              "type": "string",
-                              "enum": [
-                                "step",
-                                "loop"
-                              ],
-                              "feature": "motion"
-                            },
-                            "disabled": {
-                              "type": "boolean",
-                              "feature": "machine"
-                            },
-                            "weight": {
-                              "type": "number",
-                              "minimum": 0,
-                              "feature": "machine"
-                            },
-                            "continue": {
-                              "type": "boolean",
-                              "feature": "machine"
-                            },
-                            "exitRatio": {
-                              "type": "number",
-                              "minimum": 0,
-                              "maximum": 1,
-                              "feature": "machine"
-                            },
-                            "blendRatio": {
-                              "type": "number",
-                              "minimum": 0,
-                              "feature": "machine"
-                            },
                             "actions": {
                               "type": "object",
                               "properties": {
@@ -1450,6 +1574,10 @@
                                       },
                                       {
                                         "type": "boolean"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "feature": "bind"
                                       }
                                     ]
                                   }
@@ -1473,6 +1601,63 @@
                                 }
                               },
                               "additionalProperties": false,
+                              "feature": "bind|machine"
+                            },
+                            "exit": {
+                              "type": "number",
+                              "minimum": 0,
+                              "feature": "motion"
+                            },
+                            "exitFraction": {
+                              "type": "number",
+                              "minimum": 0,
+                              "maximum": 1,
+                              "feature": "motion"
+                            },
+                            "sync": {
+                              "type": "boolean",
+                              "feature": "motion"
+                            },
+                            "exitNext": {
+                              "type": "string",
+                              "enum": [
+                                "step",
+                                "loop"
+                              ],
+                              "feature": "motion"
+                            },
+                            "startEmit": {
+                              "type": "string",
+                              "pattern": "^[a-z][a-zA-Z0-9-]*$",
+                              "feature": "events"
+                            },
+                            "endEmit": {
+                              "type": "string",
+                              "pattern": "^[a-z][a-zA-Z0-9-]*$",
+                              "feature": "events"
+                            },
+                            "disabled": {
+                              "type": "boolean",
+                              "feature": "machine"
+                            },
+                            "weight": {
+                              "type": "number",
+                              "minimum": 0,
+                              "feature": "machine"
+                            },
+                            "continue": {
+                              "type": "boolean",
+                              "feature": "machine"
+                            },
+                            "exitRatio": {
+                              "type": "number",
+                              "minimum": 0,
+                              "maximum": 1,
+                              "feature": "machine"
+                            },
+                            "blendRatio": {
+                              "type": "number",
+                              "minimum": 0,
                               "feature": "machine"
                             },
                             "endActions": {
@@ -1509,6 +1694,10 @@
                                       },
                                       {
                                         "type": "boolean"
+                                      },
+                                      {
+                                        "type": "string",
+                                        "feature": "bind"
                                       }
                                     ]
                                   }
@@ -1659,6 +1848,142 @@
                           "additionalProperties": false
                         }
                       },
+                      "entry": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "fire": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                }
+                              }
+                            ]
+                          },
+                          "toggle": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                }
+                              }
+                            ]
+                          },
+                          "emit": {
+                            "type": "string",
+                            "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                          },
+                          "set": {
+                            "type": "object",
+                            "properties": {
+                              "$comment": {
+                                "type": "string"
+                              }
+                            },
+                            "propertyNames": {
+                              "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+                            },
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "bind"
+                      },
+                      "exit": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "fire": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                }
+                              }
+                            ]
+                          },
+                          "toggle": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                }
+                              }
+                            ]
+                          },
+                          "emit": {
+                            "type": "string",
+                            "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                          },
+                          "set": {
+                            "type": "object",
+                            "properties": {
+                              "$comment": {
+                                "type": "string"
+                              }
+                            },
+                            "propertyNames": {
+                              "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+                            },
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "bind"
+                      },
                       "hold": {
                         "type": "boolean",
                         "feature": "motion"
@@ -1666,6 +1991,11 @@
                       "time": {
                         "type": "string",
                         "feature": "motion"
+                      },
+                      "endEmit": {
+                        "type": "string",
+                        "pattern": "^[a-z][a-zA-Z0-9-]*$",
+                        "feature": "events"
                       },
                       "kind": {
                         "type": "string",
@@ -1715,6 +2045,10 @@
                                 },
                                 {
                                   "type": "boolean"
+                                },
+                                {
+                                  "type": "string",
+                                  "feature": "bind"
                                 }
                               ]
                             }
@@ -1774,6 +2108,10 @@
                                 },
                                 {
                                   "type": "boolean"
+                                },
+                                {
+                                  "type": "string",
+                                  "feature": "bind"
                                 }
                               ]
                             }
@@ -1916,6 +2254,103 @@
         "additionalProperties": false
       },
       "feature": "motion"
+    },
+    "eventDefs": {
+      "type": "object",
+      "properties": {
+        "$comment": {
+          "type": "string"
+        }
+      },
+      "propertyNames": {
+        "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "$comment": {
+            "type": "string"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "$comment": {
+                "type": "string"
+              }
+            },
+            "propertyNames": {
+              "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+            },
+            "additionalProperties": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "enum": [
+                    "number",
+                    "bool",
+                    "string",
+                    "color"
+                  ]
+                },
+                "value": {},
+                "input": {
+                  "type": "string"
+                },
+                "address": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "type"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "url": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string",
+            "enum": [
+              "_blank",
+              "_parent",
+              "_self",
+              "_top"
+            ]
+          },
+          "audio": {
+            "type": "string"
+          },
+          "volume": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "feature": "events"
+    },
+    "audioVolumes": {
+      "type": "object",
+      "properties": {
+        "$comment": {
+          "type": "string"
+        }
+      },
+      "propertyNames": {
+        "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      },
+      "feature": "events"
     },
     "machineSeed": {
       "type": "integer",

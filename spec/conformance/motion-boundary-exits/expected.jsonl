@@ -1,0 +1,4 @@
+{"time":0.23333333333333334,"values":{"a.x":0,"a.y":0,"a.rotate":0},"states":{"next":"s","exit":"s","fraction":"s"},"events":[],"settled":false}
+{"time":0.25,"values":{"a.x":25,"a.y":10,"a.rotate":0},"states":{"next":"held","exit":"done","fraction":"s"},"events":[{"name":"captured","layer":"next","time":0},{"name":"exited","layer":"exit","time":0}],"settled":false}
+{"time":0.25,"values":{"a.x":25,"a.y":10,"a.rotate":0},"states":{"next":"held","exit":"done","fraction":"s"},"events":[],"settled":false}
+{"time":0.5,"values":{"a.x":25,"a.y":10,"a.rotate":10},"states":{"next":"held","exit":"done","fraction":"done"},"events":[{"name":"fraction","layer":"fraction","time":0}],"settled":true}

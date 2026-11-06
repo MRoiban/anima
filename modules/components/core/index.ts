@@ -3,7 +3,7 @@ import { after } from '../manifest.ts';
 import type { Module, ModuleRegistry } from '../../../packages/core/src/modules.ts';
 import type { Model, NodeM } from '../../../packages/core/src/load.ts';
 import type { Player, PlayerExtension } from '../../../packages/core/src/player.ts';
-import type { ObjShape, NodeType } from '../../../packages/core/src/registry.ts';
+import type { ObjShape, NodeType, Shape } from '../../../packages/core/src/registry.ts';
 import { ptr } from '../../../packages/core/src/diag.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import { apply, invert, mul } from '../../../packages/core/src/geom.ts';
@@ -36,6 +36,9 @@ const scoped = /^[a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*$/;
 
 function create(
   runtime: Pick<ModuleRegistry, 'load' | 'Player' | 'DOC' | 'nodeShape'>,
+  eventKinds: EventKinds = new Map(
+    ['enter', 'leave', 'down', 'up', 'click', 'move'].map((name) => [name, undefined]),
+  ),
 ): EventModule {
   const name = (
     runtime.nodeShape('group').p.id as Extract<
@@ -43,9 +46,6 @@ function create(
       { k: 'str' }
     >
   ).re!;
-  const eventKinds: EventKinds = new Map(
-    ['enter', 'leave', 'down', 'up', 'click', 'move'].map((name) => [name, undefined]),
-  );
   return {
     eventKinds,
     name: 'components',
@@ -71,9 +71,10 @@ function create(
       listener.p.set = {
         k: 'map',
         key: scoped,
-        of: { k: 'alt', of: [{ k: 'num' }, { k: 'bool' }] },
+        of: (listener.p.set as Extract<Shape, { k: 'map' }>).of,
       };
-      return create(shared);
+      // Preserve composed kinds when AniML replays a module into its isolated registry.
+      return create(shared, new Map(eventKinds));
     },
     entries: [
       {
@@ -229,7 +230,7 @@ function create(
             }
           }
           // The child model distinguishes its authored inputs from bubbled event triggers.
-          const events = info.get(child)?.events ?? new Set<string>();
+          const events = new Set([...(info.get(child)?.events ?? []), ...(child.eventNames ?? [])]);
           for (const [name, input] of child.inputs)
             if (!events.has(name))
               model.inputs.set(node.id + '.' + name, { ...input, name: node.id + '.' + name });
@@ -254,13 +255,13 @@ function create(
         if (data.instances.length) model.nesting = (p) => nest(p, data, runtime.Player);
         for (const [i, l] of (model.doc.listeners ?? []).entries())
           if (
-            !l.on
-              .split('|')
-              .every(
-                (on: string) =>
-                  eventKinds.has(on) &&
-                  (!eventKinds.get(on) || model.doc.requires?.includes(eventKinds.get(on))),
-              ) &&
+            !l.on.split('|').every((on: string) => {
+              const kind = on.startsWith('event:') ? 'event:' : on;
+              return (
+                eventKinds.has(kind) &&
+                (!eventKinds.get(kind) || model.doc.requires?.includes(eventKinds.get(kind)))
+              );
+            }) &&
             (!l.on.includes('.') || model.inputs.get(l.on)?.type !== 'trigger')
           )
             err('unknown-event', '/listeners/' + i + '/on', 'unknown instance event');
@@ -283,7 +284,10 @@ function create(
         for (const t of model.timelines) for (const [, name] of t.events) data.events.add(name);
         for (const l of model.listeners) if (l.emit) data.events.add(l.emit);
         for (const i of data.instances)
-          for (const name of info.get(i.model)?.events ?? [])
+          for (const name of new Set([
+            ...(info.get(i.model)?.events ?? []),
+            ...(i.model.eventNames ?? []),
+          ]))
             data.events.add(model.nodes[i.node]!.id + '.' + name);
       }
       // Proxy inputs and instance expressions are real uses, not unused declarations.

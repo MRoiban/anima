@@ -1,0 +1,15 @@
+<anima version="0.1" name="machine-action-expressions" grid="20" requires="machine bind">
+  <number name="count" default="1" max="20"/>
+  <number name="copy"/>
+  <bool name="flag"/>
+  <bool name="enabled" default="true"/>
+  <trigger name="go"/>
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+  <layer name="main" initial="idle">
+    <state name="idle" enterActions="{&quot;set&quot;:{&quot;count&quot;:&quot;count+1&quot;,&quot;copy&quot;:&quot;count&quot;}}" exitActions="{&quot;set&quot;:{&quot;count&quot;:&quot;count+1&quot;},&quot;emit&quot;:&quot;left&quot;}">
+      <on when="go" to="next" actions="{&quot;set&quot;:{&quot;count&quot;:&quot;count*2&quot;,&quot;copy&quot;:&quot;count&quot;},&quot;emit&quot;:&quot;edge&quot;}" endActions="{&quot;set&quot;:{&quot;count&quot;:&quot;count+1&quot;},&quot;emit&quot;:&quot;done&quot;}"/>
+    </state>
+    <state name="next" enterActions="{&quot;set&quot;:{&quot;count&quot;:&quot;count+1&quot;,&quot;copy&quot;:&quot;count&quot;},&quot;emit&quot;:&quot;arrived&quot;}"/>
+  </layer>
+  <listener on="click" set="count=count+100 copy=count flag=enabled"/>
+</anima>

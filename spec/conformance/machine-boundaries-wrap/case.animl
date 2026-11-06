@@ -1,0 +1,19 @@
+<anima version="0.1" name="machine-boundaries-wrap" grid="20" requires="machine">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <timeline name="loop" duration="0.1" loop="loop">
+    <track target="a.x">0 0; 0.1 10</track>
+    <event at="0" name="start"/>
+    <event at="0.1" name="end"/>
+  </timeline>
+  <timeline name="ping" duration="0.1" loop="pingpong">
+    <track target="a.y">0 0; 0.1 10</track>
+    <event at="0" name="start"/>
+    <event at="0.1" name="end"/>
+  </timeline>
+  <layer name="loop" initial="s">
+    <state name="s" play="loop"/>
+  </layer>
+  <layer name="ping" initial="s">
+    <state name="s" play="ping"/>
+  </layer>
+</anima>

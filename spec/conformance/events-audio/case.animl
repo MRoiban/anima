@@ -1,0 +1,14 @@
+<anima version="0.1" name="events" grid="20" requires="events assets">
+  <asset name="tone" type="audio" src="data:audio/wav;base64,AA=="/>
+
+  <circle id="a" cx="10" cy="10" r="1" fill="#000"/>
+
+  <audio-volume asset="tone" value="0.3"/>
+  <event-def name="ping" url="https://example.com/path" target="_blank" audio="tone" volume="0.5"/>
+
+  <layer name="main" initial="s">
+    <state name="s" emit="ping">
+      <pose/>
+    </state>
+  </layer>
+</anima>

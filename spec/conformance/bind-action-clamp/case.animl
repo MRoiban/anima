@@ -1,0 +1,6 @@
+<anima version="0.1" name="bind-action-clamp" grid="20" requires="bind">
+  <circle id="dot" cx="10" cy="10" r="2" fill="#000"/>
+  <number name="count" default="2" min="2" max="3"/>
+  <listener on="click" set="count=count+5"/>
+  <listener on="down" set="count=count - 5"/>
+</anima>

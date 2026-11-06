@@ -46,43 +46,46 @@ function recover(root: Element): Obj {
   const plain = (e: Element): Obj => {
     const o = base(e);
     for (const [k, v] of Object.entries(attrs(e)))
-      o[k] = [
-        'default',
-        'min',
-        'max',
-        'buffer',
-        'duration',
-        'quantize',
-        'exit',
-        'exitFraction',
-        'speed',
-        'blend',
-        'interruptible',
-        'hold',
-        'sync',
-        'at',
-        'hitPadding',
-        'continue',
-        'disabled',
-        'reset',
-        'weight',
-        'exitRatio',
-        'blendRatio',
-        'button',
-        'capture',
-        'consume',
-        'propagate',
-        'index',
-        'control',
-      ].includes(k)
-        ? scalar(v)
-        : k === 'work'
-          ? vector(v)
-          : k === 'when'
-            ? v.replace(/\band\b/g, '&&')
-            : v.startsWith('{"') || v.startsWith('[')
-              ? JSON.parse(v)
-              : v;
+      o[k] =
+        ['entry', 'exit', 'actions'].includes(k) && v.startsWith('{')
+          ? JSON.parse(v)
+          : [
+                'default',
+                'min',
+                'max',
+                'buffer',
+                'duration',
+                'quantize',
+                'exit',
+                'exitFraction',
+                'speed',
+                'blend',
+                'interruptible',
+                'hold',
+                'sync',
+                'at',
+                'hitPadding',
+                'continue',
+                'disabled',
+                'reset',
+                'weight',
+                'exitRatio',
+                'blendRatio',
+                'button',
+                'capture',
+                'consume',
+                'propagate',
+                'index',
+                'control',
+              ].includes(k)
+            ? scalar(v)
+            : k === 'work'
+              ? vector(v)
+              : k === 'when'
+                ? v.replace(/\band\b/g, '&&')
+                : v.startsWith('{"') || v.startsWith('[')
+                  ? JSON.parse(v)
+                  : v;
     return o;
   };
   const node = (e: Element): Obj => {
@@ -99,7 +102,7 @@ function recover(root: Element): Obj {
             ? v.split(' ').map((x) => (x.endsWith('%') ? x : Number(x)))
             : ['pivot', 'subpaths', 'corners'].includes(key)
               ? vector(v)
-              : v.startsWith('{') || v.startsWith('[')
+              : v.startsWith('{"') || v.startsWith('[')
                 ? JSON.parse(v)
                 : scalar(v);
     }
@@ -207,6 +210,12 @@ function recover(root: Element): Obj {
         ),
       };
     else if (el.name === 'color') insert('colors', name, a.value);
+    else if (el.name === 'event-def') {
+      const def: Obj = { ...p };
+      if (a.payload !== undefined) def.payload = JSON.parse(a.payload);
+      if (a.volume !== undefined) def.volume = Number(a.volume);
+      insert('eventDefs', name, def);
+    } else if (el.name === 'audio-volume') insert('audioVolumes', a.asset!, Number(a.value));
     else if (el.name === 'glyph') insert('glyphs', name, p);
     else if (el.name === 'asset') {
       const asset: Obj = { ...p, source: p.src };
@@ -261,10 +270,10 @@ function recover(root: Element): Obj {
     } else if (el.name === 'listener') {
       if (a.set !== undefined)
         p.set = Object.fromEntries(
-          (a.set ? a.set.split(' ') : []).map((s) => {
-            const [k, v] = s.split('=');
-            return [k, scalar(v!)];
-          }),
+          [...a.set.matchAll(/([a-z][\w.-]*)=([\s\S]*?)(?=\s+[a-z][\w.-]*=|$)/g)].map((m) => [
+            m[1]!,
+            scalar(m[2]!.trim()),
+          ]),
         );
       for (const k of ['fire', 'toggle']) if (a[k]?.includes(' ')) p[k] = a[k]!.split(' ');
       ((d.listeners ??= []) as unknown[]).push(p);
@@ -408,6 +417,8 @@ function check(source: string | object) {
       'channel',
       'focus',
       'machine',
+      'event-def',
+      'audio-volume',
     ]).toContain(e.name);
     if (e.name !== 'pose')
       for (const a of e.attrs) {

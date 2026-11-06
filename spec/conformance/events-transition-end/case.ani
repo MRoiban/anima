@@ -1,0 +1,58 @@
+{
+  "anima": "0.1",
+  "name": "events",
+  "grid": 20,
+  "requires": ["events"],
+  "inputs": {
+    "go": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "pose": {},
+            "on": [
+              {
+                "when": "go",
+                "to": "end",
+                "blend": 0.25,
+                "startEmit": "begin",
+                "endEmit": "done"
+              }
+            ],
+            "endEmit": "exit"
+          },
+          "end": {
+            "pose": {},
+            "emit": "ping"
+          }
+        }
+      }
+    }
+  },
+  "eventDefs": {
+    "done": {
+      "payload": {
+        "ok": {
+          "type": "bool",
+          "value": true
+        }
+      }
+    }
+  }
+}

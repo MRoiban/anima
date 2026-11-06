@@ -1,0 +1,23 @@
+<anima version="0.1" name="events" grid="20" requires="events">
+  <number name="count"/>
+  <bool name="flag"/>
+
+  <circle id="a" cx="10" cy="10" r="1" fill="#000"/>
+
+  <timeline name="t" duration="1">
+    <track target="a.x">
+      0  0
+      1  10
+    </track>
+    <event at="0" name="ping"/>
+    <event at="0.5" name="ping"/>
+    <event at="1" name="ping"/>
+  </timeline>
+
+  <event-def name="ping"
+      payload="{&quot;count&quot;:{&quot;type&quot;:&quot;number&quot;,&quot;input&quot;:&quot;count&quot;},&quot;flag&quot;:{&quot;type&quot;:&quot;bool&quot;,&quot;input&quot;:&quot;flag&quot;},&quot;label&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;hello&quot;},&quot;x&quot;:{&quot;type&quot;:&quot;number&quot;,&quot;address&quot;:&quot;a.x&quot;}}"/>
+
+  <layer name="main" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

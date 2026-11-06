@@ -1,0 +1,7 @@
+pointer click 10 10
+advance 0.1
+snapshot count
+pointer click 10 10
+snapshot count
+advance 0.4
+snapshot count

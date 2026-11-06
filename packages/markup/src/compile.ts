@@ -18,7 +18,13 @@ import {
   type Shape,
 } from '@anima-format/core';
 import { libraryCompiler, location } from './library-hooks.ts';
-import { moduleCompiler, componentCompiler, bindCompiler, motionCompiler } from './module-hooks.ts';
+import {
+  moduleCompiler,
+  componentCompiler,
+  bindCompiler,
+  motionCompiler,
+  eventsCompiler,
+} from './module-hooks.ts';
 import { elementFields, compoundField } from './fields.ts';
 import { componentMarkup } from './components.ts';
 
@@ -40,6 +46,7 @@ export type Kind =
   | 'lengths'
   | 'set'
   | 'ease'
+  | 'json'
   | 'condition'
   | number;
 export interface Form {
@@ -207,7 +214,7 @@ export class Compiler {
           required.push(a.attr);
       }
       componentCompiler.form?.(el, attrs, required);
-      const base: Form = {
+      let base: Form = {
         attrs,
         required,
         children: [
@@ -217,7 +224,8 @@ export class Compiler {
           ),
         ],
       };
-      return motionCompiler.form?.(el, base) ?? base;
+      base = motionCompiler.form?.(el, base) ?? base;
+      return eventsCompiler.form?.(el, base) ?? base;
     }
     let base =
       moduleCompiler.form?.(this, el) ??
@@ -242,7 +250,8 @@ export class Compiler {
       }
       base = { ...base, attrs };
     }
-    return motionCompiler.form?.(el, base ?? { attrs: {} }) ?? base;
+    const form = motionCompiler.form?.(el, base ?? { attrs: {} }) ?? base;
+    return eventsCompiler.form?.(el, form ?? { attrs: {} }) ?? form;
   }
   private kind(s: Shape): Kind {
     if (s.k === 'obj' || s.k === 'map' || s.k === 'any' || s.k === 'alt') return 'json';
@@ -326,6 +335,7 @@ export class Compiler {
         !NODES.includes(c.name) &&
         !Object.hasOwn(FORMS, c.name) &&
         c.name !== 'component' &&
+        !(['event-def', 'audio-volume'].includes(c.name) && eventsCompiler.form) &&
         !(['channel', 'machine'].includes(c.name) && motionCompiler.form) &&
         !Object.hasOwn(ELEMENTS, c.name)
       )
@@ -476,7 +486,9 @@ export class Compiler {
         }
         case 'set': {
           const o: Json = {};
-          for (const pair of s ? s.split(/\s+/) : []) {
+          for (const pair of s
+            ? s.split(/\s+(?=[a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*=)/)
+            : []) {
             const m = /^([a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*)=(.+)$/.exec(pair);
             if (!m)
               throw new Error(
@@ -484,7 +496,14 @@ export class Compiler {
               );
             if (Object.hasOwn(o, m[1]!))
               throw new Error(VERBOSE ? `repeated assignment "${m[1]}"` : '');
-            own(o, m[1]!, this.scalar(m[2]!, false));
+            const source = m[2]!.trim();
+            own(
+              o,
+              m[1]!,
+              IS_NUMBER.test(source) || /^(true|false)$/.test(source)
+                ? this.scalar(source, false)
+                : source,
+            );
           }
           return o;
         }
@@ -673,7 +692,11 @@ export class Compiler {
 
   private rootChild(c: Element, o: Json, p: string): void {
     const name = c.attrs.find((a) => a.name === 'name');
-    if (bindCompiler.rootChild?.(this, c, o, p) || motionCompiler.rootChild?.(this, c, o, p))
+    if (
+      eventsCompiler.rootChild?.(this, c, o, p) ||
+      bindCompiler.rootChild?.(this, c, o, p) ||
+      motionCompiler.rootChild?.(this, c, o, p)
+    )
       return;
     if (c.name === 'ease') {
       this.attrs(c, p);

@@ -264,7 +264,7 @@ export const DOC: Shape = O(
           target: S(NAME),
           hitPadding: N({ min: 0 }),
           fire: NAMES,
-          set: MAP(ALT(N(), B), NAME),
+          set: MAP(ALT(N(), B, { ...S(), feature: 'bind' }), NAME),
           toggle: NAMES,
           emit: S(NAME),
         },

@@ -1,0 +1,14 @@
+[
+  {
+    "frame": 15,
+    "name": "first"
+  },
+  {
+    "frame": 30,
+    "name": "second"
+  },
+  {
+    "frame": 61,
+    "name": "last"
+  }
+]
