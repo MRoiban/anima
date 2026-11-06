@@ -27,7 +27,11 @@ export const bind: Module = {
         );
         if (i >= 0) diag.list.splice(i, 1);
       }
-      return (scope) => (expected === 'number' ? Number(evaluate(e, scope)) : evaluate(e, scope));
+      const run = (scope: Parameters<typeof evaluate>[1]) =>
+        expected === 'number' ? Number(evaluate(e, scope)) : evaluate(e, scope);
+      // Printed as its expression (anima inspect), not as compiled code.
+      run.toString = () => source;
+      return run;
     } catch (err) {
       if (!(err instanceof BindError)) throw err;
       diag.err(
