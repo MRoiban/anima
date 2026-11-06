@@ -1,10 +1,9 @@
 # Work log
 
 ## Now
-Goal: P4b-3 declarative motion controls and sync benchmark proof complete, committed locally.
-Verified: 10 new conformance cases; scope 728/728; sync 6/6 (7 scripts, 66 snapshots).
-Full: 1380 pass + 15 pre-existing oracle TODOs with VITEST_MAX_WORKERS=2; default had 2 browser timeouts.
-Next: parent integrates/reviews local commit; P4b oracle captures and phase closure remain with parent.
+Goal: smaller, agent-native Rive. Now: P4c interaction (branch p4c-interaction; modules machine, input, focus) and P4d events (branch p4d-events) in parallel; then P4e data, P5b, P3b, P6–P10.
+State: main a02c0be = through P4b (PR #13). Parity 259/1238. core+web 19012; full-featured 51.4 KB.
+Next: merge agents per branch; before pushing a merge run browser tests for the seams; benchmark per phase; PR per phase.
 Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
 
 ## Log
@@ -104,3 +103,4 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 03:00 [claude]: P4b bookkeeping: 22 rows done (259/1238), LOG with numbers (core+web 19012, +1049 logged); opening PR
 - 2026-11-07 04:00 [claude]: PR #13 CI red: canvas cross-backend harness hard-coded its module list → motion cases unknown-feature; generator now emits packages/web/src/all-modules.ts, harness uses it; canvas test 524 pass. Lesson: run browser tests for the merge's seams before pushing a phase PR
 - 2026-11-07 05:00 [claude]: PR #13 CI red again: timeouts from CPU starvation (module-order 4.7 s locally vs 30 s limit hit in CI) + scaffolder test used a now-done row; npm test now runs unit (15 s, 1229) then browser --maxWorkers=2 (2.5 min, 718); limits unchanged
+- 2026-11-07 05:30 [claude]: PR #13 merged (a02c0be); P4c split into modules machine/input/focus (3 agents) + P4d events (1 agent)
