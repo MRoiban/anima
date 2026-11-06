@@ -47,6 +47,8 @@ capability-based runtime guidance in [web runtime research](research/rive-web-ru
 
 | Attribute | Meaning |
 | --- | --- |
+| `renderer` | `svg` (default) or `canvas`; import `@anima-format/web/canvas` before selecting canvas. Switching preserves player state. |
+| `pixel-ratio` | Canvas only: finite positive DPR override; absent follows browser DPR. |
 | `src` | Document URL; `.animl` URLs use the optional compiler. |
 | `speed` | Finite number ≥ 0, default 1. Invalid values use 1. Frame dt is clamped to 0.25 s before multiplication. Zero sleeps until a positive rate or another operation wakes it. |
 | `paused` | Presence pauses playback, including initial loading. Removing it applies queued writes with a zero-time step and resumes. |
@@ -126,3 +128,28 @@ loads stop retrying, and explicit `destroy()` cancels retained sources. Modules 
 or after markup support and after the icon is connected. A loaded player's state is preserved
 when unrelated modules register. Registration listeners detach when an icon disconnects; a retained
 failed source retries on reconnection, including when its modules arrived while disconnected.
+
+## Optional Canvas2D backend
+
+```html
+<anima-icon renderer="canvas" src="scene.ani"></anima-icon>
+<script type="module">
+  import '@anima-format/web';
+  import '@anima-format/web/canvas';
+  // Import paint/assets/components/etc. as required by the scene, just as for SVG.
+</script>
+```
+
+Canvas shares the host's player, scheduler, visibility pause, reduced motion and core hit testing.
+ResizeObserver and resolution notifications keep its backing dimensions at CSS viewport size × DPR;
+`pixel-ratio="2"` overrides DPR and `icon.devicePixelRatioUsed` reports it. Size changes repaint without
+stepping. `invalidate()` repaints colours from the host's computed style; call it after changing CSS
+slots on an idle scene. It does not consume queued input. Disconnect/destroy removes observers;
+reconnect restores them. Canvas clips to its viewBox viewport and isolates blending from the page.
+
+Rendering errors arrive as `anima:error` diagnostics (`unsupported-render` with the feature name,
+pointer, message and hint). Unavailable backends use the host root pointer. Current limitations:
+nonuniform/sheared local feathering (world feather works through nonuniform node transforms),
+nonuniform viewport feathering and partial fixed-stroke trims. Cross-origin images require CORS.
+SVG remains the CLI renderer and default browser renderer. Measurements and raster differences are
+recorded in [the canvas test report](../modules/canvas/test/web/RESULTS.md).

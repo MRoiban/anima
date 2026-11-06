@@ -1065,3 +1065,57 @@ Chromium/Firefox pixel tests check the Gaussian halo, disabled state and indepen
 AniML uses `<feather paint="fill|stroke" …/>` node children, or a feather child within an ordered
 `fillPaint`/`strokePaint`. It retains the parent paint and preserves empty and disabled settings;
 see [ANIML](ANIML.md#surface-module) and `examples/feather.animl`.
+
+## canvas
+
+<!-- capability: host-api.device-pixel-ratio -->
+### Pixel ratio
+
+The optional web Canvas2D backend reads `window.devicePixelRatio`. The HTML host's `pixel-ratio`
+attribute overrides it with a finite positive number; `devicePixelRatioUsed` exposes the chosen
+ratio when this backend is active. Invalid overrides emit `bad-pixel-ratio` at pointer `""` (the
+host, not a document field), with a message and hint, and fall back to browser DPR. A resolution
+media query and window resize notification track browser DPR changes, including monitor moves.
+No document JSON or AniML key, `requires` name, or player property is introduced by canvas.
+
+<!-- capability: host-api.resize-backing-surface -->
+### Backing surface
+
+Canvas viewport CSS placement follows the SVG host's grid/viewBox bleed, fit and alignment.
+Backing dimensions are the rounded CSS viewport dimensions times the selected ratio, with a
+one-pixel minimum. A ResizeObserver resizes and redraws when the host's CSS content size changes.
+Size or pixel-ratio changes redraw without advancing the player or consuming queued input.
+Repeated player revisions do not redraw; explicit `invalidate()` redraws once and resolves current
+CSS colour slots. Playback, reduced motion, scheduler sleeping, visibility and hit outlines remain
+those of the existing web host. Disconnect/destroy removes observers and DPR listeners; reconnect
+resumes observation. Canvas contents are clipped to the viewBox viewport; SVG overflow is visible.
+
+<!-- capability: platforms.web-canvas -->
+### Canvas2D rendering
+
+Import `@anima-format/web/canvas` and set `renderer="canvas"` on `<anima-icon>`. SVG remains the
+default (`renderer="svg"` or absent). Selection may change on a loaded element without resetting
+its player. An unavailable renderer emits `unsupported-render`, pointer `""`, with the renderer
+name and an import hint. Other rendering diagnostics use the source JSON pointer where available.
+This is a host selection, not a change to `.ani`, AniML, CLI render or schema.
+
+The canvas backend consumes DrawFrame (§3.1 in MODULES) directly. Path2D geometry/primitives,
+ordered fills/strokes, colour slots/currentColor, linear/radial gradients, grid-unit dashes/trims,
+transforms, group opacity, source-relative clips, alpha/inverted/luminance masks, blend modes,
+images, image patterns/modulation, components, n-slice patches and feathering use Canvas2D.
+Group opacity and masks isolate into transparent offscreen surfaces; ordinary opaque groups do
+not. A canvas is a compositing boundary and cannot blend with page content outside itself.
+Fixed strokes use CSS viewport pixels (as SVG non-scaling-stroke does), without approximating
+nonuniform node transforms with a scalar inverse. Trims use core outline lengths.
+
+Feather follows the existing premultiplied Gaussian formula using `ctx.filter` blur and in/out
+alpha composition. World space keeps the Gaussian isotropic after node transforms. The current
+backend declines nonuniform/sheared **local** feathering, nonuniform viewport feathering, and
+partial trims on fixed strokes with `unsupported-render` naming the feature, a pointer, message
+and hint. It never silently substitutes an inverse average scale. Disabled feathering is ordinary
+paint. Cross-origin image sources need CORS permission for canvas readback/patterns; failures emit
+`asset-load`. CSS slot changes on an idle canvas require `invalidate()`.
+
+Cross-backend pixel differences are measured and retained by the canvas browser conformance suite;
+limits and findings are in `modules/canvas/test/web/README.md` and `RESULTS.md`. Renderer support
+is not a claim of exact rasterizer identity or a passing Rive oracle for host-only operations.

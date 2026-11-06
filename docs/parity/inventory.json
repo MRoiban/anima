@@ -16189,10 +16189,10 @@
    "rive-wasm/js/src/rive.ts:5003@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: canvas pixelRatio option",
+   "construct": "HTML pixel-ratio override; devicePixelRatioUsed; automatic browser DPR tracking (SPEC canvas)",
    "module": "canvas",
    "status": "planned",
-   "test": "browser/device-pixel-ratio",
+   "test": "modules/canvas/test/web/canvas.test.ts; spec/conformance/host-api-device-pixel-ratio; tests/oracle/host-api-device-pixel-ratio/rive/README.md (host oracle skip)",
    "phase": "Pc"
   }
  },
@@ -18150,10 +18150,10 @@
    "rive-wasm/js/src/rive.ts:4342@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: raster surface resize helper; SVG already scales without backing pixels",
+   "construct": "Canvas backing store = rounded CSS viewport × DPR; ResizeObserver without stepping (SPEC canvas)",
    "module": "canvas",
    "status": "planned",
-   "test": "browser/resize-backing-surface",
+   "test": "modules/canvas/test/web/canvas.test.ts; spec/conformance/host-api-resize-backing-surface; tests/oracle/host-api-resize-backing-surface/rive/README.md (host oracle skip)",
    "phase": "Pc"
   }
  },
@@ -24052,10 +24052,10 @@
    "https://rive.app/docs/runtimes/web/canvas-vs-webgl"
   ],
   "anima": {
-   "construct": "new: Web Canvas2D",
+   "construct": "@anima-format/web/canvas; HTML renderer=\"canvas\"; draw-frame Canvas2D; raster findings remain (modules/canvas/test/web/RESULTS.md)",
    "module": "canvas",
    "status": "planned",
-   "test": "platform/web-canvas",
+   "test": "modules/canvas/test/web/canvas.test.ts; spec/conformance/platforms-web-canvas; tests/oracle/platforms-web-canvas/rive/README.md (host oracle skip)",
    "phase": "Pc"
   }
  },

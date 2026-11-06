@@ -211,6 +211,11 @@ and an oracle test against Rive.
 - [ ] Pc **Canvas backend, minimal** — brought forward from P10 (owner, 2026-11-06): the draw layer
       rendered to Canvas2D as `@anima-format/web/canvas`; runs every conformance case with a pixel
       comparison against the SVG backend; SVG stays the default for icons. Must exist before P8.
+  - [x] Opt-in heavy canvas module, DPR/ResizeObserver, draw-frame traversal and tiny host hook.
+  - [x] Both-engine visual corpus comparison, feature limits and measurements recorded in
+        `modules/canvas/test/web/README.md` and `RESULTS.md`.
+  - [ ] Resolve 12 strict raster findings (9 Chromium, 3 Firefox) and obtain a green full check.
+        Pc and its parity rows remain open; no tolerance/budget increase.
 - [ ] P4b `motion`: eases, typed/string tracks, seek/reverse/work area/quantize, host timeline
       control, animatable pivot.
 - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
