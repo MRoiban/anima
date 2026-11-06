@@ -1,0 +1,465 @@
+[
+  {
+    "id": "data.calculate-acosine",
+    "probe": "data-calculate-acosine",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.calculate-asine",
+    "probe": "data-calculate-asine",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.calculate-atangent",
+    "probe": "data-calculate-atangent",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.calculate-atangent2",
+    "probe": "data-calculate-atangent2",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.calculate-ceil",
+    "probe": "data-calculate-ceil",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.calculate-cosine",
+    "probe": "data-calculate-cosine",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.calculate-exp",
+    "probe": "data-calculate-exp",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.calculate-floor",
+    "probe": "data-calculate-floor",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.calculate-log",
+    "probe": "data-calculate-log",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.calculate-modulo",
+    "probe": "data-calculate-modulo",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.calculate-power",
+    "probe": "data-calculate-power",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.calculate-round",
+    "probe": "data-calculate-round",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.calculate-sine",
+    "probe": "data-calculate-sine",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.calculate-squareroot",
+    "probe": "data-calculate-squareroot",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.calculate-tangent",
+    "probe": "data-calculate-tangent",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.converter-boolean-negate",
+    "probe": "data-converter-boolean-negate",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.converter-color-formatting",
+    "probe": "data-converter-color-formatting",
+    "conformance": "pending",
+    "oracle": "pending",
+    "reason": "Hex/RGBA formatting is implemented and unit-tested; native decimal/hex/HSL component-marker patterns are not implemented. The decided design does not define marker syntax; the canonical parity row remains pending."
+  },
+  {
+    "id": "data.converter-enum-to-uint",
+    "probe": "data-converter-enum-to-uint",
+    "conformance": "complete",
+    "oracle": "finding",
+    "reason": "Native observation 0; independently specified Anima expectation 1. Native enum input is happy/index 1, while the numeric bridge remains 0 with changed=false; authorable native enum converter supplies no observed value in this build."
+  },
+  {
+    "id": "data.converter-group",
+    "probe": "data-converter-group",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.converter-list-to-length",
+    "probe": "data-converter-list-to-length",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.converter-number-formatting",
+    "probe": "data-converter-number-formatting",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.converter-number-to-list",
+    "probe": "data-converter-number-to-list",
+    "conformance": "pending",
+    "oracle": "pending",
+    "reason": "Pure bounded index/repeated-item lists are implemented; retained default model-instance creation and identity are not. Data exposes no list-write or instance-creation hook, and making this converter retain instance state conflicts with the design\u2019s only-interpolate-is-stateful rule. Needs a design/seam decision."
+  },
+  {
+    "id": "data.converter-range-mapper",
+    "probe": "data-converter-range-mapper",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.converter-rounder",
+    "probe": "data-converter-rounder",
+    "conformance": "complete",
+    "oracle": "finding",
+    "reason": "Native observation 2.3499999; independently specified Anima expectation 2.35. Native data-dump float32 precision differs from Anima binary64; no tolerance or numeric output is adjusted."
+  },
+  {
+    "id": "data.converter-string-remove-zeros",
+    "probe": "data-converter-string-remove-zeros",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.converter-string-template",
+    "probe": "data-converter-string-template",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.converter-system-degs-to-rads",
+    "probe": "data-converter-system-degs-to-rads",
+    "conformance": "complete",
+    "oracle": "finding",
+    "reason": "Native observation 3.14159274; independently specified Anima expectation 3.141592653589793. Native data-dump float32 precision differs from Anima binary64; no tolerance or numeric output is adjusted."
+  },
+  {
+    "id": "data.converter-system-normalizer",
+    "probe": "data-converter-system-normalizer",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.converter-template-delimiters",
+    "probe": "data-converter-template-delimiters",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.converter-template-number-formatting",
+    "probe": "data-converter-template-number-formatting",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.converter-to-number",
+    "probe": "data-converter-to-number",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.converter-to-string",
+    "probe": "data-converter-to-string",
+    "conformance": "complete",
+    "oracle": "finding",
+    "reason": "Native observation '1'; independently specified Anima expectation 'true'. Native boolean-to-string uses a numeric spelling; Anima specifies ECMAScript String. Parent decision remains open."
+  },
+  {
+    "id": "data.converter-trigger",
+    "probe": "data-converter-trigger",
+    "conformance": "pending",
+    "oracle": "pending",
+    "reason": "Boolean/integer conversion is implemented; delivering an incremented trigger signal counter is not. Data bindings target animatable scalar node properties, while custom triggers are deliberately non-animatable; registerConverter alone exposes no trigger destination/write hook. Needs a binding destination seam."
+  },
+  {
+    "id": "data.formula-function-acosine",
+    "probe": "data-formula-function-acosine",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.formula-function-asine",
+    "probe": "data-formula-function-asine",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.formula-function-atangent",
+    "probe": "data-formula-function-atangent",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.formula-function-atangent2",
+    "probe": "data-formula-function-atangent2",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.formula-function-ceil",
+    "probe": "data-formula-function-ceil",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.formula-function-cosine",
+    "probe": "data-formula-function-cosine",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.formula-function-exp",
+    "probe": "data-formula-function-exp",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.formula-function-floor",
+    "probe": "data-formula-function-floor",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.formula-function-log",
+    "probe": "data-formula-function-log",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.formula-function-pow",
+    "probe": "data-formula-function-pow",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.formula-function-random",
+    "probe": "data-formula-function-random",
+    "conformance": "complete",
+    "oracle": "skip",
+    "reason": "Native random has no exposed seed matching Anima\u2019s specified uint32 LCG; direct sample equality is not a faithful counterpart. Anima sequence/policy/isolation are independently tested."
+  },
+  {
+    "id": "data.formula-function-round",
+    "probe": "data-formula-function-round",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.formula-function-sine",
+    "probe": "data-formula-function-sine",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.formula-function-sqrt",
+    "probe": "data-formula-function-sqrt",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.formula-function-tangent",
+    "probe": "data-formula-function-tangent",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.formula-operator-modulo",
+    "probe": "data-formula-operator-modulo",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.formula-random-always",
+    "probe": "data-formula-random-always",
+    "conformance": "complete",
+    "oracle": "skip",
+    "reason": "Native random has no exposed seed matching Anima\u2019s specified uint32 LCG; direct sample equality is not a faithful counterpart. Anima sequence/policy/isolation are independently tested."
+  },
+  {
+    "id": "data.formula-random-once",
+    "probe": "data-formula-random-once",
+    "conformance": "complete",
+    "oracle": "skip",
+    "reason": "Native random has no exposed seed matching Anima\u2019s specified uint32 LCG; direct sample equality is not a faithful counterpart. Anima sequence/policy/isolation are independently tested."
+  },
+  {
+    "id": "data.formula-random-source-change",
+    "probe": "data-formula-random-source-change",
+    "conformance": "complete",
+    "oracle": "skip",
+    "reason": "Native random has no exposed seed matching Anima\u2019s specified uint32 LCG; direct sample equality is not a faithful counterpart. Anima sequence/policy/isolation are independently tested."
+  },
+  {
+    "id": "data.interpolate-color",
+    "probe": "data-interpolate-color",
+    "conformance": "complete",
+    "oracle": "finding",
+    "reason": "Native initializes lazily on the first non-default change, returning the changed value immediately; Anima initializes eagerly on first evaluation. Native trace ['#000000', '#ffffff', '#ffffff', '#ffffff', '#7f7f7f', '#000000']. Independently specified Anima trace ['#000000', '#000000', '#808080', '#808080', '#404040', '#000000']. Parent decision remains open; numeric/channel differences are retained."
+  },
+  {
+    "id": "data.interpolate-number",
+    "probe": "data-interpolate-number",
+    "conformance": "complete",
+    "oracle": "finding",
+    "reason": "Native initializes lazily on the first non-default change, returning the changed value immediately; Anima initializes eagerly on first evaluation. Native trace [0, 10, 10, 10, 15, 20]. Independently specified Anima trace [0, 0, 5, 5, 12.5, 20]. Parent decision remains open; numeric/channel differences are retained."
+  },
+  {
+    "id": "data.operation-operand-view-model",
+    "probe": "data-operation-operand-view-model",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Baseline data arithmetic probe is preserved; the named-converter model-operand evidence is spec/conformance/convert-model-operand and tests/oracle/convert-model-operand.",
+    "converterProbe": "convert-model-operand"
+  },
+  {
+    "id": "data.pad-end",
+    "probe": "data-pad-end",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.pad-start",
+    "probe": "data-pad-start",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.range-modulo",
+    "probe": "data-range-modulo",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.range-reverse",
+    "probe": "data-range-reverse",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.scripted-converter",
+    "probe": "data-scripted-converter",
+    "conformance": "pending",
+    "oracle": "pending",
+    "reason": "Scripted forward/reverse converter execution requires the P9 script VM/protocol; no VM exists in the decided P4e design."
+  },
+  {
+    "id": "data.template-argument-number",
+    "probe": "data-template-argument-number",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.template-argument-string",
+    "probe": "data-template-argument-string",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.trim-all",
+    "probe": "data-trim-all",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.trim-end",
+    "probe": "data-trim-end",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.trim-none",
+    "probe": "data-trim-none",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  },
+  {
+    "id": "data.trim-start",
+    "probe": "data-trim-start",
+    "conformance": "complete",
+    "oracle": "verified",
+    "reason": "Canonical Player-step vector plus exact native observation bridge."
+  }
+]

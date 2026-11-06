@@ -1,0 +1,6 @@
+{"time":0,"values":{"dot.properties.result":0},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"dot.properties.result":0},"states":{},"events":[],"settled":false}
+{"time":0.05,"values":{"dot.properties.result":5},"states":{},"events":[],"settled":false}
+{"time":0.05,"values":{"dot.properties.result":5},"states":{},"events":[],"settled":false}
+{"time":0.1,"values":{"dot.properties.result":12.5},"states":{},"events":[],"settled":false}
+{"time":0.15,"values":{"dot.properties.result":20},"states":{},"events":[],"settled":true}

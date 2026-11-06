@@ -1,4 +1,4 @@
-import { expression, evaluate, BindError } from '../../bind/core/expression.ts';
+import { expression, evaluate, BindError, registerFunction } from '../../bind/core/expression.ts';
 import type { InputScope } from '../../bind/core/expression.ts';
 import type { ConverterContext } from './types.ts';
 export interface MathFunction {
@@ -46,93 +46,81 @@ interface RandomState {
   seed: number;
   cache: Map<string, { input: unknown; value: number }>;
 }
-const randomStates = new WeakMap<object, RandomState>();
+const randomKey = {};
 export function seededRandom(
   ctx: ConverterContext,
   mode = 'always',
   input?: unknown,
   site = '',
 ): number {
-  let state = randomStates.get(ctx.player);
-  if (!state)
-    randomStates.set(ctx.player, (state = { seed: (ctx.seed ?? 1) >>> 0, cache: new Map() }));
-  const key = (ctx.key ?? '') + ':' + site,
-    previous = state.cache.get(key);
+  const storage = ctx.randomState ?? ctx.state;
+  let state = storage.get(randomKey) as RandomState | undefined;
+  if (!state) storage.set(randomKey, (state = { seed: (ctx.seed ?? 1) >>> 0, cache: new Map() }));
+  const key = (ctx.key ?? '') + ':' + site;
+  let cache = ctx.state.get(randomKey) as RandomState | undefined;
+  if (!cache) ctx.state.set(randomKey, (cache = { seed: 1, cache: new Map() }));
+  const previous = cache.cache.get(key);
   if (previous && (mode === 'once' || (mode === 'on-change' && Object.is(previous.input, input))))
     return previous.value;
   state.seed = (Math.imul(1664525, state.seed) + 1013904223) >>> 0;
   const value = state.seed / 4294967296;
-  state.cache.set(key, { input, value });
+  cache.cache.set(key, { input, value });
   return value;
 }
-/** Compile the existing bind grammar, lifting additional calls into typed synthetic inputs.
- * No eval, Function, host globals, or unbounded recursive expansion. */
+// Use the active runtime parser/registry, including separately bundled bind entries.
+let enabled = false;
+export function setMathEnabled(value: boolean): void {
+  enabled = value;
+}
+let parse = expression;
+let current: { ctx: ConverterContext; mode: string; input: unknown; site: number } | undefined;
+export function installFunctions(parser = expression, register = registerFunction): void {
+  parse = parser;
+  registerMathFunctions((name, fn) =>
+    register(
+      name,
+      fn.arity,
+      name === 'floor'
+        ? fn.evaluate
+        : Object.assign((...args: number[]) => fn.evaluate(...args), { enabled: () => enabled }),
+    ),
+  );
+  register(
+    'random',
+    0,
+    Object.assign(
+      () =>
+        current
+          ? seededRandom(current.ctx, current.mode, current.input, String(current.site++))
+          : 0,
+      { enabled: () => enabled },
+    ),
+  );
+}
+installFunctions();
 export function formula(
   source: string,
   types: ReadonlyMap<string, string> = new Map([['value', 'number']]),
 ) {
   if (source.length > 8192)
     throw new BindError('bind-syntax', 0, 'formula exceeds 8192 characters');
-  let serial = 0;
-  const compile = (
-    text: string,
-    depth = 0,
-  ): ((scope: InputScope, ctx: ConverterContext, mode: string, input: unknown) => number) => {
-    if (depth > 64) throw new BindError('bind-syntax', 0, 'formula nesting exceeds 64');
-    const lifted: { name: string; run: ReturnType<typeof compile> }[] = [];
-    const localTypes = new Map(types);
-    let rewritten = '',
-      i = 0;
-    while (i < text.length) {
-      const match = /^([a-z][a-zA-Z0-9-]*)\s*\(/.exec(text.slice(i));
-      if (!match || (!mathFunctions.has(match[1]!) && match[1] !== 'random')) {
-        rewritten += text[i++];
-        continue;
-      }
-      const name = match[1]!,
-        start = i;
-      i += match[0].length;
-      let nesting = 1,
-        argStart = i;
-      const args: string[] = [];
-      while (i < text.length && nesting) {
-        const c = text[i];
-        if (c === '(') nesting++;
-        if (c === ')') nesting--;
-        if ((c === ',' && nesting === 1) || nesting === 0) {
-          if (i > argStart || args.length) args.push(text.slice(argStart, i));
-          argStart = i + 1;
-        }
-        i++;
-      }
-      const fn = mathFunctions.get(name);
-      if (nesting || args.length !== (fn?.arity ?? 0))
-        throw new BindError('bind-syntax', start, 'wrong math argument count');
-      const calls = args.map((a) => compile(a, depth + 1));
-      let synthetic: string;
-      do {
-        synthetic = 'convertArg' + serial++;
-      } while (localTypes.has(synthetic));
-      localTypes.set(synthetic, 'number');
-      lifted.push({
-        name: synthetic,
-        run: (scope, ctx, mode, input) =>
-          fn
-            ? fn.evaluate(...calls.map((c) => c(scope, ctx, mode, input)))
-            : seededRandom(ctx, mode, input, synthetic),
-      });
-      rewritten += synthetic;
+  const previousEnabled = enabled;
+  enabled = true;
+  let parsed: ReturnType<typeof parse>;
+  try {
+    parsed = parse(source, types);
+  } finally {
+    enabled = previousEnabled;
+  }
+  if (parsed.type !== 'number' && parsed.type !== 'bool')
+    throw new BindError('bind-type', 0, 'formula must return number');
+  return (scope: InputScope, ctx: ConverterContext, mode: string, input: unknown): number => {
+    const previous = current;
+    current = { ctx, mode, input, site: 0 };
+    try {
+      return Number(evaluate(parsed, scope));
+    } finally {
+      current = previous;
     }
-    const parsed = expression(rewritten, localTypes);
-    if (parsed.type === 'color') throw new BindError('bind-type', 0, 'formula must return number');
-    return (scope, ctx, mode, input) => {
-      const values = new Map(scope);
-      for (const call of lifted) {
-        const result = call.run(scope, ctx, mode, input);
-        values.set(call.name, Number.isFinite(result) ? result : 0);
-      }
-      return Number(evaluate(parsed, values));
-    };
   };
-  return compile(source);
 }

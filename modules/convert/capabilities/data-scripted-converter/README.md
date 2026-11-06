@@ -1,9 +1,9 @@
-# data.scripted-converter
+# data-scripted-converter
 
-Deferred to P9: custom forward/reverse scripting requires the sandboxed scripting runtime.
+Conformance: pending; native evidence: pending.
 
-Implementation: `modules/convert/core/`; shared diagnostics and input/output tables:
-`modules/convert/test/core/convert.test.ts`; captured observations:
-`modules/convert/test/core/oracle.test.ts`; normative behavior: `modules/convert/SPEC.md`.
+Scripted forward/reverse converter execution requires the P9 script VM/protocol; no VM exists in the decided P4e design.
 
-Parity status is unchanged. The matching conformance/oracle todo markers are intentional.
+Implementation: `modules/convert/core/`; normative behavior: `modules/convert/SPEC.md`.
+Probe: `spec/conformance/data-scripted-converter/`; native evidence: `tests/oracle/data-scripted-converter/`.
+Parity status is unchanged. Full integration results: `modules/convert/REPORT.md`.

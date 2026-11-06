@@ -12,7 +12,6 @@
     "./bind": "./src/modules/bind/index.ts",
     "./assets": "./src/modules/assets/index.ts",
     "./assets-svg": "./src/modules/assets/svg.ts",
-    "./convert": "./src/modules/convert/index.ts",
     "./focus": "./src/modules/focus/index.ts",
     "./input": "./src/modules/input/index.ts",
     "./motion": "./src/modules/motion/index.ts",
@@ -24,6 +23,7 @@
     "./composite-svg": "./src/modules/composite/svg.ts",
     "./contour": "./src/modules/contour/index.ts",
     "./data": "./src/modules/data/index.ts",
+    "./convert": "./src/modules/convert/index.ts",
     "./mix": "./src/modules/mix/index.ts",
     "./surface": "./src/modules/surface/index.ts",
     "./surface-svg": "./src/modules/surface/svg.ts"

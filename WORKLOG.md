@@ -2,9 +2,10 @@
 
 ## Now
 Goal: P4e-2 integrate convert on t3/integrate-convert-data-hooks; local commits only.
-State: data merged baseline 20021 B; converter foundation merged, generated artifacts rebuilt.
-Next: shared hooks and player state, canonical probes/native references, full required verification.
-Don’t: change budgets/tests/oracle inputs or parity status; touch host/paint; push or PR.
+State: foundation merged f02e0bd; shared data/bind and standalone markup hooks integrated.
+Evidence: 62/66 capability vectors complete + 3 integration vectors; 52 rows verified, 4 RNG skips, 6 findings, 4 pending.
+Next: finish required scoped/browser/static/size/perf verification, report and commit.
+Don’t: change budgets/tests/oracle findings or parity status; touch host/paint; push or PR.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -144,4 +145,10 @@ Don’t: change budgets/tests/oracle inputs or parity status; touch host/paint; 
 - 2026-11-06 06:50 [sol]: sequential eslint + modules/parity checks → green (evidence: exit 0; 1238 capabilities, views current); lint race resolved.
 - 2026-11-06 06:50 [sol]: final format/type/scoped/size/generated artifact checks → green; 21 browser entries current, 311 AniML files checked with pending probes skipped; integration handoff ready (evidence: requested verification commands, 1870 pass / 132 TODO).
 
-- 2026-11-06 12:00 [codex]: merged convert foundation; kept both docs/list sides, regenerated wiring/schema/parity/AniML/web; npm ci installed missing tools → merge integration checkpoint (unverified tests).
+- 2026-11-06 08:26 [codex]: merged convert foundation; kept both docs/list sides, regenerated wiring/schema/parity/AniML/web; npm ci installed missing tools → merge integration checkpoint (unverified tests).
+
+- 2026-11-06 08:58 [codex]: integrated named/group dispatch, active bind math parser/functions, live data options, ctx.state interpolation, player RNG and standalone markup hook → unit/browser checkpoints pass; shared-state compatibility failure fixed, recheck running (evidence: /tmp/convert-seam-tests2.log; six native findings retained).
+
+- 2026-11-06 09:25 [codex]: final budgets pass (convert 6165, data 8046, bind 1901, core+web 20021, full 86797 B); 3024 scoped tests pass with one worker → rechecking after restoring baseline operand evidence and adding isolated convert-model-operand (evidence: verification/size.txt, baseline-oracles.json; all 159 completed baseline oracle trees unchanged).
+
+- 2026-11-06 09:27 [codex]: development failures: numeric-string/args round trips and independent reader fixed; native units/key/format-width probe mistakes corrected; first combined scope hit five Firefox timeouts → unchanged limits pass with VITEST_MAX_WORKERS=1. Byte overages bind 2065/data 8212 fixed by existing VERBOSE diagnostic folding (now 1901/8046).

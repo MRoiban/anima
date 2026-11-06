@@ -1,1 +1,1 @@
-TODO: independently author a Rive scene and capture reference PNGs; do not read/convert .riv files.
+Native numeric/colour retarget probe, authored independently; duration 0.1 seconds. Run from repository root with ~/.rive/bin/rive tests/oracle/data-interpolate-number/rive --commands=tests/oracle/data-interpolate-number/rive/commands.txt. Original raw files are retained.

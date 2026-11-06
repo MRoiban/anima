@@ -1,9 +1,9 @@
-# data.interpolate-number
+# data-interpolate-number
 
-Pure converter implementation and tables are present; canonical player integration evidence remains pending.
+Conformance: complete; native evidence: finding.
 
-Implementation: `modules/convert/core/`; shared diagnostics and input/output tables:
-`modules/convert/test/core/convert.test.ts`; captured observations:
-`modules/convert/test/core/oracle.test.ts`; normative behavior: `modules/convert/SPEC.md`.
+Native initializes lazily on the first non-default change, returning the changed value immediately; Anima initializes eagerly on first evaluation. Native trace [0, 10, 10, 10, 15, 20]. Independently specified Anima trace [0, 0, 5, 5, 12.5, 20]. Parent decision remains open; numeric/channel differences are retained.
 
-Parity status is unchanged. The matching conformance/oracle todo markers are intentional.
+Implementation: `modules/convert/core/`; normative behavior: `modules/convert/SPEC.md`.
+Probe: `spec/conformance/data-interpolate-number/`; native evidence: `tests/oracle/data-interpolate-number/`.
+Parity status is unchanged. Full integration results: `modules/convert/REPORT.md`.

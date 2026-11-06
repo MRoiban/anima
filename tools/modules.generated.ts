@@ -14,8 +14,6 @@ export const webEntries = [
   'surface',
   'markup-surface',
   'canvas',
-  'convert',
-  'markup-convert',
   'focus',
   'input',
   'motion',
@@ -23,6 +21,8 @@ export const webEntries = [
   'machine',
   'contour',
   'data',
+  'convert',
+  'markup-convert',
   'mix',
 ];
 export const webOwners: Record<string, string> = {
@@ -32,8 +32,6 @@ export const webOwners: Record<string, string> = {
   bind: 'bind',
   'markup-bind': 'bind',
   assets: 'assets',
-  convert: 'convert',
-  'markup-convert': 'convert',
   focus: 'focus',
   input: 'input',
   markup: 'markup',
@@ -46,6 +44,8 @@ export const webOwners: Record<string, string> = {
   composite: 'composite',
   contour: 'contour',
   data: 'data',
+  convert: 'convert',
+  'markup-convert': 'convert',
   mix: 'mix',
   surface: 'surface',
   'markup-surface': 'surface',
@@ -71,8 +71,6 @@ export const moduleBudgets: {
   { name: 'surface', buildOrder: 11, sizeOrder: 10, budget: 8192 },
   { name: 'components', buildOrder: 5, sizeOrder: 11, budget: 4096 },
   { name: 'canvas', budget: 8192, heavy: true },
-  { name: 'convert', budget: 8192 },
-  { name: 'markup-convert', budget: 2048, over: 'index' },
   { name: 'focus', budget: 4096 },
   { name: 'input', budget: 8192 },
   { name: 'motion', budget: 8192 },
@@ -80,6 +78,8 @@ export const moduleBudgets: {
   { name: 'machine', budget: 8192 },
   { name: 'contour', budget: 5120 },
   { name: 'data', budget: 8192 },
+  { name: 'convert', budget: 8192 },
+  { name: 'markup-convert', budget: 2048, over: 'index' },
   { name: 'mix', budget: 5120 },
 ];
 export const moduleScopes = {
@@ -127,25 +127,6 @@ export const moduleScopes = {
       'packages/markup/test/names.test.ts',
     ],
     conformance: ['assets-'],
-  },
-  convert: {
-    tests: [
-      'modules/convert/test/**/*.test.ts',
-      'packages/markup/test/compile.test.ts',
-      'packages/markup/test/decompile.test.ts',
-      'packages/markup/test/corpus.test.ts',
-      'packages/markup/test/names.test.ts',
-    ],
-    conformance: [
-      'data-converter-',
-      'data-calculate-',
-      'data-formula-',
-      'data-range-',
-      'data-trim-',
-      'data-pad-',
-      'data-template-',
-      'data-interpolate-',
-    ],
   },
   focus: {
     tests: [
@@ -494,6 +475,28 @@ export const moduleScopes = {
       'input-write-gamepad-button-pressed',
       'input-write-gamepad-button-value',
       'input-write-gamepad-changed-value',
+    ],
+  },
+  convert: {
+    tests: [
+      'modules/convert/test/**/*.test.ts',
+      'packages/markup/test/compile.test.ts',
+      'packages/markup/test/decompile.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+    ],
+    conformance: [
+      'convert-',
+      'data-converter-',
+      'data-calculate-',
+      'data-formula-',
+      'data-range-',
+      'data-trim-',
+      'data-pad-',
+      'data-template-',
+      'data-interpolate-',
+      'data-operation-operand-view-model',
+      'data-scripted-converter',
     ],
   },
   mix: {

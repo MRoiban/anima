@@ -1,9 +1,9 @@
-# data.formula-function-tangent
+# data-formula-function-tangent
 
-Pure converter implementation and tables are present; canonical player integration evidence remains pending.
+Conformance: complete; native evidence: verified.
 
-Implementation: `modules/convert/core/`; shared diagnostics and input/output tables:
-`modules/convert/test/core/convert.test.ts`; captured observations:
-`modules/convert/test/core/oracle.test.ts`; normative behavior: `modules/convert/SPEC.md`.
+Canonical Player-step vector plus exact native observation bridge.
 
-Parity status is unchanged. The matching conformance/oracle todo markers are intentional.
+Implementation: `modules/convert/core/`; normative behavior: `modules/convert/SPEC.md`.
+Probe: `spec/conformance/data-formula-function-tangent/`; native evidence: `tests/oracle/data-formula-function-tangent/`.
+Parity status is unchanged. Full integration results: `modules/convert/REPORT.md`.

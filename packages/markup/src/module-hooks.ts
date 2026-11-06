@@ -6,9 +6,6 @@ if (VERBOSE) Object.assign(componentCompiler, componentMarkup);
 import { bindMarkup } from '../../../modules/bind/markup/index.ts';
 export const bindCompiler: Partial<typeof bindMarkup> = {};
 if (VERBOSE) Object.assign(bindCompiler, bindMarkup);
-import { converterCompiler } from '../../../modules/convert/markup/index.ts';
-export const convertCompiler: Partial<typeof converterCompiler> = {};
-if (VERBOSE) Object.assign(convertCompiler, converterCompiler);
 import { motionMarkup } from '../../../modules/motion/markup/index.ts';
 export const motionCompiler: Partial<typeof motionMarkup> = {};
 if (VERBOSE) Object.assign(motionCompiler, motionMarkup);
@@ -21,12 +18,15 @@ if (VERBOSE) Object.assign(moduleCompiler, structuralMarkup);
 import { dataMarkup } from '../../../modules/data/markup/index.ts';
 export const dataCompiler: Partial<typeof dataMarkup> = {};
 if (VERBOSE) Object.assign(dataCompiler, dataMarkup);
+import { converterCompiler } from '../../../modules/convert/markup/index.ts';
+export const convertCompiler: Partial<typeof converterCompiler> = {};
+if (VERBOSE) Object.assign(convertCompiler, converterCompiler);
 export function prepareModuleMarkup(hooks: Record<string, object>): void {
   Object.assign(componentCompiler, hooks['components']);
   Object.assign(bindCompiler, hooks['bind']);
-  Object.assign(convertCompiler, hooks['convert']);
   Object.assign(motionCompiler, hooks['motion']);
   Object.assign(eventsCompiler, hooks['events']);
   Object.assign(moduleCompiler, structuralForms, hooks['paint']);
   Object.assign(dataCompiler, hooks['data']);
+  Object.assign(convertCompiler, hooks['convert']);
 }

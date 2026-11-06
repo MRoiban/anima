@@ -1,9 +1,9 @@
-# data.formula-random-source-change
+# data-formula-random-source-change
 
-Pure converter implementation and tables are present; canonical player integration evidence remains pending.
+Conformance: complete; native evidence: skip.
 
-Implementation: `modules/convert/core/`; shared diagnostics and input/output tables:
-`modules/convert/test/core/convert.test.ts`; captured observations:
-`modules/convert/test/core/oracle.test.ts`; normative behavior: `modules/convert/SPEC.md`.
+Native random has no exposed seed matching Anima’s specified uint32 LCG; direct sample equality is not a faithful counterpart. Anima sequence/policy/isolation are independently tested.
 
-Parity status is unchanged. The matching conformance/oracle todo markers are intentional.
+Implementation: `modules/convert/core/`; normative behavior: `modules/convert/SPEC.md`.
+Probe: `spec/conformance/data-formula-random-source-change/`; native evidence: `tests/oracle/data-formula-random-source-change/`.
+Parity status is unchanged. Full integration results: `modules/convert/REPORT.md`.

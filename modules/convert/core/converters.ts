@@ -1,3 +1,4 @@
+import { parseEase } from '../../../packages/core/src/ease.ts';
 import { parseHex, lerpColor } from '../../../packages/core/src/color.ts';
 import { formula, seededRandom, mathFunctions } from './math.ts';
 import {
@@ -50,13 +51,27 @@ function color(value: ConverterValue): import('../../../packages/core/src/color.
     mismatch('hex colour or RGBA tuple')
   );
 }
+const eases = new Map<string, (t: number) => number>();
+function ease(o: ConverterOptions, t: number): number {
+  const name = o.ease ?? 'linear';
+  if (typeof name !== 'string') bad('expected easing string', 'ease');
+  let fn = eases.get(name as string);
+  if (!fn) {
+    const parsed = parseEase(name as string);
+    if (typeof parsed === 'string') bad(parsed, 'ease');
+    fn = parsed as (t: number) => number;
+    if (eases.size > 256) eases.clear();
+    eases.set(name as string, fn);
+  }
+  return fn(t);
+}
 interface Interpolation {
   target: ConverterValue;
   from: ConverterValue;
   value: ConverterValue;
   start: number;
 }
-const interpolation = new WeakMap<object, Map<string, Interpolation>>();
+const interpolation = {};
 const formulaCache = new Map<string, ReturnType<typeof formula>>();
 const implementations: Record<string, Converter> = {
   range: (v, o) => {
@@ -67,7 +82,7 @@ const implementations: Record<string, Converter> = {
     if (o.modulo) t = ((t % 1) + 1) % 1;
     if (o.clamp) t = Math.max(0, Math.min(1, t));
     if (o.reverse) t = 1 - t;
-    return c + (d - c) * t;
+    return c + (d - c) * ease(o, t);
   },
   round: (v, o) => {
     const f = 10 ** integer(o, 'decimals', 0, 100);
@@ -127,7 +142,9 @@ const implementations: Record<string, Converter> = {
       close = o.close ?? '}';
     if (typeof open !== 'string' || typeof close !== 'string' || !open || !close)
       bad('delimiters must be nonempty strings');
-    const args = Array.isArray(v) ? v : [v];
+    const args = (o.args ?? (Array.isArray(v) ? v : [v])) as Record<string, ConverterValue>;
+    if (!args || typeof args !== 'object') bad('args must be an array or object', 'args');
+    let position = 0;
     let result = '',
       rest = o.text as string;
     while (rest.includes(open as string)) {
@@ -141,14 +158,17 @@ const implementations: Record<string, Converter> = {
         break;
       }
       const token = rest.slice(0, j),
-        match = /^(\d+)(?::(\d+))?$/.exec(token);
+        match = /^([\w-]*)(?::(\d+))?(?::(\d+))?$/.exec(token);
       if (!match) bad('expected positional argument, optionally :decimals', 'text');
-      const arg = args[Number(match![1])];
+      const arg = args[match![1] || String(position++)];
       if (arg === undefined) mismatch('template argument');
-      result +=
+      const replacement =
         match![2] === undefined
           ? String(arg)
           : format(arg!, { decimals: Number(match![2]), grouping: o.grouping });
+      const width = Number(match![3] ?? 0);
+      if (width > 10000) bad('template width exceeds 10000', 'text');
+      result += replacement.padStart(width, ' ');
       rest = rest.slice(j + (close as string).length);
     }
     return result + rest;
@@ -168,16 +188,21 @@ const implementations: Record<string, Converter> = {
     );
   },
   trigger: (v) => (typeof v === 'boolean' ? v : Math.trunc(numeric(v))),
-  'degrees-to-radians': (v) => (numeric(v) * Math.PI) / 180,
-  normalize: (v, o) => {
+  'degrees-to-radians': (v, _o, ctx) =>
+    ctx.direction === 'reverse' ? (numeric(v) * 180) / Math.PI : (numeric(v) * Math.PI) / 180,
+  normalize: (v, o, ctx) => {
     const [a, b] = pair(o, 'from', [0, 1]) as [number, number];
     if (a === b) bad('source range must have nonzero width', 'from');
-    return (numeric(v) - a) / (b - a);
+    return ctx.direction === 'reverse' ? a + numeric(v) * (b - a) : (numeric(v) - a) / (b - a);
   },
   formula: (v, o, ctx) => {
     if (typeof o.expression !== 'string') bad('expression is required', 'expression');
     const mode = choice(o, 'random', ['always', 'once', 'on-change'], 'always');
     const scope = new Map(ctx.values);
+    for (const path of (o.expression as string).match(
+      /\$[a-zA-Z][\w-]*(?::[a-zA-Z][\w-]*)?(?:\.[\w-]+)*/g,
+    ) ?? [])
+      scope.set(path, ctx.get?.(path) as number | boolean);
     scope.set('value', numeric(v));
     const types = new Map(
       [...scope].map(([name, value]) => [name, typeof value === 'boolean' ? 'bool' : 'number']),
@@ -189,6 +214,7 @@ const implementations: Record<string, Converter> = {
       if (formulaCache.size > 256) formulaCache.clear();
       formulaCache.set(key, run);
     }
+    if (mode === 'always' && /\brandom\s*\(/.test(o.expression as string)) ctx.active?.();
     return run(scope, ctx, mode, v);
   },
   calculate: (v, o, ctx) => {
@@ -209,14 +235,17 @@ const implementations: Record<string, Converter> = {
   interpolate: (v, o, ctx) => {
     const duration = opt(o, 'duration', 0);
     if (duration < 0) bad('duration must be nonnegative', 'duration');
+    ease(o, 0);
     const target = typeof v === 'number' ? numeric(v) : [...color(v)];
-    let states = interpolation.get(ctx.player);
-    if (!states) interpolation.set(ctx.player, (states = new Map()));
+    let states = ctx.state.get(interpolation) as Map<string, Interpolation> | undefined;
+    if (!states) ctx.state.set(interpolation, (states = new Map()));
     const key = ctx.key ?? 'default';
     let s = states.get(key);
     const equal = (a: ConverterValue, b: ConverterValue) => JSON.stringify(a) === JSON.stringify(b);
     const sample = (state: Interpolation): ConverterValue => {
-      const t = duration === 0 ? 1 : Math.max(0, Math.min(1, (ctx.time - state.start) / duration));
+      const progress =
+        duration === 0 ? 1 : Math.max(0, Math.min(1, (ctx.time - state.start) / duration));
+      const t = progress === 1 ? 1 : ease(o, progress);
       return typeof state.from === 'number' && typeof state.target === 'number'
         ? state.from + (state.target - state.from) * t
         : lerpColor(color(state.from), color(state.target), t);
@@ -232,6 +261,7 @@ const implementations: Record<string, Converter> = {
       s.target = target;
       s.start = ctx.time;
     }
+    if (duration > 0 && ctx.time < s.start + duration && !equal(s.from, s.target)) ctx.active?.();
     return (s.value = sample(s));
   },
 };
@@ -240,7 +270,7 @@ export function convertValue(
   type: string,
   value: ConverterValue,
   options: ConverterOptions = {},
-  ctx: ConverterContext = { player: {}, time: 0 },
+  ctx: ConverterContext = { player: {}, time: 0, state: new Map() },
 ): ConverterValue {
   const fn = converterRegistry.get(type);
   if (!fn)

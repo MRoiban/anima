@@ -10,7 +10,6 @@
     "./browser": "./src/browser.ts",
     "./components": "./src/components.ts",
     "./bind": "./src/bind.ts",
-    "./convert": "./src/convert.ts",
     "./focus": "./src/focus.ts",
     "./input": "./src/input.ts",
     "./libraries": "./src/libraries.ts",
@@ -21,6 +20,7 @@
     "./modules": "./src/modules.ts",
     "./contour": "./src/contour.ts",
     "./data": "./src/data.ts",
+    "./convert": "./src/convert.ts",
     "./mix": "./src/mix.ts"
   },
   "files": [

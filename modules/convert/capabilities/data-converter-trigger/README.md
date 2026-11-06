@@ -1,9 +1,9 @@
-# data.converter-trigger
+# data-converter-trigger
 
-Pure converter implementation and tables are present; canonical player integration evidence remains pending.
+Conformance: pending; native evidence: pending.
 
-Implementation: `modules/convert/core/`; shared diagnostics and input/output tables:
-`modules/convert/test/core/convert.test.ts`; captured observations:
-`modules/convert/test/core/oracle.test.ts`; normative behavior: `modules/convert/SPEC.md`.
+Boolean/integer conversion is implemented; delivering an incremented trigger signal counter is not. Data bindings target animatable scalar node properties, while custom triggers are deliberately non-animatable; registerConverter alone exposes no trigger destination/write hook. Needs a binding destination seam.
 
-Parity status is unchanged. The matching conformance/oracle todo markers are intentional.
+Implementation: `modules/convert/core/`; normative behavior: `modules/convert/SPEC.md`.
+Probe: `spec/conformance/data-converter-trigger/`; native evidence: `tests/oracle/data-converter-trigger/`.
+Parity status is unchanged. Full integration results: `modules/convert/REPORT.md`.

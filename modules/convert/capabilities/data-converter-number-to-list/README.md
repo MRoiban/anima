@@ -1,9 +1,9 @@
-# data.converter-number-to-list
+# data-converter-number-to-list
 
-Pure converter implementation and tables are present; canonical player integration evidence remains pending.
+Conformance: pending; native evidence: pending.
 
-Implementation: `modules/convert/core/`; shared diagnostics and input/output tables:
-`modules/convert/test/core/convert.test.ts`; captured observations:
-`modules/convert/test/core/oracle.test.ts`; normative behavior: `modules/convert/SPEC.md`.
+Pure bounded index/repeated-item lists are implemented; retained default model-instance creation and identity are not. Data exposes no list-write or instance-creation hook, and making this converter retain instance state conflicts with the design’s only-interpolate-is-stateful rule. Needs a design/seam decision.
 
-Parity status is unchanged. The matching conformance/oracle todo markers are intentional.
+Implementation: `modules/convert/core/`; normative behavior: `modules/convert/SPEC.md`.
+Probe: `spec/conformance/data-converter-number-to-list/`; native evidence: `tests/oracle/data-converter-number-to-list/`.
+Parity status is unchanged. Full integration results: `modules/convert/REPORT.md`.

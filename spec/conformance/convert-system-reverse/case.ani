@@ -1,0 +1,54 @@
+{
+  "anima": "0.1",
+  "name": "reverse-unit-probe",
+  "grid": 20,
+  "requires": ["data", "bind", "convert"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "x": 3.141592653589793,
+      "y": 0.25,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "bind": {
+    "dot.x": {
+      "value": "$angle",
+      "mode": "to-source",
+      "convert": "angle"
+    },
+    "dot.y": {
+      "value": "$percent",
+      "mode": "to-source",
+      "convert": "percent"
+    }
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "angle": {
+            "type": "number"
+          },
+          "percent": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  },
+  "converters": {
+    "angle": {
+      "type": "degrees-to-radians"
+    },
+    "percent": {
+      "type": "normalize",
+      "from": [0, 100]
+    }
+  }
+}

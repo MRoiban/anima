@@ -19,13 +19,15 @@ export const options: Record<string, Shape> = {
   side: { k: 'str', of: ['start', 'end'] },
   mode: s,
   text: s,
+  args: { k: 'any' },
   open: s,
   close: s,
   values: { k: 'arr', of: s },
   item: { k: 'any' },
+  ease: s,
   duration: { k: 'num', min: 0 },
   operation: s,
-  operand: n,
+  operand: { k: 'alt', of: [n, s] },
 };
 export const definition: ObjShape = { k: 'obj', p: options, req: ['type'] };
 export const group: ObjShape = {

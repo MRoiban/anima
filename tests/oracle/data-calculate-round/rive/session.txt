@@ -1,0 +1,9 @@
+ok advance
+ok data-dump: tests/oracle/data-calculate-round/rive/raw.json
+ok quit
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[09:43:32.288] rive  deferred replay: inline
+[09:43:32.294] rive  built (236 bytes, 5ms, 0 errors, 0 warnings)
+[09:43:32.294] rive  showing Probe [1/1]
+[09:43:32.294] rive  viewport 20x20 @1x
+[09:43:32.294] rive  wrote tests/oracle/data-calculate-round/rive/raw.json

@@ -10,7 +10,7 @@ import {
   validateDefinition,
 } from '../../core/index.ts';
 import type { ConverterValue as Val, ConverterOptions as Opt } from '../../core/index.ts';
-const ctx = () => ({ player: {}, time: 0, seed: 1, key: 'test' });
+const ctx = () => ({ player: {}, time: 0, seed: 1, key: 'test', state: new Map() });
 const table: [string, Val, Opt, Val][] = [
   ['range', 0.25, { from: [0, 1], to: [0, 100] }, 25],
   ['range', -1, { clamp: true }, 0],

@@ -1,0 +1,15 @@
+advance 0
+data-dump tests/oracle/data-interpolate-color/rive/raw-0.json
+data value=FFFFFFFF
+advance 0
+data-dump tests/oracle/data-interpolate-color/rive/raw-1.json
+advance 50ms
+data-dump tests/oracle/data-interpolate-color/rive/raw-2.json
+data value=FF000000
+advance 0
+data-dump tests/oracle/data-interpolate-color/rive/raw-3.json
+advance 50ms
+data-dump tests/oracle/data-interpolate-color/rive/raw-4.json
+advance 50ms
+data-dump tests/oracle/data-interpolate-color/rive/raw-5.json
+quit

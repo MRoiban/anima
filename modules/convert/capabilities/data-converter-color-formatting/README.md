@@ -1,9 +1,9 @@
-# data.converter-color-formatting
+# data-converter-color-formatting
 
-Pure converter implementation and tables are present; canonical player integration evidence remains pending.
+Conformance: pending; native evidence: pending.
 
-Implementation: `modules/convert/core/`; shared diagnostics and input/output tables:
-`modules/convert/test/core/convert.test.ts`; captured observations:
-`modules/convert/test/core/oracle.test.ts`; normative behavior: `modules/convert/SPEC.md`.
+Hex/RGBA formatting is implemented and unit-tested; native decimal/hex/HSL component-marker patterns are not implemented. The decided design does not define marker syntax; the canonical parity row remains pending.
 
-Parity status is unchanged. The matching conformance/oracle todo markers are intentional.
+Implementation: `modules/convert/core/`; normative behavior: `modules/convert/SPEC.md`.
+Probe: `spec/conformance/data-converter-color-formatting/`; native evidence: `tests/oracle/data-converter-color-formatting/`.
+Parity status is unchanged. Full integration results: `modules/convert/REPORT.md`.

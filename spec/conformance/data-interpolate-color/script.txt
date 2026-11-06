@@ -1,1 +1,14 @@
-# TODO: inputs, step boundaries and snapshots
+advance 0
+snapshot dot.properties.result
+set $value #ffffff
+advance 0
+snapshot dot.properties.result
+advance 0.05
+snapshot dot.properties.result
+set $value #000000
+advance 0
+snapshot dot.properties.result
+advance 0.05
+snapshot dot.properties.result
+advance 0.05
+snapshot dot.properties.result

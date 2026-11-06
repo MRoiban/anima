@@ -1,0 +1,3 @@
+advance 0
+data-dump tests/oracle/data-converter-rounder/rive/raw.json
+quit

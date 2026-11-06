@@ -1,4 +1,8 @@
-<!-- TODO: data.converter-boolean-negate; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="data-converter-boolean-negate" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="converter-probe" grid="20" requires="data bind convert">
+  <model name="Root">
+    <bool name="value" default="true"/>
+  </model>
+  <converter name="cv" type="negate"/>
+  <circle id="dot" cx="10" cy="10" properties="{&quot;result&quot;:{&quot;type&quot;:&quot;bool&quot;,&quot;default&quot;:false}}" r="1" fill="#000"/>
+  <bind target="dot.properties.result" value="$value" convert="cv"/>
 </anima>

@@ -1,9 +1,9 @@
-# data.converter-rounder
+# data-converter-rounder
 
-Pure converter implementation and tables are present; canonical player integration evidence remains pending.
+Conformance: complete; native evidence: finding.
 
-Implementation: `modules/convert/core/`; shared diagnostics and input/output tables:
-`modules/convert/test/core/convert.test.ts`; captured observations:
-`modules/convert/test/core/oracle.test.ts`; normative behavior: `modules/convert/SPEC.md`.
+Native observation 2.3499999; independently specified Anima expectation 2.35. Native data-dump float32 precision differs from Anima binary64; no tolerance or numeric output is adjusted.
 
-Parity status is unchanged. The matching conformance/oracle todo markers are intentional.
+Implementation: `modules/convert/core/`; normative behavior: `modules/convert/SPEC.md`.
+Probe: `spec/conformance/data-converter-rounder/`; native evidence: `tests/oracle/data-converter-rounder/`.
+Parity status is unchanged. Full integration results: `modules/convert/REPORT.md`.

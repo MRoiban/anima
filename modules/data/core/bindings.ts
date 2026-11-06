@@ -95,19 +95,18 @@ export function bindings(
       error(String(e.code), at, e.message);
     }
   }
-  const states = new WeakMap<Player, Map<Link, { source: unknown; raw: Value; output: Value }>>();
-  const converterStates = new WeakMap<Player, Map<unknown, unknown>>();
+  const states = new WeakMap<
+    Player,
+    Map<Link, { source: unknown; raw: Value; output: Value; state: Map<unknown, unknown> }>
+  >();
   const previous = model.resolveBindings;
   model.resolveBindings = (p, values, scope, dt) => {
     previous?.(p, values, scope, dt);
     const state = dataState(p);
-    const converterState = state?.converterState ?? converterStates.get(p) ?? new Map();
-    converterStates.set(p, converterState);
     const last = states.get(p) ?? new Map();
     states.set(p, last);
     // All bindings sample one post-state snapshot; authored order cannot create feedback.
-    const snapshot = new Map(scope);
-    for (const n of model.inputs.keys()) if (n.startsWith('$')) snapshot.set(n, scope.get(n)!);
+    const snapshot = new Map([...model.inputs.keys()].map((n) => [n, scope.get(n)!]));
     model.addrs.forEach((a, address) => {
       if (address.includes('.properties.'))
         snapshot.set(address, values[p.addrs.indexOf(address)] ?? a.rest);
@@ -126,6 +125,7 @@ export function bindings(
           typeof v === 'string' && v.startsWith('$') ? state?.read(v) : v,
         ]),
       );
+      const local = state?.converterState ?? old?.state ?? new Map();
       const convert = (v: unknown, direction: 'forward' | 'reverse'): unknown =>
         spec.convert
           ? converters.get(spec.convert)!(v, options, {
@@ -133,7 +133,8 @@ export function bindings(
               dt,
               direction,
               get: (path) => state?.read(path),
-              state: converterState,
+              state: local,
+              key: target,
             })
           : v;
       const changedSource = !old || !same(value, old.source),
@@ -148,7 +149,7 @@ export function bindings(
           writes.push([source, value as Value]);
         }
         output = raw;
-      } else if (mode === 'to-target' || !old || (mode === 'two-way' && changedSource)) {
+      } else if (mode === 'to-target' || !old || mode === 'two-way') {
         const v = convert(value, 'forward'),
           prop = model.addrs.get(target)!.prop.type;
         output =
@@ -159,7 +160,7 @@ export function bindings(
               : (v as Value);
       }
       values[slot] = output;
-      last.set(link, { source: clone(value), raw, output });
+      last.set(link, { source: clone(value), raw, output, state: local });
     }
     for (const [path, value] of writes) scope.set(path, value);
     // Gradient channels override the resolved stop colour, irrespective of binding order.

@@ -1,4 +1,4 @@
-export const after = ['bind'];
+export const after = ['bind', 'data'];
 export default {
   name: 'convert',
   after,
@@ -33,6 +33,7 @@ export default {
     'packages/markup/test/names.test.ts',
   ],
   conformance: [
+    'convert-',
     'data-converter-',
     'data-calculate-',
     'data-formula-',
@@ -41,6 +42,8 @@ export default {
     'data-pad-',
     'data-template-',
     'data-interpolate-',
+    'data-operation-operand-view-model',
+    'data-scripted-converter',
   ],
   docs: ['modules/convert/SPEC.md'],
 };

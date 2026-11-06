@@ -1,4 +1,8 @@
-<!-- TODO: data.formula-function-asine; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="data-formula-function-asine" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="converter-probe" grid="20" requires="data bind convert">
+  <model name="Root">
+    <number name="value" default="0"/>
+  </model>
+  <converter name="cv" type="formula" expression="asine(value)"/>
+  <circle id="dot" cx="10" cy="10" properties="{&quot;result&quot;:{&quot;type&quot;:&quot;number&quot;,&quot;default&quot;:0}}" r="1" fill="#000"/>
+  <bind target="dot.properties.result" value="$value" convert="cv"/>
 </anima>

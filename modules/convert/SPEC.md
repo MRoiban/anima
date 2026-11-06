@@ -1,22 +1,32 @@
 # convert
 
-Optional feature `convert`, after `bind`; no runtime dependencies. JSON declarations are a
+Optional feature `convert`, after `bind` and `data`; no runtime dependencies. JSON declarations are a
 `converters` map at the document root. Each value is `{type, ...options}` or `{chain: [names...]}`.
 Names in a group execute left to right; forward references are permitted, cycles and missing
 references are errors. A group occurrence has its own state key, including repeated names.
 
-The integration API is `converterRegistry: Map<string, (value, options, ctx) => value>` and
-`createConverterRunner(definitions)(name, value, ctx)`. Context contains `player` (stable object),
-`time` (absolute milliseconds), `seed` (uint32, default 1), `key` (binding identity) and optionally
-`values` (numeric/boolean formula variables). The data module owns scheduling and supplies context.
-The runner extends the key with the group occurrence path. Direct calls to a stateful converter
-must supply a stable context. No state is stored on the loaded model or shared between players.
+Named converters/groups register through the active data module’s `registerConverter(name, fn)`;
+`fn(value, options, ctx)` receives `{player, dt, direction, get, state, key}`. Definitions are selected
+from that player’s document, so equal names in different documents remain independent. Bindings
+require `data` and `convert`. Binding `options` override declaration options; whole `$path` strings
+resolve from the player’s current data scope. Formula `$` operands use the same resolver and bind
+parser. Unknown named converters and invalid numeric operand paths fail at load with pointers.
+
+`ctx.state` is a shared player-local Map. Convert namespaces a separate map per stable binding
+`key` inside it, preserving external converters’ access to the shared map. Interpolation state is stored only
+there, keyed by group occurrence and direction, including repeated converter names. No state is
+stored on a loaded model or shared between players. The direct API `convertValue` and
+`createConverterRunner` accept `{player,time,state,key?,get?,direction?}`; `time` is milliseconds
+and direct temporal calls retain their context map. The runtime supplies `player.time * 1000`.
+Converter-free documents install no scheduler wrappers. Active interpolation and `random="always"`
+keep the player unsettled; `once`, `on-change`, and completed interpolation allow sleep.
+Bindings evaluate once per data binding evaluation; `mode="once"` retains its converted output.
 
 | Type | Options and semantics |
 | --- | --- |
 | formula | `expression`, `random`: always (default), once, on-change. Variable `value` is the input. |
 | calculate | `operation`, numeric `operand` (default 1); arithmetic and registered math operations. |
-| range | `from` and `to` number pairs (default 0 1); map linearly. `modulo`, then `clamp`, then `reverse` apply to normalized progress. Reversed endpoints are permitted; zero-width source is invalid. |
+| range | `from` and `to` number pairs (default 0 1); map linearly. `modulo`, then `clamp`, then `reverse` apply to normalized progress. Reversed endpoints are permitted; zero-width source is invalid. Optional `ease` uses the existing timeline easing grammar (default linear). |
 | round | `decimals` (0–100, default 0), `mode`: round/floor/ceil; ECMAScript rounding semantics. |
 | negate | Boolean inversion; numeric inputs are errors. |
 | to-number | Number, boolean or string conversion using ECMAScript Number; nonnumeric strings become zero. |
@@ -25,24 +35,26 @@ must supply a stable context. No state is stored on the loaded model or shared b
 | color-format | Hex colour or 4-channel RGBA tuple → `format` hex/hexa/rgb/rgba (default hex). |
 | pad | String `length` (0–10000), `fill` (nonempty string, default space), `side` start/end. UTF-16 length. |
 | trim | `mode`: start/end/all/none; ECMAScript whitespace. |
-| template | `text`, `open`/`close` delimiters (default braces), `grouping`; scalar input is argument 0, list is positional arguments. `{0:2}` fixes two decimal places. No implicit model resolution. Missing arguments are errors. |
+| template | `text`, `open`/`close` delimiters (default braces), `grouping`, optional `args` map/array. Without `args`, scalar input is argument 0 and a list supplies positional arguments. Named keys, numeric positions and sequential `{}` placeholders are supported. `args` values may be `$` paths. `{points:2:8}` fixes two decimals and left-pads to width 8 (maximum 10000). Missing arguments are errors. |
 | remove-zeros | Strip redundant fractional zeros and empty decimal point; integer zeros remain. |
 | enum-to-index | `values`: ordered strings. Unknown values are errors. |
 | list-length | Return list length. |
 | number-to-list | Integer count 0–10000; produce index values or repeated `item`. Model instance creation awaits data integration. |
 | trigger | Boolean pulse passthrough or truncated integer signal counter. Counter-to-trigger delivery awaits data integration. |
-| degrees-to-radians | Multiply by pi/180. |
-| normalize | Normalize using `from` pair, default 0 1; no implicit clamp. |
-| interpolate | `duration` in milliseconds, default 0. First evaluation returns input immediately; changes retarget from the current sample. Linear numeric or rounded RGBA channel interpolation. No extrapolation before start or after completion. |
+| degrees-to-radians | Multiply by pi/180 forward; by 180/pi in reverse. |
+| normalize | Normalize using `from` pair, default 0 1; reverse denormalizes with the same pair. No implicit clamp. |
+| interpolate | `duration` in milliseconds, default 0. First evaluation returns input immediately; changes retarget from the current sample. Numeric or rounded RGBA channel interpolation; optional `ease` uses the existing timeline easing grammar (default linear). No extrapolation before start or after completion. |
 
 Expressions reuse bind precedence, token/depth limits, numeric/bool coercion and non-finite-to-zero
 rules without eval or dynamic code generation. Added calls: sin/cos/tan/asin/acos/atan/atan2,
 log (natural), exp, pow, sqrt, round, ceil, floor, abs, random(). Long aliases sine/cosine/tangent,
 asine/acosine/atangent/atangent2/power/squareRoot are accepted. Radians for trig. Existing
-min/max/clamp/mix/mod remain available. `registerMathFunctions(register)` exposes names, arities
-and pure evaluators for the bind registration seam. Random is context-dependent, not a pure math
-registration: formula owns it. Random uses independently implemented uint32 LCG
-`seed = (1664525 * seed + 1013904223) mod 2^32`, output seed/2^32; sites and bindings cache separately.
+min/max/clamp/mix/mod remain available. All math functions, including random(), register through the active bind module’s
+`registerFunction(name,arity,fn)` and formulas compile with its `parse` hook. There is no second
+expression parser. Random is evaluated within the formula context; unscoped random calls outside
+a formula return zero. Math functions are available to ordinary bindings whenever convert is
+installed. Random uses independently implemented uint32 LCG
+`seed = (1664525 * seed + 1013904223) mod 2^32`, output seed/2^32; the stream is shared per player in authored evaluation order, while sites/bindings cache separately.
 `always` advances on evaluation, `once` caches per site, `on-change` invalidates when the incoming
 value changes under Object.is. Repeated evaluation of unchanged input retains the cached value.
 
@@ -53,17 +65,19 @@ Diagnostics: `convert-unknown-type`, `convert-options`, `convert-type`, `convert
 
 AniML adapter: `convertMarkup.rootChild` accepts `<converter name="pct" type="range" from="0 1"
 to="0 100"/>` and `<converter-group name="fmt" chain="pct round label"/>`.
-The temporary tooling adapter composes these forms and decompiler definitions into the existing
-events compiler object. Browser registration installs the composed object under the events slot.
-This guarded composition does not enter the base browser compiler. Replace it with the generic
-data hook at integration. Both forms round-trip through the normal compiler/decompiler.
-JSON converter declarations validate and appear in generated schema/CLI.
+The generated `convertCompiler` hook supplies declaration compilation/decompilation independently
+of events/data authoring. Browser `markup-convert` registers the `convert` slot. JSON declarations,
+AniML, CLI schema/inspect and `anima docs convert` use the same metadata and module chapter.
 
-Scope limits: named `convert` bindings, `$` formula operands, scheduling,
-and host integration await the data module. Scripted converter execution belongs to P9 (sandboxed
-scripting), not this module. Color HSL markers, direction-aware reverse conversion, easing on
-interpolation/range, model instance list retention, and named/sequential template args remain
-parity gaps; current behavior must not be promoted as equivalent for those broader rows.
+Remaining parity limits: HSL component-format markers; retained model-instance list creation;
+trigger-counter delivery into a trigger destination; scripted conversion (P9). Their canonical
+probes retain precise `todo.json` reasons. Existing scalar/index-list/boolean conversion functions
+are useful independently but do not complete those broader rows. See ROWS.json and REPORT.md.
+
+Native comparisons retain findings: binary32 rounding/unit precision; boolean text spelling;
+an authorable enum converter that supplies no observed numeric output; lazy native interpolation
+initialization and channel rounding. Anima follows the semantics above. Parent decisions remain
+open; none of these observations is promoted to a passing comparison or hidden by a tolerance.
 
 Algorithms are independently implemented from standard arithmetic and ECMAScript functions.
 No Rive source or .riv files were read; no CLI documentation text was copied. The registry design follows

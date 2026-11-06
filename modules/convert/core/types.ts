@@ -5,6 +5,12 @@ export interface ConverterContext {
   /** Absolute player time in milliseconds. */
   time: number;
   seed?: number;
+  state: Map<unknown, unknown>;
+  get?: (path: string) => unknown;
+  direction?: 'forward' | 'reverse';
+  active?: () => void;
+  randomState?: Map<unknown, unknown>;
+  options?: ConverterOptions;
   /** Stable binding identity; separates uses of the same named converter. */
   key?: string;
   values?: ReadonlyMap<string, number | boolean>;

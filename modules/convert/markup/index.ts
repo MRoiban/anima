@@ -32,7 +32,13 @@ export const convertMarkup = {
               .map((v) => (shape?.k === 'tup' ? Number(v) : v))
           : c.read(
               attr,
-              shape?.k === 'num' ? 'number' : shape?.k === 'bool' ? 'boolean' : 'string',
+              shape?.k === 'num' || (key === 'operand' && !attr.value.startsWith('$'))
+                ? 'number'
+                : shape?.k === 'bool'
+                  ? 'boolean'
+                  : shape?.k === 'any'
+                    ? 'json'
+                    : 'string',
               ptr(pointer, key),
             );
     }
@@ -41,43 +47,34 @@ export const convertMarkup = {
   },
 };
 
-// Temporary composition adapter until the data module owns the generic root hook.
-// Existing event behavior is retained, including its decompiler definitions.
-import { VERBOSE } from '../../../packages/core/src/flags.ts';
-import { eventsMarkup } from '../../events/markup/index.ts';
+import type { Form } from '../../../packages/markup/src/compile.ts';
 import type { LayoutElement } from '../../../packages/markup/src/layout.ts';
-const base = { ...eventsMarkup };
-const rootChild = convertMarkup.rootChild;
 export const converterCompiler = {
-  ...eventsMarkup,
-  form(el: Element, form: Parameters<typeof eventsMarkup.form>[1]) {
-    const result = base.form(el, form);
+  ...convertMarkup,
+  form(el: Element, base: Form): Form {
     return el.name === 'anima' || el.name === 'component'
-      ? { ...result, children: [...(result.children ?? []), 'converter', 'converter-group'] }
-      : result;
-  },
-  rootChild(c: Compiler, el: Element, o: Record<string, unknown>, p: string) {
-    return rootChild(c, el, o, p) || base.rootChild(c, el, o, p);
+      ? { ...base, children: [...(base.children ?? []), 'converter', 'converter-group'] }
+      : base;
   },
   definitions(d: Record<string, unknown>): LayoutElement[] {
-    return [
-      ...base.definitions(d),
-      ...Object.entries((d.converters ?? {}) as Record<string, Record<string, unknown>>)
-        .filter(([name]) => name !== '$comment')
-        .map(([name, def]): LayoutElement => ({
-          name: 'chain' in def ? 'converter-group' : 'converter',
-          attrs: [
-            ['name', name],
-            ...Object.entries(def)
-              .filter(([key]) => key !== '$comment')
-              .map(([key, value]): [string, string] => [
-                key,
-                Array.isArray(value) ? value.join(' ') : String(value),
-              ]),
-          ],
-          children: [],
-        })),
-    ];
+    return Object.entries((d.converters ?? {}) as Record<string, Record<string, unknown>>)
+      .filter(([name]) => name !== '$comment')
+      .map(([name, def]) => ({
+        name: 'chain' in def ? 'converter-group' : 'converter',
+        attrs: [
+          ['name', name],
+          ...Object.entries(def)
+            .filter(([key]) => key !== '$comment')
+            .map(([key, value]): [string, string] => [
+              key,
+              options[key]?.k === 'any'
+                ? JSON.stringify(value)
+                : Array.isArray(value)
+                  ? value.join(' ')
+                  : String(value),
+            ]),
+        ] as [string, string][],
+        children: [],
+      }));
   },
 };
-if (VERBOSE) Object.assign(eventsMarkup, converterCompiler);

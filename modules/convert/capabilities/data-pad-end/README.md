@@ -1,9 +1,9 @@
-# data.pad-end
+# data-pad-end
 
-Pure converter implementation and tables are present; canonical player integration evidence remains pending.
+Conformance: complete; native evidence: verified.
 
-Implementation: `modules/convert/core/`; shared diagnostics and input/output tables:
-`modules/convert/test/core/convert.test.ts`; captured observations:
-`modules/convert/test/core/oracle.test.ts`; normative behavior: `modules/convert/SPEC.md`.
+Canonical Player-step vector plus exact native observation bridge.
 
-Parity status is unchanged. The matching conformance/oracle todo markers are intentional.
+Implementation: `modules/convert/core/`; normative behavior: `modules/convert/SPEC.md`.
+Probe: `spec/conformance/data-pad-end/`; native evidence: `tests/oracle/data-pad-end/`.
+Parity status is unchanged. Full integration results: `modules/convert/REPORT.md`.

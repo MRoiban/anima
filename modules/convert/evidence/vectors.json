@@ -1,0 +1,664 @@
+[
+  {
+    "name": "data-calculate-acosine",
+    "type": "calculate",
+    "value": 1,
+    "options": {
+      "operation": "acosine",
+      "operand": 1
+    },
+    "expected": 0,
+    "native": "<DataConverterOperationValue id=\"0:80\" operationType=\"acosine\" operationValue=\"1\"/>"
+  },
+  {
+    "name": "data-formula-function-acosine",
+    "type": "formula",
+    "value": 1,
+    "options": {
+      "expression": "acosine(value)"
+    },
+    "expected": 0,
+    "native": "<DataConverterFormula id=\"0:80\"><FormulaTokenFunction functionType=\"acosine\"/><FormulaTokenInput/><FormulaTokenParenthesisClose/></DataConverterFormula>"
+  },
+  {
+    "name": "data-calculate-asine",
+    "type": "calculate",
+    "value": 0,
+    "options": {
+      "operation": "asine",
+      "operand": 1
+    },
+    "expected": 0,
+    "native": "<DataConverterOperationValue id=\"0:80\" operationType=\"asine\" operationValue=\"1\"/>"
+  },
+  {
+    "name": "data-formula-function-asine",
+    "type": "formula",
+    "value": 0,
+    "options": {
+      "expression": "asine(value)"
+    },
+    "expected": 0,
+    "native": "<DataConverterFormula id=\"0:80\"><FormulaTokenFunction functionType=\"asine\"/><FormulaTokenInput/><FormulaTokenParenthesisClose/></DataConverterFormula>"
+  },
+  {
+    "name": "data-calculate-atangent",
+    "type": "calculate",
+    "value": 0,
+    "options": {
+      "operation": "atangent",
+      "operand": 1
+    },
+    "expected": 0,
+    "native": "<DataConverterOperationValue id=\"0:80\" operationType=\"atangent\" operationValue=\"1\"/>"
+  },
+  {
+    "name": "data-formula-function-atangent",
+    "type": "formula",
+    "value": 0,
+    "options": {
+      "expression": "atangent(value)"
+    },
+    "expected": 0,
+    "native": "<DataConverterFormula id=\"0:80\"><FormulaTokenFunction functionType=\"atangent\"/><FormulaTokenInput/><FormulaTokenParenthesisClose/></DataConverterFormula>"
+  },
+  {
+    "name": "data-calculate-atangent2",
+    "type": "calculate",
+    "value": 0,
+    "options": {
+      "operation": "atangent2",
+      "operand": 1
+    },
+    "expected": 0,
+    "native": "<DataConverterOperationValue id=\"0:80\" operationType=\"atangent2\" operationValue=\"1\"/>"
+  },
+  {
+    "name": "data-formula-function-atangent2",
+    "type": "formula",
+    "value": 0,
+    "options": {
+      "expression": "atangent2(value, 1)"
+    },
+    "expected": 0,
+    "native": "<DataConverterFormula id=\"0:80\"><FormulaTokenFunction functionType=\"atangent2\"/><FormulaTokenInput/><FormulaTokenArgumentSeparator/><FormulaTokenValue operationValue=\"1\"/><FormulaTokenParenthesisClose/></DataConverterFormula>"
+  },
+  {
+    "name": "data-calculate-ceil",
+    "type": "calculate",
+    "value": 2.25,
+    "options": {
+      "operation": "ceil",
+      "operand": 1
+    },
+    "expected": 3,
+    "native": "<DataConverterOperationValue id=\"0:80\" operationType=\"ceil\" operationValue=\"1\"/>"
+  },
+  {
+    "name": "data-formula-function-ceil",
+    "type": "formula",
+    "value": 2.25,
+    "options": {
+      "expression": "ceil(value)"
+    },
+    "expected": 3,
+    "native": "<DataConverterFormula id=\"0:80\"><FormulaTokenFunction functionType=\"ceil\"/><FormulaTokenInput/><FormulaTokenParenthesisClose/></DataConverterFormula>"
+  },
+  {
+    "name": "data-calculate-cosine",
+    "type": "calculate",
+    "value": 0,
+    "options": {
+      "operation": "cosine",
+      "operand": 1
+    },
+    "expected": 1,
+    "native": "<DataConverterOperationValue id=\"0:80\" operationType=\"cosine\" operationValue=\"1\"/>"
+  },
+  {
+    "name": "data-formula-function-cosine",
+    "type": "formula",
+    "value": 0,
+    "options": {
+      "expression": "cosine(value)"
+    },
+    "expected": 1,
+    "native": "<DataConverterFormula id=\"0:80\"><FormulaTokenFunction functionType=\"cosine\"/><FormulaTokenInput/><FormulaTokenParenthesisClose/></DataConverterFormula>"
+  },
+  {
+    "name": "data-calculate-exp",
+    "type": "calculate",
+    "value": 0,
+    "options": {
+      "operation": "exp",
+      "operand": 1
+    },
+    "expected": 1,
+    "native": "<DataConverterOperationValue id=\"0:80\" operationType=\"exp\" operationValue=\"1\"/>"
+  },
+  {
+    "name": "data-formula-function-exp",
+    "type": "formula",
+    "value": 0,
+    "options": {
+      "expression": "exp(value)"
+    },
+    "expected": 1,
+    "native": "<DataConverterFormula id=\"0:80\"><FormulaTokenFunction functionType=\"exp\"/><FormulaTokenInput/><FormulaTokenParenthesisClose/></DataConverterFormula>"
+  },
+  {
+    "name": "data-calculate-floor",
+    "type": "calculate",
+    "value": 2.75,
+    "options": {
+      "operation": "floor",
+      "operand": 1
+    },
+    "expected": 2,
+    "native": "<DataConverterOperationValue id=\"0:80\" operationType=\"floor\" operationValue=\"1\"/>"
+  },
+  {
+    "name": "data-formula-function-floor",
+    "type": "formula",
+    "value": 2.75,
+    "options": {
+      "expression": "floor(value)"
+    },
+    "expected": 2,
+    "native": "<DataConverterFormula id=\"0:80\"><FormulaTokenFunction functionType=\"floor\"/><FormulaTokenInput/><FormulaTokenParenthesisClose/></DataConverterFormula>"
+  },
+  {
+    "name": "data-calculate-log",
+    "type": "calculate",
+    "value": 1,
+    "options": {
+      "operation": "log",
+      "operand": 1
+    },
+    "expected": 0,
+    "native": "<DataConverterOperationValue id=\"0:80\" operationType=\"log\" operationValue=\"1\"/>"
+  },
+  {
+    "name": "data-formula-function-log",
+    "type": "formula",
+    "value": 1,
+    "options": {
+      "expression": "log(value)"
+    },
+    "expected": 0,
+    "native": "<DataConverterFormula id=\"0:80\"><FormulaTokenFunction functionType=\"log\"/><FormulaTokenInput/><FormulaTokenParenthesisClose/></DataConverterFormula>"
+  },
+  {
+    "name": "data-calculate-modulo",
+    "type": "calculate",
+    "value": 5,
+    "options": {
+      "operation": "modulo",
+      "operand": 2
+    },
+    "expected": 1,
+    "native": "<DataConverterOperationValue id=\"0:80\" operationType=\"modulo\" operationValue=\"2\"/>"
+  },
+  {
+    "name": "data-formula-operator-modulo",
+    "type": "formula",
+    "value": 5,
+    "options": {
+      "expression": "mod(value, 2)"
+    },
+    "expected": 1,
+    "native": "<DataConverterFormula id=\"0:80\"><FormulaTokenInput/><FormulaTokenOperation operationType=\"modulo\"/><FormulaTokenValue operationValue=\"2\"/></DataConverterFormula>"
+  },
+  {
+    "name": "data-calculate-power",
+    "type": "calculate",
+    "value": 3,
+    "options": {
+      "operation": "power",
+      "operand": 2
+    },
+    "expected": 9,
+    "native": "<DataConverterOperationValue id=\"0:80\" operationType=\"power\" operationValue=\"2\"/>"
+  },
+  {
+    "name": "data-formula-function-pow",
+    "type": "formula",
+    "value": 3,
+    "options": {
+      "expression": "pow(value, 2)"
+    },
+    "expected": 9,
+    "native": "<DataConverterFormula id=\"0:80\"><FormulaTokenFunction functionType=\"pow\"/><FormulaTokenInput/><FormulaTokenArgumentSeparator/><FormulaTokenValue operationValue=\"2\"/><FormulaTokenParenthesisClose/></DataConverterFormula>"
+  },
+  {
+    "name": "data-calculate-round",
+    "type": "calculate",
+    "value": 2.25,
+    "options": {
+      "operation": "round",
+      "operand": 1
+    },
+    "expected": 2,
+    "native": "<DataConverterOperationValue id=\"0:80\" operationType=\"round\" operationValue=\"1\"/>"
+  },
+  {
+    "name": "data-formula-function-round",
+    "type": "formula",
+    "value": 2.25,
+    "options": {
+      "expression": "round(value)"
+    },
+    "expected": 2,
+    "native": "<DataConverterFormula id=\"0:80\"><FormulaTokenFunction functionType=\"round\"/><FormulaTokenInput/><FormulaTokenParenthesisClose/></DataConverterFormula>"
+  },
+  {
+    "name": "data-calculate-sine",
+    "type": "calculate",
+    "value": 0,
+    "options": {
+      "operation": "sine",
+      "operand": 1
+    },
+    "expected": 0,
+    "native": "<DataConverterOperationValue id=\"0:80\" operationType=\"sine\" operationValue=\"1\"/>"
+  },
+  {
+    "name": "data-formula-function-sine",
+    "type": "formula",
+    "value": 0,
+    "options": {
+      "expression": "sine(value)"
+    },
+    "expected": 0,
+    "native": "<DataConverterFormula id=\"0:80\"><FormulaTokenFunction functionType=\"sine\"/><FormulaTokenInput/><FormulaTokenParenthesisClose/></DataConverterFormula>"
+  },
+  {
+    "name": "data-calculate-squareroot",
+    "type": "calculate",
+    "value": 9,
+    "options": {
+      "operation": "squareRoot",
+      "operand": 1
+    },
+    "expected": 3,
+    "native": "<DataConverterOperationValue id=\"0:80\" operationType=\"squareRoot\" operationValue=\"1\"/>"
+  },
+  {
+    "name": "data-formula-function-sqrt",
+    "type": "formula",
+    "value": 9,
+    "options": {
+      "expression": "sqrt(value)"
+    },
+    "expected": 3,
+    "native": "<DataConverterFormula id=\"0:80\"><FormulaTokenFunction functionType=\"sqrt\"/><FormulaTokenInput/><FormulaTokenParenthesisClose/></DataConverterFormula>"
+  },
+  {
+    "name": "data-calculate-tangent",
+    "type": "calculate",
+    "value": 0,
+    "options": {
+      "operation": "tangent",
+      "operand": 1
+    },
+    "expected": 0,
+    "native": "<DataConverterOperationValue id=\"0:80\" operationType=\"tangent\" operationValue=\"1\"/>"
+  },
+  {
+    "name": "data-formula-function-tangent",
+    "type": "formula",
+    "value": 0,
+    "options": {
+      "expression": "tangent(value)"
+    },
+    "expected": 0,
+    "native": "<DataConverterFormula id=\"0:80\"><FormulaTokenFunction functionType=\"tangent\"/><FormulaTokenInput/><FormulaTokenParenthesisClose/></DataConverterFormula>"
+  },
+  {
+    "name": "data-converter-boolean-negate",
+    "type": "negate",
+    "value": true,
+    "options": {},
+    "expected": false,
+    "native": "<DataConverterBooleanNegate id=\"0:80\"/>"
+  },
+  {
+    "name": "data-converter-rounder",
+    "type": "round",
+    "value": 2.345,
+    "options": {
+      "decimals": 2
+    },
+    "expected": 2.35,
+    "native": "<DataConverterRounder id=\"0:80\" decimals=\"2\"/>"
+  },
+  {
+    "name": "data-converter-number-formatting",
+    "type": "number-format",
+    "value": 2.5,
+    "options": {
+      "decimals": 2
+    },
+    "expected": "2.50",
+    "native": "<DataConverterToString id=\"0:80\" decimals=\"2\" round=\"true\"/>"
+  },
+  {
+    "name": "data-converter-string-remove-zeros",
+    "type": "remove-zeros",
+    "value": "2.3000",
+    "options": {},
+    "expected": "2.3",
+    "native": "<DataConverterStringRemoveZeros id=\"0:80\"/>"
+  },
+  {
+    "name": "data-converter-to-number",
+    "type": "to-number",
+    "value": "2.5",
+    "options": {},
+    "expected": 2.5,
+    "native": "<DataConverterToNumber id=\"0:80\"/>"
+  },
+  {
+    "name": "data-converter-to-string",
+    "type": "to-string",
+    "value": true,
+    "options": {},
+    "expected": "true",
+    "native": "<DataConverterToString id=\"0:80\"/>"
+  },
+  {
+    "name": "data-converter-enum-to-uint",
+    "type": "enum-to-index",
+    "value": "happy",
+    "options": {
+      "values": ["calm", "happy"]
+    },
+    "expected": 1,
+    "native": "<DataConverterEnumToUint id=\"0:80\"/>",
+    "enum": true
+  },
+  {
+    "name": "data-converter-list-to-length",
+    "type": "list-length",
+    "value": null,
+    "options": {},
+    "expected": 2,
+    "native": "<DataConverterListToLength id=\"0:80\"/>",
+    "list": true
+  },
+  {
+    "name": "data-converter-range-mapper",
+    "type": "range",
+    "value": 0.25,
+    "options": {
+      "to": [0, 100],
+      "ease": "linear"
+    },
+    "expected": 25,
+    "native": "<DataConverterRangeMapper id=\"0:80\" minInput=\"0\" maxInput=\"1\" minOutput=\"0\" maxOutput=\"100\"/>"
+  },
+  {
+    "name": "data-range-modulo",
+    "type": "range",
+    "value": 1.25,
+    "options": {
+      "to": [0, 100],
+      "modulo": true
+    },
+    "expected": 25,
+    "native": "<DataConverterRangeMapper id=\"0:80\" minInput=\"0\" maxInput=\"1\" minOutput=\"0\" maxOutput=\"100\" modulo=\"true\"/>"
+  },
+  {
+    "name": "data-range-reverse",
+    "type": "range",
+    "value": 0.25,
+    "options": {
+      "to": [0, 100],
+      "reverse": true
+    },
+    "expected": 75,
+    "native": "<DataConverterRangeMapper id=\"0:80\" minInput=\"0\" maxInput=\"1\" minOutput=\"0\" maxOutput=\"100\" reverse=\"true\"/>"
+  },
+  {
+    "name": "data-converter-group",
+    "type": "group",
+    "value": 0.126,
+    "options": {},
+    "expected": 13,
+    "native": "<DataConverterRangeMapper id=\"0:81\" minInput=\"0\" maxInput=\"1\" minOutput=\"0\" maxOutput=\"100\"/><DataConverterRounder id=\"0:82\"/><DataConverterGroup id=\"0:80\"><DataConverterGroupItem converterId=\"0:81\"/><DataConverterGroupItem converterId=\"0:82\"/></DataConverterGroup>"
+  },
+  {
+    "name": "convert-model-operand",
+    "type": "calculate",
+    "value": 4,
+    "options": {
+      "operation": "multiply",
+      "operand": "$bonus"
+    },
+    "expected": 12,
+    "native": "<DataConverterOperationViewModel id=\"0:80\" operationType=\"multiply\" sourcePathIds=\"0:40-0:44\"/>",
+    "bonus": 3
+  },
+  {
+    "name": "data-bind-converter-options",
+    "type": "calculate",
+    "value": 4,
+    "options": {
+      "operation": "multiply",
+      "operand": 1
+    },
+    "expected": 12,
+    "native": "<DataConverterOperationViewModel id=\"0:80\" operationType=\"multiply\" sourcePathIds=\"0:40-0:44\"/>",
+    "bonus": 3,
+    "bindingOptions": {
+      "operand": "$bonus"
+    }
+  },
+  {
+    "name": "data-trim-none",
+    "type": "trim",
+    "value": "  x  ",
+    "options": {
+      "mode": "none"
+    },
+    "expected": "  x  ",
+    "native": "<DataConverterStringTrim id=\"0:80\" trimType=\"none\"/>"
+  },
+  {
+    "name": "data-trim-start",
+    "type": "trim",
+    "value": "  x  ",
+    "options": {
+      "mode": "start"
+    },
+    "expected": "x  ",
+    "native": "<DataConverterStringTrim id=\"0:80\" trimType=\"start\"/>"
+  },
+  {
+    "name": "data-trim-end",
+    "type": "trim",
+    "value": "  x  ",
+    "options": {
+      "mode": "end"
+    },
+    "expected": "  x",
+    "native": "<DataConverterStringTrim id=\"0:80\" trimType=\"end\"/>"
+  },
+  {
+    "name": "data-trim-all",
+    "type": "trim",
+    "value": "  x  ",
+    "options": {
+      "mode": "all"
+    },
+    "expected": "x",
+    "native": "<DataConverterStringTrim id=\"0:80\" trimType=\"all\"/>"
+  },
+  {
+    "name": "data-pad-start",
+    "type": "pad",
+    "value": "7",
+    "options": {
+      "side": "start",
+      "length": 3,
+      "fill": "0"
+    },
+    "expected": "007",
+    "native": "<DataConverterStringPad id=\"0:80\" padType=\"start\" length=\"3\" text=\"0\"/>"
+  },
+  {
+    "name": "data-pad-end",
+    "type": "pad",
+    "value": "7",
+    "options": {
+      "side": "end",
+      "length": 3,
+      "fill": "0"
+    },
+    "expected": "700",
+    "native": "<DataConverterStringPad id=\"0:80\" padType=\"end\" length=\"3\" text=\"0\"/>"
+  },
+  {
+    "name": "data-formula-function-random",
+    "type": "formula",
+    "value": 1,
+    "options": {
+      "expression": "random()",
+      "random": "once"
+    },
+    "expected": 0.23645552527159452,
+    "native": null,
+    "skip": "Native random has no exposed seed matching Anima\u2019s specified uint32 LCG; direct sample equality is not a faithful counterpart. Anima sequence/policy/isolation are independently tested."
+  },
+  {
+    "name": "data-formula-random-always",
+    "type": "formula",
+    "value": 1,
+    "options": {
+      "expression": "random()",
+      "random": "always"
+    },
+    "expected": 0.23645552527159452,
+    "native": null,
+    "skip": "Native random has no exposed seed matching Anima\u2019s specified uint32 LCG; direct sample equality is not a faithful counterpart. Anima sequence/policy/isolation are independently tested."
+  },
+  {
+    "name": "data-formula-random-once",
+    "type": "formula",
+    "value": 1,
+    "options": {
+      "expression": "random()",
+      "random": "once"
+    },
+    "expected": 0.23645552527159452,
+    "native": null,
+    "skip": "Native random has no exposed seed matching Anima\u2019s specified uint32 LCG; direct sample equality is not a faithful counterpart. Anima sequence/policy/isolation are independently tested."
+  },
+  {
+    "name": "data-formula-random-source-change",
+    "type": "formula",
+    "value": 1,
+    "options": {
+      "expression": "random()",
+      "random": "on-change"
+    },
+    "expected": 0.23645552527159452,
+    "native": null,
+    "skip": "Native random has no exposed seed matching Anima\u2019s specified uint32 LCG; direct sample equality is not a faithful counterpart. Anima sequence/policy/isolation are independently tested."
+  },
+  {
+    "name": "data-converter-system-degs-to-rads",
+    "type": "degrees-to-radians",
+    "value": 180,
+    "options": {},
+    "expected": 3.141592653589793,
+    "native": "<DataConverterSystemDegsToRads id=\"0:80\" operationType=\"multiply\" operationValue=\"0.017453292519943295\"/>"
+  },
+  {
+    "name": "data-converter-system-normalizer",
+    "type": "normalize",
+    "value": 25,
+    "options": {
+      "from": [0, 100]
+    },
+    "expected": 0.25,
+    "native": "<DataConverterSystemNormalizer id=\"0:80\" operationType=\"multiply\" operationValue=\"0.01\"/>"
+  },
+  {
+    "name": "data-converter-string-template",
+    "type": "template",
+    "value": 12,
+    "options": {
+      "text": "{points} pts",
+      "args": {
+        "points": "$bonus"
+      }
+    },
+    "expected": "12 pts",
+    "native": "<DataConverterStringTemplate id=\"0:80\"><StringTemplateArgumentNumber name=\"points\" order=\"a0\"><DataBindContext sourcePathIds=\"0:40-0:44\" propertyKey=\"483\"/></StringTemplateArgumentNumber></DataConverterStringTemplate>",
+    "bonus": 12,
+    "nativeInput": "${points} pts"
+  },
+  {
+    "name": "data-converter-template-delimiters",
+    "type": "template",
+    "value": 12,
+    "options": {
+      "text": "[[points]] pts",
+      "args": {
+        "points": "$bonus"
+      },
+      "open": "[[",
+      "close": "]]"
+    },
+    "expected": "12 pts",
+    "native": "<DataConverterStringTemplate id=\"0:80\" openDelimiter=\"[[\" closeDelimiter=\"]]\"><StringTemplateArgumentNumber name=\"points\" order=\"a0\"><DataBindContext sourcePathIds=\"0:40-0:44\" propertyKey=\"483\"/></StringTemplateArgumentNumber></DataConverterStringTemplate>",
+    "bonus": 12,
+    "nativeInput": "[[points]] pts"
+  },
+  {
+    "name": "data-converter-template-number-formatting",
+    "type": "template",
+    "value": 1234.5,
+    "options": {
+      "text": "{points:2:8}",
+      "args": {
+        "points": "$bonus"
+      }
+    },
+    "expected": " 1234.50",
+    "native": "<DataConverterStringTemplate id=\"0:80\"><StringTemplateArgumentNumber name=\"points\" order=\"a0\"><DataBindContext sourcePathIds=\"0:40-0:44\" propertyKey=\"483\"/></StringTemplateArgumentNumber></DataConverterStringTemplate>",
+    "bonus": 1234.5,
+    "nativeInput": "${points:.2f}"
+  },
+  {
+    "name": "data-template-argument-number",
+    "type": "template",
+    "value": 12,
+    "options": {
+      "text": "{points}",
+      "args": {
+        "points": "$bonus"
+      }
+    },
+    "expected": "12",
+    "native": "<DataConverterStringTemplate id=\"0:80\"><StringTemplateArgumentNumber name=\"points\" order=\"a0\"><DataBindContext sourcePathIds=\"0:40-0:44\" propertyKey=\"483\"/></StringTemplateArgumentNumber></DataConverterStringTemplate>",
+    "bonus": 12,
+    "nativeInput": "${points}"
+  },
+  {
+    "name": "data-template-argument-string",
+    "type": "template",
+    "value": "Ada",
+    "options": {
+      "text": "{points}",
+      "args": {
+        "points": "$bonus"
+      }
+    },
+    "expected": "Ada",
+    "native": "<DataConverterStringTemplate id=\"0:80\"><StringTemplateArgumentString name=\"points\" order=\"a0\"><DataBindContext sourcePathIds=\"0:40-0:44\" propertyKey=\"482\"/></StringTemplateArgumentString></DataConverterStringTemplate>",
+    "bonus": "Ada",
+    "nativeInput": "${points}"
+  }
+]

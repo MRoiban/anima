@@ -1,0 +1,6 @@
+{
+  "status": "skip",
+  "reason": "Native random has no exposed seed matching Anima\u2019s specified uint32 LCG; direct sample equality is not a faithful counterpart. Anima sequence/policy/isolation are independently tested.",
+  "tests": ["spec/conformance/data-formula-random-always"],
+  "captureEvidence": ["modules/convert/oracle/random-schema.txt"]
+}

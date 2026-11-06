@@ -1,0 +1,15 @@
+advance 0
+data-dump tests/oracle/data-interpolate-number/rive/raw-0.json
+data value=10
+advance 0
+data-dump tests/oracle/data-interpolate-number/rive/raw-1.json
+advance 50ms
+data-dump tests/oracle/data-interpolate-number/rive/raw-2.json
+data value=20
+advance 0
+data-dump tests/oracle/data-interpolate-number/rive/raw-3.json
+advance 50ms
+data-dump tests/oracle/data-interpolate-number/rive/raw-4.json
+advance 50ms
+data-dump tests/oracle/data-interpolate-number/rive/raw-5.json
+quit

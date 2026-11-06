@@ -1,9 +1,9 @@
-# data.interpolate-color
+# data-interpolate-color
 
-Pure converter implementation and tables are present; canonical player integration evidence remains pending.
+Conformance: complete; native evidence: finding.
 
-Implementation: `modules/convert/core/`; shared diagnostics and input/output tables:
-`modules/convert/test/core/convert.test.ts`; captured observations:
-`modules/convert/test/core/oracle.test.ts`; normative behavior: `modules/convert/SPEC.md`.
+Native initializes lazily on the first non-default change, returning the changed value immediately; Anima initializes eagerly on first evaluation. Native trace ['#000000', '#ffffff', '#ffffff', '#ffffff', '#7f7f7f', '#000000']. Independently specified Anima trace ['#000000', '#000000', '#808080', '#808080', '#404040', '#000000']. Parent decision remains open; numeric/channel differences are retained.
 
-Parity status is unchanged. The matching conformance/oracle todo markers are intentional.
+Implementation: `modules/convert/core/`; normative behavior: `modules/convert/SPEC.md`.
+Probe: `spec/conformance/data-interpolate-color/`; native evidence: `tests/oracle/data-interpolate-color/`.
+Parity status is unchanged. Full integration results: `modules/convert/REPORT.md`.

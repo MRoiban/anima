@@ -47,7 +47,8 @@ function recover(root: Element): Obj {
     const o = base(e);
     for (const [k, v] of Object.entries(attrs(e)))
       o[k] =
-        ['entry', 'exit', 'actions'].includes(k) && v.startsWith('{')
+        (['entry', 'exit', 'actions'].includes(k) && v.startsWith('{')) ||
+        (k === 'default' && (v.startsWith('[') || v.startsWith('{')))
           ? JSON.parse(v)
           : [
                 'global',
@@ -191,10 +192,28 @@ function recover(root: Element): Obj {
   const insert = (key: string, name: string, v: unknown) => (((d[key] ??= {}) as Obj)[name] = v);
   for (const el of elements(root)) {
     const a = attrs(el),
-      p = plain(el);
+      p = ['converter', 'converter-group'].includes(el.name) ? base(el) : plain(el);
     const name = a.name!;
     delete p.name;
-    if (el.name === 'model') {
+    if (el.name === 'converter' || el.name === 'converter-group') {
+      const converter = base(el);
+      for (const [key, value] of Object.entries(a)) {
+        if (key === 'name') continue;
+        converter[key] = ['from', 'to'].includes(key)
+          ? vector(value)
+          : ['chain', 'values'].includes(key)
+            ? value.split(/\s+/)
+            : ['clamp', 'modulo', 'reverse', 'grouping'].includes(key)
+              ? value === 'true'
+              : ['decimals', 'length', 'duration'].includes(key) ||
+                  (key === 'operand' && !value.startsWith('$'))
+                ? Number(value)
+                : ['args', 'item'].includes(key)
+                  ? JSON.parse(value)
+                  : value;
+      }
+      insert('converters', name, converter);
+    } else if (el.name === 'model') {
       const data = (d.data ??= {}) as Obj,
         models = (data.models ??= {}) as Obj,
         properties: Obj = {};
@@ -246,7 +265,13 @@ function recover(root: Element): Obj {
       );
     else if (el.name === 'bind') {
       const { target, ...spec } = a;
-      insert('bind', address(target!), Object.keys(spec).length === 1 ? a.value : spec);
+      insert(
+        'bind',
+        address(target!),
+        Object.keys(spec).length === 1
+          ? a.value
+          : { ...spec, ...(spec.options ? { options: JSON.parse(spec.options) } : {}) },
+      );
     } else if (NODE_ELEMENTS.includes(el.name)) (d.nodes as unknown[]).push(node(el));
     else if (el.name === 'meta')
       d.meta = {
@@ -455,6 +480,8 @@ function check(source: string | object) {
       ...NODE_ELEMENTS,
       'pose',
       'bind',
+      'converter',
+      'converter-group',
       'asset',
       'linearGradient',
       'radialGradient',

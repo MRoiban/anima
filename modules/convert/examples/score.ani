@@ -2,13 +2,7 @@
   "anima": "0.1",
   "name": "converted-score",
   "grid": 20,
-  "requires": ["bind", "convert"],
-  "inputs": {
-    "progress": {
-      "type": "number",
-      "default": 0.126
-    }
-  },
+  "requires": ["data", "bind", "convert"],
   "nodes": [
     {
       "id": "dot",
@@ -17,11 +11,33 @@
       "r": 1,
       "fill": {
         "color": "#000"
+      },
+      "properties": {
+        "label": ""
       }
     }
   ],
   "bind": {
-    "dot.x": "progress * 10"
+    "dot.x": {
+      "value": "$progress",
+      "convert": "pct"
+    },
+    "dot.properties.label": {
+      "value": "$progress",
+      "convert": "fmt"
+    }
+  },
+  "data": {
+    "models": {
+      "Score": {
+        "properties": {
+          "progress": {
+            "type": "number",
+            "default": 0.126
+          }
+        }
+      }
+    }
   },
   "converters": {
     "pct": {

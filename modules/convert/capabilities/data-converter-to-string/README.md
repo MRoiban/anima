@@ -1,9 +1,9 @@
-# data.converter-to-string
+# data-converter-to-string
 
-Pure converter implementation and tables are present; canonical player integration evidence remains pending.
+Conformance: complete; native evidence: finding.
 
-Implementation: `modules/convert/core/`; shared diagnostics and input/output tables:
-`modules/convert/test/core/convert.test.ts`; captured observations:
-`modules/convert/test/core/oracle.test.ts`; normative behavior: `modules/convert/SPEC.md`.
+Native observation '1'; independently specified Anima expectation 'true'. Native boolean-to-string uses a numeric spelling; Anima specifies ECMAScript String. Parent decision remains open.
 
-Parity status is unchanged. The matching conformance/oracle todo markers are intentional.
+Implementation: `modules/convert/core/`; normative behavior: `modules/convert/SPEC.md`.
+Probe: `spec/conformance/data-converter-to-string/`; native evidence: `tests/oracle/data-converter-to-string/`.
+Parity status is unchanged. Full integration results: `modules/convert/REPORT.md`.

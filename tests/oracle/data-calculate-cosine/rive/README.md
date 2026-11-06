@@ -1,1 +1,1 @@
-TODO: independently author a Rive scene and capture reference PNGs; do not read/convert .riv files.
+Self-authored native observation bridge; capture from the repository root with `~/.rive/bin/rive tests/oracle/data-calculate-cosine/rive --commands=tests/oracle/data-calculate-cosine/rive/commands.txt`. raw.json is unedited native output; observations.json maps result to dot.properties.result. No Anima values are used to create the reference.

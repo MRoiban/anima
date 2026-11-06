@@ -17,7 +17,11 @@ const outputs = new Map<string, ConverterValue>(
   ]),
 );
 it.each(inputs)('Rive data-dump observation: $name', (c) => {
-  const actual = convertValue(c.type, c.input, c.options, { player: {}, time: 0 });
+  const actual = convertValue(c.type, c.input, c.options, {
+    player: {},
+    time: 0,
+    state: new Map(),
+  });
   const expected = outputs.get(c.name);
   expect(expected).toBeDefined();
   if (typeof expected === 'number') expect(actual).toBeCloseTo(expected, 5);
