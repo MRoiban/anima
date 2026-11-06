@@ -1,11 +1,13 @@
 # Work log
 
 ## Now
-Goal: completed P4e derive/bind native oracle follow-up on t3/derive-bind-oracle-captures-1; local commit only.
-Verified: Rive 1.9.1, 9 exact cases/75 snapshots/186 typed values; read-only parity evidenced skip (native accepts writes).
-Checks: strict225 cases/419 samples exit0; scope2446 pass/367 filtered/15 TODO; Prettier/ESLint/typecheck pass; 18 old findings unchanged.
-Next: parent reviews/integrates local commit; no pending implementation work in this test-only follow-up.
-Don't: change runtime/oracle limits/parity statuses; no push/PR/merge; no prohibited Rive commands or binary files.
+Goal: hand off P5b-7 on t3/assets-media-conformance-fixes; no push/PR/merge.
+Implemented: explicit nearest clamp, Canvas filtering, decoded texel identity, opaque Blob build, one encoder browser/command.
+Evidence: all19 pending rows→precise native skips; 3 clamp cases exact0; retained bilinear/JPEG/JPG isolated to raster/decoder.
+Verified: oracle248/444 exit0; unit47/47, browsers20/20; size/perf and all6 static/artifact checks exit0.
+Failures: latest full5479pass/25TODO/1browser timeout; latest CLI199pass/1pivot timeout; limits unchanged.
+Next: parent integration review of inherited omitted-wrap/default-clamp gap and unresolved timeouts; see modules/assets/REPORT.md.
+Don't: change parity statuses/measurement tools/limits/other agents' modules; no publication/native binaries/docs.
 
 ## Log
 - 2026-11-06 16:59 [codex-test]: condensed oldest half of log per >200-line rule; M0–M4 established spec/CLI/web, PRs #1–6 merged; original 25 KB owner budget decision retained in docs (evidence: 1901923, 0defae8, 18f98ed, 591d0ce, 62cee1b).
@@ -156,3 +158,20 @@ Don't: change runtime/oracle limits/parity statuses; no push/PR/merge; no prohib
 
 - 2026-11-06 19:24 [assets]: committed P5b-3 partial implementation on t3/implement-assets-capabilities; 698 owned/generated/evidence files, clean staged whitespace; no push/PR/merge (evidence: git commit; modules/assets/REPORT.md).
 - 2026-11-06 [claude]: merged P5b-3 assets (partial: 12 native-passing rows, 6 findings, 19 pending; assets 2001/2048, media 2317/3072, paint 4557, paint-sampling 548/1024, markup 7913/8192) → full-featured 102,269 / 131,072 B. Seams: corpus count 373/399 → 408; assets browser pipeline test launched a browser per test (1–2 s inside 5 s) → one browser per engine in beforeAll, fresh context per test (Firefox 0.3–0.8 s). JPEG CLI test 185 ms idle; failed only when unit+browser ran together (CI runs them sequentially)
+
+- 2026-11-06 [assets-p5b7]: read work log/history/design/report/contracts; clamp margins are transparent in both renderers; npm ci restoring absent dependencies (unverified).
+
+- 2026-11-06 [assets-p5b7]: nearest clamp native probes now max0/over0; inspected-native geometry controls max0 for all three retained findings; ideal bilinear/native max2, native JPEG texels through Anima max1 (evidence: probes/sampling-controls.json).
+- 2026-11-06 [assets-p5b7]: genuine FLAC/MP3 conformance sources and native decode/trigger captures added; all19 pending oracle rows now precise skips with captured CLI limits; command browser reuse test15/15 CLI pass (evidence: /tmp/p5b7-cli5.txt, native-capabilities.json).
+- 2026-11-06 [assets-p5b7]: development failures: SVG crop CSS inherited full-size viewport, fixed inline sizing; Chromium FLAC positive PCM uses32767 denominator, exact per-engine expectation; stdin-file help rejected, replaced commands file; browser suite timeouts under simultaneous checks, investigating without raising limits (unverified).
+
+- 2026-11-06 [assets-p5b7]: strict oracle248/444 exit0, all245 old completed records unchanged; unit scope3285/25TODO exit0; static typecheck/ESLint/modules/AniML/web pass, Prettier caught regenerated summary JSON (fixed generator formatting). Perf under load16: bell104.9µs; no comparative regression claim (evidence: /tmp/p5b7-*final.txt).
+- 2026-11-06 [assets-p5b7]: fractional clamp probe exposed SVG/Canvas slice AA and SVG CSS viewport sizing; Canvas now sums isolated slice coverage, assets viewport gets inline authored dimensions. SVG pattern-of-pattern experiment regressed mirror28/32px and was reverted; source-edited full scope failed syntax during Firefox setup +5 stale-bundle timeouts (4406pass/1059skipped/25TODO). Rebuilding frozen artifacts and memoizing test bundle promises before final verification (unverified).
+
+- 2026-11-06 22:55 [assets-p5b7]: final review fixed texel/layout count confusion using private decoded-pixel metadata; viewport style seam moved to paint to preserve assets2028/2048, media2342, paint4598, sampler926, canvas5005, events3703; CLI/core45 pass and browser16 pass incl override in both engines/backends (evidence: /tmp/p5b7-pixel-*.txt).
+- 2026-11-06 22:55 [assets-p5b7]: fractional SVG probe max164/956px>16; independent inspected+authored native UV controls max0, no differences outside slice-coverage lines; retained as an additional measured raster finding, no threshold changes (evidence: fractional-clamp/measurements.json).
+- 2026-11-06 22:55 [assets-p5b7]: source-frozen scope5472 pass/25TODO/1 pivot timeout5643ms; isolated authoring51/51 pass; typecheck/ESLint/Prettier/modules/AniML/web all0 after pixel fix; final scope runs alone to avoid our earlier parallel-build contention (unverified).
+- 2026-11-06 23:48 [assets-p5b7]: resource-identity WeakMap prevents stale texel counts after replacement; separate assets/media orders pass both engines; Blob build preserves arbitrary bytes/MIME and omits audio duration; final targeted47unit/20browser pass (evidence: modules/assets/verification/p5b7/targeted-*.txt).
+- 2026-11-06 23:48 [assets-p5b7]: final static typecheck/ESLint/Prettier/modules/AniML451/web30 all0; sizes assets2031,media2346,paint4598,sampling926,canvas5005,events3703; strict248cases/444samples0; old245 cases/metrics and18 findings unchanged (evidence: verification/p5b7/results.json).
+- 2026-11-06 23:48 [assets-p5b7]: latest full5479pass/25TODO/1Chromium resolver timeout5003ms; final CLI199pass/1authoring pivot timeout5104ms; earlier full5474 green and isolated authoring51/51, pipeline20/20; recurring timeout cause unverified, no limits changed (evidence: verification/p5b7/*failed.txt).
+- 2026-11-06 23:48 [assets-p5b7]: all19 pending rows have evidenced skips, genuine FLAC/MP3 conformance complete; bilinear/native-data0, JPEG/JPG/native-texels1; fractionalSVG164/956over retained with two independent native-data controls0; report preserves inherited omitted-wrap compatibility gap for parent decision (evidence: modules/assets/REPORT.md).

@@ -608,11 +608,13 @@ The host resolves missing intrinsic dimensions before rendering; core draw data 
 override their axis independently. Fit and alignment first establish the fitted source rectangle.
 Clamp extends the edge texels outside the fitted source rectangle to the box boundary. Repeat
 tiles it in both directions; mirror reflects every odd tile, including negative tile indices.
-Implementation limitation: current clamp still draws the legacy fitted rectangle with transparent
-margins. The three clamp parity rows remain incomplete; this limitation does not redefine clamp. Width/height animation recomputes
-fit and pattern extent. `resize` is the `fill` alias: both axes stretch independently to the box.
+Implementation limitation: documents omitting all wrap controls retain the legacy fitted-image
+footprint; edge extension is currently implemented when at least one wrap control is authored.
+This remaining compatibility gap does not redefine default clamp. Width/height animation
+recomputes fit and pattern extent. Nearest clamp extends isolated edge texels on both backends,
+including mixed periodic/clamped axes and centred alignment. `resize` is the `fill` alias: both axes stretch independently to the box.
 The optional browser entry `@anima-format/web/paint-sampling` imports paint and installs SVG
-wrapping. The ordinary paint entry declines repeat/mirror with `unsupported-render` and an import
+wrapping. The ordinary paint entry declines explicit wrap controls with `unsupported-render` and an import
 hint; it does not bundle pattern code. CLI/static SVG includes the backend. SVG uses user-space patterns and transformed groups for
 reflected tiles, keeping transforms off
 image leaves. Canvas uses equivalent source tiles. Filtering remains nearest/bilinear as above;
@@ -620,6 +622,10 @@ SVG declines bilinear `repeat` with `unsupported-render` at the repeating axis, 
 independent image filtering, and a nearest/canvas hint. A native UV-mesh probe measured maximum
 channel delta 188 and 36,852/57,600 pixels above 16 before declining this combination (see
 modules/assets/probes/native-measurements.json). Nearest repeat and mirror pass crisp native probes.
+SVG also declines bilinear clamp when the fitted source leaves margins: stretching a clipped
+texel would interpolate adjacent colours rather than hold the edge colour. This reports
+`unsupported-render` at `/nodes/<index>/sampling` with a nearest/canvas hint. Canvas isolates and
+pads texels before filtering; it implements bilinear clamp and mixed-axis wrapping.
 GPU/rasterizer edge differences are not a claim of bit-identical rendering. Invalid wrap enums
 use the existing `bad-value` structural diagnostic at the authored property. No new player state is
 introduced. Both source syntax spellings and deterministic width tracks have conformance probes.
@@ -1011,7 +1017,9 @@ relative to the document). Optional `storage` is `embedded` for data URIs or `re
 for URLs; omitted storage is inferred. A disagreement is `asset-storage` at `/assets/<name>/storage`.
 `width` and `height`, when present, are positive intrinsic dimensions, in grid units for
 layout. Omitted dimensions are decoded by the host before drawing. Declared dimensions override
-decoded dimensions independently. Data URIs use percent encoding or padded standard base64;
+decoded dimensions independently. Decoded pixel counts remain separate host resource information;
+authored width/height change layout, never the texel count used for clamped edge cropping.
+Browser and CLI decoders supply these counts without adding a document field. Data URIs use percent encoding or padded standard base64;
 malformed encoding is `bad-data-uri` at the source. An empty source is `missing-source`;
 an absent source is `missing-key` at the asset object. Messages carry a repair hint.
 
@@ -1076,9 +1084,13 @@ read/truncation/decode errors are `asset-load`. Metadata `size`, `mime` and audi
 written from inspected bytes; clip bounds are checked against inspected duration. PNG/JPEG pixels
 are validated with resvg, WebP with cached Chromium. Audio inspection validates container/frame
 headers, not complete audio decoding; host decoding remains authoritative. Disk build never fetches
-network URLs. Build embedding is byte-preserving without `encode`. PNG encoding runs in-process;
+network URLs. Blob payloads remain opaque: their bytes are not decoded or container-validated,
+MIME comes from the declaration or URL hint (otherwise application/octet-stream), size is the
+byte length, and audio-only duration is never attached. Build embedding is byte-preserving without `encode`. PNG encoding runs in-process;
 WebP input needs Chromium to decode because resvg cannot decode WebP. JPEG/WebP encoding uses the
-cached headless Chromium canvas. Missing/unlaunchable Chromium is `build-encoder-unavailable` at
+cached headless Chromium canvas. A command owns one lazy browser shared by all images and HTML
+scripts; each operation closes its page and the command closes its browser on success or failure.
+PNG-only commands do not launch a browser unless they need WebP input decoding. Missing/unlaunchable Chromium is `build-encoder-unavailable` at
 `/assets/<name>/encode` (or `/source` for WebP validation), hinting `CHROMIUM_PATH`.
 `export=false` excludes bytes from embedding/encoding/inspection, preserving the source declaration
 and resolver name so references remain valid; the host supplies that source. An already embedded

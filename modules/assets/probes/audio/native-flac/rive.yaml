@@ -1,0 +1,4 @@
+name: p5b7-audio-flac
+logs:
+  file: build/rive.log
+  problems: build/problems.log

@@ -1,0 +1,16 @@
+{
+  "status": "skip",
+  "reason": "AudioAssetClip startSeconds/endSeconds are editor-only (present only with schema --all). Permitted headless commands expose triggers, not trimmed PCM. Cannot observe start/end playback offsets natively.",
+  "tests": [
+    "modules/assets/test/cli/pipeline.test.ts",
+    "modules/assets/test/web/pipeline.test.ts",
+    "modules/events/test/web/events.browser.test.ts"
+  ],
+  "captureEvidence": [
+    "modules/assets/probes/native-capabilities.json",
+    "modules/assets/probes/native-capabilities.ts",
+    "modules/assets/probes/audio/native-wav/session.txt",
+    "modules/assets/probes/audio/native-flac/session.txt",
+    "modules/assets/probes/audio/native-mp3/session.txt"
+  ]
+}

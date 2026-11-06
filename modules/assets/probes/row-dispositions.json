@@ -1,0 +1,78 @@
+{
+  "assets.audio": {
+    "status": "evidenced skip",
+    "reason": "native headless AudioEvent triggers for WAV/FLAC/MP3; no PCM or host playback output in the command vocabulary. Skips waveform/playback parity only, not native decode acceptance."
+  },
+  "assets.audio-clip": {
+    "status": "evidenced skip",
+    "reason": "AudioAssetClip startSeconds/endSeconds are editor-only (present only with schema --all). Permitted headless commands expose triggers, not trimmed PCM. Cannot observe start/end playback offsets natively."
+  },
+  "assets.audio-export-source": {
+    "status": "evidenced skip",
+    "reason": "exportFormatValue/exportQualityValue are editor-only and native local headless loading has no source-byte export command. Comparing exported encoded audio would require a prohibited publishing/binary route. Anima byte-preserving build is tested locally."
+  },
+  "assets.audio-import-flac": {
+    "status": "evidenced skip",
+    "reason": "Genuine FLAC builds with zero native errors and sound pulse: triggered. The permitted headless command vocabulary has no decoded PCM output; waveform parity skipped. Completed conformance + both-browser lossless PCM checks replace the earlier synthetic-only gap."
+  },
+  "assets.audio-import-mp3": {
+    "status": "evidenced skip",
+    "reason": "Genuine four-frame MPEG-2.5 source builds with zero native errors and sound pulse: triggered. Native decoded PCM is not output by permitted headless commands; waveform parity skipped. Completed conformance + both-browser 2304-sample decode checks cover Anima."
+  },
+  "assets.audio-import-wav": {
+    "status": "evidenced skip",
+    "reason": "Genuine 800-frame PCM WAV builds with zero native errors and sound pulse: triggered; no native waveform capture in permitted commands. Both-browser sample-exact host decoding is independent Anima evidence, not native PCM parity."
+  },
+  "assets.blob": {
+    "status": "evidenced skip",
+    "reason": "BlobAsset exists, but permitted headless commands expose data/semantics/pixels and no host asset byte getter or JavaScript ArrayBuffer. A script-side blob reader is a different API; native JS host-byte/cache lifetime parity cannot be observed."
+  },
+  "assets.cdn-disable": {
+    "status": "evidenced skip",
+    "reason": "Local native file loading exercises neither CDN requests nor enableRiveAssetCDN. No network/JS host-policy command exists in the captured vocabulary; local-data renders cannot evidence CDN suppression."
+  },
+  "assets.exclude-export": {
+    "status": "evidenced skip",
+    "reason": "Native exclusion controls editor export (excludeFromRev/contents), while all content remains in the headless scene; no byte-exclusion export command exists in the permitted route. Publishing/editor-revision or binary inspection would be required and is prohibited."
+  },
+  "assets.host-decode-audio": {
+    "status": "evidenced skip",
+    "reason": "AudioAsset native decode accepts genuine WAV/FLAC/MP3, but no JavaScript decodeAudio callback, decoded AudioBuffer or PCM output exists in permitted headless commands. Host decoding/cache-copy tests run in both browsers instead."
+  },
+  "assets.image-encoding-jpeg": {
+    "status": "evidenced skip",
+    "reason": "Native format=jpeg quality=0.1 is accepted as editor-only metadata, absent from runtime inspect, and produces identical unencoded-PNG pixels (max0/over0); it does not invoke a JPEG encoder. No faithful local encoding observation without prohibited publication/editor routes."
+  },
+  "assets.image-encoding-png": {
+    "status": "evidenced skip",
+    "reason": "Native format=png quality=0.1 remains editor-only, absent from runtime inspect; PNG source renders max0/over0 against unencoded source. This observes loading, not re-encoding/output bytes, which permitted commands do not expose."
+  },
+  "assets.image-encoding-webp": {
+    "status": "evidenced skip",
+    "reason": "Native format=webp quality=0.1 remains editor-only, absent from runtime inspect; output is unchanged from PNG (max0/over0). Local preview does not invoke WebP mutation/export, so it cannot verify encoding."
+  },
+  "assets.image-export-controls": {
+    "status": "evidenced skip",
+    "reason": "includeInExport/exportTypeValue and excludeFromRev concern export/byte placement. Headless pixels/inspect do not expose the exported byte stream; the required publication/editor-revision/binary route is prohibited. Anima built payload exclusion is locally tested."
+  },
+  "assets.metadata": {
+    "status": "evidenced skip",
+    "reason": "Native FileAsset runtime schema has name/id/CDN fields, not the detached arbitrary metadata/size/MIME info object delivered to a JavaScript resolver. No host callback observation exists in headless commands."
+  },
+  "assets.replacement-scope-image": {
+    "status": "evidenced skip",
+    "reason": "Headless commands have no JavaScript asset-loader replacement hook or per-icon resolver scope. Native image drawing is observable, but it cannot observe same-name replacements across independent host icons or callback metadata lifetime."
+  },
+  "host-api.asset-cdn-policy": {
+    "status": "evidenced skip",
+    "reason": "No JavaScript host or CDN-policy setter exists in the permitted command vocabulary; native file-backed loading cannot exercise cross-origin authorization or custom resolver bypass. Both-engine route/resolver tests cover Anima only."
+  },
+  "host-api.asset-loader": {
+    "status": "evidenced skip",
+    "reason": "No host asset-loader callback/returned URL/Blob promise exists in permitted commands. Native file loading cannot evidence resolver rejection, detachment or scoped replacement. Both-engine host tests cover these behaviors."
+  },
+  "host-api.asset-metadata": {
+    "status": "evidenced skip",
+    "reason": "Native FileAsset runtime schema and inspect do not expose JavaScript callback info or arbitrary nested metadata. Headless command results cannot observe detachment or mutation isolation of the host info object."
+  }
+}

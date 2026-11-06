@@ -2851,5 +2851,26 @@
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
+  },
+  {
+    "name": "assets-image-wrap-x-clamp",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "assets-image-wrap-y-clamp",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "drawing-paint-image-wrap-clamp",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
   }
 ]

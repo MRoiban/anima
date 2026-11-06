@@ -1,0 +1,16 @@
+{
+  "status": "skip",
+  "reason": "Genuine FLAC builds with zero native errors and sound pulse: triggered. The permitted headless command vocabulary has no decoded PCM output; waveform parity skipped. Completed conformance + both-browser lossless PCM checks replace the earlier synthetic-only gap.",
+  "tests": [
+    "modules/assets/test/cli/pipeline.test.ts",
+    "modules/assets/test/web/pipeline.test.ts",
+    "modules/events/test/web/events.browser.test.ts"
+  ],
+  "captureEvidence": [
+    "modules/assets/probes/native-capabilities.json",
+    "modules/assets/probes/native-capabilities.ts",
+    "modules/assets/probes/audio/native-wav/session.txt",
+    "modules/assets/probes/audio/native-flac/session.txt",
+    "modules/assets/probes/audio/native-mp3/session.txt"
+  ]
+}

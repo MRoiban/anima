@@ -1,4 +1,0 @@
-{
-  "status": "todo",
-  "reason": "Fresh native reference for assets.exclude-export is pending; runtime/CLI tests do not establish native equivalence."
-}

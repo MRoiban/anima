@@ -1,0 +1,16 @@
+{
+  "status": "skip",
+  "reason": "AudioAsset native decode accepts genuine WAV/FLAC/MP3, but no JavaScript decodeAudio callback, decoded AudioBuffer or PCM output exists in permitted headless commands. Host decoding/cache-copy tests run in both browsers instead.",
+  "tests": [
+    "modules/assets/test/cli/pipeline.test.ts",
+    "modules/assets/test/web/pipeline.test.ts",
+    "modules/events/test/web/events.browser.test.ts"
+  ],
+  "captureEvidence": [
+    "modules/assets/probes/native-capabilities.json",
+    "modules/assets/probes/native-capabilities.ts",
+    "modules/assets/probes/audio/native-wav/session.txt",
+    "modules/assets/probes/audio/native-flac/session.txt",
+    "modules/assets/probes/audio/native-mp3/session.txt"
+  ]
+}

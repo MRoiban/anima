@@ -1,3 +1,6 @@
+import { PNG } from 'pngjs';
+import { toPNG } from '../../../../packages/cli/src/render.ts';
+import { imagePixels, resolvedAssets, type Asset } from '../../core/index.ts';
 import '@anima-format/core/all';
 import { expect, it } from 'vitest';
 import { globSync, readFileSync } from 'node:fs';
@@ -104,4 +107,70 @@ it('keeps all 37 capability examples compiled and canonically formatted', () => 
     expect(result.text, file).toBe(readFileSync(file.replace(/\.animl$/, '.ani'), 'utf8'));
     expect(formatMarkup(source).text, file).toBe(source);
   }
+});
+
+it('declines SVG bilinear clamp extension with a complete diagnostic at the sampling field', () => {
+  const doc = compile(
+    xml.replace(
+      'fit="resize" sampling="nearest" wrap-x="mirror" wrap-y="repeat"',
+      'fit="none" sampling="bilinear" wrap="clamp"',
+    ),
+  ).doc!;
+  Object.assign((doc as { assets: Record<string, object> }).assets.photo!, { width: 2, height: 2 });
+  expect(() => toSVG(new Player(load(doc).model!))).toThrow(
+    expect.objectContaining({
+      code: 'unsupported-render',
+      pointer: '/nodes/0/sampling',
+      message: expect.stringMatching(/clamped edge texels/),
+      hint: expect.stringMatching(/canvas/),
+    }),
+  );
+});
+
+it('does not inherit stale decoded pixel counts when a loaded asset record is replaced', () => {
+  const red = new PNG({ width: 1, height: 1 });
+  red.data.set([255, 0, 0, 255]);
+  const source = (png: PNG) => 'data:image/png;base64,' + PNG.sync.write(png).toString('base64');
+  const original: Asset = { type: 'image', source: source(red), width: 1, height: 1 };
+  const model = load({
+    anima: '0.1',
+    name: 'replacement',
+    grid: 8,
+    requires: ['assets', 'paint'],
+    assets: { tile: original },
+    nodes: [
+      {
+        id: 'tile',
+        type: 'image',
+        asset: 'tile',
+        x0: 0,
+        y0: 0,
+        width: 8,
+        height: 1,
+        fit: 'none',
+        align: 'top-left',
+        sampling: 'nearest',
+        wrap: 'clamp',
+      },
+    ],
+  }).model!;
+  imagePixels.set(model.doc.assets.tile, [1, 1]);
+  const first = PNG.sync.read(
+    toPNG(toSVG(new Player(model), { width: 80, height: 80, background: '#ffffff' }), 80),
+  );
+  expect(Array.from(first.data.slice((5 * 80 + 55) * 4, (5 * 80 + 55) * 4 + 4))).toEqual([
+    255, 0, 0, 255,
+  ]);
+  const replacement = new PNG({ width: 3, height: 1 });
+  replacement.data.set([255, 0, 0, 255, 0, 255, 0, 255, 0, 0, 255, 255]);
+  // The host replacement API copies a record and installs its newly decoded dimensions.
+  resolvedAssets.set(model, {
+    tile: { ...original, source: source(replacement), width: 3, height: 1 },
+  });
+  const next = PNG.sync.read(
+    toPNG(toSVG(new Player(model), { width: 80, height: 80, background: '#ffffff' }), 80),
+  );
+  expect(Array.from(next.data.slice((5 * 80 + 55) * 4, (5 * 80 + 55) * 4 + 4))).toEqual([
+    0, 0, 255, 255,
+  ]);
 });

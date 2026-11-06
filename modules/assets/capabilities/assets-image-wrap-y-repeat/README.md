@@ -7,6 +7,6 @@ Implemented by the assets/paint runtime or CLI asset pipeline. Parity status is 
 - Validation/runtime/CLI: modules/assets/test/{core,cli,web}/pipeline.test.ts.
 - Conformance: spec/conformance/assets-image-wrap-y-repeat; width 4→8 is linear, midpoint 6.
 - Browser sampling expectations enumerate source texels independently, both backends and engines.
-- Oracle: tests/oracle/assets-image-wrap-y-repeat/ — passing native probe (fixed max 2 / zero pixels above 16).
+- Oracle: tests/oracle/assets-image-wrap-y-repeat/ — passing native subset with unchanged max2/zero-over limits; see REPORT.md for coverage.
 
 See modules/assets/REPORT.md for completion limits and measurements.

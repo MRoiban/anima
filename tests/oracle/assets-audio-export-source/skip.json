@@ -1,0 +1,16 @@
+{
+  "status": "skip",
+  "reason": "exportFormatValue/exportQualityValue are editor-only and native local headless loading has no source-byte export command. Comparing exported encoded audio would require a prohibited publishing/binary route. Anima byte-preserving build is tested locally.",
+  "tests": [
+    "modules/assets/test/cli/pipeline.test.ts",
+    "modules/assets/test/web/pipeline.test.ts",
+    "modules/events/test/web/events.browser.test.ts"
+  ],
+  "captureEvidence": [
+    "modules/assets/probes/native-capabilities.json",
+    "modules/assets/probes/native-capabilities.ts",
+    "modules/assets/probes/audio/native-wav/session.txt",
+    "modules/assets/probes/audio/native-flac/session.txt",
+    "modules/assets/probes/audio/native-mp3/session.txt"
+  ]
+}

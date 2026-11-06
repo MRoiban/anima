@@ -1,1 +1,5 @@
-TODO: independently author a Rive scene and capture reference PNGs; do not read/convert .riv files.
+# Native disposition
+
+native headless AudioEvent triggers for WAV/FLAC/MP3; no PCM or host playback output in the command vocabulary. Skips waveform/playback parity only, not native decode acceptance.
+
+See ../skip.json for reproducible local observations and Anima test evidence.

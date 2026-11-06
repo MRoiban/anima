@@ -178,20 +178,6 @@
     ]
   },
   {
-    "name": "drawing-paint-image-wrap-clamp",
-    "status": "finding",
-    "reason": "Unadjusted native probe: max delta 255, 54000/57600 pixels above 16 (93.75%). Anima clamp preserves the pre-existing fitted-rectangle transparent margin; native sampler clamp extends edge texels. Native clamp equivalence remains an implementation/design gap, not a passing oracle.",
-    "frames": [
-      {
-        "time": 0,
-        "maxDiff": 255,
-        "over": 54000,
-        "overPercent": 93.75,
-        "pass": false
-      }
-    ]
-  },
-  {
     "name": "drawing-paint-detached-vertex",
     "status": "finding",
     "reason": "Rasterisation-only finding: observed native path commands and controls exactly equal Anima at 12px/unit. Equivalent coordinate representations differ by max 12 in resvg; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
@@ -996,37 +982,9 @@
     ]
   },
   {
-    "name": "assets-image-wrap-y-clamp",
-    "status": "finding",
-    "reason": "Unadjusted native probe: max delta 255, 10800/57600 pixels above 16 (18.75%). Anima clamp preserves the pre-existing fitted-rectangle transparent margin; native sampler clamp extends edge texels. Native clamp equivalence remains an implementation/design gap, not a passing oracle.",
-    "frames": [
-      {
-        "time": 0,
-        "maxDiff": 255,
-        "over": 10800,
-        "overPercent": 18.75,
-        "pass": false
-      }
-    ]
-  },
-  {
-    "name": "assets-image-wrap-x-clamp",
-    "status": "finding",
-    "reason": "Unadjusted native probe: max delta 255, 10800/57600 pixels above 16 (18.75%). Anima clamp preserves the pre-existing fitted-rectangle transparent margin; native sampler clamp extends edge texels. Native clamp equivalence remains an implementation/design gap, not a passing oracle.",
-    "frames": [
-      {
-        "time": 0,
-        "maxDiff": 255,
-        "over": 10800,
-        "overPercent": 18.75,
-        "pass": false
-      }
-    ]
-  },
-  {
     "name": "assets-image-import-jpg",
     "status": "finding",
-    "reason": "Independent decoder comparison, unchanged limits: [{\"time\":0,\"maxDiff\":40,\"over\":57600,\"overPercent\":100,\"pass\":false}]",
+    "reason": "Independent decoder comparison, unchanged limits: [{\"time\":0,\"maxDiff\":40,\"over\":57600,\"overPercent\":100,\"pass\":false}] Root cause control: native inspected geometry/source/sampler through resvg equals Anima max0; native 1:1 decoded texels rendered by Anima match native max1; decoder difference only. Evidence: modules/assets/probes/sampling-controls.json and sampling-controls.ts.",
     "frames": [
       {
         "time": 0,
@@ -1040,7 +998,7 @@
   {
     "name": "assets-image-import-jpeg",
     "status": "finding",
-    "reason": "Independent decoder comparison, unchanged limits: [{\"time\":0,\"maxDiff\":40,\"over\":57600,\"overPercent\":100,\"pass\":false}]",
+    "reason": "Independent decoder comparison, unchanged limits: [{\"time\":0,\"maxDiff\":40,\"over\":57600,\"overPercent\":100,\"pass\":false}] Root cause control: native inspected geometry/source/sampler through resvg equals Anima max0; native 1:1 decoded texels rendered by Anima match native max1; decoder difference only. Evidence: modules/assets/probes/sampling-controls.json and sampling-controls.ts.",
     "frames": [
       {
         "time": 0,
@@ -1054,13 +1012,27 @@
   {
     "name": "assets-image-filter-bilinear",
     "status": "finding",
-    "reason": "Unadjusted native probe: max delta 27, 1017/57600 pixels above 16 (1.7656249999999998%). Bilinear resvg and native interpolation differ. Rasterization finding retained; no tolerance increase.",
+    "reason": "Unadjusted native probe: max delta 27, 1017/57600 pixels above 16 (1.7656249999999998%). Bilinear resvg and native interpolation differ. Rasterization finding retained; no tolerance increase. Root cause control: native inspected geometry/source/sampler through resvg equals Anima max0; independent ideal bilinear matches native max2, while resvg max27. Evidence: modules/assets/probes/sampling-controls.json and sampling-controls.ts.",
     "frames": [
       {
         "time": 0,
         "maxDiff": 27,
         "over": 1017,
         "overPercent": 1.765625,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "assets-clamp-fractional-finding",
+    "status": "finding",
+    "reason": "Fractional nearest SVG clamp: max 164, 956/57600 pixels above16. Native UV mesh independently rendered through resvg equals Anima max0; exact authored-decimal control max0. Raster slice-coverage difference retained, no threshold change. See modules/assets/probes/fractional-clamp.ts and fractional-clamp/measurements.json.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 164,
+        "over": 956,
+        "overPercent": 1.6597222222222223,
         "pass": false
       }
     ]

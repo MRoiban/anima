@@ -1,0 +1,121 @@
+
+> test:scope
+> node tools/test-scope.ts assets media paint canvas events cli conformance oracle
+
+Scopes: assets, media, paint, canvas, events, cli, conformance, oracle
+  unit: modules/assets/test/cli/assets.test.ts
+  unit: modules/assets/test/cli/pipeline.test.ts
+  unit: modules/assets/test/core/assets.test.ts
+  unit: modules/assets/test/core/pipeline.test.ts
+  unit: modules/canvas/test/core/host-api-device-pixel-ratio.test.ts
+  unit: modules/canvas/test/core/host-api-resize-backing-surface.test.ts
+  unit: modules/canvas/test/core/platforms-web-canvas.test.ts
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/convert/test/cli/convert.test.ts
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/derive/test/cli/derive.test.ts
+  unit: modules/events/test/cli/events.test.ts
+  unit: modules/events/test/core/events.test.ts
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host/test/cli/host.test.ts
+  unit: modules/lists/test/cli/lists.test.ts
+  unit: modules/motion/test/cli/motion.test.ts
+  unit: modules/paint/test/cli/advanced.test.ts
+  unit: modules/paint/test/cli/paint-geometry.test.ts
+  unit: modules/paint/test/core/advanced.test.ts
+  unit: modules/paint/test/core/paint-geometry.test.ts
+  unit: modules/paint/test/core/paint.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: modules/surface/test/cli/surface.test.ts
+  unit: packages/cli/test/authoring.test.ts
+  unit: packages/cli/test/cli.test.ts
+  unit: packages/cli/test/glyphs.test.ts
+  unit: packages/cli/test/markup.test.ts
+  unit: packages/cli/test/render.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/assets/test/web/assets.test.ts
+  browser: modules/assets/test/web/pipeline.test.ts
+  browser: modules/canvas/test/web/canvas.test.ts
+  browser: modules/canvas/test/web/native-paint.test.ts
+  browser: modules/events/test/web/events.browser.test.ts
+  browser: modules/paint/test/web/paint-geometry.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-92dd576e
+
+✘ [ERROR] Expected ";" but found ")"
+
+    modules/paint/core/sampling.ts:39:14:
+      39 │             })),
+         │               ^
+         ╵               ;
+
+ ❯ |scope-browser| modules/canvas/test/web/canvas.test.ts (2118 tests | 1059 skipped) 254190ms
+ ❯ |scope-browser| modules/assets/test/web/pipeline.test.ts (14 tests | 5 failed) 81576ms
+   ❯ Chromium asset pipeline (7)
+     × Canvas bilinear clamp matches an independent shader at every pixel, including fitted margins 5023ms
+     × matches independently enumerated repeat/mirror/clamp texels in svg, including axis overrides and resize 7056ms
+     × matches independently enumerated repeat/mirror/clamp texels in canvas, including axis overrides and resize 5343ms
+   ❯ Firefox asset pipeline (7)
+     × Canvas bilinear clamp matches an independent shader at every pixel, including fitted margins 5327ms
+     × matches independently enumerated repeat/mirror/clamp texels in svg, including axis overrides and resize 5002ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/canvas/test/web/canvas.test.ts > Firefox canvas
+Error: Build failed with 1 error:
+modules/paint/core/sampling.ts:39:14: ERROR: Expected ";" but found ")"
+ ❯ failureErrorWithLog node_modules/esbuild/lib/main.js:1752:15
+ ❯ node_modules/esbuild/lib/main.js:1211:25
+ ❯ runOnEndCallbacks node_modules/esbuild/lib/main.js:1592:45
+ ❯ buildResponseToResult node_modules/esbuild/lib/main.js:1209:7
+ ❯ node_modules/esbuild/lib/main.js:1236:16
+ ❯ responseCallbacks.<computed> node_modules/esbuild/lib/main.js:886:9
+ ❯ handleIncomingPacket node_modules/esbuild/lib/main.js:941:12
+ ❯ Socket.readFromStdout node_modules/esbuild/lib/main.js:864:7
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Chromium asset pipeline > Canvas bilinear clamp matches an independent shader at every pixel, including fitted margins
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > Canvas bilinear clamp matches an independent shader at every pixel, including fitted margins
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:262:5
+    260|       },
+    261|     );
+    262|     it('Canvas bilinear clamp matches an independent shader at every p…
+       |     ^
+    263|       const browser = await shared.newContext({ deviceScaleFactor: 1 }…
+    264|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯
+
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Chromium asset pipeline > matches independently enumerated repeat/mirror/clamp texels in svg, including axis overrides and resize
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Chromium asset pipeline > matches independently enumerated repeat/mirror/clamp texels in canvas, including axis overrides and resize
+ FAIL  |scope-browser| modules/assets/test/web/pipeline.test.ts > Firefox asset pipeline > matches independently enumerated repeat/mirror/clamp texels in svg, including axis overrides and resize
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/web/pipeline.test.ts:327:31
+    325|       }
+    326|     });
+    327|     it.each(['svg', 'canvas'])(
+       |                               ^
+    328|       'matches independently enumerated repeat/mirror/clamp texels in …
+    329|       async (renderer) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯
+
+
+ Test Files  2 failed | 41 passed (43)
+      Tests  5 failed | 4406 passed | 1059 skipped | 25 todo (5495)
+   Start at  22:01:42
+   Duration  562.25s (tests 94%, import 6%)

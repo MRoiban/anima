@@ -2,7 +2,9 @@ import '@anima-format/core/all';
 import { mkdtempSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { afterAll, expect, it } from 'vitest';
+import { afterAll, expect, it, vi } from 'vitest';
+import { buildAssets } from '../../../../packages/cli/src/build-assets.ts';
+import { ImageEncoder } from '../../../../packages/cli/src/encode.ts';
 import { PNG } from 'pngjs';
 import { run } from '../../../../packages/cli/src/index.ts';
 import { sniff } from '../../../../packages/cli/src/asset-info.ts';
@@ -333,4 +335,170 @@ it('translates SVG RGB/alpha colours and warns for unsupported descriptive/paint
       }),
     ]),
   );
+});
+
+it('uses one lazy browser across multiple HTML scripts, closes it and exits on success and a decode error', async () => {
+  const launch = vi.spyOn(ImageEncoder.prototype, 'browser');
+  try {
+    const file = join(dir, 'multi.html');
+    writeFileSync(
+      file,
+      ['jpeg', 'webp']
+        .map(
+          (encode) =>
+            `<anima-icon><script type="application/vnd.anima+xml">${xml(`encode="${encode}"`)}</script></anima-icon>`,
+        )
+        .join('\n'),
+    );
+    const result = await cli('build', file);
+    expect(result.code, result.err).toBe(0);
+    expect(launch).toHaveBeenCalledTimes(2);
+    expect(await launch.mock.results[1]!.value).toBe(await launch.mock.results[0]!.value);
+    const first = await launch.mock.results[0]!.value;
+    expect(first.isConnected()).toBe(false);
+    // A valid WebP header with corrupt pixels exercises cleanup after page.evaluate rejects.
+    const webp = readFileSync(new URL('../../probes/import-formats/tile.webp', import.meta.url));
+    const corrupt = Buffer.from(webp);
+    corrupt.fill(0, 30);
+    const encoder = new ImageEncoder();
+    try {
+      const ds = await buildAssets(
+        {
+          assets: {
+            bad: { type: 'image', source: 'data:image/webp;base64,' + corrupt.toString('base64') },
+          },
+        },
+        file,
+        true,
+        encoder,
+      );
+      expect(ds).toContainEqual(
+        expect.objectContaining({
+          code: 'asset-load',
+          pointer: '/assets/bad/source',
+          message: expect.stringMatching(/./),
+          hint: expect.stringMatching(/./),
+        }),
+      );
+    } finally {
+      await encoder.close();
+    }
+    expect(launch).toHaveBeenCalledTimes(3);
+    expect((await launch.mock.results[2]!.value).isConnected()).toBe(false);
+  } finally {
+    launch.mockRestore();
+  }
+});
+it.each(['wav', 'flac', 'mp3'])(
+  'builds genuine %s bytes without transcoding and checks inspected clip bounds',
+  async (ext) => {
+    const data = readFileSync(new URL(`../../probes/audio/pulse.${ext}`, import.meta.url));
+    const file = join(dir, 'genuine.animl');
+    const mime = ext === 'mp3' ? 'audio/mpeg' : 'audio/' + ext;
+    const source = `data:${mime};base64,${data.toString('base64')}`;
+    const xml = (end: string) =>
+      `<anima version="0.1" name="audio" grid="8" requires="assets"><asset name="tone" type="audio" src="${source}" start="0.01" end="${end}"/><circle id="probe" cx="4" cy="4" r="1" fill="#000"/></anima>`;
+    writeFileSync(file, xml('0.09'));
+    const result = await cli('build', file, '--embed');
+    expect(result.code, result.err).toBe(0);
+    expect(JSON.parse(result.out).assets.tone).toMatchObject({
+      source,
+      mime,
+      size: data.length,
+      duration: ext === 'mp3' ? 0.288 : 0.1,
+    });
+    writeFileSync(file, xml('0.3'));
+    const bad = await cli('build', file, '--format=json');
+    expect(bad.code).toBe(1);
+    expect(JSON.parse(bad.out).diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'asset-clip',
+        pointer: '/assets/tone/end',
+        message: expect.stringMatching(/./),
+        hint: expect.stringMatching(/./),
+      }),
+    );
+  },
+);
+
+it('clamps actual bitmap texels when authored layout dimensions override the pixel count', async () => {
+  const file = join(dir, 'pixel-layout.ani'),
+    out = join(dir, 'pixel-layout.png');
+  const doc = {
+    anima: '0.1',
+    name: 'layout',
+    grid: 8,
+    requires: ['assets', 'paint'],
+    assets: {
+      tile: {
+        type: 'image',
+        source: 'data:image/png;base64,' + bytes.toString('base64'),
+        width: 1,
+        height: 1,
+      },
+    },
+    nodes: [
+      {
+        id: 'tile',
+        type: 'image',
+        asset: 'tile',
+        x0: 0,
+        y0: 0,
+        width: 8,
+        height: 8,
+        fit: 'none',
+        align: 'top-left',
+        sampling: 'nearest',
+        wrap: 'clamp',
+      },
+    ],
+  };
+  writeFileSync(file, JSON.stringify(doc));
+  const result = await cli('render', file, '--size', '80', '--background', '#ffffff', '-o', out);
+  expect(result.code, result.err).toBe(0);
+  const png = PNG.sync.read(readFileSync(out));
+  for (const [x, y] of [
+    [2, 40],
+    [7, 40],
+    [40, 40],
+    [75, 40],
+  ]) {
+    expect(Array.from(png.data.slice((y! * 80 + x!) * 4, (y! * 80 + x!) * 4 + 4))).toEqual(
+      x! < 5 ? [255, 0, 0, 255] : [0, 0, 255, 255],
+    );
+  }
+});
+
+it('keeps Blob payloads opaque when their bytes resemble media containers', async () => {
+  for (const [mime, payload, authoredMime] of [
+    [
+      'audio/wav',
+      readFileSync(new URL('../../probes/audio/pulse.wav', import.meta.url)),
+      undefined,
+    ],
+    ['application/octet-stream', Buffer.from('fLaC'), undefined],
+    [
+      'image/svg+xml',
+      Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"/>'),
+      'application/octet-stream',
+    ],
+  ] as const) {
+    const file = join(dir, 'opaque.animl');
+    const source = `data:${mime};base64,${payload.toString('base64')}`;
+    writeFileSync(
+      file,
+      `<anima version="0.1" name="opaque" grid="8" requires="assets"><asset name="bytes" type="blob" src="${source}" ${authoredMime ? `mime="${authoredMime}"` : ''}/><circle id="probe" cx="4" cy="4" r="1" fill="#000"/></anima>`,
+    );
+    const result = await cli('build', file, '--embed');
+    expect(result.code, result.err).toBe(0);
+    const doc = JSON.parse(result.out);
+    expect(doc.assets.bytes).toMatchObject({
+      type: 'blob',
+      source: `data:${authoredMime ?? mime};base64,${payload.toString('base64')}`,
+      mime: authoredMime ?? mime,
+      size: payload.length,
+    });
+    expect(doc.assets.bytes).not.toHaveProperty('duration');
+    expect(load(doc).diagnostics).toEqual([]);
+  }
 });

@@ -1,0 +1,4 @@
+name: p5b7-fractional-clamp
+logs:
+  file: build/rive.log
+  problems: build/problems.log

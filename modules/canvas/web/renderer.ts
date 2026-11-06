@@ -459,39 +459,85 @@ export class CanvasRenderer implements IconRenderer {
       ctx.imageSmoothingEnabled = r.sampling !== 'nearest';
       const x = g.x! + (w - dw) * factor('left', 'right'),
         y = g.y! + (h - dh) * factor('top', 'bottom');
-      if ((r.wrapX && r.wrapX !== 'clamp') || (r.wrapY && r.wrapY !== 'clamp')) {
-        const mx = r.wrapX === 'mirror',
-          my = r.wrapY === 'mirror';
-        let tile: HTMLImageElement | HTMLCanvasElement = image;
-        if (mx || my) {
-          const key = r.source + mx + my;
-          let cached = this.#tiles.get(key);
-          if (!cached) {
-            cached = document.createElement('canvas');
-            cached.width = image.naturalWidth * (mx ? 2 : 1);
-            cached.height = image.naturalHeight * (my ? 2 : 1);
-            const tc = context(cached);
-            for (let tx = 0; tx <= +mx; tx++)
-              for (let ty = 0; ty <= +my; ty++) {
-                tc.save();
-                tc.translate(tx ? 2 * image.naturalWidth : 0, ty ? 2 * image.naturalHeight : 0);
-                tc.scale(tx ? -1 : 1, ty ? -1 : 1);
-                tc.drawImage(image, 0, 0);
-                tc.restore();
-              }
-            this.#tiles.set(key, cached);
-          }
-          tile = cached;
+      if (this.#frame!.tree.nodes[i]!.imageWrap) {
+        ctx.beginPath();
+        ctx.rect(g.x!, g.y!, w, h);
+        ctx.clip();
+        const axes = (
+          mode: string | undefined,
+          pos: number,
+          size: number,
+          lo: number,
+          box: number,
+        ) =>
+          mode === 'clamp'
+            ? [
+                [-1, lo, Math.max(0, pos - lo)],
+                [0, pos, size],
+                [1, pos + size, Math.max(0, lo + box - pos - size)],
+              ]
+            : [[0, lo, box]];
+        const layer =
+          (r.wrapX === 'clamp' && dw < w) || (r.wrapY === 'clamp' && dh < h)
+            ? this.#surface()
+            : undefined;
+        const out = layer ? context(layer) : ctx;
+        if (layer) {
+          out.setTransform(ctx.getTransform());
+          // Sum adjacent slice coverage once. Source-over would leave seams
+          // at fractional slice boundaries, including translucent edge texels.
+          out.globalCompositeOperation = 'lighter';
+          out.imageSmoothingEnabled = ctx.imageSmoothingEnabled;
         }
-        const pattern = ctx.createPattern(
-          tile,
-          r.wrapX === 'clamp' ? 'repeat-y' : r.wrapY === 'clamp' ? 'repeat-x' : 'repeat',
-        )!;
-        pattern.setTransform(
-          new DOMMatrix([dw / image.naturalWidth, 0, 0, dh / image.naturalHeight, x, y]),
-        );
-        ctx.fillStyle = pattern;
-        ctx.fillRect(g.x!, g.y!, w, h);
+        const nw = image.naturalWidth,
+          nh = image.naturalHeight;
+        for (const [cx, dx, cw] of axes(r.wrapX, x, dw, g.x!, w))
+          for (const [cy, dy, ch] of axes(r.wrapY, y, dh, g.y!, h)) {
+            if (!cw || !ch) continue;
+            const mx = !cx && r.wrapX === 'mirror',
+              my = !cy && r.wrapY === 'mirror';
+            const px = !cx && r.wrapX === 'clamp' ? 1 : 0,
+              py = !cy && r.wrapY === 'clamp' ? 1 : 0;
+            const tw = cx ? 1 : nw * (mx ? 2 : 1),
+              th = cy ? 1 : nh * (my ? 2 : 1);
+            const key = JSON.stringify([r.source, cx, cy, mx, my, px, py]);
+            let tile = this.#tiles.get(key);
+            if (!tile) {
+              tile = document.createElement('canvas');
+              tile.width = tw + 2 * px;
+              tile.height = th + 2 * py;
+              const tc = context(tile);
+              // Isolate exact texels before filtering. Padding prevents periodic
+              // interpolation from leaking the opposite edge onto a clamped axis.
+              tc.imageSmoothingEnabled = false;
+              const slices = (edge: number, mirror: boolean, pad: number, size: number) => {
+                if (edge) return [[edge < 0 ? 0 : size - 1, 1, 0, 1]];
+                const list = [[0, size, pad, size]];
+                if (mirror) list.push([0, size, pad + size * 2, -size]);
+                if (pad) list.push([0, 1, 0, 1], [size - 1, 1, pad + size, 1]);
+                return list;
+              };
+              for (const [sx, sw, dx, dw] of slices(cx!, mx, px, nw))
+                for (const [sy, sh, dy, dh] of slices(cy!, my, py, nh)) {
+                  tc.save();
+                  tc.translate(dx!, dy!);
+                  tc.scale(Math.sign(dw!), Math.sign(dh!));
+                  tc.drawImage(image, sx!, sy!, sw!, sh!, 0, 0, Math.abs(dw!), Math.abs(dh!));
+                  tc.restore();
+                }
+              this.#tiles.set(key, tile);
+            }
+            const pattern = out.createPattern(tile, 'repeat')!;
+            pattern.setTransform(
+              new DOMMatrix([dw / nw, 0, 0, dh / nh, x - (px * dw) / nw, y - (py * dh) / nh]),
+            );
+            out.fillStyle = pattern;
+            out.fillRect(dx!, dy!, cw!, ch!);
+          }
+        if (layer) {
+          ctx.resetTransform();
+          ctx.drawImage(layer, 0, 0);
+        }
       } else if (r.sampling === 'nearest') {
         // Nearest drawImage snaps its outer edges. Extend the border texels into
         // the one-device-pixel AA fringe, then let a geometric clip own coverage.

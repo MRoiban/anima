@@ -1,0 +1,124 @@
+{
+  "baseline": "a5fa00a",
+  "branch": "t3/assets-media-conformance-fixes",
+  "status": "Implemented requested explicit-wrap and row follow-up; integration handoff has disclosed timeouts and inherited omitted-wrap compatibility gap.",
+  "oracle": {
+    "exit": 0,
+    "cases": 248,
+    "samples": 444,
+    "retained_findings": 22,
+    "finding_samples": 25
+  },
+  "audit": {
+    "inherited_case_definitions_unchanged": 245,
+    "inherited_completed_metrics_unchanged": 245,
+    "inherited_findings_unchanged": 18,
+    "new_same_limit_clamp_cases": [
+      "assets-image-wrap-x-clamp",
+      "assets-image-wrap-y-clamp",
+      "drawing-paint-image-wrap-clamp"
+    ],
+    "pending_row_dispositions": 19,
+    "pending_rows_still_todo": 0,
+    "measurement_tools_or_inherited_limits_changed": false,
+    "parity_statuses_changed": false,
+    "other_agents_modules_changed": false,
+    "old_native_frames_changed": false,
+    "runtime_dependencies_added": false
+  },
+  "final_targeted": {
+    "unit_pass": 47,
+    "unit_files": 3,
+    "unit_seconds": 4.69,
+    "browser_pass": 20,
+    "browser_engines": ["Chromium", "Firefox"],
+    "browser_seconds": 9.78
+  },
+  "full_scope_earlier": {
+    "exit": 0,
+    "pass": 5474,
+    "todo": 25,
+    "files": 43,
+    "seconds": 479.51
+  },
+  "full_scope_latest": {
+    "exit": 1,
+    "pass": 5479,
+    "todo": 25,
+    "failed": 1,
+    "files": 43,
+    "seconds": 514.43,
+    "failure": "First Chromium policy/resolver test: timeout5003ms vs unchanged5000ms; whole pipeline isolated20/20 passes.",
+    "source_note": "Before final Blob MIME correction; final targeted47unit/20browser checks cover the correction."
+  },
+  "cli_scope_latest": {
+    "exit": 1,
+    "pass": 199,
+    "failed": 1,
+    "files": 19,
+    "seconds": 71.16,
+    "failure": "Existing authoring pivot geometry: timeout5104ms vs unchanged5000ms. Earlier isolated whole authoring file51/51; timeout recurring, scheduling cause unverified.",
+    "source_note": "Final source, includes Blob MIME correction."
+  },
+  "checks": {
+    "typecheck": 0,
+    "eslint": 0,
+    "prettier": 0,
+    "modules": 0,
+    "animl": 0,
+    "web": 0,
+    "size": 0,
+    "perf": 0,
+    "oracle-strict": 0
+  },
+  "sizes": {
+    "core_web": 20109,
+    "assets": 2031,
+    "media": 2346,
+    "paint": 4598,
+    "paint_sampling": 926,
+    "canvas": 5005,
+    "events": 3703,
+    "full_featured": 102688,
+    "rive_class": 107953
+  },
+  "perf": {
+    "bell_compile_ms": 3.1,
+    "prefixes": 9040,
+    "prefix_ms": 792,
+    "bell_frame_us": 41.8,
+    "composite_frame_us": 29.0,
+    "toolbar_frame_us": 35.0,
+    "toolbar_compile_ms": 4.52,
+    "comparative_non_regression": "unverified"
+  },
+  "remaining": [
+    "Inherited omitted-wrap default-clamp compatibility gap needs parent integration decision.",
+    "SVG fractional clamp remains raster coverage finding(max164/956pixels>16), independent native-data controls both exact0.",
+    "Recurring pre-existing authoring pivot timeout remains unresolved.",
+    "Nineteen native skips are observation limits, not passing native parity."
+  ],
+  "artifacts_sha256": {
+    "size.txt": "98b731586f2ab18a296360039149bda0f68e37eb6e4b178eb62973f4ae635add",
+    "perf.txt": "f35f8b062682c423ce2d4cb72b1d302b83ce6623deee60fc625655b6d64b1c36",
+    "perf-loaded.txt": "6dac016a2255752dacdd57c623b7751a67eaad72a6e86cd536d894c4f53cb49e",
+    "oracle-strict.txt": "094b285fd15223acc91fb8b14a9038a795a381686d125cb377551c54521b1fc4",
+    "scope-latest-failed.txt": "58eccaec63bbe7f5c982cc005ca1477d4f20cde9deb3e3078f35dc72c0b46a5f",
+    "scope-earlier-passed.txt": "a0b308f0f3a114bc5a20ebfc4067cf3ce2031f19ad950d8a838696a6ac3b6cc1",
+    "scope-development-failed.txt": "709cbdd580fb8a923d718a9715b1daa3ce110b17cdaf0935df421d208dc1205b",
+    "scope-pivot-failed.txt": "2f59695af7f5a51247aeccecbeb99e046f904b96afacad4553d9a245a920c1b9",
+    "cli-scope-latest-failed.txt": "0e6c4c3ddaa3ae6689436e307a64591cea2d4d70af6d10588c4b5c8bcc4abace",
+    "authoring-isolated-passed.txt": "efd2796cfc24ff1c9c68981215eabafb9cd3817fb01f4ba50ce4b5d688481f1f",
+    "targeted-unit.txt": "9e9c389812a30957c64cbb04a3c6f2bc94a175f41f0decbfe8fec93a92fa0a73",
+    "targeted-browser.txt": "893c6b0e799ff5fb94f25c08e91ade83b4ea950e967d65381f44d2dac4004871",
+    "static-status.txt": "bbc7daaebc8f60bc2453bfc94d7957a562dd6c656fc912163e5210c0229983c4",
+    "blob-duration-before-failed.txt": "3cde24a5668607e25b45251498c8af26d0be703663481632c8de583b1df1806a",
+    "blob-mime-before-failed.txt": "f9d4c290ec76b63ec0b8b0f9c1f3fc5193230d07f7a50dc96e095c768cc0a975",
+    "check-typecheck.txt": "75e8d22b76e705a2f8e87617f6cbc86f4524583979f9349cc2dc0cb678286002",
+    "check-eslint.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "check-prettier.txt": "17aa973d3f004560237d9a95171210b0671deff23d61628eecf7322ff5938f20",
+    "check-modules.txt": "f9fd7edd55f6fa68f18f1d2c9388f5e384baeec83bc1bb21cf6caa884899bd85",
+    "check-animl.txt": "fbdd1177013ed99bff8f8c906435ef2ec0e86dd4fd7133e08014e3107c45da1b",
+    "check-web.txt": "7d40bed362e1fd17a3fa00ad1de8592134c6c2cbadb8b6e6d7f69d916c838685"
+  }
+}
