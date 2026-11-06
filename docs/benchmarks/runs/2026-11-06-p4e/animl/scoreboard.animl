@@ -1,0 +1,62 @@
+<anima version="0.1" name="scoreboard" grid="40" viewBox="0 0 40 20" requires="data bind convert input">
+  <model name="Player">
+    <string name="name"/>
+    <number name="score" min="0" max="2000"/>
+    <color name="colour"/>
+  </model>
+  <model name="Board"><list name="players" of="Player"/></model>
+  <instance name="main" model="Board" default="true">
+    <set path="players" value='[{"name":"Ada","score":1250,"colour":"#d97757"},{"name":"Lin","score":980,"colour":"#6a9bcc"},{"name":"Sam","score":40,"colour":"#788c5d"}]'/>
+  </instance>
+  <converter name="grouped" type="number-format" decimals="0" grouping="true"/>
+  <converter name="suffix" type="template" text="{0} pts"/>
+  <converter-group name="points" chain="grouped suffix"/>
+
+  <circle id="ada" cx="2" cy="3" r="1" fill="#000" data-label=""/>
+  <rect id="adaBar" x0="5" y0="2" width="0" height="2" fill="#000" stroke="#d97757" stroke-width="0"/>
+  <circle id="lin" cx="2" cy="8" r="1" fill="#000" data-label=""/>
+  <rect id="linBar" x0="5" y0="7" width="0" height="2" fill="#000" stroke="#d97757" stroke-width="0"/>
+  <circle id="sam" cx="2" cy="13" r="1" fill="#000" data-label=""/>
+  <rect id="samBar" x0="5" y0="12" width="0" height="2" fill="#000" stroke="#d97757" stroke-width="0"/>
+  <path id="track" d="M5 18L35 18" stroke="#141413" stroke-width="1"/>
+  <group id="slider" x="5" y="18" scaleX="0.015">
+    <circle id="knob" cx="0" cy="0" r="1" x="1250" scaleX="66.66666666666667" fill="#d97757" cursor="resize-horizontal"/>
+  </group>
+
+  <bind target="ada.fill" value="$players.0.colour"/>
+  <bind target="adaBar.fill" value="$players.0.colour"/>
+  <bind target="adaBar.width" value="30 * $players.0.score / 2000"/>
+  <bind target="ada.properties.label" value="$players.0.score" convert="points"/>
+  <bind target="lin.fill" value="$players.1.colour"/>
+  <bind target="linBar.fill" value="$players.1.colour"/>
+  <bind target="linBar.width" value="30 * $players.1.score / 2000"/>
+  <bind target="lin.properties.label" value="$players.1.score" convert="points"/>
+  <bind target="sam.fill" value="$players.2.colour"/>
+  <bind target="samBar.fill" value="$players.2.colour"/>
+  <bind target="samBar.width" value="30 * $players.2.score / 2000"/>
+  <bind target="sam.properties.label" value="$players.2.score" convert="points"/>
+  <bind target="knob.x" value="$players.0.score"/>
+  <listener on="drag-start|drag|drag-end" target="knob" write='{"x":"$players.0.score"}' align="preserve"/>
+
+  <layer name="leader" initial="ada">
+    <state name="ada">
+      <pose adaBar.stroke-width="0.5" linBar.stroke-width="0" samBar.stroke-width="0"/>
+      <on when="$players.1.score > $players.0.score and $players.1.score >= $players.2.score" to="lin"/>
+      <on when="$players.2.score > $players.0.score and $players.2.score > $players.1.score" to="sam"/>
+    </state>
+    <state name="lin">
+      <pose adaBar.stroke-width="0" linBar.stroke-width="0.5" samBar.stroke-width="0"/>
+      <on when="$players.0.score >= $players.1.score and $players.0.score >= $players.2.score" to="ada"/>
+      <on when="$players.2.score > $players.0.score and $players.2.score > $players.1.score" to="sam"/>
+    </state>
+    <state name="sam">
+      <pose adaBar.stroke-width="0" linBar.stroke-width="0" samBar.stroke-width="0.5"/>
+      <on when="$players.0.score >= $players.1.score and $players.0.score >= $players.2.score" to="ada"/>
+      <on when="$players.1.score > $players.0.score and $players.1.score >= $players.2.score" to="lin"/>
+    </state>
+  </layer>
+  <layer name="milestones" initial="below">
+    <state name="below"><on when="$players.0.score >= 1500" to="above"/></state>
+    <state name="above" emit="milestone"><on when="$players.0.score &lt; 1500" to="below"/></state>
+  </layer>
+</anima>

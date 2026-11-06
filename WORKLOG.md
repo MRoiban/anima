@@ -1,11 +1,11 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
-State: p4e-data has data core (60/73 rows) and paint findings (10/18 strict, 8 rasterisation findings) merged. data 8181/8192, bind 2046/2048.
-Merged: data, paint, host (3878/4096), convert (6161/8192). Full-featured 91.4/100 KB.
-Next: P4e-6 docs+code table (Sol, running); Rive benchmark run (running); AniML run after P4e-6 merges; quiet perf vs main; parity bookkeeping; LOG/PLAN; PR.
-Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests.
+Goal: P4e AniML scoreboard benchmark on t3/build-animl-scoreboard-scene.
+Verified: 5/6 strict; item 3 labels are node properties, not read-only model fields.
+Evidence: 14 CLI checks + Python assertions; artifacts under runs/2026-11-06-p4e/animl.
+Next: parent benchmark review; local commit only, no push/PR/merge.
+Don't: read other benchmark runs, .riv files, prohibited sources or tests/oracle.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -174,3 +174,5 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-06 10:57 [sol]: P4e-6 checks → scope 2584 pass/253 skipped/13 todo (54.83s), host browser suites included; typecheck/eslint/prettier/modules/size exit 0; final authoring 28/28 after correcting invalid examples to reach data diagnostics (evidence: /tmp/p4e-{tests,authoring-final,size-final,typecheck,eslint,prettier,modules}.log).
 - 2026-11-06 10:57 [sol]: CLI inspect/sample → list Lin/3/2/radius6 and converter labels 25 percent/1,234.50 confirmed; exploratory bare click command rejected (requires pointer click); no guide command used that invalid form. Findings and parity unchanged.
 - 2026-11-06 [claude]: merged P4e-6 (AUTHORING data section, dataCodes, convert differences); data 8191/8192 (+145 B for the code table)
+
+- 2026-11-06 10:03 [codex-test]: P4e AniML scoreboard → 5/6 strict, 15 checks, 9 total errors including setup/docs; source/build parity and 27 ranking cases pass (evidence: benchmark animl/REPORT.md, verify.py).
