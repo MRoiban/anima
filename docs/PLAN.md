@@ -300,6 +300,10 @@ and an oracle test against Rive.
         counter delivery and P9 script execution remain pending. Six native findings require parent
         decisions; quantitative no-regression performance remains unverified under external load.
         Generic markup dispatch adds 19 B; strict zero overhead for that compiler entry remains open.
+  - [x] P4e-6 authoring: executable data/model/path/mode/converter examples, CLI/module chapter links,
+        shared dataCodes table and intentional convert differences with unchanged finding links.
+        Scoped verification 2,584 passed; final guide 28/28; data 8,191/8,192 B, host 3,924/4,096 B.
+        Thirteen data and four converter inventory rows remain pending; no parity status changed.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide
       whether switching to reduced motion stops in-progress loops at once (P4b benchmark).
 - [ ] P6 Text.

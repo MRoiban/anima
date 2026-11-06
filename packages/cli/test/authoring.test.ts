@@ -77,6 +77,17 @@ describe('authoring guide executable examples', () => {
     },
   );
 
+  it.each(['data', 'convert', 'host'])(
+    'docs %s serves its chapter and data authoring link',
+    (topic) => {
+      const result = cli('docs', topic);
+      expect(result.code, result.output).toBe(0);
+      expect(result.output).toContain('## ' + topic);
+      expect(result.output).toContain('Data: view models, `$` paths and converters');
+      expect(result.output).toContain('docs/AUTHORING.md#data-view-models--paths-and-converters');
+    },
+  );
+
   it('exposes the forgotten pivot through inspect and rendered geometry', () => {
     const example = xml.find((b) => b.source.includes('name="pivot"'));
     expect(example).toBeDefined();

@@ -2113,3 +2113,25 @@ No push, PR, merge into main, benchmark rerun or parity-status promotion by this
   `modules/convert/REPORT.md` and `verification/`. No design replacement, dependency, measurement tool
   edit, loosened limit, push, PR or publication. Necessary data/bind and shared markup seams only;
   host/paint/contour/mix/canvas sources untouched.
+
+## P4e-6 — data authoring and shared diagnostics
+
+Added the data authoring section: all nine property types, default/named/global instances, `$` paths
+across input consumers, binding modes, common converters/groups, custom channels, three explicit
+list-driven nodes, step ordering, CLI checks, diagnostic fixes and two exact validator transcripts.
+Five new XML documents compile; all 28 authoring tests pass, including chapter/link checks for data,
+convert and host. The guide names thirteen pending data rows and four pending converter rows,
+including the now-integrated converter-options seam whose inventory status stays unchanged.
+
+Data exports `dataCodes` from core and its composed module; data diagnostics and host share that
+source table. No behavior or dependency change. Sizes: data **8191/8192 B** (one byte headroom),
+host **3924/4096 B**, bind **1858/2048 B**, convert **6161/8192 B**, full-featured **91462/102400 B**.
+Convert's normative chapters record decided boolean spelling, eager interpolation/half-up channels,
+double precision and the enum dump observation limit, linking all six unchanged oracle findings.
+
+`npm run test:scope -- cli data convert host markup`: **2584 passed / 253 skipped / 13 todo**,
+46 files passed / 13 skipped; includes Chromium/Firefox host load-order suites. Final guide-only
+rerun **28/28** after fixing invalid examples that initially hit missing-node errors first.
+Typecheck, ESLint, Prettier, module wiring (0 stale), size and diff checks pass. Initial tooling
+needed `npm ci`; old trigger transcript was stale and corrected to actual output. No test limits,
+measurement inputs, oracle findings or parity status fields changed. Local commit only.

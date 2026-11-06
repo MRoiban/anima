@@ -1,3 +1,4 @@
+import { dataCodes } from './errors.ts';
 import { resolveAddress } from '../../../packages/core/src/load.ts';
 import { clone } from './types.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
@@ -12,6 +13,7 @@ import { compiled, converters, registerConverter, same } from './types.ts';
 import { dataState, type DataState } from './storage.ts';
 import { registerEventKinds } from '../../components/core/events.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
+export { dataCodes } from './errors.ts';
 export { dataState } from './storage.ts';
 export { converters, registerConverter, type Converter, type Context } from './types.ts';
 export { systemEnums } from './enums.ts';
@@ -20,11 +22,13 @@ let parse: typeof import('../../bind/core/expression.ts').expression | undefined
 const path = /^(?:\$[a-zA-Z][\w-]*(?::[a-zA-Z][\w-]*)?(?:\.[\w-]+)*|[a-z][\w-]*(?:\.[\w-]+)*)$/;
 export type DataModule = Module & {
   dataState: typeof dataState;
+  dataCodes: typeof dataCodes;
   converters: typeof converters;
   registerConverter: typeof registerConverter;
 };
 export const data: DataModule = {
   name: 'data',
+  dataCodes,
   after,
   converters,
   dataState,
@@ -145,7 +149,7 @@ export const data: DataModule = {
   value(addr, value, pointer, d) {
     if (addr.prop.type === 'string' && typeof value === 'string') return value;
     d.err(
-      'data-type',
+      dataCodes['type'],
       pointer,
       V && 'custom property value has the wrong type',
       V && 'use the declared custom property type',
@@ -169,7 +173,7 @@ export const data: DataModule = {
         const m = /^(\$[\w:.-]+)\s*->\s*(\$[\w:.-]+)$/.exec(r.copy);
         if (!m)
           d.err(
-            'data-copy',
+            dataCodes['copy'],
             at + '/copy',
             V && 'copy needs $source -> $destination',
             V && 'use two declared paths',
@@ -179,14 +183,14 @@ export const data: DataModule = {
             b = c.refs.get(m[2]!);
           if (!a || !b || a.input.type !== b.input.type)
             d.err(
-              'data-type',
+              dataCodes['type'],
               at + '/copy',
               V && 'copy path types must match',
               V && 'choose paths with the same type',
             );
           else if (b.readonly)
             d.err(
-              'data-readonly',
+              dataCodes['readonly'],
               at + '/copy',
               V && 'copy destination is read-only',
               V && 'write an item property',
@@ -201,14 +205,14 @@ export const data: DataModule = {
         const focus = r.value === 'focused';
         if (!focus && !m)
           d.err(
-            'data-value-source',
+            dataCodes['value-source'],
             at + '/value',
             V && 'unknown listener value source',
             V && 'use focused or a gamepad value source',
           );
         if ((focus && !raw.requires.includes('focus')) || (m && !raw.requires.includes('input')))
           d.err(
-            'data-value-source',
+            dataCodes['value-source'],
             at + '/value',
             V && 'value source requires its owning module',
             V && 'add focus or input to requires',
@@ -217,7 +221,7 @@ export const data: DataModule = {
         for (const [name] of l.set)
           if (model.inputs.get(name)?.type !== (bool ? 'bool' : 'number'))
             d.err(
-              'data-type',
+              dataCodes['type'],
               at + '/value',
               V && 'value source and destination types differ',
               V && 'use a destination with the source type',
@@ -238,7 +242,7 @@ export const data: DataModule = {
       }
       if (l.on.startsWith('change:') && !c.refs.has(l.on.slice(7)))
         d.err(
-          'data-path',
+          dataCodes['path'],
           at + '/on',
           V && 'unknown change listener path',
           V && 'use change:$property',

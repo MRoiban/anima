@@ -1,3 +1,4 @@
+import { dataCodes } from './errors.ts';
 import { clone } from './types.ts';
 import type { Model } from '../../../packages/core/src/load.ts';
 import type { Diags } from '../../../packages/core/src/diag.ts';
@@ -28,14 +29,14 @@ export function prepare(model: Model, d: Diags): void {
   for (const [key, values] of ownEntries(document.enums)) {
     const keys = values.map((v) => (typeof v === 'string' ? v : v.key));
     if (keys.some((k) => !name.test(k)) || new Set(keys).size !== keys.length)
-      error('data-enum', ptr('/data/enums', key), 'enum keys must be unique names');
+      error(dataCodes['enum'], ptr('/data/enums', key), 'enum keys must be unique names');
   }
   for (const [key, def] of ownEntries(defs)) {
     if (!name.test(key))
-      error('data-model', ptr('/data/models', key), 'model names must be identifiers');
+      error(dataCodes['model'], ptr('/data/models', key), 'model names must be identifiers');
     for (const [key2, p] of ownEntries(def.properties)) {
       const at = ptr(ptr('/data/models', key) + '/properties', key2);
-      if (!name.test(key2)) error('data-property', at, 'property names must be identifiers');
+      if (!name.test(key2)) error(dataCodes['property'], at, 'property names must be identifiers');
       if (p.type === 'enum') {
         const values = p.system
           ? systemEnums[p.system]
@@ -43,7 +44,7 @@ export function prepare(model: Model, d: Diags): void {
             ? document.enums?.[p.enum]?.map((v) => (typeof v === 'string' ? v : v.key))
             : p.values;
         if (!values?.length || new Set(values).size !== values.length)
-          error('data-enum', at, 'enum needs unique members or a declared system enum');
+          error(dataCodes['enum'], at, 'enum needs unique members or a declared system enum');
         p.values = [...(values ?? [])];
       }
       if (
@@ -51,14 +52,14 @@ export function prepare(model: Model, d: Diags): void {
         (p.max !== undefined && p.type !== 'number') ||
         (p.min ?? -Infinity) > (p.max ?? Infinity)
       )
-        error('data-property', at, 'number limits must be ordered and numeric');
+        error(dataCodes['property'], at, 'number limits must be ordered and numeric');
       if (
         (p.type === 'model-ref' && !Object.hasOwn(defs, p.model ?? '')) ||
         (p.type === 'list' && p.of && !Object.hasOwn(defs, p.of))
       )
-        error('data-model', at, 'unknown referenced model');
+        error(dataCodes['model'], at, 'unknown referenced model');
       if (p.type === 'asset-ref' && !p.assetType)
-        error('data-property', at, 'asset-ref needs assetType image, font or blob');
+        error(dataCodes['property'], at, 'asset-ref needs assetType image, font or blob');
     }
   }
   let expanded = 0;
@@ -68,12 +69,12 @@ export function prepare(model: Model, d: Diags): void {
   const namedInstance = (key: string, at: string): Record<string, unknown> => {
     if (named.has(key)) return named.get(key)!;
     if (resolving.has(key)) {
-      error('data-cycle', at, 'cyclic instance reference');
+      error(dataCodes['cycle'], at, 'cyclic instance reference');
       return {};
     }
     const instance = document.instances?.[key];
     if (!instance) {
-      error('data-instance', at, 'unknown instance ' + key);
+      error(dataCodes['instance'], at, 'unknown instance ' + key);
       return {};
     }
     resolving.add(key);
@@ -90,7 +91,7 @@ export function prepare(model: Model, d: Diags): void {
   ): Record<string, unknown> => {
     const def = Object.hasOwn(defs, modelName) ? defs[modelName] : undefined;
     if (!def) {
-      error('data-model', at, 'unknown model ' + modelName);
+      error(dataCodes['model'], at, 'unknown model ' + modelName);
       return {};
     }
     if (stack.length >= 32 || ++expanded > 4096) {
@@ -101,14 +102,14 @@ export function prepare(model: Model, d: Diags): void {
     modelOf.set(out, modelName);
     for (const k of Object.keys(overrides))
       if (!def.properties[k] && k !== '$comment')
-        error('data-path', ptr(at, k), 'unknown property ' + k);
+        error(dataCodes['path'], ptr(at, k), 'unknown property ' + k);
     for (const [k, p] of ownEntries(def.properties)) {
       const loc = ptr(at, k);
       let value = Object.hasOwn(overrides, k) ? overrides[k] : p.default;
       if (p.type === 'trigger') {
         if (value !== undefined)
           error(
-            'data-type',
+            dataCodes['type'],
             loc,
             'triggers have no stored value',
             'use fire with the trigger path',
@@ -124,13 +125,13 @@ export function prepare(model: Model, d: Diags): void {
           if (typeof v === 'string') {
             const instance = document.instances?.[v];
             if (!instance) {
-              error('data-instance', point, 'unknown instance ' + v);
+              error(dataCodes['instance'], point, 'unknown instance ' + v);
               return {};
             }
             if (of && instance.model !== of)
-              error('data-type', point, 'instance model does not match reference');
+              error(dataCodes['type'], point, 'instance model does not match reference');
             if (stack.includes('@' + v)) {
-              error('data-cycle', point, 'cyclic instance reference');
+              error(dataCodes['cycle'], point, 'cyclic instance reference');
               return {};
             }
             return namedInstance(v, point);
@@ -139,7 +140,7 @@ export function prepare(model: Model, d: Diags): void {
             const o = v as { model?: string; instance?: string; values?: Record<string, unknown> };
             if (o.instance) return item(o.instance, of, point);
             if (o.model && of && o.model !== of)
-              error('data-type', point, 'item model does not match list of');
+              error(dataCodes['type'], point, 'item model does not match list of');
             return build(o.model ?? of ?? '', o.values ?? (v as Record<string, unknown>), point, [
               ...stack,
               modelName,
@@ -147,7 +148,7 @@ export function prepare(model: Model, d: Diags): void {
           }
           if (stack.includes(modelName)) {
             error(
-              'data-cycle',
+              dataCodes['cycle'],
               point,
               'recursive default model reference',
               'provide an acyclic explicit instance graph',
@@ -158,7 +159,7 @@ export function prepare(model: Model, d: Diags): void {
         };
         if (p.type === 'list') {
           if (value !== undefined && !Array.isArray(value))
-            error('data-type', loc, 'list values must be arrays');
+            error(dataCodes['type'], loc, 'list values must be arrays');
           out[k] = (Array.isArray(value) ? value : []).map((v, i) => item(v, p.of, loc + '/' + i));
         } else out[k] = item(value, p.model, loc);
         continue;
@@ -176,7 +177,7 @@ export function prepare(model: Model, d: Diags): void {
                   : '';
       if (!accepts(p, value))
         error(
-          'data-type',
+          dataCodes['type'],
           loc,
           'value does not match ' + p.type,
           'use a value with the declared property type',
@@ -186,14 +187,14 @@ export function prepare(model: Model, d: Diags): void {
           p.type === 'number' &&
           (Number(value) < (p.min ?? -Infinity) || Number(value) > (p.max ?? Infinity))
         )
-          error('data-type', loc, 'initial value lies outside number limits');
+          error(dataCodes['type'], loc, 'initial value lies outside number limits');
         if (
           p.type === 'asset-ref' &&
           value &&
           model.doc.assets?.[String(value)]?.type !== p.assetType
         )
           error(
-            'data-asset',
+            dataCodes['asset'],
             loc,
             'asset reference kind does not match',
             'declare an asset of the requested kind',
@@ -207,12 +208,16 @@ export function prepare(model: Model, d: Diags): void {
   let chosen = '';
   for (const [key, instance] of ownEntries(document.instances)) {
     if (!name.test(key))
-      error('data-instance', ptr('/data/instances', key), 'instance names must be identifiers');
+      error(
+        dataCodes['instance'],
+        ptr('/data/instances', key),
+        'instance names must be identifiers',
+      );
     defaults[key] = namedInstance(key, ptr('/data/instances', key) + '/values');
     if (instance.default) {
       if (chosen)
         error(
-          'data-instance',
+          dataCodes['instance'],
           ptr('/data/instances', key) + '/default',
           'only one default instance is allowed',
         );
@@ -220,7 +225,7 @@ export function prepare(model: Model, d: Diags): void {
     }
   }
   const target = document.model;
-  if (target && !defs[target]) error('data-model', '/data/model', 'unknown default model');
+  if (target && !defs[target]) error(dataCodes['model'], '/data/model', 'unknown default model');
   if (target)
     chosen =
       ownEntries(document.instances).find(([, v]) => v.model === target && v.default)?.[0] ??
@@ -231,22 +236,27 @@ export function prepare(model: Model, d: Diags): void {
     chosen = 'default';
     const modelName = target ?? Object.keys(defs).find((k) => k !== '$comment');
     if (!modelName) {
-      error('data-model', '/data/models', 'at least one model is required');
+      error(dataCodes['model'], '/data/models', 'at least one model is required');
       return;
     }
     (document.instances ??= {})[chosen] = { model: modelName };
     defaults[chosen] = build(modelName, {}, '/data/models/' + modelName + '/properties');
   }
   if (document.preview && !defaults[document.preview])
-    error('data-instance', '/data/preview', 'unknown preview instance');
+    error(dataCodes['instance'], '/data/preview', 'unknown preview instance');
   for (const [i, n] of model.nodes.entries())
     if (n.raw.data) {
       const key = String(n.raw.data).replace(/^\$/, '').replace(/:$/, '');
       const inst = document.instances?.[key];
-      if (!inst) error('data-instance', '/nodes/' + i + '/data', 'unknown component data instance');
+      if (!inst)
+        error(dataCodes['instance'], '/nodes/' + i + '/data', 'unknown component data instance');
       const publicModel = model.doc.components?.[n.raw.component]?.data;
       if (inst && typeof publicModel === 'string' && publicModel !== inst.model)
-        error('data-type', '/nodes/' + i + '/data', 'component public data model does not match');
+        error(
+          dataCodes['type'],
+          '/nodes/' + i + '/data',
+          'component public data model does not match',
+        );
     }
   const c: Compiled = { document, defaults, defaultName: chosen, refs: new Map(), model };
   compiled.set(model, c);
@@ -316,7 +326,7 @@ export function prepare(model: Model, d: Diags): void {
           for (const k of m[2]!.split('.')) value = value && (value as Record<string, unknown>)[k];
           if (value === undefined)
             error(
-              'data-path',
+              dataCodes['path'],
               at,
               'unknown data path ' + path,
               'use a declared property, named instance or valid list index',
