@@ -1,0 +1,60 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[23:20:13.779] rive  deferred replay: inline
+[23:20:13.829] rive  built (158343 bytes, 49ms, 0 errors, 0 warnings)
+[23:20:13.830] rive  showing Playlist [1/3]
+[23:20:13.830] rive  viewport 480x360 @1x
+ok advance
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[23:20:13.930] rive  wrote evidence/initial.png
+ok screenshot: evidence/initial.png
+[23:20:13.931] rive  wrote evidence/initial.json
+ok data-dump: evidence/initial.json
+ok pointer
+ok advance
+[23:20:13.955] rive  wrote evidence/dawn-click.png
+ok screenshot: evidence/dawn-click.png
+[23:20:13.956] rive  wrote evidence/dawn-click.json
+ok data-dump: evidence/dawn-click.json
+ok pointer
+ok advance
+[23:20:13.979] rive  wrote evidence/tide-click.png
+ok screenshot: evidence/tide-click.png
+[23:20:13.980] rive  wrote evidence/tide-click.json
+ok data-dump: evidence/tide-click.json
+[23:20:13.980] rive  data: command = append (mid-run)
+ok data
+ok advance
+[23:20:13.994] rive  wrote evidence/appended.png
+ok screenshot: evidence/appended.png
+[23:20:13.995] rive  wrote evidence/appended.json
+ok data-dump: evidence/appended.json
+[23:20:13.995] rive  data: index = 1 (mid-run)
+ok data
+[23:20:13.995] rive  data: command = insert (mid-run)
+ok data
+ok advance
+[23:20:14.011] rive  wrote evidence/inserted.png
+ok screenshot: evidence/inserted.png
+[23:20:14.013] rive  wrote evidence/inserted.json
+ok data-dump: evidence/inserted.json
+[23:20:14.013] rive  data: index = 0 (mid-run)
+ok data
+[23:20:14.013] rive  data: otherIndex = 2 (mid-run)
+ok data
+[23:20:14.013] rive  data: command = swap (mid-run)
+ok data
+ok advance
+[23:20:14.030] rive  wrote evidence/swapped.png
+ok screenshot: evidence/swapped.png
+[23:20:14.031] rive  wrote evidence/swapped.json
+ok data-dump: evidence/swapped.json
+[23:20:14.031] rive  data: index = 1 (mid-run)
+ok data
+[23:20:14.031] rive  data: command = remove (mid-run)
+ok data
+ok advance
+[23:20:14.046] rive  wrote evidence/removed.png
+ok screenshot: evidence/removed.png
+[23:20:14.047] rive  wrote evidence/removed.json
+ok data-dump: evidence/removed.json
+ok quit

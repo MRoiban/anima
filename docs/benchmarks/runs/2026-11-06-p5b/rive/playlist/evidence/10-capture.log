@@ -1,0 +1,90 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[23:22:07.421] rive  deferred replay: inline
+[23:22:07.477] rive  built (261902 bytes, 55ms, 0 errors, 0 warnings)
+controller-init
+controller-init
+[23:22:07.478] rive  showing Playlist [1/3]
+[23:22:07.478] rive  viewport 480x360 @1x
+ok advance
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[23:22:07.499] rive  wrote evidence/initial.png
+ok screenshot: evidence/initial.png
+[23:22:07.500] rive  wrote evidence/initial.json
+ok data-dump: evidence/initial.json
+playback-request dawnClip duration=0.800000011920929
+ok pointer
+ok advance
+[23:22:07.518] rive  wrote evidence/dawn-click.png
+ok screenshot: evidence/dawn-click.png
+[23:22:07.519] rive  wrote evidence/dawn-click.json
+ok data-dump: evidence/dawn-click.json
+playback-request tideClip duration=0.800000011920929
+ok pointer
+ok advance
+[23:22:07.535] rive  wrote evidence/tide-click.png
+ok screenshot: evidence/tide-click.png
+[23:22:07.536] rive  wrote evidence/tide-click.json
+ok data-dump: evidence/tide-click.json
+[23:22:07.536] rive  data: command = append (mid-run)
+host-edit append
+ok data
+[23:22:07.558] rive  wrote evidence/appended.png
+ok screenshot: evidence/appended.png
+[23:22:07.559] rive  wrote evidence/appended.json
+ok data-dump: evidence/appended.json
+[23:22:07.559] rive  data: index = 1 (mid-run)
+ok data
+[23:22:07.559] rive  data: newTrack/title = Night (mid-run)
+ok data
+[23:22:07.560] rive  data: newTrack/duration = 180 (mid-run)
+ok data
+[23:22:07.560] rive  data: command = insert (mid-run)
+host-edit insert
+ok data
+[23:22:07.577] rive  wrote evidence/inserted.png
+ok screenshot: evidence/inserted.png
+[23:22:07.578] rive  wrote evidence/inserted.json
+ok data-dump: evidence/inserted.json
+[23:22:07.578] rive  data: index = 0 (mid-run)
+ok data
+[23:22:07.578] rive  data: otherIndex = 2 (mid-run)
+ok data
+[23:22:07.579] rive  data: command = swap (mid-run)
+host-edit swap
+ok data
+[23:22:07.595] rive  wrote evidence/swapped.png
+ok screenshot: evidence/swapped.png
+[23:22:07.596] rive  wrote evidence/swapped.json
+ok data-dump: evidence/swapped.json
+[23:22:07.596] rive  data: index = 1 (mid-run)
+ok data
+[23:22:07.596] rive  data: command = remove (mid-run)
+host-edit remove
+ok data
+[23:22:07.616] rive  wrote evidence/removed.png
+ok screenshot: evidence/removed.png
+[23:22:07.617] rive  wrote evidence/removed.json
+ok data-dump: evidence/removed.json
+playback-request emberClip duration=0.800000011920929
+ok pointer
+ok advance
+[23:22:07.618] rive  wrote evidence/ember-click.json
+ok data-dump: evidence/ember-click.json
+playback-request moonClip duration=0.800000011920929
+ok pointer
+ok advance
+[23:22:07.618] rive  wrote evidence/moon-click.json
+ok data-dump: evidence/moon-click.json
+[23:22:07.633] rive  wrote evidence/final.png
+ok screenshot: evidence/final.png
+ok quit
+[23:22:07.634] console controller:22  controller-init
+[23:22:07.634] console controller:22  controller-init
+[23:22:07.634] console controller:65  playback-request dawnClip duration=0.800000011920929
+[23:22:07.634] console controller:65  playback-request tideClip duration=0.800000011920929
+[23:22:07.634] console controller:40  host-edit append
+[23:22:07.634] console controller:40  host-edit insert
+[23:22:07.634] console controller:40  host-edit swap
+[23:22:07.634] console controller:40  host-edit remove
+[23:22:07.634] console controller:65  playback-request emberClip duration=0.800000011920929
+[23:22:07.634] console controller:65  playback-request moonClip duration=0.800000011920929
