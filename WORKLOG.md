@@ -98,3 +98,4 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-06 20:00 [claude]: merged P4b Rive run (72a1145): 5/6 (reduced motion host-only), 5m19s, 911 lines; recorded both P4b rows; AniML rerun planned after P4b-3
 - 2026-11-06 22:00 [claude]: merged P4b-2 (b1a9ef5): 15/15 probes disposed (6 verified, 8 skip-noted, 1 finding: Rive's number dump reports uint 2^32-1 as -1 — observation-path conversion, not Anima); fix: compare in-range values, document the dump note
 - 2026-11-06 23:00 [claude]: PR #12 (Pc canvas) merged (86d2c43); merged main into p4b-motion (7 conflicts: generated wiring regenerated, corpus 71 cases); scoped changed 1149 pass + 1 expected fail
+- 2026-11-07 00:30 [claude]: merged P4b-3 (dbbbfed): sync/exitNext/hold/input time, 10 cases, sync example 6/6; fixed docs topics for web-only modules (canvas); scoped motion+cli+canvas green
