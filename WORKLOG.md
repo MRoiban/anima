@@ -97,3 +97,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 19:00 [claude]: merged P4b AniML benchmark run (4f5f72b): 4/6 — gaps: declarative reverse-from-current, stop at next quantized step + hold, input-bound timeline clock (scrub took 13 states), no 'anima docs motion' → P4b-3
 - 2026-11-06 20:00 [claude]: merged P4b Rive run (72a1145): 5/6 (reduced motion host-only), 5m19s, 911 lines; recorded both P4b rows; AniML rerun planned after P4b-3
 - 2026-11-06 22:00 [claude]: merged P4b-2 (b1a9ef5): 15/15 probes disposed (6 verified, 8 skip-noted, 1 finding: Rive's number dump reports uint 2^32-1 as -1 — observation-path conversion, not Anima); fix: compare in-range values, document the dump note
+- 2026-11-06 23:00 [claude]: PR #12 (Pc canvas) merged (86d2c43); merged main into p4b-motion (7 conflicts: generated wiring regenerated, corpus 71 cases); scoped changed 1149 pass + 1 expected fail
