@@ -4,7 +4,7 @@
 Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
 State: p4e-data has data core (60/73 rows) and paint findings (10/18 strict, 8 rasterisation findings) merged. data 8181/8192, bind 2046/2048.
 Merged: data, paint, host (3878/4096), convert (6161/8192). Full-featured 91.4/100 KB.
-Next: merge those; benchmark (scoreboard, both sides); quiet-machine perf vs main (prefix sweep); parity bookkeeping; LOG/PLAN; PR.
+Next: P4e-6 docs+code table (Sol, running); Rive benchmark run (running); AniML run after P4e-6 merges; quiet perf vs main; parity bookkeeping; LOG/PLAN; PR.
 Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests.
 
 ## Log
@@ -169,3 +169,4 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 
 - 2026-11-06 09:35 [codex]: final checkpoint → 3031 scope pass/49 TODO; oracle strict 212 cases/406 samples, all 159 baseline oracle trees unchanged; static/artifact/size checks pass; report retains 4 pending rows, 6 findings, markup +19 B and unverified noisy performance (evidence: 789538f, modules/convert/verification/).
 - 2026-11-06 [claude]: merged P4e-2 convert (52 native rows, 6 findings, 4 pending) → broad scope 5487 pass/43 todo incl. browsers, oracle strict 0, size 0: bind 1858, data 8046, convert 6161, core+web 20055, full 91422 B (9 KB under 100 KB ceiling — flag to owner)
+- 2026-11-06 [claude]: decided convert findings: bool→string "true", eager interpolation = intentional; rounder/deg→rad = float32 dump; enum→index = observation limit. Launched P4e-6 (AUTHORING data section, data code table, convert differences) and the Rive side of the P4e benchmark (brief 18e372d: scoreboard)
