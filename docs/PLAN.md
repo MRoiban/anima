@@ -276,39 +276,20 @@ and an oracle test against Rive.
         browser tests. Core+web 19767 B (+420), bind 1866/2048, events 3551/4096.
         See `modules/events/P4D-3-RESULTS.md`; four exact post-click comparative oracles and one immediate-timing finding in `tests/oracle/ACTION-EXPRESSIONS.md`.
   - [ ] Parent integration, phase benchmark and parity promotion/PR.
-- [ ] P4e `data`: view models, bindings, converters, lists.
-  - [x] P4e-8 implementation: optional derive model scalars, instance-relative expressions/read-only
-        paths, bind comparisons/logic, schema data and executable guide CLI topics.
-  - [ ] P4e-8 fresh native computed-property oracle: local CLI 1.9.0 refuses schema/docs requiring
-        1.9.1; update prohibited in this task. Existing strict references remain unchanged.
-
-      Paint/backend subtask is partial: 18 rows mapped, 3/18 strict local completion;
-      SVG per-paint blending, clockwise hits and oracle evidence remain open.
-      See `modules/paint/REPORT.md`; no phase completion or parity promotion is claimed.
-  - [x] P4e-1 runtime checkpoint: typed models/instances/paths, modes and converter hooks, data writes,
-        custom properties, component sharing and gradient channels; 60 row conformance cases plus two
-        ordering vectors; 39 native comparisons, 21 evidenced skips. Local commit only.
-  - [ ] P4e-1 completion: decide the internal-trigger listener finding and resolve thirteen pending
-        design/consumer/integration rows; confirm the no-regression performance target on a quiet machine.
-        See `modules/data/REPORT.md` and `ROWS.json`.
-  - [x] P4e-5 paint/backend root causes and portable per-paint SVG: 10/18 strict, eight
-        documented rasterisation-only findings with independent native geometry/sampler evidence.
-        Clockwise hits and rounded cubic controls fixed; additive strength corrected. All native
-        probes captured; SVG-only oracle skips have active Canvas comparisons in both browsers.
-        See `modules/paint/REPORT.md`; phase completion/parity promotion remain deferred.
-  - [x] P4e-2 runtime integration: composed data converter hooks, shared bind math parser/functions,
-        player-local interpolation/RNG, independent AniML hook and both browser engines; 3,031 scoped
-        tests pass. Convert 6,165/8,192 B, data 8,046/8,192, bind 1,901/2,048; default web unchanged.
-        62/66 capability vectors complete: 52 native verified, four RNG skips, six retained findings.
-        See `modules/convert/REPORT.md` and `ROWS.json`; no parity status promotion.
-  - [ ] P4e-2 strict completion: HSL formatting markers, retained model-instance lists, trigger
-        counter delivery and P9 script execution remain pending. Six native findings require parent
-        decisions; quantitative no-regression performance remains unverified under external load.
-        Generic markup dispatch adds 19 B; strict zero overhead for that compiler entry remains open.
-  - [x] P4e-6 authoring: executable data/model/path/mode/converter examples, CLI/module chapter links,
-        shared dataCodes table and intentional convert differences with unchanged finding links.
-        Scoped verification 2,584 passed; final guide 28/28; data 8,191/8,192 B, host 3,924/4,096 B.
-        Thirteen data and four converter inventory rows remain pending; no parity status changed.
+- [x] P4e `data`: view models, bindings, converters, host data API, paint leftovers (LOG "P4e — data").
+  - [x] `data` core (models, instances, lists, `$` paths, binding modes, data listeners, custom
+        properties), `convert` (named converters and groups, formula functions, formatting,
+        interpolation), `host` (page data API, `auto-bind`), `derive` (computed read-only model
+        properties, from the benchmark), comparisons in bind expressions; paint leftovers 10/18 strict
+        plus 8 rasterisation-only findings. Parity 160 rows done (547 / 1 238).
+  - [x] Decided intentional differences: change listeners fire for every source; boolean → string
+        `"true"`; interpolation starts from the value at load. Float32 dumps and the enum-index
+        observation limit are recorded, not differences.
+  - Moved on: 54 rows to P5b (40: lists and list helpers, artboard values, default-instance
+    discovery, listener value sources, typed literals), P3b (6), P6 (3), P7 (2), P9 (3).
+  - Open: `data` is near its budget (7 420 / 8 192 B after `derive` took bytes out), `bind` at
+    2 048 / 2 048 B and `host` at 4 042 / 4 096 B — split before the next change to any of them;
+    fresh Rive captures need the Rive CLI updated to 1.9.1 (owner decision).
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide
       whether switching to reduced motion stops in-progress loops at once (P4b benchmark).
 - [ ] P6 Text.
