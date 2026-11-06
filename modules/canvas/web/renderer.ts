@@ -24,6 +24,7 @@ export class CanvasRenderer implements IconRenderer {
   #hidden = new Set<number>();
   #reported = new Set<string>();
   #images = new Map<string, HTMLImageElement>();
+  #tiles = new Map<string, HTMLCanvasElement>();
   #pending = new Set<Promise<void>>();
   #paths = new Map<Geometry, Path2D>();
   #resize = new ResizeObserver(() => this.layout());
@@ -63,6 +64,7 @@ export class CanvasRenderer implements IconRenderer {
     this.disconnect();
     this.#pool = [];
     this.#images.clear();
+    this.#tiles.clear();
     this.#paths.clear();
     this.#frame = undefined;
     this.canvas.width = this.canvas.height = 1;
@@ -434,6 +436,7 @@ export class CanvasRenderer implements IconRenderer {
         h = g.height!,
         iw = r.width ?? image.naturalWidth,
         ih = r.height ?? image.naturalHeight;
+      if (!w || !h) return;
       const sx = w / iw,
         sy = h / ih;
       const scale =
@@ -448,15 +451,48 @@ export class CanvasRenderer implements IconRenderer {
                 : r.fit === 'fit-height'
                   ? sy
                   : Math.min(sx, sy);
-      const dw = r.fit === 'fill' ? w : iw * scale,
-        dh = r.fit === 'fill' ? h : ih * scale;
+      const dw = r.fit === 'fill' || r.fit === 'resize' ? w : iw * scale,
+        dh = r.fit === 'fill' || r.fit === 'resize' ? h : ih * scale;
       const factor = (lo: string, hi: string) =>
         r.align.includes(lo) ? 0 : r.align.includes(hi) ? 1 : 0.5;
       ctx.save();
       ctx.imageSmoothingEnabled = r.sampling !== 'nearest';
       const x = g.x! + (w - dw) * factor('left', 'right'),
         y = g.y! + (h - dh) * factor('top', 'bottom');
-      if (r.sampling === 'nearest') {
+      if ((r.wrapX && r.wrapX !== 'clamp') || (r.wrapY && r.wrapY !== 'clamp')) {
+        const mx = r.wrapX === 'mirror',
+          my = r.wrapY === 'mirror';
+        let tile: HTMLImageElement | HTMLCanvasElement = image;
+        if (mx || my) {
+          const key = r.source + mx + my;
+          let cached = this.#tiles.get(key);
+          if (!cached) {
+            cached = document.createElement('canvas');
+            cached.width = image.naturalWidth * (mx ? 2 : 1);
+            cached.height = image.naturalHeight * (my ? 2 : 1);
+            const tc = context(cached);
+            for (let tx = 0; tx <= +mx; tx++)
+              for (let ty = 0; ty <= +my; ty++) {
+                tc.save();
+                tc.translate(tx ? 2 * image.naturalWidth : 0, ty ? 2 * image.naturalHeight : 0);
+                tc.scale(tx ? -1 : 1, ty ? -1 : 1);
+                tc.drawImage(image, 0, 0);
+                tc.restore();
+              }
+            this.#tiles.set(key, cached);
+          }
+          tile = cached;
+        }
+        const pattern = ctx.createPattern(
+          tile,
+          r.wrapX === 'clamp' ? 'repeat-y' : r.wrapY === 'clamp' ? 'repeat-x' : 'repeat',
+        )!;
+        pattern.setTransform(
+          new DOMMatrix([dw / image.naturalWidth, 0, 0, dh / image.naturalHeight, x, y]),
+        );
+        ctx.fillStyle = pattern;
+        ctx.fillRect(g.x!, g.y!, w, h);
+      } else if (r.sampling === 'nearest') {
         // Nearest drawImage snaps its outer edges. Extend the border texels into
         // the one-device-pixel AA fringe, then let a geometric clip own coverage.
         // Unlike a repeating shader, this clamps colours at fractional boundaries.

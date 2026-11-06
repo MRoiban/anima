@@ -138,3 +138,21 @@ Don't: change runtime/oracle limits/parity statuses; no push/PR/merge; no prohib
 - 2026-11-06 18:59 [sol-lists]: final source/evidence frozen; inherited count contexts share live parent data, queued-trigger machine state survives count growth/shrink; final perf exits 0 (bell31.9µs, toolbar24.2µs), comparative non-regression unverified; report and verification prepared for branch-only commit (evidence: modules/lists/REPORT.md).
 - 2026-11-06 [claude]: merged P5b-1 lists (4501/6144, 8/8 rows) → full-featured 100,510 / 102,400 B (P5b +6,935, over my 6 KB plan; 1,890 B to owner ceiling; assets still to land) — flag to owner. Seam tests 3042 pass incl. browsers, oracle 0. TODO wave 2: contract test host-edit list edits × lists identity
 - 2026-11-06 [claude]: owner decision (asked): raise the full-featured ceiling → 128 KB in tools/size.ts and PLAN (100,510 B at lists+host-edit)
+- 2026-11-06 16:50 [assets]: read task/design/spec/architecture and baseline history; scaffold failed because node_modules absent → npm ci in progress (unverified).
+
+- 2026-11-06 17:11 [assets]: scaffolded all 37 rows, implemented metadata/policy/media, clip events, sampling and build/import; pipeline unit tests 13/13 pass. Initial failures: absent dependencies, compound metadata parsing, resvg WebP decoder, importer basename; fixed. Browser wrap and surface 8291/8192 still under investigation (unverified).
+
+- 2026-11-06 17:38 [assets]: native 13 captures → 8 exact (max 0), bilinear finding max27/1017 pixels>16, clamp findings max255/10800 or54000, SVG bilinear repeat max188/36852 now declined. CLI maps pixelated→optimizeSpeed for resvg. Static+scope final checks next; prior concurrent module-order/encoder runs timed out unchanged (unverified under load).
+
+- 2026-11-06 18:33 [assets]: final requested scope 5385 pass/52 TODO in473.99s; added exact-boundary bilinear seam checks pass2/2 unchanged bound2; native JPEG/JPG max40 all57600 pixels differ, PNG0/WebP1/importSVG1/Lottie0. Existing216 native entries and18 findings unchanged; cap examples37/37 compiled (evidence: modules/assets/verification, REPORT.md).
+
+- 2026-11-06 18:50 [assets]: genuine WAV host decoding passes both engines (800 samples/8 kHz/0.1s and PCM0,-1), all8 asset browser tests pass; WAV conformance completed, FLAC/MP3 remain pending. Rive capture initially needed project cwd for screenshot paths; rerun succeeded. Final full-scope rerun next (evidence: /tmp/p5b-browser-host-final.log).
+
+- 2026-11-06 19:03 [assets]: final scope → 5385 pass/52 TODO in465.00s, both engines; original216 oracle entries/18 findings and1238 parity statuses unchanged. Preparing final static checks and branch-only commit (evidence: modules/assets/verification/scope.txt).
+
+- 2026-11-06 19:13 [assets]: full requested scope green5385/52TODO; final CLI-only SVG colour/unit/warning hardening and case-insensitive excluded data URI pass11 CLI tests (evidence: modules/assets/verification/cli.txt). Runtime bytes/perf unchanged; static recheck and commit next.
+
+- 2026-11-06 19:20 [assets]: typecheck/eslint/prettier/modules/AniML/web/parity all exit0; final CLI+markup2409/2409 pass. Baseline216 oracle entries/18 findings and1238 parity statuses unchanged; clamp spec retains required edge extension, current gap labelled (evidence: modules/assets/verification/).
+
+- 2026-11-06 19:24 [assets]: committed P5b-3 partial implementation on t3/implement-assets-capabilities; 698 owned/generated/evidence files, clean staged whitespace; no push/PR/merge (evidence: git commit; modules/assets/REPORT.md).
+- 2026-11-06 [claude]: merged P5b-3 assets (partial: 12 native-passing rows, 6 findings, 19 pending; assets 2001/2048, media 2317/3072, paint 4557, paint-sampling 548/1024, markup 7913/8192) → full-featured 102,269 / 131,072 B. Seams: corpus count 373/399 → 408; assets browser pipeline test launched a browser per test (1–2 s inside 5 s) → one browser per engine in beforeAll, fresh context per test (Firefox 0.3–0.8 s). JPEG CLI test 185 ms idle; failed only when unit+browser ran together (CI runs them sequentially)

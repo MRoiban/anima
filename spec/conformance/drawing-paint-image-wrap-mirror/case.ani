@@ -1,0 +1,50 @@
+{
+  "anima": "0.1",
+  "name": "drawing-paint-image-wrap-mirror",
+  "grid": 24,
+  "requires": ["assets", "paint"],
+  "nodes": [
+    {
+      "id": "photo",
+      "type": "image",
+      "x0": 0,
+      "y0": 0,
+      "asset": "photo",
+      "sampling": "nearest",
+      "wrap": "mirror",
+      "width": 4,
+      "height": 4
+    }
+  ],
+  "timelines": {
+    "resize": {
+      "duration": 1,
+      "tracks": {
+        "photo.width": [
+          [0, 4],
+          [1, 8]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "active",
+        "states": {
+          "active": {
+            "play": "resize"
+          }
+        }
+      }
+    }
+  },
+  "assets": {
+    "photo": {
+      "type": "image",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAG0lEQVR4AWP8r8HwnwEPYGIgAJgYCAAmBgIAABjwAi5tDXySAAAAAElFTkSuQmCC",
+      "width": 8,
+      "height": 4
+    }
+  }
+}

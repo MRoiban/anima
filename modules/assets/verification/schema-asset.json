@@ -1,0 +1,35 @@
+{
+  "topic": "asset",
+  "fields": [
+    { "markup": "name", "ani": "name", "type": "string", "required": true },
+    {
+      "markup": "type",
+      "ani": "type",
+      "type": "\"image\" | \"font\" | \"audio\" | \"blob\"",
+      "required": true
+    },
+    { "markup": "src", "ani": "source", "type": "string", "required": true },
+    {
+      "markup": "storage",
+      "ani": "storage",
+      "type": "\"embedded\" | \"referenced\"",
+      "required": false
+    },
+    { "markup": "width", "ani": "width", "type": "number", "required": false },
+    { "markup": "height", "ani": "height", "type": "number", "required": false },
+    { "markup": "size", "ani": "size", "type": "number", "required": false, "min": 0 },
+    { "markup": "mime", "ani": "mime", "type": "string", "required": false },
+    { "markup": "duration", "ani": "duration", "type": "number", "required": false, "min": 0 },
+    { "markup": "start", "ani": "start", "type": "number", "required": false, "min": 0 },
+    { "markup": "end", "ani": "end", "type": "number", "required": false },
+    {
+      "markup": "encode",
+      "ani": "encode",
+      "type": "\"png\" | \"jpeg\" | \"webp\"",
+      "required": false
+    },
+    { "markup": "quality", "ani": "quality", "type": "number", "required": false, "min": 0 },
+    { "markup": "export", "ani": "export", "type": "bool", "required": false },
+    { "markup": "metadata", "ani": "metadata", "type": "map<any>", "required": false }
+  ]
+}

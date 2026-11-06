@@ -1,0 +1,11 @@
+{
+  "status": "finding",
+  "reason": "Unadjusted native probe: max delta 255, 54000/57600 pixels above 16 (93.75%). Anima clamp preserves the pre-existing fitted-rectangle transparent margin; native sampler clamp extends edge texels. Native clamp equivalence remains an implementation/design gap, not a passing oracle.",
+  "case": {
+    "name": "drawing-paint-image-wrap-clamp",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  }
+}

@@ -2227,3 +2227,13 @@ were regenerated/rechecked after the last validation fix. Main commit **85409b0*
 - Performance: first HEAD/current A/B bell 38.9/37.5 µs, composite 25.0/24.2, toolbar 27.8/28.4;
   reverse order under load varies sharply. Non-regression is unverified; raw runs are retained.
   Handoff and failures: modules/lists/REPORT.md. Commit only; no push/PR/merge by the sub-agent.
+## P5b-3 assets workstream (2026-11-06)
+
+Implemented resolver policy/metadata, optional media bytes and SVG sampling, clip playback,
+image encoding/inspection/export exclusion, and original SVG/Lottie importers. Core+web remains
+20109 B; full-featured 95305 B (+1730). Requested scope: 5385 pass / 52 TODO across Chromium and
+Firefox; 35 new independent conformance cases, two audio-format probes pending. Native evidence:
+12 passing rows, six unadjusted findings, 19 rows pending; strict 228 cases / 424 samples green.
+Clamp currently retains legacy transparent margins rather than native edge extension and remains
+incomplete. See modules/assets/REPORT.md for exact findings, byte budgets, validation and deviations.
+No phase completion or parity status promotion is claimed; no push/PR/merge.

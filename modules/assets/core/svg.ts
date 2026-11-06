@@ -48,7 +48,7 @@ export const assetsSVG: SVGBackend = {
               : image.fit === 'fit-height'
                 ? sy
                 : Math.min(sx, sy);
-    const fill = image.fit === 'fill';
+    const fill = image.fit === 'fill' || image.fit === 'resize';
     const dw = fill ? w : iw * scale,
       dh = fill ? h : ih * scale;
     const factor = (lo: string, hi: string) =>

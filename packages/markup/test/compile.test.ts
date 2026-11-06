@@ -346,7 +346,7 @@ describe('AniML compiler', () => {
       );
     collectPaint(
       parseXml(
-        '<anima><rect mix="{&quot;mode&quot;:&quot;normal&quot;}" fill-blend-amount="0.5" stroke-blend-amount="0.5"/></anima>',
+        '<anima><image wrap="repeat" wrap-x="mirror" wrap-y="clamp"/><rect mix="{&quot;mode&quot;:&quot;normal&quot;}" fill-blend-amount="0.5" stroke-blend-amount="0.5"/></anima>',
       ).doc.root!,
     );
     const attrs = new Set(

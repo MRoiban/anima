@@ -578,7 +578,7 @@ Let the box be W×H and the intrinsic size I×J. The image is scaled and clipped
 |---|---|
 | `contain` (default) | min(W/I, H/J) |
 | `cover` | max(W/I, H/J) |
-| `fill` | x=W/I, y=H/J |
+| `fill`, `resize` | x=W/I, y=H/J |
 | `none` | 1 |
 | `scale-down` | min(1, W/I, H/J) |
 | `fit-width` | W/I |
@@ -601,6 +601,28 @@ cannot express all seven fit modes. Backends receive `Geometry.kind: "image"`, b
 and renderer-neutral image metadata (asset, source, intrinsic size, fit, align, sampling).
 SVG uses a nested clipped viewport and an image leaf; transforms stay on the node's group.
 The host resolves missing intrinsic dimensions before rendering; core draw data keeps them absent.
+
+### Image wrapping (P5b)
+
+`wrap` is `clamp` (default), `repeat` or `mirror`. `wrapX`/`wrapY` (AniML `wrap-x`/`wrap-y`)
+override their axis independently. Fit and alignment first establish the fitted source rectangle.
+Clamp extends the edge texels outside the fitted source rectangle to the box boundary. Repeat
+tiles it in both directions; mirror reflects every odd tile, including negative tile indices.
+Implementation limitation: current clamp still draws the legacy fitted rectangle with transparent
+margins. The three clamp parity rows remain incomplete; this limitation does not redefine clamp. Width/height animation recomputes
+fit and pattern extent. `resize` is the `fill` alias: both axes stretch independently to the box.
+The optional browser entry `@anima-format/web/paint-sampling` imports paint and installs SVG
+wrapping. The ordinary paint entry declines repeat/mirror with `unsupported-render` and an import
+hint; it does not bundle pattern code. CLI/static SVG includes the backend. SVG uses user-space patterns and transformed groups for
+reflected tiles, keeping transforms off
+image leaves. Canvas uses equivalent source tiles. Filtering remains nearest/bilinear as above;
+SVG declines bilinear `repeat` with `unsupported-render` at the repeating axis, a reason about
+independent image filtering, and a nearest/canvas hint. A native UV-mesh probe measured maximum
+channel delta 188 and 36,852/57,600 pixels above 16 before declining this combination (see
+modules/assets/probes/native-measurements.json). Nearest repeat and mirror pass crisp native probes.
+GPU/rasterizer edge differences are not a claim of bit-identical rendering. Invalid wrap enums
+use the existing `bad-value` structural diagnostic at the authored property. No new player state is
+introduced. Both source syntax spellings and deterministic width tracks have conformance probes.
 
 ### Gradients
 
@@ -980,8 +1002,8 @@ feedback loops described in [animation/state research](../docs/research/rive-ani
 ## assets
 
 The optional `assets` module adds an `assets` map and image draw data. Image nodes also
-require `paint`. Core validation and `Player.step` perform no IO. Fonts, audio and blobs
-are declarations only; their consumers arrive in P6/P4d.
+require `paint`. Core validation and `Player.step` perform no IO. Fonts remain declarations until P6;
+audio/blob consumers are optional host modules.
 
 Each named asset is `{ type, source, storage?, width?, height? }`. `type` is `image`, `font`,
 `audio` or `blob`. `source` is required and nonempty: a data URI or URL (relative URLs are
@@ -1004,7 +1026,7 @@ replaces the source before decode; `info` is a copy of the authored declaration.
 or image decode failure empties the icon and dispatches `anima:error` with `asset-load`, the
 source pointer, message and hint. Embedded data URIs require no network. Resolved data is private
 to the loaded model; source declarations are preserved. Superseded loads cannot install their scene.
-Fonts/audio/blob do not load or invoke the resolver yet.
+Audio/blob byte access and policy are specified below; fonts remain declarations.
 
 `anima build --embed` embeds local referenced assets (paths relative to the source file), sets
 storage to `embedded`, and changes no fields outside the assets map. It supports AniML and
@@ -1012,8 +1034,72 @@ AniML scripts in HTML. Already embedded assets are unchanged. Other URL schemes 
 by this disk build and report `asset-load`; HTTP asset fetching is a browser host responsibility.
 `anima render` embeds local image sources and decodes intrinsic sizes through resvg before
 rendering; other asset types remain declarations. IO/decode failures report `asset-load` at
-`/assets`, with a message and hint. Build does not decode or transcode image bytes.
+`/assets`, with a message and hint. Build inspection and encoding are specified below.
 
+
+### P5b asset pipeline
+
+Asset declarations also accept `size` (nonnegative integer bytes), `mime` (MIME string),
+`metadata` (a JSON object, AniML `metadata='{"credit":"self"}'`), and the build-only
+`encode`, `quality` and `export` options. Resolver metadata includes every authored field;
+its copy is detached, including nested metadata. Source declarations are never mutated by host IO.
+`encode` is `png`, `jpeg` or `webp`; `quality` is in [0,1] and requires `encode`.
+These two options are image-only. PNG ignores quality; JPEG/WebP pass it to the browser encoder.
+Audio-only `start` and `end` are clip offsets in seconds; `duration` is the full source duration.
+Omitted start is zero and omitted end is decoded duration. Require `0 <= start < end <= duration`
+when the relevant bounds are known. Wrong-type options are `asset-option` at the option;
+invalid bounds are `asset-clip` at `/assets/<name>/start` or `/end`. Both carry repair hints.
+All fields have identical JSON/AniML names except `source` → `src`.
+
+`icon.assetPolicy` is `local` (default) or `any`; other assignments throw RangeError.
+Without a custom resolver, local policy permits data URIs and same-origin HTTP(S)/blob URLs,
+relative to the document source URL. Any permits other origins, retaining the protocol allowlist.
+A custom `icon.assets(name, info)` resolver explicitly authorizes its returned URL or Blob;
+relative returned URLs still resolve against the document source URL. This policy applies to
+image loading and event audio; browser CORS and media permissions still apply. Failed policy,
+network or image decoding emits `asset-load` at the source with a resolver/policy repair hint.
+Changing policy affects subsequent loads, not already decoded resources.
+
+Import `@anima-format/web/media` for lazy audio/blob byte access; it imports assets and contributes
+no new document fields. `icon.asset(name)` returns a promise of ArrayBuffer for audio/blob and
+source URL for images/fonts. Byte loads use the same resolver/policy, cache by model and asset,
+retry after a failure, and emit `asset-load` before rejecting with its diagnostics. Unknown names
+reject with RangeError. Audio decoding remains the consumer's responsibility; events uses Web
+Audio on demand after activation, as specified in events. Clip events start at `start` and play
+for `end-start`; invalid decoded bounds emit `event-audio-load`. Neither policy nor media IO changes
+Player.step output. Keeping media in its own entry follows the optional consumer principle in
+`docs/research/rive-web-runtime.md` §1; no native code or document format is copied.
+
+Build inspects local and embedded PNG/JPEG/WebP/WAV/MP3/FLAC signatures, dimensions or duration.
+Extension/MIME/signature disagreement or wrong media kind is `asset-format` at the asset source;
+read/truncation/decode errors are `asset-load`. Metadata `size`, `mime` and audio `duration` are
+written from inspected bytes; clip bounds are checked against inspected duration. PNG/JPEG pixels
+are validated with resvg, WebP with cached Chromium. Audio inspection validates container/frame
+headers, not complete audio decoding; host decoding remains authoritative. Disk build never fetches
+network URLs. Build embedding is byte-preserving without `encode`. PNG encoding runs in-process;
+WebP input needs Chromium to decode because resvg cannot decode WebP. JPEG/WebP encoding uses the
+cached headless Chromium canvas. Missing/unlaunchable Chromium is `build-encoder-unavailable` at
+`/assets/<name>/encode` (or `/source` for WebP validation), hinting `CHROMIUM_PATH`.
+`export=false` excludes bytes from embedding/encoding/inspection, preserving the source declaration
+and resolver name so references remain valid; the host supplies that source. An already embedded
+source becomes `anima:<name>` with referenced storage, so its bytes are actually excluded; this
+placeholder requires a resolver. It does not delete
+referenced names from the asset map. Build transformations apply equally to AniML and HTML scripts.
+
+`anima import file.svg [-o out.animl]` imports paths, rects, circles, ellipses, lines/polygons,
+groups, inherited fills/strokes (hex, basic named and RGB/RGBA colours), user-space linear/radial gradients, and translate/scale/rotate
+or nonskew affine matrix transforms. Transform lists become nested groups to preserve order.
+Unsupported elements/attributes/paint servers/transforms emit `import-unsupported` warnings with
+SVG element/attribute paths. Unsupported geometry is omitted with a warning. The import never
+fetches external references. `anima import file.json` accepts Lottie shape layers, groups, paths,
+static rects/ellipses, fills/strokes, transforms and scalar/vector/path keyframes with hold or
+cubic easing; stroke trim paths map to normalized trim fractions. Layer order reverses to preserve
+Lottie's back-to-front order. Unsupported fields/features (including images, expressions, masks,
+effects, skew, spatial curves, partial layer time ranges, animated anchors/primitive sizes and
+paint opacity) warn at their JSON pointer. These warnings describe lossy imports, not exact parity.
+Malformed XML/JSON or invalid import roots/clocks report `import-invalid` at the empty root
+pointer with a source-format repair hint. All imported documents are validated before output. JSON command output includes diagnostics and
+text or output path. The importer is independent of Rive.
 
 ## components
 
@@ -1942,7 +2028,7 @@ browser popup/target restrictions still apply. There is no navigation in core or
 `audio` references an assets-module audio asset (`event-audio` otherwise); `volume` is an
 optional [0,1] event gain, default 1. The browser requires prior user activation; earlier events
 are dropped without fetching or decoding and are never replayed later. Decode is on demand and
-cached per element/load/asset. Each occurrence starts a separate source. Effective gain is
+cached per element/load/asset. Each occurrence starts a separate source, honoring asset clip `start`/`end` (assets chapter). Effective gain is
 `event.volume * audioVolumes[asset] * icon.volume`, with each omitted gain equal to 1.
 For bubbled component events the owning child supplies the asset and resource gain; the host
 resolver receives its dot-scoped asset name (for example `child.tone`).

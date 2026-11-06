@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "Fresh native reference for assets.blob is pending; runtime/CLI tests do not establish native equivalence."
+}

@@ -1,0 +1,28 @@
+{
+  "source": "import-formats/tile.jpeg",
+  "samplePositions": [
+    [60, 60],
+    [180, 60],
+    [60, 180],
+    [180, 180]
+  ],
+  "resvgSampleRGBA": [
+    [72, 72, 10, 255],
+    [172, 172, 110, 255],
+    [53, 53, 0, 255],
+    [229, 229, 167, 255]
+  ],
+  "chromiumDecodedRGBA": [
+    [72, 72, 10, 255],
+    [172, 172, 110, 255],
+    [53, 53, 0, 255],
+    [229, 229, 167, 255]
+  ],
+  "riveSampleRGBA": [
+    [85, 60, 38, 255],
+    [154, 189, 71, 255],
+    [66, 41, 19, 255],
+    [211, 246, 128, 255]
+  ],
+  "note": "Independent native/Chromium/resvg observations; no colour correction. Cause not established."
+}

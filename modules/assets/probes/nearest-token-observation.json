@@ -1,0 +1,19 @@
+{
+  "source": "tests/oracle/drawing-paint-image-wrap-repeat/case.animl",
+  "nativeReference": "tests/oracle/drawing-paint-image-wrap-repeat/rive/frames/0.png",
+  "beforeImage": "nearest-token-before.png",
+  "threshold": 16,
+  "before": {
+    "token": "pixelated passed unchanged to resvg",
+    "maxDiff": 187,
+    "over": 42048,
+    "overPercent": 73
+  },
+  "after": {
+    "token": "optimizeSpeed for CLI PNG rasterization",
+    "maxDiff": 0,
+    "over": 0,
+    "overPercent": 0
+  },
+  "note": "The browser SVG token remains pixelated. These are before/after observations, not a changed tolerance."
+}

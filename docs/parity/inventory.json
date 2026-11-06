@@ -2876,10 +2876,10 @@
       "rive-runtime/include/rive/assets/audio_asset.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named audio resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-audio",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-audio; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -2905,10 +2905,10 @@
       "rive schema AudioAssetClip --all --json"
     ],
     "anima": {
-      "construct": "new: assets.<clip>: {type: \"audio\", source: \"sound\", start: seconds, end: seconds}",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-audio-clip",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-audio-clip; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -2932,10 +2932,10 @@
       "rive schema AudioAsset --all --json"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named audio-export-source resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-audio-export-source",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-audio-export-source; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -2958,10 +2958,10 @@
       "rive-runtime/include/rive/assets/audio_asset.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named audio-import-flac resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-audio-import-flac",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-audio-import-flac; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -2984,10 +2984,10 @@
       "rive-runtime/include/rive/assets/audio_asset.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named audio-import-mp3 resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-audio-import-mp3",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-audio-import-mp3; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3010,10 +3010,10 @@
       "rive-runtime/include/rive/assets/audio_asset.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named audio-import-wav resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-audio-import-wav",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-audio-import-wav; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3070,10 +3070,10 @@
       "rive-runtime/include/rive/assets/blob_asset.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named blob resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-blob",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-blob; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3095,10 +3095,10 @@
       "https://rive.app/docs/runtimes/loading-assets"
     ],
     "anima": {
-      "construct": "new: player asset loader API with explicit source resolution: cdn-disable",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-cdn-disable",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-cdn-disable; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3133,10 +3133,10 @@
       "rive-runtime/include/rive/assets/blob_asset.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named exclude-export resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-exclude-export",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-exclude-export; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3332,10 +3332,10 @@
       "rive-wasm/js/src/rive.ts:6385@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: player asset loader API with explicit source resolution: host-decode-audio",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-host-decode-audio",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-host-decode-audio; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     },
     "aliases": [
@@ -3545,10 +3545,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named image-encoding-jpeg resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-encoding-jpeg",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-encoding-jpeg; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3572,10 +3572,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named image-encoding-png resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-encoding-png",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-encoding-png; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3599,10 +3599,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named image-encoding-webp resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-encoding-webp",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-encoding-webp; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3629,10 +3629,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named image-export-controls resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-export-controls",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-export-controls; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3656,10 +3656,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<image>.sampling: named image-filter-bilinear setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-filter-bilinear",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-filter-bilinear; measured native finding (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3683,10 +3683,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<image>.sampling: named image-filter-nearest setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-filter-nearest",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-filter-nearest; passing native probe (max 2 / zero pixels above 16) (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3709,10 +3709,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named image-import-jpeg resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-import-jpeg",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-import-jpeg; measured native finding (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3735,10 +3735,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named image-import-jpg resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-import-jpg",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-import-jpg; measured native finding (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3761,10 +3761,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named image-import-png resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-import-png",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-import-png; passing native probe (max 2 / zero pixels above 16) (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3787,10 +3787,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named image-import-webp resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-import-webp",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-import-webp; passing native probe (max 2 / zero pixels above 16) (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3814,10 +3814,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<image>.sampling: named image-wrap-x-clamp setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-wrap-x-clamp",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-wrap-x-clamp; measured native finding (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3841,10 +3841,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<image>.sampling: named image-wrap-x-mirror setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-wrap-x-mirror",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-wrap-x-mirror; passing native probe (max 2 / zero pixels above 16) (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3868,10 +3868,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<image>.sampling: named image-wrap-x-repeat setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-wrap-x-repeat",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-wrap-x-repeat; passing native probe (max 2 / zero pixels above 16) (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3895,10 +3895,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<image>.sampling: named image-wrap-y-clamp setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-wrap-y-clamp",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-wrap-y-clamp; measured native finding (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3922,10 +3922,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<image>.sampling: named image-wrap-y-mirror setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-wrap-y-mirror",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-wrap-y-mirror; passing native probe (max 2 / zero pixels above 16) (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3949,10 +3949,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<image>.sampling: named image-wrap-y-repeat setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-wrap-y-repeat",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-wrap-y-repeat; passing native probe (max 2 / zero pixels above 16) (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -3999,10 +3999,10 @@
       "rive schema LottieAsset --all --json"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named lottie-import resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-lottie-import",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-lottie-import; passing native probe (max 2 / zero pixels above 16) (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -4027,10 +4027,10 @@
       "https://rive.app/docs/runtimes/loading-assets"
     ],
     "anima": {
-      "construct": "new: player asset loader API with explicit source resolution: metadata",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-metadata",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-metadata; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -4104,10 +4104,10 @@
       "https://rive.app/docs/runtimes/loading-assets"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named replacement-scope-image resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-replacement-scope-image",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-replacement-scope-image; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -4276,10 +4276,10 @@
       "rive schema SVGAsset --all --json"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named svg-import resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-svg-import",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-svg-import; passing native probe (max 2 / zero pixels above 16) (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -11907,10 +11907,10 @@
       "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: image.fit: resize",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "paint",
       "status": "planned",
-      "test": "oracle/image-fit-resize",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/drawing-paint-image-fit-resize; passing native probe (max 2 / zero pixels above 16) (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -11962,10 +11962,10 @@
       "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: image.wrapX/wrapY: clamp",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "paint",
       "status": "planned",
-      "test": "oracle/image-wrap-clamp",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/drawing-paint-image-wrap-clamp; measured native finding (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -11990,10 +11990,10 @@
       "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: image.wrapX/wrapY: mirror",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "paint",
       "status": "planned",
-      "test": "oracle/image-wrap-mirror",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/drawing-paint-image-wrap-mirror; passing native probe (max 2 / zero pixels above 16) (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -12018,10 +12018,10 @@
       "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: image.wrapX/wrapY: repeat",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "paint",
       "status": "planned",
-      "test": "oracle/image-wrap-repeat",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/drawing-paint-image-wrap-repeat; passing native probe (max 2 / zero pixels above 16) (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -15491,10 +15491,10 @@
       "rive-wasm/js/src/rive.ts:1594@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: explicit external asset fetch policy; default local",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "browser/asset-cdn-policy",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/host-api-asset-cdn-policy; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -15518,10 +15518,10 @@
       "rive-wasm/js/src/rive.ts:29@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: host-provided asset resolver",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "browser/asset-loader",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/host-api-asset-loader; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },
@@ -15550,10 +15550,10 @@
       "rive-wasm/js/src/rive_advanced.mjs.d.ts:1718@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: typed asset descriptors",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "browser/asset-metadata",
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/host-api-asset-metadata; native oracle pending (modules/assets/REPORT.md)",
       "phase": "P5b"
     }
   },

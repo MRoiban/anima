@@ -1,0 +1,49 @@
+{
+  "anima": "0.1",
+  "name": "assets-image-import-webp",
+  "grid": 24,
+  "requires": ["assets", "paint"],
+  "nodes": [
+    {
+      "id": "photo",
+      "type": "image",
+      "x0": 0,
+      "y0": 0,
+      "asset": "photo",
+      "sampling": "nearest",
+      "width": 4,
+      "height": 4
+    }
+  ],
+  "timelines": {
+    "resize": {
+      "duration": 1,
+      "tracks": {
+        "photo.width": [
+          [0, 4],
+          [1, 8]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "active",
+        "states": {
+          "active": {
+            "play": "resize"
+          }
+        }
+      }
+    }
+  },
+  "assets": {
+    "photo": {
+      "type": "image",
+      "source": "data:image/webp;base64,UklGRigCAABXRUJQVlA4WAoAAAAgAAAAAQAAAQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggOgAAANABAJ0BKgIAAgABQCYlmAJ0AQ7+A8gAAP7rx/LRnxP8Yv/6tDeYdjZACzQxR0/+LQ/t5/wa20m0AAA=",
+      "width": 2,
+      "height": 2
+    }
+  }
+}

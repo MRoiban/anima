@@ -294,7 +294,10 @@ function recover(root: Element): Obj {
     else if (el.name === 'asset') {
       const asset: Obj = { ...p, source: p.src };
       delete asset.src;
-      for (const k of ['width', 'height']) if (asset[k] !== undefined) asset[k] = Number(asset[k]);
+      for (const k of ['width', 'height', 'size', 'duration', 'start', 'end', 'quality'])
+        if (asset[k] !== undefined) asset[k] = Number(asset[k]);
+      if (asset.export !== undefined) asset.export = asset.export === 'true';
+      if (typeof asset.metadata === 'string') asset.metadata = JSON.parse(asset.metadata);
       insert('assets', name, asset);
     } else if (el.name === 'a11y') d.a11y = p;
     else if (['bool', 'number', 'trigger'].includes(el.name))

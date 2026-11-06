@@ -1,0 +1,1 @@
+Invalid asset-option / asset-clip examples and exact code, pointer, message and hint checks live in modules/assets/test/core/pipeline.test.ts. CLI format/encoder failures live in modules/assets/test/cli/pipeline.test.ts.

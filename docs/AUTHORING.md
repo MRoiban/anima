@@ -449,7 +449,7 @@ Declare an asset, then place it in a box (see `examples/photo.animl`, an origina
 </anima>
 ```
 
-`contain` preserves the full image; `cover` fills and crops; `fill` stretches. `none`,
+`contain` preserves the full image; `cover` fills and crops; `fill` and `resize` stretch. `none`,
 `scale-down`, `fit-width`, and `fit-height` use intrinsic size. Set `align="top-left"` (or
 center/edge/corner names) to position it, and `sampling="nearest"` for pixel art. The box clips
 overflow. Asset `width`/`height` override decoded intrinsic dimensions when needed.
@@ -459,8 +459,54 @@ Paths resolve relative to the document URL in the browser and source file in the
 change. `anima render photo.animl -o photo.png` reads local images directly.
 For hosted assets, assign `icon.assets = (name, info) => urlOrBlob` before loading; promises
 work too. Await `icon.ready` on initial load, or listen for `anima:load` on reload. Failed
-loads emit `anima:error`. Embedded images make no network request. Font/audio/blob declarations
-are accepted now; their playback/text modules follow later.
+loads emit `anima:error`. Embedded images make no network request. `icon.assetPolicy` defaults to `'local'`: same-origin URLs and data URIs. Set it to `'any'`
+for a CDN, or supply a resolver to authorize a replacement explicitly. The resolver receives
+`type`, `source`, optional `size`/`mime`, and detached `metadata` in `info`.
+
+Import `@anima-format/web/paint-sampling` (includes paint) for SVG wrapping; canvas supports it directly.
+Sampling can tile outside the fitted rectangle. `wrap="repeat"` repeats it; `wrap="mirror"`
+reflects alternate tiles. SVG repeat requires `sampling="nearest"`; use canvas for bilinear repeat. `wrap-x` and `wrap-y` override one axis. Clamp edge extension is still incomplete: the current
+runtime preserves transparent fitted margins. The three clamp parity rows remain open. For example:
+
+```xml
+<anima version="0.1" name="tiles" grid="24" requires="paint assets">
+  <asset name="photo" type="image" src="photo.png" width="8" height="4"/>
+  <image id="photo" asset="photo" x0="0" y0="0" width="24" height="24"
+    fit="none" align="top-left" sampling="nearest" wrap="mirror" wrap-y="repeat"/>
+</anima>
+```
+
+Build options go on the declaration: `encode="png|jpeg|webp" quality="0.8"` re-encodes and embeds
+pixels. Quality is [0,1]; PNG ignores it. PNG encoding runs in-process; JPEG/WebP encoding and
+WebP decoding need the cached headless Chromium (`CHROMIUM_PATH` overrides its executable).
+Missing Chromium reports `build-encoder-unavailable`. Build checks signatures against extensions
+and MIME, and writes inspected `size`, `mime` and audio `duration`. Audio validation inspects
+headers; playback still requires a browser decoder. `export="false"` leaves a declaration for
+the host resolver and excludes its bytes from build inspection, encoding and embedding. Embedded
+source payloads become `src="anima:NAME"` placeholders that require the resolver.
+
+Import `@anima-format/web/media` to read audio/blob bytes: `await icon.asset('bytes')` yields an
+ArrayBuffer, cached per asset/load. Treat cached bytes as read-only; pass a copy (`bytes.slice(0)`)
+to `AudioContext.decodeAudioData`, which takes ownership of its input. Images/fonts return source URLs. Events owns activated audio
+playback; import `@anima-format/web/events` and `@anima-format/web/assets`, then use a clip:
+
+```xml
+<anima version="0.1" name="clip" grid="24" requires="assets events">
+  <asset name="tone" type="audio" src="tone.wav" start="0.2" end="0.9"/>
+  <circle id="button" cx="12" cy="12" r="10" fill="#d97757"/>
+  <event-def name="play" audio="tone" volume="0.5"/>
+  <listener on="click" target="button" emit="play"/>
+</anima>
+```
+
+`start`/`end` are seconds within the source. Events before user activation are dropped; they do
+not queue or load audio. Fonts remain declarations until text support arrives.
+
+`anima import art.svg -o art.animl` handles vector geometry, groups, paints, user-space gradients
+and representable transforms. `anima import animation.json -o animation.animl` imports the Lottie
+shape subset (groups, paths, paints, transforms, keyframes/easing and stroke trims). Every unsupported
+feature reports `import-unsupported` with a source path; review the warnings before using a lossy
+import. Original hand-made importer inputs and compiled examples are covered by the asset CLI tests.
 
 
 ## Components

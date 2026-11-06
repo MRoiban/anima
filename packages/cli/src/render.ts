@@ -50,8 +50,11 @@ export function sheetSVG(frames: [string, string][], look: Look, cell = 160): st
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><rect width="${w}" height="${h}" fill="${bg}"/>${cells}</svg>`;
 }
 
+// resvg implements SVG's optimizeSpeed token, not the CSS pixelated token used by browsers.
+const rasterSVG = (svg: string) =>
+  svg.replaceAll('image-rendering="pixelated"', 'image-rendering="optimizeSpeed"');
 export function toPNG(svg: string, width?: number): Buffer {
-  return new Resvg(svg, {
+  return new Resvg(rasterSVG(svg), {
     fitTo: width ? { mode: 'width', value: width } : { mode: 'original' },
     font: { loadSystemFonts: true },
   })
@@ -61,7 +64,7 @@ export function toPNG(svg: string, width?: number): Buffer {
 
 /** Decoded RGBA pixels, for pixel comparisons. */
 export function pixels(svg: string, width: number): Uint8Array {
-  const img = new Resvg(svg, { fitTo: { mode: 'width', value: width } }).render();
+  const img = new Resvg(rasterSVG(svg), { fitTo: { mode: 'width', value: width } }).render();
   return img.pixels;
 }
 

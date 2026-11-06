@@ -1,0 +1,11 @@
+{
+  "status": "finding",
+  "reason": "Independent decoder comparison, unchanged limits: [{\"time\":0,\"maxDiff\":40,\"over\":57600,\"overPercent\":100,\"pass\":false}]",
+  "case": {
+    "name": "assets-image-import-jpeg",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  }
+}

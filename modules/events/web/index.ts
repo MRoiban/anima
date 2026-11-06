@@ -111,7 +111,11 @@ async function sound(icon: AnimaIcon, event: AnimaEvent): Promise<void> {
     let buffer = a.buffers.get(assetName);
     if (!buffer) {
       buffer = (async () => {
-        const source = icon.assets ? await icon.assets(assetName, { ...asset }) : asset.source;
+        const source = icon.resolveAsset
+          ? await icon.resolveAsset(assetName, asset)
+          : icon.assets
+            ? await icon.assets(assetName, { ...asset })
+            : asset.source;
         const bytes =
           source instanceof Blob
             ? await source.arrayBuffer()
@@ -130,6 +134,12 @@ async function sound(icon: AnimaIcon, event: AnimaEvent): Promise<void> {
     }
     const decoded = await buffer;
     if (icon.player?.model !== model || audio.get(icon) !== a || !icon.isConnected) return;
+    const start = asset.start ?? 0;
+    const end = asset.end ?? decoded.duration;
+    if (asset.start !== undefined || asset.end !== undefined) {
+      if (start >= decoded.duration || end > decoded.duration || end <= start)
+        throw Error('invalid audio clip bounds');
+    }
     const source = a.context.createBufferSource();
     source.buffer = decoded;
     const gain = a.context.createGain();
@@ -142,7 +152,8 @@ async function sound(icon: AnimaIcon, event: AnimaEvent): Promise<void> {
       source.disconnect();
       gain.disconnect();
     };
-    source.start();
+    if (asset.start !== undefined || asset.end !== undefined) source.start(0, start, end - start);
+    else source.start();
   } catch {
     if (audio.get(icon) !== a) return;
     a?.buffers.delete(assetName);

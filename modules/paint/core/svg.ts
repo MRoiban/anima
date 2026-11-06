@@ -1,3 +1,4 @@
+import { samplingSVG } from './sampling.ts';
 // SVG-specific drawing for paint. Shared by static serialization and retained DOM.
 import { fmt, type DrawPaint } from '../../../packages/core/src/draw.ts';
 import {
@@ -84,7 +85,7 @@ export function paintExtras(
     }
   }
 }
-export const paintSVG: SVGBackend = {
+const gradientsSVG: SVGBackend = {
   tree(draw, tree) {
     for (const resource of draw.resources)
       if (resource.kind === 'gradient') {
@@ -103,5 +104,35 @@ export const paintSVG: SVGBackend = {
         : f.nodes[el.node]!.paints.find((p) => p.kind === key)!;
       gradientAttrs(selected, el.node, key, el.index, paint, nested ? `${id}m${parts[1]}-` : id, a);
     } else if (el.role === 'shape') paintExtras(f.nodes[el.node]!.paints, el.node, paint, id, a);
+  },
+};
+
+// The browser's normal paint entry excludes pattern code. The optional entry replaces it.
+export const paintSVGBase: SVGBackend = {
+  ...gradientsSVG,
+  attrs(f, el, paint, id, a, render) {
+    const image = f.nodes[el.node]!.geometry?.image;
+    if (
+      el.role === 'module:image' &&
+      image &&
+      (image.wrapX !== 'clamp' || image.wrapY !== 'clamp')
+    ) {
+      throw Object.assign(new Error('image wrapping needs the optional SVG sampling backend'), {
+        code: 'unsupported-render',
+        pointer: f.tree.nodes[el.node]!.pointer ?? '/nodes/' + el.node,
+        hint: 'import @anima-format/web/paint-sampling',
+      });
+    }
+    gradientsSVG.attrs?.(f, el, paint, id, a, render);
+  },
+};
+export const paintSVG: SVGBackend = {
+  tree(draw, tree) {
+    gradientsSVG.tree?.(draw, tree);
+    samplingSVG.tree?.(draw, tree);
+  },
+  attrs(f, el, paint, id, a, render) {
+    gradientsSVG.attrs?.(f, el, paint, id, a, render);
+    samplingSVG.attrs?.(f, el, paint, id, a, render);
   },
 };
