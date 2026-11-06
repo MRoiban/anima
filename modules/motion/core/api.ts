@@ -1,9 +1,17 @@
 import { resolveAddress } from '../../../packages/core/src/load.ts';
-import type { Model, Value, TimelineM, PlaybackPolicy } from '../../../packages/core/src/load.ts';
+import type {
+  Model,
+  Value,
+  TimelineM,
+  PlaybackPolicy,
+  StateM,
+  TransitionM,
+} from '../../../packages/core/src/load.ts';
 import type { Player, AnimaEvent } from '../../../packages/core/src/player.ts';
 import { sampleTrack, mixValues } from '../../../packages/core/src/player.ts';
 import type { NodeType } from '../../../packages/core/src/registry.ts';
-import { bounds, clock, crossings, duration, position, timing, type Loop } from './clock.ts';
+import { StateClocks } from './control.ts';
+import { bounds, crossings, position, timing, type Loop } from './clock.ts';
 
 export interface AnimationInfo {
   name: string;
@@ -290,8 +298,10 @@ export class MotionRuntime implements PlaybackPolicy {
   readonly definitions: Map<string, Model>;
   readonly PlayerClass: typeof Player;
   #changed = false;
+  readonly clocks: StateClocks;
   constructor(player: Player, definitions: Map<string, Model>, PlayerClass: typeof Player) {
     this.player = player;
+    this.clocks = new StateClocks(player);
     this.definitions = definitions;
     this.PlayerClass = PlayerClass;
     this.slots = new Map(player.addrs.map((a, i) => [a, i]));
@@ -316,10 +326,20 @@ export class MotionRuntime implements PlaybackPolicy {
     this.#changed = true;
     this.player.onChange?.();
   }
-  local(t: TimelineM, elapsed: number, speed: number): number {
-    return position(t, clock(t, elapsed, speed));
+  enter = (
+    run: object,
+    from: StateM | undefined,
+    to: StateM,
+    tr: TransitionM | undefined,
+    carry: number,
+  ) => this.clocks.enter(run, from, to, tr, carry);
+  prepare = (run: object, s: StateM, dt: number, eligible: (t: TransitionM) => boolean) =>
+    this.clocks.prepare(run, s, dt, eligible);
+  rest = (_run: object, s: StateM) => this.clocks.controlled(s);
+  local(t: TimelineM, elapsed: number, _speed: number, run: object): number {
+    return position(t, this.clocks.raw(run, elapsed));
   }
-  duration = duration;
+  duration = (t: TimelineM, speed: number, run: object) => this.clocks.duration(t, speed, run);
   reduce(t: TimelineM, speed: number, end: boolean, layer: string, events: AnimaEvent[]): number {
     const [a, b] = bounds(t),
       reverse = speed * (timing.get(t)?.speed ?? 1) < 0;
@@ -335,23 +355,34 @@ export class MotionRuntime implements PlaybackPolicy {
     closed: boolean,
     layer: string,
     out: AnimaEvent[],
-    speed: number,
+    _speed: number,
+    run: object,
   ): void {
-    crossings(t, clock(t, a, speed), clock(t, b, speed), closed, layer, out);
-  }
-  gate(t: object, st: { play?: number; speed: number }, elapsed: number): boolean {
-    const threshold = exits.get(t);
-    return (
-      threshold === undefined ||
-      elapsed *
-        Math.abs(st.speed * (timing.get(this.player.model.timelines[st.play!]!)?.speed ?? 1)) >=
-        threshold
+    // Seeking/holding never synthesizes timeline crossings.
+    if (this.clocks.isControlled(run)) return;
+    crossings(
+      t,
+      this.clocks.raw(run, a),
+      this.clocks.raw(run, b),
+      closed && !this.clocks.synced(run),
+      layer,
+      out,
     );
   }
-  carry(t: object, st: { play?: number; speed: number }, elapsed: number): number | undefined {
+  gate(t: TransitionM, st: StateM, elapsed: number, run: object): boolean {
+    const threshold = exits.get(t);
+    return (
+      this.clocks.gate(run, st, t, elapsed) &&
+      (threshold === undefined ||
+        elapsed *
+          Math.abs(st.speed * (timing.get(this.player.model.timelines[st.play!]!)?.speed ?? 1)) >=
+          threshold)
+    );
+  }
+  carry(t: TransitionM, st: StateM, elapsed: number, run: object): number | undefined {
     const threshold = exits.get(t);
     return threshold === undefined
-      ? undefined
+      ? this.clocks.carry(run, st, t, elapsed)
       : Math.max(
           0,
           elapsed -

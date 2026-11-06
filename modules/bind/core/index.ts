@@ -31,11 +31,41 @@ export const bind: Module = {
     },
   ],
   load(model, raw, diag) {
-    if (!raw.bind) return;
-    const bindings = Object.entries(raw.bind as Record<string, string>).filter(
+    if (!raw.bind && !raw.requires?.includes('motion')) return;
+    const bindings = Object.entries((raw.bind ?? {}) as Record<string, string>).filter(
       ([key]) => key !== '$comment',
     );
     const types = new Map([...model.inputs].map(([name, input]) => [name, input.type]));
+    if (raw.requires?.includes('motion'))
+      for (const layer of model.layers)
+        for (const state of layer.states) {
+          const source = raw.machine.layers[layer.name].states[state.name].time;
+          if (source === undefined) continue;
+          const pointer = ptr(ptr('/machine/layers', layer.name) + '/states', state.name) + '/time';
+          try {
+            const e = expression(source, types);
+            if (e.type !== 'number' && e.type !== 'bool')
+              throw new BindError('bind-type', e.at, 'expected number');
+            for (const name of e.inputs) {
+              const i = diag.list.findIndex(
+                (d) => d.code === 'unused-input' && d.pointer === ptr('/inputs', name),
+              );
+              if (i >= 0) diag.list.splice(i, 1);
+            }
+            (model.timeBindings ??= new Map()).set(
+              state,
+              (scope: ReadonlyMap<string, number | boolean>) => Number(evaluate(e, scope)),
+            );
+          } catch (err) {
+            if (!(err instanceof BindError)) throw err;
+            diag.err(
+              err.code,
+              pointer,
+              V && `${err.message} at character ${err.at + 1}`,
+              V && 'use a numeric input expression',
+            );
+          }
+        }
     // Property references are forbidden, including attempted cycles. Valid sources are inputs only.
     const dependencies = new Map(
       bindings.map(([a, src]) => [a, src.match(/[a-z][a-zA-Z0-9-]*(?:\.[a-zA-Z0-9-]+)+/g) ?? []]),

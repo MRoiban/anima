@@ -13,8 +13,19 @@ export const motionMarkup = {
       return { attrs: { name: 'name' }, required: ['name'], children: ['layer'] };
     if (el.name === 'timeline')
       return { ...base, attrs: { ...base.attrs, speed: 'number', quantize: 'number', work: 2 } };
+    if (el.name === 'state')
+      return { ...base, attrs: { ...base.attrs, hold: 'boolean', time: 'string' } };
     if (el.name === 'on')
-      return { ...base, attrs: { ...base.attrs, exit: 'number', exitFraction: 'number' } };
+      return {
+        ...base,
+        attrs: {
+          ...base.attrs,
+          exit: 'number',
+          exitFraction: 'number',
+          sync: 'boolean',
+          exitNext: 'string',
+        },
+      };
     if (el.name === 'anima' || el.name === 'component')
       return { ...base, children: [...base.children!, 'machine'] };
     return { ...base, children: [...(base.children ?? []), 'channel'] };

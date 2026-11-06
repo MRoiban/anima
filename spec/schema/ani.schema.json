@@ -484,6 +484,18 @@
                             "minimum": 0,
                             "maximum": 1,
                             "feature": "motion"
+                          },
+                          "sync": {
+                            "type": "boolean",
+                            "feature": "motion"
+                          },
+                          "exitNext": {
+                            "type": "string",
+                            "enum": [
+                              "step",
+                              "loop"
+                            ],
+                            "feature": "motion"
                           }
                         },
                         "required": [
@@ -492,6 +504,14 @@
                         ],
                         "additionalProperties": false
                       }
+                    },
+                    "hold": {
+                      "type": "boolean",
+                      "feature": "motion"
+                    },
+                    "time": {
+                      "type": "string",
+                      "feature": "motion"
                     }
                   },
                   "additionalProperties": false
@@ -795,6 +815,18 @@
                               "minimum": 0,
                               "maximum": 1,
                               "feature": "motion"
+                            },
+                            "sync": {
+                              "type": "boolean",
+                              "feature": "motion"
+                            },
+                            "exitNext": {
+                              "type": "string",
+                              "enum": [
+                                "step",
+                                "loop"
+                              ],
+                              "feature": "motion"
                             }
                           },
                           "required": [
@@ -803,6 +835,14 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "hold": {
+                        "type": "boolean",
+                        "feature": "motion"
+                      },
+                      "time": {
+                        "type": "string",
+                        "feature": "motion"
                       }
                     },
                     "additionalProperties": false

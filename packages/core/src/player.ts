@@ -479,6 +479,12 @@ export class Player {
     // 2. Clocks
     const prev = this.#layers.map((L) => L.time);
     for (const L of this.#layers) {
+      this.playbackPolicy?.prepare(
+        L,
+        L.m.states[L.state]!,
+        dt,
+        (t) => !L.fade?.lock && this.#holds(t, L, L.m.states[L.state]!, new Set(), true),
+      );
       L.time += dt;
       if (L.fade && (L.fade.t += dt) >= L.fade.dur) L.fade = null;
     }
@@ -487,12 +493,19 @@ export class Player {
     const V = base ? this.addrs.map((a, i) => base(a) ?? this.#rest[i]!) : this.#rest.slice();
     this.#layers.forEach((L, li) => {
       const st = L.m.states[L.state]!;
+      const used = new Set<string>();
+      // Select before reporting crossings so an aligned exit can bound its source interval.
+      const first = L.fade?.lock ? undefined : st.on.find((t) => this.#holds(t, L, st, used));
       if (st.play !== undefined && L.frozen < 0)
         this.#timelineEvents(L, st, prev[li]!, L.time, false, events);
-      const used = new Set<string>();
       for (let n = 0; ; n++) {
         const cur = L.m.states[L.state]!;
-        const tr = L.fade?.lock ? undefined : cur.on.find((t) => this.#holds(t, L, cur, used));
+        const tr =
+          n === 0
+            ? first
+            : L.fade?.lock
+              ? undefined
+              : cur.on.find((t) => this.#holds(t, L, cur, used));
         if (!tr) break;
         if (n === MAX_CHAIN) {
           events.push({ name: '@limit', layer: L.m.name, time: 0 });
@@ -515,6 +528,7 @@ export class Player {
           tr.ease,
           events,
           !tr.interruptible,
+          tr,
         );
       }
       this.#write(L, V);
@@ -560,10 +574,11 @@ export class Player {
     if (st.play !== undefined && L.frozen < 0) {
       const tl = this.model.timelines[st.play]!;
       if (
-        tl.loop !== 'once' ||
-        (this.playbackPolicy
-          ? L.time < this.playbackPolicy.duration(tl, st.speed)
-          : L.time * st.speed < tl.duration)
+        !this.playbackPolicy?.rest(L, st) &&
+        (tl.loop !== 'once' ||
+          (this.playbackPolicy
+            ? L.time < this.playbackPolicy.duration(tl, st.speed, L)
+            : L.time * st.speed < tl.duration))
       )
         return false;
     }
@@ -575,14 +590,13 @@ export class Player {
     return (
       L.frozen >= 0 ||
       (this.playbackPolicy
-        ? L.time >= this.playbackPolicy.duration(this.model.timelines[st.play]!, st.speed)
+        ? L.time >= this.playbackPolicy.duration(this.model.timelines[st.play]!, st.speed, L)
         : L.time * st.speed >= this.model.timelines[st.play]!.duration)
     );
   }
 
-  #holds(t: TransitionM, L: LayerRun, st: StateM, used: Set<string>): boolean {
+  #holds(t: TransitionM, L: LayerRun, st: StateM, used: Set<string>, ungated = false): boolean {
     return (
-      (this.playbackPolicy?.gate(t, st, L.time) ?? true) &&
       t.terms.every((x) => {
         if (x.k === 'end') return this.#finished(L, st);
         if (x.k === 'after') return L.time >= x.s;
@@ -601,7 +615,8 @@ export class Player {
         if (this.model.inputs.get(x.name)!.type === 'trigger')
           return this.#pending.has(x.name) && !used.has(x.name);
         return !this.get(x.name) === x.not;
-      })
+      }) &&
+      (ungated || (this.playbackPolicy?.gate(t, st, L.time, L) ?? true))
     );
   }
 
@@ -616,11 +631,11 @@ export class Player {
           L.frozen >= 0
             ? L.time
             : L.time -
-                (this.playbackPolicy?.duration(this.model.timelines[st.play!]!, st.speed) ??
+                (this.playbackPolicy?.duration(this.model.timelines[st.play!]!, st.speed, L) ??
                   this.model.timelines[st.play!]!.duration / st.speed),
         );
     }
-    const extra = this.playbackPolicy?.carry(t, st, L.time);
+    const extra = this.playbackPolicy?.carry(t, st, L.time, L);
     return extra === undefined
       ? c
       : t.terms.some((x) => x.k === 'after' || x.k === 'end')
@@ -637,8 +652,16 @@ export class Player {
     ease: EaseFn | null,
     events: AnimaEvent[],
     lock = false,
+    transition?: TransitionM,
   ): void {
     const st = L.m.states[to]!;
+    this.playbackPolicy?.enter(
+      L,
+      transition ? L.m.states[L.state] : undefined,
+      st,
+      transition,
+      carry,
+    );
     L.prev = L.state;
     L.state = to;
     L.time = carry;
@@ -673,7 +696,7 @@ export class Player {
   ): void {
     const tl = this.model.timelines[st.play!]!;
     if (this.playbackPolicy)
-      return this.playbackPolicy.events(tl, a, b, closed, L.m.name, events, st.speed);
+      return this.playbackPolicy.events(tl, a, b, closed, L.m.name, events, st.speed, L);
     a *= st.speed;
     b *= st.speed;
     if (!tl.events.length || b < a) return;
@@ -705,7 +728,7 @@ export class Player {
     if (st.play === undefined) return null;
     return L.frozen >= 0
       ? L.frozen
-      : (this.playbackPolicy?.local(this.model.timelines[st.play]!, L.time, st.speed) ??
+      : (this.playbackPolicy?.local(this.model.timelines[st.play]!, L.time, st.speed, L) ??
           loopTime(this.model.timelines[st.play]!, L.time * st.speed));
   }
 

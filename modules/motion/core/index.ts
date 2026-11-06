@@ -8,6 +8,7 @@ import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import type { ObjShape } from '../../../packages/core/src/registry.ts';
 import { entries } from './registry.ts';
 import { motionEase, valueCurve } from './curves.ts';
+import { stateControls, syncs, nextExits } from './control.ts';
 import { timing, bounds } from './clock.ts';
 import { exits, install, MotionRuntime } from './api.ts';
 export * from './api.ts';
@@ -192,9 +193,64 @@ export const motion: Module = {
       layer.states.forEach((state) => {
         const sp = ptr(ptr('/machine/layers', layer.name) + '/states', state.name);
         const r = raw.machine.layers[layer.name].states[state.name];
+        stateControls.set(state, { hold: r.hold });
+        if ((r.hold !== undefined || r.time !== undefined) && state.play === undefined)
+          error(
+            d,
+            'motion-control',
+            sp,
+            'clock controls need a play state',
+            'add play or remove hold/time',
+          );
+        if (r.hold && r.time !== undefined)
+          error(
+            d,
+            'motion-control',
+            sp + '/time',
+            'hold and time are exclusive',
+            'choose a held or input-controlled clock',
+          );
+        if (r.time !== undefined && !raw.requires?.includes('bind'))
+          error(
+            d,
+            'undeclared-feature',
+            sp + '/time',
+            'time expressions require bind',
+            'add "bind" to requires',
+          );
         for (const [i, tr] of state.on.entries()) {
           const source = r.on[i],
             p = sp + '/on/' + i;
+          if (source.sync) {
+            if (state.play === undefined || layer.states[tr.to]!.play !== state.play)
+              error(
+                d,
+                'motion-sync',
+                p + '/sync',
+                'sync needs the same source and target timeline',
+                'use play states naming the same timeline',
+              );
+            else syncs.add(tr);
+          }
+          if (source.exitNext !== undefined) {
+            if (
+              state.play === undefined ||
+              r.hold ||
+              r.time !== undefined ||
+              source.exit !== undefined ||
+              source.exitFraction !== undefined ||
+              tr.terms.some((x) => x.k === 'end' || x.k === 'after') ||
+              tr.triggers.length
+            )
+              error(
+                d,
+                'motion-exit',
+                p + '/exitNext',
+                'exitNext needs an autonomous play clock and persistent input condition, without other time gates',
+                'use bool/number conditions and a playing source; omit exit/exitFraction',
+              );
+            else nextExits.set(tr, source.exitNext);
+          }
           if (source.ease?.startsWith('value-cubic'))
             error(
               d,

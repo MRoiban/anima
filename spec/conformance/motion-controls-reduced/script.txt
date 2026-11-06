@@ -1,0 +1,13 @@
+advance 0
+motion reduce
+set syncing true
+advance 0
+advance 0.375
+snapshot
+set syncing false
+advance 0
+snapshot
+set phase 0.75
+advance 0
+advance 3
+snapshot

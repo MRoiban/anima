@@ -37,9 +37,17 @@ export const entries: ModuleEntry[] = [
     target: 'timeline',
     shapes: { speed: n, quantize: { k: 'num', gt: 0 }, work: { k: 'tup', of: [n, n], min: 2 } },
   },
-  { target: 'state', shapes: { speed: { k: 'num', feature: '' } } },
+  {
+    target: 'state',
+    shapes: { speed: { k: 'num', feature: '' }, hold: { k: 'bool' }, time: { k: 'str' } },
+  },
   {
     target: 'transition',
-    shapes: { exit: { k: 'num', min: 0 }, exitFraction: { k: 'num', min: 0, max: 1 } },
+    shapes: {
+      exit: { k: 'num', min: 0 },
+      exitFraction: { k: 'num', min: 0, max: 1 },
+      sync: { k: 'bool' },
+      exitNext: { k: 'str', of: ['step', 'loop'] },
+    },
   },
 ];

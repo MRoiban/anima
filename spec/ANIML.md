@@ -426,3 +426,25 @@ appear inside any node; they are metadata and add no painted child. Named machin
 use `<machine name="accent"><layer name="tone" initial="idle">...</layer></machine>`;
 top-level `<layer>` continues to define the default machine. See
 [examples/motion.animl](../examples/motion.animl) for a complete source.
+
+### Declarative clock controls
+
+Motion states accept `hold="true"` or `time="phase * 1.2"` (the latter also requires `bind`).
+Transitions accept `sync="true"` and `exitNext="step"` or `exitNext="loop"`.
+`sync` transfers a clock between states playing the same timeline; `hold` freezes its entry
+clock. A time expression owns the clock; after a synced entry it seeks only when its evaluated
+value changes. `exitNext` finishes the current quantized interval before transitioning, with
+overshoot carried to the target. It requires persistent input conditions, not time/trigger terms.
+Exact boundaries, cancellation, event intervals, work areas, reduced motion and diagnostics
+are normative in SPEC's **Declarative timeline control** subsection.
+
+```xml
+<state name="idle" play="turn" time="phase * 1.2">
+  <on when="syncing" to="spin" sync="true"/>
+</state>
+<state name="spin" play="turn">
+  <on when="!syncing" to="idle" exitNext="step" sync="true"/>
+</state>
+```
+
+The complete sync button is [modules/motion/examples/sync.animl](../modules/motion/examples/sync.animl).

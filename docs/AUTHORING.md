@@ -508,3 +508,23 @@ icons, automatic CSS recolouring and visible overflow. The document and AniML do
 all required paint/asset/component modules still load explicitly. Canvas follows CSS size and DPR;
 call `invalidate()` when changing an idle canvas's colour slots. Consult the canvas comparison report
 for raster differences and unsupported feature diagnostics before choosing it for a scene.
+
+## Timeline control
+
+Use `requires="motion bind"` for input-controlled timeline clocks. A state such as
+`<state name="idle" play="turn" time="phase * 1.2"/>` scrubs a 1.2-second timeline from `phase`.
+Quantize stays on the timeline, so the same sampling grid applies to ticking and scrubbing.
+An input-controlled clock sleeps until its input changes.
+
+For hover reversal, define one peek timeline, play it in a forward state and in a `speed="-1"`
+state, and put `sync="true"` on both transitions. The target starts at the current clock,
+including an enter during reverse. It keeps the usual interruptible-fade behaviour.
+
+To stop a ticking loop cleanly, put `exitNext="step" sync="true"` on its stop transition.
+Target a state playing the same timeline with `hold="true"` to keep the stopping angle.
+Use `exitNext="loop"` to finish the turn instead. A target with a `time` expression also holds
+that captured angle until the expression value changes, letting a phase input take over later.
+Reduced-motion entry policy still takes precedence. See `anima docs motion` for timing details
+and `modules/motion/examples/sync.animl` plus its sample scripts for a complete button.
+
+`anima docs --list` includes every module chapter; `anima docs bind` explains expressions.

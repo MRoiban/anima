@@ -1,0 +1,80 @@
+{
+  "anima": "0.1",
+  "name": "motion-sync-fade",
+  "grid": 20,
+  "requires": ["motion"],
+  "inputs": {
+    "hover": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [1, 8]
+        ]
+      },
+      "events": [
+        [0.5, "mid"]
+      ]
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "rest",
+        "states": {
+          "rest": {
+            "play": "t",
+            "on": [
+              {
+                "when": "hover",
+                "to": "forward",
+                "blend": 0.25,
+                "sync": true
+              }
+            ],
+            "hold": true
+          },
+          "forward": {
+            "play": "t",
+            "on": [
+              {
+                "when": "!hover",
+                "to": "reverse",
+                "blend": 0.25,
+                "sync": true
+              }
+            ]
+          },
+          "reverse": {
+            "play": "t",
+            "speed": -1,
+            "on": [
+              {
+                "when": "hover",
+                "to": "forward",
+                "blend": 0.25,
+                "sync": true
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

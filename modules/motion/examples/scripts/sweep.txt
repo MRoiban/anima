@@ -1,0 +1,71 @@
+advance 0
+set syncing true
+advance 0
+snapshot
+advance 0.1001
+snapshot
+advance 0.1001
+snapshot
+advance 0.1001
+snapshot
+advance 0.1001
+snapshot
+advance 0.1001
+snapshot
+advance 0.1001
+snapshot
+advance 0.1001
+snapshot
+advance 0.1001
+snapshot
+advance 0.1001
+snapshot
+advance 0.1001
+snapshot
+advance 0.1001
+snapshot
+advance 0.1001
+snapshot
+set syncing false
+advance 0.1
+set phase 0.5
+advance 0
+set phase 0
+advance 0
+snapshot
+set phase 0.041666666666666664
+advance 0
+snapshot
+set phase 0.125
+advance 0
+snapshot
+set phase 0.20833333333333334
+advance 0
+snapshot
+set phase 0.2916666666666667
+advance 0
+snapshot
+set phase 0.375
+advance 0
+snapshot
+set phase 0.4583333333333333
+advance 0
+snapshot
+set phase 0.5416666666666666
+advance 0
+snapshot
+set phase 0.625
+advance 0
+snapshot
+set phase 0.7083333333333334
+advance 0
+snapshot
+set phase 0.7916666666666666
+advance 0
+snapshot
+set phase 0.875
+advance 0
+snapshot
+set phase 0.9583333333333334
+advance 0
+snapshot

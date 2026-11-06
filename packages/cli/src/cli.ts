@@ -13,6 +13,7 @@ import {
   markupName,
   COMMON,
   NODE_TYPES,
+  modules,
   ELEMENTS,
   OWN,
   PAINT,
@@ -863,15 +864,29 @@ function docs(topic: string | undefined, list: boolean, json: boolean, io: IO): 
       .replace(/^-|-$/g, ''),
     at: m.index!,
   }));
+  const spec = read('spec/SPEC.md');
+  const chapters = [...spec.matchAll(/^## (.+)$/gm)];
+  const moduleTopics = chapters.filter((m) => modules.has(m[1]!));
   if (list) {
-    const topics = ['authoring', 'spec', ...sections.map((s) => s.slug), 'markup'];
+    const topics = [
+      ...new Set([
+        'authoring',
+        'spec',
+        ...sections.map((s) => s.slug),
+        'markup',
+        ...moduleTopics.map((m) => m[1]!),
+      ]),
+    ];
     return (io.out(json ? JSON.stringify(topics) : topics.join('\n')), 0);
   }
   let text: string;
   if (!topic || topic === 'authoring') text = guide;
-  else if (topic === 'spec') text = read('spec/SPEC.md');
+  else if (topic === 'spec') text = spec;
   else if (topic === 'markup') text = read('spec/ANIML.md');
-  else {
+  else if (moduleTopics.some((m) => m[1] === topic)) {
+    const i = chapters.findIndex((m) => m[1] === topic);
+    text = spec.slice(chapters[i]!.index, chapters[i + 1]?.index ?? spec.length).trim();
+  } else {
     const i = sections.findIndex((s) => s.slug === topic || s.slug.startsWith(topic));
     if (i < 0) throw new Usage(`no docs topic "${topic}" (anima docs --list)`);
     text = guide.slice(sections[i]!.at, sections[i + 1]?.at ?? guide.length).trim();

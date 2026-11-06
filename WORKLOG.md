@@ -1,11 +1,11 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: P5-7 (markup owner) running → then D1 module folders + D2 scoped tests (parallel) → D3 new-capability scaffolder → P5 AniML benchmark run → P5 PR (full check in CI).
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: P4b-3 declarative motion controls and sync benchmark proof complete, committed locally.
+Verified: 10 new conformance cases; scope 728/728; sync 6/6 (7 scripts, 66 snapshots).
+Full: 1380 pass + 15 pre-existing oracle TODOs with VITEST_MAX_WORKERS=2; default had 2 browser timeouts.
+Next: parent integrates/reviews local commit; P4b oracle captures and phase closure remain with parent.
+Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
