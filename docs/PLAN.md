@@ -109,7 +109,7 @@ about 1 MB; Anima stays far below it.
 | Use case | What loads | Ceiling |
 |---|---|---|
 | An icon on a page | core + web, plus only the modules that icon uses | core + web ≤ 30 KB; each module ≤ 5–8 KB |
-| Full-featured animation | core + web + most modules, SVG renderer | ≤ 100 KB total |
+| Full-featured animation | core + web + most modules, SVG renderer | ≤ 128 KB total (raised from 100 KB by the owner, 2026-11-06, at P5b) |
 | Rive-class scenes | adds the canvas/WebGL renderer, rigging, text | ≤ 200–250 KB total |
 | Tools (playground, CLI) | run locally | no limit |
 

@@ -24,8 +24,8 @@ deviation is raised with its reason before it is built. Everything from 0.1–P4
 | CLI (`anima build`, no size limit) | asset import, sniffing, encoding, SVG and Lottie import, export exclusion | — |
 | `components` (existing, 3 184 / 4 096 B), `data`, `convert`, `motion` | wave 2 extras (§6, §7) | split before raising |
 
-**Ceiling:** the full-featured page is 93.6 KB of 100 KB. P5b may add at most 6 KB to it. If a module
-would push the page past 100 KB, stop and report: crossing the ceiling is the owner's call.
+**Ceiling:** the full-featured page was 93.6 KB of 100 KB at the start of P5b; after lists and host-edit
+(100.5 KB) the owner raised the ceiling to 128 KB (2026-11-06). Keep runtime additions lean anyway.
 `bind` (2 048 / 2 048 B) and `host` (4 042 / 4 096 B) are full: P5b work goes into new modules, not
 into them.
 
