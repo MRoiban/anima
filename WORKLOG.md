@@ -1,16 +1,14 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
-State: main 49d418c = through P4c/P4d (PRs #14, #15). Parity 387/1238. core+web 19831; full-featured 69.7 KB.
-Next: BLOCKED — Sol (codex) usage limit until 2026-11-11 09:28. P4e-5 paint failed mid-run (WIP in refs/wip/p4e-5-paint, unverified); P4e-1 data core failed too (WIP in refs/wip/p4e-1-data, unverified). Owner decides: wait or allow another coder model.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
-Goal: P4e-5 paint root causes on t3/paint-parity-root-cause (base 21b8a20).
-Verified: native path dumps equal six Anima geometries; rounded controls differ; transformed native endpoints max1/0%.
-Verified: native additive strength interpolates source-over/addition; canvas fix max1/0% at 128/255.
-Next: finish portable per-paint SVG regression checks, resolve angular/effect-order probes, run requested scopes and commit.
-Don't: modules/data, push/PR/merge, Rive source/binaries/account operations, tolerance/limit/budget changes.
-
+Goal: P4e-5 paint findings/SVG gaps on t3/resume-paint-findings-svg-gaps; no push/PR/other merges.
+Verified: full scoped 3436 pass; standard strict oracle 126 cases/320 frames passes; 10/18 strict capability count.
+Evidence: eight raw pixel failures retained; all have numerical rasterisation proof; no pending native captures.
+Changes: rounded natural cubic + NOTICE, exact fractional addition, portable paint SVG, clockwise hits.
+Sizes: core+web 19865 (+34); paint4229 contour3735 mix1656 canvas4494, all in budget; full 75294 B.
+Perf: 3 main/branch pairs, no observed per-frame regression (noisy); details modules/paint/REPORT.md.
+Next: hand back local finishing commit for owner integration; P4e phase remains open; no parity promotion.
+Don't: data/bind/components, oracle tools/inputs/thresholds, budgets, push/PR/other branches.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -128,3 +126,8 @@ Don't: modules/data, push/PR/merge, Rive source/binaries/account operations, tol
 - 2026-11-06 08:04 [claude]: P4e-1 data core (Sol) failed: same usage limit → worktree t3-54bfb1e8 snapshotted to refs/wip/p4e-1-data, 1439 files (unverified; not reviewed) (evidence: git show --stat refs/wip/p4e-1-data)
 - 2026-11-06 07:50 [sol]: P4e-5 native captures + six exact path/control comparisons; native gradient fields ignored, endpoint mapping passes; additive-strength bug fixed; per-paint SVG common case passes both engines, seams under test (evidence: /tmp/paint-oracle2.log, /tmp/paint-geometry-test.log, /tmp/paint-blend-browser.log).
 
+- 2026-11-06 09:10 [sol]: resumed WIP via c849aae, kept both WORKLOG sides; restored oracle tool to base to honor no-tool-change rule; Canvas evidence will run separately.
+- 2026-11-06 09:19 [sol]: root causes resolved: rounded cubic controls <0.0001px, six exact native paths, angular 512-texel model + black/white holdout max2, all path errors confined to fringe; fractional additive double-rounding fixed; SVG blend regression 26/26 (evidence: probes/*.json, /tmp/resume-blend.log).
+- 2026-11-06 09:19 [sol]: restored oracle tool to base, moved Canvas dispatch into module-owned both-engine tests with unchanged comparator/limits; strict runner 126 cases/320 frames exit0; full requested scope 3436 pass/28 files, mix pointer follow-up 530 pass, native suite6 and contour39 pass; 10/18 strict, eight documented raster findings (evidence: /tmp/resume-oracle2.log, /tmp/resume-scope-final.log).
+- 2026-11-06 09:19 [sol]: size all budgets pass (core+web19865, paint4229/contour3735/mix1656/canvas4494, full75294); 3 sequential main/branch perf pairs show no observed frame regression; first scope lacked deps, next scope5 failures and lint6 errors corrected; final hygiene checks pending (evidence: /tmp/resume-size-final.log, /tmp/resume-perf-{main,branch}{1,2,3}.log).
+- 2026-11-06 09:25 [sol]: final hygiene typecheck/ESLint/Prettier and modules/web/AniML checks exit0; strict oracle exit0 rechecked. Broader core found stale schema (892 pass/1 fail), regenerated with npm run gen then 893/893 pass; final mix1656 B and full75294 B; no tool/input/threshold or prohibited-module diffs (evidence: /tmp/resume-core-final.log, /tmp/resume-*-last.log; REPORT.md).

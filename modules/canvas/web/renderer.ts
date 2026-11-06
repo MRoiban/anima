@@ -392,17 +392,36 @@ export class CanvasRenderer implements IconRenderer {
     }
   }
   #blendImage(ctx: Ctx, source: HTMLCanvasElement, mode: string | undefined, amount: number): void {
-    const alpha = ctx.globalAlpha;
-    if (mode === 'additive') {
-      // S + D * (1 - Sa * (1 - amount)); interpolate source-over and addition.
-      ctx.globalCompositeOperation = 'source-over';
-      ctx.globalAlpha = alpha * (1 - amount);
+    if (mode === 'additive' && amount > 0 && amount < 1) {
+      // Evaluate once in premultiplied space: two 8-bit draws round the source twice.
+      const w = source.width,
+        h = source.height;
+      const src = context(source).getImageData(0, 0, w, h).data;
+      const dst = ctx.getImageData(0, 0, w, h);
+      for (let i = 0; i < src.length; i += 4) {
+        const sa = (src[i + 3]! / 255) * ctx.globalAlpha;
+        const da = dst.data[i + 3]! / 255;
+        const keep = 1 - sa * (1 - amount);
+        const alpha = Math.min(1, sa + da * keep);
+        for (let k = 0; k < 3; k++)
+          dst.data[i + k] = alpha
+            ? Math.min(255, (src[i + k]! * sa + dst.data[i + k]! * da * keep) / alpha)
+            : 0;
+        dst.data[i + 3] = alpha * 255;
+      }
+      const result = this.#surface();
+      context(result).putImageData(dst, 0, 0);
+      ctx.save();
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = 'copy';
+      ctx.drawImage(result, 0, 0);
+      ctx.restore();
+    } else {
+      if (mode === 'additive') ctx.globalCompositeOperation = amount ? 'lighter' : 'source-over';
       ctx.drawImage(source, 0, 0);
-      ctx.globalCompositeOperation = 'lighter';
-      ctx.globalAlpha = alpha * amount;
     }
-    ctx.drawImage(source, 0, 0);
   }
+
   #shape(ctx: Ctx, i: number, world: Mat): void {
     const n = this.#frame!.nodes[i]!,
       g = n.geometry!,

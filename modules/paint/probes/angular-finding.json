@@ -1,0 +1,11 @@
+{
+  "status": "finding",
+  "reason": "Rasterisation-only finding: periodic bilinear 512-texel ramp model predicts every native channel within 2; 128/256/1024 models reach max 57/38/38. Canvas differs above 2 in 156 pixels, all on row 0 (seam); native max 50, 136 pixels over 16 (0.236111%). Interior max 2, zero interior pixels above 2. Native initial-ray fields are ignored by this local renderer. No pixel correction is applied; the original image comparison remains failing. See angular.json and raster-evidence.test.ts.",
+  "case": {
+    "name": "drawing-paint-gradient-angular",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  }
+}

@@ -1,12 +1,17 @@
 /// <reference lib="dom" />
 // Development-only oracle adapter. Uses the shipped Canvas renderer, opaque white at 240px.
-import { chromium } from 'playwright-core';
+import { chromium, firefox } from 'playwright-core';
 import { build } from 'esbuild';
 import { writeFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { resolve } from 'node:path';
 let harness: Promise<string> | undefined;
-export async function renderCanvas(doc: object, script: string, target: URL) {
+export async function renderCanvas(
+  doc: object,
+  script: string,
+  target: URL,
+  engine: 'chromium' | 'firefox' = 'chromium',
+) {
   harness ??= build({
     entryPoints: ['modules/canvas/test/web/harness.ts'],
     bundle: true,
@@ -14,13 +19,15 @@ export async function renderCanvas(doc: object, script: string, target: URL) {
     format: 'esm',
     target: 'es2022',
   }).then((r) => r.outputFiles[0]!.text);
-  const browser = await chromium.launch({
+  const browser = await (engine === 'chromium' ? chromium : firefox).launch({
     headless: true,
     executablePath:
-      process.env.CHROMIUM_PATH ??
+      (engine === 'chromium' ? process.env.CHROMIUM_PATH : process.env.FIREFOX_PATH) ??
       resolve(
         homedir(),
-        '.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell',
+        engine === 'chromium'
+          ? '.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell'
+          : '.cache/ms-playwright/firefox-1555/firefox/firefox',
       ),
   });
   try {

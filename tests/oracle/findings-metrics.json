@@ -94,7 +94,7 @@
   {
     "name": "drawing-paint-trim-synchronized",
     "status": "finding",
-    "reason": "Native screenshot differs from the independent Anima construction under the fixed comparison limits. The cause is not established; this is not verified parity.",
+    "reason": "Rasterisation-only finding: observed native path commands and controls exactly equal Anima at 12px/unit. Rendering the native observer commands in resvg gives max 0 against Anima; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
     "frames": [
       {
         "time": 0,
@@ -108,7 +108,7 @@
   {
     "name": "drawing-paint-trim-sequential",
     "status": "finding",
-    "reason": "Native screenshot differs from the independent Anima construction under the fixed comparison limits. The cause is not established; this is not verified parity.",
+    "reason": "Rasterisation-only finding: observed native path commands and controls exactly equal Anima at 12px/unit. Rendering the native observer commands in resvg gives max 0 against Anima; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
     "frames": [
       {
         "time": 0,
@@ -122,7 +122,7 @@
   {
     "name": "drawing-paint-straight-vertex",
     "status": "finding",
-    "reason": "Native screenshot differs from the independent Anima construction under the fixed comparison limits. The cause is not established; this is not verified parity.",
+    "reason": "Rasterisation-only finding: observed native path commands and controls exactly equal Anima at 12px/unit. Rendering the native observer commands in resvg gives max 0 against Anima; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
     "frames": [
       {
         "time": 0,
@@ -135,14 +135,14 @@
   },
   {
     "name": "drawing-paint-rounded-vertex",
-    "status": "intentional difference",
-    "reason": "Anima specifies quadratic cutback rounding; native rounding is not asserted equivalent. The captured screenshots disagree under fixed limits.",
+    "status": "finding",
+    "reason": "Rasterisation-only finding: observed native path commands/controls agree with Anima (rounded controls within 0.0001px float32/serialization precision). Rendering the native observer commands in resvg gives max 0 against Anima; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
     "frames": [
       {
         "time": 0,
         "maxDiff": 153,
-        "over": 175,
-        "overPercent": 0.3038194444444444,
+        "over": 160,
+        "overPercent": 0.2777777777777778,
         "pass": false
       }
     ]
@@ -150,7 +150,7 @@
   {
     "name": "drawing-paint-mirrored-vertex",
     "status": "finding",
-    "reason": "Native screenshot differs from the independent Anima construction under the fixed comparison limits. The cause is not established; this is not verified parity.",
+    "reason": "Rasterisation-only finding: observed native path commands and controls exactly equal Anima at 12px/unit. Rendering the native observer commands in resvg gives max 0 against Anima; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
     "frames": [
       {
         "time": 0,
@@ -162,23 +162,9 @@
     ]
   },
   {
-    "name": "drawing-paint-gradient-angular",
-    "status": "finding",
-    "reason": "Native angular screenshot differs at the seam-adjacent top row under unchanged max 2 / 0% limits: max 50, 136 pixels (0.236111%). Ray orientation is also ignored by this local native renderer. Not verified parity; SVG refuses finite-wedge approximation. See modules/paint/probes/svg.json.",
-    "frames": [
-      {
-        "time": 0,
-        "maxDiff": 50,
-        "over": 136,
-        "overPercent": 0.2361111111111111,
-        "pass": false
-      }
-    ]
-  },
-  {
     "name": "drawing-paint-detached-vertex",
     "status": "finding",
-    "reason": "Native screenshot differs from the independent Anima construction under the fixed comparison limits. The cause is not established; this is not verified parity.",
+    "reason": "Rasterisation-only finding: observed native path commands and controls exactly equal Anima at 12px/unit. Equivalent coordinate representations differ by max 12 in resvg; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
     "frames": [
       {
         "time": 0,
@@ -192,7 +178,7 @@
   {
     "name": "drawing-paint-asymmetric-vertex",
     "status": "finding",
-    "reason": "Native screenshot differs from the independent Anima construction under the fixed comparison limits. The cause is not established; this is not verified parity.",
+    "reason": "Rasterisation-only finding: observed native path commands and controls exactly equal Anima at 12px/unit. Rendering the native observer commands in resvg gives max 0 against Anima; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
     "frames": [
       {
         "time": 0,

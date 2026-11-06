@@ -2,122 +2,62 @@
   {
     "engine": "resvg",
     "variant": "plain",
-    "center": [
-      144,
-      112,
-      116,
-      255
-    ]
+    "center": [144, 112, 116, 255]
   },
   {
     "engine": "resvg",
     "variant": "transform",
-    "center": [
-      144,
-      112,
-      116,
-      255
-    ]
+    "center": [144, 112, 116, 255]
   },
   {
     "engine": "resvg",
     "variant": "portable",
-    "center": [
-      144,
-      112,
-      116,
-      255
-    ]
+    "center": [144, 112, 116, 255]
   },
   {
     "engine": "resvg",
     "variant": "plus",
-    "center": [
-      128,
-      64,
-      32,
-      255
-    ]
+    "center": [128, 64, 32, 255]
   },
   {
     "engine": "resvg",
     "variant": "explicitArithmetic",
-    "center": [
-      160,
-      128,
-      128,
-      255
-    ]
+    "center": [160, 128, 128, 255]
   },
   {
     "engine": "resvg",
     "variant": "arithmetic",
-    "center": [
-      255,
-      128,
-      64,
-      255
-    ]
+    "center": [255, 128, 64, 255]
   },
   {
     "engine": "chromium",
     "variant": "plain",
-    "center": [
-      144,
-      112,
-      116,
-      255
-    ]
+    "center": [144, 112, 116, 255]
   },
   {
     "engine": "chromium",
     "variant": "transform",
-    "center": [
-      144,
-      112,
-      116,
-      255
-    ]
+    "center": [144, 112, 116, 255]
   },
   {
     "engine": "chromium",
     "variant": "portable",
-    "center": [
-      144,
-      112,
-      116,
-      255
-    ]
+    "center": [144, 112, 116, 255]
   },
   {
     "engine": "chromium",
     "variant": "plus",
-    "center": [
-      160,
-      128,
-      128,
-      255
-    ]
+    "center": [160, 128, 128, 255]
   },
   {
     "engine": "chromium",
     "variant": "explicitArithmetic",
-    "center": [
-      160,
-      128,
-      128,
-      255
-    ]
+    "center": [160, 128, 128, 255]
   },
   {
     "engine": "chromium",
     "variant": "arithmetic",
-    "center": [
-      255,
-      128,
-      64,
-      255
-    ]
+    "center": [255, 128, 64, 255]
   },
   {
     "engine": "chromium",
@@ -164,62 +104,32 @@
   {
     "engine": "firefox",
     "variant": "plain",
-    "center": [
-      144,
-      112,
-      116,
-      255
-    ]
+    "center": [144, 112, 116, 255]
   },
   {
     "engine": "firefox",
     "variant": "transform",
-    "center": [
-      128,
-      64,
-      32,
-      255
-    ]
+    "center": [128, 64, 32, 255]
   },
   {
     "engine": "firefox",
     "variant": "portable",
-    "center": [
-      144,
-      112,
-      116,
-      255
-    ]
+    "center": [144, 112, 116, 255]
   },
   {
     "engine": "firefox",
     "variant": "plus",
-    "center": [
-      160,
-      128,
-      128,
-      255
-    ]
+    "center": [160, 128, 128, 255]
   },
   {
     "engine": "firefox",
     "variant": "explicitArithmetic",
-    "center": [
-      128,
-      64,
-      32,
-      255
-    ]
+    "center": [128, 64, 32, 255]
   },
   {
     "engine": "firefox",
     "variant": "arithmetic",
-    "center": [
-      128,
-      64,
-      32,
-      255
-    ]
+    "center": [128, 64, 32, 255]
   },
   {
     "engine": "firefox",

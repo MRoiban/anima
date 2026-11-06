@@ -85,8 +85,13 @@ export const mixSVG: SVGBackend = {
   attrs(frame, el, paint, id, attrs, render) {
     const n = frame.nodes[el.node]!;
     const pointer = frame.tree.nodes[el.node]!.pointer ?? `/nodes/${el.node}`;
-    if (n.blend === 'additive' || n.paints.some((p) => p.blend === 'additive'))
-      throw new UnsupportedMixRenderError(`${pointer}/mix`);
+    if (n.blend === 'additive') throw new UnsupportedMixRenderError(`${pointer}/mix`);
+    const additivePaint = n.paints.find((p) => p.blend === 'additive');
+    if (additivePaint)
+      throw new UnsupportedMixRenderError(
+        `${pointer}/${(additivePaint.key ?? additivePaint.kind).replaceAll('.', '/')}`,
+        'additive paint blending',
+      );
     if (!frame.tree.resources.some((r) => r.kind === 'mix-paints')) return;
     // A transformed SVG group incorrectly isolates descendant blend modes in Firefox.
     // Keep compositing groups, but move all geometry to world-space transform wrappers.

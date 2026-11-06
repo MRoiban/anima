@@ -277,9 +277,11 @@ and an oracle test against Rive.
         See `modules/events/P4D-3-RESULTS.md`; four exact post-click comparative oracles and one immediate-timing finding in `tests/oracle/ACTION-EXPRESSIONS.md`.
   - [ ] Parent integration, phase benchmark and parity promotion/PR.
 - [ ] P4e `data`: view models, bindings, converters, lists.
-      Paint/backend subtask is partial: 18 rows mapped, 3/18 strict local completion;
-      SVG per-paint blending, clockwise hits and oracle evidence remain open.
-      See `modules/paint/REPORT.md`; no phase completion or parity promotion is claimed.
+  - [x] P4e-5 paint/backend root causes and portable per-paint SVG: 10/18 strict, eight
+        documented rasterisation-only findings with independent native geometry/sampler evidence.
+        Clockwise hits and rounded cubic controls fixed; additive strength corrected. All native
+        probes captured; SVG-only oracle skips have active Canvas comparisons in both browsers.
+        See `modules/paint/REPORT.md`; phase completion/parity promotion remain deferred.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide
       whether switching to reduced motion stops in-progress loops at once (P4b benchmark).
 - [ ] P6 Text.

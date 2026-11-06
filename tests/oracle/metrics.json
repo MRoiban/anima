@@ -5752,34 +5752,6 @@
     ]
   },
   {
-    "name": "drawing-paint-blend-additive",
-    "threshold": 16,
-    "maxOverPercent": 0,
-    "frames": [
-      {
-        "time": 0,
-        "maxDiff": 0,
-        "over": 0,
-        "overPercent": 0,
-        "pass": true
-      }
-    ]
-  },
-  {
-    "name": "drawing-paint-additive-strength",
-    "threshold": 16,
-    "maxOverPercent": 0,
-    "frames": [
-      {
-        "time": 0,
-        "maxDiff": 1,
-        "over": 0,
-        "overPercent": 0,
-        "pass": true
-      }
-    ]
-  },
-  {
     "name": "drawing-paint-paint-blend-override",
     "threshold": 16,
     "maxOverPercent": 0,

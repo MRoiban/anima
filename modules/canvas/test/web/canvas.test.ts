@@ -116,7 +116,7 @@ for (const variant of [
       { point: [4, 16], kind: 'straight' },
     ];
     front.closed = true;
-    for (const k of ['x0', 'y0', 'w', 'h']) delete front[k];
+    for (const k of ['x0', 'y0', 'w', 'h']) Reflect.deleteProperty(front, k);
   }
   if (variant === 'parent' || variant === 'animate') {
     doc.nodes[1] = { id: 'group', type: 'group', x: 1, y: 1, children: [front] };

@@ -1571,28 +1571,11 @@
     "maxOverPercent": 0
   },
   {
-    "name": "drawing-paint-blend-additive",
-    "times": [0],
-    "threshold": 16,
-    "maxDiff": 2,
-    "maxOverPercent": 0,
-    "renderer": "canvas"
-  },
-  {
-    "name": "drawing-paint-additive-strength",
-    "times": [0],
-    "threshold": 16,
-    "maxDiff": 2,
-    "maxOverPercent": 0,
-    "renderer": "canvas"
-  },
-  {
     "name": "drawing-paint-paint-blend-override",
     "times": [0],
     "threshold": 16,
     "maxDiff": 2,
-    "maxOverPercent": 0,
-    "renderer": "canvas"
+    "maxOverPercent": 0
   },
   {
     "name": "drawing-paint-shared-effects",

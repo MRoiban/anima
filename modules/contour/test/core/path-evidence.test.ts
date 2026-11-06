@@ -2,6 +2,7 @@ import '@anima-format/core/all';
 import { readFileSync } from 'node:fs';
 import { it, expect } from 'vitest';
 import { load, Player, drawFrame } from '@anima-format/core';
+import { compileVertices } from '../../core/index.ts';
 import { parsePath } from '../../../../packages/core/src/path.ts';
 // Observer output is native path geometry AFTER effects, not a reconstruction from Anima.
 const commands = (text: string) =>
@@ -9,7 +10,7 @@ const commands = (text: string) =>
     .split(/\n/)
     .filter(Boolean)
     .map((line) => {
-      const [_, __, verb, ...points] = line.split(' ');
+      const [, , verb, ...points] = line.split(' ');
       return { verb, points: points.flatMap((p) => p.split(',').map(Number)) };
     });
 const native = (caseName: string) =>
@@ -49,32 +50,45 @@ it.each([
 ])('native observed %s commands and controls equal Anima at 12px/unit', (name) => {
   expect(anima(name)).toEqual(native(name));
 });
-it('measures the rounded corner disagreement in control points and the curve', () => {
+it('matches native rounded cut points and cubic controls within float32/serialization rounding', () => {
   const a = anima('rounded-vertex'),
     b = native('rounded-vertex');
-  // The cut endpoints coincide within float32 native rounding, but the corner cubic differs.
-  const cutDelta = Math.max(...a[1]!.points.map((v, k) => Math.abs(v - b[1]!.points[k]!)));
-  expect(cutDelta).toBeLessThan(0.0001);
-  const controlDelta = Math.max(
-    ...a[2]!.points.slice(0, 4).map((v, k) => Math.abs(v - b[2]!.points[k]!)),
+  expect(a.map((c) => c.verb)).toEqual(b.map((c) => c.verb));
+  const max = Math.max(
+    ...a.flatMap((c, i) => c.points.map((v, k) => Math.abs(v - b[i]!.points[k]!))),
   );
-  expect(controlDelta).toBeGreaterThan(0.5);
-  const evalAt = (cmd: typeof a, t: number) => {
-    const p = [...cmd[1]!.points, ...cmd[2]!.points];
-    return [0, 1].map(
-      (k) =>
-        (1 - t) ** 3 * p[k]! +
-        3 * (1 - t) ** 2 * t * p[k + 2]! +
-        3 * (1 - t) * t * t * p[k + 4]! +
-        t ** 3 * p[k + 6]!,
-    );
-  };
-  let max = 0;
-  for (let j = 0; j <= 1000; j++) {
-    const x = evalAt(a, j / 1000),
-      y = evalAt(b, j / 1000);
-    max = Math.max(max, Math.hypot(x[0]! - y[0]!, x[1]! - y[1]!));
-  }
-  console.log({ roundedControlDelta: controlDelta, roundedCurveDelta: max });
-  expect(max).toBeGreaterThan(0.25);
+  expect(max).toBeLessThan(0.0001);
 });
+
+it.each(['rounded', 'rounded-angles'])(
+  'matches independent acute/right/obtuse native corner controls: %s',
+  (file) => {
+    const probes: { next: [number, number]; commands: string[] }[] = JSON.parse(
+      readFileSync(`modules/paint/probes/${file}.json`, 'utf8'),
+    );
+    for (const probe of probes) {
+      const d = compileVertices([
+        { point: file === 'rounded' ? [24, 120] : [24, 48], kind: 'straight' },
+        { point: [72, 48], kind: 'rounded', radius: 12 },
+        { point: probe.next, kind: 'straight' },
+      ]);
+      const actual = parsePath(d)[0]!.segs;
+      const native = commands(probe.commands.join('\n'));
+      // At a 180-degree reversal the native path omits a zero-length corner cubic.
+      if (file === 'rounded-angles' && probe.next[0] === 24 && probe.next[1] === 48) {
+        expect(actual.slice(6, 13)).toEqual([2, 60, 48, 60, 48, 60, 48]);
+        actual.splice(6, 7); // remove only the proven zero-length cubic
+      }
+      const points = native.flatMap((c) => c.points);
+      const values: number[] = [];
+      for (let i = 0; i < actual.length;) {
+        const op = actual[i++]!;
+        const count = op === 2 ? 6 : op === 3 ? 0 : 2;
+        values.push(...actual.slice(i, i + count));
+        i += count;
+      }
+      expect(values).toHaveLength(points.length);
+      expect(Math.max(...values.map((v, k) => Math.abs(v - points[k]!)))).toBeLessThan(0.0001);
+    }
+  },
+);

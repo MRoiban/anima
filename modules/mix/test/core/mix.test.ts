@@ -59,3 +59,21 @@ it('rejects competing node blend declarations', () => {
     }),
   );
 });
+
+it('reports an existing authored pointer for unsupported nested additive paints', () => {
+  const document = doc({
+    fill: undefined,
+    paints: [{ fill: { color: '#804020', blend: 'additive' } }],
+  });
+  Reflect.deleteProperty(document.nodes[0]!, 'fill');
+  const r = load({ ...document, nodes: [{ id: 'g', type: 'group', children: document.nodes }] });
+  expect(r.diagnostics).toEqual([]);
+  expect(() => toSVG(new Player(r.model!))).toThrowError(
+    expect.objectContaining({
+      code: 'unsupported-render',
+      pointer: '/nodes/0/children/0/paints/0/fill',
+      message: expect.stringContaining('additive paint'),
+      hint: expect.stringContaining('canvas'),
+    }),
+  );
+});

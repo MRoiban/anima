@@ -1,0 +1,50 @@
+[
+  {
+    "engine": "chromium",
+    "name": "drawing-paint-blend-additive",
+    "maxDiff": 0,
+    "over": 0,
+    "overPercent": 0,
+    "pass": true
+  },
+  {
+    "engine": "chromium",
+    "name": "drawing-paint-additive-strength",
+    "maxDiff": 1,
+    "over": 0,
+    "overPercent": 0,
+    "pass": true
+  },
+  {
+    "engine": "chromium",
+    "name": "drawing-paint-gradient-angular",
+    "maxDiff": 50,
+    "over": 136,
+    "overPercent": 0.2361111111111111,
+    "pass": false
+  },
+  {
+    "engine": "firefox",
+    "name": "drawing-paint-blend-additive",
+    "maxDiff": 0,
+    "over": 0,
+    "overPercent": 0,
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "name": "drawing-paint-additive-strength",
+    "maxDiff": 1,
+    "over": 0,
+    "overPercent": 0,
+    "pass": true
+  },
+  {
+    "engine": "firefox",
+    "name": "drawing-paint-gradient-angular",
+    "maxDiff": 50,
+    "over": 136,
+    "overPercent": 0.2361111111111111,
+    "pass": false
+  }
+]

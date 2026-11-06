@@ -10,7 +10,6 @@ import { load, runScript } from '@anima-format/core';
 
 export interface OracleCase {
   name: string;
-  renderer?: 'canvas';
   times: number[];
   threshold: number;
   maxOverPercent: number;
@@ -195,36 +194,26 @@ export async function measure(c: OracleCase, output: URL) {
     }
     const target = new URL(`${time}.png`, output);
     const messages: string[] = [];
-    const code =
-      c.renderer === 'canvas'
-        ? await import('../modules/paint/oracle-canvas.ts').then(async ({ renderCanvas }) => {
-            await renderCanvas(
-              compiled.doc!,
-              c.scripts?.[String(time)] ?? `advance ${time}`,
-              target,
-            );
-            return 0;
-          })
-        : await run(
-            [
-              'render',
-              new URL('case.ani', dir).pathname,
-              ...(c.scripts?.[String(time)] ? ['-e', c.scripts[String(time)]!] : []),
-              '--at',
-              c.scripts?.[String(time)] ? '0' : String(time),
-              '--size',
-              '240',
-              '--background',
-              '#ffffff',
-              '-o',
-              target.pathname,
-            ],
-            {
-              out: (s) => messages.push(s),
-              err: (s) => messages.push(s),
-              write: (s) => messages.push(s),
-            },
-          );
+    const code = await run(
+      [
+        'render',
+        new URL('case.ani', dir).pathname,
+        ...(c.scripts?.[String(time)] ? ['-e', c.scripts[String(time)]!] : []),
+        '--at',
+        c.scripts?.[String(time)] ? '0' : String(time),
+        '--size',
+        '240',
+        '--background',
+        '#ffffff',
+        '-o',
+        target.pathname,
+      ],
+      {
+        out: (s) => messages.push(s),
+        err: (s) => messages.push(s),
+        write: (s) => messages.push(s),
+      },
+    );
     if (code) throw new Error(`${c.name}: anima render: ${messages.join('\n')}`);
     const { diff, ...m } = compare(
       readFileSync(target),

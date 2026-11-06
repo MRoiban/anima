@@ -1,0 +1,10 @@
+{
+  "status": "skip",
+  "reason": "The shared oracle CLI renders SVG only. No faithful portable SVG form exists for additive blending (plus-lighter is ignored by resvg and explicit feImage backdrop arithmetic fails in Firefox). Native Canvas comparisons remain active with the same comparator/inputs/thresholds in the module-owned Chromium and Firefox suite. Both engines pass max 2 / 0% with the captured native reference.",
+  "tests": ["modules/canvas/test/web/native-paint.test.ts"],
+  "captureEvidence": [
+    "tests/oracle/drawing-paint-additive-strength/rive/scene.rml",
+    "tests/oracle/drawing-paint-additive-strength/rive/frames/0.png",
+    "modules/paint/probes/svg.json"
+  ]
+}

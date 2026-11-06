@@ -1997,7 +1997,8 @@ operations. Declare `requires: ["contour"]`; gradients additionally require pain
 paints additionally require composite. Core hooks contribute resolved geometry, never backend
 commands. This follows MODULES §3.1 and the separation discussed in
 [web runtime research](../docs/research/rive-web-runtime.md#lessons-for-anima).
-All algorithms below are independent constructions, not adaptations of Rive source.
+The corner-control distance below follows Rive’s MIT natural-rounding construction; see NOTICE.
+The other algorithms are independent constructions.
 
 ### Editable vertex authoring forms and geometry origin
 
@@ -2018,13 +2019,21 @@ Vertex kinds compile to an ordinary path shared by SVG, canvas and the outline h
 | mirrored | `handle:[dx,dy]`, default zero; outgoing is handle, incoming is its exact negative. |
 | asymmetric | `outgoing:[dx,dy]`, `incoming:[dx,dy]`, defaults zero. Outgoing supplies direction and length; incoming supplies length only, projected opposite outgoing. Nonzero incoming length requires a nonzero outgoing direction. |
 | detached | `incoming` and `outgoing` vectors, independently positioned, default zero. |
-| rounded | `radius ≥ 0`, default zero. Cut each adjacent edge by min(radius, half edge length) and join cuts with a quadratic through the authored point. Open endpoints do not round. |
+| rounded | `radius ≥ 0`, default zero. Use one cutback min(radius, half previous length, half next length) and a cubic with the natural-rounding controls below. Open endpoints do not round. |
 
 A cubic edge uses source outgoing and destination incoming controls (point plus vector).
 A closed contour joins the last vertex to the first, then closes. Fields belonging to another
 kind produce `bad-value` at that vertex field with a corrective hint; invalid array sizes,
 coordinates, kinds and negative radii retain structural diagnostics. This is an explicit,
-deterministic authoring contract; it does not assert equality with native circular rounding.
+deterministic authoring contract. For rounded corners, let u/v be the vectors from the point to
+its previous/next neighbour (using the neighbour’s adjacent cubic control when present).
+Let θ = atan2(abs(cross(u,v)), dot(u,v)). With cutback r, set
+h = min(1, (4/3) tan(θ/4) × (θ < π/2 ? 1+cos θ : 2−sin θ)).
+The cubic’s controls lie fraction h from each cut toward the authored point. Zero-length
+neighbour vectors collapse the rounding. This mathematical construction closely follows
+[Rive’s MIT path implementation](https://github.com/rive-app/rive-runtime/blob/main/src/shapes/path.cpp),
+reimplemented here without source-text copying; attribution/license are in NOTICE. Native
+identity path-effect captures check acute, right, obtuse and degenerate corners independently.
 
 ### Sequential and synchronized trim; ordered/shared effects
 
@@ -2090,8 +2099,9 @@ Additive means Canvas2D `lighter`: sum premultiplied source and destination comp
 clamping to the output range. Strength interpolates between source-over (zero) and addition (one). For premultiplied
 source `S`, destination `D`, source alpha `Sa` and strength `a`, the result is
 `S + D * (1 - Sa * (1 - a))`, clamped per component (including alpha). Node opacity
-scales `S` and `Sa` before this operation. Canvas implements this as a source-over draw
-with source contribution `(1-a)`, followed by a lighter draw with source contribution `a`. Strength has no effect on other compositors. SVG refuses
+scales `S` and `Sa` before this operation. Canvas evaluates fractional strength once in premultiplied pixel space to avoid rounding
+the source contribution twice in 8-bit intermediate surfaces; strength zero/one use native
+source-over/lighter. Strength has no effect on other compositors. SVG refuses
 additive nodes or paints with `unsupported-render`, reason and a canvas hint because
 `plus-lighter` is not consistently supported by the supported SVG engines/static renderer.
 
