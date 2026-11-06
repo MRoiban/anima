@@ -1,434 +1,650 @@
 [
   {
     "row": "host-api.coordinate-mapping",
-    "implementation": "controller/host API present",
-    "done": false,
+    "implementation": "integrated",
+    "done": true,
     "oracle": "skip",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/host-api-coordinate-mapping",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#host-api-coordinate-mapping",
+    "example": "modules/input/capabilities/host-api-coordinate-mapping/example.animl",
+    "diagnostic": "modules/input/capabilities/host-api-coordinate-mapping/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "host-api.dom-listener-control",
-    "implementation": "controller/host API present",
-    "done": false,
+    "implementation": "integrated",
+    "done": true,
     "oracle": "skip",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/host-api-dom-listener-control",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#host-api-dom-listener-control",
+    "example": "modules/input/capabilities/host-api-dom-listener-control/example.animl",
+    "diagnostic": "modules/input/capabilities/host-api-dom-listener-control/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "host-api.gamepad",
-    "implementation": "controller/host API present",
-    "done": false,
+    "implementation": "integrated",
+    "done": true,
     "oracle": "skip",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/host-api-gamepad",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#host-api-gamepad",
+    "example": "modules/input/capabilities/host-api-gamepad/example.animl",
+    "diagnostic": "modules/input/capabilities/host-api-gamepad/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "host-api.low-level-pointer",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/host-api-low-level-pointer",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#host-api-low-level-pointer",
+    "example": "modules/input/capabilities/host-api-low-level-pointer/example.animl",
+    "diagnostic": "modules/input/capabilities/host-api-low-level-pointer/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "host-api.low-level-scroll",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/host-api-low-level-scroll",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#host-api-low-level-scroll",
+    "example": "modules/input/capabilities/host-api-low-level-scroll/example.animl",
+    "diagnostic": "modules/input/capabilities/host-api-low-level-scroll/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "host-api.manual-gamepad-batch",
-    "implementation": "controller/host API present",
-    "done": false,
+    "implementation": "integrated",
+    "done": true,
     "oracle": "skip",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/host-api-manual-gamepad-batch",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#host-api-manual-gamepad-batch",
+    "example": "modules/input/capabilities/host-api-manual-gamepad-batch/example.animl",
+    "diagnostic": "modules/input/capabilities/host-api-manual-gamepad-batch/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "host-api.multitouch",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/host-api-multitouch",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#host-api-multitouch",
+    "example": "modules/input/capabilities/host-api-multitouch/example.animl",
+    "diagnostic": "modules/input/capabilities/host-api-multitouch/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "host-api.pointer-exit",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/host-api-pointer-exit",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#host-api-pointer-exit",
+    "example": "modules/input/capabilities/host-api-pointer-exit/example.animl",
+    "diagnostic": "modules/input/capabilities/host-api-pointer-exit/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "host-api.scroll-hit-policy",
-    "implementation": "controller/host API present",
-    "done": false,
+    "implementation": "integrated",
+    "done": true,
     "oracle": "skip",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/host-api-scroll-hit-policy",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#host-api-scroll-hit-policy",
+    "example": "modules/input/capabilities/host-api-scroll-hit-policy/example.animl",
+    "diagnostic": "modules/input/capabilities/host-api-scroll-hit-policy/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "host-api.scroll-latching",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/host-api-scroll-latching",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#host-api-scroll-latching",
+    "example": "modules/input/capabilities/host-api-scroll-latching/example.animl",
+    "diagnostic": "modules/input/capabilities/host-api-scroll-latching/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.align-preserve",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-align-preserve",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-align-preserve",
+    "example": "modules/input/capabilities/input-align-preserve/example.animl",
+    "diagnostic": "modules/input/capabilities/input-align-preserve/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.align-snap",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-align-snap",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-align-snap",
+    "example": "modules/input/capabilities/input-align-snap/example.animl",
+    "diagnostic": "modules/input/capabilities/input-align-snap/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.bounded-hit-tests",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-bounded-hit-tests",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-bounded-hit-tests",
+    "example": "modules/input/capabilities/input-bounded-hit-tests/example.animl",
+    "diagnostic": "modules/input/capabilities/input-bounded-hit-tests/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.button-middle",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-button-middle",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-button-middle",
+    "example": "modules/input/capabilities/input-button-middle/example.animl",
+    "diagnostic": "modules/input/capabilities/input-button-middle/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.button-secondary",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-button-secondary",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-button-secondary",
+    "example": "modules/input/capabilities/input-button-secondary/example.animl",
+    "diagnostic": "modules/input/capabilities/input-button-secondary/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.capture-phase",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-capture-phase",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-capture-phase",
+    "example": "modules/input/capabilities/input-capture-phase/example.animl",
+    "diagnostic": "modules/input/capabilities/input-capture-phase/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.cursor-arrow",
-    "implementation": "controller/host API present",
-    "done": false,
+    "implementation": "integrated",
+    "done": true,
     "oracle": "skip",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-cursor-arrow",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-cursor-arrow",
+    "example": "modules/input/capabilities/input-cursor-arrow/example.animl",
+    "diagnostic": "modules/input/capabilities/input-cursor-arrow/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.cursor-hidden",
-    "implementation": "controller/host API present",
-    "done": false,
+    "implementation": "integrated",
+    "done": true,
     "oracle": "skip",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-cursor-hidden",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-cursor-hidden",
+    "example": "modules/input/capabilities/input-cursor-hidden/example.animl",
+    "diagnostic": "modules/input/capabilities/input-cursor-hidden/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.cursor-intent",
-    "implementation": "controller/host API present",
-    "done": false,
+    "implementation": "integrated",
+    "done": true,
     "oracle": "skip",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-cursor-intent",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-cursor-intent",
+    "example": "modules/input/capabilities/input-cursor-intent/example.animl",
+    "diagnostic": "modules/input/capabilities/input-cursor-intent/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.cursor-pointer",
-    "implementation": "controller/host API present",
-    "done": false,
+    "implementation": "integrated",
+    "done": true,
     "oracle": "skip",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-cursor-pointer",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-cursor-pointer",
+    "example": "modules/input/capabilities/input-cursor-pointer/example.animl",
+    "diagnostic": "modules/input/capabilities/input-cursor-pointer/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.cursor-resize-horizontal",
-    "implementation": "controller/host API present",
-    "done": false,
+    "implementation": "integrated",
+    "done": true,
     "oracle": "skip",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-cursor-resize-horizontal",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-cursor-resize-horizontal",
+    "example": "modules/input/capabilities/input-cursor-resize-horizontal/example.animl",
+    "diagnostic": "modules/input/capabilities/input-cursor-resize-horizontal/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.cursor-resize-vertical",
-    "implementation": "controller/host API present",
-    "done": false,
+    "implementation": "integrated",
+    "done": true,
     "oracle": "skip",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-cursor-resize-vertical",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-cursor-resize-vertical",
+    "example": "modules/input/capabilities/input-cursor-resize-vertical/example.animl",
+    "diagnostic": "modules/input/capabilities/input-cursor-resize-vertical/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.cursor-text",
-    "implementation": "controller/host API present",
-    "done": false,
+    "implementation": "integrated",
+    "done": true,
     "oracle": "skip",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-cursor-text",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-cursor-text",
+    "example": "modules/input/capabilities/input-cursor-text/example.animl",
+    "diagnostic": "modules/input/capabilities/input-cursor-text/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.disable-listeners",
-    "implementation": "controller/host API present",
-    "done": false,
+    "implementation": "integrated",
+    "done": true,
     "oracle": "skip",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-disable-listeners",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-disable-listeners",
+    "example": "modules/input/capabilities/input-disable-listeners/example.animl",
+    "diagnostic": "modules/input/capabilities/input-disable-listeners/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.gamepad-axis",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-gamepad-axis",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-gamepad-axis",
+    "example": "modules/input/capabilities/input-gamepad-axis/example.animl",
+    "diagnostic": "modules/input/capabilities/input-gamepad-axis/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.gamepad-button",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-gamepad-button",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-gamepad-button",
+    "example": "modules/input/capabilities/input-gamepad-button/example.animl",
+    "diagnostic": "modules/input/capabilities/input-gamepad-button/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.gamepad-button-phases",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-gamepad-button-phases",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-gamepad-button-phases",
+    "example": "modules/input/capabilities/input-gamepad-button-phases/example.animl",
+    "diagnostic": "modules/input/capabilities/input-gamepad-button-phases/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.gamepad-connected",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-gamepad-connected",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-gamepad-connected",
+    "example": "modules/input/capabilities/input-gamepad-connected/example.animl",
+    "diagnostic": "modules/input/capabilities/input-gamepad-connected/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.gamepad-disconnected",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-gamepad-disconnected",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-gamepad-disconnected",
+    "example": "modules/input/capabilities/input-gamepad-disconnected/example.animl",
+    "diagnostic": "modules/input/capabilities/input-gamepad-disconnected/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.gamepad-host",
-    "implementation": "controller/host API present",
-    "done": false,
+    "implementation": "integrated",
+    "done": true,
     "oracle": "skip",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-gamepad-host",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-gamepad-host",
+    "example": "modules/input/capabilities/input-gamepad-host/example.animl",
+    "diagnostic": "modules/input/capabilities/input-gamepad-host/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.gamepad-index-mapping",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-gamepad-index-mapping",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-gamepad-index-mapping",
+    "example": "modules/input/capabilities/input-gamepad-index-mapping/example.animl",
+    "diagnostic": "modules/input/capabilities/input-gamepad-index-mapping/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.hit-occlusion-query",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-hit-occlusion-query",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-hit-occlusion-query",
+    "example": "modules/input/capabilities/input-hit-occlusion-query/example.animl",
+    "diagnostic": "modules/input/capabilities/input-hit-occlusion-query/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.hit-parent-chain",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-hit-parent-chain",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-hit-parent-chain",
+    "example": "modules/input/capabilities/input-hit-parent-chain/example.animl",
+    "diagnostic": "modules/input/capabilities/input-hit-parent-chain/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.hit-shape-geometry",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-hit-shape-geometry",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-hit-shape-geometry",
+    "example": "modules/input/capabilities/input-hit-shape-geometry/example.animl",
+    "diagnostic": "modules/input/capabilities/input-hit-shape-geometry/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.hit-test-host",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-hit-test-host",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-hit-test-host",
+    "example": "modules/input/capabilities/input-hit-test-host/example.animl",
+    "diagnostic": "modules/input/capabilities/input-hit-test-host/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.key-down",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-key-down",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-key-down",
+    "example": "modules/input/capabilities/input-key-down/example.animl",
+    "diagnostic": "modules/input/capabilities/input-key-down/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.key-filter",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-key-filter",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-key-filter",
+    "example": "modules/input/capabilities/input-key-filter/example.animl",
+    "diagnostic": "modules/input/capabilities/input-key-filter/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.key-modifiers",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-key-modifiers",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-key-modifiers",
+    "example": "modules/input/capabilities/input-key-modifiers/example.animl",
+    "diagnostic": "modules/input/capabilities/input-key-modifiers/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.key-repeat",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-key-repeat",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-key-repeat",
+    "example": "modules/input/capabilities/input-key-repeat/example.animl",
+    "diagnostic": "modules/input/capabilities/input-key-repeat/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.key-up",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-key-up",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-key-up",
+    "example": "modules/input/capabilities/input-key-up/example.animl",
+    "diagnostic": "modules/input/capabilities/input-key-up/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.keyboard-bubbling",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-keyboard-bubbling",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-keyboard-bubbling",
+    "example": "modules/input/capabilities/input-keyboard-bubbling/example.animl",
+    "diagnostic": "modules/input/capabilities/input-keyboard-bubbling/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.multi-touch",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-multi-touch",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-multi-touch",
+    "example": "modules/input/capabilities/input-multi-touch/example.animl",
+    "diagnostic": "modules/input/capabilities/input-multi-touch/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.multi-trigger-listener",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-multi-trigger-listener",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-multi-trigger-listener",
+    "example": "modules/input/capabilities/input-multi-trigger-listener/example.animl",
+    "diagnostic": "modules/input/capabilities/input-multi-trigger-listener/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.opaque-targets",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-opaque-targets",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-opaque-targets",
+    "example": "modules/input/capabilities/input-opaque-targets/example.animl",
+    "diagnostic": "modules/input/capabilities/input-opaque-targets/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.pointer-cancel",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-pointer-cancel",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-pointer-cancel",
+    "example": "modules/input/capabilities/input-pointer-cancel/example.animl",
+    "diagnostic": "modules/input/capabilities/input-pointer-cancel/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.pointer-drag",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": true,
     "oracle": "captured",
     "conformance": "spec/conformance/input-pointer-drag",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "note": "Existing native capture retained; sample and generic AniML integration verified.",
+    "spec": "modules/input/SPEC.md#input-pointer-drag",
+    "example": "modules/input/capabilities/input-pointer-drag/example.animl",
+    "diagnostic": "modules/input/test/core/runtime.test.ts",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.pointer-drag-end",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": true,
     "oracle": "captured",
     "conformance": "spec/conformance/input-pointer-drag-end",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "note": "Existing native capture retained; sample and generic AniML integration verified.",
+    "spec": "modules/input/SPEC.md#input-pointer-drag-end",
+    "example": "modules/input/capabilities/input-pointer-drag-end/example.animl",
+    "diagnostic": "modules/input/test/core/runtime.test.ts",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.pointer-drag-start",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": true,
     "oracle": "captured",
     "conformance": "spec/conformance/input-pointer-drag-start",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "note": "Existing native capture retained; sample and generic AniML integration verified.",
+    "spec": "modules/input/SPEC.md#input-pointer-drag-start",
+    "example": "modules/input/capabilities/input-pointer-drag-start/example.animl",
+    "diagnostic": "modules/input/test/core/runtime.test.ts",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.pointer-enable",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-pointer-enable",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-pointer-enable",
+    "example": "modules/input/capabilities/input-pointer-enable/example.animl",
+    "diagnostic": "modules/input/capabilities/input-pointer-enable/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.touch-page-scroll",
-    "implementation": "controller/host API present",
-    "done": false,
+    "implementation": "integrated",
+    "done": true,
     "oracle": "skip",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-touch-page-scroll",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-touch-page-scroll",
+    "example": "modules/input/capabilities/input-touch-page-scroll/example.animl",
+    "diagnostic": "modules/input/capabilities/input-touch-page-scroll/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.trackpad-scroll",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-trackpad-scroll",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-trackpad-scroll",
+    "example": "modules/input/capabilities/input-trackpad-scroll/example.animl",
+    "diagnostic": "modules/input/capabilities/input-trackpad-scroll/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "input.wheel-scroll",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/input-wheel-scroll",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#input-wheel-scroll",
+    "example": "modules/input/capabilities/input-wheel-scroll/example.animl",
+    "diagnostic": "modules/input/capabilities/input-wheel-scroll/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "transforms.collapse",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/transforms-collapse",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#transforms-collapse",
+    "example": "modules/input/capabilities/transforms-collapse/example.animl",
+    "diagnostic": "modules/input/capabilities/transforms-collapse/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   },
   {
     "row": "transforms.solo",
-    "implementation": "controller/host API present",
+    "implementation": "integrated",
     "done": false,
     "oracle": "pending",
-    "conformance": "module golden vectors/browser tests; per-row probe pending",
-    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+    "conformance": "spec/conformance/transforms-solo",
+    "note": "Implementation evidence complete; pending native oracle rows are not strict complete.",
+    "spec": "modules/input/SPEC.md#transforms-solo",
+    "example": "modules/input/capabilities/transforms-solo/example.animl",
+    "diagnostic": "modules/input/capabilities/transforms-solo/invalid.json",
+    "schema": "spec/schema/ani.schema.json"
   }
 ]

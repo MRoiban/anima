@@ -2,14 +2,43 @@
   "anima": "0.1",
   "name": "input-keyboard-bubbling",
   "grid": 20,
+  "requires": ["input"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
   "nodes": [
     {
-      "id": "probe",
-      "type": "circle",
-      "center": [10, 10],
-      "r": 1,
-      "fill": {
-        "color": "#000"
+      "id": "parent",
+      "type": "group",
+      "children": [
+        {
+          "id": "disc",
+          "type": "circle",
+          "center": [10, 10],
+          "r": 5,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ]
+    }
+  ],
+  "listeners": [
+    {
+      "on": "key-down",
+      "target": "disc",
+      "set": {
+        "n": 1
+      },
+      "key": "F13"
+    },
+    {
+      "on": "key-down",
+      "target": "parent",
+      "set": {
+        "n": 2
       }
     }
   ]

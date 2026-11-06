@@ -1,4 +1,4 @@
 {
   "status": "todo",
-  "reason": "input.gamepad-button: implement the capability and independent expected evidence"
+  "reason": "input.gamepad-button: implementation evidence ready; native capture deferred to the P4c oracle pass"
 }

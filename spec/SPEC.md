@@ -1692,8 +1692,8 @@ conformance cases and native-oracle evidence. A documented oracle skip is not na
 ## input
 
 Optional P4c input behavior is specified in [the input contract](../modules/input/SPEC.md).
-The module is implemented; shared AniML/sample dispatcher integration remains pending as
-documented there. This status is not a completed parity claim.
+Generic registry attributes and the sample command dispatcher are integrated. Per-row native
+oracle captures remain pending where marked; this is not a claim that the whole phase is done.
 
 <!-- capability: host-api.coordinate-mapping -->
 <!-- capability: host-api.dom-listener-control -->

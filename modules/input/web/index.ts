@@ -1,4 +1,3 @@
-import { inputMarkup } from '../markup/index.ts';
 import { input } from '../core/index.ts';
 import type { InputController } from '../core/runtime.ts';
 import type {
@@ -14,7 +13,6 @@ import type { AnimaIcon } from '../../../packages/web/src/index.ts';
 export { inputMatrix } from './mapping.ts';
 const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
 Icon.registerModule(input);
-Icon.registerMarkup('input', inputMarkup);
 export interface InputOptions {
   listeners: boolean;
   multitouch: boolean;
@@ -106,6 +104,7 @@ function attach(i: AnimaIcon): void {
         kind === 'leave' || kind === 'cancel' ? { x: 0, y: 0 } : point(i, ev.clientX, ev.clientY);
       c.pointer(kind, p.x, p.y, { id: ev.pointerId, button: ev.button < 0 ? 0 : ev.button });
       if (kind === 'down') {
+        if (i.player?.focused) e.preventDefault();
         try {
           i.setPointerCapture(ev.pointerId);
         } catch {

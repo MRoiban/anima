@@ -37,14 +37,24 @@ export const input: Module = {
   ],
   init(_modules, shared) {
     install(shared.Player);
-    registerEventKinds(_modules, "input", events);
-    const listener = ((shared.DOC as ObjShape).p.listeners as Extract<Shape, { k: 'arr' }>)
-      .of as ObjShape;
-    ((shared.DOC as ObjShape).p.listeners as Extract<Shape, { k: 'arr' }>).of =
-      extendListener(listener);
-    return { ...input, init: undefined };
+    registerEventKinds(_modules, 'input', events);
+    const listeners = (shared.DOC as ObjShape).p.listeners as Extract<Shape, { k: 'arr' }>;
+    return {
+      ...input,
+      init: undefined,
+      entries: [
+        ...input.entries,
+        {
+          target: 'document',
+          shapes: {
+            listeners: { ...listeners, feature: '', of: extendListener(listeners.of as ObjShape) },
+          },
+        },
+      ],
+    };
   },
-  resolve(model, diag) {
+
+  resolve(model) {
     if (!model.doc.requires?.includes('input')) return;
     for (const r of model.doc.listeners ?? [])
       if (r.write && !['set', 'fire', 'toggle', 'emit'].some((key) => key in r)) r.set = {};

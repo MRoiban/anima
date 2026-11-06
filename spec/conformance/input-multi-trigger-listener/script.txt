@@ -1,1 +1,6 @@
-# TODO: inputs, step boundaries and snapshots
+contact down 7 10 10
+snapshot n
+key down k
+snapshot n
+scroll 10 10 0 3
+snapshot n

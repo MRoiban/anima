@@ -1,10 +1,10 @@
-// Run after applying integration.patch in the integrating checkout. Not part of the unpatched suite.
+// Tooling smoke check for generic registry attributes and sample command delegation.
 import assert from 'node:assert/strict';
 import { compile, decompile } from '../../packages/markup/src/index.ts';
 import { load, runScript } from '../../packages/core/src/index.ts';
 const source = `<anima version="0.1" name="input-demo" grid="20" requires="input">
 <number name="dragX"/><bool name="key"/><circle id="disc" cx="10" cy="10" r="5" fill="#000"/>
-<listener on="drag" target="disc" align="preserve" write="dx=dragX"/>
+<listener on="drag" target="disc" align="preserve" write='{"dx":"dragX"}'/>
 <listener on="key-down" key="k" modifiers="control" set="key=true"/>
 </anima>`;
 const r = compile(source);

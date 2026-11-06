@@ -1,1 +1,2 @@
-# TODO: inputs, step boundaries and snapshots
+gamepads [{"index":2,"connected":true,"mapping":"standard","axes":[0,-0.25],"buttons":[{"value":0.75,"pressed":true}]}]
+snapshot n

@@ -68,6 +68,11 @@ function recover(root: Element): Obj {
         'weight',
         'exitRatio',
         'blendRatio',
+        'button',
+        'capture',
+        'consume',
+        'index',
+        'control',
       ].includes(k)
         ? scalar(v)
         : k === 'work'
@@ -93,7 +98,9 @@ function recover(root: Element): Obj {
             ? v.split(' ').map((x) => (x.endsWith('%') ? x : Number(x)))
             : ['pivot', 'subpaths', 'corners'].includes(key)
               ? vector(v)
-              : scalar(v);
+              : v.startsWith('{') || v.startsWith('[')
+                ? JSON.parse(v)
+                : scalar(v);
     }
     for (const g of elements(e).filter((c) =>
       ['linearGradient', 'radialGradient'].includes(c.name),
@@ -114,7 +121,8 @@ function recover(root: Element): Obj {
       if (child.name === 'focus') {
         const focus = base(child);
         for (const [key, value] of Object.entries(a)) {
-          const jsonKey = key === 'enabled-input' ? 'enabledInput' : key === 'tab-stops' ? 'tabStops' : key;
+          const jsonKey =
+            key === 'enabled-input' ? 'enabledInput' : key === 'tab-stops' ? 'tabStops' : key;
           focus[jsonKey] = key === 'bounds' ? vector(value) : scalar(value);
         }
         o.focus = focus;
@@ -250,9 +258,9 @@ function recover(root: Element): Obj {
       const machine = (d.machine ??= {}) as Obj;
       ((machine.layers ??= {}) as Obj)[name] = p;
     } else if (el.name === 'listener') {
-      if (a.set)
+      if (a.set !== undefined)
         p.set = Object.fromEntries(
-          a.set.split(' ').map((s) => {
+          (a.set ? a.set.split(' ') : []).map((s) => {
             const [k, v] = s.split('=');
             return [k, scalar(v!)];
           }),

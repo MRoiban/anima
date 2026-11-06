@@ -32,7 +32,7 @@ export interface FocusAPI {
   focusTarget(id: string | null): boolean;
   focusClear(): boolean;
   focusTraverse(direction?: Direction): boolean;
-  focusPointer(x: number, y: number): boolean;
+  focusPointer(x: number, y: number, accept?: (node: number) => boolean): boolean;
   focusItems(includeDisabled?: boolean): FocusItem[];
   focusKey(key: string, down?: boolean, shift?: boolean): boolean;
   onFocusRefresh?: () => void;
@@ -71,9 +71,7 @@ const eligible = (p: Player, i: number): boolean => {
   const f = cfg(p, i);
   if (!f || f.enabled === false || (f.enabledInput !== undefined && !p.get(f.enabledInput)))
     return false;
-  for (let n = i; n >= 0; n = p.model.nodes[n]!.parent)
-    if (p.prop(n, 'visible') === false) return false;
-  return true;
+  return p.visible(i);
 };
 const scope = (p: Player, i: number): number => {
   for (let n = p.model.nodes[i]!.parent; n >= 0; n = p.model.nodes[n]!.parent)
@@ -93,7 +91,9 @@ function install(P: typeof Player) {
       return state.get(this) ?? null;
     },
   });
-  P.prototype.machineFocus = function (nodeId) { return this.focused === nodeId; };
+  P.prototype.machineFocus = function (nodeId) {
+    return this.focused === nodeId;
+  };
   P.prototype.focusItems = function (includeDisabled = false) {
     const items: FocusItem[] = this.model.nodes
       .flatMap((n, i) =>
@@ -230,11 +230,12 @@ function install(P: typeof Player) {
     }
     return false;
   };
-  P.prototype.focusPointer = function (x, y) {
+  P.prototype.focusPointer = function (x, y, accept) {
     const item = this.focusItems()
       .filter(
         (n) =>
           n.config.pointer !== false &&
+          (!accept || accept(n.node)) &&
           (n.owner
             ? n.owner.focusItems().some((i) => i.id === n.local) &&
               (() => {
@@ -254,7 +255,8 @@ function install(P: typeof Player) {
   const pointer = P.prototype.pointer,
     step = P.prototype.step;
   P.prototype.pointer = function (kind, x = 0, y = 0) {
-    if (!pointerDepth && kind === 'down') this.focusPointer(x, y);
+    if (!pointerDepth && kind === 'down' && !this.model.doc.requires?.includes('input'))
+      this.focusPointer(x, y);
     pointerDepth++;
     try {
       pointer.call(this, kind, x, y);

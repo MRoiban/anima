@@ -36,8 +36,8 @@ New listener JSON keys and AniML attributes use identical spelling:
 `deltaY`, `value`, `pressed`, `index`, and `control`. Only `pressed` is boolean; the others are
 numbers. Missing event fields do not overwrite inputs. Writes are queued until the next step,
 so ordinary `bind` expressions can move a target. Write-only listeners are actions; the loader
-normalizes them with an empty `set` map for the existing action compiler. Decompilation omits
-that empty map when a write is present. `align=preserve` stores the target's initial x/y minus
+normalizes them with an empty `set` map for the existing action compiler. Decompilation preserves that normalization. AniML uses a JSON-valued `write` attribute,
+for example `write='{"x":"dragX"}'`, derived from the generic listener registry. `align=preserve` stores the target's initial x/y minus
 the initial grab point in parent space; `snap` uses no offset. Singular parents produce no
 coordinate writes. Capture ordering uses depth, then authored order; normal delivery bubbles
 from deepest to shallowest, retaining authored order within a scope.
@@ -74,13 +74,14 @@ Pointer routing into component children preserves IDs/buttons and inversely maps
 through the current instance world matrix. Invisible, collapsed, disabled, singular or occluded
 instances cancel the child contact. The module uses the components extension's `players` map;
 without that seam only legacy primary-pointer forwarding is available. Child input actions are
-committed by the ordinary parent step. Rich scoped keyboard/gamepad focus forwarding is left to
-the focus integration; `keyTarget` lets that module select a local node before key bubbling.
+committed by the ordinary parent step. Keyboard delivery follows the logical focus path into component children, then bubbles through
+the outer instance ancestors. Gamepad batches remain scene-wide; they do not select a descendant
+by keyboard focus. Explicit `target` overrides `keyTarget`, which overrides logical focus.
 
 ## Keyboard, scroll, gamepads
 
 `key(down|up,key,{repeat?,shift?,control?,alt?,meta?,target?})` produces exactly one phase:
-repeat replaces down, never adds a second down. Target is a node ID, default whole icon; explicit
+repeat replaces down, never adds a second down. Target is a node ID (including a dotted component descendant), default logical focus or whole icon. Explicit
 options override the controller's optional `keyTarget`. Delivery follows target then ancestors,
 with capture and consume as above. Pointer enablement does not exclude keyboard/gamepad delivery.
 Native Enter/Space activation remains the host's §10 behavior alongside authored key listeners.
@@ -116,14 +117,248 @@ pause child clocks or remove state; it changes draw/hit eligibility.
 Structural errors retain registry diagnostics. `input-index`, `input-modifiers`, `input-write`,
 and `input-solo` report code, JSON pointer, message and corrective hint; their executable fixtures
 are in `test/core/runtime.test.ts`. Unknown event names remain registry `bad-value` diagnostics.
-A recognized input event refines components' legacy unknown-event diagnostic without accepting
-unknown dotted component events.
+Components validates scene events against the composed event-kind registry; unknown dotted
+component events remain errors.
 
 `core/commands.ts` implements `contact <phase> <id> [x y [button]]`,
 `key <down|up|repeat> <key|Space> [modifiers|-] [target]`,
 `scroll <x> <y> <dx> <dy> [phase] [seconds]`, `gamepads <JSON batch>`,
 `pointer-enable <id> <true|false>`, and `scroll-cancel`. Commands queue actions; the common script
-runner must step(0) after each successful command. These commands and extended AniML listener
-attributes require the small shared call-site patch supplied in `integration.patch`; they are
-not wired into this checkout's shared dispatcher/compiler. `on=drag` and ordinary actions already
-compile and sample without that patch. Pending probes retain markers and are not counted as done.
+runner must step(0) after each successful command. These commands use the tooling-only shared dispatcher delegation. Extended listener attributes
+use the generic registry path with JSON-valued compound attributes, without hand hooks.
+
+## Focus integration
+
+With `focus` declared, a key is dispatched to the focus owner and its ancestors before
+`focusKey(key,down,shift)` navigates once. Control/Alt/Meta combinations do not navigate. Key up
+does not move focus. Arrows select a spatial neighbor; opt-in inner Tab traversal moves once,
+and an unhandled edge leaves the native browser Tab exit available. Without input, the focus
+web adapter calls the same method. Enter/Space activation stays in the base host.
+
+Pointer downs call focus before ordinary down actions and preserve pointer capture. Input's
+pointer-enabled and opaque hit policy gates focus selection; keyboard eligibility is independent
+of pointer enablement. Collapsed/inactive Solo branches are excluded from focus eligibility.
+The DOM adapter prevents the down default from displacing the selected internal focus target.
+Focus supplies `machineFocus(nodeId)` and calls `onChange` when ownership changes, so guards
+wake a settled machine. The pure reader remains false when there is no focus owner.
+See `spec/conformance/input-focus-machine-integration` and the independently bundled browser
+integration tests, in both registration orders and both engines.
+
+## Capability contracts
+
+### host-api-coordinate-mapping
+
+Compute fit/alignment transforms and map input coordinates through matrices. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/host-api-coordinate-mapping` plus the row-indexed API/browser tests.
+### host-api-dom-listener-control
+
+Enable or remove automatic DOM interaction listeners for authored state machines. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/host-api-dom-listener-control` plus the row-indexed API/browser tests.
+### host-api-gamepad
+
+Poll gamepads and route buttons and axes to the graphic; optionally require DOM focus. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/host-api-gamepad` plus the row-indexed API/browser tests.
+### host-api-low-level-pointer
+
+Pass pointer down, move, up and exit in artboard coordinates with pointer IDs. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/host-api-low-level-pointer` plus the row-indexed API/browser tests.
+### host-api-low-level-scroll
+
+Send indirect wheel/trackpad scrolling separately from direct touch pointer gestures. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/host-api-low-level-scroll` plus the row-indexed API/browser tests.
+### host-api-manual-gamepad-batch
+
+Submit a validated batch of controller connection and input records to the focused scene. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/host-api-manual-gamepad-batch` plus the row-indexed API/browser tests.
+### host-api-multitouch
+
+Forward multiple touch IDs to authored listeners when enabled. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/host-api-multitouch` plus the row-indexed API/browser tests.
+### host-api-pointer-exit
+
+Control dispatch of pointer exit when the pointer leaves the graphic. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/host-api-pointer-exit` plus the row-indexed API/browser tests.
+### host-api-scroll-hit-policy
+
+Test whether content wants a scroll or has a wheel target before deciding whether to prevent browser scrolling. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/host-api-scroll-hit-policy` plus the row-indexed API/browser tests.
+### host-api-scroll-latching
+
+Track the target latched for a gesture and explicitly cancel it; wheel gestures expire after inactivity. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/host-api-scroll-latching` plus the row-indexed API/browser tests.
+### input-align-preserve
+
+Move a target while retaining the offset between its origin and initial grab point. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-align-preserve` plus the row-indexed API/browser tests.
+### input-align-snap
+
+Move a chosen target's origin to the pointer in its parent's coordinate space. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-align-snap` plus the row-indexed API/browser tests.
+### input-bounded-hit-tests
+
+Offer a bounded hit-test query that restricts scripted layouts to their declared box. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-bounded-hit-tests` plus the row-indexed API/browser tests.
+### input-button-middle
+
+Filter down, up, click, and drag input to the middle button. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-button-middle` plus the row-indexed API/browser tests.
+### input-button-secondary
+
+Filter down, up, click, and drag input to the secondary button. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-button-secondary` plus the row-indexed API/browser tests.
+### input-capture-phase
+
+Run listeners from outer scopes inward before normal target handling; supported capture handlers can claim input. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-capture-phase` plus the row-indexed API/browser tests.
+### input-cursor-arrow
+
+Restore the default arrow cursor. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-cursor-arrow` plus the row-indexed API/browser tests.
+### input-cursor-hidden
+
+Hide the native pointer. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-cursor-hidden` plus the row-indexed API/browser tests.
+### input-cursor-intent
+
+Have scene data request an arrow, hand, horizontal or vertical resize, text, or hidden cursor; the CLI host currently applies this only on macOS and Linux. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-cursor-intent` plus the row-indexed API/browser tests.
+### input-cursor-pointer
+
+Request the native pointing-hand cursor. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-cursor-pointer` plus the row-indexed API/browser tests.
+### input-cursor-resize-horizontal
+
+Request a horizontal resize cursor. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-cursor-resize-horizontal` plus the row-indexed API/browser tests.
+### input-cursor-resize-vertical
+
+Request a vertical resize cursor. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-cursor-resize-vertical` plus the row-indexed API/browser tests.
+### input-cursor-text
+
+Request a text-editing I-beam cursor. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-cursor-text` plus the row-indexed API/browser tests.
+### input-disable-listeners
+
+Let the embed disable installation of DOM interaction handlers. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-disable-listeners` plus the row-indexed API/browser tests.
+### input-gamepad-axis
+
+React to controller axis events with an authored input filter. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-gamepad-axis` plus the row-indexed API/browser tests.
+### input-gamepad-button
+
+React to controller button events with an authored input filter. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-gamepad-button` plus the row-indexed API/browser tests.
+### input-gamepad-button-phases
+
+Filter a controller button to press, release, or both. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-gamepad-button-phases` plus the row-indexed API/browser tests.
+### input-gamepad-connected
+
+React to controller connected events with an authored input filter. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-gamepad-connected` plus the row-indexed API/browser tests.
+### input-gamepad-disconnected
+
+React to controller disconnected events with an authored input filter. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-gamepad-disconnected` plus the row-indexed API/browser tests.
+### input-gamepad-host
+
+Poll browser controllers and feed batched events into the focused scene, optionally requiring canvas focus. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-gamepad-host` plus the row-indexed API/browser tests.
+### input-gamepad-index-mapping
+
+Address either W3C standard button/axis slots or raw controller indices. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-gamepad-index-mapping` plus the row-indexed API/browser tests.
+### input-hit-occlusion-query
+
+Ask whether an opaque target blocks interaction at a point, including whether it blocks scrolling. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-hit-occlusion-query` plus the row-indexed API/browser tests.
+### input-hit-parent-chain
+
+Walk the component ancestry as part of a target's hit eligibility. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-hit-parent-chain` plus the row-indexed API/browser tests.
+### input-hit-shape-geometry
+
+Use world bounds as a broad-phase check and transformed contour geometry for the precise shape test. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-hit-shape-geometry` plus the row-indexed API/browser tests.
+### input-hit-test-host
+
+Ask whether a point hits the machine's interactive scene. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-hit-test-host` plus the row-indexed API/browser tests.
+### input-key-down
+
+Select the down phase of a keystroke using a phase mask. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-key-down` plus the row-indexed API/browser tests.
+### input-key-filter
+
+Match a specific keyboard key or a wildcard across printable, navigation, function, and keypad keys. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-key-filter` plus the row-indexed API/browser tests.
+### input-key-modifiers
+
+Match the exact held combination of Shift, Control, Alt, and Meta. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-key-modifiers` plus the row-indexed API/browser tests.
+### input-key-repeat
+
+Select the repeat phase of a keystroke using a phase mask. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-key-repeat` plus the row-indexed API/browser tests.
+### input-key-up
+
+Select the up phase of a keystroke using a phase mask. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-key-up` plus the row-indexed API/browser tests.
+### input-keyboard-bubbling
+
+Offer key events to the focused node and then its ancestors until consumed. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-keyboard-bubbling` plus the row-indexed API/browser tests.
+### input-multi-touch
+
+Route multiple concurrent contacts by pointer ID rather than treating every contact as one pointer. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-multi-touch` plus the row-indexed API/browser tests.
+### input-multi-trigger-listener
+
+Attach several input-type children so one action responds to multiple trigger families. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-multi-trigger-listener` plus the row-indexed API/browser tests.
+### input-opaque-targets
+
+Stop pointer hit traversal at an opaque target instead of activating lower objects. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-opaque-targets` plus the row-indexed API/browser tests.
+### input-pointer-cancel
+
+Release and exit cancelled contacts using their last known positions. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-pointer-cancel` plus the row-indexed API/browser tests.
+### input-pointer-drag
+
+React continuously while a pressed pointer drags a target, including outside its initial bounds. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-pointer-drag` plus the row-indexed API/browser tests.
+### input-pointer-drag-end
+
+React when an active drag ends. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-pointer-drag-end` plus the row-indexed API/browser tests.
+### input-pointer-drag-start
+
+React once a target's drag begins. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-pointer-drag-start` plus the row-indexed API/browser tests.
+### input-pointer-enable
+
+Disable or re-enable pointer delivery per pointer identifier. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-pointer-enable` plus the row-indexed API/browser tests.
+### input-touch-page-scroll
+
+Let the embed choose whether touch gestures also scroll the surrounding page. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-touch-page-scroll` plus the row-indexed API/browser tests.
+### input-trackpad-scroll
+
+Pass precise scroll deltas and gesture phase so trackpad scrolling can settle or fling appropriately. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-trackpad-scroll` plus the row-indexed API/browser tests.
+### input-wheel-scroll
+
+Forward wheel deltas to scrollable scene content and consume the DOM wheel only when the scene handles it. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/input-wheel-scroll` plus the row-indexed API/browser tests.
+### transforms-collapse
+
+Propagate collapsed state through inactive Solo branches to suppress descendants. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/transforms-collapse` plus the row-indexed API/browser tests.
+### transforms-solo
+
+Render one selected direct child while collapsing the others. The corresponding contract above defines the Anima API and limitations.
+Executable evidence: `spec/conformance/transforms-solo` plus the row-indexed API/browser tests.

@@ -476,7 +476,7 @@ export class Compiler {
         }
         case 'set': {
           const o: Json = {};
-          for (const pair of s.split(/\s+/)) {
+          for (const pair of s ? s.split(/\s+/) : []) {
             const m = /^([a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*)=(.+)$/.exec(pair);
             if (!m)
               throw new Error(

@@ -2,8 +2,8 @@
 
 ## Now
 Goal: P4c-4 integrate input/focus/machine/components; complete input evidence.
-State: merging input 0dd104a into edf9eec; generated/docs conflicts resolved, runtime seams pending.
-Next: generic AniML node fields, event registry, key/pointer/focus integration and scoped tests.
+State: P4c-4 complete; merge 55df681 + local integration; input strict18/54, 36 native probes pending.
+Next: phase owner native oracle pass, benchmark and CI; details in modules/input/REPORT.md.
 Don't: push/PR/merge remote, run Rive, weaken tests/budgets, change 0.1 behavior.
 
 ## Log
@@ -109,3 +109,11 @@ Don't: push/PR/merge remote, run Rive, weaken tests/budgets, change 0.1 behavior
 - 2026-11-07 10:00 [claude]: merged P4c-1 machine (dd995fa): 26/26, 37 cases, 18 oracle-verified, machine 5736/8192, core+web +36, generic AniML extension; seam: 17 focus decompile round-trips lose node 'focus' objects (generic extension lacks node-object fields) → integration agent P4c-4
 
 - 2026-11-06 03:43 [input]: P4c-2 module checkpoint → 457 scoped passes, 3 shared expectation failures, 87 pending; supplied integration patch passes 460/87 pending in temporary copy; 6056 B module, base +0; commit-only handoff (evidence: test:scope input conformance oracle; size.ts; modules/input/HANDOFF.md).
+
+- 2026-11-06 04:08 [sol]: merge 55df681; focus runtime round-trip already correct, independent reader extended; 51 pending input probes replaced → unit scope 1456 pass/2 fixture-code errors corrected (evidence: /tmp/p4c-third.log); browsers running (unverified).
+
+- 2026-11-06 04:15 [sol]: shared scope found input mutating the base listener array → return a composed declaration; 12 arrival orders now identical, core/markup/CLI 2000 pass (evidence: /tmp/p4c-shared2.log).
+- 2026-11-06 04:18 [sol]: final browser rerun after rebuilding stale demo → 180 pass/0 skip in both engines, 16 seam checks across both registration orders (evidence: /tmp/p4c-final-browser2.log).
+- 2026-11-06 04:19 [sol]: final interaction scope 1471 pass; size input5978/focus3846/machine5736, core+web19048 delta0; typecheck/format/lint/generators/artifacts pass (evidence: modules/input/REPORT.md).
+- 2026-11-06 04:20 [sol]: baseline archive hardlink dependency setup failed across mounts → dependency-free perf still ran with local workspace links; raw baseline/current timing variation recorded without speedup claim (evidence: /tmp/p4c-perf-baseline.log, /tmp/p4c-perf-current-comparison.log).
+- 2026-11-06 04:22 [sol]: 54/54 CLI example samples match independent expectations; input strict18/54, 36 native oracle probes remain marked pending; no parity-status edits/Rive commands/push/PR (evidence: modules/input/rows.json, modules/input/REPORT.md).

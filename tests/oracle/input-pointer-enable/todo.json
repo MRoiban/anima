@@ -1,4 +1,4 @@
 {
   "status": "todo",
-  "reason": "input.pointer-enable: implement the capability and independent expected evidence"
+  "reason": "input.pointer-enable: implementation evidence ready; native capture deferred to the P4c oracle pass"
 }

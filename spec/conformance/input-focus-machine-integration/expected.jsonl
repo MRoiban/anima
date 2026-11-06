@@ -1,0 +1,5 @@
+{"time":0,"values":{"a.x":0,"n":0},"states":{"l":"a"},"events":[],"settled":true}
+{"time":0,"values":{"a.x":0,"n":0},"states":{"l":"a"},"events":[],"settled":true}
+{"time":0,"values":{"a.x":1,"n":0},"states":{"l":"b"},"events":[],"settled":true}
+{"time":0,"values":{"a.x":1,"n":0},"states":{"l":"b"},"events":[],"settled":true}
+{"time":0,"values":{"a.x":0,"n":0},"states":{"l":"a"},"events":[],"settled":true}

@@ -1,1 +1,4 @@
-# TODO: inputs, step boundaries and snapshots
+key up Other - disc
+snapshot n
+key up F13 - disc
+snapshot n

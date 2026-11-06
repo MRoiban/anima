@@ -1576,3 +1576,29 @@ Shared implementation ownership prevents wiring new AniML attributes and sample 
 it passes 460 scoped tests with 87 pending in a temporary source copy. This checkout reports
 457 passes, three expected shared-test failures and 87 pending. Typecheck, format, lint, generated
 wiring/schema, artifact checks, module-arrival-order and parity checks pass. No push/PR/merge.
+
+### P4c-4 — interaction integration (2026-11-06)
+
+Input 0dd104a merged with machine/focus. Generic registry listener attributes replace hand hooks;
+nonstructural node objects use JSON attributes. The focus loss was in the independent test reader,
+now extended without weakening value comparisons (17/17 original cases). Input owns one key route,
+component capture/consume, and pointer capture; focus supplies traversal, DOM ownership and
+machineFocus/onChange wake-ups. Disabled/opaque input hit policy gates pointer focus; collapsed
+nodes leave focus eligibility. Components owns a composed event-kind registry; the two diagnostic
+removal workarounds are gone. Input's base-array mutation was caught and fixed by arrival-order tests.
+
+Evidence: 51 completed input probes + 2 seam cases, conformance census 135→191 including 3 retained
+drag cases; 54 paired examples/schema/diagnostics/CLI samples. Strict input completion 3→18/54:
+3 retained captures +15 host-only skips, 36 real native oracle probes still pending for the next pass.
+No parity status promotion, native commands, runtime dependencies, test/budget/method weakening,
+push or PR. Research rationale: metadata ownership (rive-format-and-graph.md), host routing and
+teardown (rive-web-runtime.md), explicit input ordering (rive-animation-and-state.md).
+
+Checks: interaction scope1471 pass; core/markup/CLI2000 pass including 12 arrival orders and 0.1
+compatibility; all four modules +packages/web browsers180 pass/0 skips, both engines and both
+registration orders. Typecheck, Prettier, ESLint, module/parity wiring,209 AniML artifacts and18
+browser entries pass. Sizes: input5978/8192,focus3846/4096,machine5736/8192,components4039/4096;
+core+web19048 (+0 from edf9eec,+36 from main), markup7663/8192,full64848,class68961.
+Perf (unchanged method, variable host load): bell4.22ms/prefix1204ms; frames64.9/37.6/39.8µs;
+toolbar compile5.80ms. Archived same-session baseline and comparison lines, failed initial runs
+and limitations are recorded in modules/input/REPORT.md. No overall performance improvement claim.

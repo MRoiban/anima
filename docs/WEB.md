@@ -241,3 +241,8 @@ reconnected host if its previous poll has stopped. Native cursor intent follows 
 interactive target. Keyboard filtering is independent of role; existing Enter/Space button
 activation is retained. Destroy aborts module handlers and removes its polling entry.
 See [the input contract](../modules/input/SPEC.md) for deterministic routing, hit tests and values.
+
+When input and focus are both declared, input owns keyboard routing and pointer capture;
+focus supplies traversal and real DOM ownership. Authored key listeners see the previous owner
+before navigation. Enter and Space still use the host accessibility activation path. Logical
+focus changes wake machine guards through `Player.machineFocus(nodeId)` and `onChange`.

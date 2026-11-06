@@ -1,4 +1,11 @@
-<!-- TODO: input.capture-phase; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="input-capture-phase" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="input-capture-phase" grid="20" requires="input">
+  <number name="n"/>
+
+  <group id="parent">
+    <circle id="disc" cx="10" cy="10" r="5" fill="#000"/>
+  </group>
+
+  <listener on="down" target="disc" set="n=3"/>
+  <listener on="down" target="parent" set="n=1" capture="true"/>
+  <listener on="down" target="disc" set="n=2" capture="true" consume="true"/>
 </anima>

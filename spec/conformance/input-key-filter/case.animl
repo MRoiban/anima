@@ -1,4 +1,7 @@
-<!-- TODO: input.key-filter; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="input-key-filter" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="input-key-filter" grid="20" requires="input">
+  <number name="n"/>
+
+  <circle id="disc" cx="10" cy="10" r="5" fill="#000"/>
+
+  <listener on="key-down" target="disc" set="n=1" key="F13"/>
 </anima>

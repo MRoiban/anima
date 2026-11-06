@@ -1,1 +1,4 @@
-# TODO: inputs, step boundaries and snapshots
+contact down 7 10 10 0
+snapshot n
+contact down 7 10 10 2
+snapshot n

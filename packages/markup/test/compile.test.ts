@@ -317,6 +317,11 @@ describe('AniML compiler', () => {
       parseXml(readFileSync(new URL('../../../examples/motion.animl', import.meta.url), 'utf8')).doc
         .root!,
     );
+    collectPaint(
+      parseXml(
+        '<anima><group id="g" opaque="true" cursor="pointer" pointerEnabled="false" collapsed="true" solo="0"/></anima>',
+      ).doc.root!,
+    );
     const attrs = new Set(
       [...elements, ...paintElements].flatMap((e) => e.attrs.map((a) => a.name)),
     );

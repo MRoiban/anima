@@ -480,3 +480,43 @@ it('does not hit an inactive solo descendant through a group target', () => {
   });
   expect(p.input().hitTest(10, 10)).toEqual([]);
 });
+
+it('composes scene event kinds without accepting unknown dotted component events', () => {
+  for (const on of ['focus', 'blur', 'key-down', 'down|key-down', 'gamepad-axis']) {
+    const r = load(
+      document([{ on, set: { n: 1 } }], { requires: ['components', 'focus', 'input'] }),
+    );
+    expect(r.diagnostics.filter((d) => d.severity === 'error')).toEqual([]);
+  }
+  const r = load(
+    document([{ on: 'missing.output', set: { n: 1 } }], {
+      requires: ['components', 'focus', 'input'],
+    }),
+  );
+  expect(r.diagnostics).toContainEqual(
+    expect.objectContaining({
+      code: 'unknown-event',
+      pointer: '/listeners/0/on',
+      hint: expect.any(String),
+    }),
+  );
+});
+
+it('applies input pointer hit gating to focus without suppressing keyboard focus', () => {
+  const p = player([{ on: 'down', target: 'disc', set: { a: true } }], {
+    requires: ['input', 'focus'],
+    nodes: [{ ...circle, focus: {}, pointerEnabled: false }],
+  });
+  p.input().pointer('down', 10, 10);
+  expect(p.focused).toBeNull();
+  expect(p.focusTarget('disc')).toBe(true);
+  const q = player([{ on: 'down', target: 'disc', set: { a: true } }], {
+    requires: ['input', 'focus'],
+    nodes: [
+      { ...circle, focus: {} },
+      { ...circle, id: 'top', opaque: true },
+    ],
+  });
+  q.input().pointer('down', 10, 10);
+  expect(q.focused).toBeNull();
+});

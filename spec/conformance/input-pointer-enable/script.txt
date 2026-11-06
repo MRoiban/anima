@@ -1,1 +1,8 @@
-# TODO: inputs, step boundaries and snapshots
+pointer-enable 7 false
+snapshot n
+contact down 7 10 10
+snapshot n
+pointer-enable 7 true
+snapshot n
+contact down 7 10 10
+snapshot n

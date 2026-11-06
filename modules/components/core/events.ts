@@ -9,5 +9,6 @@ export function registerEventKinds(
   names: readonly string[],
 ): void {
   const component = modules.get('components') as EventModule | undefined;
-  for (const name of names) component?.eventKinds.set(name, feature);
+  for (const name of names)
+    if (component && !component.eventKinds.has(name)) component.eventKinds.set(name, feature);
 }

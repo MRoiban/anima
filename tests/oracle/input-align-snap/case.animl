@@ -1,4 +1,9 @@
-<!-- TODO: input.align-snap; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="input-align-snap" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="input-align-snap" grid="20" requires="input">
+  <number name="n"/>
+
+  <group id="parent" x="4" scale="2">
+    <circle id="disc" cx="10" cy="10" r="5" x="3" y="1" fill="#000"/>
+  </group>
+
+  <listener on="drag" target="disc" write="{&quot;x&quot;:&quot;n&quot;}" align="snap"/>
 </anima>

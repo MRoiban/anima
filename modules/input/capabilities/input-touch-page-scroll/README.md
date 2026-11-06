@@ -1,11 +1,10 @@
 # input.touch-page-scroll
 
-Controller/host implementation is present. Full capability completion is not claimed.
+Let the embed choose whether touch gestures also scroll the surrounding page.
 
-Contract: [input specification](../../SPEC.md). Registry: `../../core/registry.ts` and `../../core/index.ts`.
-Behavior/diagnostics: `../../test/core/runtime.test.ts`; golden vectors: `../../conformance/`;
-browser: `../../test/web/browser.test.ts`.
+Contract: [SPEC](../../SPEC.md#input-touch-page-scroll). Registry entries compose `../../core/registry.ts` and
+`../../core/index.ts`; the re-export in `registry.ts` references that same live declaration.
 
-The per-row example/conformance scaffold is pending; shared extended-attribute and command integration is supplied separately in `../../integration.patch`.
-
-Oracle: documented host-only skip in `tests/oracle/input-touch-page-scroll/skip.json`.
+Evidence: `spec/conformance/input-touch-page-scroll`, paired example, `invalid.json` tested by `test/core/evidence.test.ts`,
+and browser/API assertions in `test/web/browser.test.ts` and `test/core/runtime.test.ts`.
+Schema and CLI sample are tested for this row. Oracle: skip; native capture remains separate.

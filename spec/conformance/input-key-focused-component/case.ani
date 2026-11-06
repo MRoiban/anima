@@ -1,0 +1,76 @@
+{
+  "anima": "0.1",
+  "name": "key-components",
+  "grid": 20,
+  "requires": ["components", "focus", "input"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "child",
+      "type": "instance",
+      "component": "child"
+    }
+  ],
+  "listeners": [
+    {
+      "on": "key-down",
+      "target": "child",
+      "set": {
+        "n": 1
+      },
+      "capture": true
+    },
+    {
+      "on": "key-down",
+      "target": "child",
+      "set": {
+        "n": 2
+      }
+    }
+  ],
+  "components": {
+    "child": {
+      "grid": 20,
+      "inputs": {
+        "n": {
+          "type": "number"
+        }
+      },
+      "nodes": [
+        {
+          "id": "disc",
+          "type": "circle",
+          "center": [10, 10],
+          "r": 5,
+          "fill": {
+            "color": "#000"
+          },
+          "focus": {}
+        }
+      ],
+      "listeners": [
+        {
+          "on": "key-down",
+          "target": "disc",
+          "set": {
+            "n": 3
+          },
+          "consume": true,
+          "key": "k"
+        },
+        {
+          "on": "key-down",
+          "target": "disc",
+          "set": {
+            "n": 4
+          },
+          "key": "j"
+        }
+      ]
+    }
+  }
+}

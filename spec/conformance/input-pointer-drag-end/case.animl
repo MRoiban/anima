@@ -1,6 +1,8 @@
 <anima version="0.1" name="input-pointer-drag-end" grid="20" requires="input">
   <bool name="active"/>
+
   <rect id="a" x0="2" y0="8" width="4" height="4" fill="#4263eb"/>
+
   <layer name="main" initial="idle">
     <state name="idle">
       <pose a.x="0"/>
@@ -10,5 +12,6 @@
       <pose a.x="8"/>
     </state>
   </layer>
+
   <listener on="drag-end" target="a" set="active=true"/>
 </anima>

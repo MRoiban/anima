@@ -14,6 +14,10 @@ import type {
 export const configurations = new WeakMap<Model, InputListener[]>();
 const controllers = new WeakMap<Player, InputController>();
 const installed = new WeakSet<typeof Player>();
+interface Delivery {
+  handled: boolean;
+  consumed: boolean;
+}
 interface Contact {
   x: number;
   y: number;
@@ -122,6 +126,15 @@ export class InputController {
     filter: (l: InputListener) => boolean = () => true,
   ): boolean {
     if (!this.enabled) return false;
+    return this.deliver(on, targets, data, filter).handled;
+  }
+  private deliver(
+    on: string,
+    targets: Set<number>,
+    data: Data,
+    filter: (l: InputListener) => boolean = () => true,
+  ): Delivery {
+    if (!this.enabled) return { handled: false, consumed: false };
     const ls = this.listeners.filter(
       (l) =>
         l.on.includes(on) &&
@@ -161,9 +174,9 @@ export class InputController {
         if (value !== undefined) this.player.set(name, value);
       }
       claimed = true;
-      if (l.consume) break;
+      if (l.consume) return { handled: true, consumed: true };
     }
-    return claimed;
+    return { handled: claimed, consumed: false };
   }
   private route(kind: PointerEventKind, x: number, y: number, opts: PointerOptions): boolean {
     const children = (this.player.nested as { players?: Map<string, Player> } | undefined)?.players;
@@ -248,6 +261,15 @@ export class InputController {
     let claimed = this.dispatch('leave', diff(c.over, now), data);
     claimed = this.dispatch('enter', diff(now, c.over), data) || claimed;
     if (kind === 'down') {
+      this.player.focusPointer?.(
+        x,
+        y,
+        (node) =>
+          this.eligible(node) &&
+          ![...now].some(
+            (n) => n > node && this.player.model.nodes[n]!.raw.opaque && !this.ancestor(n, node),
+          ),
+      );
       c.startX = x;
       c.startY = y;
       c.button = button;
@@ -305,23 +327,51 @@ export class InputController {
     this.cancelScroll();
   }
   key(kind: 'down' | 'up', key: string, opts: KeyOptions = {}): boolean {
+    if (!this.enabled) return false;
+    const handled = this.dispatchKey(kind, key, opts);
+    const moved =
+      !opts.control &&
+      !opts.alt &&
+      !opts.meta &&
+      this.player.focusKey?.(key, kind === 'down', opts.shift);
+    return !!moved || handled.handled;
+  }
+  private dispatchKey(kind: 'down' | 'up', key: string, opts: KeyOptions): Delivery {
     const p = this.player,
-      name = opts.target ?? this.keyTarget,
-      target = name === undefined ? -1 : p.model.ids.get(name);
+      name = opts.target ?? this.keyTarget ?? p.focused ?? undefined;
+    const dot = name?.indexOf('.') ?? -1;
+    const local = dot < 0 ? name : name!.slice(0, dot);
+    const target = local === undefined ? -1 : p.model.ids.get(local);
     if (target === undefined) throw Error('anima: unknown key target');
     const targets = new Set<number>([-1]);
     for (let n = target; n >= 0; n = p.model.nodes[n]!.parent) targets.add(n);
     const modifiers = ['shift', 'control', 'alt', 'meta']
       .filter((k) => opts[k as keyof KeyOptions])
       .join('+');
-    return this.dispatch(
-      'key-' + (kind === 'down' && opts.repeat ? 'repeat' : kind),
-      targets,
-      { pressed: kind === 'down' },
-      (l) =>
-        (!l.key || l.key === '*' || l.key === key) &&
-        (l.modifiers === undefined || l.modifiers === modifiers),
-    );
+    const on = 'key-' + (kind === 'down' && opts.repeat ? 'repeat' : kind),
+      data = { pressed: kind === 'down' };
+    const match = (l: InputListener) =>
+      (!l.key || l.key === '*' || l.key === key) &&
+      (l.modifiers === undefined || l.modifiers === modifiers);
+    const capture = this.deliver(on, targets, data, (l) => !!l.capture && match(l));
+    if (capture.consumed) return capture;
+    let childResult: Delivery = { handled: false, consumed: false };
+    if (dot >= 0 && p.visible(target)) {
+      const child = (p.nested as { players?: Map<string, Player> } | undefined)?.players?.get(
+        local!,
+      );
+      if (!child) throw Error('anima: unknown key target');
+      if (configurations.has(child.model))
+        childResult = child
+          .input()
+          .dispatchKey(kind, key, { ...opts, target: name!.slice(dot + 1) });
+      if (childResult.consumed) return { handled: true, consumed: true };
+    }
+    const bubble = this.deliver(on, targets, data, (l) => !l.capture && match(l));
+    return {
+      handled: capture.handled || childResult.handled || bubble.handled,
+      consumed: bubble.consumed,
+    };
   }
   scroll(x: number, y: number, deltaX: number, deltaY: number, opts: ScrollOptions = {}): boolean {
     finite(x, y, deltaX, deltaY);

@@ -2,14 +2,32 @@
   "anima": "0.1",
   "name": "host-api-manual-gamepad-batch",
   "grid": 20,
+  "requires": ["input"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
   "nodes": [
     {
-      "id": "probe",
+      "id": "disc",
       "type": "circle",
       "center": [10, 10],
-      "r": 1,
+      "r": 5,
       "fill": {
         "color": "#000"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "gamepad-axis",
+      "set": {},
+      "index": 2,
+      "control": 1,
+      "mapping": "standard",
+      "write": {
+        "value": "n"
       }
     }
   ]

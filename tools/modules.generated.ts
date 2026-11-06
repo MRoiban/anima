@@ -140,8 +140,12 @@ export const moduleScopes = {
       'modules/input/test/**/*.test.ts',
       'packages/markup/test/corpus.test.ts',
       'packages/markup/test/names.test.ts',
+      'packages/markup/test/module-fields.test.ts',
+      'packages/markup/test/decompile.test.ts',
     ],
     conformance: [
+      'input-focus-machine-integration',
+      'input-key-focused-component',
       'host-api-coordinate-mapping',
       'host-api-dom-listener-control',
       'host-api-gamepad',

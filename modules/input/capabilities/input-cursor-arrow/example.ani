@@ -2,14 +2,31 @@
   "anima": "0.1",
   "name": "input-cursor-arrow",
   "grid": 20,
+  "requires": ["input"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
   "nodes": [
     {
-      "id": "probe",
+      "id": "disc",
       "type": "circle",
       "center": [10, 10],
-      "r": 1,
+      "r": 5,
       "fill": {
         "color": "#000"
+      },
+      "cursor": "arrow"
+    }
+  ],
+  "listeners": [
+    {
+      "on": "down",
+      "target": "disc",
+      "set": {},
+      "write": {
+        "pointerId": "n"
       }
     }
   ]
