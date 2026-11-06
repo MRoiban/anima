@@ -102,3 +102,4 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 01:30 [claude]: merged P4b-4 (aa7dc76): strict oracle exit 0, 71 samples; uint in-range exact; Rive dump float32 rounding documented
 - 2026-11-07 02:30 [claude]: merged P4b AniML rerun (afc413d): 5/6 (from 4/6); 'stall' was advance 0 (re-check completes); reduced-motion mid-loop = spec decision → P3b
 - 2026-11-07 03:00 [claude]: P4b bookkeeping: 22 rows done (259/1238), LOG with numbers (core+web 19012, +1049 logged); opening PR
+- 2026-11-07 04:00 [claude]: PR #13 CI red: canvas cross-backend harness hard-coded its module list → motion cases unknown-feature; generator now emits packages/web/src/all-modules.ts, harness uses it; canvas test 524 pass. Lesson: run browser tests for the merge's seams before pushing a phase PR
