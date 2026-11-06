@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
-State: p4e-data has data core (60/73 rows) and paint findings (10/18 strict, 8 rasterisation findings) merged. data 8181/8192, bind 2046/2048.
-Merged: data, paint, host (3878/4096), convert (6161/8192). Full-featured 91.4/100 KB.
-Next: running — Rive + AniML benchmark runs, P4e-7 parity bookkeeping (Sol). Then quiet perf vs main, LOG/PLAN, PR. data 8191/8192: split before next data change.
-Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests.
+Goal: P4e-8 implementation complete; fresh native computed-property evidence remains blocked.
+Branch: t3/computed-bind-expressions; local commit only; no push, PR or merge.
+Verified: scope 3362 pass/43 TODO; final reference tests 35/35; strict oracle 216 cases/410 samples.
+Sizes: core+web 20107; full 93550; derive 2103/4096, data 7413/8192, bind 2048/2048 B.
+Next: parent native capture with permitted CLI version, fresh benchmark agent, phase integration.
+Don't: modify benchmark/inventory/measurement inputs or loosen limits; upward lookup remains pending.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -177,3 +178,12 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-06 [claude]: launched AniML benchmark run (after AUTHORING data section) and P4e-7 parity bookkeeping (214 P4 rows → P4e done or a real phase; 41 uncovered data rows to check)
 
 - 2026-11-06 10:03 [codex-test]: P4e AniML scoreboard → 5/6 strict, 15 checks, 9 total errors including setup/docs; source/build parity and 27 ranking cases pass (evidence: benchmark animl/REPORT.md, verify.py).
+
+- 2026-11-06 [codex]: read task contracts/benchmark AniML; scaffold dry run failed missing prettier → npm ci required (evidence: ERR_MODULE_NOT_FOUND).
+
+- 2026-11-06 11:31 [codex]: derive, scalar comparisons/shared guard evaluator, schema-data and guide command extraction implemented → focused conformance 476 pass/15 TODO; fresh native commands blocked by CLI 1.9.0/required 1.9.1 (unverified new oracle).
+- 2026-11-06 11:31 [codex]: broad scope 3333 pass/18 fail/43 TODO → corpus count/order regression fixed; one cold Chromium host timeout, isolated unchanged host+derive browsers 8/8 pass (evidence: /tmp/p4e8-{scope1,browsers2}.log).
+- 2026-11-06 11:31 [codex]: parser sharing removes duplicated data parser; budgets under unchanged limits → bind 2048, data 7496, derive 2009, host 4039 B; latest final verification pending (evidence: /tmp/p4e8-size3.log).
+
+- 2026-11-06 11:45 [codex]: final requested scope 3362 pass/43 TODO; reference follow-up 35/35 and shared checks 9/9 → no test failures (evidence: modules/derive/verification/tests.txt).
+- 2026-11-06 11:45 [codex]: strict oracle 216 cases/410 samples/0 failing strict, 18 findings retained; budgets/static/artifacts pass; no consistent perf regression → report/evidence prepared, fresh native storage oracle unverified (evidence: modules/derive/REPORT.md and verification/).

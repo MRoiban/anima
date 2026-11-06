@@ -5,6 +5,8 @@ export type PropertyType =
 export interface Property {
   type: PropertyType;
   default?: unknown;
+  value?: string;
+  convert?: string;
   min?: number;
   max?: number;
   values?: string[];
@@ -63,6 +65,7 @@ export interface Compiled {
   defaultName: string;
   refs: Map<string, Ref>;
   model: Model;
+  modelOf: WeakMap<object, string>;
 }
 export const compiled = new WeakMap<Model, Compiled>();
 export const converters = new Map<string, Converter>();

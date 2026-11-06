@@ -47,3 +47,10 @@ Data exports `dataCodes` from its core entry and composed module; host uses the 
 This implementation uses the graph metadata and host boundary discussed in
 [graph research](../../docs/research/rive-format-and-graph.md) §6 and
 [web research](../../docs/research/rive-web-runtime.md) §4. No Rive source is used.
+
+
+With `derive`, typed handles also accept bare paths such as `players.0.label`; `get` retains its
+explicit `$` path contract. Computed handles read their initialized/final resolved scalar value,
+subscribe with ordinary post-step coalescing, and reject `.set()` with `DataError` code
+`read-only-path`, a pointer, message and corrective hint. Created instances and replacement lists
+retain computed model behavior and converter declarations.

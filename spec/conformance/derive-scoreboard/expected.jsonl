@@ -1,0 +1,2 @@
+{"time":0,"values":{"$players.0.label":"1,250 pts","$players.1.label":"980 pts","$players.2.label":"40 pts","a.x":1,"b.x":0,"c.x":0},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"$players.2.label":"1,500 pts","$players.2.milestone":true,"a.x":0,"b.x":0,"c.x":1},"states":{},"events":[],"settled":true}

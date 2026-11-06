@@ -23,6 +23,7 @@ export const webEntries = [
   'data',
   'convert',
   'markup-convert',
+  'derive',
   'host',
   'mix',
 ];
@@ -47,6 +48,7 @@ export const webOwners: Record<string, string> = {
   data: 'data',
   convert: 'convert',
   'markup-convert': 'convert',
+  derive: 'derive',
   host: 'host',
   surface: 'surface',
   'markup-surface': 'surface',
@@ -82,6 +84,7 @@ export const moduleBudgets: {
   { name: 'data', budget: 8192 },
   { name: 'convert', budget: 8192 },
   { name: 'markup-convert', budget: 2048, over: 'index' },
+  { name: 'derive', budget: 4096 },
   { name: 'host', budget: 4096 },
   { name: 'mix', budget: 5120 },
 ];
@@ -501,6 +504,15 @@ export const moduleScopes = {
       'data-operation-operand-view-model',
       'data-scripted-converter',
     ],
+  },
+  derive: {
+    tests: [
+      'modules/derive/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+      'packages/markup/test/decompile.test.ts',
+    ],
+    conformance: ['derive-', 'bind-comparisons'],
   },
   host: { tests: ['modules/host/test/**/*.test.ts'], conformance: [] },
   surface: {

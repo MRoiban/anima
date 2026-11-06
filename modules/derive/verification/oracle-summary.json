@@ -1,0 +1,9 @@
+{
+  "command": "node tools/oracle.ts --strict",
+  "exit": 0,
+  "strictCases": 216,
+  "strictSamples": 410,
+  "failingStrictSamples": 0,
+  "retainedFindings": 18,
+  "newNativeComputedComparison": "unverified: local CLI 1.9.0 requires 1.9.1; update prohibited"
+}

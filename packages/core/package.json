@@ -24,6 +24,7 @@
     "./contour": "./src/modules/contour/index.ts",
     "./data": "./src/modules/data/index.ts",
     "./convert": "./src/modules/convert/index.ts",
+    "./derive": "./src/modules/derive/index.ts",
     "./host": "./src/modules/host/index.ts",
     "./surface": "./src/modules/surface/index.ts",
     "./surface-svg": "./src/modules/surface/svg.ts",

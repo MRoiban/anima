@@ -101,9 +101,21 @@ function create(
       },
     ],
     resolve(model, diag) {
+      const local = (value: string) =>
+        value.split('|').every((on) => {
+          const kind = on.startsWith('event:')
+            ? 'event:'
+            : on.startsWith('change:')
+              ? 'change:'
+              : on;
+          return (
+            eventKinds.has(kind) &&
+            (!eventKinds.get(kind) || model.doc.requires?.includes(eventKinds.get(kind)))
+          );
+        });
       if (!model.doc.requires?.includes('components')) {
         for (const [i, l] of (model.doc.listeners ?? []).entries())
-          if (l.on.includes('.'))
+          if (l.on.includes('.') && !local(l.on))
             diag.err(
               'undeclared-feature',
               '/listeners/' + i + '/on',
@@ -272,20 +284,7 @@ function create(
           err('limit-exceeded', '/nodes', 'components exceed depth 8 or 256 expanded instances');
         if (data.instances.length) model.nesting = (p) => nest(p, data, runtime.Player);
         for (const [i, l] of (model.doc.listeners ?? []).entries())
-          if (
-            !l.on.split('|').every((on: string) => {
-              const kind = on.startsWith('event:')
-                ? 'event:'
-                : on.startsWith('change:')
-                  ? 'change:'
-                  : on;
-              return (
-                eventKinds.has(kind) &&
-                (!eventKinds.get(kind) || model.doc.requires?.includes(eventKinds.get(kind)))
-              );
-            }) &&
-            (!l.on.includes('.') || model.inputs.get(l.on)?.type !== 'trigger')
-          )
+          if (!local(l.on) && (!l.on.includes('.') || model.inputs.get(l.on)?.type !== 'trigger'))
             err('unknown-event', '/listeners/' + i + '/on', 'unknown instance event');
       } finally {
         context = outer;

@@ -1,0 +1,26 @@
+Baseline: 27407a1; same Node 24 environment, unchanged tools/perf.ts and inputs.
+Order: current, baseline, current, baseline. Timings are noisy, report-only.
+
+current 1
+compile: bell 1.86 ms; all 9040 prefixes 531 ms
+frame: bell 30.5 µs; composite 21.0 µs
+frame: toolbar 22.6 µs (step + draw, 4 instances)
+compile: toolbar 3.11 ms
+
+baseline 1
+compile: bell 2.03 ms; all 9040 prefixes 621 ms
+frame: bell 30.8 µs; composite 21.5 µs
+frame: toolbar 23.0 µs (step + draw, 4 instances)
+compile: toolbar 3.18 ms
+
+current 2
+compile: bell 2.33 ms; all 9040 prefixes 562 ms
+frame: bell 33.6 µs; composite 20.3 µs
+frame: toolbar 24.9 µs (step + draw, 4 instances)
+compile: toolbar 3.11 ms
+
+baseline 2
+compile: bell 3.12 ms; all 9040 prefixes 707 ms
+frame: bell 42.7 µs; composite 23.2 µs
+frame: toolbar 24.1 µs (step + draw, 4 instances)
+compile: toolbar 4.37 ms

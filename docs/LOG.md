@@ -2135,3 +2135,30 @@ rerun **28/28** after fixing invalid examples that initially hit missing-node er
 Typecheck, ESLint, Prettier, module wiring (0 stale), size and diff checks pass. Initial tooling
 needed `npm ci`; old trigger transcript was stale and corrected to actual output. No test limits,
 measurement inputs, oracle findings or parity status fields changed. Local commit only.
+
+
+## P4e-8: computed model scalars and benchmark format fixes (2026-11-06)
+
+Optional `derive` provides per-instance computed read-only scalar properties, local/absolute `$`
+expressions, converter groups, dependency cycle diagnostics, host reads/subscriptions and rejected
+writes. Bind gains typed comparison/logic expressions with shared scalar guard evaluation. Data
+uses the active bind parser instead of bundling a duplicate; non-derived documents keep their
+original scope factory and allocate no computed instance metadata. `schema data` and executable
+AUTHORING command extraction close the CLI mismatch; a compiled player-list example and two
+independently calculated conformance cases cover the benchmark gaps. Dotted data-change events
+also stop being misclassified as component outputs.
+
+Requested scope: **3362 passed / 43 existing TODO**, Chromium and Firefox included; final
+converter-reference follow-up **35/35**, shared core/generator checks **9/9**. Strict oracle exits
+0: **216 cases / 410 samples / 0 failed strict samples**, all **18 findings** retained. Typecheck,
+ESLint, Prettier, generated wiring/schema/browser bundles and **406 AniML** artifact checks pass.
+Budgets unchanged: core+web **20107 B** (+52), full-featured **93550 B** (+2088), derive
+**2103/4096**, data **7413/8192**, bind **2048/2048**, host **4042/4096**. Markup **7912/8192 B**
+passes its budget but is 12 B above the historical P5-7 7900 B target. Two alternating unchanged
+perf runs show no consistent regression; raw numbers are in modules/derive/verification/perf.txt.
+
+Fresh native computed-storage evidence remains **unverified**: installed CLI 1.9.0 refuses local
+schema/docs requiring 1.9.1, and updating is prohibited. No new passing native case or skip is
+claimed. Upward component lookup remains pending (`data.binding-relative`). No benchmark,
+inventory, measurement inputs, thresholds, budgets or timeouts were changed. Development failures,
+fixes and native evidence limits are in modules/derive/REPORT.md. Local branch commit only.

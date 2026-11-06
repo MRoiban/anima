@@ -7,7 +7,8 @@ import { ptr } from '../../../packages/core/src/diag.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import { resolveAddress } from '../../../packages/core/src/load.ts';
 import { parseHex } from '../../../packages/core/src/color.ts';
-import { expression, evaluate, BindError } from '../../bind/core/expression.ts';
+import type { expression } from '../../bind/core/expression.ts';
+import { evaluate, BindError } from '../../bind/core/expression.ts';
 import { compiled, converters, same, type Binding } from './types.ts';
 import { dataState, normalize } from './storage.ts';
 interface Link {
@@ -19,7 +20,7 @@ interface Link {
 export function bindings(
   model: Model,
   d: Diags,
-  parse = expression,
+  parse: typeof expression | undefined,
   resolve = resolveAddress,
 ): void {
   if (!model.doc.requires?.includes('data')) return;
@@ -64,8 +65,10 @@ export function bindings(
     let read: Link['read'];
     try {
       const whole = /^\$[\w:.-]+$/.test(spec.value) && !source;
-      if (whole) read = (_s, p) => dataState(p)?.read(spec.value);
+      if (source) read = (s) => s.get(source);
+      else if (whole) read = (_s, p) => dataState(p)?.read(spec.value);
       else {
+        if (!parse) throw new BindError('undeclared-feature', 0, 'load bind for data expressions');
         const e = parse(spec.value, types);
         if (
           !spec.convert &&
@@ -93,7 +96,16 @@ export function bindings(
       links.push({ target, spec, read, source });
     } catch (e) {
       if (!(e instanceof Error) || !('code' in e)) throw e;
-      error(String(e.code), at, e.message);
+      error(
+        String(e.code),
+        at,
+        e.message,
+        e.code === 'bind-syntax'
+          ? V
+            ? `unsupported token ${JSON.stringify(spec.value.slice((e as BindError).at).match(/^\S+/)?.[0] ?? 'end of expression')}; use values, arithmetic, comparisons, and/or/not or registered calls`
+            : ''
+          : undefined,
+      );
     }
   }
   const states = new WeakMap<

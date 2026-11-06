@@ -258,7 +258,7 @@ export function prepare(model: Model, d: Diags): void {
           'component public data model does not match',
         );
     }
-  const c: Compiled = { document, defaults, defaultName: chosen, refs: new Map(), model };
+  const c: Compiled = { document, defaults, defaultName: chosen, refs: new Map(), model, modelOf };
   compiled.set(model, c);
   const flatten = (
     instance: string,

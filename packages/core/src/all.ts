@@ -25,6 +25,7 @@ import { contour } from '../../../modules/contour/core/index.ts';
 import { contourSVG } from '../../../modules/contour/core/svg.ts';
 import { data } from '../../../modules/data/core/index.ts';
 import { convert } from '../../../modules/convert/core/index.ts';
+import { derive } from '../../../modules/derive/core/index.ts';
 import { host } from '../../../modules/host/core/index.ts';
 import { surface } from '../../../modules/surface/core/index.ts';
 import { surfaceSVG } from '../../../modules/surface/core/svg.ts';
@@ -54,6 +55,7 @@ if (VERBOSE) {
   registerSVGBackend('contour', contourSVG);
   registerModule(data);
   registerModule(convert);
+  registerModule(derive);
   registerModule(host);
   registerModule(surface);
   registerSVGBackend('surface', surfaceSVG);

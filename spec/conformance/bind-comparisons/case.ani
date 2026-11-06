@@ -1,0 +1,78 @@
+{
+  "anima": "0.1",
+  "name": "comparison-values",
+  "grid": 20,
+  "requires": ["bind"],
+  "inputs": {
+    "score": {
+      "type": "number",
+      "default": 3
+    },
+    "flag": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [4, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    },
+    {
+      "id": "b",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    },
+    {
+      "id": "c",
+      "type": "circle",
+      "center": [16, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "m": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {},
+            "on": [
+              {
+                "when": "score >= 3 && (not flag or score > 5)",
+                "to": "done"
+              }
+            ]
+          },
+          "done": {
+            "pose": {}
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "click",
+      "set": {
+        "flag": "score >= 3"
+      }
+    }
+  ],
+  "bind": {
+    "a.x": "score + 2 * 3 >= 9 and not flag",
+    "b.x": "score < 3 or flag",
+    "c.x": "not score == 3 or flag and score != 0"
+  }
+}

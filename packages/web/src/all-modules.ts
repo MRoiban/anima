@@ -7,6 +7,7 @@ import './composite.ts';
 import './contour.ts';
 import './convert.ts';
 import './data.ts';
+import './derive.ts';
 import './events.ts';
 import './focus.ts';
 import './host.ts';

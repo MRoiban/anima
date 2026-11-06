@@ -1,0 +1,20 @@
+Requested scope: VITEST_MAX_WORKERS=1 npm run test:scope -- derive data bind convert host machine markup cli conformance oracle
+ v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-96a40d78
+
+
+ Test Files  82 passed | 13 skipped (95)
+      Tests  3362 passed | 43 todo (3405)
+   Start at  11:38:32
+   Duration  179.86s (tests 88%, import 11%, transform 1%)
+
+
+Final converter-reference follow-up:
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-96a40d78
+
+
+ Test Files  3 passed (3)
+      Tests  35 passed (35)
+   Start at  11:44:00
+   Duration  543ms (transform 48%, import 37%, tests 14%, worker 1%)
+

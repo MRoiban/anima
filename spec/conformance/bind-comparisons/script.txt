@@ -1,0 +1,6 @@
+advance 0
+snapshot a.x b.x c.x
+pointer down 10 10
+pointer up 10 10
+advance 0
+snapshot a.x b.x c.x

@@ -1,0 +1,2 @@
+{"time":0,"values":{"a.x":1,"b.x":0,"c.x":0},"states":{"m":"done"},"events":[],"settled":true}
+{"time":0,"values":{"a.x":0,"b.x":1,"c.x":1},"states":{"m":"done"},"events":[],"settled":true}

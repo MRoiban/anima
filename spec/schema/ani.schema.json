@@ -2621,6 +2621,14 @@
                     },
                     "label": {
                       "type": "string"
+                    },
+                    "value": {
+                      "type": "string",
+                      "feature": "derive"
+                    },
+                    "convert": {
+                      "type": "string",
+                      "feature": "convert"
                     }
                   },
                   "required": [
