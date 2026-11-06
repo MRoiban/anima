@@ -1,0 +1,8 @@
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/boolean/initial.json
+data value=true
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/boolean/changed.json
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/boolean/held.json
+quit

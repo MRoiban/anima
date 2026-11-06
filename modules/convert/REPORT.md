@@ -159,3 +159,10 @@ and a formatting pattern without width; schema/setup corrections yielded the ret
 The first concurrent scoped run hit five Firefox timeouts; identical limits pass with one worker.
 A completed operand oracle path collision was caught and restored byte for byte before the final
 run. Native differences above and the performance/markup limits remain open and are reported plainly.
+
+## P5b-5 follow-up
+
+Colour marker patterns and trigger destinations now have implementation, independent conformance
+and exact module-owned native captures. The historical pending descriptions above are superseded
+for those two runtime paths; canonical oracle-manifest integration is still pending. See
+[the P5b-5 report](../data/P5B-5-REPORT.md). Existing findings and thresholds are unchanged.

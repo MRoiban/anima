@@ -1,1 +1,2 @@
-# TODO: inputs, step boundaries and snapshots
+advance 0
+snapshot $public:value $private:value

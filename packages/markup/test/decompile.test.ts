@@ -46,13 +46,14 @@ function recover(root: Element): Obj {
   const plain = (e: Element): Obj => {
     const o = base(e);
     for (const [k, v] of Object.entries(attrs(e)))
-      o[k] =
+      o[k === 'export' && e.name === 'instance' ? 'exported' : k] =
         (['entry', 'exit', 'actions'].includes(k) && v.startsWith('{')) ||
         (k === 'default' && (v.startsWith('[') || v.startsWith('{')))
           ? JSON.parse(v)
           : [
                 'global',
                 'exported',
+                'export',
                 'public',
                 'default',
                 'min',

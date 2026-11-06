@@ -1,0 +1,55 @@
+{
+  "anima": "0.1",
+  "name": "invalid",
+  "grid": 20,
+  "requires": [
+    "data",
+    "bind"
+  ],
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "color"
+          }
+        }
+      }
+    }
+  },
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [
+        10,
+        10
+      ],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "status": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {},
+            "on": [
+              {
+                "when": "$value == #xyz",
+                "to": "done"
+              }
+            ]
+          },
+          "done": {
+            "pose": {}
+          }
+        }
+      }
+    }
+  }
+}

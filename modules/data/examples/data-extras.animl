@@ -1,0 +1,28 @@
+<anima version="0.1" name="data-extras" grid="20" requires="data bind convert">
+  <model name="Player">
+    <enum name="mood" default="calm" values="calm happy"/>
+    <color name="tint" default="#d97757"/>
+    <bool name="ready"/>
+    <number name="level"/>
+    <trigger name="levelUp"/>
+  </model>
+  <instance name="main" model="Player" default="true" export="true"/>
+  <converter name="hsl" type="color-format" pattern="{h} {s}% {l}%"/>
+  <converter name="pulse" type="trigger"/>
+  <circle id="dot" cx="10" cy="10" r="1" fill="#d97757" data-label=""/>
+  <bind target="dot.properties.label" value="$tint" convert="hsl"/>
+  <bind target="$levelUp" value="$level" convert="pulse"/>
+  <layer name="status" initial="idle">
+    <state name="idle">
+      <pose dot.r="1"/>
+      <on when="$mood == &quot;happy&quot; &amp;&amp; $ready == true &amp;&amp; $tint == #d97757" to="ready"/>
+    </state>
+    <state name="ready">
+      <pose dot.r="3"/>
+      <on when="$levelUp" to="levelled"/>
+    </state>
+    <state name="levelled">
+      <pose dot.r="5"/>
+    </state>
+  </layer>
+</anima>

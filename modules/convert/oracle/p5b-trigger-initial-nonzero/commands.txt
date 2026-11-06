@@ -1,0 +1,5 @@
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-trigger-initial-nonzero/initial.json
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-trigger-initial-nonzero/held.json
+quit

@@ -1,4 +1,0 @@
-{
-  "status": "todo",
-  "reason": "Hex/RGBA formatting is implemented and unit-tested; native decimal/hex/HSL component-marker patterns are not implemented. The decided design does not define marker syntax; the canonical parity row remains pending."
-}

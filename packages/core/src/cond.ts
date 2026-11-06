@@ -26,8 +26,14 @@ const AFTER = new RegExp(`^@after\\(\\s*${NUM}\\s*\\)$`);
 
 /** Parse a condition. Returns its terms, or an error message. */
 export function parseCondition(src: string): Term[] | string {
+  const parts = [''];
+  // Quoted literals are opaque: a string can contain the conjunction token.
+  for (const token of src.split(/("(?:[^"\\]|\\.)*"|&&)/)) {
+    if (token === '&&') parts.push('');
+    else parts[parts.length - 1] += token;
+  }
   const terms: Term[] = [];
-  for (const raw of src.split('&&')) {
+  for (const raw of parts) {
     const t = raw.trim();
     let m: RegExpExecArray | null;
     if (t === '@end') terms.push({ k: 'end' });

@@ -1,0 +1,8 @@
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/trigger/initial.json
+data value=1
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/trigger/changed.json
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/trigger/held.json
+quit

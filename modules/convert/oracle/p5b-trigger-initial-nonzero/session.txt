@@ -1,0 +1,12 @@
+ok advance
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-trigger-initial-nonzero/initial.json
+ok advance
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-trigger-initial-nonzero/held.json
+ok quit
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[21:55:58.756] rive  deferred replay: inline
+[21:55:58.783] rive  built (366 bytes, 27ms, 0 errors, 0 warnings)
+[21:55:58.784] rive  showing Probe [1/1]
+[21:55:58.784] rive  viewport 20x20 @1x
+[21:55:58.784] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-trigger-initial-nonzero/initial.json
+[21:55:58.785] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-trigger-initial-nonzero/held.json

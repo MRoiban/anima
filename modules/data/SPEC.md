@@ -52,15 +52,26 @@ replacement consumers remain owned by assets and the future host API.
 `data.instances` maps names to `{model,values?,default?,exported?,label?}`. At most one authored
 instance is default. `data.model` selects the default model; otherwise the flagged instance,
 then the first instance, supplies the default. If none exists, an implicit `default` instance
-is constructed. `preview` and `exported` are retained metadata; editor selection/runtime export
-filtering remain pending. Expansion is bounded to 32 levels and 4096 objects.
+is constructed. `preview` retains editor metadata. Explicitly exported authored instances are listed by
+`dataState(player).exports()` as `{name,model}` records in authored order. JSON `exported: true`
+is AniML `export="true"`; legacy AniML `exported` is accepted and canonical output uses `export`.
+Omitted/false instances are absent from this discovery list but remain usable by internal data
+paths. Existing host/host-edit all-instance enumeration retains its separate contract. Expansion is bounded to 32 levels and 4096 objects.
 
 Paths are `$property`, `$nested.property`, `$list.0.property`, `$list.length`, or
 `$instance:property`. The default form and named form alias the same storage. List length is
 read-only. Scalar paths are typed inputs to existing conditions, bindings, actions, component
-initializers and event payload fields. Trigger aliases share one pending signal. Number guards
-support existing arithmetic; string/enum guards support `==`/`!=` with double-quoted literals.
-Bare boolean guards retain the existing rule. The optional lists module adds `$index` and upward-relative `$parent` lookup;
+initializers and event payload fields. Trigger aliases share one pending signal. Number guards support existing arithmetic. With `data`, a direct scalar path on the left
+supports `==`/`!=` against typed literals: JSON strings for string/enum (enum members must exist),
+`true`/`false` for bool, hex colors (straight RGBA component equality including alpha), and
+`asset("id")` for asset references (the id must exist with the declared asset type). Both JSON
+`when` and AniML `when` use that grammar; escape double quotes in XML attributes. Quoted
+conjunction tokens remain literal text. Type/operator mismatches emit `data-guard` at the
+transition's `/when` pointer with a type-correction hint. Typed literal compilation needs data,
+not bind; compound arithmetic still uses bind. Bare boolean guards retain the existing rule.
+Triggers remain consumable signals: `when="$levelUp"`, never a stored bool or an integer
+comparison. Rive's uint trigger comparator represents its signal counter; the corresponding
+Anima operation is a bare occurrence guard, not a new trigger-constant syntax. The optional lists module adds `$index` and upward-relative `$parent` lookup;
 without lists, local default and explicitly named paths work. Opaque lists/models can be converter sources.
 
 AniML uses `<model name="Player" global="true">`, typed child declarations (`<number>`,
@@ -84,6 +95,14 @@ post-state snapshot. Reverse writes apply after all bindings in authored order. 
 source changes and the target's underlying animated/rest value; simultaneous changes use
 `prefer: source` (default) or `target`. The initial step counts both as changed. Once converts
 once and retains that result. No binding iteration or same-frame reentry occurs.
+
+A binding target may also name a trigger input/data path/custom property. Only `to-target` and
+`once` are valid (`data-binding` at `/bind/<target>/mode` otherwise). Initial conversion establishes
+a baseline without firing. Each later change of the converted output (structural scalar/array
+equality) queues one fire for the next step, regardless of change magnitude or direction. Repeated
+unchanged outputs do not fire. The queue keeps the player unsettled. Triggers are not animated
+addresses, and `once` never fires after its initial baseline. Converter `trigger` truncates numeric
+inputs to integers and preserves booleans before this change detection.
 
 AniML caches composed forms per element for the duration of one compilation. A new compile
 reads the current module registry again, including hooks registered by separately loaded bundles.
@@ -117,7 +136,7 @@ selected snapshots accept all scalar paths and print colors canonically.
 
 Data diagnostics carry codes/pointers/messages/hints: `data-model`, `data-property`, `data-type`,
 `data-enum`, `data-instance`, `data-cycle`, `data-path`, `data-readonly`, `data-asset`,
-`data-binding`, `data-converter`, `data-copy`, `data-value-source`, plus existing structural,
+`data-binding`, `data-converter`, `data-copy`, `data-value-source`, `data-guard`, plus existing structural,
 expression and bounded-expansion diagnostics. Deterministic vectors live in spec/conformance;
 raw native comparisons and evidenced CLI limits live under oracle/. ROWS.json distinguishes
 implementation, native verification, skips and pending work. No phase completion is claimed.
@@ -132,3 +151,10 @@ changed flag but does not run its view-model change listener (Rive 0, Anima 9 in
 `tests/oracle/input-data-listener/internal-trigger-difference/`), while a host-fired trigger does
 (both match). One rule for every source is easier for authors and agents to predict. The difference
 stays recorded as a finding, never a passing comparison.
+
+### Data keyframe values (P5b pending)
+
+The decided `<key t="0.5" value="$peak"/>` form is not implemented by this change.
+Track sampling is currently model-shared and lacks player context; a generic player-aware value
+sampling seam is required before motion can sample each player's current data without shared
+mutable track values. Its conformance/oracle markers remain TODO.

@@ -1,0 +1,22 @@
+data value=80FF0000
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/red.json
+data value=FF00FF00
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/green.json
+data value=FF0000FF
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/blue.json
+data value=FFFFFFFF
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/white.json
+data value=FF000000
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/black.json
+data value=FF808080
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/grey.json
+data value=FFD97757
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/accent.json
+quit

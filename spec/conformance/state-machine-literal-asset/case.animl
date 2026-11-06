@@ -1,0 +1,18 @@
+<anima version="0.1" name="state-machine-literal-asset" grid="20" requires="data bind assets">
+  <asset name="photo" type="image"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aOSsAAAAASUVORK5CYII="
+      width="1" height="1"/>
+  <model name="Root">
+    <asset-ref name="value" type="image"/>
+  </model>
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+  <layer name="status" initial="idle">
+    <state name="idle">
+      <pose dot.r="1"/>
+      <on when="$value == asset(&quot;photo&quot;)" to="done"/>
+    </state>
+    <state name="done">
+      <pose dot.r="9"/>
+    </state>
+  </layer>
+</anima>

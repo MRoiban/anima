@@ -1,4 +1,8 @@
-<!-- TODO: data.converter-color-formatting; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="data-converter-color-formatting" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="data-converter-color-formatting" grid="20" requires="data bind convert">
+  <model name="Root">
+    <color name="value" default="#ff000080"/>
+  </model>
+  <converter name="fmt" type="color-format" pattern="{h} {s}% {l}%"/>
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000" data-label=""/>
+  <bind target="dot.properties.label" value="$value" convert="fmt"/>
 </anima>

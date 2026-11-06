@@ -81,7 +81,7 @@ const allowed: Record<string, string[]> = {
   'to-number': [],
   'to-string': [],
   'number-format': ['decimals', 'grouping'],
-  'color-format': ['format'],
+  'color-format': ['format', 'pattern'],
   pad: ['length', 'fill', 'side'],
   trim: ['mode'],
   template: ['text', 'open', 'close', 'grouping', 'args'],

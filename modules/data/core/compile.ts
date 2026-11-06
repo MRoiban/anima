@@ -1,4 +1,5 @@
 import type { DataModule } from './index.ts';
+import { guards } from './guards.ts';
 import { dataCodes } from './errors.ts';
 import { clone } from './types.ts';
 import type { Model } from '../../../packages/core/src/load.ts';
@@ -318,10 +319,13 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
       model.inputs.set(alias, r.input);
     }
   context?.(model, d);
+  guards(model);
   // Validate all authored path uses with their own JSON pointers, including writes and event fields.
   const scan = (v: unknown, at: string) => {
-    if (typeof v === 'string')
-      for (const path of v.match(paths) ?? []) {
+    if (typeof v === 'string') {
+      // Guard string literals are values, not references to the paths they may spell.
+      const source = at.endsWith('/when') ? v.replace(/"(?:[^"\\]|\\.)*"/g, '') : v;
+      for (const path of source.match(paths) ?? []) {
         if (!c.refs.has(path)) {
           // Whole lists/model references are legitimate converter sources, never scalar inputs.
           const m = /^\$(?:([\w-]+):)?(.+)$/.exec(path)!;
@@ -336,7 +340,7 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
             );
         }
       }
-    else if (Array.isArray(v)) v.forEach((x, i) => scan(x, at + '/' + i));
+    } else if (Array.isArray(v)) v.forEach((x, i) => scan(x, at + '/' + i));
     else if (v && typeof v === 'object')
       for (const [k, x] of Object.entries(v)) {
         if (k === '$comment' || k === 'components' || k === 'data') continue;

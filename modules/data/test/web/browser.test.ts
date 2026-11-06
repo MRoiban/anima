@@ -84,13 +84,38 @@ for (const [name, engine, paths] of [
               el.player!.set('$score', 8);
               el.player!.set('$label', 'Grace');
               el.player!.step(0);
-              return {
+              const original = {
                 before,
                 after: el.player!.value('dot.r'),
                 label: el.player!.value('dot.properties.label'),
               };
+              const extras = Icon.compiler!(
+                `<anima version="0.1" name="extras" grid="20" requires="data bind"><model name="Root"><bool name="ready"/><number name="level"/><trigger name="pulse"/></model><instance name="main" model="Root" default="true" export="true"/><instance name="private" model="Root"/><circle id="dot" cx="10" cy="10" r="1" fill="#000"/><bind target="$pulse" value="$level"/><layer name="status" initial="idle"><state name="idle"><pose dot.r="1"/><on when="$ready == true" to="armed"/></state><state name="armed"><pose dot.r="3"/><on when="$pulse" to="done"/></state><state name="done"><pose dot.r="5"/></state></layer></anima>`,
+              );
+              if (extras.diagnostics.some((d) => d.severity === 'error'))
+                throw Error(JSON.stringify(extras.diagnostics));
+              await el.load(extras.doc!);
+              const p = el.player!;
+              p.step(0);
+              p.set('$ready', true);
+              p.step(0);
+              const armed = p.value('dot.r');
+              p.set('$level', 1);
+              p.step(0);
+              const queued = p.value('dot.r');
+              p.step(0);
+              const exports = (Icon.modules.get('data') as DataModule).dataState(p)!.exports();
+              return { ...original, armed, queued, done: p.value('dot.r'), exports };
             });
-            expect(result).toEqual({ before: 17, after: 29, label: 'Grace' });
+            expect(result).toEqual({
+              before: 17,
+              after: 29,
+              label: 'Grace',
+              armed: 3,
+              queued: 3,
+              done: 5,
+              exports: [{ name: 'main', model: 'Root' }],
+            });
             expect(errors).toEqual([]);
           } finally {
             await browser.close();

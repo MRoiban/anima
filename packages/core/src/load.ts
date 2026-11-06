@@ -172,6 +172,9 @@ export interface PlaybackPolicy {
   compose(dt: number, values: Value[], events: import('./player.ts').AnimaEvent[]): boolean;
 }
 export interface Model {
+  /** Optional typed guard compilation; installed by data without growing bind. */
+  guard?: (term: Extract<Term, { k: 'expr' }>, pointer: string, d: Diags) => boolean | undefined;
+
   /** Optional typed data scope and post-state binding pass. */
   afterStep?: (player: import('./player.ts').Player) => void;
   signal?: (player: import('./player.ts').Player, name: string) => void;
@@ -749,6 +752,7 @@ function resolve(doc: Raw, d: Diags): Model {
             } else if (term.k === 'cmp') needInput(term.name, wp, ['number'], V && 'a comparison');
             else if (term.k === 'expr') {
               if (term.test) continue;
+              if (model.guard?.(term, wp, d)) continue;
               const run = inputExpression(
                 model,
                 `${term.a} ${term.op} ${term.b}`,

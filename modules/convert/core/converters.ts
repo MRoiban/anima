@@ -106,6 +106,42 @@ const implementations: Record<string, Converter> = {
   'number-format': format,
   'color-format': (v, o) => {
     const c = color(v).map(Math.round);
+    if (o.pattern !== undefined) {
+      if (typeof o.pattern !== 'string') bad('pattern must be a string', 'pattern');
+      const [r, g, b, a] = c as [number, number, number, number];
+      const [x, y, z] = [r / 255, g / 255, b / 255];
+      const hi = Math.max(x, y, z),
+        lo = Math.min(x, y, z),
+        delta = hi - lo;
+      const l = (hi + lo) / 2;
+      const h = !delta
+        ? 0
+        : 60 *
+          (hi === x
+            ? ((y - z) / delta + 6) % 6
+            : hi === y
+              ? (z - x) / delta + 2
+              : (x - y) / delta + 4);
+      const markers: Record<string, string | number> = {
+        r,
+        g,
+        b,
+        a,
+        h: Math.round(h),
+        s: Math.round((delta ? delta / (1 - Math.abs(2 * l - 1)) : 0) * 100),
+        l: Math.round(l * 100),
+        hex:
+          '#' +
+          c
+            .slice(0, 3)
+            .map((n) => n.toString(16).padStart(2, '0'))
+            .join(''),
+      };
+      return (o.pattern as string).replace(/\{([^{}]*)\}/g, (_token, name: string) => {
+        if (!Object.hasOwn(markers, name)) bad('unknown colour marker ' + name, 'pattern');
+        return String(markers[name]);
+      });
+    }
     return choice(o, 'format', ['hex', 'hexa', 'rgb', 'rgba'], 'hex').startsWith('hex')
       ? '#' +
           c

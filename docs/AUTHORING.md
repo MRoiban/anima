@@ -826,7 +826,7 @@ The label starts as `25 percent`; total is `1,234.50`. Other converter types:
 | `enum-to-index` | `values="calm happy angry"`; zero-based ordered member index. |
 | `list-length` | List to number. |
 | `number-to-list` | Bounded integer count to index values or repeated `item`; no retained model creation. |
-| `trigger` | Boolean passthrough or truncated integer counter; no trigger-destination delivery yet. |
+| `trigger` | Boolean passthrough or truncated integer counter; a trigger destination fires on output changes after the baseline, on the next step. |
 | `degrees-to-radians` | Multiply by pi/180; reverse multiplies by 180/pi. |
 | `normalize` | `from="0 100"`; reverse denormalizes, no implicit clamp. |
 
@@ -864,6 +864,7 @@ Common diagnostics carry a code, JSON pointer, message and hint (AniML also give
 | `data-property`, `data-enum` | Use valid property names, ordered numeric limits and unique enum members. |
 | `data-readonly` | Write an item property, not list length. |
 | `data-cycle` | Make nested defaults/references acyclic. |
+| `data-guard` | Match the declared literal type and use equality; asset literals need a typed declared asset. |
 | `data-asset` | Declare an asset with the reference's kind. |
 | `data-binding` | Reverse modes need a direct writable path and compatible target. |
 | `data-converter`, `convert-reference` | Declare the converter/group name. |
@@ -1068,3 +1069,65 @@ set declared asset names, while URLs and Blobs require the web consumer.
 
 For typed constructor readiness, import `AnimaIcon` from `@anima-format/web/host-edit` and await
 `AnimaIcon.ready` after all desired module imports. The base web constructor has no preload cost.
+
+### Typed guards, colour markers and exported instances
+
+Data paths accept equality literals of their declared type: `$mood == "happy"`,
+`$ready == true`, `$tint == #d97757`, or `$avatar == asset("photo")`. Enum members must
+exist; an asset id must name the declared asset type. Use `==` or `!=`; a trigger stays
+`when="$levelUp"`. Double quotes in AniML attributes need `&quot;`, and conjunctions need
+`&amp;&amp;`. A quoted string may itself contain `&&`. Colors compare RGBA, including alpha.
+
+A `color-format` converter can use `pattern="{h} {s}% {l}%"`. The markers `{r} {g} {b} {a}`
+produce integer RGBA bytes, `{h}` rounded hue degrees, `{s}`/`{l}` rounded percentages and
+`{hex}` lowercase `#rrggbb`. Achromatic hue is zero. Other text passes through; unknown markers
+are load errors.
+
+A binding target can be a trigger. Conversion runs once per step; the first result establishes
+a baseline. Each later converted-value change queues one pulse for the next step. A change
+from 1.1 to 1.9 through `trigger` stays integer 1 and does not pulse; a change to 2 does. Both
+directions of a value change fire. Use forward-only `to-target` or `once` modes.
+
+This complete example is compiled as [data-extras.ani](../modules/data/examples/data-extras.ani)
+from [data-extras.animl](../modules/data/examples/data-extras.animl):
+
+```xml
+<anima version="0.1" name="data-extras" grid="20" requires="data bind convert">
+  <model name="Player">
+    <enum name="mood" values="calm happy" default="calm"/>
+    <color name="tint" default="#d97757"/>
+    <bool name="ready"/>
+    <number name="level"/>
+    <trigger name="levelUp"/>
+  </model>
+  <instance name="main" model="Player" default="true" export="true"/>
+  <converter name="hsl" type="color-format" pattern="{h} {s}% {l}%"/>
+  <converter name="pulse" type="trigger"/>
+  <circle id="dot" cx="10" cy="10" r="1" fill="#d97757" data-label=""/>
+  <bind target="dot.properties.label" value="$tint" convert="hsl"/>
+  <bind target="$levelUp" value="$level" convert="pulse"/>
+  <layer name="status" initial="idle">
+    <state name="idle">
+      <pose dot.r="1"/>
+      <on when="$mood == &quot;happy&quot; &amp;&amp; $ready == true &amp;&amp; $tint == #d97757" to="ready"/>
+    </state>
+    <state name="ready"><pose dot.r="3"/><on when="$levelUp" to="levelled"/></state>
+    <state name="levelled"><pose dot.r="5"/></state>
+  </layer>
+</anima>
+```
+
+```sh
+anima inspect modules/data/examples/data-extras.ani
+anima sample modules/data/examples/data-extras.ani -e 'advance 0; set $mood "happy"; set $ready true; advance 0; set $level 1; advance 0; advance 0; snapshot dot.r dot.properties.label'
+anima docs data
+anima docs convert
+```
+
+Instance JSON `exported: true` is AniML `export="true"`. Hosts importing `dataState` from
+`@anima-format/web/data` can call `dataState(icon.player).exports()` to discover explicitly
+exported authored `{name,model}` records. Internal private instances remain usable in bindings;
+the existing host/host-edit all-instance list keeps its own behavior.
+
+Data-bound keyframe values (`value="$peak"`) remain pending: the shared timeline sampler needs
+a player-aware value hook before each instance can read its own current data safely.

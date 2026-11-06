@@ -1,0 +1,8 @@
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/enum/initial.json
+data value=happy
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/enum/changed.json
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/enum/held.json
+quit
