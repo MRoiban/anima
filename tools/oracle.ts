@@ -15,7 +15,6 @@ export interface OracleCase {
   maxDiff: number;
   scripts?: Record<string, string>;
   values?: { address: string; path: string; tolerance: number };
-  finding?: string;
 }
 export const root = new URL('../tests/oracle/', import.meta.url);
 export const cases: OracleCase[] = JSON.parse(readFileSync(new URL('cases.json', root), 'utf8'));

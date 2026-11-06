@@ -1,4 +1,6 @@
 import '@anima-format/core/all';
+import { readFileSync } from 'node:fs';
+import { compile, decompile } from '@anima-format/markup';
 import { expect, it } from 'vitest';
 import { load, Player } from '@anima-format/core';
 
@@ -59,4 +61,38 @@ it('holds signed, unsigned and reference channels across exact keys and zero/pos
   t.mix = 0.000001;
   p.step(0);
   expect(values()).toEqual([2147483647, 4294967295, 'b']);
+});
+
+it('round-trips the maximum uint track through AniML and JSON without signed conversion', () => {
+  const source = readFileSync(
+    new URL(
+      '../../../../spec/conformance/animation-keys-unsigned-integer/case.animl',
+      import.meta.url,
+    ),
+    'utf8',
+  );
+  const first = compile(source);
+  expect(first.diagnostics).toEqual([]);
+  const again = compile(decompile(first.text!));
+  expect(again.diagnostics).toEqual([]);
+  expect(again.text).toBe(first.text);
+  const doc = JSON.parse(again.text!);
+  expect(doc.timelines.t.tracks['a.channels.v']).toEqual([
+    [0, 0],
+    [1, 4294967295],
+  ]);
+  const { model, diagnostics } = load(JSON.stringify(doc));
+  expect(diagnostics).toEqual([]);
+  const player = new Player(model!);
+  const track = player.timeline('t').pause();
+  for (const [time, value] of [
+    [0.5, 0],
+    [1, 4294967295],
+    [2, 4294967295],
+    [0, 0],
+  ]) {
+    track.seek(time!);
+    player.step(0);
+    expect(player.node('a')!.get('channels.v')).toBe(value);
+  }
 });

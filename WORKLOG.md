@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: P4b-3 declarative motion controls and sync benchmark proof complete, committed locally.
-Verified: 10 new conformance cases; scope 728/728; sync 6/6 (7 scripts, 66 snapshots).
-Full: 1380 pass + 15 pre-existing oracle TODOs with VITEST_MAX_WORKERS=2; default had 2 browser timeouts.
-Next: parent integrates/reviews local commit; P4b oracle captures and phase closure remain with parent.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: resolve uint oracle observation limit; local commit only.
+Verified: strict oracle exit 0; uint 0/7/42/2147483520 exact at 5 samples.
+Verified: motion+oracle scope 675 pass / 45 skipped; prettier and eslint exit 0.
+Verified: Anima 4294967295 AniML/JSON round-trip + playback regression passes.
+Next: parent integrates/reviews; P4b phase closure stays with parent.
+Don't: push/PR/merge; loosen tolerances; read .riv; Rive account/network commands.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -99,3 +100,6 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-06 22:00 [claude]: merged P4b-2 (b1a9ef5): 15/15 probes disposed (6 verified, 8 skip-noted, 1 finding: Rive's number dump reports uint 2^32-1 as -1 — observation-path conversion, not Anima); fix: compare in-range values, document the dump note
 - 2026-11-06 23:00 [claude]: PR #12 (Pc canvas) merged (86d2c43); merged main into p4b-motion (7 conflicts: generated wiring regenerated, corpus 71 cases); scoped changed 1149 pass + 1 expected fail
 - 2026-11-07 00:30 [claude]: merged P4b-3 (dbbbfed): sync/exitNext/hold/input time, 10 cases, sync example 6/6; fixed docs topics for web-only modules (canvas); scoped motion+cli+canvas green
+- 2026-11-06 23:30 [codex]: recaptured uint probe with local headless commands; oracle blocked by missing dependencies → npm ci started (checks unverified).
+- 2026-11-06 23:40 [codex]: 2147483647 capture dumped 2147483648 → chose exactly observable 2147483520; recorded both raw observations, tolerance unchanged (evidence: fresh local data-dump).
+- 2026-11-06 23:50 [codex]: uint oracle corrected and maximum round-trip regression added → strict exit 0, scope 675 pass/45 skipped, prettier+eslint pass; parity views current; local commit only.

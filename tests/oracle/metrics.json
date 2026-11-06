@@ -627,8 +627,17 @@
       },
       {
         "time": 0.5,
-        "actual": 0,
-        "reference": 0,
+        "actual": 7,
+        "reference": 7,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.8,
+        "actual": 42,
+        "reference": 42,
         "maxDiff": 0,
         "over": 0,
         "overPercent": 0,
@@ -636,21 +645,21 @@
       },
       {
         "time": 1.1,
-        "actual": 4294967295,
-        "reference": -1,
-        "maxDiff": 4294967296,
-        "over": 1,
-        "overPercent": 100,
-        "pass": false
+        "actual": 2147483520,
+        "reference": 2147483520,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
       },
       {
         "time": 2,
-        "actual": 4294967295,
-        "reference": -1,
-        "maxDiff": 4294967296,
-        "over": 1,
-        "overPercent": 100,
-        "pass": false
+        "actual": 2147483520,
+        "reference": 2147483520,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
       }
     ]
   },

@@ -216,7 +216,7 @@
   },
   {
     "name": "animation-keys-unsigned-integer",
-    "times": [0, 0.5, 1.1, 2],
+    "times": [0, 0.5, 0.8, 1.1, 2],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
@@ -224,8 +224,7 @@
       "address": "a.channels.v",
       "path": "v",
       "tolerance": 0
-    },
-    "finding": "uint data-binding dump returns -1 for 4294967295; delta 4294967296"
+    }
   },
   {
     "name": "animation-seek",

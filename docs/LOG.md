@@ -1474,3 +1474,29 @@ mappings and two pending markers; all five generated changes were immediately re
 No final oracle, parity or benchmark-record changes. No new oracle parity claim: another
 agent owns those captures, and P4b remains incomplete. No Rive commands/source/docs copying,
 binary reads, pushes, PRs or merges. Final changes are committed locally only.
+
+## P4b uint oracle observation correction (2026-11-06)
+
+Removed the permanent uint expected failure and its finding-only assertion.
+Anima's uint maximum 4294967295 is correct; the historical Rive number dump -1
+(delta 4294967296 at 1.1/2 s) is retained in oracle README/MOTION-PROBES as an
+observation-path limit, not a runtime comparison. No runtime or format semantics changed.
+
+Fresh local Rive CLI headless data captures compare 0, 7, 42 and 2147483520 at
+0/0.5/0.8/1.1/2 s, with exact tolerance 0. A fresh attempt at 2147483647 dumped
+2147483648 (delta 1), so the near-top probe uses the nearest lower float32-representable
+integer. Both raw limitations are documented; no tolerance was loosened. Capture supports
+`--only animation-keys-unsigned-integer` and preserves manifest order. Generated binary
+outputs were deleted without reading; no account operations or documentation text copied.
+
+Added an Anima regression using the existing maximum-uint conformance scene:
+AniML → JSON → AniML → JSON retains the exact key 4294967295, then load/playback
+checks hold, exact boundary, endpoint and backwards seek. Parity test/reason fields
+and generated views now identify both the exact native comparison and independent
+Anima full-range coverage; status and phase remain with the integrating owner.
+
+Verification: `node tools/oracle.ts --strict` exit 0; all five uint samples delta 0.
+`npm run test:scope -- motion oracle`: 35 files passed, 675 tests passed / 45 skipped.
+`npx prettier --check .`, `npx eslint .`, parity generated-view and diff checks passed.
+Initial oracle run lacked dependencies; `npm ci` restored tooling. No full-suite claim,
+push, PR or merge. Local commit only.

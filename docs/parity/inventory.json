@@ -2401,9 +2401,9 @@
    "construct": "SPEC motion; modules/motion/capabilities/animation-keys-unsigned-integer/example.animl; modules/motion/core/",
    "module": "motion",
    "status": "planned",
-   "test": "tests/oracle/animation-keys-unsigned-integer; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts (finding: uint dump -1 vs 4294967295)",
+   "test": "tests/oracle/animation-keys-unsigned-integer (0/7/42/2147483520, tolerance 0); modules/motion/test/core/typed-oracle.test.ts (4294967295 round-trip); spec/conformance/animation-keys-unsigned-integer",
    "phase": "P4",
-   "reason": "Retained finding: native uint-to-number dump -1 vs Anima 4294967295 at 1.1/2 s; delta 4294967296, tolerance 0; strict oracle fails. See tests/oracle/MOTION-PROBES.md."
+   "reason": "Native uint comparison verified in the exactly observable number-dump range; 4294967295 is independently verified in Anima. Historical dump -1 vs uint 4294967295 is an observation-path note, not a failing test. See tests/oracle/MOTION-PROBES.md."
   }
  },
  {

@@ -5,9 +5,10 @@ docs, schema and command-runner invocations were used. No Rive source, account
 operation, interactive preview or binary read/conversion was used. Capture scripts
 remove generated `.riv` files without reading them. No documentation text is copied.
 
-All 15 pending markers are resolved as six verified comparisons, eight documented
-no-faithful-counterpart skips and one retained finding. A skip is not native parity.
-The uint finding is not a verified comparison. No existing tolerance changed.
+All 15 pending markers are resolved as seven verified comparisons and eight documented
+no-faithful-counterpart skips. A skip is not native parity. The uint comparison covers
+only the exactly observable range below; the full-range dump observation is a note,
+not a test of Anima. No existing tolerance changed.
 
 | Probe | Outcome | Evidence / limits |
 |---|---|---|
@@ -25,21 +26,39 @@ The uint finding is not a verified comparison. No existing tolerance changed.
 | animation-keys-signed-integer | skip-noted | KeyFrameInt exists but schema/docs provide no general signed-int custom/view-model storage channel. Number channels are doubles; BindablePropertyInteger is uint and not animatable. Integer-looking double samples would not test signed 32-bit storage. |
 | animation-mix-numeric | oracle verified | Two native animations in BlendStateDirect, first at 100%, second at 0/25/50/100%; Anima composes two instances. Four frames: max 1, 0% over 16; resolved x = 0/2/4/8 units. |
 | animation-keys-string | oracle verified | Native KeyFrameString on CustomPropertyString, reverse-bound into the exported VM. Dumps at 0/0.5/1.1/2 s = “one two”/“one two”/“three”/“three”, identical to Anima, tolerance 0. |
-| animation-keys-unsigned-integer | finding | KeyFrameUint on CustomPropertyTrigger.propertyValue (uint), reverse-bound into VM number. At 0/0.5 s both 0; at 1.1/2 s native dump -1, Anima 4294967295, absolute delta 4294967296, tolerance 0. |
+| animation-keys-unsigned-integer | oracle verified (observable range) | KeyFrameUint on CustomPropertyTrigger.propertyValue (uint), reverse-bound into VM number. Fresh dumps at 0/0.5/0.8/1.1/2 s = 0/7/42/2147483520/2147483520 on both sides, exact tolerance 0. Full uint maximum is checked independently in Anima, not through this dump. |
 
-## Uint finding and test status
+## Uint observation-path limit
 
-The native schema declares the keyed property uint and accepts 4294967295; the
-exported *number* dump nevertheless reports -1. This suggests a signed conversion
-in the data-binding observation path; it does not prove the native uint storage
-itself is wrong. Neither reference nor Anima value is adjusted to conceal it.
-Raw native JSON, the authored scene and exact measurements remain committed.
+The former full-range probe keyed 0 at frame 0 and 4294967295 at frame 60
+(60 fps, duration 120 frames) on CustomPropertyTrigger.propertyValue, reverse-bound
+into a VM number via property key 870. Its raw observations were:
 
-The oracle comparison for this case uses Vitest's explicit `it.fails` annotation.
-A separate ordinary test requires the precise actual/reference/delta observations,
-so an infrastructure error cannot substitute for this known numerical finding.
-`node tools/oracle.ts --strict` still exits 1. A green scoped suite therefore does
-**not** mean all native comparisons pass; it includes one expected failure.
+| Time (s) | Anima uint | Rive number dump | Absolute difference |
+|---|---|---|---|
+| 0 | 0 | 0 | 0 |
+| 0.5 | 0 | 0 | 0 |
+| 1.1 | 4294967295 | -1 | 4294967296 |
+| 2 | 4294967295 | -1 | 4294967296 |
+
+Anima's 4294967295 is correct for the declared uint type. Rive's number data dump
+converts that value to -1 in its observation path; this says nothing about Anima's
+behaviour and does not establish a defect in native uint storage. These historical
+numbers are retained as a documented observation only, not an oracle test or expected
+failure. The committed probe now keys 0, 7, 42 and 2147483520 at native frames
+0, 20, 40 and 60; every value is exactly reportable by both sides, with tolerance 0.
+A fresh attempt with 2147483647 produced a raw dump of 2147483648 at 1.1/2 s
+(Anima 2147483647, absolute difference 1). We therefore use 2147483520, the nearest
+lower float32-representable integer to 2^31, for the near-top exact comparison.
+This is a fixture choice within 0 … 2^31−1, not a tolerance change.
+Fresh references replace the old dumps. No value is remapped or signed-cast in the
+comparison.
+
+Anima's full 0 … 4294967295 uint range remains specified and independently covered:
+the unsigned-integer conformance case samples the maximum at its exact key, and
+`modules/motion/test/core/typed-oracle.test.ts` verifies that the maximum survives
+AniML → JSON → AniML → JSON, loading and playback, including backwards seeking.
+There is no `it.fails` exception; strict oracle must exit 0.
 
 Data probes use an explicit exact `values.tolerance` in the manifest. There is no
 pixel comparison for their typed values; the legacy metrics fields `maxDiff`,
@@ -60,7 +79,8 @@ and the [web-runtime observation limits](../../docs/research/rive-web-runtime.md
 
 Run `python3 modules/motion/capture-pending-oracles.py` to author/capture these seven
 paired scenes, then `node tools/oracle.ts --build --strict` to build Anima documents,
-write metrics and reproduce the uint failure. `times` names captures; for scripted
+write metrics and verify all comparisons. To recapture only the uint probe, add
+`--only animation-keys-unsigned-integer` to the Python command. `times` names captures; for scripted
 mix/seek/scrub probes it is a sample label, not elapsed source-animation time. Their
 exact command sequences and per-capture Anima scripts are committed.
 

@@ -10,8 +10,8 @@
         "name": "v",
         "path": "v",
         "type": "number",
-        "value": 0,
-        "changed": false
+        "value": 7,
+        "changed": true
       }
     ]
   },
