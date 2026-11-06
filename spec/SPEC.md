@@ -1699,7 +1699,9 @@ Capture listeners run from the outermost ancestor down to the target, with autho
 equal depth. A `consume: true` capture listener stops delivery before inner capture or normal
 listeners. Normal keyboard listeners stop delivery by default; `propagate: true` (AniML
 `propagate="true"`) passes the key on, while `consume: true` takes precedence. Capture listeners
-only stop delivery with explicit consume. This policy includes nested component keys and all
+only stop delivery with explicit consume — an intentional difference from Rive, where a capture
+listener claims the event by default (measured in `tests/oracle/input-capture-phase`): Anima keeps
+the DOM's rule that observing an event in the capture phase does not take it away from the target. This policy includes nested component keys and all
 three keyboard phases; unmatched key/modifier filters never claim a key. Focus navigation and
 native Enter/Space activation retain the focus/host policies above.
 
