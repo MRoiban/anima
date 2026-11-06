@@ -1524,3 +1524,22 @@ push, PR or merge. Local commit only.
   full-featured 51.4 KB / 100 KB; Rive-class 55.6 KB / 250 KB; compile bell 2.08 ms, prefix sweep
   712 ms; frame bell 39.2 µs, composite 25.8 µs, toolbar 29.3 µs (load-dependent).
 - **Parity**: 22 rows done (259 / 1 238).
+
+## 2026-11-06 03:43 — P4c-2 input checkpoint (partial)
+
+Input controller and optional browser module are implemented in `modules/input/`. Independent
+contact IDs, drag values, key filters/bubbling, scroll latching, gamepad batches, hit/cursor policy
+and collapse/Solo are covered by 55 core/vector and 56 browser tests. Three drag conformance cases
+and nine native Rive reference frames pass; 15 host-only oracle skips are documented. Full
+capability completion is 3/54 rows; 51 per-row conformance and 36 oracle probes remain pending.
+Parity statuses and the P4c checkbox remain unchanged.
+
+Core+web stays 19012 B (+0); input is 6056/8192 B; full-featured 57405 B, Rive-class 61538 B.
+Final compile/frame lines and same-session baseline are in `modules/input/HANDOFF.md`; timing was
+variable. No comparison budget, test threshold or measurement method changed.
+
+Shared implementation ownership prevents wiring new AniML attributes and sample commands here.
+`modules/input/integration.patch` supplies the exact shared changes plus registry/corpus snapshots;
+it passes 460 scoped tests with 87 pending in a temporary source copy. This checkout reports
+457 passes, three expected shared-test failures and 87 pending. Typecheck, format, lint, generated
+wiring/schema, artifact checks, module-arrival-order and parity checks pass. No push/PR/merge.

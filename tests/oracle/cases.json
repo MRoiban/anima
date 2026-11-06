@@ -251,5 +251,41 @@
       "0.75": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0\ntimeline t scrub 1\nadvance 0",
       "1": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0\ntimeline t scrub 1\nadvance 0\ntimeline t scrub 0\nadvance 0"
     }
+  },
+  {
+    "name": "input-pointer-drag",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0",
+      "1": "pointer down 3 10\npointer move 4 10",
+      "2": "pointer down 3 10\npointer move 4 10\npointer up 4 10"
+    }
+  },
+  {
+    "name": "input-pointer-drag-start",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0",
+      "1": "pointer down 3 10\npointer move 4 10",
+      "2": "pointer down 3 10\npointer move 4 10\npointer up 4 10"
+    }
+  },
+  {
+    "name": "input-pointer-drag-end",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0",
+      "1": "pointer down 3 10\npointer move 4 10",
+      "2": "pointer down 3 10\npointer move 4 10\npointer up 4 10"
+    }
   }
 ]

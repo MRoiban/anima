@@ -20,6 +20,7 @@ in `requires`; a runtime that lacks the module refuses the document with `unknow
 | `assets` | image, font, audio and blob assets; the `image` node (P5, §5) | P5 |
 | `motion` | more eases, typed and string tracks, seek / reverse / work area / quantize, host timeline control, animatable pivot | P4b |
 | `interaction` | blend states, transition flags, drag, keyboard, focus, scroll, gamepad | P4c |
+| `input` | pointer IDs, drag values, keyboard, scroll, gamepads, hit policy, cursor and collapse (8192 B budget) | P4c |
 | `events` | event payloads, open-URL events, audio events | P4d |
 | `data` | view models, bindings, converters, lists | P4e |
 

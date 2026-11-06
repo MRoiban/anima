@@ -1,0 +1,4 @@
+<!-- TODO: input.capture-phase; replace this baseline scene with a capability probe. -->
+<anima version="0.1" name="input-capture-phase" grid="20">
+  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+</anima>

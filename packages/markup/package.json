@@ -10,6 +10,7 @@
     "./browser": "./src/browser.ts",
     "./components": "./src/components.ts",
     "./bind": "./src/bind.ts",
+    "./input": "./src/input.ts",
     "./libraries": "./src/libraries.ts",
     "./library-hooks": "./src/library-hooks.ts",
     "./motion": "./src/motion.ts",

@@ -1,0 +1,67 @@
+{
+  "document": {
+    "anima": "0.1",
+    "name": "vector",
+    "grid": 20,
+    "requires": ["input"],
+    "nodes": [
+      {
+        "id": "group",
+        "type": "group",
+        "x": 4,
+        "scale": 2,
+        "children": [
+          {
+            "id": "disc",
+            "type": "circle",
+            "center": [10, 10],
+            "r": 5,
+            "fill": {
+              "color": "#000"
+            },
+            "x": 3,
+            "y": 1
+          }
+        ]
+      }
+    ],
+    "inputs": {
+      "x": {
+        "type": "number"
+      },
+      "y": {
+        "type": "number"
+      }
+    },
+    "listeners": [
+      {
+        "on": "drag",
+        "target": "disc",
+        "align": "snap",
+        "write": {
+          "x": "x",
+          "y": "y"
+        }
+      }
+    ]
+  },
+  "script": ["contact down 7 30 22", "contact move 7 34 28"],
+  "expected": [
+    {
+      "inputs": {
+        "x": 0,
+        "y": 0
+      },
+      "events": [],
+      "states": {}
+    },
+    {
+      "inputs": {
+        "x": 15,
+        "y": 14
+      },
+      "events": [],
+      "states": {}
+    }
+  ]
+}

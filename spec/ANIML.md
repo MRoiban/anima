@@ -448,3 +448,13 @@ are normative in SPEC's **Declarative timeline control** subsection.
 ```
 
 The complete sync button is [modules/motion/examples/sync.animl](../modules/motion/examples/sync.animl).
+
+## Input listener forms (integration pending)
+
+The input module extends `<listener on="…">` with `button`, `capture`, `consume`, `key`,
+`modifiers`, `index`, `control`, `mapping`, `phase`, `align` and `write`. Names and meaning are
+[the input contract](../modules/input/SPEC.md). `write="x=dragX y=dragY"` compiles to
+`write: {"x":"dragX","y":"dragY"}`. Combine event names in `on` with `|`.
+The module exports compiler/decompiler hooks; the shared call-site patch in
+`modules/input/integration.patch` is required for the additional attributes. Plain new `on`
+names with existing actions already compile. Do not count pending attribute probes as passing.

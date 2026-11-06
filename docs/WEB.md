@@ -201,3 +201,30 @@ nonuniform/sheared local feathering (world feather works through nonuniform node
 nonuniform viewport feathering and partial fixed-stroke trims. Cross-origin images require CORS.
 SVG remains the CLI renderer and default browser renderer. Measurements and raster differences are
 recorded in [the canvas test report](../modules/canvas/test/web/RESULTS.md).
+
+## Input module
+
+Import `@anima-format/web/input` and declare `requires: ["input"]`. `icon.input()` returns
+the player's controller for queued manual input. `inputPointer`, `inputKey`, `inputScroll` and
+`inputGamepads` accept the same arguments as its `pointer`, `key`, `scroll`, and `gamepads` methods,
+and commit/repaint immediately unless paused. Coordinates are source-grid coordinates.
+`inputPoint(clientX,clientY)` maps a client position through the SVG screen matrix, or the
+axis-aligned canvas fit/alignment viewport. The exported `inputMatrix` computes the source-to-CSS
+viewport transform. Arbitrary CSS rotations/skews of a canvas host are not supported by this
+fallback; SVG mapping uses the browser's actual matrix.
+
+`inputOptions` accepts a partial options object and returns a detached full snapshot. Defaults:
+`listeners:true`, `multitouch:true`, `pointerExit:true`, `touchScroll:true`, `gamepads:false`,
+`requireFocus:true`. Disabling automatic listeners cancels current contacts but leaves manual
+input available. Multitouch false ignores non-primary contacts; pointerExit false retains
+contacts across DOM leave. Touch scrolling selects `pan-x pan-y` or `none` via touch-action.
+Wheel line deltas use 16 CSS pixels and page deltas use host height; fractional pixel deltas
+remain exact. Only a handled wheel calls preventDefault. A controller query `wantsScroll`
+receives the same clock as its scroll events (DOM events use performance.now()/1000).
+
+Gamepad polling is explicit opt-in, respects document visibility and optional host focus,
+submits disconnection records, and stops after destroy/disconnect. Re-enable polling on a
+reconnected host if its previous poll has stopped. Native cursor intent follows the foremost
+interactive target. Keyboard filtering is independent of role; existing Enter/Space button
+activation is retained. Destroy aborts module handlers and removes its polling entry.
+See [the input contract](../modules/input/SPEC.md) for deterministic routing, hit tests and values.

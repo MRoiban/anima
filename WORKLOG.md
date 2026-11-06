@@ -1,10 +1,11 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now: P4c interaction (branch p4c-interaction; modules machine, input, focus) and P4d events (branch p4d-events) in parallel; then P4e data, P5b, P3b, P6–P10.
-State: main a02c0be = through P4b (PR #13). Parity 259/1238. core+web 19012; full-featured 51.4 KB.
-Next: merge agents per branch; before pushing a merge run browser tests for the seams; benchmark per phase; PR per phase.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: smaller, agent-native Rive; P4c/P4d implementation continues in parallel.
+State: main a02c0be through P4b; this branch adds the partial P4c-2 input module (6056/8192 B).
+Input verified: 55 core/vector + 56 browser tests; 3 conformance + 3 oracle cases/9 frames; base 19012 B (+0).
+Next: parent integrates modules/input/integration.patch (460 scoped tests pass in a temporary source copy), then finishes 51 capability probes and focus seams.
+Don't: push/PR/merge, promote incomplete parity rows, loosen budgets/tests, read .riv files.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -104,3 +105,4 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 04:00 [claude]: PR #13 CI red: canvas cross-backend harness hard-coded its module list → motion cases unknown-feature; generator now emits packages/web/src/all-modules.ts, harness uses it; canvas test 524 pass. Lesson: run browser tests for the merge's seams before pushing a phase PR
 - 2026-11-07 05:00 [claude]: PR #13 CI red again: timeouts from CPU starvation (module-order 4.7 s locally vs 30 s limit hit in CI) + scaffolder test used a now-done row; npm test now runs unit (15 s, 1229) then browser --maxWorkers=2 (2.5 min, 718); limits unchanged
 - 2026-11-07 05:30 [claude]: PR #13 merged (a02c0be); P4c split into modules machine/input/focus (3 agents) + P4d events (1 agent)
+- 2026-11-06 03:43 [input]: P4c-2 module checkpoint → 457 scoped passes, 3 shared expectation failures, 87 pending; supplied integration patch passes 460/87 pending in temporary copy; 6056 B module, base +0; commit-only handoff (evidence: test:scope input conformance oracle; size.ts; modules/input/HANDOFF.md).

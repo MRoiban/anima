@@ -1,0 +1,55 @@
+{
+  "document": {
+    "anima": "0.1",
+    "name": "vector",
+    "grid": 20,
+    "requires": ["input"],
+    "nodes": [
+      {
+        "id": "disc",
+        "type": "circle",
+        "center": [10, 10],
+        "r": 5,
+        "fill": {
+          "color": "#000"
+        }
+      }
+    ],
+    "inputs": {},
+    "listeners": [
+      {
+        "on": "down|click",
+        "button": 1,
+        "emit": "button"
+      }
+    ]
+  },
+  "script": [
+    "contact down 0 10 10 0",
+    "contact up 0 10 10 0",
+    "contact down 0 10 10 1",
+    "contact up 0 10 10 1"
+  ],
+  "expected": [
+    {
+      "inputs": {},
+      "events": [],
+      "states": {}
+    },
+    {
+      "inputs": {},
+      "events": [],
+      "states": {}
+    },
+    {
+      "inputs": {},
+      "events": ["button"],
+      "states": {}
+    },
+    {
+      "inputs": {},
+      "events": ["button"],
+      "states": {}
+    }
+  ]
+}

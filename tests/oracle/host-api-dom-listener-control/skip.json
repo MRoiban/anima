@@ -1,0 +1,6 @@
+{
+  "status": "skip",
+  "reason": "The headless CLI injects input directly and does not install or remove browser DOM event listeners. Browser tests disable automatic handlers and confirm manual input remains available.",
+  "evidence": "Local Rive CLI 1.9.0 --help and headless input command surface; no browser DOM is exposed by those captures.",
+  "tests": ["modules/input/test/core/runtime.test.ts", "modules/input/test/web/browser.test.ts"]
+}

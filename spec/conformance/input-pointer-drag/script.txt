@@ -1,0 +1,7 @@
+advance 0
+snapshot a.x active
+pointer down 3 10
+pointer move 4 10
+snapshot a.x active
+pointer up 4 10
+snapshot a.x active

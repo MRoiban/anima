@@ -1,0 +1,116 @@
+{
+  "document": {
+    "anima": "0.1",
+    "name": "vector",
+    "grid": 20,
+    "requires": ["input"],
+    "nodes": [
+      {
+        "id": "disc",
+        "type": "circle",
+        "center": [10, 10],
+        "r": 5,
+        "fill": {
+          "color": "#000"
+        }
+      }
+    ],
+    "inputs": {
+      "x": {
+        "type": "number"
+      },
+      "y": {
+        "type": "number"
+      },
+      "id": {
+        "type": "number"
+      },
+      "lastX": {
+        "type": "number"
+      }
+    },
+    "listeners": [
+      {
+        "on": "drag-start",
+        "emit": "start"
+      },
+      {
+        "on": "drag",
+        "write": {
+          "dx": "x",
+          "dy": "y",
+          "pointerId": "id"
+        }
+      },
+      {
+        "on": "drag-end",
+        "emit": "end"
+      },
+      {
+        "on": "cancel",
+        "write": {
+          "x": "lastX"
+        }
+      }
+    ]
+  },
+  "script": [
+    "contact down 7 10 10",
+    "contact down 8 9 9",
+    "contact move 7 30 25",
+    "contact cancel 7",
+    "contact up 8 9 9"
+  ],
+  "expected": [
+    {
+      "inputs": {
+        "x": 0,
+        "y": 0,
+        "id": 0,
+        "lastX": 0
+      },
+      "events": [],
+      "states": {}
+    },
+    {
+      "inputs": {
+        "x": 0,
+        "y": 0,
+        "id": 0,
+        "lastX": 0
+      },
+      "events": [],
+      "states": {}
+    },
+    {
+      "inputs": {
+        "x": 20,
+        "y": 15,
+        "id": 7,
+        "lastX": 0
+      },
+      "events": ["start"],
+      "states": {}
+    },
+    {
+      "inputs": {
+        "x": 20,
+        "y": 15,
+        "id": 7,
+        "lastX": 30
+      },
+      "events": ["end"],
+      "states": {}
+    },
+    {
+      "inputs": {
+        "x": 20,
+        "y": 15,
+        "id": 7,
+        "lastX": 30
+      },
+      "events": [],
+      "states": {}
+    }
+  ]
+}

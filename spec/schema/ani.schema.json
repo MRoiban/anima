@@ -541,7 +541,7 @@
           },
           "on": {
             "type": "string",
-            "pattern": "^(?:enter|leave|down|up|click|move|[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)+)$"
+            "pattern": "(?:^(?:enter|leave|down|up|click|move|[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)+)$)|(?:^(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected)(?:\\|(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected))*$)"
           },
           "target": {
             "type": "string",
@@ -607,6 +607,77 @@
           "emit": {
             "type": "string",
             "pattern": "^[a-z][a-zA-Z0-9-]*$"
+          },
+          "button": {
+            "type": "number",
+            "minimum": 0,
+            "feature": "input"
+          },
+          "capture": {
+            "type": "boolean",
+            "feature": "input"
+          },
+          "consume": {
+            "type": "boolean",
+            "feature": "input"
+          },
+          "key": {
+            "type": "string",
+            "feature": "input"
+          },
+          "modifiers": {
+            "type": "string",
+            "feature": "input"
+          },
+          "index": {
+            "type": "number",
+            "minimum": 0,
+            "feature": "input"
+          },
+          "control": {
+            "type": "number",
+            "minimum": 0,
+            "feature": "input"
+          },
+          "mapping": {
+            "type": "string",
+            "enum": [
+              "standard",
+              "raw"
+            ],
+            "feature": "input"
+          },
+          "phase": {
+            "type": "string",
+            "enum": [
+              "press",
+              "release",
+              "both"
+            ],
+            "feature": "input"
+          },
+          "write": {
+            "type": "object",
+            "properties": {
+              "$comment": {
+                "type": "string"
+              }
+            },
+            "propertyNames": {
+              "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+            },
+            "additionalProperties": {
+              "type": "string"
+            },
+            "feature": "input"
+          },
+          "align": {
+            "type": "string",
+            "enum": [
+              "preserve",
+              "snap"
+            ],
+            "feature": "input"
           }
         },
         "required": [
@@ -934,6 +1005,35 @@
                 "$ref": "#/$defs/node"
               }
             },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "solo": {
+              "type": "number",
+              "minimum": -1,
+              "feature": "input"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -1198,13 +1298,13 @@
             "visible": {
               "type": "boolean"
             },
-            "pivotX": {
-              "type": "number",
-              "feature": "motion"
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
             },
-            "pivotY": {
-              "type": "number",
-              "feature": "motion"
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
             },
             "glyph": {
               "type": "string",
@@ -1221,49 +1321,21 @@
             "d": {
               "type": "string"
             },
-            "channels": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
-                }
-              },
-              "propertyNames": {
-                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
-              },
-              "additionalProperties": {
-                "type": "object",
-                "properties": {
-                  "$comment": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "int",
-                      "uint",
-                      "string",
-                      "reference"
-                    ]
-                  },
-                  "value": {
-                    "anyOf": [
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "string"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "type",
-                  "value"
-                ],
-                "additionalProperties": false
-              },
-              "feature": "motion"
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
             },
             "fill": {
               "type": "object",
@@ -1682,6 +1754,58 @@
             "knockout": {
               "type": "number",
               "minimum": 0
+            },
+            "pivotX": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "pivotY": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "channels": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "propertyNames": {
+                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+              },
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "int",
+                      "uint",
+                      "string",
+                      "reference"
+                    ]
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "feature": "motion"
             },
             "blend": {
               "type": "string",
@@ -2327,13 +2451,13 @@
               "type": "number",
               "minimum": 0
             },
-            "pivotX": {
-              "type": "number",
-              "feature": "motion"
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
             },
-            "pivotY": {
-              "type": "number",
-              "feature": "motion"
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
             },
             "center": {
               "type": "array",
@@ -2349,49 +2473,21 @@
               "minItems": 2,
               "maxItems": 2
             },
-            "channels": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
-                }
-              },
-              "propertyNames": {
-                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
-              },
-              "additionalProperties": {
-                "type": "object",
-                "properties": {
-                  "$comment": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "int",
-                      "uint",
-                      "string",
-                      "reference"
-                    ]
-                  },
-                  "value": {
-                    "anyOf": [
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "string"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "type",
-                  "value"
-                ],
-                "additionalProperties": false
-              },
-              "feature": "motion"
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
             },
             "fill": {
               "type": "object",
@@ -2810,6 +2906,58 @@
             "knockout": {
               "type": "number",
               "minimum": 0
+            },
+            "pivotX": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "pivotY": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "channels": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "propertyNames": {
+                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+              },
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "int",
+                      "uint",
+                      "string",
+                      "reference"
+                    ]
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "feature": "motion"
             },
             "blend": {
               "type": "string",
@@ -3465,13 +3613,13 @@
               "type": "number",
               "minimum": 0
             },
-            "pivotX": {
-              "type": "number",
-              "feature": "motion"
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
             },
-            "pivotY": {
-              "type": "number",
-              "feature": "motion"
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
             },
             "x0": {
               "type": "number"
@@ -3479,49 +3627,21 @@
             "y0": {
               "type": "number"
             },
-            "channels": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
-                }
-              },
-              "propertyNames": {
-                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
-              },
-              "additionalProperties": {
-                "type": "object",
-                "properties": {
-                  "$comment": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "int",
-                      "uint",
-                      "string",
-                      "reference"
-                    ]
-                  },
-                  "value": {
-                    "anyOf": [
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "string"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "type",
-                  "value"
-                ],
-                "additionalProperties": false
-              },
-              "feature": "motion"
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
             },
             "fill": {
               "type": "object",
@@ -3940,6 +4060,58 @@
             "knockout": {
               "type": "number",
               "minimum": 0
+            },
+            "pivotX": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "pivotY": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "channels": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "propertyNames": {
+                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+              },
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "int",
+                      "uint",
+                      "string",
+                      "reference"
+                    ]
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "feature": "motion"
             },
             "corners": {
               "type": "array",
@@ -4620,13 +4792,13 @@
             "to": {
               "type": "number"
             },
-            "pivotX": {
-              "type": "number",
-              "feature": "motion"
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
             },
-            "pivotY": {
-              "type": "number",
-              "feature": "motion"
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
             },
             "center": {
               "type": "array",
@@ -4642,49 +4814,21 @@
               "minItems": 2,
               "maxItems": 2
             },
-            "channels": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
-                }
-              },
-              "propertyNames": {
-                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
-              },
-              "additionalProperties": {
-                "type": "object",
-                "properties": {
-                  "$comment": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "int",
-                      "uint",
-                      "string",
-                      "reference"
-                    ]
-                  },
-                  "value": {
-                    "anyOf": [
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "string"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "type",
-                  "value"
-                ],
-                "additionalProperties": false
-              },
-              "feature": "motion"
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
             },
             "fill": {
               "type": "object",
@@ -5103,6 +5247,58 @@
             "knockout": {
               "type": "number",
               "minimum": 0
+            },
+            "pivotX": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "pivotY": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "channels": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "propertyNames": {
+                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+              },
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "int",
+                      "uint",
+                      "string",
+                      "reference"
+                    ]
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "feature": "motion"
             },
             "blend": {
               "type": "string",
@@ -5787,6 +5983,30 @@
               "type": "boolean",
               "feature": "components"
             },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -6110,6 +6330,30 @@
                 "nearest"
               ],
               "feature": "assets"
+            },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
             },
             "pivotX": {
               "type": "number",
@@ -7396,6 +7640,30 @@
               "additionalProperties": false,
               "feature": "surface"
             },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -8537,6 +8805,30 @@
               ],
               "additionalProperties": false,
               "feature": "surface"
+            },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
             },
             "pivotX": {
               "type": "number",
@@ -9681,6 +9973,30 @@
               "additionalProperties": false,
               "feature": "surface"
             },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -10813,6 +11129,30 @@
               ],
               "additionalProperties": false,
               "feature": "surface"
+            },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
             },
             "pivotX": {
               "type": "number",

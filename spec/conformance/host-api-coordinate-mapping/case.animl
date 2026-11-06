@@ -1,0 +1,4 @@
+<!-- TODO: host-api.coordinate-mapping; replace this baseline scene with a capability probe. -->
+<anima version="0.1" name="host-api-coordinate-mapping" grid="20">
+  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+</anima>

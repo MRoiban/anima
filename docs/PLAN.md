@@ -237,6 +237,9 @@ and an oracle test against Rive.
 
 - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
       an on-change / previous-value condition (P5 benchmark: 'count increased' took 10 states).
+      P4c-2 input checkpoint: controller and browser implementation, 3/54 rows with complete
+      per-row evidence; shared AniML/sample call-site patch and remaining probes in
+      `modules/input/HANDOFF.md`. P4c-2 remains incomplete; parity statuses are unchanged.
 - [ ] P4d `events`: payloads, open-URL, audio.
 - [ ] P4e `data`: view models, bindings, converters, lists.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide
