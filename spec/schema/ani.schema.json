@@ -2624,7 +2624,8 @@
                         "enum",
                         "list",
                         "model-ref",
-                        "asset-ref"
+                        "asset-ref",
+                        "component"
                       ]
                     },
                     "default": {},
@@ -2935,6 +2936,21 @@
         "additionalProperties": false
       },
       "feature": "convert"
+    },
+    "outputs": {
+      "type": "object",
+      "properties": {
+        "$comment": {
+          "type": "string"
+        }
+      },
+      "propertyNames": {
+        "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "string"
+      },
+      "feature": "nested"
     }
   },
   "required": [
@@ -10222,7 +10238,7 @@
             },
             "component": {
               "type": "string",
-              "pattern": "^[a-z][a-zA-Z0-9-]*$",
+              "pattern": "^(?:[a-z][a-zA-Z0-9-]*|\\$[\\w:.-]+)$",
               "feature": "components"
             },
             "inputs": {
@@ -10512,6 +10528,68 @@
             "data": {
               "type": "string",
               "feature": "data"
+            },
+            "time": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "string"
+                }
+              ],
+              "feature": "nested"
+            },
+            "fps": {
+              "type": "number",
+              "exclusiveMinimum": 0,
+              "feature": "nested"
+            },
+            "size": {
+              "type": "array",
+              "prefixItems": [
+                {
+                  "type": "number",
+                  "minimum": 0
+                },
+                {
+                  "type": "number",
+                  "minimum": 0
+                }
+              ],
+              "items": false,
+              "minItems": 2,
+              "maxItems": 2,
+              "feature": "nested"
+            },
+            "fit": {
+              "type": "string",
+              "enum": [
+                "contain",
+                "cover",
+                "fill",
+                "none",
+                "scale-down",
+                "fit-width",
+                "fit-height"
+              ],
+              "feature": "nested"
+            },
+            "align": {
+              "type": "string",
+              "enum": [
+                "center",
+                "top-left",
+                "top",
+                "top-right",
+                "left",
+                "right",
+                "bottom-left",
+                "bottom",
+                "bottom-right"
+              ],
+              "feature": "nested"
             },
             "slice": {
               "type": "object",

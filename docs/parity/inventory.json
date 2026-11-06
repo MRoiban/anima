@@ -4453,10 +4453,10 @@
       "rive-runtime/include/rive/nested_artboard_leaf.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named leaf-fit settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
+      "construct": "modules/nested/SPEC.md",
+      "module": "nested",
       "status": "planned",
-      "test": "oracle/components-leaf-fit",
+      "test": "modules/nested/test/core/nested.test.ts; modules/nested/test/web/nested.test.ts; spec/conformance/components-leaf-fit; tests/oracle/components-leaf-fit",
       "phase": "P5b"
     }
   },
@@ -4529,10 +4529,10 @@
       "rive docs project/libraries-folder"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named library-export settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
+      "construct": "modules/markup-libraries/SPEC.md",
+      "module": "markup-libraries",
       "status": "planned",
-      "test": "oracle/components-library-export",
+      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-export; tests/oracle/components-library-export",
       "phase": "P5b"
     }
   },
@@ -4559,10 +4559,10 @@
       "rive schema LibraryDataEnum --all --json"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named library-models settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
+      "construct": "modules/markup-libraries/SPEC.md",
+      "module": "markup-libraries",
       "status": "planned",
-      "test": "oracle/components-library-models",
+      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-models; tests/oracle/components-library-models",
       "phase": "P5b"
     }
   },
@@ -4582,10 +4582,10 @@
       "rive docs project/libraries-folder"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named library-update settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
+      "construct": "modules/markup-libraries/SPEC.md",
+      "module": "markup-libraries",
       "status": "planned",
-      "test": "oracle/components-library-update",
+      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-update; tests/oracle/components-library-update",
       "phase": "P5b"
     }
   },
@@ -4900,10 +4900,10 @@
       "rive-runtime/include/rive/nested_artboard.hpp:35@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named nested-quantize settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
+      "construct": "modules/nested/SPEC.md",
+      "module": "nested",
       "status": "planned",
-      "test": "oracle/components-nested-quantize",
+      "test": "modules/nested/test/core/nested.test.ts; modules/nested/test/web/nested.test.ts; spec/conformance/components-nested-quantize; tests/oracle/components-nested-quantize",
       "phase": "P5b"
     }
   },
@@ -4929,10 +4929,10 @@
       "rive-runtime/include/rive/animation/nested_remap_animation.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named nested-remap settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
+      "construct": "modules/nested/SPEC.md",
+      "module": "nested",
       "status": "planned",
-      "test": "oracle/components-nested-remap",
+      "test": "modules/nested/test/core/nested.test.ts; modules/nested/test/web/nested.test.ts; spec/conformance/components-nested-remap; tests/oracle/components-nested-remap",
       "phase": "P5b"
     }
   },
@@ -5126,10 +5126,10 @@
       "rive schema ViewModelPropertyNumber --all --json"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named stateful-output settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
+      "construct": "modules/nested/SPEC.md",
+      "module": "nested",
       "status": "planned",
-      "test": "oracle/components-stateful-output",
+      "test": "modules/nested/test/core/nested.test.ts; modules/nested/test/web/nested.test.ts; spec/conformance/components-stateful-output; tests/oracle/components-stateful-output",
       "phase": "P5b"
     }
   },
@@ -8711,10 +8711,10 @@
       "rive-runtime/include/rive/viewmodel/viewmodel_instance_artboard.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "TODO: modules/data/capabilities/data-property-artboard/registry.ts; spec/SPEC.md (Artboard property); modules/data/capabilities/data-property-artboard/example.animl",
+      "construct": "modules/nested/SPEC.md",
       "module": "data",
       "status": "planned",
-      "test": "TODO: modules/data/test/core/data-property-artboard.test.ts; spec/conformance/data-property-artboard; tests/oracle/data-property-artboard",
+      "test": "modules/nested/test/core/nested.test.ts; modules/nested/test/web/nested.test.ts; spec/conformance/data-property-artboard; tests/oracle/data-property-artboard",
       "phase": "P5b"
     }
   },
@@ -12545,10 +12545,10 @@
       "rive-runtime/include/rive/generated/shapes/paint/paint_image_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: paint.scene references a component",
+      "construct": "Pending: modules/componentpaint/README.md",
       "module": "components",
       "status": "planned",
-      "test": "oracle/paint-artboard",
+      "test": "modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts; spec/conformance/drawing-paint-paint-artboard; tests/oracle/drawing-paint-paint-artboard",
       "phase": "P5b"
     }
   },
@@ -28496,10 +28496,10 @@
       "rive-runtime/include/rive/generated/animation/transition_value_artboard_comparator_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: typed artboard literal in when expression",
+      "construct": "Pending: modules/nested/SPEC.md",
       "module": "data",
       "status": "planned",
-      "test": "conformance/literal-artboard",
+      "test": "modules/nested/test/core/state-machine-literal-artboard.test.ts; spec/conformance/state-machine-literal-artboard; tests/oracle/state-machine-literal-artboard",
       "phase": "P5b"
     }
   },

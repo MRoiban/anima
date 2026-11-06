@@ -33,6 +33,7 @@ import { inspectGlyph } from './glyphs.ts';
 import { embedAssets, imageDimensions } from './assets.ts';
 import { buildHTML } from './html.ts';
 import { buildAssets } from './build-assets.ts';
+import { updateLibraries } from './library.ts';
 import { importSVG } from './import-svg.ts';
 import { importLottie } from './import-lottie.ts';
 import { lineCol, locate, syntaxErrorAt } from './locate.ts';
@@ -69,6 +70,7 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
                                         scaffold AniML whose rest frame is the glyph (--ani for JSON)
   anima build <file.animl|page.html> [-o out] [--embed]  compile AniML to canonical .ani or inline JSON
   anima import <file.svg|file.json> [-o out.animl]  import supported SVG or Lottie features
+  anima library update <file.animl> [--check]  refresh vendored imports from local source paths
   anima decompile <file.ani> [-o out.animl]    write canonical AniML
   anima schema [type | fill | stroke | a11y | timeline | layer | state | pose | transition | listener | input] [--json-schema]
                                         registry fields, types and markup/.ani spellings
@@ -133,6 +135,33 @@ export async function run(argv: string[], io: IO): Promise<number> {
         if (json) emit({ url: host.url, writable: !!rest[0] });
         else io.out(`Anima Playground: ${host.url}${rest[0] ? '' : ' (example is read-only)'}`);
         return 0;
+      }
+      case 'library': {
+        if (rest[0] !== 'update' || rest.length !== 2)
+          throw new Usage('library update needs an AniML file');
+        try {
+          const updates = updateLibraries(rest[1]!, !!o.check);
+          if (json) emit({ updates });
+          else
+            for (const u of updates)
+              io.out(`${u.changed ? (o.check ? 'stale' : 'updated') : 'current'} ${u.file}`);
+          return o.check && updates.some((u) => u.changed) ? 1 : 0;
+        } catch (e) {
+          const error = e as Error & { code?: string; pointer?: string; hint?: string };
+          const diagnostic = {
+            code: error.code ?? 'library-source',
+            pointer: error.pointer ?? '',
+            message: error.message,
+            hint: error.hint ?? 'check local import src and source paths',
+            severity: 'error',
+          };
+          if (json) emit({ diagnostics: [diagnostic] });
+          else
+            io.err(
+              `${diagnostic.code} ${diagnostic.pointer}: ${diagnostic.message}; ${diagnostic.hint}`,
+            );
+          return 1;
+        }
       }
       case 'validate':
         return validate(file(rest), json, io);

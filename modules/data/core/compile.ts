@@ -39,6 +39,8 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
     for (const [key2, p] of ownEntries(def.properties)) {
       const at = ptr(ptr('/data/models', key) + '/properties', key2);
       if (!name.test(key2)) error(dataCodes['property'], at, 'property names must be identifiers');
+      if (p.type === 'component')
+        p.values = Object.keys(model.doc.components ?? {}).filter((n) => n !== '$comment');
       if (p.type === 'enum') {
         const values = p.system
           ? systemEnums[p.system]
@@ -177,6 +179,13 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
                 : p.type === 'enum'
                   ? p.values?.[0]
                   : '';
+      if (p.type === 'component' && value && !p.values?.includes(String(value)))
+        error(
+          'unknown-component',
+          loc,
+          'component property names an unknown component',
+          'use a declared component name or empty string',
+        );
       if (!accepts(p, value))
         error(
           dataCodes['type'],

@@ -19,6 +19,7 @@ const property: ObjShape = {
         'list',
         'model-ref',
         'asset-ref',
+        'component',
       ],
     },
     default: any,

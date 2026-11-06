@@ -1,0 +1,51 @@
+
+> test:scope
+> node tools/test-scope.ts nested --no-browser
+
+Scopes: nested
+  unit: modules/nested/test/cli/nested.test.ts
+  unit: modules/nested/test/core/nested.test.ts
+  unit: modules/nested/test/core/state-machine-literal-artboard.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  cases: ^conformance > (components-leaf-fit|components-nested-quantize|components-nested-remap|components-stateful-output|data-property-artboard|state-machine-literal-artboard)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-7fa51d22
+
+ ❯ |scope-unit| modules/nested/test/core/nested.test.ts (27 tests | 1 failed) 372ms
+   ❯ nested instance extras (27)
+     × binds color outputs and settles equal color values without repeated wakeups 27ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| modules/nested/test/core/nested.test.ts > nested instance extras > binds color outputs and settles equal color values without repeated wakeups
+AssertionError: expected [ 128, +0, 128, 255 ] to deeply equal [ 127.5, +0, 127.5, 255 ]
+
+- Expected
++ Received
+
+  [
+-   127.5,
++   128,
+    0,
+-   127.5,
++   128,
+    255,
+  ]
+
+ ❯ modules/nested/test/core/nested.test.ts:295:41
+    293|     p.step(0);
+    294|     expect(p.value('result.fill.color')).toBe('#800080');
+    295|     expect(p.get('badge.outputs.tone')).toEqual([127.5, 0, 127.5, 255]…
+       |                                         ^
+    296|     expect(p.step(0).settled).toBe(true);
+    297|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 4 passed | 1 skipped (6)
+      Tests  1 failed | 928 passed | 427 skipped | 1 todo (1357)
+   Start at  22:45:35
+   Duration  2.30s (import 39%, transform 30%, tests 30%, worker 1%)

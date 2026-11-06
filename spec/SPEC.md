@@ -1143,8 +1143,8 @@ errors, just like local inputs.
 Pointers are transformed through the inverse instance world matrix and routed to each child
 player. Invisible or singular instances receive `leave`. The child's own hit areas and listeners
 then operate in local grid units; parent listener targets on instances use their local viewBox.
-Instances do not establish a viewport clip or automatic fit; use their ordinary transforms and
-composite clipping to place/clip them.
+Instances do not establish a viewport clip or automatic fit by default; the optional `nested`
+module adds explicit fit/align into size. Use composite clipping when a viewport clip is needed.
 
 A child's events are returned by that parent step as `<instanceId>.<event>`; nested names continue
 with dots. Event layers use slash scope (`outer/inner/layer`), retaining null for listener events.
@@ -1178,6 +1178,9 @@ each definition. `unknown-component` points at the instance's component name; `u
 `component-event-collision` rejects a component input and event sharing a scoped address.
 Diagnostics retain JSON pointers and corrective hints; errors inside definitions point under
 `/components/<name>`. No partially valid instance tree escapes a failed load.
+
+The optional `nested` module adds explicit time/fps, fit/align, scalar outputs and component-valued
+selection. Its normative contract is [modules/nested/SPEC.md](../modules/nested/SPEC.md).
 
 This implementation is independent. Explicit names, validation before references are used and
 retained nested transforms follow [graph research](../docs/research/rive-format-and-graph.md) §6;
@@ -2511,3 +2514,33 @@ A component with no `data` declaration sees its parent's context when lists is d
 ### Count repetition
 `count: "$n"` is `count="$n"`. It floors nonnegative counts and retains players by index.
 Counts above 256 are rejected; shrinking releases the removed indices.
+
+## nested
+
+The optional module's normative contract is [modules/nested/SPEC.md](../modules/nested/SPEC.md).
+
+<!-- capability: components.nested-remap -->
+<!-- capability: components.nested-quantize -->
+<!-- capability: components.leaf-fit -->
+<!-- capability: components.stateful-output -->
+Instances gain absolute `time`, positive `fps`, `size`/`fit`/`align`, and read-only scalar `outputs`.
+The parent reads `badge.outputs.done`; the child declares `<output name="done" value="count > 1"/>`.
+
+## markup-libraries
+
+<!-- capability: components.library-export -->
+<!-- capability: components.library-models -->
+<!-- capability: components.library-update -->
+Libraries support public export selection, model definitions and local vendoring updates.
+See [modules/markup-libraries/SPEC.md](../modules/markup-libraries/SPEC.md).
+
+<!-- capability: state-machine.literal-artboard -->
+The decided `component("row")` typed guard literal is pending the shared parser integration.
+It is not registered by this module; its conformance and oracle probes remain pending.
+
+## componentpaint
+
+<!-- capability: drawing-paint.paint-artboard -->
+The decided `paint="component:row"` live fill is pending a custom paint/offscreen-source seam in
+Canvas. No runtime feature is registered. See
+[modules/componentpaint/README.md](../modules/componentpaint/README.md) for the inspected renderer integration gap.

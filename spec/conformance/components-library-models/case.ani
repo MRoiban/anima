@@ -1,0 +1,45 @@
+{
+  "anima": "0.1",
+  "name": "components-library-models",
+  "grid": 20,
+  "requires": ["components", "data", "bind"],
+  "nodes": [
+    {
+      "id": "badge",
+      "type": "instance",
+      "component": "import-2-row"
+    }
+  ],
+  "components": {
+    "import-2-row": {
+      "grid": 10,
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [5, 5],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "bind": {
+        "dot.r": "$points"
+      },
+      "data": "import-1-Score"
+    }
+  },
+  "data": {
+    "models": {
+      "import-1-Score": {
+        "properties": {
+          "points": {
+            "type": "number",
+            "default": 3
+          }
+        }
+      }
+    }
+  }
+}

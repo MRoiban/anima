@@ -1,4 +1,17 @@
-<!-- TODO: data.property-artboard; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="data-property-artboard" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="data-property-artboard" grid="20" requires="components data bind nested">
+  <model name="Card">
+    <component name="card" default="row"/>
+  </model>
+  <component name="row" grid="10">
+    <circle id="dot" cx="5" cy="5" r="1" fill="#000"/>
+    <bind target="dot.r" value="2"/>
+  </component>
+  <component name="box" grid="10">
+    <listener on="click" emit="selected"/>
+    <rect id="rect" x0="0" y0="0" width="3" height="4" fill="#f00"/>
+    <bind target="rect.width" value="4"/>
+  </component>
+  <instance id="badge" component="$card"/>
+  <bool name="seen"/>
+  <listener on="badge.selected" set="seen=true"/>
 </anima>

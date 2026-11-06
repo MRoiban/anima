@@ -1,0 +1,30 @@
+[
+  {
+    "click": 0,
+    "values": {
+      "badge/dot.x": 6
+    },
+    "events": []
+  },
+  {
+    "click": 1,
+    "values": {
+      "badge/dot.x": 3
+    },
+    "events": []
+  },
+  {
+    "click": 2,
+    "values": {
+      "badge/dot.x": 9
+    },
+    "events": []
+  },
+  {
+    "click": 3,
+    "values": {
+      "badge/dot.x": 3
+    },
+    "events": []
+  }
+]

@@ -1,0 +1,54 @@
+{
+  "status": "finding",
+  "reason": "Native exact-boundary nested quantization at 0.12s + 0.13s gives x1→2; Anima gives x1→3 (delta 1). At nonboundary 0.12s + 0.14s both give x1→3. This supports a precision-boundary explanation rather than per-step truncation; that explanation is an inference. Limits and original observations are unchanged.",
+  "case": {
+    "name": "components-nested-quantize",
+    "times": [0],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  "observations": [
+    {
+      "time": 0,
+      "sampleTime": 0.25,
+      "actual": [
+        {
+          "click": 0,
+          "values": {
+            "badge/dot.x": 1
+          },
+          "events": []
+        },
+        {
+          "click": 1,
+          "values": {
+            "badge/dot.x": 3
+          },
+          "events": []
+        }
+      ],
+      "reference": [
+        {
+          "click": 0,
+          "values": {
+            "badge/dot.x": 1
+          },
+          "events": []
+        },
+        {
+          "click": 1,
+          "values": {
+            "badge/dot.x": 2
+          },
+          "events": []
+        }
+      ],
+      "delta": 1
+    }
+  ]
+}

@@ -10972,5 +10972,235 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "components-nested-remap",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "badge/dot.x": 6
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "badge/dot.x": 3
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "badge/dot.x": 9
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "badge/dot.x": 3
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "badge/dot.x": 6
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "badge/dot.x": 3
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "badge/dot.x": 9
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "badge/dot.x": 3
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "components-leaf-fit",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "badge/dot.r": 2
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "badge/dot.r": 1
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "badge/dot.r": 2
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "badge/dot.r": 1
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "components-stateful-output",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "badge/outputs.done": 6
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "badge/outputs.done": 6
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-property-artboard",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$card": "box"
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$card": "box"
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "components-nested-quantize-nonboundary",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "badge/dot.x": 1
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "badge/dot.x": 3
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "badge/dot.x": 1
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "badge/dot.x": 3
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
   }
 ]

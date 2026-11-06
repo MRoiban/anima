@@ -2851,5 +2851,45 @@
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
+  },
+  {
+    "name": "components-nested-remap",
+    "times": [0],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "observations": { "script": "script.txt", "reference": "rive/observations.json" }
+  },
+  {
+    "name": "components-leaf-fit",
+    "times": [0],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "observations": { "script": "script.txt", "reference": "rive/observations.json" }
+  },
+  {
+    "name": "components-stateful-output",
+    "times": [0],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "observations": { "script": "script.txt", "reference": "rive/observations.json" }
+  },
+  {
+    "name": "data-property-artboard",
+    "times": [0],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "observations": { "script": "script.txt", "reference": "rive/observations.json" }
+  },
+  {
+    "name": "components-nested-quantize-nonboundary",
+    "times": [0],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "observations": { "script": "script.txt", "reference": "rive/observations.json" }
   }
 ]

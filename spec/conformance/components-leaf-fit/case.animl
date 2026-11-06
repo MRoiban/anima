@@ -1,0 +1,9 @@
+<anima version="0.1" name="components-leaf-fit" grid="20" requires="components nested bind">
+  <component name="row" grid="10" viewBox="-5 -5 10 10">
+    <number name="count" default="2"/>
+    <circle id="dot" cx="0" cy="0" r="2" fill="#000"/>
+    <bind target="dot.r" value="count"/>
+    <listener on="click" set="count=1"/>
+  </component>
+  <instance id="badge" component="row" size="20 10" fit="contain" align="right"/>
+</anima>

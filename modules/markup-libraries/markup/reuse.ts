@@ -129,17 +129,22 @@ export function expand(
         active.add(path);
         const exports = scopeFor(parsed.doc.root, path, true);
         active.delete(path);
+        const selected = attr(c, 'select').split(/\s+/).filter(Boolean);
+        for (const name of selected)
+          if (![...exports.keys()].some((k) => k.split(' ')[1] === name))
+            error('unknown-name', c.at, VERBOSE ? `unknown library export ${name}` : '');
         for (const [key, value] of exports) {
           const [kind, local] = key.split(' ');
+          if (selected.length && !selected.includes(local!)) continue;
           const name = `${kind} ${alias}:${local}`;
           if (scope.has(name))
             error('duplicate-name', c.at, VERBOSE ? `duplicate imported name ${name}` : '');
           else scope.set(name, value);
         }
-      } else if (['template', 'color', 'glyph', 'ease', 'component'].includes(c.name)) {
+      } else if (['template', 'color', 'glyph', 'ease', 'component', 'model'].includes(c.name)) {
         const name = attr(c, 'name');
         const key = `${c.name} ${name}`;
-        if (!NAME.test(name))
+        if (!(c.name === 'model' ? /^[a-zA-Z][\w-]*$/ : NAME).test(name))
           error('bad-attribute', c.at, VERBOSE ? 'declaration needs a valid name' : '');
         if (scope.has(key)) error('duplicate-name', c.at, VERBOSE ? `duplicate name ${name}` : '');
         let output = name;
@@ -155,7 +160,10 @@ export function expand(
     }
     if (imported)
       for (const d of scope.values()) {
-        if (d.scope === scope && ['color', 'glyph', 'ease', 'component'].includes(d.el.name)) {
+        if (
+          d.scope === scope &&
+          ['color', 'glyph', 'ease', 'component', 'model'].includes(d.el.name)
+        ) {
           const copy = clone(d.el, {}, scope, []);
           if (copy.kind === 'element') {
             copy.attrs.find((a) => a.name === 'name')!.value = d.name;
@@ -163,7 +171,13 @@ export function expand(
           }
         }
       }
-    return scope;
+    const selected = imported ? attr(el, 'exports').split(/\s+/).filter(Boolean) : [];
+    for (const name of selected)
+      if (![...scope.keys()].some((k) => k.split(' ')[1] === name))
+        error('unknown-name', el.at, VERBOSE ? `unknown library export ${name}` : '');
+    return selected.length
+      ? new Map([...scope].filter(([key]) => selected.includes(key.split(' ')[1]!)))
+      : scope;
   };
   const reference = (value: string, kind: string, scope: Scope, at: Pos): string => {
     const d = scope.get(`${kind} ${value}`);
@@ -224,19 +238,23 @@ export function expand(
     };
     for (const a of out.attrs) {
       const kind =
-        a.name === 'component'
+        a.name === 'component' ||
+        (c.name === 'component' && !attr(c, 'grid') && a.name === 'default')
           ? 'component'
-          : a.name === 'glyph'
-            ? 'glyph'
-            : ['fill', 'stroke', 'stop-color', 'value'].includes(a.name)
-              ? 'color'
-              : ['ease', 'curve'].includes(a.name)
-                ? 'ease'
-                : '';
+          : ['model', 'of'].includes(a.name) || (c.name === 'component' && a.name === 'data')
+            ? 'model'
+            : a.name === 'glyph'
+              ? 'glyph'
+              : ['fill', 'stroke', 'stop-color', 'value'].includes(a.name)
+                ? 'color'
+                : ['ease', 'curve'].includes(a.name)
+                  ? 'ease'
+                  : '';
       if (kind) a.value = reference(a.value, kind, scope, a.valueAt);
       if (out.name === 'pose') a.value = reference(a.value, 'color', scope, a.valueAt);
     }
-    if (c.name === 'component') scope = new Map([...scope, ...scopeFor(c, c.at.file)]);
+    if (c.name === 'component' && attr(c, 'grid'))
+      scope = new Map([...scope, ...scopeFor(c, c.at.file)]);
     out.children = children(c.children, params, scope, uses, c.name === 'track');
     return out;
   };

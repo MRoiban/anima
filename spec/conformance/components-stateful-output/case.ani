@@ -1,0 +1,51 @@
+{
+  "anima": "0.1",
+  "name": "components-stateful-output",
+  "grid": 20,
+  "requires": ["components", "nested", "bind"],
+  "nodes": [
+    {
+      "id": "badge",
+      "type": "instance",
+      "component": "row"
+    },
+    {
+      "id": "result",
+      "type": "circle",
+      "center": [15, 15],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "components": {
+    "row": {
+      "grid": 10,
+      "inputs": {
+        "count": {
+          "type": "number"
+        }
+      },
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [5, 5],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "outputs": {
+        "done": "count + 1",
+        "tone": "mix(#f00, #00f, 0.5)"
+      }
+    }
+  },
+  "bind": {
+    "result.r": "badge.outputs.done",
+    "result.fill.color": "badge.outputs.tone"
+  }
+}

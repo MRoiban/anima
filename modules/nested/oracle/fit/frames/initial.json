@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "artboard": "Board",
+  "stateMachine": "main",
+  "viewModel": null,
+  "globals": [],
+  "nested": [
+    {
+      "path": "badge",
+      "artboard": "row",
+      "viewModels": [
+        {
+          "name": "placed",
+          "viewModel": "Sample",
+          "properties": [
+            {
+              "name": "clicked",
+              "path": "clicked",
+              "type": "number",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

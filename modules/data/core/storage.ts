@@ -14,6 +14,8 @@ export function accepts(p: Property, value: unknown): boolean {
           value.length === 4 &&
           value.every((v) => typeof v === 'number' && v >= 0 && v <= 255);
   if (p.type === 'enum') return typeof value === 'string' && !!p.values?.includes(value);
+  if (p.type === 'component')
+    return typeof value === 'string' && (!value || !!p.values?.includes(value));
   if (p.type === 'string' || p.type === 'asset-ref') return typeof value === 'string';
   return false;
 }

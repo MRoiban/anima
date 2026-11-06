@@ -1,0 +1,4 @@
+advance 0.12
+snapshot badge/dot.x
+advance 0.13
+snapshot badge/dot.x

@@ -1,0 +1,21 @@
+<anima version="0.1" name="nested-controls" grid="30" requires="components nested data bind">
+  <model name="Controls">
+    <number name="t" default="0.5"/>
+    <component name="card" default="row"/>
+  </model>
+  <component name="row" grid="10">
+    <number name="count" default="3"/>
+    <circle id="dot" cx="5" cy="5" r="1" fill="#d97757"/>
+    <output name="done" value="count > 0"/>
+    <timeline name="grow" duration="1">
+      <track target="dot.r">0 1; 1 4</track>
+    </timeline>
+    <layer name="main" initial="growing">
+      <state name="growing" play="grow"/>
+    </layer>
+  </component>
+  <instance id="clocked" component="row" time="$t" fps="12" size="20 10" fit="contain" align="right"/>
+  <instance id="selected" component="$card" x="20"/>
+  <circle id="indicator" cx="2" cy="15" r="1" fill="#000"/>
+  <bind target="indicator.opacity" value="clocked.outputs.done"/>
+</anima>

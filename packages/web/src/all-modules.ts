@@ -19,6 +19,7 @@ import './machine.ts';
 import './media.ts';
 import './mix.ts';
 import './motion.ts';
+import './nested.ts';
 import './paint.ts';
 import './paint-sampling.ts';
 import './surface.ts';

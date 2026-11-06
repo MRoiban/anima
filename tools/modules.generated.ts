@@ -30,6 +30,7 @@ export const webEntries = [
   'host',
   'host-edit',
   'lists',
+  'nested',
   'mix',
 ];
 export const webOwners: Record<string, string> = {
@@ -60,6 +61,7 @@ export const webOwners: Record<string, string> = {
   host: 'host',
   'host-edit': 'host-edit',
   lists: 'lists',
+  nested: 'nested',
   surface: 'surface',
   'markup-surface': 'surface',
   mix: 'mix',
@@ -101,6 +103,7 @@ export const moduleBudgets: {
   { name: 'host', budget: 4096, over: 'host-values' },
   { name: 'host-edit', budget: 4096 },
   { name: 'lists', budget: 6144 },
+  { name: 'nested', budget: 5120 },
   { name: 'mix', budget: 5120 },
 ];
 export const moduleScopes = {
@@ -111,6 +114,10 @@ export const moduleScopes = {
       'host-api-resize-backing-surface',
       'platforms-web-canvas',
     ],
+  },
+  componentpaint: {
+    tests: ['modules/componentpaint/test/**/*.test.ts'],
+    conformance: ['drawing-paint-paint-artboard'],
   },
   components: {
     tests: [
@@ -277,7 +284,14 @@ export const moduleScopes = {
     ],
   },
   markup: { tests: ['packages/web/test/markup-hooks.test.ts'], conformance: [] },
-  'markup-libraries': { tests: ['modules/markup-libraries/test/**/*.test.ts'], conformance: [] },
+  'markup-libraries': {
+    tests: ['modules/markup-libraries/test/**/*.test.ts'],
+    conformance: [
+      'components-library-export',
+      'components-library-models',
+      'components-library-update',
+    ],
+  },
   media: { tests: ['modules/assets/test/web/pipeline.test.ts'], conformance: [] },
   motion: {
     tests: [
@@ -601,6 +615,22 @@ export const moduleScopes = {
       'data-binding-relative',
       'data-property-symbol-list-index',
       'data-converter-number-to-list',
+    ],
+  },
+  nested: {
+    tests: [
+      'modules/nested/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+    ],
+    conformance: [
+      'components-nested-remap',
+      'components-nested-quantize',
+      'components-leaf-fit',
+      'components-stateful-output',
+      'components-output-repeat',
+      'data-property-artboard',
+      'state-machine-literal-artboard',
     ],
   },
   surface: {

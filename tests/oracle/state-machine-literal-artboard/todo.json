@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "component(\"row\") needs a typed literal hook in bind expression parsing; bind functions accept numeric arguments only. The data-extras owner is adding typed guard literals. No guard parser edits are authorized here."
+}

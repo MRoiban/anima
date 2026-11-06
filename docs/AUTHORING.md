@@ -409,7 +409,7 @@ are allowed. Parameters substitute attribute values and text, including keyframe
 parameters have no default (`params="target scale=0.92"`). Missing, extra and unused parameters,
 unknown imported names, cycles and recursive applications produce diagnostics showing the
 library's source position and the application/import site. Libraries also share colours, glyphs
-and named eases through `ui:name` references. Components await the components module.
+and named eases through `ui:name` references. Libraries can also share components and their model definitions.
 
 `anima build` and `validate` resolve imports relative to each importing file. The playground
 resolves them inside the project directory; the browser markup module fetches them relative
@@ -548,6 +548,60 @@ Run `anima inspect examples/toolbar.animl` to see instance layers. With `anima s
 `examples/toolbar.animl` combines three Glyphy icons using the same imported press template and
 an unread badge. Browser hosts import `@anima-format/web/components` and, when expressions are
 used, `@anima-format/web/bind`, alongside the base runtime.
+
+
+Load `@anima-format/web/nested` alongside components for explicit instance clocks, fitting,
+outputs and component-valued selections. In this complete example, `$t` controls the child's
+animation time in seconds, `fps` floors it to a 12 Hz clock, and `fit` maps the child viewBox into
+`size`. Fitting also transforms pointer hits. Cover does not add a clip; add one explicitly when
+needed.
+
+```xml
+<anima version="0.1" name="nested-controls" grid="30" requires="components nested data bind">
+  <model name="Controls">
+    <number name="t" default="0.5"/>
+    <component name="card" default="row"/>
+  </model>
+  <component name="row" grid="10">
+    <number name="count" default="3"/>
+    <circle id="dot" cx="5" cy="5" r="1" fill="#d97757"/>
+    <output name="done" value="count > 0"/>
+    <timeline name="grow" duration="1">
+      <track target="dot.r">0 1; 1 4</track>
+    </timeline>
+    <layer name="main" initial="growing">
+      <state name="growing" play="grow"/>
+    </layer>
+  </component>
+  <instance id="clocked" component="row" time="$t" fps="12" size="20 10" fit="contain" align="right"/>
+  <instance id="selected" component="$card" x="20"/>
+  <circle id="indicator" cx="2" cy="15" r="1" fill="#000"/>
+  <bind target="indicator.opacity" value="clocked.outputs.done"/>
+</anima>
+```
+
+The source and compiled document are [controls.animl](../modules/nested/examples/controls.animl)
+and [controls.ani](../modules/nested/examples/controls.ani). `clocked.outputs.done` is read-only;
+write `clocked.count` instead. A parent evaluates before its children, so a child change reaches
+parent bindings on the next step. Output snapshots use `clocked/outputs.done`. Backward scrubbing
+resamples the current child state; it does not undo transitions. A component property holds a
+declared name or empty string. Changing `$card` rebuilds `selected`; an unchanged name keeps its
+state. Empty selection hides and stops that placement. Typed `component("row")` guard literals
+are still pending shared parser integration.
+
+Libraries may expose only selected declarations with `<library name="cards" exports="row Score">`.
+An import can select a subset: `<import src="lib/cards.animl" as="cards" select="row"/>`.
+Private dependencies remain available inside the library. Put `<model name="Score">…</model>` in
+the library and use `data="Score"` on its component; references are renamed consistently when
+compiled. [cards.animl](../examples/lib/cards.animl) and the three `components-library-*`
+conformance examples show the expanded documents.
+
+For local vendoring, retain the upstream path as import metadata:
+`<import src="vendor/cards.animl" source="../shared/cards.animl" as="cards"/>`.
+Run `anima library update icon.animl --check` to check staleness, then
+`anima library update icon.animl` to refresh it. The command reads local files only, preflights
+all sources before writing, and never contacts a service. Building continues to read the vendored
+`src`, so library updates are explicit and reviewable.
 
 Choose `renderer="canvas"` on the HTML host after importing `@anima-format/web/canvas` when a scene
 needs world-space feathering or a raster surface for future scene features. Keep SVG for ordinary

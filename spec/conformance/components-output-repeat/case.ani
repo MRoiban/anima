@@ -1,0 +1,93 @@
+{
+  "anima": "0.1",
+  "name": "components-output-repeat",
+  "grid": 20,
+  "requires": ["components", "nested", "lists", "data", "bind"],
+  "nodes": [
+    {
+      "id": "rows",
+      "type": "repeat",
+      "list": "$items",
+      "component": "row",
+      "dx": 10
+    },
+    {
+      "id": "indicator",
+      "type": "circle",
+      "center": [5, 15],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "components": {
+    "row": {
+      "grid": 10,
+      "inputs": {
+        "active": {
+          "type": "bool"
+        }
+      },
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [5, 5],
+          "r": 2,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "listeners": [
+        {
+          "on": "click",
+          "toggle": "active"
+        }
+      ],
+      "data": "Item",
+      "outputs": {
+        "done": "$score > 2 and active"
+      }
+    }
+  },
+  "bind": {
+    "indicator.opacity": "rows.1.outputs.done"
+  },
+  "data": {
+    "models": {
+      "Item": {
+        "properties": {
+          "score": {
+            "type": "number"
+          }
+        }
+      },
+      "Board": {
+        "properties": {
+          "items": {
+            "type": "list",
+            "of": "Item"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Board",
+        "default": true,
+        "values": {
+          "items": [
+            {
+              "score": 2
+            },
+            {
+              "score": 4
+            }
+          ]
+        }
+      }
+    }
+  }
+}

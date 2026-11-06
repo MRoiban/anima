@@ -1,0 +1,63 @@
+{
+  "anima": "0.1",
+  "name": "data-property-artboard",
+  "grid": 20,
+  "requires": ["components", "data", "bind", "nested"],
+  "nodes": [
+    {
+      "id": "badge",
+      "type": "instance",
+      "component": "$card"
+    }
+  ],
+  "components": {
+    "row": {
+      "grid": 10,
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [5, 5],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "bind": {
+        "dot.r": "2"
+      }
+    },
+    "box": {
+      "grid": 10,
+      "nodes": [
+        {
+          "id": "rect",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 3,
+          "h": 4,
+          "fill": {
+            "color": "#f00"
+          }
+        }
+      ],
+      "bind": {
+        "rect.w": "4"
+      }
+    }
+  },
+  "data": {
+    "models": {
+      "Card": {
+        "properties": {
+          "card": {
+            "type": "component",
+            "default": "row"
+          }
+        }
+      }
+    }
+  }
+}

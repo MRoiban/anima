@@ -11,7 +11,7 @@ remain a separate task, consistent with [web research](../../docs/research/rive-
 
 Declare `data`. Existing 0.1 inputs and their queue order are unchanged. `data.models` maps model
 names to `{properties,global?}`. Each property has `type`: `number`, `string`, `bool`, `color`,
-`trigger`, `enum`, `list`, `model-ref`, `asset-ref`. Number defaults to 0 and supports finite
+`trigger`, `enum`, `list`, `model-ref`, `asset-ref`, `component`. Number defaults to 0 and supports finite
 `min`/`max`; subsequent writes clamp. String defaults to empty, bool to false, color to black;
 colors use existing hex syntax and straight RGBA byte values. Triggers are signals with no
 stored default. Enum requires `values` (unique keys), `enum` (a declaration in `data.enums`),
@@ -151,6 +151,10 @@ changed flag but does not run its view-model change listener (Rive 0, Anima 9 in
 `tests/oracle/input-data-listener/internal-trigger-difference/`), while a host-fired trigger does
 (both match). One rule for every source is easier for authors and agents to predict. The difference
 stays recorded as a finding, never a passing comparison.
+
+`component` stores a component definition name or empty string and validates names on initial and
+subsequent writes. `<model><component name="card" default="row"/></model>` is the AniML form.
+With `nested`, `<instance component="$card"/>` consumes it and rebuilds on selection changes.
 
 ### Data keyframe values (P5b pending)
 

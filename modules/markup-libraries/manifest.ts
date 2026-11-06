@@ -26,6 +26,10 @@ export default {
   },
   markupHook: null,
   tests: ['modules/markup-libraries/test/**/*.test.ts'],
-  conformance: [],
-  docs: ['spec/SPEC.md', 'spec/ANIML.md'],
+  conformance: [
+    'components-library-export',
+    'components-library-models',
+    'components-library-update',
+  ],
+  docs: ['modules/markup-libraries/SPEC.md', 'spec/ANIML.md'],
 };

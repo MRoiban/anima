@@ -1,0 +1,111 @@
+[
+  {
+    "name": "typecheck",
+    "command": [
+      "npm",
+      "run",
+      "typecheck"
+    ],
+    "exit": 0,
+    "seconds": 35.54
+  },
+  {
+    "name": "eslint",
+    "command": [
+      "npx",
+      "eslint",
+      "."
+    ],
+    "exit": 0,
+    "seconds": 11.35
+  },
+  {
+    "name": "prettier",
+    "command": [
+      "npx",
+      "prettier",
+      "--check",
+      "."
+    ],
+    "exit": 1,
+    "seconds": 31.32
+  },
+  {
+    "name": "modules",
+    "command": [
+      "node",
+      "tools/modules.ts",
+      "--check"
+    ],
+    "exit": 0,
+    "seconds": 1.04
+  },
+  {
+    "name": "animl",
+    "command": [
+      "node",
+      "tools/build-animl.ts",
+      "--check"
+    ],
+    "exit": 0,
+    "seconds": 1.58
+  },
+  {
+    "name": "web",
+    "command": [
+      "node",
+      "tools/build-web.ts",
+      "--check"
+    ],
+    "exit": 0,
+    "seconds": 19.16
+  },
+  {
+    "name": "scope",
+    "command": [
+      "npm",
+      "run",
+      "test:scope",
+      "--",
+      "components",
+      "lists",
+      "markup",
+      "markup-libraries",
+      "cli",
+      "conformance",
+      "oracle",
+      "nested",
+      "componentpaint"
+    ],
+    "exit": 0,
+    "seconds": 187.46
+  },
+  {
+    "name": "size",
+    "command": [
+      "node",
+      "tools/size.ts"
+    ],
+    "exit": 0,
+    "seconds": 33.53
+  },
+  {
+    "name": "perf",
+    "command": [
+      "node",
+      "tools/perf.ts"
+    ],
+    "exit": 0,
+    "seconds": 7.32
+  },
+  {
+    "name": "oracle",
+    "command": [
+      "node",
+      "tools/oracle.ts",
+      "--strict"
+    ],
+    "exit": 0,
+    "seconds": 7.53
+  }
+]

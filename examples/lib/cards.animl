@@ -1,0 +1,9 @@
+<library name="cards" exports="row Score">
+  <model name="Score">
+    <number name="points" default="3"/>
+  </model>
+  <component name="row" grid="10" data="Score">
+    <circle id="dot" cx="5" cy="5" r="1" fill="#000"/>
+    <bind target="dot.r" value="$points"/>
+  </component>
+</library>
