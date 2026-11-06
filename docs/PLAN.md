@@ -254,6 +254,9 @@ and an oracle test against Rive.
         zero-tolerance probes and one separately recorded difference (96 versus 80).
   - [x] P4c-4 interaction integration: generic fields, exact focus round-trips, event kinds,
         key/pointer/guard seams and per-row implementation evidence (modules/input/REPORT.md).
+  - [x] P4c-6 interaction authoring: inline module contracts, registry write help, three
+        built AniML examples in the corpus, change-gated pulse restart, inspect summaries,
+        canonical snapshot output with markup aliases; 52 scoped files / 1673 tests pass.
 - [ ] P4d `events`: payloads, open-URL, audio.
 - [ ] P4e `data`: view models, bindings, converters, lists.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide

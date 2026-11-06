@@ -22,9 +22,11 @@ const files = globSync(
 describe('authored AniML corpus', () => {
   it('includes the bell example and all conformance sources', () => {
     expect(files).toContain('examples/bell.animl');
+    for (const example of ['input/drag-slider', 'focus/traversal', 'machine/blend-pulse'])
+      expect(files).toContain('modules/' + example.replace('/', '/examples/') + '.animl');
     const cases = globSync('spec/conformance/*/case.ani', { cwd: fileURLToPath(root) }).sort();
-    // Exact census: 135 focus/machine cases + 3 input drag + 51 completed input probes + 2 interaction seams.
-    expect(cases).toHaveLength(191);
+    // Exact census: existing 191 cases plus the change-gated pulse regression.
+    expect(cases).toHaveLength(192);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);

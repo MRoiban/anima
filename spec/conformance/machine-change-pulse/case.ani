@@ -1,0 +1,122 @@
+{
+  "anima": "0.1",
+  "name": "blend-pulse",
+  "grid": 20,
+  "requires": ["machine"],
+  "inputs": {
+    "level": {
+      "type": "number",
+      "default": 0,
+      "min": 0,
+      "max": 1
+    }
+  },
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 3,
+      "pivot": [10, 10],
+      "fill": {
+        "color": "#4263eb"
+      },
+      "stroke": {
+        "color": "#000",
+        "width": 2,
+        "trimEnd": 0.5
+      }
+    }
+  ],
+  "timelines": {
+    "dim": {
+      "duration": 1,
+      "tracks": {
+        "dot.opacity": [
+          [0, 0.2],
+          [1, 0.2]
+        ]
+      }
+    },
+    "bright": {
+      "duration": 1,
+      "tracks": {
+        "dot.opacity": [
+          [0, 1],
+          [1, 1]
+        ]
+      }
+    },
+    "pulse": {
+      "duration": 0.2,
+      "tracks": {
+        "dot.scale": [
+          [0, 1],
+          [0.1, 1.08],
+          [0.2, 1]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "blend": {
+        "initial": "level",
+        "states": {
+          "level": {
+            "play": "dim",
+            "mix": {
+              "mode": "1d",
+              "axis": "level",
+              "children": [
+                {
+                  "play": "dim",
+                  "at": 0
+                },
+                {
+                  "play": "bright",
+                  "at": 1
+                }
+              ]
+            }
+          }
+        }
+      },
+      "feedback": {
+        "initial": "idle",
+        "states": {
+          "any": {
+            "pose": {},
+            "on": [
+              {
+                "when": "@after(0)",
+                "to": "pulse",
+                "change": {
+                  "input": "level",
+                  "mode": "increased"
+                }
+              }
+            ],
+            "kind": "any"
+          },
+          "idle": {
+            "pose": {
+              "dot.scale": 1,
+              "dot.stroke.width": 2,
+              "dot.stroke.trimEnd": 0.5
+            }
+          },
+          "pulse": {
+            "play": "pulse",
+            "on": [
+              {
+                "when": "@end",
+                "to": "idle"
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

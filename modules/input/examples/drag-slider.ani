@@ -1,0 +1,50 @@
+{
+  "anima": "0.1",
+  "name": "drag-slider",
+  "grid": 20,
+  "requires": ["input", "bind"],
+  "inputs": {
+    "level": {
+      "type": "number",
+      "default": 0.5,
+      "min": 0,
+      "max": 1
+    }
+  },
+  "nodes": [
+    {
+      "id": "rail",
+      "type": "group",
+      "x": 2,
+      "y": 10,
+      "scaleX": 16,
+      "children": [
+        {
+          "id": "knob",
+          "type": "circle",
+          "center": [0, 0],
+          "r": 2,
+          "x": 0.5,
+          "scaleX": 0.0625,
+          "fill": {
+            "color": "#4263eb"
+          }
+        }
+      ]
+    }
+  ],
+  "listeners": [
+    {
+      "on": "drag-start|drag|drag-end",
+      "target": "knob",
+      "set": {},
+      "write": {
+        "x": "level"
+      },
+      "align": "preserve"
+    }
+  ],
+  "bind": {
+    "knob.x": "level"
+  }
+}

@@ -289,6 +289,8 @@ export class MachinePolicy implements PlaybackPolicy {
     return true;
   }
   carry(t: TransitionM, s: StateM, elapsed: number, run: object): number | undefined {
+    // A change is observed now, not at an earlier time threshold in the source.
+    if (transitions.get(this.transition(t))?.change) return 0;
     const ratio = transitions.get(t)?.exitRatio;
     if (ratio !== undefined)
       return Math.max(

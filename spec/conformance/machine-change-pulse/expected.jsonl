@@ -1,0 +1,10 @@
+{"time": 2, "values": {"dot.scale": 1, "dot.opacity": 0.6, "dot.stroke.trimEnd": 0.5, "dot.stroke.width": 2}, "states": {"blend": "level", "feedback": "pulse"}, "events": [], "settled": false}
+{"time": 2.05, "values": {"dot.scale": 1.04, "dot.opacity": 0.6}, "states": {"blend": "level", "feedback": "pulse"}, "events": [], "settled": false}
+{"time": 2.05, "values": {"dot.scale": 1, "dot.opacity": 0.8}, "states": {"blend": "level", "feedback": "pulse"}, "events": [], "settled": false}
+{"time": 2.15, "values": {"dot.scale": 1.08, "dot.opacity": 0.8}, "states": {"blend": "level", "feedback": "pulse"}, "events": [], "settled": false}
+{"time": 2.15, "values": {"dot.scale": 1.08, "dot.opacity": 0.4}, "states": {"blend": "level", "feedback": "pulse"}, "events": [], "settled": false}
+{"time": 2.2, "values": {"dot.scale": 1.04, "dot.opacity": 0.4}, "states": {"blend": "level", "feedback": "pulse"}, "events": [], "settled": false}
+{"time": 2.25, "values": {"dot.scale": 1, "dot.opacity": 0.4}, "states": {"blend": "level", "feedback": "idle"}, "events": [], "settled": true}
+{"time": 5.25, "values": {"dot.scale": 1, "dot.opacity": 1}, "states": {"blend": "level", "feedback": "pulse"}, "events": [], "settled": false}
+{"time": 5.35, "values": {"dot.scale": 1.08, "dot.opacity": 1}, "states": {"blend": "level", "feedback": "pulse"}, "events": [], "settled": false}
+{"time": 5.45, "values": {"dot.scale": 1, "dot.opacity": 1}, "states": {"blend": "level", "feedback": "idle"}, "events": [], "settled": true}

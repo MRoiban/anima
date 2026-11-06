@@ -1,10 +1,11 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now: P4c interaction (branch p4c-interaction; modules machine, input, focus) and P4d events (branch p4d-events) in parallel; then P4e data, P5b, P3b, P6–P10.
-State: main a02c0be = through P4b (PR #13). Parity 259/1238. core+web 19012; full-featured 51.4 KB.
-Next: merge agents per branch; before pushing a merge run browser tests for the seams; benchmark per phase; PR per phase.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4c-6 interaction authoring, 6/6 complete on t3/input-authoring-guidance.
+Verified: 52 scoped files / 1673 tests; final targeted 6 tests; formatting/lint/typechecks/builds/wiring/size green.
+Conformance: new machine-change-pulse (10 snapshots); existing expectations unchanged.
+Next: local commit and hand back; owner handles integration.
+Don't: push/PR/merge; edit benchmarks; read .riv; run rive; loosen budgets or tests.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -111,3 +112,7 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 15:00 [claude]: merged P4c oracle (d6da97a): focus 16/16, input 27 verified/6 skips/3 findings. Decisions: capture-phase order → fix (parent first, DOM/Rive); keyboard target listener stops propagation (opt-in bubble) → fix; align-preserve kept (Anima follows the grab offset) → intentional difference
 - 2026-11-07 16:30 [claude]: merged P4c-5 (1a785a5): keyboard stops by default + propagate opt-in, capture parent-first verified; spec now states capture-without-consume as an intentional difference from Rive (Rive capture claims by default); preserve-offset intentional; oracle 106 cases strict green
 - 2026-11-07 17:30 [claude]: P4c benchmark: AniML 5/6 (arrow increments need P4d-3 expression actions), Rive 6/6; plan: P4d PR first, then main into p4c, doc fixes, AniML rerun, P4c PR
+- 2026-11-06 04:03 [codex]: identified change-gated @after carry; implemented zero carry and authoring fixes; first build failed missing workspace dependencies → npm ci running (unverified).
+- 2026-11-06 04:09 [codex]: P4c-6 6/6; first scope 1669 pass/4 failures corrected → final scope 52 files/1673 pass (Chromium+Firefox); new pulse conformance 10 snapshots, no prior golden changes.
+- 2026-11-06 04:10 [codex]: removed carry fix temporarily → reproduced idle/settled at first pulse snapshot; restored → 6 targeted tests pass; Prettier/ESLint/types/wiring/AniML/web builds/size pass (core+web 19048, full 65068 B); local commit pending.
+- 2026-11-06 04:12 [codex]: final web artifact check found source fingerprint stale after script refactor → rebuilding and rechecking; exploratory wrong bin.ts path and fmt -w failed, corrected to main.ts / --write.

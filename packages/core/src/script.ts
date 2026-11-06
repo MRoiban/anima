@@ -1,5 +1,6 @@
 // The command language of `anima sample` and the conformance suite (spec §11.2). Tooling only.
 
+import { COMMON, OWN, PAINT, markupName } from './registry.ts';
 import { inputCommand } from '../../../modules/input/core/commands.ts';
 import type { TimelineInstance } from '../../../modules/motion/core/api.ts';
 import type { Model } from './load.ts';
@@ -179,14 +180,37 @@ export function runScript(
           let values = p.values();
           if (args.length) {
             const pick: typeof values = {};
+            // Prefer exact input/JSON addresses. Resolve AniML aliases from the same registry
+            // as the compiler, including slash-scoped component snapshot addresses.
+            const aliases = [
+              ...[
+                ...Object.entries(COMMON),
+                ...Object.values(OWN).flatMap((props) => Object.entries(props)),
+              ].map(([key, prop]) => [key, markupName(prop, key)]),
+              ...Object.entries(PAINT).flatMap(([paint, props]) =>
+                Object.entries(props).map(([key, prop]) => [
+                  paint + '.' + key,
+                  markupName(prop, key),
+                ]),
+              ),
+            ];
             for (const a of args) {
-              const v = p.get(a) ?? p.value(a);
+              const canonical =
+                p.get(a) !== undefined || p.value(a) !== undefined
+                  ? a
+                  : (Object.keys(values).find((key) =>
+                      aliases.some(
+                        ([path, alias]) =>
+                          key.endsWith('.' + path) && key.slice(0, -path!.length) + alias === a,
+                      ),
+                    ) ?? a);
+              const v = p.get(canonical) ?? p.value(canonical);
               if (v === undefined)
                 throw new ScriptError(
                   `"${a}" is not an animated address or a bool/number input`,
                   line,
                 );
-              pick[a] = v;
+              pick[canonical] = v;
             }
             values = pick;
           }
