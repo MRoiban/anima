@@ -113,3 +113,4 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 17:30 [claude]: P4c benchmark: AniML 5/6 (arrow increments need P4d-3 expression actions), Rive 6/6; plan: P4d PR first, then main into p4c, doc fixes, AniML rerun, P4c PR
 - 2026-11-07 21:00 [claude]: merged P4c-6 (68637ce): 6/6 docs/tooling fixes; @after(0) was a runtime bug (see LOG), fixed with machine-change-pulse case; scoped 1673 pass
 - 2026-11-07 23:30 [claude]: PR #14 (P4d) merged; main into p4c conflicts in 29 files (compile/decompile, components events, oracle tooling) → delegated integration P4c-7
+- 2026-11-08 02:00 [claude]: merged P4c-7 (62a23c6): main with P4d integrated, full check 4227 pass, oracle 120 cases strict 0; core+web 19831; next P4c AniML benchmark rerun → PR
