@@ -9,4 +9,4 @@ The shared registry is re-exported by `registry.ts`; the module composes it once
 - CLI/schema: generated schema plus module CLI tests and shared markup tests; no alternate evaluator.
 - Browser: `test/web/browser.test.ts` runs Chromium and Firefox.
 - Size: manifest ceiling 8192 B, measured with the unchanged `tools/size.ts` method.
-- Pending oracle / mapping limit: Implementation is covered by deterministic conformance and Chromium/Firefox API tests; an independent native Rive runtime/API oracle has not been captured. A static frame cannot establish this API/storage behavior.
+- Oracle disposition: Native work-area scrub poses verified with a Joystick; host pause/event semantics remain browser/unit observations. See [probe report](../../../../tests/oracle/MOTION-PROBES.md).

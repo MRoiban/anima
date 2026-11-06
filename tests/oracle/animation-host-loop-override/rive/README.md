@@ -1,4 +1,6 @@
-# Pending native observation
+# No faithful headless counterpart
 
-Implementation is covered by deterministic conformance and Chromium/Firefox API tests; an independent native Rive runtime/API oracle has not been captured. A static frame cannot establish this API/storage behavior.
-No reference capture or parity completion is claimed.
+The headless command runner has no per-animation loop override or authored-mode restore operation. Authored loopValue scenes cannot observe mutation of an existing host instance.
+
+Anima coverage: `modules/motion/test/core/runtime.test.ts`, `modules/motion/test/web/browser.test.ts`.
+No native equivalence is claimed. See [probe report](../../MOTION-PROBES.md).

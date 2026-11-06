@@ -143,10 +143,10 @@ using `enableExitTime="true"` made all four frames match, without changing Anima
 
 The elastic probes use amplitude 1 and period 0.5. They do not establish equivalence
 for Rive's amplitude-below-one ramp or period-zero fallback: Anima keeps the existing
-specified elastic formula and rejects zero periods. Other motion rows retain explicit
-pending markers: an image cannot observe host handle identity, metadata, independent
-advance/apply clocks, or typed channel storage; no native API observation is claimed.
-Reference channels currently resolve scene nodes, not arbitrary Rive resource objects.
-Typed scene queries expose current node types, not future bones or text runs. Animated
-Anima pivots and Rive fractional origins have different geometry semantics; the native
-origin comparison remains pending. These limits are also recorded in the parity rows.
+specified elastic formula and rejects zero periods. The remaining 15 probes are now disposed in [MOTION-PROBES.md](MOTION-PROBES.md):
+six verified comparisons, eight no-faithful-counterpart skips, and one uint dump
+finding. There are no pending motion markers. The scoped suite includes an explicit
+expected failure for uint; the strict oracle command remains red on that finding.
+New data comparisons are exact; existing image budgets are unchanged. Native
+fractional origins are not claimed equivalent to Anima pivots: the new pivot scene
+uses independently keyed parent/child translations to express the same transform.

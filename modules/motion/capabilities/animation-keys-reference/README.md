@@ -9,4 +9,4 @@ The shared registry is re-exported by `registry.ts`; the module composes it once
 - CLI/schema: generated schema plus module CLI tests and shared markup tests; no alternate evaluator.
 - Browser: `test/web/browser.test.ts` runs Chromium and Firefox.
 - Size: manifest ceiling 8192 B, measured with the unchanged `tools/size.ts` method.
-- Pending oracle / mapping limit: Anima reference channels hold validated node IDs; native Rive references can select other resource/object kinds. No faithful native consumer/frame mapping is claimed.
+- Oracle disposition: No faithful headless counterpart: Native KeyFrameId has consuming properties such as Solo.activeComponentId that select geometry. Anima reference channels store validated scene-node IDs without changing geometry. No arbitrary node-ID data channel is exposed in the headless data dump; a Solo frame would test different semantics. See [probe report](../../../../tests/oracle/MOTION-PROBES.md).

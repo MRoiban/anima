@@ -1,4 +1,6 @@
-# Pending native observation
+# No faithful headless counterpart
 
-Implementation is covered by deterministic conformance and Chromium/Firefox API tests; an independent native Rive runtime/API oracle has not been captured. A static frame cannot establish this API/storage behavior.
-No reference capture or parity completion is claimed.
+No headless command separately advances an animation instance clock and applies it with a mix. Script-side Animation.advance applies immediately, so it cannot establish the split advance/apply contract or didLoop reset.
+
+Anima coverage: `modules/motion/test/core/runtime.test.ts`, `modules/motion/test/web/browser.test.ts`.
+No native equivalence is claimed. See [probe report](../../MOTION-PROBES.md).

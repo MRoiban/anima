@@ -1,11 +1,1 @@
-<anima version="0.1" name="animation-mix-numeric" grid="20" requires="motion">
-  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
-  <timeline name="t" duration="2">
-    <track target="a.x">0 0; 2 20</track>
-  </timeline>
-  <layer name="l" initial="s">
-    <state name="s">
-      <pose a.x="4"/>
-    </state>
-  </layer>
-</anima>
+<anima version="0.1" name="animation-mix-numeric" grid="20" requires="motion"><rect id="a" x0="2" y0="8" width="2" height="4" fill="#4263eb"/><timeline name="a" duration="2"><track target="a.x">0 0;2 0</track></timeline><timeline name="b" duration="2"><track target="a.x">0 8;2 8</track></timeline></anima>

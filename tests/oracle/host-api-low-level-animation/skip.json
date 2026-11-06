@@ -1,0 +1,6 @@
+{
+  "status": "skip",
+  "reason": "No headless command separately advances an animation instance clock and applies it with a mix. Script-side Animation.advance applies immediately, so it cannot establish the split advance/apply contract or didLoop reset.",
+  "evidence": "Rive CLI 1.9.0: --help; headless commands help; schema queries; local docs animascript/api/artboard, data and format.",
+  "tests": ["modules/motion/test/core/runtime.test.ts", "modules/motion/test/web/browser.test.ts"]
+}

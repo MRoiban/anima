@@ -4,7 +4,7 @@ import json,subprocess
 from pathlib import Path
 root=Path(__file__).resolve().parents[2]/'tests/oracle'
 selected=[]
-for feature in ['animation-cubic-value','animation-elastic-in','animation-elastic-in-out','animation-quantized-playback','animation-reverse','animation-work-area','transforms-origin-animation']:
+for feature in ['animation-cubic-value','animation-elastic-in','animation-elastic-in-out','animation-quantized-playback','animation-reverse','animation-work-area']:
  d=root/feature;r=d/'rive';(r/'frames').mkdir(exist_ok=True)
  # Axial integer rectangles: no rasterizer allowance is needed at the sampled positions.
  node='<rect id="a" x0="2" y0="8" width="2" height="4" fill="#4263eb"/>'
@@ -24,15 +24,7 @@ for feature in ['animation-cubic-value','animation-elastic-in','animation-elasti
   animattrs=' speed="-1"';stateattrs=' speed="-1"';times=[0,.5,1,2]
  elif feature=='animation-work-area':
   animattrs=' workStart="30" workEnd="90" enableWorkArea="true" loopValue="loop"';stateattrs=' work="0.5 1.5" loop="loop"';times=[0,.25,.75,1.25]
- elif feature=='transforms-origin-animation':
-  # Rectangle-local origin is fractional in Rive; Anima pivots are in scene units.
-  node='<rect id="a" x0="2" y0="8" width="4" height="4" rotate="180" pivot="2 8" fill="#4263eb"/>'
-  shape='<Shape id="0:3" x="24" y="96" rotation="3.141592653589793"><Rectangle id="0:4" width="48" height="48" originX="0" originY="0"/><Fill><SolidColor colorValue="FF4263EB"/></Fill></Shape>'
-  # Matching origin movement requires preserving the world-space shape placement while origin changes.
-  # Native Rive shape-origin animation changes path geometry in addition to transform origin, so
-  # this mapping is not a faithful native pivot test. Retain its explicit pending reason instead.
-  (d/'todo.json').write_text(json.dumps({'status':'todo','reason':'Native Rive fractional shape origins move geometry; Anima pivotX/Y move only the transform centre. No faithful native frame mapping authored; core/browser matrices are tested.'})+'\n')
-  continue
+
  tracks=f'<timeline name="t" duration="2"{stateattrs}><track target="a.x">{track}</track></timeline><layer name="l" initial="s"><state name="s" play="t"/></layer>'
  source=f'<anima version="0.1" name="{feature}" grid="20" requires="motion">{node}{tracks}</anima>\n'
  (d/'case.animl').write_text(source)

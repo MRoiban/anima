@@ -1,0 +1,7 @@
+data-dump frames/0.json
+advance 500ms
+data-dump frames/0.5.json
+advance 600ms
+data-dump frames/1.1.json
+advance 900ms
+data-dump frames/2.json

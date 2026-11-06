@@ -116,5 +116,7 @@ budgets = {
 }
 for c in cases:
  c.update(threshold=16, maxDiff=budgets[c['name']][0], maxOverPercent=budgets[c['name']][1])
-(ROOT/'cases.json').write_text(json.dumps(cases,indent=2)+'\n')
+manifest = json.loads((ROOT/'cases.json').read_text())
+names = {c['name'] for c in cases}
+(ROOT/'cases.json').write_text(json.dumps(cases + [c for c in manifest if c['name'] not in names],indent=2)+'\n')
 print(f'Authored {len(cases)} cases')
