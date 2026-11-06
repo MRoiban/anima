@@ -220,7 +220,7 @@ and an oracle test against Rive.
         No tolerance/budget/timeout increase; 0.1 SVG bytes unchanged. See canvas RESULTS.md for
         measured costs and the three retained explicit feature limits; phase/parity bookkeeping
         remains with the integrating owner.
-- [ ] P4b `motion`: eases, typed/string tracks, seek/reverse/work area/quantize, host timeline
+- [x] P4b `motion`: eases, typed/string tracks, seek/reverse/work area/quantize, host timeline
       control, animatable pivot.
   - [x] Local implementation behind `requires="motion"`; both syntaxes, CLI/schema and host APIs.
   - [x] 27 new conformance cases; existing 41 unchanged; Chromium + Firefox host coverage.

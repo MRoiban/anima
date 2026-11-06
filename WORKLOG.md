@@ -101,3 +101,4 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 00:30 [claude]: merged P4b-3 (dbbbfed): sync/exitNext/hold/input time, 10 cases, sync example 6/6; fixed docs topics for web-only modules (canvas); scoped motion+cli+canvas green
 - 2026-11-07 01:30 [claude]: merged P4b-4 (aa7dc76): strict oracle exit 0, 71 samples; uint in-range exact; Rive dump float32 rounding documented
 - 2026-11-07 02:30 [claude]: merged P4b AniML rerun (afc413d): 5/6 (from 4/6); 'stall' was advance 0 (re-check completes); reduced-motion mid-loop = spec decision → P3b
+- 2026-11-07 03:00 [claude]: P4b bookkeeping: 22 rows done (259/1238), LOG with numbers (core+web 19012, +1049 logged); opening PR

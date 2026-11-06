@@ -1753,9 +1753,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/animation-cubic-value/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "modules/motion/test/core/animation-cubic-value.test.ts; spec/conformance/animation-cubic-value; modules/motion/test/web/browser.test.ts; tests/oracle/animation-cubic-value",
-   "phase": "P4"
+   "phase": "P4b"
   }
  },
  {
@@ -1809,9 +1809,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/animation-elastic-in/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "modules/motion/test/core/animation-elastic-in.test.ts; spec/conformance/animation-elastic-in; modules/motion/test/web/browser.test.ts; tests/oracle/animation-elastic-in",
-   "phase": "P4"
+   "phase": "P4b"
   }
  },
  {
@@ -1838,9 +1838,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/animation-elastic-in-out/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "modules/motion/test/core/animation-elastic-in-out.test.ts; spec/conformance/animation-elastic-in-out; modules/motion/test/web/browser.test.ts; tests/oracle/animation-elastic-in-out",
-   "phase": "P4"
+   "phase": "P4b"
   }
  },
  {
@@ -1978,10 +1978,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/animation-host-loop-override/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-loop-override/skip.json (no faithful headless counterpart)",
-   "phase": "P4",
-   "reason": "No faithful headless counterpart: The headless command runner has no per-animation loop override or authored-mode restore operation. Authored loopValue scenes cannot observe mutation of an existing host instance. See tests/oracle/MOTION-PROBES.md."
+   "phase": "P4b"
   }
  },
  {
@@ -2010,10 +2009,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/animation-host-play-pause-stop/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-play-pause-stop/skip.json (no faithful headless counterpart)",
-   "phase": "P4",
-   "reason": "No faithful headless counterpart: The headless command runner has no animation-instance play/pause/stop controls. Advancing zero seconds or switching a state cannot establish paused writes, resume clocks and stop removal of writes on one instance. See tests/oracle/MOTION-PROBES.md."
+   "phase": "P4b"
   }
  },
  {
@@ -2313,10 +2311,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/animation-keys-reference/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "modules/motion/test/core/typed-oracle.test.ts; tests/oracle/animation-keys-reference/skip.json (no faithful headless counterpart)",
-   "phase": "P4",
-   "reason": "No faithful headless counterpart: Native KeyFrameId has consuming properties such as Solo.activeComponentId that select geometry. Anima reference channels store validated scene-node IDs without changing geometry. No arbitrary node-ID data channel is exposed in the headless data dump; a Solo frame would test different semantics. See tests/oracle/MOTION-PROBES.md."
+   "phase": "P4b"
   }
  },
  {
@@ -2342,10 +2339,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/animation-keys-signed-integer/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "modules/motion/test/core/typed-oracle.test.ts; tests/oracle/animation-keys-signed-integer/skip.json (no faithful headless counterpart)",
-   "phase": "P4",
-   "reason": "No faithful headless counterpart: The local schema exposes KeyFrameInt but no general signed-int custom/view-model channel: CustomPropertyNumber and ViewModelInstanceNumber are doubles; BindablePropertyInteger is uint and not animatable. Keying doubles with integer-looking values cannot establish signed 32-bit hold storage. No faithful headless signed channel observation was found. See tests/oracle/MOTION-PROBES.md."
+   "phase": "P4b"
   }
  },
  {
@@ -2371,10 +2367,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/animation-keys-string/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "tests/oracle/animation-keys-string; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
-   "phase": "P4",
-   "reason": "Native KeyFrameString hold samples verified by exact data dumps. See tests/oracle/MOTION-PROBES.md."
+   "phase": "P4b"
   }
  },
  {
@@ -2400,10 +2395,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/animation-keys-unsigned-integer/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "tests/oracle/animation-keys-unsigned-integer (0/7/42/2147483520, tolerance 0); modules/motion/test/core/typed-oracle.test.ts (4294967295 round-trip); spec/conformance/animation-keys-unsigned-integer",
-   "phase": "P4",
-   "reason": "Native uint comparison verified in the exactly observable number-dump range; 4294967295 is independently verified in Anima. Historical dump -1 vs uint 4294967295 is an observation-path note, not a failing test. See tests/oracle/MOTION-PROBES.md."
+   "phase": "P4b"
   }
  },
  {
@@ -2629,10 +2623,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/animation-mix-discrete/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "tests/oracle/animation-mix-discrete; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
-   "phase": "P4",
-   "reason": "Native positive-weight boolean replacement verified by exact data dump; other typed channel mixing is unit/conformance covered. See tests/oracle/MOTION-PROBES.md."
+   "phase": "P4b"
   }
  },
  {
@@ -2658,10 +2651,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/animation-mix-numeric/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "tests/oracle/animation-mix-numeric; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
-   "phase": "P4",
-   "reason": "Native two-animation mixing verified at weights 0/25/50/100% (max 1, 0% over 16). See tests/oracle/MOTION-PROBES.md."
+   "phase": "P4b"
   }
  },
  {
@@ -2687,9 +2679,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/animation-quantized-playback/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "modules/motion/test/core/animation-quantized-playback.test.ts; spec/conformance/animation-quantized-playback; modules/motion/test/web/browser.test.ts; tests/oracle/animation-quantized-playback",
-   "phase": "P4"
+   "phase": "P4b"
   }
  },
  {
@@ -2717,9 +2709,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/animation-reverse/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "modules/motion/test/core/animation-reverse.test.ts; spec/conformance/animation-reverse; modules/motion/test/web/browser.test.ts; tests/oracle/animation-reverse",
-   "phase": "P4"
+   "phase": "P4b"
   }
  },
  {
@@ -2800,10 +2792,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/animation-seek/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "tests/oracle/animation-seek; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
-   "phase": "P4",
-   "reason": "Native timeline sample poses verified with a Joystick; host clock/event semantics remain browser/unit observations. See tests/oracle/MOTION-PROBES.md."
+   "phase": "P4b"
   }
  },
  {
@@ -2857,9 +2848,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/animation-work-area/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "modules/motion/test/core/animation-work-area.test.ts; spec/conformance/animation-work-area; modules/motion/test/web/browser.test.ts; tests/oracle/animation-work-area",
-   "phase": "P4"
+   "phase": "P4b"
   }
  },
  {
@@ -15416,10 +15407,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/host-api-animation-metadata/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-animation-metadata/skip.json (no faithful headless counterpart)",
-   "phase": "P4",
-   "reason": "No faithful headless counterpart: Inspect resolves authored scene definitions, but cannot observe detached runtime metadata snapshots, handle identity or mutation isolation of the animations/info API. See tests/oracle/MOTION-PROBES.md."
+   "phase": "P4b"
   }
  },
  {
@@ -17368,10 +17358,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/host-api-low-level-animation/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-animation/skip.json (no faithful headless counterpart)",
-   "phase": "P4",
-   "reason": "No faithful headless counterpart: No headless command separately advances an animation instance clock and applies it with a mix. Script-side Animation.advance applies immediately, so it cannot establish the split advance/apply contract or didLoop reset. See tests/oracle/MOTION-PROBES.md."
+   "phase": "P4b"
   }
  },
  {
@@ -17461,10 +17450,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/host-api-low-level-scene-query/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-scene-query/skip.json (no faithful headless counterpart)",
-   "phase": "P4",
-   "reason": "No faithful headless counterpart: The command runner offers capture/data/semantics, not typed scene handles, type-mismatch queries or local/world matrix reads. Authored-scene inspect is not a resolved runtime handle query; future bone/text handles are outside this module. See tests/oracle/MOTION-PROBES.md."
+   "phase": "P4b"
   }
  },
  {
@@ -17625,10 +17613,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/host-api-multi-state-machine/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-multi-state-machine/skip.json (no faithful headless counterpart)",
-   "phase": "P4",
-   "reason": "No faithful headless counterpart: The headless runner selects one default state machine per artboard. It has no command to create independently named machines over the same scene, with isolated inputs and creation-order composition. Nested artboards do not share that scene. See tests/oracle/MOTION-PROBES.md."
+   "phase": "P4b"
   }
  },
  {
@@ -18270,10 +18257,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/host-api-scrub/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "tests/oracle/host-api-scrub; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
-   "phase": "P4",
-   "reason": "Native work-area scrub poses verified with a Joystick; host pause/event semantics remain browser/unit observations. See tests/oracle/MOTION-PROBES.md."
+   "phase": "P4b"
   }
  },
  {
@@ -28375,9 +28361,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/state-machine-exit-time-seconds/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "modules/motion/test/core/state-machine-exit-time-seconds.test.ts; spec/conformance/state-machine-exit-time-seconds; modules/motion/test/web/browser.test.ts; tests/oracle/state-machine-exit-time-seconds",
-   "phase": "P4"
+   "phase": "P4b"
   }
  },
  {
@@ -34172,10 +34158,9 @@
   "anima": {
    "construct": "SPEC motion; modules/motion/capabilities/transforms-origin-animation/example.animl; modules/motion/core/",
    "module": "motion",
-   "status": "planned",
+   "status": "done",
    "test": "tests/oracle/transforms-origin-animation; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
-   "phase": "P4",
-   "reason": "Native equivalent nested-transform pivot frames verified (max 1, 0% over 16); fractional origin equivalence is not claimed. See tests/oracle/MOTION-PROBES.md."
+   "phase": "P4b"
   }
  },
  {

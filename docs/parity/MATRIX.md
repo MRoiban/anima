@@ -15,9 +15,9 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | Category | Total | done | spec'd | planned | deferred | maybe-later | wont-do |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Drawing and paint | 125 | 88 |  | 37 |  |  |  |
-| Transforms and draw order | 17 | 12 |  | 5 |  |  |  |
-| Animation | 40 | 16 |  | 24 |  |  |  |
-| State machines | 61 | 25 |  | 36 |  |  |  |
+| Transforms and draw order | 17 | 13 |  | 4 |  |  |  |
+| Animation | 40 | 31 |  | 9 |  |  |  |
+| State machines | 61 | 26 |  | 35 |  |  |  |
 | Listeners and input | 93 | 13 |  | 80 |  |  |  |
 | Data: view models, binding, converters | 169 | 16 |  | 153 |  |  |  |
 | Events | 18 | 2 |  | 16 |  |  |  |
@@ -29,10 +29,10 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | GPU | 35 |  |  | 8 |  | 27 |  |
 | Assets | 50 | 6 |  | 44 |  |  |  |
 | Accessibility | 63 | 5 |  | 58 |  |  |  |
-| Host runtime API | 125 | 24 |  | 97 |  | 4 |  |
+| Host runtime API | 125 | 29 |  | 92 |  | 4 |  |
 | Platforms | 64 | 2 |  | 8 |  | 54 |  |
 | Tooling | 119 | 14 |  | 50 | 1 | 51 | 3 |
-| **Total** | **1238** | **237** | **0** | **835** | **1** | **162** | **3** |
+| **Total** | **1238** | **259** | **0** | **813** | **1** | **162** | **3** |
 
 | Phase | Rows |
 |---|---:|
@@ -42,7 +42,8 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | [P3](#p3) — Done: the playground/inspector and the web host API | 15 |
 | [P3b](#p3b) — The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras | 139 |
 | [P4a](#p4a) — Done: paint and composite on the module system and the draw layer | 46 |
-| [P4](#p4) — Interaction, paint, events and data binding | 365 |
+| [P4b](#p4b) — Done: motion — eases, typed tracks, timeline control, mixing, host timeline API | 22 |
+| [P4](#p4) — Interaction, paint, events and data binding | 343 |
 | [P5](#p5) — Done: components, bindings, assets, images, n-slice and feathering | 61 |
 | [P5b](#p5b) — The rest of P5: asset pipelines (encodings, imports), library detach/update, lists, script instances | 72 |
 | [Pc](#pc) — Done: the canvas backend (minimal), brought forward from P10 | 3 |
@@ -493,6 +494,50 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `transforms.draw-target-after` | Draw target after | drawOrder: {target,position,active}; hold track on drawOrder.active | composite | done | modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts |
 | `transforms.draw-target-before` | Draw target before | drawOrder: {target,position,active}; hold track on drawOrder.active | composite | done | modules/composite/test/core/paint-composite.test.ts; modules/composite/test/web/paint-composite.test.ts |
 
+## P4b — Done: motion — eases, typed tracks, timeline control, mixing, host timeline API <a id="p4b"></a>
+
+### Transforms and draw order
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `transforms.origin-animation` | Animated origins | SPEC motion; modules/motion/capabilities/transforms-origin-animation/example.animl; modules/motion/core/ | motion | done | tests/oracle/transforms-origin-animation; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts |
+
+### Animation
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `animation.cubic-value` | Cubic value curves | SPEC motion; modules/motion/capabilities/animation-cubic-value/example.animl; modules/motion/core/ | motion | done | modules/motion/test/core/animation-cubic-value.test.ts; spec/conformance/animation-cubic-value; modules/motion/test/web/browser.test.ts; tests/oracle/animation-cubic-value |
+| `animation.elastic-in` | Elastic in | SPEC motion; modules/motion/capabilities/animation-elastic-in/example.animl; modules/motion/core/ | motion | done | modules/motion/test/core/animation-elastic-in.test.ts; spec/conformance/animation-elastic-in; modules/motion/test/web/browser.test.ts; tests/oracle/animation-elastic-in |
+| `animation.elastic-in-out` | Elastic in-out | SPEC motion; modules/motion/capabilities/animation-elastic-in-out/example.animl; modules/motion/core/ | motion | done | modules/motion/test/core/animation-elastic-in-out.test.ts; spec/conformance/animation-elastic-in-out; modules/motion/test/web/browser.test.ts; tests/oracle/animation-elastic-in-out |
+| `animation.host-loop-override` | Host loop override | SPEC motion; modules/motion/capabilities/animation-host-loop-override/example.animl; modules/motion/core/ | motion | done | modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-loop-override/skip.json (no faithful headless counterpart) |
+| `animation.host-play-pause-stop` | Host playback controls | SPEC motion; modules/motion/capabilities/animation-host-play-pause-stop/example.animl; modules/motion/core/ | motion | done | modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-play-pause-stop/skip.json (no faithful headless counterpart) |
+| `animation.keys-reference` | reference keyframes | SPEC motion; modules/motion/capabilities/animation-keys-reference/example.animl; modules/motion/core/ | motion | done | modules/motion/test/core/typed-oracle.test.ts; tests/oracle/animation-keys-reference/skip.json (no faithful headless counterpart) |
+| `animation.keys-signed-integer` | signed-integer keyframes | SPEC motion; modules/motion/capabilities/animation-keys-signed-integer/example.animl; modules/motion/core/ | motion | done | modules/motion/test/core/typed-oracle.test.ts; tests/oracle/animation-keys-signed-integer/skip.json (no faithful headless counterpart) |
+| `animation.keys-string` | string keyframes | SPEC motion; modules/motion/capabilities/animation-keys-string/example.animl; modules/motion/core/ | motion | done | tests/oracle/animation-keys-string; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts |
+| `animation.keys-unsigned-integer` | unsigned-integer keyframes | SPEC motion; modules/motion/capabilities/animation-keys-unsigned-integer/example.animl; modules/motion/core/ | motion | done | tests/oracle/animation-keys-unsigned-integer (0/7/42/2147483520, tolerance 0); modules/motion/test/core/typed-oracle.test.ts (4294967295 round-trip); spec/conformance/animation-keys-unsigned-integer |
+| `animation.mix-discrete` | Discrete mix writes | SPEC motion; modules/motion/capabilities/animation-mix-discrete/example.animl; modules/motion/core/ | motion | done | tests/oracle/animation-mix-discrete; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts |
+| `animation.mix-numeric` | Weighted numeric application | SPEC motion; modules/motion/capabilities/animation-mix-numeric/example.animl; modules/motion/core/ | motion | done | tests/oracle/animation-mix-numeric; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts |
+| `animation.quantized-playback` | Quantized playback | SPEC motion; modules/motion/capabilities/animation-quantized-playback/example.animl; modules/motion/core/ | motion | done | modules/motion/test/core/animation-quantized-playback.test.ts; spec/conformance/animation-quantized-playback; modules/motion/test/web/browser.test.ts; tests/oracle/animation-quantized-playback |
+| `animation.reverse` | Reverse playback | SPEC motion; modules/motion/capabilities/animation-reverse/example.animl; modules/motion/core/ | motion | done | modules/motion/test/core/animation-reverse.test.ts; spec/conformance/animation-reverse; modules/motion/test/web/browser.test.ts; tests/oracle/animation-reverse |
+| `animation.seek` | Host timeline seeking | SPEC motion; modules/motion/capabilities/animation-seek/example.animl; modules/motion/core/ | motion | done | tests/oracle/animation-seek; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts |
+| `animation.work-area` | Playback work area | SPEC motion; modules/motion/capabilities/animation-work-area/example.animl; modules/motion/core/ | motion | done | modules/motion/test/core/animation-work-area.test.ts; spec/conformance/animation-work-area; modules/motion/test/web/browser.test.ts; tests/oracle/animation-work-area |
+
+### State machines
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `state-machine.exit-time-seconds` | Absolute exit time | SPEC motion; modules/motion/capabilities/state-machine-exit-time-seconds/example.animl; modules/motion/core/ | motion | done | modules/motion/test/core/state-machine-exit-time-seconds.test.ts; spec/conformance/state-machine-exit-time-seconds; modules/motion/test/web/browser.test.ts; tests/oracle/state-machine-exit-time-seconds |
+
+### Host runtime API
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `host-api.animation-metadata` | Animation metadata and clock | SPEC motion; modules/motion/capabilities/host-api-animation-metadata/example.animl; modules/motion/core/ | motion | done | modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-animation-metadata/skip.json (no faithful headless counterpart) |
+| `host-api.low-level-animation` | Animation mixing control | SPEC motion; modules/motion/capabilities/host-api-low-level-animation/example.animl; modules/motion/core/ | motion | done | modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-animation/skip.json (no faithful headless counterpart) |
+| `host-api.low-level-scene-query` | Scene component lookup | SPEC motion; modules/motion/capabilities/host-api-low-level-scene-query/example.animl; modules/motion/core/ | motion | done | modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-scene-query/skip.json (no faithful headless counterpart) |
+| `host-api.multi-state-machine` | Multiple concurrent state machines | SPEC motion; modules/motion/capabilities/host-api-multi-state-machine/example.animl; modules/motion/core/ | motion | done | modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-multi-state-machine/skip.json (no faithful headless counterpart) |
+| `host-api.scrub` | Scrub timeline | SPEC motion; modules/motion/capabilities/host-api-scrub/example.animl; modules/motion/core/ | motion | done | tests/oracle/host-api-scrub; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts |
+
 ## P4 — Interaction, paint, events and data binding <a id="p4"></a>
 
 ### Drawing and paint
@@ -519,34 +564,18 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 ### Transforms and draw order
 
-| Id | Capability | Anima construct | Module | Status | Test | Reason |
-|---|---|---|---|---|---|---|
-| `transforms.collapse` | Collapse propagation | new: explicit collapsed subtree state | interaction | planned | conformance/collapse |  |
-| `transforms.computed-transform-values` | Read computed geometry | new: computed geometry read-only property paths | data | planned | conformance/computed-transform-values |  |
-| `transforms.origin-animation` | Animated origins | SPEC motion; modules/motion/capabilities/transforms-origin-animation/example.animl; modules/motion/core/ | motion | planned | tests/oracle/transforms-origin-animation; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts | Native equivalent nested-transform pivot frames verified (max 1, 0% over 16); fractional origin equivalence is not claimed. See tests/oracle/MOTION-PROBES.md. |
-| `transforms.solo` | Solo child selection | new: solo node with active child | interaction | planned | conformance/solo |  |
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `transforms.collapse` | Collapse propagation | new: explicit collapsed subtree state | interaction | planned | conformance/collapse |
+| `transforms.computed-transform-values` | Read computed geometry | new: computed geometry read-only property paths | data | planned | conformance/computed-transform-values |
+| `transforms.solo` | Solo child selection | new: solo node with active child | interaction | planned | conformance/solo |
 
 ### Animation
 
-| Id | Capability | Anima construct | Module | Status | Test | Reason |
-|---|---|---|---|---|---|---|
-| `animation.cubic-value` | Cubic value curves | SPEC motion; modules/motion/capabilities/animation-cubic-value/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-cubic-value.test.ts; spec/conformance/animation-cubic-value; modules/motion/test/web/browser.test.ts; tests/oracle/animation-cubic-value |  |
-| `animation.elastic-in` | Elastic in | SPEC motion; modules/motion/capabilities/animation-elastic-in/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-elastic-in.test.ts; spec/conformance/animation-elastic-in; modules/motion/test/web/browser.test.ts; tests/oracle/animation-elastic-in |  |
-| `animation.elastic-in-out` | Elastic in-out | SPEC motion; modules/motion/capabilities/animation-elastic-in-out/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-elastic-in-out.test.ts; spec/conformance/animation-elastic-in-out; modules/motion/test/web/browser.test.ts; tests/oracle/animation-elastic-in-out |  |
-| `animation.host-loop-override` | Host loop override | SPEC motion; modules/motion/capabilities/animation-host-loop-override/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-loop-override/skip.json (no faithful headless counterpart) | No faithful headless counterpart: The headless command runner has no per-animation loop override or authored-mode restore operation. Authored loopValue scenes cannot observe mutation of an existing host instance. See tests/oracle/MOTION-PROBES.md. |
-| `animation.host-play-pause-stop` | Host playback controls | SPEC motion; modules/motion/capabilities/animation-host-play-pause-stop/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-play-pause-stop/skip.json (no faithful headless counterpart) | No faithful headless counterpart: The headless command runner has no animation-instance play/pause/stop controls. Advancing zero seconds or switching a state cannot establish paused writes, resume clocks and stop removal of writes on one instance. See tests/oracle/MOTION-PROBES.md. |
-| `animation.key-event-target` | Keyed event callbacks | new: timeline event object references and payloads | events | planned | conformance/key-event-target |  |
-| `animation.keys-reference` | reference keyframes | SPEC motion; modules/motion/capabilities/animation-keys-reference/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/typed-oracle.test.ts; tests/oracle/animation-keys-reference/skip.json (no faithful headless counterpart) | No faithful headless counterpart: Native KeyFrameId has consuming properties such as Solo.activeComponentId that select geometry. Anima reference channels store validated scene-node IDs without changing geometry. No arbitrary node-ID data channel is exposed in the headless data dump; a Solo frame would test different semantics. See tests/oracle/MOTION-PROBES.md. |
-| `animation.keys-signed-integer` | signed-integer keyframes | SPEC motion; modules/motion/capabilities/animation-keys-signed-integer/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/typed-oracle.test.ts; tests/oracle/animation-keys-signed-integer/skip.json (no faithful headless counterpart) | No faithful headless counterpart: The local schema exposes KeyFrameInt but no general signed-int custom/view-model channel: CustomPropertyNumber and ViewModelInstanceNumber are doubles; BindablePropertyInteger is uint and not animatable. Keying doubles with integer-looking values cannot establish signed 32-bit hold storage. No faithful headless signed channel observation was found. See tests/oracle/MOTION-PROBES.md. |
-| `animation.keys-string` | string keyframes | SPEC motion; modules/motion/capabilities/animation-keys-string/example.animl; modules/motion/core/ | motion | planned | tests/oracle/animation-keys-string; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts | Native KeyFrameString hold samples verified by exact data dumps. See tests/oracle/MOTION-PROBES.md. |
-| `animation.keys-unsigned-integer` | unsigned-integer keyframes | SPEC motion; modules/motion/capabilities/animation-keys-unsigned-integer/example.animl; modules/motion/core/ | motion | planned | tests/oracle/animation-keys-unsigned-integer (0/7/42/2147483520, tolerance 0); modules/motion/test/core/typed-oracle.test.ts (4294967295 round-trip); spec/conformance/animation-keys-unsigned-integer | Native uint comparison verified in the exactly observable number-dump range; 4294967295 is independently verified in Anima. Historical dump -1 vs uint 4294967295 is an observation-path note, not a failing test. See tests/oracle/MOTION-PROBES.md. |
-| `animation.loop-callback` | Loop notifications | new: timeline loop event | events | planned | conformance/loop-callback |  |
-| `animation.mix-discrete` | Discrete mix writes | SPEC motion; modules/motion/capabilities/animation-mix-discrete/example.animl; modules/motion/core/ | motion | planned | tests/oracle/animation-mix-discrete; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts | Native positive-weight boolean replacement verified by exact data dump; other typed channel mixing is unit/conformance covered. See tests/oracle/MOTION-PROBES.md. |
-| `animation.mix-numeric` | Weighted numeric application | SPEC motion; modules/motion/capabilities/animation-mix-numeric/example.animl; modules/motion/core/ | motion | planned | tests/oracle/animation-mix-numeric; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts | Native two-animation mixing verified at weights 0/25/50/100% (max 1, 0% over 16). See tests/oracle/MOTION-PROBES.md. |
-| `animation.quantized-playback` | Quantized playback | SPEC motion; modules/motion/capabilities/animation-quantized-playback/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-quantized-playback.test.ts; spec/conformance/animation-quantized-playback; modules/motion/test/web/browser.test.ts; tests/oracle/animation-quantized-playback |  |
-| `animation.reverse` | Reverse playback | SPEC motion; modules/motion/capabilities/animation-reverse/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-reverse.test.ts; spec/conformance/animation-reverse; modules/motion/test/web/browser.test.ts; tests/oracle/animation-reverse |  |
-| `animation.seek` | Host timeline seeking | SPEC motion; modules/motion/capabilities/animation-seek/example.animl; modules/motion/core/ | motion | planned | tests/oracle/animation-seek; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts | Native timeline sample poses verified with a Joystick; host clock/event semantics remain browser/unit observations. See tests/oracle/MOTION-PROBES.md. |
-| `animation.work-area` | Playback work area | SPEC motion; modules/motion/capabilities/animation-work-area/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/animation-work-area.test.ts; spec/conformance/animation-work-area; modules/motion/test/web/browser.test.ts; tests/oracle/animation-work-area |  |
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `animation.key-event-target` | Keyed event callbacks | new: timeline event object references and payloads | events | planned | conformance/key-event-target |
+| `animation.loop-callback` | Loop notifications | new: timeline loop event | events | planned | conformance/loop-callback |
 
 ### State machines
 
@@ -569,7 +598,6 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `state-machine.entry-state` | Conditional entry state | new: layer entry transition list | interaction | planned | conformance/entry-state |
 | `state-machine.exit-state` | Exit states | new: state kind exit | interaction | planned | conformance/exit-state |
 | `state-machine.exit-time-relative` | Relative exit time | new: transition.exitFraction; @end for one-shot 100% case | interaction | planned | conformance/exit-time-relative |
-| `state-machine.exit-time-seconds` | Absolute exit time | SPEC motion; modules/motion/capabilities/state-machine-exit-time-seconds/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/state-machine-exit-time-seconds.test.ts; spec/conformance/state-machine-exit-time-seconds; modules/motion/test/web/browser.test.ts; tests/oracle/state-machine-exit-time-seconds |
 | `state-machine.literal-artboard` | artboard comparison literal | new: typed artboard literal in when expression | data | planned | conformance/literal-artboard |
 | `state-machine.literal-asset` | asset comparison literal | new: typed asset literal in when expression | data | planned | conformance/literal-asset |
 | `state-machine.literal-boolean` | boolean comparison literal | new: typed boolean literal in when expression | data | planned | conformance/literal-boolean |
@@ -853,57 +881,52 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 ### Host runtime API
 
-| Id | Capability | Anima construct | Module | Status | Test | Reason |
-|---|---|---|---|---|---|---|
-| `host-api.animation-metadata` | Animation metadata and clock | SPEC motion; modules/motion/capabilities/host-api-animation-metadata/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-animation-metadata/skip.json (no faithful headless counterpart) | No faithful headless counterpart: Inspect resolves authored scene definitions, but cannot observe detached runtime metadata snapshots, handle identity or mutation isolation of the animations/info API. See tests/oracle/MOTION-PROBES.md. |
-| `host-api.auto-bind` | Automatic data binding | new: <anima-icon auto-bind> | data | planned | browser/auto-bind |  |
-| `host-api.automatic-url-events` | Automatic URL actions | new: explicit host URL action policy | events | planned | browser/automatic-url-events |  |
-| `host-api.batched-binding` | Batch binding updates | new: data binding transaction | data | planned | browser/batched-binding |  |
-| `host-api.bind-view-model` | Explicit model binding | new: <anima-icon>.bind(instance) | data | planned | browser/bind-view-model |  |
-| `host-api.coordinate-mapping` | Coordinate transforms | new: Coordinate transforms | interaction | planned | browser/coordinate-mapping |  |
-| `host-api.data-artboard` | View model artboard | new: typed data.artboard(path) | data | planned | browser/data-artboard |  |
-| `host-api.data-boolean` | View model boolean | new: typed data.boolean(path) | data | planned | browser/data-boolean |  |
-| `host-api.data-color` | View model color | new: typed data.color(path) | data | planned | browser/data-color |  |
-| `host-api.data-enum` | View model enum | new: typed data.enum(path) | data | planned | browser/data-enum |  |
-| `host-api.data-font` | View model font | new: typed data.font(path) | data | planned | browser/data-font |  |
-| `host-api.data-image` | View model image | new: typed data.image(path) | data | planned | browser/data-image |  |
-| `host-api.data-list` | View model lists | new: typed data lists | data | planned | browser/data-list |  |
-| `host-api.data-number` | View model number | new: typed data.number(path) | data | planned | browser/data-number |  |
-| `host-api.data-reflection` | Property reflection | new: inspectable typed data schema | data | planned | browser/data-reflection |  |
-| `host-api.data-string` | View model string | new: typed data.string(path) | data | planned | browser/data-string |  |
-| `host-api.data-subscriptions` | Property subscriptions | new: data property subscriptions | data | planned | browser/data-subscriptions |  |
-| `host-api.data-trigger` | View model trigger | new: typed data.trigger(path) | data | planned | browser/data-trigger |  |
-| `host-api.dom-listener-control` | Automatic pointer wiring | new: <anima-icon interactive> | interaction | planned | browser/dom-listener-control |  |
-| `host-api.event-advance` | Callback: Advance | new: anima:advance DOM event | events | planned | browser/event-advance |  |
-| `host-api.event-draw` | Callback: Draw | new: anima:draw DOM event | events | planned | browser/event-draw |  |
-| `host-api.event-load` | Callback: Load | new: anima:load DOM event | events | planned | browser/event-load |  |
-| `host-api.event-loaderror` | Callback: LoadError | new: anima:loaderror DOM event | events | planned | browser/event-loaderror |  |
-| `host-api.event-loop` | Callback: Loop | new: anima:loop DOM event | events | planned | browser/event-loop |  |
-| `host-api.event-pause` | Callback: Pause | new: anima:pause DOM event | events | planned | browser/event-pause |  |
-| `host-api.event-play` | Callback: Play | new: anima:play DOM event | events | planned | browser/event-play |  |
-| `host-api.event-riveevent` | Callback: RiveEvent | new: anima:riveevent DOM event | events | planned | browser/event-riveevent |  |
-| `host-api.event-statechange` | Callback: StateChange | new: anima:statechange DOM event | events | planned | browser/event-statechange |  |
-| `host-api.event-stop` | Callback: Stop | new: anima:stop DOM event | events | planned | browser/event-stop |  |
-| `host-api.event-subscriptions` | Subscribe to player events | new: DOM event lifecycle callbacks | events | planned | browser/event-subscriptions |  |
-| `host-api.factory` | Custom resource factory | new: Custom resource factory | paint | planned | browser/factory |  |
-| `host-api.gamepad` | Gamepad wiring | new: opt-in gamepad adapter | interaction | planned | browser/gamepad |  |
-| `host-api.global-models` | Global view models | new: document-scoped shared data contexts | data | planned | browser/global-models |  |
-| `host-api.low-level-animation` | Animation mixing control | SPEC motion; modules/motion/capabilities/host-api-low-level-animation/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-animation/skip.json (no faithful headless counterpart) | No faithful headless counterpart: No headless command separately advances an animation instance clock and applies it with a mix. Script-side Animation.advance applies immediately, so it cannot establish the split advance/apply contract or didLoop reset. See tests/oracle/MOTION-PROBES.md. |
-| `host-api.low-level-pointer` | Manual pointer forwarding | Player.pointer(kind,x,y), extend with pointer IDs | interaction | planned | browser/low-level-pointer |  |
-| `host-api.low-level-scene-query` | Scene component lookup | SPEC motion; modules/motion/capabilities/host-api-low-level-scene-query/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-scene-query/skip.json (no faithful headless counterpart) | No faithful headless counterpart: The command runner offers capture/data/semantics, not typed scene handles, type-mismatch queries or local/world matrix reads. Authored-scene inspect is not a resolved runtime handle query; future bone/text handles are outside this module. See tests/oracle/MOTION-PROBES.md. |
-| `host-api.low-level-scroll` | Manual scroll forwarding | new: Player.scroll(x,y,dx,dy) | interaction | planned | browser/low-level-scroll |  |
-| `host-api.manual-gamepad-batch` | Manual gamepad batches | new: Manual gamepad batches | interaction | planned | browser/manual-gamepad-batch |  |
-| `host-api.multi-state-machine` | Multiple concurrent state machines | SPEC motion; modules/motion/capabilities/host-api-multi-state-machine/example.animl; modules/motion/core/ | motion | planned | modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-multi-state-machine/skip.json (no faithful headless counterpart) | No faithful headless counterpart: The headless runner selects one default state machine per artboard. It has no command to create independently named machines over the same scene, with isolated inputs and creation-order composition. Nested artboards do not share that scene. See tests/oracle/MOTION-PROBES.md. |
-| `host-api.multitouch` | Multiple touch contacts | new: pointer-id aware core.pointer | interaction | planned | browser/multitouch |  |
-| `host-api.nested-models` | Nested view model paths | new: typed property paths | data | planned | browser/nested-models |  |
-| `host-api.pointer-exit` | Synthetic pointer exit policy | new: pointer exit policy | interaction | planned | browser/pointer-exit |  |
-| `host-api.renderer` | Custom renderer bridge | new: Custom renderer bridge | paint | planned | browser/renderer |  |
-| `host-api.scroll-hit-policy` | Scroll target inspection | new: Scroll target inspection | interaction | planned | browser/scroll-hit-policy |  |
-| `host-api.scroll-latching` | Scroll gesture lifecycle | new: Scroll gesture lifecycle | interaction | planned | browser/scroll-latching |  |
-| `host-api.scrub` | Scrub timeline | SPEC motion; modules/motion/capabilities/host-api-scrub/example.animl; modules/motion/core/ | motion | planned | tests/oracle/host-api-scrub; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts | Native work-area scrub poses verified with a Joystick; host pause/event semantics remain browser/unit observations. See tests/oracle/MOTION-PROBES.md. |
-| `host-api.view-model-discovery` | Discover view models | new: scene.data.models() | data | planned | browser/view-model-discovery |  |
-| `host-api.view-model-instances` | Create view model instances | new: typed model instance factory | data | planned | browser/view-model-instances |  |
-| `host-api.volume` | Artboard volume | new: <anima-icon>.volume | audio | planned | browser/volume |  |
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `host-api.auto-bind` | Automatic data binding | new: <anima-icon auto-bind> | data | planned | browser/auto-bind |
+| `host-api.automatic-url-events` | Automatic URL actions | new: explicit host URL action policy | events | planned | browser/automatic-url-events |
+| `host-api.batched-binding` | Batch binding updates | new: data binding transaction | data | planned | browser/batched-binding |
+| `host-api.bind-view-model` | Explicit model binding | new: <anima-icon>.bind(instance) | data | planned | browser/bind-view-model |
+| `host-api.coordinate-mapping` | Coordinate transforms | new: Coordinate transforms | interaction | planned | browser/coordinate-mapping |
+| `host-api.data-artboard` | View model artboard | new: typed data.artboard(path) | data | planned | browser/data-artboard |
+| `host-api.data-boolean` | View model boolean | new: typed data.boolean(path) | data | planned | browser/data-boolean |
+| `host-api.data-color` | View model color | new: typed data.color(path) | data | planned | browser/data-color |
+| `host-api.data-enum` | View model enum | new: typed data.enum(path) | data | planned | browser/data-enum |
+| `host-api.data-font` | View model font | new: typed data.font(path) | data | planned | browser/data-font |
+| `host-api.data-image` | View model image | new: typed data.image(path) | data | planned | browser/data-image |
+| `host-api.data-list` | View model lists | new: typed data lists | data | planned | browser/data-list |
+| `host-api.data-number` | View model number | new: typed data.number(path) | data | planned | browser/data-number |
+| `host-api.data-reflection` | Property reflection | new: inspectable typed data schema | data | planned | browser/data-reflection |
+| `host-api.data-string` | View model string | new: typed data.string(path) | data | planned | browser/data-string |
+| `host-api.data-subscriptions` | Property subscriptions | new: data property subscriptions | data | planned | browser/data-subscriptions |
+| `host-api.data-trigger` | View model trigger | new: typed data.trigger(path) | data | planned | browser/data-trigger |
+| `host-api.dom-listener-control` | Automatic pointer wiring | new: <anima-icon interactive> | interaction | planned | browser/dom-listener-control |
+| `host-api.event-advance` | Callback: Advance | new: anima:advance DOM event | events | planned | browser/event-advance |
+| `host-api.event-draw` | Callback: Draw | new: anima:draw DOM event | events | planned | browser/event-draw |
+| `host-api.event-load` | Callback: Load | new: anima:load DOM event | events | planned | browser/event-load |
+| `host-api.event-loaderror` | Callback: LoadError | new: anima:loaderror DOM event | events | planned | browser/event-loaderror |
+| `host-api.event-loop` | Callback: Loop | new: anima:loop DOM event | events | planned | browser/event-loop |
+| `host-api.event-pause` | Callback: Pause | new: anima:pause DOM event | events | planned | browser/event-pause |
+| `host-api.event-play` | Callback: Play | new: anima:play DOM event | events | planned | browser/event-play |
+| `host-api.event-riveevent` | Callback: RiveEvent | new: anima:riveevent DOM event | events | planned | browser/event-riveevent |
+| `host-api.event-statechange` | Callback: StateChange | new: anima:statechange DOM event | events | planned | browser/event-statechange |
+| `host-api.event-stop` | Callback: Stop | new: anima:stop DOM event | events | planned | browser/event-stop |
+| `host-api.event-subscriptions` | Subscribe to player events | new: DOM event lifecycle callbacks | events | planned | browser/event-subscriptions |
+| `host-api.factory` | Custom resource factory | new: Custom resource factory | paint | planned | browser/factory |
+| `host-api.gamepad` | Gamepad wiring | new: opt-in gamepad adapter | interaction | planned | browser/gamepad |
+| `host-api.global-models` | Global view models | new: document-scoped shared data contexts | data | planned | browser/global-models |
+| `host-api.low-level-pointer` | Manual pointer forwarding | Player.pointer(kind,x,y), extend with pointer IDs | interaction | planned | browser/low-level-pointer |
+| `host-api.low-level-scroll` | Manual scroll forwarding | new: Player.scroll(x,y,dx,dy) | interaction | planned | browser/low-level-scroll |
+| `host-api.manual-gamepad-batch` | Manual gamepad batches | new: Manual gamepad batches | interaction | planned | browser/manual-gamepad-batch |
+| `host-api.multitouch` | Multiple touch contacts | new: pointer-id aware core.pointer | interaction | planned | browser/multitouch |
+| `host-api.nested-models` | Nested view model paths | new: typed property paths | data | planned | browser/nested-models |
+| `host-api.pointer-exit` | Synthetic pointer exit policy | new: pointer exit policy | interaction | planned | browser/pointer-exit |
+| `host-api.renderer` | Custom renderer bridge | new: Custom renderer bridge | paint | planned | browser/renderer |
+| `host-api.scroll-hit-policy` | Scroll target inspection | new: Scroll target inspection | interaction | planned | browser/scroll-hit-policy |
+| `host-api.scroll-latching` | Scroll gesture lifecycle | new: Scroll gesture lifecycle | interaction | planned | browser/scroll-latching |
+| `host-api.view-model-discovery` | Discover view models | new: scene.data.models() | data | planned | browser/view-model-discovery |
+| `host-api.view-model-instances` | Create view model instances | new: typed model instance factory | data | planned | browser/view-model-instances |
+| `host-api.volume` | Artboard volume | new: <anima-icon>.volume | audio | planned | browser/volume |
 
 ## P5 — Done: components, bindings, assets, images, n-slice and feathering <a id="p5"></a>
 

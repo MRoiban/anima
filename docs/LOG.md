@@ -1500,3 +1500,27 @@ Verification: `node tools/oracle.ts --strict` exit 0; all five uint samples delt
 `npx prettier --check .`, `npx eslint .`, parity generated-view and diff checks passed.
 Initial oracle run lacked dependencies; `npm ci` restored tooling. No full-suite claim,
 push, PR or merge. Local commit only.
+
+## P4b — motion (2026-11-07)
+
+- **`motion` module** (feature `motion`): elastic-in / elastic-in-out and value-cubic eases;
+  integer (signed/unsigned), string and reference hold tracks with discrete mixing; timeline
+  `quantize`, `work` area, negative speed / reverse with event crossing; exit time relative to the
+  source animation; animatable `pivot`. Host/player API: per-timeline seek and scrub, play / pause /
+  stop and loop override, explicit timeline instances with mix weights, named state-machine
+  instances, animation metadata, typed node handles (docs/WEB.md).
+- **Declarative timeline control** (from the benchmark): `sync` (reverse from the current point),
+  `exitNext="step|loop"` and `hold` (finish the step, keep the frame), an input-driven timeline
+  `time` (scrub by binding); `anima docs <module>` for every module chapter.
+- **Verification**: 37 new conformance cases; 6 Rive oracle cases verified (pivot, seek, scrub,
+  discrete and numeric mixing, strings) plus uint in range; 8 rows with documented
+  no-faithful-counterpart notes (host-runtime APIs the headless Rive CLI cannot observe), covered by
+  browser and unit tests; strict oracle exits 0. Rive's data dump reports uint 4294967295 as −1 and
+  2147483647 as 2147483648 (documented, not compared).
+- **Benchmark** (sync button): AniML 4/6 → 5/6 after the declarative controls (4 min 46 s, 64 lines);
+  Rive 5/6 (5 min 19 s, 911 lines). Open: reduced motion switched mid-loop (spec decision, P3b).
+- **Numbers** (main after Pc → P4b): core + web 17 963 → 19 012 B (+1 049 B: motion hooks in core
+  and web plus the declarative controls; inside the 30 KB ceiling); motion 6 009 / 8 192 B;
+  full-featured 51.4 KB / 100 KB; Rive-class 55.6 KB / 250 KB; compile bell 2.08 ms, prefix sweep
+  712 ms; frame bell 39.2 µs, composite 25.8 µs, toolbar 29.3 µs (load-dependent).
+- **Parity**: 22 rows done (259 / 1 238).
