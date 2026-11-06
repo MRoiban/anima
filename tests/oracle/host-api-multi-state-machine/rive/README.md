@@ -1,4 +1,6 @@
-# Pending native observation
+# No faithful headless counterpart
 
-Implementation is covered by deterministic conformance and Chromium/Firefox API tests; an independent native Rive runtime/API oracle has not been captured. A static frame cannot establish this API/storage behavior.
-No reference capture or parity completion is claimed.
+The headless runner selects one default state machine per artboard. It has no command to create independently named machines over the same scene, with isolated inputs and creation-order composition. Nested artboards do not share that scene.
+
+Anima coverage: `modules/motion/test/core/runtime.test.ts`, `modules/motion/test/web/browser.test.ts`.
+No native equivalence is claimed. See [probe report](../../MOTION-PROBES.md).

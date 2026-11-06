@@ -1,0 +1,8 @@
+data v=0
+screenshot frames/0.png
+data v=25.0
+screenshot frames/0.25.png
+data v=50.0
+screenshot frames/0.5.png
+data v=100
+screenshot frames/1.png

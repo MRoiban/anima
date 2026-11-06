@@ -1280,3 +1280,24 @@ Compared with the initial 2.21 ms / 794 ms, 52.9 / 30.8 / 39.0 µs and 4.62 ms,
 the single bell-compile median varied upward in the final run while the fixed prefix sweep
 and frame timings remained below the initial observations. The earlier after sample is retained
 above to show the timing variability. The original performance test limits are unchanged.
+
+
+## P4b-2 — motion oracle probe dispositions (2026-11-06)
+
+Resolved all 15 pending motion markers: 6 oracle-verified, 8 documented no-faithful-counterpart
+skips, 1 retained uint dump finding. Four new image probes add 15 frames (max delta 1,
+0% over 16); boolean/string dumps match exactly. Native uint dump is -1 versus Anima
+4294967295 at 1.1/2 s (delta 4294967296, tolerance 0). No tolerance changed.
+`tests/oracle/MOTION-PROBES.md` records every mapping, capture, skip reason and test path.
+Native pivot uses equivalent nested transforms; seek/scrub compare poses through a native
+Joystick, with host clock/event guarantees covered by browser tests. Rive CLI local commands
+only; no account operations, interactive preview, copied docs or binary reads/conversions.
+
+Scoped suite with `VITEST_MAX_WORKERS=2 npm run test:scope -- motion oracle conformance`:
+34 files, 620 pass + 1 explicit expected failure. A separate ordinary test requires the exact
+uint discrepancy; `node tools/oracle.ts --strict` exits 1. This is not full native parity.
+An earlier default-worker run hit the existing bell-prefix 5 s timeout while other tooling
+ran; no timeout/assertion changed. `npx tsc -p tools` passed. No runtime behavior changed.
+
+Final `npx prettier --check .`, `npx eslint .`, generated parity/module checks and
+full local oracle recapture passed their checks; strict comparison reproduced only the uint finding.

@@ -726,9 +726,9 @@
   "construct": "SPEC motion; modules/motion/capabilities/animation-host-loop-override/example.animl; modules/motion/core/",
   "module": "motion",
   "status": "planned",
-  "test": "modules/motion/test/core/animation-host-loop-override.test.ts; spec/conformance/animation-host-loop-override; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-loop-override",
+  "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-loop-override/skip.json (no faithful headless counterpart)",
   "phase": "P4",
-  "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-host-loop-override/README.md."
+  "reason": "No faithful headless counterpart: The headless command runner has no per-animation loop override or authored-mode restore operation. Authored loopValue scenes cannot observe mutation of an existing host instance. See tests/oracle/MOTION-PROBES.md."
  },
  {
   "id": "animation.host-play-pause-stop",
@@ -737,9 +737,9 @@
   "construct": "SPEC motion; modules/motion/capabilities/animation-host-play-pause-stop/example.animl; modules/motion/core/",
   "module": "motion",
   "status": "planned",
-  "test": "modules/motion/test/core/animation-host-play-pause-stop.test.ts; spec/conformance/animation-host-play-pause-stop; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-play-pause-stop",
+  "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/animation-host-play-pause-stop/skip.json (no faithful headless counterpart)",
   "phase": "P4",
-  "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-host-play-pause-stop/README.md."
+  "reason": "No faithful headless counterpart: The headless command runner has no animation-instance play/pause/stop controls. Advancing zero seconds or switching a state cannot establish paused writes, resume clocks and stop removal of writes on one instance. See tests/oracle/MOTION-PROBES.md."
  },
  {
   "id": "animation.joystick-handle",
@@ -838,9 +838,9 @@
   "construct": "SPEC motion; modules/motion/capabilities/animation-keys-reference/example.animl; modules/motion/core/",
   "module": "motion",
   "status": "planned",
-  "test": "modules/motion/test/core/animation-keys-reference.test.ts; spec/conformance/animation-keys-reference; modules/motion/test/web/browser.test.ts; tests/oracle/animation-keys-reference",
+  "test": "modules/motion/test/core/typed-oracle.test.ts; tests/oracle/animation-keys-reference/skip.json (no faithful headless counterpart)",
   "phase": "P4",
-  "reason": "Anima reference channels hold validated node IDs; native Rive references can select other resource/object kinds. No faithful native consumer/frame mapping is claimed."
+  "reason": "No faithful headless counterpart: Native KeyFrameId has consuming properties such as Solo.activeComponentId that select geometry. Anima reference channels store validated scene-node IDs without changing geometry. No arbitrary node-ID data channel is exposed in the headless data dump; a Solo frame would test different semantics. See tests/oracle/MOTION-PROBES.md."
  },
  {
   "id": "animation.keys-signed-integer",
@@ -849,9 +849,9 @@
   "construct": "SPEC motion; modules/motion/capabilities/animation-keys-signed-integer/example.animl; modules/motion/core/",
   "module": "motion",
   "status": "planned",
-  "test": "modules/motion/test/core/animation-keys-signed-integer.test.ts; spec/conformance/animation-keys-signed-integer; modules/motion/test/web/browser.test.ts; tests/oracle/animation-keys-signed-integer",
+  "test": "modules/motion/test/core/typed-oracle.test.ts; tests/oracle/animation-keys-signed-integer/skip.json (no faithful headless counterpart)",
   "phase": "P4",
-  "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-keys-signed-integer/README.md."
+  "reason": "No faithful headless counterpart: The local schema exposes KeyFrameInt but no general signed-int custom/view-model channel: CustomPropertyNumber and ViewModelInstanceNumber are doubles; BindablePropertyInteger is uint and not animatable. Keying doubles with integer-looking values cannot establish signed 32-bit hold storage. No faithful headless signed channel observation was found. See tests/oracle/MOTION-PROBES.md."
  },
  {
   "id": "animation.keys-string",
@@ -860,9 +860,9 @@
   "construct": "SPEC motion; modules/motion/capabilities/animation-keys-string/example.animl; modules/motion/core/",
   "module": "motion",
   "status": "planned",
-  "test": "modules/motion/test/core/animation-keys-string.test.ts; spec/conformance/animation-keys-string; modules/motion/test/web/browser.test.ts; tests/oracle/animation-keys-string",
+  "test": "tests/oracle/animation-keys-string; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
   "phase": "P4",
-  "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-keys-string/README.md."
+  "reason": "Native KeyFrameString hold samples verified by exact data dumps. See tests/oracle/MOTION-PROBES.md."
  },
  {
   "id": "animation.keys-unsigned-integer",
@@ -871,9 +871,9 @@
   "construct": "SPEC motion; modules/motion/capabilities/animation-keys-unsigned-integer/example.animl; modules/motion/core/",
   "module": "motion",
   "status": "planned",
-  "test": "modules/motion/test/core/animation-keys-unsigned-integer.test.ts; spec/conformance/animation-keys-unsigned-integer; modules/motion/test/web/browser.test.ts; tests/oracle/animation-keys-unsigned-integer",
+  "test": "tests/oracle/animation-keys-unsigned-integer; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts (finding: uint dump -1 vs 4294967295)",
   "phase": "P4",
-  "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-keys-unsigned-integer/README.md."
+  "reason": "Retained finding: native uint-to-number dump -1 vs Anima 4294967295 at 1.1/2 s; delta 4294967296, tolerance 0; strict oracle fails. See tests/oracle/MOTION-PROBES.md."
  },
  {
   "id": "animation.linear-interpolation",
@@ -952,9 +952,9 @@
   "construct": "SPEC motion; modules/motion/capabilities/animation-mix-discrete/example.animl; modules/motion/core/",
   "module": "motion",
   "status": "planned",
-  "test": "modules/motion/test/core/animation-mix-discrete.test.ts; spec/conformance/animation-mix-discrete; modules/motion/test/web/browser.test.ts; tests/oracle/animation-mix-discrete",
+  "test": "tests/oracle/animation-mix-discrete; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
   "phase": "P4",
-  "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-mix-discrete/README.md."
+  "reason": "Native positive-weight boolean replacement verified by exact data dump; other typed channel mixing is unit/conformance covered. See tests/oracle/MOTION-PROBES.md."
  },
  {
   "id": "animation.mix-numeric",
@@ -963,9 +963,9 @@
   "construct": "SPEC motion; modules/motion/capabilities/animation-mix-numeric/example.animl; modules/motion/core/",
   "module": "motion",
   "status": "planned",
-  "test": "modules/motion/test/core/animation-mix-numeric.test.ts; spec/conformance/animation-mix-numeric; modules/motion/test/web/browser.test.ts; tests/oracle/animation-mix-numeric",
+  "test": "tests/oracle/animation-mix-numeric; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
   "phase": "P4",
-  "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-mix-numeric/README.md."
+  "reason": "Native two-animation mixing verified at weights 0/25/50/100% (max 1, 0% over 16). See tests/oracle/MOTION-PROBES.md."
  },
  {
   "id": "animation.quantized-playback",
@@ -1014,9 +1014,9 @@
   "construct": "SPEC motion; modules/motion/capabilities/animation-seek/example.animl; modules/motion/core/",
   "module": "motion",
   "status": "planned",
-  "test": "modules/motion/test/core/animation-seek.test.ts; spec/conformance/animation-seek; modules/motion/test/web/browser.test.ts; tests/oracle/animation-seek",
+  "test": "tests/oracle/animation-seek; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
   "phase": "P4",
-  "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/animation-seek/README.md."
+  "reason": "Native timeline sample poses verified with a Joystick; host clock/event semantics remain browser/unit observations. See tests/oracle/MOTION-PROBES.md."
  },
  {
   "id": "animation.speed",
@@ -5432,9 +5432,9 @@
   "construct": "SPEC motion; modules/motion/capabilities/host-api-animation-metadata/example.animl; modules/motion/core/",
   "module": "motion",
   "status": "planned",
-  "test": "modules/motion/test/core/host-api-animation-metadata.test.ts; spec/conformance/host-api-animation-metadata; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-animation-metadata",
+  "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-animation-metadata/skip.json (no faithful headless counterpart)",
   "phase": "P4",
-  "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/host-api-animation-metadata/README.md."
+  "reason": "No faithful headless counterpart: Inspect resolves authored scene definitions, but cannot observe detached runtime metadata snapshots, handle identity or mutation isolation of the animations/info API. See tests/oracle/MOTION-PROBES.md."
  },
  {
   "id": "host-api.artboard-selection",
@@ -6113,9 +6113,9 @@
   "construct": "SPEC motion; modules/motion/capabilities/host-api-low-level-animation/example.animl; modules/motion/core/",
   "module": "motion",
   "status": "planned",
-  "test": "modules/motion/test/core/host-api-low-level-animation.test.ts; spec/conformance/host-api-low-level-animation; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-animation",
+  "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-animation/skip.json (no faithful headless counterpart)",
   "phase": "P4",
-  "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/host-api-low-level-animation/README.md."
+  "reason": "No faithful headless counterpart: No headless command separately advances an animation instance clock and applies it with a mix. Script-side Animation.advance applies immediately, so it cannot establish the split advance/apply contract or didLoop reset. See tests/oracle/MOTION-PROBES.md."
  },
  {
   "id": "host-api.low-level-focus",
@@ -6144,9 +6144,9 @@
   "construct": "SPEC motion; modules/motion/capabilities/host-api-low-level-scene-query/example.animl; modules/motion/core/",
   "module": "motion",
   "status": "planned",
-  "test": "modules/motion/test/core/host-api-low-level-scene-query.test.ts; spec/conformance/host-api-low-level-scene-query; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-scene-query",
+  "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-low-level-scene-query/skip.json (no faithful headless counterpart)",
   "phase": "P4",
-  "reason": "Typed handles cover current Anima scene node types. Bone and text-run handles require the future rigging/text modules; no faithful counterpart for those types exists yet."
+  "reason": "No faithful headless counterpart: The command runner offers capture/data/semantics, not typed scene handles, type-mismatch queries or local/world matrix reads. Authored-scene inspect is not a resolved runtime handle query; future bone/text handles are outside this module. See tests/oracle/MOTION-PROBES.md."
  },
  {
   "id": "host-api.low-level-scroll",
@@ -6205,9 +6205,9 @@
   "construct": "SPEC motion; modules/motion/capabilities/host-api-multi-state-machine/example.animl; modules/motion/core/",
   "module": "motion",
   "status": "planned",
-  "test": "modules/motion/test/core/host-api-multi-state-machine.test.ts; spec/conformance/host-api-multi-state-machine; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-multi-state-machine",
+  "test": "modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-multi-state-machine/skip.json (no faithful headless counterpart)",
   "phase": "P4",
-  "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/host-api-multi-state-machine/README.md."
+  "reason": "No faithful headless counterpart: The headless runner selects one default state machine per artboard. It has no command to create independently named machines over the same scene, with isolated inputs and creation-order composition. Nested artboards do not share that scene. See tests/oracle/MOTION-PROBES.md."
  },
  {
   "id": "host-api.multitouch",
@@ -6450,9 +6450,9 @@
   "construct": "SPEC motion; modules/motion/capabilities/host-api-scrub/example.animl; modules/motion/core/",
   "module": "motion",
   "status": "planned",
-  "test": "modules/motion/test/core/host-api-scrub.test.ts; spec/conformance/host-api-scrub; modules/motion/test/web/browser.test.ts; tests/oracle/host-api-scrub",
+  "test": "tests/oracle/host-api-scrub; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
   "phase": "P4",
-  "reason": "Implemented and conformance/browser-tested; independent native Rive runtime/API oracle still pending. See modules/motion/capabilities/host-api-scrub/README.md."
+  "reason": "Native work-area scrub poses verified with a Joystick; host pause/event semantics remain browser/unit observations. See tests/oracle/MOTION-PROBES.md."
  },
  {
   "id": "host-api.semantic-overlay",
@@ -12516,9 +12516,9 @@
   "construct": "SPEC motion; modules/motion/capabilities/transforms-origin-animation/example.animl; modules/motion/core/",
   "module": "motion",
   "status": "planned",
-  "test": "modules/motion/test/core/transforms-origin-animation.test.ts; spec/conformance/transforms-origin-animation; modules/motion/test/web/browser.test.ts; tests/oracle/transforms-origin-animation",
+  "test": "tests/oracle/transforms-origin-animation; modules/motion/test/core/runtime.test.ts; modules/motion/test/web/browser.test.ts",
   "phase": "P4",
-  "reason": "Anima pivots change transform centres without moving local geometry; native Rive fractional shape origins also change geometry. Native origin frame equivalence is not claimed."
+  "reason": "Native equivalent nested-transform pivot frames verified (max 1, 0% over 16); fractional origin equivalence is not claimed. See tests/oracle/MOTION-PROBES.md."
  },
  {
   "id": "transforms.rotation",

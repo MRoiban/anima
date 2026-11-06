@@ -9,4 +9,4 @@ The shared registry is re-exported by `registry.ts`; the module composes it once
 - CLI/schema: generated schema plus module CLI tests and shared markup tests; no alternate evaluator.
 - Browser: `test/web/browser.test.ts` runs Chromium and Firefox.
 - Size: manifest ceiling 8192 B, measured with the unchanged `tools/size.ts` method.
-- Pending oracle / mapping limit: Typed handles cover current Anima scene node types. Bone and text-run handles require the future rigging/text modules; no faithful counterpart for those types exists yet.
+- Oracle disposition: No faithful headless counterpart: The command runner offers capture/data/semantics, not typed scene handles, type-mismatch queries or local/world matrix reads. Authored-scene inspect is not a resolved runtime handle query; future bone/text handles are outside this module. See [probe report](../../../../tests/oracle/MOTION-PROBES.md).

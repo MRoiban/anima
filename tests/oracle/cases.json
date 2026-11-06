@@ -166,5 +166,91 @@
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
+  },
+  {
+    "name": "transforms-origin-animation",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "animation-mix-numeric",
+    "times": [0, 0.25, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "instance first a 1\ninstance second b 0\nadvance 0",
+      "0.25": "instance first a 1\ninstance second b 0.25\nadvance 0",
+      "0.5": "instance first a 1\ninstance second b 0.5\nadvance 0",
+      "1": "instance first a 1\ninstance second b 1\nadvance 0"
+    }
+  },
+  {
+    "name": "animation-mix-discrete",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "instance first a 1\ninstance second b 0.25\nadvance 0"
+    },
+    "values": {
+      "address": "a.visible",
+      "path": "v",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "animation-keys-string",
+    "times": [0, 0.5, 1.1, 2],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "values": {
+      "address": "a.channels.v",
+      "path": "v",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "animation-keys-unsigned-integer",
+    "times": [0, 0.5, 1.1, 2],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "values": {
+      "address": "a.channels.v",
+      "path": "v",
+      "tolerance": 0
+    },
+    "finding": "uint data-binding dump returns -1 for 4294967295; delta 4294967296"
+  },
+  {
+    "name": "animation-seek",
+    "times": [0, 0.25, 0.75, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "timeline t seek 1.5\nadvance 0",
+      "0.25": "timeline t seek 1.5\nadvance 0\ntimeline t seek 0.5\nadvance 0",
+      "0.75": "timeline t seek 1.5\nadvance 0\ntimeline t seek 0.5\nadvance 0\ntimeline t seek 2\nadvance 0",
+      "1": "timeline t seek 1.5\nadvance 0\ntimeline t seek 0.5\nadvance 0\ntimeline t seek 2\nadvance 0\ntimeline t seek 0\nadvance 0"
+    }
+  },
+  {
+    "name": "host-api-scrub",
+    "times": [0, 0.25, 0.75, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "timeline t scrub 0.75\nadvance 0",
+      "0.25": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0",
+      "0.75": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0\ntimeline t scrub 1\nadvance 0",
+      "1": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0\ntimeline t scrub 1\nadvance 0\ntimeline t scrub 0\nadvance 0"
+    }
   }
 ]

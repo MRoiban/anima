@@ -1,9 +1,1 @@
-<anima version="0.1" name="animation-mix-discrete" grid="20" requires="motion">
-  <circle id="a" cx="0" cy="0" r="1" fill="#000">
-    <channel name="label" type="string" value="&quot;idle&quot;"/>
-  </circle>
-  <timeline name="t" duration="2">
-    <track target="a.visible">0 false; 2 true</track>
-    <track target="a.channels.label">0 "moving"; 2 "done"</track>
-  </timeline>
-</anima>
+<anima version="0.1" name="animation-mix-discrete" grid="20" requires="motion"><rect id="a" x0="2" y0="8" width="2" height="4" fill="#4263eb"/><timeline name="a" duration="2"><track target="a.visible">0 true;2 true</track></timeline><timeline name="b" duration="2"><track target="a.visible">0 false;2 false</track></timeline></anima>

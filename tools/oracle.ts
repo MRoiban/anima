@@ -5,6 +5,7 @@ import { pathToFileURL } from 'node:url';
 import { PNG } from 'pngjs';
 import { compile } from '@anima-format/markup';
 import { run } from '../packages/cli/src/cli.ts';
+import { load, runScript } from '@anima-format/core';
 
 export interface OracleCase {
   name: string;
@@ -12,6 +13,9 @@ export interface OracleCase {
   threshold: number;
   maxOverPercent: number;
   maxDiff: number;
+  scripts?: Record<string, string>;
+  values?: { address: string; path: string; tolerance: number };
+  finding?: string;
 }
 export const root = new URL('../tests/oracle/', import.meta.url);
 export const cases: OracleCase[] = JSON.parse(readFileSync(new URL('cases.json', root), 'utf8'));
@@ -20,6 +24,11 @@ export const pendingCases = globSync('*/todo.json', { cwd: root }).map((path) =>
   name: path.split('/')[0]!,
   reason: pendingReason(new URL('./', new URL(path, root)))!,
 }));
+export const skippedCases: { name: string; status: string; reason: string; tests: string[] }[] =
+  globSync('*/skip.json', { cwd: root }).map((path) => ({
+    name: path.split('/')[0]!,
+    ...JSON.parse(readFileSync(new URL(path, root), 'utf8')),
+  }));
 for (const c of cases)
   if (pendingReason(new URL(`${c.name}/`, root)))
     throw Error(`${c.name}: pending oracle must not be in cases.json`);
@@ -58,14 +67,42 @@ export async function measure(c: OracleCase, output: URL) {
   mkdirSync(output, { recursive: true });
   const metrics = [];
   for (const time of c.times) {
+    if (c.values) {
+      const reference = JSON.parse(readFileSync(new URL(`rive/frames/${time}.json`, dir), 'utf8'));
+      const property = reference.viewModel.properties.find(
+        (p: { path: string }) => p.path === c.values!.path,
+      );
+      if (!property) throw Error(`${c.name}: missing data path ${c.values.path}`);
+      const model = load(compiled.doc!).model!;
+      const { player } = runScript(model, c.scripts?.[String(time)] ?? `advance ${time}`);
+      player.step(0);
+      const actual = player.value(c.values.address);
+      const delta =
+        typeof actual === 'number' && typeof property.value === 'number'
+          ? Math.abs(actual - property.value)
+          : actual === property.value
+            ? 0
+            : Infinity;
+      metrics.push({
+        time,
+        actual,
+        reference: property.value,
+        maxDiff: delta,
+        over: delta > c.values.tolerance ? 1 : 0,
+        overPercent: delta > c.values.tolerance ? 100 : 0,
+        pass: delta <= c.values.tolerance,
+      });
+      continue;
+    }
     const target = new URL(`${time}.png`, output);
     const messages: string[] = [];
     const code = await run(
       [
         'render',
         new URL('case.ani', dir).pathname,
+        ...(c.scripts?.[String(time)] ? ['-e', c.scripts[String(time)]!] : []),
         '--at',
-        String(time),
+        c.scripts?.[String(time)] ? '0' : String(time),
         '--size',
         '240',
         '--background',
@@ -93,6 +130,7 @@ export async function measure(c: OracleCase, output: URL) {
 
 if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) {
   for (const c of pendingCases) console.log(`Pending oracle ${c.name}: ${c.reason}`);
+  for (const c of skippedCases) console.log(`Skipped oracle ${c.name}: ${c.reason}`);
   if (process.argv.includes('--build')) {
     for (const c of cases) {
       const dir = new URL(`${c.name}/`, root);

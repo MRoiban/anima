@@ -9,4 +9,4 @@ The shared registry is re-exported by `registry.ts`; the module composes it once
 - CLI/schema: generated schema plus module CLI tests and shared markup tests; no alternate evaluator.
 - Browser: `test/web/browser.test.ts` runs Chromium and Firefox.
 - Size: manifest ceiling 8192 B, measured with the unchanged `tools/size.ts` method.
-- Pending oracle / mapping limit: Anima pivots change transform centres without moving local geometry; native Rive fractional shape origins also change geometry. Native origin frame equivalence is not claimed.
+- Oracle disposition: Native equivalent nested-transform pivot frames verified (max 1, 0% over 16); fractional origin equivalence is not claimed. See [probe report](../../../../tests/oracle/MOTION-PROBES.md).

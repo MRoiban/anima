@@ -1,0 +1,4 @@
+name: oracle-animation-keys-string
+logs:
+  file: build/rive.log
+  problems: build/problems.log

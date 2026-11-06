@@ -216,8 +216,12 @@ and an oracle test against Rive.
   - [x] Local implementation behind `requires="motion"`; both syntaxes, CLI/schema and host APIs.
   - [x] 27 new conformance cases; existing 41 unchanged; Chromium + Firefox host coverage.
   - [x] Seven native frame probes / 25 frames, max delta 1 with unchanged comparison method.
-  - [ ] Fifteen native API/consumer/origin observations remain pending; reasons in parity rows.
+  - [x] Fifteen pending probes disposed by P4b-2 below; native uint finding remains open.
         No phase-completion claim. Local size/perf and final verification: LOG P4b.
+  - [x] P4b-2 motion oracle probe dispositions: 15/15 (6 verified, 8 skip-noted,
+        1 uint dump finding: -1 vs 4294967295). Scoped suite has one explicit expected
+        failure; strict oracle remains red. See tests/oracle/MOTION-PROBES.md.
+
 - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
       an on-change / previous-value condition (P5 benchmark: 'count increased' took 10 states).
 - [ ] P4d `events`: payloads, open-URL, audio.

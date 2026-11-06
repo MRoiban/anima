@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: P5-7 (markup owner) running → then D1 module folders + D2 scoped tests (parallel) → D3 new-capability scaffolder → P5 AniML benchmark run → P5 PR (full check in CI).
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: P4b-2 motion oracle probes, local commit only.
+Verified: all 15 disposed (6 oracle-verified / 8 skip-noted / 1 uint finding); no pending markers.
+Tests: 34 scoped files, 620 pass + 1 expected failure (two workers); tsc tools passed.
+Finding: uint dump -1 vs Anima 4294967295 at 1.1/2 s; delta 4294967296; strict oracle exits 1.
+Next: commit completed probe dispositions; owner investigates native uint observation path.
+Don't: claim full native parity, relax tolerances, read .riv, use account commands, push/PR/merge.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -94,3 +95,6 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-07 09:30 [claude]: merged D1 module folders (d9510ae): 6 modules + libraries in folders, generator --check, 12 orders identical; core+web 17789 (+248, logged); test:scope paint 12 files/4.2 s; next D3 scaffolder then P5 PR
 - 2026-11-06 11:00 [claude]: merged D3 scaffolder (c7e3012): 31 files per row, idempotent; opening P5 PR (full suite in CI)
 - 2026-11-06 18:00 [claude]: merged P4b-1 motion (7685c3f) into p4b-motion: 22 rows implemented, 7 oracle-verified, 15 oracle probes pending; motion 4982/8192, core+web 18290 (+501 hooks); perf improved; benchmark brief P4b (sync button) written
+- 2026-11-06 00:45 [sol]: P4b-2 authored/captured seven motion scenes → 6 verified, 8 skip-noted, uint finding delta 4294967296; no pending markers (evidence: capture.py, metrics.json, MOTION-PROBES.md).
+- 2026-11-06 00:45 [sol]: npm ci restored absent tooling; initial new unit failed on no-paint warnings (fixed authored paints); default scoped run hit inherited prefix timeout → two-worker rerun 620 pass + 1 expected fail, 34 files; no timeout changes (evidence: test:scope motion oracle conformance).
+- 2026-11-06 00:47 [sol]: final prettier --check ., eslint ., tsc -p tools, parity --check and modules --check passed; full native recapture reproduced uint-only strict failure (exit 1); no tolerances changed.
