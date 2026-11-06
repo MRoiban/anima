@@ -1,3 +1,4 @@
+import type { EventModule, EventKinds } from './events.ts';
 import { after } from '../manifest.ts';
 import type { Module, ModuleRegistry } from '../../../packages/core/src/modules.ts';
 import type { Model, NodeM } from '../../../packages/core/src/load.ts';
@@ -33,14 +34,20 @@ interface Context {
 let context: Context | undefined;
 const scoped = /^[a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*$/;
 
-function create(runtime: Pick<ModuleRegistry, 'load' | 'Player' | 'DOC' | 'nodeShape'>): Module {
+function create(
+  runtime: Pick<ModuleRegistry, 'load' | 'Player' | 'DOC' | 'nodeShape'>,
+): EventModule {
   const name = (
     runtime.nodeShape('group').p.id as Extract<
       import('../../../packages/core/src/registry.ts').Shape,
       { k: 'str' }
     >
   ).re!;
+  const eventKinds: EventKinds = new Map(
+    ['enter', 'leave', 'down', 'up', 'click', 'move'].map((name) => [name, undefined]),
+  );
   return {
+    eventKinds,
     name: 'components',
     after,
     init(_modules, shared) {
@@ -247,7 +254,13 @@ function create(runtime: Pick<ModuleRegistry, 'load' | 'Player' | 'DOC' | 'nodeS
         if (data.instances.length) model.nesting = (p) => nest(p, data, runtime.Player);
         for (const [i, l] of (model.doc.listeners ?? []).entries())
           if (
-            !['enter', 'leave', 'down', 'up', 'click', 'move'].includes(l.on) &&
+            !l.on
+              .split('|')
+              .every(
+                (on: string) =>
+                  eventKinds.has(on) &&
+                  (!eventKinds.get(on) || model.doc.requires?.includes(eventKinds.get(on))),
+              ) &&
             (!l.on.includes('.') || model.inputs.get(l.on)?.type !== 'trigger')
           )
             err('unknown-event', '/listeners/' + i + '/on', 'unknown instance event');

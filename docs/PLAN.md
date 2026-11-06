@@ -244,6 +244,13 @@ and an oracle test against Rive.
         cases, 18 native oracle cases/45 frames + eight documented skips; 5736/8192 B. Generic
         non-node AniML fields and the pure focus-reader seam are ready for companion modules.
         Full phase integration/benchmark/CI remains; see modules/machine/REPORT.md.
+
+      P4c-2/P4c-4 integration: 54/54 implementation evidence sets, 18/54 strictly complete
+      (3 captured + 15 documented host-only oracle skips); 36 native captures pending.
+      Generic AniML fields, components event kinds and input/focus/machine seams integrated.
+      P4c remains incomplete pending the separate oracle pass and phase gates; parity statuses unchanged.
+  - [x] P4c-4 interaction integration: generic fields, exact focus round-trips, event kinds,
+        key/pointer/guard seams and per-row implementation evidence (modules/input/REPORT.md).
 - [ ] P4d `events`: payloads, open-URL, audio.
 - [ ] P4e `data`: view models, bindings, converters, lists.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide

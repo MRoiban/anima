@@ -1,0 +1,2 @@
+contact down 7 10 10
+snapshot n

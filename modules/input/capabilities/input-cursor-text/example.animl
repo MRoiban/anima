@@ -1,0 +1,7 @@
+<anima version="0.1" name="input-cursor-text" grid="20" requires="input">
+  <number name="n"/>
+
+  <circle id="disc" cx="10" cy="10" cursor="text" r="5" fill="#000"/>
+
+  <listener on="down" target="disc" write="{&quot;pointerId&quot;:&quot;n&quot;}"/>
+</anima>

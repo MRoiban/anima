@@ -1,0 +1,4 @@
+contact down 7 30 22
+snapshot n
+contact move 7 34 28
+snapshot n

@@ -23,8 +23,8 @@ describe('authored AniML corpus', () => {
   it('includes the bell example and all conformance sources', () => {
     expect(files).toContain('examples/bell.animl');
     const cases = globSync('spec/conformance/*/case.ani', { cwd: fileURLToPath(root) }).sort();
-    // An exact corpus census (focus + machine at P4c), not a limit.
-    expect(cases).toHaveLength(135);
+    // Exact census: 135 focus/machine cases + 3 input drag + 51 completed input probes + 2 interaction seams.
+    expect(cases).toHaveLength(191);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);

@@ -1,0 +1,7 @@
+<anima version="0.1" name="host-api-low-level-scroll" grid="20" requires="input">
+  <number name="n"/>
+
+  <circle id="disc" cx="10" cy="10" r="5" fill="#000"/>
+
+  <listener on="scroll" target="disc" write="{&quot;deltaY&quot;:&quot;n&quot;}"/>
+</anima>

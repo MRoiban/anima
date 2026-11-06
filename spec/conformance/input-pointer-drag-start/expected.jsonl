@@ -1,0 +1,3 @@
+{"time":0,"values":{"a.x":0,"active":false},"states":{"main":"idle"},"events":[],"settled":true}
+{"time":0,"values":{"a.x":8,"active":true},"states":{"main":"active"},"events":[],"settled":true}
+{"time":0,"values":{"a.x":8,"active":true},"states":{"main":"active"},"events":[],"settled":true}

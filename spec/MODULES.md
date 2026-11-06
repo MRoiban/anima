@@ -21,8 +21,8 @@ in `requires`; a runtime that lacks the module refuses the document with `unknow
 | `motion` | more eases, typed and string tracks, seek / reverse / work area / quantize, host timeline control, animatable pivot | P4b |
 | `focus` | focusable nodes, traversal/scopes, pointer focus, focus/blur and DOM focus (4096 B) | P4c |
 | `interaction` | blend states, transition flags, drag, keyboard, focus, scroll, gamepad | P4c |
-
 | `machine` | blend states, transition flags/actions, seeded selection, live/previous-value guards; input/focus are companion modules | P4c |
+| `input` | pointer IDs, drag values, keyboard, scroll, gamepads, hit policy, cursor and collapse (8192 B budget) | P4c |
 | `events` | event payloads, open-URL events, audio events | P4d |
 | `data` | view models, bindings, converters, lists | P4e |
 
@@ -117,7 +117,10 @@ Hook points (revised at P4a, owner decision 2026-11-06: rendering is renderer-ne
 - `draw`: the module's contribution to the **draw layer** (§3.1). Modules never produce SVG
   elements, attributes or canvas calls.
 
-### Non-node AniML fields
+### Generic AniML fields
+
+Node object/map/union fields without a structural `element` use JSON-valued attributes.
+Node fields with an `element` retain child forms; focus uses this existing node-field path.
 
 Module entries may target `state`, `transition` (AniML `<on>`), `layer`, `timeline`,
 and `listener`. Both compiler and decompiler derive their attributes from the live
@@ -133,6 +136,15 @@ non-node targets, aliases, compounds and rejection of unknown fields. Descriptor
 caches last one compilation, so late registration is visible to the next compile.
 Layer/listener fields are reset and recomposed with the registry like state/timeline
 fields; separately bundled browser markup reads the runtime's live document shape.
+
+Components owns a composed `eventKinds` registry (`modules/components/core/events.ts`).
+Its resolver accepts local scene kinds only when their owning feature is declared, or validates
+an exact dotted component output address. Companion modules extend it during `init` with
+`registerEventKinds`; recomposition starts from legacy kinds each time. The registry lives on
+the composed components module so independently bundled entries share it. A module never deletes
+another module's diagnostics. This follows the metadata/ownership split discussed in
+`docs/research/rive-format-and-graph.md` and the host-routing concerns in
+`docs/research/rive-web-runtime.md`.
 
 The machine/focus condition seam is `Player.machineFocus?: (nodeId: string) => boolean`.
 Focus supplies the reader and wakes `player.onChange` when ownership changes; machine

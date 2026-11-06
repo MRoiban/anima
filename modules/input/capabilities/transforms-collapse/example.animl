@@ -1,0 +1,9 @@
+<anima version="0.1" name="transforms-collapse" grid="20" requires="input">
+  <number name="n"/>
+
+  <group id="parent" collapsed="true">
+    <circle id="disc" cx="10" cy="10" r="5" fill="#000"/>
+  </group>
+
+  <listener on="down" target="disc" write="{&quot;pointerId&quot;:&quot;n&quot;}"/>
+</anima>

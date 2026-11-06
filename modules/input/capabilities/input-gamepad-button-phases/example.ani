@@ -1,0 +1,33 @@
+{
+  "anima": "0.1",
+  "name": "input-gamepad-button-phases",
+  "grid": 20,
+  "requires": ["input"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "disc",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 5,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "gamepad-button",
+      "set": {},
+      "control": 0,
+      "phase": "release",
+      "write": {
+        "value": "n"
+      }
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { focus, type FocusAPI, type Direction } from '../core/index.ts';
+import { focus, type FocusAPI } from '../core/index.ts';
 import { focusMarkup } from '../markup/index.ts';
 import '../../../packages/web/src/index.ts';
 import type { AnimaIcon } from '../../../packages/web/src/index.ts';
@@ -96,17 +96,14 @@ function attach(icon: AnimaIcon) {
   );
   listen('keydown', ((event: KeyboardEvent) => {
     if (!icon.player?.model.doc.requires?.includes('focus') || icon.hasAttribute('paused')) return;
-    const dirs: Record<string, Direction> = {
-      ArrowLeft: 'left',
-      ArrowRight: 'right',
-      ArrowUp: 'up',
-      ArrowDown: 'down',
-    };
-    const dir = dirs[event.key];
-    if (dir && !event.altKey && !event.ctrlKey && !event.metaKey) {
+    if (icon.player.model.doc.requires?.includes('input')) return;
+    if (
+      !event.altKey &&
+      !event.ctrlKey &&
+      !event.metaKey &&
+      icon.player.focusKey(event.key, true, event.shiftKey)
+    )
       event.preventDefault();
-      icon.player.focusTraverse(dir);
-    }
   }) as EventListener);
   build();
   attached.set(icon, () => {

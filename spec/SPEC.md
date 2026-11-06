@@ -379,6 +379,8 @@ whole suite in CI. Numbers are compared at 1e-6, everything else exactly.
 ### 11.2 Script language
 
 One command per line; `#` starts a comment. The same language drives `anima sample`.
+The input extension command handler and its pending shared-dispatch integration are specified
+in [the input contract](../modules/input/SPEC.md#diagnostics-and-script-integration).
 
 | Command | Does |
 |---|---|
@@ -1686,3 +1688,64 @@ conformance cases and native-oracle evidence. A documented oracle skip is not na
 <!-- capability: state-machine.transition-end-actions -->
 
 <!-- capability: state-machine.transition-random-weight -->
+
+## input
+
+Optional P4c input behavior is specified in [the input contract](../modules/input/SPEC.md).
+Generic registry attributes and the sample command dispatcher are integrated. Per-row native
+oracle captures remain pending where marked; this is not a claim that the whole phase is done.
+
+<!-- capability: host-api.coordinate-mapping -->
+<!-- capability: host-api.dom-listener-control -->
+<!-- capability: host-api.gamepad -->
+<!-- capability: host-api.low-level-pointer -->
+<!-- capability: host-api.low-level-scroll -->
+<!-- capability: host-api.manual-gamepad-batch -->
+<!-- capability: host-api.multitouch -->
+<!-- capability: host-api.pointer-exit -->
+<!-- capability: host-api.scroll-hit-policy -->
+<!-- capability: host-api.scroll-latching -->
+<!-- capability: input.align-preserve -->
+<!-- capability: input.align-snap -->
+<!-- capability: input.bounded-hit-tests -->
+<!-- capability: input.button-middle -->
+<!-- capability: input.button-secondary -->
+<!-- capability: input.capture-phase -->
+<!-- capability: input.cursor-arrow -->
+<!-- capability: input.cursor-hidden -->
+<!-- capability: input.cursor-intent -->
+<!-- capability: input.cursor-pointer -->
+<!-- capability: input.cursor-resize-horizontal -->
+<!-- capability: input.cursor-resize-vertical -->
+<!-- capability: input.cursor-text -->
+<!-- capability: input.disable-listeners -->
+<!-- capability: input.gamepad-axis -->
+<!-- capability: input.gamepad-button -->
+<!-- capability: input.gamepad-button-phases -->
+<!-- capability: input.gamepad-connected -->
+<!-- capability: input.gamepad-disconnected -->
+<!-- capability: input.gamepad-host -->
+<!-- capability: input.gamepad-index-mapping -->
+<!-- capability: input.hit-occlusion-query -->
+<!-- capability: input.hit-parent-chain -->
+<!-- capability: input.hit-shape-geometry -->
+<!-- capability: input.hit-test-host -->
+<!-- capability: input.key-down -->
+<!-- capability: input.key-filter -->
+<!-- capability: input.key-modifiers -->
+<!-- capability: input.key-repeat -->
+<!-- capability: input.key-up -->
+<!-- capability: input.keyboard-bubbling -->
+<!-- capability: input.multi-touch -->
+<!-- capability: input.multi-trigger-listener -->
+<!-- capability: input.opaque-targets -->
+<!-- capability: input.pointer-cancel -->
+<!-- capability: input.pointer-drag -->
+<!-- capability: input.pointer-drag-end -->
+<!-- capability: input.pointer-drag-start -->
+<!-- capability: input.pointer-enable -->
+<!-- capability: input.touch-page-scroll -->
+<!-- capability: input.trackpad-scroll -->
+<!-- capability: input.wheel-scroll -->
+<!-- capability: transforms.collapse -->
+<!-- capability: transforms.solo -->

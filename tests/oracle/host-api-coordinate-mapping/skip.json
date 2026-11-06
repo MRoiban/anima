@@ -1,0 +1,6 @@
+{
+  "status": "skip",
+  "reason": "The headless CLI receives artboard coordinates and cannot observe browser SVG getScreenCTM or CSS host alignment transforms. Browser tests check inversion against the actual SVG matrix and canvas viewport.",
+  "evidence": "Local Rive CLI 1.9.0 --help and headless input command surface; no browser DOM is exposed by those captures.",
+  "tests": ["modules/input/test/core/runtime.test.ts", "modules/input/test/web/browser.test.ts"]
+}

@@ -1,0 +1,59 @@
+{
+  "document": {
+    "anima": "0.1",
+    "name": "input-capture-phase-invalid",
+    "grid": 20,
+    "requires": ["input"],
+    "nodes": [
+      {
+        "id": "parent",
+        "type": "group",
+        "children": [
+          {
+            "id": "disc",
+            "type": "circle",
+            "center": [10, 10],
+            "r": 5,
+            "fill": {
+              "color": "#000"
+            }
+          }
+        ]
+      }
+    ],
+    "inputs": {
+      "n": {
+        "type": "number"
+      }
+    },
+    "listeners": [
+      {
+        "on": "down",
+        "target": "disc",
+        "set": {
+          "n": 3
+        },
+        "button": 3
+      },
+      {
+        "on": "down",
+        "target": "parent",
+        "capture": true,
+        "set": {
+          "n": 1
+        }
+      },
+      {
+        "on": "down",
+        "target": "disc",
+        "capture": true,
+        "consume": true,
+        "set": {
+          "n": 2
+        }
+      }
+    ]
+  },
+  "code": "input-index",
+  "pointer": "/listeners/0/button"
+}

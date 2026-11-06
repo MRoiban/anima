@@ -1,0 +1,6 @@
+contact down 7 10 10
+snapshot n
+contact move 7 30 10
+snapshot n
+contact cancel 7
+snapshot n

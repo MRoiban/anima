@@ -1,0 +1,54 @@
+{
+  "anima": "0.1",
+  "name": "input-capture-phase",
+  "grid": 20,
+  "requires": ["input"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "parent",
+      "type": "group",
+      "children": [
+        {
+          "id": "disc",
+          "type": "circle",
+          "center": [10, 10],
+          "r": 5,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ]
+    }
+  ],
+  "listeners": [
+    {
+      "on": "down",
+      "target": "disc",
+      "set": {
+        "n": 3
+      }
+    },
+    {
+      "on": "down",
+      "target": "parent",
+      "set": {
+        "n": 1
+      },
+      "capture": true
+    },
+    {
+      "on": "down",
+      "target": "disc",
+      "set": {
+        "n": 2
+      },
+      "capture": true,
+      "consume": true
+    }
+  ]
+}

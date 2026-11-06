@@ -1,0 +1,104 @@
+{
+  "anima": "0.1",
+  "name": "focus-machine",
+  "grid": 20,
+  "requires": ["focus", "input", "machine"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [2, 2],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "focus": {
+        "bounds": [1, 1, 2, 2]
+      }
+    },
+    {
+      "id": "b",
+      "type": "circle",
+      "center": [8, 2],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "focus": {
+        "bounds": [7, 1, 2, 2]
+      }
+    },
+    {
+      "id": "hidden",
+      "type": "circle",
+      "center": [14, 2],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "collapsed": true,
+      "focus": {
+        "bounds": [13, 1, 2, 2]
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "a",
+        "states": {
+          "a": {
+            "pose": {
+              "a.x": 0
+            },
+            "on": [
+              {
+                "when": "@after(0)",
+                "to": "b",
+                "guard": {
+                  "left": {
+                    "focus": "b"
+                  },
+                  "right": true,
+                  "op": "=="
+                }
+              }
+            ]
+          },
+          "b": {
+            "pose": {
+              "a.x": 1
+            },
+            "on": [
+              {
+                "when": "@after(0)",
+                "to": "a",
+                "guard": {
+                  "left": {
+                    "focus": "b"
+                  },
+                  "right": false,
+                  "op": "=="
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "focus",
+      "target": "hidden",
+      "set": {
+        "n": 1
+      }
+    }
+  ]
+}

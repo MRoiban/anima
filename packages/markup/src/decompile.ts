@@ -61,7 +61,11 @@ export function decompile(doc: string | object): string {
       let v: unknown = n;
       for (const key of a.path) v = obj(v)[key];
       if (a.index !== undefined && v !== undefined) v = (v as unknown[])[a.index];
-      if (v !== undefined) el.attrs.push([a.attr, value(v)]);
+      if (v !== undefined)
+        el.attrs.push([
+          a.attr,
+          ['obj', 'map', 'any', 'alt'].includes(a.shape.k) ? JSON.stringify(v) : value(v),
+        ]);
     }
     const structural = (name: string, data: Obj): LayoutElement => {
       const form = ELEMENTS[name]!;

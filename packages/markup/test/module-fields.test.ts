@@ -60,3 +60,23 @@ it('late registration preserves earlier layer/listener contributions and updates
   expect(xml).toContain('extra-flag="true"');
   expect(compile(xml).doc).toEqual(c.doc);
 });
+
+it('node object attributes use JSON while structural focus objects keep their child form', () => {
+  registerModule({
+    name: 'nodefields',
+    entries: [
+      {
+        target: 'node',
+        shapes: {
+          options: { k: 'obj', markup: 'node-options', p: { ok: { k: 'bool' } } },
+        },
+      },
+    ],
+  });
+  const a = compile(
+    `<anima version="0.1" name="nodefields" grid="20" requires="nodefields focus"><group id="g" node-options='{"ok":true}'><focus label="Group" enabled="false" tab-stops="true"/></group></anima>`,
+  );
+  expect(a.diagnostics).toEqual([]);
+  expect(decompile(a.doc!)).toContain('node-options=');
+  expect(compile(decompile(a.doc!)).doc).toEqual(a.doc);
+});

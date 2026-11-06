@@ -472,3 +472,18 @@ The same registry extension supports module fields on `<layer>`, `<timeline>` an
 `<listener>`, honors `markup` aliases, and round-trips compound JSON values. Existing
 listener name lists and assignments retain their forms. Unknown fields still report
 `unknown-attribute`; malformed JSON attributes report `bad-attribute` with source position.
+
+## Input listener forms
+
+The input module extends `<listener on="…">` with `button`, `capture`, `consume`, `key`,
+`modifiers`, `index`, `control`, `mapping`, `phase`, `align` and `write`. Names and meaning are in
+[the input contract](../modules/input/SPEC.md). The generic live-registry path handles every
+attribute, including `write='{"x":"dragX","y":"dragY"}'`. Compound fields use JSON and normal XML
+escaping; `write="x=dragX"` is not a JSON-valued map. Combine input event names in `on` with `|`.
+Existing `set`, `fire`, and `toggle` keep their assignment/name-list forms. An empty `set=""`
+represents the valid empty action map; write-only input listeners normalize to that map.
+
+Node module fields without an `element` descriptor use JSON-valued attributes for object/map/
+union values. Fields with an `element` descriptor retain structural children: `<focus>` and
+its aliases (`enabled-input`, `tab-stops`) round-trip through that existing registry path.
+Unknown fields still fail. No input-specific compile/decompile hook is installed.

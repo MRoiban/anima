@@ -1,0 +1,43 @@
+{
+  "anima": "0.1",
+  "name": "input-align-preserve",
+  "grid": 20,
+  "requires": ["input"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "parent",
+      "type": "group",
+      "x": 4,
+      "scale": 2,
+      "children": [
+        {
+          "id": "disc",
+          "type": "circle",
+          "center": [10, 10],
+          "r": 5,
+          "x": 3,
+          "y": 1,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ]
+    }
+  ],
+  "listeners": [
+    {
+      "on": "drag",
+      "target": "disc",
+      "set": {},
+      "write": {
+        "x": "n"
+      },
+      "align": "preserve"
+    }
+  ]
+}

@@ -245,6 +245,7 @@ export class Compiler {
     return motionCompiler.form?.(el, base ?? { attrs: {} }) ?? base;
   }
   private kind(s: Shape): Kind {
+    if (s.k === 'obj' || s.k === 'map' || s.k === 'any' || s.k === 'alt') return 'json';
     if (s.k === 'num') return 'number';
     if (s.k === 'bool') return 'boolean';
     if (s.k === 'tup') return s.of.length;
@@ -475,7 +476,7 @@ export class Compiler {
         }
         case 'set': {
           const o: Json = {};
-          for (const pair of s.split(/\s+/)) {
+          for (const pair of s ? s.split(/\s+/) : []) {
             const m = /^([a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*)=(.+)$/.exec(pair);
             if (!m)
               throw new Error(

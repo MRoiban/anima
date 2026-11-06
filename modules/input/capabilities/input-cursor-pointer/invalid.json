@@ -1,0 +1,36 @@
+{
+  "document": {
+    "anima": "0.1",
+    "name": "input-cursor-pointer-invalid",
+    "grid": 20,
+    "requires": ["input"],
+    "nodes": [
+      {
+        "id": "disc",
+        "type": "circle",
+        "center": [10, 10],
+        "r": 5,
+        "fill": {
+          "color": "#000"
+        },
+        "cursor": "forbidden"
+      }
+    ],
+    "inputs": {
+      "n": {
+        "type": "number"
+      }
+    },
+    "listeners": [
+      {
+        "on": "down",
+        "target": "disc",
+        "write": {
+          "pointerId": "n"
+        }
+      }
+    ]
+  },
+  "code": "bad-value",
+  "pointer": "/nodes/0/cursor"
+}

@@ -1,0 +1,43 @@
+{
+  "document": {
+    "anima": "0.1",
+    "name": "transforms-collapse-invalid",
+    "grid": 20,
+    "requires": ["input"],
+    "nodes": [
+      {
+        "id": "parent",
+        "type": "group",
+        "children": [
+          {
+            "id": "disc",
+            "type": "circle",
+            "center": [10, 10],
+            "r": 5,
+            "fill": {
+              "color": "#000"
+            }
+          }
+        ],
+        "collapsed": true,
+        "solo": 5
+      }
+    ],
+    "inputs": {
+      "n": {
+        "type": "number"
+      }
+    },
+    "listeners": [
+      {
+        "on": "down",
+        "target": "disc",
+        "write": {
+          "pointerId": "n"
+        }
+      }
+    ]
+  },
+  "code": "input-solo",
+  "pointer": "/nodes/0/solo"
+}
