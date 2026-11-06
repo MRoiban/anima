@@ -2679,5 +2679,93 @@
       "script": "script.txt",
       "reference": "rive/observations.json"
     }
+  },
+  {
+    "name": "components-list",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "components-list-map",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-property-symbol-list-index",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-binding-relative",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "components-explicit-context",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "components-inherited-context",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "components-list-size-override",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-converter-number-to-list",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
   }
 ]

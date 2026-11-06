@@ -27,6 +27,7 @@
     "./derive": "./src/modules/derive/index.ts",
     "./host": "./src/modules/host/index.ts",
     "./host-edit": "./src/modules/host-edit/index.ts",
+    "./lists": "./src/modules/lists/index.ts",
     "./surface": "./src/modules/surface/index.ts",
     "./surface-svg": "./src/modules/surface/svg.ts",
     "./mix": "./src/modules/mix/index.ts"

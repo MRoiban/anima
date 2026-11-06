@@ -1,0 +1,4 @@
+advance 0
+data-dump frames/initial.json
+screenshot frames/initial.png
+quit

@@ -2209,3 +2209,21 @@ were regenerated/rechecked after the last validation fix. Main commit **85409b0*
 - **Open**: `bind` and `host` have no room — split before the next change; the full-featured page
   has ~9 KB left under its ceiling; the Rive CLI now refuses local commands until updated to 1.9.1
   (owner decision), so `derive` has no fresh native capture.
+
+
+## P5b-1 — Lists and data contexts (2026-11-06)
+
+- Added the lists module: retained players/state across mutations, model maps, size bounds, explicit
+  and inherited contexts, index/parent paths and count repetition. Dynamic per-player draw trees
+  and retained SVG reconciliation use the active backends across separate browser bundles.
+- Eight capability rows have spec/registry/diagnostics, compiled AniML, CLI coverage, nine independent
+  conformance probes and eight exact native observation oracles. Parity status fields are unchanged.
+- Verification: 2,971 scoped tests pass / 37 existing TODO, including Chromium and Firefox;
+  strict oracle exits 0 (224 cases / 418 samples), with all 216 prior metric records unchanged.
+  Static and generated-artifact checks pass. No budgets, timeouts, tolerances or thresholds changed.
+- Bytes: core+web unchanged 20,109; lists 4,501/6,144; components 3,551/4,096;
+  data 7,462/8,192; full-featured 98,059 (baseline 93,575, +4,484). P5b has 1,660 B of its
+  +6 KB allocation remaining before integrating other waves. Whole-phase sizing remains open.
+- Performance: first HEAD/current A/B bell 38.9/37.5 µs, composite 25.0/24.2, toolbar 27.8/28.4;
+  reverse order under load varies sharply. Non-regression is unverified; raw runs are retained.
+  Handoff and failures: modules/lists/REPORT.md. Commit only; no push/PR/merge by the sub-agent.

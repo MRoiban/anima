@@ -1,1 +1,9 @@
-# TODO: inputs, step boundaries and snapshots
+advance 0
+snapshot rows/0/dot.x rows/1/dot.x
+fire rows.0.go
+set $n 3
+advance 0
+snapshot rows/0/dot.x rows/1/dot.x rows/2/dot.x
+set $n 1
+advance 0
+snapshot rows/0/dot.x

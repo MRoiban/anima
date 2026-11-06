@@ -1,0 +1,198 @@
+{
+  "schema": 1,
+  "artboard": "Board",
+  "stateMachine": "main",
+  "viewModel": {
+    "name": "main",
+    "viewModel": "Board",
+    "properties": [
+      {
+        "name": "bonus",
+        "path": "bonus",
+        "type": "number",
+        "value": 2,
+        "changed": false
+      },
+      {
+        "name": "stars",
+        "path": "stars",
+        "type": "number",
+        "value": 1,
+        "changed": true
+      },
+      {
+        "name": "players",
+        "path": "players",
+        "type": "list",
+        "size": 2,
+        "items": [
+          {
+            "name": "Ada",
+            "viewModel": "Player",
+            "properties": [
+              {
+                "name": "score",
+                "path": "players[0]/score",
+                "type": "number",
+                "value": 3,
+                "changed": false
+              },
+              {
+                "name": "parentBonus",
+                "path": "players[0]/parentBonus",
+                "type": "number",
+                "value": 2,
+                "changed": false
+              },
+              {
+                "name": "ordinal",
+                "path": "players[0]/ordinal",
+                "type": "listIndex",
+                "value": 0,
+                "changed": false
+              }
+            ]
+          },
+          {
+            "name": "Lin",
+            "viewModel": "Player",
+            "properties": [
+              {
+                "name": "score",
+                "path": "players[1]/score",
+                "type": "number",
+                "value": 7,
+                "changed": false
+              },
+              {
+                "name": "parentBonus",
+                "path": "players[1]/parentBonus",
+                "type": "number",
+                "value": 0,
+                "changed": false
+              },
+              {
+                "name": "ordinal",
+                "path": "players[1]/ordinal",
+                "type": "listIndex",
+                "value": 0,
+                "changed": false
+              }
+            ]
+          }
+        ],
+        "changed": false
+      },
+      {
+        "name": "team",
+        "path": "team",
+        "type": "viewModel",
+        "value": {
+          "name": "Ada",
+          "viewModel": "Player",
+          "properties": [
+            {
+              "name": "score",
+              "path": "team/score",
+              "type": "number",
+              "value": 3,
+              "changed": false
+            },
+            {
+              "name": "parentBonus",
+              "path": "team/parentBonus",
+              "type": "number",
+              "value": 2,
+              "changed": false
+            },
+            {
+              "name": "ordinal",
+              "path": "team/ordinal",
+              "type": "listIndex",
+              "value": 0,
+              "changed": false
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "globals": [],
+  "nested": [
+    {
+      "path": "plain",
+      "artboard": "plain",
+      "inherits": true
+    },
+    {
+      "path": "explicit",
+      "artboard": "row",
+      "viewModels": [
+        {
+          "name": "Ada",
+          "viewModel": "Player",
+          "properties": [
+            {
+              "name": "score",
+              "path": "score",
+              "type": "number",
+              "value": 3
+            },
+            {
+              "name": "parentBonus",
+              "path": "parentBonus",
+              "type": "number",
+              "value": 2
+            },
+            {
+              "name": "ordinal",
+              "path": "ordinal",
+              "type": "listIndex",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "explicit/inherited",
+      "artboard": "plain",
+      "inherits": true
+    },
+    {
+      "path": "rows[0]",
+      "artboard": "row",
+      "viewModels": [
+        {
+          "name": "empty",
+          "viewModel": "Player",
+          "properties": [
+            {
+              "name": "score",
+              "path": "score",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "parentBonus",
+              "path": "parentBonus",
+              "type": "number",
+              "value": 2
+            },
+            {
+              "name": "ordinal",
+              "path": "ordinal",
+              "type": "listIndex",
+              "value": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "rows[0]/inherited",
+      "artboard": "plain",
+      "inherits": true
+    }
+  ]
+}

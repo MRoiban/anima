@@ -2344,3 +2344,44 @@ the metadata rationale in `docs/research/rive-format-and-graph.md`; this is not 
 The optional `derive` module adds computed, read-only scalar model properties. The normative
 contract is [modules/derive/SPEC.md](../modules/derive/SPEC.md); its `value` and `convert` keys
 have identical JSON/AniML spellings. Dependencies resolve per instance and cycles are invalid.
+
+## lists
+
+The optional `lists` module adds retained repeats and nested data contexts. The normative
+JSON/AniML spellings, ordering, bounds, identity, limits and diagnostics are defined in
+[modules/lists/SPEC.md](../modules/lists/SPEC.md). Both `components` and `data` are required.
+
+<!-- capability: components.list -->
+### List instances
+`type: "repeat"`, `list: "$items"`, `component: "row"` is
+`<repeat id="rows" list="$items" component="row"/>`. Surviving item identities retain players.
+
+<!-- capability: components.list-map -->
+### Model component maps
+`component: {Player:"row"}` is `component="Player:row"`; missing known mappings are `list-map`.
+
+<!-- capability: components.list-size-override -->
+### Item bounds
+`size: [w,h]` is `size="w h"`; both numbers are nonnegative. It changes instance hit bounds.
+
+<!-- capability: components.explicit-context -->
+### Explicit data context
+`data: "$team"` is `data="$team"` on an instance; the referenced model must match its public model.
+
+<!-- capability: components.inherited-context -->
+### Inherited data context
+A component with no `data` declaration sees its parent's context when lists is declared.
+
+<!-- capability: data.binding-relative -->
+### Relative bindings
+`$parent.name` walks one context; `$parent.parent.name` walks two. Parent reads are read-only.
+
+<!-- capability: data.property-symbol-list-index -->
+### Item index
+`$index` is the current zero-based index and is read-only. Declaring `index` or `parent` is
+`reserved-name` at `/data/models/<model>/properties/<name>`, with a rename hint.
+
+<!-- capability: data.converter-number-to-list -->
+### Count repetition
+`count: "$n"` is `count="$n"`. It floors nonnegative counts and retains players by index.
+Counts above 256 are rejected; shrinking releases the removed indices.

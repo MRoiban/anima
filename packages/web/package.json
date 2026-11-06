@@ -29,6 +29,7 @@
     "./derive": "./src/derive.ts",
     "./host": "./src/host.ts",
     "./host-edit": "./src/host-edit.ts",
+    "./lists": "./src/lists.ts",
     "./surface": "./src/surface.ts",
     "./markup-surface": "./src/markup-surface.ts",
     "./mix": "./src/mix.ts"

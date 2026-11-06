@@ -605,7 +605,7 @@ model. Instance `<set path="score">` initializes a property by its bare name; it
 action. Compound initializers use JSON in `value`. A named reference preserves identity.
 `global="true"` shares matching named instances through a component tree; independent root players
 still have independent storage. A component can declare `data="Player"` and its placement can use
-`data="main"` to share the parent's instance; ordinary children otherwise keep local storage.
+`data="main"` to share the parent's instance; components without `data` inherit their parent when `lists` is declared; components with a public model keep local storage unless explicitly supplied a context.
 
 Use `$` paths wherever an input name is accepted: conditions, binding expressions, listener and
 state/transition actions, event fields and component input expressions. Strings/enums compare with
@@ -643,8 +643,8 @@ and state actions firing triggers. This intentionally differs from the native in
 observation in `tests/oracle/input-data-listener/internal-trigger-difference/finding.json`.
 Host API subscriptions also run after the step; callback writes wait for the next step.
 
-A list of N items can drive N explicitly authored nodes. There is no automatic repeater or implicit
-list-index context. Here three model instances drive three nodes; `$items.2.title` selects the third
+A list of N items can drive N explicitly authored nodes without the lists module. The Lists section
+below shows automatic repetition and item contexts. Here three model instances drive three nodes; `$items.2.title` selects the third
 item and `$items.length` is a read-only number. `data-label` declares a custom string property;
 `properties` JSON declares typed number/bool/string/color/enum/trigger properties when needed.
 Custom channels use `node.properties.name`; strings/enums are discrete, hold-only channels.
@@ -870,6 +870,72 @@ status remains pending. The four pending convert rows cover HSL/component-format
 retained number-to-model-list creation, counter delivery into trigger destinations and scripted
 converters. Scalar/index-list/boolean functions do not imply those broader capabilities. System
 enums declare vocabulary only; they do not implement future layout/text consumers.
+
+## Lists
+
+Add `lists components data` to `requires` and import `@anima-format/web/lists` alongside
+components, data and bind. A repeat creates one component player per list item. Bindings in that
+component read the item: `$score` is its score, `$index` is its current zero-based position,
+and `$parent.bonus` reads the enclosing board. The component's data declaration names the item's
+model. `index` and `parent` are reserved property names (`reserved-name`).
+
+```xml
+<anima version="0.1" name="players" grid="30" requires="components data bind lists">
+  <model name="Player">
+    <number name="score"/>
+  </model>
+  <model name="Board">
+    <number name="bonus" default="2"/>
+    <list name="players" of="Player"/>
+  </model>
+  <instance name="main" model="Board" default="true">
+    <set path="players" value="[{&quot;score&quot;:3},{&quot;score&quot;:7}]"/>
+  </instance>
+  <component name="row" grid="10" data="Player">
+    <circle id="dot" cx="2" cy="2" r="1" fill="#000"/>
+    <bind target="dot.r" value="$score"/>
+    <bind target="dot.x" value="$index"/>
+    <bind target="dot.y" value="$parent.bonus"/>
+  </component>
+  <repeat id="rows" list="$players" component="row" dy="10" size="30 10"/>
+</anima>
+```
+
+`dy="10"` offsets each row by its current index; `dx` works the same way. `size="30 10"`
+overrides each instance's local bounds without scaling its geometry. Inserting, removing or swapping
+list objects preserves the surviving component players, including clocks and machine state.
+A removed item releases its player. Repeated references to one object have separate players,
+matched in occurrence order. There can be at most 256 live repeated instances per player.
+
+For mixed models, use `component="Player:row Header:heading"`; JSON uses
+`"component": {"Player":"row","Header":"heading"}`. Declare each mapped component with its own
+model. A missing mapping for a list with a known model is `list-map`; an unmapped runtime model is
+skipped and recorded in `listState(player).warnings` from `@anima-format/core/lists`.
+
+An explicit `<instance id="badge" component="row" data="$team"/>` supplies a model reference;
+`data="main"` selects a named instance. A component without `data` inherits its parent's context.
+Inside a nested component, `$parent.parent.bonus` walks two context levels. `$index` is read-only;
+relative parent paths are read-only too. A component with `data="Player"` keeps its own default
+Player storage when it is placed without an explicit context.
+
+Use `count` when a number supplies the length. This is the number-to-list form of a repeat;
+instances retain index identity as the count grows and shrinks. Counts are floored, negative counts
+produce no items, and counts above 256 are rejected.
+
+```xml
+<anima version="0.1" name="stars" grid="20" requires="components data bind lists">
+  <model name="Board"><number name="stars" default="3"/></model>
+  <component name="star" grid="4">
+    <circle id="dot" cx="2" cy="2" r="1" fill="#e90"/>
+    <bind target="dot.opacity" value="1 - $index / 10"/>
+  </component>
+  <repeat id="stars" count="$stars" component="star" dx="4"/>
+</anima>
+```
+
+`anima schema repeat` lists both source fields. Inspect and sample accept the same documents;
+select `rows/0/dot.r` in snapshots and use `rows.0.input` for a child input. Browser hosts using
+AniML also import `@anima-format/web/markup-components` for component and repeat authoring.
 
 ## Page data API (host module)
 

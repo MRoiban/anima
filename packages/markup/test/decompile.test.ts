@@ -104,7 +104,7 @@ function recover(root: Element): Obj {
         parent[key] =
           key === 'dash'
             ? v.split(' ').map((x) => (x.endsWith('%') ? x : Number(x)))
-            : ['pivot', 'subpaths', 'corners', 'geometryOrigin'].includes(key)
+            : ['pivot', 'subpaths', 'corners', 'geometryOrigin', 'size'].includes(key)
               ? vector(v)
               : v.startsWith('{"') || v.startsWith('[')
                 ? JSON.parse(v)

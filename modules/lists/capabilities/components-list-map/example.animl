@@ -1,0 +1,29 @@
+<anima version="0.1" name="players" grid="30" requires="components data bind lists">
+  <component name="row" grid="10" data="Player">
+    <circle id="dot" cx="2" cy="2" r="1" fill="#000"/>
+    <bind target="dot.r" value="$score"/>
+    <bind target="dot.x" value="$index"/>
+    <bind target="dot.y" value="$parent.bonus"/>
+  </component>
+  <component name="header" grid="10" data="Header">
+    <circle id="dot" cx="2" cy="2" r="1" fill="#000"/>
+    <bind target="dot.r" value="$score"/>
+  </component>
+
+  <repeat id="rows" list="$players" component="{&quot;Player&quot;:&quot;row&quot;,&quot;Header&quot;:&quot;header&quot;}" dy="10" size="30 10"/>
+
+  <model name="Player">
+    <number name="score"/>
+  </model>
+  <model name="Board">
+    <number name="bonus" default="2"/>
+    <list name="players"/>
+  </model>
+  <model name="Header">
+    <number name="score"/>
+  </model>
+  <instance name="main" model="Board" default="true">
+    <set path="players"
+        value="[{&quot;model&quot;:&quot;Player&quot;,&quot;values&quot;:{&quot;score&quot;:3}},{&quot;model&quot;:&quot;Player&quot;,&quot;values&quot;:{&quot;score&quot;:7}},{&quot;model&quot;:&quot;Header&quot;,&quot;values&quot;:{&quot;score&quot;:9}}]"/>
+  </instance>
+</anima>

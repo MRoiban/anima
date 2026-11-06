@@ -1,3 +1,4 @@
+import type { DataModule } from './index.ts';
 import { dataCodes } from './errors.ts';
 import { clone } from './types.ts';
 import type { Model } from '../../../packages/core/src/load.ts';
@@ -8,7 +9,7 @@ import { compiled, type DataDocument, type Property, type Compiled } from './typ
 import { systemEnums } from './enums.ts';
 import { accepts, normalize, inputFor, createScope, dataState } from './storage.ts';
 export const paths = /\$[a-zA-Z][\w-]*(?::[a-zA-Z][\w-]*)?(?:\.[\w-]+)*/g;
-export function prepare(model: Model, d: Diags): void {
+export function prepare(model: Model, d: Diags, context?: DataModule['prepareContext']): void {
   if (
     !model.doc.requires?.includes('data') ||
     !model.doc.data ||
@@ -246,7 +247,7 @@ export function prepare(model: Model, d: Diags): void {
   if (document.preview && !defaults[document.preview])
     error(dataCodes['instance'], '/data/preview', 'unknown preview instance');
   for (const [i, n] of model.nodes.entries())
-    if (n.raw.data) {
+    if (n.raw.data && !model.doc.requires.includes('lists')) {
       const key = String(n.raw.data).replace(/^\$/, '').replace(/:$/, '');
       const inst = document.instances?.[key];
       if (!inst)
@@ -316,6 +317,7 @@ export function prepare(model: Model, d: Diags): void {
       c.refs.set(alias, r);
       model.inputs.set(alias, r.input);
     }
+  context?.(model, d);
   // Validate all authored path uses with their own JSON pointers, including writes and event fields.
   const scan = (v: unknown, at: string) => {
     if (typeof v === 'string')

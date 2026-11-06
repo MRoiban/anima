@@ -1,0 +1,10 @@
+advance 0
+data-dump frames/initial.json
+screenshot frames/initial.png
+data stars=3
+advance 0
+data-dump frames/three.json
+data stars=1
+advance 0
+data-dump frames/one.json
+quit

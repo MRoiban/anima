@@ -34,7 +34,13 @@ export class DataState extends Map<string, Value> {
   constructor(c: Compiled) {
     super();
     this.compiled = c;
-    this.instances = clone(c.defaults);
+    const seen = new Map<object, unknown>();
+    this.instances = clone(c.defaults, seen);
+    this.modelTypes = new WeakMap();
+    for (const [source, value] of seen) {
+      const name = c.modelOf.get(source);
+      if (name) this.modelTypes.set(value as object, name);
+    }
   }
   ref(path: string): Ref | undefined {
     return this.compiled.refs.get(path);

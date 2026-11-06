@@ -1,1 +1,5 @@
-# TODO: inputs, step boundaries and snapshots
+advance 0
+snapshot rows/0/dot.y rows/1/dot.y
+set $bonus 4
+advance 0
+snapshot rows/0/dot.y rows/1/dot.y

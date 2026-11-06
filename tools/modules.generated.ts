@@ -26,6 +26,7 @@ export const webEntries = [
   'derive',
   'host',
   'host-edit',
+  'lists',
   'mix',
 ];
 export const webOwners: Record<string, string> = {
@@ -52,6 +53,7 @@ export const webOwners: Record<string, string> = {
   derive: 'derive',
   host: 'host',
   'host-edit': 'host-edit',
+  lists: 'lists',
   surface: 'surface',
   'markup-surface': 'surface',
   mix: 'mix',
@@ -89,6 +91,7 @@ export const moduleBudgets: {
   { name: 'derive', budget: 4096 },
   { name: 'host', budget: 4096 },
   { name: 'host-edit', budget: 4096 },
+  { name: 'lists', budget: 6144 },
   { name: 'mix', budget: 5120 },
 ];
 export const moduleScopes = {
@@ -519,6 +522,27 @@ export const moduleScopes = {
   },
   host: { tests: ['modules/host/test/**/*.test.ts'], conformance: [] },
   'host-edit': { tests: ['modules/host-edit/test/**/*.test.ts'], conformance: [] },
+  lists: {
+    tests: [
+      'modules/lists/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+      'packages/markup/test/compile.test.ts',
+      'packages/markup/test/decompile.test.ts',
+      'packages/cli/test/authoring.test.ts',
+    ],
+    conformance: [
+      'lists-',
+      'components-list',
+      'components-list-map',
+      'components-list-size-override',
+      'components-explicit-context',
+      'components-inherited-context',
+      'data-binding-relative',
+      'data-property-symbol-list-index',
+      'data-converter-number-to-list',
+    ],
+  },
   surface: {
     tests: [
       'modules/surface/test/**/*.test.ts',

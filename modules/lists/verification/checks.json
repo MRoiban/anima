@@ -1,0 +1,53 @@
+[
+  {
+    "command": "node tools/size.ts",
+    "exit": 0,
+    "log": "size.txt",
+    "result": "lists 4501/6144; core+web 20109; full 98059"
+  },
+  {
+    "command": "node tools/perf.ts",
+    "exit": 0,
+    "log": "perf.txt",
+    "result": "bell 2.71ms / 31.9us; composite 20.9us; toolbar 3.11ms / 24.2us; comparison inconclusive"
+  },
+  {
+    "command": "node tools/oracle.ts --strict",
+    "exit": 0,
+    "log": "oracle.txt",
+    "result": "224 cases / 418 samples; 8 new exact cases; old records unchanged"
+  },
+  {
+    "command": "VITEST_MAX_WORKERS=1 npm run test:scope -- lists components data markup conformance oracle",
+    "exit": 0,
+    "log": "tests.txt",
+    "result": "2971 pass / 37 existing TODO; both engines"
+  },
+  { "command": "npm run typecheck", "exit": 0, "log": "typecheck.txt", "result": "pass" },
+  { "command": "npx prettier --check .", "exit": 0, "log": "prettier.txt", "result": "pass" },
+  { "command": "npx eslint .", "exit": 0, "log": "eslint.txt", "result": "pass" },
+  {
+    "command": "node tools/modules.ts --check",
+    "exit": 0,
+    "log": "modules.txt",
+    "result": "current"
+  },
+  {
+    "command": "node tools/build-animl.ts --check",
+    "exit": 0,
+    "log": "animl.txt",
+    "result": "413 files current"
+  },
+  {
+    "command": "node tools/build-web.ts --check",
+    "exit": 0,
+    "log": "web.txt",
+    "result": "27 entries current"
+  },
+  {
+    "command": "node tools/parity.ts --check",
+    "exit": 0,
+    "log": "parity.txt",
+    "result": "1238 statuses unchanged; views current"
+  }
+]
