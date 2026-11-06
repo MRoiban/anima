@@ -138,3 +138,4 @@ Don't: push/PR/merge, change parity statuses/design/measurement inputs/protected
 
 - 2026-11-06 23:53 [P5b-8]: final audit1238 statuses/protected tracked inputs unchanged;66 native readbacks contain no binary/scaffold docs; normalized only log EOF whitespace; all requested commands and explicit browser project exit0 → staging local commit (evidence: verification/p5b8/audit.txt).
 - 2026-11-07 [claude]: merged P5b-8 (component() guard literal via typed-function hook, player-local data keyframes, queued component handles; quantize delta 1 explained by native precision, recorded) → core+web 20,362 (+174), full 109,305 B. Next: P5b-9 canvas seam (nested draw-tree holes) + component paint
+- 2026-11-07 [claude]: launched P5b-9 (canvas seam + component paint) and the AniML side of the P5b playlist benchmark
