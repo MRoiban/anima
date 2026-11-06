@@ -41,6 +41,8 @@ friction point that blocks an item — is a bug, fixed before the phase's PR mer
 | 2026-11-09 | P4d | share button | Rive markup | 5/6 | 9 | 3 min 55 s | 150 lines | event payload fields not visible in the headless log; audible output and new-tab opening unverified |
 | 2026-11-09 | P4d (rerun after P4d-3) | share button | AniML | 5/6 | 13 | 3 min 30 s | 33 lines | increments, event fields and milestones verified to click 1 000; audible playback unverified (request verified; neither format can hear headlessly); `inspect` printed compiled code for the increment (fixed) |
 | 2026-11-10 | P4c (rerun after P4d merged) | volume control | AniML | 6/6 | 19 | 3 min 17 s | 66 lines | arrow keys now step `volume` with an expression action; 370 sampled comparisons |
+| 2026-11-06 | P4e | [scoreboard](runs/2026-11-06-p4e/BRIEF.md) | AniML | 5/6 | 15 | 4 min 22 s | 62 lines (3.8 k chars) | item 3 partial: no read-only computed model property, so the formatted labels live on node custom properties; bind expressions lack comparisons (leader done with 3 states; misleading `bind-syntax` hint); guide recommends a missing `anima schema data` — fixes in P4e-8, AniML rerun after it |
+| 2026-11-06 | P4e | scoreboard | Rive markup | 5/6 | 26 | 7 min 6 s | 205 lines (32.9 k chars, incl. generator) | item 3 partial: labels format and update but stay host-writable; fractional formatting approximated |
 
 ### P4a findings → actions
 
@@ -83,3 +85,13 @@ friction point that blocks an item — is a bug, fixed before the phase's PR mer
   `write` direction in `anima schema listener`, the `@after(0)` pulse recipe, inspect labels,
   address spelling (P4c-6).
 - Both formats: audible audio output cannot be verified headlessly.
+
+### P4e findings → actions
+
+- **Computed read-only model properties** (both formats missed item 3): a property with a value
+  expression, per instance, `$` paths relative to its own instance, writes rejected with
+  `read-only-path` — new `derive` module (P4e-8); AniML rerun after it.
+- **Comparisons in bind expressions**: the same operators as `when` guards, one grammar, and a
+  `bind-syntax` hint that names the unsupported token (P4e-8).
+- **Docs and CLI agreement**: every `anima schema` / `anima docs` topic the guide names exists, tested
+  (P4e-8).
