@@ -27,12 +27,12 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | Rigging | 23 |  |  | 22 |  | 1 |  |
 | Scripting | 96 |  |  | 71 |  | 25 |  |
 | GPU | 35 |  |  | 8 |  | 27 |  |
-| Assets | 50 | 7 |  | 43 |  |  |  |
+| Assets | 50 | 7 |  | 42 |  | 1 |  |
 | Accessibility | 63 | 5 |  | 58 |  |  |  |
 | Host runtime API | 125 | 62 |  | 59 |  | 4 |  |
 | Platforms | 64 | 2 |  | 8 |  | 54 |  |
 | Tooling | 119 | 14 |  | 50 | 1 | 51 | 3 |
-| **Total** | **1238** | **547** | **0** | **525** | **1** | **162** | **3** |
+| **Total** | **1238** | **547** | **0** | **524** | **1** | **163** | **3** |
 
 | Phase | Rows |
 |---|---:|
@@ -48,14 +48,14 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | [P4e](#p4e) — Done: data — view models, $ paths, binding modes, converters, host data API, paint leftovers | 160 |
 | [P4](#p4) — Interaction, paint, events and data binding | 0 |
 | [P5](#p5) — Done: components, bindings, assets, images, n-slice and feathering | 61 |
-| [P5b](#p5b) — The rest of P5: asset pipelines (encodings, imports), library detach/update, lists, script instances | 112 |
+| [P5b](#p5b) — The rest of P5: asset pipelines (encodings, imports), library detach/update, lists, script instances | 93 |
 | [Pc](#pc) — Done: the canvas backend (minimal), brought forward from P10 | 3 |
-| [P6](#p6) — Text | 70 |
-| [P7](#p7) — Layout | 71 |
+| [P6](#p6) — Text | 80 |
+| [P7](#p7) — Layout | 73 |
 | [P8](#p8) — Rigging | 25 |
-| [P9](#p9) — Scripting | 86 |
-| [P10](#p10) — GPU effects and the canvas/WebGL renderer | 17 |
-| [Maybe / later](#maybe-later) | 162 |
+| [P9](#p9) — Scripting | 88 |
+| [P10](#p10) — GPU effects and the canvas/WebGL renderer | 21 |
+| [Maybe / later](#maybe-later) | 163 |
 | [Won't do](#wont-do) | 3 |
 
 ## P0 — Done: format 0.1, core, CLI, `<anima-icon>` (M0–M4) <a id="p0"></a>
@@ -1044,7 +1044,6 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `data.host-color` | Color host access | new: player.data API for color host access | data | planned | oracle/data-host-color |
 | `data.host-default-instance` | Get default instance | new: player.data API for get default instance | data | planned | oracle/data-host-default-instance |
 | `data.host-enum` | Enum host access | new: player.data API for enum host access | data | planned | oracle/data-host-enum |
-| `data.host-font` | Set model font | new: player.data API for set model font | data | planned | oracle/data-host-font |
 | `data.host-global-instance` | Set global instances | new: player.data API for set global instances | data | planned | oracle/data-host-global-instance |
 | `data.host-image` | Set model image | new: player.data API for set model image | data | planned | oracle/data-host-image |
 | `data.host-list-add-instance` | Host list: addInstance | new: player.data.<model> typed API: ViewModelInstanceList.addInstance | data | planned | oracle/data-host-list-add-instance |
@@ -1064,18 +1063,15 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `components.explicit-context` | Explicit component context | new: components.<name> / nodes[].component: named explicit-context settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-explicit-context |
 | `components.host-artboard-reference` | Host bindable artboard | new: components.<name> / nodes[].component: named host-artboard-reference settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-host-artboard-reference |
 | `components.inherited-context` | Inherited component context | new: components.<name> / nodes[].component: named inherited-context settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-inherited-context |
-| `components.layout-size` | Per-instance layout size | new: components.<name> / nodes[].component: named layout-size settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-layout-size |
 | `components.leaf-fit` | Nested fit and alignment | new: components.<name> / nodes[].component: named leaf-fit settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-leaf-fit |
 | `components.library-export` | Library export selection | new: components.<name> / nodes[].component: named library-export settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-library-export |
 | `components.library-models` | Library data definitions | new: components.<name> / nodes[].component: named library-models settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-library-models |
 | `components.library-update` | Update library dependency | new: components.<name> / nodes[].component: named library-update settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-library-update |
 | `components.list` | Repeated component list | new: components.<name> / nodes[].component: named list settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-list |
-| `components.list-layout-inheritance` | Component list layout inheritance | new: components.<name> / nodes[].component: named list-layout-inheritance settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-list-layout-inheritance |
 | `components.list-map` | Map model to row artboard | new: components.<name> / nodes[].component: named list-map settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-list-map |
 | `components.list-size-override` | Generated item sizing | new: components.<name> / nodes[].component: named list-size-override settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-list-size-override |
 | `components.nested-quantize` | Nested quantization | new: components.<name> / nodes[].component: named nested-quantize settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-quantize |
 | `components.nested-remap` | Nested time remapping | new: components.<name> / nodes[].component: named nested-remap settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-nested-remap |
-| `components.script-instance` | Script-created artboard instance | new: components.<name> / nodes[].component: named script-instance settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-script-instance |
 | `components.stateful-output` | Read-only component outputs | new: components.<name> / nodes[].component: named stateful-output settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-stateful-output |
 
 ### Assets
@@ -1091,17 +1087,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `assets.blob` | Blob asset | new: assets.<name> / build.assets.<name>: named blob resource setting | assets | planned | oracle/assets-blob |
 | `assets.cdn-disable` | Disable asset CDN | new: player asset loader API with explicit source resolution: cdn-disable | assets | planned | oracle/assets-cdn-disable |
 | `assets.exclude-export` | Exclude asset export | new: assets.<name> / build.assets.<name>: named exclude-export resource setting | assets | planned | oracle/assets-exclude-export |
-| `assets.font` | Font asset | new: assets.<name> / build.assets.<name>: named font resource setting | assets | planned | oracle/assets-font |
-| `assets.font-formats` | Font source formats | new: assets.<name> / build.assets.<name>: named font-formats resource setting | assets | planned | oracle/assets-font-formats |
-| `assets.font-glyphs-all` | Font glyph coverage: all | new: build.assets.<font>.glyphs: "all" | assets | planned | oracle/assets-font-glyphs-all |
-| `assets.font-glyphs-custom` | Font glyph coverage: custom | new: build.assets.<font>.glyphs: "custom" | assets | planned | oracle/assets-font-glyphs-custom |
-| `assets.font-glyphs-used` | Font glyph coverage: used | new: build.assets.<font>.glyphs: "used" | assets | planned | oracle/assets-font-glyphs-used |
-| `assets.google-font-import` | Google Fonts import | new: assets.<name> / build.assets.<name>: named google-font-import resource setting | assets | planned | oracle/assets-google-font-import |
 | `assets.host-decode-audio` | Host decode audio | new: player asset loader API with explicit source resolution: host-decode-audio | assets | planned | oracle/assets-host-decode-audio |
-| `assets.host-decode-font` | Host decode font | new: player asset loader API with explicit source resolution: host-decode-font | assets | planned | oracle/assets-host-decode-font |
-| `assets.image-encoding-astc` | Image encoding: astc | new: assets.<name> / build.assets.<name>: named image-encoding-astc resource setting | assets | planned | oracle/assets-image-encoding-astc |
-| `assets.image-encoding-bc7` | Image encoding: bc7 | new: assets.<name> / build.assets.<name>: named image-encoding-bc7 resource setting | assets | planned | oracle/assets-image-encoding-bc7 |
-| `assets.image-encoding-etc2rgba` | Image encoding: etc2Rgba | new: assets.<name> / build.assets.<name>: named image-encoding-etc2rgba resource setting | assets | planned | oracle/assets-image-encoding-etc2rgba |
 | `assets.image-encoding-jpeg` | Image encoding: jpeg | new: assets.<name> / build.assets.<name>: named image-encoding-jpeg resource setting | assets | planned | oracle/assets-image-encoding-jpeg |
 | `assets.image-encoding-png` | Image encoding: png | new: assets.<name> / build.assets.<name>: named image-encoding-png resource setting | assets | planned | oracle/assets-image-encoding-png |
 | `assets.image-encoding-webp` | Image encoding: webp | new: assets.<name> / build.assets.<name>: named image-encoding-webp resource setting | assets | planned | oracle/assets-image-encoding-webp |
@@ -1120,10 +1106,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `assets.image-wrap-y-repeat` | Image Y wrap: repeat | new: assets.<image>.sampling: named image-wrap-y-repeat setting | assets | planned | oracle/assets-image-wrap-y-repeat |
 | `assets.lottie-import` | Lottie import | new: assets.<name> / build.assets.<name>: named lottie-import resource setting | assets | planned | oracle/assets-lottie-import |
 | `assets.metadata` | Loader metadata | new: player asset loader API with explicit source resolution: metadata | assets | planned | oracle/assets-metadata |
-| `assets.psd-layers` | Photoshop layers | new: assets.<name> / build.assets.<name>: named psd-layers resource setting | assets | planned | oracle/assets-psd-layers |
-| `assets.replacement-scope-font` | Font replacement scope | new: assets.<name> / build.assets.<name>: named replacement-scope-font resource setting | assets | planned | oracle/assets-replacement-scope-font |
 | `assets.replacement-scope-image` | Image replacement scope | new: assets.<name> / build.assets.<name>: named replacement-scope-image resource setting | assets | planned | oracle/assets-replacement-scope-image |
-| `assets.script-blob` | Script binary lookup | new: assets.<name> / build.assets.<name>: named script-blob resource setting | assets | planned | oracle/assets-script-blob |
 | `assets.svg-import` | SVG import | new: assets.<name> / build.assets.<name>: named svg-import resource setting | assets | planned | oracle/assets-svg-import |
 
 ### Host runtime API
@@ -1139,7 +1122,6 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.data-artboard` | View model artboard | new: typed data.artboard(path) | data | planned | browser/data-artboard |
 | `host-api.data-color` | View model color | new: typed data.color(path) | data | planned | browser/data-color |
 | `host-api.data-enum` | View model enum | new: typed data.enum(path) | data | planned | browser/data-enum |
-| `host-api.data-font` | View model font | new: typed data.font(path) | data | planned | browser/data-font |
 | `host-api.data-image` | View model image | new: typed data.image(path) | data | planned | browser/data-image |
 | `host-api.data-list` | View model lists | new: typed data lists | data | planned | browser/data-list |
 | `host-api.global-models` | Global view models | new: document-scoped shared data contexts | data | planned | browser/global-models |
@@ -1148,7 +1130,6 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.view-model-discovery` | Discover view models | new: scene.data.models() | data | planned | browser/view-model-discovery |
 | `host-api.view-model-instances` | Create view model instances | new: typed model instance factory | data | planned | browser/view-model-instances |
 | `host-api.wasm-preload` | Preload runtime | new: backend preload promise | assets | planned | browser/wasm-preload |
-| `host-api.wasm-url` | Self-host WASM | new: optional backend loader URLs | assets | planned | browser/wasm-url |
 
 ## Pc — Done: the canvas backend (minimal), brought forward from P10 <a id="pc"></a>
 
@@ -1179,6 +1160,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
 | `data.bind-text` | Bind text runs | TODO: modules/data/capabilities/data-bind-text/registry.ts; spec/SPEC.md (Bind text runs); modules/data/capabilities/data-bind-text/example.animl | data | planned | TODO: modules/data/test/core/data-bind-text.test.ts; spec/conformance/data-bind-text; tests/oracle/data-bind-text |
+| `data.host-font` | Set model font | new: player.data API for set model font | data | planned | oracle/data-host-font |
 | `data.property-text-style` | Text style property | TODO: modules/data/capabilities/data-property-text-style/registry.ts; spec/SPEC.md (Text style property); modules/data/capabilities/data-property-text-style/example.animl | data | planned | TODO: modules/data/test/core/data-property-text-style.test.ts; spec/conformance/data-property-text-style; tests/oracle/data-property-text-style |
 
 ### Text
@@ -1247,11 +1229,25 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `text.word-break` | Word breaking | new: word breaking with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-word-break |
 | `text.wrap` | Line wrapping | new: line wrapping with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-wrap |
 
+### Assets
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `assets.font` | Font asset | new: assets.<name> / build.assets.<name>: named font resource setting | assets | planned | oracle/assets-font |
+| `assets.font-formats` | Font source formats | new: assets.<name> / build.assets.<name>: named font-formats resource setting | assets | planned | oracle/assets-font-formats |
+| `assets.font-glyphs-all` | Font glyph coverage: all | new: build.assets.<font>.glyphs: "all" | assets | planned | oracle/assets-font-glyphs-all |
+| `assets.font-glyphs-custom` | Font glyph coverage: custom | new: build.assets.<font>.glyphs: "custom" | assets | planned | oracle/assets-font-glyphs-custom |
+| `assets.font-glyphs-used` | Font glyph coverage: used | new: build.assets.<font>.glyphs: "used" | assets | planned | oracle/assets-font-glyphs-used |
+| `assets.google-font-import` | Google Fonts import | new: assets.<name> / build.assets.<name>: named google-font-import resource setting | assets | planned | oracle/assets-google-font-import |
+| `assets.host-decode-font` | Host decode font | new: player asset loader API with explicit source resolution: host-decode-font | assets | planned | oracle/assets-host-decode-font |
+| `assets.replacement-scope-font` | Font replacement scope | new: assets.<name> / build.assets.<name>: named replacement-scope-font resource setting | assets | planned | oracle/assets-replacement-scope-font |
+
 ### Host runtime API
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
 | `host-api.clipboard-text` | Text selection for clipboard | new: Text selection for clipboard | text | planned | browser/clipboard-text |
+| `host-api.data-font` | View model font | new: typed data.font(path) | data | planned | browser/data-font |
 | `host-api.font-fallback` | Host fallback fonts | new: font fallback resolver | text | planned | browser/font-fallback |
 | `host-api.nested-text-run` | Nested text run access | new: path-based text value access | text | planned | browser/nested-text-run |
 | `host-api.text-input` | Text and IME bridge | new: DOM-backed text input bridge | text | planned | browser/text-input |
@@ -1270,6 +1266,13 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
 | `data.bind-layout` | Bind layout parameters | TODO: modules/data/capabilities/data-bind-layout/registry.ts; spec/SPEC.md (Bind layout parameters); modules/data/capabilities/data-bind-layout/example.animl | data | planned | TODO: modules/data/test/core/data-bind-layout.test.ts; spec/conformance/data-bind-layout; tests/oracle/data-bind-layout |
+
+### Components
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `components.layout-size` | Per-instance layout size | new: components.<name> / nodes[].component: named layout-size settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-layout-size |
+| `components.list-layout-inheritance` | Component list layout inheritance | new: components.<name> / nodes[].component: named list-layout-inheritance settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-list-layout-inheritance |
 
 ### Layout
 
@@ -1433,6 +1436,12 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 |---|---|---|---|---|---|---|
 | `events.script-event-context` | Script event context | Deferred to P9: no script VM/context exists. | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-script-event-context/skip.json) | No scripting VM or event context exists; implement alongside P9 scripting. |
 
+### Components
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `components.script-instance` | Script-created artboard instance | new: components.<name> / nodes[].component: named script-instance settings; seconds, degrees and grid-unit bounds | components | planned | oracle/components-script-instance |
+
 ### Scripting
 
 | Id | Capability | Anima construct | Module | Status | Test |
@@ -1509,6 +1518,12 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `scripting.utf8-byte-strings` | UTF-8 byte string compatibility | new: script standard-library support for utf-8 byte string compatibility; language choice remains open | script | planned | oracle/script-utf8-byte-strings |
 | `scripting.vectors` | Script vector math | new: script standard-library support for script vector math; language choice remains open | script | planned | oracle/script-vectors |
 
+### Assets
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `assets.script-blob` | Script binary lookup | new: assets.<name> / build.assets.<name>: named script-blob resource setting | assets | planned | oracle/assets-script-blob |
+
 ### Host runtime API
 
 | Id | Capability | Anima construct | Module | Status | Test |
@@ -1536,6 +1551,14 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `gpu.shaders` | Shader assets and stages | new: shader assets and stages through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | planned | oracle/gpu-shaders |
 | `gpu.web-opt-in` | Web GPU canvas opt-in | new: web gpu canvas opt-in through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | planned | oracle/gpu-web-opt-in |
 
+### Assets
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `assets.image-encoding-astc` | Image encoding: astc | new: assets.<name> / build.assets.<name>: named image-encoding-astc resource setting | assets | planned | oracle/assets-image-encoding-astc |
+| `assets.image-encoding-bc7` | Image encoding: bc7 | new: assets.<name> / build.assets.<name>: named image-encoding-bc7 resource setting | assets | planned | oracle/assets-image-encoding-bc7 |
+| `assets.image-encoding-etc2rgba` | Image encoding: etc2Rgba | new: assets.<name> / build.assets.<name>: named image-encoding-etc2rgba resource setting | assets | planned | oracle/assets-image-encoding-etc2rgba |
+
 ### Host runtime API
 
 | Id | Capability | Anima construct | Module | Status | Test |
@@ -1546,6 +1569,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.offscreen-surface` | OffscreenCanvas target | new: offscreen raster renderer | canvas | planned | browser/offscreen-surface |
 | `host-api.replay-worker` | Worker-based replay | new: worker replay backend | gpu | planned | browser/replay-worker |
 | `host-api.shared-offscreen-renderer` | Share GPU context | new: shared GPU surface pool | gpu | planned | browser/shared-offscreen-renderer |
+| `host-api.wasm-url` | Self-host WASM | new: optional backend loader URLs | assets | planned | browser/wasm-url |
 
 ### Platforms
 
@@ -1625,6 +1649,12 @@ Fully inventoried and kept possible by a portable spec, but not scheduled in the
 | `gpu.vertex-layouts` | Vertex input layouts | new: vertex input layouts through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-vertex-layouts | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.viewports` | GPU viewport and scissor | new: gpu viewport and scissor through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-viewports | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
 | `gpu.write-mask` | Color write masks | new: color write masks through a separate optional module; seconds, degrees and grid units at the format boundary | gpu | maybe-later | oracle/gpu-write-mask | Low-level GPU API surface; Anima schedules shader effects first and the full GPU API later. |
+
+### Assets
+
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `assets.psd-layers` | Photoshop layers | new: assets.<name> / build.assets.<name>: named psd-layers resource setting | assets | maybe-later | oracle/assets-psd-layers | Binary PSD parsing for raster layers; little value for icon authoring (P5b design §0). |
 
 ### Host runtime API
 

@@ -1137,7 +1137,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-font",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "assets.font-formats",
@@ -1147,7 +1147,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-font-formats",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "assets.font-glyphs-all",
@@ -1157,7 +1157,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-font-glyphs-all",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "assets.font-glyphs-custom",
@@ -1167,7 +1167,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-font-glyphs-custom",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "assets.font-glyphs-used",
@@ -1177,7 +1177,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-font-glyphs-used",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "assets.google-font-import",
@@ -1187,7 +1187,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-google-font-import",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "assets.host-decode-audio",
@@ -1207,7 +1207,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-host-decode-font",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "assets.host-decode-image",
@@ -1237,7 +1237,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-encoding-astc",
-  "phase": "P5b"
+  "phase": "P10"
  },
  {
   "id": "assets.image-encoding-bc7",
@@ -1247,7 +1247,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-encoding-bc7",
-  "phase": "P5b"
+  "phase": "P10"
  },
  {
   "id": "assets.image-encoding-etc2rgba",
@@ -1257,7 +1257,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-encoding-etc2rgba",
-  "phase": "P5b"
+  "phase": "P10"
  },
  {
   "id": "assets.image-encoding-jpeg",
@@ -1455,9 +1455,10 @@
   "capability": "Photoshop layers",
   "construct": "new: assets.<name> / build.assets.<name>: named psd-layers resource setting",
   "module": "assets",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "oracle/assets-psd-layers",
-  "phase": "P5b"
+  "phase": "later",
+  "reason": "Binary PSD parsing for raster layers; little value for icon authoring (P5b design §0)."
  },
  {
   "id": "assets.replacement-scope-font",
@@ -1467,7 +1468,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-replacement-scope-font",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "assets.replacement-scope-image",
@@ -1487,7 +1488,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-script-blob",
-  "phase": "P5b"
+  "phase": "P9"
  },
  {
   "id": "assets.storage-embedded",
@@ -1577,7 +1578,7 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-layout-size",
-  "phase": "P5b"
+  "phase": "P7"
  },
  {
   "id": "components.leaf-fit",
@@ -1657,7 +1658,7 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-list-layout-inheritance",
-  "phase": "P5b"
+  "phase": "P7"
  },
  {
   "id": "components.list-map",
@@ -1787,7 +1788,7 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-script-instance",
-  "phase": "P5b"
+  "phase": "P9"
  },
  {
   "id": "components.stateful-input-animation",
@@ -2807,7 +2808,7 @@
   "module": "data",
   "status": "planned",
   "test": "oracle/data-host-font",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "data.host-global-instance",
@@ -5615,7 +5616,7 @@
   "module": "data",
   "status": "planned",
   "test": "browser/data-font",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "host-api.data-image",
@@ -6579,7 +6580,7 @@
   "module": "assets",
   "status": "planned",
   "test": "browser/wasm-url",
-  "phase": "P5b"
+  "phase": "P10"
  },
  {
   "id": "input.align-preserve",

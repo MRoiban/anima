@@ -206,8 +206,11 @@ and an oracle test against Rive.
         diagnostics (including registry-derived reserved input names), four conformance cases,
         Chromium/Firefox runtime and playground tests; optional component/bind/paint markup hooks
         restore the unchanged size gates. `npm run check`: 966 tests pass; markup 8010/8192 B.
-- [ ] P5b The rest of P5: asset pipelines (encodings, imports), library detach/update, lists,
-      script instances (72 rows).
+- [ ] P5b The rest of P5 (design: `design/p5b/DESIGN.md`; 93 rows after moving fonts to P6, GPU
+      texture formats to P10, layout sizing to P7, script instances to P9, PSD layers to later):
+      lists and data contexts (`lists`), host data editing (`host-edit`), audio/blob assets, image
+      sampling, build-time import/encoding (SVG, Lottie), then data and component extras. P5b may add
+      at most 6 KB to the full-featured page.
 - [x] Pc **Canvas backend, minimal** — brought forward from P10 (owner, 2026-11-06): the draw layer
       rendered to Canvas2D as `@anima-format/web/canvas`; runs every conformance case with a pixel
       comparison against the SVG backend; SVG stays the default for icons. Must exist before P8.

@@ -1,11 +1,10 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. P4e done on p4e-data → PR; then P5b, P3b, P6–P10.
-State: parity 547/1238; core+web 20109; full 93.6/100 KB; benchmark AniML 6/6, Rive 5/6; perf = main.
-Next: PR p4e-data → main; merge when CI green. P5b next (split bind/host/data before touching them).
-Owner: Rive CLI needs `update` to 1.9.1 for any capture; full-featured ceiling ~9 KB left.
-Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests.
+Goal: smaller, agent-native Rive. P4e merged (PR #16, 912b6c7). Now P5b on branch p5b (design/p5b/DESIGN.md); then P3b, P6–P10.
+State: main = P4e. Parity 547/1238. core+web 20109; full 93.6/100 KB (P5b ≤ +6 KB). Rive CLI 1.9.1, `update` allowed (owner).
+Next: wave 1 (Sol): lists, host-edit, assets, derive oracle follow-up; wave 2: data extras, components extras, benchmark.
+Don't: push to main; touch bind/host (full) — new modules instead; modify oracle findings or benchmark records; loosen budgets/tests.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -198,3 +197,4 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-06 12:12 [codex-test]: P4e AniML rerun 6/6; 39 CLI checks, 126 final asserted snapshots, 3 inspected PNGs → local deliverable complete (evidence: animl-rerun/REPORT.md, evidence/checks.jsonl); misleading readonly sample diagnostic retained.
 - 2026-11-06 [claude]: AniML rerun 6/6 merged; fixed read-only write message (core+web +2 B); LOG P4e entry written → opening PR
 - 2026-11-06 [claude]: PR #16 CI failed: machine browser test timed out (30 s) in Chromium — same test as the earlier local timeout. Cause: rAF stubbed, second waitForFunction used default raf polling → never re-checks → hang when module registration lands after the first check. Fix: { polling: 10 }; 3/3 local runs pass (limit unchanged)
+- 2026-11-06 [claude]: PR #16 green → merged (912b6c7). Owner updated Rive CLI to 1.9.1; `update` now allowed (memory rive-cli-rules). P5b design written; 19 rows moved (fonts→P6, GPU formats→P10, layout→P7, scripting→P9, PSD→later): 93 P5b rows
