@@ -1,0 +1,5 @@
+{
+  "code": "unsupported-render",
+  "feature": "additive",
+  "reason": "SVG additive compositing is not consistently available."
+}

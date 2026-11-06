@@ -1,0 +1,8 @@
+<anima version="0.1" name="gradient-angular" grid="20" requires="paint">
+  <rect id="a" x0="0" y0="0" width="20" height="20">
+    <angularGradient x1="0" y1="0" x2="20" y2="0">
+      <stop offset="0" stop-color="#4263eb"/>
+      <stop offset="1" stop-color="#d97757"/>
+    </angularGradient>
+  </rect>
+</anima>

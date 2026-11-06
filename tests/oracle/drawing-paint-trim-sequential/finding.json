@@ -1,0 +1,11 @@
+{
+  "status": "finding",
+  "reason": "Native screenshot differs from the independent Anima construction under the fixed comparison limits. The cause is not established; this is not verified parity.",
+  "case": {
+    "name": "drawing-paint-trim-sequential",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  }
+}

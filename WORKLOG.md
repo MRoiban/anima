@@ -1,10 +1,12 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
-State: main 49d418c = through P4c/P4d (PRs #14, #15). Parity 387/1238. core+web 19831; full-featured 69.7 KB.
-Next: data core + convert + paint leftovers in parallel; host API after data core; benchmark (scoreboard); PR.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: remaining 18 P4 paint/backend rows; branch t3/paint-backend-capabilities; commit locally only.
+State: partial, all 18 mapped; strict local completion 3/18. Report: modules/paint/REPORT.md.
+Verified: scoped 3379 pass / 6 pending oracle TODOs; extra CLI/API 5 pass; Chromium+Firefox 716 comparisons each pass.
+Verified: typecheck/lint/format/wiring/artifacts/size; core+web unchanged 19831 B; no runtime dependencies.
+Next: portable SVG paint overrides, clockwise core hit seam, eight native findings and six pending probes; parent integration.
+Don't: push/PR/merge, touch data/convert, promote parity or loosen budgets/tolerances, read .riv or Rive source/docs text.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -116,3 +118,8 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-08 02:00 [claude]: merged P4c-7 (62a23c6): main with P4d integrated, full check 4227 pass, oracle 120 cases strict 0; core+web 19831; next P4c AniML benchmark rerun → PR
 - 2026-11-08 03:30 [claude]: P4c rerun 6/6; parity 95 rows done (387/1238); LOG with numbers (perf interleaved: no regression); opening PR
 - 2026-11-08 04:00 [claude]: PR #15 merged (49d418c); P4e design written (modules data + convert, $ paths, binding modes, converters, host API)
+- 2026-11-06 06:46 [paint]: scaffold initially failed (missing prettier) → npm ci restored tooling; new contour/mix module scopes and independent path/effect tests added; outdated overlapping verification stopped (unverified final).
+- 2026-11-06 07:12 [paint]: SVG inherited stroke and canvas gradient-matrix regressions found by cross-backend pixels → fixed with explicit leaf paints and masked transformed gradient layers (evidence: targeted both-engine cases pass).
+- 2026-11-06 07:12 [paint]: two attempted nested SVG per-paint blend constructions disagreed in Firefox (max 84; 42.2083% over 16) → explicit unsupported-render, row remains incomplete; no tolerance change.
+- 2026-11-06 07:12 [paint]: local Rive capture of ten probes → geometry origin/positive winding max 1 and 0% pass; eight disagreements retained, six other native probes pending; no parity promotion (evidence: strict oracle exit 0, findings-metrics.json).
+- 2026-11-06 07:12 [paint]: final scoped check 3379 pass/6 TODO + CLI/API 5 pass, both engines 716 comparisons each pass; static/generated/size checks green → local partial handoff (evidence: modules/paint/REPORT.md; core+web 19831 B).

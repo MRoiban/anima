@@ -322,6 +322,27 @@ describe('AniML compiler', () => {
         '<anima><group id="g" opaque="true" cursor="pointer" pointerEnabled="false" collapsed="true" solo="0"/></anima>',
       ).doc.root!,
     );
+    for (const file of [
+      'drawing-paint-straight-vertex',
+      'drawing-paint-geometry-origin',
+      'drawing-paint-trim-sequential',
+      'drawing-paint-effect-order',
+      'drawing-paint-paint-blend-override',
+      'drawing-paint-fill-rule-clockwise',
+    ])
+      collectPaint(
+        parseXml(
+          readFileSync(
+            new URL('../../../spec/conformance/' + file + '/case.animl', import.meta.url),
+            'utf8',
+          ),
+        ).doc.root!,
+      );
+    collectPaint(
+      parseXml(
+        '<anima><rect mix="{&quot;mode&quot;:&quot;normal&quot;}" fill-blend-amount="0.5" stroke-blend-amount="0.5"/></anima>',
+      ).doc.root!,
+    );
     const attrs = new Set(
       [...elements, ...paintElements].flatMap((e) => e.attrs.map((a) => a.name)),
     );

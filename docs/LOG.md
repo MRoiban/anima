@@ -1994,3 +1994,20 @@ No push, PR, merge into main, benchmark rerun or parity-status promotion by this
   compile (interleaved with main, 4 rounds, load ~6): prefix sweep median ~660 ms both, bell
   ~2.5–2.8 ms; frame bell ~38–41 µs both.
 - **Parity**: 95 rows done (387 / 1 238).
+
+
+## P4e paint backend subtask — partial (2026-11-06)
+
+- Added angular gradients (canvas; explicit SVG refusal), affine gradient matrices, optional
+  contour authoring/effects/positive-winding and mix/additive modules. Existing paint/composite
+  output is preserved; no runtime dependencies or budget/tolerance changes.
+- 18 rows mapped, **3/18 strict local completion**; no inventory statuses promoted. Per-paint
+  SVG blending is explicitly refused after Firefox disagreed; clockwise rendering works but
+  core hit testing is unchanged. Vertex authoring is static; rounded vertices use specified
+  quadratic cutback, with the native disagreement retained.
+- Scoped check: **3379 passed, six pending oracle TODOs**, plus five CLI/API tests. Chromium and
+  Firefox: 716 image comparisons each, all within unchanged limits. Two new native render probes
+  pass; eight new findings remain separately measured. Details: `modules/paint/REPORT.md`.
+- Typecheck, lint, format, module wiring, browser/AniML artifacts and size checks pass.
+  Core+web unchanged 19831 B; paint 4233/5120, composite 3861/4096, contour 3380/5120,
+  mix 898/5120, canvas 4293/8192. Local implementation commit only; no push/PR/merge.

@@ -21,6 +21,10 @@ import { paint } from '../../../modules/paint/core/index.ts';
 import { paintSVG } from '../../../modules/paint/core/svg.ts';
 import { composite } from '../../../modules/composite/core/index.ts';
 import { compositeSVG } from '../../../modules/composite/core/svg.ts';
+import { contour } from '../../../modules/contour/core/index.ts';
+import { contourSVG } from '../../../modules/contour/core/svg.ts';
+import { mix } from '../../../modules/mix/core/index.ts';
+import { mixSVG } from '../../../modules/mix/core/svg.ts';
 import { surface } from '../../../modules/surface/core/index.ts';
 import { surfaceSVG } from '../../../modules/surface/core/svg.ts';
 if (VERBOSE) {
@@ -43,6 +47,10 @@ if (VERBOSE) {
   registerSVGBackend('paint', paintSVG);
   registerModule(composite);
   registerSVGBackend('composite', compositeSVG);
+  registerModule(contour);
+  registerSVGBackend('contour', contourSVG);
+  registerModule(mix);
+  registerSVGBackend('mix', mixSVG);
   registerModule(surface);
   registerSVGBackend('surface', surfaceSVG);
 }

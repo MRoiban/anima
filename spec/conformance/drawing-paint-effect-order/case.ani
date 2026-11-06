@@ -1,0 +1,28 @@
+{
+  "anima": "0.1",
+  "name": "drawing-paint-effect-order",
+  "grid": 20,
+  "requires": ["contour"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "path",
+      "d": "M2 4L8 4M2 10L18 10",
+      "stroke": {
+        "color": "#4263eb",
+        "width": 0.5,
+        "effects": [
+          {
+            "type": "dash",
+            "dash": [2, 2]
+          },
+          {
+            "type": "trim",
+            "start": 0.2,
+            "end": 0.8
+          }
+        ]
+      }
+    }
+  ]
+}

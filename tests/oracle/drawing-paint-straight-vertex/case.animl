@@ -1,0 +1,5 @@
+<anima version="0.1" name="straight" grid="20" requires="contour">
+  <contour id="a"
+      vertices="[{&quot;point&quot;:[2,10],&quot;kind&quot;:&quot;straight&quot;},{&quot;point&quot;:[6,4],&quot;kind&quot;:&quot;straight&quot;},{&quot;point&quot;:[14,10],&quot;kind&quot;:&quot;straight&quot;}]"
+      stroke="#4263eb" stroke-width="0.5" stroke-linecap="butt" stroke-linejoin="miter"/>
+</anima>

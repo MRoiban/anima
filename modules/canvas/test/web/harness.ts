@@ -49,6 +49,65 @@ const harness = {
     }
     await new Promise<void>((r) => requestAnimationFrame(() => requestAnimationFrame(() => r())));
   },
+  async customFactory() {
+    this.icon?.destroy();
+    const events: string[] = [];
+    Icon.renderers.probe = (icon) => {
+      events.push('factory');
+      const canvas = document.createElement('canvas');
+      canvas.width = canvas.height = 20;
+      const ctx = canvas.getContext('2d')!;
+      const outline = new Path2D('M2 2H18V18H2Z');
+      const paint = ctx.createLinearGradient(0, 0, 20, 0);
+      paint.addColorStop(0, '#4263eb');
+      paint.addColorStop(1, '#d97757');
+      events.push('resources');
+      icon.shadowRoot!.replaceChildren(canvas);
+      return {
+        draw(frame, force) {
+          events.push('draw');
+          if (!frame.nodes[0]?.geometry) throw Error('missing draw geometry');
+          ctx.fillStyle = paint;
+          ctx.fill(outline);
+          if (force) events.push('force');
+        },
+        layout() {
+          events.push('layout');
+        },
+        point(x, y) {
+          events.push('point');
+          return new DOMPoint(x, y);
+        },
+        connect() {
+          events.push('connect');
+        },
+        disconnect() {
+          events.push('disconnect');
+        },
+        destroy() {
+          events.push('destroy');
+          canvas.remove();
+        },
+      };
+    };
+    const icon = document.createElement('anima-icon');
+    icon.setAttribute('renderer', 'probe');
+    icon.setAttribute('paused', '');
+    document.body.append(icon);
+    icon.load({
+      anima: '0.1',
+      name: 'host',
+      grid: 20,
+      nodes: [{ id: 'a', type: 'rect', x0: 2, y0: 2, w: 16, h: 16, fill: { color: '#4263eb' } }],
+    });
+    await icon.ready;
+    icon.invalidate();
+    icon.remove();
+    document.body.append(icon);
+    icon.destroy();
+    delete Icon.renderers.probe;
+    return events;
+  },
   unchanged() {
     const before = renderer.draws;
     renderer.draw(drawFrame(this.icon.player!), false);

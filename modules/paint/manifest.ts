@@ -54,6 +54,14 @@ export default {
     'packages/markup/test/invalid.test.ts',
     'packages/markup/test/names.test.ts',
   ],
-  conformance: ['paint-gradient', 'paint-dash', 'paint-morph', 'paint-pose-morph', 'paint-shape-'],
+  conformance: [
+    'paint-gradient',
+    'paint-dash',
+    'paint-morph',
+    'paint-pose-morph',
+    'paint-shape-',
+    'drawing-paint-gradient-transform',
+    'drawing-paint-gradient-angular',
+  ],
   docs: ['spec/SPEC.md', 'spec/ANIML.md'],
 };

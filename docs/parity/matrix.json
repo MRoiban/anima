@@ -3523,30 +3523,30 @@
   "id": "drawing-paint.additive-strength",
   "category": "drawing-paint",
   "capability": "Additive blend strength",
-  "construct": "new: blendAmount: 0..1",
-  "module": "paint",
+  "construct": "node.mix.strength / paint.blendAmount scales additive source contribution",
+  "module": "mix",
   "status": "planned",
-  "test": "oracle/additive-strength",
+  "test": "modules/mix/test/core; spec/conformance/drawing-paint-additive-strength; tests/oracle/drawing-paint-additive-strength (see REPORT.md)",
   "phase": "P4"
  },
  {
   "id": "drawing-paint.asymmetric-vertex",
   "category": "drawing-paint",
   "capability": "asymmetric vertex",
-  "construct": "new: editable vertices with asymmetric vertex geometry",
-  "module": "paint",
+  "construct": "contour vertices/geometryOrigin",
+  "module": "contour",
   "status": "planned",
-  "test": "oracle/asymmetric-vertex",
+  "test": "modules/contour/test/core; spec/conformance/drawing-paint-asymmetric-vertex; tests/oracle/drawing-paint-asymmetric-vertex (see REPORT.md)",
   "phase": "P4"
  },
  {
   "id": "drawing-paint.blend-additive",
   "category": "drawing-paint",
   "capability": "Blend mode additive",
-  "construct": "deferred: plus-lighter lacks consistent SVG renderer support (SPEC paint Blend modes)",
-  "module": "paint",
+  "construct": "node.mix.mode additive / paint.blend additive; canvas lighter, SVG unsupported-render",
+  "module": "mix",
   "status": "planned",
-  "test": "SPEC paint Blend modes (deferred; no render claim)",
+  "test": "modules/mix/test/core; spec/conformance/drawing-paint-blend-additive; tests/oracle/drawing-paint-blend-additive (see REPORT.md)",
   "phase": "P4"
  },
  {
@@ -3823,20 +3823,20 @@
   "id": "drawing-paint.detached-vertex",
   "category": "drawing-paint",
   "capability": "detached vertex",
-  "construct": "new: editable vertices with detached vertex geometry",
-  "module": "paint",
+  "construct": "contour vertices/geometryOrigin",
+  "module": "contour",
   "status": "planned",
-  "test": "oracle/detached-vertex",
+  "test": "modules/contour/test/core; spec/conformance/drawing-paint-detached-vertex; tests/oracle/drawing-paint-detached-vertex (see REPORT.md)",
   "phase": "P4"
  },
  {
   "id": "drawing-paint.effect-order",
   "category": "drawing-paint",
   "capability": "Ordered path effect stacks",
-  "construct": "new: paint.effects ordered array",
-  "module": "paint",
+  "construct": "stroke.trim / ordered stroke.effects and document.effects",
+  "module": "contour",
   "status": "planned",
-  "test": "oracle/effect-order",
+  "test": "modules/contour/test/core; spec/conformance/drawing-paint-effect-order; tests/oracle/drawing-paint-effect-order (see REPORT.md)",
   "phase": "P4"
  },
  {
@@ -3903,10 +3903,10 @@
   "id": "drawing-paint.fill-rule-clockwise",
   "category": "drawing-paint",
   "capability": "Fill rule clockwise",
-  "construct": "new: fill.rule: clockwise",
-  "module": "paint",
+  "construct": "fill.winding clockwise: positive local y-down winding; rendering only, hit testing pending",
+  "module": "contour",
   "status": "planned",
-  "test": "oracle/fill-rule-clockwise",
+  "test": "modules/contour/test/core; spec/conformance/drawing-paint-fill-rule-clockwise; tests/oracle/drawing-paint-fill-rule-clockwise (see REPORT.md)",
   "phase": "P4"
  },
  {
@@ -3973,20 +3973,20 @@
   "id": "drawing-paint.geometry-origin",
   "category": "drawing-paint",
   "capability": "Parametric geometry origin",
-  "construct": "new: geometry origin expressed as an explicit point in grid units",
-  "module": "paint",
+  "construct": "contour vertices/geometryOrigin",
+  "module": "contour",
   "status": "planned",
-  "test": "oracle/geometry-origin",
+  "test": "modules/contour/test/core; spec/conformance/drawing-paint-geometry-origin; tests/oracle/drawing-paint-geometry-origin (see REPORT.md)",
   "phase": "P4"
  },
  {
   "id": "drawing-paint.gradient-angular",
   "category": "drawing-paint",
   "capability": "angular gradients",
-  "construct": "new: fill or stroke gradient: angular with grid-unit endpoints",
+  "construct": "fill/stroke.type angular; canvas createConicGradient, SVG unsupported-render",
   "module": "paint",
   "status": "planned",
-  "test": "oracle/gradient-angular",
+  "test": "modules/paint/test/core; spec/conformance/drawing-paint-gradient-angular; tests/oracle/drawing-paint-gradient-angular (see REPORT.md)",
   "phase": "P4"
  },
  {
@@ -4043,10 +4043,10 @@
   "id": "drawing-paint.gradient-transform",
   "category": "drawing-paint",
   "capability": "Gradient transforms",
-  "construct": "new: gradient.transform using grid units and degrees",
+  "construct": "fill/stroke.gradientTransform affine matrix; SVG and canvas; native transform observation disagrees",
   "module": "paint",
   "status": "planned",
-  "test": "oracle/gradient-transform",
+  "test": "modules/paint/test/core; spec/conformance/drawing-paint-gradient-transform; tests/oracle/drawing-paint-gradient-transform (see REPORT.md)",
   "phase": "P4"
  },
  {
@@ -4283,10 +4283,10 @@
   "id": "drawing-paint.mirrored-vertex",
   "category": "drawing-paint",
   "capability": "mirrored vertex",
-  "construct": "new: editable vertices with mirrored vertex geometry",
-  "module": "paint",
+  "construct": "contour vertices/geometryOrigin",
+  "module": "contour",
   "status": "planned",
-  "test": "oracle/mirrored-vertex",
+  "test": "modules/contour/test/core; spec/conformance/drawing-paint-mirrored-vertex; tests/oracle/drawing-paint-mirrored-vertex (see REPORT.md)",
   "phase": "P4"
  },
  {
@@ -4383,10 +4383,10 @@
   "id": "drawing-paint.paint-blend-override",
   "category": "drawing-paint",
   "capability": "Per-paint compositing",
-  "construct": "new: paints[].blend with inherit",
-  "module": "paint",
+  "construct": "fill/stroke.blend with inherit; ordered paints supported; Firefox verification pending",
+  "module": "mix",
   "status": "planned",
-  "test": "oracle/paint-blend-override",
+  "test": "modules/mix/test/core; spec/conformance/drawing-paint-paint-blend-override; tests/oracle/drawing-paint-paint-blend-override (see REPORT.md)",
   "phase": "P4"
  },
  {
@@ -4483,10 +4483,10 @@
   "id": "drawing-paint.rounded-vertex",
   "category": "drawing-paint",
   "capability": "rounded vertex",
-  "construct": "new: editable vertices with rounded vertex geometry",
-  "module": "paint",
+  "construct": "contour vertices/geometryOrigin",
+  "module": "contour",
   "status": "planned",
-  "test": "oracle/rounded-vertex",
+  "test": "modules/contour/test/core; spec/conformance/drawing-paint-rounded-vertex; tests/oracle/drawing-paint-rounded-vertex (see REPORT.md)",
   "phase": "P4"
  },
  {
@@ -4543,10 +4543,10 @@
   "id": "drawing-paint.shared-effects",
   "category": "drawing-paint",
   "capability": "Reusable path effects",
-  "construct": "new: effects map with reusable trim and dash stacks",
-  "module": "paint",
+  "construct": "stroke.trim / ordered stroke.effects and document.effects",
+  "module": "contour",
   "status": "planned",
-  "test": "oracle/shared-effects",
+  "test": "modules/contour/test/core; spec/conformance/drawing-paint-shared-effects; tests/oracle/drawing-paint-shared-effects (see REPORT.md)",
   "phase": "P4"
  },
  {
@@ -4593,10 +4593,10 @@
   "id": "drawing-paint.straight-vertex",
   "category": "drawing-paint",
   "capability": "straight vertex",
-  "construct": "new: editable vertices with straight vertex geometry",
-  "module": "paint",
+  "construct": "contour vertices/geometryOrigin",
+  "module": "contour",
   "status": "planned",
-  "test": "oracle/straight-vertex",
+  "test": "modules/contour/test/core; spec/conformance/drawing-paint-straight-vertex; tests/oracle/drawing-paint-straight-vertex (see REPORT.md)",
   "phase": "P4"
  },
  {
@@ -4723,10 +4723,10 @@
   "id": "drawing-paint.trim-sequential",
   "category": "drawing-paint",
   "capability": "Sequential contour trim",
-  "construct": "new: stroke.trim.mode: sequential",
-  "module": "paint",
+  "construct": "stroke.trim / ordered stroke.effects and document.effects",
+  "module": "contour",
   "status": "planned",
-  "test": "oracle/trim-sequential",
+  "test": "modules/contour/test/core; spec/conformance/drawing-paint-trim-sequential; tests/oracle/drawing-paint-trim-sequential (see REPORT.md)",
   "phase": "P4"
  },
  {
@@ -4743,10 +4743,10 @@
   "id": "drawing-paint.trim-synchronized",
   "category": "drawing-paint",
   "capability": "Synchronized contour trim",
-  "construct": "new: stroke.trim.mode: synchronized",
-  "module": "paint",
+  "construct": "stroke.trim / ordered stroke.effects and document.effects",
+  "module": "contour",
   "status": "planned",
-  "test": "oracle/trim-synchronized",
+  "test": "modules/contour/test/core; spec/conformance/drawing-paint-trim-synchronized; tests/oracle/drawing-paint-trim-synchronized (see REPORT.md)",
   "phase": "P4"
  },
  {
@@ -5841,10 +5841,10 @@
   "id": "host-api.factory",
   "category": "host-api",
   "capability": "Custom resource factory",
-  "construct": "new: Custom resource factory",
-  "module": "paint",
+  "construct": "AnimaIcon.renderers[name] factory owns backend resources; IconRenderer.draw(DrawFrame) and lifecycle",
+  "module": "mix",
   "status": "planned",
-  "test": "browser/factory",
+  "test": "modules/canvas/test/web/canvas.test.ts (customFactory, both engines); tests/oracle/host-api-factory/skip.json",
   "phase": "P4"
  },
  {
@@ -6365,10 +6365,10 @@
   "id": "host-api.renderer",
   "category": "host-api",
   "capability": "Custom renderer bridge",
-  "construct": "new: Custom renderer bridge",
-  "module": "paint",
+  "construct": "AnimaIcon.renderers[name] factory owns backend resources; IconRenderer.draw(DrawFrame) and lifecycle",
+  "module": "mix",
   "status": "planned",
-  "test": "browser/renderer",
+  "test": "modules/canvas/test/web/canvas.test.ts (customFactory, both engines); tests/oracle/host-api-renderer/skip.json",
   "phase": "P4"
  },
  {

@@ -1,0 +1,34 @@
+{
+  "anima": "0.1",
+  "name": "gradient-transform",
+  "grid": 20,
+  "requires": ["paint"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 20,
+      "h": 20,
+      "fill": {
+        "type": "linear",
+        "x1": 0,
+        "y1": 0,
+        "x2": 20,
+        "y2": 0,
+        "gradientTransform": [0, 1, -1, 0, 20, 0],
+        "stops": [
+          {
+            "position": 0,
+            "color": "#4263eb"
+          },
+          {
+            "position": 1,
+            "color": "#d97757"
+          }
+        ]
+      }
+    }
+  ]
+}

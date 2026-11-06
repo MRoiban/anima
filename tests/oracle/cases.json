@@ -1548,5 +1548,19 @@
       "script": "script.txt",
       "reference": "rive/observations.json"
     }
+  },
+  {
+    "name": "drawing-paint-geometry-origin",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "drawing-paint-fill-rule-clockwise",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
   }
 ]
