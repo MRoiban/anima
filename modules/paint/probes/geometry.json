@@ -1,0 +1,117 @@
+[
+  {
+    "name": "straight-vertex",
+    "animaPath": "M2 10L6 4L14 10",
+    "nativeCommands": [
+      "PATH 1 moveTo 24,120",
+      "PATH 2 lineTo 72,48",
+      "PATH 3 lineTo 168,120"
+    ],
+    "max": 153,
+    "over": 162,
+    "percent": 0.28125,
+    "interior": 426,
+    "exterior": 55506,
+    "interiorOver2": 0,
+    "exteriorOver2": 0
+  },
+  {
+    "name": "mirrored-vertex",
+    "animaPath": "M2 10C2 10 4 4 6 4C8 4 14 10 14 10",
+    "nativeCommands": [
+      "PATH 1 moveTo 24,120",
+      "PATH 2 cubicTo 24,120 48,48 72,48",
+      "PATH 3 cubicTo 96,48 168,120 168,120"
+    ],
+    "max": 142,
+    "over": 216,
+    "percent": 0.375,
+    "interior": 455,
+    "exterior": 55521,
+    "interiorOver2": 0,
+    "exteriorOver2": 0
+  },
+  {
+    "name": "asymmetric-vertex",
+    "animaPath": "M2 10C2 10 5 4 6 4C8 4 14 10 14 10",
+    "nativeCommands": [
+      "PATH 1 moveTo 24,120",
+      "PATH 2 cubicTo 24,120 60,48 72,48",
+      "PATH 3 cubicTo 96,48 168,120 168,120"
+    ],
+    "max": 141,
+    "over": 206,
+    "percent": 0.3576388888888889,
+    "interior": 440,
+    "exterior": 55544,
+    "interiorOver2": 0,
+    "exteriorOver2": 0
+  },
+  {
+    "name": "detached-vertex",
+    "animaPath": "M2 10C2 10 5 6 6 4C8 5 14 10 14 10",
+    "nativeCommands": [
+      "PATH 1 moveTo 24,120",
+      "PATH 2 cubicTo 24,120 60,72 72,48",
+      "PATH 3 cubicTo 96,60 168,120 168,120"
+    ],
+    "max": 153,
+    "over": 100,
+    "percent": 0.1736111111111111,
+    "interior": 443,
+    "exterior": 55541,
+    "interiorOver2": 0,
+    "exteriorOver2": 0
+  },
+  {
+    "name": "rounded-vertex",
+    "animaPath": "M2 10L5.4453 4.83205Q6 4 6.8 4.6L14 10",
+    "nativeCommands": [
+      "PATH 1 moveTo 24,120",
+      "PATH 2 lineTo 65.34359741210938,57.98460388183594",
+      "PATH 3 cubicTo 69.07234191894531,52.3914909362793 76.22233581542969,51.166751861572266 81.5999984741211,55.20000076293945",
+      "PATH 4 lineTo 168,120"
+    ],
+    "max": 153,
+    "over": 175,
+    "percent": 0.3038194444444444,
+    "interior": 420,
+    "exterior": 55560,
+    "interiorOver2": 0,
+    "exteriorOver2": 0
+  },
+  {
+    "name": "trim-sequential",
+    "animaPath": "M2 4L8 4M2 10L7 10",
+    "nativeCommands": [
+      "PATH 1 moveTo 24,48",
+      "PATH 2 lineTo 96,48",
+      "PATH 3 moveTo 24,120",
+      "PATH 4 lineTo 84,120"
+    ],
+    "max": 95,
+    "over": 25,
+    "percent": 0.043402777777777776,
+    "interior": 512,
+    "exterior": 56512,
+    "interiorOver2": 0,
+    "exteriorOver2": 0
+  },
+  {
+    "name": "trim-synchronized",
+    "animaPath": "M2 4L5 4M2 10L10 10",
+    "nativeCommands": [
+      "PATH 1 moveTo 24,48",
+      "PATH 2 lineTo 60,48",
+      "PATH 3 moveTo 24,120",
+      "PATH 4 lineTo 120,120"
+    ],
+    "max": 95,
+    "over": 26,
+    "percent": 0.04513888888888889,
+    "interior": 512,
+    "exterior": 56512,
+    "interiorOver2": 0,
+    "exteriorOver2": 0
+  }
+]

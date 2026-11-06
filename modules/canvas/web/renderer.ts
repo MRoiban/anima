@@ -379,7 +379,7 @@ export class CanvasRenderer implements IconRenderer {
       }
       ctx.save();
       ctx.resetTransform();
-      ctx.globalAlpha *= n.opacity * (n.blend === 'additive' ? (n.blendAmount ?? 1) : 1);
+      ctx.globalAlpha *= n.opacity;
       ctx.globalCompositeOperation = (
         n.blend !== 'additive' && (n.mask || n.clip || n.blend === 'normal')
           ? 'source-over'
@@ -387,9 +387,21 @@ export class CanvasRenderer implements IconRenderer {
             ? 'lighter'
             : (n.blend ?? 'source-over')
       ) as GlobalCompositeOperation;
-      ctx.drawImage(layer, 0, 0);
+      this.#blendImage(ctx, layer, n.blend, n.blendAmount ?? 1);
       ctx.restore();
     }
+  }
+  #blendImage(ctx: Ctx, source: HTMLCanvasElement, mode: string | undefined, amount: number): void {
+    const alpha = ctx.globalAlpha;
+    if (mode === 'additive') {
+      // S + D * (1 - Sa * (1 - amount)); interpolate source-over and addition.
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.globalAlpha = alpha * (1 - amount);
+      ctx.drawImage(source, 0, 0);
+      ctx.globalCompositeOperation = 'lighter';
+      ctx.globalAlpha = alpha * amount;
+    }
+    ctx.drawImage(source, 0, 0);
   }
   #shape(ctx: Ctx, i: number, world: Mat): void {
     const n = this.#frame!.nodes[i]!,
@@ -466,24 +478,30 @@ export class CanvasRenderer implements IconRenderer {
     for (const paint of n.paints) {
       if (!paint.visible) continue;
       ctx.save();
-      if (paint.blend) {
-        ctx.globalCompositeOperation = (
+      const amount = paint.blendAmount ?? 1;
+      const layer = paint.blend === 'additive' && amount < 1 ? this.#surface() : undefined;
+      const out = layer ? context(layer) : ctx;
+      if (layer) out.setTransform(ctx.getTransform());
+      if (paint.blend && !layer)
+        out.globalCompositeOperation = (
           paint.blend === 'normal'
             ? 'source-over'
             : paint.blend === 'additive'
               ? 'lighter'
               : paint.blend
         ) as GlobalCompositeOperation;
-        if (paint.blend === 'additive') ctx.globalAlpha *= paint.blendAmount ?? 1;
-      }
       const feather = paint.feather;
       if (feather?.enabled && (feather.inner || feather.outer || feather.offset.some(Boolean))) {
         const base = this.#surface(),
           bc = context(base);
-        bc.setTransform(ctx.getTransform());
+        bc.setTransform(out.getTransform());
         this.#paint(bc, i, paint, p, world);
-        this.#feather(ctx, base, paint, i, world);
-      } else this.#paint(ctx, i, paint, p, world);
+        this.#feather(out, base, paint, i, world);
+      } else this.#paint(out, i, paint, p, world);
+      if (layer) {
+        ctx.resetTransform();
+        this.#blendImage(ctx, layer, paint.blend, amount);
+      }
       ctx.restore();
     }
   }

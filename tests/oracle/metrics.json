@@ -5736,5 +5736,89 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "drawing-paint-gradient-transform",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-blend-additive",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-additive-strength",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-paint-blend-override",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-shared-effects",
+    "threshold": 16,
+    "maxOverPercent": 0.3,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 95,
+        "over": 26,
+        "overPercent": 0.04513888888888889,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-effect-order",
+    "threshold": 16,
+    "maxOverPercent": 0.3,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 95,
+        "over": 100,
+        "overPercent": 0.1736111111111111,
+        "pass": true
+      }
+    ]
   }
 ]

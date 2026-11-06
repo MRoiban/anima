@@ -415,14 +415,20 @@ export class Player {
       const polys = this.#outline(i);
       const r = n.raw;
       const half = r.stroke ? this.num(i, 'stroke.width', 1) / 2 : 0;
+      let fill: boolean | undefined;
+      for (const module of modules.values()) {
+        fill = module.fillContains?.(this, i, polys, lx, ly);
+        if (fill !== undefined) break;
+      }
       if (
-        r.fill &&
-        inside(
-          polys.filter((p) => p.closed).map((p) => p.pts),
-          lx,
-          ly,
-          r.fill.rule === 'evenodd',
-        )
+        fill ??
+        (r.fill &&
+          inside(
+            polys.filter((p) => p.closed).map((p) => p.pts),
+            lx,
+            ly,
+            r.fill.rule === 'evenodd',
+          ))
       )
         return true;
       return (r.stroke || pad > 0) && distance(polys, lx, ly) <= half + pad;

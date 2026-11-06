@@ -42,14 +42,9 @@ it('moves node blend to each paint when one paint overrides it', () => {
     n = drawFrame(p).nodes[0]!;
   expect(n.blend).toBe('normal');
   expect(n.paints.map((p) => p.blend)).toEqual(['screen', 'multiply']);
-  expect(() => toSVG(p)).toThrowError(
-    expect.objectContaining({
-      code: 'unsupported-render',
-      message: expect.stringContaining('per-paint'),
-      pointer: '/nodes/0/paints/0/fill/blend',
-      hint: expect.stringContaining('canvas'),
-    }),
-  );
+  const svg = toSVG(p);
+  expect(svg).toContain('mix-blend-mode:screen');
+  expect(svg).toContain('mix-blend-mode:multiply');
   expect(compile(decompile(document)).doc).toEqual(document);
 });
 it('rejects competing node blend declarations', () => {

@@ -162,15 +162,15 @@
     ]
   },
   {
-    "name": "drawing-paint-gradient-transform",
+    "name": "drawing-paint-gradient-angular",
     "status": "finding",
-    "reason": "Native screenshot differs from the independent Anima construction under the fixed comparison limits. The cause is not established; this is not verified parity.",
+    "reason": "Native angular screenshot differs at the seam-adjacent top row under unchanged max 2 / 0% limits: max 50, 136 pixels (0.236111%). Ray orientation is also ignored by this local native renderer. Not verified parity; SVG refuses finite-wedge approximation. See modules/paint/probes/svg.json.",
     "frames": [
       {
         "time": 0,
-        "maxDiff": 151,
-        "over": 45809,
-        "overPercent": 79.52951388888889,
+        "maxDiff": 50,
+        "over": 136,
+        "overPercent": 0.2361111111111111,
         "pass": false
       }
     ]

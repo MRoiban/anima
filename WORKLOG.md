@@ -1,10 +1,11 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
-State: main 49d418c = through P4c/P4d (PRs #14, #15). Parity 387/1238. core+web 19831; full-featured 69.7 KB.
-Next: data core + convert + paint leftovers in parallel; host API after data core; benchmark (scoreboard); PR.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4e-5 paint root causes on t3/paint-parity-root-cause (base 21b8a20).
+Verified: native path dumps equal six Anima geometries; rounded controls differ; transformed native endpoints max1/0%.
+Verified: native additive strength interpolates source-over/addition; canvas fix max1/0% at 128/255.
+Next: finish portable per-paint SVG regression checks, resolve angular/effect-order probes, run requested scopes and commit.
+Don't: modules/data, push/PR/merge, Rive source/binaries/account operations, tolerance/limit/budget changes.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -118,3 +119,4 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-08 04:00 [claude]: PR #15 merged (49d418c); P4e design written (modules data + convert, $ paths, binding modes, converters, host API)
 - 2026-11-08 07:00 [claude]: P4e-2 convert (ca00f17) partial: converters as functions (5692/8192 B), 35 Rive comparisons pass, 0 rows complete, 66 probes pending; held until data core lands, then integration via data hooks
 - 2026-11-08 09:00 [claude]: merged P4e-4 paint leftovers (f00aa82): 3/18 strict; contour + mix modules; canvas implements all, SVG refuses angular/additive/per-paint blend; 8 native findings + 6 pending oracles → follow-up after data
+- 2026-11-06 07:50 [sol]: P4e-5 native captures + six exact path/control comparisons; native gradient fields ignored, endpoint mapping passes; additive-strength bug fixed; per-paint SVG common case passes both engines, seams under test (evidence: /tmp/paint-oracle2.log, /tmp/paint-geometry-test.log, /tmp/paint-blend-browser.log).

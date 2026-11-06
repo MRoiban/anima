@@ -2068,8 +2068,10 @@ contours implicitly close. This applies to self-intersections, not merely signed
 area. The operation runs in local geometry space before transforms (a reflected node remains
 filled). It compiles to nonoverlapping trapezoids split at endpoints and edge intersections;
 curves use the same subdivision rule as effects. Both backends fill that ordinary path nonzero.
-Stroke geometry is unchanged. Core pointer hit testing currently uses the base fill rule;
-this limitation prevents claiming full clockwise-fill parity, even when render comparisons pass.
+Stroke geometry is unchanged. Core pointer hit testing uses the same positive local winding,
+including implicit closure of open fill contours, holes and self-intersections. Reflections do
+not change the local winding test. Ordered fills contain a point if any fill contains it; stroke
+and listener padding continue to use the original outline distance.
 
 ## mix
 
@@ -2085,9 +2087,11 @@ cannot coexist (`paint-conflict` at `/mix` with an instruction to choose one).
 JSON-valued AniML spelling. `node.mix.strength` is an ordinary animatable number address.
 
 Additive means Canvas2D `lighter`: sum premultiplied source and destination components,
-clamping to the output range. Strength multiplies the source premultiplied contribution
-(including alpha); zero contributes nothing, one is full addition. It is not interpolation
-between source-over and additive. Strength has no effect on other compositors. SVG refuses
+clamping to the output range. Strength interpolates between source-over (zero) and addition (one). For premultiplied
+source `S`, destination `D`, source alpha `Sa` and strength `a`, the result is
+`S + D * (1 - Sa * (1 - a))`, clamped per component (including alpha). Node opacity
+scales `S` and `Sa` before this operation. Canvas implements this as a source-over draw
+with source contribution `(1-a)`, followed by a lighter draw with source contribution `a`. Strength has no effect on other compositors. SVG refuses
 additive nodes or paints with `unsupported-render`, reason and a canvas hint because
 `plus-lighter` is not consistently supported by the supported SVG engines/static renderer.
 
@@ -2098,10 +2102,13 @@ and animatable `blendAmount` in 0..1 (AniML `fill-blend`, `stroke-blend`,
 `fill-blend-amount`, `stroke-blend-amount`). If any paint overrides blending, the node blend
 is moved to each paint: inherit chooses the node blend, explicit mode replaces it. Paints
 compose in authored order, then ordinary node opacity/masking/group isolation applies.
-`blendAmount` scales an additive paint's source contribution; it has no effect on other modes.
-Canvas uses each paint's compositor. SVG refuses non-normal per-paint overrides with
-`unsupported-render`: nested SVG blending does not compose against the same backdrop in
-Firefox and Chromium. No faithful portable SVG support is claimed for this row.
+`blendAmount` selects the same source-over/addition interpolation for an additive paint; it
+has no effect on other modes. Canvas uses each paint's compositor. SVG gives each paint a
+separate blend group, with the geometry transform on an inner group. To avoid Firefox isolating
+transformed ancestors, documents with paint overrides move node transforms into these inner
+world-space groups; authored opacity, masks and node compositors retain their isolation. Mask
+sources and clip outlines use the same world coordinate space. Gradients and fixed strokes
+remain local to the inner geometry transform. Additive overrides retain the explicit SVG refusal.
 A node without paint overrides retains the existing group compositor exactly.
 
 ### Host renderer and factory mapping

@@ -1,4 +1,4 @@
-<!-- TODO: drawing-paint.effect-order; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="drawing-paint-effect-order" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="effect-order" grid="20" requires="contour">
+  <path id="a" d="M2 5L18 5" stroke="#4263eb" stroke-width="0.5" stroke-linecap="butt" stroke-linejoin="miter" effects="[{&quot;type&quot;:&quot;trim&quot;,&quot;start&quot;:0.2,&quot;end&quot;:0.8},{&quot;type&quot;:&quot;dash&quot;,&quot;dash&quot;:[2,2]}]"/>
+  <path id="b" d="M2 15L18 15" stroke="#4263eb" stroke-width="0.5" stroke-linecap="butt" stroke-linejoin="miter" effects="[{&quot;type&quot;:&quot;dash&quot;,&quot;dash&quot;:[2,2]},{&quot;type&quot;:&quot;trim&quot;,&quot;start&quot;:0.2,&quot;end&quot;:0.8}]"/>
 </anima>
