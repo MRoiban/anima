@@ -1,0 +1,37 @@
+[
+  {
+    "frame": 5,
+    "name": "shared",
+    "payload": {
+      "count": 5
+    }
+  },
+  {
+    "frame": 10,
+    "name": "shared",
+    "payload": {
+      "count": 10
+    }
+  },
+  {
+    "frame": 15,
+    "name": "shared",
+    "payload": {
+      "count": 15
+    }
+  },
+  {
+    "frame": 20,
+    "name": "shared",
+    "payload": {
+      "count": 20
+    }
+  },
+  {
+    "frame": 25,
+    "name": "shared",
+    "payload": {
+      "count": 25
+    }
+  }
+]

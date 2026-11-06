@@ -49,6 +49,450 @@
     ]
   },
   {
+    "name": "bind-condition-modulo/immediate-probe",
+    "reason": "Immediate post-click observation differs: Anima emits at clicks 5/10/15/20/25; Rive at 6/11/16/21 with observed payloads 6/11/16/21 (5 versus 4 events, one-click lag). An extra native advance 1 settles each click and the separate completed case then matches. No elapsed-frame equivalence claimed.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "count": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "count": 1
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "count": 2
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "count": 3
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "count": 4
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "count": 5
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 5
+                }
+              }
+            ]
+          },
+          {
+            "click": 6,
+            "values": {
+              "count": 6
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "count": 7
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "count": 8
+            },
+            "events": []
+          },
+          {
+            "click": 9,
+            "values": {
+              "count": 9
+            },
+            "events": []
+          },
+          {
+            "click": 10,
+            "values": {
+              "count": 10
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 10
+                }
+              }
+            ]
+          },
+          {
+            "click": 11,
+            "values": {
+              "count": 11
+            },
+            "events": []
+          },
+          {
+            "click": 12,
+            "values": {
+              "count": 12
+            },
+            "events": []
+          },
+          {
+            "click": 13,
+            "values": {
+              "count": 13
+            },
+            "events": []
+          },
+          {
+            "click": 14,
+            "values": {
+              "count": 14
+            },
+            "events": []
+          },
+          {
+            "click": 15,
+            "values": {
+              "count": 15
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 15
+                }
+              }
+            ]
+          },
+          {
+            "click": 16,
+            "values": {
+              "count": 16
+            },
+            "events": []
+          },
+          {
+            "click": 17,
+            "values": {
+              "count": 17
+            },
+            "events": []
+          },
+          {
+            "click": 18,
+            "values": {
+              "count": 18
+            },
+            "events": []
+          },
+          {
+            "click": 19,
+            "values": {
+              "count": 19
+            },
+            "events": []
+          },
+          {
+            "click": 20,
+            "values": {
+              "count": 20
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 20
+                }
+              }
+            ]
+          },
+          {
+            "click": 21,
+            "values": {
+              "count": 21
+            },
+            "events": []
+          },
+          {
+            "click": 22,
+            "values": {
+              "count": 22
+            },
+            "events": []
+          },
+          {
+            "click": 23,
+            "values": {
+              "count": 23
+            },
+            "events": []
+          },
+          {
+            "click": 24,
+            "values": {
+              "count": 24
+            },
+            "events": []
+          },
+          {
+            "click": 25,
+            "values": {
+              "count": 25
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 25
+                }
+              }
+            ]
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "count": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "count": 1
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "count": 2
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "count": 3
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "count": 4
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "count": 5
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "count": 6
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 6
+                }
+              }
+            ]
+          },
+          {
+            "click": 7,
+            "values": {
+              "count": 7
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "count": 8
+            },
+            "events": []
+          },
+          {
+            "click": 9,
+            "values": {
+              "count": 9
+            },
+            "events": []
+          },
+          {
+            "click": 10,
+            "values": {
+              "count": 10
+            },
+            "events": []
+          },
+          {
+            "click": 11,
+            "values": {
+              "count": 11
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 11
+                }
+              }
+            ]
+          },
+          {
+            "click": 12,
+            "values": {
+              "count": 12
+            },
+            "events": []
+          },
+          {
+            "click": 13,
+            "values": {
+              "count": 13
+            },
+            "events": []
+          },
+          {
+            "click": 14,
+            "values": {
+              "count": 14
+            },
+            "events": []
+          },
+          {
+            "click": 15,
+            "values": {
+              "count": 15
+            },
+            "events": []
+          },
+          {
+            "click": 16,
+            "values": {
+              "count": 16
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 16
+                }
+              }
+            ]
+          },
+          {
+            "click": 17,
+            "values": {
+              "count": 17
+            },
+            "events": []
+          },
+          {
+            "click": 18,
+            "values": {
+              "count": 18
+            },
+            "events": []
+          },
+          {
+            "click": 19,
+            "values": {
+              "count": 19
+            },
+            "events": []
+          },
+          {
+            "click": 20,
+            "values": {
+              "count": 20
+            },
+            "events": []
+          },
+          {
+            "click": 21,
+            "values": {
+              "count": 21
+            },
+            "events": [
+              {
+                "name": "shared",
+                "payload": {
+                  "count": 21
+                }
+              }
+            ]
+          },
+          {
+            "click": 22,
+            "values": {
+              "count": 22
+            },
+            "events": []
+          },
+          {
+            "click": 23,
+            "values": {
+              "count": 23
+            },
+            "events": []
+          },
+          {
+            "click": 24,
+            "values": {
+              "count": 24
+            },
+            "events": []
+          },
+          {
+            "click": 25,
+            "values": {
+              "count": 25
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
     "name": "animation-key-event-target/boundary-probe",
     "reason": "After the SPEC 1e-9 s boundary rule, keys at 0.25/0.5/1 s report at Anima frames 15/30/60 versus freshly recaptured Rive 15/30/61. First two now agree; the last remains an exact one-frame disagreement. The native capture does not establish the cause of Rive frame 61; no tolerance or reference correction.",
     "frames": [

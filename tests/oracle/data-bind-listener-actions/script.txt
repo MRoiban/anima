@@ -1,0 +1,77 @@
+advance 0
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count
+pointer click 10 10
+advance 0.016666666666666666
+snapshot count

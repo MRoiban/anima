@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: P4b-3 declarative motion controls and sync benchmark proof complete, committed locally.
-Verified: 10 new conformance cases; scope 728/728; sync 6/6 (7 scripts, 66 snapshots).
-Full: 1380 pass + 15 pre-existing oracle TODOs with VITEST_MAX_WORKERS=2; default had 2 browser timeouts.
-Next: parent integrates/reviews local commit; P4b oracle captures and phase closure remain with parent.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4d-3 independent action-expression oracle follow-up complete; commit locally only.
+Verified: 4 exact post-click probes, 104 observations, 30 events; strict 45 cases exit 0.
+Checks: scope 876 pass/87 excluded; prettier/eslint/tools typecheck/parity/wiring exit 0.
+Findings: new immediate modulo 5 vs 4 reports; two inherited +1-frame differences retained.
+Next: parent review/integration; see modules/events/P4D-3-ORACLE-RESULTS.md.
+Don't: push/PR/merge; read .riv; copy Rive docs; loosen tolerances; use account commands.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -109,3 +110,5 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 13:00 [claude]: merged P4d-2 (342bef2): 1e-9 s boundary rule, 9 cases, transition boundary matches Rive, keys 15/30/60 vs Rive 15/30/61 (cause unproven); listener next-step spec'd; full check 2530; P4d benchmark brief (share button) written
 - 2026-11-07 14:00 [claude]: P4d benchmark: AniML 3/6 (no increment in listener actions → state ladder; milestones capped), Rive 5/6 (payload fields not in log); fix P4d-3: expressions in set actions + mod in conditions, then AniML rerun
 - 2026-11-07 19:00 [claude]: merged P4d-3 (7da8ef8): expression actions/fields, mod/floor, 7 cases, share example 6/6; core+web 19767 (+420), bind 1866/2048; one oracle probe pending
+- 2026-11-06 04:09 [sol-test]: captured 4 native action-expression probes → 104 exact post-click observations, 30 events; immediate modulo 5 versus 4 events retained as finding (evidence: node tools/oracle.ts --build --strict exit 0).
+- 2026-11-06 04:11 [sol-test]: scope 876 pass/87 exclusions; prettier/eslint/tools tsc/parity/wiring green → ready for local commit (evidence: requested commands exit 0).

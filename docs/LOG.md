@@ -1686,3 +1686,15 @@ The supplied branch is `t3/expression-actions-conditions`, base 383d99f (p4d-eve
 Independent comparative oracle is explicitly pending; parity status not promoted. Parent owns
 integration/phase closure. Local commit only, per task authorization. Detailed checks, deviations,
 initial failures and evidence: `modules/events/P4D-3-RESULTS.md`.
+
+## P4d-3 oracle follow-up (2026-11-06)
+
+Resolved the pending listener-action oracle with four independent native probes:
+104 exact post-click count/report observations, 30 events, tolerance 0. Native
+modulo needs an extra advance to match at that boundary; immediate observation
+retains a separate finding (Anima 5 events at 5/10/15/20/25, Rive 4 at 6/11/16/21).
+45 completed oracle cases pass strict; three findings remain separate. Parity test
+fields updated, statuses unchanged. Scoped bind/events/oracle: 876 pass, 87 scope
+exclusions; format/lint/tools typecheck/wiring/parity checks pass. No runtime/spec
+changes, new skips, tolerance increases, push/PR/merge or .riv reads. See
+modules/events/P4D-3-ORACLE-RESULTS.md for limits and numbered findings.

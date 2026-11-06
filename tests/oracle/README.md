@@ -182,3 +182,11 @@ Strict exit 0 means the 41 completed cases pass, not that those findings match. 
 `python3 tests/oracle/capture.py --skip-evidence`. See
 [the full per-row report](../../modules/events/ORACLE-RESULTS.md) for all 33 decisions,
 comparison mappings, payload limitations and the one-frame timing disagreements.
+
+## P4d-3 action expressions
+
+Four additional exact post-click probes resolve the listener-action pending marker:
+104 count/event observations, 25 shared reports and 5 modulo-gated reports. See
+[ACTION-EXPRESSIONS.md](ACTION-EXPRESSIONS.md) for reproduction, native extra-advance
+boundary, payload observation limits, and the separately retained immediate timing
+finding. Strict now checks 45 completed cases, with three findings reported separately.
