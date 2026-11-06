@@ -14,7 +14,7 @@
   },
   "scripts": {
     "pretest": "node tools/build-web.ts --check",
-    "test": "vitest run",
+    "test": "vitest run --project unit && vitest run --project browser --maxWorkers=2",
     "typecheck": "tsc -p packages/core && tsc -p packages/core/test && tsc -p packages/markup && tsc -p packages/markup/test && tsc -p packages/web && tsc -p packages/web/test && tsc -p packages/cli && tsc -p tools && tsc -p packages/playground",
     "lint": "eslint .",
     "format": "prettier --write .",

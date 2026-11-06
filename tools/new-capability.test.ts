@@ -133,11 +133,16 @@ it('plans without writing, is idempotent, and generates a registered, typechecke
       resolve(root, 'modules/capabilityprobe/capabilities/animation-frame-grid/registry.ts'),
       '// coder edit\n',
     );
-    await scaffold(root, 'animation.seek', 'capabilityprobe');
+    // Any still-planned row works; picking it from the inventory keeps the test valid as phases
+    // complete rows (it used animation.seek until P4b finished it).
+    const second = (JSON.parse(read('docs/parity/inventory.json')) as Row[]).find(
+      (r) => r.anima.status === 'planned' && r.id !== id,
+    )!.id;
+    await scaffold(root, second, 'capabilityprobe');
     expect(read('modules/capabilityprobe/capabilities/animation-frame-grid/registry.ts')).toBe(
       '// coder edit\n',
     );
-    expect(await scaffold(root, 'animation.seek', 'capabilityprobe')).toEqual([]);
+    expect(await scaffold(root, second, 'capabilityprobe')).toEqual([]);
   } finally {
     rmSync(root, { recursive: true, force: true });
   }
