@@ -1,0 +1,235 @@
+{
+  "anima": "0.1",
+  "name": "scoreboard",
+  "grid": 40,
+  "viewBox": [0, 0, 40, 20],
+  "requires": ["data", "bind", "derive", "convert", "input"],
+  "nodes": [
+    {
+      "id": "ada-swatch",
+      "type": "circle",
+      "center": [2, 3],
+      "r": 1,
+      "fill": {
+        "color": "#d97757"
+      }
+    },
+    {
+      "id": "ada-bar",
+      "type": "rect",
+      "x0": 5,
+      "y0": 2,
+      "w": 18.75,
+      "h": 2,
+      "fill": {
+        "color": "#d97757"
+      },
+      "stroke": {
+        "color": "#d97757",
+        "width": 0
+      }
+    },
+    {
+      "id": "lin-swatch",
+      "type": "circle",
+      "center": [2, 8],
+      "r": 1,
+      "fill": {
+        "color": "#6a9bcc"
+      }
+    },
+    {
+      "id": "lin-bar",
+      "type": "rect",
+      "x0": 5,
+      "y0": 7,
+      "w": 14.7,
+      "h": 2,
+      "fill": {
+        "color": "#6a9bcc"
+      },
+      "stroke": {
+        "color": "#d97757",
+        "width": 0
+      }
+    },
+    {
+      "id": "sam-swatch",
+      "type": "circle",
+      "center": [2, 13],
+      "r": 1,
+      "fill": {
+        "color": "#788c5d"
+      }
+    },
+    {
+      "id": "sam-bar",
+      "type": "rect",
+      "x0": 5,
+      "y0": 12,
+      "w": 0.6,
+      "h": 2,
+      "fill": {
+        "color": "#788c5d"
+      },
+      "stroke": {
+        "color": "#d97757",
+        "width": 0
+      }
+    },
+    {
+      "id": "track",
+      "type": "path",
+      "d": "M5 18H35",
+      "stroke": {
+        "color": "#141413",
+        "width": 1
+      }
+    },
+    {
+      "id": "slider",
+      "type": "group",
+      "x": 5,
+      "y": 18,
+      "scaleX": 0.015,
+      "children": [
+        {
+          "id": "knob",
+          "type": "circle",
+          "center": [0, 0],
+          "r": 1,
+          "x": 1250,
+          "scaleX": 66.66666666666667,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ]
+    }
+  ],
+  "machine": {
+    "layers": {
+      "threshold": {
+        "initial": "below",
+        "states": {
+          "below": {
+            "pose": {},
+            "on": [
+              {
+                "when": "$players.0.score >= 1500",
+                "to": "above"
+              }
+            ]
+          },
+          "above": {
+            "pose": {},
+            "emit": "milestone",
+            "on": [
+              {
+                "when": "$players.0.score < 1500",
+                "to": "below"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "drag-start|drag|drag-end",
+      "target": "knob",
+      "set": {},
+      "write": {
+        "x": "$players.0.score"
+      },
+      "align": "preserve"
+    }
+  ],
+  "bind": {
+    "ada-bar.w": "30 * $players.0.score / 2000",
+    "lin-bar.w": "30 * $players.1.score / 2000",
+    "sam-bar.w": "30 * $players.2.score / 2000",
+    "ada-swatch.fill.color": "$players.0.tint",
+    "ada-bar.fill.color": "$players.0.tint",
+    "lin-swatch.fill.color": "$players.1.tint",
+    "lin-bar.fill.color": "$players.1.tint",
+    "sam-swatch.fill.color": "$players.2.tint",
+    "sam-bar.fill.color": "$players.2.tint",
+    "ada-bar.stroke.width": "0.5 * ($players.0.score >= $players.1.score and $players.0.score >= $players.2.score)",
+    "lin-bar.stroke.width": "0.5 * ($players.1.score > $players.0.score and $players.1.score >= $players.2.score)",
+    "sam-bar.stroke.width": "0.5 * ($players.2.score > $players.0.score and $players.2.score > $players.1.score)",
+    "knob.x": "$players.0.score"
+  },
+  "data": {
+    "models": {
+      "Player": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "score": {
+            "type": "number",
+            "min": 0,
+            "max": 2000
+          },
+          "tint": {
+            "type": "color"
+          },
+          "label": {
+            "type": "string",
+            "value": "$score",
+            "convert": "points"
+          }
+        }
+      },
+      "Board": {
+        "properties": {
+          "players": {
+            "type": "list",
+            "of": "Player"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Board",
+        "default": true,
+        "values": {
+          "players": [
+            {
+              "name": "Ada",
+              "score": 1250,
+              "tint": "#d97757"
+            },
+            {
+              "name": "Lin",
+              "score": 980,
+              "tint": "#6a9bcc"
+            },
+            {
+              "name": "Sam",
+              "score": 40,
+              "tint": "#788c5d"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "converters": {
+    "grouped": {
+      "type": "number-format",
+      "decimals": 0,
+      "grouping": true
+    },
+    "suffix": {
+      "type": "template",
+      "text": "{0} pts"
+    },
+    "points": {
+      "chain": ["grouped", "suffix"]
+    }
+  }
+}

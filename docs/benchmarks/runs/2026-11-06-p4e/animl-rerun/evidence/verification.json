@@ -1,0 +1,17 @@
+{
+  "animl": {
+    "snapshots": 63,
+    "ranking_cases": 27,
+    "milestone_host": 3,
+    "milestone_drag": 2,
+    "readonly_rejections": 1
+  },
+  "ani": {
+    "snapshots": 63,
+    "ranking_cases": 27,
+    "milestone_host": 3,
+    "milestone_drag": 2,
+    "readonly_rejections": 1
+  },
+  "source_build_parity": true
+}

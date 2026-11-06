@@ -1,0 +1,4 @@
+advance 0
+set $players.0.label "forged"
+advance 0
+snapshot $players.0.label
