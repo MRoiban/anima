@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "The scene has a native middle-button filter. The runner rejects button selectors; its accepted down injects primary only. A zero middle response is not a successful button comparison.",
+  "captureEvidence": [
+    "tests/oracle/input-button-middle/rive/scene.rml",
+    "tests/oracle/input-button-middle/rive/commands.txt",
+    "tests/oracle/input-button-middle/rive/session.txt",
+    "tests/oracle/input-button-middle/rive/frames/0.json",
+    "tests/oracle/input-button-middle/rive/frames/1.json",
+    "tests/oracle/input-button-middle/rive/frames/1.semantics.json",
+    "tests/oracle/input-button-middle/rive/frames/limit.png"
+  ],
+  "tests": ["modules/input/test/core/runtime.test.ts"]
+}

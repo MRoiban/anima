@@ -1,6 +1,0 @@
-{
-  "status": "skip",
-  "reason": "Headless PNG captures contain the artboard, not an OS cursor, and expose no browser computed cursor style. The browser suite checks each authored intent and the corresponding native CSS cursor request.",
-  "evidence": "Local Rive CLI 1.9.0 --help and headless input command surface; no browser DOM is exposed by those captures.",
-  "tests": ["modules/input/test/core/runtime.test.ts", "modules/input/test/web/browser.test.ts"]
-}

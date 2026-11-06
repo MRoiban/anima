@@ -1,9 +1,1 @@
-<anima version="0.1" name="input-align-snap" grid="20" requires="input">
-  <number name="n"/>
-
-  <group id="parent" x="4" scale="2">
-    <circle id="disc" cx="10" cy="10" r="5" x="3" y="1" fill="#000"/>
-  </group>
-
-  <listener on="drag" target="disc" write="{&quot;x&quot;:&quot;n&quot;}" align="snap"/>
-</anima>
+<anima version="0.1" name="input-align-snap" grid="240" requires="input"><number name="n" default="80"/><rect id="a" x="80" y="100" x0="-12" y0="-12" width="24" height="24" fill="#4263eb"/><listener on="drag" target="a" align="snap" write='{"x":"n"}'/></anima>

@@ -1,0 +1,29 @@
+ok advance
+ok advance
+ok data-dump: frames/0.json
+ok semantics: frames/0.semantics.json
+ok pointer
+err pointer: pointer wants kind@x,y, drag@x1,y1>x2,y2[:steps], wheel@x,y:dx,dy[:notches] or trackpad@x,y:dx,dy[:steps], with a scroll's dx,dy not both 0, got "down:middle@120,120"
+err pointer: pointer wants kind@x,y, drag@x1,y1>x2,y2[:steps], wheel@x,y:dx,dy[:notches] or trackpad@x,y:dx,dy[:steps], with a scroll's dx,dy not both 0, got "down@120,120:middle"
+err pointer: pointer wants kind@x,y, drag@x1,y1>x2,y2[:steps], wheel@x,y:dx,dy[:notches] or trackpad@x,y:dx,dy[:steps], with a scroll's dx,dy not both 0, got "down@120,120,1"
+err pointer: the scene refused it
+ok gamepad
+ok gamepad
+ok pointer
+ok advance
+ok data-dump: frames/1.json
+ok semantics: frames/1.semantics.json
+ok screenshot: frames/limit.png
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[04:40:13.198] rive  deferred replay: inline
+[04:40:13.205] rive  built (332 bytes, 6ms, 0 errors, 0 warnings)
+[04:40:13.205] rive  showing Interaction [1/1]
+[04:40:13.205] rive  viewport 240x240 @1x
+[04:40:13.205] rive  wrote frames/0.json
+[04:40:13.206] rive  wrote frames/0.semantics.json
+[04:40:13.206] rive  pointer: unknown gesture "middle"
+[04:40:13.206] rive  wheel: nothing at 120,100 scrolled. No scroll view under it can move that way, or its wheelInteractive is off
+[04:40:13.206] rive  wrote frames/1.json
+[04:40:13.206] rive  wrote frames/1.semantics.json
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[04:40:13.213] rive  wrote frames/limit.png

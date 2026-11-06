@@ -1,0 +1,108 @@
+{
+  "anima": "0.1",
+  "name": "input-focus-up",
+  "grid": 20,
+  "requires": ["focus"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 2,
+      "h": 2,
+      "x": 7.333333333333334,
+      "y": 2.3333333333333335,
+      "fill": {
+        "color": "#4263eb"
+      },
+      "focus": {
+        "enabled": true,
+        "bounds": [0, 0, 2, 2]
+      }
+    },
+    {
+      "id": "b",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 2,
+      "h": 2,
+      "x": 7.333333333333334,
+      "y": 9,
+      "fill": {
+        "color": "#4263eb"
+      },
+      "focus": {
+        "enabled": true,
+        "bounds": [0, 0, 2, 2]
+      }
+    },
+    {
+      "id": "c",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 2,
+      "h": 2,
+      "x": 7.333333333333334,
+      "y": 15.666666666666668,
+      "fill": {
+        "color": "#4263eb"
+      },
+      "focus": {
+        "enabled": true,
+        "bounds": [0, 0, 2, 2]
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "focus",
+      "target": "a",
+      "set": {
+        "n": 1
+      }
+    },
+    {
+      "on": "blur",
+      "target": "a",
+      "set": {
+        "n": 0
+      }
+    },
+    {
+      "on": "focus",
+      "target": "b",
+      "set": {
+        "n": 2
+      }
+    },
+    {
+      "on": "blur",
+      "target": "b",
+      "set": {
+        "n": 0
+      }
+    },
+    {
+      "on": "focus",
+      "target": "c",
+      "set": {
+        "n": 3
+      }
+    },
+    {
+      "on": "blur",
+      "target": "c",
+      "set": {
+        "n": 0
+      }
+    }
+  ]
+}

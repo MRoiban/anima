@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "Wheel/trackpad gestures scroll the native scene, but raw scroll phases and caller timestamps are not command-runner operations. The Anima 0.15-second latch expiry cannot be compared by isolated completed wheel gestures.",
+  "captureEvidence": [
+    "tests/oracle/host-api-scroll-latching/rive/scene.rml",
+    "tests/oracle/host-api-scroll-latching/rive/commands.txt",
+    "tests/oracle/host-api-scroll-latching/rive/session.txt",
+    "tests/oracle/host-api-scroll-latching/rive/frames/0.json",
+    "tests/oracle/host-api-scroll-latching/rive/frames/1.json",
+    "tests/oracle/host-api-scroll-latching/rive/frames/1.semantics.json",
+    "tests/oracle/host-api-scroll-latching/rive/frames/limit.png"
+  ],
+  "tests": ["modules/input/test/core/runtime.test.ts"]
+}

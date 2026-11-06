@@ -2,10 +2,16 @@
 """Recapture committed references using only the local Rive headless command runner."""
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 root = Path(__file__).resolve().parent
-for case in json.loads((root / 'cases.json').read_text()):
+if '--interaction' in sys.argv:
+    subprocess.run([sys.executable, str(root.parent.parent / 'modules/input/capture-interaction.py'), '--all'], check=True)
+    sys.exit(0)
+cases = json.loads((root / 'cases.json').read_text())
+cases += [json.loads(p.read_text())['case'] for p in root.glob('*/finding.json')]
+for case in cases:
     project = root / case['name'] / 'rive'
     try:
         suffix = 'json' if case.get('values') else 'png'

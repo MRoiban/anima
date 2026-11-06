@@ -1,0 +1,36 @@
+{
+  "status": "finding",
+  "reason": "First drag move preserves the native origin at 80, while Anima applies the 16-unit displacement measured from down, yielding 96.",
+  "case": {
+    "name": "input-align-preserve",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 88 100\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 88 100\nadvance 0\nadvance 0\ncontact move 0 104 112\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 88 100\nadvance 0\nadvance 0\ncontact move 0 104 112\nadvance 0\nadvance 0\ncontact up 0 104 112\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  "observations": [
+    {
+      "time": 2,
+      "actual": 96,
+      "reference": 80,
+      "delta": 16
+    },
+    {
+      "time": 3,
+      "actual": 96,
+      "reference": 80,
+      "delta": 16
+    }
+  ]
+}

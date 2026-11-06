@@ -1,0 +1,38 @@
+{
+  "anima": "0.1",
+  "name": "input-hit-shape-geometry",
+  "grid": 20,
+  "requires": ["input"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 5,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "down",
+      "target": "a",
+      "set": {
+        "n": 1
+      }
+    },
+    {
+      "on": "up",
+      "target": "a",
+      "set": {
+        "n": 2
+      }
+    }
+  ]
+}

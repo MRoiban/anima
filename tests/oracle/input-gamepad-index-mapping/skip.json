@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "The runner accepts one synthetic standard pad and control indices, but rejects pad index and mapping selection. This does not establish filtering among multiple device indices or a raw mapping.",
+  "captureEvidence": [
+    "tests/oracle/input-gamepad-index-mapping/rive/scene.rml",
+    "tests/oracle/input-gamepad-index-mapping/rive/commands.txt",
+    "tests/oracle/input-gamepad-index-mapping/rive/session.txt",
+    "tests/oracle/input-gamepad-index-mapping/rive/frames/0.json",
+    "tests/oracle/input-gamepad-index-mapping/rive/frames/1.json",
+    "tests/oracle/input-gamepad-index-mapping/rive/frames/1.semantics.json",
+    "tests/oracle/input-gamepad-index-mapping/rive/frames/limit.png"
+  ],
+  "tests": ["modules/input/test/core/runtime.test.ts"]
+}

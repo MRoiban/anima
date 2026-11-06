@@ -1468,8 +1468,9 @@ displacing the chosen shadow target. Explicit pause ignores arrow navigation.
 Focus proxies are semantic targets, not extra painted shapes. The small semantic
 DOM and shared core input policy follow the guidance in
 `docs/research/rive-web-runtime.md` (lessons 2 and 6); no Rive implementation is used.
-Headless pixel oracles cannot observe DOM focus, logical focus ids or Tab order;
-per-row skip notes explain why painted-frame equality would not test these rows.
+Headless pixels alone do not observe focus. Native interaction oracles compare logical focus
+and traversal through semantics dumps and focus/blur view-model reports. Browser tests separately
+cover DOM focus and native Tab entry/exit; see `modules/input/ORACLE-RESULTS.md`.
 
 ## machine
 

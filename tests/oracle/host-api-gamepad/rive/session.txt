@@ -1,0 +1,19 @@
+ok advance
+ok pointer
+ok gamepad
+ok gamepad
+ok touch
+err navigator: unknown command 'navigator', type ? for the list
+ok advance
+ok data-dump: frames/0.json
+ok semantics: frames/0.semantics.json
+ok screenshot: frames/limit.png
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[04:40:19.940] rive  deferred replay: inline
+[04:40:19.944] rive  built (327 bytes, 4ms, 0 errors, 0 warnings)
+[04:40:19.944] rive  showing Interaction [1/1]
+[04:40:19.945] rive  viewport 240x240 @1x
+[04:40:19.945] rive  wrote frames/0.json
+[04:40:19.945] rive  wrote frames/0.semantics.json
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[04:40:19.950] rive  wrote frames/limit.png

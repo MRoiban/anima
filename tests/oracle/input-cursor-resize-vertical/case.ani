@@ -1,0 +1,20 @@
+{
+  "anima": "0.1",
+  "name": "input-cursor-resize-vertical",
+  "grid": 240,
+  "requires": ["input"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 108,
+      "y0": 108,
+      "w": 24,
+      "h": 24,
+      "fill": {
+        "color": "#4263eb"
+      },
+      "cursor": "resize-vertical"
+    }
+  ]
+}

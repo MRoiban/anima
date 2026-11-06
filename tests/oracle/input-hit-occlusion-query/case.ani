@@ -1,0 +1,52 @@
+{
+  "anima": "0.1",
+  "name": "input-hit-occlusion-query",
+  "grid": 240,
+  "requires": ["input"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 108,
+      "y0": 108,
+      "w": 24,
+      "h": 24,
+      "fill": {
+        "color": "#4263eb"
+      }
+    },
+    {
+      "id": "top",
+      "type": "rect",
+      "x0": 108,
+      "y0": 108,
+      "w": 24,
+      "h": 24,
+      "fill": {
+        "color": "#4263eb"
+      },
+      "opaque": true
+    }
+  ],
+  "listeners": [
+    {
+      "on": "down",
+      "target": "a",
+      "set": {
+        "n": 1
+      }
+    },
+    {
+      "on": "down",
+      "target": "top",
+      "set": {
+        "n": 2
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "The runner can lift or exit a contact, but rejects cancel for mouse and touch. Exit is a different Anima phase and cannot verify pointer cancellation.",
+  "captureEvidence": [
+    "tests/oracle/input-pointer-cancel/rive/scene.rml",
+    "tests/oracle/input-pointer-cancel/rive/commands.txt",
+    "tests/oracle/input-pointer-cancel/rive/session.txt",
+    "tests/oracle/input-pointer-cancel/rive/frames/0.json",
+    "tests/oracle/input-pointer-cancel/rive/frames/1.json",
+    "tests/oracle/input-pointer-cancel/rive/frames/1.semantics.json",
+    "tests/oracle/input-pointer-cancel/rive/frames/limit.png"
+  ],
+  "tests": ["modules/input/test/core/runtime.test.ts"]
+}
