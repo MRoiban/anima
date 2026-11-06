@@ -1,0 +1,10 @@
+advance 0.016666666666666666
+set stop true
+advance 0.21666666666666667 in 13
+snapshot
+advance 0.016666666666666666
+snapshot
+advance 0
+snapshot
+advance 0.25 in 15
+snapshot

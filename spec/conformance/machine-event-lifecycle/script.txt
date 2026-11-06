@@ -1,0 +1,13 @@
+advance 0
+snapshot count seen
+advance 0
+snapshot count seen
+fire go
+advance 0
+snapshot count seen
+advance 0
+snapshot count seen
+advance 0.0999999995
+snapshot count seen
+advance 0
+snapshot count seen

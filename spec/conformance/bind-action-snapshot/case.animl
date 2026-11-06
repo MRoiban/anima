@@ -1,0 +1,6 @@
+<anima version="0.1" name="bind-action-snapshot" grid="20" requires="bind">
+  <circle id="dot" cx="10" cy="10" r="2" fill="#000"/>
+  <number name="a" default="2"/>
+  <number name="b"/>
+  <listener on="click" set="a=a+1 b=a*2"/>
+</anima>

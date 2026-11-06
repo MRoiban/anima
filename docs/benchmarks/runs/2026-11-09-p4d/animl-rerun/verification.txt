@@ -1,0 +1,2 @@
+PASS: 84 snapshots (including built parity); pulse geometry/timing, payloads, 25 clicks, milestones through 1000, rapid restart, built parity, rest SVG, WAV structure.
+UNVERIFIED: browser audio playback / audible output; host opening a tab (only URL request required).

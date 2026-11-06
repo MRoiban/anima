@@ -1,0 +1,6 @@
+{"time": 0, "values": {"count": 1, "seen": 0}, "states": {"main": "idle"}, "events": [{"name": "entered", "layer": null, "time": 0}], "settled": false}
+{"time": 0, "values": {"count": 1, "seen": 11}, "states": {"main": "idle"}, "events": [], "settled": true}
+{"time": 0, "values": {"count": 1, "seen": 11}, "states": {"main": "next"}, "events": [{"name": "@state-end", "layer": "main", "time": 0, "payload": {"state": "idle"}}, {"name": "@transition-start", "layer": "main", "time": 0, "payload": {"state": "next"}}, {"name": "started", "layer": "main", "time": 0}], "settled": false}
+{"time": 0, "values": {"count": 2, "seen": 11}, "states": {"main": "next"}, "events": [{"name": "edge", "layer": null, "time": 0}, {"name": "arrived", "layer": null, "time": 0, "payload": {"count": 2}}], "settled": false}
+{"time": 0.0999999995, "values": {"count": 2, "seen": 22}, "states": {"main": "next"}, "events": [{"name": "@transition-end", "layer": "main", "time": 0, "payload": {"state": "next"}}, {"name": "finished", "layer": "main", "time": 0}], "settled": false}
+{"time": 0.0999999995, "values": {"count": 3, "seen": 22}, "states": {"main": "next"}, "events": [{"name": "completed", "layer": null, "time": 0}], "settled": true}

@@ -1,0 +1,12 @@
+<anima version="0.1" name="bind-machine-actions" grid="20" requires="bind">
+  <circle id="dot" cx="10" cy="10" r="2" fill="#000"/>
+  <number name="count"/>
+  <number name="copy"/>
+  <trigger name="go"/>
+  <layer name="main" initial="idle">
+    <state name="idle" entry="{&quot;set&quot;:{&quot;count&quot;:1}}" exit="{&quot;set&quot;:{&quot;count&quot;:&quot;count+1&quot;}}">
+      <on when="go" to="next" actions="{&quot;set&quot;:{&quot;count&quot;:&quot;count*2&quot;}}"/>
+    </state>
+    <state name="next" entry="{&quot;set&quot;:{&quot;count&quot;:&quot;count+1&quot;,&quot;copy&quot;:&quot;count&quot;}}"/>
+  </layer>
+</anima>

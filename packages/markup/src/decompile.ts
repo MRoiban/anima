@@ -1,5 +1,5 @@
 import { elementFields, compoundField } from './fields.ts';
-import { motionCompiler } from './module-hooks.ts';
+import { motionCompiler, eventsCompiler } from './module-hooks.ts';
 import { parseXml, type Element } from './xml.ts';
 import { ELEMENTS, markupName, type NodeType } from '@anima-format/core';
 import { markupAddress, nodeAttrs } from './names.ts';
@@ -246,6 +246,7 @@ export function decompile(doc: string | object): string {
       }
       return el;
     });
+  groups.push(eventsCompiler.definitions?.(d) ?? []);
   groups.push(machineLayers(d.machine));
   groups.push(
     entries(d.machines).map(([name, machine]) => ({

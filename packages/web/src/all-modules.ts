@@ -4,6 +4,7 @@ import './bind.ts';
 import './canvas.ts';
 import './components.ts';
 import './composite.ts';
+import './events.ts';
 import './focus.ts';
 import './input.ts';
 import './machine.ts';

@@ -13,6 +13,8 @@ import { input } from '../../../modules/input/core/index.ts';
 import { inputSVG } from '../../../modules/input/core/svg.ts';
 import { motion } from '../../../modules/motion/core/index.ts';
 import { motionSVG } from '../../../modules/motion/core/svg.ts';
+import { events } from '../../../modules/events/core/index.ts';
+import { eventsSVG } from '../../../modules/events/core/svg.ts';
 import { machine } from '../../../modules/machine/core/index.ts';
 import { machineSVG } from '../../../modules/machine/core/svg.ts';
 import { paint } from '../../../modules/paint/core/index.ts';
@@ -33,6 +35,8 @@ if (VERBOSE) {
   registerSVGBackend('input', inputSVG);
   registerModule(motion);
   registerSVGBackend('motion', motionSVG);
+  registerModule(events);
+  registerSVGBackend('events', eventsSVG);
   registerModule(machine);
   registerSVGBackend('machine', machineSVG);
   registerModule(paint);

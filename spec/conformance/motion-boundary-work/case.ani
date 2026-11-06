@@ -1,0 +1,114 @@
+{
+  "anima": "0.1",
+  "name": "motion-boundary-work",
+  "grid": 20,
+  "requires": ["motion"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "channels": {
+        "n": {
+          "type": "int",
+          "value": 0
+        },
+        "p": {
+          "type": "int",
+          "value": 0
+        }
+      }
+    }
+  ],
+  "timelines": {
+    "loop": {
+      "duration": 1,
+      "loop": "loop",
+      "tracks": {
+        "a.x": [
+          [0, 0, "value-cubic(0.3333333333333333,3.3333333333333335,0.6666666666666666,6.666666666666667)"],
+          [1, 10]
+        ],
+        "a.channels.n": [
+          [0, 0],
+          [0.4, 4],
+          [0.7, 7]
+        ]
+      },
+      "events": [
+        [0.45, "mid"]
+      ],
+      "quantize": 10,
+      "work": [0.2, 0.7]
+    },
+    "ping": {
+      "duration": 1,
+      "loop": "pingpong",
+      "tracks": {
+        "a.y": [
+          [0, 0],
+          [1, 10]
+        ],
+        "a.channels.p": [
+          [0, 0],
+          [0.4, 4],
+          [0.7, 7]
+        ]
+      },
+      "events": [
+        [0.45, "mid"]
+      ],
+      "speed": -1,
+      "quantize": 10,
+      "work": [0.2, 0.7]
+    },
+    "turn": {
+      "duration": 1,
+      "loop": "pingpong",
+      "tracks": {
+        "a.rotate": [
+          [0, 0],
+          [1, 100]
+        ]
+      },
+      "events": [
+        [0.2, "start"],
+        [0.75, "end"]
+      ],
+      "quantize": 10,
+      "work": [0.2, 0.75]
+    }
+  },
+  "machine": {
+    "layers": {
+      "turn": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "turn"
+          }
+        }
+      },
+      "loop": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "loop"
+          }
+        }
+      },
+      "ping": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "ping"
+          }
+        }
+      }
+    }
+  }
+}

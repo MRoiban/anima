@@ -1,6 +1,8 @@
 import type { TimelineM } from '../../../packages/core/src/load.ts';
 import type { AnimaEvent } from '../../../packages/core/src/player.ts';
 
+import { reached, snapTime, foldTime } from '../../../packages/core/src/time.ts';
+
 export type Loop = TimelineM['loop'];
 export interface Timing {
   speed?: number;
@@ -17,16 +19,17 @@ export function position(
 ): number {
   const [start, end] = bounds(t),
     d = end - start;
-  let x = clock - start;
-  if (loop === 'once') x = Math.max(0, Math.min(d, x));
-  else {
-    const period = loop === 'loop' ? d : d * 2;
-    x -= period * Math.floor(x / period);
-    if (x > d) x = period - x;
-  }
-  let at = start + x;
+  const relative = clock - start;
+  const x =
+    loop === 'once'
+      ? Math.max(0, Math.min(d, snapTime(snapTime(relative, 0), d)))
+      : foldTime(relative, d, loop === 'pingpong');
+  let at = x === d ? end : start + x;
   const q = timing.get(t)?.quantize;
-  if (quantize && q && at !== end) at = Math.max(start, Math.floor(at * q) / q);
+  if (quantize && q && at !== end) {
+    const tick = Math.round(at * q) / q;
+    at = Math.max(start, snapTime(at, tick) === tick ? tick : Math.floor(at * q) / q);
+  }
   return at;
 }
 /** Source clock, before work-area folding and sample quantization. */
@@ -49,6 +52,7 @@ export function crossings(
   layer: string,
   out: AnimaEvent[],
   loop: Loop = t.loop,
+  source = t.events,
 ): void {
   const [start, end] = bounds(t),
     d = end - start;
@@ -57,19 +61,20 @@ export function crossings(
     hi = Math.max(a, b);
   const period = loop === 'pingpong' ? 2 * d : d;
   const found: [number, number, string][] = [];
-  for (const [at, name] of t.events) {
+  for (const [at, name] of source) {
     if (at < start || at > end) continue;
     const first = loop === 'once' ? 0 : Math.floor((lo - start) / period) - 1;
     const last =
       loop === 'once' ? 0 : Math.min(first + 10000, Math.ceil((hi - start) / period) + 1);
     const seen = new Set<number>();
     for (let k = first; k <= last; k++) {
-      for (const x of loop === 'pingpong'
+      // Endpoint turns use one series, even when reflected arithmetic differs by an ulp.
+      for (const x of loop === 'pingpong' && at !== start && at !== end
         ? [at + k * period, 2 * end - at + k * period]
         : [at + k * period]) {
         const hit = reverse
-          ? x >= b && (closed ? x <= a : x < a)
-          : x <= b && (closed ? x >= a : x > a);
+          ? reached(x, b) && (closed ? reached(a, x) : !reached(x, a))
+          : reached(b, x) && (closed ? reached(x, a) : !reached(a, x));
         if (hit && !seen.has(x)) {
           seen.add(x);
           found.push([x, at, name]);

@@ -1,0 +1,31 @@
+<anima version="0.1" name="clock-boundaries" grid="20">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <timeline name="t" duration="1">
+    <track target="a.x">0 0 hold; 0.25 10 hold; 0.5 20 hold; 1 30</track>
+    <track target="a.visible">0 true; 0.25 false; 0.5 true</track>
+    <event at="0.25" name="quarter"/>
+    <event at="0.5" name="half"/>
+    <event at="1" name="end"/>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t">
+      <on when="@end" to="done"/>
+    </state>
+    <state name="done" emit="finished">
+      <pose a.x="30" a.visible="true"/>
+    </state>
+  </layer>
+  <layer name="timer" initial="s">
+    <state name="s">
+      <pose a.y="0"/>
+      <on when="@after(0.5)" to="fade" blend="0.25" interruptible="false"/>
+    </state>
+    <state name="fade" emit="begin">
+      <pose a.y="10"/>
+      <on when="@after(0)" to="done"/>
+    </state>
+    <state name="done" emit="done">
+      <pose a.y="20"/>
+    </state>
+  </layer>
+</anima>

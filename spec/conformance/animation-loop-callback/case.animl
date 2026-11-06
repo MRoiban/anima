@@ -1,0 +1,9 @@
+<anima version="0.1" name="events" grid="20" requires="events">
+  <circle id="a" cx="10" cy="10" r="1" fill="#000"/>
+
+  <timeline name="t" duration="1" loop="loop"/>
+
+  <layer name="main" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

@@ -134,3 +134,17 @@ it('machine and motion preserve source clock/ease/seek behavior outside blend st
   p.step(0.05);
   expect(p.states()).toEqual({ l: 'b' });
 });
+
+it.each([false, true])('forwards synthetic event marker sources; motion=%s', (motion) => {
+  const d = doc('machine-event-loop');
+  if (motion) d.requires.push('motion');
+  const p = create(d);
+  expect(p.step(0).events.filter((e) => e.name === '@loop')).toEqual([]);
+  for (const at of [0.1, 0]) {
+    expect(p.step(0.1).events.filter((e) => e.name === '@loop')).toEqual([
+      { name: '@loop', layer: 'loop', time: 0.1 },
+      { name: '@loop', layer: 'ping', time: at },
+    ]);
+    expect(p.step(0).events).toEqual([]);
+  }
+});

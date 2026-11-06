@@ -1,0 +1,27 @@
+<Rive version="1" kind="fragment">
+<Artboard id="0:1" name="Oracle" width="240" height="240" viewModelId="0:40" defaultStateMachineId="0:101">
+<Shape id="0:10" name="hit" x="120" y="120"><Rectangle width="240" height="240"/><Fill><SolidColor colorValue="FFFFFFFF"/></Fill></Shape>
+<Event id="0:60" name="shared"><CustomPropertyNumber name="count" propertyValue="0">
+<DataBindContext sourcePathIds="0:40-0:42" propertyKey="243"/>
+<DataBindContext sourcePathIds="0:40-0:43" propertyKey="243" direction="true"/>
+</CustomPropertyNumber></Event><LinearAnimation id="0:100" name="hold" duration="60" fps="60"/>
+<StateMachine id="0:101" name="s"><StateMachineLayer><EntryState><StateTransition stateToId="0:102"/></EntryState><AnimationState id="0:102" animationId="0:100"><StateTransition stateToId="0:103"><TransitionViewModelCondition opValue="greaterThan"><TransitionPropertyViewModelComparator>
+<BindablePropertyNumber><DataBindContext sourcePathIds="0:40-0:42" propertyKey="636"/></BindablePropertyNumber>
+</TransitionPropertyViewModelComparator><TransitionValueNumberComparator value="0"/></TransitionViewModelCondition><TransitionViewModelCondition><TransitionPropertyViewModelComparator>
+<BindablePropertyNumber><DataBindContext sourcePathIds="0:40-0:42" propertyKey="636" converterId="0:81"/></BindablePropertyNumber>
+</TransitionPropertyViewModelComparator><TransitionValueNumberComparator value="0"/></TransitionViewModelCondition></StateTransition></AnimationState>
+<AnimationState id="0:103" animationId="0:100"><StateMachineFireEvent eventId="0:60"/>
+<StateTransition stateToId="0:102"><TransitionViewModelCondition opValue="notEqual"><TransitionPropertyViewModelComparator>
+<BindablePropertyNumber><DataBindContext sourcePathIds="0:40-0:42" propertyKey="636" converterId="0:81"/></BindablePropertyNumber>
+</TransitionPropertyViewModelComparator><TransitionValueNumberComparator value="0"/></TransitionViewModelCondition></StateTransition></AnimationState></StateMachineLayer>
+<StateMachineListenerSingle name="increment" targetId="0:10" listenerTypeValue="click">
+<ListenerViewModelChange fromViewModelProperty="true" fromDataBindId="0:99"><BindablePropertyNumber>
+<DataBindContext id="0:99" sourcePathIds="0:40-0:42" propertyKey="636" converterId="0:80"/>
+<DataBindContext sourcePathIds="0:40-0:42" propertyKey="636" direction="true"/>
+</BindablePropertyNumber></ListenerViewModelChange></StateMachineListenerSingle>
+</StateMachine></Artboard>
+<ViewModel id="0:40" name="Model" defaultInstanceId="0:41"><ViewModelPropertyNumber id="0:42" name="count"/><ViewModelPropertyNumber id="0:43" name="observed"/>
+<ViewModelInstance id="0:41" name="Default" exports="true"><ViewModelInstanceNumber viewModelPropertyId="0:42" propertyValue="0"/><ViewModelInstanceNumber viewModelPropertyId="0:43" propertyValue="0"/></ViewModelInstance></ViewModel>
+<DataConverterFormula id="0:80" name="increment"><FormulaTokenInput/><FormulaTokenOperation operationType="0"/><FormulaTokenValue operationValue="1"/></DataConverterFormula>
+<DataConverterFormula id="0:81" name="remainder"><FormulaTokenInput/><FormulaTokenOperation operationType="4"/><FormulaTokenValue operationValue="5"/></DataConverterFormula>
+</Rive>

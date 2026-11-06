@@ -1,0 +1,1 @@
+Invalid expression actions are table-tested in [data-bind-listener-actions.test.ts](../../data-bind-listener-actions.test.ts): type mismatch, unknown input, trigger source/destination, bad arity and missing bind. Every case asserts the diagnostic code and JSON pointer.

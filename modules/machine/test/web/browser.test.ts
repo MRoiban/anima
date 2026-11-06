@@ -13,6 +13,10 @@ const xml = readFileSync(
   new URL('../../../../spec/conformance/machine-change-increased/case.animl', import.meta.url),
   'utf8',
 );
+const lifecycle = readFileSync(
+  new URL('../../../../spec/conformance/machine-event-lifecycle/case.animl', import.meta.url),
+  'utf8',
+);
 for (const [name, engine, paths] of [
   [
     'Chromium',
@@ -113,6 +117,59 @@ for (const [name, engine, paths] of [
               busy: false,
               diagnostics: [],
               hasChange: true,
+            });
+            // Recompose independently emitted modules in opposite orders, after machine.
+            for (const mod of markupFirst
+              ? ['components', 'events', 'bind']
+              : ['bind', 'events', 'components'])
+              await page.addScriptTag({
+                type: 'module',
+                content: await bundle(resolve('packages/web/src/' + mod + '.ts')),
+              });
+            await page.waitForFunction(() =>
+              ['components', 'events', 'bind'].every((m) =>
+                (customElements.get('anima-icon') as typeof AnimaIcon).modules.has(m),
+              ),
+            );
+            const actions = await page.evaluate((xml) => {
+              const icon = document.querySelector('anima-icon') as AnimaIcon;
+              icon.setAttribute('paused', '');
+              const diagnostics = icon.load(xml, true);
+              if (!icon.player) throw Error(JSON.stringify(diagnostics));
+              const p = icon.player;
+              const first = p.step(0);
+              const early = [p.get('count'), p.get('seen')];
+              p.step(0);
+              const next = p.get('seen');
+              p.fire('go');
+              const transition = p.step(0).events.map((e) => e.name);
+              const entry = p.step(0).events.find((e) => e.name === 'arrived')?.payload;
+              const completion = p.step(0.0999999995).events.map((e) => e.name);
+              const last = p.step(0);
+              return {
+                diagnostics,
+                first: first.events.map((e) => e.name),
+                early,
+                next,
+                transition,
+                entry,
+                completion,
+                count: p.get('count'),
+                seen: p.get('seen'),
+                settled: last.settled,
+              };
+            }, lifecycle);
+            expect(actions).toEqual({
+              diagnostics: [],
+              first: ['entered'],
+              early: [1, 0],
+              next: 11,
+              transition: ['@state-end', '@transition-start', 'started'],
+              entry: { count: 2 },
+              completion: ['@transition-end', 'finished'],
+              count: 3,
+              seen: 22,
+              settled: true,
             });
             expect(errors).toEqual([]);
           } finally {

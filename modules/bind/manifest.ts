@@ -50,6 +50,6 @@ export default {
     'packages/markup/test/names.test.ts',
     'modules/components/test/markup/components.test.ts',
   ],
-  conformance: ['bind-'],
+  conformance: ['bind-', 'data-bind-listener-actions'],
   docs: ['spec/SPEC.md', 'spec/ANIML.md'],
 };

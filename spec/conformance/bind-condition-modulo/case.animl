@@ -1,0 +1,14 @@
+<anima version="0.1" name="bind-condition-modulo" grid="20" requires="bind">
+  <circle id="dot" cx="10" cy="10" r="2" fill="#000"/>
+  <number name="count"/>
+  <trigger name="click"/>
+  <listener on="click" fire="click" set="count=count+1"/>
+  <layer name="main" initial="idle">
+    <state name="idle">
+      <on when="click and count > 0 and mod(count, 5) == floor(0.9)" to="milestone"/>
+    </state>
+    <state name="milestone" emit="milestone">
+      <on when="@after(0)" to="idle"/>
+    </state>
+  </layer>
+</anima>

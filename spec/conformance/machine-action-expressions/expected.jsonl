@@ -1,0 +1,4 @@
+{"time": 0, "values": {"count": 2, "copy": 1, "flag": false}, "states": {"main": "idle"}, "events": [], "settled": true}
+{"time": 0, "values": {"count": 2, "copy": 1, "flag": false}, "states": {"main": "next"}, "events": [], "settled": false}
+{"time": 0, "values": {"count": 8, "copy": 6, "flag": false}, "states": {"main": "next"}, "events": [{"name": "left", "layer": null, "time": 0}, {"name": "edge", "layer": null, "time": 0}, {"name": "arrived", "layer": null, "time": 0}, {"name": "done", "layer": null, "time": 0}], "settled": true}
+{"time": 0, "values": {"count": 20, "copy": 8, "flag": true}, "states": {"main": "next"}, "events": [], "settled": true}

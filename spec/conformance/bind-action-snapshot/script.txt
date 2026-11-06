@@ -1,0 +1,4 @@
+pointer click 10 10
+snapshot a b
+pointer click 10 10
+snapshot a b

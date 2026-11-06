@@ -1,0 +1,14 @@
+advance 0.249999998
+snapshot
+advance 0.0000000015
+snapshot
+advance 0
+snapshot
+advance 0.000000001
+snapshot
+advance 0.2499999975
+snapshot
+advance 0.0000000015
+snapshot
+advance 0.000000001
+snapshot

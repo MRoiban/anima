@@ -1,0 +1,66 @@
+{
+  "anima": "0.1",
+  "name": "clock-boundaries-wrap",
+  "grid": 20,
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "loop": {
+      "duration": 0.1,
+      "loop": "loop",
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [0.1, 10]
+        ]
+      },
+      "events": [
+        [0, "start"],
+        [0.1, "end"]
+      ]
+    },
+    "ping": {
+      "duration": 0.1,
+      "loop": "pingpong",
+      "tracks": {
+        "a.y": [
+          [0, 0],
+          [0.1, 10]
+        ]
+      },
+      "events": [
+        [0, "start"],
+        [0.1, "end"]
+      ]
+    }
+  },
+  "machine": {
+    "layers": {
+      "loop": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "loop"
+          }
+        }
+      },
+      "ping": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "ping"
+          }
+        }
+      }
+    }
+  }
+}

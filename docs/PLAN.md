@@ -257,7 +257,25 @@ and an oracle test against Rive.
   - [x] P4c-6 interaction authoring: inline module contracts, registry write help, three
         built AniML examples in the corpus, change-gated pulse restart, inspect summaries,
         canonical snapshot output with markup aliases; 52 scoped files / 1673 tests pass.
-- [ ] P4d `events`: payloads, open-URL, audio.
+  - [x] P4c-7 P4d integration: shared expression evaluation for queued machine actions, generic
+        AniML/event fields, composed event kinds, boundary/lifecycle seams; six new conformance
+        cases, strict oracle 120 cases/314 samples, full local check 4227 tests green.
+        See `modules/machine/P4C-7-REPORT.md`; phase benchmark/PR remains with the parent.
+- [x] P4d `events`: payloads, open-URL, audio; expression actions and `mod`/`floor` conditions.
+  - [x] Local implementation: 32/33 requested rows; script-event-context deferred to P9.
+        Events 3418/4096 B, core+web +266 B; 7 conformance cases and Chromium/Firefox coverage.
+        Evidence: `modules/events/RESULTS.md`.
+  - [x] P4d-2 deterministic clock boundaries: SPEC §5 absolute 1e-9 s rule across core/motion,
+        nine conformance cases; next-step event listeners retained as an intentional difference.
+        Fresh boundary captures: transition 30/30/45 matches; keys 15/30/60 vs Rive 15/30/61
+        remain a recorded finding. Completed oracles 41; strict exit 0; full check 2530 tests green.
+        See LOG P4d-2.
+  - [x] P4d-3 action expressions and arithmetic conditions: bind evaluator reused; floor/mod,
+        snapshot action sets, state entry/exit and transition blocks, typed event expressions.
+        Seven conformance probes, share 6/6 through 25 clicks, 1274 scoped tests plus 18 markup
+        browser tests. Core+web 19767 B (+420), bind 1866/2048, events 3551/4096.
+        See `modules/events/P4D-3-RESULTS.md`; four exact post-click comparative oracles and one immediate-timing finding in `tests/oracle/ACTION-EXPRESSIONS.md`.
+  - [ ] Parent integration, phase benchmark and parity promotion/PR.
 - [ ] P4e `data`: view models, bindings, converters, lists.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide
       whether switching to reduced motion stops in-progress loops at once (P4b benchmark).

@@ -1,0 +1,11 @@
+<anima version="0.1" name="events" grid="20" requires="events motion">
+  <circle id="a" cx="10" cy="10" r="1" fill="#000"/>
+
+  <timeline name="t" duration="1" loop="pingpong" speed="-1" work="0.25 0.75">
+    <event at="0.5" name="ping"/>
+  </timeline>
+
+  <layer name="main" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

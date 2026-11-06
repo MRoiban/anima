@@ -1,0 +1,15 @@
+<anima version="0.1" name="machine-event-lifecycle" grid="20" requires="machine bind events components">
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+  <number name="count"/>
+  <number name="seen"/>
+  <trigger name="go"/>
+  <event-def name="arrived" payload="{&quot;count&quot;:{&quot;type&quot;:&quot;number&quot;,&quot;value&quot;:&quot;{count}&quot;}}"/>
+  <layer name="main" initial="idle">
+    <state name="idle" enterActions="{&quot;set&quot;:{&quot;count&quot;:&quot;count+1&quot;},&quot;emit&quot;:&quot;entered&quot;}">
+      <on when="go" to="next" blend="0.1" actions="{&quot;emit&quot;:&quot;edge&quot;}" startEmit="started" endEmit="finished" endActions="{&quot;set&quot;:{&quot;count&quot;:&quot;count+1&quot;},&quot;emit&quot;:&quot;completed&quot;}"/>
+    </state>
+    <state name="next" enterActions="{&quot;set&quot;:{&quot;count&quot;:&quot;count+1&quot;},&quot;emit&quot;:&quot;arrived&quot;}"/>
+  </layer>
+  <listener on="event:entered" set="seen=count+10"/>
+  <listener on="event:arrived" set="seen=count+20"/>
+</anima>

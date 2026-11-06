@@ -1,0 +1,8 @@
+<anima version="0.1" name="bind-event-expression" grid="20" requires="bind events">
+  <circle id="dot" cx="10" cy="10" r="2" fill="#000"/>
+  <number name="count"/>
+  <bool name="flag"/>
+  <listener on="click" set="count=count+1" toggle="flag" emit="ping"/>
+  <event-def name="ping"
+      payload="{&quot;n&quot;:{&quot;type&quot;:&quot;number&quot;,&quot;value&quot;:&quot;{count*2}&quot;},&quot;flag&quot;:{&quot;type&quot;:&quot;bool&quot;,&quot;value&quot;:&quot;{flag}&quot;},&quot;color&quot;:{&quot;type&quot;:&quot;color&quot;,&quot;value&quot;:&quot;{mix(#000,#fff,0.5)}&quot;},&quot;label&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;value&quot;:&quot;{count}&quot;}}"/>
+</anima>

@@ -1,0 +1,10 @@
+advance 0
+snapshot dot.x
+advance 0.38
+snapshot dot.x
+advance 0.009999998
+snapshot dot.x
+advance 0.0000000015
+snapshot dot.x
+advance 0.16
+snapshot dot.x

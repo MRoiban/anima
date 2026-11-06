@@ -1,0 +1,3 @@
+{"time":0.4999999995,"values":{"a.x":10},"states":{"l":"done"},"events":[{"name":"@state-end","layer":"l","time":0,"payload":{"state":"s"}},{"name":"exit","layer":"l","time":0},{"name":"@transition-start","layer":"l","time":0,"payload":{"state":"done"}},{"name":"begin","layer":"l","time":0},{"name":"@transition-end","layer":"l","time":0,"payload":{"state":"done"}},{"name":"ended","layer":"l","time":0},{"name":"entry","layer":"l","time":0}],"settled":true}
+{"time":0.4999999995,"values":{"a.x":10},"states":{"l":"done"},"events":[],"settled":true}
+{"time":0.5000000005,"values":{"a.x":10},"states":{"l":"done"},"events":[],"settled":true}

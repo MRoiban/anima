@@ -117,6 +117,10 @@ Hook points (revised at P4a, owner decision 2026-11-06: rendering is renderer-ne
 - `draw`: the module's contribution to the **draw layer** (§3.1). Modules never produce SVG
   elements, attributes or canvas calls.
 
+A shape `feature` may name alternatives separated by `|` (currently `bind|machine` for
+transition actions). At least one must be declared. Nested expression strings still require bind.
+The schema retains this feature annotation; semantic evaluation follows SPEC §bind and §machine.
+
 ### Generic AniML fields
 
 Node object/map/union fields without a structural `element` use JSON-valued attributes.
@@ -300,11 +304,38 @@ the document requirement. `Module.ease` extends left-key/transition weight parsi
 `Prop.discrete` marks an address whose state crossfade replaces rather than interpolates.
 
 `Model.playback(player)` constructs a per-player `PlaybackPolicy` before state entry.
-It supplies local time, completion duration, event crossings, reduced-motion endpoint
-handling, extra transition gating/carry, optional transform origin, and post-binding
-composition before clamping. Absent this factory, the 0.1 paths are unchanged. The
+It supplies local time, completion duration and a source-clock `finished` predicate, event
+crossings, reduced-motion endpoint handling, extra transition gating/carry, optional transform
+origin, and post-binding composition before clamping. Absent this factory, the 0.1 paths are unchanged. The
 base player exposes `writes()` for exact active/fading address coverage and an
 `onChange` wake callback. The active registry supplies its own `Player`, `sampleTrack`
 and `mixValues` so separately bundled modules share sampling and value interpolation
 with other modules. Motion's API implementation and clock policy live in its module,
 not in core/web. It needs no SVG backend; its scaffold backend is an empty declaration.
+
+### Event reporting hooks
+
+`Model.reportEvents(player, events)` resolves optional payloads after local state/binding
+resolution and before nested-player events are appended. Components can keep spreading each
+child event unchanged while scoping its name/layer. `Model.eventSignal(events,kind,layer,state)`
+observes state exit, transition entry and completed fades without adding event policy to core.
+It also receives the owning player and transition identity; per-player action tracking stays in
+events. `Model.eventNames` exposes module-declared names to component scope validation.
+`Model.timelineMarkers(timeline)` supplies optional synthetic crossing markers; core samples
+them through the same crossing algorithm, excluding the interval's initial endpoint.
+`PlaybackPolicy.events` accepts an optional event list so motion can apply its existing work
+area, reverse, carry and controlled-clock rules without mutating timeline definitions.
+The optional web `AnimaIcon.eventHook(icon,kind,detail)` observes host stepping, drawing,
+controls, cleanup and load failure. Events owns subscriptions, navigation policy and Web Audio;
+core retains no DOM or audio implementation. Absent these hooks the original paths remain.
+
+### Interaction and event policy composition
+
+A playback policy that copies transitions for per-player clocks provides optional
+`transition(copy)` to recover the canonical model transition. Core uses that identity for event
+lifecycle metadata; motion policies without copies need no hook. Wrapping policies forward
+`finished` and explicit event marker sources, retaining SPEC §5's time-boundary rule.
+Components preserves a copy of its composed event kinds when browser AniML replays the module
+in a separate registry. `event:` is the events-owned local namespace; events validates its exact
+name and keeps reactions queued to the next step. Input/focus scene kinds and dotted component
+outputs retain their existing dispatch rules.

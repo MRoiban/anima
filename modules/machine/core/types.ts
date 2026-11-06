@@ -1,11 +1,18 @@
-import type { LayerM, StateM, TransitionM, Value } from '../../../packages/core/src/load.ts';
+import type {
+  ActionM,
+  LayerM,
+  StateM,
+  TransitionM,
+  Value,
+} from '../../../packages/core/src/load.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
 export interface Actions {
   fire?: string | string[];
-  set?: Record<string, number | boolean>;
+  set?: Record<string, number | boolean | string>;
   toggle?: string | string[];
   emit?: string;
 }
+export const compiledActions = new WeakMap<Actions, ActionM>();
 export type Source = number | string | { bind: string };
 export type Operand =
   | number

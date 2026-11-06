@@ -1,0 +1,13 @@
+{
+  "status": "skip",
+  "reason": "Local capture reports authored events and dumps scene data, but Anima has no script VM or event context before P9. There is no implemented Anima script-context counterpart to compare. This is a deferral, not a missing CLI reported-event stream.",
+  "tests": [
+    "modules/events/test/core/events.test.ts",
+    "modules/events/test/web/events.browser.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/events-script-event-context/rive/session.txt",
+    "tests/oracle/events-script-event-context/rive/data.json",
+    "tests/oracle/events-script-event-context/rive/semantics.json"
+  ]
+}

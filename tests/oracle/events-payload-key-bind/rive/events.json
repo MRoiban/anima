@@ -1,0 +1,16 @@
+[
+  {
+    "frame": 13,
+    "name": "ping",
+    "payload": {
+      "value": 3
+    }
+  },
+  {
+    "frame": 28,
+    "name": "ping",
+    "payload": {
+      "value": 7
+    }
+  }
+]

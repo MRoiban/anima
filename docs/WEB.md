@@ -246,3 +246,38 @@ When input and focus are both declared, input owns keyboard routing and pointer 
 focus supplies traversal and real DOM ownership. Authored key listeners see the previous owner
 before navigation. Enter and Space still use the host accessibility activation path. Logical
 focus changes wake machine guards through `Player.machineFocus(nodeId)` and `onChange`.
+
+## Events module
+
+Import `@anima-format/web/events` for typed payloads, URL policy, Web Audio, lifecycle
+notifications and subscriptions. Existing `anima:event`, `anima:state`, `anima:load` and
+`anima:error` retain their meaning. Added events are `anima:advance` (`{dt,events,settled}`),
+`anima:draw` (`{revision}`), `anima:statechange` (states map), `anima:loop` (loop record),
+`anima:play`, `anima:pause`, `anima:stop` (null), and `anima:loaderror` (diagnostics).
+Draw notifications follow synchronous drawing, including invalidate/build; advance notifications
+follow a host step/draw and precede delivery of its custom events. Direct `player.step` does not
+dispatch DOM events. `anima:event` is Anima's generic custom event, including payloads.
+`loaderror` is delivered before the failed load destroys the previous scene.
+
+`icon.on(type, callback)` accepts `event` or `anima:event` and returns an unsubscribe function.
+Duplicate subscriptions use EventTarget's identity semantics. `off(type,callback)` removes one;
+`unsubscribeAll()` removes subscriptions installed with on. Explicit destroy clears those subscriptions; load failure retains them so both loaderror and the
+existing error notification reach subscribers.
+`stop()` pauses and reloads the initial scene while retaining paused state, then reports stop.
+`play`/`pause` report actual paused-attribute changes; autoplay load reports play.
+
+Navigation defaults to denied. Opt in with `url-policy="allow"` or `icon.urlPolicy =
+(url,target,event) => boolean`. HTTP(S) protocol and relative-reference same-origin checks
+always apply. The callback receives a detached URL, so mutating it cannot change the validated
+navigation destination. `_blank` uses noopener; other targets remain subject to browser rules.
+
+Audio additionally needs `@anima-format/web/assets` for asset declarations. `icon.volume`
+is a finite [0,1] master gain (default 1; invalid assignments throw RangeError). It updates
+already playing sources. Authored `audioVolumes` controls every use of an asset; event volume
+controls one occurrence. No event before prior user activation fetches, decodes or starts audio.
+Decode starts on demand, never at document load. Reload/disconnect/destroy invalidates pending
+audio work and releases sources/context. Playback remains subject to browser audio permissions.
+See SPEC's events chapter for payload snapshot timing and next-step local listeners.
+
+Event definitions also apply to state endEmit and transition startEmit/endEmit actions. Their
+payloads and host delivery follow the same path as timeline events.

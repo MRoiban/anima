@@ -1,0 +1,107 @@
+{
+  "anima": "0.1",
+  "name": "motion-boundary-exits",
+  "grid": 20,
+  "requires": ["motion"],
+  "inputs": {
+    "stop": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "loop": "loop",
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [1, 100]
+        ]
+      },
+      "quantize": 4
+    },
+    "u": {
+      "duration": 1,
+      "tracks": {}
+    }
+  },
+  "machine": {
+    "layers": {
+      "next": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t",
+            "on": [
+              {
+                "when": "stop",
+                "to": "held",
+                "sync": true,
+                "exitNext": "step"
+              }
+            ]
+          },
+          "held": {
+            "play": "t",
+            "emit": "captured",
+            "hold": true
+          }
+        }
+      },
+      "exit": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "u",
+            "speed": 2,
+            "on": [
+              {
+                "when": "@after(0)",
+                "to": "done",
+                "exit": 0.5
+              }
+            ]
+          },
+          "done": {
+            "pose": {
+              "a.y": 10
+            },
+            "emit": "exited"
+          }
+        }
+      },
+      "fraction": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "u",
+            "on": [
+              {
+                "when": "@after(0)",
+                "to": "done",
+                "exitFraction": 0.5
+              }
+            ]
+          },
+          "done": {
+            "pose": {
+              "a.rotate": 10
+            },
+            "emit": "fraction"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{"time": 0, "values": {"dot.x": 0.2}, "states": {"main": "s"}, "events": [], "settled": false}
+{"time": 0.38, "values": {"dot.x": 0.58}, "states": {"main": "s"}, "events": [], "settled": false}
+{"time": 0.389999998, "values": {"dot.x": 0.58}, "states": {"main": "s"}, "events": [], "settled": false}
+{"time": 0.3899999995, "values": {"dot.x": 0.59}, "states": {"main": "s"}, "events": [], "settled": false}
+{"time": 0.5499999995, "values": {"dot.x": 0.75}, "states": {"main": "s"}, "events": [], "settled": true}

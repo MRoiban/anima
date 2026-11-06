@@ -1,0 +1,31 @@
+{
+  "anima": "0.1",
+  "name": "bind-action-clamp",
+  "grid": 20,
+  "requires": ["bind"],
+  "inputs": {
+    "count": {
+      "type": "number",
+      "max": 7
+    }
+  },
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 2,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "click",
+      "set": {
+        "count": "count+1"
+      }
+    }
+  ]
+}

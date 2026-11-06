@@ -1,3 +1,4 @@
+import { reached, snapTime, foldTime } from '../../../packages/core/src/time.ts';
 // Extends the existing player through its playback-policy seam; no second state-machine engine.
 import type { Player, AnimaEvent } from '../../../packages/core/src/player.ts';
 import { sampleTrack, mixValues } from '../../../packages/core/src/player.ts';
@@ -8,7 +9,14 @@ import type {
   TransitionM,
   Value,
 } from '../../../packages/core/src/load.ts';
-import { states, transitions, type Run, type Operand, type Actions } from './types.ts';
+import {
+  states,
+  transitions,
+  compiledActions,
+  type Run,
+  type Operand,
+  type Actions,
+} from './types.ts';
 let sample = sampleTrack,
   mix = mixValues;
 export function install(s: typeof sampleTrack, m: typeof mixValues): void {
@@ -18,10 +26,8 @@ export function install(s: typeof sampleTrack, m: typeof mixValues): void {
 const clamp = (v: number) => Math.max(0, Math.min(1, v));
 const local = (t: TimelineM, time: number) =>
   t.loop === 'once'
-    ? Math.min(t.duration, time)
-    : t.loop === 'loop'
-      ? time % t.duration
-      : t.duration - Math.abs((time % (2 * t.duration)) - t.duration);
+    ? Math.min(t.duration, snapTime(time, t.duration))
+    : foldTime(time, t.duration, t.loop === 'pingpong');
 const compare = (a: number | boolean, b: number | boolean, op: string): boolean => {
   if (op === '==') return a === b;
   if (op === '!=') return a !== b;
@@ -137,7 +143,7 @@ export class MachinePolicy implements PlaybackPolicy {
     }
     const options = t && transitions.get(t);
     if (from) {
-      if (options?.continue && t!.blend > carry && !this.p.reducedMotion)
+      if (options?.continue && !reached(carry, t!.blend) && !this.p.reducedMotion)
         d.outgoing = {
           writes: r.w[r.state]!,
           state: from,
@@ -189,21 +195,13 @@ export class MachinePolicy implements PlaybackPolicy {
       );
     }
     if (options?.endActions) {
-      if (this.p.reducedMotion || t!.blend <= carry) this.act(options.endActions);
+      if (this.p.reducedMotion || reached(carry, t!.blend)) this.act(options.endActions);
       else d.pending = { transition: t!, duration: t!.blend, elapsed: carry };
     }
   }
   act(a?: Actions): void {
     if (!a) return;
-    this.p.act({
-      on: '',
-      target: -1,
-      pad: 0,
-      fire: a.fire === undefined ? [] : typeof a.fire === 'string' ? [a.fire] : a.fire,
-      toggle: a.toggle === undefined ? [] : typeof a.toggle === 'string' ? [a.toggle] : a.toggle,
-      set: Object.entries(a.set ?? {}).filter(([n]) => n !== '$comment'),
-      emit: a.emit,
-    });
+    this.p.act({ on: '', target: -1, pad: 0, ...compiledActions.get(a)! });
   }
 
   prepare(run: object, s: StateM, dt: number, eligible: (t: TransitionM) => boolean): void {
@@ -219,7 +217,7 @@ export class MachinePolicy implements PlaybackPolicy {
       dt,
       (t) => !transitions.get(t)?.disabled && eligible(t),
     );
-    if (d.pending && (d.pending.elapsed += dt) >= d.pending.duration) {
+    if (d.pending && reached((d.pending.elapsed += dt), d.pending.duration)) {
       this.act(transitions.get(d.pending.transition)?.endActions);
       d.pending = undefined;
     }
@@ -245,6 +243,13 @@ export class MachinePolicy implements PlaybackPolicy {
   duration(t: TimelineM, speed: number, run: object): number {
     return this.base?.duration(t, speed, run) ?? t.duration / speed;
   }
+  finished(t: TimelineM, elapsed: number, run: object): boolean {
+    const r = run as Run;
+    return (
+      this.base?.finished(t, elapsed, run) ??
+      reached(elapsed * r.m.states[r.state]!.speed, t.duration)
+    );
+  }
   local(t: TimelineM, time: number, speed: number, run: object): number {
     return this.base?.local(t, time, speed, run) ?? local(t, time * speed);
   }
@@ -259,11 +264,13 @@ export class MachinePolicy implements PlaybackPolicy {
       this.allowed(tr, r) &&
       (this.base?.gate(this.transition(tr), this.original(s), elapsed, run) ?? true) &&
       (transitions.get(tr)?.exitRatio === undefined ||
-        elapsed >=
-          (transitions.get(tr)!.exitRatio === 0
+        reached(
+          elapsed,
+          transitions.get(tr)!.exitRatio === 0
             ? 0
             : this.duration(this.p.model.timelines[s.play!]!, s.speed, run) *
-              transitions.get(tr)!.exitRatio!));
+                transitions.get(tr)!.exitRatio!,
+        ));
     if (!eligible(t)) return false;
     if (states.get(s)?.kind === 'random') {
       if (d.chosen === undefined) {
@@ -314,13 +321,14 @@ export class MachinePolicy implements PlaybackPolicy {
     out: AnimaEvent[],
     speed: number,
     run: object,
+    source = t.events,
   ): void {
-    if (this.base) return this.base.events(t, a, b, closed, layer, out, speed, run);
+    if (this.base) return this.base.events(t, a, b, closed, layer, out, speed, run, source);
     a *= speed;
     b *= speed;
     const found: [number, number, string][] = [],
       d = t.duration;
-    for (const [time, name] of t.events) {
+    for (const [time, name] of source) {
       const k0 =
         t.loop === 'once' ? 0 : Math.max(0, Math.floor(a / (t.loop === 'loop' ? d : 2 * d)) - 1);
       const k1 =
@@ -329,10 +337,10 @@ export class MachinePolicy implements PlaybackPolicy {
           : Math.min(k0 + 10000, Math.floor(b / (t.loop === 'loop' ? d : 2 * d)) + 1);
       const seen = new Set<number>();
       for (let k = k0; k <= k1; k++)
-        for (const at of t.loop === 'pingpong'
+        for (const at of t.loop === 'pingpong' && time !== 0 && time !== d
           ? [time + 2 * k * d, 2 * (k + 1) * d - time]
-          : [time + k * d])
-          if (!seen.has(at) && (closed ? at >= a : at > a) && at <= b) {
+          : [time + k * (t.loop === 'pingpong' ? 2 * d : d)])
+          if (!seen.has(at) && (closed ? reached(at, a) : !reached(a, at)) && reached(b, at)) {
             seen.add(at);
             found.push([at, time, name]);
           }
@@ -350,17 +358,15 @@ export class MachinePolicy implements PlaybackPolicy {
     if (reduced && t.reduced !== 'play')
       return t.reduced === 'skip' ? (rate < 0 ? end : start) : rate < 0 ? start : end;
     let x = (rate < 0 ? span : 0) + elapsed * rate;
-    if (t.loop === 'once') x = Math.max(0, Math.min(span, x));
-    else {
-      const period = t.loop === 'loop' ? span : 2 * span;
-      x -= period * Math.floor(x / period);
-      if (x > span) x = period - x;
-    }
+    if (t.loop === 'once') x = Math.max(0, Math.min(span, snapTime(snapTime(x, 0), span)));
+    else x = foldTime(x, span, t.loop === 'pingpong');
     const at = start + x;
-    return raw.quantize && at !== end
-      ? Math.max(start, Math.floor(at * raw.quantize) / raw.quantize)
-      : at;
+    const q = raw.quantize;
+    if (!q || at === end) return at;
+    const tick = Math.round(at * q) / q;
+    return Math.max(start, snapTime(at, tick) === tick ? tick : Math.floor(at * q) / q);
   }
+
   blended(
     r: Run,
     state: StateM,
@@ -423,7 +429,7 @@ export class MachinePolicy implements PlaybackPolicy {
             return (
               (this.runs.get(r)?.reduced && t.reduced !== 'play') ||
               rate === 0 ||
-              (t.loop === 'once' && r.time * Math.abs(rate) >= b - a)
+              (t.loop === 'once' && reached(r.time * Math.abs(rate), b - a))
             );
           })
         );

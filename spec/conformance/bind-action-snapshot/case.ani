@@ -1,0 +1,35 @@
+{
+  "anima": "0.1",
+  "name": "bind-action-snapshot",
+  "grid": 20,
+  "requires": ["bind"],
+  "inputs": {
+    "a": {
+      "type": "number",
+      "default": 2
+    },
+    "b": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 2,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "click",
+      "set": {
+        "a": "a+1",
+        "b": "a*2"
+      }
+    }
+  ]
+}
