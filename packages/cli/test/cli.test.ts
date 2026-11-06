@@ -489,3 +489,130 @@ describe('bind tooling', () => {
     expect(JSON.parse(r.out).values['ring.stroke.trimEnd']).toBe(0.375);
   });
 });
+
+describe('interaction authoring guidance', () => {
+  const example = (mod: string, name: string) =>
+    join(ROOT, 'modules', mod, 'examples', name + '.animl');
+
+  it('prints the full input contract and examples inline', async () => {
+    const r = await cli('docs', 'input');
+    expect(r.code).toBe(0);
+    for (const text of [
+      'drag-start',
+      'Map from event-value names',
+      'parent coordinates',
+      'KeyboardEvent.key',
+      'shift+control+alt+meta',
+      'Focus integration',
+      'modules/input/examples/drag-slider.animl',
+    ])
+      expect(r.out).toContain(text);
+    for (const mod of ['focus', 'machine']) {
+      const docs = await cli('docs', mod);
+      expect(docs.code).toBe(0);
+      expect(docs.out).toContain('modules/' + mod + '/examples/');
+    }
+  });
+
+  it('describes write direction and fields through registry metadata in text and JSON', async () => {
+    const fields = JSON.parse((await cli('schema', 'listener', '--format=json')).out).fields;
+    const write = fields.find((f: { ani: string }) => f.ani === 'write');
+    expect(write.description).toContain('event field → declared input name');
+    expect(write.description).toContain('pressed (bool)');
+    expect(write.description).toContain('startX (number)');
+    expect((await cli('schema', 'listener')).out).toContain(write.description);
+  });
+
+  it('identifies any declarations and inherited exits, and prints writes', async () => {
+    const r = await cli('inspect', example('machine', 'blend-pulse'));
+    expect(r.code).toBe(0);
+    expect(r.out).toContain('any: any state');
+    expect(r.out).not.toContain('idle: pose {"dot.scale":1} (no way out)');
+    const summary = JSON.parse(
+      (await cli('inspect', example('machine', 'blend-pulse'), '--format=json')).out,
+    );
+    const states = summary.layers.find((l: { name: string }) => l.name === 'feedback').states;
+    expect(states.find((s: { name: string }) => s.name === 'any').kind).toBe('any');
+    expect(states.find((s: { name: string }) => s.name === 'idle').deadEnd).toBeUndefined();
+    expect((await cli('inspect', example('input', 'drag-slider'))).out).toContain(
+      'write x → level',
+    );
+  });
+
+  it('executes the documented drag and focus examples', async () => {
+    const drag = await cli(
+      'sample',
+      example('input', 'drag-slider'),
+      '-e',
+      'contact down 0 11 10; contact move 0 15 10; snapshot level knob.x',
+    );
+    expect(drag.code, drag.err).toBe(0);
+    expect(JSON.parse(drag.out).values).toEqual({ level: 0.75, 'knob.x': 0.75 });
+    const focus = await cli(
+      'sample',
+      example('focus', 'traversal'),
+      '-e',
+      'focus target first; key down ArrowRight; snapshot second-focused; key down Tab; snapshot second-focused',
+    );
+    expect(focus.code, focus.err).toBe(0);
+    expect(focus.out.split('\n').map((row) => JSON.parse(row).values['second-focused'])).toEqual([
+      true,
+      false,
+    ]);
+  });
+
+  it('accepts markup snapshot aliases and always emits canonical JSON paths', async () => {
+    for (const source of ['.animl', '.ani']) {
+      const path = join(tmp, 'snapshot-alias' + source);
+      const doc =
+        '<anima version="0.1" name="aliases" grid="20"><arc id="ring" cx="10" cy="10" r="5" from="0" to="90" stroke="#000" stroke-width="2" trimEnd="0.5"/><layer name="l" initial="rest"><state name="rest"><pose ring.trimEnd="0.5" ring.stroke-width="2"/></state></layer></anima>';
+      if (source === '.animl') writeFileSync(path, doc);
+      else
+        writeFileSync(
+          path,
+          JSON.stringify({
+            anima: '0.1',
+            name: 'aliases',
+            grid: 20,
+            machine: {
+              layers: {
+                l: {
+                  initial: 'rest',
+                  states: {
+                    rest: { pose: { 'ring.stroke.trimEnd': 0.5, 'ring.stroke.width': 2 } },
+                  },
+                },
+              },
+            },
+            nodes: [
+              {
+                id: 'ring',
+                type: 'arc',
+                center: [10, 10],
+                r: 5,
+                from: 0,
+                to: 90,
+                stroke: { color: '#000', width: 2, trimEnd: 0.5 },
+              },
+            ],
+          }),
+        );
+      const selected = await cli('sample', path, '-e', 'snapshot ring.trimEnd ring.stroke-width');
+      expect(selected.code, selected.err).toBe(0);
+      expect(JSON.parse(selected.out).values).toEqual({
+        'ring.stroke.trimEnd': 0.5,
+        'ring.stroke.width': 2,
+      });
+      const canonical = await cli(
+        'sample',
+        path,
+        '-e',
+        'snapshot ring.stroke.trimEnd ring.stroke.width',
+      );
+      expect(canonical.out).toBe(selected.out);
+      expect(
+        JSON.parse((await cli('sample', path, '-e', 'snapshot')).out).values['ring.stroke.trimEnd'],
+      ).toBe(0.5);
+    }
+  });
+});

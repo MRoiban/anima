@@ -1,0 +1,23 @@
+<anima version="0.1" name="machine-probe" grid="20" requires="machine">
+  <number name="level"/>
+
+  <circle id="dot" cx="10" cy="10" r="1" fill="#4263eb"/>
+
+  <timeline name="t0" duration="2">
+    <track target="dot.x">
+      0  10
+      2  10
+    </track>
+  </timeline>
+  <timeline name="t1" duration="2">
+    <track target="dot.x">
+      0  20
+      2  20
+    </track>
+  </timeline>
+
+  <layer name="l" initial="a">
+    <state name="a" play="t0"
+        mix="{&quot;mode&quot;:&quot;additive&quot;,&quot;children&quot;:[{&quot;play&quot;:&quot;t0&quot;,&quot;at&quot;:0,&quot;weight&quot;:1},{&quot;play&quot;:&quot;t1&quot;,&quot;at&quot;:1,&quot;weight&quot;:&quot;level&quot;}]}"/>
+  </layer>
+</anima>

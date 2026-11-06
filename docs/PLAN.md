@@ -235,8 +235,32 @@ and an oracle test against Rive.
         4294967295. Historical number-dump -1 is a documented observation-path limit,
         with no expected failure. See tests/oracle/MOTION-PROBES.md.
 
-- [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
+- [x] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
       an on-change / previous-value condition (P5 benchmark: 'count increased' took 10 states).
+- [x] P4c-3 `focus`: traversal/scopes, pointer focus, focus/blur, component targets and real DOM
+      focus; 16 conformance probes, Chromium + Firefox. 16 native focus/data oracle comparisons captured with the full-path CLI.
+
+  - [x] P4c-1 `machine`: assigned 25 inventory rows + previous-value condition; 37 conformance
+        cases, 18 native oracle cases/45 frames + eight documented skips; 5736/8192 B. Generic
+        non-node AniML fields and the pure focus-reader seam are ready for companion modules.
+        Full phase integration/benchmark/CI remains; see modules/machine/REPORT.md.
+
+      P4c-2/P4c-4 integration: 54/54 implementation evidence sets, 18/54 strictly complete
+      (3 captured + 15 documented host-only oracle skips); 36 native probes disposed: 27 verified, six evidenced limits, three numerical findings.
+      Generic AniML fields, components event kinds and input/focus/machine seams integrated.
+      Oracle pass recorded in modules/input/ORACLE-RESULTS.md; phase gates remain; parity statuses unchanged.
+  - [x] P4c input finding decisions: capture parent claim mapped explicitly, default keyboard
+        consumption with propagate opt-in, preserve-offset intentional difference; two verified
+        zero-tolerance probes and one separately recorded difference (96 versus 80).
+  - [x] P4c-4 interaction integration: generic fields, exact focus round-trips, event kinds,
+        key/pointer/guard seams and per-row implementation evidence (modules/input/REPORT.md).
+  - [x] P4c-6 interaction authoring: inline module contracts, registry write help, three
+        built AniML examples in the corpus, change-gated pulse restart, inspect summaries,
+        canonical snapshot output with markup aliases; 52 scoped files / 1673 tests pass.
+  - [x] P4c-7 P4d integration: shared expression evaluation for queued machine actions, generic
+        AniML/event fields, composed event kinds, boundary/lifecycle seams; six new conformance
+        cases, strict oracle 120 cases/314 samples, full local check 4227 tests green.
+        See `modules/machine/P4C-7-REPORT.md`; phase benchmark/PR remains with the parent.
 - [x] P4d `events`: payloads, open-URL, audio; expression actions and `mod`/`floor` conditions.
   - [x] Local implementation: 32/33 requested rows; script-event-context deferred to P9.
         Events 3418/4096 B, core+web +266 B; 7 conformance cases and Chromium/Firefox coverage.

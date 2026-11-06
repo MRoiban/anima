@@ -1,0 +1,1 @@
+<anima version="0.1" name="input-key-down" grid="20" requires="input"><number name="n"/><rect id="a" x0="2" y0="7" width="4" height="4" fill="#4263eb"/><listener on="key-down" target="a" key="F13" modifiers="" set="n=1"/></anima>

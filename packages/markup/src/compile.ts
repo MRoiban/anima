@@ -25,6 +25,7 @@ import {
   motionCompiler,
   eventsCompiler,
 } from './module-hooks.ts';
+import { elementFields, compoundField } from './fields.ts';
 import { componentMarkup } from './components.ts';
 
 import type { CompileOptions, CompileResult, MarkupDiagnostic } from './index.ts';
@@ -33,6 +34,7 @@ import { parseXml, type Attr, type Element, type Pos, type XmlDocument } from '.
 
 type Json = Record<string, unknown>;
 export type Kind =
+  | 'json'
   | 'string'
   | 'name'
   | 'number'
@@ -103,59 +105,21 @@ const FORMS: Record<string, Form> = {
   hit: { attrs: { circle: 3, rect: 4 } },
   ease: { attrs: { name: 'name', curve: 'ease' }, required: ['name', 'curve'] },
   timeline: {
-    attrs: {
-      name: 'name',
-      duration: 'number',
-      loop: 'string',
-      reducedMotion: 'string',
-      colorSpace: 'string',
-    },
+    attrs: { name: 'name', colorSpace: 'string' },
     required: ['name', 'duration'],
     children: ['track', 'event'],
   },
   track: { attrs: { target: 'string' }, required: ['target'] },
   event: { attrs: { at: 'number', name: 'name' }, required: ['at', 'name'] },
   layer: {
-    attrs: { name: 'name', initial: 'name', mode: 'string' },
+    attrs: { name: 'name', mode: 'string' },
     required: ['name', 'initial'],
     children: ['state'],
   },
-  state: {
-    attrs: {
-      name: 'name',
-      play: 'name',
-      speed: 'number',
-      emit: 'name',
-      entry: 'json',
-      exit: 'json',
-    },
-    required: ['name'],
-    children: ['pose', 'on'],
-  },
+  state: { attrs: { name: 'name' }, required: ['name'], children: ['pose', 'on'] },
   pose: { attrs: {} },
-  on: {
-    attrs: {
-      actions: 'json',
-      when: 'condition',
-      to: 'name',
-      blend: 'number',
-      ease: 'ease',
-      interruptible: 'boolean',
-    },
-    required: ['when', 'to'],
-  },
-  listener: {
-    attrs: {
-      on: 'string',
-      target: 'name',
-      hitPadding: 'number',
-      fire: 'names',
-      set: 'set',
-      toggle: 'names',
-      emit: 'name',
-    },
-    required: ['on'],
-  },
+  on: { attrs: {}, required: ['when', 'to'] },
+  listener: { attrs: {}, required: ['on'] },
 };
 if (VERBOSE)
   FORMS.component = componentMarkup.componentForm({ name: 'component' } as Element, FORMS.anima!)!;
@@ -173,6 +137,12 @@ export class Compiler {
   types = new Map<string, NodeType>();
   // Registry descriptors are stable during one compile. Reuse them for nodes and addresses,
   // but start fresh next time so modules registered between compiles are always visible.
+  private readonly fieldCache = new Map<string, ReturnType<typeof elementFields>>();
+  private fields(name: string) {
+    let fields = this.fieldCache.get(name);
+    if (!fields) this.fieldCache.set(name, (fields = elementFields(name)));
+    return fields;
+  }
   private readonly attributes = new Map<NodeType, NodeAttr[]>();
   nodeAttrs = (type: NodeType): NodeAttr[] => {
     let attrs = this.attributes.get(type);
@@ -257,14 +227,34 @@ export class Compiler {
       base = motionCompiler.form?.(el, base) ?? base;
       return eventsCompiler.form?.(el, base) ?? base;
     }
-    const base =
+    let base =
       moduleCompiler.form?.(this, el) ??
       componentCompiler.componentForm?.(el, FORMS.anima!) ??
       FORMS[el.name]!;
+    if (base) {
+      const attrs = { ...base.attrs };
+      for (const f of this.fields(el.name)) {
+        if (f.attr !== f.key) Reflect.deleteProperty(attrs, f.key);
+        attrs[f.attr] =
+          f.key === 'when'
+            ? 'condition'
+            : f.key === 'ease'
+              ? 'ease'
+              : ['fire', 'toggle'].includes(f.key)
+                ? 'names'
+                : f.key === 'set'
+                  ? 'set'
+                  : compoundField(f.shape)
+                    ? 'json'
+                    : this.kind(f.shape);
+      }
+      base = { ...base, attrs };
+    }
     const form = motionCompiler.form?.(el, base ?? { attrs: {} }) ?? base;
     return eventsCompiler.form?.(el, form ?? { attrs: {} }) ?? form;
   }
   private kind(s: Shape): Kind {
+    if (s.k === 'obj' || s.k === 'map' || s.k === 'any' || s.k === 'alt') return 'json';
     if (s.k === 'num') return 'number';
     if (s.k === 'bool') return 'boolean';
     if (s.k === 'tup') return s.of.length;
@@ -496,7 +486,9 @@ export class Compiler {
         }
         case 'set': {
           const o: Json = {};
-          for (const pair of s.split(/\s+(?=[a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*=)/)) {
+          for (const pair of s
+            ? s.split(/\s+(?=[a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*=)/)
+            : []) {
             const m = /^([a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*)=(.+)$/.exec(pair);
             if (!m)
               throw new Error(
@@ -535,7 +527,10 @@ export class Compiler {
   private copy(el: Element, a: Map<string, Attr>, o: Json, p: string, omit: string[] = []): void {
     for (const [name, attr] of a) {
       if (omit.includes(name) || !Object.hasOwn(this.form(el).attrs, name)) continue;
-      const key = name === 'version' ? 'anima' : name;
+      const key =
+        name === 'version'
+          ? 'anima'
+          : (this.fields(el.name).find((f) => f.attr === name)?.key ?? name);
       let v = this.read(attr, this.form(el).attrs[name]!, ptr(p, key));
       // .ani accepts a scalar for a one-item fire/toggle list (the reference bell uses it).
       if ((name === 'fire' || name === 'toggle') && Array.isArray(v) && v.length === 1) v = v[0];

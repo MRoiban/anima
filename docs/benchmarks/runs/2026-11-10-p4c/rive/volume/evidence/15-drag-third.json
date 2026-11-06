@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "artboard": "Volume",
+  "stateMachine": "Volume interaction",
+  "viewModel": {
+    "name": "Default",
+    "viewModel": "Volume",
+    "properties": [
+      {
+        "name": "volume",
+        "path": "volume",
+        "type": "number",
+        "value": 0.8125,
+        "changed": true
+      },
+      {
+        "name": "muted",
+        "path": "muted",
+        "type": "boolean",
+        "value": false,
+        "changed": false
+      },
+      {
+        "name": "previousVolume",
+        "path": "previousVolume",
+        "type": "number",
+        "value": 0.8125,
+        "changed": true
+      },
+      {
+        "name": "grabOffset",
+        "path": "grabOffset",
+        "type": "number",
+        "value": 12,
+        "changed": true
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}

@@ -1,0 +1,36 @@
+{
+  "document": {
+    "anima": "0.1",
+    "name": "host-api-dom-listener-control-invalid",
+    "grid": 20,
+    "requires": ["input"],
+    "nodes": [
+      {
+        "id": "disc",
+        "type": "circle",
+        "center": [10, 10],
+        "r": 5,
+        "fill": {
+          "color": "#000"
+        }
+      }
+    ],
+    "inputs": {
+      "n": {
+        "type": "number"
+      }
+    },
+    "listeners": [
+      {
+        "on": "down",
+        "target": "disc",
+        "write": {
+          "pointerId": "n"
+        },
+        "button": 3
+      }
+    ]
+  },
+  "code": "input-index",
+  "pointer": "/listeners/0/button"
+}

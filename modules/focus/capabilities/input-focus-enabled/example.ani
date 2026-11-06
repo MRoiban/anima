@@ -1,0 +1,116 @@
+{
+  "anima": "0.1",
+  "name": "input-focus-enabled",
+  "grid": 20,
+  "requires": ["focus"],
+  "inputs": {
+    "enabled": {
+      "type": "bool",
+      "default": true
+    }
+  },
+  "nodes": [
+    {
+      "id": "scope",
+      "type": "group",
+      "children": [
+        {
+          "id": "a",
+          "type": "circle",
+          "center": [2, 2],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          },
+          "focus": {
+            "bounds": [1, 1, 2, 2]
+          }
+        },
+        {
+          "id": "b",
+          "type": "circle",
+          "center": [8, 2],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          },
+          "focus": {
+            "enabledInput": "enabled",
+            "bounds": [7, 1, 2, 2]
+          }
+        },
+        {
+          "id": "c",
+          "type": "circle",
+          "center": [2, 8],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          },
+          "focus": {
+            "bounds": [1, 7, 2, 2]
+          }
+        }
+      ],
+      "focus": {
+        "enabled": false,
+        "scope": true,
+        "edge": "stop"
+      }
+    },
+    {
+      "id": "outside",
+      "type": "circle",
+      "center": [15, 2],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "focus": {
+        "bounds": [14, 1, 2, 2]
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "focus",
+      "target": "a",
+      "emit": "a-focus"
+    },
+    {
+      "on": "blur",
+      "target": "a",
+      "emit": "a-blur"
+    },
+    {
+      "on": "focus",
+      "target": "b",
+      "emit": "b-focus"
+    },
+    {
+      "on": "blur",
+      "target": "b",
+      "emit": "b-blur"
+    },
+    {
+      "on": "focus",
+      "target": "c",
+      "emit": "c-focus"
+    },
+    {
+      "on": "blur",
+      "target": "c",
+      "emit": "c-blur"
+    },
+    {
+      "on": "focus",
+      "target": "outside",
+      "emit": "outside-focus"
+    },
+    {
+      "on": "blur",
+      "target": "outside",
+      "emit": "outside-blur"
+    }
+  ]
+}

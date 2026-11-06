@@ -1,0 +1,5 @@
+fire go
+advance 0
+snapshot dot.x flag
+advance 0
+snapshot dot.x flag

@@ -1,0 +1,13 @@
+{
+  "status": "skip",
+  "reason": "Synthetic native gamepad injection works, but browser navigator.getGamepads polling, focus gating and teardown have no host in this runner.",
+  "captureEvidence": [
+    "tests/oracle/host-api-gamepad/rive/scene.rml",
+    "tests/oracle/host-api-gamepad/rive/commands.txt",
+    "tests/oracle/host-api-gamepad/rive/session.txt",
+    "tests/oracle/host-api-gamepad/rive/frames/0.json",
+    "tests/oracle/host-api-gamepad/rive/frames/0.semantics.json",
+    "tests/oracle/host-api-gamepad/rive/frames/limit.png"
+  ],
+  "tests": ["modules/input/test/core/runtime.test.ts", "modules/input/test/web/browser.test.ts"]
+}

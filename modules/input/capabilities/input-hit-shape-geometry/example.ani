@@ -1,0 +1,32 @@
+{
+  "anima": "0.1",
+  "name": "input-hit-shape-geometry",
+  "grid": 20,
+  "requires": ["input"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "disc",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 5,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "down",
+      "target": "disc",
+      "set": {},
+      "write": {
+        "pointerId": "n"
+      }
+    }
+  ]
+}

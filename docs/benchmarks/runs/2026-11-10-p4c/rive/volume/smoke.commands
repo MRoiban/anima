@@ -1,0 +1,24 @@
+help
+advance 1
+screenshot evidence/00-default.png
+data-dump evidence/00-default.json
+data volume=1
+advance 6
+screenshot evidence/01-increase-mid.png
+data-dump evidence/01-increase-mid.json
+advance 12
+screenshot evidence/02-full-rest.png
+data volume=0
+advance 6
+screenshot evidence/03-zero.png
+pointer click@60,72
+advance 2
+screenshot evidence/04-muted.png
+data-dump evidence/04-muted.json
+pointer click@60,72
+advance 2
+key right
+advance 6
+screenshot evidence/05-key-right.png
+data-dump evidence/05-key-right.json
+quit

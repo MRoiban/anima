@@ -29,6 +29,7 @@ for (const c of cases)
     try {
       const metrics = await measure(c, pathToFileURL(dir + '/'));
       for (const m of metrics) {
+        if (c.focus) expect(m.pass, `${c.name} focus at ${m.time}`).toBe(true);
         expect(m.maxDiff, `${c.name} at ${m.time}s: max channel delta`).toBeLessThanOrEqual(
           c.values?.tolerance ?? c.maxDiff,
         );
@@ -85,15 +86,39 @@ for (const finding of findingCases)
     expect(skippedCases.some((c) => c.name === finding.case.name)).toBe(false);
     const dir = mkdtempSync(join(tmpdir(), 'anima-finding-'));
     try {
-      const [metric] = await measure(finding.case, pathToFileURL(dir + '/'));
+      const metrics = await measure(finding.case, pathToFileURL(dir + '/'));
       const recorded = JSON.parse(
         readFileSync(new URL('../tests/oracle/findings-metrics.json', import.meta.url), 'utf8'),
       );
-      const previous = recorded.find((c: { name: string }) => c.name === finding.case.name)
-        .frames[0];
-      expect(metric).toEqual(previous);
-      expect(metric!.pass).toBe(false);
+      const previous = recorded.find((c: { name: string }) => c.name === finding.case.name).frames;
+      expect(metrics).toEqual(previous);
+      expect(metrics.some((m) => !m.pass)).toBe(true);
     } finally {
       rmSync(dir, { recursive: true, force: true });
     }
   });
+
+// Interaction findings retain every recorded mismatch, including later samples.
+it.each(findingCases.filter((f) => f.observations))(
+  'retains numerical evidence: $name',
+  async (f) => {
+    expect(['finding', 'intentional difference']).toContain(f.status);
+    expect(cases.some((c) => c.name === f.case.name)).toBe(false);
+    expect(pendingCases.some((c) => c.name === f.case.name)).toBe(false);
+    const dir = mkdtempSync(join(tmpdir(), 'anima-finding-'));
+    try {
+      const metrics = await measure(f.case, pathToFileURL(dir + '/'));
+      for (const observation of f.observations!) {
+        const m = metrics.find((v) => v.time === observation.time)!;
+        expect(m.pass).toBe(false);
+        expect(m).toMatchObject({
+          actual: observation.actual,
+          reference: observation.reference,
+          maxDiff: observation.delta,
+        });
+      }
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  },
+);

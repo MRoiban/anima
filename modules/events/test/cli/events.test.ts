@@ -48,7 +48,10 @@ it('exposes action expression and machine block forms, and samples the share but
   ]) {
     const r = await cli('schema', topic!, '--format=json');
     expect(JSON.parse(r.out).fields).toContainEqual(
-      expect.objectContaining({ ani: key, feature: 'bind' }),
+      expect.objectContaining({
+        ani: key,
+        feature: topic === 'transition' ? 'bind|machine' : 'bind',
+      }),
     );
   }
   const folder = new URL('../../examples/', import.meta.url);

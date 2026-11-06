@@ -1,0 +1,1 @@
+<anima version="0.1" name="host-api-low-level-scroll" grid="240" requires="input"><number name="n"/><rect id="a" x0="0" y0="0" width="240" height="200" fill="#4263eb"/><listener on="scroll" target="a" write='{"deltaY":"n"}'/></anima>

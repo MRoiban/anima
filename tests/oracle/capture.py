@@ -8,6 +8,9 @@ import subprocess
 from pathlib import Path
 
 root = Path(__file__).resolve().parent
+if '--interaction' in sys.argv:
+    subprocess.run([sys.executable, str(root.parent.parent / 'modules/input/capture-interaction.py'), '--all'], check=True)
+    sys.exit(0)
 cases = json.loads((root / 'cases.json').read_text())
 cases += [json.loads(p.read_text())['case'] for p in root.glob('**/finding.json')]
 if '--skip-evidence' in sys.argv:

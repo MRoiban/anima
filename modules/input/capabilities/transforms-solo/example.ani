@@ -1,0 +1,48 @@
+{
+  "anima": "0.1",
+  "name": "transforms-solo",
+  "grid": 20,
+  "requires": ["input"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "parent",
+      "type": "group",
+      "children": [
+        {
+          "id": "disc",
+          "type": "circle",
+          "center": [10, 10],
+          "r": 5,
+          "fill": {
+            "color": "#000"
+          }
+        },
+        {
+          "id": "other",
+          "type": "circle",
+          "center": [10, 10],
+          "r": 5,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "solo": 1
+    }
+  ],
+  "listeners": [
+    {
+      "on": "down",
+      "target": "disc",
+      "set": {},
+      "write": {
+        "pointerId": "n"
+      }
+    }
+  ]
+}

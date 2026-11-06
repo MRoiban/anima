@@ -1,0 +1,50 @@
+{
+  "anima": "0.1",
+  "name": "machine-boundaries-blend",
+  "grid": 20,
+  "requires": ["machine", "motion"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "dot.x": [
+          [0, 0],
+          [1, 1]
+        ]
+      },
+      "quantize": 100,
+      "work": [0.2, 0.75]
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t",
+            "mix": {
+              "mode": "direct",
+              "children": [
+                {
+                  "play": "t"
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

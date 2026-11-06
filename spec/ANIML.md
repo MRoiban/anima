@@ -449,6 +449,45 @@ are normative in SPEC's **Declarative timeline control** subsection.
 
 The complete sync button is [modules/motion/examples/sync.animl](../modules/motion/examples/sync.animl).
 
+## Focus authoring
+
+With `requires="focus"`, any node accepts a `<focus>` child. Its `enabled`, `pointer`,
+`order`, `scope`, `edge`, `label` and `bounds` attributes match the JSON fields;
+`enabled-input` names the bool input gating eligibility, and `tab-stops="true"`
+opts the document into inner native Tab stops. `<listener on="focus|blur" target="id"
+.../>` uses ordinary queued listener actions. See SPEC's focus chapter for traversal,
+scopes, defaults, component-local ids and deterministic key commands.
+
+## Machine fields and registry extension
+
+With `requires="machine"`, state and transition attributes derive from the registry
+(SPEC's machine chapter). Scalar fields keep their JSON names; `machineSeed` is an
+`<anima>` attribute. Compound object, array and union fields use JSON-valued attributes, for example:
+
+```xml
+<on when="@after(0)" to="pop" change='{"input":"count","mode":"increased"}'/>
+```
+
+The same registry extension supports module fields on `<layer>`, `<timeline>` and
+`<listener>`, honors `markup` aliases, and round-trips compound JSON values. Existing
+listener name lists and assignments retain their forms. Unknown fields still report
+`unknown-attribute`; malformed JSON attributes report `bad-attribute` with source position.
+
+## Input listener forms
+
+The input module extends `<listener on="…">` with `button`, `capture`, `consume`, `key`,
+`modifiers`, `index`, `control`, `mapping`, `phase`, `align` and `write`. Names and meaning are in
+[the input contract](../modules/input/SPEC.md). The generic live-registry path handles every
+attribute, including `write='{"x":"dragX","y":"dragY"}'`. Compound fields use JSON and normal XML
+escaping; `write="x=dragX"` is not a JSON-valued map. Combine input event names in `on` with `|`.
+Existing `set`, `fire`, and `toggle` keep their assignment/name-list forms. An empty `set=""`
+represents the valid empty action map; write-only input listeners normalize to that map.
+
+Node module fields without an `element` descriptor use JSON-valued attributes for object/map/
+union values. Fields with an `element` descriptor retain structural children: `<focus>` and
+its aliases (`enabled-input`, `tab-stops`) round-trip through that existing registry path.
+Unknown fields still fail. No input-specific compile/decompile hook is installed.
+
 ## Event definitions (`events`)
 
 With `requires="events"`, root `<event-def name="…" payload='{"n":{"type":"number","input":"count"}}'/>`
@@ -478,7 +517,9 @@ work on either side of a condition operator, for example
 State `entry`/`exit` and transition `actions` use JSON attributes with the listener action keys:
 `<state name="idle" entry='{"set":{"count":0}}'>` and
 `<on when="tap" to="playing" actions='{"set":{"count":"count+1"}}'/>`.
-These blocks require bind and run immediately in SPEC §7/§bind order.
+Bind-only blocks require bind and run immediately in SPEC §7/§bind order. With `machine`
+declared, transition `actions` instead follow the queued machine-module order; machine
+`enterActions`/`exitActions`/`endActions` use the same expression contract (SPEC §bind).
 
 Typed event payload fields use the existing JSON payload attribute:
 `payload='{"count":{"type":"number","value":"{count}"}}'`.

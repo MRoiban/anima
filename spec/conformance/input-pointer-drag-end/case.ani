@@ -1,0 +1,58 @@
+{
+  "anima": "0.1",
+  "name": "input-pointer-drag-end",
+  "grid": 20,
+  "requires": ["input"],
+  "inputs": {
+    "active": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "rect",
+      "x0": 2,
+      "y0": 8,
+      "w": 4,
+      "h": 4,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {
+              "a.x": 0
+            },
+            "on": [
+              {
+                "when": "active",
+                "to": "active"
+              }
+            ]
+          },
+          "active": {
+            "pose": {
+              "a.x": 8
+            }
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "drag-end",
+      "target": "a",
+      "set": {
+        "active": true
+      }
+    }
+  ]
+}

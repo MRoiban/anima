@@ -1,0 +1,35 @@
+advance 0
+snapshot volume speaker.scale
+set volume 0.7
+advance 0
+snapshot volume speaker.scale
+advance 0.05
+snapshot volume speaker.scale
+advance 0.05
+snapshot volume speaker.scale
+advance 0.05
+snapshot volume speaker.scale
+advance 0.05
+snapshot volume speaker.scale
+# A decrease after the pulse must not pulse.
+set volume 0.3
+advance 0
+advance 0.1
+snapshot volume speaker.scale
+# An unchanged value must not pulse.
+set volume 0.3
+advance 0
+advance 0.1
+snapshot volume speaker.scale
+# An increase restarts even while the pulse is playing.
+set volume 0.4
+advance 0
+advance 0.1
+snapshot volume speaker.scale
+set volume 0.6
+advance 0
+snapshot volume speaker.scale
+advance 0.1
+snapshot volume speaker.scale
+advance 0.1
+snapshot volume speaker.scale

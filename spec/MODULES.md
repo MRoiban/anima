@@ -19,7 +19,10 @@ in `requires`; a runtime that lacks the module refuses the document with `unknow
 | `surface` | image paints, n-slice patches, feathering (8192 B budget) | P5 |
 | `assets` | image, font, audio and blob assets; the `image` node (P5, §5) | P5 |
 | `motion` | more eases, typed and string tracks, seek / reverse / work area / quantize, host timeline control, animatable pivot | P4b |
+| `focus` | focusable nodes, traversal/scopes, pointer focus, focus/blur and DOM focus (4096 B) | P4c |
 | `interaction` | blend states, transition flags, drag, keyboard, focus, scroll, gamepad | P4c |
+| `machine` | blend states, transition flags/actions, seeded selection, live/previous-value guards; input/focus are companion modules | P4c |
+| `input` | pointer IDs, drag values, keyboard, scroll, gamepads, hit policy, cursor and collapse (8192 B budget) | P4c |
 | `events` | event payloads, open-URL events, audio events | P4d |
 | `data` | view models, bindings, converters, lists | P4e |
 
@@ -113,6 +116,43 @@ Hook points (revised at P4a, owner decision 2026-11-06: rendering is renderer-ne
 - `outline(player, node)`: the node's current outline for hit testing.
 - `draw`: the module's contribution to the **draw layer** (§3.1). Modules never produce SVG
   elements, attributes or canvas calls.
+
+A shape `feature` may name alternatives separated by `|` (currently `bind|machine` for
+transition actions). At least one must be declared. Nested expression strings still require bind.
+The schema retains this feature annotation; semantic evaluation follows SPEC §bind and §machine.
+
+### Generic AniML fields
+
+Node object/map/union fields without a structural `element` use JSON-valued attributes.
+Node fields with an `element` retain child forms; focus uses this existing node-field path.
+
+Module entries may target `state`, `transition` (AniML `<on>`), `layer`, `timeline`,
+and `listener`. Both compiler and decompiler derive their attributes from the live
+registry shapes, including each shape's `markup` alias. Unknown attributes still fail
+with `unknown-attribute`; JSON spellings do not bypass an alias. Number, bool, string,
+and tuple fields retain their ordinary attribute forms. Compound object/map/array/union fields
+use JSON-valued attributes (normal XML escaping applies); existing listener `set`,
+`fire` and `toggle` retain their assignment/name-list syntax. Structural containers
+(`states`, `on`, `pose`, `tracks`, `events`) remain children. Scalar module fields on
+`document` also become `<anima>` attributes. No per-module compiler hook is needed
+for these attributes; `packages/markup/test/module-fields.test.ts` covers all five
+non-node targets, aliases, compounds and rejection of unknown fields. Descriptor
+caches last one compilation, so late registration is visible to the next compile.
+Layer/listener fields are reset and recomposed with the registry like state/timeline
+fields; separately bundled browser markup reads the runtime's live document shape.
+
+Components owns a composed `eventKinds` registry (`modules/components/core/events.ts`).
+Its resolver accepts local scene kinds only when their owning feature is declared, or validates
+an exact dotted component output address. Companion modules extend it during `init` with
+`registerEventKinds`; recomposition starts from legacy kinds each time. The registry lives on
+the composed components module so independently bundled entries share it. A module never deletes
+another module's diagnostics. This follows the metadata/ownership split discussed in
+`docs/research/rive-format-and-graph.md` and the host-routing concerns in
+`docs/research/rive-web-runtime.md`.
+
+The machine/focus condition seam is `Player.machineFocus?: (nodeId: string) => boolean`.
+Focus supplies the reader and wakes `player.onChange` when ownership changes; machine
+only reads it during transition evaluation. Missing reader means no node owns focus.
 
 ### 3.1 The draw layer
 
@@ -288,3 +328,14 @@ area, reverse, carry and controlled-clock rules without mutating timeline defini
 The optional web `AnimaIcon.eventHook(icon,kind,detail)` observes host stepping, drawing,
 controls, cleanup and load failure. Events owns subscriptions, navigation policy and Web Audio;
 core retains no DOM or audio implementation. Absent these hooks the original paths remain.
+
+### Interaction and event policy composition
+
+A playback policy that copies transitions for per-player clocks provides optional
+`transition(copy)` to recover the canonical model transition. Core uses that identity for event
+lifecycle metadata; motion policies without copies need no hook. Wrapping policies forward
+`finished` and explicit event marker sources, retaining SPEC §5's time-boundary rule.
+Components preserves a copy of its composed event kinds when browser AniML replays the module
+in a separate registry. `event:` is the events-owned local namespace; events validates its exact
+name and keeps reactions queued to the next step. Input/focus scene kinds and dotted component
+outputs retain their existing dispatch rules.

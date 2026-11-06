@@ -1,0 +1,1 @@
+<anima version="0.1" name="input-bounded-hit-tests" grid="20" requires="input"><number name="n"/><circle id="a" cx="10" cy="10" r="5" fill="#4263eb"/><listener on="down" target="a" set="n=1"/><listener on="up" target="a" set="n=2"/></anima>

@@ -1,0 +1,13 @@
+{
+  "status": "skip",
+  "reason": "Native multi-finger input works; an enclosing HTML page and its touch-action/page-scroll behavior do not exist in this runner.",
+  "captureEvidence": [
+    "tests/oracle/input-touch-page-scroll/rive/scene.rml",
+    "tests/oracle/input-touch-page-scroll/rive/commands.txt",
+    "tests/oracle/input-touch-page-scroll/rive/session.txt",
+    "tests/oracle/input-touch-page-scroll/rive/frames/0.json",
+    "tests/oracle/input-touch-page-scroll/rive/frames/0.semantics.json",
+    "tests/oracle/input-touch-page-scroll/rive/frames/limit.png"
+  ],
+  "tests": ["modules/input/test/core/runtime.test.ts", "modules/input/test/web/browser.test.ts"]
+}

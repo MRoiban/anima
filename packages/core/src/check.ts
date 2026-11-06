@@ -41,12 +41,12 @@ export function checkDoc(value: unknown, d: Diags): boolean {
 
 function check(v: unknown, s: Shape, p: string, d: Diags, depth: number): void {
   if (depth > MAX_DEPTH) return d.err('limit-exceeded', p, V && 'nesting is too deep');
-  if (s.feature && !d.features?.includes(s.feature))
+  if (s.feature && !s.feature.split('|').some((f) => d.features?.includes(f)))
     d.err(
       'undeclared-feature',
       p,
       V && `requires does not declare ${s.feature}`,
-      V && `add "${s.feature}" to "requires"`,
+      V && `add "${s.feature.split('|').join('" or "')}" to "requires"`,
     );
   if (s.k === 'any') return;
   const k = kind(v);

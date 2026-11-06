@@ -1,0 +1,30 @@
+ok advance
+ok advance
+ok advance
+ok data-dump: frames/0.json
+ok semantics: frames/0.semantics.json
+ok pointer
+ok advance
+ok data-dump: frames/1.json
+ok semantics: frames/1.semantics.json
+ok pointer
+ok advance
+ok data-dump: frames/2.json
+ok semantics: frames/2.semantics.json
+ok pointer
+ok advance
+ok data-dump: frames/3.json
+ok semantics: frames/3.semantics.json
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[04:40:08.493] rive  deferred replay: inline
+[04:40:08.507] rive  built (311 bytes, 14ms, 0 errors, 0 warnings)
+[04:40:08.512] rive  showing Interaction [1/1]
+[04:40:08.512] rive  viewport 240x240 @1x
+[04:40:08.513] rive  wrote frames/0.json
+[04:40:08.513] rive  wrote frames/0.semantics.json
+[04:40:08.513] rive  wrote frames/1.json
+[04:40:08.514] rive  wrote frames/1.semantics.json
+[04:40:08.514] rive  wrote frames/2.json
+[04:40:08.514] rive  wrote frames/2.semantics.json
+[04:40:08.514] rive  wrote frames/3.json
+[04:40:08.514] rive  wrote frames/3.semantics.json

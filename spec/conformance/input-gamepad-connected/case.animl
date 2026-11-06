@@ -1,0 +1,7 @@
+<anima version="0.1" name="input-gamepad-connected" grid="20" requires="input">
+  <number name="n"/>
+
+  <circle id="disc" cx="10" cy="10" r="5" fill="#000"/>
+
+  <listener on="gamepad-connected" write="{&quot;index&quot;:&quot;n&quot;}"/>
+</anima>

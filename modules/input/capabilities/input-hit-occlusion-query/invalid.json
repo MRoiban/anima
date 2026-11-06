@@ -1,0 +1,45 @@
+{
+  "document": {
+    "anima": "0.1",
+    "name": "input-hit-occlusion-query-invalid",
+    "grid": 20,
+    "requires": ["input"],
+    "nodes": [
+      {
+        "id": "disc",
+        "type": "circle",
+        "center": [10, 10],
+        "r": 5,
+        "fill": {
+          "color": "#000"
+        }
+      },
+      {
+        "id": "top",
+        "type": "circle",
+        "center": [10, 10],
+        "r": 5,
+        "fill": {
+          "color": "#000"
+        },
+        "opaque": "yes"
+      }
+    ],
+    "inputs": {
+      "n": {
+        "type": "number"
+      }
+    },
+    "listeners": [
+      {
+        "on": "down",
+        "target": "disc",
+        "write": {
+          "pointerId": "n"
+        }
+      }
+    ]
+  },
+  "code": "type",
+  "pointer": "/nodes/1/opaque"
+}

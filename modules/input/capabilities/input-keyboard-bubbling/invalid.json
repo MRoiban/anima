@@ -1,0 +1,50 @@
+{
+  "document": {
+    "anima": "0.1",
+    "name": "input-keyboard-bubbling-invalid",
+    "grid": 20,
+    "requires": ["input"],
+    "nodes": [
+      {
+        "id": "parent",
+        "type": "group",
+        "children": [
+          {
+            "id": "disc",
+            "type": "circle",
+            "center": [10, 10],
+            "r": 5,
+            "fill": {
+              "color": "#000"
+            }
+          }
+        ]
+      }
+    ],
+    "inputs": {
+      "n": {
+        "type": "number"
+      }
+    },
+    "listeners": [
+      {
+        "on": "key-down",
+        "key": "F13",
+        "target": "disc",
+        "set": {
+          "n": 1
+        },
+        "modifiers": "meta+shift"
+      },
+      {
+        "on": "key-down",
+        "target": "parent",
+        "set": {
+          "n": 2
+        }
+      }
+    ]
+  },
+  "code": "input-modifiers",
+  "pointer": "/listeners/0/modifiers"
+}

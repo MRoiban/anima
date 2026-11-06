@@ -1,0 +1,4 @@
+name: oracle-machine-transition-duration-relative
+logs:
+  file: build/rive.log
+  problems: build/problems.log

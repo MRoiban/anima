@@ -1,13 +1,7 @@
+import { elementFields, compoundField } from './fields.ts';
 import { motionCompiler, eventsCompiler } from './module-hooks.ts';
 import { parseXml, type Element } from './xml.ts';
-import {
-  ELEMENTS,
-  STATE,
-  TRANSITION,
-  type ObjShape,
-  markupName,
-  type NodeType,
-} from '@anima-format/core';
+import { ELEMENTS, markupName, type NodeType } from '@anima-format/core';
 import { markupAddress, nodeAttrs } from './names.ts';
 import { type LayoutElement, type LayoutChild, render } from './layout.ts';
 
@@ -38,18 +32,23 @@ export function decompile(doc: string | object): string {
     name,
     attrs: [
       ...extra,
-      ...keys
+      ...(elementFields(name).length && name !== 'anima'
+        ? elementFields(name).map((f) => f.key)
+        : keys
+      )
         .filter((k) => o[k] !== undefined)
         .map((k): [string, string] => [
-          k,
-          k === 'when'
-            ? value(o[k]).replace(/&&/g, 'and')
-            : k === 'set'
-              ? entries(o[k])
-                  .map(([n, v]) => `${n}=${value(v)}`)
-                  .join(' ')
-              : ['entry', 'exit', 'actions'].includes(k)
-                ? JSON.stringify(o[k])
+          elementFields(name).find((f) => f.key === k)?.attr ?? k,
+          compoundField(elementFields(name).find((f) => f.key === k)?.shape ?? { k: 'str' }) &&
+          k !== 'set' &&
+          !['fire', 'toggle'].includes(k)
+            ? JSON.stringify(o[k])
+            : k === 'when'
+              ? value(o[k]).replace(/&&/g, 'and')
+              : k === 'set'
+                ? entries(o[k])
+                    .map(([n, v]) => `${n}=${value(v)}`)
+                    .join(' ')
                 : value(o[k]),
         ]),
     ],
@@ -62,7 +61,11 @@ export function decompile(doc: string | object): string {
       let v: unknown = n;
       for (const key of a.path) v = obj(v)[key];
       if (a.index !== undefined && v !== undefined) v = (v as unknown[])[a.index];
-      if (v !== undefined) el.attrs.push([a.attr, value(v)]);
+      if (v !== undefined)
+        el.attrs.push([
+          a.attr,
+          ['obj', 'map', 'any', 'alt'].includes(a.shape.k) ? JSON.stringify(v) : value(v),
+        ]);
     }
     const structural = (name: string, data: Obj): LayoutElement => {
       const form = ELEMENTS[name]!;
@@ -113,6 +116,8 @@ export function decompile(doc: string | object): string {
     ['name', 'title', 'grid', 'viewBox', 'requires'],
     [['version', value(d.anima)]],
   );
+  for (const f of elementFields('anima'))
+    if (d[f.key] !== undefined) root.attrs.push([f.attr, value(d[f.key])]);
   const groups: LayoutElement[][] = [];
   if (d.meta !== undefined) {
     const meta = element('meta', obj(d.meta), []);
@@ -191,12 +196,7 @@ export function decompile(doc: string | object): string {
   groups.push(
     entries(d.timelines).map(([name, v]) => {
       const t = obj(v);
-      const el = element(
-        'timeline',
-        t,
-        ['duration', 'loop', 'reducedMotion', 'speed', 'quantize', 'work'],
-        [['name', name]],
-      );
+      const el = element('timeline', t, [], [['name', name]]);
       for (const [target, keys] of entries(t.tracks)) {
         const track = element('track', {}, [], [['target', address(target)]]);
         track.children.push({
@@ -225,15 +225,10 @@ export function decompile(doc: string | object): string {
   const machineLayers = (machine: unknown): LayoutElement[] =>
     entries(obj(machine).layers).map(([name, v]) => {
       const l = obj(v);
-      const el = element('layer', l, ['initial'], [['name', name]]);
+      const el = element('layer', l, [], [['name', name]]);
       for (const [name, v] of entries(l.states)) {
         const s = obj(v);
-        const state = element(
-          'state',
-          s,
-          Object.keys((STATE as ObjShape).p).filter((k) => k !== 'pose' && k !== 'on'),
-          [['name', name]],
-        );
+        const state = element('state', s, [], [['name', name]]);
         if (s.pose !== undefined)
           state.children.push(
             element(
@@ -246,11 +241,7 @@ export function decompile(doc: string | object): string {
               ]),
             ),
           );
-        state.children.push(
-          ...((s.on ?? []) as Obj[]).map((on) =>
-            element('on', on, Object.keys((TRANSITION as ObjShape).p)),
-          ),
-        );
+        state.children.push(...((s.on ?? []) as Obj[]).map((on) => element('on', on, [])));
         el.children.push(state);
       }
       return el;
@@ -264,11 +255,7 @@ export function decompile(doc: string | object): string {
       children: machineLayers(machine),
     })),
   );
-  groups.push(
-    ((d.listeners ?? []) as Obj[]).map((l) =>
-      element('listener', l, ['on', 'target', 'hitPadding', 'fire', 'set', 'toggle', 'emit']),
-    ),
-  );
+  groups.push(((d.listeners ?? []) as Obj[]).map((l) => element('listener', l, [])));
   groups.push(
     entries(d.bind).map(([target, v]) =>
       element(

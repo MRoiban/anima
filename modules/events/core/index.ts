@@ -1,3 +1,4 @@
+import { registerEventKinds } from '../../components/core/events.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Shape, ObjShape } from '../../../packages/core/src/registry.ts';
 import { formatHex, parseHex } from '../../../packages/core/src/color.ts';
@@ -47,6 +48,7 @@ let resolve = resolveAddress;
 let compileValue = inputExpression;
 export const events: Module = {
   init(_modules, shared) {
+    registerEventKinds(_modules, 'events', ['event:']);
     resolve = shared.resolveAddress;
     compileValue = shared.inputExpression;
     const listeners = (shared.DOC as ObjShape).p.listeners as Extract<Shape, { k: 'arr' }>;
@@ -218,11 +220,14 @@ export const events: Module = {
         const rawState = raw.machine.layers[layer.name].states[state.name];
         if (state.entry?.emit) actionNames.push(state.entry.emit);
         if (state.exit?.emit) actionNames.push(state.exit.emit);
+        if (rawState.enterActions?.emit) actionNames.push(rawState.enterActions.emit);
+        if (rawState.exitActions?.emit) actionNames.push(rawState.exitActions.emit);
         if (rawState.endEmit) actionNames.push(rawState.endEmit);
         state.on.forEach((tr, i) => {
           const r = rawState.on[i];
           actions.set(tr, r);
-          if (tr.actions?.emit) actionNames.push(tr.actions.emit);
+          if (r.actions?.emit) actionNames.push(r.actions.emit);
+          if (r.endActions?.emit) actionNames.push(r.endActions.emit);
           if (r.startEmit) actionNames.push(r.startEmit);
           if (r.endEmit) actionNames.push(r.endEmit);
         });

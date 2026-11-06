@@ -49,6 +49,49 @@
     ]
   },
   {
+    "name": "input-align-preserve",
+    "status": "intentional difference",
+    "reason": "Intentional difference: Anima follows the pointer with the grab offset measured at pointer-down (x=88 on origin x=80; move to x=104 yields x=96). Native preserve-offset remains x=80 at the first move and after release; absolute delta 16. Neither result nor tolerance is normalized.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": 80,
+        "reference": 80,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "actual": 80,
+        "reference": 80,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 2,
+        "actual": 96,
+        "reference": 80,
+        "maxDiff": 16,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      },
+      {
+        "time": 3,
+        "actual": 96,
+        "reference": 80,
+        "maxDiff": 16,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
     "name": "bind-condition-modulo/immediate-probe",
     "reason": "Immediate post-click observation differs: Anima emits at clicks 5/10/15/20/25; Rive at 6/11/16/21 with observed payloads 6/11/16/21 (5 versus 4 events, one-click lag). An extra native advance 1 settles each click and the separate completed case then matches. No elapsed-frame equivalence claimed.",
     "frames": [

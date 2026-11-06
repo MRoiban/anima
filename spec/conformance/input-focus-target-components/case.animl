@@ -1,0 +1,15 @@
+<anima version="0.1" name="focus-components" grid="20" requires="focus components">
+  <component name="child" grid="20">
+    <circle id="a" cx="2" cy="2" r="1" fill="#000">
+      <focus bounds="1 1 2 2"/>
+    </circle>
+    <circle id="b" cx="8" cy="2" r="1" fill="#000">
+      <focus bounds="7 1 2 2"/>
+    </circle>
+    <listener on="focus" target="a" emit="selected"/>
+    <listener on="blur" target="a" emit="left"/>
+    <listener on="focus" target="b" emit="next"/>
+  </component>
+
+  <instance id="child" component="child" x="2"/>
+</anima>

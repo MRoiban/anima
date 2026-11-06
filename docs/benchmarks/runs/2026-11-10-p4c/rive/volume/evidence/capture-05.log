@@ -1,0 +1,27 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[04:49:07.725] rive  deferred replay: inline
+[04:49:07.802] rive  built (2839 bytes, 77ms, 0 errors, 0 warnings)
+[04:49:07.803] rive  showing Volume [1/1]
+[04:49:07.804] rive  viewport 480x144 @1x
+ok advance
+ok pointer
+ok advance
+ok pointer
+ok advance
+[04:49:07.804] rive  wrote evidence/13-drag-first.json
+ok data-dump: evidence/13-drag-first.json
+ok pointer
+ok advance
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[04:49:07.840] rive  wrote evidence/14-drag-second.png
+ok screenshot: evidence/14-drag-second.png
+[04:49:07.841] rive  wrote evidence/14-drag-second.json
+ok data-dump: evidence/14-drag-second.json
+ok pointer
+ok advance
+[04:49:07.856] rive  wrote evidence/15-drag-third.png
+ok screenshot: evidence/15-drag-third.png
+[04:49:07.857] rive  wrote evidence/15-drag-third.json
+ok data-dump: evidence/15-drag-third.json
+ok pointer
+ok quit

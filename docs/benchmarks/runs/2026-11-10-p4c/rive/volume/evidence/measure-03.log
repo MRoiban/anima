@@ -1,0 +1,11 @@
+blend-000.png [(29, 29, 29), (29, 29, 29), (29, 29, 29)]
+blend-0165.png [(23, 23, 23), (29, 29, 29), (29, 29, 29)]
+blend-033.png [(20, 20, 19), (29, 29, 29), (29, 29, 29)]
+blend-0495.png [(20, 20, 19), (23, 23, 23), (29, 29, 29)]
+blend-066.png [(20, 20, 19), (20, 20, 19), (29, 29, 29)]
+blend-083.png [(20, 20, 19), (20, 20, 19), (23, 23, 23)]
+blend-100.png [(20, 20, 19), (20, 20, 19), (19, 19, 18)]
+final-drag-offset knob bbox outside track: (344, 54, 375, 89)
+final-drag-min knob bbox outside track: (128, 54, 159, 89)
+final-drag-max knob bbox outside track: (417, 54, 447, 89)
+final-key-right knob bbox outside track: (157, 54, 187, 89)

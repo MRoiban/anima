@@ -1,0 +1,97 @@
+{
+  "anima": "0.1",
+  "name": "machine-event-lifecycle",
+  "grid": 20,
+  "requires": ["machine", "bind", "events", "components"],
+  "inputs": {
+    "count": {
+      "type": "number"
+    },
+    "seen": {
+      "type": "number"
+    },
+    "go": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {},
+            "on": [
+              {
+                "when": "go",
+                "to": "next",
+                "blend": 0.1,
+                "actions": {
+                  "emit": "edge"
+                },
+                "startEmit": "started",
+                "endEmit": "finished",
+                "endActions": {
+                  "set": {
+                    "count": "count+1"
+                  },
+                  "emit": "completed"
+                }
+              }
+            ],
+            "enterActions": {
+              "set": {
+                "count": "count+1"
+              },
+              "emit": "entered"
+            }
+          },
+          "next": {
+            "pose": {},
+            "enterActions": {
+              "set": {
+                "count": "count+1"
+              },
+              "emit": "arrived"
+            }
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "event:entered",
+      "set": {
+        "seen": "count+10"
+      }
+    },
+    {
+      "on": "event:arrived",
+      "set": {
+        "seen": "count+20"
+      }
+    }
+  ],
+  "eventDefs": {
+    "arrived": {
+      "payload": {
+        "count": {
+          "type": "number",
+          "value": "{count}"
+        }
+      }
+    }
+  }
+}

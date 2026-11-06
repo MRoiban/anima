@@ -1,0 +1,1 @@
+<anima version="0.1" name="input-opaque-targets" grid="240" requires="input"><number name="n"/><rect id="a" x0="108" y0="108" width="24" height="24" fill="#4263eb"/><rect id="top" x0="108" y0="108" width="24" height="24" fill="#4263eb" opaque="true"/><listener on="down" target="a" set="n=1"/><listener on="down" target="top" set="n=2"/></anima>

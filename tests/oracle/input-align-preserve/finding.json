@@ -1,0 +1,36 @@
+{
+  "status": "intentional difference",
+  "reason": "Intentional difference: Anima follows the pointer with the grab offset measured at pointer-down (x=88 on origin x=80; move to x=104 yields x=96). Native preserve-offset remains x=80 at the first move and after release; absolute delta 16. Neither result nor tolerance is normalized.",
+  "case": {
+    "name": "input-align-preserve",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 88 100\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 88 100\nadvance 0\nadvance 0\ncontact move 0 104 112\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 88 100\nadvance 0\nadvance 0\ncontact move 0 104 112\nadvance 0\nadvance 0\ncontact up 0 104 112\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  "observations": [
+    {
+      "time": 2,
+      "actual": 96,
+      "reference": 80,
+      "delta": 16
+    },
+    {
+      "time": 3,
+      "actual": 96,
+      "reference": 80,
+      "delta": 16
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+Start: 2026-11-06T04:45:57+01:00 (first shell command: date -Is).
+CLI guidance: 1 --help, 10 docs invocations, 11 schema invocations; 1 create.
+Generation: 3 runs of generate.py, all successful.
+Verification: inspect 01, 02, 03; headless capture 01 through 07 (10 CLI invocations).
+Capture 01 and 02: --commands smoke.commands was parsed as a project argument; each failed with no Rive project .../smoke.commands (no rive.yaml). Fixed with --commands=smoke.commands.
+Before capture 01: analysis script FileNotFoundError on duplicated repo-relative path; shell could not create smoke.commands at the same duplicated path (No such file or directory). Two path errors.
+Inspect 01: one artboard-without-style warning. Added linked LayoutComponentStyle; inspect 02 and 03 have empty problems arrays.
+Auxiliary Python analysis runs: 8, including the path failure and ModuleNotFoundError: No module named PIL (measure 01). Replaced PIL with a standard-library PNG decoder (measure 02 and 03). measure-01.log is empty because its exception went to stderr; reproduced verbatim here.
+Four image-tool inspections: 01-increase-mid, 06-drag-offset, 14-drag-second, final-muted. No errors.
+Behavior issue: decrease self-transitions were ignored (previousVolume stayed 1 after decreasing to 0). Fixed by alternating rest states and returning pulse states to rest on decrease.
+Behavior issue: native ListenerAlignTarget preserveOffset starts its offset at first move, losing down-to-first-move displacement. capture 05 observed volume .5 at pointer372 after down300 from knob288, then .541666687 at384 and .5625 at390. Final formula implementation gives .75, .791666687, .8125 and grabOffset12 (capture06).
+Images/JSON 13-15 were overwritten by the corrected capture06; capture05's numerical observations are preserved above. Images/JSON 00-12 are intermediate. Final verification is capture07 + final-*, blend-*, pulse-*.
+measure02 wave-centre sampling for the third arc intersects the track. measure03 samples all arcs off the track; these are the meaningful blend samples.
+Semantic dump has roots=[]: no accessibility semantics were authored; focus is verified by actual key events, not this tree.
+Final artifact audits: source-size/status/listing; cleanup/capture-count/source-size; git diff --check and staged-path allowlist (4 audits including final staged-log audit; all passed after forcing ignored logs).
+Final staged-log audit found ignored *.log omitted by git add; force-added evidence/*.log.

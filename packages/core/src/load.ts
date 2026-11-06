@@ -124,6 +124,8 @@ export interface ListenerM extends ActionM {
 }
 
 export interface PlaybackPolicy {
+  /** Canonical model transition for modules observing player-local policy copies. */
+  transition?(transition: TransitionM): TransitionM;
   readonly busy: boolean;
   states(): Record<string, string>;
   inspect(): import('./player.ts').LayerInspect[];

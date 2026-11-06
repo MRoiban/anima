@@ -15,6 +15,7 @@ export interface OracleCase {
   maxOverPercent: number;
   maxDiff: number;
   scripts?: Record<string, string>;
+  focus?: boolean;
   events?: {
     fps: number;
     script: string;
@@ -30,6 +31,17 @@ export interface OracleCase {
 export const root = new URL('../tests/oracle/', import.meta.url);
 export const cases: OracleCase[] = JSON.parse(readFileSync(new URL('cases.json', root), 'utf8'));
 
+export const findingCases: {
+  name: string;
+  status?: string;
+  reason: string;
+  case: OracleCase;
+  observations?: { time: number; actual: number; reference: number; delta: number }[];
+}[] = globSync('**/finding.json', { cwd: root }).map((path) => ({
+  name: path.split('/')[0]!,
+  ...JSON.parse(readFileSync(new URL(path, root), 'utf8')),
+}));
+
 export const pendingCases = globSync('*/todo.json', { cwd: root }).map((path) => ({
   name: path.split('/')[0]!,
   reason: pendingReason(new URL('./', new URL(path, root)))!,
@@ -44,9 +56,6 @@ export const skippedCases: {
   name: path.split('/')[0]!,
   ...JSON.parse(readFileSync(new URL(path, root), 'utf8')),
 }));
-export const findingCases: { reason: string; case: OracleCase }[] = globSync('**/finding.json', {
-  cwd: root,
-}).map((path) => JSON.parse(readFileSync(new URL(path, root), 'utf8')));
 for (const c of cases)
   if (pendingReason(new URL(`${c.name}/`, root)))
     throw Error(`${c.name}: pending oracle must not be in cases.json`);
@@ -148,7 +157,23 @@ export async function measure(c: OracleCase, output: URL) {
       const model = load(compiled.doc!).model!;
       const { player } = runScript(model, c.scripts?.[String(time)] ?? `advance ${time}`);
       player.step(0);
-      const actual = player.value(c.values.address);
+      const actual =
+        c.values.address === '@cursor'
+          ? (player.input().cursor ?? '')
+          : (player.get(c.values.address) ?? player.value(c.values.address));
+      let actualFocus: string | null | undefined;
+      let referenceFocus: string | null | undefined;
+      if (c.focus) {
+        const semantics = JSON.parse(
+          readFileSync(new URL(`rive/frames/${time}.semantics.json`, dir), 'utf8'),
+        );
+        type Semantic = { label: string; stateFlags: number; children: Semantic[] };
+        const flatten = (nodes: Semantic[]): Semantic[] =>
+          nodes.flatMap((n) => [n, ...flatten(n.children)]);
+        referenceFocus =
+          flatten(semantics.roots).find((n) => (n.stateFlags & 128) !== 0)?.label ?? null;
+        actualFocus = player.focused;
+      }
       const delta =
         typeof actual === 'number' && typeof property.value === 'number'
           ? Math.abs(actual - property.value)
@@ -159,10 +184,11 @@ export async function measure(c: OracleCase, output: URL) {
         time,
         actual,
         reference: property.value,
+        ...(c.focus ? { actualFocus, referenceFocus } : {}),
         maxDiff: delta,
         over: delta > c.values.tolerance ? 1 : 0,
         overPercent: delta > c.values.tolerance ? 100 : 0,
-        pass: delta <= c.values.tolerance,
+        pass: delta <= c.values.tolerance && (!c.focus || actualFocus === referenceFocus),
       });
       continue;
     }
@@ -224,14 +250,14 @@ if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) 
     });
     console.log(c.name, JSON.stringify(frames));
   }
+  writeFileSync(new URL('metrics.json', root), JSON.stringify(results, null, 2) + '\n');
   const findings = [];
-  for (const finding of findingCases) {
-    const frames = await measure(finding.case, new URL(`${finding.case.name}/anima/`, root));
-    findings.push({ name: finding.case.name, reason: finding.reason, frames });
-    console.log(`FINDING comparison ${finding.case.name}`, JSON.stringify(frames));
+  for (const f of findingCases) {
+    const frames = await measure(f.case, new URL(`${f.case.name}/anima/`, root));
+    findings.push({ name: f.case.name, status: f.status, reason: f.reason, frames });
+    console.log(`${f.status ?? 'finding'} ${f.case.name}`, JSON.stringify(frames));
   }
   writeFileSync(new URL('findings-metrics.json', root), JSON.stringify(findings, null, 2) + '\n');
-  writeFileSync(new URL('metrics.json', root), JSON.stringify(results, null, 2) + '\n');
   if (process.argv.includes('--strict') && results.some((r) => r.frames.some((f) => !f.pass)))
     process.exitCode = 1;
 }

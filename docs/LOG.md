@@ -1325,7 +1325,7 @@ full SVG 44537 B; Rive-class 48570/256000 B. All existing module budgets pass. B
 2.29 ms / prefix sweep 686 ms; bell/composite/toolbar frame 43.7/28.1/32.6 µs, toolbar compile 4.37 ms.
 Previous D3 scratch observations: 2.03 ms/792 ms, 34.6/22.9/27.0 µs, 2.93 ms (not same-session).
 
-Required full check: 1413 pass, 14 fail (12 raster findings, stale census since fixed, known Chromium
+Required full check: 1416 pass, 14 fail (12 raster findings, stale census since fixed, known Chromium
 demo timeout). Final type/lint/format/size/artifact checks pass; core/conformance/oracle/markup scope
 184/184, final canvas host tests 14/14, isolated demo/colour/interaction 8/8. Both engines compared
 169 frames / 59 visual documents: 160/169 Chromium, 166/169 Firefox within the original limits;
@@ -1524,6 +1524,203 @@ push, PR or merge. Local commit only.
   full-featured 51.4 KB / 100 KB; Rive-class 55.6 KB / 250 KB; compile bell 2.08 ms, prefix sweep
   712 ms; frame bell 39.2 µs, composite 25.8 µs, toolbar 29.3 µs (load-dependent).
 - **Parity**: 22 rows done (259 / 1 238).
+
+### P4c-3 focus module (implementation branch)
+
+Implemented focus configuration, ordered/spatial traversal, scope edge policies, pointer focus,
+focus/blur listeners, component-local dotted targets and the `Player.focused` condition hook.
+Browser mapping uses real shadow focus targets, one Tab stop by default and authored inner
+Tab stops on opt-in; existing host Enter/Space activation is covered in both engines.
+Scoped focus/conformance/oracle: 416 passing, including 17 new conformance probes and 10 browser
+checks (Chromium + Firefox). Existing oracle suite passes; 16 new focus oracle skips are explicit:
+local Rive CLI unavailable, and DOM focus has no faithful painted-frame counterpart. No new
+Rive reference captures or equivalence claims. Focus 3924/4096 B gzip; core+web 19012 B (+0).
+Full typecheck, prettier, eslint, generated wiring, schema and AniML checks pass. Shared script
+adds focus/key inspection commands; input agent must compose key dispatch. Exact shared corpus
+census and static-property expectations updated for new evidence; no budgets/limits changed.
+Parity statuses stay planned pending phase integration. No push, PR or merge.
+
+## P4c-1 machine (implementation branch)
+
+Machine provides the 25 assigned inventory rows plus changed/increased/decreased guards: seeded
+weighted selection, blend states and input/bind sources, relative clocks, any/entry/terminal
+states, continued source sampling, live component/artboard/focus-reader guards and queued actions.
+37 independent conformance cases; 18 native cases/45 frames, maximum channel delta 1 with unchanged
+limits, eight explicit semantic/observation skips. No Rive source or CLI docs text copied.
+The owner authorized a generic non-node AniML registry extension (state/on/layer/timeline/listener;
+compile, decompile, layout; core layer/listener registry targets). Focus supplies
+`Player.machineFocus(nodeId)` and wakes onChange; actual focus ownership belongs to its module.
+
+Final scoped run: 937 tests green including Chromium/Firefox. Core+web 19048 B (+36 from 19012),
+machine 5736/8192, markup 7643/8192; full SVG 56311/102400, Rive-class 60558/256000 B.
+Perf: bell compile 1.92 ms, 9040 prefixes 535 ms; bell frame 30.4 µs, composite 19.5 µs,
+toolbar 22.2 µs and compile 2.99 ms (unchanged measuring method). Inventory statuses and overall
+P4c completion remain with the phase owner. Full phase CI and companion-module integration remain;
+no push, PR or merge. Detailed row list and limits: modules/machine/REPORT.md.
+
+## 2026-11-06 03:43 — P4c-2 input checkpoint (partial)
+
+Input controller and optional browser module are implemented in `modules/input/`. Independent
+contact IDs, drag values, key filters/bubbling, scroll latching, gamepad batches, hit/cursor policy
+and collapse/Solo are covered by 55 core/vector and 56 browser tests. Three drag conformance cases
+and nine native Rive reference frames pass; 15 host-only oracle skips are documented. Full
+capability completion is 3/54 rows; 51 per-row conformance and 36 oracle probes remain pending.
+Parity statuses and the P4c checkbox remain unchanged.
+
+Core+web stays 19012 B (+0); input is 6056/8192 B; full-featured 57405 B, Rive-class 61538 B.
+Final compile/frame lines and same-session baseline are in `modules/input/HANDOFF.md`; timing was
+variable. No comparison budget, test threshold or measurement method changed.
+
+Shared implementation ownership prevents wiring new AniML attributes and sample commands here.
+`modules/input/integration.patch` supplies the exact shared changes plus registry/corpus snapshots;
+it passes 460 scoped tests with 87 pending in a temporary source copy. This checkout reports
+457 passes, three expected shared-test failures and 87 pending. Typecheck, format, lint, generated
+wiring/schema, artifact checks, module-arrival-order and parity checks pass. No push/PR/merge.
+
+### P4c-4 — interaction integration (2026-11-06)
+
+Input 0dd104a merged with machine/focus. Generic registry listener attributes replace hand hooks;
+nonstructural node objects use JSON attributes. The focus loss was in the independent test reader,
+now extended without weakening value comparisons (17/17 original cases). Input owns one key route,
+component capture/consume, and pointer capture; focus supplies traversal, DOM ownership and
+machineFocus/onChange wake-ups. Disabled/opaque input hit policy gates pointer focus; collapsed
+nodes leave focus eligibility. Components owns a composed event-kind registry; the two diagnostic
+removal workarounds are gone. Input's base-array mutation was caught and fixed by arrival-order tests.
+
+Evidence: 51 completed input probes + 2 seam cases, conformance census 135→191 including 3 retained
+drag cases; 54 paired examples/schema/diagnostics/CLI samples. Strict input completion 3→18/54:
+3 retained captures +15 host-only skips, 36 real native oracle probes still pending for the next pass.
+No parity status promotion, native commands, runtime dependencies, test/budget/method weakening,
+push or PR. Research rationale: metadata ownership (rive-format-and-graph.md), host routing and
+teardown (rive-web-runtime.md), explicit input ordering (rive-animation-and-state.md).
+
+Checks: interaction scope1471 pass; core/markup/CLI2000 pass including 12 arrival orders and 0.1
+compatibility; all four modules +packages/web browsers180 pass/0 skips, both engines and both
+registration orders. Typecheck, Prettier, ESLint, module/parity wiring,209 AniML artifacts and18
+browser entries pass. Sizes: input5978/8192,focus3846/4096,machine5736/8192,components4039/4096;
+core+web19048 (+0 from edf9eec,+36 from main), markup7663/8192,full64848,class68961.
+Perf (unchanged method, variable host load): bell4.22ms/prefix1204ms; frames64.9/37.6/39.8µs;
+toolbar compile5.80ms. Archived same-session baseline and comparison lines, failed initial runs
+and limitations are recorded in modules/input/REPORT.md. No overall performance improvement claim.
+
+## P4c interaction oracle follow-up (2026-11-06)
+
+Original 36 input pending probes: 27 verified, six individually evidenced runner limits,
+three findings. All 16 focus skips replaced by exact data + semantics comparisons. Earlier
+15 input skips re-decided: seven cursor-intent comparisons and eight evidenced host limits.
+Strict oracle exit 0, 104 completed cases / 295 samples; disagreements separately reported:
+keyboard bubbling delta 1, pointer capture delta 1, preserve-offset first move/release delta 16.
+No reference/tolerance/runtime change hides those findings; no phase or parity-status completion.
+Scoped input/focus/oracle tests 1426 pass, 119 out-of-scope conformance skips; Chromium/Firefox.
+Prettier, ESLint, tooling tsc, parity and AniML corpus checks pass. No push/PR/merge.
+See modules/input/ORACLE-RESULTS.md for reproduction and per-row observation limits.
+
+## P4c input oracle decisions (2026-11-06)
+
+Keyboard normal listeners now stop delivery by default on down, repeat and up, including
+component descendants. Registry boolean `propagate` opts into continued delivery; explicit
+consume wins. Capture remains outermost-first with authored ordering at equal depth and
+explicit consumption. Focus navigation runs after delivery; native Enter/Space stays in the
+host, following docs/research/rive-web-runtime.md lessons 2, 5 and 6.
+
+The capture finding was misdiagnosed as sorting: HEAD already sorted ascending capture depth.
+Its original non-consuming Anima parent allowed the consuming child to overwrite 1 with 2.
+Native parent capture claimed delivery. The oracle now explicitly consumes at the Anima
+parent to express that native claim. No native scene, coordinate, timing or tolerance changed.
+Fresh local CLI captures reproduce parent n=1 and keyboard F13 n=1 (unmatched F12 n=2).
+
+Preserve-offset is an intentional difference: origin 80, grab 88, move 104 means Anima 96,
+while native remains 80 at move and release (delta 16). Separate finding metrics retain
+pass=false, and the evidence test checks that; it is never promoted to successful cases.
+
+Changed conformance cases (independent expectations, no regeneration from runtime):
+
+- `spec/conformance/input-capture-phase`: parent explicitly consumes; expected n=1 instead
+  of 2 because inner capture and normal listeners cannot run.
+- `spec/conformance/input-keyboard-bubbling`: F13 expected n=1 instead of 2 because the
+  matching target stops delivery; unmatched key still reaches parent n=2.
+- `spec/conformance/input-key-focused-component`: k uses default consumption; j opts into
+  propagation. Existing parent/child expectations stay 1/3 and 2/4.
+- `modules/input/conformance/capture-order.json` (new): reverse-authored three-depth chain
+  must emit capture outer→inner→target before normal target→inner→outer.
+- `modules/input/conformance/capture-consume.json` (new): consuming outer ancestor emits
+  only its own event, excluding inner capture and normal delivery.
+- `modules/input/conformance/key-default-stop.json` (new): down/repeat/up emit only target.
+- `modules/input/conformance/key-propagate.json` (new): down/repeat/up emit target then parent.
+- `modules/input/conformance/key-consume-precedence.json` (new): consume overrides propagate
+  in every keyboard phase, so only target emits.
+
+Browser component probe checks default stop and explicit propagation; existing navigation,
+Tab, Enter/Space and pointer-focus assertions retain their limits. Registry schema/AniML
+round-trip and invalid-boolean diagnostic checks cover the new field. The independent markup
+test reader now recognizes its boolean type.
+
+Verification: `VITEST_MAX_WORKERS=2 npm run test:scope -- input focus machine components
+oracle conformance` passes **48 files / 1702 tests**, including input/focus Chromium and Firefox.
+Unbounded rerun passed 1697 with five Firefox timeouts under load; bounded rerun keeps all
+limits and coverage unchanged. `node tools/oracle.ts --strict` exits 0 (**106 completed cases /
+300 samples**, two promoted exact-value cases); preserve-offset remains separate with pass=false.
+Generated schema rebuilt; wiring and AniML corpus checks pass. Size checks pass: input
+**6007/8192 B**, focus **3846/4096 B**, core+web **19048 B**, full-featured **64879 B**.
+Prettier, ESLint and tools typecheck pass. No push, PR, merge, parity status change, runtime
+dependency or tolerance adjustment. Initial scoped pass: 1699 passed, stale oracle build
+and component propagation fixture failed; corrected. Subsequent run exposed canonical markup
+and the independent test-reader boolean list; corrected. It also hit a timing test under load
+and exited 143 before completing; no limits were changed. npm ci restored missing tooling.
+
+Final core-test typecheck caught two test-only accesses through the generic Doc shape; explicit
+listener-shape casts fixed them. `npx tsc -p packages/core/test` and the focused 56-test
+evidence suite pass; final whole-repo Prettier and ESLint checks pass.
+
+## P4c-6 — interaction authoring
+
+Completed 6/6 authoring findings. Module docs include the normative chapter plus the
+module-local contract inline when present (input), with example paths. Input's registry
+write descriptor explains event-field → input direction, field names/types, missing fields
+and parent-space alignment; both schema output forms read that metadata. Three documented,
+built AniML examples cover preserved-offset drag, ordered/arrow/Tab focus and a 1D blend
+with restart-on-increase feedback. Existing module-example globs build/test all three;
+the corpus explicitly requires their presence.
+
+The @after(0) recipe exposed a runtime bug: a change only becomes observable this step,
+but the ordinary time-term carry could forward the entire idle/source clock into the
+target, finishing it immediately or entering it partway through. MachinePolicy now caps
+change-gated carry at zero, including self/any re-entry, while ordinary time-only edges
+retain their existing overshoot semantics. This follows the independent clock/state
+separation described in docs/research/rive-animation-and-state.md; no external source
+or documentation text was used. The normative machine chapter states the rule.
+
+Conformance expectations changed: **no existing golden changed**. Added
+**machine-change-pulse**, 10 independently calculated snapshots: 2 seconds idle → increase
+starts at scale 1; +.05 seconds → 1.04; increase during pulse → 1; +.1 seconds → 1.08;
+decrease/unchanged writes continue the pulse; completion returns to idle; a later increase
+after 3 idle seconds restarts at 1. Linear blend opacity is .2 + .8*level. The first
+snapshot also accepts AniML trimEnd/stroke-width and expects canonical JSON keys.
+Removing only the carry fix reproduces the old first-snapshot failure (idle/settled
+instead of pulse/busy). Restoring it passes the case.
+
+Inspect identifies any declarations, accounts for inherited any-state exits and prints
+listener writes. Snapshot selection accepts registry-derived AniML aliases and existing
+JSON addresses; all printed keys use JSON spelling in both source formats. Exact input
+names/JSON addresses take precedence. CLI tests exercise both formats, input writes and
+focus traversal; selected and complete snapshots agree.
+
+Verification: requested scoped command passes **52 files / 1673 tests**, including
+Chromium and Firefox. Final targeted regression after the small summary/alias refactor:
+**6 passed**, 258 unrelated tests filtered. Whole-repo Prettier and ESLint, core/CLI
+typechecks, module wiring, 213-source AniML build check and 18-entry browser build pass.
+Size checks pass unchanged budgets: core+web **19048 B**, input **6194/8192 B**,
+focus **3846/4096 B**, machine **5747/8192 B**, full-featured **65068/102400 B**.
+Initial scoped run: 1669 passed / four failures (contract heading nesting, canonical
+focus attribute order, focus command syntax, static-only alias test fixture), corrected.
+Initial build required npm ci and corrected missing circle centers/bind syntax.
+npm ci reported 10 moderate advisories. No benchmark edits, pushes, PRs, merges, new
+runtime dependencies, test-limit or measurement changes; full CI/oracle reruns not claimed.
+
+The final web-artifact check initially found the ignored build manifest stale after the
+tooling script refactor; rebuilt it and rechecked. Exploratory CLI attempts with the
+nonexistent bin.ts entry and unsupported fmt -w flag failed, corrected to main.ts and
+--write. No product behavior or tests were weakened to resolve these failures.
 
 ## P4d — events (local implementation, 2026-11-06)
 
@@ -1725,3 +1922,75 @@ modules/events/P4D-3-ORACLE-RESULTS.md for limits and numbered findings.
   Rive-class 60.1 KB / 250 KB; compile (interleaved with main, 5 rounds, load ~10): prefix sweep
   median 694 ms main vs 678 ms P4d, min 577 vs 610 ms — unchanged within noise.
 - **Parity**: 33 rows done (292 / 1 238).
+
+## P4c-7 — P4d integration (2026-11-06 06:09)
+
+Merged origin/main 789b8a5 into supplied P4c HEAD d6c911b on
+`t3/resolve-p4c-p4d-merge`. Resolved 29 conflicted paths: 18 hand resolutions, 11 regenerated.
+Both phase histories, examples, comparison types, 120 oracle cases and four findings survive.
+Generic AniML fields coexist with expression assignments and event forms. Machine action groups
+use the same optional bind evaluator and snapshot contract as listeners; queued machine actions
+and immediate bind-only blocks retain their timing, with one transition-action owner.
+
+Integration fixes: composed components event kinds survive independent browser AniML replay;
+canonical transition identity preserves lifecycle metadata through machine copies; completion and
+synthetic marker hooks forward through the machine policy; machine clocks use the existing
+1e-9 s boundary rule. Six independent conformance cases cover action snapshots/clamping,
+next-step listeners, lifecycle metadata, loop markers, wraps, motion and blend quantization.
+No previous golden or test/byte/pixel limit changed. SPEC's bind contract is the one definition
+of action expression semantics, referenced by the machine chapter. Ownership and single-pass
+reasoning follows docs/research/rive-format-and-graph.md, rive-animation-and-state.md §C,
+and rive-web-runtime.md §§2–3. No Rive commands/source/docs text/binary reads or new runtime deps.
+
+Verification: requested static gates pass; final `npm run check` exits 0: **2493 unit + 1734
+Chromium/Firefox = 4227 tests**, no skips/TODOs/failures. 19 browser entries and 244 AniML files
+current; exact normative census 221. Final strict oracle exit 0: 120 cases / 314 samples;
+four inherited findings remain separate. Scope evidence, all file resolutions, complete sizes,
+initial failures and deviations are in modules/machine/P4C-7-REPORT.md.
+
+Final sizes: core+web 19831/30720 B (+64 from recorded P4d, +783 from recorded P4c),
+components 4073/4096, bind 1879/2048, events 3613/4096, machine 5882/8192,
+input 6187/8192, focus 3803/4096; full SVG 69666/102400, Rive-class 73803/256000 B.
+All other budgets pass. Raw unchanged performance lines:
+
+```text
+compile: bell 2.95 ms; all 9040 prefixes 600 ms
+frame: bell 38.1 µs; composite 25.4 µs
+frame: toolbar 27.3 µs (step + draw, 4 instances)
+compile: toolbar 3.96 ms
+```
+
+Process deviation: the first full attempt was stopped during browsers after 2487 unit passes
+when review proved a multiply/floor rounding edge at 0.58 s / 100 samples/s. Returning the snapped
+tick directly and adding machine-boundaries-blend fixed it; the completed final full run above
+verifies final source. Actual checkout branch name differs from the brief; HEAD was preserved.
+No push, PR, merge into main, benchmark rerun or parity-status promotion by this task.
+
+## P4c — interaction (2026-11-08)
+
+- **Three modules** (folders, own budgets): `machine` — blend states (1D, direct, additive, weights
+  from inputs or bindings), any/entry/exit states, state and transition actions (with P4d's
+  expressions), seeded random states and transitions, resets, relative exit times and durations,
+  disabled transitions, and the **on-change condition** the P5 benchmark asked for; `input` —
+  pointer buttons, capture phase, drag (grab offset), multitouch, wheel/trackpad scroll and
+  latching, keyboard with modifiers/repeat and target-first propagation (`propagate` opt-in),
+  gamepad, cursors, hit-testing controls, solo and collapse; `focus` — spatial and sequential
+  traversal, scopes and edges, focus/blur listeners, mapped to real DOM focus.
+- **Shared seams made generic**: modules add fields to state/on/layer/timeline/listener elements
+  through the registry (AniML compiles and decompiles them); components get an event-kind registry
+  modules extend; one keyboard route through input → focus.
+- **Bugs fixed on the way**: change-gated transitions carried the whole idle time into the next
+  state (a pulse could finish at once) — capped at zero; module listeners lost focus round trips in
+  a test reader.
+- **Oracle**: machine 18 verified + 8 skips; input 37 verified, 14 skips, 3 findings → 2 fixed
+  (keyboard propagation now target-first) and 1 intentional difference (grab-offset drag: Anima
+  follows the pointer, Rive stays put); focus 16 verified (the first agent had not found the CLI by
+  path). Capture listeners observe without claiming unless they consume (DOM rule; intentional
+  difference from Rive).
+- **Benchmark** (volume control): AniML 5/6 → **6/6** after P4d's expression actions (66 lines,
+  3 min 17 s); Rive 6/6 (155 lines, 7 min 8 s, two hand workarounds).
+- **Numbers** (main after P4d → P4c): core + web 19 767 → 19 831 B; machine 5 882, input 6 187 /
+  8 192 B; focus 3 803 / 4 096 B; full-featured 69.7 KB / 100 KB; Rive-class 73.8 KB / 250 KB;
+  compile (interleaved with main, 4 rounds, load ~6): prefix sweep median ~660 ms both, bell
+  ~2.5–2.8 ms; frame bell ~38–41 µs both.
+- **Parity**: 95 rows done (387 / 1 238).

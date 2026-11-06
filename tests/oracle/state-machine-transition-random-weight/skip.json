@@ -1,0 +1,9 @@
+{
+  "status": "skip",
+  "reason": "Anima tests weights with the specified per-player LCG, including disabled/zero/false-condition edges. The native headless runner has no matching native state-selection seed or random-number injection (its seed option is for script math.random). Sampling an uncontrolled draw is not an exact oracle for these deterministic weighted sequences.",
+  "evidence": "Local Rive CLI 1.9.0 --help and state-machine schema/docs; independently authored probes; no binary reading or account operations.",
+  "tests": [
+    "modules/machine/test/core/state-machine-transition-random-weight.test.ts",
+    "modules/machine/test/core/runtime.test.ts"
+  ]
+}

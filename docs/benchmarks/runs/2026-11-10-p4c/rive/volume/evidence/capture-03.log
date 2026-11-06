@@ -1,0 +1,60 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[04:48:07.604] rive  deferred replay: inline
+[04:48:07.651] rive  built (2593 bytes, 46ms, 0 errors, 0 warnings)
+[04:48:07.651] rive  showing Volume [1/1]
+[04:48:07.652] rive  viewport 480x144 @1x
+[04:48:07.652] rive  a command is its flag without the dashes, one per line:
+[04:48:07.652] rive    advance <N|Ns|Nms>          step animation time
+[04:48:07.652] rive    pointer <spec>              a mouse gesture
+[04:48:07.652] rive    touch <spec>                a finger gesture
+[04:48:07.652] rive    key <spec>                  a key event
+[04:48:07.652] rive    gamepad <spec>              a gamepad event
+[04:48:07.652] rive    data <path>=<value>         write a view model property
+[04:48:07.652] rive    semantic-action <type@lbl>  an accessibility action
+[04:48:07.652] rive    screenshot [path]           write a png
+[04:48:07.652] rive    semantics [path]            write the accessibility tree
+[04:48:07.652] rive    data-dump [path]            write the view model state
+[04:48:07.652] rive    viewport <WxH>              lay the artboard out at a size
+[04:48:07.652] rive    artboard [name]             switch artboard, or list them
+[04:48:07.652] rive    fit [mode]                  set the fit, or report it
+[04:48:07.652] rive    reload                      rebuild the project and load it
+[04:48:07.652] rive    quit                        end the run
+[04:48:07.652] rive    help, ?                     this list
+[04:48:07.652] rive  blank lines and # comments are skipped; every command answers ok or err on stdout
+ok help
+ok advance
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[04:48:07.697] rive  wrote evidence/00-default.png
+ok screenshot: evidence/00-default.png
+[04:48:07.697] rive  wrote evidence/00-default.json
+ok data-dump: evidence/00-default.json
+[04:48:07.697] rive  data: volume = 1 (mid-run)
+ok data
+ok advance
+[04:48:07.704] rive  wrote evidence/01-increase-mid.png
+ok screenshot: evidence/01-increase-mid.png
+[04:48:07.704] rive  wrote evidence/01-increase-mid.json
+ok data-dump: evidence/01-increase-mid.json
+ok advance
+[04:48:07.710] rive  wrote evidence/02-full-rest.png
+ok screenshot: evidence/02-full-rest.png
+[04:48:07.710] rive  data: volume = 0 (mid-run)
+ok data
+ok advance
+[04:48:07.716] rive  wrote evidence/03-zero.png
+ok screenshot: evidence/03-zero.png
+ok pointer
+ok advance
+[04:48:07.722] rive  wrote evidence/04-muted.png
+ok screenshot: evidence/04-muted.png
+[04:48:07.722] rive  wrote evidence/04-muted.json
+ok data-dump: evidence/04-muted.json
+ok pointer
+ok advance
+ok key
+ok advance
+[04:48:07.728] rive  wrote evidence/05-key-right.png
+ok screenshot: evidence/05-key-right.png
+[04:48:07.728] rive  wrote evidence/05-key-right.json
+ok data-dump: evidence/05-key-right.json
+ok quit

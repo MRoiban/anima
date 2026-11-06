@@ -1,0 +1,3 @@
+focus target c
+focus traverse next
+snapshot

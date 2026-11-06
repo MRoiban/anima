@@ -1,10 +1,9 @@
 # Work log
 
 ## Now
-Goal: P4b-3 declarative motion controls and sync benchmark proof complete, committed locally.
-Verified: 10 new conformance cases; scope 728/728; sync 6/6 (7 scripts, 66 snapshots).
-Full: 1380 pass + 15 pre-existing oracle TODOs with VITEST_MAX_WORKERS=2; default had 2 browser timeouts.
-Next: parent integrates/reviews local commit; P4b oracle captures and phase closure remain with parent.
+Goal: smaller, agent-native Rive. Now: P4c interaction (branch p4c-interaction; modules machine, input, focus) and P4d events (branch p4d-events) in parallel; then P4e data, P5b, P3b, P6–P10.
+State: main a02c0be = through P4b (PR #13). Parity 259/1238. core+web 19012; full-featured 51.4 KB.
+Next: merge agents per branch; before pushing a merge run browser tests for the seams; benchmark per phase; PR per phase.
 Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
 
 ## Log
@@ -104,10 +103,15 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 03:00 [claude]: P4b bookkeeping: 22 rows done (259/1238), LOG with numbers (core+web 19012, +1049 logged); opening PR
 - 2026-11-07 04:00 [claude]: PR #13 CI red: canvas cross-backend harness hard-coded its module list → motion cases unknown-feature; generator now emits packages/web/src/all-modules.ts, harness uses it; canvas test 524 pass. Lesson: run browser tests for the merge's seams before pushing a phase PR
 - 2026-11-07 05:00 [claude]: PR #13 CI red again: timeouts from CPU starvation (module-order 4.7 s locally vs 30 s limit hit in CI) + scaffolder test used a now-done row; npm test now runs unit (15 s, 1229) then browser --maxWorkers=2 (2.5 min, 718); limits unchanged
-- 2026-11-07 08:00 [claude]: merged P4d events (3e98a55) into p4d-events: 32/33 rows (script context → P9), events 3418/4096, core+web 19278 (+266); 31 oracle skips claim no event output but the P4a Rive run's session logs showed emitted events → oracle pass to capture them
-- 2026-11-07 11:00 [claude]: merged events oracle (048768a): 9 verified/23 skips/3 findings. Decisions: listener next-step reaction kept (spec'd as intentional difference); boundary-time drift (0.25 s fires frame 16 vs Rive 15) → epsilon boundary rule (P4d-2)
-- 2026-11-07 13:00 [claude]: merged P4d-2 (342bef2): 1e-9 s boundary rule, 9 cases, transition boundary matches Rive, keys 15/30/60 vs Rive 15/30/61 (cause unproven); listener next-step spec'd; full check 2530; P4d benchmark brief (share button) written
-- 2026-11-07 14:00 [claude]: P4d benchmark: AniML 3/6 (no increment in listener actions → state ladder; milestones capped), Rive 5/6 (payload fields not in log); fix P4d-3: expressions in set actions + mod in conditions, then AniML rerun
-- 2026-11-07 19:00 [claude]: merged P4d-3 (7da8ef8): expression actions/fields, mod/floor, 7 cases, share example 6/6; core+web 19767 (+420), bind 1866/2048; one oracle probe pending
-- 2026-11-07 20:00 [claude]: P4d AniML rerun (6116c5e) 5/6 (from 3/6; audio audible unverifiable), 33 lines; fixed inspect printing compiled code for expressions (toString = source, bind 1880/2048)
-- 2026-11-07 22:30 [claude]: P4d bookkeeping: 33 rows done (292/1238), modulo intentional difference spec'd, LOG with numbers (perf interleaved: no regression); opening PR
+- 2026-11-07 05:30 [claude]: PR #13 merged (a02c0be); P4c split into modules machine/input/focus (3 agents) + P4d events (1 agent)
+- 2026-11-07 07:00 [claude]: merged P4c-3 focus (1ad668a): 16/16 rows, 3924/4096 B, core+web +0; its 16 oracle skips say 'Rive CLI unavailable' but ~/.rive/bin/rive works (agent likely used bare 'rive') → re-capture with the P4c oracle pass
+- 2026-11-07 09:00 [claude]: P4c-2 input (0dd104a) partial: 3/54 strict, broad implementation in modules/input + integration.patch (shared compile/decompile/script hooks); held unmerged until P4c-1 machine lands with the generic AniML field extension; then one integration agent (input via the generic extension, focus↔input key routing, components event registry, per-row evidence) + P4c oracle pass
+- 2026-11-07 10:00 [claude]: merged P4c-1 machine (dd995fa): 26/26, 37 cases, 18 oracle-verified, machine 5736/8192, core+web +36, generic AniML extension; seam: 17 focus decompile round-trips lose node 'focus' objects (generic extension lacks node-object fields) → integration agent P4c-4
+- 2026-11-07 12:00 [claude]: merged P4c-4 integration (9cc628a): input 18/54 strict (36 await oracle), focus round trips 17/17, core+web +0; perf under load avg 16: min-of-4 prefixes main 973 vs branch 955 ms (no regression; re-measure quiet before PR)
+- 2026-11-07 15:00 [claude]: merged P4c oracle (d6da97a): focus 16/16, input 27 verified/6 skips/3 findings. Decisions: capture-phase order → fix (parent first, DOM/Rive); keyboard target listener stops propagation (opt-in bubble) → fix; align-preserve kept (Anima follows the grab offset) → intentional difference
+- 2026-11-07 16:30 [claude]: merged P4c-5 (1a785a5): keyboard stops by default + propagate opt-in, capture parent-first verified; spec now states capture-without-consume as an intentional difference from Rive (Rive capture claims by default); preserve-offset intentional; oracle 106 cases strict green
+- 2026-11-07 17:30 [claude]: P4c benchmark: AniML 5/6 (arrow increments need P4d-3 expression actions), Rive 6/6; plan: P4d PR first, then main into p4c, doc fixes, AniML rerun, P4c PR
+- 2026-11-07 21:00 [claude]: merged P4c-6 (68637ce): 6/6 docs/tooling fixes; @after(0) was a runtime bug (see LOG), fixed with machine-change-pulse case; scoped 1673 pass
+- 2026-11-07 23:30 [claude]: PR #14 (P4d) merged; main into p4c conflicts in 29 files (compile/decompile, components events, oracle tooling) → delegated integration P4c-7
+- 2026-11-08 02:00 [claude]: merged P4c-7 (62a23c6): main with P4d integrated, full check 4227 pass, oracle 120 cases strict 0; core+web 19831; next P4c AniML benchmark rerun → PR
+- 2026-11-08 03:30 [claude]: P4c rerun 6/6; parity 95 rows done (387/1238); LOG with numbers (perf interleaved: no regression); opening PR

@@ -690,6 +690,8 @@ export class Player {
     transition?: TransitionM,
   ): void {
     const st = L.m.states[to]!;
+    const eventTransition =
+      transition && (this.playbackPolicy?.transition?.(transition) ?? transition);
     if (transition) {
       this.#action(L.m.states[L.state]!.exit, events);
       this.#action(transition.actions, events);
@@ -699,9 +701,16 @@ export class Player {
         L.m.name,
         L.m.states[L.state]!.name,
         this,
-        transition,
+        eventTransition,
       );
-      this.model.eventSignal?.(events, 'transition-start', L.m.name, st.name, this, transition);
+      this.model.eventSignal?.(
+        events,
+        'transition-start',
+        L.m.name,
+        st.name,
+        this,
+        eventTransition,
+      );
     }
     this.playbackPolicy?.enter(
       L,
@@ -720,7 +729,7 @@ export class Player {
         ? { lock, from: snap, dur: blend, ease: ease!, t: carry }
         : null;
     if (transition && !L.fade)
-      this.model.eventSignal?.(events, 'transition-end', L.m.name, st.name, this, transition);
+      this.model.eventSignal?.(events, 'transition-end', L.m.name, st.name, this, eventTransition);
     this.#action(st.entry, events);
     if (st.emit) events.push({ name: st.emit, layer: L.m.name, time: 0 });
     if (st.play === undefined) return;

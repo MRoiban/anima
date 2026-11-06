@@ -1,0 +1,1 @@
+<anima version="0.1" name="input-align-preserve" grid="240" requires="input"><number name="n" default="80"/><rect id="a" x="80" y="100" x0="-12" y0="-12" width="24" height="24" fill="#4263eb"/><listener on="drag" target="a" align="preserve" write='{"x":"n"}'/></anima>

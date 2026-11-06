@@ -1,0 +1,37 @@
+{
+  "document": {
+    "anima": "0.1",
+    "name": "input-key-filter-invalid",
+    "grid": 20,
+    "requires": ["input"],
+    "nodes": [
+      {
+        "id": "disc",
+        "type": "circle",
+        "center": [10, 10],
+        "r": 5,
+        "fill": {
+          "color": "#000"
+        }
+      }
+    ],
+    "inputs": {
+      "n": {
+        "type": "number"
+      }
+    },
+    "listeners": [
+      {
+        "on": "key-down",
+        "key": "F13",
+        "target": "disc",
+        "set": {
+          "n": 1
+        },
+        "modifiers": "meta+shift"
+      }
+    ]
+  },
+  "code": "input-modifiers",
+  "pointer": "/listeners/0/modifiers"
+}

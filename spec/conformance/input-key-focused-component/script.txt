@@ -1,0 +1,5 @@
+focus target child.disc
+key down k
+snapshot n child.n
+key down j
+snapshot n child.n

@@ -1,0 +1,26 @@
+advance 0
+# Without focus keys must not change the volume.
+key down ArrowRight
+key up ArrowRight
+snapshot volume knob.x
+# Focus selected explicitly. Repeated arrows expose the missing increment behavior.
+focus target knob
+key down ArrowRight
+key up ArrowRight
+snapshot volume knob.x
+key down ArrowRight
+key up ArrowRight
+snapshot volume knob.x
+key down ArrowLeft
+key up ArrowLeft
+snapshot volume knob.x
+set volume 1
+advance 0
+key down ArrowRight
+key up ArrowRight
+snapshot volume knob.x
+set volume 0
+advance 0
+key down ArrowLeft
+key up ArrowLeft
+snapshot volume knob.x

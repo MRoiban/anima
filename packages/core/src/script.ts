@@ -1,5 +1,7 @@
 // The command language of `anima sample` and the conformance suite (spec §11.2). Tooling only.
 
+import { COMMON, OWN, PAINT, markupName } from './registry.ts';
+import { inputCommand } from '../../../modules/input/core/commands.ts';
 import type { TimelineInstance } from '../../../modules/motion/core/api.ts';
 import type { Model } from './load.ts';
 import { type AnimaEvent, Player } from './player.ts';
@@ -97,6 +99,32 @@ export function runScript(
           }
           break;
         }
+        case 'focus': {
+          if (args[0] === 'clear' && args.length === 1) p.focusClear();
+          else if (args[0] === 'target' && args.length === 2) p.focusTarget(args[1]!);
+          else if (args[0] === 'traverse' && args.length === 2)
+            p.focusTraverse(args[1] as import('../../../modules/focus/core/index.ts').Direction);
+          else throw new ScriptError('use "focus clear|target <id>|traverse <direction>"', line);
+          step(0);
+          break;
+        }
+        case 'key': {
+          if (model.doc.requires?.includes('input')) {
+            inputCommand(p, 'key', args);
+            step(0);
+            break;
+          }
+          if (
+            !['down', 'up'].includes(args[0]!) ||
+            args.length < 2 ||
+            args.length > 3 ||
+            (args.length === 3 && args[2] !== 'shift')
+          )
+            throw new ScriptError('use "key down|up <key> [shift]"', line);
+          p.focusKey(args[1]!, args[0] === 'down', args[2] === 'shift');
+          step(0);
+          break;
+        }
         case 'instance': {
           if (args.length < 2 || args.length > 3)
             throw new ScriptError('use "instance <id> <timeline> [mix]"', line);
@@ -152,14 +180,37 @@ export function runScript(
           let values = p.values();
           if (args.length) {
             const pick: typeof values = {};
+            // Prefer exact input/JSON addresses. Resolve AniML aliases from the same registry
+            // as the compiler, including slash-scoped component snapshot addresses.
+            const aliases = [
+              ...[
+                ...Object.entries(COMMON),
+                ...Object.values(OWN).flatMap((props) => Object.entries(props)),
+              ].map(([key, prop]) => [key, markupName(prop, key)]),
+              ...Object.entries(PAINT).flatMap(([paint, props]) =>
+                Object.entries(props).map(([key, prop]) => [
+                  paint + '.' + key,
+                  markupName(prop, key),
+                ]),
+              ),
+            ];
             for (const a of args) {
-              const v = p.get(a) ?? p.value(a);
+              const canonical =
+                p.get(a) !== undefined || p.value(a) !== undefined
+                  ? a
+                  : (Object.keys(values).find((key) =>
+                      aliases.some(
+                        ([path, alias]) =>
+                          key.endsWith('.' + path) && key.slice(0, -path!.length) + alias === a,
+                      ),
+                    ) ?? a);
+              const v = p.get(canonical) ?? p.value(canonical);
               if (v === undefined)
                 throw new ScriptError(
                   `"${a}" is not an animated address or a bool/number input`,
                   line,
                 );
-              pick[a] = v;
+              pick[canonical] = v;
             }
             values = pick;
           }
@@ -168,6 +219,10 @@ export function runScript(
           break;
         }
         default:
+          if (inputCommand(p, cmd!, args)) {
+            step(0);
+            break;
+          }
           throw new ScriptError(`unknown command "${cmd}"`, line);
       }
     } catch (e) {

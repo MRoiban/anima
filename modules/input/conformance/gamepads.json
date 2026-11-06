@@ -1,0 +1,92 @@
+{
+  "document": {
+    "anima": "0.1",
+    "name": "vector",
+    "grid": 20,
+    "requires": ["input"],
+    "nodes": [
+      {
+        "id": "disc",
+        "type": "circle",
+        "center": [10, 10],
+        "r": 5,
+        "fill": {
+          "color": "#000"
+        }
+      }
+    ],
+    "inputs": {
+      "axis": {
+        "type": "number"
+      },
+      "pressed": {
+        "type": "bool"
+      },
+      "value": {
+        "type": "number"
+      }
+    },
+    "listeners": [
+      {
+        "on": "gamepad-connected",
+        "emit": "connected"
+      },
+      {
+        "on": "gamepad-axis",
+        "index": 0,
+        "control": 1,
+        "mapping": "standard",
+        "write": {
+          "value": "axis"
+        }
+      },
+      {
+        "on": "gamepad-button",
+        "control": 0,
+        "phase": "both",
+        "write": {
+          "pressed": "pressed",
+          "value": "value"
+        }
+      },
+      {
+        "on": "gamepad-disconnected",
+        "emit": "disconnected"
+      }
+    ]
+  },
+  "script": [
+    "gamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\",\"axes\":[0,-0.25],\"buttons\":[{\"value\":0.75,\"pressed\":true}]}]",
+    "gamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\",\"axes\":[0,0.5],\"buttons\":[{\"value\":0,\"pressed\":false}]}]",
+    "gamepads [{\"index\":0,\"connected\":false}]"
+  ],
+  "expected": [
+    {
+      "inputs": {
+        "axis": -0.25,
+        "pressed": true,
+        "value": 0.75
+      },
+      "events": ["connected"],
+      "states": {}
+    },
+    {
+      "inputs": {
+        "axis": 0.5,
+        "pressed": false,
+        "value": 0
+      },
+      "events": [],
+      "states": {}
+    },
+    {
+      "inputs": {
+        "axis": 0.5,
+        "pressed": false,
+        "value": 0
+      },
+      "events": ["disconnected"],
+      "states": {}
+    }
+  ]
+}

@@ -10,10 +10,13 @@
     "./browser": "./src/browser.ts",
     "./components": "./src/components.ts",
     "./bind": "./src/bind.ts",
+    "./focus": "./src/focus.ts",
+    "./input": "./src/input.ts",
     "./libraries": "./src/libraries.ts",
     "./library-hooks": "./src/library-hooks.ts",
     "./motion": "./src/motion.ts",
     "./events": "./src/events.ts",
+    "./machine": "./src/machine.ts",
     "./modules": "./src/modules.ts"
   },
   "files": [

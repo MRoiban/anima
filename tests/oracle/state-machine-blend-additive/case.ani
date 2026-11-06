@@ -1,0 +1,63 @@
+{
+  "anima": "0.1",
+  "name": "oracle",
+  "grid": 20,
+  "requires": ["machine"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "rect",
+      "x0": 2,
+      "y0": 8,
+      "w": 2,
+      "h": 4,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "timelines": {
+    "t0": {
+      "duration": 2,
+      "tracks": {
+        "dot.x": [
+          [0, 4],
+          [2, 4]
+        ]
+      }
+    },
+    "t1": {
+      "duration": 2,
+      "tracks": {
+        "dot.x": [
+          [0, 8],
+          [2, 8]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "a",
+        "states": {
+          "a": {
+            "play": "t0",
+            "mix": {
+              "mode": "additive",
+              "children": [
+                {
+                  "play": "t0"
+                },
+                {
+                  "play": "t1",
+                  "weight": 0.25
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

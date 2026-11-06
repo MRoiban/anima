@@ -65,14 +65,26 @@ function recover(root: Element): Obj {
                 'sync',
                 'at',
                 'hitPadding',
+                'continue',
+                'disabled',
+                'reset',
+                'weight',
+                'exitRatio',
+                'blendRatio',
+                'button',
+                'capture',
+                'consume',
+                'propagate',
+                'index',
+                'control',
               ].includes(k)
             ? scalar(v)
-            : ['entry', 'exit', 'actions'].includes(k)
-              ? JSON.parse(v)
-              : k === 'work'
-                ? vector(v)
-                : k === 'when'
-                  ? v.replace(/\band\b/g, '&&')
+            : k === 'work'
+              ? vector(v)
+              : k === 'when'
+                ? v.replace(/\band\b/g, '&&')
+                : v.startsWith('{"') || v.startsWith('[')
+                  ? JSON.parse(v)
                   : v;
     return o;
   };
@@ -90,7 +102,9 @@ function recover(root: Element): Obj {
             ? v.split(' ').map((x) => (x.endsWith('%') ? x : Number(x)))
             : ['pivot', 'subpaths', 'corners'].includes(key)
               ? vector(v)
-              : scalar(v);
+              : v.startsWith('{"') || v.startsWith('[')
+                ? JSON.parse(v)
+                : scalar(v);
     }
     for (const g of elements(e).filter((c) =>
       ['linearGradient', 'radialGradient'].includes(c.name),
@@ -108,6 +122,15 @@ function recover(root: Element): Obj {
     }
     for (const child of elements(e)) {
       const a = attrs(child);
+      if (child.name === 'focus') {
+        const focus = base(child);
+        for (const [key, value] of Object.entries(a)) {
+          const jsonKey =
+            key === 'enabled-input' ? 'enabledInput' : key === 'tab-stops' ? 'tabStops' : key;
+          focus[jsonKey] = key === 'bounds' ? vector(value) : scalar(value);
+        }
+        o.focus = focus;
+      }
       if (child.name === 'channel')
         ((o.channels ??= {}) as Obj)[a.name!] = { type: a.type, value: scalar(a.value!) };
       if (child.name === 'mask')
@@ -148,6 +171,7 @@ function recover(root: Element): Obj {
   d.anima = d.version;
   delete d.version;
   d.grid = Number(d.grid);
+  if (d.machineSeed !== undefined) d.machineSeed = Number(d.machineSeed);
   if (d.viewBox) d.viewBox = vector(d.viewBox as string);
   if (d.requires) d.requires = (d.requires as string).split(' ');
   const insert = (key: string, name: string, v: unknown) => (((d[key] ??= {}) as Obj)[name] = v);
@@ -244,7 +268,7 @@ function recover(root: Element): Obj {
       const machine = (d.machine ??= {}) as Obj;
       ((machine.layers ??= {}) as Obj)[name] = p;
     } else if (el.name === 'listener') {
-      if (a.set)
+      if (a.set !== undefined)
         p.set = Object.fromEntries(
           [...a.set.matchAll(/([a-z][\w.-]*)=([\s\S]*?)(?=\s+[a-z][\w.-]*=|$)/g)].map((m) => [
             m[1]!,
@@ -391,6 +415,7 @@ function check(source: string | object) {
       'fillPaint',
       'strokePaint',
       'channel',
+      'focus',
       'machine',
       'event-def',
       'audio-volume',

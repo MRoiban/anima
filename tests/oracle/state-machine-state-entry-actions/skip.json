@@ -1,0 +1,9 @@
+{
+  "status": "skip",
+  "reason": "Anima queues the listener action object (fire/set/toggle/emit) at the named state/transition boundary and commits it at the next input stage. Native state fire actions expose events/triggers, not the same queued compound listener transaction, and the headless runner exposes no input-stage barrier for observing that queue. A screenshot or bound-data dump after an advance would conflate action dispatch with its later commit. Independent conformance tests cover input visibility, ordering and cancellation; this skip is not native event payload/dispatch parity.",
+  "evidence": "Local Rive CLI 1.9.0 --help and state-machine schema/docs; independently authored probes; no binary reading or account operations.",
+  "tests": [
+    "modules/machine/test/core/state-machine-state-entry-actions.test.ts",
+    "modules/machine/test/core/runtime.test.ts"
+  ]
+}

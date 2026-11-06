@@ -530,6 +530,23 @@ and `modules/motion/examples/sync.animl` plus its sample scripts for a complete 
 
 `anima docs --list` includes every module chapter; `anima docs bind` explains expressions.
 
+## Interaction examples
+
+`anima docs input`, `anima docs focus` and `anima docs machine` include their complete
+contracts inline and list module examples with built JSON siblings:
+
+- `modules/input/examples/drag-slider.animl`: parent-space writes with a preserved grab offset.
+- `modules/focus/examples/traversal.animl`: ordered focus, Tab and arrow traversal.
+- `modules/machine/examples/blend-pulse.animl`: continuous blend plus restart on every increase.
+
+`write='{"x":"level"}'` means event field x → input level; writes are values,
+not arithmetic expressions. Use exact DOM keys such as `ArrowRight`, event `key-down`,
+and `modifiers="shift+control"` for that exact held set.
+
+Sample snapshots accept AniML spelling (`ring.trimEnd`) as well as JSON spelling
+(`ring.stroke.trimEnd`), and always print JSON spelling. This applies to complete and
+selected snapshots in either source format.
+
 ## Counting clicks with expressions
 
 Declare `requires="bind events"`, a number `count`, and a trigger `pulse`. Then use

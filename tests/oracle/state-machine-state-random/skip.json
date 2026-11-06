@@ -1,0 +1,9 @@
+{
+  "status": "skip",
+  "reason": "Anima specifies a portable per-player LCG and exact seeded selection sequences. Native state random choices expose no matching seed/PRNG control through the headless runner. The CLI seed flag controls script math.random, not native state-transition selection; matching an unseeded screenshot cannot establish deterministic choices.",
+  "evidence": "Local Rive CLI 1.9.0 --help and state-machine schema/docs; independently authored probes; no binary reading or account operations.",
+  "tests": [
+    "modules/machine/test/core/state-machine-state-random.test.ts",
+    "modules/machine/test/core/runtime.test.ts"
+  ]
+}

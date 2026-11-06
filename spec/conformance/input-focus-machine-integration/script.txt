@@ -1,0 +1,10 @@
+focus target hidden
+snapshot a.x n
+focus target a
+snapshot a.x n
+key down ArrowRight
+snapshot a.x n
+key up ArrowRight
+snapshot a.x n
+focus clear
+snapshot a.x n

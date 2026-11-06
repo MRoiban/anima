@@ -1,0 +1,17 @@
+<anima version="0.1" name="key-components" grid="20" requires="components focus input">
+  <number name="n"/>
+
+  <component name="child" grid="20">
+    <number name="n"/>
+    <circle id="disc" cx="10" cy="10" r="5" fill="#000">
+      <focus/>
+    </circle>
+    <listener on="key-down" target="disc" set="n=3" key="k"/>
+    <listener on="key-down" target="disc" set="n=4" propagate="true" key="j"/>
+  </component>
+
+  <instance id="child" component="child"/>
+
+  <listener on="key-down" target="child" set="n=1" capture="true"/>
+  <listener on="key-down" target="child" set="n=2"/>
+</anima>

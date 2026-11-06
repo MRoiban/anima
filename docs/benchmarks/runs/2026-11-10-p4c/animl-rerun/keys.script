@@ -1,0 +1,21 @@
+advance 0
+key down ArrowRight
+snapshot volume
+focus target knob
+key down ArrowRight
+snapshot volume knob.x fill.trimEnd
+key down ArrowLeft
+snapshot volume
+key repeat ArrowLeft
+snapshot volume
+set volume 0.95
+advance 0
+key down ArrowRight
+snapshot volume
+set volume 0.05
+advance 0
+key down ArrowLeft
+snapshot volume
+focus clear
+key down ArrowRight
+snapshot volume

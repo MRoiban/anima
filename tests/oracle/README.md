@@ -159,6 +159,24 @@ New data comparisons are exact; existing image budgets are unchanged. Native
 fractional origins are not claimed equivalent to Anima pivots: the new pivot scene
 uses independently keyed parent/child translations to express the same transform.
 
+## P4c input and focus observations
+
+See [the interaction oracle report](../../modules/input/ORACLE-RESULTS.md) for all row outcomes,
+reproduction commands, observation boundaries and the disposition of the three original disagreements. The new
+completed discrete comparisons use tolerance zero; the two axis-aligned render probes use
+max 2 / 0% without changing existing limits. Focus is compared through both semantics and
+view-model data. Cursor data observes intent, not OS cursor rendering.
+
+`finding.json` holds a separately classified failing pair and its numerical observations.
+It is excluded from successful cases, measured by strict mode into `findings-metrics.json`,
+and printed with its status (finding or intentional difference). Its evidence test preserves the observations, without test.fails or
+changing a reference. Strict exit 0 certifies completed cases only.
+
+The capture-phase and keyboard-bubbling probes are completed, tolerance-zero cases. Capture
+maps native parent claiming to explicit Anima consume=true; the runtime was already outer-first.
+Preserve-offset retains status "intentional difference" with Anima 96 versus native 80 (delta 16)
+at the move and after release. It is never counted as a passing comparison.
+
 ## P4d events re-audit
 
 Ten event cases now compare ordered reports at exact 60 fps frame indices, including

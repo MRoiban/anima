@@ -1,0 +1,141 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[04:49:56.934] rive  deferred replay: inline
+[04:49:56.960] rive  built (3129 bytes, 26ms, 0 errors, 0 warnings)
+[04:49:56.961] rive  showing Volume [1/1]
+[04:49:56.961] rive  viewport 480x144 @1x
+ok advance
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[04:49:57.104] rive  wrote evidence/final-default.png
+ok screenshot: evidence/final-default.png
+[04:49:57.104] rive  wrote evidence/final-default.json
+ok data-dump: evidence/final-default.json
+[04:49:57.104] rive  data: volume = 0 (mid-run)
+ok data
+ok advance
+[04:49:57.108] rive  wrote evidence/blend-000.png
+ok screenshot: evidence/blend-000.png
+[04:49:57.108] rive  data: volume = 0.165 (mid-run)
+ok data
+ok advance
+[04:49:57.112] rive  wrote evidence/blend-0165.png
+ok screenshot: evidence/blend-0165.png
+[04:49:57.112] rive  data: volume = 0.33 (mid-run)
+ok data
+ok advance
+[04:49:57.115] rive  wrote evidence/blend-033.png
+ok screenshot: evidence/blend-033.png
+[04:49:57.116] rive  data: volume = 0.495 (mid-run)
+ok data
+ok advance
+[04:49:57.119] rive  wrote evidence/blend-0495.png
+ok screenshot: evidence/blend-0495.png
+[04:49:57.119] rive  data: volume = 0.66 (mid-run)
+ok data
+ok advance
+[04:49:57.123] rive  wrote evidence/blend-066.png
+ok screenshot: evidence/blend-066.png
+[04:49:57.124] rive  data: volume = 0.83 (mid-run)
+ok data
+ok advance
+[04:49:57.128] rive  wrote evidence/blend-083.png
+ok screenshot: evidence/blend-083.png
+[04:49:57.128] rive  data: volume = 1 (mid-run)
+ok data
+ok advance
+[04:49:57.132] rive  wrote evidence/blend-100.png
+ok screenshot: evidence/blend-100.png
+ok pointer
+ok advance
+[04:49:57.136] rive  wrote evidence/final-muted.png
+ok screenshot: evidence/final-muted.png
+[04:49:57.136] rive  wrote evidence/final-muted.json
+ok data-dump: evidence/final-muted.json
+ok pointer
+ok advance
+[04:49:57.140] rive  wrote evidence/final-unmuted.png
+ok screenshot: evidence/final-unmuted.png
+[04:49:57.140] rive  wrote evidence/final-unmuted.json
+ok data-dump: evidence/final-unmuted.json
+[04:49:57.141] rive  data: volume = 0.2 (mid-run)
+ok data
+ok advance
+[04:49:57.144] rive  wrote evidence/pulse-rest.png
+ok screenshot: evidence/pulse-rest.png
+[04:49:57.144] rive  data: volume = 0.4 (mid-run)
+ok data
+ok advance
+[04:49:57.148] rive  wrote evidence/pulse-a-f3.png
+ok screenshot: evidence/pulse-a-f3.png
+ok advance
+[04:49:57.152] rive  wrote evidence/pulse-a-f6.png
+ok screenshot: evidence/pulse-a-f6.png
+ok advance
+[04:49:57.157] rive  wrote evidence/pulse-a-f12.png
+ok screenshot: evidence/pulse-a-f12.png
+ok advance
+[04:49:57.161] rive  wrote evidence/pulse-a-f13.png
+ok screenshot: evidence/pulse-a-f13.png
+[04:49:57.161] rive  data: volume = 0.6 (mid-run)
+ok data
+ok advance
+[04:49:57.165] rive  wrote evidence/pulse-b-f6.png
+ok screenshot: evidence/pulse-b-f6.png
+ok advance
+[04:49:57.169] rive  wrote evidence/pulse-b-f13.png
+ok screenshot: evidence/pulse-b-f13.png
+[04:49:57.169] rive  data: volume = 0.4 (mid-run)
+ok data
+ok advance
+[04:49:57.172] rive  wrote evidence/pulse-decrease-f6.png
+ok screenshot: evidence/pulse-decrease-f6.png
+[04:49:57.173] rive  wrote evidence/pulse-decrease.json
+ok data-dump: evidence/pulse-decrease.json
+[04:49:57.173] rive  data: volume = 0.5 (mid-run)
+ok data
+ok advance
+ok pointer
+ok pointer
+ok advance
+[04:49:57.177] rive  wrote evidence/final-drag-offset.png
+ok screenshot: evidence/final-drag-offset.png
+[04:49:57.177] rive  wrote evidence/final-drag-offset.json
+ok data-dump: evidence/final-drag-offset.json
+ok pointer
+ok advance
+[04:49:57.181] rive  wrote evidence/final-drag-max.png
+ok screenshot: evidence/final-drag-max.png
+[04:49:57.181] rive  wrote evidence/final-drag-max.json
+ok data-dump: evidence/final-drag-max.json
+ok pointer
+ok advance
+[04:49:57.184] rive  wrote evidence/final-drag-min.png
+ok screenshot: evidence/final-drag-min.png
+[04:49:57.185] rive  wrote evidence/final-drag-min.json
+ok data-dump: evidence/final-drag-min.json
+ok pointer
+ok key
+ok advance
+[04:49:57.188] rive  wrote evidence/final-key-right.png
+ok screenshot: evidence/final-key-right.png
+[04:49:57.189] rive  wrote evidence/final-key-right.json
+ok data-dump: evidence/final-key-right.json
+ok key
+ok advance
+[04:49:57.192] rive  wrote evidence/final-key-left.png
+ok screenshot: evidence/final-key-left.png
+[04:49:57.192] rive  wrote evidence/final-key-left.json
+ok data-dump: evidence/final-key-left.json
+ok key
+ok advance
+[04:49:57.193] rive  wrote evidence/final-key-min.json
+ok data-dump: evidence/final-key-min.json
+[04:49:57.193] rive  data: volume = 1 (mid-run)
+ok data
+ok advance
+ok key
+ok advance
+[04:49:57.193] rive  wrote evidence/final-key-max.json
+ok data-dump: evidence/final-key-max.json
+[04:49:57.193] rive  wrote evidence/final-semantics.json
+ok semantics: evidence/final-semantics.json
+ok quit

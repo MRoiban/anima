@@ -39,7 +39,12 @@ describe('one registry, two spellings', () => {
     );
     expect(attrs('rect')).toEqual(expect.arrayContaining(['x0', 'y0', 'width', 'height', 'rx']));
     expect(attrs('group')).toEqual([
+      'opaque',
+      'cursor',
       'mix-blend-mode',
+      'pointerEnabled',
+      'collapsed',
+      'solo',
       'pivotX',
       'pivotY',
       'pivot',
@@ -91,6 +96,9 @@ describe('one registry, two spellings', () => {
       }
     expect(Object.keys(STATIC.circle)).toEqual([
       'center',
+      'focus',
+      'opaque',
+      'cursor',
       'channels',
       'blend',
       'mask',

@@ -181,7 +181,16 @@ function applyEntry(m: Module, e: ModuleEntry, target: string): void {
               ? TRANSITION
               : target === 'document'
                 ? DOC
-                : nodeShape(target as NodeType)
+                : target === 'layer'
+                  ? (
+                      ((DOC as ObjShape).p.machine as ObjShape).p.layers as Extract<
+                        Shape,
+                        { k: 'map' }
+                      >
+                    ).of
+                  : target === 'listener'
+                    ? ((DOC as ObjShape).p.listeners as Extract<Shape, { k: 'arr' }>).of
+                    : nodeShape(target as NodeType)
   ) as ObjShape;
   if (e.node) s.p.type = { ...s.p.type!, feature: m.name };
   for (const [k, v] of Object.entries(e.shapes)) s.p[k] = { ...v, feature: v.feature ?? m.name };

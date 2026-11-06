@@ -15790,11 +15790,11 @@
    "rive-wasm/js/src/rive_advanced.mjs.d.ts:140@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: Coordinate transforms",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/host-api-coordinate-mapping/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "browser/coordinate-mapping",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/host-api-coordinate-mapping; tests/oracle/host-api-coordinate-mapping/skip.json",
+   "phase": "P4c"
   }
  },
  {
@@ -16219,11 +16219,11 @@
    "rive-wasm/js/src/rive.ts:2867@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: <anima-icon interactive>",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/host-api-dom-listener-control/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "browser/dom-listener-control",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/host-api-dom-listener-control; tests/oracle/host-api-dom-listener-control/skip.json",
+   "phase": "P4c"
   }
  },
  {
@@ -16966,11 +16966,11 @@
    "rive-wasm/js/src/rive.ts:124@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: opt-in gamepad adapter",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/host-api-gamepad/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "browser/gamepad",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/host-api-gamepad; tests/oracle/host-api-gamepad/skip.json",
+   "phase": "P4c"
   }
  },
  {
@@ -17419,11 +17419,11 @@
    "rive-wasm/js/src/rive_advanced.mjs.d.ts:1101@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "Player.pointer(kind,x,y), extend with pointer IDs",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/host-api-low-level-pointer/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "browser/low-level-pointer",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/host-api-low-level-pointer; tests/oracle/host-api-low-level-pointer/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -17475,11 +17475,11 @@
    "rive-wasm/js/src/rive_advanced.mjs.d.ts:1136@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: Player.scroll(x,y,dx,dy)",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/host-api-low-level-scroll/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "browser/low-level-scroll",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/host-api-low-level-scroll; tests/oracle/host-api-low-level-scroll/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -17554,11 +17554,11 @@
    "rive-wasm/js/src/rive_advanced.mjs.d.ts:1278@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: Manual gamepad batches",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/host-api-manual-gamepad-batch/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "browser/manual-gamepad-batch",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/host-api-manual-gamepad-batch; tests/oracle/host-api-manual-gamepad-batch/skip.json",
+   "phase": "P4c"
   }
  },
  {
@@ -17638,11 +17638,11 @@
    "rive-wasm/js/src/rive.ts:1652@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: pointer-id aware core.pointer",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/host-api-multitouch/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "browser/multitouch",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/host-api-multitouch; tests/oracle/host-api-multitouch/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -17994,11 +17994,11 @@
    "rive-wasm/js/src/rive.ts:1648@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: pointer exit policy",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/host-api-pointer-exit/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "browser/pointer-exit",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/host-api-pointer-exit; tests/oracle/host-api-pointer-exit/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -18205,11 +18205,11 @@
    "rive-wasm/js/src/rive_advanced.mjs.d.ts:1172@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: Scroll target inspection",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/host-api-scroll-hit-policy/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "browser/scroll-hit-policy",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/host-api-scroll-hit-policy; tests/oracle/host-api-scroll-hit-policy/skip.json",
+   "phase": "P4c"
   }
  },
  {
@@ -18230,11 +18230,11 @@
    "rive-wasm/js/src/rive_advanced.mjs.d.ts:1193@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: Scroll gesture lifecycle",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/host-api-scroll-latching/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "browser/scroll-latching",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/host-api-scroll-latching; tests/oracle/host-api-scroll-latching/skip.json",
+   "phase": "P4c"
   }
  },
  {
@@ -18674,11 +18674,11 @@
    "rive-runtime/include/rive/generated/animation/listener_align_target_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action align target with offset: preserve",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-align-preserve/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-align-preserve",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-align-preserve; tests/oracle/input-align-preserve/finding.json",
+   "phase": "P4c"
   }
  },
  {
@@ -18702,11 +18702,11 @@
    "rive-runtime/include/rive/generated/animation/listener_align_target_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action align target with offset: snap",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-align-snap/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-align-snap",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-align-snap; tests/oracle/input-align-snap/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -18726,11 +18726,11 @@
    "rive-runtime/include/rive/animation/state_machine_instance.hpp:335@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: player.hitTest({bounded:true})",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-bounded-hit-tests/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/bounded-hit-tests",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-bounded-hit-tests; tests/oracle/input-bounded-hit-tests/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -18753,11 +18753,11 @@
    "rive-runtime/include/rive/generated/animation/listener_types/listener_input_type_pointer_button_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.button: middle",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-button-middle/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-button-middle",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-button-middle; tests/oracle/input-button-middle/skip.json",
+   "phase": "P4c"
   }
  },
  {
@@ -18807,11 +18807,11 @@
    "rive-runtime/include/rive/generated/animation/listener_types/listener_input_type_pointer_button_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.button: secondary",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-button-secondary/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-button-secondary",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-button-secondary; tests/oracle/input-button-secondary/skip.json",
+   "phase": "P4c"
   }
  },
  {
@@ -18834,11 +18834,11 @@
    "rive-runtime/include/rive/generated/animation/state_machine_listener_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.phase: capture",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-capture-phase/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-capture-phase",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-capture-phase; tests/oracle/input-capture-phase/finding.json",
+   "phase": "P4c"
   }
  },
  {
@@ -18856,11 +18856,11 @@
    "rive docs cursor"
   ],
   "anima": {
-   "construct": "new: host cursor intent: arrow",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-cursor-arrow/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "oracle/cursor-arrow",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-cursor-arrow; tests/oracle/input-cursor-arrow/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -18878,11 +18878,11 @@
    "rive docs cursor"
   ],
   "anima": {
-   "construct": "new: host cursor intent: hidden",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-cursor-hidden/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "oracle/cursor-hidden",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-cursor-hidden; tests/oracle/input-cursor-hidden/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -18900,11 +18900,11 @@
    "rive docs cursor"
   ],
   "anima": {
-   "construct": "new: cursor property path read by host",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-cursor-intent/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-cursor-intent",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-cursor-intent; tests/oracle/input-cursor-intent/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -18922,11 +18922,11 @@
    "rive docs cursor"
   ],
   "anima": {
-   "construct": "new: host cursor intent: pointer",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-cursor-pointer/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "oracle/cursor-pointer",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-cursor-pointer; tests/oracle/input-cursor-pointer/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -18944,11 +18944,11 @@
    "rive docs cursor"
   ],
   "anima": {
-   "construct": "new: host cursor intent: resizeHorizontal",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-cursor-resize-horizontal/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "oracle/cursor-resize-horizontal",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-cursor-resize-horizontal; tests/oracle/input-cursor-resize-horizontal/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -18966,11 +18966,11 @@
    "rive docs cursor"
   ],
   "anima": {
-   "construct": "new: host cursor intent: resizeVertical",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-cursor-resize-vertical/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "oracle/cursor-resize-vertical",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-cursor-resize-vertical; tests/oracle/input-cursor-resize-vertical/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -18988,11 +18988,11 @@
    "rive docs cursor"
   ],
   "anima": {
-   "construct": "new: host cursor intent: text",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-cursor-text/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "oracle/cursor-text",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-cursor-text; tests/oracle/input-cursor-text/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19041,11 +19041,11 @@
    "rive-wasm/js/src/rive.ts:1615@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: host.interactive: false",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-disable-listeners/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-disable-listeners",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-disable-listeners; tests/oracle/input-disable-listeners/skip.json",
+   "phase": "P4c"
   }
  },
  {
@@ -19161,11 +19161,11 @@
    "rive-runtime/include/rive/animation/focus_action_clear.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action clearFocus",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-focus-clear",
-   "phase": "P4"
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
+   "status": "done",
+   "test": "modules/focus/test; spec/conformance/input-focus-clear; oracle skip: modules/focus/capabilities/input-focus-clear/README.md; tests/oracle/input-focus-clear/case.animl",
+   "phase": "P4c"
   },
   "aliases": [
    "a11y.focus-action-clear"
@@ -19191,11 +19191,11 @@
    "rive-runtime/include/rive/generated/animation/focus_action_traversal_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action focus: down",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-focus-down",
-   "phase": "P4"
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
+   "status": "done",
+   "test": "modules/focus/test; spec/conformance/input-focus-down; oracle skip: modules/focus/capabilities/input-focus-down/README.md; tests/oracle/input-focus-down/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19220,11 +19220,11 @@
    "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: focus.scope.edge: closedLoop",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-focus-edge-closed-loop",
-   "phase": "P4"
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
+   "status": "done",
+   "test": "modules/focus/test; spec/conformance/input-focus-edge-closed-loop; oracle skip: modules/focus/capabilities/input-focus-edge-closed-loop/README.md; tests/oracle/input-focus-edge-closed-loop/case.animl",
+   "phase": "P4c"
   },
   "aliases": [
    "a11y.focus-edge-closed-loop"
@@ -19252,11 +19252,11 @@
    "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: focus.scope.edge: parentScope",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-focus-edge-parent-scope",
-   "phase": "P4"
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
+   "status": "done",
+   "test": "modules/focus/test; spec/conformance/input-focus-edge-parent-scope; oracle skip: modules/focus/capabilities/input-focus-edge-parent-scope/README.md; tests/oracle/input-focus-edge-parent-scope/case.animl",
+   "phase": "P4c"
   },
   "aliases": [
    "a11y.focus-edge-parent-scope"
@@ -19284,11 +19284,11 @@
    "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: focus.scope.edge: stop",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-focus-edge-stop",
-   "phase": "P4"
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
+   "status": "done",
+   "test": "modules/focus/test; spec/conformance/input-focus-edge-stop; oracle skip: modules/focus/capabilities/input-focus-edge-stop/README.md; tests/oracle/input-focus-edge-stop/case.animl",
+   "phase": "P4c"
   },
   "aliases": [
    "a11y.focus-edge-stop"
@@ -19317,11 +19317,11 @@
    "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: node.focus.enabled",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-focus-enabled",
-   "phase": "P4"
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
+   "status": "done",
+   "test": "modules/focus/test; spec/conformance/input-focus-enabled; oracle skip: modules/focus/capabilities/input-focus-enabled/README.md; tests/oracle/input-focus-enabled/case.animl",
+   "phase": "P4c"
   },
   "aliases": [
    "a11y.focus-can-focus"
@@ -19347,11 +19347,11 @@
    "rive-runtime/include/rive/generated/animation/focus_action_traversal_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action focus: left",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-focus-left",
-   "phase": "P4"
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
+   "status": "done",
+   "test": "modules/focus/test; spec/conformance/input-focus-left; oracle skip: modules/focus/capabilities/input-focus-left/README.md; tests/oracle/input-focus-left/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19374,11 +19374,11 @@
    "rive-runtime/include/rive/generated/animation/focus_action_traversal_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action focus: next",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-focus-next",
-   "phase": "P4"
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
+   "status": "done",
+   "test": "modules/focus/test; spec/conformance/input-focus-next; oracle skip: modules/focus/capabilities/input-focus-next/README.md; tests/oracle/input-focus-next/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19404,11 +19404,11 @@
    "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: node.focus.pointer",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-focus-pointer",
-   "phase": "P4"
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
+   "status": "done",
+   "test": "modules/focus/test; spec/conformance/input-focus-pointer; oracle skip: modules/focus/capabilities/input-focus-pointer/README.md; tests/oracle/input-focus-pointer/case.animl",
+   "phase": "P4c"
   },
   "aliases": [
    "a11y.focus-can-touch"
@@ -19434,11 +19434,11 @@
    "rive-runtime/include/rive/generated/animation/focus_action_traversal_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action focus: previous",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-focus-previous",
-   "phase": "P4"
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
+   "status": "done",
+   "test": "modules/focus/test; spec/conformance/input-focus-previous; oracle skip: modules/focus/capabilities/input-focus-previous/README.md; tests/oracle/input-focus-previous/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19461,11 +19461,11 @@
    "rive-runtime/include/rive/generated/animation/focus_action_traversal_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action focus: right",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-focus-right",
-   "phase": "P4"
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
+   "status": "done",
+   "test": "modules/focus/test; spec/conformance/input-focus-right; oracle skip: modules/focus/capabilities/input-focus-right/README.md; tests/oracle/input-focus-right/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19488,11 +19488,11 @@
    "rive-runtime/include/rive/generated/animation/focus_action_target_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action focusTarget: node",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-focus-target",
-   "phase": "P4"
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
+   "status": "done",
+   "test": "modules/focus/test; spec/conformance/input-focus-target; oracle skip: modules/focus/capabilities/input-focus-target/README.md; tests/oracle/input-focus-target/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19518,11 +19518,11 @@
    "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: node.focus.traverse",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-focus-traverse",
-   "phase": "P4"
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
+   "status": "done",
+   "test": "modules/focus/test; spec/conformance/input-focus-traverse; oracle skip: modules/focus/capabilities/input-focus-traverse/README.md; tests/oracle/input-focus-traverse/case.animl",
+   "phase": "P4c"
   },
   "aliases": [
    "a11y.focus-can-traverse"
@@ -19548,11 +19548,11 @@
    "rive-runtime/include/rive/generated/animation/focus_action_traversal_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action focus: up",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-focus-up",
-   "phase": "P4"
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
+   "status": "done",
+   "test": "modules/focus/test; spec/conformance/input-focus-up; oracle skip: modules/focus/capabilities/input-focus-up/README.md; tests/oracle/input-focus-up/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19578,11 +19578,11 @@
    "rive-runtime/include/rive/generated/inputs/gamepad_input_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.gamepad.kind: axis",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-gamepad-axis/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-gamepad-axis",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-gamepad-axis; tests/oracle/input-gamepad-axis/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19608,11 +19608,11 @@
    "rive-runtime/include/rive/generated/inputs/gamepad_input_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.gamepad.kind: button",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-gamepad-button/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-gamepad-button",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-gamepad-button; tests/oracle/input-gamepad-button/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19635,11 +19635,11 @@
    "rive-runtime/include/rive/generated/inputs/gamepad_input_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.gamepad.phase: down/up",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-gamepad-button-phases/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-gamepad-button-phases",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-gamepad-button-phases; tests/oracle/input-gamepad-button-phases/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19665,11 +19665,11 @@
    "rive-runtime/include/rive/generated/inputs/gamepad_input_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.gamepad.kind: connected",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-gamepad-connected/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-gamepad-connected",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-gamepad-connected; tests/oracle/input-gamepad-connected/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19695,11 +19695,11 @@
    "rive-runtime/include/rive/generated/inputs/gamepad_input_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.gamepad.kind: disconnected",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-gamepad-disconnected/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-gamepad-disconnected",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-gamepad-disconnected; tests/oracle/input-gamepad-disconnected/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19720,11 +19720,11 @@
    "rive-wasm/js/src/rive.ts:123@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: host gamepad adapter with requireFocus",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-gamepad-host/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-gamepad-host",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-gamepad-host; tests/oracle/input-gamepad-host/skip.json",
+   "phase": "P4c"
   }
  },
  {
@@ -19748,11 +19748,11 @@
    "rive-runtime/include/rive/generated/inputs/gamepad_input_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.gamepad.mapping: standard or raw",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-gamepad-index-mapping/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-gamepad-index-mapping",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-gamepad-index-mapping; tests/oracle/input-gamepad-index-mapping/skip.json",
+   "phase": "P4c"
   }
  },
  {
@@ -19797,11 +19797,11 @@
    "rive-runtime/include/rive/animation/state_machine_instance.hpp:277@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: player.pointerOccludedAt(x,y)",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-hit-occlusion-query/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/hit-occlusion-query",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-hit-occlusion-query; tests/oracle/input-hit-occlusion-query/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19827,11 +19827,11 @@
    "rive-runtime/include/rive/generated/node_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: explicit ancestor visibility and clipping hit rules",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-hit-parent-chain/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/hit-parent-chain",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-hit-parent-chain; tests/oracle/input-hit-parent-chain/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19853,11 +19853,11 @@
    "rive-runtime/include/rive/generated/shapes/shape_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: shape geometry hit policy with specified edge tolerance",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-hit-shape-geometry/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/hit-shape-geometry",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-hit-shape-geometry; tests/oracle/input-hit-shape-geometry/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19877,11 +19877,11 @@
    "rive-runtime/include/rive/animation/state_machine_instance.hpp:335@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: player.hitTest(x,y)",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-hit-test-host/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-hit-test-host",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-hit-test-host; tests/oracle/input-hit-test-host/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19906,11 +19906,11 @@
    "rive-runtime/include/rive/generated/inputs/keyboard_input_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.key with phase: down",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-key-down/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-key-down",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-key-down; tests/oracle/input-key-down/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19933,11 +19933,11 @@
    "rive-runtime/include/rive/generated/inputs/keyboard_input_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.key: key name or any",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-key-filter/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-key-filter",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-key-filter; tests/oracle/input-key-filter/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19960,11 +19960,11 @@
    "rive-runtime/include/rive/generated/inputs/keyboard_input_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.modifiers array",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-key-modifiers/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-key-modifiers",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-key-modifiers; tests/oracle/input-key-modifiers/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -19989,11 +19989,11 @@
    "rive-runtime/include/rive/generated/inputs/keyboard_input_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.key with phase: repeat",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-key-repeat/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-key-repeat",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-key-repeat; tests/oracle/input-key-repeat/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -20018,11 +20018,11 @@
    "rive-runtime/include/rive/generated/inputs/keyboard_input_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.key with phase: up",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-key-up/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-key-up",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-key-up; tests/oracle/input-key-up/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -20042,11 +20042,11 @@
    "rive-wasm/js/src/rive_advanced.mjs.d.ts:1256@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: focused node dispatch and ancestor bubbling",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-keyboard-bubbling/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-keyboard-bubbling",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-keyboard-bubbling; tests/oracle/input-keyboard-bubbling/finding.json",
+   "phase": "P4c"
   }
  },
  {
@@ -20069,11 +20069,11 @@
    "rive-runtime/include/rive/generated/animation/listener_types/listener_input_type_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.on: blur",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-listen-blur",
-   "phase": "P4"
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
+   "status": "done",
+   "test": "modules/focus/test; spec/conformance/input-listen-blur; oracle skip: modules/focus/capabilities/input-listen-blur/README.md; tests/oracle/input-listen-blur/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -20096,11 +20096,11 @@
    "rive-runtime/include/rive/generated/animation/listener_types/listener_input_type_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.on: focus",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-listen-focus",
-   "phase": "P4"
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
+   "status": "done",
+   "test": "modules/focus/test; spec/conformance/input-listen-focus; oracle skip: modules/focus/capabilities/input-listen-focus/README.md; tests/oracle/input-listen-focus/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -20121,11 +20121,11 @@
    "rive-wasm/js/src/utils/registerTouchInteractions.ts:68@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: player.pointer(kind,{id,x,y})",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-multi-touch/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-multi-touch",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-multi-touch; tests/oracle/input-multi-touch/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -20150,11 +20150,11 @@
    "rive-runtime/include/rive/generated/animation/listener_types/listener_input_type_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.on array",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-multi-trigger-listener/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-multi-trigger-listener",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-multi-trigger-listener; tests/oracle/input-multi-trigger-listener/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -20178,11 +20178,11 @@
    "rive-runtime/include/rive/generated/shapes/shape_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: node.hit.opaque",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-opaque-targets/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-opaque-targets",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-opaque-targets; tests/oracle/input-opaque-targets/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -20200,11 +20200,11 @@
    "rive-wasm/js/src/utils/registerTouchInteractions.ts:485@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: pointer cancel with explicit pointer id",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-pointer-cancel/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-pointer-cancel",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-pointer-cancel; tests/oracle/input-pointer-cancel/skip.json",
+   "phase": "P4c"
   }
  },
  {
@@ -20281,11 +20281,11 @@
    "rive-runtime/include/rive/generated/animation/listener_types/listener_input_type_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener event: drag",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-pointer-drag/example.animl",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-pointer-drag",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-pointer-drag; tests/oracle/input-pointer-drag/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -20308,11 +20308,11 @@
    "rive-runtime/include/rive/generated/animation/listener_types/listener_input_type_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener event: drag-end",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-pointer-drag-end/example.animl",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-pointer-drag-end",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-pointer-drag-end; tests/oracle/input-pointer-drag-end/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -20335,11 +20335,11 @@
    "rive-runtime/include/rive/generated/animation/listener_types/listener_input_type_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener event: drag-start",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-pointer-drag-start/example.animl",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-pointer-drag-start",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-pointer-drag-start; tests/oracle/input-pointer-drag-start/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -20360,11 +20360,11 @@
    "rive-runtime/include/rive/animation/state_machine_instance.hpp:618@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: player.pointerEnabled(id,enabled)",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-pointer-enable/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-pointer-enable",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-pointer-enable; tests/oracle/input-pointer-enable/skip.json",
+   "phase": "P4c"
   }
  },
  {
@@ -20791,11 +20791,11 @@
    "rive-wasm/js/src/rive.ts:1620@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: web touch-action policy",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-touch-page-scroll/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-touch-page-scroll",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-touch-page-scroll; tests/oracle/input-touch-page-scroll/skip.json",
+   "phase": "P4c"
   }
  },
  {
@@ -20816,11 +20816,11 @@
    "rive docs luau/api/artboards"
   ],
   "anima": {
-   "construct": "new: scroll events with precise and phase fields",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-trackpad-scroll/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-trackpad-scroll",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-trackpad-scroll; tests/oracle/input-trackpad-scroll/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -20840,11 +20840,11 @@
    "rive-wasm/js/src/utils/registerTouchInteractions.ts:538@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: player.scroll({x,y,dx,dy})",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/input-wheel-scroll/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/input-wheel-scroll",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/input-wheel-scroll; tests/oracle/input-wheel-scroll/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -27535,11 +27535,11 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: layer.any transitions",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/any-state",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-any-state/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-any-state.test.ts; spec/conformance/state-machine-any-state; tests/oracle/state-machine-any-state",
+   "phase": "P4c"
   }
  },
  {
@@ -27566,11 +27566,11 @@
    "rive-runtime/include/rive/generated/animation/blend_animation_1d_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state.blend with from property and ordered stops",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/blend-1d-data",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-blend-1d-data/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-blend-1d-data.test.ts; spec/conformance/state-machine-blend-1d-data; tests/oracle/state-machine-blend-1d-data",
+   "phase": "P4c"
   }
  },
  {
@@ -27598,11 +27598,11 @@
    "rive-runtime/include/rive/generated/animation/blend_animation_1d_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state.blend with input and ordered stops",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/blend-1d-input",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-blend-1d-input/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-blend-1d-input.test.ts; spec/conformance/state-machine-blend-1d-input; tests/oracle/state-machine-blend-1d-input",
+   "phase": "P4c"
   }
  },
  {
@@ -27630,11 +27630,11 @@
    "rive-runtime/include/rive/generated/animation/blend_animation_direct_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state.mix with baseline and independent weights",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/blend-additive",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-blend-additive/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-blend-additive.test.ts; spec/conformance/state-machine-blend-additive; tests/oracle/state-machine-blend-additive",
+   "phase": "P4c"
   }
  },
  {
@@ -27662,11 +27662,11 @@
    "rive-runtime/include/rive/generated/animation/blend_animation_direct_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state.mix array with per-timeline weights",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/blend-direct",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-blend-direct/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-blend-direct.test.ts; spec/conformance/state-machine-blend-direct; tests/oracle/state-machine-blend-direct",
+   "phase": "P4c"
   }
  },
  {
@@ -27689,11 +27689,11 @@
    "rive-runtime/include/rive/generated/animation/blend_state_transition_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: transition.exitClock: timelineName",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/blend-exit-clock",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-blend-exit-clock/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-blend-exit-clock.test.ts; spec/conformance/state-machine-blend-exit-clock; tests/oracle/state-machine-blend-exit-clock",
+   "phase": "P4c"
   }
  },
  {
@@ -27717,11 +27717,11 @@
    "rive-runtime/include/rive/generated/animation/blend_animation_direct_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: mix weight source: constant",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/blend-weight-constant",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-blend-weight-constant/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-blend-weight-constant.test.ts; spec/conformance/state-machine-blend-weight-constant; tests/oracle/state-machine-blend-weight-constant",
+   "phase": "P4c"
   }
  },
  {
@@ -27745,11 +27745,11 @@
    "rive-runtime/include/rive/generated/animation/blend_animation_direct_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: mix weight source: data",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/blend-weight-data",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-blend-weight-data/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-blend-weight-data.test.ts; spec/conformance/state-machine-blend-weight-data; tests/oracle/state-machine-blend-weight-data",
+   "phase": "P4c"
   }
  },
  {
@@ -27773,11 +27773,11 @@
    "rive-runtime/include/rive/generated/animation/blend_animation_direct_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: mix weight source: input",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/blend-weight-input",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-blend-weight-input/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-blend-weight-input.test.ts; spec/conformance/state-machine-blend-weight-input; tests/oracle/state-machine-blend-weight-input",
+   "phase": "P4c"
   }
  },
  {
@@ -27971,11 +27971,11 @@
    "rive-runtime/include/rive/generated/animation/transition_property_artboard_comparator_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: when @width/@height/@ratio comparisons",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/condition-artboard",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-condition-artboard/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-condition-artboard.test.ts; spec/conformance/state-machine-condition-artboard; tests/oracle/state-machine-condition-artboard",
+   "phase": "P4c"
   }
  },
  {
@@ -28026,11 +28026,11 @@
    "rive-runtime/include/rive/generated/animation/transition_property_component_comparator_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: when node.property comparisons",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/condition-component",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-condition-component/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-condition-component.test.ts; spec/conformance/state-machine-condition-component; tests/oracle/state-machine-condition-component",
+   "phase": "P4c"
   }
  },
  {
@@ -28087,11 +28087,11 @@
    "rive-runtime/include/rive/generated/animation/transition_property_component_comparator_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: when @focus == node",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/condition-focus",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-condition-focus/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-condition-focus.test.ts; spec/conformance/state-machine-condition-focus; tests/oracle/state-machine-condition-focus",
+   "phase": "P4c"
   }
  },
  {
@@ -28197,11 +28197,11 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: transition.source: advance",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/continue-on-exit",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-continue-on-exit/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-continue-on-exit.test.ts; spec/conformance/state-machine-continue-on-exit; tests/oracle/state-machine-continue-on-exit",
+   "phase": "P4c"
   }
  },
  {
@@ -28279,11 +28279,11 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: layer entry transition list",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/entry-state",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-entry-state/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-entry-state.test.ts; spec/conformance/state-machine-entry-state; tests/oracle/state-machine-entry-state",
+   "phase": "P4c"
   }
  },
  {
@@ -28304,11 +28304,11 @@
    "rive-runtime/include/rive/generated/animation/exit_state_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state kind exit",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/exit-state",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-exit-state/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-exit-state.test.ts; spec/conformance/state-machine-exit-state; tests/oracle/state-machine-exit-state",
+   "phase": "P4c"
   }
  },
  {
@@ -28332,11 +28332,11 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: transition.exitFraction; @end for one-shot 100% case",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/exit-time-relative",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-exit-time-relative/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-exit-time-relative.test.ts; spec/conformance/state-machine-exit-time-relative; tests/oracle/state-machine-exit-time-relative",
+   "phase": "P4c"
   }
  },
  {
@@ -28767,11 +28767,11 @@
    "rive-runtime/include/rive/generated/animation/state_machine_fire_trigger_base.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state.onEnter action list",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/state-entry-actions",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-state-entry-actions/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-state-entry-actions.test.ts; spec/conformance/state-machine-state-entry-actions; tests/oracle/state-machine-state-entry-actions",
+   "phase": "P4c"
   }
  },
  {
@@ -28830,11 +28830,11 @@
    "rive-runtime/include/rive/generated/animation/state_machine_fire_trigger_base.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state.onExit action list",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/state-exit-actions",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-state-exit-actions/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-state-exit-actions.test.ts; spec/conformance/state-machine-state-exit-actions; tests/oracle/state-machine-state-exit-actions",
+   "phase": "P4c"
   }
  },
  {
@@ -28861,11 +28861,11 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state.random with seeded player randomness",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/state-random",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-state-random/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-state-random.test.ts; spec/conformance/state-machine-state-random; tests/oracle/state-machine-state-random",
+   "phase": "P4c"
   }
  },
  {
@@ -28891,11 +28891,11 @@
    "rive-runtime/include/rive/generated/animation/blend_state_direct_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state.reset: true",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/state-reset",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-state-reset/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-state-reset.test.ts; spec/conformance/state-machine-state-reset; tests/oracle/state-machine-state-reset",
+   "phase": "P4c"
   }
  },
  {
@@ -28944,11 +28944,11 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: transition.actions",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/transition-actions",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-transition-actions/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-transition-actions.test.ts; spec/conformance/state-machine-transition-actions; tests/oracle/state-machine-transition-actions",
+   "phase": "P4c"
   }
  },
  {
@@ -29023,11 +29023,11 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: transition.disabled",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/transition-disabled",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-transition-disabled/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-transition-disabled.test.ts; spec/conformance/state-machine-transition-disabled; tests/oracle/state-machine-transition-disabled",
+   "phase": "P4c"
   }
  },
  {
@@ -29078,11 +29078,11 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: transition.blendFraction",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/transition-duration-relative",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-transition-duration-relative/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-transition-duration-relative.test.ts; spec/conformance/state-machine-transition-duration-relative; tests/oracle/state-machine-transition-duration-relative",
+   "phase": "P4c"
   }
  },
  {
@@ -29132,11 +29132,11 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: transition.onComplete action list",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/transition-end-actions",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-transition-end-actions/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-transition-end-actions.test.ts; spec/conformance/state-machine-transition-end-actions; tests/oracle/state-machine-transition-end-actions",
+   "phase": "P4c"
   }
  },
  {
@@ -29186,11 +29186,11 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: transition.weight with seeded random selection",
-   "module": "interaction",
-   "status": "planned",
-   "test": "conformance/transition-random-weight",
-   "phase": "P4"
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-transition-random-weight/example.animl",
+   "module": "machine",
+   "status": "done",
+   "test": "modules/machine/test/core/state-machine-transition-random-weight.test.ts; spec/conformance/state-machine-transition-random-weight; tests/oracle/state-machine-transition-random-weight",
+   "phase": "P4c"
   }
  },
  {
@@ -33871,11 +33871,11 @@
    "rive-runtime/include/rive/generated/solo_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: explicit collapsed subtree state",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/transforms-collapse/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/collapse",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/transforms-collapse; tests/oracle/transforms-collapse/case.animl",
+   "phase": "P4c"
   }
  },
  {
@@ -34215,11 +34215,11 @@
    "rive schema Solo --all --json (CLI 1.9.0)"
   ],
   "anima": {
-   "construct": "new: solo node with active child",
+   "construct": "input: modules/input/core/registry.ts, modules/input/core/runtime.ts; spec/SPEC.md (input); modules/input/capabilities/transforms-solo/example.animl (pending evidence)",
    "module": "interaction",
-   "status": "planned",
-   "test": "conformance/solo",
-   "phase": "P4"
+   "status": "done",
+   "test": "modules/input/test/core/runtime.test.ts; modules/input/test/core/conformance.test.ts; modules/input/test/web/browser.test.ts; spec/conformance/transforms-solo; tests/oracle/transforms-solo/case.animl",
+   "phase": "P4c"
   },
   "aliases": [
    "components.solo",

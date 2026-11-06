@@ -1,0 +1,21 @@
+<anima version="0.1" name="machine-probe" grid="20" requires="machine">
+  <trigger name="go"/>
+  <bool name="flag"/>
+  <trigger name="stop"/>
+
+  <circle id="dot" cx="10" cy="10" r="1" fill="#4263eb"/>
+
+  <layer name="l" initial="a">
+    <state name="a">
+      <pose dot.x="0"/>
+      <on when="go" to="b" blend="1" endActions="{&quot;set&quot;:{&quot;flag&quot;:true},&quot;emit&quot;:&quot;transition-end-actions&quot;}"/>
+    </state>
+    <state name="b">
+      <pose dot.x="10"/>
+      <on when="stop" to="c"/>
+    </state>
+    <state name="c">
+      <pose dot.x="20"/>
+    </state>
+  </layer>
+</anima>

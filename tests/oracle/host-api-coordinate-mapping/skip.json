@@ -1,0 +1,13 @@
+{
+  "status": "skip",
+  "reason": "Browser SVG/CSS coordinate inversion is unavailable in a headless artboard. Pointer coordinates reach the scene, but no host DOM matrix exists to inspect.",
+  "captureEvidence": [
+    "tests/oracle/host-api-coordinate-mapping/rive/scene.rml",
+    "tests/oracle/host-api-coordinate-mapping/rive/commands.txt",
+    "tests/oracle/host-api-coordinate-mapping/rive/session.txt",
+    "tests/oracle/host-api-coordinate-mapping/rive/frames/0.json",
+    "tests/oracle/host-api-coordinate-mapping/rive/frames/0.semantics.json",
+    "tests/oracle/host-api-coordinate-mapping/rive/frames/limit.png"
+  ],
+  "tests": ["modules/input/test/core/runtime.test.ts", "modules/input/test/web/browser.test.ts"]
+}

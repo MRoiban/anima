@@ -1,0 +1,8 @@
+{"time":0,"values":{"volume":0.5,"knob.x":0.5,"fill.stroke.trimEnd":0.5,"wave1.opacity":1,"wave2.opacity":0.515151515151515,"wave3.opacity":0},"states":{"blend":"level","feedback":"idle"},"events":[],"settled":false}
+{"time":0,"values":{"volume":0,"knob.x":0,"fill.stroke.trimEnd":0,"wave1.opacity":0,"wave2.opacity":0,"wave3.opacity":0},"states":{"blend":"level","feedback":"idle"},"events":[],"settled":false}
+{"time":0,"values":{"volume":0.165,"wave1.opacity":0.5,"wave2.opacity":0,"wave3.opacity":0},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}
+{"time":0,"values":{"volume":0.33,"wave1.opacity":1,"wave2.opacity":0,"wave3.opacity":0},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}
+{"time":0,"values":{"volume":0.495,"wave1.opacity":1,"wave2.opacity":0.4999999999999999,"wave3.opacity":0},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}
+{"time":0,"values":{"volume":0.66,"wave1.opacity":1,"wave2.opacity":1,"wave3.opacity":0},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}
+{"time":0,"values":{"volume":0.83,"wave1.opacity":1,"wave2.opacity":1,"wave3.opacity":0.49999999999999983},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}
+{"time":0,"values":{"volume":1,"knob.x":1,"fill.stroke.trimEnd":1,"wave1.opacity":1,"wave2.opacity":1,"wave3.opacity":1},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}

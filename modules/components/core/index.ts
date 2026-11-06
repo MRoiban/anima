@@ -1,3 +1,4 @@
+import type { EventModule, EventKinds } from './events.ts';
 import { after } from '../manifest.ts';
 import type { Module, ModuleRegistry } from '../../../packages/core/src/modules.ts';
 import type { Model, NodeM } from '../../../packages/core/src/load.ts';
@@ -33,7 +34,12 @@ interface Context {
 let context: Context | undefined;
 const scoped = /^[a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*$/;
 
-function create(runtime: Pick<ModuleRegistry, 'load' | 'Player' | 'DOC' | 'nodeShape'>): Module {
+function create(
+  runtime: Pick<ModuleRegistry, 'load' | 'Player' | 'DOC' | 'nodeShape'>,
+  eventKinds: EventKinds = new Map(
+    ['enter', 'leave', 'down', 'up', 'click', 'move'].map((name) => [name, undefined]),
+  ),
+): EventModule {
   const name = (
     runtime.nodeShape('group').p.id as Extract<
       import('../../../packages/core/src/registry.ts').Shape,
@@ -41,6 +47,7 @@ function create(runtime: Pick<ModuleRegistry, 'load' | 'Player' | 'DOC' | 'nodeS
     >
   ).re!;
   return {
+    eventKinds,
     name: 'components',
     after,
     init(_modules, shared) {
@@ -66,7 +73,8 @@ function create(runtime: Pick<ModuleRegistry, 'load' | 'Player' | 'DOC' | 'nodeS
         key: scoped,
         of: (listener.p.set as Extract<Shape, { k: 'map' }>).of,
       };
-      return create(shared);
+      // Preserve composed kinds when AniML replays a module into its isolated registry.
+      return create(shared, new Map(eventKinds));
     },
     entries: [
       {
@@ -246,7 +254,16 @@ function create(runtime: Pick<ModuleRegistry, 'load' | 'Player' | 'DOC' | 'nodeS
           err('limit-exceeded', '/nodes', 'components exceed depth 8 or 256 expanded instances');
         if (data.instances.length) model.nesting = (p) => nest(p, data, runtime.Player);
         for (const [i, l] of (model.doc.listeners ?? []).entries())
-          if (l.on.includes('.') && model.inputs.get(l.on)?.type !== 'trigger')
+          if (
+            !l.on.split('|').every((on: string) => {
+              const kind = on.startsWith('event:') ? 'event:' : on;
+              return (
+                eventKinds.has(kind) &&
+                (!eventKinds.get(kind) || model.doc.requires?.includes(eventKinds.get(kind)))
+              );
+            }) &&
+            (!l.on.includes('.') || model.inputs.get(l.on)?.type !== 'trigger')
+          )
             err('unknown-event', '/listeners/' + i + '/on', 'unknown instance event');
       } finally {
         context = outer;

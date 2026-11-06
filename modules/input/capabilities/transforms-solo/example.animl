@@ -1,0 +1,10 @@
+<anima version="0.1" name="transforms-solo" grid="20" requires="input">
+  <number name="n"/>
+
+  <group id="parent" solo="1">
+    <circle id="disc" cx="10" cy="10" r="5" fill="#000"/>
+    <circle id="other" cx="10" cy="10" r="5" fill="#000"/>
+  </group>
+
+  <listener on="down" target="disc" write="{&quot;pointerId&quot;:&quot;n&quot;}"/>
+</anima>

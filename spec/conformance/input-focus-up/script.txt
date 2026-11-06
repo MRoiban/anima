@@ -1,0 +1,3 @@
+focus target c
+key down ArrowUp
+snapshot

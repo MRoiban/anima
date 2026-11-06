@@ -253,6 +253,1107 @@
     }
   },
   {
+    "name": "state-machine-blend-weight-constant",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0]
+  },
+  {
+    "name": "state-machine-blend-weight-input",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0]
+  },
+  {
+    "name": "state-machine-blend-weight-data",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0]
+  },
+  {
+    "name": "state-machine-blend-direct",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0]
+  },
+  {
+    "name": "state-machine-blend-1d-input",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.001]
+  },
+  {
+    "name": "state-machine-blend-1d-data",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.001]
+  },
+  {
+    "name": "state-machine-blend-additive",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.001]
+  },
+  {
+    "name": "state-machine-continue-on-exit",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.5, 0.75, 1.5]
+  },
+  {
+    "name": "state-machine-exit-time-relative",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.5, 0.75, 1.5]
+  },
+  {
+    "name": "state-machine-transition-duration-relative",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.5, 0.75, 1.5],
+    "scripts": {
+      "0.75": "advance 0.5\nadvance 0.25",
+      "1.5": "advance 0.5\nadvance 0.25\nadvance 0.75"
+    }
+  },
+  {
+    "name": "state-machine-state-reset",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.5, 0.75, 1]
+  },
+  {
+    "name": "state-machine-transition-disabled",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.5, 0.75, 1.5]
+  },
+  {
+    "name": "state-machine-entry-state",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.5, 0.75, 1.5]
+  },
+  {
+    "name": "state-machine-any-state",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0]
+  },
+  {
+    "name": "state-machine-condition-artboard",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0]
+  },
+  {
+    "name": "state-machine-condition-component",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0]
+  },
+  {
+    "name": "state-machine-blend-exit-clock",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.5, 0.75, 1.5]
+  },
+  {
+    "name": "state-machine-exit-state",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.5, 0.75, 1.5],
+    "scripts": {
+      "0.75": "advance 0.5\nadvance 0.25",
+      "1.5": "advance 0.5\nadvance 0.25\nadvance 0.75"
+    }
+  },
+  {
+    "name": "input-pointer-drag",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0",
+      "1": "pointer down 3 10\npointer move 4 10",
+      "2": "pointer down 3 10\npointer move 4 10\npointer up 4 10"
+    }
+  },
+  {
+    "name": "input-pointer-drag-start",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0",
+      "1": "pointer down 3 10\npointer move 4 10",
+      "2": "pointer down 3 10\npointer move 4 10\npointer up 4 10"
+    }
+  },
+  {
+    "name": "input-pointer-drag-end",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0",
+      "1": "pointer down 3 10\npointer move 4 10",
+      "2": "pointer down 3 10\npointer move 4 10\npointer up 4 10"
+    }
+  },
+  {
+    "name": "input-focus-clear",
+    "times": [0, 1],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus clear\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    },
+    "focus": true
+  },
+  {
+    "name": "input-focus-down",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse down\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse down\nadvance 0\nadvance 0\nfocus traverse down\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse down\nadvance 0\nadvance 0\nfocus traverse down\nadvance 0\nadvance 0\nfocus traverse down\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    },
+    "focus": true
+  },
+  {
+    "name": "input-focus-edge-closed-loop",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    },
+    "focus": true
+  },
+  {
+    "name": "input-focus-edge-parent-scope",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    },
+    "focus": true
+  },
+  {
+    "name": "input-focus-edge-stop",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    },
+    "focus": true
+  },
+  {
+    "name": "input-focus-enabled",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    },
+    "focus": true
+  },
+  {
+    "name": "input-focus-left",
+    "times": [0, 1, 2, 3, 4],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus target c\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus target c\nadvance 0\nadvance 0\nfocus traverse left\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus target c\nadvance 0\nadvance 0\nfocus traverse left\nadvance 0\nadvance 0\nfocus traverse left\nadvance 0\nadvance 0",
+      "4": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus target c\nadvance 0\nadvance 0\nfocus traverse left\nadvance 0\nadvance 0\nfocus traverse left\nadvance 0\nadvance 0\nfocus traverse left\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    },
+    "focus": true
+  },
+  {
+    "name": "input-focus-next",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    },
+    "focus": true
+  },
+  {
+    "name": "input-focus-previous",
+    "times": [0, 1, 2, 3, 4],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus target c\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus target c\nadvance 0\nadvance 0\nfocus traverse previous\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus target c\nadvance 0\nadvance 0\nfocus traverse previous\nadvance 0\nadvance 0\nfocus traverse previous\nadvance 0\nadvance 0",
+      "4": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus target c\nadvance 0\nadvance 0\nfocus traverse previous\nadvance 0\nadvance 0\nfocus traverse previous\nadvance 0\nadvance 0\nfocus traverse previous\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    },
+    "focus": true
+  },
+  {
+    "name": "input-focus-pointer",
+    "times": [0, 1],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\npointer down 16.666666666666668 8.333333333333334\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    },
+    "focus": true
+  },
+  {
+    "name": "input-focus-right",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse right\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse right\nadvance 0\nadvance 0\nfocus traverse right\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse right\nadvance 0\nadvance 0\nfocus traverse right\nadvance 0\nadvance 0\nfocus traverse right\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    },
+    "focus": true
+  },
+  {
+    "name": "input-focus-target",
+    "times": [0, 1],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus target c\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    },
+    "focus": true
+  },
+  {
+    "name": "input-focus-traverse",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    },
+    "focus": true
+  },
+  {
+    "name": "input-focus-up",
+    "times": [0, 1, 2, 3, 4],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus target c\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus target c\nadvance 0\nadvance 0\nfocus traverse up\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus target c\nadvance 0\nadvance 0\nfocus traverse up\nadvance 0\nadvance 0\nfocus traverse up\nadvance 0\nadvance 0",
+      "4": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus target c\nadvance 0\nadvance 0\nfocus traverse up\nadvance 0\nadvance 0\nfocus traverse up\nadvance 0\nadvance 0\nfocus traverse up\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    },
+    "focus": true
+  },
+  {
+    "name": "input-listen-focus",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0\nfocus traverse next\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    },
+    "focus": true
+  },
+  {
+    "name": "input-listen-blur",
+    "times": [0, 1],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\nfocus target c\nadvance 0\nfocus target a\nadvance 0\nadvance 0\nfocus clear\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    },
+    "focus": true
+  },
+  {
+    "name": "input-key-down",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nkey down F12 - a\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nkey down F12 - a\nadvance 0\nadvance 0\nkey down F13 - a\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-key-filter",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nkey down F12 - a\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nkey down F12 - a\nadvance 0\nadvance 0\nkey down F13 - a\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-key-modifiers",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nkey down F12 shift+control a\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nkey down F12 shift+control a\nadvance 0\nadvance 0\nkey down F13 shift+control a\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nkey down F12 shift+control a\nadvance 0\nadvance 0\nkey down F13 shift+control a\nadvance 0\nadvance 0\nset n 0\nkey down F13 shift+control+alt a\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-key-repeat",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nkey repeat F12 - a\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nkey repeat F12 - a\nadvance 0\nadvance 0\nkey repeat F13 - a\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-key-up",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nkey up F12 - a\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nkey up F12 - a\nadvance 0\nadvance 0\nkey up F13 - a\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-gamepad-axis",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\"}]\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\"}]\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\",\"axes\":[-0.25]}]\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\"}]\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\",\"axes\":[-0.25]}]\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\",\"axes\":[0.5]}]\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-gamepad-button",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\"}]\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\"}]\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"buttons\":[{\"value\":0.75,\"pressed\":true}]}]\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\"}]\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"buttons\":[{\"value\":0.75,\"pressed\":true}]}]\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"buttons\":[{\"value\":0,\"pressed\":false}]}]\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-gamepad-button-phases",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\"}]\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\"}]\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"buttons\":[{\"value\":0.75,\"pressed\":true}]}]\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\"}]\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"buttons\":[{\"value\":0.75,\"pressed\":true}]}]\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"buttons\":[{\"value\":0,\"pressed\":false}]}]\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-gamepad-connected",
+    "times": [0, 1],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\"}]\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-gamepad-disconnected",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\"}]\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":true,\"mapping\":\"standard\"}]\nadvance 0\nadvance 0\ngamepads [{\"index\":0,\"connected\":false}]\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "host-api-low-level-pointer",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 108 120\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 108 120\nadvance 0\nadvance 0\ncontact down 0 144 120\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "host-api-multitouch",
+    "times": [0, 1, 2, 3, 4],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 7 10 10\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 7 10 10\nadvance 0\nadvance 0\ncontact down 8 10 10\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 7 10 10\nadvance 0\nadvance 0\ncontact down 8 10 10\nadvance 0\nadvance 0\ncontact up 8 10 10\nadvance 0\nadvance 0",
+      "4": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 7 10 10\nadvance 0\nadvance 0\ncontact down 8 10 10\nadvance 0\nadvance 0\ncontact up 8 10 10\nadvance 0\nadvance 0\nset n 0\ncontact up 7 10 10\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-multi-touch",
+    "times": [0, 1, 2, 3, 4],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 7 10 10\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 7 10 10\nadvance 0\nadvance 0\ncontact down 8 10 10\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 7 10 10\nadvance 0\nadvance 0\ncontact down 8 10 10\nadvance 0\nadvance 0\ncontact up 8 10 10\nadvance 0\nadvance 0",
+      "4": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 7 10 10\nadvance 0\nadvance 0\ncontact down 8 10 10\nadvance 0\nadvance 0\ncontact up 8 10 10\nadvance 0\nadvance 0\nset n 0\ncontact up 7 10 10\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-hit-shape-geometry",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 14.5 14.5\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 14.5 14.5\nadvance 0\nadvance 0\ncontact down 0 10 10\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 14.5 14.5\nadvance 0\nadvance 0\ncontact down 0 10 10\nadvance 0\nadvance 0\ncontact up 0 10 10\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-bounded-hit-tests",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 14.5 14.5\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 14.5 14.5\nadvance 0\nadvance 0\ncontact down 0 10 10\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 14.5 14.5\nadvance 0\nadvance 0\ncontact down 0 10 10\nadvance 0\nadvance 0\ncontact up 0 10 10\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-hit-test-host",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 14.5 14.5\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 14.5 14.5\nadvance 0\nadvance 0\ncontact down 0 10 10\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 14.5 14.5\nadvance 0\nadvance 0\ncontact down 0 10 10\nadvance 0\nadvance 0\ncontact up 0 10 10\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "host-api-pointer-exit",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact move 0 10 10\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact move 0 10 10\nadvance 0\nadvance 0\ncontact leave 0\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-hit-parent-chain",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 14.5 14.5\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 14.5 14.5\nadvance 0\nadvance 0\ncontact down 0 10 10\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-align-snap",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 88 100\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 88 100\nadvance 0\nadvance 0\ncontact move 0 104 112\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 88 100\nadvance 0\nadvance 0\ncontact move 0 104 112\nadvance 0\nadvance 0\ncontact up 0 104 112\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-opaque-targets",
+    "times": [0, 1],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 120 120\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-hit-occlusion-query",
+    "times": [0, 1],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 120 120\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "transforms-collapse",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 60 120\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 60 120\nadvance 0\nadvance 0\ncontact down 0 180 120\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "transforms-collapse-render",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "transforms-solo",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 60 120\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 60 120\nadvance 0\nadvance 0\ncontact down 0 180 120\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "transforms-solo-render",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "input-multi-trigger-listener",
+    "times": [0, 1, 2, 3],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 120 120\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 120 120\nadvance 0\nadvance 0\nset n 0\ncontact up 0 120 120\nadvance 0\nadvance 0",
+      "3": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 120 120\nadvance 0\nadvance 0\nset n 0\ncontact up 0 120 120\nadvance 0\nadvance 0\nset n 0\nkey down a - a\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-wheel-scroll",
+    "times": [0, 1],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nscroll 120 100 0 -24 start 0\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-trackpad-scroll",
+    "times": [0, 1],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nscroll 120 100 0 -24 start 0\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "host-api-low-level-scroll",
+    "times": [0, 1],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nscroll 120 100 0 -24 start 0\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-cursor-arrow",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact move 0 120 120\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact move 0 120 120\nadvance 0\nadvance 0\ncontact move 0 20 20\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "@cursor",
+      "path": "cursor",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-cursor-hidden",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact move 0 120 120\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact move 0 120 120\nadvance 0\nadvance 0\ncontact move 0 20 20\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "@cursor",
+      "path": "cursor",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-cursor-intent",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact move 0 120 120\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact move 0 120 120\nadvance 0\nadvance 0\ncontact move 0 20 20\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "@cursor",
+      "path": "cursor",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-cursor-pointer",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact move 0 120 120\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact move 0 120 120\nadvance 0\nadvance 0\ncontact move 0 20 20\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "@cursor",
+      "path": "cursor",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-cursor-resize-horizontal",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact move 0 120 120\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact move 0 120 120\nadvance 0\nadvance 0\ncontact move 0 20 20\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "@cursor",
+      "path": "cursor",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-cursor-resize-vertical",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact move 0 120 120\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact move 0 120 120\nadvance 0\nadvance 0\ncontact move 0 20 20\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "@cursor",
+      "path": "cursor",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-cursor-text",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact move 0 120 120\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact move 0 120 120\nadvance 0\nadvance 0\ncontact move 0 20 20\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "@cursor",
+      "path": "cursor",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-capture-phase",
+    "times": [0, 1],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\ncontact down 0 120 120\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-keyboard-bubbling",
+    "times": [0, 1, 2],
+    "threshold": 16,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0\nadvance 0\n\nadvance 0\nadvance 0",
+      "1": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nkey down F12 - a\nadvance 0\nadvance 0",
+      "2": "advance 0\nadvance 0\n\nadvance 0\nadvance 0\nkey down F12 - a\nadvance 0\nadvance 0\nkey down F13 - a\nadvance 0\nadvance 0"
+    },
+    "values": {
+      "address": "n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
     "name": "animation-key-event-target",
     "times": [1.1],
     "threshold": 0,

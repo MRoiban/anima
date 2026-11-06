@@ -1,0 +1,31 @@
+{
+  "anima": "0.1",
+  "name": "input-gamepad-disconnected",
+  "grid": 20,
+  "requires": ["input"],
+  "inputs": {
+    "n": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "disc",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 5,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "gamepad-disconnected",
+      "set": {},
+      "write": {
+        "index": "n"
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "document": {
+    "anima": "0.1",
+    "name": "input-gamepad-button-phases-invalid",
+    "grid": 20,
+    "requires": ["input"],
+    "nodes": [
+      {
+        "id": "disc",
+        "type": "circle",
+        "center": [10, 10],
+        "r": 5,
+        "fill": {
+          "color": "#000"
+        }
+      }
+    ],
+    "inputs": {
+      "n": {
+        "type": "number"
+      }
+    },
+    "listeners": [
+      {
+        "on": "gamepad-button",
+        "control": 0.5,
+        "write": {
+          "value": "n"
+        },
+        "phase": "release"
+      }
+    ]
+  },
+  "code": "input-index",
+  "pointer": "/listeners/0/control"
+}
