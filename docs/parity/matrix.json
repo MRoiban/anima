@@ -1846,7 +1846,7 @@
   "construct": "TODO: modules/data/capabilities/data-bind-conditions/registry.ts; spec/SPEC.md (Bind transition operands); modules/data/capabilities/data-bind-conditions/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-bind-conditions.test.ts; spec/conformance/data-bind-conditions; tests/oracle/data-bind-conditions",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-bind-conditions; tests/oracle/data-bind-conditions",
   "phase": "P4e"
  },
  {
@@ -1856,7 +1856,7 @@
   "construct": "TODO: modules/data/capabilities/data-bind-converter-options/registry.ts; spec/SPEC.md (Bind converter options); modules/data/capabilities/data-bind-converter-options/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-bind-converter-options.test.ts; spec/conformance/data-bind-converter-options; tests/oracle/data-bind-converter-options",
+  "test": "modules/data/test/core/data-bind-converter-options.test.ts; spec/conformance/data-bind-converter-options; tests/oracle/data-bind-converter-options",
   "phase": "P4e"
  },
  {
@@ -1866,7 +1866,7 @@
   "construct": "TODO: modules/data/capabilities/data-bind-instance-values/registry.ts; spec/SPEC.md (Bind instance values); modules/data/capabilities/data-bind-instance-values/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-bind-instance-values.test.ts; spec/conformance/data-bind-instance-values; tests/oracle/data-bind-instance-values",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-bind-instance-values; tests/oracle/data-bind-instance-values",
   "phase": "P4e"
  },
  {
@@ -1926,7 +1926,7 @@
   "construct": "TODO: modules/data/capabilities/data-binding-absolute/registry.ts; spec/SPEC.md (Absolute binding path binding); modules/data/capabilities/data-binding-absolute/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-binding-absolute.test.ts; spec/conformance/data-binding-absolute; tests/oracle/data-binding-absolute",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-binding-absolute; tests/oracle/data-binding-absolute",
   "phase": "P4e"
  },
  {
@@ -1936,7 +1936,7 @@
   "construct": "TODO: modules/data/capabilities/data-binding-once/registry.ts; spec/SPEC.md (Bind once binding); modules/data/capabilities/data-binding-once/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-binding-once.test.ts; spec/conformance/data-binding-once; tests/oracle/data-binding-once",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-binding-once; tests/oracle/data-binding-once",
   "phase": "P4e"
  },
  {
@@ -1956,7 +1956,7 @@
   "construct": "TODO: modules/data/capabilities/data-binding-to-source/registry.ts; spec/SPEC.md (Target to source binding); modules/data/capabilities/data-binding-to-source/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-binding-to-source.test.ts; spec/conformance/data-binding-to-source; tests/oracle/data-binding-to-source",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-binding-to-source; tests/oracle/data-binding-to-source",
   "phase": "P4e"
  },
  {
@@ -1976,7 +1976,7 @@
   "construct": "TODO: modules/data/capabilities/data-binding-two-way-prefer-source/registry.ts; spec/SPEC.md (Two-way, prefer source binding); modules/data/capabilities/data-binding-two-way-prefer-source/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-binding-two-way-prefer-source.test.ts; spec/conformance/data-binding-two-way-prefer-source; tests/oracle/data-binding-two-way-prefer-source",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-binding-two-way-prefer-source; tests/oracle/data-binding-two-way-prefer-source",
   "phase": "P4e"
  },
  {
@@ -1986,7 +1986,7 @@
   "construct": "TODO: modules/data/capabilities/data-binding-two-way-prefer-target/registry.ts; spec/SPEC.md (Two-way, prefer target binding); modules/data/capabilities/data-binding-two-way-prefer-target/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-binding-two-way-prefer-target.test.ts; spec/conformance/data-binding-two-way-prefer-target; tests/oracle/data-binding-two-way-prefer-target",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-binding-two-way-prefer-target; tests/oracle/data-binding-two-way-prefer-target",
   "phase": "P4e"
  },
  {
@@ -1996,7 +1996,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-acosine",
   "phase": "P4e"
  },
  {
@@ -2016,7 +2016,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-asine",
   "phase": "P4e"
  },
  {
@@ -2026,7 +2026,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-atangent",
   "phase": "P4e"
  },
  {
@@ -2036,7 +2036,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-atangent2",
   "phase": "P4e"
  },
  {
@@ -2046,7 +2046,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-ceil",
   "phase": "P4e"
  },
  {
@@ -2056,7 +2056,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-cosine",
   "phase": "P4e"
  },
  {
@@ -2076,7 +2076,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-exp",
   "phase": "P4e"
  },
  {
@@ -2086,7 +2086,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-floor",
   "phase": "P4e"
  },
  {
@@ -2096,7 +2096,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-log",
   "phase": "P4e"
  },
  {
@@ -2106,7 +2106,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-modulo",
   "phase": "P4e"
  },
  {
@@ -2126,7 +2126,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-power",
   "phase": "P4e"
  },
  {
@@ -2136,7 +2136,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-round",
   "phase": "P4e"
  },
  {
@@ -2146,7 +2146,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-sine",
   "phase": "P4e"
  },
  {
@@ -2156,7 +2156,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-squareroot",
   "phase": "P4e"
  },
  {
@@ -2176,7 +2176,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-tangent",
   "phase": "P4e"
  },
  {
@@ -2186,7 +2186,7 @@
   "construct": "TODO: modules/data/capabilities/data-component-public-data/registry.ts; spec/SPEC.md (Component interface properties); modules/data/capabilities/data-component-public-data/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-component-public-data.test.ts; spec/conformance/data-component-public-data; tests/oracle/data-component-public-data",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-component-public-data; tests/oracle/data-component-public-data",
   "phase": "P4e"
  },
  {
@@ -2196,7 +2196,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-boolean-negate",
   "phase": "P4e"
  },
  {
@@ -2216,7 +2216,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-enum-to-uint",
   "phase": "P4e"
  },
  {
@@ -2226,7 +2226,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-group",
   "phase": "P4e"
  },
  {
@@ -2236,7 +2236,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-list-to-length",
   "phase": "P4e"
  },
  {
@@ -2246,7 +2246,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-number-formatting",
   "phase": "P4e"
  },
  {
@@ -2266,7 +2266,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-range-mapper",
   "phase": "P4e"
  },
  {
@@ -2276,7 +2276,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-rounder",
   "phase": "P4e"
  },
  {
@@ -2286,7 +2286,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-string-remove-zeros",
   "phase": "P4e"
  },
  {
@@ -2296,7 +2296,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-string-template",
   "phase": "P4e"
  },
  {
@@ -2306,7 +2306,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-system-degs-to-rads",
   "phase": "P4e"
  },
  {
@@ -2316,7 +2316,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-system-normalizer",
   "phase": "P4e"
  },
  {
@@ -2326,7 +2326,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-template-delimiters",
   "phase": "P4e"
  },
  {
@@ -2336,7 +2336,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-template-number-formatting",
   "phase": "P4e"
  },
  {
@@ -2346,7 +2346,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-to-number",
   "phase": "P4e"
  },
  {
@@ -2356,7 +2356,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-to-string",
   "phase": "P4e"
  },
  {
@@ -2376,7 +2376,7 @@
   "construct": "TODO: modules/data/capabilities/data-custom-property-boolean/registry.ts; spec/SPEC.md (Boolean custom property); modules/data/capabilities/data-custom-property-boolean/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-custom-property-boolean.test.ts; spec/conformance/data-custom-property-boolean; tests/oracle/data-custom-property-boolean",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-custom-property-boolean; tests/oracle/data-custom-property-boolean",
   "phase": "P4e"
  },
  {
@@ -2386,7 +2386,7 @@
   "construct": "TODO: modules/data/capabilities/data-custom-property-color/registry.ts; spec/SPEC.md (Color custom property); modules/data/capabilities/data-custom-property-color/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-custom-property-color.test.ts; spec/conformance/data-custom-property-color; tests/oracle/data-custom-property-color",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-custom-property-color; tests/oracle/data-custom-property-color",
   "phase": "P4e"
  },
  {
@@ -2396,7 +2396,7 @@
   "construct": "TODO: modules/data/capabilities/data-custom-property-enum/registry.ts; spec/SPEC.md (Enum custom property); modules/data/capabilities/data-custom-property-enum/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-custom-property-enum.test.ts; spec/conformance/data-custom-property-enum; tests/oracle/data-custom-property-enum",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-custom-property-enum; tests/oracle/data-custom-property-enum",
   "phase": "P4e"
  },
  {
@@ -2406,7 +2406,7 @@
   "construct": "TODO: modules/data/capabilities/data-custom-property-number/registry.ts; spec/SPEC.md (Number custom property); modules/data/capabilities/data-custom-property-number/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-custom-property-number.test.ts; spec/conformance/data-custom-property-number; tests/oracle/data-custom-property-number",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-custom-property-number; tests/oracle/data-custom-property-number",
   "phase": "P4e"
  },
  {
@@ -2416,7 +2416,7 @@
   "construct": "TODO: modules/data/capabilities/data-custom-property-string/registry.ts; spec/SPEC.md (String custom property); modules/data/capabilities/data-custom-property-string/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-custom-property-string.test.ts; spec/conformance/data-custom-property-string; tests/oracle/data-custom-property-string",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-custom-property-string; tests/oracle/data-custom-property-string",
   "phase": "P4e"
  },
  {
@@ -2426,7 +2426,7 @@
   "construct": "TODO: modules/data/capabilities/data-custom-property-trigger/registry.ts; spec/SPEC.md (Trigger custom property); modules/data/capabilities/data-custom-property-trigger/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-custom-property-trigger.test.ts; spec/conformance/data-custom-property-trigger; tests/oracle/data-custom-property-trigger",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-custom-property-trigger; tests/oracle/data-custom-property-trigger",
   "phase": "P4e"
  },
  {
@@ -2436,7 +2436,7 @@
   "construct": "TODO: modules/data/capabilities/data-default-instance/registry.ts; spec/SPEC.md (Default instance); modules/data/capabilities/data-default-instance/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-default-instance.test.ts; spec/conformance/data-default-instance; tests/oracle/data-default-instance",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-default-instance; tests/oracle/data-default-instance",
   "phase": "P4e"
  },
  {
@@ -2456,7 +2456,7 @@
   "construct": "TODO: modules/data/capabilities/data-enum-members/registry.ts; spec/SPEC.md (Custom enum members); modules/data/capabilities/data-enum-members/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-enum-members.test.ts; spec/conformance/data-enum-members; tests/oracle/data-enum-members",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-enum-members; tests/oracle/data-enum-members",
   "phase": "P4e"
  },
  {
@@ -2476,7 +2476,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-acosine",
   "phase": "P4e"
  },
  {
@@ -2486,7 +2486,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-asine",
   "phase": "P4e"
  },
  {
@@ -2496,7 +2496,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-atangent",
   "phase": "P4e"
  },
  {
@@ -2506,7 +2506,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-atangent2",
   "phase": "P4e"
  },
  {
@@ -2516,7 +2516,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-ceil",
   "phase": "P4e"
  },
  {
@@ -2526,7 +2526,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-cosine",
   "phase": "P4e"
  },
  {
@@ -2536,7 +2536,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-exp",
   "phase": "P4e"
  },
  {
@@ -2546,7 +2546,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-floor",
   "phase": "P4e"
  },
  {
@@ -2556,7 +2556,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-log",
   "phase": "P4e"
  },
  {
@@ -2586,7 +2586,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-pow",
   "phase": "P4e"
  },
  {
@@ -2596,7 +2596,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-random",
   "phase": "P4e"
  },
  {
@@ -2606,7 +2606,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-round",
   "phase": "P4e"
  },
  {
@@ -2616,7 +2616,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-sine",
   "phase": "P4e"
  },
  {
@@ -2626,7 +2626,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-sqrt",
   "phase": "P4e"
  },
  {
@@ -2636,7 +2636,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-tangent",
   "phase": "P4e"
  },
  {
@@ -2666,7 +2666,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-operator-modulo",
   "phase": "P4e"
  },
  {
@@ -2696,7 +2696,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-random-always",
   "phase": "P4e"
  },
  {
@@ -2706,7 +2706,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-random-once",
   "phase": "P4e"
  },
  {
@@ -2716,7 +2716,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-random-source-change",
   "phase": "P4e"
  },
  {
@@ -2726,7 +2726,7 @@
   "construct": "TODO: modules/data/capabilities/data-global-model/registry.ts; spec/SPEC.md (Shared global model); modules/data/capabilities/data-global-model/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-global-model.test.ts; spec/conformance/data-global-model; tests/oracle/data-global-model",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-global-model; tests/oracle/data-global-model",
   "phase": "P4e"
  },
  {
@@ -2986,7 +2986,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-interpolate-color",
   "phase": "P4e"
  },
  {
@@ -2996,7 +2996,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-interpolate-number",
   "phase": "P4e"
  },
  {
@@ -3006,7 +3006,7 @@
   "construct": "TODO: modules/data/capabilities/data-list-items/registry.ts; spec/SPEC.md (Explicit list items); modules/data/capabilities/data-list-items/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-list-items.test.ts; spec/conformance/data-list-items; tests/oracle/data-list-items",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-list-items; tests/oracle/data-list-items",
   "phase": "P4e"
  },
  {
@@ -3016,7 +3016,7 @@
   "construct": "TODO: modules/data/capabilities/data-model-definition/registry.ts; spec/SPEC.md (Typed model definition); modules/data/capabilities/data-model-definition/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-model-definition.test.ts; spec/conformance/data-model-definition; tests/oracle/data-model-definition",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-model-definition; tests/oracle/data-model-definition",
   "phase": "P4e"
  },
  {
@@ -3026,7 +3026,7 @@
   "construct": "TODO: modules/data/capabilities/data-named-instances/registry.ts; spec/SPEC.md (Named instances); modules/data/capabilities/data-named-instances/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-named-instances.test.ts; spec/conformance/data-named-instances; tests/oracle/data-named-instances",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-named-instances; tests/oracle/data-named-instances",
   "phase": "P4e"
  },
  {
@@ -3044,7 +3044,7 @@
   "category": "data",
   "capability": "Calculation operand: ViewModel",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-operation-operand-view-model",
   "phase": "P4e",
   "module": "data",
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)"
@@ -3056,7 +3056,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-pad-end",
   "phase": "P4e"
  },
  {
@@ -3066,7 +3066,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-pad-start",
   "phase": "P4e"
  },
  {
@@ -3086,7 +3086,7 @@
   "construct": "TODO: modules/data/capabilities/data-property-asset-blob/registry.ts; spec/SPEC.md (Blob asset property); modules/data/capabilities/data-property-asset-blob/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-property-asset-blob.test.ts; spec/conformance/data-property-asset-blob; tests/oracle/data-property-asset-blob",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-property-asset-blob; tests/oracle/data-property-asset-blob",
   "phase": "P4e"
  },
  {
@@ -3096,7 +3096,7 @@
   "construct": "TODO: modules/data/capabilities/data-property-asset-font/registry.ts; spec/SPEC.md (Font asset property); modules/data/capabilities/data-property-asset-font/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-property-asset-font.test.ts; spec/conformance/data-property-asset-font; tests/oracle/data-property-asset-font",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-property-asset-font; tests/oracle/data-property-asset-font",
   "phase": "P4e"
  },
  {
@@ -3106,7 +3106,7 @@
   "construct": "TODO: modules/data/capabilities/data-property-asset-image/registry.ts; spec/SPEC.md (Image asset property); modules/data/capabilities/data-property-asset-image/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-property-asset-image.test.ts; spec/conformance/data-property-asset-image; tests/oracle/data-property-asset-image",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-property-asset-image; tests/oracle/data-property-asset-image",
   "phase": "P4e"
  },
  {
@@ -3116,7 +3116,7 @@
   "construct": "TODO: modules/data/capabilities/data-property-boolean/registry.ts; spec/SPEC.md (Boolean property); modules/data/capabilities/data-property-boolean/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-property-boolean.test.ts; spec/conformance/data-property-boolean; tests/oracle/data-property-boolean",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-property-boolean; tests/oracle/data-property-boolean",
   "phase": "P4e"
  },
  {
@@ -3126,7 +3126,7 @@
   "construct": "TODO: modules/data/capabilities/data-property-color/registry.ts; spec/SPEC.md (Color property); modules/data/capabilities/data-property-color/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-property-color.test.ts; spec/conformance/data-property-color; tests/oracle/data-property-color",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-property-color; tests/oracle/data-property-color",
   "phase": "P4e"
  },
  {
@@ -3136,7 +3136,7 @@
   "construct": "TODO: modules/data/capabilities/data-property-enum-custom/registry.ts; spec/SPEC.md (Custom enum property); modules/data/capabilities/data-property-enum-custom/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-property-enum-custom.test.ts; spec/conformance/data-property-enum-custom; tests/oracle/data-property-enum-custom",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-property-enum-custom; tests/oracle/data-property-enum-custom",
   "phase": "P4e"
  },
  {
@@ -3146,7 +3146,7 @@
   "construct": "TODO: modules/data/capabilities/data-property-enum-system/registry.ts; spec/SPEC.md (System enum property); modules/data/capabilities/data-property-enum-system/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-property-enum-system.test.ts; spec/conformance/data-property-enum-system; tests/oracle/data-property-enum-system",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-property-enum-system; tests/oracle/data-property-enum-system",
   "phase": "P4e"
  },
  {
@@ -3156,7 +3156,7 @@
   "construct": "TODO: modules/data/capabilities/data-property-list/registry.ts; spec/SPEC.md (List property); modules/data/capabilities/data-property-list/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-property-list.test.ts; spec/conformance/data-property-list; tests/oracle/data-property-list",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-property-list; tests/oracle/data-property-list",
   "phase": "P4e"
  },
  {
@@ -3166,7 +3166,7 @@
   "construct": "TODO: modules/data/capabilities/data-property-number/registry.ts; spec/SPEC.md (Number property); modules/data/capabilities/data-property-number/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-property-number.test.ts; spec/conformance/data-property-number; tests/oracle/data-property-number",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-property-number; tests/oracle/data-property-number",
   "phase": "P4e"
  },
  {
@@ -3176,7 +3176,7 @@
   "construct": "TODO: modules/data/capabilities/data-property-string/registry.ts; spec/SPEC.md (String property); modules/data/capabilities/data-property-string/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-property-string.test.ts; spec/conformance/data-property-string; tests/oracle/data-property-string",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-property-string; tests/oracle/data-property-string",
   "phase": "P4e"
  },
  {
@@ -3206,7 +3206,7 @@
   "construct": "TODO: modules/data/capabilities/data-property-trigger/registry.ts; spec/SPEC.md (Trigger property); modules/data/capabilities/data-property-trigger/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-property-trigger.test.ts; spec/conformance/data-property-trigger; tests/oracle/data-property-trigger",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-property-trigger; tests/oracle/data-property-trigger",
   "phase": "P4e"
  },
  {
@@ -3216,7 +3216,7 @@
   "construct": "TODO: modules/data/capabilities/data-property-view-model/registry.ts; spec/SPEC.md (Nested model property); modules/data/capabilities/data-property-view-model/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-property-view-model.test.ts; spec/conformance/data-property-view-model; tests/oracle/data-property-view-model",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-property-view-model; tests/oracle/data-property-view-model",
   "phase": "P4e"
  },
  {
@@ -3246,7 +3246,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-range-modulo",
   "phase": "P4e"
  },
  {
@@ -3256,7 +3256,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-range-reverse",
   "phase": "P4e"
  },
  {
@@ -3286,7 +3286,7 @@
   "construct": "TODO: modules/data/capabilities/data-state-action-trigger/registry.ts; spec/SPEC.md (State or transition model trigger); modules/data/capabilities/data-state-action-trigger/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-state-action-trigger.test.ts; spec/conformance/data-state-action-trigger; tests/oracle/data-state-action-trigger",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-state-action-trigger; tests/oracle/data-state-action-trigger",
   "phase": "P4e"
  },
  {
@@ -3296,7 +3296,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-horizontal-text-align/registry.ts; spec/SPEC.md (System enum: horizontalTextAlign); modules/data/capabilities/data-system-enum-horizontal-text-align/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-horizontal-text-align.test.ts; spec/conformance/data-system-enum-horizontal-text-align; tests/oracle/data-system-enum-horizontal-text-align",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-horizontal-text-align; tests/oracle/data-system-enum-horizontal-text-align",
   "phase": "P4e"
  },
  {
@@ -3306,7 +3306,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-layout-alignment/registry.ts; spec/SPEC.md (System enum: layoutAlignment); modules/data/capabilities/data-system-enum-layout-alignment/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-layout-alignment.test.ts; spec/conformance/data-system-enum-layout-alignment; tests/oracle/data-system-enum-layout-alignment",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-layout-alignment; tests/oracle/data-system-enum-layout-alignment",
   "phase": "P4e"
  },
  {
@@ -3316,7 +3316,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-layout-direction/registry.ts; spec/SPEC.md (System enum: layoutDirection); modules/data/capabilities/data-system-enum-layout-direction/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-layout-direction.test.ts; spec/conformance/data-system-enum-layout-direction; tests/oracle/data-system-enum-layout-direction",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-layout-direction; tests/oracle/data-system-enum-layout-direction",
   "phase": "P4e"
  },
  {
@@ -3326,7 +3326,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-layout-display/registry.ts; spec/SPEC.md (System enum: layoutDisplay); modules/data/capabilities/data-system-enum-layout-display/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-layout-display.test.ts; spec/conformance/data-system-enum-layout-display; tests/oracle/data-system-enum-layout-display",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-layout-display; tests/oracle/data-system-enum-layout-display",
   "phase": "P4e"
  },
  {
@@ -3336,7 +3336,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-layout-flex-direction/registry.ts; spec/SPEC.md (System enum: layoutFlexDirection); modules/data/capabilities/data-system-enum-layout-flex-direction/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-layout-flex-direction.test.ts; spec/conformance/data-system-enum-layout-flex-direction; tests/oracle/data-system-enum-layout-flex-direction",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-layout-flex-direction; tests/oracle/data-system-enum-layout-flex-direction",
   "phase": "P4e"
  },
  {
@@ -3346,7 +3346,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-layout-position/registry.ts; spec/SPEC.md (System enum: layoutPosition); modules/data/capabilities/data-system-enum-layout-position/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-layout-position.test.ts; spec/conformance/data-system-enum-layout-position; tests/oracle/data-system-enum-layout-position",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-layout-position; tests/oracle/data-system-enum-layout-position",
   "phase": "P4e"
  },
  {
@@ -3356,7 +3356,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-layout-position-units/registry.ts; spec/SPEC.md (System enum: layoutPositionUnits); modules/data/capabilities/data-system-enum-layout-position-units/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-layout-position-units.test.ts; spec/conformance/data-system-enum-layout-position-units; tests/oracle/data-system-enum-layout-position-units",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-layout-position-units; tests/oracle/data-system-enum-layout-position-units",
   "phase": "P4e"
  },
  {
@@ -3366,7 +3366,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-layout-scale-type/registry.ts; spec/SPEC.md (System enum: layoutScaleType); modules/data/capabilities/data-system-enum-layout-scale-type/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-layout-scale-type.test.ts; spec/conformance/data-system-enum-layout-scale-type; tests/oracle/data-system-enum-layout-scale-type",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-layout-scale-type; tests/oracle/data-system-enum-layout-scale-type",
   "phase": "P4e"
  },
  {
@@ -3376,7 +3376,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-layout-wrap/registry.ts; spec/SPEC.md (System enum: layoutWrap); modules/data/capabilities/data-system-enum-layout-wrap/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-layout-wrap.test.ts; spec/conformance/data-system-enum-layout-wrap; tests/oracle/data-system-enum-layout-wrap",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-layout-wrap; tests/oracle/data-system-enum-layout-wrap",
   "phase": "P4e"
  },
  {
@@ -3386,7 +3386,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-scroll-direction/registry.ts; spec/SPEC.md (System enum: scrollDirection); modules/data/capabilities/data-system-enum-scroll-direction/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-scroll-direction.test.ts; spec/conformance/data-system-enum-scroll-direction; tests/oracle/data-system-enum-scroll-direction",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-scroll-direction; tests/oracle/data-system-enum-scroll-direction",
   "phase": "P4e"
  },
  {
@@ -3396,7 +3396,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-semantic-check-state/registry.ts; spec/SPEC.md (System enum: semanticCheckState); modules/data/capabilities/data-system-enum-semantic-check-state/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-semantic-check-state.test.ts; spec/conformance/data-system-enum-semantic-check-state; tests/oracle/data-system-enum-semantic-check-state",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-semantic-check-state; tests/oracle/data-system-enum-semantic-check-state",
   "phase": "P4e"
  },
  {
@@ -3406,7 +3406,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-text-box/registry.ts; spec/SPEC.md (System enum: textBox); modules/data/capabilities/data-system-enum-text-box/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-text-box.test.ts; spec/conformance/data-system-enum-text-box; tests/oracle/data-system-enum-text-box",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-text-box; tests/oracle/data-system-enum-text-box",
   "phase": "P4e"
  },
  {
@@ -3416,7 +3416,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-text-overflow/registry.ts; spec/SPEC.md (System enum: textOverflow); modules/data/capabilities/data-system-enum-text-overflow/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-text-overflow.test.ts; spec/conformance/data-system-enum-text-overflow; tests/oracle/data-system-enum-text-overflow",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-text-overflow; tests/oracle/data-system-enum-text-overflow",
   "phase": "P4e"
  },
  {
@@ -3426,7 +3426,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-text-trim-bottom/registry.ts; spec/SPEC.md (System enum: textTrimBottom); modules/data/capabilities/data-system-enum-text-trim-bottom/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-text-trim-bottom.test.ts; spec/conformance/data-system-enum-text-trim-bottom; tests/oracle/data-system-enum-text-trim-bottom",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-text-trim-bottom; tests/oracle/data-system-enum-text-trim-bottom",
   "phase": "P4e"
  },
  {
@@ -3436,7 +3436,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-text-trim-top/registry.ts; spec/SPEC.md (System enum: textTrimTop); modules/data/capabilities/data-system-enum-text-trim-top/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-text-trim-top.test.ts; spec/conformance/data-system-enum-text-trim-top; tests/oracle/data-system-enum-text-trim-top",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-text-trim-top; tests/oracle/data-system-enum-text-trim-top",
   "phase": "P4e"
  },
  {
@@ -3446,7 +3446,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-vertical-text-align/registry.ts; spec/SPEC.md (System enum: verticalTextAlign); modules/data/capabilities/data-system-enum-vertical-text-align/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-vertical-text-align.test.ts; spec/conformance/data-system-enum-vertical-text-align; tests/oracle/data-system-enum-vertical-text-align",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-vertical-text-align; tests/oracle/data-system-enum-vertical-text-align",
   "phase": "P4e"
  },
  {
@@ -3456,7 +3456,7 @@
   "construct": "TODO: modules/data/capabilities/data-system-enum-word-wrap/registry.ts; spec/SPEC.md (System enum: wordWrap); modules/data/capabilities/data-system-enum-word-wrap/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/data-system-enum-word-wrap.test.ts; spec/conformance/data-system-enum-word-wrap; tests/oracle/data-system-enum-word-wrap",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-word-wrap; tests/oracle/data-system-enum-word-wrap",
   "phase": "P4e"
  },
  {
@@ -3466,7 +3466,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-template-argument-number",
   "phase": "P4e"
  },
  {
@@ -3476,7 +3476,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-template-argument-string",
   "phase": "P4e"
  },
  {
@@ -3486,7 +3486,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-trim-all",
   "phase": "P4e"
  },
  {
@@ -3496,7 +3496,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-trim-end",
   "phase": "P4e"
  },
  {
@@ -3506,7 +3506,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-trim-none",
   "phase": "P4e"
  },
  {
@@ -3516,7 +3516,7 @@
   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
   "module": "data",
   "status": "done",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-trim-start",
   "phase": "P4e"
  },
  {
@@ -3996,7 +3996,7 @@
   "construct": "TODO: modules/data/capabilities/drawing-paint-gradient-channel-binding/registry.ts; spec/SPEC.md (Gradient color channels); modules/data/capabilities/drawing-paint-gradient-channel-binding/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/drawing-paint-gradient-channel-binding.test.ts; spec/conformance/drawing-paint-gradient-channel-binding; tests/oracle/drawing-paint-gradient-channel-binding",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/drawing-paint-gradient-channel-binding; tests/oracle/drawing-paint-gradient-channel-binding",
   "phase": "P4e"
  },
  {
@@ -6728,7 +6728,7 @@
   "construct": "TODO: modules/data/capabilities/input-data-listener/registry.ts; spec/SPEC.md (View model listeners); modules/data/capabilities/input-data-listener/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/input-data-listener.test.ts; spec/conformance/input-data-listener; tests/oracle/input-data-listener",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/input-data-listener; tests/oracle/input-data-listener",
   "phase": "P4e"
  },
  {
@@ -7388,7 +7388,7 @@
   "construct": "TODO: modules/data/capabilities/input-write-data-constant/registry.ts; spec/SPEC.md (Write typed properties); modules/data/capabilities/input-write-data-constant/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/input-write-data-constant.test.ts; spec/conformance/input-write-data-constant; tests/oracle/input-write-data-constant",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/input-write-data-constant; tests/oracle/input-write-data-constant",
   "phase": "P4e"
  },
  {
@@ -7398,7 +7398,7 @@
   "construct": "TODO: modules/data/capabilities/input-write-data-copy/registry.ts; spec/SPEC.md (Copy live data); modules/data/capabilities/input-write-data-copy/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/input-write-data-copy.test.ts; spec/conformance/input-write-data-copy; tests/oracle/input-write-data-copy",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/input-write-data-copy; tests/oracle/input-write-data-copy",
   "phase": "P4e"
  },
  {
@@ -7408,7 +7408,7 @@
   "construct": "TODO: modules/data/capabilities/input-write-focused/registry.ts; spec/SPEC.md (Store focused); modules/data/capabilities/input-write-focused/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/input-write-focused.test.ts; spec/conformance/input-write-focused; tests/oracle/input-write-focused",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/input-write-focused; tests/oracle/input-write-focused",
   "phase": "P4e"
  },
  {
@@ -7418,7 +7418,7 @@
   "construct": "TODO: modules/data/capabilities/input-write-gamepad-axis/registry.ts; spec/SPEC.md (Store gamepad-axis); modules/data/capabilities/input-write-gamepad-axis/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/input-write-gamepad-axis.test.ts; spec/conformance/input-write-gamepad-axis; tests/oracle/input-write-gamepad-axis",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/input-write-gamepad-axis; tests/oracle/input-write-gamepad-axis",
   "phase": "P4e"
  },
  {
@@ -7428,7 +7428,7 @@
   "construct": "TODO: modules/data/capabilities/input-write-gamepad-button-pressed/registry.ts; spec/SPEC.md (Store gamepad-button-pressed); modules/data/capabilities/input-write-gamepad-button-pressed/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/input-write-gamepad-button-pressed.test.ts; spec/conformance/input-write-gamepad-button-pressed; tests/oracle/input-write-gamepad-button-pressed",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/input-write-gamepad-button-pressed; tests/oracle/input-write-gamepad-button-pressed",
   "phase": "P4e"
  },
  {
@@ -7438,7 +7438,7 @@
   "construct": "TODO: modules/data/capabilities/input-write-gamepad-button-value/registry.ts; spec/SPEC.md (Store gamepad-button-value); modules/data/capabilities/input-write-gamepad-button-value/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/input-write-gamepad-button-value.test.ts; spec/conformance/input-write-gamepad-button-value; tests/oracle/input-write-gamepad-button-value",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/input-write-gamepad-button-value; tests/oracle/input-write-gamepad-button-value",
   "phase": "P4e"
  },
  {
@@ -7448,7 +7448,7 @@
   "construct": "TODO: modules/data/capabilities/input-write-gamepad-changed-value/registry.ts; spec/SPEC.md (Store gamepad-changed-value); modules/data/capabilities/input-write-gamepad-changed-value/example.animl",
   "module": "data",
   "status": "done",
-  "test": "TODO: modules/data/test/core/input-write-gamepad-changed-value.test.ts; spec/conformance/input-write-gamepad-changed-value; tests/oracle/input-write-gamepad-changed-value",
+  "test": "modules/data/test/core/conformance.test.ts; spec/conformance/input-write-gamepad-changed-value; tests/oracle/input-write-gamepad-changed-value",
   "phase": "P4e"
  },
  {

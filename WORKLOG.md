@@ -177,3 +177,4 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-06 [claude]: launched AniML benchmark run (after AUTHORING data section) and P4e-7 parity bookkeeping (214 P4 rows → P4e done or a real phase; 41 uncovered data rows to check)
 
 - 2026-11-06 10:03 [codex-test]: P4e AniML scoreboard → 5/6 strict, 15 checks, 9 total errors including setup/docs; source/build parity and 27 ranking cases pass (evidence: benchmark animl/REPORT.md, verify.py).
+- 2026-11-06 [claude]: merged P4e-7 parity closure (547/1238; 160 P4e done, 54 → P5b/P3b/P6/P7/P9). Cleaned 124 done rows' test fields (scaffold TODO / nonexistent per-row test paths → existing conformance/oracle evidence); none lacked evidence (tools scope 342 pass)
