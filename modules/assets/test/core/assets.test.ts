@@ -101,6 +101,8 @@ describe('assets', () => {
         fit: 'contain',
         align: 'center',
         sampling: 'nearest',
+        wrapX: 'clamp',
+        wrapY: 'clamp',
       },
     });
   });
@@ -119,6 +121,7 @@ describe('assets', () => {
       contain: [20, 10],
       cover: [40, 20],
       fill: [20, 20],
+      resize: [20, 20],
       none: [8, 4],
       'scale-down': [8, 4],
       'fit-width': [20, 10],

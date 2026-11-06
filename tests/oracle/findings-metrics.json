@@ -178,6 +178,20 @@
     ]
   },
   {
+    "name": "drawing-paint-image-wrap-clamp",
+    "status": "finding",
+    "reason": "Unadjusted native probe: max delta 255, 54000/57600 pixels above 16 (93.75%). Anima clamp preserves the pre-existing fitted-rectangle transparent margin; native sampler clamp extends edge texels. Native clamp equivalence remains an implementation/design gap, not a passing oracle.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 255,
+        "over": 54000,
+        "overPercent": 93.75,
+        "pass": false
+      }
+    ]
+  },
+  {
     "name": "drawing-paint-detached-vertex",
     "status": "finding",
     "reason": "Rasterisation-only finding: observed native path commands and controls exactly equal Anima at 12px/unit. Equivalent coordinate representations differ by max 12 in resvg; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
@@ -977,6 +991,76 @@
         "maxDiff": 1,
         "over": 1,
         "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "assets-image-wrap-y-clamp",
+    "status": "finding",
+    "reason": "Unadjusted native probe: max delta 255, 10800/57600 pixels above 16 (18.75%). Anima clamp preserves the pre-existing fitted-rectangle transparent margin; native sampler clamp extends edge texels. Native clamp equivalence remains an implementation/design gap, not a passing oracle.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 255,
+        "over": 10800,
+        "overPercent": 18.75,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "assets-image-wrap-x-clamp",
+    "status": "finding",
+    "reason": "Unadjusted native probe: max delta 255, 10800/57600 pixels above 16 (18.75%). Anima clamp preserves the pre-existing fitted-rectangle transparent margin; native sampler clamp extends edge texels. Native clamp equivalence remains an implementation/design gap, not a passing oracle.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 255,
+        "over": 10800,
+        "overPercent": 18.75,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "assets-image-import-jpg",
+    "status": "finding",
+    "reason": "Independent decoder comparison, unchanged limits: [{\"time\":0,\"maxDiff\":40,\"over\":57600,\"overPercent\":100,\"pass\":false}]",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 40,
+        "over": 57600,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "assets-image-import-jpeg",
+    "status": "finding",
+    "reason": "Independent decoder comparison, unchanged limits: [{\"time\":0,\"maxDiff\":40,\"over\":57600,\"overPercent\":100,\"pass\":false}]",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 40,
+        "over": 57600,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "assets-image-filter-bilinear",
+    "status": "finding",
+    "reason": "Unadjusted native probe: max delta 27, 1017/57600 pixels above 16 (1.7656249999999998%). Bilinear resvg and native interpolation differ. Rasterization finding retained; no tolerance increase.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 27,
+        "over": 1017,
+        "overPercent": 1.765625,
         "pass": false
       }
     ]

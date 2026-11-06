@@ -252,6 +252,77 @@ for (const [name, engine, executablePath] of [
         1,
       );
     });
+    it('plays audio clip offsets and reports decoded-bound failures without starting a source', async () => {
+      await page.evaluate(() => {
+        window.audioLog = [];
+        Object.defineProperty(window, 'AudioContext', {
+          configurable: true,
+          value: class {
+            destination = {};
+            async resume() {}
+            async close() {}
+            createGain() {
+              return { gain: { value: 1 }, connect() {}, disconnect() {} };
+            }
+            async decodeAudioData() {
+              return { duration: 2 };
+            }
+            createBufferSource() {
+              return {
+                buffer: null,
+                onended: null,
+                connect() {},
+                disconnect() {},
+                stop() {},
+                start(...args: number[]) {
+                  window.audioLog.push(JSON.stringify(args));
+                },
+              };
+            }
+          },
+        });
+        const icon = window.eventIcon;
+        icon.player!.model.doc.assets = {
+          tone: { type: 'audio', source: 'unused', start: 0.2, end: 0.9 },
+        };
+        icon.assets = async () => new Blob([new Uint8Array([0])]);
+      });
+      await page.mouse.click(1, 1);
+      await page.evaluate(() => {
+        (customElements.get('anima-icon') as typeof AnimaIcon).eventHook!(
+          window.eventIcon,
+          'event',
+          { name: 'clip', layer: null, time: 0, audio: 'tone' },
+        );
+      });
+      await page.waitForFunction(() => window.audioLog.length === 1);
+      expect(await page.evaluate(() => window.audioLog)).toEqual(['[0,0.2,0.7]']);
+      const error = await page.evaluate(async () => {
+        const icon = window.eventIcon;
+        icon.player!.model.doc.assets.tone.end = 3;
+        const result = new Promise((resolve) =>
+          icon.addEventListener('anima:error', (event) => resolve((event as CustomEvent).detail), {
+            once: true,
+          }),
+        );
+        (customElements.get('anima-icon') as typeof AnimaIcon).eventHook!(icon, 'event', {
+          name: 'clip',
+          layer: null,
+          time: 0,
+          audio: 'tone',
+        });
+        return result;
+      });
+      expect(error).toEqual([
+        expect.objectContaining({
+          code: 'event-audio-load',
+          pointer: '/assets/tone/source',
+          message: expect.stringMatching(/./),
+          hint: expect.stringMatching(/./),
+        }),
+      ]);
+      expect(await page.evaluate(() => window.audioLog)).toHaveLength(1);
+    });
     it('drops pre-gesture audio; decodes on demand, caches, applies volume and closes on destroy', async () => {
       await page.evaluate(() => {
         window.audioLog = [];

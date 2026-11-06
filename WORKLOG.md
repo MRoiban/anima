@@ -1,10 +1,11 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. P4e merged (PR #16, 912b6c7). Now P5b on branch p5b (design/p5b/DESIGN.md); then P3b, P6–P10.
-State: main = P4e. Parity 547/1238. core+web 20109; full 93.6/100 KB (P5b ≤ +6 KB). Rive CLI 1.9.1, `update` allowed (owner).
-Next: wave 1 (Sol): lists, host-edit, assets, derive oracle follow-up; wave 2: data extras, components extras, benchmark.
-Don't: push to main; touch bind/host (full) — new modules instead; modify oracle findings or benchmark records; loosen budgets/tests.
+Goal: P5b-3 assets handoff on t3/implement-assets-capabilities; implementation/report in modules/assets/REPORT.md.
+Verified: scope 5385 pass/52 TODO (both engines), native 228 cases/424 samples strict green; base 20109 B, full95305 B (+1730).
+Evidence: 12 native-passing rows, 6 measured findings, 19 native pending; 2 audio-format conformance markers remain.
+Next: integration review; fix clamp edge extension and complete pending native/audio-format evidence.
+Don't: push/PR/merge, change parity status, tools/measurement inputs, thresholds/budgets, or other workstreams' modules.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -200,3 +201,21 @@ Don't: push to main; touch bind/host (full) — new modules instead; modify orac
 - 2026-11-06 [claude]: PR #16 green → merged (912b6c7). Owner updated Rive CLI to 1.9.1; `update` now allowed (memory rive-cli-rules). P5b design written; 19 rows moved (fonts→P6, GPU formats→P10, layout→P7, scripting→P9, PSD→later): 93 P5b rows
 - 2026-11-06 [claude]: launched P5b wave 1 (Sol): P5b-1 lists (xhigh), P5b-2 host-edit (xhigh), P5b-3 assets/sampling/import (xhigh), P4e follow-up derive + bind-comparison Rive captures (high)
 - 2026-11-06 17:50 [claude]: wave 1 died at launch: root disk full (21 MB free, 88 agent worktrees = 12 GB) → T3 SQLITE_FULL; 0 commits on all 4 branches. Removed 86 clean worktrees (branches kept) → 13 GB free; kept 2 dirty ones (saved in refs/wip). Relaunching wave 1
+
+- 2026-11-06 16:50 [assets]: read task/design/spec/architecture and baseline history; scaffold failed because node_modules absent → npm ci in progress (unverified).
+
+- 2026-11-06 17:11 [assets]: scaffolded all 37 rows, implemented metadata/policy/media, clip events, sampling and build/import; pipeline unit tests 13/13 pass. Initial failures: absent dependencies, compound metadata parsing, resvg WebP decoder, importer basename; fixed. Browser wrap and surface 8291/8192 still under investigation (unverified).
+
+- 2026-11-06 17:38 [assets]: native 13 captures → 8 exact (max 0), bilinear finding max27/1017 pixels>16, clamp findings max255/10800 or54000, SVG bilinear repeat max188/36852 now declined. CLI maps pixelated→optimizeSpeed for resvg. Static+scope final checks next; prior concurrent module-order/encoder runs timed out unchanged (unverified under load).
+
+- 2026-11-06 18:33 [assets]: final requested scope 5385 pass/52 TODO in473.99s; added exact-boundary bilinear seam checks pass2/2 unchanged bound2; native JPEG/JPG max40 all57600 pixels differ, PNG0/WebP1/importSVG1/Lottie0. Existing216 native entries and18 findings unchanged; cap examples37/37 compiled (evidence: modules/assets/verification, REPORT.md).
+
+- 2026-11-06 18:50 [assets]: genuine WAV host decoding passes both engines (800 samples/8 kHz/0.1s and PCM0,-1), all8 asset browser tests pass; WAV conformance completed, FLAC/MP3 remain pending. Rive capture initially needed project cwd for screenshot paths; rerun succeeded. Final full-scope rerun next (evidence: /tmp/p5b-browser-host-final.log).
+
+- 2026-11-06 19:03 [assets]: final scope → 5385 pass/52 TODO in465.00s, both engines; original216 oracle entries/18 findings and1238 parity statuses unchanged. Preparing final static checks and branch-only commit (evidence: modules/assets/verification/scope.txt).
+
+- 2026-11-06 19:13 [assets]: full requested scope green5385/52TODO; final CLI-only SVG colour/unit/warning hardening and case-insensitive excluded data URI pass11 CLI tests (evidence: modules/assets/verification/cli.txt). Runtime bytes/perf unchanged; static recheck and commit next.
+
+- 2026-11-06 19:20 [assets]: typecheck/eslint/prettier/modules/AniML/web/parity all exit0; final CLI+markup2409/2409 pass. Baseline216 oracle entries/18 findings and1238 parity statuses unchanged; clamp spec retains required edge extension, current gap labelled (evidence: modules/assets/verification/).
+
+- 2026-11-06 19:24 [assets]: committed P5b-3 partial implementation on t3/implement-assets-capabilities; 698 owned/generated/evidence files, clean staged whitespace; no push/PR/merge (evidence: git commit; modules/assets/REPORT.md).

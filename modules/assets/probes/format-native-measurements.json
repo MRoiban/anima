@@ -1,0 +1,50 @@
+[
+  {
+    "name": "assets-image-import-png",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "assets-image-import-jpeg",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 40,
+        "over": 57600,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "assets-image-import-jpg",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 40,
+        "over": 57600,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "assets-image-import-webp",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  }
+]

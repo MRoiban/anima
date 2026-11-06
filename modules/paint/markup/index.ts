@@ -4,13 +4,15 @@ import type { Compiler, Form, Kind } from '../../../packages/markup/src/compile.
 import type { Element, Attr } from '../../../packages/markup/src/xml.ts';
 
 const kind = (s: Shape): Kind =>
-  s.k === 'num'
-    ? 'number'
-    : s.k === 'bool'
-      ? 'boolean'
-      : s.k === 'str' && s.re === NAME
-        ? 'name'
-        : 'string';
+  ['obj', 'map', 'any', 'alt'].includes(s.k)
+    ? 'json'
+    : s.k === 'num'
+      ? 'number'
+      : s.k === 'bool'
+        ? 'boolean'
+        : s.k === 'str' && s.re === NAME
+          ? 'name'
+          : 'string';
 // Structural arrays contain scalar tokens; tuple arity and enum/range constraints still belong
 // to the strict loader. Preserve the attribute origin for each decoded entry.
 function readShape(compiler: Compiler, a: Attr, shape: Shape, p: string): unknown {

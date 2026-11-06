@@ -1,0 +1,11 @@
+{
+  "status": "finding",
+  "reason": "Unadjusted native probe: max delta 27, 1017/57600 pixels above 16 (1.7656249999999998%). Bilinear resvg and native interpolation differ. Rasterization finding retained; no tolerance increase.",
+  "case": {
+    "name": "assets-image-filter-bilinear",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  }
+}

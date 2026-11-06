@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "assets.audio-import-flac: runtime declarations and CLI unit coverage exist; per-format independent conformance/oracle artifacts are pending"
+}

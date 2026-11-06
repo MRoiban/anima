@@ -1,0 +1,30 @@
+{
+  "anima": "0.1",
+  "name": "assets-image-wrap-y-clamp",
+  "grid": 8,
+  "requires": ["paint", "assets"],
+  "nodes": [
+    {
+      "id": "tile",
+      "type": "image",
+      "x0": 0,
+      "y0": 0,
+      "asset": "tile",
+      "fit": "none",
+      "align": "top-left",
+      "sampling": "nearest",
+      "wrapX": "clamp",
+      "wrapY": "clamp",
+      "width": 2,
+      "height": 8
+    }
+  ],
+  "assets": {
+    "tile": {
+      "type": "image",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGElEQVR4AQXBAQEAAAjDIG7/zhNE0k3CAz7tBf7utunjAAAAAElFTkSuQmCC",
+      "width": 2,
+      "height": 2
+    }
+  }
+}

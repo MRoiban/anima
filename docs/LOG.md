@@ -2209,3 +2209,15 @@ were regenerated/rechecked after the last validation fix. Main commit **85409b0*
 - **Open**: `bind` and `host` have no room — split before the next change; the full-featured page
   has ~9 KB left under its ceiling; the Rive CLI now refuses local commands until updated to 1.9.1
   (owner decision), so `derive` has no fresh native capture.
+
+
+## P5b-3 assets workstream (2026-11-06)
+
+Implemented resolver policy/metadata, optional media bytes and SVG sampling, clip playback,
+image encoding/inspection/export exclusion, and original SVG/Lottie importers. Core+web remains
+20109 B; full-featured 95305 B (+1730). Requested scope: 5385 pass / 52 TODO across Chromium and
+Firefox; 35 new independent conformance cases, two audio-format probes pending. Native evidence:
+12 passing rows, six unadjusted findings, 19 rows pending; strict 228 cases / 424 samples green.
+Clamp currently retains legacy transparent margins rather than native edge extension and remains
+incomplete. See modules/assets/REPORT.md for exact findings, byte budgets, validation and deviations.
+No phase completion or parity status promotion is claimed; no push/PR/merge.

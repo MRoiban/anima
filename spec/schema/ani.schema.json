@@ -1505,6 +1505,50 @@
           "height": {
             "type": "number",
             "exclusiveMinimum": 0
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "mime": {
+            "type": "string"
+          },
+          "duration": {
+            "type": "number",
+            "minimum": 0
+          },
+          "start": {
+            "type": "number",
+            "minimum": 0
+          },
+          "end": {
+            "type": "number",
+            "exclusiveMinimum": 0
+          },
+          "encode": {
+            "type": "string",
+            "enum": [
+              "png",
+              "jpeg",
+              "webp"
+            ]
+          },
+          "quality": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "export": {
+            "type": "boolean"
+          },
+          "metadata": {
+            "type": "object",
+            "properties": {
+              "$comment": {
+                "type": "string"
+              }
+            },
+            "additionalProperties": {}
           }
         },
         "required": [
@@ -10645,6 +10689,7 @@
                 "contain",
                 "cover",
                 "fill",
+                "resize",
                 "none",
                 "scale-down",
                 "fit-width",
@@ -10811,6 +10856,33 @@
                 "additionalProperties": false
               },
               "feature": "motion"
+            },
+            "wrap": {
+              "type": "string",
+              "enum": [
+                "clamp",
+                "repeat",
+                "mirror"
+              ],
+              "feature": "paint"
+            },
+            "wrapX": {
+              "type": "string",
+              "enum": [
+                "clamp",
+                "repeat",
+                "mirror"
+              ],
+              "feature": "paint"
+            },
+            "wrapY": {
+              "type": "string",
+              "enum": [
+                "clamp",
+                "repeat",
+                "mirror"
+              ],
+              "feature": "paint"
             },
             "blend": {
               "type": "string",

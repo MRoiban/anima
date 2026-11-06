@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "SVG bilinear repeat is explicitly unsupported after native capture: max delta 188, 36852/57600 pixels >16. Canvas implements periodic filtering; native canvas comparison pending."
+}

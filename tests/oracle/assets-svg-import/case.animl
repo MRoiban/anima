@@ -1,0 +1,11 @@
+<anima version="0.1" name="assets-svg-import" grid="20" viewBox="0 0 20 20" requires="paint">
+  <group id="svg-0">
+    <group id="svg-transform-4" x="2" y="3">
+      <group id="svg-transform-3" scaleX="2" scaleY="2">
+        <group id="svg-1">
+          <path id="svg-2" d="M0 0L4 0L4 4L0 4Z" fill="#d97757" fill-rule="nonzero" stroke="#000000" stroke-width="0.5" stroke-linecap="butt" stroke-linejoin="miter"/>
+        </group>
+      </group>
+    </group>
+  </group>
+</anima>

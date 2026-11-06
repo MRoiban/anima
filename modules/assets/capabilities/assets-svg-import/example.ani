@@ -1,0 +1,52 @@
+{
+  "anima": "0.1",
+  "name": "assets-svg-import",
+  "grid": 20,
+  "viewBox": [0, 0, 20, 20],
+  "requires": ["paint"],
+  "nodes": [
+    {
+      "id": "svg-0",
+      "type": "group",
+      "children": [
+        {
+          "id": "svg-transform-4",
+          "type": "group",
+          "x": 2,
+          "y": 3,
+          "children": [
+            {
+              "id": "svg-transform-3",
+              "type": "group",
+              "scaleX": 2,
+              "scaleY": 2,
+              "children": [
+                {
+                  "id": "svg-1",
+                  "type": "group",
+                  "children": [
+                    {
+                      "id": "svg-2",
+                      "type": "path",
+                      "d": "M0 0L4 0L4 4L0 4Z",
+                      "fill": {
+                        "color": "#d97757",
+                        "rule": "nonzero"
+                      },
+                      "stroke": {
+                        "color": "#000000",
+                        "width": 0.5,
+                        "cap": "butt",
+                        "join": "miter"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

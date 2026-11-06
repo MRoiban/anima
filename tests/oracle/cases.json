@@ -182,9 +182,9 @@
     "maxOverPercent": 0,
     "scripts": {
       "0": "instance first a 1\ninstance second b 0\nadvance 0",
+      "1": "instance first a 1\ninstance second b 1\nadvance 0",
       "0.25": "instance first a 1\ninstance second b 0.25\nadvance 0",
-      "0.5": "instance first a 1\ninstance second b 0.5\nadvance 0",
-      "1": "instance first a 1\ninstance second b 1\nadvance 0"
+      "0.5": "instance first a 1\ninstance second b 0.5\nadvance 0"
     }
   },
   {
@@ -234,9 +234,9 @@
     "maxOverPercent": 0,
     "scripts": {
       "0": "timeline t seek 1.5\nadvance 0",
+      "1": "timeline t seek 1.5\nadvance 0\ntimeline t seek 0.5\nadvance 0\ntimeline t seek 2\nadvance 0\ntimeline t seek 0\nadvance 0",
       "0.25": "timeline t seek 1.5\nadvance 0\ntimeline t seek 0.5\nadvance 0",
-      "0.75": "timeline t seek 1.5\nadvance 0\ntimeline t seek 0.5\nadvance 0\ntimeline t seek 2\nadvance 0",
-      "1": "timeline t seek 1.5\nadvance 0\ntimeline t seek 0.5\nadvance 0\ntimeline t seek 2\nadvance 0\ntimeline t seek 0\nadvance 0"
+      "0.75": "timeline t seek 1.5\nadvance 0\ntimeline t seek 0.5\nadvance 0\ntimeline t seek 2\nadvance 0"
     }
   },
   {
@@ -247,9 +247,9 @@
     "maxOverPercent": 0,
     "scripts": {
       "0": "timeline t scrub 0.75\nadvance 0",
+      "1": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0\ntimeline t scrub 1\nadvance 0\ntimeline t scrub 0\nadvance 0",
       "0.25": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0",
-      "0.75": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0\ntimeline t scrub 1\nadvance 0",
-      "1": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0\ntimeline t scrub 1\nadvance 0\ntimeline t scrub 0\nadvance 0"
+      "0.75": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0\ntimeline t scrub 1\nadvance 0"
     }
   },
   {
@@ -2580,5 +2580,89 @@
       "script": "script.txt",
       "reference": "rive/observations.json"
     }
+  },
+  {
+    "name": "assets-image-filter-nearest",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "drawing-paint-image-fit-resize",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "assets-image-wrap-x-repeat",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "assets-image-wrap-x-mirror",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "assets-image-wrap-y-repeat",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "assets-image-wrap-y-mirror",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "drawing-paint-image-wrap-repeat",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "drawing-paint-image-wrap-mirror",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "assets-svg-import",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "assets-lottie-import",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "assets-image-import-png",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "assets-image-import-webp",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
   }
 ]

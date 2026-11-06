@@ -156,7 +156,7 @@ export function decompile(doc: string | object): string {
       return element(
         'asset',
         a,
-        ['type', 'storage', 'width', 'height'],
+        Object.keys(ELEMENTS.asset!.shape.p).filter((k) => !['name', 'source'].includes(k)),
         [
           ['name', name],
           ['src', value(a.source)],

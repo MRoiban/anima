@@ -1,4 +1,5 @@
 import { after } from '../manifest.ts';
+import { samplingEntries } from './sampling.ts';
 import { geometry } from './geometry.ts';
 // Independently implemented from the SVG paint model; no Rive runtime algorithm is used.
 import type { Module } from '../../../packages/core/src/modules.ts';
@@ -271,19 +272,40 @@ export function enhancePaint(
 }
 export const paint: Module = {
   ...base,
-  entries: [...base.entries, ...geometry.entries],
+  init(registry) {
+    return {
+      ...this,
+      entries: this.entries.filter((e) => e.target !== 'image' || registry.has('assets')),
+    };
+  },
+  entries: [...base.entries, ...geometry.entries, ...samplingEntries],
   outline: geometry.outline,
   value: geometry.value,
   interpolate: geometry.interpolate,
   model: (n, k) => geometry.model?.(n, k) ?? base.model?.(n, k),
   draw: {
     tree(m, t) {
+      m.nodes.forEach((n, i) => {
+        if (String(n.type) !== 'image') return;
+        const r = n.raw;
+        t.nodes[i]!.imageWrap = [r.wrapX ?? r.wrap, r.wrapY ?? r.wrap].some(
+          (v) => v && v !== 'clamp',
+        );
+      });
       base.draw?.tree?.(m, t);
       geometry.draw?.tree?.(m, t);
     },
     frame(p, i, d, e, f) {
       geometry.draw?.frame?.(p, i, d, e, f);
       base.draw?.frame?.(p, i, d, e, f);
+      if (d.geometry?.image) {
+        const r = p.model.nodes[i]!.raw;
+        Object.assign(d.geometry.image, {
+          wrap: r.wrap,
+          wrapX: r.wrapX ?? r.wrap ?? 'clamp',
+          wrapY: r.wrapY ?? r.wrap ?? 'clamp',
+        });
+      }
     },
   },
 };

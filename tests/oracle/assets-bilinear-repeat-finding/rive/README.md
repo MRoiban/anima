@@ -1,0 +1,1 @@
+Original 2×2 RGBA tile and independently authored UV mesh. Captured with the local Rive CLI 1.9.1 in headless mode. The mesh stretches UVs beyond one to expose the selected sampler axes; it is not a converted native document. See modules/assets/REPORT.md for unadjusted differences.

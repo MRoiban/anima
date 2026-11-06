@@ -1,0 +1,30 @@
+{
+  "anima": "0.1",
+  "name": "assets-image-import-webp",
+  "grid": 8,
+  "requires": ["paint", "assets"],
+  "nodes": [
+    {
+      "id": "tile",
+      "type": "image",
+      "x0": 0,
+      "y0": 0,
+      "asset": "tile",
+      "fit": "resize",
+      "align": "top-left",
+      "sampling": "nearest",
+      "wrapX": "clamp",
+      "wrapY": "clamp",
+      "width": 8,
+      "height": 8
+    }
+  ],
+  "assets": {
+    "tile": {
+      "type": "image",
+      "source": "data:image/webp;base64,UklGRigCAABXRUJQVlA4WAoAAAAgAAAAAQAAAQAASUNDUMgBAAAAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADZWUDggOgAAANABAJ0BKgIAAgABQCYlmAJ0AQ7+A8gAAP7rx/LRnxP8Yv/6tDeYdjZACzQxR0/+LQ/t5/wa20m0AAA=",
+      "width": 2,
+      "height": 2
+    }
+  }
+}

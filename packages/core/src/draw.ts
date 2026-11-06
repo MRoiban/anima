@@ -59,6 +59,9 @@ export interface Geometry {
     fit: string;
     align: string;
     sampling: string;
+    wrap?: string;
+    wrapX?: string;
+    wrapY?: string;
   };
   kind: string;
   d?: string;
@@ -96,6 +99,7 @@ export function geometryLength(g: Geometry | undefined, owner: object = g!): num
   return value;
 }
 export interface DrawEntry {
+  imageWrap?: boolean;
   pointer?: string;
   /** Scoped identity supplied by nested draw trees. */
   id?: string;

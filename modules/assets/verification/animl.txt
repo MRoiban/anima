@@ -1,0 +1,18 @@
+Pending spec/conformance/assets-audio-import-flac/case.animl: assets.audio-import-flac: runtime declarations and CLI unit coverage exist; per-format independent conformance/oracle artifacts are pending
+Pending spec/conformance/assets-audio-import-mp3/case.animl: assets.audio-import-mp3: runtime declarations and CLI unit coverage exist; per-format independent conformance/oracle artifacts are pending
+Pending spec/conformance/data-bind-keyframes/case.animl: The decided design specifies scalar key values only in existing tracks; no data-backed keyframe representation or resampling policy is decided.
+Pending spec/conformance/data-bind-layout/case.animl: Layout consumers are P7; no layout dimensions/style target exists on this branch.
+Pending spec/conformance/data-bind-script-inputs/case.animl: Script inputs require the P9 VM and typed script interface.
+Pending spec/conformance/data-bind-text/case.animl: Text consumers are P6; no text-run target exists on this branch.
+Pending spec/conformance/data-binding-relative/case.animl: Local/default and named absolute paths work; upward lookup across heterogeneous component model contexts is not implemented.
+Pending spec/conformance/data-converter-color-formatting/case.animl: Hex/RGBA formatting is implemented and unit-tested; native decimal/hex/HSL component-marker patterns are not implemented. The decided design does not define marker syntax; the canonical parity row remains pending.
+Pending spec/conformance/data-converter-number-to-list/case.animl: Pure bounded index/repeated-item lists are implemented; retained default model-instance creation and identity are not. Data exposes no list-write or instance-creation hook, and making this converter retain instance state conflicts with the design’s only-interpolate-is-stateful rule. Needs a design/seam decision.
+Pending spec/conformance/data-converter-trigger/case.animl: Boolean/integer conversion is implemented; delivering an incremented trigger signal counter is not. Data bindings target animatable scalar node properties, while custom triggers are deliberately non-animatable; registerConverter alone exposes no trigger destination/write hook. Needs a binding destination seam.
+Pending spec/conformance/data-editor-preview-instance/case.animl: Preview naming metadata round-trips; the editor does not yet consume it.
+Pending spec/conformance/data-instance-export/case.animl: Export naming metadata round-trips; runtime export filtering is not implemented.
+Pending spec/conformance/data-property-artboard/case.animl: Artboard-reference is absent from the decided property type list; changing its consumer/representation needs a design decision.
+Pending spec/conformance/data-property-symbol-list-index/case.animl: The contextual list-position property and list instantiation scope are not specified in the decided design.
+Pending spec/conformance/data-property-text-style/case.animl: Text-style is absent from the decided property type list and depends on P6.
+Pending spec/conformance/data-script-model-api/case.animl: The requested scripting API requires P9 and is outside the defined data runtime contract.
+Pending spec/conformance/data-scripted-converter/case.animl: Scripted forward/reverse converter execution requires the P9 script VM/protocol; no VM exists in the decided P4e design.
+Checked 443 AniML files
