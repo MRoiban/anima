@@ -208,9 +208,18 @@ and an oracle test against Rive.
         restore the unchanged size gates. `npm run check`: 966 tests pass; markup 8010/8192 B.
 - [ ] P5b The rest of P5: asset pipelines (encodings, imports), library detach/update, lists,
       script instances (72 rows).
-- [ ] Pc **Canvas backend, minimal** — brought forward from P10 (owner, 2026-11-06): the draw layer
+- [x] Pc **Canvas backend, minimal** — brought forward from P10 (owner, 2026-11-06): the draw layer
       rendered to Canvas2D as `@anima-format/web/canvas`; runs every conformance case with a pixel
       comparison against the SVG backend; SVG stays the default for icons. Must exist before P8.
+  - [x] Opt-in heavy canvas module, DPR/ResizeObserver, draw-frame traversal and tiny host hook.
+  - [x] Both-engine visual corpus comparison, feature limits and measurements recorded in
+        `modules/canvas/test/web/README.md` and `RESULTS.md`.
+  - [x] Resolve 12 strict raster findings (9 Chromium, 3 Firefox) and obtain a green full check.
+        Pc-2: 169/169 frames per engine (338 total), full check 1442 tests green at default
+        concurrency; cached absolute SVG lengths, mask coverage and fractional nearest-image edges.
+        No tolerance/budget/timeout increase; 0.1 SVG bytes unchanged. See canvas RESULTS.md for
+        measured costs and the three retained explicit feature limits; phase/parity bookkeeping
+        remains with the integrating owner.
 - [ ] P4b `motion`: eases, typed/string tracks, seek/reverse/work area/quantize, host timeline
       control, animatable pivot.
 - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;

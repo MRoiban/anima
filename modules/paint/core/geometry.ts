@@ -1,7 +1,7 @@
 // Independent geometry constructions; SVG path grammar, no Rive source.
 import type { Module, ModuleEntry } from '../../../packages/core/src/modules.ts';
 import type { Shape, Prop } from '../../../packages/core/src/registry.ts';
-import { flatten, parsePath, pathLength } from '../../../packages/core/src/path.ts';
+import { flatten, parsePath } from '../../../packages/core/src/path.ts';
 import { fmt } from '../../../packages/core/src/draw.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
@@ -248,22 +248,4 @@ function sampledPath(p: Player, i: number): string | undefined {
     );
   }
   return a.d;
-}
-
-/** Natural local outline length. Relative dashes are resolved before any backend sees a frame. */
-export function outlineLength(
-  g: import('../../../packages/core/src/draw.ts').Geometry | undefined,
-): number {
-  if (!g) return 0;
-  if (g.d !== undefined) return pathLength(g.d);
-  if (g.kind === 'circle') return 2 * Math.PI * g.r!;
-  const w = g.width!,
-    h = g.height!,
-    r = g.rx ?? 0,
-    rx = Math.min(r, w / 2),
-    ry = Math.min(r, h / 2);
-  return (
-    2 * (w + h - 2 * rx - 2 * ry) +
-    (rx && ry ? 4 * pathLength(`M${rx} 0A${rx} ${ry} 0 0 1 0 ${ry}`) : 0)
-  );
 }

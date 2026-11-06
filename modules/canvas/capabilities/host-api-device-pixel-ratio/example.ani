@@ -1,0 +1,16 @@
+{
+  "anima": "0.1",
+  "name": "host-api-device-pixel-ratio",
+  "grid": 20,
+  "nodes": [
+    {
+      "id": "probe",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 7,
+      "fill": {
+        "color": "#4f80d9"
+      }
+    }
+  ]
+}

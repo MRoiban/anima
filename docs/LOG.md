@@ -1217,3 +1217,116 @@ a green default-concurrency full run is made. Final log: `/tmp/anima-d3-bounded-
 Perf in that scratch run: bell compile 2.03 ms, 9040 prefixes 792 ms; bell/composite frames
 34.6/22.9 µs; toolbar frame 27.0 µs, compile 2.93 ms. These are observations, not a speed change claim.
 All three scratch rows remain outside the commit. No push, PR or merge.
+
+## Pc — optional Canvas2D backend (partial; local implementation)
+
+`@anima-format/web/canvas` installs `renderer="canvas"`; SVG stays the default. The module consumes
+DrawFrame directly, with Path2D/primitives, colours/gradients, ordered paints and stroke settings,
+transforms, isolated opacity/masks/blends, clips, knockout, images/patterns/modulation, components,
+n-slice and Gaussian feathering. World feather supports nonuniform node transforms. It declines
+partial fixed-stroke trims, nonuniform/sheared local feather and nonuniform viewport feather with
+`unsupported-render`. DPR override/reporting, ResizeObserver, resolution changes and lifecycle are
+module-owned; the same host player/scheduler/visibility/motion/core hit testing serve both backends.
+The small optional backend and sleeping scheduler follow docs/research/rive-web-runtime.md; the
+draw-data separation follows docs/research/rive-format-and-graph.md. No Rive source/commands/files.
+
+Scaffolder used (dry-run then real) for all three requested parity rows, with host-only registry
+notes, paired examples, neutral core conformance and explicit static-oracle skip notes. Pc/parity
+remain open. No new document vocabulary or CLI/schema change. The only handwritten shared test
+change is the exact AniML corpus census 41→44 for three completed probes; no limit is loosened.
+
+Metrics: canvas 4114/8192 B; core+web 17963 vs 17789 (+174 B renderer hook, core unchanged);
+full SVG 44537 B; Rive-class 48570/256000 B. All existing module budgets pass. Browser bell step+draw:
+394.0 / 438.3 µs Chromium/Firefox (600 frames, median of 3); Node unchanged workload: compile bell
+2.29 ms / prefix sweep 686 ms; bell/composite/toolbar frame 43.7/28.1/32.6 µs, toolbar compile 4.37 ms.
+Previous D3 scratch observations: 2.03 ms/792 ms, 34.6/22.9/27.0 µs, 2.93 ms (not same-session).
+
+Required full check: 1413 pass, 14 fail (12 raster findings, stale census since fixed, known Chromium
+demo timeout). Final type/lint/format/size/artifact checks pass; core/conformance/oracle/markup scope
+184/184, final canvas host tests 14/14, isolated demo/colour/interaction 8/8. Both engines compared
+169 frames / 59 visual documents: 160/169 Chromium, 166/169 Firefox within the original limits;
+worst 255 / 0.934028% and 254 / 0.649306% over 16. Findings remain failing tests. Final canvas+web
+scope reproduced the 12 pixel findings and demo timeout; an idle-test paint race was subsequently
+fixed and checked narrowly. No green full check claimed. Detailed per-case numbers, limits,
+unsupported features and failures: modules/canvas/test/web/{README,RESULTS}.md and measurements.json.
+Actual branch t3/canvas-renderer-backend; commit only, no push/PR/merge.
+
+
+## Pc-2 — SVG / Canvas strict parity (2026-11-06)
+
+All **338/338** comparisons pass: **169/169 Chromium and 169/169 Firefox** across 59 visual
+sources; the request's 338 count is the two-engine total. Worst delta / share strictly over 16:
+**92 / 0.206597% Chromium**, **128 / 0.260417% Firefox**. The measuring method, feature classes,
+thresholds, budgets and test timeouts are unchanged. Per-frame raw measurements and full notes:
+`modules/canvas/test/web/{measurements.json,RESULTS.md}`.
+
+Live/static SVG now emit core grid-unit dashes/trims rather than engine-normalized pathLength.
+A shared pure length helper caches one measurement per retained geometry owner, invalidated by
+path/radius/dimension/corner changes; transforms, paints and trim values reuse it. Circle lengths
+use 2πr, rather than Chromium's shorter native normalization. `staticLengths` remains accepted.
+The inverted-luminance filter now multiplies luminance-to-alpha by SourceGraphic alpha before
+inversion, retaining opacity and AA coverage. Transforms, permanent masks and identity attributes
+retain the rules in ARCHITECTURE and the web-runtime research; no renderer-specific policy enters
+module draw hooks. Assets frame 1 was nearest drawImage boundary snapping, not fit/decode/smoothing:
+Canvas extends clamped border texels through an intersected geometric clip. A repeating shader
+prototype was rejected after a distinct-colour edge probe exposed wrapping; the new regression
+pins fractional red/blue edge colours and coverage. Coincident image/viewport clips intersect once,
+so coverage is not multiplied. No image coordinates or fit math were shifted.
+
+**0.1 static SVG compatibility: byte-identical, yes. Changed outputs: none.** Bell, moon and trash
+retain their original pinned hashes for both serialization modes at rest and three stepped times;
+no expectation changed. Extended dash/trim SVG and inverted-luminance output intentionally change
+to fix the above correctness errors, specified in SPEC alongside tests. Player.step output is
+unchanged. No runtime dependencies or new diagnostics were added; no Rive commands, source or
+binary reading, push, PR or merge.
+
+The demo test rebuilt/minified 14 entries inside its original 15 s deadline for each engine. It now
+checks source fingerprint, bundle hash and exact demo/template bytes before the same browser checks;
+pretest and the full check still rebuild/verify every artifact. A fake-rAF bind-registration wait
+could deadlock before the clock starts; wall-time polling fixes the wait while the next-frame
+assertion stays exact. No timeout or concurrency setting changed.
+
+Final verification: explicit `npx prettier --check .`, `npx eslint .`, and default `npm run check`
+pass; **60 test files / 1442 tests, no skips**, 98.30 s test phase. All 14 browser / 60 AniML
+artifacts, module wiring, size and oracle checks pass. Earlier full run: 1440 tests passed before
+final image-edge review; subsequent focused edge checks 4/4. Development scopes included canvas,
+paint, composite, assets, bind, web and core. Failed exploratory probes/expectations and fixes are
+recorded in WORKLOG; no source skips or TODO probes hide a finding.
+
+Same-harness, sequential baseline 4bed807 → final browser costs (µs/frame, 600 frames, one warm-up,
+median of three; SVG retained diff/order, Canvas raster submission, no vsync): Chromium bell
+SVG **87.5→80.7**, Canvas **292.8→254.2**; Firefox bell **90.0→71.7**, **388.3→285.0**.
+Animated paint with percentage dashes: Chromium **45.5→41.8 / 55.3→36.3**, Firefox
+**55.0→35.0 / 291.7→260.0** (SVG / Canvas). Timings vary; this is not a general speedup claim.
+Final full-suite browser bell observations, under contention: Chromium **244.7/649.2**, Firefox
+**150.0/498.3**. Node's unchanged perf line: bell compile **1.84 ms** / 9040 prefixes **547 ms**;
+bell/composite/toolbar step+draw **31.7/20.8/23.6 µs**, toolbar compile **2.93 ms**. Previous Pc-1
+line: 2.29 ms / 686 ms; 43.7/28.1/32.6 µs; 4.37 ms (different session/load).
+
+Min+gzip: core+web **18452 B** (Pc-1 17963; **+489 B**, natural-length code is now live),
+canvas **3991/8192 B** (Pc-1 4114), paint **3935/5120**, composite **3904/4096**, bind **1554/2048**,
+assets **1513/2048**, surface **7536/8192**, components **4000/4096**, markup **7358/8192**;
+remaining hook/library budgets pass. SVG full-featured **44639/102400 B**, Rive-class
+**48796/256000 B**. Every unchanged ceiling passes. Canvas's three explicit partial modes remain;
+Pc phase/parity integration belongs to the owner. Implementation branch: t3/svg-canvas-renderer-parity.
+
+## Pc — the canvas backend, minimal (2026-11-06)
+
+Brought forward from P10 by the owner so it exists before rigging. `<anima-icon renderer="canvas">`
+(module `canvas`, heavy, loaded only on demand) draws the renderer-neutral draw frame with Canvas2D:
+21 of 24 feature groups fully (paths and primitives, colours and slots, gradients, strokes and
+dashes, fixed strokes, transforms, visibility, opacity groups, clips, all four mask modes, blend
+modes, images and image paints, components, n-slice, knockouts), three with documented limits that
+report `unsupported-render` (partial trims on fixed strokes, local feather under nonuniform/sheared
+transforms, world feather under nonuniform viewport scale). DPR-crisp backing surface, resize,
+same scheduler, visibility pause and reduced motion as SVG.
+
+- **Both backends agree**: every visual conformance case and example rendered in both, in Chromium
+  and Firefox — 338/338 comparisons within limits. Getting there fixed the SVG backend: dash and
+  trim lengths now come from core (Chromium measured an r=8 circle as 49.94 instead of 50.27),
+  inverted-luminance masks are antialiased, image edges aligned. Static SVG for 0.1 icons unchanged.
+- **Numbers**: canvas 4 114 / 8 192 B; core + web 17 789 → 17 963 B (+174 B renderer hook); Rive-class
+  total 48.6 KB / 250 KB. Browser bell per frame, SVG / canvas: Chromium 80.7 / 254.2 µs, Firefox
+  71.7 / 285.0 µs. The standalone-demo test no longer rebuilds bundles (it used to time out under load).
+- **Benchmark**: none for Pc — it adds no authoring surface (a renderer choice); the P5 and P4b runs
+  stand.

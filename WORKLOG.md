@@ -1,9 +1,9 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now in parallel: Pc canvas backend (branch pc-canvas) and P4b motion (branch p4b-motion); then P4c–e, P5b, P3b, P6–P10.
-State: main dfbfcfc = through P5 + process changes (PR #11). Parity 234/1238. core+web 17789; full-featured 44.3 KB.
-Next: merge each agent's work into its branch, benchmark per phase, PR per phase (full suite in CI). Before every push: prettier --check . and eslint (CI failed once on formatting).
+Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
+State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
+Next: P5-7 (markup owner) running → then D1 module folders + D2 scoped tests (parallel) → D3 new-capability scaffolder → P5 AniML benchmark run → P5 PR (full check in CI).
 Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
 Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
 
@@ -93,4 +93,5 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-07 07:00 [claude]: merged P5 AniML benchmark run (a80efc3): agent 5/6, re-check 6/6 (pop renders 1.25 with its script; sheet never triggered it); 3m43s vs Rive 10m48s; findings: on-change condition → P4c, text → P6, script set-before-advance documented
 - 2026-11-07 09:30 [claude]: merged D1 module folders (d9510ae): 6 modules + libraries in folders, generator --check, 12 orders identical; core+web 17789 (+248, logged); test:scope paint 12 files/4.2 s; next D3 scaffolder then P5 PR
 - 2026-11-06 11:00 [claude]: merged D3 scaffolder (c7e3012): 31 files per row, idempotent; opening P5 PR (full suite in CI)
-- 2026-11-06 12:00 [claude]: PR #11 merged (dfbfcfc, CI green after a formatting fix); launching Pc canvas and P4b motion in parallel (module folders make it conflict-free)
+- 2026-11-06 16:00 [claude]: merged Pc-1 canvas (d7fb13d) into pc-canvas: canvas 4114/8192, core+web 17963 (+174), 326/338 cross-backend comparisons; findings are SVG-side (Chromium pathLength on circles, inverted-luminance aliasing, one image frame) → Pc-2
+- 2026-11-06 21:00 [claude]: merged Pc-2 (6595b11): 338/338 both engines, full check green 1442; parity Pc 3 rows done (237/1238); opening Pc PR

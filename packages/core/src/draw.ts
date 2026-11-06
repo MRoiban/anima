@@ -1,4 +1,5 @@
 // Renderer-neutral draw data. No DOM, CSS attributes, element tags or renderer callbacks.
+import { pathLength } from './path.ts';
 import { formatHex } from './color.ts';
 import type { Mat } from './geom.ts';
 import type { Model } from './load.ts';
@@ -38,7 +39,7 @@ export interface DrawPaint {
   join?: string;
   trim?: { start: number; end: number; offset: number };
   dash?: number[];
-  /** Authored fractions retained as neutral unit metadata for normalized SVG output. */
+  /** Authored fractions retained as neutral unit metadata; backends use resolved grid lengths. */
   dashNormalized?: number[];
   dashOffsetNormalized?: number;
   dashOffset?: number;
@@ -65,6 +66,30 @@ export interface Geometry {
   width?: number;
   height?: number;
   rx?: number;
+}
+// One current measurement per retained geometry owner. Transform/paint changes reuse the
+// length; morphs, radii and dimensions invalidate it. Weak keys bound lifetime to the scene.
+const lengths = new WeakMap<object, { signature: unknown[]; value: number }>();
+export function geometryLength(g: Geometry | undefined, owner: object = g!): number {
+  if (!g) return 0;
+  const signature = [g.d, g.r, g.width, g.height, g.rx];
+  const cached = lengths.get(owner);
+  if (cached && signature.every((v, i) => v === cached.signature[i])) return cached.value;
+  let value: number;
+  if (g.d !== undefined) value = pathLength(g.d);
+  else if (g.kind === 'circle') value = 2 * Math.PI * g.r!;
+  else {
+    const w = g.width!,
+      h = g.height!,
+      r = g.rx ?? 0;
+    const rx = Math.min(r, w / 2),
+      ry = Math.min(r, h / 2);
+    value =
+      2 * (w + h - 2 * rx - 2 * ry) +
+      (rx && ry ? 4 * pathLength(`M${rx} 0A${rx} ${ry} 0 0 1 0 ${ry}`) : 0);
+  }
+  lengths.set(owner, { signature, value });
+  return value;
 }
 export interface DrawEntry {
   /** Scoped identity supplied by nested draw trees. */
