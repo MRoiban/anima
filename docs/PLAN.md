@@ -277,6 +277,11 @@ and an oracle test against Rive.
         See `modules/events/P4D-3-RESULTS.md`; four exact post-click comparative oracles and one immediate-timing finding in `tests/oracle/ACTION-EXPRESSIONS.md`.
   - [ ] Parent integration, phase benchmark and parity promotion/PR.
 - [ ] P4e `data`: view models, bindings, converters, lists.
+  - [x] P4e-8 implementation: optional derive model scalars, instance-relative expressions/read-only
+        paths, bind comparisons/logic, schema data and executable guide CLI topics.
+  - [ ] P4e-8 fresh native computed-property oracle: local CLI 1.9.0 refuses schema/docs requiring
+        1.9.1; update prohibited in this task. Existing strict references remain unchanged.
+
       Paint/backend subtask is partial: 18 rows mapped, 3/18 strict local completion;
       SVG per-paint blending, clockwise hits and oracle evidence remain open.
       See `modules/paint/REPORT.md`; no phase completion or parity promotion is claimed.

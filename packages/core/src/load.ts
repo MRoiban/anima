@@ -699,7 +699,21 @@ function resolve(doc: Raw, d: Diags): Model {
       (sr.on ?? []).forEach((tr: Raw, ti: number) => {
         const tp = `${sp}/on/${ti}`;
         const to = stateIdx(tr.to, tp + '/to');
-        const terms = parseCondition(tr.when);
+        let terms = parseCondition(tr.when);
+        // Scalar guards share bind's grammar. Trigger and clock terms keep their consumption
+        // and time-boundary behavior; they are not ordinary boolean expression values.
+        if (
+          doc.requires?.includes('bind') &&
+          /\b(?:or|not)\b|^\s*\(/.test(tr.when.replace(/"(?:[^"\\]|\\.)*"/g, ''))
+        ) {
+          const source = tr.when.replace(/("(?:[^"\\]|\\.)*"|&&|!(?!=))/g, (token: string) =>
+            token === '&&' ? ' and ' : token === '!' ? 'not ' : token,
+          );
+          const run = inputExpression(model, source, 'bool', tp + '/when', d, (n) => used?.add(n));
+          terms = run
+            ? [{ k: 'expr', a: '', b: '', op: '==', test: (scope) => Boolean(run(scope)) }]
+            : [];
+        }
         const t: TransitionM = {
           actions: tr.actions ? action(tr.actions, tp + '/actions') : undefined,
           to,
@@ -734,30 +748,16 @@ function resolve(doc: Raw, d: Diags): Model {
               }
             } else if (term.k === 'cmp') needInput(term.name, wp, ['number'], V && 'a comparison');
             else if (term.k === 'expr') {
-              const kind =
-                model.inputs.get(term.a)?.type ?? model.inputs.get(term.b)?.type ?? 'number';
-              const a = inputExpression(model, term.a, kind, wp, d, (n) => used?.add(n));
-              const b = inputExpression(model, term.b, kind, wp, d, (n) => used?.add(n));
-              if (kind !== 'number' && !['==', '!='].includes(term.op))
-                d.err(
-                  'data-type',
-                  wp,
-                  V && 'non-numeric comparisons require equality',
-                  V && 'use == or !=',
-                );
-              if (a && b)
-                term.test = (scope) => {
-                  const x = a(scope) as number,
-                    y = b(scope) as number;
-                  return {
-                    '==': x === y,
-                    '!=': x !== y,
-                    '<': x < y,
-                    '<=': x <= y,
-                    '>': x > y,
-                    '>=': x >= y,
-                  }[term.op];
-                };
+              if (term.test) continue;
+              const run = inputExpression(
+                model,
+                `${term.a} ${term.op} ${term.b}`,
+                'bool',
+                wp,
+                d,
+                (n) => used?.add(n),
+              );
+              if (run) term.test = (scope) => Boolean(run(scope));
             } else if (term.k === 'end' && (!tl || tl.loop !== 'once'))
               d.err(
                 'bad-end',

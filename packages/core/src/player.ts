@@ -26,6 +26,7 @@ import type {
   TransitionM,
   Value,
 } from './load.ts';
+import { compare } from './cond.ts';
 import { modules } from './modules.ts';
 import { reached, snapTime, foldTime } from './time.ts';
 import { flatten } from './path.ts';
@@ -649,18 +650,7 @@ export class Player {
         if (x.k === 'expr') return x.test!(this.#inputVals);
         if (x.k === 'end') return this.#finished(L, st);
         if (x.k === 'after') return reached(L.time, x.s);
-        if (x.k === 'cmp') {
-          const v = this.get(x.name) as number;
-          const c = x.value;
-          return {
-            '==': v === c,
-            '!=': v !== c,
-            '<': v < c,
-            '<=': v <= c,
-            '>': v > c,
-            '>=': v >= c,
-          }[x.op];
-        }
+        if (x.k === 'cmp') return compare(this.get(x.name)!, x.value, x.op);
         if (this.model.inputs.get(x.name)!.type === 'trigger')
           return (
             this.#pending.has(this.model.inputs.get(x.name)!.name) &&

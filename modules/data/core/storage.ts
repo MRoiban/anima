@@ -25,10 +25,12 @@ export function normalize(p: Property, value: unknown): Value {
 }
 export class DataState extends Map<string, Value> {
   instances: Record<string, Record<string, unknown>>;
+  modelTypes?: WeakMap<object, string>;
   readonly compiled: Compiled;
   readonly signals = new Map<string, number>();
   readonly converterState = new Map<unknown, unknown>();
   player?: Player;
+  initial?: ReadonlyMap<string, Value>;
   constructor(c: Compiled) {
     super();
     this.compiled = c;

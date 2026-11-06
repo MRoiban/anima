@@ -185,6 +185,7 @@ export function prepare(model: Model, d: Diags): void {
       else {
         if (
           p.type === 'number' &&
+          p.value === undefined &&
           (Number(value) < (p.min ?? -Infinity) || Number(value) > (p.max ?? Infinity))
         )
           error(dataCodes['type'], loc, 'initial value lies outside number limits');
@@ -258,7 +259,7 @@ export function prepare(model: Model, d: Diags): void {
           'component public data model does not match',
         );
     }
-  const c: Compiled = { document, defaults, defaultName: chosen, refs: new Map(), model };
+  const c: Compiled = { document, defaults, defaultName: chosen, refs: new Map(), model, modelOf };
   compiled.set(model, c);
   const flatten = (
     instance: string,

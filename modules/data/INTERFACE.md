@@ -19,3 +19,17 @@ data; legacy string bindings continue through bind. Runtime data state is access
 
 `model.afterStep(player)` runs after child steps and before settlement. Data change listeners use it;
 the host API can chain it to deliver subscriptions against the complete resolved step.
+
+
+`derive` composes after data/bind/convert. The active data module exposes `compiled` (model metadata),
+`dataState` and the converter registry; consumers must obtain these from the active runtime registry
+so separate bundles share identities. `Compiled.modelOf` and `DataState.modelTypes` retain instance
+model identity across detached default graphs and host-created/replaced lists. Derive wraps only
+models declaring computed properties, marks their scalar refs read-only before action compilation,
+and runs before data's post-state snapshot. `DataState.initial` is an optional initialized-value
+snapshot for first-step change listeners. Without it, ordinary data listeners retain their original
+literal-default baseline.
+
+Data expressions call the active bind parser; the data bundle no longer embeds a duplicate parser.
+Direct scalar/opaque `$` path reads remain available without that parser. Arithmetic, comparison and
+logical expressions need the bind bundle; unavailable expression parsing is a load diagnostic.

@@ -94,6 +94,7 @@ export class HostData {
     state: (p: Player) => DataState | undefined,
   ) {
     this.player = player;
+    this.#models = scope.modelTypes ?? this.#models;
     this.scope = scope;
     this.shared = shared;
     this.state = state;
@@ -327,6 +328,7 @@ export class HostData {
     }
   }
   #handle<T>(path: string, type: string): DataHandle<T> {
+    path = path.startsWith('$') ? path : '$' + path;
     const a = this.#address(path);
     const actual =
       a.property.type === 'bool'
@@ -362,6 +364,13 @@ export class HostData {
   }
   #set(path: string, value: unknown): void {
     const a = this.#address(path);
+    if (a.property.value !== undefined)
+      throw new DataError(
+        'read-only-path',
+        '/data/' + path,
+        'computed property is read-only',
+        'write the source properties instead',
+      );
     if (a.readonly) fail('readonly', path, 'list length is read-only');
     if (a.property.type === 'trigger') fail('type', path, 'triggers must be fired');
     const p = a.property;
@@ -418,6 +427,7 @@ export class HostData {
       grid: 20,
       nodes: [{ id: 'host', type: 'group', children: [] }],
       requires: this.player.model.doc.requires,
+      ...(this.player.model.doc.converters ? { converters: this.player.model.doc.converters } : {}),
       ...(this.player.model.doc.assets ? { assets: this.player.model.doc.assets } : {}),
       data: {
         ...document,

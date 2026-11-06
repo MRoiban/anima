@@ -51,7 +51,10 @@ export const bind: Module & {
         err.code,
         pointer,
         V && `${err.message} at character ${err.at + 1}`,
-        V && 'use declared non-trigger inputs and an expression matching the target type',
+        V &&
+          (err.code === 'bind-syntax'
+            ? `check token ${JSON.stringify(source.slice(err.at).match(/^\S+/)?.[0] ?? 'end of expression')}; use values, arithmetic, comparisons, and/or/not or registered calls`
+            : 'use declared non-trigger inputs and an expression matching the target type'),
       );
     }
   },

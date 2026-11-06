@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
-State: p4e-data has data core (60/73 rows) and paint findings (10/18 strict, 8 rasterisation findings) merged. data 8181/8192, bind 2046/2048.
-Merged: data, paint, host (3878/4096), convert (6161/8192). Full-featured 91.4/100 KB.
-Next: running — Rive + AniML benchmark runs, P4e-7 parity bookkeeping (Sol). Then quiet perf vs main, LOG/PLAN, PR. data 8191/8192: split before next data change.
-Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests.
+Goal: P4e-8 implementation complete; fresh native computed-property evidence remains blocked.
+Branch: t3/computed-bind-expressions; local commit only; no push, PR or merge.
+Verified: scope 3365 pass/43 TODO; final reference tests 35/35; strict oracle 216 cases/410 samples.
+Sizes: core+web 20107; full 93573; derive 2117/4096, data 7420/8192, bind 2048/2048 B.
+Next: parent native capture with permitted CLI version, fresh benchmark agent, phase integration.
+Don't: modify benchmark/inventory/measurement inputs or loosen limits; upward lookup remains pending.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -178,3 +179,18 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 
 - 2026-11-06 10:03 [codex-test]: P4e AniML scoreboard → 5/6 strict, 15 checks, 9 total errors including setup/docs; source/build parity and 27 ranking cases pass (evidence: benchmark animl/REPORT.md, verify.py).
 - 2026-11-06 [claude]: merged P4e-7 parity closure (547/1238; 160 P4e done, 54 → P5b/P3b/P6/P7/P9). Cleaned 124 done rows' test fields (scaffold TODO / nonexistent per-row test paths → existing conformance/oracle evidence); none lacked evidence (tools scope 342 pass)
+
+- 2026-11-06 [codex]: read task contracts/benchmark AniML; scaffold dry run failed missing prettier → npm ci required (evidence: ERR_MODULE_NOT_FOUND).
+
+- 2026-11-06 11:31 [codex]: derive, scalar comparisons/shared guard evaluator, schema-data and guide command extraction implemented → focused conformance 476 pass/15 TODO; fresh native commands blocked by CLI 1.9.0/required 1.9.1 (unverified new oracle).
+- 2026-11-06 11:31 [codex]: broad scope 3333 pass/18 fail/43 TODO → corpus count/order regression fixed; one cold Chromium host timeout, isolated unchanged host+derive browsers 8/8 pass (evidence: /tmp/p4e8-{scope1,browsers2}.log).
+- 2026-11-06 11:31 [codex]: parser sharing removes duplicated data parser; budgets under unchanged limits → bind 2048, data 7496, derive 2009, host 4039 B; latest final verification pending (evidence: /tmp/p4e8-size3.log).
+
+- 2026-11-06 11:45 [codex]: final requested scope 3362 pass/43 TODO; reference follow-up 35/35 and shared checks 9/9 → no test failures (evidence: modules/derive/verification/tests.txt).
+- 2026-11-06 11:45 [codex]: strict oracle 216 cases/410 samples/0 failing strict, 18 findings retained; budgets/static/artifacts pass; no consistent perf regression → report/evidence prepared, fresh native storage oracle unverified (evidence: modules/derive/REPORT.md and verification/).
+
+- 2026-11-06 11:53 [codex]: final artifact check caught stale derive bundle after converter-reference fix → regenerated browser bundles and check passed before 85409b0.
+- 2026-11-06 11:53 [codex]: final scalar edge review found positive-min fallback validation and computed bool→number coercion gaps → fixed both; independent scoreboard conformance extended; final follow-up verification running (unverified).
+
+- 2026-11-06 11:56 [codex]: bounded/coercion follow-up → scope 3365 pass/43 TODO, independent conformance 389 pass/15 TODO, strict oracle exit 0; data 7420, derive 2117, full 93573 B, all limits unchanged (evidence: modules/derive/verification/).
+- 2026-11-06 [claude]: merged P4e-8 derive (2117/4096) + bind comparisons (bind 2048/2048, host 4042/4096, data 7420, core+web 20107 +52 for shared compare) → scope 3364 pass/43 todo, oracle 0. new-capability.test failed twice under the browser-loaded run, passed alone and in unit scope (load, unverified). Rive CLI 1.9.0 now refuses local commands ('1.9.1 is required') → owner decision on `rive update`

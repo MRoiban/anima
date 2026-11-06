@@ -123,3 +123,15 @@ describe('authoring guide executable examples', () => {
     }
   });
 });
+
+// Every explicit schema/docs topic in the guide is an executable interface promise.
+const commands = [
+  ...new Set(
+    [...guide.matchAll(/\banima (schema|docs) ([a-z][a-z-]*)\b/g)].map((m) => `${m[1]} ${m[2]}`),
+  ),
+];
+it.each(commands)('authoring command anima %s exists', (command) => {
+  const result = cli(...command.split(' '));
+  expect(result.code, result.output).toBe(0);
+  expect(result.output.trim()).not.toBe('');
+});

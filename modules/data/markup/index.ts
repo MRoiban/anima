@@ -137,6 +137,8 @@ export const dataMarkup = {
         const allowed = [
           'name',
           'default',
+          'value',
+          'convert',
           'min',
           'max',
           'values',
@@ -179,7 +181,11 @@ export const dataMarkup = {
         for (const [k, v] of ca)
           if (k !== 'name')
             property[k === 'type' ? 'assetType' : k] =
-              k === 'values' ? v.value.trim().split(/\s+/) : scalar(v.value);
+              k === 'value' || k === 'convert'
+                ? v.value
+                : k === 'values'
+                  ? v.value.trim().split(/\s+/)
+                  : scalar(v.value);
         properties[key] = property;
         c.map.set(point, child.at);
         for (const [k, v] of ca)

@@ -559,7 +559,7 @@ Sets within one action read one pre-action snapshot; separate actions see prior 
 clamp to their input bounds. Machine state `entry`/`exit` and transition `actions` JSON attributes
 accept the same actions. Emit `shared` on pulse entry and define its fields with
 `<event-def name="shared" payload='{"count":{"type":"number","value":"{count}"},"channel":{"type":"string","value":"button"}}'/>`.
-Fields resolve at the end of the step. Run `anima schema listener`/`state`/`transition` to inspect
+Fields resolve at the end of the step. Run `anima schema listener`, `anima schema state` or `anima schema transition` to inspect
 the forms. See `modules/events/examples/share.animl` and its sample scripts for a complete share
 button, including milestones past ten and an audio request verified through browser tests.
 
@@ -668,6 +668,59 @@ Custom channels use `node.properties.name`; strings/enums are discrete, hold-onl
   <bind target="c.x" value="$items.length"/>
 </anima>
 ```
+
+Add `derive` for computed scalar properties. `value` is a bind expression, with optional
+`convert` (requires `convert`). Inside a model `$score` means that instance's score;
+`$main:players.0.score` remains absolute. Each list item gets its own computed values.
+Number, string, bool, color and enum properties can be computed. Their `$` paths work in
+conditions, bindings, event fields, selected sample snapshots and host handles.
+They initialize on load and recompute in the data binding pass, before visual bindings.
+Conditions earlier in the step see the previous resolved computed value. Host subscriptions
+observe the final value after the step. Computed dependencies must be acyclic.
+
+This scoreboard exposes `$players.0.label` as `1,250 pts`, `$players.1.label` as `980 pts`,
+and `$players.2.label` as `40 pts`. Updating a score updates its label on the next step.
+The three comparison bindings choose exactly one leader, with earlier players winning ties.
+
+```xml
+<anima version="0.1" name="derived-scoreboard" grid="20" requires="data bind derive convert">
+  <model name="Player">
+    <string name="name"/>
+    <number name="score" min="0" max="2000"/>
+    <string name="label" value="$score" convert="points"/>
+    <bool name="milestone" value="$score >= 1500"/>
+  </model>
+  <model name="Board"><list name="players" of="Player"/></model>
+  <instance name="main" model="Board" default="true">
+    <set path="players" value='[{"name":"Ada","score":1250},{"name":"Lin","score":980},{"name":"Sam","score":40}]'/>
+  </instance>
+  <converter name="grouped" type="number-format" decimals="0" grouping="true"/>
+  <converter name="suffix" type="template" text="{0} pts"/>
+  <converter-group name="points" chain="grouped suffix"/>
+  <circle id="a" cx="4" cy="10" r="1" fill="#000" data-label=""/>
+  <circle id="b" cx="10" cy="10" r="1" fill="#000" data-label=""/>
+  <circle id="c" cx="16" cy="10" r="1" fill="#000" data-label=""/>
+  <bind target="a.properties.label" value="$players.0.label"/>
+  <bind target="b.properties.label" value="$players.1.label"/>
+  <bind target="c.properties.label" value="$players.2.label"/>
+  <bind target="a.x" value="$players.0.score >= $players.1.score and $players.0.score >= $players.2.score"/>
+  <bind target="b.x" value="$players.1.score > $players.0.score and $players.1.score >= $players.2.score"/>
+  <bind target="c.x" value="$players.2.score > $players.0.score and $players.2.score > $players.1.score"/>
+</anima>
+```
+
+Computed properties are read-only: `set`, `copy`, reverse binding modes and instance
+initializers fail with `read-only-path`. Host `.set()` throws the same code; write `score`
+instead. For example `icon.data.string('players.0.label').value` reads the label and
+`.on('change', callback)` observes it after a step. Load `/derive` beside `/data` and `/bind`,
+plus `/convert` when formatting. See `anima docs derive` and `modules/derive/examples/scoreboard.animl`.
+
+Bind expressions also accept `<`, `<=`, `>`, `>=`, `==`, `!=`, `and`, `or`, `not`.
+In XML attributes escape `<` as `&lt;`. Precedence, strongest first: unary `+ -`,
+`* /`, `+ -`, comparisons, `not`, `and`, `or`; parentheses override it.
+Comparisons require matching types; ordering requires numbers, equality accepts strings/enums
+and booleans. Logic requires booleans and short-circuits. Results are bool; number targets
+receive 0 or 1. The same grammar applies to `set` actions and computed expressions.
 
 Bindings default to `mode="to-target"`: sample the source after state/timeline resolution and
 write the target. `to-source` writes the target's underlying animated/rest value into the source.

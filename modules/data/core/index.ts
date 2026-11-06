@@ -23,11 +23,13 @@ const path = /^(?:\$[a-zA-Z][\w-]*(?::[a-zA-Z][\w-]*)?(?:\.[\w-]+)*|[a-z][\w-]*(
 export type DataModule = Module & {
   dataState: typeof dataState;
   dataCodes: typeof dataCodes;
+  compiled: typeof compiled;
   converters: typeof converters;
   registerConverter: typeof registerConverter;
 };
 export const data: DataModule = {
   name: 'data',
+  compiled,
   dataCodes,
   after,
   converters,
@@ -262,7 +264,12 @@ export const data: DataModule = {
         new Map(
           [...watched].map((path) => {
             const r = c.refs.get(path)!;
-            return [path, r.input.type === 'trigger' ? 0 : readDefault(c.defaults, r)];
+            return [
+              path,
+              r.input.type === 'trigger'
+                ? 0
+                : (state.initial?.get(path) ?? readDefault(c.defaults, r)),
+            ];
           }),
         );
       const now = new Map(

@@ -44,3 +44,8 @@ export function parseCondition(src: string): Term[] | string {
   }
   return terms;
 }
+
+/** Typed scalar comparison shared by guard and bind expression evaluation. */
+export function compare(x: Value, y: Value, op: string): boolean {
+  return { '==': x === y, '!=': x !== y, '<': x < y, '<=': x <= y, '>': x > y, '>=': x >= y }[op]!;
+}

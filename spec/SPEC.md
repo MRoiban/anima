@@ -871,6 +871,14 @@ as described in [web research](../docs/research/rive-web-runtime.md).
 
 ## bind
 
+Bind expressions include numeric comparisons `< <= > >=`, typed equality `== !=`, and boolean
+`and or not`. Ordering requires number operands; equality requires identical operand types.
+Logical operands must be bool. Precedence from low to high is or, and, not, comparison,
+addition/subtraction, multiplication/division, unary signs. Evaluation short-circuits logical
+operators and produces bool, coercible to 0/1 for number destinations. These rules apply to
+bindings, set actions and derive expressions. Guard scalar expressions use the same parser when
+bind is declared; trigger and clock guard terms retain their specialized semantics.
+
 The optional `bind` module requires `requires: ["bind"]`. At document level,
 `bind: { "ring.stroke.trimEnd": "progress" }` maps animatable addresses to expressions.
 Property bindings evaluate after all state layers resolve and before property clamping (§7),
@@ -886,8 +894,8 @@ These are clock expressions evaluated before sampling, rather than property bind
 
 Sources are declared number or bool input names, finite JSON number literals, hex colours
 (`#rgb`, `#rrggbb`, `#rrggbbaa`), parentheses, unary `+`/`-`, binary `+ - * /`, and the functions
-`min(a,b)`, `max(a,b)`, `clamp(x,lo,hi)`, `mix(a,b,t)`, `floor(x)`, `mod(a,b)`. Nothing else is allowed: no property
-reads, strings, boolean literals, comparisons, assignments or arbitrary calls. Identifiers use
+`min(a,b)`, `max(a,b)`, `clamp(x,lo,hi)`, `mix(a,b,t)`, `floor(x)`, `mod(a,b)`. Double-quoted strings, typed comparisons and `and or not` use the grammar above.
+No scene property reads, boolean literals, assignments or arbitrary calls are allowed. Identifiers use
 the input-name grammar; a hyphen is part of a name, so write `level - other` for subtraction
 between inputs. Multiplication/division precede addition/subtraction; binary operators associate
 left; unary signs have highest precedence. Whitespace is insignificant between tokens.
@@ -2322,3 +2330,9 @@ These decisions retain the original oracle findings unchanged; none becomes a pa
 Algorithms are independently implemented from standard arithmetic and ECMAScript functions.
 No Rive source or .riv files were read; no CLI documentation text was copied. The registry design follows
 the metadata rationale in `docs/research/rive-format-and-graph.md`; this is not a Rive algorithm port.
+
+## derive
+
+The optional `derive` module adds computed, read-only scalar model properties. The normative
+contract is [modules/derive/SPEC.md](../modules/derive/SPEC.md); its `value` and `convert` keys
+have identical JSON/AniML spellings. Dependencies resolve per instance and cycles are invalid.
