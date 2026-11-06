@@ -1,0 +1,12 @@
+scope: exit 0, 144.81s, npm run test:scope -- core motion nested components data host host-values host-edit lists markup conformance oracle
+browser: exit 0, 52.54s, npx vitest run --project browser --maxWorkers=1 modules/components/test/web/components.test.ts modules/data/test/web/browser.test.ts modules/host-edit/test/web/browser.test.ts modules/host-edit/test/web/components.test.ts modules/host-edit/test/web/seams.test.ts modules/host/test/web/browser.test.ts modules/lists/test/web/lists.test.ts modules/motion/test/web/browser.test.ts modules/nested/test/web/nested.test.ts
+size: exit 0, 35.22s, node tools/size.ts
+perf: exit 0, 9.10s, node tools/perf.ts
+oracle: exit 0, 7.98s, node tools/oracle.ts --strict
+typecheck: exit 0, 39.67s, npm run typecheck
+eslint: exit 0, 9.66s, npx eslint .
+modules: exit 0, 0.89s, node tools/modules.ts --check
+animl: exit 0, 1.92s, node tools/build-animl.ts --check
+web: exit 0, 20.99s, node tools/build-web.ts --check
+parity: exit 0, 0.13s, node tools/parity.ts --check
+prettier: exit 0, 21.85s, npx prettier --check .

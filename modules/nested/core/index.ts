@@ -58,6 +58,12 @@ export const nested: Module & { dynamicTrees: typeof dynamicTrees } = {
       },
       resolve(model, d) {
         if (!enabled(model)) return;
+        (model.guardLiterals ??= {}).component = (name, path) =>
+          data?.compiled.get(model)?.refs.get(path)?.property.type === 'component' &&
+          Object.hasOwn(model.doc.components ?? {}, name) &&
+          name !== '$comment'
+            ? name
+            : undefined;
         const plans = new Map<string, InputEvaluator>();
         outputs.set(model, plans);
         const used = new Set<string>();

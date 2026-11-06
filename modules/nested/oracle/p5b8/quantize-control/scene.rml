@@ -1,0 +1,11 @@
+<Rive version="1" kind="fragment">
+<Artboard id="0:1" name="Board" width="20" height="20" defaultStateMachineId="0:3" viewModelId="0:50">
+<NestedArtboard id="0:2" name="badge" artboardId="0:10" quantize="12" isStateful="true"><ViewModelInstance viewModelId="0:30" exports="true" name="placed" id="0:40"><ViewModelInstanceNumber viewModelPropertyId="0:32" propertyValue="0"/></ViewModelInstance><NestedStateMachine animationId="0:21"/></NestedArtboard><NestedArtboard id="0:60" name="control" artboardId="0:10" isStateful="true"><ViewModelInstance viewModelId="0:30" exports="true" name="control" id="0:61"><ViewModelInstanceNumber viewModelPropertyId="0:32" propertyValue="0"/></ViewModelInstance><NestedStateMachine animationId="0:21"/></NestedArtboard><StateMachine id="0:3" name="main"><StateMachineLayer><EntryState/></StateMachineLayer></StateMachine>
+</Artboard>
+<Artboard id="0:10" name="row" width="10" height="10" isComponent="true" viewModelId="0:30" defaultStateMachineId="0:21">
+<Shape id="0:11" name="dot" x="0" y="5"><DataBindContext sourcePathIds="0:30-0:32" propertyKey="13" direction="true"/><Ellipse width="2" height="2"/><Fill><SolidColor colorValue="FF000000"/></Fill></Shape>
+<LinearAnimation id="0:20" name="go" fps="60" duration="60"><KeyedObject objectId="0:11"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="0" interpolationType="linear"/><KeyFrameDouble frame="60" value="12"/></KeyedProperty></KeyedObject></LinearAnimation>
+<StateMachine id="0:21" name="main"><StateMachineLayer><EntryState><StateTransition stateToId="0:22"/></EntryState><AnimationState id="0:22" animationId="0:20"/></StateMachineLayer></StateMachine></Artboard><ComponentAsset artboardId="0:10" name="row"/>
+<ViewModel id="0:30" name="Sample" defaultInstanceId="0:31"><ViewModelPropertyNumber id="0:32" name="x"/><ViewModelInstance id="0:31" name="sample"><ViewModelInstanceNumber viewModelPropertyId="0:32" propertyValue="0"/></ViewModelInstance></ViewModel>
+<ViewModel id="0:50" name="Clock" defaultInstanceId="0:51"><ViewModelPropertyNumber id="0:52" name="t"/><ViewModelInstance id="0:51" name="clock" exports="true"><ViewModelInstanceNumber viewModelPropertyId="0:52" propertyValue="0.5"/></ViewModelInstance></ViewModel>
+</Rive>

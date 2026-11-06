@@ -345,3 +345,18 @@ Components preserves a copy of its composed event kinds when browser AniML repla
 in a separate registry. `event:` is the events-owned local namespace; events validates its exact
 name and keeps reactions queued to the next step. Input/focus scene kinds and dotted component
 outputs retain their existing dispatch rules.
+
+
+### Typed guards and player-aware keys
+
+Optional modules can install `Model.guardLiterals[name](argument, propertyPath)` during resolve.
+Core recognizes a JSON string argument in a direct comparison, delegates property/name validation,
+and compiles equality/inequality against the typed value; returning undefined or using an ordering
+operator is `guard-literal`. `nested` supplies `component`; existing data-owned `asset` literals
+retain their current implementation. This does not extend numeric bind functions.
+
+`Model.keyValue(addr, raw, pointer, diags)` optionally compiles a track endpoint into a `KeyValue`:
+a literal or `(player) => Value`. Core passes the owner to `sampleTrack(track,time,player)` and to
+custom `track.sample(time,player)`. Motion's independent TimelineInstances pass their owner too.
+Custom samplers must resolve dynamic endpoints per sample; shared TrackM objects stay immutable.
+Motion owns path validation, markup and live channel diagnostics. Core/web add only these hooks.

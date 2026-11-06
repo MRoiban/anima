@@ -1,0 +1,4 @@
+advance 0.001s
+advance 0.001s
+data-dump frames/result.json
+quit

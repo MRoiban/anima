@@ -1,7 +1,9 @@
 import type { ModuleEntry } from '../../../packages/core/src/modules.ts';
 import type { Shape } from '../../../packages/core/src/registry.ts';
+import { entries as dataKeys } from '../capabilities/data-bind-keyframes/registry.ts';
 const n: Shape = { k: 'num' };
 export const entries: ModuleEntry[] = [
+  ...dataKeys,
   {
     target: 'node',
     elements: {

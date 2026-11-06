@@ -51,8 +51,11 @@ name rebuilds it. Unrelated placements/repeat identities survive. Runtime values
 declared component or empty string. Dynamic choices with a shared input name must agree on its
 type (`component-input-type`), and explicit initializers must exist in every choice
 (`unknown-input`). A non-component `$` selector is `component-path`. All possible choices are
-validated, including recursion/expansion limits. `component("row")` guard literals await the typed
-literal parser owned by the data-extras task; they are not implemented here.
+validated, including recursion/expansion limits. With `data components nested`, `$card == component("row")` and `!=` compare a component
+property to a declared component definition. Typed literal functions are compiled through the
+model's optional core guard hook; numeric bind functions are unchanged. Strings, unknown names,
+and ordering operators fail with `guard-literal` at the transition's `/when` pointer and a hint.
+These guards do not require `bind`. An empty property is unequal to every declared definition.
 
 Drawing uses per-player trees, recycles released slots, and shares the existing SVG and Canvas
 backends. This follows [graph research](../../docs/research/rive-format-and-graph.md) §6; the single
@@ -63,3 +66,14 @@ Native observation: Rive 1.9.1 reports x=1 then x=2 after 0.12s and 0.13s with n
 for x=12t. Anima reports x=1 then x=3. A nonboundary 0.12s+0.14s follow-up matches x=1 then x=3
 in both runtimes. This supports a precision-boundary explanation (an inference), not per-step
 truncation. The original delta1 observation remains a finding with unchanged numbers and limits.
+
+
+P5b-8 precision follow-up: fresh captures in `oracle/p5b8/` reproduce the native .25s miss with
+one advance and with .12+.13, .125+.125, .2+.05 and .1+.15. A parallel unquantized child reads x=3
+at .25 while its quantized twin reads2; .2500001 reads3.00000095/3. At fps12.0000001, native still
+reads2 (that rate rounds to12 in float32); fps12.000001 reads2.99999976. The latter rate is
+12.000000953674316 in float32; 36 divided by that rate is2.99999976158144. This identifies native
+precision/rounding as the source of the boundary disagreement, not per-call truncation or an
+Anima frame-rule error. The exact internal native accumulator/comparison routine remains
+unverified from black-box captures. Anima retains the decided absolute 1e-9-second rule and
+its original x=3 versus native2 delta1 finding, without changing reference values or tolerances.

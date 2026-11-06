@@ -1,0 +1,3 @@
+{"time":0,"values":{"probe.r":9},"states":{"main":"match"},"events":[],"settled":true}
+{"time":0,"values":{"probe.r":1},"states":{"main":"idle"},"events":[],"settled":true}
+{"time":0,"values":{"probe.r":9},"states":{"main":"match"},"events":[],"settled":true}

@@ -1,1 +1,11 @@
-# TODO: inputs, step boundaries and snapshots
+advance 0.25
+snapshot probe.r
+set $peak 16
+advance 0
+snapshot probe.r
+advance 0.25
+snapshot probe.r
+instance second rise
+timeline second seek 0.75
+advance 0
+snapshot probe.r

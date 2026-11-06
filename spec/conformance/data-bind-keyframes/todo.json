@@ -1,4 +1,0 @@
-{
-  "status": "todo",
-  "reason": "P5b-5: track values and TrackM.sample(time) are shared by Model and have no player context. Motion needs a generic player-aware value/sampling hook in core load/player/modules, beyond this task's core guard ownership; mutating shared tracks would break independent players. DESIGN \u00a76 syntax is decided; implementation is pending."
-}

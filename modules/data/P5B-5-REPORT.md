@@ -98,3 +98,10 @@ The decided authoring design is unchanged. Incomplete integration is explicit:
    changing their existing all-instance lists; host-side native equivalence is pending.
 4. Resolve the two starting-commit failures and rerun the broad scope; rerun performance quietly
    before claiming the phase gates or any parity promotion.
+
+## P5b-8 follow-up
+
+The player-aware core sampling seam and motion data-key implementation are now supplied by
+P5b-8, including state blends, independent TimelineInstances and scalar/channel diagnostics.
+See [the seam report](../nested/P5B-8-REPORT.md). Canonical measurement inputs remain untouched;
+new native comparisons live in the owning modules. Counts above describe P5b-5 only.

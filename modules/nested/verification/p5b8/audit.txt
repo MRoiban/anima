@@ -1,0 +1,9 @@
+Baseline: 0c5028a
+Parity statuses: all 1238 unchanged
+Protected runtime, CLI pipelines and measurement tools/inputs: no tracked diffs
+Native binary/scaffold-doc scan in new capture trees: empty
+New native readbacks: nested61, motion3, host-edit2
+Independent conformance: 4 cases / 15 snapshots; expectations authored from arithmetic/state rules
+Native scalar comparisons: 5 exact; quantize original native2/Anima3 delta1 retained
+All existing tests/assertions/thresholds/timeouts/budgets unchanged; corpus census extended427→431
+New raw logs normalized only for final newlines; no numeric observations adjusted

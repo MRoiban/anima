@@ -105,18 +105,21 @@ const loopTime = (tl: TimelineM, tau: number): number => {
   return foldTime(tau, d, tl.loop === 'pingpong');
 };
 
+const keyValue = (value: TrackM['values'][number], player?: Player): Value =>
+  typeof value === 'function' ? value(player!) : value;
+
 /** Spec §5 sampling. */
-export function sampleTrack(tr: TrackM, t: number): Value {
-  if (tr.sample) return tr.sample(t);
+export function sampleTrack(tr: TrackM, t: number, player?: Player): Value {
+  if (tr.sample) return tr.sample(t, player);
   const ts = tr.times;
   const n = ts.length - 1;
-  if (!reached(t, ts[0]!)) return tr.values[0]!;
-  if (reached(t, ts[n]!)) return tr.values[n]!;
+  if (!reached(t, ts[0]!)) return keyValue(tr.values[0]!, player);
+  if (reached(t, ts[n]!)) return keyValue(tr.values[n]!, player);
   let i = 0;
   while (reached(t, ts[i + 1]!)) i++;
   t = snapTime(t, ts[i]!);
-  const a = tr.values[i]!;
-  const b = tr.values[i + 1]!;
+  const a = keyValue(tr.values[i]!, player);
+  const b = keyValue(tr.values[i + 1]!, player);
   if (typeof a === 'boolean') return a;
   const w = tr.eases[i]!((t - ts[i]!) / (ts[i + 1]! - ts[i]!));
   return mixValues(a, b, w);
@@ -187,7 +190,7 @@ export class Player {
               : s.play !== undefined
                 ? model.timelines[s.play]!.tracks.map((t): Write => [
                     slots.get(t.addr)!,
-                    (time) => sampleTrack(t, time),
+                    (time) => sampleTrack(t, time, this),
                   ])
                 : [],
           ),

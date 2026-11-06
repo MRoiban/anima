@@ -64,7 +64,18 @@ source text or redo the initial decode. Direct compiled-Model loads also isolate
 Changing resolver/policy before setting src creates a distinct cache entry. Image replacements
 remain local, even when initial decoding was shared. Cache lifetime is the current page.
 
-Component-valued properties remain pending in REPORT.md; they are outside this seam follow-up.
+`data.component(path)` returns a typed `DataHandle<string>` for a component property. Reads
+are committed definition names (or empty string); `set(name)` validates against the same
+player's declared component vocabulary and enqueues on host's shared FIFO. A consumed
+`<instance component="$card"/>` rebuilds during the next step, before subscriptions run;
+equal names retain the child, empty hides it, and clearing/restoring rebuilds it. Retained default
+handles follow `bind()`, named handles retain their named target. `list(path).at(i).component(key)`
+also follows the item identity. `create` validates component-valued models against the original
+vocabulary without recompiling consumers in a temporary data scope. Wrong handle/value is
+`data-type`, missing paths `data-path`, invalid create defaults `unknown-component`, with pointers
+and hints. This API chooses local definition names; arbitrary foreign-file player/data handles
+are outside the decided component-name representation. Root selection remains the existing
+`<anima-icon component="name">`/load behavior, independently covered in both browsers.
 
 The stable-object graph approach follows docs/research/rive-format-and-graph.md §6, and lifecycle/
 registration boundaries follow docs/research/rive-web-runtime.md §4. No Rive source is used.

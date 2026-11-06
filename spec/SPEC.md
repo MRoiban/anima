@@ -484,6 +484,8 @@ continues to include only animated addresses, never inputs.
 | `unknown-state` | error | `initial` or `to` names a state that is not in the layer. |
 | `state-kind` | error | A state has both or neither of `pose` and `play`, or `speed` without `play`. |
 | `bad-condition` | error | A condition does not parse. |
+| `guard-literal` | error | A module literal function uses the wrong property, name or operator; use ==/!= with a matching typed property. |
+| `data-keyframe` | error | A key source path or live channel value has the wrong type; use compatible scalar data. |
 | `unknown-input` | error | A condition, listener or `a11y` names an input that is not declared. |
 | `input-type` | error | An input is used in a way its type does not allow (`a11y.activate` needs a trigger or bool; `pressed` and `held` need bools). |
 | `bad-end` | error | `@end` on a pose state or a looping timeline. |
@@ -2261,6 +2263,11 @@ Capability evidence and incomplete rows are enumerated in
 <!-- capability: data.bind-converter-options -->
 <!-- capability: data.bind-instance-values -->
 <!-- capability: data.bind-keyframes -->
+With `data motion`, a keyframe value may be a direct scalar data path. Sampling resolves needed
+endpoints against the current player before interpolation, including blends and TimelineInstances,
+without mutating shared tracks. JSON `[0.5, "$peak"]` and AniML `<key t="0.5" value="$peak"/>`
+are equivalent. Full typing, diagnostics and timing: [data](../modules/data/SPEC.md#data-keyframe-values).
+
 <!-- capability: data.bind-layout -->
 <!-- capability: data.bind-script-inputs -->
 <!-- capability: data.bind-text -->
@@ -2535,8 +2542,10 @@ Libraries support public export selection, model definitions and local vendoring
 See [modules/markup-libraries/SPEC.md](../modules/markup-libraries/SPEC.md).
 
 <!-- capability: state-machine.literal-artboard -->
-The decided `component("row")` typed guard literal is pending the shared parser integration.
-It is not registered by this module; its conformance and oracle probes remain pending.
+With `data components nested`, direct component-property guards accept `==`/`!=` against
+`component("row")`, a typed definition-name literal. See [nested](../modules/nested/SPEC.md).
+Independent guard/keyframe conformance is active; module-owned native observations supplement
+the canonical oracle probes pending parent registration.
 
 ## componentpaint
 

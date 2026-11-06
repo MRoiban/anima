@@ -1544,10 +1544,10 @@
   "id": "components.host-artboard-reference",
   "category": "components",
   "capability": "Host bindable artboard",
-  "construct": "new: components.<name> / nodes[].component: named host-artboard-reference settings; seconds, degrees and grid-unit bounds",
+  "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
   "module": "components",
   "status": "planned",
-  "test": "oracle/components-host-artboard-reference",
+  "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
   "phase": "P5b"
  },
  {
@@ -1874,10 +1874,10 @@
   "id": "data.bind-keyframes",
   "category": "data",
   "capability": "Bind keyframe values",
-  "construct": "TODO: modules/motion/capabilities/data-bind-keyframes/registry.ts; spec/SPEC.md (Bind keyframe values); modules/motion/capabilities/data-bind-keyframes/example.animl",
+  "construct": "modules/data/SPEC.md#data-keyframe-values; modules/motion/examples/data-keys.animl",
   "module": "data",
   "status": "planned",
-  "test": "TODO: modules/motion/test/core/data-bind-keyframes.test.ts; spec/conformance/data-bind-keyframes; tests/oracle/data-bind-keyframes",
+  "test": "modules/motion/test/core/data-bind-keyframes.test.ts; spec/conformance/data-bind-keyframes; spec/conformance/data-bind-keyframes-blend; modules/motion/test/core/data-keys-oracle.test.ts; tests/oracle/data-bind-keyframes (canonical integration pending)",
   "phase": "P5b"
  },
  {
@@ -2734,10 +2734,10 @@
   "id": "data.host-artboard",
   "category": "data",
   "capability": "Set model artboard",
-  "construct": "new: player.data API for set model artboard",
+  "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-host-artboard",
+  "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
   "phase": "P5b"
  },
  {
@@ -3074,10 +3074,10 @@
   "id": "data.property-artboard",
   "category": "data",
   "capability": "Artboard property",
-  "construct": "modules/nested/SPEC.md",
+  "construct": "modules/nested/SPEC.md; Model.guardLiterals component(name) and component-valued selectors",
   "module": "data",
   "status": "planned",
-  "test": "modules/nested/test/core/nested.test.ts; modules/nested/test/web/nested.test.ts; spec/conformance/data-property-artboard; tests/oracle/data-property-artboard",
+  "test": "modules/nested/test/core/nested.test.ts; modules/nested/test/web/nested.test.ts; spec/conformance/data-property-artboard; modules/nested/test/core/state-machine-literal-artboard.test.ts; tests/oracle/data-property-artboard",
   "phase": "P5b"
  },
  {
@@ -5532,10 +5532,10 @@
   "id": "host-api.bindable-artboards",
   "category": "host-api",
   "capability": "Bindable component instances",
-  "construct": "new: component instance handles",
+  "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
   "module": "components",
   "status": "planned",
-  "test": "browser/bindable-artboards",
+  "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
   "phase": "P5b"
  },
  {
@@ -5572,10 +5572,10 @@
   "id": "host-api.data-artboard",
   "category": "host-api",
   "capability": "View model artboard",
-  "construct": "new: typed data.artboard(path)",
+  "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
   "module": "data",
   "status": "planned",
-  "test": "browser/data-artboard",
+  "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
   "phase": "P5b"
  },
  {
@@ -10266,10 +10266,10 @@
   "id": "state-machine.literal-artboard",
   "category": "state-machine",
   "capability": "artboard comparison literal",
-  "construct": "Pending: modules/nested/SPEC.md",
+  "construct": "modules/nested/SPEC.md; Model.guardLiterals component(name) and component-valued selectors",
   "module": "data",
   "status": "planned",
-  "test": "modules/nested/test/core/state-machine-literal-artboard.test.ts; spec/conformance/state-machine-literal-artboard; tests/oracle/state-machine-literal-artboard",
+  "test": "modules/nested/test/core/state-machine-literal-artboard.test.ts; spec/conformance/state-machine-literal-artboard; modules/nested/test/core/p5b8-oracle.test.ts; tests/oracle/state-machine-literal-artboard (canonical integration pending)",
   "phase": "P5b"
  },
  {

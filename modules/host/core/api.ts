@@ -401,6 +401,9 @@ export class HostData {
   image(path: string): DataHandle<string> {
     return this.#handle(path, 'image');
   }
+  component(path: string): DataHandle<string> {
+    return this.#handle(path, 'component');
+  }
   font(path: string): DataHandle<string> {
     return this.#handle(path, 'font');
   }

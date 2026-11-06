@@ -1,3 +1,4 @@
-# Component guard literal — pending
+# P5b-8 seam implementation
 
-The existing condition parser already delegates scalar comparisons to bind. Its function registry accepts numeric arguments and return types only. `component("row")` needs the typed literal extension being implemented by the data-extras owner; no core condition-parser change is needed here. The format decision is retained, and pending probes remain marked.
+Runtime, independent conformance, examples and native evidence are implemented. See
+`modules/nested/P5B-8-REPORT.md` for verification and canonical-oracle integration limits.

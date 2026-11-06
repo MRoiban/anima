@@ -1,0 +1,9 @@
+advance 0.25s
+data-dump frames/quarter.json
+data peak=16
+advance 0.75s
+data-dump frames/changed.json
+data peak=4
+advance 0.01s
+data-dump frames/half.json
+quit

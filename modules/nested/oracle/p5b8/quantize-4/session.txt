@@ -1,0 +1,51 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[23:24:06.421] rive  deferred replay: inline
+[23:24:06.427] rive  built (368 bytes, 5ms, 0 errors, 0 warnings)
+[23:24:06.427] rive  showing Board [1/2]
+[23:24:06.427] rive  viewport 20x20 @1x
+ok advance
+[23:24:06.428] rive  wrote frames/p0.json
+ok data-dump: frames/p0.json
+[23:24:06.431] rive  built (368 bytes, 3ms, 0 errors, 0 warnings)
+[23:24:06.431] rive  showing Board [1/2]
+[23:24:06.431] rive  viewport 20x20 @1x
+ok reload
+ok advance
+[23:24:06.431] rive  wrote frames/p1.json
+ok data-dump: frames/p1.json
+[23:24:06.434] rive  built (368 bytes, 3ms, 0 errors, 0 warnings)
+[23:24:06.434] rive  showing Board [1/2]
+[23:24:06.434] rive  viewport 20x20 @1x
+ok reload
+ok advance
+[23:24:06.434] rive  wrote frames/p2.json
+ok data-dump: frames/p2.json
+[23:24:06.437] rive  built (368 bytes, 3ms, 0 errors, 0 warnings)
+[23:24:06.437] rive  showing Board [1/2]
+[23:24:06.437] rive  viewport 20x20 @1x
+ok reload
+ok advance
+[23:24:06.437] rive  wrote frames/p3.json
+ok data-dump: frames/p3.json
+[23:24:06.440] rive  built (368 bytes, 3ms, 0 errors, 0 warnings)
+[23:24:06.441] rive  showing Board [1/2]
+[23:24:06.441] rive  viewport 20x20 @1x
+ok reload
+ok advance
+[23:24:06.441] rive  wrote frames/p4.json
+ok data-dump: frames/p4.json
+[23:24:06.444] rive  built (368 bytes, 3ms, 0 errors, 0 warnings)
+[23:24:06.444] rive  showing Board [1/2]
+[23:24:06.444] rive  viewport 20x20 @1x
+ok reload
+ok advance
+[23:24:06.444] rive  wrote frames/p5.json
+ok data-dump: frames/p5.json
+[23:24:06.447] rive  built (368 bytes, 3ms, 0 errors, 0 warnings)
+[23:24:06.448] rive  showing Board [1/2]
+[23:24:06.448] rive  viewport 20x20 @1x
+ok reload
+ok advance
+[23:24:06.448] rive  wrote frames/p6.json
+ok data-dump: frames/p6.json
+ok quit

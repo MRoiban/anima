@@ -1,0 +1,19 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[23:28:25.427] rive  deferred replay: inline
+[23:28:25.433] rive  built (248 bytes, 6ms, 0 errors, 0 warnings)
+[23:28:25.434] rive  showing Board [1/1]
+[23:28:25.434] rive  viewport 20x20 @1x
+ok advance
+[23:28:25.434] rive  wrote frames/quarter.json
+ok data-dump: frames/quarter.json
+[23:28:25.434] rive  data: peak = 16 (mid-run)
+ok data
+ok advance
+[23:28:25.434] rive  wrote frames/changed.json
+ok data-dump: frames/changed.json
+[23:28:25.434] rive  data: peak = 4 (mid-run)
+ok data
+ok advance
+[23:28:25.434] rive  wrote frames/half.json
+ok data-dump: frames/half.json
+ok quit

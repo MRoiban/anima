@@ -1,0 +1,5 @@
+packages/web/dist/anima-markup.js is stale: run node tools/build-web.ts
+packages/web/dist/anima-markup-libraries.js is stale: run node tools/build-web.ts
+packages/web/dist/anima-motion.js is stale: run node tools/build-web.ts
+packages/web/dist/build.json is stale: run node tools/build-web.ts
+Built 32 browser entries; examples/web/index.html 69785 B

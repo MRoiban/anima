@@ -1,0 +1,21 @@
+advance 0.0625s
+data-dump frames/p0.json
+reload
+advance 0.125s
+data-dump frames/p1.json
+reload
+advance 0.1875s
+data-dump frames/p2.json
+reload
+advance 0.062499979999999997s
+data-dump frames/p3.json
+reload
+advance 0.062500020000000003s
+data-dump frames/p4.json
+reload
+advance 0.25s
+data-dump frames/p5.json
+reload
+advance 0.5s
+data-dump frames/p6.json
+quit

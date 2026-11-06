@@ -1,0 +1,11 @@
+scope: exit 1, 144.26s, npm run test:scope -- core motion nested components data host host-values host-edit lists markup conformance oracle
+size: exit 0, 46.44s, node tools/size.ts
+perf: exit 0, 11.21s, node tools/perf.ts
+oracle: exit 0, 10.07s, node tools/oracle.ts --strict
+typecheck: exit 0, 54.23s, npm run typecheck
+eslint: exit 0, 11.11s, npx eslint .
+modules: exit 0, 0.42s, node tools/modules.ts --check
+animl: exit 0, 0.98s, node tools/build-animl.ts --check
+web: exit 1, 13.75s, node tools/build-web.ts --check
+parity: exit 0, 0.17s, node tools/parity.ts --check
+prettier: exit 1, 23.01s, npx prettier --check .

@@ -1185,3 +1185,51 @@ the existing host/host-edit all-instance list keeps its own behavior.
 
 Data-bound keyframe values (`value="$peak"`) remain pending: the shared timeline sampler needs
 a player-aware value hook before each instance can read its own current data safely.
+
+### Live key values and component selections
+
+Import `data` and `motion` for player-local key values. This track interpolates from zero to the
+player's current `peak`, including when `peak` changes while paused or during a state blend:
+
+```xml
+<anima version="0.1" name="data-bind-keyframes" grid="20" requires="data motion">
+  <model name="Levels">
+    <number name="peak" default="8"/>
+  </model>
+  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+  <timeline name="rise" duration="1">
+    <track target="probe.r">
+      <key t="0" value="0"/>
+      <key t="1" value="$peak"/>
+    </track>
+  </timeline>
+  <layer name="main" initial="run">
+    <state name="run" play="rise"/>
+  </layer>
+</anima>
+```
+
+The complete compiled pair is [data-keys.animl](../modules/motion/examples/data-keys.animl) /
+[data-keys.ani](../modules/motion/examples/data-keys.ani). JSON keys retain ordinary tuples:
+`[1, "$peak"]`. Both endpoints resolve against that player; independent players and timeline
+instances never modify one another's key values.
+
+A model's `<component name="card" default="row"/>` stores a local definition name. With
+`data components nested`, use `<instance id="badge" component="$card"/>` and guards such as
+`when="$card == component(&quot;row&quot;)"`. These typed guards do not require `bind`.
+Complete compiled guard example: [component-guard.animl](../modules/nested/examples/component-guard.animl) /
+[component-guard.ani](../modules/nested/examples/component-guard.ani).
+
+With host and host-edit imported, bind the icon's default data instance (or set `auto-bind`):
+
+```js
+const card = icon.data.component('card');
+card.on('change', (name) => console.log(name));
+card.set('box'); // commits on the next step, rebuilding the consuming badge
+card.value;      // the committed local component name
+```
+
+Use the same name to retain the current child, `''` to hide it, or another declared name to start
+that component with default state. The handle uses the ordinary shared host write queue and
+subscriptions; another root icon keeps its own selection. `icon.instance('badge')` addresses the
+selected nested player. It is distinct from the component-valued data handle.

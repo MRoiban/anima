@@ -2,6 +2,7 @@
   "anima": "0.1",
   "name": "state-machine-literal-artboard",
   "grid": 20,
+  "requires": ["data", "components", "nested"],
   "nodes": [
     {
       "id": "probe",
@@ -12,5 +13,64 @@
         "color": "#000"
       }
     }
-  ]
+  ],
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {
+              "probe.r": 1
+            },
+            "on": [
+              {
+                "when": "$card == component(\"row\")",
+                "to": "match"
+              }
+            ]
+          },
+          "match": {
+            "pose": {
+              "probe.r": 9
+            },
+            "on": [
+              {
+                "when": "$card != component(\"row\")",
+                "to": "idle"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "row": {
+      "grid": 10,
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [5, 5],
+          "r": 2,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ]
+    }
+  },
+  "data": {
+    "models": {
+      "Card": {
+        "properties": {
+          "card": {
+            "type": "component",
+            "default": "row"
+          }
+        }
+      }
+    }
+  }
 }

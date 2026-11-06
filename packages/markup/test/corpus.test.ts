@@ -25,8 +25,8 @@ describe('authored AniML corpus', () => {
     for (const example of ['input/drag-slider', 'focus/traversal', 'machine/blend-pulse'])
       expect(files).toContain('modules/' + example.replace('/', '/examples/') + '.animl');
     const cases = globSync('spec/conformance/*/case.ani', { cwd: fileURLToPath(root) }).sort();
-    // 408 baseline + 10 data-extras probes + 9 component-extras probes, independent expectations.
-    expect(cases).toHaveLength(427);
+    // 427 baseline + 4 P5b seam probes, with independent guard/sampling expectations.
+    expect(cases).toHaveLength(431);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);
