@@ -42,6 +42,12 @@ export class DataState extends Map<string, Value> {
       if (name) this.modelTypes.set(value as object, name);
     }
   }
+  /** Authored export discovery; private instances remain available to internal bindings. */
+  exports(): { name: string; model: string }[] {
+    return Object.entries(this.compiled.document.instances ?? {})
+      .filter(([, instance]) => instance.exported)
+      .map(([name, instance]) => ({ name, model: instance.model }));
+  }
   ref(path: string): Ref | undefined {
     return this.compiled.refs.get(path);
   }

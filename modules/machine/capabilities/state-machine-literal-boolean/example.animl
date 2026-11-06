@@ -1,0 +1,15 @@
+<anima version="0.1" name="state-machine-literal-boolean" grid="20" requires="data bind">
+  <model name="Root">
+    <bool name="value"/>
+  </model>
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+  <layer name="status" initial="idle">
+    <state name="idle">
+      <pose dot.r="1"/>
+      <on when="$value == true" to="done"/>
+    </state>
+    <state name="done">
+      <pose dot.r="9"/>
+    </state>
+  </layer>
+</anima>

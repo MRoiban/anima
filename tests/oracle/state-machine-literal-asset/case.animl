@@ -1,0 +1,4 @@
+<!-- TODO: state-machine.literal-asset; replace this baseline scene with a capability probe. -->
+<anima version="0.1" name="state-machine-literal-asset" grid="20">
+  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+</anima>

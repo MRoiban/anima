@@ -1,0 +1,8 @@
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/color/initial.json
+data value=FFD97757
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/color/changed.json
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/color/held.json
+quit

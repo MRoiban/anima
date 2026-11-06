@@ -34,7 +34,7 @@ Bindings evaluate once per data binding evaluation; `mode="once"` retains its co
 | to-number | Number, boolean or string conversion using ECMAScript Number; nonnumeric strings become zero. |
 | to-string | ECMAScript String conversion. |
 | number-format | `decimals` (0–100, default 0), `grouping` boolean; fixed precision, dot decimal, comma thousands; locale independent. |
-| color-format | Hex colour or 4-channel RGBA tuple → `format` hex/hexa/rgb/rgba (default hex). |
+| color-format | Hex colour or RGBA tuple → `format` hex/hexa/rgb/rgba (default hex), or component `pattern` (see below). |
 | pad | String `length` (0–10000), `fill` (nonempty string, default space), `side` start/end. UTF-16 length. |
 | trim | `mode`: start/end/all/none; ECMAScript whitespace. |
 | template | `text`, `open`/`close` delimiters (default braces), `grouping`, optional `args` map/array. Without `args`, scalar input is argument 0 and a list supplies positional arguments. Named keys, numeric positions and sequential `{}` placeholders are supported. `args` values may be `$` paths. `{points:2:8}` fixes two decimals and left-pads to width 8 (maximum 10000). Missing arguments are errors. |
@@ -42,7 +42,7 @@ Bindings evaluate once per data binding evaluation; `mode="once"` retains its co
 | enum-to-index | `values`: ordered strings. Unknown values are errors. |
 | list-length | Return list length. |
 | number-to-list | Integer count 0–10000; produce index values or repeated `item`. Model instance creation awaits data integration. |
-| trigger | Boolean pulse passthrough or truncated integer signal counter. Counter-to-trigger delivery awaits data integration. |
+| trigger | Boolean passthrough or truncated integer counter; a trigger binding destination fires when the converted output changes (next step, no initial pulse). |
 | degrees-to-radians | Multiply by pi/180 forward; by 180/pi in reverse. |
 | normalize | Normalize using `from` pair, default 0 1; reverse denormalizes with the same pair. No implicit clamp. |
 | interpolate | `duration` in milliseconds, default 0. First evaluation returns input immediately; changes retarget from the current sample. Numeric or rounded RGBA channel interpolation; optional `ease` uses the existing timeline easing grammar (default linear). No extrapolation before start or after completion. |
@@ -71,8 +71,7 @@ The generated `convertCompiler` hook supplies declaration compilation/decompilat
 of events/data authoring. Browser `markup-convert` registers the `convert` slot. JSON declarations,
 AniML, CLI schema/inspect and `anima docs convert` use the same metadata and module chapter.
 
-Remaining parity limits: HSL component-format markers; retained model-instance list creation;
-trigger-counter delivery into a trigger destination; scripted conversion (P9). Their canonical
+Remaining parity limits: retained model-instance list creation; scripted conversion (P9). Their canonical
 probes retain precise `todo.json` reasons. Existing scalar/index-list/boolean conversion functions
 are useful independently but do not complete those broader rows. See ROWS.json and REPORT.md.
 
@@ -98,3 +97,16 @@ These decisions retain the original oracle findings unchanged; none becomes a pa
 Algorithms are independently implemented from standard arithmetic and ECMAScript functions.
 No Rive source or .riv files were read; no CLI documentation text was copied. The registry design follows
 the metadata rationale in `docs/research/rive-format-and-graph.md`; this is not a Rive algorithm port.
+
+
+### Colour component patterns
+
+JSON `pattern: "{h} {s}% {l}%"` / AniML `pattern="{h} {s}% {l}%"` on a `color-format`
+converter overrides `format`. `{r} {g} {b} {a}` are rounded RGBA bytes (0–255); `{h}` is
+rounded hue in degrees, 0 for achromatic colours, `{s}` and `{l}` are rounded HSL percentages.
+RGB normalizes to [0,1]; lightness is (max+min)/2, saturation is delta/(1−|2L−1|),
+with zero saturation when delta is zero. Hue follows the standard six-sector RGB definition.
+`{hex}` is lowercase `#rrggbb`. Other text is copied literally; unknown brace markers report
+`convert-options` at `/converters/<name>/pattern` with a correction hint. Alpha does not
+affect HSL, and no locale affects component formatting. Native `%r`/`%g`/`%b`/`%a`/`%h`/`%s`/`%l`
+captures are compared exactly in module-owned oracle tests; native docs text is not copied.

@@ -1,0 +1,67 @@
+
+ RUN  v5.1.0 /tmp/anima-p5b5-baseline
+
+file:///tmp/anima-p5b5-baseline/packages/core/src/modules.ts:110
+  if (!/^[a-z]+(?:@[1-9]\d*)?$/.test(m.name)) throw new Error('invalid module name');
+                                       ^
+
+TypeError: Cannot read properties of undefined (reading 'name')
+    at registerModule (file:///tmp/anima-p5b5-baseline/packages/core/src/modules.ts:110:40)
+    at file:///tmp/anima-p5b5-baseline/packages/core/test/helpers/module-order.ts:8:3
+
+Node.js v24.22.0
+ ❯ |unit| packages/core/test/module-order.test.ts (1 test | 1 failed) 946ms
+   × composes identical schemas, CLI schemas, loaded corpus models and AniML in 12 arrival orders 944ms
+ ❯ |unit| modules/derive/test/core/derive.test.ts (24 tests | 1 failed) 256ms
+   × installs no compute wrapper for documents with no computed declarations 18ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/core/test/module-order.test.ts > composes identical schemas, CLI schemas, loaded corpus models and AniML in 12 arrival orders
+Error: Command failed: /home/jarvis/.nvm/versions/node/v24.22.0/bin/node /tmp/anima-p5b5-baseline/packages/core/test/helpers/module-order.ts components,paint,assets,bind,focus,input,media,motion,events,machine,composite,contour,data,convert,derive,host,host-edit,lists,surface,mix
+file:///tmp/anima-p5b5-baseline/packages/core/src/modules.ts:110
+  if (!/^[a-z]+(?:@[1-9]\d*)?$/.test(m.name)) throw new Error('invalid module name');
+                                       ^
+
+TypeError: Cannot read properties of undefined (reading 'name')
+    at registerModule (file:///tmp/anima-p5b5-baseline/packages/core/src/modules.ts:110:40)
+    at file:///tmp/anima-p5b5-baseline/packages/core/test/helpers/module-order.ts:8:3
+
+Node.js v24.22.0
+
+ ❯ registerModule packages/core/src/modules.ts:110:40
+    108| /** Idempotent by name; compose from declarations, independent of arri…
+    109| export function registerModule(m: Module): void {
+    110|   if (!/^[a-z]+(?:@[1-9]\d*)?$/.test(m.name)) throw new Error('invalid…
+       |                                        ^
+    111|   if (declarations.has(m.name)) return;
+    112|   declarations.set(m.name, m);
+ ❯ packages/core/test/helpers/module-order.ts:8:3
+ ❯ packages/core/test/module-order.test.ts:23:20
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |unit| modules/derive/test/core/derive.test.ts > installs no compute wrapper for documents with no computed declarations
+AssertionError: expected WeakMap{…} to be undefined
+
+- Expected:
+undefined
+
++ Received:
+WeakMap {}
+
+ ❯ modules/derive/test/core/derive.test.ts:164:36
+    162|   expect(dataState(p)).toBeDefined();
+    163|   expect(p.model.inputScope).toBe(createScope);
+    164|   expect(dataState(p)?.modelTypes).toBeUndefined();
+       |                                    ^
+    165| });
+    166| it('supports every scalar kind, literal expression spelling, and alias…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  2 failed | 23 passed (25)
+   Start at  21:53:59
+   Duration  2.55s (transform 52%, tests 35%, import 12%, worker 1%)

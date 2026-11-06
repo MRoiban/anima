@@ -1,0 +1,13 @@
+data value=0
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-trigger/initial.json
+data value=1
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-trigger/changed.json
+data value=1
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-trigger/same.json
+data value=2
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-trigger/again.json
+quit

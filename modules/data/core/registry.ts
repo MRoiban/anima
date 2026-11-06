@@ -66,7 +66,7 @@ export const dataShape: ObjShape = {
         p: {
           model: string,
           default: bool,
-          exported: bool,
+          exported: { ...bool, markup: 'export' },
           label: string,
           values: { k: 'map', of: any },
         },

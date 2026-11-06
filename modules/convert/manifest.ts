@@ -44,6 +44,8 @@ export default {
     'data-interpolate-',
     'data-operation-operand-view-model',
     'data-scripted-converter',
+    'data-converter-color-formatting',
+    'data-converter-trigger',
   ],
   docs: ['modules/convert/SPEC.md'],
 };

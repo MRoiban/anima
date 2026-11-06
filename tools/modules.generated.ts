@@ -309,6 +309,7 @@ export const moduleScopes = {
       'host-api-scrub',
       'state-machine-exit-time-seconds',
       'transforms-origin-animation',
+      'data-bind-keyframes',
     ],
   },
   events: {
@@ -393,6 +394,13 @@ export const moduleScopes = {
       'state-machine-transition-duration-relative',
       'state-machine-transition-end-actions',
       'state-machine-transition-random-weight',
+      'state-machine-condition-data',
+      'state-machine-literal-asset',
+      'state-machine-literal-boolean',
+      'state-machine-literal-color',
+      'state-machine-literal-enum',
+      'state-machine-literal-string',
+      'state-machine-literal-trigger',
     ],
   },
   paint: {
@@ -555,6 +563,8 @@ export const moduleScopes = {
       'data-interpolate-',
       'data-operation-operand-view-model',
       'data-scripted-converter',
+      'data-converter-color-formatting',
+      'data-converter-trigger',
     ],
   },
   derive: {

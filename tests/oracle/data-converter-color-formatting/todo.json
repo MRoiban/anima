@@ -1,4 +1,4 @@
 {
   "status": "todo",
-  "reason": "Hex/RGBA formatting is implemented and unit-tested; native decimal/hex/HSL component-marker patterns are not implemented. The decided design does not define marker syntax; the canonical parity row remains pending."
+  "reason": "P5b-5 implementation and independently captured native comparisons are in module-owned tests (modules/machine/test/core/p5b-oracle.test.ts and modules/convert/test/core/p5b-oracle.test.ts). Canonical cases.json integration remains pending: measurement inputs are outside this task ownership. See modules/data/P5B-5-REPORT.md."
 }

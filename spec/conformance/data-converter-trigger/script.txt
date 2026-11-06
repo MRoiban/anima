@@ -1,1 +1,15 @@
-# TODO: inputs, step boundaries and snapshots
+advance 0
+snapshot dot.r
+set $value 1
+advance 0
+snapshot dot.r
+advance 0
+snapshot dot.r
+set $value 1.9
+advance 0
+advance 0
+snapshot dot.r
+set $value 2
+advance 0
+advance 0
+snapshot dot.r

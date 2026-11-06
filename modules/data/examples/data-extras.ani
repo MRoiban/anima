@@ -1,0 +1,109 @@
+{
+  "anima": "0.1",
+  "name": "data-extras",
+  "grid": 20,
+  "requires": ["data", "bind", "convert"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#d97757"
+      },
+      "properties": {
+        "label": ""
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "status": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {
+              "dot.r": 1
+            },
+            "on": [
+              {
+                "when": "$mood == \"happy\" && $ready == true && $tint == #d97757",
+                "to": "ready"
+              }
+            ]
+          },
+          "ready": {
+            "pose": {
+              "dot.r": 3
+            },
+            "on": [
+              {
+                "when": "$levelUp",
+                "to": "levelled"
+              }
+            ]
+          },
+          "levelled": {
+            "pose": {
+              "dot.r": 5
+            }
+          }
+        }
+      }
+    }
+  },
+  "bind": {
+    "dot.properties.label": {
+      "value": "$tint",
+      "convert": "hsl"
+    },
+    "$levelUp": {
+      "value": "$level",
+      "convert": "pulse"
+    }
+  },
+  "data": {
+    "models": {
+      "Player": {
+        "properties": {
+          "mood": {
+            "type": "enum",
+            "default": "calm",
+            "values": ["calm", "happy"]
+          },
+          "tint": {
+            "type": "color",
+            "default": "#d97757"
+          },
+          "ready": {
+            "type": "bool"
+          },
+          "level": {
+            "type": "number"
+          },
+          "levelUp": {
+            "type": "trigger"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Player",
+        "default": true,
+        "exported": true,
+        "values": {}
+      }
+    }
+  },
+  "converters": {
+    "hsl": {
+      "type": "color-format",
+      "pattern": "{h} {s}% {l}%"
+    },
+    "pulse": {
+      "type": "trigger"
+    }
+  }
+}

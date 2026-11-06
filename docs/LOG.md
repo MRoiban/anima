@@ -2237,3 +2237,14 @@ Firefox; 35 new independent conformance cases, two audio-format probes pending. 
 Clamp currently retains legacy transparent margins rather than native edge extension and remains
 incomplete. See modules/assets/REPORT.md for exact findings, byte budgets, validation and deviations.
 No phase completion or parity status promotion is claimed; no push/PR/merge.
+
+## P5b-5 data extras — partial local implementation (2026-11-06)
+
+Typed data guard literals, colour component patterns, trigger binding destinations and instance
+export discovery add ten independent conformance vectors and 30 exact module-owned native
+observations. Required scope: 4218 pass / two failures reproduced at starting commit a5fa00a /
+63 TODO; final data scope2369 pass. Strict oracle245 cases/441 samples exit0; 24 findings retained.
+Core+web20147 B (+38), bind2048/2048, data7908/8192, convert6569/8192; all budgets/static/artifact
+checks pass. Keyframes, canonical oracle registration, host export counterpart and a quiet-machine
+performance gate remain pending. No parity status change or phase-completion claim.
+See [the implementation report](../modules/data/P5B-5-REPORT.md) and its preserved verification.

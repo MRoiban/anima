@@ -1701,7 +1701,7 @@
     "id": "animation.cubic-ease",
     "category": "animation",
     "capability": "Cubic timing easing",
-    "what": "Shape segment timing with a normalized cubic Bézier curve.",
+    "what": "Shape segment timing with a normalized cubic B\u00e9zier curve.",
     "rive": {
       "types": [
         "CubicEaseInterpolator"
@@ -1731,7 +1731,7 @@
     "id": "animation.cubic-value",
     "category": "animation",
     "capability": "Cubic value curves",
-    "what": "Place Bézier control values in property units so a segment can move even between equal endpoint values.",
+    "what": "Place B\u00e9zier control values in property units so a segment can move even between equal endpoint values.",
     "rive": {
       "types": [
         "CubicValueInterpolator"
@@ -1903,7 +1903,7 @@
     "id": "animation.graph-editor",
     "category": "animation",
     "capability": "Value graph editing",
-    "what": "Edit key values and their Bézier handles through a graph authoring interface.",
+    "what": "Edit key values and their B\u00e9zier handles through a graph authoring interface.",
     "rive": {
       "types": [
         "LinearAnimation"
@@ -4062,7 +4062,7 @@
       "status": "maybe-later",
       "test": "oracle/assets-psd-layers",
       "phase": "later",
-      "reason": "Binary PSD parsing for raster layers; little value for icon authoring (P5b design §0)."
+      "reason": "Binary PSD parsing for raster layers; little value for icon authoring (P5b design \u00a70)."
     }
   },
   {
@@ -5287,10 +5287,10 @@
       "rive-runtime/include/rive/animation/keyframe_double.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "TODO: modules/data/capabilities/data-bind-keyframes/registry.ts; spec/SPEC.md (Bind keyframe values); modules/data/capabilities/data-bind-keyframes/example.animl",
+      "construct": "TODO: modules/motion/capabilities/data-bind-keyframes/registry.ts; spec/SPEC.md (Bind keyframe values); modules/motion/capabilities/data-bind-keyframes/example.animl",
       "module": "data",
       "status": "planned",
-      "test": "TODO: modules/data/test/core/data-bind-keyframes.test.ts; spec/conformance/data-bind-keyframes; tests/oracle/data-bind-keyframes",
+      "test": "TODO: modules/motion/test/core/data-bind-keyframes.test.ts; spec/conformance/data-bind-keyframes; tests/oracle/data-bind-keyframes",
       "phase": "P5b"
     }
   },
@@ -6329,10 +6329,10 @@
       "rive-runtime/src/data_bind/converters/data_converter_to_string.cpp:157@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
+      "construct": "modules/convert/capabilities/data-converter-color-formatting/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
       "status": "planned",
-      "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+      "test": "spec/conformance/data-converter-color-formatting; modules/convert/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
       "phase": "P5b"
     }
   },
@@ -6765,10 +6765,10 @@
       "rive-runtime/src/data_bind/converters/data_converter_trigger.cpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
+      "construct": "modules/convert/capabilities/data-converter-trigger/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
       "status": "planned",
-      "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+      "test": "spec/conformance/data-converter-trigger; modules/convert/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
       "phase": "P5b"
     }
   },
@@ -8413,10 +8413,10 @@
       "rive-runtime/include/rive/viewmodel/viewmodel_instance.hpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "TODO: modules/data/capabilities/data-instance-export/registry.ts; spec/SPEC.md (Exported instances); modules/data/capabilities/data-instance-export/example.animl",
+      "construct": "modules/data/capabilities/data-instance-export/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
       "status": "planned",
-      "test": "TODO: modules/data/test/core/data-instance-export.test.ts; spec/conformance/data-instance-export; tests/oracle/data-instance-export",
+      "test": "spec/conformance/data-instance-export; modules/data/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
       "phase": "P5b"
     }
   },
@@ -12812,7 +12812,7 @@
       "rive-runtime/include/rive/generated/shapes/rectangle_base.hpp:21@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "rect corners [tl,tr,br,bl], animated corners.0–3",
+      "construct": "rect corners [tl,tr,br,bl], animated corners.0\u20133",
       "module": "paint",
       "status": "done",
       "test": "spec/conformance/paint-shape-corners; modules/paint/test/web/paint-geometry.test.ts; tests/oracle/rect-corners",
@@ -18152,7 +18152,7 @@
       "rive-wasm/js/src/rive.ts:4342@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "Canvas backing store = rounded CSS viewport × DPR; ResizeObserver without stepping (SPEC canvas)",
+      "construct": "Canvas backing store = rounded CSS viewport \u00d7 DPR; ResizeObserver without stepping (SPEC canvas)",
       "module": "canvas",
       "status": "done",
       "test": "modules/canvas/test/web/canvas.test.ts; spec/conformance/host-api-resize-backing-surface; tests/oracle/host-api-resize-backing-surface/rive/README.md (host oracle skip)",
@@ -28059,10 +28059,10 @@
       "rive-runtime/include/rive/generated/animation/transition_property_viewmodel_comparator_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: typed when expressions reading property paths",
+      "construct": "modules/machine/capabilities/state-machine-condition-data/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
       "status": "planned",
-      "test": "conformance/condition-data",
+      "test": "spec/conformance/state-machine-condition-data; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
       "phase": "P5b"
     }
   },
@@ -28523,10 +28523,10 @@
       "rive-runtime/include/rive/generated/animation/transition_value_asset_comparator_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: typed asset literal in when expression",
+      "construct": "modules/machine/capabilities/state-machine-literal-asset/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
       "status": "planned",
-      "test": "conformance/literal-asset",
+      "test": "spec/conformance/state-machine-literal-asset; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
       "phase": "P5b"
     }
   },
@@ -28550,10 +28550,10 @@
       "rive-runtime/include/rive/generated/animation/transition_value_boolean_comparator_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: typed boolean literal in when expression",
+      "construct": "modules/machine/capabilities/state-machine-literal-boolean/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
       "status": "planned",
-      "test": "conformance/literal-boolean",
+      "test": "spec/conformance/state-machine-literal-boolean; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
       "phase": "P5b"
     }
   },
@@ -28577,10 +28577,10 @@
       "rive-runtime/include/rive/generated/animation/transition_value_color_comparator_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: typed color literal in when expression",
+      "construct": "modules/machine/capabilities/state-machine-literal-color/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
       "status": "planned",
-      "test": "conformance/literal-color",
+      "test": "spec/conformance/state-machine-literal-color; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
       "phase": "P5b"
     }
   },
@@ -28604,10 +28604,10 @@
       "rive-runtime/include/rive/generated/animation/transition_value_enum_comparator_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: typed enum literal in when expression",
+      "construct": "modules/machine/capabilities/state-machine-literal-enum/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
       "status": "planned",
-      "test": "conformance/literal-enum",
+      "test": "spec/conformance/state-machine-literal-enum; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
       "phase": "P5b"
     }
   },
@@ -28658,10 +28658,10 @@
       "rive-runtime/include/rive/generated/animation/transition_value_string_comparator_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: typed string literal in when expression",
+      "construct": "modules/machine/capabilities/state-machine-literal-string/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
       "status": "planned",
-      "test": "conformance/literal-string",
+      "test": "spec/conformance/state-machine-literal-string; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
       "phase": "P5b"
     }
   },
@@ -28685,10 +28685,10 @@
       "rive-runtime/include/rive/generated/animation/transition_value_trigger_comparator_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: typed trigger literal in when expression",
+      "construct": "modules/machine/capabilities/state-machine-literal-trigger/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
       "status": "planned",
-      "test": "conformance/literal-trigger",
+      "test": "spec/conformance/state-machine-literal-trigger; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
       "phase": "P5b"
     }
   },
@@ -28739,7 +28739,7 @@
       "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "every 0.1 crossfade freezes its source (spec §7); a source that keeps playing during the crossfade is the missing variant",
+      "construct": "every 0.1 crossfade freezes its source (spec \u00a77); a source that keeps playing during the crossfade is the missing variant",
       "module": "core",
       "status": "done",
       "test": "conformance/pause-on-exit",
@@ -31051,7 +31051,7 @@
       "status": "wont-do",
       "test": "cli/binary-rive-io",
       "reason": "The guardrails prohibit reading, writing or converting .riv files.",
-      "phase": "—"
+      "phase": "\u2014"
     }
   },
   {
@@ -33101,7 +33101,7 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "playground: pause/play, ¼× speed, scrubbing, inputs, reset",
+      "construct": "playground: pause/play, \u00bc\u00d7 speed, scrubbing, inputs, reset",
       "module": "tooling",
       "status": "done",
       "test": "packages/playground/test (unit, server, Chromium + Firefox)",
@@ -33325,7 +33325,7 @@
       "status": "wont-do",
       "test": "cli/rive-account-operations",
       "reason": "Rive account features are explicitly outside the permitted scope; generic hosting remains a separate maybe-later option.",
-      "phase": "—"
+      "phase": "\u2014"
     }
   },
   {
@@ -33720,7 +33720,7 @@
       "status": "wont-do",
       "test": "cli/watermark-content",
       "reason": "Watermark content and Rive account enforcement conflict with the project guardrails.",
-      "phase": "—"
+      "phase": "\u2014"
     }
   },
   {

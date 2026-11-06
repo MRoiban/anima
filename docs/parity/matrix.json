@@ -1874,10 +1874,10 @@
   "id": "data.bind-keyframes",
   "category": "data",
   "capability": "Bind keyframe values",
-  "construct": "TODO: modules/data/capabilities/data-bind-keyframes/registry.ts; spec/SPEC.md (Bind keyframe values); modules/data/capabilities/data-bind-keyframes/example.animl",
+  "construct": "TODO: modules/motion/capabilities/data-bind-keyframes/registry.ts; spec/SPEC.md (Bind keyframe values); modules/motion/capabilities/data-bind-keyframes/example.animl",
   "module": "data",
   "status": "planned",
-  "test": "TODO: modules/data/test/core/data-bind-keyframes.test.ts; spec/conformance/data-bind-keyframes; tests/oracle/data-bind-keyframes",
+  "test": "TODO: modules/motion/test/core/data-bind-keyframes.test.ts; spec/conformance/data-bind-keyframes; tests/oracle/data-bind-keyframes",
   "phase": "P5b"
  },
  {
@@ -2204,10 +2204,10 @@
   "id": "data.converter-color-formatting",
   "category": "data",
   "capability": "Color formatting",
-  "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
+  "construct": "modules/convert/capabilities/data-converter-color-formatting/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
   "status": "planned",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "spec/conformance/data-converter-color-formatting; modules/convert/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
   "phase": "P5b"
  },
  {
@@ -2364,10 +2364,10 @@
   "id": "data.converter-trigger",
   "category": "data",
   "capability": "Trigger conversion",
-  "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
+  "construct": "modules/convert/capabilities/data-converter-trigger/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
   "status": "planned",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "spec/conformance/data-converter-trigger; modules/convert/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
   "phase": "P5b"
  },
  {
@@ -2974,10 +2974,10 @@
   "id": "data.instance-export",
   "category": "data",
   "capability": "Exported instances",
-  "construct": "TODO: modules/data/capabilities/data-instance-export/registry.ts; spec/SPEC.md (Exported instances); modules/data/capabilities/data-instance-export/example.animl",
+  "construct": "modules/data/capabilities/data-instance-export/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
   "status": "planned",
-  "test": "TODO: modules/data/test/core/data-instance-export.test.ts; spec/conformance/data-instance-export; tests/oracle/data-instance-export",
+  "test": "spec/conformance/data-instance-export; modules/data/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
   "phase": "P5b"
  },
  {
@@ -10106,10 +10106,10 @@
   "id": "state-machine.condition-data",
   "category": "state-machine",
   "capability": "Live data comparisons",
-  "construct": "new: typed when expressions reading property paths",
+  "construct": "modules/machine/capabilities/state-machine-condition-data/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
   "status": "planned",
-  "test": "conformance/condition-data",
+  "test": "spec/conformance/state-machine-condition-data; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
   "phase": "P5b"
  },
  {
@@ -10276,40 +10276,40 @@
   "id": "state-machine.literal-asset",
   "category": "state-machine",
   "capability": "asset comparison literal",
-  "construct": "new: typed asset literal in when expression",
+  "construct": "modules/machine/capabilities/state-machine-literal-asset/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
   "status": "planned",
-  "test": "conformance/literal-asset",
+  "test": "spec/conformance/state-machine-literal-asset; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
   "phase": "P5b"
  },
  {
   "id": "state-machine.literal-boolean",
   "category": "state-machine",
   "capability": "boolean comparison literal",
-  "construct": "new: typed boolean literal in when expression",
+  "construct": "modules/machine/capabilities/state-machine-literal-boolean/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
   "status": "planned",
-  "test": "conformance/literal-boolean",
+  "test": "spec/conformance/state-machine-literal-boolean; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
   "phase": "P5b"
  },
  {
   "id": "state-machine.literal-color",
   "category": "state-machine",
   "capability": "color comparison literal",
-  "construct": "new: typed color literal in when expression",
+  "construct": "modules/machine/capabilities/state-machine-literal-color/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
   "status": "planned",
-  "test": "conformance/literal-color",
+  "test": "spec/conformance/state-machine-literal-color; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
   "phase": "P5b"
  },
  {
   "id": "state-machine.literal-enum",
   "category": "state-machine",
   "capability": "enum comparison literal",
-  "construct": "new: typed enum literal in when expression",
+  "construct": "modules/machine/capabilities/state-machine-literal-enum/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
   "status": "planned",
-  "test": "conformance/literal-enum",
+  "test": "spec/conformance/state-machine-literal-enum; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
   "phase": "P5b"
  },
  {
@@ -10326,20 +10326,20 @@
   "id": "state-machine.literal-string",
   "category": "state-machine",
   "capability": "string comparison literal",
-  "construct": "new: typed string literal in when expression",
+  "construct": "modules/machine/capabilities/state-machine-literal-string/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
   "status": "planned",
-  "test": "conformance/literal-string",
+  "test": "spec/conformance/state-machine-literal-string; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
   "phase": "P5b"
  },
  {
   "id": "state-machine.literal-trigger",
   "category": "state-machine",
   "capability": "trigger comparison literal",
-  "construct": "new: typed trigger literal in when expression",
+  "construct": "modules/machine/capabilities/state-machine-literal-trigger/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
   "status": "planned",
-  "test": "conformance/literal-trigger",
+  "test": "spec/conformance/state-machine-literal-trigger; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
   "phase": "P5b"
  },
  {

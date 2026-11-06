@@ -2857,6 +2857,9 @@
           "grouping": {
             "type": "boolean"
           },
+          "pattern": {
+            "type": "string"
+          },
           "format": {
             "type": "string",
             "enum": [

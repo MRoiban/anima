@@ -1,11 +1,13 @@
 # Work log
 
 ## Now
-Goal: completed P4e derive/bind native oracle follow-up on t3/derive-bind-oracle-captures-1; local commit only.
-Verified: Rive 1.9.1, 9 exact cases/75 snapshots/186 typed values; read-only parity evidenced skip (native accepts writes).
-Checks: strict225 cases/419 samples exit0; scope2446 pass/367 filtered/15 TODO; Prettier/ESLint/typecheck pass; 18 old findings unchanged.
-Next: parent reviews/integrates local commit; no pending implementation work in this test-only follow-up.
-Don't: change runtime/oracle limits/parity statuses; no push/PR/merge; no prohibited Rive commands or binary files.
+Goal: P5b-5 data extras handoff on t3/data-extras; implementation partial, local commit only.
+Implemented: typed guards, colour patterns, trigger destinations, authored export discovery; 10 new conformance cases, 30 exact native observations.
+Verified: scope4218 pass/2 starting-commit failures/63 TODO; data2369 pass; strict oracle245 cases/441 samples exit0; static/artifact/size checks pass.
+Bytes: core+web20147 (+38), bind2048/2048, data7908/8192, convert6569/8192; all budgets pass.
+Pending: keyframes need player-aware core sampler; canonical oracle integration, host export counterpart, quiet performance gate; see modules/data/P5B-5-REPORT.md.
+Next: parent integrates/assigns pending seams and baseline derive/module-order fixes; no phase/row promotion claimed.
+Don't: change measurement inputs/parity statuses or unowned runtimes; no push/PR/merge.
 
 ## Log
 - 2026-11-06 16:59 [codex-test]: condensed oldest half of log per >200-line rule; M0–M4 established spec/CLI/web, PRs #1–6 merged; original 25 KB owner budget decision retained in docs (evidence: 1901923, 0defae8, 18f98ed, 591d0ce, 62cee1b).
@@ -159,3 +161,11 @@ Don't: change runtime/oracle limits/parity statuses; no push/PR/merge; no prohib
 - 2026-11-06 [claude]: wave 1 merged (lists, host-edit, assets, derive captures); p5b pushed for CI. Launched wave 2: P5b-4, P5b-5, P5b-6, P5b-7 (Sol xhigh)
 - 2026-11-06 [claude]: owner approved scope triage of 524 planned rows (web UI generally; bind to browser; won't do P9/editor tools/most of P7; maybe-later P10; in-scope progress metric) → queued after P5b merges, separate docs/plan change
 - 2026-11-06 22:20 [claude]: p5b CI red after wave 1 (my miss: core scope not run). Fixes: module-order helper used folder name as export (host-edit → hostEdit) → reads manifest; per-order 4.5 s vs main 2.5 s → cause: encode.ts imported playwright at module load → lazy import (now 2.4–2.7 vs main 2.8–3.0 s); 12 sequential orders at the 30 s limit even on main (33 s locally) → run 2 at a time (limit unchanged); derive test used modelTypes as 'no wrapper' witness but lists made data own modelTypes → assert the scope factory instead. Local load ~19 (agents) → CI judges
+
+- 2026-11-06 18:00 [codex/P5b-5]: read design/contracts; missing prettier blocked scaffolder → npm ci restored tooling; all eleven dry/run pairs exit0, instance-export existing scaffold preserved.
+
+- 2026-11-06 21:54 [codex/P5b-5]: implemented 10 data extras vectors and native guard/format/trigger probes; focused suites pass; initial scope 4199 pass/17 fail/63 TODO → own corpus/reader fixes applied, baseline derive/host-edit loader and load timeouts under investigation (evidence: /tmp/p5b-scope.log, /tmp/p5b-decompile2.log).
+
+- 2026-11-06 22:03 [codex/P5b-5]: finalized 10 conformance cases/30 exact native observations; scope4218 pass/2 failures reproduced at a5fa00a/63 TODO, final data2369 pass; strict245/441 exit0; static/artifact/size pass (core+web20147, bind2048, data7908, convert6569); keyframes/canonical oracle/export counterpart/perf gate pending (evidence: modules/data/verification/p5b5/summary.json).
+- 2026-11-06 22:03 [codex/P5b-5]: standalone perf slower frames under concurrent load; paired A/B bell112.81→111.70, composite71.83→74.28, toolbar79.08→76.27 µs, compile7.37→7.14 ms → no quiet no-regression claim; verification-script ESLint globals fixed with explicit Node imports, lint passes (evidence: verification/p5b5/perf-*.txt, eslint.txt).
+- 2026-11-06 [claude]: merged P5b-5 data extras (10 rows; bind-keyframes pending: player-aware sampling; core+web 20,147 +38, data 7908, convert 6569, bind 2048)

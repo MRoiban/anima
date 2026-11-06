@@ -6,3 +6,5 @@ const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
 Icon.registerModule(data);
 const { form, binding, rootChild, node } = dataMarkup;
 Icon.registerMarkup('data', { form, binding, rootChild, node });
+
+export { dataState } from '../core/index.ts';

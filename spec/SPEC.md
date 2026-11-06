@@ -1911,6 +1911,23 @@ conformance cases and native-oracle evidence. A documented oracle skip is not na
 
 <!-- capability: state-machine.transition-random-weight -->
 
+
+<!-- capability: state-machine.condition-data -->
+<!-- capability: state-machine.literal-asset -->
+<!-- capability: state-machine.literal-boolean -->
+<!-- capability: state-machine.literal-color -->
+<!-- capability: state-machine.literal-enum -->
+<!-- capability: state-machine.literal-string -->
+<!-- capability: state-machine.literal-trigger -->
+### Typed data guards
+
+With `data`, a direct scalar path on the left accepts `==`/`!=` against JSON string/enum,
+boolean, hex colour or `asset("id")` literals. Enum members and typed assets must exist.
+Colors compare all four RGBA bytes; quoted `&&` stays inside a string. The existing JSON/AniML
+`when` field retains its spelling. Type/operator mismatches emit `data-guard` at the `/when`
+pointer with a correction hint. Bare `$trigger` guards consume signal occurrences; there is no
+integer trigger literal syntax. Details: [data contract](../modules/data/SPEC.md).
+
 ## input
 
 Optional P4c input behavior is specified in [the input contract](../modules/input/SPEC.md).
@@ -2360,7 +2377,7 @@ Bindings evaluate once per data binding evaluation; `mode="once"` retains its co
 | to-number | Number, boolean or string conversion using ECMAScript Number; nonnumeric strings become zero. |
 | to-string | ECMAScript String conversion. |
 | number-format | `decimals` (0–100, default 0), `grouping` boolean; fixed precision, dot decimal, comma thousands; locale independent. |
-| color-format | Hex colour or 4-channel RGBA tuple → `format` hex/hexa/rgb/rgba (default hex). |
+| color-format | Hex colour or RGBA tuple → `format` hex/hexa/rgb/rgba (default hex), or component `pattern` (see below). |
 | pad | String `length` (0–10000), `fill` (nonempty string, default space), `side` start/end. UTF-16 length. |
 | trim | `mode`: start/end/all/none; ECMAScript whitespace. |
 | template | `text`, `open`/`close` delimiters (default braces), `grouping`, optional `args` map/array. Without `args`, scalar input is argument 0 and a list supplies positional arguments. Named keys, numeric positions and sequential `{}` placeholders are supported. `args` values may be `$` paths. `{points:2:8}` fixes two decimals and left-pads to width 8 (maximum 10000). Missing arguments are errors. |
@@ -2368,7 +2385,7 @@ Bindings evaluate once per data binding evaluation; `mode="once"` retains its co
 | enum-to-index | `values`: ordered strings. Unknown values are errors. |
 | list-length | Return list length. |
 | number-to-list | Integer count 0–10000; produce index values or repeated `item`. Model instance creation awaits data integration. |
-| trigger | Boolean pulse passthrough or truncated integer signal counter. Counter-to-trigger delivery awaits data integration. |
+| trigger | Boolean passthrough or truncated integer counter; a trigger binding destination fires when the converted output changes (next step, no initial pulse). |
 | degrees-to-radians | Multiply by pi/180 forward; by 180/pi in reverse. |
 | normalize | Normalize using `from` pair, default 0 1; reverse denormalizes with the same pair. No implicit clamp. |
 | interpolate | `duration` in milliseconds, default 0. First evaluation returns input immediately; changes retarget from the current sample. Numeric or rounded RGBA channel interpolation; optional `ease` uses the existing timeline easing grammar (default linear). No extrapolation before start or after completion. |
@@ -2397,8 +2414,7 @@ The generated `convertCompiler` hook supplies declaration compilation/decompilat
 of events/data authoring. Browser `markup-convert` registers the `convert` slot. JSON declarations,
 AniML, CLI schema/inspect and `anima docs convert` use the same metadata and module chapter.
 
-Remaining parity limits: HSL component-format markers; retained model-instance list creation;
-trigger-counter delivery into a trigger destination; scripted conversion (P9). Their canonical
+Remaining parity limits: retained model-instance list creation; scripted conversion (P9). Their canonical
 probes retain precise `todo.json` reasons. Existing scalar/index-list/boolean conversion functions
 are useful independently but do not complete those broader rows. See ROWS.json and REPORT.md.
 
@@ -2424,6 +2440,30 @@ These decisions retain the original oracle findings unchanged; none becomes a pa
 Algorithms are independently implemented from standard arithmetic and ECMAScript functions.
 No Rive source or .riv files were read; no CLI documentation text was copied. The registry design follows
 the metadata rationale in `docs/research/rive-format-and-graph.md`; this is not a Rive algorithm port.
+
+
+<!-- capability: data.converter-color-formatting -->
+### Colour component patterns
+
+JSON `pattern` / AniML `pattern` overrides `format` on a `color-format` converter.
+Markers `{r} {g} {b} {a}` are rounded bytes, `{h}` rounded degrees (achromatic 0), `{s}`/`{l}`
+rounded HSL percentages, `{hex}` lowercase `#rrggbb`. Unknown markers produce `convert-options`
+at `/converters/<name>/pattern` with a hint. See [convert](../modules/convert/SPEC.md).
+
+<!-- capability: data.converter-trigger -->
+### Trigger destinations
+
+A binding target naming a trigger queues one fire when its converted output changes after the
+initial baseline; transitions/listeners observe it on the following step. Magnitude/direction
+is irrelevant. `trigger` truncates numeric input and passes booleans unchanged. Forward-only
+modes `to-target`/`once` are valid; reverse modes produce `data-binding` at the `/mode` pointer.
+
+### Export discovery and pending keyframe bindings
+
+JSON instance `exported: true` is AniML `export="true"` (legacy `exported` accepted).
+`dataState(player).exports()` lists only explicitly exported authored `{name,model}` records.
+Internal private instances remain addressable. Existing host APIs retain their all-instance list.
+Data-keyframe values remain pending: the model-shared sampler requires a player-aware seam.
 
 ## derive
 

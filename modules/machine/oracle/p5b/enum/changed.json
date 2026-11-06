@@ -1,0 +1,30 @@
+{
+  "schema": 1,
+  "artboard": "Probe",
+  "stateMachine": "run",
+  "viewModel": {
+    "name": "main",
+    "viewModel": "Root",
+    "properties": [
+      {
+        "name": "value",
+        "path": "value",
+        "type": "enum",
+        "enumType": "Mood",
+        "value": "happy",
+        "index": 1,
+        "values": ["calm", "happy"],
+        "changed": true
+      },
+      {
+        "name": "result",
+        "path": "result",
+        "type": "number",
+        "value": 9,
+        "changed": true
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}
