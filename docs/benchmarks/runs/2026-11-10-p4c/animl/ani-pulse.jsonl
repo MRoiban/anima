@@ -1,0 +1,12 @@
+{"time":0,"values":{"volume":0.5,"speaker.scale":1},"states":{"sound":"blend","feedback":"idle"},"events":[],"settled":false}
+{"time":0,"values":{"volume":0.7,"speaker.scale":1},"states":{"sound":"blend","feedback":"pop"},"events":[],"settled":false}
+{"time":0.05,"values":{"volume":0.7,"speaker.scale":1.04},"states":{"sound":"blend","feedback":"pop"},"events":[],"settled":false}
+{"time":0.1,"values":{"volume":0.7,"speaker.scale":1.08},"states":{"sound":"blend","feedback":"pop"},"events":[],"settled":false}
+{"time":0.15000000000000002,"values":{"volume":0.7,"speaker.scale":1.04},"states":{"sound":"blend","feedback":"pop"},"events":[],"settled":false}
+{"time":0.2,"values":{"volume":0.7,"speaker.scale":1},"states":{"sound":"blend","feedback":"idle"},"events":[],"settled":true}
+{"time":0.30000000000000004,"values":{"volume":0.3,"speaker.scale":1},"states":{"sound":"blend","feedback":"idle"},"events":[],"settled":true}
+{"time":0.4,"values":{"volume":0.3,"speaker.scale":1},"states":{"sound":"blend","feedback":"idle"},"events":[],"settled":true}
+{"time":0.5,"values":{"volume":0.4,"speaker.scale":1.08},"states":{"sound":"blend","feedback":"pop"},"events":[],"settled":false}
+{"time":0.5,"values":{"volume":0.6,"speaker.scale":1},"states":{"sound":"blend","feedback":"pop"},"events":[],"settled":false}
+{"time":0.6,"values":{"volume":0.6,"speaker.scale":1.08},"states":{"sound":"blend","feedback":"pop"},"events":[],"settled":false}
+{"time":0.7,"values":{"volume":0.6,"speaker.scale":1},"states":{"sound":"blend","feedback":"idle"},"events":[],"settled":true}

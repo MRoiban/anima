@@ -1,0 +1,318 @@
+{
+  "anima": "0.1",
+  "name": "volume",
+  "grid": 40,
+  "viewBox": [0, 0, 40, 12],
+  "requires": ["bind", "machine", "input", "focus"],
+  "colors": {
+    "ink": "#141413",
+    "accent": "#d97757"
+  },
+  "inputs": {
+    "volume": {
+      "type": "number",
+      "default": 0.5,
+      "min": 0,
+      "max": 1
+    },
+    "muted": {
+      "type": "bool",
+      "default": false
+    }
+  },
+  "nodes": [
+    {
+      "id": "speaker",
+      "type": "group",
+      "pivot": [5, 6],
+      "children": [
+        {
+          "id": "body",
+          "type": "rect",
+          "x0": 2,
+          "y0": 4,
+          "w": 3,
+          "h": 4,
+          "fill": {
+            "color": "ink"
+          }
+        },
+        {
+          "id": "cone",
+          "type": "path",
+          "d": "M5 4 L8 2 L8 10 L5 8 Z",
+          "fill": {
+            "color": "ink"
+          }
+        },
+        {
+          "id": "mute-line",
+          "type": "path",
+          "d": "M1 2 L9 10",
+          "opacity": 0,
+          "stroke": {
+            "color": "accent",
+            "width": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "waves",
+      "type": "group",
+      "children": [
+        {
+          "id": "wave1",
+          "type": "arc",
+          "center": [8, 6],
+          "r": 2,
+          "from": -45,
+          "to": 45,
+          "opacity": 0,
+          "stroke": {
+            "color": "ink",
+            "width": 1
+          }
+        },
+        {
+          "id": "wave2",
+          "type": "arc",
+          "center": [8, 6],
+          "r": 3.5,
+          "from": -45,
+          "to": 45,
+          "opacity": 0,
+          "stroke": {
+            "color": "ink",
+            "width": 1
+          }
+        },
+        {
+          "id": "wave3",
+          "type": "arc",
+          "center": [8, 6],
+          "r": 5,
+          "from": -45,
+          "to": 45,
+          "opacity": 0,
+          "stroke": {
+            "color": "ink",
+            "width": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "track",
+      "type": "path",
+      "d": "M12 6 L36 6",
+      "stroke": {
+        "color": "ink",
+        "width": 1
+      }
+    },
+    {
+      "id": "fill",
+      "type": "path",
+      "d": "M12 6 L36 6",
+      "stroke": {
+        "color": "accent",
+        "width": 1
+      }
+    },
+    {
+      "id": "slider-space",
+      "type": "group",
+      "x": 12,
+      "y": 6,
+      "scaleX": 24,
+      "children": [
+        {
+          "id": "knob",
+          "type": "circle",
+          "center": [0, 0],
+          "r": 1.5,
+          "x": 0.5,
+          "scaleX": 0.041666666666666664,
+          "fill": {
+            "color": "accent"
+          },
+          "cursor": "resize-horizontal",
+          "focus": {
+            "label": "Volume",
+            "bounds": [-1.5, -1.5, 3, 3]
+          }
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "silent": {
+      "duration": 0.2,
+      "tracks": {
+        "wave1.opacity": [
+          [0, 0],
+          [0.2, 0]
+        ],
+        "wave2.opacity": [
+          [0, 0],
+          [0.2, 0]
+        ],
+        "wave3.opacity": [
+          [0, 0],
+          [0.2, 0]
+        ]
+      }
+    },
+    "one": {
+      "duration": 0.2,
+      "tracks": {
+        "wave1.opacity": [
+          [0, 1],
+          [0.2, 1]
+        ],
+        "wave2.opacity": [
+          [0, 0],
+          [0.2, 0]
+        ],
+        "wave3.opacity": [
+          [0, 0],
+          [0.2, 0]
+        ]
+      }
+    },
+    "two": {
+      "duration": 0.2,
+      "tracks": {
+        "wave1.opacity": [
+          [0, 1],
+          [0.2, 1]
+        ],
+        "wave2.opacity": [
+          [0, 1],
+          [0.2, 1]
+        ],
+        "wave3.opacity": [
+          [0, 0],
+          [0.2, 0]
+        ]
+      }
+    },
+    "three": {
+      "duration": 0.2,
+      "tracks": {
+        "wave1.opacity": [
+          [0, 1],
+          [0.2, 1]
+        ],
+        "wave2.opacity": [
+          [0, 1],
+          [0.2, 1]
+        ],
+        "wave3.opacity": [
+          [0, 1],
+          [0.2, 1]
+        ]
+      }
+    },
+    "pulse": {
+      "duration": 0.2,
+      "tracks": {
+        "speaker.scale": [
+          [0, 1],
+          [0.1, 1.08],
+          [0.2, 1]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "sound": {
+        "initial": "blend",
+        "states": {
+          "blend": {
+            "play": "silent",
+            "mix": {
+              "mode": "1d",
+              "axis": "volume",
+              "children": [
+                {
+                  "play": "silent",
+                  "at": 0
+                },
+                {
+                  "play": "one",
+                  "at": 0.33
+                },
+                {
+                  "play": "two",
+                  "at": 0.66
+                },
+                {
+                  "play": "three",
+                  "at": 1
+                }
+              ]
+            }
+          }
+        }
+      },
+      "feedback": {
+        "initial": "idle",
+        "states": {
+          "watch": {
+            "pose": {},
+            "on": [
+              {
+                "when": "volume >= 0",
+                "to": "pop",
+                "change": {
+                  "input": "volume",
+                  "mode": "increased"
+                }
+              }
+            ],
+            "kind": "any"
+          },
+          "idle": {
+            "pose": {
+              "speaker.scale": 1
+            }
+          },
+          "pop": {
+            "play": "pulse",
+            "on": [
+              {
+                "when": "@end",
+                "to": "idle"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "click",
+      "target": "speaker",
+      "toggle": "muted"
+    },
+    {
+      "on": "drag",
+      "target": "knob",
+      "set": {},
+      "write": {
+        "x": "volume"
+      },
+      "align": "preserve"
+    }
+  ],
+  "bind": {
+    "knob.x": "volume",
+    "fill.stroke.trimEnd": "volume",
+    "waves.opacity": "1 - muted",
+    "mute-line.opacity": "muted"
+  }
+}

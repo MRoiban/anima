@@ -1,0 +1,13 @@
+advance 0
+set volume 0.83
+advance 0
+advance 0.2
+snapshot volume muted waves.opacity mute-line.opacity wave1.opacity wave2.opacity wave3.opacity
+pointer click 4 6
+snapshot volume muted waves.opacity mute-line.opacity wave1.opacity wave2.opacity wave3.opacity
+# Change volume while muted, then unmute to reveal the CURRENT volume blend.
+set volume 0.165
+advance 0
+snapshot volume muted waves.opacity mute-line.opacity wave1.opacity wave2.opacity wave3.opacity
+pointer click 6 6
+snapshot volume muted waves.opacity mute-line.opacity wave1.opacity wave2.opacity wave3.opacity

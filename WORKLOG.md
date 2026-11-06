@@ -1,10 +1,11 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now: P4c interaction (branch p4c-interaction; modules machine, input, focus) and P4d events (branch p4d-events) in parallel; then P4e data, P5b, P3b, P6–P10.
-State: main a02c0be = through P4b (PR #13). Parity 259/1238. core+web 19012; full-featured 51.4 KB.
-Next: merge agents per branch; before pushing a merge run browser tests for the seams; benchmark per phase; PR per phase.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4c AniML volume benchmark, local commit only.
+Verified: items 1/2/4/5/6 pass on AniML and ANI; item 3 keyboard increments unmet.
+Evidence: docs/benchmarks/runs/2026-11-10-p4c/animl/REPORT.md and verify.py.
+Next: parent reviews report and merges benchmark evidence as appropriate.
+Don't: push, PR, merge, read other-format/oracle materials or runtime implementation.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -110,3 +111,4 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 12:00 [claude]: merged P4c-4 integration (9cc628a): input 18/54 strict (36 await oracle), focus round trips 17/17, core+web +0; perf under load avg 16: min-of-4 prefixes main 973 vs branch 955 ms (no regression; re-measure quiet before PR)
 - 2026-11-07 15:00 [claude]: merged P4c oracle (d6da97a): focus 16/16, input 27 verified/6 skips/3 findings. Decisions: capture-phase order → fix (parent first, DOM/Rive); keyboard target listener stops propagation (opt-in bubble) → fix; align-preserve kept (Anima follows the grab offset) → intentional difference
 - 2026-11-07 16:30 [claude]: merged P4c-5 (1a785a5): keyboard stops by default + propagate opt-in, capture parent-first verified; spec now states capture-without-consume as an intentional difference from Rive (Rive capture claims by default); preserve-offset intentional; oracle 106 cases strict green
+- 2026-11-06 04:01 [codex-test]: P4c AniML volume benchmark → 5/6 strict; 32 CLI checks + verifier, 9 CLI diagnostics; keyboard arithmetic undiscovered (evidence: animl/REPORT.md, checks.jsonl, both-format samples, three PNGs).

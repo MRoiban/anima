@@ -1,0 +1,25 @@
+advance 0
+snapshot volume knob.x
+# Grab half a grid unit to the right of center. No movement must not jump.
+pointer down 24.5 6
+pointer move 24.5 6
+snapshot volume knob.x
+# 6 grid units right means +0.25, keeping the original half-unit offset.
+pointer move 30.5 9
+snapshot volume knob.x
+# Clamp beyond each end, including when the pointer leaves the scene bounds.
+pointer move 50 9
+snapshot volume knob.x
+pointer move -5 9
+snapshot volume knob.x
+pointer move 18.5 9
+snapshot volume knob.x
+pointer up 18.5 9
+snapshot volume knob.x
+pointer move 32 6
+snapshot volume knob.x
+# Re-grab with the opposite offset; new center is 18, grab at 17.
+pointer down 17 6
+pointer move 23 6
+snapshot volume knob.x
+pointer up 23 6

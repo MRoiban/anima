@@ -1,0 +1,4 @@
+{"time":0.2,"values":{"volume":0.83,"muted":false,"waves.opacity":1,"mute-line.opacity":0,"wave1.opacity":1,"wave2.opacity":1,"wave3.opacity":0.49999999999999983},"states":{"sound":"blend","feedback":"idle"},"events":[],"settled":true}
+{"time":0.2,"values":{"volume":0.83,"muted":true,"waves.opacity":0,"mute-line.opacity":1,"wave1.opacity":1,"wave2.opacity":1,"wave3.opacity":0.49999999999999983},"states":{"sound":"blend","feedback":"idle"},"events":[],"settled":true}
+{"time":0.2,"values":{"volume":0.165,"muted":true,"waves.opacity":0,"mute-line.opacity":1,"wave1.opacity":0.5,"wave2.opacity":0,"wave3.opacity":0},"states":{"sound":"blend","feedback":"idle"},"events":[],"settled":true}
+{"time":0.2,"values":{"volume":0.165,"muted":false,"waves.opacity":1,"mute-line.opacity":0,"wave1.opacity":0.5,"wave2.opacity":0,"wave3.opacity":0},"states":{"sound":"blend","feedback":"idle"},"events":[],"settled":true}
