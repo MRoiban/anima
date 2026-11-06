@@ -403,7 +403,10 @@ previous snapshot, and `settled` is the last step's result.
 Explicit input names appear in `values` under their own names (for example,
 `snapshot dark knob.x`). They report the currently applied value; queued `set`/`toggle`
 writes take effect only after a step. Triggers have no persistent value and cannot be
-selected. An unknown address or input is a script error. With no arguments, `snapshot`
+selected. Selected addresses accept both JSON paths and AniML property spellings (for example
+`ring.stroke.trimEnd` and `ring.trimEnd`). Snapshot keys always use JSON paths, for both
+selected and complete snapshots, including slash-scoped component addresses. Exact input
+names and JSON paths take precedence over aliases. An unknown address or input is a script error. With no arguments, `snapshot`
 continues to include only animated addresses, never inputs.
 
 ### 11.3 Diagnostic codes
@@ -1532,7 +1535,13 @@ Transition fields (JSON and AniML names are identical):
 
 A single such edge on an any state handles arbitrary counts, including another increment
 while popping; there is no ladder of numeric states. A zero-duration self-reentry does not
-produce `@limit`. A held unchanged value never retriggers.
+produce `@limit`. A held unchanged value never retriggers. Change-gated transitions always enter the target
+at time zero, including their fade clock: the change is observed in this step, so time spent
+waiting in the source is not target overshoot, even with `@after`, `@end` or `exitRatio`.
+For a pulse on every increase, put this edge on an any state, play a once timeline
+starting at the rest value, and return to idle with `@end`. Another increase during the
+pulse restarts at its first key; decreases and unchanged values do not restart it.
+See `modules/machine/examples/blend-pulse.animl`.
 
 ### Typed live guards and the focus seam
 

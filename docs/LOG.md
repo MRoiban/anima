@@ -1671,3 +1671,53 @@ and exited 143 before completing; no limits were changed. npm ci restored missin
 Final core-test typecheck caught two test-only accesses through the generic Doc shape; explicit
 listener-shape casts fixed them. `npx tsc -p packages/core/test` and the focused 56-test
 evidence suite pass; final whole-repo Prettier and ESLint checks pass.
+
+## P4c-6 — interaction authoring
+
+Completed 6/6 authoring findings. Module docs include the normative chapter plus the
+module-local contract inline when present (input), with example paths. Input's registry
+write descriptor explains event-field → input direction, field names/types, missing fields
+and parent-space alignment; both schema output forms read that metadata. Three documented,
+built AniML examples cover preserved-offset drag, ordered/arrow/Tab focus and a 1D blend
+with restart-on-increase feedback. Existing module-example globs build/test all three;
+the corpus explicitly requires their presence.
+
+The @after(0) recipe exposed a runtime bug: a change only becomes observable this step,
+but the ordinary time-term carry could forward the entire idle/source clock into the
+target, finishing it immediately or entering it partway through. MachinePolicy now caps
+change-gated carry at zero, including self/any re-entry, while ordinary time-only edges
+retain their existing overshoot semantics. This follows the independent clock/state
+separation described in docs/research/rive-animation-and-state.md; no external source
+or documentation text was used. The normative machine chapter states the rule.
+
+Conformance expectations changed: **no existing golden changed**. Added
+**machine-change-pulse**, 10 independently calculated snapshots: 2 seconds idle → increase
+starts at scale 1; +.05 seconds → 1.04; increase during pulse → 1; +.1 seconds → 1.08;
+decrease/unchanged writes continue the pulse; completion returns to idle; a later increase
+after 3 idle seconds restarts at 1. Linear blend opacity is .2 + .8*level. The first
+snapshot also accepts AniML trimEnd/stroke-width and expects canonical JSON keys.
+Removing only the carry fix reproduces the old first-snapshot failure (idle/settled
+instead of pulse/busy). Restoring it passes the case.
+
+Inspect identifies any declarations, accounts for inherited any-state exits and prints
+listener writes. Snapshot selection accepts registry-derived AniML aliases and existing
+JSON addresses; all printed keys use JSON spelling in both source formats. Exact input
+names/JSON addresses take precedence. CLI tests exercise both formats, input writes and
+focus traversal; selected and complete snapshots agree.
+
+Verification: requested scoped command passes **52 files / 1673 tests**, including
+Chromium and Firefox. Final targeted regression after the small summary/alias refactor:
+**6 passed**, 258 unrelated tests filtered. Whole-repo Prettier and ESLint, core/CLI
+typechecks, module wiring, 213-source AniML build check and 18-entry browser build pass.
+Size checks pass unchanged budgets: core+web **19048 B**, input **6194/8192 B**,
+focus **3846/4096 B**, machine **5747/8192 B**, full-featured **65068/102400 B**.
+Initial scoped run: 1669 passed / four failures (contract heading nesting, canonical
+focus attribute order, focus command syntax, static-only alias test fixture), corrected.
+Initial build required npm ci and corrected missing circle centers/bind syntax.
+npm ci reported 10 moderate advisories. No benchmark edits, pushes, PRs, merges, new
+runtime dependencies, test-limit or measurement changes; full CI/oracle reruns not claimed.
+
+The final web-artifact check initially found the ignored build manifest stale after the
+tooling script refactor; rebuilt it and rechecked. Exploratory CLI attempts with the
+nonexistent bin.ts entry and unsupported fmt -w flag failed, corrected to main.ts and
+--write. No product behavior or tests were weakened to resolve these failures.

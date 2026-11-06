@@ -2,7 +2,7 @@ import '@anima-format/core/all';
 // The `anima` command line (ARCHITECTURE §cli). Every command takes --format=json; exit codes are
 // 0 ok, 1 diagnostics or a failed check, 2 usage.
 
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
 import {
   Player,
@@ -376,6 +376,7 @@ function inspect(f: string, json: boolean, io: IO): number {
       writes,
       states: l.states.map((s) => ({
         name: s.name,
+        kind: doc.machine.layers[l.name].states[s.name].kind,
         ...(s.play !== undefined
           ? { play: m.timelines[s.play]!.name }
           : {
@@ -393,7 +394,12 @@ function inspect(f: string, json: boolean, io: IO): number {
           (t: { when: string; to: string; blend?: number }) =>
             `${t.when} → ${t.to}${t.blend ? ` (${t.blend}s)` : ''}`,
         ),
-        ...(s.on.length ? {} : { deadEnd: true }),
+        ...(s.on.length ||
+        l.states.some(
+          (a) => doc.machine.layers[l.name].states[a.name].kind === 'any' && a.on.length,
+        )
+          ? {}
+          : { deadEnd: true }),
       })),
     };
   });
@@ -435,8 +441,8 @@ function inspect(f: string, json: boolean, io: IO): number {
       .filter(([, ls]) => ls.length > 1)
       .map(([a, ls]) => `${a} is written by ${ls.join(', ')} (the last one wins)`),
     listeners: m.listeners.map(
-      (l) =>
-        `${l.on}${l.target >= 0 ? ` on ${m.nodes[l.target]!.id}` : ''} → ${[...l.fire.map((x) => `fire ${x}`), ...l.set.map(([k, v]) => `set ${k}=${v}`), ...l.toggle.map((x) => `toggle ${x}`), ...(l.emit ? [`emit ${l.emit}`] : [])].join(', ')}`,
+      (l, i) =>
+        `${l.on}${l.target >= 0 ? ` on ${m.nodes[l.target]!.id}` : ''} → ${[...l.fire.map((x) => `fire ${x}`), ...l.set.map(([k, v]) => `set ${k}=${v}`), ...l.toggle.map((x) => `toggle ${x}`), ...(l.emit ? [`emit ${l.emit}`] : []), ...Object.entries(doc.listeners?.[i]?.write ?? {}).map(([field, input]) => `write ${field} → ${input}`)].join(', ')}`,
     ),
     a11y: doc.a11y ?? null,
     warnings: diagnostics
@@ -496,7 +502,7 @@ function inspect(f: string, json: boolean, io: IO): number {
     lines.push(`  layer ${l.name} (writes ${l.writes.join(', ') || 'nothing'})`);
     for (const s of l.states)
       lines.push(
-        `    ${s.name === l.initial ? '*' : ' '}${s.name}: ${'play' in s ? `play ${s.play}` : `pose ${JSON.stringify(s.pose)}`}${s.emit ? `, emit ${s.emit}` : ''}${s.on.length ? '' : ' (no way out)'}`,
+        `    ${s.name === l.initial ? '*' : ' '}${s.name}: ${s.kind ? `${s.kind} state` : 'play' in s ? `play ${s.play}` : `pose ${JSON.stringify(s.pose)}`}${s.emit ? `, emit ${s.emit}` : ''}${'deadEnd' in s && s.kind !== 'any' ? ' (no way out)' : ''}`,
         ...s.on.map((t: string) => `        ${t}`),
       );
   }
@@ -757,6 +763,7 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
       required: shape.req?.includes(key) ?? false,
       ...(value.default !== undefined ? { default: value.default } : {}),
       ...((value.feature ?? shape.feature) ? { feature: value.feature ?? shape.feature } : {}),
+      ...(value.description ? { description: value.description } : {}),
       ...(value.k === 'num' && value.min !== undefined ? { min: value.min } : {}),
     }));
   };
@@ -843,7 +850,7 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
       .join('\n')}`;
   if (objectFields)
     io.out(
-      `${topic} (markup ↔ .ani: type)\n${objectFields.map((f) => `  ${f.markup} ↔ ${topic === 'fill' || topic === 'stroke' ? topic + '.' : ''}${f.ani}: ${f.type}${f.required ? ' (required)' : ''}${'default' in f ? ` (default ${JSON.stringify(f.default)})` : ''}${f.feature ? ` [${f.feature}]` : ''}`).join('\n')}`,
+      `${topic} (markup ↔ .ani: type)\n${objectFields.map((f) => `  ${f.markup} ↔ ${topic === 'fill' || topic === 'stroke' ? topic + '.' : ''}${f.ani}: ${f.type}${f.required ? ' (required)' : ''}${'default' in f ? ` (default ${JSON.stringify(f.default)})` : ''}${f.feature ? ` [${f.feature}]` : ''}${f.description ? ` — ${f.description}` : ''}`).join('\n')}`,
     );
   else if (!topic)
     io.out([...NODE_TYPES.map(typeInfo).map(show), paint('fill'), paint('stroke')].join('\n\n'));
@@ -887,6 +894,18 @@ function docs(topic: string | undefined, list: boolean, json: boolean, io: IO): 
   else if (moduleTopics.some((m) => m[1] === topic)) {
     const i = chapters.findIndex((m) => m[1] === topic);
     text = spec.slice(chapters[i]!.index, chapters[i + 1]?.index ?? spec.length).trim();
+    const contract = new URL(`modules/${topic}/SPEC.md`, ROOT);
+    if (existsSync(contract))
+      text += '\n\n' + readFileSync(contract, 'utf8').trim().replace(/^#/gm, '###');
+    const examples = new URL(`modules/${topic}/examples/`, ROOT);
+    if (existsSync(examples))
+      text +=
+        '\n\nExamples (AniML sources with built .ani siblings):\n' +
+        readdirSync(examples)
+          .filter((f) => f.endsWith('.animl'))
+          .sort()
+          .map((f) => `- modules/${topic}/examples/${f}`)
+          .join('\n');
   } else {
     const i = sections.findIndex((s) => s.slug === topic || s.slug.startsWith(topic));
     if (i < 0) throw new Usage(`no docs topic "${topic}" (anima docs --list)`);

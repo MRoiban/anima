@@ -1,0 +1,27 @@
+advance 2
+set level 0.5
+advance 0
+snapshot dot.scale dot.opacity dot.trimEnd dot.stroke-width
+advance 0.05
+snapshot dot.scale dot.opacity
+set level 0.75
+advance 0
+snapshot dot.scale dot.opacity
+advance 0.1
+snapshot dot.scale dot.opacity
+set level 0.25
+advance 0
+snapshot dot.scale dot.opacity
+set level 0.25
+advance 0.05
+snapshot dot.scale dot.opacity
+advance 0.05
+snapshot dot.scale dot.opacity
+advance 3
+set level 1
+advance 0
+snapshot dot.scale dot.opacity
+advance 0.1
+snapshot dot.scale dot.opacity
+advance 0.1
+snapshot dot.scale dot.opacity

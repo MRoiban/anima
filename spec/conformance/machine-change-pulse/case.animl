@@ -1,0 +1,32 @@
+<anima version="0.1" name="blend-pulse" grid="20" requires="machine">
+  <number name="level" default="0" min="0" max="1"/>
+
+  <circle id="dot" cx="10" cy="10" r="3" pivot="10 10" fill="#4263eb" stroke="#000" stroke-width="2" trimEnd="0.5"/>
+
+  <timeline name="dim" duration="1">
+    <track target="dot.opacity">0 0.2; 1 0.2</track>
+  </timeline>
+  <timeline name="bright" duration="1">
+    <track target="dot.opacity">0 1; 1 1</track>
+  </timeline>
+  <timeline name="pulse" duration="0.2">
+    <track target="dot.scale">0 1; 0.1 1.08; 0.2 1</track>
+  </timeline>
+
+  <layer name="blend" initial="level">
+    <state name="level" play="dim"
+        mix="{&quot;mode&quot;:&quot;1d&quot;,&quot;axis&quot;:&quot;level&quot;,&quot;children&quot;:[{&quot;play&quot;:&quot;dim&quot;,&quot;at&quot;:0},{&quot;play&quot;:&quot;bright&quot;,&quot;at&quot;:1}]}"/>
+  </layer>
+  <layer name="feedback" initial="idle">
+    <state name="any" kind="any">
+      <pose/>
+      <on when="@after(0)" to="pulse" change="{&quot;input&quot;:&quot;level&quot;,&quot;mode&quot;:&quot;increased&quot;}"/>
+    </state>
+    <state name="idle">
+      <pose dot.scale="1" dot.stroke-width="2" dot.trimEnd="0.5"/>
+    </state>
+    <state name="pulse" play="pulse">
+      <on when="@end" to="idle"/>
+    </state>
+  </layer>
+</anima>

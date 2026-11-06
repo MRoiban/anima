@@ -1,0 +1,16 @@
+<anima version="0.1" name="traversal" grid="20" requires="focus input">
+  <bool name="second-focused"/>
+
+  <group id="row">
+    <focus enabled="false" scope="true" edge="closed-loop"/>
+    <circle id="first" cx="5" cy="10" r="3" fill="#4263eb">
+      <focus tab-stops="true" order="0" label="First" bounds="2 7 6 6"/>
+    </circle>
+    <circle id="second" cx="15" cy="10" r="3" fill="#4263eb">
+      <focus tab-stops="true" order="1" label="Second" bounds="12 7 6 6"/>
+    </circle>
+  </group>
+
+  <listener on="focus" target="first" set="second-focused=false"/>
+  <listener on="focus" target="second" set="second-focused=true"/>
+</anima>

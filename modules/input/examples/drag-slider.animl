@@ -1,0 +1,11 @@
+<anima version="0.1" name="drag-slider" grid="20" requires="input bind">
+  <number name="level" default="0.5" min="0" max="1"/>
+
+  <group id="rail" x="2" y="10" scaleX="16">
+    <circle id="knob" cx="0" cy="0" r="2" x="0.5" scaleX="0.0625" fill="#4263eb"/>
+  </group>
+
+  <bind target="knob.x" value="level"/>
+
+  <listener on="drag-start|drag|drag-end" target="knob" write="{&quot;x&quot;:&quot;level&quot;}" align="preserve"/>
+</anima>

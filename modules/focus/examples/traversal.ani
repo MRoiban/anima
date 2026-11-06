@@ -1,0 +1,70 @@
+{
+  "anima": "0.1",
+  "name": "traversal",
+  "grid": 20,
+  "requires": ["focus", "input"],
+  "inputs": {
+    "second-focused": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "row",
+      "type": "group",
+      "children": [
+        {
+          "id": "first",
+          "type": "circle",
+          "center": [5, 10],
+          "r": 3,
+          "fill": {
+            "color": "#4263eb"
+          },
+          "focus": {
+            "tabStops": true,
+            "order": 0,
+            "label": "First",
+            "bounds": [2, 7, 6, 6]
+          }
+        },
+        {
+          "id": "second",
+          "type": "circle",
+          "center": [15, 10],
+          "r": 3,
+          "fill": {
+            "color": "#4263eb"
+          },
+          "focus": {
+            "tabStops": true,
+            "order": 1,
+            "label": "Second",
+            "bounds": [12, 7, 6, 6]
+          }
+        }
+      ],
+      "focus": {
+        "enabled": false,
+        "scope": true,
+        "edge": "closed-loop"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "focus",
+      "target": "first",
+      "set": {
+        "second-focused": false
+      }
+    },
+    {
+      "on": "focus",
+      "target": "second",
+      "set": {
+        "second-focused": true
+      }
+    }
+  ]
+}
