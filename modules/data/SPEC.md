@@ -1,5 +1,7 @@
 # Data contract (P4e-1)
 
+Authoring: [Data: view models, `$` paths and converters](../../docs/AUTHORING.md#data-view-models--paths-and-converters).
+
 This chapter implements design/p4e/DESIGN.md §2–4 and §6. It is independent code;
 no algorithm follows Rive source. The graph metadata/typed scope choice follows
 [graph research](../../docs/research/rive-format-and-graph.md) §6. Snapshot writes and

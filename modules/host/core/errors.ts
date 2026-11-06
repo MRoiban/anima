@@ -1,15 +1,6 @@
 import type { Diagnostic } from '../../../packages/core/src/diag.ts';
-// Integration seam: data currently exports no code table. Kept in one host table until data
-// can export it; the values intentionally match the data diagnostics (see REPORT.md).
-export const codes = {
-  type: 'data-type',
-  cycle: 'data-cycle',
-  path: 'data-path',
-  readonly: 'data-readonly',
-  model: 'data-model',
-  instance: 'data-instance',
-  asset: 'data-asset',
-} as const;
+import { dataCodes as codes } from '../../data/core/errors.ts';
+export { dataCodes as codes } from '../../data/core/errors.ts';
 export class DataError extends Error {
   override readonly name = 'DataError';
   readonly severity = 'error';

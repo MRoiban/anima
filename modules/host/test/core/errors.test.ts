@@ -1,3 +1,5 @@
+import { data, dataCodes } from '../../../data/core/index.ts';
+import { codes } from '../../core/errors.ts';
 import { expect, it } from 'vitest';
 import { load, Player } from '../../../../packages/core/src/index.ts';
 import { DataError } from '../../core/index.ts';
@@ -81,4 +83,9 @@ it('rejects list writes that would introduce a cycle through an existing named i
   error(() => p.data.list('$children').set(['main']), 'data-cycle');
   expect(p.data.get('$children')).toEqual([]);
   p.step(0);
+});
+
+it('uses the data diagnostic table exported by the composed module', () => {
+  expect(codes).toBe(dataCodes);
+  expect(data.dataCodes).toBe(dataCodes);
 });

@@ -1,5 +1,7 @@
 # convert
 
+Authoring: [Data: view models, `$` paths and converters](../../docs/AUTHORING.md#data-view-models--paths-and-converters).
+
 Optional feature `convert`, after `bind` and `data`; no runtime dependencies. JSON declarations are a
 `converters` map at the document root. Each value is `{type, ...options}` or `{chain: [names...]}`.
 Names in a group execute left to right; forward references are permitted, cycles and missing
@@ -74,10 +76,24 @@ trigger-counter delivery into a trigger destination; scripted conversion (P9). T
 probes retain precise `todo.json` reasons. Existing scalar/index-list/boolean conversion functions
 are useful independently but do not complete those broader rows. See ROWS.json and REPORT.md.
 
-Native comparisons retain findings: binary32 rounding/unit precision; boolean text spelling;
-an authorable enum converter that supplies no observed numeric output; lazy native interpolation
-initialization and channel rounding. Anima follows the semantics above. Parent decisions remain
-open; none of these observations is promoted to a passing comparison or hidden by a tolerance.
+### Intentional differences and observation limits
+
+These decisions retain the original oracle findings unchanged; none becomes a passing comparison.
+
+- Boolean → string uses ECMAScript `"true"`/`"false"`, rather than the native numeric spelling
+  (`"1"` for true). See [boolean text finding](../../tests/oracle/data-converter-to-string/finding.json).
+- Interpolation initializes eagerly from the value at load. A later source change interpolates from
+  that value rather than snapping on the first non-default change as native does. See
+  [number interpolation finding](../../tests/oracle/data-interpolate-number/finding.json).
+  RGBA channels round half up, so a black/white midpoint is `#808080`, rather than native `#7f7f7f`;
+  see [colour interpolation finding](../../tests/oracle/data-interpolate-color/finding.json).
+- Decimal rounding and degrees → radians retain doubles. Their measured differences are solely
+  native float32 storage precision, not different arithmetic contracts. See
+  [decimal rounder finding](../../tests/oracle/data-converter-rounder/finding.json) and
+  [degrees → radians finding](../../tests/oracle/data-converter-system-degs-to-rads/finding.json).
+- Enum → index returns the declared zero-based index. The native dump's unchanged numeric bridge
+  is an observation limit, not evidence of a different enum conversion rule. See
+  [enum observation finding](../../tests/oracle/data-converter-enum-to-uint/finding.json).
 
 Algorithms are independently implemented from standard arithmetic and ECMAScript functions.
 No Rive source or .riv files were read; no CLI documentation text was copied. The registry design follows

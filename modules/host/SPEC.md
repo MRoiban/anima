@@ -1,5 +1,7 @@
 # Host data API (normative)
 
+Authoring: [Data: view models, `$` paths and converters](../../docs/AUTHORING.md#data-view-models--paths-and-converters).
+
 Optional `@anima-format/core/host` installs `player.data`; register both data and host.
 `@anima-format/web/host` installs `icon.data`. Host adds no document fields, markup
 spellings or drawing hooks: registry entries are empty. Authored data remains owned
@@ -40,7 +42,7 @@ uses data's diagnostic vocabulary: `data-type` for wrong handles/values/model bi
 `data-path` for unknown properties, `data-readonly` for length writes, `data-model` for
 unknown models, `data-instance` for missing/unbound instances, `data-asset` for wrong
 asset IDs. Creation forwards the loader's exact diagnostic (including code and pointer).
-The shared diagnostic table is an outstanding data export seam; see REPORT.md.
+Data exports `dataCodes` from its core entry and composed module; host uses the same table.
 
 This implementation uses the graph metadata and host boundary discussed in
 [graph research](../../docs/research/rive-format-and-graph.md) §6 and

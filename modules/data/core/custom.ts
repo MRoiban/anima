@@ -1,3 +1,4 @@
+import { dataCodes } from './errors.ts';
 import type { Model, InputM } from '../../../packages/core/src/load.ts';
 import type { Diags } from '../../../packages/core/src/diag.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
@@ -31,7 +32,7 @@ export function custom(model: Model, d: Diags): void {
         (p.type !== 'trigger' && !accepts(p, value))
       )
         d.err(
-          'data-property',
+          dataCodes['property'],
           '/nodes/' + i + '/properties/' + name,
           V && 'invalid custom property declaration',
           V && 'use number, bool, color, string, enum or trigger with a matching default',
@@ -47,7 +48,7 @@ export function custom(model: Model, d: Diags): void {
         } satisfies InputM);
       if (p.type === 'enum' && !p.values?.length)
         d.err(
-          'data-enum',
+          dataCodes['enum'],
           '/nodes/' + i + '/properties/' + name,
           V && 'custom enum needs values',
           V && 'declare nonempty enum members',

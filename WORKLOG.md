@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
-State: p4e-data has data core (60/73 rows) and paint findings (10/18 strict, 8 rasterisation findings) merged. data 8181/8192, bind 2046/2048.
-Merged: data, paint, host (3878/4096), convert (6161/8192). Full-featured 91.4/100 KB.
-Next: merge those; benchmark (scoreboard, both sides); quiet-machine perf vs main (prefix sweep); parity bookkeeping; LOG/PLAN; PR.
-Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests.
+Goal: P4e-6 complete; local branch t3/p4e-data-authoring-docs, no push/PR/merge.
+Verified: scoped 2584 passed/253 skipped/13 todo incl host Chromium+Firefox; final authoring 28/28.
+Verified: typecheck, eslint, prettier, modules --check (0 stale), size; data 8191/8192, host 3924/4096, bind 1858/2048 B.
+Changes: data guide + chapter links, shared dataCodes export, convert differences linked to unchanged findings.
+Next: orchestrator review/integration; data has one byte headroom; thirteen data/four convert rows stay pending.
+Don't: push/PR/merge, change parity statuses, oracle findings, measurements or limits.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -169,3 +170,6 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 
 - 2026-11-06 09:35 [codex]: final checkpoint → 3031 scope pass/49 TODO; oracle strict 212 cases/406 samples, all 159 baseline oracle trees unchanged; static/artifact/size checks pass; report retains 4 pending rows, 6 findings, markup +19 B and unverified noisy performance (evidence: 789538f, modules/convert/verification/).
 - 2026-11-06 [claude]: merged P4e-2 convert (52 native rows, 6 findings, 4 pending) → broad scope 5487 pass/43 todo incl. browsers, oracle strict 0, size 0: bind 1858, data 8046, convert 6161, core+web 20055, full 91422 B (9 KB under 100 KB ceiling — flag to owner)
+- 2026-11-06 10:52 [sol]: P4e-6 guide/table/spec checkpoint → 5 new XML examples validate; old trigger diagnostic transcript stale, updated docs to actual output; initial size command lacked esbuild, npm ci restored tooling (evidence: authoring 22/23 before transcript correction; size data 8191/8192).
+- 2026-11-06 10:57 [sol]: P4e-6 checks → scope 2584 pass/253 skipped/13 todo (54.83s), host browser suites included; typecheck/eslint/prettier/modules/size exit 0; final authoring 28/28 after correcting invalid examples to reach data diagnostics (evidence: /tmp/p4e-{tests,authoring-final,size-final,typecheck,eslint,prettier,modules}.log).
+- 2026-11-06 10:57 [sol]: CLI inspect/sample → list Lin/3/2/radius6 and converter labels 25 percent/1,234.50 confirmed; exploratory bare click command rejected (requires pointer click); no guide command used that invalid form. Findings and parity unchanged.

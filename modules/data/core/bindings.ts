@@ -1,3 +1,4 @@
+import { dataCodes } from './errors.ts';
 import { clone } from './types.ts';
 import type { Model, Value } from '../../../packages/core/src/load.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
@@ -56,10 +57,10 @@ export function bindings(
     const source = c?.refs.has(spec.value) ? spec.value : undefined;
     if (mode === 'to-source' || mode === 'two-way') {
       if (!source || c?.refs.get(source)?.readonly)
-        error('data-readonly', at, 'reverse binding needs a writable data path');
+        error(dataCodes['readonly'], at, 'reverse binding needs a writable data path');
     }
     if (spec.prefer && mode !== 'two-way')
-      error('data-binding', at + '/prefer', 'prefer is only valid for two-way bindings');
+      error(dataCodes['binding'], at + '/prefer', 'prefer is only valid for two-way bindings');
     let read: Link['read'];
     try {
       const whole = /^\$[\w:.-]+$/.test(spec.value) && !source;
@@ -71,7 +72,7 @@ export function bindings(
           e.type !== a.prop.type &&
           !(a.prop.type === 'number' && e.type === 'bool')
         )
-          throw new BindError('data-type', 0, 'binding type does not match target');
+          throw new BindError(dataCodes['type'], 0, 'binding type does not match target');
         read = (s) => evaluate(e, s);
       }
       if (
@@ -80,10 +81,10 @@ export function bindings(
         model.inputs.get(source)?.type !== a.prop.type &&
         !(a.prop.type === 'number' && model.inputs.get(source)?.type === 'bool')
       )
-        error('data-type', at, 'binding type does not match target');
+        error(dataCodes['type'], at, 'binding type does not match target');
       if (spec.convert && !converters.has(spec.convert))
         error(
-          'data-converter',
+          dataCodes['converter'],
           at + '/convert',
           'unknown converter ' + spec.convert,
           'register the named converter before loading the document',
