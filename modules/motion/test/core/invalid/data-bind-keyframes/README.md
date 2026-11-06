@@ -1,1 +1,1 @@
-TODO: minimal invalid .ani/.animl documents for data.bind-keyframes; include expected diagnostic code, pointer, message and hint.
+Invalid vectors are in the corresponding core test: code, exact JSON pointer, nonempty message and hint are asserted.

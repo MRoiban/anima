@@ -24,6 +24,7 @@ export default {
     conformance: [
       'components-nested-remap',
       'components-nested-quantize',
+      'components-quantize-boundary',
       'components-leaf-fit',
       'components-stateful-output',
       'components-output-repeat',

@@ -327,6 +327,7 @@ export const moduleScopes = {
       'state-machine-exit-time-seconds',
       'transforms-origin-animation',
       'data-bind-keyframes',
+      'data-bind-keyframes-blend',
     ],
   },
   events: {
@@ -626,6 +627,7 @@ export const moduleScopes = {
     conformance: [
       'components-nested-remap',
       'components-nested-quantize',
+      'components-quantize-boundary',
       'components-leaf-fit',
       'components-stateful-output',
       'components-output-repeat',

@@ -1,3 +1,2 @@
-// Registry contribution is composed once in the nested module.
-// Library-only syntax has no runtime keys.
+// Uses existing transition.when in JSON/AniML; nested resolves the typed component literal.
 export {};

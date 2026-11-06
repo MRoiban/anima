@@ -4,7 +4,7 @@ import { type Addr, type Model, type Value, load } from '../../../packages/core/
 import { Player } from '../../../packages/core/src/player.ts';
 import { reached, snapTime } from '../../../packages/core/src/time.ts';
 import { linear } from '../../../packages/core/src/ease.ts';
-import { ptr, type Diags } from '../../../packages/core/src/diag.ts';
+import { ptr, Diags } from '../../../packages/core/src/diag.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import type { ObjShape } from '../../../packages/core/src/registry.ts';
 import { entries } from './registry.ts';
@@ -91,6 +91,44 @@ export const motion: Module = {
     // A value curve is compiled per numeric segment by track(), never as a shared weight.
     return typeof result === 'function' ? result : linear;
   },
+  resolve(model) {
+    if (!model.doc.requires?.includes('motion') || !model.doc.requires.includes('data')) return;
+    const previous = model.keyValue;
+    model.keyValue = (addr, raw, at, d) => {
+      if (typeof raw !== 'string' || !raw.startsWith('$')) return previous?.(addr, raw, at, d);
+      const input = model.inputs.get(raw),
+        kind = addr.prop.type,
+        expected = ['int', 'uint'].includes(kind)
+          ? 'number'
+          : kind === 'reference'
+            ? 'string'
+            : kind;
+      if (!input || input.type !== expected) {
+        error(
+          d,
+          'data-keyframe',
+          at,
+          'key value needs a compatible scalar data path',
+          'declare data and use a $path matching the animated property type',
+        );
+        return addr.rest;
+      }
+      return (player) => {
+        const value = player.get(raw)!;
+        if (
+          (input.accepts && !input.accepts(value)) ||
+          (['int', 'uint', 'reference'].includes(kind) &&
+            typed(addr, value, at, new Diags(), model) === undefined)
+        )
+          throw Object.assign(new Error('invalid data keyframe value'), {
+            code: 'data-keyframe',
+            pointer: at,
+            hint: 'use a value matching the animated property type',
+          });
+        return value;
+      };
+    };
+  },
   track(track, addr, keys, p, d) {
     if (!d.features?.includes('motion')) return;
     const kind = addr.prop.type;
@@ -134,16 +172,26 @@ export const motion: Module = {
       return curve;
     });
     if (discrete || curves.some(Boolean))
-      track.sample = (time) => {
+      track.sample = (time, player) => {
+        const read = (i: number): Value => {
+          const value = track.values[i]!;
+          return typeof value === 'function' ? value(player!) : value;
+        };
         let i = 0;
         while (i < track.times.length - 1 && reached(time, track.times[i + 1]!)) i++;
-        if (discrete || time <= track.times[0]! || i === track.times.length - 1)
-          return track.values[i]!;
+        if (discrete || time <= track.times[0]! || i === track.times.length - 1) return read(i);
         time = snapTime(time, track.times[i]!);
         const u = (time - track.times[i]!) / (track.times[i + 1]! - track.times[i]!);
-        if (curves[i]) return curves[i]!(u);
-        const a = track.values[i] as number,
-          b = track.values[i + 1] as number;
+        if (curves[i]) {
+          const dynamic =
+            typeof track.values[i] === 'function' || typeof track.values[i + 1] === 'function';
+          const curve = dynamic
+            ? valueCurve(keys[i]![2] as string, read(i) as number, read(i + 1) as number)
+            : curves[i];
+          return (curve as (u: number) => number)(u);
+        }
+        const a = read(i) as number,
+          b = read(i + 1) as number;
         return a + (b - a) * track.eases[i]!(u);
       };
   },
@@ -164,8 +212,10 @@ export const motion: Module = {
       for (const tr of t.tracks) {
         const a = model.addrs.get(tr.addr)!;
         if (a.prop.type === 'reference')
-          tr.values.forEach((v, i) =>
-            typed(a, v, ptr(p + '/tracks', tr.addr) + `/${i}/1`, d, model),
+          tr.values.forEach(
+            (v, i) =>
+              typeof v !== 'function' &&
+              typed(a, v, ptr(p + '/tracks', tr.addr) + `/${i}/1`, d, model),
           );
       }
     });

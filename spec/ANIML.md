@@ -552,3 +552,9 @@ Custom `data-label="x"` maps to node `properties.label`; canonical output uses t
 JSON attribute. `<bind>` adds `mode`, `prefer`, `convert`, `options`. Listener `copy` and `value`
 are generic registry attributes; `$` paths are allowed in assignment keys and trigger lists.
 See modules/data/examples/scoreboard.animl and the per-row conformance sources.
+
+
+With `data motion`, tracks also accept `<key t="0.5" value="$peak" ease="linear"/>` elements.
+`t` and `value` are required; `ease` is optional. Do not mix elements and text within a track.
+The equivalent text key is `0.5 "$peak" linear`; canonical decompilation can use that form.
+The motion registry owns the key element; data sampling semantics are specified in modules/data/SPEC.md.

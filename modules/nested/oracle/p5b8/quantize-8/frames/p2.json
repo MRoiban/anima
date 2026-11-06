@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "artboard": "Board",
+  "stateMachine": "main",
+  "viewModel": {
+    "name": "clock",
+    "viewModel": "Clock",
+    "properties": [
+      {
+        "name": "t",
+        "path": "t",
+        "type": "number",
+        "value": 0.5,
+        "changed": false
+      }
+    ]
+  },
+  "globals": [],
+  "nested": [
+    {
+      "path": "badge",
+      "artboard": "row",
+      "viewModels": [
+        {
+          "name": "placed",
+          "viewModel": "Sample",
+          "properties": [
+            {
+              "name": "x",
+              "path": "x",
+              "type": "number",
+              "value": 4.5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -156,9 +156,23 @@ stays recorded as a finding, never a passing comparison.
 subsequent writes. `<model><component name="card" default="row"/></model>` is the AniML form.
 With `nested`, `<instance component="$card"/>` consumes it and rebuilds on selection changes.
 
-### Data keyframe values (P5b pending)
+### Data keyframe values
 
-The decided `<key t="0.5" value="$peak"/>` form is not implemented by this change.
-Track sampling is currently model-shared and lacks player context; a generic player-aware value
-sampling seam is required before motion can sample each player's current data without shared
-mutable track values. Its conformance/oracle markers remain TODO.
+With `data motion`, a key value can be a direct scalar `$path`. JSON retains `[time, "$peak", ease?]`;
+AniML accepts `<key t="0.5" value="$peak"/>` inside a track, or a quoted path in track text.
+The path must exist and match the animated type: number, bool, color or string; int/uint channels
+use number paths and validate the live 32-bit integer range, reference channels use string paths
+and validate live node IDs. A bad path/type or invalid live channel value is `data-keyframe` at
+`/timelines/<name>/tracks/<address>/<index>/1`, with a correction hint.
+
+Each sampling operation reads its needed endpoints from the owning player's current data, before
+easing/interpolation and before that step's post-state binding pass. Values remain live at endpoints,
+in state blends and in independent TimelineInstances. A fade retains its existing source snapshot;
+its target samples current data. Work-area/loop/reduced-motion clock rules are unchanged. No value
+is stored back on the shared compiled track or authored document. Different players of one Model
+have independent scopes. Absolute value-cubic control ordinates stay authored constants; only
+endpoint ordinates sample data. Lists and component properties are not numeric key sources.
+
+Key elements use `t`, `value`, optional `ease`. A track cannot mix elements and text (`bad-keyframe`
+with a hint); missing/unknown attributes retain structural diagnostics. Canonical decompilation
+may emit quoted paths in text; both forms round-trip to the same tuples.

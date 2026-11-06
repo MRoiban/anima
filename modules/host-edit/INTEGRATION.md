@@ -89,3 +89,14 @@ and animation clock. Global replacement also updates a surviving repeat player's
 contexts. Seam 4 (component-valued properties) and runtime naming validator seam 1 remain outside
 this task's ownership. Existing Rive command-rejection evidence covers unsupported host instance
 attachment/list editing; browser source caches have no command-runner counterpart.
+
+## P5b-8 component seam
+
+Seam 4 is closed for the decided local-name representation: `component` properties validate
+local definition names, nested consumes `$card`, core compiles `component("row")` guards through
+an optional typed function hook, and host exposes queued `component(path)` handles. HostValues
+validates constructed graphs with vocabulary-only component shells; inherited component consumers
+are not recompiled against the temporary value model. ItemHandle.component follows the existing
+scalar-accessor rule: retain the ItemHandle and reacquire an accessor after list moves. Shared queue,
+subscriptions and bind routing are unchanged. Foreign-file component/player/data values are still
+outside that representation, and the CLI's artboard-property setter rejects the measured paths.

@@ -1,1 +1,8 @@
-# TODO: inputs, step boundaries and snapshots
+advance 0
+snapshot probe.r
+set $card ""
+advance 0
+snapshot probe.r
+set $card "row"
+advance 0
+snapshot probe.r

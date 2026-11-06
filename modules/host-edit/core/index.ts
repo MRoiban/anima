@@ -23,6 +23,7 @@ export interface ItemHandle {
   boolean(path: string): DataHandle<boolean>;
   color(path: string): ColorHandle;
   enum(path: string): EnumHandle;
+  component(path: string): DataHandle<string>;
   list(path: string): ListHandle;
 }
 export interface ListHandle extends DataHandle<unknown[]> {
@@ -189,6 +190,7 @@ function extend(api: HostData, state: DataState): void {
         boolean: (key) => api.boolean(target(key)),
         color: (key) => api.color(target(key)),
         enum: (key) => api.enum(target(key)),
+        component: (key) => api.component(target(key)),
         list: (key) => api.list(target(key)),
       };
       items.set(nested, item);

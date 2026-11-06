@@ -99,3 +99,11 @@ Rive-class **108310 B**. No existing budget was raised.
 - The initial whole-repository format check saw a generated, ignored Canvas metrics JSON and the
   new native skip JSON. The skip file was formatted; raw generated measurements are preserved
   unchanged at `/tmp/anima-p5b4-raw-artifacts/` before cleanup of ignored outputs and the final format check.
+
+## P5b-8 follow-up
+
+The component-valued data consumer landed in P5b-6. P5b-8 supplies the typed queued
+`data.component(path)` handle and validation of host-created component-valued instances.
+See [the seam report](../nested/P5B-8-REPORT.md) for scoped completion and native observation
+limits. The broader inventory's foreign-file player/data handles remain outside the decided
+local component-name representation. Counts above describe P5b-4 only.

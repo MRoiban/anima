@@ -144,6 +144,24 @@ export class HostValues {
       grid: 20,
       nodes: [{ id: 'host', type: 'group', children: [] }],
       requires: this.player.model.doc.requires,
+      // Validation needs the component vocabulary, not consumers whose inherited $scope
+      // belongs to a different model than this temporary value construction.
+      ...(this.player.model.doc.components
+        ? {
+            components: Object.fromEntries(
+              Object.keys(this.player.model.doc.components)
+                .filter((name) => name !== '$comment')
+                .map((name) => [
+                  name,
+                  {
+                    grid: 20,
+                    data: { models: { HostShell: { properties: {} } } },
+                    nodes: [{ id: 'host', type: 'group', children: [] }],
+                  },
+                ]),
+            ),
+          }
+        : {}),
       ...(this.player.model.doc.converters ? { converters: this.player.model.doc.converters } : {}),
       ...(this.player.model.doc.assets ? { assets: this.player.model.doc.assets } : {}),
       data: {

@@ -1,0 +1,69 @@
+{
+  "anima": "0.1",
+  "name": "data-bind-keyframes-blend",
+  "grid": 20,
+  "requires": ["data", "motion"],
+  "inputs": {
+    "go": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "probe",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "rise": {
+      "duration": 1,
+      "tracks": {
+        "probe.r": [
+          [0, 0],
+          [1, "$peak"]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {
+              "probe.r": 1
+            },
+            "on": [
+              {
+                "when": "go",
+                "to": "run",
+                "blend": 0.5
+              }
+            ]
+          },
+          "run": {
+            "play": "rise"
+          }
+        }
+      }
+    }
+  },
+  "data": {
+    "models": {
+      "Levels": {
+        "properties": {
+          "peak": {
+            "type": "number",
+            "default": 8
+          }
+        }
+      }
+    }
+  }
+}

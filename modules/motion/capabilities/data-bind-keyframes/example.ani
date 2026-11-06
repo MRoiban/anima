@@ -2,6 +2,7 @@
   "anima": "0.1",
   "name": "data-bind-keyframes",
   "grid": 20,
+  "requires": ["data", "motion"],
   "nodes": [
     {
       "id": "probe",
@@ -12,5 +13,40 @@
         "color": "#000"
       }
     }
-  ]
+  ],
+  "timelines": {
+    "rise": {
+      "duration": 1,
+      "tracks": {
+        "probe.r": [
+          [0, 0],
+          [1, "$peak"]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "run",
+        "states": {
+          "run": {
+            "play": "rise"
+          }
+        }
+      }
+    }
+  },
+  "data": {
+    "models": {
+      "Levels": {
+        "properties": {
+          "peak": {
+            "type": "number",
+            "default": 8
+          }
+        }
+      }
+    }
+  }
 }

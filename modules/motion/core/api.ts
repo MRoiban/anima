@@ -193,7 +193,12 @@ export class TimelineInstance {
       const index = this.#owner.slots.get(track.addr)!;
       const prop = this.#owner.player.model.addrs.get(track.addr)!.prop;
       const discrete = ['int', 'uint', 'string', 'reference', 'bool'].includes(prop.type);
-      values[index] = mixValue(values[index]!, sample(track, time), this.#mix, discrete);
+      values[index] = mixValue(
+        values[index]!,
+        sample(track, time, this.#owner.player),
+        this.#mix,
+        discrete,
+      );
     }
   }
 }

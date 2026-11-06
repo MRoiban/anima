@@ -121,3 +121,10 @@ drawing private; component paint needs an optional source resolver/draw callback
 forces function arguments through `numeric`; the shared typed-function change must admit the string
 argument/result for `component("row")`. `packages/core/src/cond.ts` already calls the bind parser,
 so this capability does not need a separate guard-parser change.
+
+## P5b-8 follow-up
+
+The typed guard hook and component host handle now live in this branch's P5b-8 follow-up.
+The quantize boundary has fresh partition, unquantized-control and rate-precision probes;
+its original delta1 remains unchanged. Current scope, measured results and remaining native
+integration limits are in [P5B-8-REPORT.md](P5B-8-REPORT.md). Counts above describe P5b-6 only.

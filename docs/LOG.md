@@ -2267,3 +2267,21 @@ nested 4,409/5,120, data 7,574/8,192, markup 7,915/8,192, markup-components 755/
 markup-libraries 1,949/2,048; full 106,275/131,072 (+4,006 vs 102,269). Comparative performance non-regression
 is unverified. Details, measured failures and handoff gaps: modules/nested/REPORT.md. Local commit only;
 no push/PR/merge.
+
+
+## P5b-8 — non-canvas seam closure (2026-11-06)
+
+Typed component guard literals, player-local data keyframe values and shared-queue component host
+handles are implemented, with compiled authoring examples and four independent conformance cases
+(15 snapshots). Native guards row9/box1 and key values2/16/4 match exactly. Quantize's original
+native2/Anima3 delta1 remains unadjusted: direct/split advances, unquantized twins and nearby-rate
+probes isolate native clock/rate precision; the decided1e-9-second boundary rule is unchanged.
+
+Verification: requested scope4471 pass/66TODO; all9 owned browser files run separately52/52 in
+Chromium and Firefox (the broad scope lists but skips them); strict oracle250/446 exit0,25/28
+findings retained. Static/generated checks and unchanged size/perf tools pass. Core+web20362 B
+(+174 vs20188), full108896 (+843 vs108053), data8015/bind2038/components4051 with untouched sources.
+All budgets hold. Canonical oracle inputs/parity statuses stay unchanged; module-owned new native
+captures are not promoted into the central manifest. Foreign-file component/data handles and
+comparative quiet-machine perf remain pending. No phase promotion, push, PR or merge. Full status,
+measurements and failures: modules/nested/P5B-8-REPORT.md.
