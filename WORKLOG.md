@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: P4e-2 integrate convert on t3/integrate-convert-data-hooks; local commits only.
-State: foundation merged f02e0bd; shared data/bind and standalone markup hooks integrated.
-Evidence: 62/66 capability vectors complete + 3 integration vectors; 52 rows verified, 4 RNG skips, 6 findings, 4 pending.
-Next: finish required scoped/browser/static/size/perf verification, report and commit.
-Don’t: change budgets/tests/oracle findings or parity status; touch host/paint; push or PR.
+Goal: P4e-2 integration checkpoint ready for parent; branch t3/integrate-convert-data-hooks, local only.
+State: f02e0bd merge + 789538f integration; 3,031 scoped tests pass; strict oracle 212/406 exits 0.
+Bytes: convert 6165, data 8046, bind 1901; core+web 20021 identical; full 86797 B. All budgets pass.
+Open: 4 pending rows, 6 native findings, noisy perf no-regression unverified; markup +19 B.
+Next: parent decisions/integration/CI; see modules/convert/REPORT.md and ROWS.json.
+Don’t: alter measurement inputs/findings/budgets or parity statuses; push/PR; touch host/paint.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -152,3 +153,5 @@ Don’t: change budgets/tests/oracle findings or parity status; touch host/paint
 - 2026-11-06 09:25 [codex]: final budgets pass (convert 6165, data 8046, bind 1901, core+web 20021, full 86797 B); 3024 scoped tests pass with one worker → rechecking after restoring baseline operand evidence and adding isolated convert-model-operand (evidence: verification/size.txt, baseline-oracles.json; all 159 completed baseline oracle trees unchanged).
 
 - 2026-11-06 09:27 [codex]: development failures: numeric-string/args round trips and independent reader fixed; native units/key/format-width probe mistakes corrected; first combined scope hit five Firefox timeouts → unchanged limits pass with VITEST_MAX_WORKERS=1. Byte overages bind 2065/data 8212 fixed by existing VERBOSE diagnostic folding (now 1901/8046).
+
+- 2026-11-06 09:35 [codex]: final checkpoint → 3031 scope pass/49 TODO; oracle strict 212 cases/406 samples, all 159 baseline oracle trees unchanged; static/artifact/size checks pass; report retains 4 pending rows, 6 findings, markup +19 B and unverified noisy performance (evidence: 789538f, modules/convert/verification/).

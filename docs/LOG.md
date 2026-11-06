@@ -2061,3 +2061,31 @@ No push, PR, merge into main, benchmark rerun or parity-status promotion by this
 - Data merge must wire named bindings, math registration and player scheduling; canonical probes,
   model operands, trigger delivery and instance lists remain pending. Scripted converters belong
   to P9. Full handoff: modules/convert/HANDOFF.md. No push, PR or package publication.
+
+
+## P4e-2 converter/data integration checkpoint — partial (2026-11-06)
+
+- Local commits `f02e0bd` (foundation merge) and `789538f` (integration/evidence): named/group dispatch
+  through data, active bind registration/parser, live model operands/options/arguments, ctx.state
+  interpolation, per-player seeded random and standalone AniML dispatch. Events stopgap deleted.
+- Required scope passes with `VITEST_MAX_WORKERS=1`: **3,031 pass / 49 TODO**, Chromium and Firefox
+  included. Earlier parallel execution hit five Firefox timeouts; no timeout/test was relaxed.
+  Typecheck, lint, format, module generation and AniML/web artifact checks pass.
+- All budgets pass: core+web **20,021 B (+0, byte-identical)**; convert **6,165/8,192**;
+  data **8,046/8,192 (−135)**; bind **1,901/2,048 (−145)**; markup-convert **620/2,048**;
+  markup **7,882/8,192 (+19)**; full-featured **86,797 B (+4,995 vs p4e-data)**.
+- Strict oracle exits **0**, **212 cases / 406 samples**. All files of the 159 baseline completed
+  case trees are byte-identical; the new converter operand proof has its own path after a collision
+  was caught and restored. Fifty-three completed oracle entries were appended; no reference changed.
+- Sixty-two of 66 capability conformance vectors complete: **52 verified / four evidenced RNG skips /
+  six findings / four pending**. Findings preserve float32 rounder/unit values, enum observation,
+  boolean text and numeric/colour interpolation traces. HSL markers, retained model lists, trigger
+  delivery and P9 scripted conversion remain pending with precise reasons. Parity statuses unchanged.
+- Standalone perf: bell compile **1.97 ms**, prefixes **622 ms**; bell/composite/toolbar frames
+  **38.6/23.9/31.7 µs**, toolbar compile **4.45 ms**. Interleaved serial comparisons remain noisy;
+  quantitative no-regression is **unverified**. The default browser entry is byte-identical, while
+  strict zero overhead for the markup compiler is unmet (+19 B).
+- Full command results, baseline comparisons, pending reasons and native numbers are in
+  `modules/convert/REPORT.md` and `verification/`. No design replacement, dependency, measurement tool
+  edit, loosened limit, push, PR or publication. Necessary data/bind and shared markup seams only;
+  host/paint/contour/mix/canvas sources untouched.

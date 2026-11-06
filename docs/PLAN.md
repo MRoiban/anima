@@ -286,6 +286,15 @@ and an oracle test against Rive.
   - [ ] P4e-1 completion: decide the internal-trigger listener finding and resolve thirteen pending
         design/consumer/integration rows; confirm the no-regression performance target on a quiet machine.
         See `modules/data/REPORT.md` and `ROWS.json`.
+  - [x] P4e-2 runtime integration: composed data converter hooks, shared bind math parser/functions,
+        player-local interpolation/RNG, independent AniML hook and both browser engines; 3,031 scoped
+        tests pass. Convert 6,165/8,192 B, data 8,046/8,192, bind 1,901/2,048; default web unchanged.
+        62/66 capability vectors complete: 52 native verified, four RNG skips, six retained findings.
+        See `modules/convert/REPORT.md` and `ROWS.json`; no parity status promotion.
+  - [ ] P4e-2 strict completion: HSL formatting markers, retained model-instance lists, trigger
+        counter delivery and P9 script execution remain pending. Six native findings require parent
+        decisions; quantitative no-regression performance remains unverified under external load.
+        Generic markup dispatch adds 19 B; strict zero overhead for that compiler entry remains open.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide
       whether switching to reduced motion stops in-progress loops at once (P4b benchmark).
 - [ ] P6 Text.

@@ -91,7 +91,7 @@
     "reason": "Canonical Player-step vector plus exact native observation bridge."
   },
   {
-    "id": "data.calculate-squareroot",
+    "id": "data.calculate-squareRoot",
     "probe": "data-calculate-squareroot",
     "conformance": "complete",
     "oracle": "verified",
