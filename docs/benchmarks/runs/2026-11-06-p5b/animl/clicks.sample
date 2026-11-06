@@ -1,0 +1,11 @@
+advance 0
+pointer click 3 4
+snapshot $selected rows/0/clicks rows/0/highlight.stroke.width rows/1/highlight.stroke.width rows/2/highlight.stroke.width
+pointer click 10 10
+advance 0
+snapshot $selected rows/0/highlight.stroke.width rows/1/highlight.stroke.width rows/2/highlight.stroke.width rows/1/clicks
+pointer click 30 16
+advance 0
+snapshot $selected rows/0/highlight.stroke.width rows/1/highlight.stroke.width rows/2/highlight.stroke.width rows/2/clicks
+pointer click 3 16
+snapshot $selected rows/2/clicks

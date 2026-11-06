@@ -1,0 +1,600 @@
+[
+  {
+    "label": "initial",
+    "tracks": [
+      {
+        "id": "dawn",
+        "title": "Dawn",
+        "titleChars": 4,
+        "duration": 90,
+        "cover": "dawn",
+        "clip": "dawn"
+      },
+      {
+        "id": "tide",
+        "title": "Tide",
+        "titleChars": 4,
+        "duration": 150,
+        "cover": "tide",
+        "clip": "tide"
+      },
+      {
+        "id": "ember",
+        "title": "Ember",
+        "titleChars": 5,
+        "duration": 60,
+        "cover": "ember",
+        "clip": "ember"
+      }
+    ],
+    "count": 3,
+    "selected": "",
+    "values": {
+      "rows/0/clicks": 0,
+      "rows/0/highlight.stroke.width": 0,
+      "rows/0/dawnCover.visible": true,
+      "rows/0/tideCover.visible": false,
+      "rows/0/emberCover.visible": false,
+      "rows/0/mossCover.visible": false,
+      "rows/0/titleBar.w": 4,
+      "rows/0/durationBar.w": 9,
+      "rows/1/clicks": 0,
+      "rows/1/highlight.stroke.width": 0,
+      "rows/1/dawnCover.visible": false,
+      "rows/1/tideCover.visible": true,
+      "rows/1/emberCover.visible": false,
+      "rows/1/mossCover.visible": false,
+      "rows/1/titleBar.w": 4,
+      "rows/1/durationBar.w": 15,
+      "rows/2/clicks": 0,
+      "rows/2/highlight.stroke.width": 0,
+      "rows/2/dawnCover.visible": false,
+      "rows/2/tideCover.visible": false,
+      "rows/2/emberCover.visible": true,
+      "rows/2/mossCover.visible": false,
+      "rows/2/titleBar.w": 5,
+      "rows/2/durationBar.w": 6
+    },
+    "states": {
+      "rows/0/audio": "idle",
+      "rows/1/audio": "idle",
+      "rows/2/audio": "idle"
+    },
+    "svg": "<style>:host{display:inline-block;position:relative;width:1em;height:1em;vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}svg{position:absolute;left:0%;top:0%;width:100%;height:75%;overflow:visible}</style><svg viewBox=\"0 0 40 30\" aria-hidden=\"true\" preserveAspectRatio=\"xMidYMid meet\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-panel\"><rect x=\"0\" y=\"0\" width=\"40\" height=\"30\" fill=\"#f0eee6\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"9\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 6)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"15\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 12)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"5\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"6\" height=\"1\" fill=\"#d97757\"></rect></g></g></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/0\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/0/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -1.2)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/1\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/1/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -2.4)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/2\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/2/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g></g></svg>"
+  },
+  {
+    "label": "tide clicked",
+    "tracks": [
+      {
+        "id": "dawn",
+        "title": "Dawn",
+        "titleChars": 4,
+        "duration": 90,
+        "cover": "dawn",
+        "clip": "dawn"
+      },
+      {
+        "id": "tide",
+        "title": "Tide",
+        "titleChars": 4,
+        "duration": 150,
+        "cover": "tide",
+        "clip": "tide"
+      },
+      {
+        "id": "ember",
+        "title": "Ember",
+        "titleChars": 5,
+        "duration": 60,
+        "cover": "ember",
+        "clip": "ember"
+      }
+    ],
+    "count": 3,
+    "selected": "tide",
+    "values": {
+      "rows/0/clicks": 0,
+      "rows/0/highlight.stroke.width": 0,
+      "rows/0/dawnCover.visible": true,
+      "rows/0/tideCover.visible": false,
+      "rows/0/emberCover.visible": false,
+      "rows/0/mossCover.visible": false,
+      "rows/0/titleBar.w": 4,
+      "rows/0/durationBar.w": 9,
+      "rows/1/clicks": 1,
+      "rows/1/highlight.stroke.width": 0.3,
+      "rows/1/dawnCover.visible": false,
+      "rows/1/tideCover.visible": true,
+      "rows/1/emberCover.visible": false,
+      "rows/1/mossCover.visible": false,
+      "rows/1/titleBar.w": 4,
+      "rows/1/durationBar.w": 15,
+      "rows/2/clicks": 0,
+      "rows/2/highlight.stroke.width": 0,
+      "rows/2/dawnCover.visible": false,
+      "rows/2/tideCover.visible": false,
+      "rows/2/emberCover.visible": true,
+      "rows/2/mossCover.visible": false,
+      "rows/2/titleBar.w": 5,
+      "rows/2/durationBar.w": 6
+    },
+    "states": {
+      "rows/0/audio": "idle",
+      "rows/1/audio": "idle",
+      "rows/2/audio": "idle"
+    },
+    "svg": "<style>:host{display:inline-block;position:relative;width:1em;height:1em;vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}svg{position:absolute;left:0%;top:0%;width:100%;height:75%;overflow:visible}</style><svg viewBox=\"0 0 40 30\" aria-hidden=\"true\" preserveAspectRatio=\"xMidYMid meet\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-panel\"><rect x=\"0\" y=\"0\" width=\"40\" height=\"30\" fill=\"#f0eee6\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"9\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 6)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"15\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 12)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"5\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"6\" height=\"1\" fill=\"#d97757\"></rect></g></g></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/0\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/0/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -1.2)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/1\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/1/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -2.4)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/2\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/2/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g></g></svg>"
+  },
+  {
+    "label": "add moss",
+    "tracks": [
+      {
+        "id": "dawn",
+        "title": "Dawn",
+        "titleChars": 4,
+        "duration": 90,
+        "cover": "dawn",
+        "clip": "dawn"
+      },
+      {
+        "id": "tide",
+        "title": "Tide",
+        "titleChars": 4,
+        "duration": 150,
+        "cover": "tide",
+        "clip": "tide"
+      },
+      {
+        "id": "ember",
+        "title": "Ember",
+        "titleChars": 5,
+        "duration": 60,
+        "cover": "ember",
+        "clip": "ember"
+      },
+      {
+        "id": "moss",
+        "title": "Moss",
+        "titleChars": 4,
+        "duration": 120,
+        "cover": "moss",
+        "clip": "moss"
+      }
+    ],
+    "count": 4,
+    "selected": "tide",
+    "values": {
+      "rows/0/clicks": 0,
+      "rows/0/highlight.stroke.width": 0,
+      "rows/0/dawnCover.visible": true,
+      "rows/0/tideCover.visible": false,
+      "rows/0/emberCover.visible": false,
+      "rows/0/mossCover.visible": false,
+      "rows/0/titleBar.w": 4,
+      "rows/0/durationBar.w": 9,
+      "rows/1/clicks": 1,
+      "rows/1/highlight.stroke.width": 0.3,
+      "rows/1/dawnCover.visible": false,
+      "rows/1/tideCover.visible": true,
+      "rows/1/emberCover.visible": false,
+      "rows/1/mossCover.visible": false,
+      "rows/1/titleBar.w": 4,
+      "rows/1/durationBar.w": 15,
+      "rows/2/clicks": 0,
+      "rows/2/highlight.stroke.width": 0,
+      "rows/2/dawnCover.visible": false,
+      "rows/2/tideCover.visible": false,
+      "rows/2/emberCover.visible": true,
+      "rows/2/mossCover.visible": false,
+      "rows/2/titleBar.w": 5,
+      "rows/2/durationBar.w": 6,
+      "rows/3/clicks": 0,
+      "rows/3/highlight.stroke.width": 0,
+      "rows/3/dawnCover.visible": false,
+      "rows/3/tideCover.visible": false,
+      "rows/3/emberCover.visible": false,
+      "rows/3/mossCover.visible": true,
+      "rows/3/titleBar.w": 4,
+      "rows/3/durationBar.w": 12
+    },
+    "states": {
+      "rows/0/audio": "idle",
+      "rows/1/audio": "idle",
+      "rows/2/audio": "idle",
+      "rows/3/audio": "idle"
+    },
+    "svg": "<style>:host{display:inline-block;position:relative;width:1em;height:1em;vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}svg{position:absolute;left:0%;top:0%;width:100%;height:75%;overflow:visible}</style><svg viewBox=\"0 0 40 30\" aria-hidden=\"true\" preserveAspectRatio=\"xMidYMid meet\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-panel\"><rect x=\"0\" y=\"0\" width=\"40\" height=\"30\" fill=\"#f0eee6\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"9\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 6)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"15\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 12)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"5\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"6\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 18)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/3/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/3/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/3/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"12\" height=\"1\" fill=\"#d97757\"></rect></g></g></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/0\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/0/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -1.2)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/1\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/1/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -2.4)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/2\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/2/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -3.6)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/3\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/3/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g></g></svg>"
+  },
+  {
+    "label": "insert dusk at 1",
+    "tracks": [
+      {
+        "id": "dawn",
+        "title": "Dawn",
+        "titleChars": 4,
+        "duration": 90,
+        "cover": "dawn",
+        "clip": "dawn"
+      },
+      {
+        "id": "dusk",
+        "title": "Dusk",
+        "titleChars": 4,
+        "duration": 80,
+        "cover": "ember",
+        "clip": "ember"
+      },
+      {
+        "id": "tide",
+        "title": "Tide",
+        "titleChars": 4,
+        "duration": 150,
+        "cover": "tide",
+        "clip": "tide"
+      },
+      {
+        "id": "ember",
+        "title": "Ember",
+        "titleChars": 5,
+        "duration": 60,
+        "cover": "ember",
+        "clip": "ember"
+      },
+      {
+        "id": "moss",
+        "title": "Moss",
+        "titleChars": 4,
+        "duration": 120,
+        "cover": "moss",
+        "clip": "moss"
+      }
+    ],
+    "count": 5,
+    "selected": "tide",
+    "values": {
+      "rows/0/clicks": 0,
+      "rows/0/highlight.stroke.width": 0,
+      "rows/0/dawnCover.visible": true,
+      "rows/0/tideCover.visible": false,
+      "rows/0/emberCover.visible": false,
+      "rows/0/mossCover.visible": false,
+      "rows/0/titleBar.w": 4,
+      "rows/0/durationBar.w": 9,
+      "rows/1/clicks": 0,
+      "rows/1/highlight.stroke.width": 0,
+      "rows/1/dawnCover.visible": false,
+      "rows/1/tideCover.visible": false,
+      "rows/1/emberCover.visible": true,
+      "rows/1/mossCover.visible": false,
+      "rows/1/titleBar.w": 4,
+      "rows/1/durationBar.w": 8,
+      "rows/2/clicks": 1,
+      "rows/2/highlight.stroke.width": 0.3,
+      "rows/2/dawnCover.visible": false,
+      "rows/2/tideCover.visible": true,
+      "rows/2/emberCover.visible": false,
+      "rows/2/mossCover.visible": false,
+      "rows/2/titleBar.w": 4,
+      "rows/2/durationBar.w": 15,
+      "rows/3/clicks": 0,
+      "rows/3/highlight.stroke.width": 0,
+      "rows/3/dawnCover.visible": false,
+      "rows/3/tideCover.visible": false,
+      "rows/3/emberCover.visible": true,
+      "rows/3/mossCover.visible": false,
+      "rows/3/titleBar.w": 5,
+      "rows/3/durationBar.w": 6,
+      "rows/4/clicks": 0,
+      "rows/4/highlight.stroke.width": 0,
+      "rows/4/dawnCover.visible": false,
+      "rows/4/tideCover.visible": false,
+      "rows/4/emberCover.visible": false,
+      "rows/4/mossCover.visible": true,
+      "rows/4/titleBar.w": 4,
+      "rows/4/durationBar.w": 12
+    },
+    "states": {
+      "rows/0/audio": "idle",
+      "rows/1/audio": "idle",
+      "rows/2/audio": "idle",
+      "rows/3/audio": "idle",
+      "rows/4/audio": "idle"
+    },
+    "svg": "<style>:host{display:inline-block;position:relative;width:1em;height:1em;vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}svg{position:absolute;left:0%;top:0%;width:100%;height:75%;overflow:visible}</style><svg viewBox=\"0 0 40 30\" aria-hidden=\"true\" preserveAspectRatio=\"xMidYMid meet\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-panel\"><rect x=\"0\" y=\"0\" width=\"40\" height=\"30\" fill=\"#f0eee6\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"9\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 6)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"8\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 12)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"15\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 18)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/3/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/3/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/3/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"5\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"6\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 24)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/4\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/4/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/4/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/4/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/4/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/4/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/4/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/4/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"12\" height=\"1\" fill=\"#d97757\"></rect></g></g></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/0\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/0/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -1.2)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/1\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/1/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -2.4)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/2\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/2/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -3.6)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/3\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/3/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -4.8)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/4\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/4/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g></g></svg>"
+  },
+  {
+    "label": "remove dawn",
+    "tracks": [
+      {
+        "id": "dusk",
+        "title": "Dusk",
+        "titleChars": 4,
+        "duration": 80,
+        "cover": "ember",
+        "clip": "ember"
+      },
+      {
+        "id": "tide",
+        "title": "Tide",
+        "titleChars": 4,
+        "duration": 150,
+        "cover": "tide",
+        "clip": "tide"
+      },
+      {
+        "id": "ember",
+        "title": "Ember",
+        "titleChars": 5,
+        "duration": 60,
+        "cover": "ember",
+        "clip": "ember"
+      },
+      {
+        "id": "moss",
+        "title": "Moss",
+        "titleChars": 4,
+        "duration": 120,
+        "cover": "moss",
+        "clip": "moss"
+      }
+    ],
+    "count": 4,
+    "selected": "tide",
+    "values": {
+      "rows/0/clicks": 0,
+      "rows/0/highlight.stroke.width": 0,
+      "rows/0/dawnCover.visible": false,
+      "rows/0/tideCover.visible": false,
+      "rows/0/emberCover.visible": true,
+      "rows/0/mossCover.visible": false,
+      "rows/0/titleBar.w": 4,
+      "rows/0/durationBar.w": 8,
+      "rows/1/clicks": 1,
+      "rows/1/highlight.stroke.width": 0.3,
+      "rows/1/dawnCover.visible": false,
+      "rows/1/tideCover.visible": true,
+      "rows/1/emberCover.visible": false,
+      "rows/1/mossCover.visible": false,
+      "rows/1/titleBar.w": 4,
+      "rows/1/durationBar.w": 15,
+      "rows/2/clicks": 0,
+      "rows/2/highlight.stroke.width": 0,
+      "rows/2/dawnCover.visible": false,
+      "rows/2/tideCover.visible": false,
+      "rows/2/emberCover.visible": true,
+      "rows/2/mossCover.visible": false,
+      "rows/2/titleBar.w": 5,
+      "rows/2/durationBar.w": 6,
+      "rows/3/clicks": 0,
+      "rows/3/highlight.stroke.width": 0,
+      "rows/3/dawnCover.visible": false,
+      "rows/3/tideCover.visible": false,
+      "rows/3/emberCover.visible": false,
+      "rows/3/mossCover.visible": true,
+      "rows/3/titleBar.w": 4,
+      "rows/3/durationBar.w": 12
+    },
+    "states": {
+      "rows/0/audio": "idle",
+      "rows/1/audio": "idle",
+      "rows/2/audio": "idle",
+      "rows/3/audio": "idle"
+    },
+    "svg": "<style>:host{display:inline-block;position:relative;width:1em;height:1em;vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}svg{position:absolute;left:0%;top:0%;width:100%;height:75%;overflow:visible}</style><svg viewBox=\"0 0 40 30\" aria-hidden=\"true\" preserveAspectRatio=\"xMidYMid meet\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-panel\"><rect x=\"0\" y=\"0\" width=\"40\" height=\"30\" fill=\"#f0eee6\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"8\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 6)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"15\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 12)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"5\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"6\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 18)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/3/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/3/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/3/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"12\" height=\"1\" fill=\"#d97757\"></rect></g></g></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/0\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/0/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -1.2)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/1\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/1/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -2.4)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/2\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/2/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -3.6)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/3\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/3/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g></g></svg>"
+  },
+  {
+    "label": "swap tide and moss",
+    "tracks": [
+      {
+        "id": "dusk",
+        "title": "Dusk",
+        "titleChars": 4,
+        "duration": 80,
+        "cover": "ember",
+        "clip": "ember"
+      },
+      {
+        "id": "moss",
+        "title": "Moss",
+        "titleChars": 4,
+        "duration": 120,
+        "cover": "moss",
+        "clip": "moss"
+      },
+      {
+        "id": "ember",
+        "title": "Ember",
+        "titleChars": 5,
+        "duration": 60,
+        "cover": "ember",
+        "clip": "ember"
+      },
+      {
+        "id": "tide",
+        "title": "Tide",
+        "titleChars": 4,
+        "duration": 150,
+        "cover": "tide",
+        "clip": "tide"
+      }
+    ],
+    "count": 4,
+    "selected": "tide",
+    "values": {
+      "rows/0/clicks": 0,
+      "rows/0/highlight.stroke.width": 0,
+      "rows/0/dawnCover.visible": false,
+      "rows/0/tideCover.visible": false,
+      "rows/0/emberCover.visible": true,
+      "rows/0/mossCover.visible": false,
+      "rows/0/titleBar.w": 4,
+      "rows/0/durationBar.w": 8,
+      "rows/1/clicks": 0,
+      "rows/1/highlight.stroke.width": 0,
+      "rows/1/dawnCover.visible": false,
+      "rows/1/tideCover.visible": false,
+      "rows/1/emberCover.visible": false,
+      "rows/1/mossCover.visible": true,
+      "rows/1/titleBar.w": 4,
+      "rows/1/durationBar.w": 12,
+      "rows/2/clicks": 0,
+      "rows/2/highlight.stroke.width": 0,
+      "rows/2/dawnCover.visible": false,
+      "rows/2/tideCover.visible": false,
+      "rows/2/emberCover.visible": true,
+      "rows/2/mossCover.visible": false,
+      "rows/2/titleBar.w": 5,
+      "rows/2/durationBar.w": 6,
+      "rows/3/clicks": 1,
+      "rows/3/highlight.stroke.width": 0.3,
+      "rows/3/dawnCover.visible": false,
+      "rows/3/tideCover.visible": true,
+      "rows/3/emberCover.visible": false,
+      "rows/3/mossCover.visible": false,
+      "rows/3/titleBar.w": 4,
+      "rows/3/durationBar.w": 15
+    },
+    "states": {
+      "rows/0/audio": "idle",
+      "rows/1/audio": "idle",
+      "rows/2/audio": "idle",
+      "rows/3/audio": "idle"
+    },
+    "svg": "<style>:host{display:inline-block;position:relative;width:1em;height:1em;vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}svg{position:absolute;left:0%;top:0%;width:100%;height:75%;overflow:visible}</style><svg viewBox=\"0 0 40 30\" aria-hidden=\"true\" preserveAspectRatio=\"xMidYMid meet\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-panel\"><rect x=\"0\" y=\"0\" width=\"40\" height=\"30\" fill=\"#f0eee6\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"8\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 6)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"12\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 12)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"5\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"6\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 18)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/3/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/3/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/3/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"15\" height=\"1\" fill=\"#d97757\"></rect></g></g></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/0\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/0/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -1.2)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/1\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/1/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -2.4)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/2\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/2/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -3.6)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/3\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/3/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g></g></svg>"
+  },
+  {
+    "label": "moved tide clicked again",
+    "tracks": [
+      {
+        "id": "dusk",
+        "title": "Dusk",
+        "titleChars": 4,
+        "duration": 80,
+        "cover": "ember",
+        "clip": "ember"
+      },
+      {
+        "id": "moss",
+        "title": "Moss",
+        "titleChars": 4,
+        "duration": 120,
+        "cover": "moss",
+        "clip": "moss"
+      },
+      {
+        "id": "ember",
+        "title": "Ember",
+        "titleChars": 5,
+        "duration": 60,
+        "cover": "ember",
+        "clip": "ember"
+      },
+      {
+        "id": "tide",
+        "title": "Tide",
+        "titleChars": 4,
+        "duration": 150,
+        "cover": "tide",
+        "clip": "tide"
+      }
+    ],
+    "count": 4,
+    "selected": "tide",
+    "values": {
+      "rows/0/clicks": 0,
+      "rows/0/highlight.stroke.width": 0,
+      "rows/0/dawnCover.visible": false,
+      "rows/0/tideCover.visible": false,
+      "rows/0/emberCover.visible": true,
+      "rows/0/mossCover.visible": false,
+      "rows/0/titleBar.w": 4,
+      "rows/0/durationBar.w": 8,
+      "rows/1/clicks": 0,
+      "rows/1/highlight.stroke.width": 0,
+      "rows/1/dawnCover.visible": false,
+      "rows/1/tideCover.visible": false,
+      "rows/1/emberCover.visible": false,
+      "rows/1/mossCover.visible": true,
+      "rows/1/titleBar.w": 4,
+      "rows/1/durationBar.w": 12,
+      "rows/2/clicks": 0,
+      "rows/2/highlight.stroke.width": 0,
+      "rows/2/dawnCover.visible": false,
+      "rows/2/tideCover.visible": false,
+      "rows/2/emberCover.visible": true,
+      "rows/2/mossCover.visible": false,
+      "rows/2/titleBar.w": 5,
+      "rows/2/durationBar.w": 6,
+      "rows/3/clicks": 2,
+      "rows/3/highlight.stroke.width": 0.3,
+      "rows/3/dawnCover.visible": false,
+      "rows/3/tideCover.visible": true,
+      "rows/3/emberCover.visible": false,
+      "rows/3/mossCover.visible": false,
+      "rows/3/titleBar.w": 4,
+      "rows/3/durationBar.w": 15
+    },
+    "states": {
+      "rows/0/audio": "idle",
+      "rows/1/audio": "idle",
+      "rows/2/audio": "idle",
+      "rows/3/audio": "idle"
+    },
+    "svg": "<style>:host{display:inline-block;position:relative;width:1em;height:1em;vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}svg{position:absolute;left:0%;top:0%;width:100%;height:75%;overflow:visible}</style><svg viewBox=\"0 0 40 30\" aria-hidden=\"true\" preserveAspectRatio=\"xMidYMid meet\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-panel\"><rect x=\"0\" y=\"0\" width=\"40\" height=\"30\" fill=\"#f0eee6\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"8\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 6)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"12\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 12)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/2/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"5\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/2/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"6\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 18)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0.3\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/3/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/3/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/3/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/3/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"15\" height=\"1\" fill=\"#d97757\"></rect></g></g></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/0\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/0/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -1.2)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/1\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/1/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -2.4)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/2\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/2/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -3.6)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/3\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/3/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g></g></svg>"
+  },
+  {
+    "label": "remove to two",
+    "tracks": [
+      {
+        "id": "dusk",
+        "title": "Dusk",
+        "titleChars": 4,
+        "duration": 80,
+        "cover": "ember",
+        "clip": "ember"
+      },
+      {
+        "id": "moss",
+        "title": "Moss",
+        "titleChars": 4,
+        "duration": 120,
+        "cover": "moss",
+        "clip": "moss"
+      }
+    ],
+    "count": 2,
+    "selected": "tide",
+    "values": {
+      "rows/0/clicks": 0,
+      "rows/0/highlight.stroke.width": 0,
+      "rows/0/dawnCover.visible": false,
+      "rows/0/tideCover.visible": false,
+      "rows/0/emberCover.visible": true,
+      "rows/0/mossCover.visible": false,
+      "rows/0/titleBar.w": 4,
+      "rows/0/durationBar.w": 8,
+      "rows/1/clicks": 0,
+      "rows/1/highlight.stroke.width": 0,
+      "rows/1/dawnCover.visible": false,
+      "rows/1/tideCover.visible": false,
+      "rows/1/emberCover.visible": false,
+      "rows/1/mossCover.visible": true,
+      "rows/1/titleBar.w": 4,
+      "rows/1/durationBar.w": 12
+    },
+    "states": {
+      "rows/0/audio": "idle",
+      "rows/1/audio": "idle"
+    },
+    "svg": "<style>:host{display:inline-block;position:relative;width:1em;height:1em;vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}svg{position:absolute;left:0%;top:0%;width:100%;height:75%;overflow:visible}</style><svg viewBox=\"0 0 40 30\" aria-hidden=\"true\" preserveAspectRatio=\"xMidYMid meet\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-panel\"><rect x=\"0\" y=\"0\" width=\"40\" height=\"30\" fill=\"#f0eee6\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/0/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/0/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"8\" height=\"1\" fill=\"#d97757\"></rect></g></g><g transform=\"matrix(1 0 0 1 0 6)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/highlight\"><rect x=\"1\" y=\"1\" width=\"34\" height=\"6\" fill=\"#f0eee6\" stroke=\"#d97757\" stroke-width=\"0\" stroke-linecap=\"round\" stroke-linejoin=\"round\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/dawnCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/tideCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"none\" id=\"a1-rows/1/emberCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/mossCover\"><svg style=\"width:4px;height:4px;overflow:hidden\" x=\"2\" y=\"2\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\" overflow=\"hidden\" preserveAspectRatio=\"none\"><image href=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=\" x=\"0\" y=\"0\" width=\"4\" height=\"4\" preserveAspectRatio=\"none\" image-rendering=\"pixelated\"></image></svg></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/titleBar\"><rect x=\"8\" y=\"2.5\" width=\"4\" height=\"1\" fill=\"#141413\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows/1/durationBar\"><rect x=\"8\" y=\"4.5\" width=\"12\" height=\"1\" fill=\"#d97757\"></rect></g></g></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/0\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/0/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g><g transform=\"matrix(1 0 0 1 0 -1.2)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/1\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots/1/dot\"><circle cx=\"38\" cy=\"28\" r=\"0.4\" fill=\"#141413\"></circle></g></g></g></svg>"
+  },
+  {
+    "label": "remove to zero",
+    "tracks": [],
+    "count": 0,
+    "selected": "tide",
+    "values": {},
+    "states": {},
+    "svg": "<style>:host{display:inline-block;position:relative;width:1em;height:1em;vertical-align:-.125em;touch-action:manipulation;-webkit-tap-highlight-color:transparent}svg{position:absolute;left:0%;top:0%;width:100%;height:75%;overflow:visible}</style><svg viewBox=\"0 0 40 30\" aria-hidden=\"true\" preserveAspectRatio=\"xMidYMid meet\"><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-panel\"><rect x=\"0\" y=\"0\" width=\"40\" height=\"30\" fill=\"#f0eee6\"></rect></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-rows\"></g><g transform=\"matrix(1 0 0 1 0 0)\" opacity=\"1\" display=\"inline\" id=\"a1-dots\"></g></svg>"
+  }
+]

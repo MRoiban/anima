@@ -1,0 +1,3 @@
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl: 2 errors
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:38:5 error unknown-element unknown element <input>
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:39:5 error unknown-element unknown element <input>

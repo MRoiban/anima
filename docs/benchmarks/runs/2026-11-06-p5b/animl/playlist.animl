@@ -1,0 +1,95 @@
+<anima version="0.1" name="playlist" grid="40" viewBox="0 0 40 30" requires="paint assets events components lists data bind derive">
+  <asset name="dawn" type="image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC"/>
+  <asset name="tide" type="image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg=="/>
+  <asset name="ember" type="image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg=="/>
+  <asset name="moss" type="image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII="/>
+  <model name="Track">
+    <string name="id"/>
+    <string name="title"/>
+    <number name="titleChars"/>
+    <number name="duration"/>
+    <asset-ref name="cover" type="image"/>
+    <string name="clip"/>
+  </model>
+  <model name="Playlist" global="true">
+    <list name="tracks" of="Track"/>
+    <number name="count" value="$tracks.length"/>
+    <string name="selected"/>
+  </model>
+  <instance name="board" model="Playlist" default="true">
+    <set path="tracks" value='["dawn","tide","ember"]'/>
+  </instance>
+  <instance name="dawn" model="Track">
+    <set path="id" value="dawn"/><set path="title" value="Dawn"/>
+    <set path="titleChars" value="4"/><set path="duration" value="90"/>
+    <set path="cover" value="dawn"/><set path="clip" value="dawn"/>
+  </instance>
+  <instance name="tide" model="Track">
+    <set path="id" value="tide"/><set path="title" value="Tide"/>
+    <set path="titleChars" value="4"/><set path="duration" value="150"/>
+    <set path="cover" value="tide"/><set path="clip" value="tide"/>
+  </instance>
+  <instance name="ember" model="Track">
+    <set path="id" value="ember"/><set path="title" value="Ember"/>
+    <set path="titleChars" value="5"/><set path="duration" value="60"/>
+    <set path="cover" value="ember"/><set path="clip" value="ember"/>
+  </instance>
+  <instance name="moss" model="Track">
+    <set path="id" value="moss"/><set path="title" value="Moss"/>
+    <set path="titleChars" value="4"/><set path="duration" value="120"/>
+    <set path="cover" value="moss"/><set path="clip" value="moss"/>
+  </instance>
+  <component name="row" grid="40" viewBox="0 0 40 6" data="Track">
+    <trigger name="tap"/>
+    <number name="clicks" default="0"/>
+    <asset name="dawn" type="image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC"/>
+    <asset name="tide" type="image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg=="/>
+    <asset name="ember" type="image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg=="/>
+    <asset name="moss" type="image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII="/>
+    <asset name="dawnSound" type="audio" src="dawn.wav" start="0.2" end="1.0"/>
+    <asset name="tideSound" type="audio" src="tide.wav" start="0.2" end="1.0"/>
+    <asset name="emberSound" type="audio" src="ember.wav" start="0.2" end="1.0"/>
+    <asset name="mossSound" type="audio" src="moss.wav" start="0.2" end="1.0"/>
+    <event-def name="playDawn" audio="dawnSound"/>
+    <event-def name="playTide" audio="tideSound"/>
+    <event-def name="playEmber" audio="emberSound"/>
+    <event-def name="playMoss" audio="mossSound"/>
+    <rect id="highlight" x0="1" y0="1" width="34" height="6" fill="#f0eee6" stroke="#d97757" stroke-width="0.3"/>
+    <image id="dawnCover" asset="dawn" x0="2" y0="2" width="4" height="4" sampling="nearest"/>
+    <image id="tideCover" asset="tide" x0="2" y0="2" width="4" height="4" sampling="nearest"/>
+    <image id="emberCover" asset="ember" x0="2" y0="2" width="4" height="4" sampling="nearest"/>
+    <image id="mossCover" asset="moss" x0="2" y0="2" width="4" height="4" sampling="nearest"/>
+    <rect id="titleBar" x0="8" y0="2.5" width="1" height="1" fill="#141413"/>
+    <rect id="durationBar" x0="8" y0="4.5" width="1" height="1" fill="#d97757"/>
+    <bind target="highlight.stroke-width" value="0.3 * ($id == $board:selected)"/>
+    <bind target="dawnCover.visible" value='$cover == "dawn"'/>
+    <bind target="tideCover.visible" value='$cover == "tide"'/>
+    <bind target="emberCover.visible" value='$cover == "ember"'/>
+    <bind target="mossCover.visible" value='$cover == "moss"'/>
+    <bind target="titleBar.width" value="$titleChars"/>
+    <bind target="durationBar.width" value="$duration / 10"/>
+    <listener on="click" target="highlight" fire="tap" set="$board:selected=$id clicks=clicks+1"/>
+    <layer name="audio" initial="idle">
+      <state name="idle">
+        <on when='tap &amp;&amp; $clip == "dawn"' to="dawn"/>
+        <on when='tap &amp;&amp; $clip == "tide"' to="tide"/>
+        <on when='tap &amp;&amp; $clip == "ember"' to="ember"/>
+        <on when='tap &amp;&amp; $clip == "moss"' to="moss"/>
+      </state>
+      <state name="dawn" emit="playDawn"><on when="@after(0)" to="idle"/></state>
+      <state name="tide" emit="playTide"><on when="@after(0)" to="idle"/></state>
+      <state name="ember" emit="playEmber"><on when="@after(0)" to="idle"/></state>
+      <state name="moss" emit="playMoss"><on when="@after(0)" to="idle"/></state>
+    </layer>
+  </component>
+  <component name="counter" grid="40">
+    <asset name="dawn" type="image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC"/>
+    <asset name="tide" type="image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg=="/>
+    <asset name="ember" type="image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg=="/>
+    <asset name="moss" type="image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII="/>
+    <circle id="dot" cx="38" cy="28" r="0.4" fill="#141413"/>
+  </component>
+  <rect id="panel" x0="0" y0="0" width="40" height="30" fill="#f0eee6"/>
+  <repeat id="rows" list="$tracks" component="row" dy="6" size="40 6"/>
+  <repeat id="dots" count="$count" component="counter" dy="-1.2"/>
+</anima>
