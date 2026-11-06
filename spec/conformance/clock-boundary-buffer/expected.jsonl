@@ -1,0 +1,4 @@
+{"time":0.5000000005,"values":{},"states":{"kept":"s","expired":"s"},"events":[],"settled":false}
+{"time":0.5000000005,"values":{},"states":{"kept":"done","expired":"s"},"events":[{"name":"kept","layer":"kept","time":0}],"settled":false}
+{"time":0.500000002,"values":{},"states":{"kept":"done","expired":"s"},"events":[],"settled":true}
+{"time":0.500000002,"values":{},"states":{"kept":"done","expired":"s"},"events":[],"settled":true}

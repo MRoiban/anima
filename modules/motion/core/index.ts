@@ -2,6 +2,7 @@ import { after } from '../manifest.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import { type Addr, type Model, type Value, load } from '../../../packages/core/src/load.ts';
 import { Player } from '../../../packages/core/src/player.ts';
+import { reached, snapTime } from '../../../packages/core/src/time.ts';
 import { linear } from '../../../packages/core/src/ease.ts';
 import { ptr, type Diags } from '../../../packages/core/src/diag.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
@@ -135,9 +136,10 @@ export const motion: Module = {
     if (discrete || curves.some(Boolean))
       track.sample = (time) => {
         let i = 0;
-        while (i < track.times.length - 1 && track.times[i + 1]! <= time) i++;
+        while (i < track.times.length - 1 && reached(time, track.times[i + 1]!)) i++;
         if (discrete || time <= track.times[0]! || i === track.times.length - 1)
           return track.values[i]!;
+        time = snapTime(time, track.times[i]!);
         const u = (time - track.times[i]!) / (track.times[i + 1]! - track.times[i]!);
         if (curves[i]) return curves[i]!(u);
         const a = track.values[i] as number,

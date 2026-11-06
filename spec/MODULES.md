@@ -264,9 +264,9 @@ the document requirement. `Module.ease` extends left-key/transition weight parsi
 `Prop.discrete` marks an address whose state crossfade replaces rather than interpolates.
 
 `Model.playback(player)` constructs a per-player `PlaybackPolicy` before state entry.
-It supplies local time, completion duration, event crossings, reduced-motion endpoint
-handling, extra transition gating/carry, optional transform origin, and post-binding
-composition before clamping. Absent this factory, the 0.1 paths are unchanged. The
+It supplies local time, completion duration and a source-clock `finished` predicate, event
+crossings, reduced-motion endpoint handling, extra transition gating/carry, optional transform
+origin, and post-binding composition before clamping. Absent this factory, the 0.1 paths are unchanged. The
 base player exposes `writes()` for exact active/fading address coverage and an
 `onChange` wake callback. The active registry supplies its own `Player`, `sampleTrack`
 and `mixValues` so separately bundled modules share sampling and value interpolation

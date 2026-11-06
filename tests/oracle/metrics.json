@@ -1126,5 +1126,47 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "events-transition-end/boundary-probe",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 1.1,
+        "actual": [
+          {
+            "frame": 30,
+            "name": "exit"
+          },
+          {
+            "frame": 30,
+            "name": "begin"
+          },
+          {
+            "frame": 45,
+            "name": "done"
+          }
+        ],
+        "reference": [
+          {
+            "frame": 30,
+            "name": "exit"
+          },
+          {
+            "frame": 30,
+            "name": "begin"
+          },
+          {
+            "frame": 45,
+            "name": "done"
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
   }
 ]

@@ -1,0 +1,12 @@
+<anima version="0.1" name="clock-boundaries-epsilon" grid="20">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <timeline name="t" duration="0.5">
+    <track target="a.x">0 0 hold; 0.25 10 hold; 0.5 20</track>
+    <event at="0.25" name="one"/>
+    <event at="0.2500000005" name="two"/>
+    <event at="0.5" name="end"/>
+  </timeline>
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

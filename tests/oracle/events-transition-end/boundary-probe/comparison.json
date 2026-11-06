@@ -2,15 +2,15 @@
   "time": 1.1,
   "actual": [
     {
-      "frame": 31,
+      "frame": 30,
       "name": "exit"
     },
     {
-      "frame": 31,
+      "frame": 30,
       "name": "begin"
     },
     {
-      "frame": 46,
+      "frame": 45,
       "name": "done"
     }
   ],
@@ -28,8 +28,8 @@
       "name": "done"
     }
   ],
-  "maxDiff": 1,
-  "over": 1,
-  "overPercent": 100,
-  "pass": false
+  "maxDiff": 0,
+  "over": 0,
+  "overPercent": 0,
+  "pass": true
 }

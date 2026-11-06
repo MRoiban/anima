@@ -241,6 +241,11 @@ and an oracle test against Rive.
   - [x] Local implementation: 32/33 requested rows; script-event-context deferred to P9.
         Events 3418/4096 B, core+web +266 B; 7 conformance cases and Chromium/Firefox coverage.
         Evidence: `modules/events/RESULTS.md`.
+  - [x] P4d-2 deterministic clock boundaries: SPEC §5 absolute 1e-9 s rule across core/motion,
+        nine conformance cases; next-step event listeners retained as an intentional difference.
+        Fresh boundary captures: transition 30/30/45 matches; keys 15/30/60 vs Rive 15/30/61
+        remain a recorded finding. Completed oracles 41; strict exit 0; full check 2530 tests green.
+        See LOG P4d-2.
   - [ ] Parent integration, phase benchmark and parity promotion/PR.
 - [ ] P4e `data`: view models, bindings, converters, lists.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide

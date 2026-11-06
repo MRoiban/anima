@@ -1,7 +1,7 @@
 [
   {
     "name": "input-event-listener",
-    "reason": "Rive event listeners fire their response in the triggering frame; Anima deliberately queues actions for the next step (spec events). Exact frame comparison disagrees, not a missing CLI observation path. Boundary keys also differ under float clocks.",
+    "reason": "Intentional difference (SPEC events): Anima listener responses occur on the next step to prevent step re-entry and recursive cascades. Sources: frames 13/28 in both; responses: Anima 14/29, Rive 13/28. This exact disagreement is retained, never a pass.",
     "frames": [
       {
         "time": 1.1,
@@ -49,59 +49,18 @@
     ]
   },
   {
-    "name": "events-transition-end/boundary-probe",
-    "reason": "At frame-aligned thresholds, accumulated float clocks disagree by one frame. Retained exact comparison; no timing tolerance or corrected reference. The successful off-grid probe does not cover these boundaries.",
-    "frames": [
-      {
-        "time": 1.1,
-        "actual": [
-          {
-            "frame": 31,
-            "name": "exit"
-          },
-          {
-            "frame": 31,
-            "name": "begin"
-          },
-          {
-            "frame": 46,
-            "name": "done"
-          }
-        ],
-        "reference": [
-          {
-            "frame": 30,
-            "name": "exit"
-          },
-          {
-            "frame": 30,
-            "name": "begin"
-          },
-          {
-            "frame": 45,
-            "name": "done"
-          }
-        ],
-        "maxDiff": 1,
-        "over": 1,
-        "overPercent": 100,
-        "pass": false
-      }
-    ]
-  },
-  {
     "name": "animation-key-event-target/boundary-probe",
-    "reason": "At frame-aligned thresholds, accumulated float clocks disagree by one frame. Retained exact comparison; no timing tolerance or corrected reference. The successful off-grid probe does not cover these boundaries.",
+    "reason": "After the SPEC 1e-9 s boundary rule, keys at 0.25/0.5/1 s report at Anima frames 15/30/60 versus freshly recaptured Rive 15/30/61. First two now agree; the last remains an exact one-frame disagreement. The native capture does not establish the cause of Rive frame 61; no tolerance or reference correction.",
     "frames": [
       {
         "time": 1.1,
         "actual": [
           {
-            "frame": 16,
+            "frame": 15,
             "name": "first"
           },
           {
-            "frame": 31,
+            "frame": 30,
             "name": "second"
           },
           {

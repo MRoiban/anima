@@ -1,0 +1,7 @@
+{"time":0.249999998,"values":{"a.x":0},"states":{"l":"s"},"events":[],"settled":false}
+{"time":0.2499999995,"values":{"a.x":10},"states":{"l":"s"},"events":[{"name":"one","layer":"l","time":0.25},{"name":"two","layer":"l","time":0.2500000005}],"settled":false}
+{"time":0.2499999995,"values":{"a.x":10},"states":{"l":"s"},"events":[],"settled":false}
+{"time":0.2500000005,"values":{"a.x":10},"states":{"l":"s"},"events":[],"settled":false}
+{"time":0.499999998,"values":{"a.x":10},"states":{"l":"s"},"events":[],"settled":false}
+{"time":0.4999999995,"values":{"a.x":20},"states":{"l":"s"},"events":[{"name":"end","layer":"l","time":0.5}],"settled":true}
+{"time":0.5000000005,"values":{"a.x":20},"states":{"l":"s"},"events":[],"settled":true}

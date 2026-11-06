@@ -101,3 +101,8 @@ The earlier “no reported-event observation stream” claim above is incorrect.
 boundary-timing findings limit otherwise verified timeline/state/transition probes. See the
 re-audit for exact numbers and the payload data-dump mapping; the original no-capture count
 must not be used as the current verification state.
+
+P4d-2 follow-up: the fixed 1e-9-second boundary rule resolves the transition boundary probe
+(30/30/45 in both). Keys now report 15/30/60 versus native 15/30/61; listener 14/29 versus
+native 13/28 is an intentional difference. The current report is ORACLE-RESULTS.md; final
+full check passes 2530 tests, with nine further conformance cases and strict oracle exit 0.

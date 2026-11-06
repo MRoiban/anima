@@ -1,5 +1,5 @@
 {
-  "reason": "Rive event listeners fire their response in the triggering frame; Anima deliberately queues actions for the next step (spec events). Exact frame comparison disagrees, not a missing CLI observation path. Boundary keys also differ under float clocks.",
+  "reason": "Intentional difference (SPEC events): Anima listener responses occur on the next step to prevent step re-entry and recursive cascades. Sources: frames 13/28 in both; responses: Anima 14/29, Rive 13/28. This exact disagreement is retained, never a pass.",
   "case": {
     "name": "input-event-listener",
     "times": [1.1],
@@ -13,5 +13,6 @@
       "omitLifecycle": false,
       "urls": false
     }
-  }
+  },
+  "classification": "intentional difference"
 }

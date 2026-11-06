@@ -1,0 +1,30 @@
+<anima version="0.1" name="motion-boundary-exits" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <bool name="stop"/>
+  <timeline name="t" duration="1" loop="loop" quantize="4">
+    <track target="a.x">0 0; 1 100</track>
+  </timeline>
+  <timeline name="u" duration="1"/>
+  <layer name="next" initial="s">
+    <state name="s" play="t">
+      <on when="stop" to="held" sync="true" exitNext="step"/>
+    </state>
+    <state name="held" play="t" emit="captured" hold="true"/>
+  </layer>
+  <layer name="exit" initial="s">
+    <state name="s" play="u" speed="2">
+      <on when="@after(0)" to="done" exit="0.5"/>
+    </state>
+    <state name="done" emit="exited">
+      <pose a.y="10"/>
+    </state>
+  </layer>
+  <layer name="fraction" initial="s">
+    <state name="s" play="u">
+      <on when="@after(0)" to="done" exitFraction="0.5"/>
+    </state>
+    <state name="done" emit="fraction">
+      <pose a.rotate="10"/>
+    </state>
+  </layer>
+</anima>
