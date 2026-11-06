@@ -116,3 +116,4 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-08 02:00 [claude]: merged P4c-7 (62a23c6): main with P4d integrated, full check 4227 pass, oracle 120 cases strict 0; core+web 19831; next P4c AniML benchmark rerun → PR
 - 2026-11-08 03:30 [claude]: P4c rerun 6/6; parity 95 rows done (387/1238); LOG with numbers (perf interleaved: no regression); opening PR
 - 2026-11-08 04:00 [claude]: PR #15 merged (49d418c); P4e design written (modules data + convert, $ paths, binding modes, converters, host API)
+- 2026-11-08 07:00 [claude]: P4e-2 convert (ca00f17) partial: converters as functions (5692/8192 B), 35 Rive comparisons pass, 0 rows complete, 66 probes pending; held until data core lands, then integration via data hooks
