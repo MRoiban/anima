@@ -1,6 +1,6 @@
 {
   "status": "finding",
-  "reason": "Independent decoder comparison, unchanged limits: [{\"time\":0,\"maxDiff\":40,\"over\":57600,\"overPercent\":100,\"pass\":false}]",
+  "reason": "Independent decoder comparison, unchanged limits: [{\"time\":0,\"maxDiff\":40,\"over\":57600,\"overPercent\":100,\"pass\":false}] Root cause control: native inspected geometry/source/sampler through resvg equals Anima max0; native 1:1 decoded texels rendered by Anima match native max1; decoder difference only. Evidence: modules/assets/probes/sampling-controls.json and sampling-controls.ts.",
   "case": {
     "name": "assets-image-import-jpeg",
     "times": [0],

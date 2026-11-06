@@ -1,4 +1,0 @@
-{
-  "status": "todo",
-  "reason": "Fresh native reference for assets.host-decode-audio is pending; runtime/CLI tests do not establish native equivalence. The permitted headless Rive path does not output audible audio; host decode/clip comparisons require another observation route."
-}

@@ -1,0 +1,9 @@
+{
+  "status": "skip",
+  "reason": "Native FileAsset runtime schema has name/id/CDN fields, not the detached arbitrary metadata/size/MIME info object delivered to a JavaScript resolver. No host callback observation exists in headless commands.",
+  "tests": ["modules/assets/test/cli/pipeline.test.ts", "modules/assets/test/web/pipeline.test.ts"],
+  "captureEvidence": [
+    "modules/assets/probes/native-capabilities.json",
+    "modules/assets/probes/native-capabilities.ts"
+  ]
+}

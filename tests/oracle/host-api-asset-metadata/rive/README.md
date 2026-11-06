@@ -1,1 +1,5 @@
-TODO: independently author a Rive scene and capture reference PNGs; do not read/convert .riv files.
+# Native disposition
+
+Native FileAsset runtime schema and inspect do not expose JavaScript callback info or arbitrary nested metadata. Headless command results cannot observe detachment or mutation isolation of the host info object.
+
+See ../skip.json for reproducible local observations and Anima test evidence.

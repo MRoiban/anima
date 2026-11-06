@@ -1,0 +1,13 @@
+{
+  "status": "skip",
+  "reason": "Native FileAsset runtime schema and inspect do not expose JavaScript callback info or arbitrary nested metadata. Headless command results cannot observe detachment or mutation isolation of the host info object.",
+  "tests": [
+    "modules/assets/test/cli/pipeline.test.ts",
+    "modules/assets/test/web/pipeline.test.ts",
+    "modules/assets/test/web/assets.test.ts"
+  ],
+  "captureEvidence": [
+    "modules/assets/probes/native-capabilities.json",
+    "modules/assets/probes/native-capabilities.ts"
+  ]
+}

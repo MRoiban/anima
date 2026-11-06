@@ -1,0 +1,26 @@
+{
+  "vertices": [
+    { "x": 0, "y": 0, "u": -1.52999997, "v": -1.52999997 },
+    { "x": 243.600006, "y": 0, "u": 2.52999997, "v": -1.52999997 },
+    { "x": 243.600006, "y": 243.600006, "u": 2.52999997, "v": 2.52999997 },
+    { "x": 0, "y": 243.600006, "u": -1.52999997, "v": 2.52999997 }
+  ],
+  "coverageClassification": {
+    "edgeX": [91, 151],
+    "edgeY": [91, 151],
+    "over16OutsideSliceEdges": 0,
+    "maxOutsideSliceEdges": 0
+  },
+  "derived": {
+    "w": 243.600006,
+    "h": 243.600006,
+    "iw": 60.00000236453206,
+    "ih": 60.00000236453206,
+    "x": 91.80000181773397,
+    "y": 91.80000181773397
+  },
+  "sameRendererNativeData": { "maxDiff": 0, "over": 0, "overPercent": 0 },
+  "authoredControl": { "maxDiff": 0, "over": 0, "overPercent": 0 },
+  "native": { "maxDiff": 164, "over": 956, "overPercent": 1.6597222222222223 },
+  "note": "Fractional SVG slice-coverage finding; unchanged threshold 16 and max2/zero-over remain failing. Canvas has separate all-pixel ideal-shader tests. This is not a passing SVG parity claim."
+}

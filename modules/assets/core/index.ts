@@ -1,3 +1,4 @@
+import type { Geometry } from '../../../packages/core/src/draw.ts';
 import { after } from '../manifest.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { ObjShape } from '../../../packages/core/src/registry.ts';
@@ -21,6 +22,9 @@ export interface Asset {
   export?: boolean;
   metadata?: Record<string, unknown>;
 }
+/** Decoded dimensions are tied to resource identity, never authored layout or JSON. */
+export const imagePixels = new WeakMap<Asset, [number, number]>();
+export type ImageResource = NonNullable<Geometry['image']> & { pixels?: [number, number] };
 const asset: ObjShape = {
   k: 'obj',
   p: {
@@ -217,7 +221,8 @@ export const assets: Module & { resolvedAssets: typeof resolvedAssets } = {
           fit: r.fit ?? 'contain',
           align: r.align ?? 'center',
           sampling: r.sampling ?? 'bilinear',
-        },
+          pixels: imagePixels.get(a),
+        } as ImageResource,
       };
     },
   },

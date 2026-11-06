@@ -2858,7 +2858,10 @@
     "threshold": 0,
     "maxDiff": 0,
     "maxOverPercent": 0,
-    "observations": { "script": "script.txt", "reference": "rive/observations.json" }
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
   },
   {
     "name": "components-leaf-fit",
@@ -2866,7 +2869,10 @@
     "threshold": 0,
     "maxDiff": 0,
     "maxOverPercent": 0,
-    "observations": { "script": "script.txt", "reference": "rive/observations.json" }
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
   },
   {
     "name": "components-stateful-output",
@@ -2874,7 +2880,10 @@
     "threshold": 0,
     "maxDiff": 0,
     "maxOverPercent": 0,
-    "observations": { "script": "script.txt", "reference": "rive/observations.json" }
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
   },
   {
     "name": "data-property-artboard",
@@ -2882,7 +2891,10 @@
     "threshold": 0,
     "maxDiff": 0,
     "maxOverPercent": 0,
-    "observations": { "script": "script.txt", "reference": "rive/observations.json" }
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
   },
   {
     "name": "components-nested-quantize-nonboundary",
@@ -2890,6 +2902,30 @@
     "threshold": 0,
     "maxDiff": 0,
     "maxOverPercent": 0,
-    "observations": { "script": "script.txt", "reference": "rive/observations.json" }
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "assets-image-wrap-x-clamp",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "assets-image-wrap-y-clamp",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "drawing-paint-image-wrap-clamp",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
   }
 ]

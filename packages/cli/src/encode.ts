@@ -2,38 +2,54 @@
 import { existsSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { resolve } from 'node:path';
+import type { Browser, Page } from 'playwright-core';
 import { Resvg } from '@resvg/resvg-js';
 import { PNG } from 'pngjs';
 import type { AssetInfo } from './asset-info.ts';
 
+// One lazy browser per command; callers own the lifetime, including exceptional exits.
+export class ImageEncoder {
+  #browser?: Promise<Browser>;
+  async close(): Promise<void> {
+    await (await this.#browser)?.close();
+  }
+  async browser(): Promise<Browser> {
+    if (!this.#browser) {
+      const executablePath =
+        process.env.CHROMIUM_PATH ??
+        resolve(
+          homedir(),
+          '.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell',
+        );
+      this.#browser = (async () => {
+        if (!existsSync(executablePath)) throw Error('missing executable');
+        // Loaded on first use: importing Playwright at module load cost every CLI command ~0.3–0.5 s.
+        const { chromium } = await import('playwright-core');
+        return chromium.launch({ executablePath, headless: true });
+      })().catch(() => {
+        this.#browser = undefined;
+        throw Object.assign(Error('cached Chromium image encoder/decoder is unavailable'), {
+          code: 'build-encoder-unavailable',
+        });
+      });
+    }
+    return this.#browser;
+  }
+}
 // Chromium supplies JPEG/WebP encoders and the WebP decoder that resvg lacks.
 async function browserImage(
   bytes: Buffer,
   info: AssetInfo,
   encode?: string,
   quality?: number,
+  session?: ImageEncoder,
 ): Promise<string | { width: number; height: number; data: number[] }> {
-  const executablePath =
-    process.env.CHROMIUM_PATH ??
-    resolve(
-      homedir(),
-      '.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell',
-    );
-  const unavailable = () =>
-    Object.assign(Error('cached Chromium image encoder/decoder is unavailable'), {
-      code: 'build-encoder-unavailable',
-    });
-  if (!existsSync(executablePath)) throw unavailable();
-  let browser;
+  const owned = session === undefined;
+  session ??= new ImageEncoder();
+  const browser = await session.browser();
+  let page: Page | undefined;
   try {
-    // Loaded on first use: importing Playwright at module load cost every CLI command ~0.3–0.5 s.
-    const { chromium } = await import('playwright-core');
-    browser = await chromium.launch({ executablePath, headless: true });
-  } catch {
-    throw unavailable();
-  }
-  try {
-    const page = await browser.newPage();
+    page = await browser.newPage();
     return await page.evaluate(
       async ({ uri, encode, quality }) => {
         const image = new Image();
@@ -58,21 +74,30 @@ async function browserImage(
       { uri: `data:${info.mime};base64,${bytes.toString('base64')}`, encode, quality },
     );
   } finally {
-    await browser.close();
+    try {
+      await page?.close();
+    } finally {
+      if (owned) await session.close();
+    }
   }
 }
-export async function validateWebP(bytes: Buffer, info: AssetInfo): Promise<void> {
-  await browserImage(bytes, info);
+export async function validateWebP(
+  bytes: Buffer,
+  info: AssetInfo,
+  session?: ImageEncoder,
+): Promise<void> {
+  await browserImage(bytes, info, undefined, undefined, session);
 }
 export async function encodeImage(
   bytes: Buffer,
   info: AssetInfo,
   encode: string,
   quality?: number,
+  session?: ImageEncoder,
 ): Promise<Buffer> {
   if (encode === 'png') {
     if (info.mime === 'image/webp') {
-      const pixels = await browserImage(bytes, info);
+      const pixels = await browserImage(bytes, info, undefined, undefined, session);
       if (typeof pixels === 'string') throw Error('decoder returned no pixels');
       return PNG.sync.write({
         width: pixels.width,
@@ -89,7 +114,7 @@ export async function encodeImage(
         .asPng(),
     );
   }
-  const encoded = await browserImage(bytes, info, encode, quality);
+  const encoded = await browserImage(bytes, info, encode, quality, session);
   if (typeof encoded !== 'string') throw Error('encoder returned no bytes');
   return Buffer.from(encoded, 'base64');
 }

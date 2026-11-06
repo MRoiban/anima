@@ -1,0 +1,11 @@
+{
+  "status": "finding",
+  "reason": "Fractional nearest SVG clamp: max 164, 956/57600 pixels above16. Native UV mesh independently rendered through resvg equals Anima max0; exact authored-decimal control max0. Raster slice-coverage difference retained, no threshold change. See modules/assets/probes/fractional-clamp.ts and fractional-clamp/measurements.json.",
+  "case": {
+    "name": "assets-clamp-fractional-finding",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  }
+}

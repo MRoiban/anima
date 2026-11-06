@@ -1,0 +1,12 @@
+{
+  "status": "skip",
+  "reason": "Native format=webp quality=0.1 remains editor-only, absent from runtime inspect; output is unchanged from PNG (max0/over0). Local preview does not invoke WebP mutation/export, so it cannot verify encoding.",
+  "tests": ["modules/assets/test/cli/pipeline.test.ts", "modules/assets/test/web/pipeline.test.ts"],
+  "captureEvidence": [
+    "modules/assets/probes/native-capabilities.json",
+    "modules/assets/probes/native-capabilities.ts",
+    "modules/assets/probes/encoding/png/session.txt",
+    "modules/assets/probes/encoding/jpeg/session.txt",
+    "modules/assets/probes/encoding/webp/session.txt"
+  ]
+}

@@ -7,6 +7,6 @@ Implemented by the assets/paint runtime or CLI asset pipeline. Parity status is 
 - Validation/runtime/CLI: modules/assets/test/{core,cli,web}/pipeline.test.ts.
 - Conformance: spec/conformance/assets-host-decode-audio; width 4→8 is linear, midpoint 6.
 - Browser sampling expectations enumerate source texels independently, both backends and engines.
-- Oracle: tests/oracle/assets-host-decode-audio/ — native oracle pending.
+- Oracle: tests/oracle/assets-host-decode-audio/ — evidenced native skip; see skip.json and REPORT.md for the observation limit.
 
 See modules/assets/REPORT.md for completion limits and measurements.

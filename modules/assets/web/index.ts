@@ -1,4 +1,4 @@
-import { assets, resolvedAssets, type Asset } from '@anima-format/core/assets';
+import { assets, resolvedAssets, type Asset, imagePixels } from '@anima-format/core/assets';
 import { assetsSVG } from '@anima-format/core/assets-svg';
 import '../../../packages/web/src/index.ts';
 import type { AnimaIcon } from '../../../packages/web/src/index.ts';
@@ -55,6 +55,7 @@ Icon.loadAssets = async (icon, model) => {
         const image = new Image();
         image.src = source;
         await image.decode();
+        imagePixels.set(asset, [image.naturalWidth, image.naturalHeight]);
         // Blob URLs cannot outlive this load. Convert them to self-contained data instead.
         asset.source =
           resolved instanceof Blob

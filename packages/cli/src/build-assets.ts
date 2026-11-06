@@ -4,14 +4,23 @@ import { pathToFileURL } from 'node:url';
 import { Resvg } from '@resvg/resvg-js';
 import type { Asset } from '@anima-format/core/assets';
 import type { Diagnostic } from '@anima-format/core';
-import { sniff } from './asset-info.ts';
-import { encodeImage, validateWebP } from './encode.ts';
+import { sniff, type AssetInfo } from './asset-info.ts';
+import { encodeImage, validateWebP, ImageEncoder } from './encode.ts';
 
 export async function buildAssets(
   doc: { assets?: Record<string, Asset> },
   file: string,
   embed: boolean,
+  encoder?: ImageEncoder,
 ): Promise<Diagnostic[]> {
+  if (!encoder) {
+    const owned = new ImageEncoder();
+    try {
+      return await buildAssets(doc, file, embed, owned);
+    } finally {
+      await owned.close();
+    }
+  }
   const diagnostics: Diagnostic[] = [];
   for (const [name, asset] of Object.entries(doc.assets ?? {})) {
     if (asset.export === false) {
@@ -42,7 +51,10 @@ export async function buildAssets(
               ),
             );
       } else bytes = readFileSync(url);
-      let info = sniff(bytes);
+      let info: AssetInfo =
+        asset.type === 'blob'
+          ? { mime: asset.mime ?? 'application/octet-stream', size: bytes.length }
+          : sniff(bytes);
       const expected: Record<string, string> = {
         '.png': 'image/png',
         '.jpg': 'image/jpeg',
@@ -61,20 +73,23 @@ export async function buildAssets(
         url.protocol === 'data:'
           ? /^data:([^;,]+)/.exec(asset.source)?.[1]
           : expected[extname(url.pathname).toLowerCase()];
+      if (asset.type === 'blob') info.mime = asset.mime ?? mime ?? info.mime;
       if (info.mime === 'application/octet-stream' && asset.type === 'font')
         info = { ...info, mime: asset.mime ?? mime ?? 'application/octet-stream' };
       if (
+        asset.type === 'image' &&
         info.mime === 'application/octet-stream' &&
         mime === 'image/svg+xml' &&
         /<svg(?:\s|>)/.test(bytes.toString('utf8'))
       )
         info = { ...info, mime: 'image/svg+xml' };
       if (
-        (mime && expected[extname(url.pathname).toLowerCase()] && mime !== info.mime) ||
-        (mime &&
-          /^(image\/(png|jpeg|webp)|audio\/(wav|mpeg|flac))$/.test(mime) &&
-          mime !== info.mime) ||
-        (asset.mime && asset.mime !== info.mime)
+        asset.type !== 'blob' &&
+        ((mime && expected[extname(url.pathname).toLowerCase()] && mime !== info.mime) ||
+          (mime &&
+            /^(image\/(png|jpeg|webp)|audio\/(wav|mpeg|flac))$/.test(mime) &&
+            mime !== info.mime) ||
+          (asset.mime && asset.mime !== info.mime))
       )
         throw Object.assign(Error('asset MIME/extension disagrees with its bytes'), {
           code: 'asset-format',
@@ -91,7 +106,7 @@ export async function buildAssets(
           info.mime === 'image/gif'
             ? true
             : info.mime === 'image/webp'
-              ? (await validateWebP(bytes, info), true)
+              ? (await validateWebP(bytes, info, encoder), true)
               : new Resvg(
                   `<svg xmlns="http://www.w3.org/2000/svg"><image href="${uri}"/></svg>`,
                 ).getBBox();
@@ -123,13 +138,13 @@ export async function buildAssets(
           throw Object.assign(Error('encode needs a PNG/JPEG/WebP image'), {
             code: 'asset-format',
           });
-        bytes = await encodeImage(bytes, info, asset.encode, asset.quality);
+        bytes = await encodeImage(bytes, info, asset.encode, asset.quality, encoder);
         info = sniff(bytes);
       }
       Object.assign(
         asset,
         { mime: info.mime, size: info.size },
-        info.duration === undefined ? {} : { duration: info.duration },
+        asset.type !== 'audio' || info.duration === undefined ? {} : { duration: info.duration },
       );
       if (embed || asset.encode) {
         asset.source = `data:${info.mime};base64,${bytes.toString('base64')}`;

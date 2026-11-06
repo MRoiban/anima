@@ -1,3 +1,4 @@
+import type { ImageResource } from '../../assets/core/index.ts';
 import type { ModuleEntry } from '../../../packages/core/src/modules.ts';
 import type { SVGBackend, El } from '../../../packages/core/src/svg.ts';
 // Patterns handle either browser backend registration order.
@@ -32,7 +33,13 @@ export const samplingSVG: SVGBackend = {
               role: 'sample:flip',
               node: el.node,
               index,
-              kids: [{ tag: 'image', role: 'module:image', node: el.node, kids: [] }],
+              kids: Array.from({ length: 9 }, (_, key) => ({
+                tag: 'svg',
+                role: 'sample:crop',
+                node: el.node,
+                index: key,
+                kids: [{ tag: 'image', role: 'sample:source', node: el.node, kids: [] }],
+              })),
             })),
           });
         } else visit(el.kids);
@@ -43,7 +50,7 @@ export const samplingSVG: SVGBackend = {
   attrs(f, el, paint, id, a, render) {
     if (!el.role.startsWith('sample:')) return;
     const g = f.nodes[el.node]!.geometry!,
-      r = g.image!;
+      r = g.image! as ImageResource;
     if (r.sampling === 'bilinear' && (r.wrapX === 'repeat' || r.wrapY === 'repeat'))
       throw Object.assign(new Error('SVG patterns cannot filter across repeated texture edges'), {
         code: 'unsupported-render',
@@ -57,6 +64,23 @@ export const samplingSVG: SVGBackend = {
       h = +image.height!,
       x = +image.x!,
       y = +image.y!;
+    if (
+      r.sampling === 'bilinear' &&
+      ((r.wrapX === 'clamp' && (x > 0 || x + w < g.width!)) ||
+        (r.wrapY === 'clamp' && (y > 0 || y + h < g.height!)))
+    )
+      throw Object.assign(
+        new Error('SVG cannot isolate clamped edge texels before bilinear filtering'),
+        {
+          code: 'unsupported-render',
+          pointer: (f.tree.nodes[el.node]!.pointer ?? '/nodes/' + el.node) + '/sampling',
+          hint: 'use sampling="nearest" or the canvas renderer for bilinear clamp extension',
+        },
+      );
+    if (el.role === 'sample:source') {
+      Object.assign(a, image, { x: '0', y: '0' });
+      return;
+    }
     const wx = r.wrapX!,
       wy = r.wrapY!;
     const tx = wx === 'clamp' ? 0 : x,
@@ -64,7 +88,50 @@ export const samplingSVG: SVGBackend = {
     const mx = wx === 'mirror',
       my = wy === 'mirror',
       key = `${id}tile${el.node}`;
-    if (el.role === 'sample:rect')
+    if (el.role === 'sample:crop') {
+      const axis = (
+        n: number,
+        pos: number,
+        size: number,
+        box: number,
+        pixels: number,
+        mode: string,
+      ) => {
+        const edge = size / pixels;
+        return n === 1
+          ? [pos, size, 0, size]
+          : n === 0
+            ? [0, mode === 'clamp' ? Math.max(0, pos) : 0, 0, edge]
+            : [pos + size, mode === 'clamp' ? Math.max(0, box - pos - size) : 0, size - edge, edge];
+      };
+      const [dx, dw, sx, sw] = axis(
+          el.index! % 3,
+          x,
+          w,
+          g.width!,
+          (r.pixels?.[0] ?? r.width ?? g.width)!,
+          wx,
+        ),
+        [dy, dh, sy, sh] = axis(
+          Math.floor(el.index! / 3),
+          y,
+          h,
+          g.height!,
+          (r.pixels?.[1] ?? r.height ?? g.height)!,
+          wy,
+        );
+      Object.assign(a, {
+        x: String(dx),
+        y: String(dy),
+        width: String(dw),
+        height: String(dh),
+        viewBox: `${sx} ${sy} ${sw} ${sh}`,
+        display: dw && dh ? 'inline' : 'none',
+        style: `width:${dw}px;height:${dh}px;overflow:hidden`,
+        preserveAspectRatio: 'none',
+        overflow: 'hidden',
+      });
+    } else if (el.role === 'sample:rect')
       Object.assign(a, { width: String(g.width), height: String(g.height), fill: `url(#${key})` });
     else if (el.role === 'sample:pattern')
       Object.assign(a, {

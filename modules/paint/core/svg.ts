@@ -1,3 +1,5 @@
+import type { DrawFrame } from '../../../packages/core/src/draw.ts';
+import type { El } from '../../../packages/core/src/svg.ts';
 import { samplingSVG } from './sampling.ts';
 // SVG-specific drawing for paint. Shared by static serialization and retained DOM.
 import { fmt, type DrawPaint } from '../../../packages/core/src/draw.ts';
@@ -107,16 +109,20 @@ const gradientsSVG: SVGBackend = {
   },
 };
 
+// Keep the shared image viewport seam small; sampling implementation stays optional.
+function imageBox(f: DrawFrame, el: El, a: Attrs) {
+  if (el.role === 'module:image-box') {
+    const g = f.nodes[el.node]!.geometry!;
+    a.style = `width:${fmt(g.width!)}px;height:${fmt(g.height!)}px;overflow:hidden`;
+  }
+}
 // The browser's normal paint entry excludes pattern code. The optional entry replaces it.
 export const paintSVGBase: SVGBackend = {
   ...gradientsSVG,
   attrs(f, el, paint, id, a, render) {
+    imageBox(f, el, a);
     const image = f.nodes[el.node]!.geometry?.image;
-    if (
-      el.role === 'module:image' &&
-      image &&
-      (image.wrapX !== 'clamp' || image.wrapY !== 'clamp')
-    ) {
+    if (el.role === 'module:image' && image && f.tree.nodes[el.node]!.imageWrap) {
       throw Object.assign(new Error('image wrapping needs the optional SVG sampling backend'), {
         code: 'unsupported-render',
         pointer: f.tree.nodes[el.node]!.pointer ?? '/nodes/' + el.node,
@@ -132,6 +138,7 @@ export const paintSVG: SVGBackend = {
     samplingSVG.tree?.(draw, tree);
   },
   attrs(f, el, paint, id, a, render) {
+    imageBox(f, el, a);
     gradientsSVG.attrs?.(f, el, paint, id, a, render);
     samplingSVG.attrs?.(f, el, paint, id, a, render);
   },

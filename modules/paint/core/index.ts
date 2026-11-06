@@ -288,9 +288,7 @@ export const paint: Module = {
       m.nodes.forEach((n, i) => {
         if (String(n.type) !== 'image') return;
         const r = n.raw;
-        t.nodes[i]!.imageWrap = [r.wrapX ?? r.wrap, r.wrapY ?? r.wrap].some(
-          (v) => v && v !== 'clamp',
-        );
+        t.nodes[i]!.imageWrap = [r.wrapX ?? r.wrap, r.wrapY ?? r.wrap].some((v) => v !== undefined);
       });
       base.draw?.tree?.(m, t);
       geometry.draw?.tree?.(m, t);

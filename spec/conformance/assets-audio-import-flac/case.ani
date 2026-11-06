@@ -1,0 +1,63 @@
+{
+  "anima": "0.1",
+  "name": "assets-audio-import-flac",
+  "grid": 24,
+  "requires": ["assets", "paint", "events"],
+  "nodes": [
+    {
+      "id": "photo",
+      "type": "image",
+      "x0": 0,
+      "y0": 0,
+      "asset": "photo",
+      "width": 4,
+      "height": 4
+    }
+  ],
+  "timelines": {
+    "resize": {
+      "duration": 1,
+      "tracks": {
+        "photo.width": [
+          [0, 4],
+          [1, 8]
+        ]
+      },
+      "events": [
+        [0.5, "ping"]
+      ]
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "active",
+        "states": {
+          "active": {
+            "play": "resize"
+          }
+        }
+      }
+    }
+  },
+  "assets": {
+    "photo": {
+      "type": "image",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAG0lEQVR4AWP8r8HwnwEPYGIgAJgYCAAmBgIAABjwAi5tDXySAAAAAElFTkSuQmCC",
+      "width": 8,
+      "height": 4
+    },
+    "tone": {
+      "type": "audio",
+      "source": "data:audio/flac;base64,ZkxhQwAAACIQABAAAACeAACeAfQA8AAAAyDxG7iLJ7nokz95ndbhvq62hAAAKCAAAAByZWZlcmVuY2UgbGliRkxBQyAxLjUuMCAyMDI1MDIxMQAAAAD/+HQIAAMf9xMACQA/j/D/H+H+P8P8f4f4/w/x/h/j/D/H+H+P8P8f4f4/w/x/h/j/D/H+H+P8P8f4f4/w/x/h/j/D/H+H+P8P8f4f4/w/x/h/j/D/H+H+P8P8f4f4/w/x/h/j/D/H+H+P8P8f4f4/w/x/h/j/D/H+H+P8P8f4f4/w/x/h/j/D/H+H+P8P8f4f4/w/x/h/j/D/H+DpyA==",
+      "duration": 0.1,
+      "start": 0.01,
+      "end": 0.09
+    }
+  },
+  "eventDefs": {
+    "ping": {
+      "audio": "tone"
+    }
+  }
+}

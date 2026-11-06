@@ -1,0 +1,38 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-92dd576e
+
+ ❯ |unit| modules/assets/test/cli/pipeline.test.ts (17 tests | 1 failed | 16 skipped) 34ms
+   × keeps Blob payloads opaque when their bytes resemble media containers 32ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/assets/test/cli/pipeline.test.ts > keeps Blob payloads opaque when their bytes resemble media containers
+AssertionError: expected { type: 'blob', …(4) } to match object { type: 'blob', …(3) }
+(1 matching property omitted from actual)
+
+- Expected
++ Received
+
+  {
+-   "mime": "application/octet-stream",
++   "mime": "image/svg+xml",
+    "size": 62,
+    "source": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxIiBoZWlnaHQ9IjEiLz4=",
+    "type": "blob",
+  }
+
+ ❯ modules/assets/test/cli/pipeline.test.ts:495:30
+    493|     expect(result.code, result.err).toBe(0);
+    494|     const doc = JSON.parse(result.out);
+    495|     expect(doc.assets.bytes).toMatchObject({
+       |                              ^
+    496|       type: 'blob',
+    497|       source,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 16 skipped (17)
+   Start at  23:33:07
+   Duration  877ms (import 66%, transform 29%, tests 5%, worker 1%)

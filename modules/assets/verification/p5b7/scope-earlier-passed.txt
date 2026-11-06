@@ -1,0 +1,56 @@
+
+> test:scope
+> node tools/test-scope.ts assets media paint canvas events cli conformance oracle
+
+Scopes: assets, media, paint, canvas, events, cli, conformance, oracle
+  unit: modules/assets/test/cli/assets.test.ts
+  unit: modules/assets/test/cli/pipeline.test.ts
+  unit: modules/assets/test/core/assets.test.ts
+  unit: modules/assets/test/core/pipeline.test.ts
+  unit: modules/canvas/test/core/host-api-device-pixel-ratio.test.ts
+  unit: modules/canvas/test/core/host-api-resize-backing-surface.test.ts
+  unit: modules/canvas/test/core/platforms-web-canvas.test.ts
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/convert/test/cli/convert.test.ts
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/derive/test/cli/derive.test.ts
+  unit: modules/events/test/cli/events.test.ts
+  unit: modules/events/test/core/events.test.ts
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host/test/cli/host.test.ts
+  unit: modules/lists/test/cli/lists.test.ts
+  unit: modules/motion/test/cli/motion.test.ts
+  unit: modules/paint/test/cli/advanced.test.ts
+  unit: modules/paint/test/cli/paint-geometry.test.ts
+  unit: modules/paint/test/core/advanced.test.ts
+  unit: modules/paint/test/core/paint-geometry.test.ts
+  unit: modules/paint/test/core/paint.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: modules/surface/test/cli/surface.test.ts
+  unit: packages/cli/test/authoring.test.ts
+  unit: packages/cli/test/cli.test.ts
+  unit: packages/cli/test/glyphs.test.ts
+  unit: packages/cli/test/markup.test.ts
+  unit: packages/cli/test/render.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/assets/test/web/assets.test.ts
+  browser: modules/assets/test/web/pipeline.test.ts
+  browser: modules/canvas/test/web/canvas.test.ts
+  browser: modules/canvas/test/web/native-paint.test.ts
+  browser: modules/events/test/web/events.browser.test.ts
+  browser: modules/paint/test/web/paint-geometry.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-92dd576e
+
+
+ Test Files  43 passed (43)
+      Tests  5474 passed | 25 todo (5499)
+   Start at  22:56:08
+   Duration  479.51s (tests 96%, import 4%)

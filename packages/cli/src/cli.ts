@@ -34,6 +34,7 @@ import { embedAssets, imageDimensions } from './assets.ts';
 import { buildHTML } from './html.ts';
 import { buildAssets } from './build-assets.ts';
 import { updateLibraries } from './library.ts';
+import { ImageEncoder } from './encode.ts';
 import { importSVG } from './import-svg.ts';
 import { importLottie } from './import-lottie.ts';
 import { lineCol, locate, syntaxErrorAt } from './locate.ts';
@@ -1025,7 +1026,12 @@ async function build(
     const docs: { assets?: Record<string, import('@anima-format/core/assets').Asset> }[] = [];
     if (/\.html?$/i.test(f)) buildHTML(source, f, (doc) => docs.push(doc));
     else docs.push(JSON.parse(text));
-    for (const doc of docs) diagnostics.push(...(await buildAssets(doc, f, embed)));
+    const encoder = new ImageEncoder();
+    try {
+      for (const doc of docs) diagnostics.push(...(await buildAssets(doc, f, embed, encoder)));
+    } finally {
+      await encoder.close();
+    }
     if (diagnostics.some((d) => d.severity === 'error')) text = undefined;
     else if (/\.html?$/i.test(f)) {
       let i = 0;

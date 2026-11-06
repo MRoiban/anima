@@ -5,9 +5,17 @@ import { chromium, firefox, type BrowserType } from 'playwright-core';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import type { Browser } from 'playwright-core';
 import { PNG } from 'pngjs';
-import { cachedBundle as bundle } from '../../../../tools/browser-cache.ts';
+import { cachedBundle as buildBundle } from '../../../../tools/browser-cache.ts';
 import type { AnimaIcon } from '../../../../packages/web/src/index.ts';
 import type {} from '../../../media/web/index.ts';
+// Cache generated code, not browser state. The shared helper falls back to a
+// rebuild when artifacts are stale; repeated calls must not rebuild inside tests.
+const bundles = new Map<string, Promise<string>>();
+function bundle(entry: string) {
+  let result = bundles.get(entry);
+  if (!result) bundles.set(entry, (result = buildBundle(entry)));
+  return result;
+}
 const browsers: [string, BrowserType, string | undefined][] = [
   [
     'Chromium',
@@ -42,6 +50,11 @@ for (const [name, type, executablePath] of browsers)
     let shared: Browser;
     beforeAll(async () => {
       shared = await type.launch({ executablePath, headless: true });
+      await Promise.all(
+        ['index', 'media', 'paint', 'paint-sampling', 'assets', 'canvas'].map((entry) =>
+          bundle(resolve('packages/web/src/' + entry + '.ts')),
+        ),
+      );
     }, 60000);
     afterAll(async () => {
       await shared?.close();
@@ -194,6 +207,192 @@ for (const [name, type, executablePath] of browsers)
         await browser.close();
       }
     });
+    it.each(['flac', 'mp3'])(
+      'host-decodes genuine %s source with independently known frame counts',
+      async (ext) => {
+        const source =
+          `data:audio/${ext === 'mp3' ? 'mpeg' : 'flac'};base64,` +
+          readFileSync(new URL(`../../probes/audio/pulse.${ext}`, import.meta.url)).toString(
+            'base64',
+          );
+        const browser = await shared.newContext();
+        try {
+          const page = await browser.newPage();
+          await page.setContent('<anima-icon paused></anima-icon>');
+          await page.addScriptTag({
+            type: 'module',
+            content: await bundle(resolve('packages/web/src/media.ts')),
+          });
+          const result = await page.evaluate(async (source) => {
+            const icon = document.querySelector('anima-icon') as AnimaIcon;
+            const done = new Promise<void>((res) =>
+              icon.addEventListener('anima:load', () => res(), { once: true }),
+            );
+            icon.load({
+              anima: '0.1',
+              name: 'audio',
+              grid: 8,
+              requires: ['assets'],
+              assets: { tone: { type: 'audio', source } },
+              nodes: [{ id: 'probe', type: 'circle', center: [4, 4], r: 1 }],
+            });
+            await done;
+            const bytes = (await icon.asset('tone')) as ArrayBuffer;
+            const decoded = await new OfflineAudioContext(1, 1, 8000).decodeAudioData(
+              bytes.slice(0),
+            );
+            return {
+              length: decoded.length,
+              rate: decoded.sampleRate,
+              duration: decoded.duration,
+              cached: bytes.byteLength,
+              samples: Array.from(decoded.getChannelData(0)),
+            };
+          }, source);
+          // FLAC = the 800 authored samples, lossless. MP3 = four MPEG-2.5 frames
+          // at 576 samples/frame, without a gapless tag; no waveform identity claim.
+          expect(result.length).toBe(ext === 'flac' ? 800 : 2304);
+          expect(result.rate).toBe(8000);
+          expect(result.duration).toBe(ext === 'flac' ? 0.1 : 0.288);
+          expect(result.cached).toBe(ext === 'flac' ? 244 : 1152);
+          if (ext === 'flac')
+            expect(result.samples).toEqual(
+              Array.from({ length: 800 }, (_, i) =>
+                i % 16 < 8 ? (name === 'Chromium' ? Math.fround(8192 / 32767) : 0.25) : -0.25,
+              ),
+            );
+          else expect(Math.max(...result.samples.map(Math.abs))).toBeGreaterThan(0.2);
+        } finally {
+          await browser.close();
+        }
+      },
+    );
+    it.each([8, 8.1])(
+      'Canvas bilinear clamp matches an independent shader at every pixel for box %s',
+      async (boxSize) => {
+        const browser = await shared.newContext({ deviceScaleFactor: 1 });
+        try {
+          const page = await browser.newPage();
+          await page.setContent(
+            '<style>body{margin:0}anima-icon{display:block;width:64px;height:64px}</style><anima-icon paused renderer="canvas"></anima-icon>',
+          );
+          for (const entry of ['index', 'paint', 'assets', 'canvas'])
+            await page.addScriptTag({
+              type: 'module',
+              content: await bundle(resolve('packages/web/src/' + entry + '.ts')),
+            });
+          await page.evaluate(
+            async ({ uri, boxSize }) => {
+              const icon = document.querySelector('anima-icon') as AnimaIcon;
+              icon.setAttribute('renderer', 'canvas');
+              const done = new Promise<void>((res, rej) => {
+                icon.addEventListener('anima:load', () => res(), { once: true });
+                icon.addEventListener('anima:error', (e) => rej((e as CustomEvent).detail), {
+                  once: true,
+                });
+              });
+              icon.load({
+                anima: '0.1',
+                name: 'clamp',
+                grid: 8,
+                requires: ['assets', 'paint'],
+                assets: { tile: { type: 'image', source: uri, width: 2, height: 2 } },
+                nodes: [
+                  {
+                    id: 'tile',
+                    type: 'image',
+                    asset: 'tile',
+                    x0: 0,
+                    y0: 0,
+                    width: boxSize,
+                    height: boxSize,
+                    fit: 'none',
+                    align: 'center',
+                    sampling: 'bilinear',
+                    wrap: 'clamp',
+                  },
+                ],
+              });
+              await done;
+            },
+            { uri, boxSize },
+          );
+          const shot = PNG.sync.read(await page.locator('anima-icon').screenshot());
+          let maxDelta = 0;
+          for (let y = 0; y < 64; y++)
+            for (let x = 0; x < 64; x++) {
+              const u = Math.max(0, Math.min(1, (x + 0.5) / 8 - ((boxSize - 2) / 2 + 0.5))),
+                v = Math.max(0, Math.min(1, (y + 0.5) / 8 - ((boxSize - 2) / 2 + 0.5)));
+              const expected = [255 * ((1 - u) * (1 - v) + u * v), 255 * u, 255 * (1 - u) * v];
+              for (let c = 0; c < 3; c++)
+                maxDelta = Math.max(
+                  maxDelta,
+                  Math.abs(shot.data[(y * 64 + x) * 4 + c]! - Math.round(expected[c]!)),
+                );
+            }
+          // The maximum covers every channel of every pixel; identical bound to
+          // individual assertions, without 12,288 assertion-stack constructions.
+          expect(maxDelta).toBeLessThanOrEqual(2);
+        } finally {
+          await browser.close();
+        }
+      },
+    );
+    it.each([
+      ['assets', 'media'],
+      ['media', 'assets'],
+    ])('shares resolved pixel resources when %s and then %s register', async (first, second) => {
+      const browser = await shared.newContext({ deviceScaleFactor: 1 });
+      try {
+        const page = await browser.newPage();
+        await page.setContent(
+          '<style>body{margin:0}anima-icon{display:block;width:80px;height:80px}</style><anima-icon paused></anima-icon>',
+        );
+        for (const entry of ['index', 'paint-sampling', first, second])
+          await page.addScriptTag({
+            type: 'module',
+            content: await bundle(resolve('packages/web/src/' + entry + '.ts')),
+          });
+        await page.evaluate(async (uri) => {
+          const icon = document.querySelector('anima-icon') as AnimaIcon;
+          const done = new Promise<void>((res, rej) => {
+            icon.addEventListener('anima:load', () => res(), { once: true });
+            icon.addEventListener('anima:error', (e) => rej((e as CustomEvent).detail), {
+              once: true,
+            });
+          });
+          icon.load({
+            anima: '0.1',
+            name: 'resources',
+            grid: 8,
+            requires: ['assets', 'paint'],
+            assets: { tile: { type: 'image', source: uri, width: 1, height: 1 } },
+            nodes: [
+              {
+                id: 'tile',
+                type: 'image',
+                asset: 'tile',
+                x0: 0,
+                y0: 0,
+                width: 8,
+                height: 8,
+                fit: 'none',
+                align: 'top-left',
+                sampling: 'nearest',
+                wrap: 'clamp',
+              },
+            ],
+          });
+          await done;
+        }, uri);
+        const shot = PNG.sync.read(await page.locator('anima-icon').screenshot());
+        expect(Array.from(shot.data.slice((15 * 80 + 15) * 4, (15 * 80 + 15) * 4 + 4))).toEqual([
+          255, 255, 0, 255,
+        ]);
+      } finally {
+        await browser.close();
+      }
+    });
     it.each(['svg', 'canvas'])(
       'matches independently enumerated repeat/mirror/clamp texels in %s, including axis overrides and resize',
       async (renderer) => {
@@ -219,6 +418,7 @@ for (const [name, type, executablePath] of browsers)
             'clamp',
             'axes',
             'resize',
+            'layout',
             ...(renderer === 'canvas' ? ['bilinear'] : []),
           ]) {
             const doc = {
@@ -226,7 +426,14 @@ for (const [name, type, executablePath] of browsers)
               name: 'sample',
               grid: 8,
               requires: ['assets', 'paint'],
-              assets: { tile: { type: 'image', source: uri, width: 2, height: 2 } },
+              assets: {
+                tile: {
+                  type: 'image',
+                  source: uri,
+                  width: mode === 'layout' ? 1 : 2,
+                  height: mode === 'layout' ? 1 : 2,
+                },
+              },
               nodes: [
                 {
                   id: 'tile',
@@ -242,7 +449,7 @@ for (const [name, type, executablePath] of browsers)
                   wrap:
                     mode === 'axes' || mode === 'bilinear'
                       ? 'repeat'
-                      : mode === 'resize'
+                      : mode === 'resize' || mode === 'layout'
                         ? 'clamp'
                         : mode,
                   ...(mode === 'axes' ? { wrapX: 'mirror', wrapY: 'clamp' } : {}),
@@ -276,16 +483,29 @@ for (const [name, type, executablePath] of browsers)
                 const mx = mode === 'mirror' || mode === 'axes',
                   my = mode === 'mirror';
                 const tx =
-                    mode === 'resize' ? Math.floor(x / 4) : mx ? [0, 1, 1, 0][x % 4]! : x % 2,
-                  ty = mode === 'resize' ? Math.floor(y / 4) : my ? [0, 1, 1, 0][y % 4]! : y % 2;
-                const empty =
-                  (mode === 'clamp' && (x >= 2 || y >= 2)) || (mode === 'axes' && y >= 2);
+                    mode === 'layout'
+                      ? 1
+                      : mode === 'resize'
+                        ? Math.floor(x / 4)
+                        : mode === 'clamp'
+                          ? Math.min(x, 1)
+                          : mx
+                            ? [0, 1, 1, 0][x % 4]!
+                            : x % 2,
+                  ty =
+                    mode === 'layout'
+                      ? 1
+                      : mode === 'resize'
+                        ? Math.floor(y / 4)
+                        : mode === 'clamp' || mode === 'axes'
+                          ? Math.min(y, 1)
+                          : my
+                            ? [0, 1, 1, 0][y % 4]!
+                            : y % 2;
                 const expected =
                   mode === 'bilinear'
                     ? [128, 128, 64]
-                    : empty
-                      ? [255, 255, 255]
-                      : Array.from(tile.data.slice((ty * 2 + tx) * 4, (ty * 2 + tx) * 4 + 3));
+                    : Array.from(tile.data.slice((ty * 2 + tx) * 4, (ty * 2 + tx) * 4 + 3));
                 const p =
                   mode === 'bilinear'
                     ? (y * 8 * shot.width + x * 8) * 4

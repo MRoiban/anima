@@ -1,4 +1,0 @@
-{
-  "status": "todo",
-  "reason": "Fresh native reference for assets.cdn-disable is pending; runtime/CLI tests do not establish native equivalence. The local CLI does not exercise the JavaScript asset resolver/host-policy API."
-}

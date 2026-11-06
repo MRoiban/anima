@@ -1,6 +1,6 @@
 {
   "status": "finding",
-  "reason": "Unadjusted native probe: max delta 27, 1017/57600 pixels above 16 (1.7656249999999998%). Bilinear resvg and native interpolation differ. Rasterization finding retained; no tolerance increase.",
+  "reason": "Unadjusted native probe: max delta 27, 1017/57600 pixels above 16 (1.7656249999999998%). Bilinear resvg and native interpolation differ. Rasterization finding retained; no tolerance increase. Root cause control: native inspected geometry/source/sampler through resvg equals Anima max0; independent ideal bilinear matches native max2, while resvg max27. Evidence: modules/assets/probes/sampling-controls.json and sampling-controls.ts.",
   "case": {
     "name": "assets-image-filter-bilinear",
     "times": [0],

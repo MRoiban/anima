@@ -1,4 +1,0 @@
-{
-  "status": "todo",
-  "reason": "assets.audio-import-mp3: runtime declarations and CLI unit coverage exist; per-format independent conformance/oracle artifacts are pending"
-}
