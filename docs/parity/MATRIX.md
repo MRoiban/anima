@@ -703,7 +703,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `data.bind-instance-values` | Bind instance values | new: bind.<instance-values>: {from: "model.property"} | data | planned | oracle/data-bind-instance-values |
 | `data.bind-keyframes` | Bind keyframe values | new: bind.<keyframes>: {from: "model.property"} | data | planned | oracle/data-bind-keyframes |
 | `data.bind-layout` | Bind layout parameters | new: bind.<layout>: {from: "model.property"} | data | planned | oracle/data-bind-layout |
-| `data.bind-listener-actions` | Bind listener values | new: bind.<listener-actions>: {from: "model.property"} | data | planned | oracle/data-bind-listener-actions |
+| `data.bind-listener-actions` | Bind listener values | bind input expression set values; SPEC bind / Input expressions in actions; modules/events/examples/share.animl | data | planned | modules/bind/test/core/data-bind-listener-actions.test.ts; spec/conformance/data-bind-listener-actions; tests/oracle/data-bind-listener-actions (pending) |
 | `data.bind-script-inputs` | Bind script inputs | new: bind.<script-inputs>: {from: "model.property"} | data | planned | oracle/data-bind-script-inputs |
 | `data.bind-text` | Bind text runs | new: bind.<text>: {from: "model.property"} | data | planned | oracle/data-bind-text |
 | `data.binding-absolute` | Absolute binding path binding | new: bind.<address>: {from: "model.property", mode: "absolute"} | data | planned | oracle/data-binding-absolute |

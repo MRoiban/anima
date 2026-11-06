@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: P4b-3 declarative motion controls and sync benchmark proof complete, committed locally.
-Verified: 10 new conformance cases; scope 728/728; sync 6/6 (7 scripts, 66 snapshots).
-Full: 1380 pass + 15 pre-existing oracle TODOs with VITEST_MAX_WORKERS=2; default had 2 browser timeouts.
-Next: parent integrates/reviews local commit; P4b oracle captures and phase closure remain with parent.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4d-3 implementation complete and committed locally.
+Base: 383d99f (p4d-events HEAD), branch t3/expression-actions-conditions.
+Verified: 1274 scoped + 18 markup browser tests; share 6/6 through 25 clicks, rest diff 0 px.
+Checks: types/lint/format/wiring/artifacts/size green; core+web 19767 B (+420), bind 1866, events 3551.
+Next: parent integrates/reviews; comparative oracle is explicitly pending, parity planned.
+Don't: push/PR/merge, edit benchmark runs, read Rive source/docs/.riv, change budgets or limits.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -108,3 +109,8 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 11:00 [claude]: merged events oracle (048768a): 9 verified/23 skips/3 findings. Decisions: listener next-step reaction kept (spec'd as intentional difference); boundary-time drift (0.25 s fires frame 16 vs Rive 15) → epsilon boundary rule (P4d-2)
 - 2026-11-07 13:00 [claude]: merged P4d-2 (342bef2): 1e-9 s boundary rule, 9 cases, transition boundary matches Rive, keys 15/30/60 vs Rive 15/30/61 (cause unproven); listener next-step spec'd; full check 2530; P4d benchmark brief (share button) written
 - 2026-11-07 14:00 [claude]: P4d benchmark: AniML 3/6 (no increment in listener actions → state ladder; milestones capped), Rive 5/6 (payload fields not in log); fix P4d-3: expressions in set actions + mod in conditions, then AniML rerun
+- 2026-11-06 04:35 [sol]: P4d-3 started from 383d99f; npm ci after missing workspace/esbuild imports → tools installed; scaffold dry-run selected data.bind-listener-actions in bind (implementation unverified).
+- 2026-11-06 04:43 [sol]: bind-owned expression hook + core action/condition support + typed event values → typecheck green, focused 21/21; scope 1189 pass/1 stale schema failure, regenerated; no limit changes.
+- 2026-11-06 04:57 [sol]: final scope 1274/1274; markup-hook browser 18/18; independent share verifier 6/6, rest diff 0 pixels; browser shared-registry evaluator bug fixed and regression covered; oracle scope 895 pass/1 explicitly pending capture.
+- 2026-11-06 05:00 [sol]: P4d-3 final shape verified 1274/1274; all budgets unchanged/pass; core+web 19767 (+420), bind 1866/2048, events 3551/4096; performance/acceptance evidence and docs/PLAN/LOG updated.
+- 2026-11-06 05:02 [sol]: exact final-source perf: bell compile 2.42 ms, prefixes 752 ms, frame 55.0 µs; oracle scope 902 pass/1 pending; final local commit prepared, no push/PR/merge.

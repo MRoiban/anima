@@ -71,6 +71,7 @@ export interface TimelineM {
 }
 
 export interface TransitionM {
+  actions?: ActionM;
   to: number;
   terms: Term[];
   triggers: string[];
@@ -82,6 +83,8 @@ export interface TransitionM {
 
 export interface StateM {
   name: string;
+  entry?: ActionM;
+  exit?: ActionM;
   pose?: Map<string, Value>;
   play?: number;
   speed: number;
@@ -106,15 +109,18 @@ export interface InputM {
   buffer: number;
 }
 
-export interface ListenerM {
+export type InputEvaluator = (scope: ReadonlyMap<string, number | boolean>) => Value;
+export interface ActionM {
+  fire: string[];
+  set: [string, number | boolean | InputEvaluator][];
+  toggle: string[];
+  emit?: string;
+}
+export interface ListenerM extends ActionM {
   on: string;
   /** Node index, or -1 for the whole icon. */
   target: number;
   pad: number;
-  fire: string[];
-  set: [string, number | boolean][];
-  toggle: string[];
-  emit?: string;
 }
 
 export interface PlaybackPolicy {
@@ -199,6 +205,36 @@ export interface Model {
   layers: LayerM[];
   inputs: Map<string, InputM>;
   listeners: ListenerM[];
+}
+
+/** Optional bind evaluator: keeps expression parsing out of the base runtime. */
+export function inputExpression(
+  model: Model,
+  source: string,
+  expected: string,
+  pointer: string,
+  d: Diags,
+  read?: (name: string) => void,
+): InputEvaluator | undefined {
+  if (!model.doc.requires?.includes('bind')) {
+    d.err(
+      'undeclared-feature',
+      pointer,
+      V && 'input expressions require bind',
+      V && 'add "bind" to "requires"',
+    );
+    return;
+  }
+  return modules
+    .get('bind')
+    ?.expression?.(
+      source,
+      new Map([...model.inputs].map(([n, i]) => [n, i.type])),
+      expected,
+      pointer,
+      d,
+      read,
+    );
 }
 
 export interface LoadResult {
@@ -387,6 +423,10 @@ function resolve(doc: Raw, d: Diags): Model {
         'input-type',
         p,
         V && `${what} needs a ${types.join(' or ')} input; "${name}" is ${inp.type}`,
+        V &&
+          (inp.type === 'trigger'
+            ? 'use fire for a trigger'
+            : 'use an action matching the input type'),
       );
     return inp;
   };
@@ -537,6 +577,35 @@ function resolve(doc: Raw, d: Diags): Model {
   }
 
   // Machine
+  const action = (r: Raw, p: string): ActionM => {
+    const fire = asList(r.fire);
+    const toggle = asList(r.toggle);
+    fire.forEach((n) => needInput(n, p + '/fire', ['trigger'], V && '"fire"'));
+    toggle.forEach((n) => needInput(n, p + '/toggle', ['bool'], V && '"toggle"'));
+    const set: ActionM['set'] = [];
+    for (const [n, val] of entries<number | boolean | string>(r.set)) {
+      const sp = ptr(p + '/set', n);
+      const inp = needInput(n, sp, ['bool', 'number'], V && '"set"');
+      if (typeof val === 'string' && inp && inp.type !== 'trigger') {
+        const e = inputExpression(model, val, inp.type, sp, d, (n) => used?.add(n));
+        if (e) set.push([n, e]);
+        continue;
+      }
+      if (
+        inp &&
+        inp.type !== 'trigger' &&
+        typeof val !== (inp.type === 'bool' ? 'boolean' : 'number')
+      )
+        d.err(
+          'input-type',
+          sp,
+          V && `"${n}" is ${inp.type}; it cannot be set to ${JSON.stringify(val)}`,
+        );
+      if (typeof val !== 'string') set.push([n, val]);
+    }
+    return { fire, set, toggle, emit: r.emit };
+  };
+
   const layers: LayerM[] = [];
   const layerEntries = entries(doc.machine?.layers);
   if (layerEntries.length > LIMITS.layers)
@@ -566,6 +635,8 @@ function resolve(doc: Raw, d: Diags): Model {
       const sr = lr.states[sname];
       const sp = ptr(lp + '/states', sname);
       const st: StateM = { name: sname, speed: sr.speed ?? 1, emit: sr.emit, on: [], writes: [] };
+      if (sr.entry) st.entry = action(sr.entry, sp + '/entry');
+      if (sr.exit) st.exit = action(sr.exit, sp + '/exit');
       if (st.speed <= 0 && !doc.requires?.includes('motion'))
         d.err(
           'undeclared-feature',
@@ -608,6 +679,7 @@ function resolve(doc: Raw, d: Diags): Model {
         const to = stateIdx(tr.to, tp + '/to');
         const terms = parseCondition(tr.when);
         const t: TransitionM = {
+          actions: tr.actions ? action(tr.actions, tp + '/actions') : undefined,
           to,
           terms: [],
           triggers: [],
@@ -639,7 +711,23 @@ function resolve(doc: Raw, d: Diags): Model {
                 t.triggers.push(term.name);
               }
             } else if (term.k === 'cmp') needInput(term.name, wp, ['number'], V && 'a comparison');
-            else if (term.k === 'end' && (!tl || tl.loop !== 'once'))
+            else if (term.k === 'expr') {
+              const a = inputExpression(model, term.a, 'number', wp, d, (n) => used?.add(n));
+              const b = inputExpression(model, term.b, 'number', wp, d, (n) => used?.add(n));
+              if (a && b)
+                term.test = (scope) => {
+                  const x = a(scope) as number,
+                    y = b(scope) as number;
+                  return {
+                    '==': x === y,
+                    '!=': x !== y,
+                    '<': x < y,
+                    '<=': x <= y,
+                    '>': x > y,
+                    '>=': x >= y,
+                  }[term.op];
+                };
+            } else if (term.k === 'end' && (!tl || tl.loop !== 'once'))
               d.err(
                 'bad-end',
                 wp,
@@ -709,27 +797,7 @@ function resolve(doc: Raw, d: Diags): Model {
         V && 'listener has no action',
         V && 'add "fire", "set", "toggle" or "emit"',
       );
-    const fire = asList(r.fire);
-    const toggle = asList(r.toggle);
-    fire.forEach((n) => needInput(n, p + '/fire', ['trigger'], V && '"fire"'));
-    toggle.forEach((n) => needInput(n, p + '/toggle', ['bool'], V && '"toggle"'));
-    const set: [string, number | boolean][] = [];
-    for (const [n, val] of entries<number | boolean>(r.set)) {
-      const sp = ptr(p + '/set', n);
-      const inp = needInput(n, sp, ['bool', 'number'], V && '"set"');
-      if (
-        inp &&
-        inp.type !== 'trigger' &&
-        typeof val !== (inp.type === 'bool' ? 'boolean' : 'number')
-      )
-        d.err(
-          'input-type',
-          sp,
-          V && `"${n}" is ${inp.type}; it cannot be set to ${JSON.stringify(val)}`,
-        );
-      set.push([n, val]);
-    }
-    listeners.push({ on: r.on, target, pad: r.hitPadding ?? 0, fire, set, toggle, emit: r.emit });
+    listeners.push({ on: r.on, target, pad: r.hitPadding ?? 0, ...action(r, p) });
   });
 
   // Accessibility

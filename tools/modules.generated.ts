@@ -90,7 +90,7 @@ export const moduleScopes = {
       'packages/markup/test/names.test.ts',
       'modules/components/test/markup/components.test.ts',
     ],
-    conformance: ['bind-'],
+    conformance: ['bind-', 'data-bind-listener-actions'],
   },
   assets: {
     tests: [

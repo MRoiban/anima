@@ -1,0 +1,1 @@
+{"time":0,"values":{"count":1,"flag":true},"states":{},"events":[{"name":"ping","layer":null,"time":0,"payload":{"n":2,"flag":true,"color":"#808080","label":"{count}"}}],"settled":true}

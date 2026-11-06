@@ -2,7 +2,7 @@ import { after } from '../manifest.ts';
 import type { Module, ModuleRegistry } from '../../../packages/core/src/modules.ts';
 import type { Model, NodeM } from '../../../packages/core/src/load.ts';
 import type { Player, PlayerExtension } from '../../../packages/core/src/player.ts';
-import type { ObjShape, NodeType } from '../../../packages/core/src/registry.ts';
+import type { ObjShape, NodeType, Shape } from '../../../packages/core/src/registry.ts';
 import { ptr } from '../../../packages/core/src/diag.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import { apply, invert, mul } from '../../../packages/core/src/geom.ts';
@@ -64,7 +64,7 @@ function create(runtime: Pick<ModuleRegistry, 'load' | 'Player' | 'DOC' | 'nodeS
       listener.p.set = {
         k: 'map',
         key: scoped,
-        of: { k: 'alt', of: [{ k: 'num' }, { k: 'bool' }] },
+        of: (listener.p.set as Extract<Shape, { k: 'map' }>).of,
       };
       return create(shared);
     },

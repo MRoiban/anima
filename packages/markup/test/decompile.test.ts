@@ -46,29 +46,34 @@ function recover(root: Element): Obj {
   const plain = (e: Element): Obj => {
     const o = base(e);
     for (const [k, v] of Object.entries(attrs(e)))
-      o[k] = [
-        'default',
-        'min',
-        'max',
-        'buffer',
-        'duration',
-        'quantize',
-        'exit',
-        'exitFraction',
-        'speed',
-        'blend',
-        'interruptible',
-        'hold',
-        'sync',
-        'at',
-        'hitPadding',
-      ].includes(k)
-        ? scalar(v)
-        : k === 'work'
-          ? vector(v)
-          : k === 'when'
-            ? v.replace(/\band\b/g, '&&')
-            : v;
+      o[k] =
+        ['entry', 'exit', 'actions'].includes(k) && v.startsWith('{')
+          ? JSON.parse(v)
+          : [
+                'default',
+                'min',
+                'max',
+                'buffer',
+                'duration',
+                'quantize',
+                'exit',
+                'exitFraction',
+                'speed',
+                'blend',
+                'interruptible',
+                'hold',
+                'sync',
+                'at',
+                'hitPadding',
+              ].includes(k)
+            ? scalar(v)
+            : ['entry', 'exit', 'actions'].includes(k)
+              ? JSON.parse(v)
+              : k === 'work'
+                ? vector(v)
+                : k === 'when'
+                  ? v.replace(/\band\b/g, '&&')
+                  : v;
     return o;
   };
   const node = (e: Element): Obj => {
@@ -241,10 +246,10 @@ function recover(root: Element): Obj {
     } else if (el.name === 'listener') {
       if (a.set)
         p.set = Object.fromEntries(
-          a.set.split(' ').map((s) => {
-            const [k, v] = s.split('=');
-            return [k, scalar(v!)];
-          }),
+          [...a.set.matchAll(/([a-z][\w.-]*)=([\s\S]*?)(?=\s+[a-z][\w.-]*=|$)/g)].map((m) => [
+            m[1]!,
+            scalar(m[2]!.trim()),
+          ]),
         );
       for (const k of ['fire', 'toggle']) if (a[k]?.includes(' ')) p[k] = a[k]!.split(' ');
       ((d.listeners ??= []) as unknown[]).push(p);

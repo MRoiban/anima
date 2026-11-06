@@ -474,6 +474,74 @@
                           "interruptible": {
                             "type": "boolean"
                           },
+                          "actions": {
+                            "type": "object",
+                            "properties": {
+                              "$comment": {
+                                "type": "string"
+                              },
+                              "fire": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string",
+                                      "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                    }
+                                  }
+                                ]
+                              },
+                              "toggle": {
+                                "anyOf": [
+                                  {
+                                    "type": "string",
+                                    "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string",
+                                      "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                    }
+                                  }
+                                ]
+                              },
+                              "emit": {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              },
+                              "set": {
+                                "type": "object",
+                                "properties": {
+                                  "$comment": {
+                                    "type": "string"
+                                  }
+                                },
+                                "propertyNames": {
+                                  "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+                                },
+                                "additionalProperties": {
+                                  "anyOf": [
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "boolean"
+                                    },
+                                    {
+                                      "type": "string"
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            "additionalProperties": false,
+                            "feature": "bind"
+                          },
                           "exit": {
                             "type": "number",
                             "minimum": 0,
@@ -514,6 +582,142 @@
                         ],
                         "additionalProperties": false
                       }
+                    },
+                    "entry": {
+                      "type": "object",
+                      "properties": {
+                        "$comment": {
+                          "type": "string"
+                        },
+                        "fire": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              }
+                            }
+                          ]
+                        },
+                        "toggle": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              }
+                            }
+                          ]
+                        },
+                        "emit": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                        },
+                        "set": {
+                          "type": "object",
+                          "properties": {
+                            "$comment": {
+                              "type": "string"
+                            }
+                          },
+                          "propertyNames": {
+                            "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+                          },
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "additionalProperties": false,
+                      "feature": "bind"
+                    },
+                    "exit": {
+                      "type": "object",
+                      "properties": {
+                        "$comment": {
+                          "type": "string"
+                        },
+                        "fire": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              }
+                            }
+                          ]
+                        },
+                        "toggle": {
+                          "anyOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              }
+                            }
+                          ]
+                        },
+                        "emit": {
+                          "type": "string",
+                          "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                        },
+                        "set": {
+                          "type": "object",
+                          "properties": {
+                            "$comment": {
+                              "type": "string"
+                            }
+                          },
+                          "propertyNames": {
+                            "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+                          },
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              },
+                              {
+                                "type": "string"
+                              }
+                            ]
+                          }
+                        }
+                      },
+                      "additionalProperties": false,
+                      "feature": "bind"
                     },
                     "hold": {
                       "type": "boolean",
@@ -599,6 +803,10 @@
                 },
                 {
                   "type": "boolean"
+                },
+                {
+                  "type": "string",
+                  "feature": "bind"
                 }
               ]
             }
@@ -820,6 +1028,74 @@
                             "interruptible": {
                               "type": "boolean"
                             },
+                            "actions": {
+                              "type": "object",
+                              "properties": {
+                                "$comment": {
+                                  "type": "string"
+                                },
+                                "fire": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string",
+                                        "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                      }
+                                    }
+                                  ]
+                                },
+                                "toggle": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string",
+                                      "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string",
+                                        "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                      }
+                                    }
+                                  ]
+                                },
+                                "emit": {
+                                  "type": "string",
+                                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                },
+                                "set": {
+                                  "type": "object",
+                                  "properties": {
+                                    "$comment": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "propertyNames": {
+                                    "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+                                  },
+                                  "additionalProperties": {
+                                    "anyOf": [
+                                      {
+                                        "type": "number"
+                                      },
+                                      {
+                                        "type": "boolean"
+                                      },
+                                      {
+                                        "type": "string"
+                                      }
+                                    ]
+                                  }
+                                }
+                              },
+                              "additionalProperties": false,
+                              "feature": "bind"
+                            },
                             "exit": {
                               "type": "number",
                               "minimum": 0,
@@ -860,6 +1136,142 @@
                           ],
                           "additionalProperties": false
                         }
+                      },
+                      "entry": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "fire": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                }
+                              }
+                            ]
+                          },
+                          "toggle": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                }
+                              }
+                            ]
+                          },
+                          "emit": {
+                            "type": "string",
+                            "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                          },
+                          "set": {
+                            "type": "object",
+                            "properties": {
+                              "$comment": {
+                                "type": "string"
+                              }
+                            },
+                            "propertyNames": {
+                              "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+                            },
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "bind"
+                      },
+                      "exit": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "fire": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                }
+                              }
+                            ]
+                          },
+                          "toggle": {
+                            "anyOf": [
+                              {
+                                "type": "string",
+                                "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                                }
+                              }
+                            ]
+                          },
+                          "emit": {
+                            "type": "string",
+                            "pattern": "^[a-z][a-zA-Z0-9-]*$"
+                          },
+                          "set": {
+                            "type": "object",
+                            "properties": {
+                              "$comment": {
+                                "type": "string"
+                              }
+                            },
+                            "propertyNames": {
+                              "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+                            },
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                },
+                                {
+                                  "type": "string"
+                                }
+                              ]
+                            }
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "bind"
                       },
                       "hold": {
                         "type": "boolean",
@@ -931,7 +1343,8 @@
                   "enum": [
                     "number",
                     "bool",
-                    "string"
+                    "string",
+                    "color"
                   ]
                 },
                 "value": {},

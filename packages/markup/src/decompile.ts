@@ -48,7 +48,9 @@ export function decompile(doc: string | object): string {
               ? entries(o[k])
                   .map(([n, v]) => `${n}=${value(v)}`)
                   .join(' ')
-              : value(o[k]),
+              : ['entry', 'exit', 'actions'].includes(k)
+                ? JSON.stringify(o[k])
+                : value(o[k]),
         ]),
     ],
     children: typeof o.$comment === 'string' ? [{ comment: ` ${o.$comment} ` }] : [],

@@ -264,7 +264,9 @@ per channel with rounding for colours (§5), and for booleans `a || b` while the
 
 1. **Inputs.** Apply queued writes in arrival order (`set`, `fire`, `toggle`). Number writes clamp to
    the input's `min`/`max`. A fired trigger becomes pending (firing a pending trigger again is a
-   no-op). Listener `emit` actions add their events now.
+   no-op). Listener `emit` actions add their events now. A queued listener action evaluates its
+   expression-valued sets here, when that action is reached, using one pre-action input snapshot
+   for all its sets (§bind). Later actions see earlier writes.
 2. **Clocks.** Motion clock expressions and `exitNext` gates prepare here (motion chapter). Advance every layer's state time and crossfade elapsed time by `dt`. A crossfade whose
    elapsed time reaches its duration ends (using §5 clock boundaries).
 3. **Layers**, in declaration order, each against the values resolved by the layers before it:
@@ -276,7 +278,8 @@ per channel with rounding for colours (§5), and for booleans `a || b` while the
       triggers the condition named as consumed by this layer; (c) enter the target: state time =
       **carry** (the overshoot `t − threshold` of the `@end`/`@after` term that made the condition
       hold, the largest one if several; else 0), crossfade elapsed = carry; a `blend` of 0 drops the
-      snapshot; (d) report the target's `emit`, then its timeline events in `[0, carry]`. Then
+      snapshot; (d) run the source exit, transition actions and target entry blocks (§bind), then
+      report the target's `emit`, then its timeline events in `[0, carry]`. Then
       evaluate the new state's `on` list the same way. A layer takes at most **16** transitions per
       step; reaching the cap reports the event `@limit` for that layer and stops its transitions for
       this step. A trigger already consumed by this layer does not hold for it again in this step.
@@ -341,7 +344,7 @@ writes to an unknown input or with the wrong type are rejected by the API, never
 
   ```
   condition := term ( "&&" term )*
-  term      := "!"? NAME  |  NAME OP NUMBER  |  "@end"  |  "@after(" NUMBER ")"
+  term      := "!"? NAME  |  NAME OP NUMBER  |  EXPR OP EXPR  |  "@end"  |  "@after(" NUMBER ")"
   OP        := "==" | "!=" | "<" | "<=" | ">" | ">="
   ```
 
@@ -349,7 +352,9 @@ writes to an unknown input or with the wrong type are rejected by the API, never
   bool is true · `!name` when the bool is false · `name OP number` compares a number input ·
   `@end` when the state's `once` timeline has finished · `@after(s)` when the state time is at least
   `s`. All terms must hold. There is no `||`: write two transitions. Whitespace between tokens is
-  ignored.
+  ignored. `EXPR OP EXPR` requires `bind` and uses its numeric expression language; legacy
+  `NAME OP NUMBER` keeps its number-input-only type rule, including when bind is declared.
+  Arithmetic comparisons may be joined with existing trigger/time/bool terms.
 - Load errors: unknown input (`unknown-input`); a negated trigger, a bare number or a compared
   bool/trigger (`input-type`); `@end` on a pose state or a `loop`/`pingpong` timeline (`bad-end`).
   Warnings: states no transition can reach (`unreachable-state`), inputs nothing reads or writes
@@ -369,7 +374,7 @@ writes to an unknown input or with the wrong type are rejected by the API, never
   Hit testing may approximate curves, but must be exact for points farther than 0.05 units from an
   edge.
 - Actions, at least one: `fire` (trigger name or list), `set` (`{ input: value }` for bool and
-  number inputs), `toggle` (bool input name or list) *(not in bell)*, `emit` (event name)
+  number inputs; expression strings additionally require `bind`), `toggle` (bool input name or list) *(not in bell)*, `emit` (event name)
   *(not in bell)*. Action keys run in that order: `fire`, `set`, `toggle`, `emit`.
 - **Pointer model** *(normative)*. The host reports pointer events in grid coordinates:
   `move(x, y)`, `down(x, y)`, `up(x, y)` (primary button only) and `leave()` (pointer left the icon
@@ -850,7 +855,7 @@ These are clock expressions evaluated before sampling, rather than property bind
 
 Sources are declared number or bool input names, finite JSON number literals, hex colours
 (`#rgb`, `#rrggbb`, `#rrggbbaa`), parentheses, unary `+`/`-`, binary `+ - * /`, and the functions
-`min(a,b)`, `max(a,b)`, `clamp(x,lo,hi)`, `mix(a,b,t)`. Nothing else is allowed: no property
+`min(a,b)`, `max(a,b)`, `clamp(x,lo,hi)`, `mix(a,b,t)`, `floor(x)`, `mod(a,b)`. Nothing else is allowed: no property
 reads, strings, boolean literals, comparisons, assignments or arbitrary calls. Identifiers use
 the input-name grammar; a hyphen is part of a name, so write `level - other` for subtraction
 between inputs. Multiplication/division precede addition/subtraction; binary operators associate
@@ -861,7 +866,9 @@ targets convert bools to 0/1. Numbers do not implicitly become bools. `min`, `ma
 numeric `mix` return numbers; `mix` also accepts two hex colours and a numeric/bool weight,
 returning a colour. Mixing a number and colour is invalid. Colour interpolation is §5 sRGB
 channel interpolation (including alpha, rounding and channel clamping); weights may extrapolate.
-Numeric `mix` is `a + (b-a)*t`; `clamp` is `min(max(x,lo),hi)`. Non-finite arithmetic results
+`floor(x)` returns the greatest integer ≤ x. `mod(a,b)` is `a - b*floor(a/b)`
+(the result has the divisor's sign; a zero divisor resolves to zero). Numeric `mix` is
+`a + (b-a)*t`; `clamp` is `min(max(x,lo),hi)`. Non-finite arithmetic results
 (including division by zero) resolve to zero when consumed by another operation or the target,
 before property clamping. Trigger inputs cannot
 be values. Evaluators accept a scope map of named inputs, reusable for component input bindings.
@@ -882,6 +889,52 @@ The grammar and evaluator are independently written. Strict unknown-name checks 
 post-state pass follow the lessons about silent unresolved bindings and feedback loops in
 [animation/state research](../docs/research/rive-animation-and-state.md) §C. No Rive source,
 documentation text or binary format was used.
+
+<!-- capability: data.bind-listener-actions -->
+### Input expressions in actions
+
+Declare `bind`. Listener `set` values may be expression strings, e.g.
+`{"set":{"count":"count+1","previous":"count"}}`. Numeric/bool JSON literals keep their
+0.1 meaning and type checks; a string is always an expression, never an implicit literal.
+Number targets accept numeric or bool expressions (bool becomes 0/1); bool targets require bool
+expressions. Colour expressions remain valid for colour properties and typed event fields;
+there are no colour inputs, so setting a bool/number input to a colour is `bind-type`.
+Unknown inputs are `unknown-input`; assigning a trigger is `input-type` (use `fire` instead).
+Trigger reads and incompatible result types are `bind-type`; parser/arity errors are
+`bind-syntax`. Diagnostics point to the set value, condition, or event field, with an expression
+character offset where applicable and a hint. No property reads or assignments are added to the
+expression language. No runtime dependencies or evaluator copies are introduced: the optional
+bind module supplies a compile hook to core, returning pure input-scope closures. Merely importing
+bind does not enable expressions in a document without `requires: ["bind"]`.
+
+A listener is queued intact. When its action runs at §7.1, evaluate every set expression against
+one input snapshot **before any write in that action**, then apply `fire`, all sets (clamping each
+number result to its target min/max), `toggle`, and `emit`. Non-finite arithmetic becomes zero
+before clamping. Separate actions run sequentially and see prior writes, including host writes
+queued before them. Queuing two increments before one step increments twice.
+
+The existing core machine also accepts state `entry` and `exit` blocks and transition `actions`
+blocks. Each is an object with the same optional `fire`, `set`, `toggle`, `emit` keys as listeners;
+these blocks require bind even if their values are literals. Machine blocks target local input names; scoped child writes remain a listener/host feature.
+On initial construction, run each
+initial state's entry in layer order before its entry emit and timeline events. On a transition,
+run source exit then transition actions before the existing state-end/transition-start signals;
+run target entry after the immediate transition-end signal (if any), before target emit and entry
+timeline events. Each block is a separate snapshot action; writes are immediate and visible to
+subsequent blocks, transitions in the chain, and later layers. Exit runs on reentry too; blend
+completion does not rerun actions. Existing chain limits and trigger consumption apply. Pending
+triggers fired from entry actions are checked during the next step; triggers fired in a step
+remain subject to that step's ordinary consumption/expiry rule.
+
+AniML listeners use `set="count=count+1 previous=count"`; spaces and commas within expressions
+are allowed. Whitespace followed by an input name and `=` begins the next assignment. Machine
+blocks are JSON attributes, e.g. `<state name="idle" entry='{"set":{"count":0}}'>` and
+`<on when="tap" to="playing" actions='{"set":{"count":"count+1"}}'/>`.
+Arithmetic conditions use `when="count > 0 and mod(count, 5) == 0"`. `anima schema listener`,
+`state`, `transition` and `--json-schema` expose these forms. Input-only scopes avoid the
+feedback loops described in [animation/state research](../docs/research/rive-animation-and-state.md)
+§C; snapshot action maps avoid depending on JSON member order.
+
 ## assets
 
 The optional `assets` module adds an `assets` map and image draw data. Image nodes also
@@ -1423,14 +1476,20 @@ spellings and ordering remain unchanged. Definitions enrich every occurrence of 
 undeclared names continue to report the original `{name,layer,time}` record.
 
 A definition has optional `payload`, `url`, `target`, `audio` and `volume` fields. `payload`
-is a field-name map of `{type,value? ,input?,address?}` objects. Type is `number`, `bool` or
-`string`; exactly one source is required. A literal must have the declared type. `input`
+is a field-name map of `{type,value?,input?,address?}` objects. Type is `number`, `bool` or
+`string` or `color`; exactly one source is required. A literal must have the declared type. `input`
 references a bool/number input of the same type; `address` references an animatable property
 of the same type. Each reported event gets its own detached `payload` object. Values resolve
 at the end of the local player's step, after queued inputs, state resolution and bindings;
 all occurrences in that step observe that resolved snapshot, including time-zero entry events.
 Payloads survive component bubbling unchanged; parent definitions do not reinterpret child names.
-`anima sample` snapshots include these fields verbatim. This is snapshot sampling, not scripting.
+For number/bool/color fields, `value: "{expression}"` additionally requires bind and evaluates
+against the same final-step input snapshot as `input` sources; it does not capture the instant of
+an emit action. String fields always stay literal, including braces. Number fields accept bool
+expressions as 0/1; bool fields require bool; colour fields require a colour expression or hex
+literal and report a canonical hex string (including alpha when needed). Colours cannot reference
+inputs because inputs are bool/number/trigger only. `anima sample` snapshots include these fields
+verbatim. This is snapshot sampling, not scripting.
 `events.script-event-context` is deferred to P9 because no script VM/context exists.
 
 `url` is an HTTP(S) URL or a relative reference. `target` is `_self` (default), `_blank`,

@@ -1893,10 +1893,10 @@
   "id": "data.bind-listener-actions",
   "category": "data",
   "capability": "Bind listener values",
-  "construct": "new: bind.<listener-actions>: {from: \"model.property\"}",
+  "construct": "bind input expression set values; SPEC bind / Input expressions in actions; modules/events/examples/share.animl",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-bind-listener-actions",
+  "test": "modules/bind/test/core/data-bind-listener-actions.test.ts; spec/conformance/data-bind-listener-actions; tests/oracle/data-bind-listener-actions (pending)",
   "phase": "P4"
  },
  {

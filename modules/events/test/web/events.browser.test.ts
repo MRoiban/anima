@@ -1,4 +1,4 @@
-import { existsSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { resolve } from 'node:path';
 import { chromium, firefox, type Browser, type Page } from 'playwright-core';
@@ -165,6 +165,91 @@ for (const [name, engine, executablePath] of [
       }, doc);
       expect(result).toEqual(
         expect.arrayContaining(['load', 'loaderror', 'error', 'pause', 'play', 'stop']),
+      );
+    });
+    it('share example increments past ten and sends its generated tone through the audio request path', async () => {
+      const binding = await bundle(
+        new URL('../../../../packages/web/src/bind.ts', import.meta.url).pathname,
+      );
+      await page.addScriptTag({ type: 'module', content: binding });
+      await page.addScriptTag({ type: 'module', content: assets });
+      await page.waitForFunction(
+        () =>
+          (customElements.get('anima-icon') as typeof AnimaIcon).modules.has('bind') &&
+          (customElements.get('anima-icon') as typeof AnimaIcon).modules.has('assets'),
+      );
+      const share = JSON.parse(
+        readFileSync(new URL('../../examples/share.ani', import.meta.url), 'utf8'),
+      );
+      share.assets.tone.source =
+        'data:audio/wav;base64,' +
+        readFileSync(new URL('../../examples/share-tone.wav', import.meta.url)).toString('base64');
+      await page.evaluate((d) => {
+        window.audioLog = [];
+        class AudioRequest {
+          destination = {};
+          createGain() {
+            return { gain: { value: 1 }, connect() {}, disconnect() {} };
+          }
+          async resume() {}
+          async close() {}
+          async decodeAudioData(data: ArrayBuffer) {
+            if (new TextDecoder().decode(data.slice(0, 4)) !== 'RIFF')
+              throw Error('expected the generated WAV');
+            window.audioLog.push('decode');
+            return {};
+          }
+          createBufferSource() {
+            return {
+              connect() {},
+              disconnect() {},
+              start() {
+                window.audioLog.push('start');
+              },
+              stop() {},
+            };
+          }
+        }
+        Object.defineProperty(window, 'AudioContext', { value: AudioRequest });
+        Object.defineProperty(navigator, 'userActivation', {
+          configurable: true,
+          value: { hasBeenActive: true },
+        });
+        window.eventIcon.load(d);
+      }, share);
+      await page.waitForFunction(
+        () => !!window.eventIcon.player && window.eventIcon.player.model.doc.name === 'share',
+      );
+      const result = await page.evaluate(() => {
+        const i = window.eventIcon;
+        const events: { name: string; count?: unknown; audio?: string }[] = [];
+        i.on('event', ({ detail: e }) => {
+          if (e.name === 'shared')
+            events.push({ name: e.name, count: e.payload?.count, audio: e.audio });
+          if (e.name === 'milestone') events.push({ name: e.name });
+        });
+        let now = performance.now();
+        i.play();
+        i.frame(now);
+        for (let n = 0; n < 15; n++) {
+          i.player!.pointer('down', 10, 10);
+          i.player!.pointer('up', 10, 10);
+          i.frame(now);
+          i.frame((now += 200));
+          i.frame((now += 200));
+        }
+        i.pause();
+        return { count: i.get('count'), events, opened: window.opened };
+      });
+      expect(result.count).toBe(15);
+      expect(result.events.filter((e) => e.name === 'shared')).toEqual(
+        Array.from({ length: 15 }, (_, n) => ({ name: 'shared', count: n + 1, audio: 'tone' })),
+      );
+      expect(result.events.filter((e) => e.name === 'milestone')).toHaveLength(3);
+      expect(result.opened).toEqual([]);
+      await page.waitForFunction(() => window.audioLog.filter((s) => s === 'start').length === 15);
+      expect(await page.evaluate(() => window.audioLog.filter((s) => s === 'decode').length)).toBe(
+        1,
       );
     });
     it('drops pre-gesture audio; decodes on demand, caches, applies volume and closes on destroy', async () => {

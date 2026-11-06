@@ -1,5 +1,7 @@
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Shape, ObjShape } from '../../../packages/core/src/registry.ts';
+import { formatHex, parseHex } from '../../../packages/core/src/color.ts';
+import { inputExpression, type InputEvaluator } from '../../../packages/core/src/load.ts';
 import { resolveAddress } from '../../../packages/core/src/load.ts';
 import { NAME } from '../../../packages/core/src/registry.ts';
 import { ptr } from '../../../packages/core/src/diag.ts';
@@ -9,7 +11,7 @@ export interface EventDefinition {
   payload?: Record<
     string,
     {
-      type: 'number' | 'bool' | 'string';
+      type: 'number' | 'bool' | 'string' | 'color';
       value?: number | boolean | string;
       input?: string;
       address?: string;
@@ -24,7 +26,7 @@ const str = (): Shape => ({ k: 'str' });
 const field: ObjShape = {
   k: 'obj',
   p: {
-    type: { k: 'str', of: ['number', 'bool', 'string'] },
+    type: { k: 'str', of: ['number', 'bool', 'string', 'color'] },
     value: { k: 'any' },
     input: str(),
     address: str(),
@@ -42,9 +44,11 @@ export const definition: ObjShape = {
   },
 };
 let resolve = resolveAddress;
+let compileValue = inputExpression;
 export const events: Module = {
   init(_modules, shared) {
     resolve = shared.resolveAddress;
+    compileValue = shared.inputExpression;
     const listeners = (shared.DOC as ObjShape).p.listeners as Extract<Shape, { k: 'arr' }>;
     const listener = listeners.of as ObjShape;
     const previous = listener.p.on as Extract<Shape, { k: 'str' }>;
@@ -114,6 +118,7 @@ export const events: Module = {
     const defs = Object.fromEntries(
       Object.entries(raw.eventDefs ?? {}).filter(([k]) => k !== '$comment'),
     ) as Record<string, EventDefinition>;
+    const expressions = new Map<object, InputEvaluator>();
     for (const [name, def] of Object.entries(defs)) {
       if (name === '$comment') continue;
       const p = ptr('/eventDefs', name);
@@ -138,10 +143,22 @@ export const events: Module = {
       for (const [key, f] of Object.entries(def.payload ?? {}).filter(([k]) => k !== '$comment')) {
         const fp = ptr(p + '/payload', key);
         const type = f.type === 'bool' ? 'boolean' : f.type;
+        const source =
+          typeof f.value === 'string' && f.type !== 'string'
+            ? /^\{([\s\S]*)\}$/.exec(f.value)
+            : null;
+        if (source) {
+          const evaluate = compileValue(model, source[1]!, f.type, fp + '/value', d);
+          if (evaluate) expressions.set(f, evaluate);
+        }
         if (
           [f.input, f.value, f.address].filter((v) => v !== undefined).length !== 1 ||
           (f.value !== undefined &&
-            (typeof f.value !== type || (f.type === 'number' && !Number.isFinite(f.value))))
+            !source &&
+            ((f.type === 'color'
+              ? typeof f.value !== 'string' || !parseHex(f.value)
+              : typeof f.value !== type) ||
+              (f.type === 'number' && !Number.isFinite(f.value))))
         )
           d.err(
             'event-payload',
@@ -199,10 +216,13 @@ export const events: Module = {
     for (const layer of model.layers)
       for (const state of layer.states) {
         const rawState = raw.machine.layers[layer.name].states[state.name];
+        if (state.entry?.emit) actionNames.push(state.entry.emit);
+        if (state.exit?.emit) actionNames.push(state.exit.emit);
         if (rawState.endEmit) actionNames.push(rawState.endEmit);
         state.on.forEach((tr, i) => {
           const r = rawState.on[i];
           actions.set(tr, r);
+          if (tr.actions?.emit) actionNames.push(tr.actions.emit);
           if (r.startEmit) actionNames.push(r.startEmit);
           if (r.endEmit) actionNames.push(r.endEmit);
         });
@@ -254,6 +274,22 @@ export const events: Module = {
         : [[work[1], '@loop']];
     };
     model.reportEvents = (player, out) => {
+      const scope = new Map(
+        [...model.inputs].filter(([, i]) => i.type !== 'trigger').map(([n]) => [n, player.get(n)!]),
+      );
+      const fieldValue = (f: NonNullable<EventDefinition['payload']>[string]) => {
+        const e = expressions.get(f);
+        if (!e && f.type === 'color' && typeof f.value === 'string')
+          return formatHex(parseHex(f.value)!);
+        const v = e
+          ? e(scope)
+          : f.address !== undefined
+            ? player.value(f.address)
+            : f.input === undefined
+              ? f.value!
+              : player.get(f.input)!;
+        return Array.isArray(v) ? formatHex(v) : (v as number | boolean | string);
+      };
       for (const e of out) {
         const def = defs[e.name];
         for (const listener of model.listeners)
@@ -263,14 +299,7 @@ export const events: Module = {
           e.payload = Object.fromEntries(
             Object.entries(def.payload)
               .filter(([k]) => k !== '$comment')
-              .map(([k, f]) => [
-                k,
-                f.address !== undefined
-                  ? (player.value(f.address) as number | boolean | string)
-                  : f.input === undefined
-                    ? f.value!
-                    : player.get(f.input)!,
-              ]),
+              .map(([k, f]) => [k, fieldValue(f)]),
           );
         if (def.url) {
           e.url = def.url;

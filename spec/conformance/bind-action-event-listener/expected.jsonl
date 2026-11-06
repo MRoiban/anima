@@ -1,0 +1,2 @@
+{"time":0,"values":{"count":0},"states":{"main":"idle"},"events":[{"name":"ready","layer":null,"time":0}],"settled":false}
+{"time":0,"values":{"count":1},"states":{"main":"idle"},"events":[{"name":"write","layer":null,"time":0}],"settled":true}

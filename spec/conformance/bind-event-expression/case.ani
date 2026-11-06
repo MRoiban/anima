@@ -1,0 +1,57 @@
+{
+  "anima": "0.1",
+  "name": "bind-event-expression",
+  "grid": 20,
+  "requires": ["bind", "events"],
+  "inputs": {
+    "count": {
+      "type": "number"
+    },
+    "flag": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 2,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "click",
+      "set": {
+        "count": "count+1"
+      },
+      "toggle": "flag",
+      "emit": "ping"
+    }
+  ],
+  "eventDefs": {
+    "ping": {
+      "payload": {
+        "n": {
+          "type": "number",
+          "value": "{count*2}"
+        },
+        "flag": {
+          "type": "bool",
+          "value": "{flag}"
+        },
+        "color": {
+          "type": "color",
+          "value": "{mix(#000,#fff,0.5)}"
+        },
+        "label": {
+          "type": "string",
+          "value": "{count}"
+        }
+      }
+    }
+  }
+}
