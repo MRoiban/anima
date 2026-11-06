@@ -1,4 +1,0 @@
-{
-  "status": "todo",
-  "reason": "drawing-paint-additive-strength: implementation/browser evidence exists; independent native oracle comparison is not completed. Angular/additive/per-paint modes cannot use the SVG-only oracle runner."
-}

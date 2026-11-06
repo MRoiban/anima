@@ -1,4 +1,4 @@
-export const after = ['composite', 'contour'];
+export const after = ['composite', 'contour', 'surface'];
 export default {
   ...{
     name: 'mix',

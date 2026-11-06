@@ -142,6 +142,7 @@ export const contour: Module = {
     const d = compiled.get(p.model.nodes[i]!.raw);
     if (d !== undefined) return flatten(parsePath(d));
   },
+  fillContains: winding.fillContains,
   draw: {
     tree(model, tree) {
       model.nodes.forEach((n, i) => {

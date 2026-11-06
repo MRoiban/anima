@@ -1,4 +1,4 @@
-<!-- TODO: drawing-paint.additive-strength; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="drawing-paint-additive-strength" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="drawing-paint-additive-strength" grid="20" requires="mix composite">
+  <rect id="back" x0="0" y0="0" width="20" height="20" fill="#204060"/>
+  <rect id="a" x0="4" y0="4" mix="{&quot;mode&quot;:&quot;additive&quot;,&quot;strength&quot;:0.5019607843137255}" width="12" height="12" fill="#804020"/>
 </anima>

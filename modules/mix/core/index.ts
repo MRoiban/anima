@@ -73,6 +73,7 @@ export const mix: Module = {
     },
     frame(p, i, data) {
       const raw = p.model.nodes[i]!.raw;
+      data.world = p.world(i);
       if (raw.mix) {
         data.blend = raw.mix.mode;
         data.blendAmount = p.num(i, 'mix.strength', 1);

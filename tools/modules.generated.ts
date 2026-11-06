@@ -40,9 +40,9 @@ export const webOwners: Record<string, string> = {
   'markup-paint': 'paint',
   composite: 'composite',
   contour: 'contour',
-  mix: 'mix',
   surface: 'surface',
   'markup-surface': 'surface',
+  mix: 'mix',
 };
 export const moduleBudgets: {
   name: string;
@@ -384,6 +384,18 @@ export const moduleScopes = {
       'drawing-paint-fill-rule-clockwise',
     ],
   },
+  surface: {
+    tests: [
+      'modules/surface/test/**/*.test.ts',
+      'packages/markup/test/compile.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/decompile.test.ts',
+      'packages/markup/test/format.test.ts',
+      'packages/markup/test/invalid.test.ts',
+      'packages/markup/test/names.test.ts',
+    ],
+    conformance: [],
+  },
   mix: {
     tests: [
       'modules/mix/test/**/*.test.ts',
@@ -397,17 +409,5 @@ export const moduleScopes = {
       'host-api-renderer',
       'host-api-factory',
     ],
-  },
-  surface: {
-    tests: [
-      'modules/surface/test/**/*.test.ts',
-      'packages/markup/test/compile.test.ts',
-      'packages/markup/test/corpus.test.ts',
-      'packages/markup/test/decompile.test.ts',
-      'packages/markup/test/format.test.ts',
-      'packages/markup/test/invalid.test.ts',
-      'packages/markup/test/names.test.ts',
-    ],
-    conformance: [],
   },
 };

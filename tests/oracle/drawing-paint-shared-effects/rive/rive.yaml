@@ -1,0 +1,4 @@
+name: paint-shared-effects
+logs:
+  file: build/rive.log
+  problems: build/problems.log

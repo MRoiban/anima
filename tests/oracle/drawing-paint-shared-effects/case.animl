@@ -1,4 +1,4 @@
-<!-- TODO: drawing-paint.shared-effects; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="drawing-paint-shared-effects" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="shared-effects" grid="20" requires="contour" effects="{&quot;middle&quot;:[{&quot;type&quot;:&quot;trim&quot;,&quot;start&quot;:0.25,&quot;end&quot;:0.75}]}">
+  <path id="a" d="M2 5L18 5" stroke="#4263eb" stroke-width="0.5" stroke-linecap="butt" stroke-linejoin="miter" effects="[&quot;middle&quot;]"/>
+  <path id="b" d="M2 15L18 15" stroke="#4263eb" stroke-width="0.5" stroke-linecap="butt" stroke-linejoin="miter" effects="[&quot;middle&quot;]"/>
 </anima>

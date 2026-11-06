@@ -106,8 +106,8 @@ describe('one registry, two spellings', () => {
       'clip',
       'drawOrder',
       'paints',
-      'mix',
       'slice',
+      'mix',
     ]);
   });
 });
