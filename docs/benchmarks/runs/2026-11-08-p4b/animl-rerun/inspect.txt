@@ -1,0 +1,49 @@
+sync (grid 20, viewBox 0 0 20 20)
+
+glyphs (bbox: minX minY maxX maxY, grid units; hole hints use bbox containment only)
+
+nodes
+  peek (group) pivot 10,10 animates scale
+    arrows (group) pivot 10,10 animates rotate
+      upper (arc)
+      upper-head (path)
+      lower (arc)
+      lower-head (path)
+  check (path) pivot 10,10 animates scale
+
+inputs: syncing (bool), hover (bool), phase (number)
+
+timelines
+  turn: 12s loop, reduced motion: skip
+    writes arrows.rotate
+  wait: 12s loop, reduced motion: skip
+    writes check.scale
+  pop: 0.6s once, reduced motion: end
+    writes check.scale
+  peek-motion: 0.4s once, reduced motion: end
+    writes peek.scale
+
+machine
+  layer rotation (writes arrows.rotate)
+    *idle: play turn
+        syncing → spinning
+     spinning: play turn
+        !syncing → idle
+  layer completion (writes check.scale)
+    *rest: pose {"check.scale":0}
+        syncing → waiting
+     waiting: play wait
+        !syncing → complete
+     complete: play pop
+        syncing → waiting
+  layer hovering (writes peek.scale)
+    *rest: pose {"peek.scale":1}
+        hover → in
+     out: play peek-motion
+        hover → in
+     in: play peek-motion
+        !hover → out
+
+listeners
+  enter → set hover=true
+  leave → set hover=false

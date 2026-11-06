@@ -1,0 +1,16 @@
+motion reduce
+advance 0
+snapshot arrows.rotate check.scale peek.scale
+set syncing true
+advance 0
+advance 0.237
+snapshot arrows.rotate check.scale
+advance 1.2
+snapshot arrows.rotate check.scale
+set syncing false
+advance 0
+snapshot arrows.rotate check.scale
+advance 0.09
+snapshot arrows.rotate check.scale
+advance 0.51
+snapshot arrows.rotate check.scale

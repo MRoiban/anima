@@ -1,11 +1,11 @@
 # Work log
 
 ## Now
-Goal: P4b-3 declarative motion controls and sync benchmark proof complete, committed locally.
-Verified: 10 new conformance cases; scope 728/728; sync 6/6 (7 scripts, 66 snapshots).
-Full: 1380 pass + 15 pre-existing oracle TODOs with VITEST_MAX_WORKERS=2; default had 2 browser timeouts.
-Next: parent integrates/reviews local commit; P4b oracle captures and phase closure remain with parent.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4b AniML rerun benchmark completed locally; strict 5/6.
+Verified: 30 CLI checks + 2 assertion runs; 98 final snapshots, 5 PNGs; no document diagnostics.
+Finding: active motion reduce keeps spinning and can leave stop pending (edge.script).
+Next: integrating owner reviews animl-rerun/REPORT.md and reduced-motion finding.
+Don't: push/PR/merge; read forbidden benchmark/reference sources; change runtime in this task.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -99,3 +99,5 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-06 22:00 [claude]: merged P4b-2 (b1a9ef5): 15/15 probes disposed (6 verified, 8 skip-noted, 1 finding: Rive's number dump reports uint 2^32-1 as -1 — observation-path conversion, not Anima); fix: compare in-range values, document the dump note
 - 2026-11-06 23:00 [claude]: PR #12 (Pc canvas) merged (86d2c43); merged main into p4b-motion (7 conflicts: generated wiring regenerated, corpus 71 cases); scoped changed 1149 pass + 1 expected fail
 - 2026-11-07 00:30 [claude]: merged P4b-3 (dbbbfed): sync/exitNext/hold/input time, 10 cases, sync example 6/6; fixed docs topics for web-only modules (canvas); scoped motion+cli+canvas green
+
+- 2026-11-06 01:12 [codex]: AniML rerun hand-authored and verified → 5/6 strict, active reduce failure retained; 32 checks, 2 setup ERR_MODULE_NOT_FOUND errors fixed by npm ci (evidence: animl-rerun/REPORT.md, runs.jsonl, edge.script).

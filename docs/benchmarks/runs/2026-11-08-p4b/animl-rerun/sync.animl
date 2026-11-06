@@ -1,0 +1,64 @@
+<anima version="0.1" name="sync" grid="20" requires="motion bind">
+  <bool name="syncing"/>
+  <bool name="hover"/>
+  <number name="phase" default="0" min="0" max="1"/>
+  <group id="peek" pivot="10 10">
+    <group id="arrows" pivot="10 10">
+      <arc id="upper" cx="10" cy="10" r="6" from="-165" to="-15" stroke="#141413" stroke-width="1.5" stroke-linecap="round"/>
+      <path id="upper-head" d="M14.0638 7.4465 L15.7956 8.4471 L16.7956 6.7150" stroke="#141413" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <arc id="lower" cx="10" cy="10" r="6" from="15" to="165" stroke="#141413" stroke-width="1.5" stroke-linecap="round"/>
+      <path id="lower-head" d="M5.9362 12.5535 L4.2044 11.5529 L3.2044 13.2850" stroke="#141413" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </group>
+  </group>
+  <path id="check" d="M7 10 L9.2 12.2 L13 8" pivot="10 10" scale="0" stroke="#d97757" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- Twelve clock seconds at 10x = 1.2 wall seconds; integer tick grid. -->
+  <timeline name="turn" duration="12" loop="loop" quantize="1" reducedMotion="skip">
+    <track target="arrows.rotate">0 0; 12 360</track>
+  </timeline>
+  <!-- A matching clock delays completion until the same tick as the rotation. -->
+  <timeline name="wait" duration="12" loop="loop" quantize="1" reducedMotion="skip">
+    <track target="check.scale">0 0; 12 0</track>
+  </timeline>
+  <timeline name="pop" duration="0.6" reducedMotion="end">
+    <track target="check.scale">0 0 elastic(1,0.3); 0.6 1</track>
+  </timeline>
+  <timeline name="peek-motion" duration="0.4" reducedMotion="end">
+    <track target="peek.scale">0 1; 0.4 1.1</track>
+  </timeline>
+  <layer name="rotation" initial="idle">
+    <state name="idle" play="turn" time="phase * 12">
+      <on when="syncing" to="spinning"/>
+    </state>
+    <state name="spinning" play="turn" speed="10">
+      <on when="!syncing" to="idle" exitNext="step" sync="true"/>
+    </state>
+  </layer>
+  <layer name="completion" initial="rest">
+    <state name="rest">
+      <pose check.scale="0"/>
+      <on when="syncing" to="waiting"/>
+    </state>
+    <state name="waiting" play="wait" speed="10">
+      <on when="!syncing" to="complete" exitNext="step"/>
+    </state>
+    <state name="complete" play="pop">
+      <on when="syncing" to="waiting"/>
+    </state>
+  </layer>
+  <layer name="hovering" initial="rest">
+    <state name="rest">
+      <pose peek.scale="1"/>
+      <on when="hover" to="in"/>
+    </state>
+    <state name="out" play="peek-motion" speed="-1">
+      <on when="hover" to="in" sync="true"/>
+    </state>
+    <state name="in" play="peek-motion">
+      <on when="!hover" to="out" sync="true"/>
+    </state>
+  </layer>
+  <hit rect="0 0 20 20"/>
+  <listener on="enter" set="hover=true"/>
+  <listener on="leave" set="hover=false"/>
+  <a11y role="button" label="Sync" activate="syncing"/>
+</anima>
