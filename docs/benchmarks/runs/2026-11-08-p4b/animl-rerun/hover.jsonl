@@ -1,0 +1,6 @@
+{"time":0.16,"values":{"peek.scale":1.04},"states":{"rotation":"idle","completion":"rest","hovering":"in"},"events":[],"settled":false}
+{"time":0.16,"values":{"peek.scale":1.04},"states":{"rotation":"idle","completion":"rest","hovering":"out"},"events":[],"settled":false}
+{"time":0.22,"values":{"peek.scale":1.025},"states":{"rotation":"idle","completion":"rest","hovering":"out"},"events":[],"settled":false}
+{"time":0.22,"values":{"peek.scale":1.025},"states":{"rotation":"idle","completion":"rest","hovering":"in"},"events":[],"settled":false}
+{"time":0.52,"values":{"peek.scale":1.1},"states":{"rotation":"idle","completion":"rest","hovering":"in"},"events":[],"settled":false}
+{"time":0.92,"values":{"peek.scale":1},"states":{"rotation":"idle","completion":"rest","hovering":"out"},"events":[],"settled":true}

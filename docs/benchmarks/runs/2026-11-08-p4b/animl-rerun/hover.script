@@ -1,0 +1,19 @@
+advance 0
+pointer move 10 10
+advance 0
+advance 0.16
+snapshot peek.scale
+pointer leave
+advance 0
+snapshot peek.scale
+advance 0.06
+snapshot peek.scale
+pointer move 10 10
+advance 0
+snapshot peek.scale
+advance 0.3
+snapshot peek.scale
+pointer leave
+advance 0
+advance 0.4
+snapshot peek.scale
