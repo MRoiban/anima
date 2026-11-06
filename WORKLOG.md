@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: P5-7 (markup owner) running → then D1 module folders + D2 scoped tests (parallel) → D3 new-capability scaffolder → P5 AniML benchmark run → P5 PR (full check in CI).
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: complete the P4b AniML sync-icon benchmark; local commit only.
+Verified: 19 CLI checks, zero animation diagnostics; strict 4/6 (items 1,4,5,6).
+Evidence: docs/benchmarks/runs/2026-11-08-p4b/animl/REPORT.md, scripts, JSONL and PNGs.
+Deviations: stop snaps to phase; hover uses .4 s pose crossfades, not timeline reversal.
+Next: benchmark owner re-check; no runtime changes requested in this run.
+Don't: read other-format materials or .riv; run Rive commands; push, PR or merge.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -94,3 +95,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-07 09:30 [claude]: merged D1 module folders (d9510ae): 6 modules + libraries in folders, generator --check, 12 orders identical; core+web 17789 (+248, logged); test:scope paint 12 files/4.2 s; next D3 scaffolder then P5 PR
 - 2026-11-06 11:00 [claude]: merged D3 scaffolder (c7e3012): 31 files per row, idempotent; opening P5 PR (full suite in CI)
 - 2026-11-06 18:00 [claude]: merged P4b-1 motion (7685c3f) into p4b-motion: 22 rows implemented, 7 oracle-verified, 15 oracle probes pending; motion 4982/8192, core+web 18290 (+501 hooks); perf improved; benchmark brief P4b (sync button) written
+- 2026-11-06 00:42 [sol benchmark]: AniML sync icon → strict 4/6, 19 CLI checks/0 diagnostics, 4 setup/discovery errors; local-only (evidence: animl/REPORT.md, checks.json, verify.py).

@@ -1,0 +1,73 @@
+advance 0
+set syncing true
+advance 0
+advance 0.005
+snapshot arrows.rotate
+advance 0.1
+snapshot arrows.rotate
+advance 0.1
+snapshot arrows.rotate
+advance 0.1
+snapshot arrows.rotate
+advance 0.1
+snapshot arrows.rotate
+advance 0.1
+snapshot arrows.rotate
+advance 0.1
+snapshot arrows.rotate
+advance 0.1
+snapshot arrows.rotate
+advance 0.1
+snapshot arrows.rotate
+advance 0.1
+snapshot arrows.rotate
+advance 0.1
+snapshot arrows.rotate
+advance 0.1
+snapshot arrows.rotate
+advance 0.1
+snapshot arrows.rotate
+set syncing false
+advance 0
+set phase 0.001
+advance 0
+snapshot arrows.rotate
+set phase 0.08433333333333333
+advance 0
+snapshot arrows.rotate
+set phase 0.16766666666666666
+advance 0
+snapshot arrows.rotate
+set phase 0.251
+advance 0
+snapshot arrows.rotate
+set phase 0.3343333333333333
+advance 0
+snapshot arrows.rotate
+set phase 0.4176666666666667
+advance 0
+snapshot arrows.rotate
+set phase 0.501
+advance 0
+snapshot arrows.rotate
+set phase 0.5843333333333334
+advance 0
+snapshot arrows.rotate
+set phase 0.6676666666666666
+advance 0
+snapshot arrows.rotate
+set phase 0.751
+advance 0
+snapshot arrows.rotate
+set phase 0.8343333333333334
+advance 0
+snapshot arrows.rotate
+set phase 0.9176666666666666
+advance 0
+snapshot arrows.rotate
+set phase 1
+advance 0
+snapshot arrows.rotate
+set phase 0
+advance 0
+snapshot arrows.rotate
