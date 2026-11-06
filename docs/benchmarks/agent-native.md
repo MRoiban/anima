@@ -32,6 +32,8 @@ friction point that blocks an item — is a bug, fixed before the phase's PR mer
 | 2026-11-06 | P4a | download button | Rive markup | 5/6 | 30 | 7 min 14 s | 182 lines | item 5 partial: reduced motion only through a host-set input, not during an active morph |
 | 2026-11-07 | P5 | [toolbar](runs/2026-11-07-p5/BRIEF.md) | AniML | 6/6 (agent: 5/6) | 14 | 3 min 43 s | 495 lines (28.7 k chars, incl. generator) | one press template + one badge component, bound `count`; the agent marked the pop unverified from a contact sheet that never triggered it — the orchestrator's render with the agent's own script shows scale 1.25 at the peak; dots instead of numbers (no text yet); 'count increased' needs a ladder of 10 states (no previous-value / on-change) |
 | 2026-11-07 | P5 | toolbar | Rive markup | 6/6 | 36 | 10 min 48 s | 997 lines (73.3 k chars, incl. generator and a self-made digit font) | one button and one badge artboard reused; pop timing source-verified only |
+| 2026-11-08 | P4b | [sync button](runs/2026-11-08-p4b/BRIEF.md) | AniML | 4/6 | 19 | 5 min 10 s | 144 lines | stop-at-next-tick and reverse-from-current not expressible declaratively (only as host API); scrubbing took 13 states; no `anima docs motion` — fixed in P4b-3, AniML rerun after it |
+| 2026-11-08 | P4b | sync button | Rive markup | 5/6 | 14 | 5 min 19 s | 911 lines (49.7 k chars, incl. generator) | reduced motion only through a host-set input |
 
 ### P4a findings → actions
 

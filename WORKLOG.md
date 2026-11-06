@@ -95,3 +95,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 11:00 [claude]: merged D3 scaffolder (c7e3012): 31 files per row, idempotent; opening P5 PR (full suite in CI)
 - 2026-11-06 18:00 [claude]: merged P4b-1 motion (7685c3f) into p4b-motion: 22 rows implemented, 7 oracle-verified, 15 oracle probes pending; motion 4982/8192, core+web 18290 (+501 hooks); perf improved; benchmark brief P4b (sync button) written
 - 2026-11-06 19:00 [claude]: merged P4b AniML benchmark run (4f5f72b): 4/6 — gaps: declarative reverse-from-current, stop at next quantized step + hold, input-bound timeline clock (scrub took 13 states), no 'anima docs motion' → P4b-3
+- 2026-11-06 20:00 [claude]: merged P4b Rive run (72a1145): 5/6 (reduced motion host-only), 5m19s, 911 lines; recorded both P4b rows; AniML rerun planned after P4b-3
