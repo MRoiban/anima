@@ -13,8 +13,10 @@ export const webEntries = [
   'markup-paint',
   'surface',
   'markup-surface',
+  'canvas',
 ];
 export const webOwners: Record<string, string> = {
+  canvas: 'canvas',
   components: 'components',
   'markup-components': 'components',
   bind: 'bind',
@@ -48,8 +50,17 @@ export const moduleBudgets: {
   { name: 'assets', buildOrder: 7, sizeOrder: 9, budget: 2048 },
   { name: 'surface', buildOrder: 11, sizeOrder: 10, budget: 8192 },
   { name: 'components', buildOrder: 5, sizeOrder: 11, budget: 4096 },
+  { name: 'canvas', budget: 8192, heavy: true },
 ];
 export const moduleScopes = {
+  canvas: {
+    tests: ['modules/canvas/test/**/*.test.ts', 'packages/markup/test/corpus.test.ts'],
+    conformance: [
+      'host-api-device-pixel-ratio',
+      'host-api-resize-backing-surface',
+      'platforms-web-canvas',
+    ],
+  },
   components: {
     tests: [
       'modules/components/test/**/*.test.ts',

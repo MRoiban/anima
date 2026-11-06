@@ -1217,3 +1217,36 @@ a green default-concurrency full run is made. Final log: `/tmp/anima-d3-bounded-
 Perf in that scratch run: bell compile 2.03 ms, 9040 prefixes 792 ms; bell/composite frames
 34.6/22.9 µs; toolbar frame 27.0 µs, compile 2.93 ms. These are observations, not a speed change claim.
 All three scratch rows remain outside the commit. No push, PR or merge.
+
+## Pc — optional Canvas2D backend (partial; local implementation)
+
+`@anima-format/web/canvas` installs `renderer="canvas"`; SVG stays the default. The module consumes
+DrawFrame directly, with Path2D/primitives, colours/gradients, ordered paints and stroke settings,
+transforms, isolated opacity/masks/blends, clips, knockout, images/patterns/modulation, components,
+n-slice and Gaussian feathering. World feather supports nonuniform node transforms. It declines
+partial fixed-stroke trims, nonuniform/sheared local feather and nonuniform viewport feather with
+`unsupported-render`. DPR override/reporting, ResizeObserver, resolution changes and lifecycle are
+module-owned; the same host player/scheduler/visibility/motion/core hit testing serve both backends.
+The small optional backend and sleeping scheduler follow docs/research/rive-web-runtime.md; the
+draw-data separation follows docs/research/rive-format-and-graph.md. No Rive source/commands/files.
+
+Scaffolder used (dry-run then real) for all three requested parity rows, with host-only registry
+notes, paired examples, neutral core conformance and explicit static-oracle skip notes. Pc/parity
+remain open. No new document vocabulary or CLI/schema change. The only handwritten shared test
+change is the exact AniML corpus census 41→44 for three completed probes; no limit is loosened.
+
+Metrics: canvas 4114/8192 B; core+web 17963 vs 17789 (+174 B renderer hook, core unchanged);
+full SVG 44537 B; Rive-class 48570/256000 B. All existing module budgets pass. Browser bell step+draw:
+394.0 / 438.3 µs Chromium/Firefox (600 frames, median of 3); Node unchanged workload: compile bell
+2.29 ms / prefix sweep 686 ms; bell/composite/toolbar frame 43.7/28.1/32.6 µs, toolbar compile 4.37 ms.
+Previous D3 scratch observations: 2.03 ms/792 ms, 34.6/22.9/27.0 µs, 2.93 ms (not same-session).
+
+Required full check: 1413 pass, 14 fail (12 raster findings, stale census since fixed, known Chromium
+demo timeout). Final type/lint/format/size/artifact checks pass; core/conformance/oracle/markup scope
+184/184, final canvas host tests 14/14, isolated demo/colour/interaction 8/8. Both engines compared
+169 frames / 59 visual documents: 160/169 Chromium, 166/169 Firefox within the original limits;
+worst 255 / 0.934028% and 254 / 0.649306% over 16. Findings remain failing tests. Final canvas+web
+scope reproduced the 12 pixel findings and demo timeout; an idle-test paint race was subsequently
+fixed and checked narrowly. No green full check claimed. Detailed per-case numbers, limits,
+unsupported features and failures: modules/canvas/test/web/{README,RESULTS}.md and measurements.json.
+Actual branch t3/canvas-renderer-backend; commit only, no push/PR/merge.

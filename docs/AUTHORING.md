@@ -501,3 +501,10 @@ Run `anima inspect examples/toolbar.animl` to see instance layers. With `anima s
 `examples/toolbar.animl` combines three Glyphy icons using the same imported press template and
 an unread badge. Browser hosts import `@anima-format/web/components` and, when expressions are
 used, `@anima-format/web/bind`, alongside the base runtime.
+
+Choose `renderer="canvas"` on the HTML host after importing `@anima-format/web/canvas` when a scene
+needs world-space feathering or a raster surface for future scene features. Keep SVG for ordinary
+icons, automatic CSS recolouring and visible overflow. The document and AniML do not change, and
+all required paint/asset/component modules still load explicitly. Canvas follows CSS size and DPR;
+call `invalidate()` when changing an idle canvas's colour slots. Consult the canvas comparison report
+for raster differences and unsupported feature diagnostics before choosing it for a scene.

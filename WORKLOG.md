@@ -1,11 +1,13 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now in parallel: Pc canvas backend (branch pc-canvas) and P4b motion (branch p4b-motion); then P4c–e, P5b, P3b, P6–P10.
-State: main dfbfcfc = through P5 + process changes (PR #11). Parity 234/1238. core+web 17789; full-featured 44.3 KB.
-Next: merge each agent's work into its branch, benchmark per phase, PR per phase (full suite in CI). Before every push: prettier --check . and eslint (CI failed once on formatting).
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: Pc optional Canvas2D backend; local implementation committed, phase remains incomplete.
+State: canvas 4114/8192 B; core+web 17963 (+174); Rive-class 48570/256000 B.
+Verified: final type/lint/format/size/artifacts; core/conformance/oracle/markup 184/184; host tests 14/14.
+Full check: 1413 pass / 14 fail. Census fixed; demo passes alone; 12 strict raster findings remain.
+Next: resolve pixel findings in modules/canvas/test/web/RESULTS.md, then obtain green full check.
+Don't: loosen limits, touch Rive source/binaries/commands, add runtime deps, push/PR/merge.
+Branch: t3/canvas-renderer-backend (owner integration branch pc-canvas); parity rows stay planned.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -94,3 +96,7 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-07 09:30 [claude]: merged D1 module folders (d9510ae): 6 modules + libraries in folders, generator --check, 12 orders identical; core+web 17789 (+248, logged); test:scope paint 12 files/4.2 s; next D3 scaffolder then P5 PR
 - 2026-11-06 11:00 [claude]: merged D3 scaffolder (c7e3012): 31 files per row, idempotent; opening P5 PR (full suite in CI)
 - 2026-11-06 12:00 [claude]: PR #11 merged (dfbfcfc, CI green after a formatting fix); launching Pc canvas and P4b motion in parallel (module folders make it conflict-free)
+- 2026-11-06 00:06 [sol]: Pc scaffolded all 3 requested rows; implemented draw-frame Canvas renderer and +174 B web hook; scoped core/conformance/oracle 65/65, initial browser findings retained (evidence: /tmp/canvas-unit.log, modules/canvas/test/web/artifacts).
+- 2026-11-06 00:07 [sol]: discarded invalid browser run after type-only import erased registration → explicit side-effect import fixed harness; no numeric limits changed (evidence: /tmp/canvas-host-tests-2.log).
+- 2026-11-06 00:13 [sol]: required full check → 1413 pass / 14 fail: 12 raster findings, exact corpus census stale, existing 15 s demo timeout (evidence: /tmp/canvas-full-check.log).
+- 2026-11-06 00:20 [sol]: fixed census; optimized single-paint opacity and released buffers on destroy; final scoped units 184/184, hosts 14/14, isolated demo/colour/interaction 8/8; strict pixel findings preserved, phase unchecked (evidence: /tmp/canvas-last-unit.log, /tmp/canvas-final-host.log, /tmp/canvas-final-targeted.log, modules/canvas/test/web/RESULTS.md).

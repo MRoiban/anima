@@ -1088,14 +1088,14 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `host-api.device-pixel-ratio` | Pixel ratio override | new: canvas pixelRatio option | canvas | planned | browser/device-pixel-ratio |
-| `host-api.resize-backing-surface` | Resize drawing surface | new: raster surface resize helper; SVG already scales without backing pixels | canvas | planned | browser/resize-backing-surface |
+| `host-api.device-pixel-ratio` | Pixel ratio override | HTML pixel-ratio override; devicePixelRatioUsed; automatic browser DPR tracking (SPEC canvas) | canvas | planned | modules/canvas/test/web/canvas.test.ts; spec/conformance/host-api-device-pixel-ratio; tests/oracle/host-api-device-pixel-ratio/rive/README.md (host oracle skip) |
+| `host-api.resize-backing-surface` | Resize drawing surface | Canvas backing store = rounded CSS viewport × DPR; ResizeObserver without stepping (SPEC canvas) | canvas | planned | modules/canvas/test/web/canvas.test.ts; spec/conformance/host-api-resize-backing-surface; tests/oracle/host-api-resize-backing-surface/rive/README.md (host oracle skip) |
 
 ### Platforms
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `platforms.web-canvas` | Web Canvas2D | new: Web Canvas2D | canvas | planned | platform/web-canvas |
+| `platforms.web-canvas` | Web Canvas2D | @anima-format/web/canvas; HTML renderer="canvas"; draw-frame Canvas2D; raster findings remain (modules/canvas/test/web/RESULTS.md) | canvas | planned | modules/canvas/test/web/canvas.test.ts; spec/conformance/platforms-web-canvas; tests/oracle/platforms-web-canvas/rive/README.md (host oracle skip) |
 
 ## P6 — Text <a id="p6"></a>
 
