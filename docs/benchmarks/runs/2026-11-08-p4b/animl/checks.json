@@ -1,0 +1,223 @@
+[
+  {
+    "args": [
+      "validate",
+      "docs/benchmarks/runs/2026-11-08-p4b/animl/sync.animl"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "note": "Initial interactive run, before verify.py."
+  },
+  {
+    "args": [
+      "inspect",
+      "docs/benchmarks/runs/2026-11-08-p4b/animl/sync.animl"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "note": "Initial interactive run, before verify.py."
+  },
+  {
+    "args": [
+      "validate",
+      "docs/benchmarks/runs/2026-11-08-p4b/animl/sync.animl"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "note": "Initial interactive run, before verify.py."
+  },
+  {
+    "args": [
+      "build",
+      "docs/benchmarks/runs/2026-11-08-p4b/animl/sync.animl"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "note": "Initial interactive run, before verify.py; build printed JSON to stdout."
+  },
+  {
+    "args": [
+      "build",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/sync.animl",
+      "-o",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/sync.ani"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": ""
+  },
+  {
+    "args": [
+      "validate",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/sync.ani"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/sync.ani: ok\n"
+  },
+  {
+    "args": [
+      "sample",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/sync.ani",
+      "-s",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/spin.script"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "spin.jsonl"
+  },
+  {
+    "args": [
+      "sample",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/sync.ani",
+      "-s",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/stop.script"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "stop.jsonl"
+  },
+  {
+    "args": [
+      "sample",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/sync.ani",
+      "-s",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/hover.script"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "hover.jsonl"
+  },
+  {
+    "args": [
+      "sample",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/sync.ani",
+      "-s",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/phase.script"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "phase.jsonl"
+  },
+  {
+    "args": [
+      "sample",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/sync.ani",
+      "-s",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/reduced.script"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "reduced.jsonl"
+  },
+  {
+    "args": [
+      "sample",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/sync.ani",
+      "-s",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/host-reverse.script"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "host-reverse.jsonl"
+  },
+  {
+    "args": [
+      "render",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/sync.ani",
+      "-e",
+      "advance 0",
+      "--size",
+      "400",
+      "-o",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/rest.png"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "wrote /home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/rest.png\n"
+  },
+  {
+    "args": [
+      "render",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/sync.ani",
+      "-e",
+      "advance 0; set syncing true; advance 0; advance 0.35",
+      "--size",
+      "400",
+      "-o",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/ticking.png"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "wrote /home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/ticking.png\n"
+  },
+  {
+    "args": [
+      "render",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/sync.ani",
+      "-e",
+      "advance 0; set syncing true; advance 0; advance 0.35; set syncing false; advance 0; advance 0.09",
+      "--size",
+      "400",
+      "-o",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/elastic.png"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "wrote /home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/elastic.png\n"
+  },
+  {
+    "args": [
+      "render",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/sync.ani",
+      "-e",
+      "motion reduce; advance 0; set syncing true; advance 0; advance 0.35; set syncing false; advance 0",
+      "--size",
+      "400",
+      "-o",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/reduced.png"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "wrote /home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/reduced.png\n"
+  },
+  {
+    "args": [
+      "render",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/sync.ani",
+      "-e",
+      "advance 0; pointer move 10 10; advance 0.4",
+      "--size",
+      "400",
+      "-o",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/hover.png"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "wrote /home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/hover.png\n"
+  },
+  {
+    "args": [
+      "render",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/sync.ani",
+      "-e",
+      "advance 0",
+      "-o",
+      "/home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/rest.svg"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "wrote /home/jarvis/.t3/worktrees/anima/t3-871468af/docs/benchmarks/runs/2026-11-08-p4b/animl/rest.svg\n"
+  },
+  {
+    "args": [
+      "sample",
+      "docs/benchmarks/runs/2026-11-08-p4b/animl/sync.ani",
+      "-s",
+      "docs/benchmarks/runs/2026-11-08-p4b/animl/sweep.script"
+    ],
+    "exit": 0,
+    "stderr": "",
+    "stdout": "sweep.jsonl"
+  }
+]

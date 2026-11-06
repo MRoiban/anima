@@ -1,0 +1,11 @@
+advance 0
+timeline peek-motion play
+advance 0.2
+snapshot
+timeline peek-motion speed -1
+advance 0
+snapshot
+advance 0.1
+snapshot
+advance 0.1
+snapshot
