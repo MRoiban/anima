@@ -126,10 +126,15 @@ for (const [name, engine, paths] of [
                 type: 'module',
                 content: await bundle(resolve('packages/web/src/' + mod + '.ts')),
               });
-            await page.waitForFunction(() =>
-              ['components', 'events', 'bind'].every((m) =>
-                (customElements.get('anima-icon') as typeof AnimaIcon).modules.has(m),
-              ),
+            // requestAnimationFrame is stubbed above, so poll on an interval: Playwright's default
+            // raf polling would never re-check and hang if registration lands after the first check.
+            await page.waitForFunction(
+              () =>
+                ['components', 'events', 'bind'].every((m) =>
+                  (customElements.get('anima-icon') as typeof AnimaIcon).modules.has(m),
+                ),
+              undefined,
+              { polling: 10 },
             );
             const actions = await page.evaluate((xml) => {
               const icon = document.querySelector('anima-icon') as AnimaIcon;

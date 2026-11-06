@@ -197,3 +197,4 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 
 - 2026-11-06 12:12 [codex-test]: P4e AniML rerun 6/6; 39 CLI checks, 126 final asserted snapshots, 3 inspected PNGs → local deliverable complete (evidence: animl-rerun/REPORT.md, evidence/checks.jsonl); misleading readonly sample diagnostic retained.
 - 2026-11-06 [claude]: AniML rerun 6/6 merged; fixed read-only write message (core+web +2 B); LOG P4e entry written → opening PR
+- 2026-11-06 [claude]: PR #16 CI failed: machine browser test timed out (30 s) in Chromium — same test as the earlier local timeout. Cause: rAF stubbed, second waitForFunction used default raf polling → never re-checks → hang when module registration lands after the first check. Fix: { polling: 10 }; 3/3 local runs pass (limit unchanged)
