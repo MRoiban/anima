@@ -117,3 +117,4 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-08 03:30 [claude]: P4c rerun 6/6; parity 95 rows done (387/1238); LOG with numbers (perf interleaved: no regression); opening PR
 - 2026-11-08 04:00 [claude]: PR #15 merged (49d418c); P4e design written (modules data + convert, $ paths, binding modes, converters, host API)
 - 2026-11-08 07:00 [claude]: P4e-2 convert (ca00f17) partial: converters as functions (5692/8192 B), 35 Rive comparisons pass, 0 rows complete, 66 probes pending; held until data core lands, then integration via data hooks
+- 2026-11-08 09:00 [claude]: merged P4e-4 paint leftovers (f00aa82): 3/18 strict; contour + mix modules; canvas implements all, SVG refuses angular/additive/per-paint blend; 8 native findings + 6 pending oracles → follow-up after data
