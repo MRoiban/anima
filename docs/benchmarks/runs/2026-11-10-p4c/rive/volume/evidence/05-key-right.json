@@ -1,0 +1,34 @@
+{
+  "schema": 1,
+  "artboard": "Volume",
+  "stateMachine": "Volume interaction",
+  "viewModel": {
+    "name": "Default",
+    "viewModel": "Volume",
+    "properties": [
+      {
+        "name": "volume",
+        "path": "volume",
+        "type": "number",
+        "value": 0.100000001,
+        "changed": true
+      },
+      {
+        "name": "muted",
+        "path": "muted",
+        "type": "boolean",
+        "value": false,
+        "changed": true
+      },
+      {
+        "name": "previousVolume",
+        "path": "previousVolume",
+        "type": "number",
+        "value": 1,
+        "changed": true
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}

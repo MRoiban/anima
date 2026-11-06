@@ -1,0 +1,16 @@
+advance 1
+pointer down@300,72
+advance 1
+pointer move@372,110
+advance 1
+data-dump evidence/13-drag-first.json
+pointer move@384,100
+advance 1
+screenshot evidence/14-drag-second.png
+data-dump evidence/14-drag-second.json
+pointer move@390,80
+advance 1
+screenshot evidence/15-drag-third.png
+data-dump evidence/15-drag-third.json
+pointer up@390,80
+quit
