@@ -237,6 +237,8 @@ and an oracle test against Rive.
 
 - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
       an on-change / previous-value condition (P5 benchmark: 'count increased' took 10 states).
+- [x] P4c-3 `focus`: traversal/scopes, pointer focus, focus/blur, component targets and real DOM
+      focus; 16 conformance probes, Chromium + Firefox. Rive captures unavailable; explicit skip notes.
 - [ ] P4d `events`: payloads, open-URL, audio.
 - [ ] P4e `data`: view models, bindings, converters, lists.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide

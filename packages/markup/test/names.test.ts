@@ -91,6 +91,7 @@ describe('one registry, two spellings', () => {
       }
     expect(Object.keys(STATIC.circle)).toEqual([
       'center',
+      'focus',
       'channels',
       'blend',
       'mask',

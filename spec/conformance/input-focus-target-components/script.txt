@@ -1,0 +1,4 @@
+focus target child.a
+key down ArrowRight
+advance 0
+snapshot

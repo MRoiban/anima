@@ -1325,7 +1325,7 @@ full SVG 44537 B; Rive-class 48570/256000 B. All existing module budgets pass. B
 2.29 ms / prefix sweep 686 ms; bell/composite/toolbar frame 43.7/28.1/32.6 µs, toolbar compile 4.37 ms.
 Previous D3 scratch observations: 2.03 ms/792 ms, 34.6/22.9/27.0 µs, 2.93 ms (not same-session).
 
-Required full check: 1413 pass, 14 fail (12 raster findings, stale census since fixed, known Chromium
+Required full check: 1416 pass, 14 fail (12 raster findings, stale census since fixed, known Chromium
 demo timeout). Final type/lint/format/size/artifact checks pass; core/conformance/oracle/markup scope
 184/184, final canvas host tests 14/14, isolated demo/colour/interaction 8/8. Both engines compared
 169 frames / 59 visual documents: 160/169 Chromium, 166/169 Firefox within the original limits;
@@ -1524,3 +1524,18 @@ push, PR or merge. Local commit only.
   full-featured 51.4 KB / 100 KB; Rive-class 55.6 KB / 250 KB; compile bell 2.08 ms, prefix sweep
   712 ms; frame bell 39.2 µs, composite 25.8 µs, toolbar 29.3 µs (load-dependent).
 - **Parity**: 22 rows done (259 / 1 238).
+
+### P4c-3 focus module (implementation branch)
+
+Implemented focus configuration, ordered/spatial traversal, scope edge policies, pointer focus,
+focus/blur listeners, component-local dotted targets and the `Player.focused` condition hook.
+Browser mapping uses real shadow focus targets, one Tab stop by default and authored inner
+Tab stops on opt-in; existing host Enter/Space activation is covered in both engines.
+Scoped focus/conformance/oracle: 416 passing, including 17 new conformance probes and 10 browser
+checks (Chromium + Firefox). Existing oracle suite passes; 16 new focus oracle skips are explicit:
+local Rive CLI unavailable, and DOM focus has no faithful painted-frame counterpart. No new
+Rive reference captures or equivalence claims. Focus 3924/4096 B gzip; core+web 19012 B (+0).
+Full typecheck, prettier, eslint, generated wiring, schema and AniML checks pass. Shared script
+adds focus/key inspection commands; input agent must compose key dispatch. Exact shared corpus
+census and static-property expectations updated for new evidence; no budgets/limits changed.
+Parity statuses stay planned pending phase integration. No push, PR or merge.

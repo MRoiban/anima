@@ -97,6 +97,27 @@ export function runScript(
           }
           break;
         }
+        case 'focus': {
+          if (args[0] === 'clear' && args.length === 1) p.focusClear();
+          else if (args[0] === 'target' && args.length === 2) p.focusTarget(args[1]!);
+          else if (args[0] === 'traverse' && args.length === 2)
+            p.focusTraverse(args[1] as import('../../../modules/focus/core/index.ts').Direction);
+          else throw new ScriptError('use "focus clear|target <id>|traverse <direction>"', line);
+          step(0);
+          break;
+        }
+        case 'key': {
+          if (
+            !['down', 'up'].includes(args[0]!) ||
+            args.length < 2 ||
+            args.length > 3 ||
+            (args.length === 3 && args[2] !== 'shift')
+          )
+            throw new ScriptError('use "key down|up <key> [shift]"', line);
+          p.focusKey(args[1]!, args[0] === 'down', args[2] === 'shift');
+          step(0);
+          break;
+        }
         case 'instance': {
           if (args.length < 2 || args.length > 3)
             throw new ScriptError('use "instance <id> <timeline> [mix]"', line);

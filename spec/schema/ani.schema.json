@@ -541,7 +541,7 @@
           },
           "on": {
             "type": "string",
-            "pattern": "^(?:enter|leave|down|up|click|move|[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)+)$"
+            "pattern": "^(?:focus|blur|enter|leave|down|up|click|move|[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)+)$"
           },
           "target": {
             "type": "string",
@@ -934,6 +934,67 @@
                 "$ref": "#/$defs/node"
               }
             },
+            "focus": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "enabledInput": {
+                  "type": "string"
+                },
+                "tabStops": {
+                  "type": "boolean"
+                },
+                "pointer": {
+                  "type": "boolean"
+                },
+                "order": {
+                  "type": "number"
+                },
+                "scope": {
+                  "type": "boolean"
+                },
+                "edge": {
+                  "type": "string",
+                  "enum": [
+                    "stop",
+                    "closed-loop",
+                    "parent-scope"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "bounds": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              },
+              "additionalProperties": false,
+              "feature": "focus"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -1198,14 +1259,6 @@
             "visible": {
               "type": "boolean"
             },
-            "pivotX": {
-              "type": "number",
-              "feature": "motion"
-            },
-            "pivotY": {
-              "type": "number",
-              "feature": "motion"
-            },
             "glyph": {
               "type": "string",
               "pattern": "^[a-z][a-zA-Z0-9-]*$"
@@ -1221,49 +1274,66 @@
             "d": {
               "type": "string"
             },
-            "channels": {
+            "focus": {
               "type": "object",
               "properties": {
                 "$comment": {
                   "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "enabledInput": {
+                  "type": "string"
+                },
+                "tabStops": {
+                  "type": "boolean"
+                },
+                "pointer": {
+                  "type": "boolean"
+                },
+                "order": {
+                  "type": "number"
+                },
+                "scope": {
+                  "type": "boolean"
+                },
+                "edge": {
+                  "type": "string",
+                  "enum": [
+                    "stop",
+                    "closed-loop",
+                    "parent-scope"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "bounds": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
                 }
               },
-              "propertyNames": {
-                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
-              },
-              "additionalProperties": {
-                "type": "object",
-                "properties": {
-                  "$comment": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "int",
-                      "uint",
-                      "string",
-                      "reference"
-                    ]
-                  },
-                  "value": {
-                    "anyOf": [
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "string"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "type",
-                  "value"
-                ],
-                "additionalProperties": false
-              },
-              "feature": "motion"
+              "additionalProperties": false,
+              "feature": "focus"
             },
             "fill": {
               "type": "object",
@@ -1682,6 +1752,58 @@
             "knockout": {
               "type": "number",
               "minimum": 0
+            },
+            "pivotX": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "pivotY": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "channels": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "propertyNames": {
+                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+              },
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "int",
+                      "uint",
+                      "string",
+                      "reference"
+                    ]
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "feature": "motion"
             },
             "blend": {
               "type": "string",
@@ -2327,14 +2449,6 @@
               "type": "number",
               "minimum": 0
             },
-            "pivotX": {
-              "type": "number",
-              "feature": "motion"
-            },
-            "pivotY": {
-              "type": "number",
-              "feature": "motion"
-            },
             "center": {
               "type": "array",
               "prefixItems": [
@@ -2349,49 +2463,66 @@
               "minItems": 2,
               "maxItems": 2
             },
-            "channels": {
+            "focus": {
               "type": "object",
               "properties": {
                 "$comment": {
                   "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "enabledInput": {
+                  "type": "string"
+                },
+                "tabStops": {
+                  "type": "boolean"
+                },
+                "pointer": {
+                  "type": "boolean"
+                },
+                "order": {
+                  "type": "number"
+                },
+                "scope": {
+                  "type": "boolean"
+                },
+                "edge": {
+                  "type": "string",
+                  "enum": [
+                    "stop",
+                    "closed-loop",
+                    "parent-scope"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "bounds": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
                 }
               },
-              "propertyNames": {
-                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
-              },
-              "additionalProperties": {
-                "type": "object",
-                "properties": {
-                  "$comment": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "int",
-                      "uint",
-                      "string",
-                      "reference"
-                    ]
-                  },
-                  "value": {
-                    "anyOf": [
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "string"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "type",
-                  "value"
-                ],
-                "additionalProperties": false
-              },
-              "feature": "motion"
+              "additionalProperties": false,
+              "feature": "focus"
             },
             "fill": {
               "type": "object",
@@ -2810,6 +2941,58 @@
             "knockout": {
               "type": "number",
               "minimum": 0
+            },
+            "pivotX": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "pivotY": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "channels": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "propertyNames": {
+                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+              },
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "int",
+                      "uint",
+                      "string",
+                      "reference"
+                    ]
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "feature": "motion"
             },
             "blend": {
               "type": "string",
@@ -3465,63 +3648,72 @@
               "type": "number",
               "minimum": 0
             },
-            "pivotX": {
-              "type": "number",
-              "feature": "motion"
-            },
-            "pivotY": {
-              "type": "number",
-              "feature": "motion"
-            },
             "x0": {
               "type": "number"
             },
             "y0": {
               "type": "number"
             },
-            "channels": {
+            "focus": {
               "type": "object",
               "properties": {
                 "$comment": {
                   "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "enabledInput": {
+                  "type": "string"
+                },
+                "tabStops": {
+                  "type": "boolean"
+                },
+                "pointer": {
+                  "type": "boolean"
+                },
+                "order": {
+                  "type": "number"
+                },
+                "scope": {
+                  "type": "boolean"
+                },
+                "edge": {
+                  "type": "string",
+                  "enum": [
+                    "stop",
+                    "closed-loop",
+                    "parent-scope"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "bounds": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
                 }
               },
-              "propertyNames": {
-                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
-              },
-              "additionalProperties": {
-                "type": "object",
-                "properties": {
-                  "$comment": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "int",
-                      "uint",
-                      "string",
-                      "reference"
-                    ]
-                  },
-                  "value": {
-                    "anyOf": [
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "string"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "type",
-                  "value"
-                ],
-                "additionalProperties": false
-              },
-              "feature": "motion"
+              "additionalProperties": false,
+              "feature": "focus"
             },
             "fill": {
               "type": "object",
@@ -3940,6 +4132,58 @@
             "knockout": {
               "type": "number",
               "minimum": 0
+            },
+            "pivotX": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "pivotY": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "channels": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "propertyNames": {
+                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+              },
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "int",
+                      "uint",
+                      "string",
+                      "reference"
+                    ]
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "feature": "motion"
             },
             "corners": {
               "type": "array",
@@ -4620,14 +4864,6 @@
             "to": {
               "type": "number"
             },
-            "pivotX": {
-              "type": "number",
-              "feature": "motion"
-            },
-            "pivotY": {
-              "type": "number",
-              "feature": "motion"
-            },
             "center": {
               "type": "array",
               "prefixItems": [
@@ -4642,49 +4878,66 @@
               "minItems": 2,
               "maxItems": 2
             },
-            "channels": {
+            "focus": {
               "type": "object",
               "properties": {
                 "$comment": {
                   "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "enabledInput": {
+                  "type": "string"
+                },
+                "tabStops": {
+                  "type": "boolean"
+                },
+                "pointer": {
+                  "type": "boolean"
+                },
+                "order": {
+                  "type": "number"
+                },
+                "scope": {
+                  "type": "boolean"
+                },
+                "edge": {
+                  "type": "string",
+                  "enum": [
+                    "stop",
+                    "closed-loop",
+                    "parent-scope"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "bounds": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
                 }
               },
-              "propertyNames": {
-                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
-              },
-              "additionalProperties": {
-                "type": "object",
-                "properties": {
-                  "$comment": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "int",
-                      "uint",
-                      "string",
-                      "reference"
-                    ]
-                  },
-                  "value": {
-                    "anyOf": [
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "string"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "type",
-                  "value"
-                ],
-                "additionalProperties": false
-              },
-              "feature": "motion"
+              "additionalProperties": false,
+              "feature": "focus"
             },
             "fill": {
               "type": "object",
@@ -5103,6 +5356,58 @@
             "knockout": {
               "type": "number",
               "minimum": 0
+            },
+            "pivotX": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "pivotY": {
+              "type": "number",
+              "feature": "motion"
+            },
+            "channels": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "propertyNames": {
+                "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+              },
+              "additionalProperties": {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "int",
+                      "uint",
+                      "string",
+                      "reference"
+                    ]
+                  },
+                  "value": {
+                    "anyOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "type",
+                  "value"
+                ],
+                "additionalProperties": false
+              },
+              "feature": "motion"
             },
             "blend": {
               "type": "string",
@@ -5787,6 +6092,67 @@
               "type": "boolean",
               "feature": "components"
             },
+            "focus": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "enabledInput": {
+                  "type": "string"
+                },
+                "tabStops": {
+                  "type": "boolean"
+                },
+                "pointer": {
+                  "type": "boolean"
+                },
+                "order": {
+                  "type": "number"
+                },
+                "scope": {
+                  "type": "boolean"
+                },
+                "edge": {
+                  "type": "string",
+                  "enum": [
+                    "stop",
+                    "closed-loop",
+                    "parent-scope"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "bounds": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              },
+              "additionalProperties": false,
+              "feature": "focus"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -6110,6 +6476,67 @@
                 "nearest"
               ],
               "feature": "assets"
+            },
+            "focus": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "enabledInput": {
+                  "type": "string"
+                },
+                "tabStops": {
+                  "type": "boolean"
+                },
+                "pointer": {
+                  "type": "boolean"
+                },
+                "order": {
+                  "type": "number"
+                },
+                "scope": {
+                  "type": "boolean"
+                },
+                "edge": {
+                  "type": "string",
+                  "enum": [
+                    "stop",
+                    "closed-loop",
+                    "parent-scope"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "bounds": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              },
+              "additionalProperties": false,
+              "feature": "focus"
             },
             "pivotX": {
               "type": "number",
@@ -7396,6 +7823,67 @@
               "additionalProperties": false,
               "feature": "surface"
             },
+            "focus": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "enabledInput": {
+                  "type": "string"
+                },
+                "tabStops": {
+                  "type": "boolean"
+                },
+                "pointer": {
+                  "type": "boolean"
+                },
+                "order": {
+                  "type": "number"
+                },
+                "scope": {
+                  "type": "boolean"
+                },
+                "edge": {
+                  "type": "string",
+                  "enum": [
+                    "stop",
+                    "closed-loop",
+                    "parent-scope"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "bounds": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              },
+              "additionalProperties": false,
+              "feature": "focus"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -8537,6 +9025,67 @@
               ],
               "additionalProperties": false,
               "feature": "surface"
+            },
+            "focus": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "enabledInput": {
+                  "type": "string"
+                },
+                "tabStops": {
+                  "type": "boolean"
+                },
+                "pointer": {
+                  "type": "boolean"
+                },
+                "order": {
+                  "type": "number"
+                },
+                "scope": {
+                  "type": "boolean"
+                },
+                "edge": {
+                  "type": "string",
+                  "enum": [
+                    "stop",
+                    "closed-loop",
+                    "parent-scope"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "bounds": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              },
+              "additionalProperties": false,
+              "feature": "focus"
             },
             "pivotX": {
               "type": "number",
@@ -9681,6 +10230,67 @@
               "additionalProperties": false,
               "feature": "surface"
             },
+            "focus": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "enabledInput": {
+                  "type": "string"
+                },
+                "tabStops": {
+                  "type": "boolean"
+                },
+                "pointer": {
+                  "type": "boolean"
+                },
+                "order": {
+                  "type": "number"
+                },
+                "scope": {
+                  "type": "boolean"
+                },
+                "edge": {
+                  "type": "string",
+                  "enum": [
+                    "stop",
+                    "closed-loop",
+                    "parent-scope"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "bounds": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              },
+              "additionalProperties": false,
+              "feature": "focus"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -10813,6 +11423,67 @@
               ],
               "additionalProperties": false,
               "feature": "surface"
+            },
+            "focus": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "enabled": {
+                  "type": "boolean"
+                },
+                "enabledInput": {
+                  "type": "string"
+                },
+                "tabStops": {
+                  "type": "boolean"
+                },
+                "pointer": {
+                  "type": "boolean"
+                },
+                "order": {
+                  "type": "number"
+                },
+                "scope": {
+                  "type": "boolean"
+                },
+                "edge": {
+                  "type": "string",
+                  "enum": [
+                    "stop",
+                    "closed-loop",
+                    "parent-scope"
+                  ]
+                },
+                "label": {
+                  "type": "string"
+                },
+                "bounds": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 0
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                }
+              },
+              "additionalProperties": false,
+              "feature": "focus"
             },
             "pivotX": {
               "type": "number",

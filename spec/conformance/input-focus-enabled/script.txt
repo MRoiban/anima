@@ -1,0 +1,5 @@
+focus target b
+set enabled false
+advance 0
+advance 0
+snapshot

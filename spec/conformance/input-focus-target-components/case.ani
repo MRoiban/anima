@@ -1,0 +1,62 @@
+{
+  "anima": "0.1",
+  "name": "focus-components",
+  "grid": 20,
+  "requires": ["focus", "components"],
+  "nodes": [
+    {
+      "id": "child",
+      "type": "instance",
+      "x": 2,
+      "component": "child"
+    }
+  ],
+  "components": {
+    "child": {
+      "grid": 20,
+      "nodes": [
+        {
+          "id": "a",
+          "type": "circle",
+          "center": [2, 2],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          },
+          "focus": {
+            "bounds": [1, 1, 2, 2]
+          }
+        },
+        {
+          "id": "b",
+          "type": "circle",
+          "center": [8, 2],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          },
+          "focus": {
+            "bounds": [7, 1, 2, 2]
+          }
+        }
+      ],
+      "listeners": [
+        {
+          "on": "focus",
+          "target": "a",
+          "emit": "selected"
+        },
+        {
+          "on": "blur",
+          "target": "a",
+          "emit": "left"
+        },
+        {
+          "on": "focus",
+          "target": "b",
+          "emit": "next"
+        }
+      ]
+    }
+  }
+}

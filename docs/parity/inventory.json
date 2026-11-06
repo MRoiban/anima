@@ -19160,10 +19160,10 @@
    "rive-runtime/include/rive/animation/focus_action_clear.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action clearFocus",
-   "module": "interaction",
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
    "status": "planned",
-   "test": "conformance/input-focus-clear",
+   "test": "modules/focus/test; spec/conformance/input-focus-clear; oracle skip: modules/focus/capabilities/input-focus-clear/README.md",
    "phase": "P4"
   },
   "aliases": [
@@ -19190,10 +19190,10 @@
    "rive-runtime/include/rive/generated/animation/focus_action_traversal_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action focus: down",
-   "module": "interaction",
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
    "status": "planned",
-   "test": "conformance/input-focus-down",
+   "test": "modules/focus/test; spec/conformance/input-focus-down; oracle skip: modules/focus/capabilities/input-focus-down/README.md",
    "phase": "P4"
   }
  },
@@ -19219,10 +19219,10 @@
    "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: focus.scope.edge: closedLoop",
-   "module": "interaction",
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
    "status": "planned",
-   "test": "conformance/input-focus-edge-closed-loop",
+   "test": "modules/focus/test; spec/conformance/input-focus-edge-closed-loop; oracle skip: modules/focus/capabilities/input-focus-edge-closed-loop/README.md",
    "phase": "P4"
   },
   "aliases": [
@@ -19251,10 +19251,10 @@
    "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: focus.scope.edge: parentScope",
-   "module": "interaction",
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
    "status": "planned",
-   "test": "conformance/input-focus-edge-parent-scope",
+   "test": "modules/focus/test; spec/conformance/input-focus-edge-parent-scope; oracle skip: modules/focus/capabilities/input-focus-edge-parent-scope/README.md",
    "phase": "P4"
   },
   "aliases": [
@@ -19283,10 +19283,10 @@
    "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: focus.scope.edge: stop",
-   "module": "interaction",
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
    "status": "planned",
-   "test": "conformance/input-focus-edge-stop",
+   "test": "modules/focus/test; spec/conformance/input-focus-edge-stop; oracle skip: modules/focus/capabilities/input-focus-edge-stop/README.md",
    "phase": "P4"
   },
   "aliases": [
@@ -19316,10 +19316,10 @@
    "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: node.focus.enabled",
-   "module": "interaction",
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
    "status": "planned",
-   "test": "conformance/input-focus-enabled",
+   "test": "modules/focus/test; spec/conformance/input-focus-enabled; oracle skip: modules/focus/capabilities/input-focus-enabled/README.md",
    "phase": "P4"
   },
   "aliases": [
@@ -19346,10 +19346,10 @@
    "rive-runtime/include/rive/generated/animation/focus_action_traversal_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action focus: left",
-   "module": "interaction",
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
    "status": "planned",
-   "test": "conformance/input-focus-left",
+   "test": "modules/focus/test; spec/conformance/input-focus-left; oracle skip: modules/focus/capabilities/input-focus-left/README.md",
    "phase": "P4"
   }
  },
@@ -19373,10 +19373,10 @@
    "rive-runtime/include/rive/generated/animation/focus_action_traversal_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action focus: next",
-   "module": "interaction",
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
    "status": "planned",
-   "test": "conformance/input-focus-next",
+   "test": "modules/focus/test; spec/conformance/input-focus-next; oracle skip: modules/focus/capabilities/input-focus-next/README.md",
    "phase": "P4"
   }
  },
@@ -19403,10 +19403,10 @@
    "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: node.focus.pointer",
-   "module": "interaction",
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
    "status": "planned",
-   "test": "conformance/input-focus-pointer",
+   "test": "modules/focus/test; spec/conformance/input-focus-pointer; oracle skip: modules/focus/capabilities/input-focus-pointer/README.md",
    "phase": "P4"
   },
   "aliases": [
@@ -19433,10 +19433,10 @@
    "rive-runtime/include/rive/generated/animation/focus_action_traversal_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action focus: previous",
-   "module": "interaction",
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
    "status": "planned",
-   "test": "conformance/input-focus-previous",
+   "test": "modules/focus/test; spec/conformance/input-focus-previous; oracle skip: modules/focus/capabilities/input-focus-previous/README.md",
    "phase": "P4"
   }
  },
@@ -19460,10 +19460,10 @@
    "rive-runtime/include/rive/generated/animation/focus_action_traversal_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action focus: right",
-   "module": "interaction",
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
    "status": "planned",
-   "test": "conformance/input-focus-right",
+   "test": "modules/focus/test; spec/conformance/input-focus-right; oracle skip: modules/focus/capabilities/input-focus-right/README.md",
    "phase": "P4"
   }
  },
@@ -19487,10 +19487,10 @@
    "rive-runtime/include/rive/generated/animation/focus_action_target_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action focusTarget: node",
-   "module": "interaction",
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
    "status": "planned",
-   "test": "conformance/input-focus-target",
+   "test": "modules/focus/test; spec/conformance/input-focus-target; oracle skip: modules/focus/capabilities/input-focus-target/README.md",
    "phase": "P4"
   }
  },
@@ -19517,10 +19517,10 @@
    "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: node.focus.traverse",
-   "module": "interaction",
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
    "status": "planned",
-   "test": "conformance/input-focus-traverse",
+   "test": "modules/focus/test; spec/conformance/input-focus-traverse; oracle skip: modules/focus/capabilities/input-focus-traverse/README.md",
    "phase": "P4"
   },
   "aliases": [
@@ -19547,10 +19547,10 @@
    "rive-runtime/include/rive/generated/animation/focus_action_traversal_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener action focus: up",
-   "module": "interaction",
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
    "status": "planned",
-   "test": "conformance/input-focus-up",
+   "test": "modules/focus/test; spec/conformance/input-focus-up; oracle skip: modules/focus/capabilities/input-focus-up/README.md",
    "phase": "P4"
   }
  },
@@ -20068,10 +20068,10 @@
    "rive-runtime/include/rive/generated/animation/listener_types/listener_input_type_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.on: blur",
-   "module": "interaction",
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
    "status": "planned",
-   "test": "conformance/input-listen-blur",
+   "test": "modules/focus/test; spec/conformance/input-listen-blur; oracle skip: modules/focus/capabilities/input-listen-blur/README.md",
    "phase": "P4"
   }
  },
@@ -20095,10 +20095,10 @@
    "rive-runtime/include/rive/generated/animation/listener_types/listener_input_type_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.on: focus",
-   "module": "interaction",
+   "construct": "nodes[].focus; Player focus API; spec/SPEC.md focus",
+   "module": "focus",
    "status": "planned",
-   "test": "conformance/input-listen-focus",
+   "test": "modules/focus/test; spec/conformance/input-listen-focus; oracle skip: modules/focus/capabilities/input-listen-focus/README.md",
    "phase": "P4"
   }
  },

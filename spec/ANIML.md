@@ -448,3 +448,12 @@ are normative in SPEC's **Declarative timeline control** subsection.
 ```
 
 The complete sync button is [modules/motion/examples/sync.animl](../modules/motion/examples/sync.animl).
+
+## Focus authoring
+
+With `requires="focus"`, any node accepts a `<focus>` child. Its `enabled`, `pointer`,
+`order`, `scope`, `edge`, `label` and `bounds` attributes match the JSON fields;
+`enabled-input` names the bool input gating eligibility, and `tab-stops="true"`
+opts the document into inner native Tab stops. `<listener on="focus|blur" target="id"
+.../>` uses ordinary queued listener actions. See SPEC's focus chapter for traversal,
+scopes, defaults, component-local ids and deterministic key commands.

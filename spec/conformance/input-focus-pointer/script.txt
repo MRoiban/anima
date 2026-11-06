@@ -1,0 +1,2 @@
+pointer down 8 2
+snapshot
