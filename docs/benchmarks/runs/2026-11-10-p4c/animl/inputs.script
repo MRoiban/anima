@@ -1,0 +1,23 @@
+advance 0
+snapshot volume knob.x fill.stroke.trimEnd wave1.opacity wave2.opacity wave3.opacity
+set volume 0
+advance 0
+snapshot volume knob.x fill.stroke.trimEnd wave1.opacity wave2.opacity wave3.opacity
+set volume 0.165
+advance 0
+snapshot volume knob.x fill.stroke.trimEnd wave1.opacity wave2.opacity wave3.opacity
+set volume 0.33
+advance 0
+snapshot volume knob.x fill.stroke.trimEnd wave1.opacity wave2.opacity wave3.opacity
+set volume 0.495
+advance 0
+snapshot volume knob.x fill.stroke.trimEnd wave1.opacity wave2.opacity wave3.opacity
+set volume 0.66
+advance 0
+snapshot volume knob.x fill.stroke.trimEnd wave1.opacity wave2.opacity wave3.opacity
+set volume 0.83
+advance 0
+snapshot volume knob.x fill.stroke.trimEnd wave1.opacity wave2.opacity wave3.opacity
+set volume 1
+advance 0
+snapshot volume knob.x fill.stroke.trimEnd wave1.opacity wave2.opacity wave3.opacity

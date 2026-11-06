@@ -1,0 +1,61 @@
+<anima version="0.1" name="volume" grid="40" viewBox="0 0 40 12" requires="bind machine input focus">
+  <color name="ink" value="#141413"/>
+  <color name="accent" value="#d97757"/>
+  <number name="volume" default="0.5" min="0" max="1"/>
+  <bool name="muted" default="false"/>
+  <group id="speaker" pivot="5 6">
+    <rect id="body" x0="2" y0="4" width="3" height="4" fill="ink"/>
+    <path id="cone" d="M5 4 L8 2 L8 10 L5 8 Z" fill="ink"/>
+    <path id="mute-line" d="M1 2 L9 10" stroke="accent" stroke-width="1" opacity="0"/>
+  </group>
+  <group id="waves">
+    <arc id="wave1" cx="8" cy="6" r="2" from="-45" to="45" stroke="ink" stroke-width="1" opacity="0"/>
+    <arc id="wave2" cx="8" cy="6" r="3.5" from="-45" to="45" stroke="ink" stroke-width="1" opacity="0"/>
+    <arc id="wave3" cx="8" cy="6" r="5" from="-45" to="45" stroke="ink" stroke-width="1" opacity="0"/>
+  </group>
+  <path id="track" d="M12 6 L36 6" stroke="ink" stroke-width="1"/>
+  <path id="fill" d="M12 6 L36 6" stroke="accent" stroke-width="1"/>
+  <!-- Normalize drag parent coordinates to 0..1; compensate knob width locally. -->
+  <group id="slider-space" x="12" y="6" scaleX="24">
+  <circle id="knob" cx="0" cy="0" r="1.5" x="0.5" scaleX="0.041666666666666664" fill="accent" cursor="resize-horizontal">
+    <focus label="Volume" bounds="-1.5 -1.5 3 3"/>
+  </circle>
+  </group>
+  <bind target="knob.x" value="volume"/>
+  <bind target="fill.trimEnd" value="volume"/>
+  <bind target="waves.opacity" value="1 - muted"/>
+  <bind target="mute-line.opacity" value="muted"/>
+  <timeline name="silent" duration="0.2">
+    <track target="wave1.opacity">0 0; 0.2 0</track>
+    <track target="wave2.opacity">0 0; 0.2 0</track>
+    <track target="wave3.opacity">0 0; 0.2 0</track>
+  </timeline>
+  <timeline name="one" duration="0.2">
+    <track target="wave1.opacity">0 1; 0.2 1</track>
+    <track target="wave2.opacity">0 0; 0.2 0</track>
+    <track target="wave3.opacity">0 0; 0.2 0</track>
+  </timeline>
+  <timeline name="two" duration="0.2">
+    <track target="wave1.opacity">0 1; 0.2 1</track>
+    <track target="wave2.opacity">0 1; 0.2 1</track>
+    <track target="wave3.opacity">0 0; 0.2 0</track>
+  </timeline>
+  <timeline name="three" duration="0.2">
+    <track target="wave1.opacity">0 1; 0.2 1</track>
+    <track target="wave2.opacity">0 1; 0.2 1</track>
+    <track target="wave3.opacity">0 1; 0.2 1</track>
+  </timeline>
+  <timeline name="pulse" duration="0.2">
+    <track target="speaker.scale">0 1; 0.1 1.08; 0.2 1</track>
+  </timeline>
+  <layer name="sound" initial="blend">
+    <state name="blend" play="silent" mix='{"mode":"1d","axis":"volume","children":[{"play":"silent","at":0},{"play":"one","at":0.33},{"play":"two","at":0.66},{"play":"three","at":1}]}'/>
+  </layer>
+  <layer name="feedback" initial="idle">
+    <state name="watch" kind="any"><on when="volume >= 0" to="pop" change='{"input":"volume","mode":"increased"}'/></state>
+    <state name="idle"><pose speaker.scale="1"/></state>
+    <state name="pop" play="pulse"><on when="@end" to="idle"/></state>
+  </layer>
+  <listener on="click" target="speaker" toggle="muted"/>
+  <listener on="drag" target="knob" align="preserve" write='{"x":"volume"}'/>
+</anima>
