@@ -1,0 +1,17 @@
+
+> test:scope
+> node tools/test-scope.ts host-edit --no-browser
+
+Scopes: host-edit
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host-edit/test/core/conformance.test.ts
+  unit: modules/host-edit/test/core/edit.test.ts
+  unit: modules/host-edit/test/core/oracle.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-da628e93
+
+
+ Test Files  4 passed (4)
+      Tests  23 passed (23)
+   Start at  18:50:43
+   Duration  594ms (import 51%, transform 37%, tests 10%, worker 2%)

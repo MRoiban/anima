@@ -1,0 +1,12 @@
+{
+  "status": "skip",
+  "reason": "Rive CLI 1.9.1 local headless commands cannot create/bind instances or add/insert/remove/swap lists. Fresh session.txt records rejection of every attempted verb and whole-list data assignment; image writes also reject both a name and data URI despite a declared AssetImage property. Its scalar color/enum/nested reads ARE captured and tested (16 exact comparisons). Browser-only URL/Blob decode, registration readiness, JS callbacks and document reuse have no exposed headless counterpart. Component root selection has a fresh native selected.json observation and browser comparison; no component-valued data counterpart is claimed.",
+  "evidence": [
+    "rive/commands.txt",
+    "rive/session.txt",
+    "rive/frames/initial.json",
+    "rive/frames/changed.json",
+    "rive/frames/selected.json",
+    "rive/frames/restored.json"
+  ]
+}

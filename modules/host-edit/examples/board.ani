@@ -1,0 +1,72 @@
+{
+  "anima": "0.1",
+  "name": "host-edit-board",
+  "grid": 20,
+  "requires": ["data"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#d97757"
+      }
+    }
+  ],
+  "bind": {
+    "dot.r": "$score"
+  },
+  "data": {
+    "models": {
+      "Board": {
+        "properties": {
+          "score": {
+            "type": "number",
+            "default": 2
+          },
+          "accent": {
+            "type": "color",
+            "default": "#d97757"
+          },
+          "mood": {
+            "type": "enum",
+            "values": ["calm", "happy"]
+          },
+          "tracks": {
+            "type": "list",
+            "of": "Track"
+          }
+        }
+      },
+      "Track": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "default": "Untitled"
+          },
+          "duration": {
+            "type": "number",
+            "default": 3
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Board",
+        "default": true,
+        "values": {
+          "tracks": [
+            {
+              "title": "First"
+            },
+            {
+              "title": "Second"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

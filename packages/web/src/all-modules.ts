@@ -11,6 +11,7 @@ import './derive.ts';
 import './events.ts';
 import './focus.ts';
 import './host.ts';
+import './host-edit.ts';
 import './input.ts';
 import './machine.ts';
 import './mix.ts';

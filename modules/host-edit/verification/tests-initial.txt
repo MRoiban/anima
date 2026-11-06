@@ -1,0 +1,287 @@
+
+> test:scope
+> node tools/test-scope.ts host-edit host data web conformance oracle
+
+Scopes: host-edit, host, data, web, conformance, oracle
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/data/test/core/components.test.ts
+  unit: modules/data/test/core/conformance.test.ts
+  unit: modules/data/test/core/data-bind-converter-options.test.ts
+  unit: modules/data/test/core/data-bind-keyframes.test.ts
+  unit: modules/data/test/core/data-bind-layout.test.ts
+  unit: modules/data/test/core/data-bind-script-inputs.test.ts
+  unit: modules/data/test/core/data-bind-text.test.ts
+  unit: modules/data/test/core/data-binding-relative.test.ts
+  unit: modules/data/test/core/data-editor-preview-instance.test.ts
+  unit: modules/data/test/core/data-instance-export.test.ts
+  unit: modules/data/test/core/data-property-artboard.test.ts
+  unit: modules/data/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/data/test/core/data-property-text-style.test.ts
+  unit: modules/data/test/core/data-script-model-api.test.ts
+  unit: modules/data/test/core/data-scripted-converter.test.ts
+  unit: modules/data/test/core/diagnostics.test.ts
+  unit: modules/data/test/core/input.test.ts
+  unit: modules/data/test/core/oracle.test.ts
+  unit: modules/data/test/core/runtime.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host-edit/test/core/conformance.test.ts
+  unit: modules/host-edit/test/core/edit.test.ts
+  unit: modules/host-edit/test/core/oracle.test.ts
+  unit: modules/host/test/cli/host.test.ts
+  unit: modules/host/test/core/api.test.ts
+  unit: modules/host/test/core/conformance.test.ts
+  unit: modules/host/test/core/errors.test.ts
+  unit: modules/host/test/core/oracle.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/assets/test/web/assets.test.ts
+  browser: modules/bind/test/web/bind.test.ts
+  browser: modules/canvas/test/web/canvas.test.ts
+  browser: modules/canvas/test/web/native-paint.test.ts
+  browser: modules/components/test/web/components.test.ts
+  browser: modules/composite/test/web/paint-composite.test.ts
+  browser: modules/convert/test/web/convert.test.ts
+  browser: modules/data/test/web/browser.test.ts
+  browser: modules/derive/test/web/browser.test.ts
+  browser: modules/events/test/web/events.browser.test.ts
+  browser: modules/focus/test/web/focus.test.ts
+  browser: modules/host-edit/test/web/browser.test.ts
+  browser: modules/host/test/web/browser.test.ts
+  browser: modules/input/test/web/browser.test.ts
+  browser: modules/input/test/web/integration.test.ts
+  browser: modules/machine/test/web/browser.test.ts
+  browser: modules/motion/test/web/browser.test.ts
+  browser: modules/paint/test/web/paint-geometry.test.ts
+  browser: modules/surface/test/web/surface.test.ts
+  browser: packages/web/test/browser.test.ts
+  browser: packages/web/test/markup-hooks.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-da628e93
+
+ ❯ |scope-browser| modules/host/test/web/browser.test.ts (4 tests | 1 failed) 75673ms
+   ❯ Firefox host (2)
+     × separate bundles; host first=true 30612ms
+ ❯ |scope-browser| modules/machine/test/web/browser.test.ts (4 tests | 1 failed) 76017ms
+   ❯ Firefox machine (2)
+     × separate bundles and generic AniML fields; markup first=false 32497ms
+ ❯ |scope-browser| modules/motion/test/web/browser.test.ts (20 tests | 1 failed) 84096ms
+   ❯ motion host in Firefox (10)
+     × exposes metadata, time, mix, typed nodes and independent animation advance/apply 10012ms
+ ❯ |scope-browser| modules/events/test/web/events.browser.test.ts (26 tests | 1 failed) 85770ms
+   ❯ events in Firefox (13)
+     × delivers payloads, advance/draw/state and supports unsubscribe/deduplication 10009ms
+ ❯ |scope-browser| modules/input/test/web/integration.test.ts (16 tests | 1 failed) 88859ms
+   ❯ interaction integration Firefox components→focus→input→machine (4)
+     × dispatches one key route, traverses arrows/Tab once and preserves native activation 10017ms
+ ❯ |scope-browser| modules/input/test/web/browser.test.ts (56 tests | 1 failed) 112432ms
+   ❯ input browser Firefox (28)
+     × maps client positions through the actual SVG viewport matrix 10050ms
+ ❯ |scope-unit| packages/markup/test/corpus.test.ts (783 tests | 1 failed) 5239ms
+   ❯ authored AniML corpus (783)
+     × modules/host-edit/examples/board.animl is canonically formatted 69ms
+ ❯ |scope-browser| packages/web/test/markup-hooks.test.ts (18 tests | 1 failed) 130931ms
+   ❯ Firefox optional markup hooks (9)
+     × markup-first: diagnostics without hooks; scoped compilation and async compilation with hooks 30018ms
+ ❯ |scope-browser| packages/web/test/browser.test.ts (74 tests | 1 failed) 172826ms
+   ❯ <anima-icon> in Chromium (37)
+     × ships a current standalone demo with only its file document request and no canvas/wasm/watermark 119ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 9 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > modules/host-edit/examples/board.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="host-edit-…' to be '<anima version="0.1" name="host-edit-…' // Object.is equality
+
+- Expected
++ Received
+
+@@ -3,13 +3,16 @@
+      <number name="score" default="2"/>
+      <color name="accent" default="#d97757"/>
+      <enum name="mood" values="calm happy"/>
+      <list name="tracks" of="Track"/>
+    </model>
+-   <model name="Track"><string name="title" default="Untitled"/><number name="duration" default="3"/></model>
++   <model name="Track">
++     <string name="title" default="Untitled"/>
++     <number name="duration" default="3"/>
++   </model>
+    <instance name="main" model="Board" default="true">
+-     <set path="tracks" value='[{"title":"First"},{"title":"Second"}]'/>
++     <set path="tracks" value="[{&quot;title&quot;:&quot;First&quot;},{&quot;title&quot;:&quot;Second&quot;}]"/>
+    </instance>
+    <circle id="dot" cx="10" cy="10" r="1" fill="#d97757"/>
+    <bind target="dot.r" value="$score"/>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:50:25
+     48|     const result = formatMarkup(source);
+     49|     expect(result.diagnostics).toEqual([]);
+     50|     expect(result.text).toBe(source);
+       |                         ^
+     51|   });
+     52| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/13]⎯
+
+ FAIL  |scope-browser| packages/web/test/browser.test.ts > <anima-icon> in Chromium > ships a current standalone demo with only its file document request and no canvas/wasm/watermark
+AssertionError: run node tools/build-web.ts before browser tests: expected undefined to be defined
+ ❯ packages/web/test/browser.test.ts:1132:75
+    1130|       // Still reject stale source/output and demo bytes here, without…
+    1131|       const runtime = readCachedBundle(resolve('packages/web/src/index…
+    1132|       expect(runtime, 'run node tools/build-web.ts before browser test…
+       |                                                                           ^
+    1133|       const expected = readFileSync(resolve('examples/web/template.htm…
+    1134|         .replace('<!-- BELL -->', () => bell.trim().replace(/<\//g, '<…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/13]⎯
+
+ FAIL  |scope-browser| packages/web/test/markup-hooks.test.ts > Firefox optional markup hooks > markup-first: diagnostics without hooks; scoped compilation and async compilation with hooks
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/web/test/markup-hooks.test.ts:53:47
+     51| ] as const)
+     52|   describe(name + ' optional markup hooks', () => {
+     53|     it.each(['markup-first', 'modules-first'])(
+       |                                               ^
+     54|       '%s: diagnostics without hooks; scoped compilation and async com…
+     55|       async (order) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/13]⎯
+
+ FAIL  |scope-browser| modules/events/test/web/events.browser.test.ts > events in Firefox > delivers payloads, advance/draw/state and supports unsubscribe/deduplication
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/events/test/web/events.browser.test.ts:74:5
+     72|       await browser?.close();
+     73|     });
+     74|     beforeEach(async () => {
+       |     ^
+     75|       page = await browser.newPage();
+     76|       await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/13]⎯
+
+ FAIL  |scope-browser| modules/events/test/web/events.browser.test.ts > events in Firefox > delivers payloads, advance/draw/state and supports unsubscribe/deduplication
+TypeError: Cannot read properties of undefined (reading 'close')
+ ❯ modules/events/test/web/events.browser.test.ts:95:18
+     93|     });
+     94|     afterEach(async () => {
+     95|       await page.close();
+       |                  ^
+     96|     });
+     97|     it('delivers payloads, advance/draw/state and supports unsubscribe…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/13]⎯
+
+ FAIL  |scope-browser| modules/host/test/web/browser.test.ts > Firefox host > separate bundles; host first=true
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/host/test/web/browser.test.ts:34:7
+     32|   describe(name + ' host', () => {
+     33|     for (const first of [true, false])
+     34|       it(
+       |       ^
+     35|         'separate bundles; host first=' + first,
+     36|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/13]⎯
+
+ FAIL  |scope-browser| modules/machine/test/web/browser.test.ts > Firefox machine > separate bundles and generic AniML fields; markup first=false
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/machine/test/web/browser.test.ts:45:7
+     43|   describe(name + ' machine', () => {
+     44|     for (const markupFirst of [false, true])
+     45|       it(
+       |       ^
+     46|         'separate bundles and generic AniML fields; markup first=' + m…
+     47|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/13]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/browser.test.ts > input browser Firefox > maps client positions through the actual SVG viewport matrix
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/input/test/web/browser.test.ts:73:5
+     71|     }, 30000);
+     72|     afterAll(async () => browser?.close());
+     73|     beforeEach(async () => {
+       |     ^
+     74|       page = await browser.newPage();
+     75|       await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/13]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/browser.test.ts > input browser Firefox > maps client positions through the actual SVG viewport matrix
+TypeError: Cannot read properties of undefined (reading 'close')
+ ❯ modules/input/test/web/browser.test.ts:84:32
+     82|       await page.evaluate((d) => document.querySelector('anima-icon')!…
+     83|     });
+     84|     afterEach(async () => page.close());
+       |                                ^
+     85|     it('maps client positions through the actual SVG viewport matrix',…
+     86|       const r = await page.evaluate(() => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/13]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/integration.test.ts > interaction integration Firefox components→focus→input→machine > dispatches one key route, traverses arrows/Tab once and preserves native activation
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/input/test/web/integration.test.ts:97:9
+     95|         }, 30000);
+     96|         afterAll(async () => browser?.close());
+     97|         beforeEach(async () => {
+       |         ^
+     98|           page = await browser.newPage();
+     99|           await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/13]⎯
+
+ FAIL  |scope-browser| modules/input/test/web/integration.test.ts > interaction integration Firefox components→focus→input→machine > dispatches one key route, traverses arrows/Tab once and preserves native activation
+TypeError: Cannot read properties of undefined (reading 'close')
+ ❯ modules/input/test/web/integration.test.ts:112:36
+    110|           }, doc);
+    111|         });
+    112|         afterEach(async () => page.close());
+       |                                    ^
+    113|         const focused = () =>
+    114|           page.evaluate(() => document.querySelector('anima-icon')!.pl…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/13]⎯
+
+ FAIL  |scope-browser| modules/motion/test/web/browser.test.ts > motion host in Firefox > exposes metadata, time, mix, typed nodes and independent animation advance/apply
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/motion/test/web/browser.test.ts:70:5
+     68|       await browser?.close();
+     69|     });
+     70|     beforeEach(async () => {
+       |     ^
+     71|       page = await browser.newPage();
+     72|       await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/13]⎯
+
+ FAIL  |scope-browser| modules/motion/test/web/browser.test.ts > motion host in Firefox > exposes metadata, time, mix, typed nodes and independent animation advance/apply
+TypeError: Cannot read properties of undefined (reading 'close')
+ ❯ modules/motion/test/web/browser.test.ts:88:18
+     86|     });
+     87|     afterEach(async () => {
+     88|       await page.close();
+       |                  ^
+     89|     });
+     90|     it('exposes metadata, time, mix, typed nodes and independent anima…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/13]⎯
+
+
+ Test Files  9 failed | 35 passed | 13 skipped (57)
+      Tests  9 failed | 4926 passed | 43 todo (4978)
+   Start at  18:08:23
+   Duration  395.23s (tests 96%, import 3%)
