@@ -1,0 +1,41 @@
+{
+  "anima": "0.1",
+  "name": "bind-event-expression",
+  "grid": 20,
+  "requires": ["bind", "events"],
+  "inputs": {
+    "count": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 2,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "click",
+      "set": {
+        "count": "count+1"
+      },
+      "emit": "shared"
+    }
+  ],
+  "eventDefs": {
+    "shared": {
+      "payload": {
+        "count": {
+          "type": "number",
+          "value": "{count}"
+        }
+      }
+    }
+  }
+}

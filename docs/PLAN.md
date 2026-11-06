@@ -250,7 +250,7 @@ and an oracle test against Rive.
         snapshot action sets, state entry/exit and transition blocks, typed event expressions.
         Seven conformance probes, share 6/6 through 25 clicks, 1274 scoped tests plus 18 markup
         browser tests. Core+web 19767 B (+420), bind 1866/2048, events 3551/4096.
-        See `modules/events/P4D-3-RESULTS.md`; comparative oracle capture remains pending.
+        See `modules/events/P4D-3-RESULTS.md`; four exact post-click comparative oracles and one immediate-timing finding in `tests/oracle/ACTION-EXPRESSIONS.md`.
   - [ ] Parent integration, phase benchmark and parity promotion/PR.
 - [ ] P4e `data`: view models, bindings, converters, lists.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide

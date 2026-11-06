@@ -5352,7 +5352,7 @@
    "construct": "bind input expression set values; SPEC bind / Input expressions in actions; modules/events/examples/share.animl",
    "module": "data",
    "status": "planned",
-   "test": "modules/bind/test/core/data-bind-listener-actions.test.ts; spec/conformance/data-bind-listener-actions; tests/oracle/data-bind-listener-actions (pending)",
+   "test": "modules/bind/test/core/data-bind-listener-actions.test.ts; spec/conformance/data-bind-listener-actions; tests/oracle/data-bind-listener-actions; tests/oracle/bind-action-clamp; tests/oracle/bind-condition-modulo (exact post-click observations; immediate timing finding in immediate-probe/finding.json)",
    "phase": "P4"
   }
  },
@@ -13882,7 +13882,7 @@
    "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-payload-number)",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-payload-number); tests/oracle/bind-event-expression; tests/oracle/bind-condition-modulo (new-count expressions, exact post-click dumps/reports)",
    "phase": "P4"
   }
  },

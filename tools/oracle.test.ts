@@ -63,6 +63,22 @@ it('compares event order, frame, typed payload and URL exactly', () => {
   for (const changed of changes) expect(compareEvents(changed, reports).pass).toBe(false);
 });
 
+it('compares post-click counts, empty intervals and reports without numeric tolerance', () => {
+  const observations = [
+    { click: 0, values: { count: 0 }, events: [] },
+    { click: 1, values: { count: 1 }, events: [{ name: 'shared', payload: { count: 1 } }] },
+  ];
+  expect(compareEvents(observations, structuredClone(observations)).pass).toBe(true);
+  for (const changed of [
+    observations.slice(1),
+    [observations[1], observations[0]],
+    [observations[0], { ...observations[1], values: { count: 1.000000001 } }],
+    [observations[0], { ...observations[1], events: [] }],
+    [observations[0], { ...observations[1], events: [{ name: 'shared', payload: { count: 0 } }] }],
+  ])
+    expect(compareEvents(observations, changed).pass).toBe(false);
+});
+
 for (const finding of findingCases)
   it(`known Rive disagreement (not verified parity): ${finding.case.name}`, async () => {
     expect(cases.some((c) => c.name === finding.case.name)).toBe(false);

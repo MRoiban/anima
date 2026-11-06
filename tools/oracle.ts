@@ -24,6 +24,8 @@ export interface OracleCase {
     payloadPaths?: Record<string, Record<string, string>>;
   };
   values?: { address: string; path: string; tolerance: number };
+  /** Post-click observations, indexed by interaction rather than animation frame. */
+  observations?: { script: string; reference: string };
 }
 export const root = new URL('../tests/oracle/', import.meta.url);
 export const cases: OracleCase[] = JSON.parse(readFileSync(new URL('cases.json', root), 'utf8'));
@@ -94,6 +96,25 @@ export async function measure(c: OracleCase, output: URL) {
   if (readFileSync(new URL('case.ani', dir), 'utf8') !== compiled.text)
     throw new Error(`${c.name}: stale case.ani (node tools/oracle.ts --build)`);
   mkdirSync(output, { recursive: true });
+  if (c.observations) {
+    const config = c.observations;
+    const model = load(compiled.doc!).model!;
+    const { snapshots } = runScript(model, readFileSync(new URL(config.script, dir), 'utf8'));
+    const actual = snapshots.map((snapshot, click) => ({
+      click,
+      values: snapshot.values,
+      events: snapshot.events
+        .filter(
+          (event) => !['@state-end', '@transition-start', '@transition-end'].includes(event.name),
+        )
+        .map((event) => ({
+          name: event.name,
+          ...(event.payload === undefined ? {} : { payload: event.payload }),
+        })),
+    }));
+    const reference = JSON.parse(readFileSync(new URL(config.reference, dir), 'utf8'));
+    return [{ time: c.times.at(-1)!, ...compareEvents(actual, reference) }];
+  }
   if (c.events) {
     const config = c.events;
     const model = load(compiled.doc!).model!;
