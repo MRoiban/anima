@@ -276,6 +276,7 @@ input.animl: 1 error
 <!-- diagnostics: trigger.animl -->
 ```text
 trigger.animl:4:27 error input-type "set" needs a bool or number input; "ring" is trigger
+  hint: use fire for a trigger
 trigger.animl: 1 error
 ```
 
