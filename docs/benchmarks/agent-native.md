@@ -35,6 +35,8 @@ friction point that blocks an item — is a bug, fixed before the phase's PR mer
 | 2026-11-08 | P4b | [sync button](runs/2026-11-08-p4b/BRIEF.md) | AniML | 4/6 | 19 | 5 min 10 s | 144 lines | stop-at-next-tick and reverse-from-current not expressible declaratively (only as host API); scrubbing took 13 states; no `anima docs motion` — fixed in P4b-3, AniML rerun after it |
 | 2026-11-08 | P4b | sync button | Rive markup | 5/6 | 14 | 5 min 19 s | 911 lines (49.7 k chars, incl. generator) | reduced motion only through a host-set input |
 | 2026-11-08 | P4b (rerun after P4b-3) | sync button | AniML | 5/6 | 32 | 4 min 46 s | 64 lines | stop-at-tick, reverse-from-current and scrubbing now declarative (`exitNext`, `hold`, `sync`, input `time`); item 5 partial: turning reduced motion on mid-spin keeps the loop ticking (spec §10 applies it to states entered afterwards). The reported 'stop stays pending' was the script's `advance 0`; one step later it completes (orchestrator re-check) |
+| 2026-11-09 | P4d | [share button](runs/2026-11-09-p4d/BRIEF.md) | AniML | 3/6 | 15 | 5 min 53 s | 62 lines | a listener cannot increment an input (`set` takes literals only) → a ladder of states capped at 10, milestones stop after 10; audio requests verified, audible output not — fixed in P4d-3, AniML rerun after it |
+| 2026-11-09 | P4d | share button | Rive markup | 5/6 | 9 | 3 min 55 s | 150 lines | event payload fields not visible in the headless log; audible output and new-tab opening unverified |
 
 ### P4a findings → actions
 
