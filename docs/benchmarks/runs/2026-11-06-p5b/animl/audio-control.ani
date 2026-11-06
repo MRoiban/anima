@@ -1,0 +1,41 @@
+{
+  "anima": "0.1",
+  "name": "audio-control",
+  "grid": 40,
+  "viewBox": [0, 0, 40, 30],
+  "requires": ["assets", "events"],
+  "nodes": [
+    {
+      "id": "button",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 8,
+      "fill": {
+        "color": "#d97757"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "click",
+      "target": "button",
+      "emit": "play"
+    }
+  ],
+  "assets": {
+    "tone": {
+      "type": "audio",
+      "source": "tide.wav",
+      "size": 19244,
+      "mime": "audio/wav",
+      "duration": 1.2,
+      "start": 0.2,
+      "end": 1
+    }
+  },
+  "eventDefs": {
+    "play": {
+      "audio": "tone"
+    }
+  }
+}

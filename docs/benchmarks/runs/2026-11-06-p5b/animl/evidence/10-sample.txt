@@ -1,0 +1,2 @@
+{"time":0,"values":{"rows/0/dawnCover.visible":true,"rows/0/tideCover.visible":false,"$tracks.0.cover":"dawn"},"states":{"rows/0/audio":"idle","rows/1/audio":"idle","rows/2/audio":"idle"},"events":[],"settled":true}
+{"time":0,"values":{"rows/0/dawnCover.visible":false,"rows/0/tideCover.visible":true,"$tracks.0.cover":"tide"},"states":{"rows/0/audio":"idle","rows/1/audio":"idle","rows/2/audio":"idle"},"events":[],"settled":true}

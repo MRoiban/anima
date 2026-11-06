@@ -1,0 +1,3 @@
+advance 0
+snapshot $tracks.length $count $tracks.0.title $tracks.0.duration $tracks.0.cover $tracks.0.clip $tracks.1.title $tracks.1.duration $tracks.1.cover $tracks.1.clip $tracks.2.title $tracks.2.duration $tracks.2.cover $tracks.2.clip rows/0/titleBar.w rows/1/titleBar.w rows/2/titleBar.w rows/0/durationBar.w rows/1/durationBar.w rows/2/durationBar.w
+snapshot rows/0/dawnCover.visible rows/1/tideCover.visible rows/2/emberCover.visible

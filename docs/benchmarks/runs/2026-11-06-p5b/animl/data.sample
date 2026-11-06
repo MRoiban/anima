@@ -1,0 +1,10 @@
+advance 0
+set $tracks.0.duration 120
+set $tracks.0.title "Aurora"
+set $tracks.0.titleChars 6
+set $tracks.0.cover "moss"
+set $tracks.0.clip "moss"
+advance 0
+snapshot $tracks.0.title $tracks.0.duration $tracks.0.cover $tracks.0.clip rows/0/titleBar.w rows/0/durationBar.w rows/0/mossCover.visible rows/0/dawnCover.visible
+pointer click 3 4
+snapshot $selected rows/0/highlight.stroke.width

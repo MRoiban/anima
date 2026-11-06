@@ -1,0 +1,68 @@
+{
+  "first_command": "2026-11-07T00:15:25+01:00",
+  "finished": "2026-11-07T00:25:29.307083+01:00",
+  "wall_seconds": 604,
+  "cli_runs": 24,
+  "auxiliary_check_build_sample_runs": 14,
+  "total_check_runs": 38,
+  "check_error_occurrences": 24,
+  "startup_error_occurrences": 2,
+  "documentation_file_error_occurrences": 1,
+  "total_error_occurrences": 27,
+  "source_lines": 300,
+  "source_characters": 21111,
+  "brief_items_met": 5,
+  "brief_items_total": 6,
+  "sources": [
+    {
+      "name": "audio-control.animl",
+      "lines": 6,
+      "characters": 334
+    },
+    {
+      "name": "clicks.sample",
+      "lines": 11,
+      "characters": 509
+    },
+    {
+      "name": "data.sample",
+      "lines": 10,
+      "characters": 387
+    },
+    {
+      "name": "host-check.mjs",
+      "lines": 86,
+      "characters": 6409
+    },
+    {
+      "name": "initial.sample",
+      "lines": 3,
+      "characters": 441
+    },
+    {
+      "name": "make-media.py",
+      "lines": 13,
+      "characters": 947
+    },
+    {
+      "name": "playlist.animl",
+      "lines": 95,
+      "characters": 6804
+    },
+    {
+      "name": "run-check.py",
+      "lines": 14,
+      "characters": 766
+    },
+    {
+      "name": "title-limit.sample",
+      "lines": 5,
+      "characters": 203
+    },
+    {
+      "name": "verify-evidence.mjs",
+      "lines": 57,
+      "characters": 4311
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+Reconstructed from the terminal transcript (before run-check.py existed):
+First command timestamp: 2026-11-07T00:15:25+01:00.
+node packages/cli/src/main.ts --help → ERR_MODULE_NOT_FOUND: @anima-format/core (1).
+node packages/cli/src/main.ts docs --list → ERR_MODULE_NOT_FOUND: @anima-format/core (1).
+npm ci → exit 0; 153 packages installed; audit reported 10 moderate vulnerabilities (warnings, not CLI errors).
+cat examples/page.html → No such file or directory (1); docs named this nonexistent example.
+Used the allowed modules/host/examples/page.html and modules/host-edit/examples/page.html instead.
+No forbidden benchmark run directories, native binaries, runtime implementation files or oracle files were opened.

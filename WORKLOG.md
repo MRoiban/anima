@@ -1,12 +1,11 @@
 # Work log
 
 ## Now
-Goal: P5b-8 implementation delivered on this branch; local commit only.
-Verified: scope4471 pass/66TODO; explicit owned Chromium+Firefox52/52; strict oracle250/446 exit0, findings25/28 retained.
-Bytes: core+web20362 (+174), full108896 (+843); data8015/bind2038/components4051 source untouched; all limits pass.
-Report: modules/nested/P5B-8-REPORT.md; new native scalar comparisons5 exact, quantize native2/Anima3 delta1 retained.
-Pending: parent canonical-oracle registration; broader foreign-file/data handles; quiet comparative perf unverified.
-Don't: push/PR/merge, change parity statuses/design/measurement inputs/protected runtimes; no phase promotion.
+Goal: AniML P5b playlist benchmark delivered; local commit only on t3/animl-playlist-scene.
+Verified: source/built validate;81 assertions+6912 exact pixels;next-frame host edits retain state;5/6 conservative.
+Limits: repeated-row browser audio absent despite root control success;titleChars auxiliary;catalog media.
+Report: docs/benchmarks/runs/2026-11-06-p5b/animl/REPORT.md;38 check runs,27 total error occurrences.
+Don't: push, PR, merge; read forbidden format runs/native/oracle/runtime sources.
 
 ## Log
 - 2026-11-06 23:40 [P5b-8]: condensed oldest half per 200-line rule; M0–M5/P1/P3 established spec, runtime, AniML and icons; Glyphy remains draft-only (evidence: prior WORKLOG at 0c5028a; PRs1–6).
@@ -138,3 +137,7 @@ Don't: push/PR/merge, change parity statuses/design/measurement inputs/protected
 
 - 2026-11-06 23:53 [P5b-8]: final audit1238 statuses/protected tracked inputs unchanged;66 native readbacks contain no binary/scaffold docs; normalized only log EOF whitespace; all requested commands and explicit browser project exit0 → staging local commit (evidence: verification/p5b8/audit.txt).
 - 2026-11-07 [claude]: merged P5b-8 (component() guard literal via typed-function hook, player-local data keyframes, queued component handles; quantize delta 1 explained by native precision, recorded) → core+web 20,362 (+174), full 109,305 B. Next: P5b-9 canvas seam (nested draw-tree holes) + component paint
+
+- 2026-11-07 00:24 [AniML benchmark]: first command00:15:25+01; built playlist, original media, CLI samples/renders; host edits and81 assertions/6912 pixels pass → browser audio starts absent (unverified playback); CLI script cannot set lists, nested assets not embedded by build (evidence: animl/evidence/).
+
+- 2026-11-07 00:25 [AniML benchmark]: completed 604s run;24 CLI+14 auxiliary checks,24 check errors+3 startup/docs errors;5/6 strict, root audio0.2/0.8 succeeds while repeats silent → sources/media/built ANI/samples/renders/report ready for local commit (evidence: animl/REPORT.md, evidence/metrics.json).

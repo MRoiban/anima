@@ -1,0 +1,17 @@
+{
+  "playbacks": [
+    {
+      "args": [
+        0,
+        0.2,
+        0.8
+      ],
+      "duration": 1.2
+    }
+  ],
+  "assetRequests": [
+    "http://playlist.test/tide.wav"
+  ],
+  "diagnostics": [],
+  "activated": true
+}

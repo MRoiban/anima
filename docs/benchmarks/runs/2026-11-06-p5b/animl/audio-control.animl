@@ -1,0 +1,6 @@
+<anima version="0.1" name="audio-control" grid="40" viewBox="0 0 40 30" requires="assets events">
+  <asset name="tone" type="audio" src="tide.wav" start="0.2" end="1.0"/>
+  <circle id="button" cx="10" cy="10" r="8" fill="#d97757"/>
+  <event-def name="play" audio="tone"/>
+  <listener on="click" target="button" emit="play"/>
+</anima>

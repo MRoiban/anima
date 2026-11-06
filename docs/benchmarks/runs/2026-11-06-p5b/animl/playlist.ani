@@ -1,0 +1,434 @@
+{
+  "anima": "0.1",
+  "name": "playlist",
+  "grid": 40,
+  "viewBox": [0, 0, 40, 30],
+  "requires": ["paint", "assets", "events", "components", "lists", "data", "bind", "derive"],
+  "nodes": [
+    {
+      "id": "panel",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 40,
+      "h": 30,
+      "fill": {
+        "color": "#f0eee6"
+      }
+    },
+    {
+      "id": "rows",
+      "type": "repeat",
+      "list": "$tracks",
+      "component": "row",
+      "dy": 6,
+      "size": [40, 6]
+    },
+    {
+      "id": "dots",
+      "type": "repeat",
+      "count": "$count",
+      "component": "counter",
+      "dy": -1.2
+    }
+  ],
+  "components": {
+    "row": {
+      "grid": 40,
+      "viewBox": [0, 0, 40, 6],
+      "inputs": {
+        "tap": {
+          "type": "trigger"
+        },
+        "clicks": {
+          "type": "number",
+          "default": 0
+        }
+      },
+      "nodes": [
+        {
+          "id": "highlight",
+          "type": "rect",
+          "x0": 1,
+          "y0": 1,
+          "w": 34,
+          "h": 6,
+          "fill": {
+            "color": "#f0eee6"
+          },
+          "stroke": {
+            "color": "#d97757",
+            "width": 0.3
+          }
+        },
+        {
+          "id": "dawnCover",
+          "type": "image",
+          "x0": 2,
+          "y0": 2,
+          "asset": "dawn",
+          "sampling": "nearest",
+          "width": 4,
+          "height": 4
+        },
+        {
+          "id": "tideCover",
+          "type": "image",
+          "x0": 2,
+          "y0": 2,
+          "asset": "tide",
+          "sampling": "nearest",
+          "width": 4,
+          "height": 4
+        },
+        {
+          "id": "emberCover",
+          "type": "image",
+          "x0": 2,
+          "y0": 2,
+          "asset": "ember",
+          "sampling": "nearest",
+          "width": 4,
+          "height": 4
+        },
+        {
+          "id": "mossCover",
+          "type": "image",
+          "x0": 2,
+          "y0": 2,
+          "asset": "moss",
+          "sampling": "nearest",
+          "width": 4,
+          "height": 4
+        },
+        {
+          "id": "titleBar",
+          "type": "rect",
+          "x0": 8,
+          "y0": 2.5,
+          "w": 1,
+          "h": 1,
+          "fill": {
+            "color": "#141413"
+          }
+        },
+        {
+          "id": "durationBar",
+          "type": "rect",
+          "x0": 8,
+          "y0": 4.5,
+          "w": 1,
+          "h": 1,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ],
+      "machine": {
+        "layers": {
+          "audio": {
+            "initial": "idle",
+            "states": {
+              "idle": {
+                "pose": {},
+                "on": [
+                  {
+                    "when": "tap && $clip == \"dawn\"",
+                    "to": "dawn"
+                  },
+                  {
+                    "when": "tap && $clip == \"tide\"",
+                    "to": "tide"
+                  },
+                  {
+                    "when": "tap && $clip == \"ember\"",
+                    "to": "ember"
+                  },
+                  {
+                    "when": "tap && $clip == \"moss\"",
+                    "to": "moss"
+                  }
+                ]
+              },
+              "dawn": {
+                "pose": {},
+                "emit": "playDawn",
+                "on": [
+                  {
+                    "when": "@after(0)",
+                    "to": "idle"
+                  }
+                ]
+              },
+              "tide": {
+                "pose": {},
+                "emit": "playTide",
+                "on": [
+                  {
+                    "when": "@after(0)",
+                    "to": "idle"
+                  }
+                ]
+              },
+              "ember": {
+                "pose": {},
+                "emit": "playEmber",
+                "on": [
+                  {
+                    "when": "@after(0)",
+                    "to": "idle"
+                  }
+                ]
+              },
+              "moss": {
+                "pose": {},
+                "emit": "playMoss",
+                "on": [
+                  {
+                    "when": "@after(0)",
+                    "to": "idle"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "listeners": [
+        {
+          "on": "click",
+          "target": "highlight",
+          "fire": "tap",
+          "set": {
+            "$board:selected": "$id",
+            "clicks": "clicks+1"
+          }
+        }
+      ],
+      "bind": {
+        "highlight.stroke.width": "0.3 * ($id == $board:selected)",
+        "dawnCover.visible": "$cover == \"dawn\"",
+        "tideCover.visible": "$cover == \"tide\"",
+        "emberCover.visible": "$cover == \"ember\"",
+        "mossCover.visible": "$cover == \"moss\"",
+        "titleBar.w": "$titleChars",
+        "durationBar.w": "$duration / 10"
+      },
+      "assets": {
+        "dawn": {
+          "type": "image",
+          "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC"
+        },
+        "tide": {
+          "type": "image",
+          "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg=="
+        },
+        "ember": {
+          "type": "image",
+          "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg=="
+        },
+        "moss": {
+          "type": "image",
+          "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII="
+        },
+        "dawnSound": {
+          "type": "audio",
+          "source": "dawn.wav",
+          "start": 0.2,
+          "end": 1
+        },
+        "tideSound": {
+          "type": "audio",
+          "source": "tide.wav",
+          "start": 0.2,
+          "end": 1
+        },
+        "emberSound": {
+          "type": "audio",
+          "source": "ember.wav",
+          "start": 0.2,
+          "end": 1
+        },
+        "mossSound": {
+          "type": "audio",
+          "source": "moss.wav",
+          "start": 0.2,
+          "end": 1
+        }
+      },
+      "eventDefs": {
+        "playDawn": {
+          "audio": "dawnSound"
+        },
+        "playTide": {
+          "audio": "tideSound"
+        },
+        "playEmber": {
+          "audio": "emberSound"
+        },
+        "playMoss": {
+          "audio": "mossSound"
+        }
+      },
+      "data": "Track"
+    },
+    "counter": {
+      "grid": 40,
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [38, 28],
+          "r": 0.4,
+          "fill": {
+            "color": "#141413"
+          }
+        }
+      ],
+      "assets": {
+        "dawn": {
+          "type": "image",
+          "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC"
+        },
+        "tide": {
+          "type": "image",
+          "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg=="
+        },
+        "ember": {
+          "type": "image",
+          "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg=="
+        },
+        "moss": {
+          "type": "image",
+          "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII="
+        }
+      }
+    }
+  },
+  "assets": {
+    "dawn": {
+      "type": "image",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHklEQVR4nGP48O7ZzfJwIEJjMGAVhUpg1cQwkEYBALoEgSKNg/jPAAAAAElFTkSuQmCC",
+      "storage": "embedded",
+      "size": 87,
+      "mime": "image/png"
+    },
+    "tide": {
+      "type": "image",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPQrpkORB/ePUNjMGAVBTIYsIpCdQyYUQA/N29/JxCyZQAAAABJRU5ErkJggg==",
+      "storage": "embedded",
+      "size": 88,
+      "mime": "image/png"
+    },
+    "ember": {
+      "type": "image",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAH0lEQVR4nGPYbKv/4d0zIInGYMAqCiQZsIpCJQbMKABCumvvG21CDgAAAABJRU5ErkJggg==",
+      "storage": "embedded",
+      "size": 88,
+      "mime": "image/png"
+    },
+    "moss": {
+      "type": "image",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAICAIAAABLbSncAAAAHUlEQVR4nGP48O5ZcnsgEKExGLCKQiWwamIYSKMAonNu/k2xJlsAAAAASUVORK5CYII=",
+      "storage": "embedded",
+      "size": 86,
+      "mime": "image/png"
+    }
+  },
+  "data": {
+    "models": {
+      "Track": {
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "titleChars": {
+            "type": "number"
+          },
+          "duration": {
+            "type": "number"
+          },
+          "cover": {
+            "type": "asset-ref",
+            "assetType": "image"
+          },
+          "clip": {
+            "type": "string"
+          }
+        }
+      },
+      "Playlist": {
+        "properties": {
+          "tracks": {
+            "type": "list",
+            "of": "Track"
+          },
+          "count": {
+            "type": "number",
+            "value": "$tracks.length"
+          },
+          "selected": {
+            "type": "string"
+          }
+        },
+        "global": true
+      }
+    },
+    "instances": {
+      "board": {
+        "model": "Playlist",
+        "default": true,
+        "values": {
+          "tracks": ["dawn", "tide", "ember"]
+        }
+      },
+      "dawn": {
+        "model": "Track",
+        "values": {
+          "id": "dawn",
+          "title": "Dawn",
+          "titleChars": 4,
+          "duration": 90,
+          "cover": "dawn",
+          "clip": "dawn"
+        }
+      },
+      "tide": {
+        "model": "Track",
+        "values": {
+          "id": "tide",
+          "title": "Tide",
+          "titleChars": 4,
+          "duration": 150,
+          "cover": "tide",
+          "clip": "tide"
+        }
+      },
+      "ember": {
+        "model": "Track",
+        "values": {
+          "id": "ember",
+          "title": "Ember",
+          "titleChars": 5,
+          "duration": 60,
+          "cover": "ember",
+          "clip": "ember"
+        }
+      },
+      "moss": {
+        "model": "Track",
+        "values": {
+          "id": "moss",
+          "title": "Moss",
+          "titleChars": 4,
+          "duration": 120,
+          "cover": "moss",
+          "clip": "moss"
+        }
+      }
+    }
+  }
+}
