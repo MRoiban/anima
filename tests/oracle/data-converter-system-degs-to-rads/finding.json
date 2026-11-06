@@ -1,0 +1,19 @@
+{
+  "status": "finding",
+  "reason": "Native observation 3.14159274; independently specified Anima expectation 3.141592653589793. Native data-dump float32 precision differs from Anima binary64; no tolerance or numeric output is adjusted.",
+  "case": {
+    "name": "data-converter-system-degs-to-rads",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  "observed": {
+    "anima": 3.141592653589793,
+    "native": 3.14159274
+  }
+}

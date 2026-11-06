@@ -1,0 +1,21 @@
+Unchanged tools/perf.ts/workloads; CPU affinity 0; baseline 99940e9 vs integration working tree.
+baseline-1 exit 0
+compile: bell 8.08 ms; all 9040 prefixes 1789 ms
+frame: bell 94.7 µs; composite 71.9 µs
+frame: toolbar 88.1 µs (step + draw, 4 instances)
+compile: toolbar 15.37 ms
+convert-1 exit 0
+compile: bell 7.69 ms; all 9040 prefixes 2009 ms
+frame: bell 97.2 µs; composite 58.1 µs
+frame: toolbar 67.9 µs (step + draw, 4 instances)
+compile: toolbar 9.66 ms
+convert-2 exit 0
+compile: bell 7.51 ms; all 9040 prefixes 1760 ms
+frame: bell 108.0 µs; composite 71.4 µs
+frame: toolbar 78.0 µs (step + draw, 4 instances)
+compile: toolbar 10.49 ms
+baseline-2 exit 0
+compile: bell 6.66 ms; all 9040 prefixes 1363 ms
+frame: bell 49.0 µs; composite 27.3 µs
+frame: toolbar 33.1 µs (step + draw, 4 instances)
+compile: toolbar 4.08 ms

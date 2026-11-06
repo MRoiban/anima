@@ -1,0 +1,3 @@
+Local schema query: ~/.rive/bin/rive schema DataConverterFormula --all --json
+Properties: randomModeValue, order, name, parentId, groupId, displayOrder, tagIds
+randomModeValue accepts once, always, sourceChange. No numeric seed field is exposed.

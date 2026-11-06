@@ -47,6 +47,7 @@ export interface Context {
   direction: 'forward' | 'reverse';
   get(path: string): unknown;
   state: Map<unknown, unknown>;
+  key?: string;
 }
 export type Converter = (value: unknown, options: Record<string, unknown>, ctx: Context) => unknown;
 export interface Ref {

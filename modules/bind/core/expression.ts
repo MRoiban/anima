@@ -1,9 +1,13 @@
 // A small, independently implemented expression grammar. No eval or dynamic code generation.
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import { lerpColor, parseHex } from '../../../packages/core/src/color.ts';
 import type { Value } from '../../../packages/core/src/load.ts';
 
 export type BindType = 'number' | 'bool' | 'color' | 'string';
-export const functions = new Map<string, { arity: number; run: (...args: number[]) => number }>();
+export const functions = new Map<
+  string,
+  { arity: number; run: ((...args: number[]) => number) & { enabled?: () => boolean } }
+>();
 export function registerFunction(
   name: string,
   arity: number,
@@ -36,8 +40,12 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
     depth = 0,
     count = 0;
   const inputs = new Set<string>();
-  const fail = (code = 'bind-syntax', message = 'expected an expression', where = at): never => {
-    throw new BindError(code, where, message);
+  const fail = (
+    code = 'bind-syntax',
+    message: string | false = V && 'expected an expression',
+    where = at,
+  ): never => {
+    throw new BindError(code, where, message || '');
   };
   const next = () => {
     while (/\s/.test(source[pos] ?? '') && pos < source.length) pos++;
@@ -47,12 +55,12 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
         source.slice(pos),
       );
     token = match?.[0] ?? '';
-    if (token && ++count > 512) fail('bind-syntax', 'expression exceeds 512 tokens');
-    if (!token && pos < source.length) fail('bind-syntax', 'unexpected character');
+    if (token && ++count > 512) fail('bind-syntax', V && 'expression exceeds 512 tokens');
+    if (!token && pos < source.length) fail('bind-syntax', V && 'unexpected character');
     pos += token.length;
   };
   const take = (s: string) => {
-    if (token !== s) fail('bind-syntax', `expected ${s}`);
+    if (token !== s) fail('bind-syntax', V && `expected ${s}`);
     next();
   };
   const node = (type: BindType, at: number, evaluate: Expression['evaluate']): Expression => ({
@@ -63,11 +71,11 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
   });
   const numeric = (e: Expression) => {
     if (e.type !== 'number' && e.type !== 'bool')
-      fail('bind-type', 'expected a number or bool', e.at);
+      fail('bind-type', V && 'expected a number or bool', e.at);
   };
   const number = (e: Expression, scope: InputScope) => Number(evaluate(e, scope));
   const parse = (minimum = 0): Expression => {
-    if (++depth > 64) fail('bind-syntax', 'expression nesting exceeds 64');
+    if (++depth > 64) fail('bind-syntax', V && 'expression nesting exceeds 64');
     const start = at,
       word = token;
     next();
@@ -81,11 +89,11 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
       left = node('number', start, (s) => (word === '-' ? -1 : 1) * number(e, s));
     } else if (/^\d/.test(word)) {
       const value = Number(word);
-      if (!Number.isFinite(value)) fail('bind-syntax', 'number must be finite', start);
+      if (!Number.isFinite(value)) fail('bind-syntax', V && 'number must be finite', start);
       left = node('number', start, () => value);
     } else if (word.startsWith('#')) {
       const value = parseHex(word);
-      if (!value) fail('bind-syntax', 'expected #rgb, #rrggbb or #rrggbbaa', start);
+      if (!value) fail('bind-syntax', V && 'expected #rgb, #rrggbb or #rrggbbaa', start);
       left = node('color', start, () => value!);
     } else if (word.startsWith('"')) {
       const value = JSON.parse(word) as string;
@@ -93,8 +101,9 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
     } else if (/^[a-z$]/.test(word)) {
       if (token === '(') {
         const fn = functions.get(word);
+        if (fn?.run.enabled?.() === false) fail();
         if (!['min', 'max', 'clamp', 'mix', 'floor', 'mod'].includes(word) && !fn)
-          fail('bind-syntax', 'unknown function', start);
+          fail('bind-syntax', V && 'unknown function', start);
         next();
         const args = (token as string) === ')' ? [] : [parse()];
         while ((token as string) === ',') {
@@ -106,7 +115,7 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
           args.length !==
           (fn?.arity ?? (word === 'floor' ? 1 : ['min', 'max', 'mod'].includes(word) ? 2 : 3))
         )
-          fail('bind-syntax', 'wrong argument count', start);
+          fail('bind-syntax', V && 'wrong argument count', start);
         const [a, b, c] = args as [Expression, Expression, Expression];
         const color = word === 'mix' && a.type === 'color' && b.type === 'color';
         if (color) numeric(c);
@@ -133,13 +142,13 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
         });
       } else {
         const type = types.get(word);
-        if (!type) fail('unknown-input', `unknown input ${word}`, start);
+        if (!type) fail('unknown-input', V && `unknown input ${word}`, start);
         if (!['number', 'bool', 'color', 'string'].includes(type!))
-          fail('bind-type', 'triggers are not binding values', start);
+          fail('bind-type', V && 'triggers are not binding values', start);
         inputs.add(word);
         left = node(type as BindType, start, (s) => s.get(word)!);
       }
-    } else fail('bind-syntax', 'expected a value', start);
+    } else fail('bind-syntax', V && 'expected a value', start);
     while (true) {
       const op = token,
         precedence = op === '+' || op === '-' ? 1 : op === '*' || op === '/' ? 2 : 0;
@@ -160,7 +169,7 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
   };
   next();
   const result = parse();
-  if (token) fail('bind-syntax', 'unexpected token');
+  if (token) fail('bind-syntax', V && 'unexpected token');
   return result;
 }
 

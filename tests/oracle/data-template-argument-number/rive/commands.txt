@@ -1,0 +1,3 @@
+advance 0
+data-dump tests/oracle/data-template-argument-number/rive/raw.json
+quit

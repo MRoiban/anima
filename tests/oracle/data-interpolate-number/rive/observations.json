@@ -1,0 +1,44 @@
+[
+  {
+    "click": 0,
+    "values": {
+      "dot.properties.result": 0
+    },
+    "events": []
+  },
+  {
+    "click": 1,
+    "values": {
+      "dot.properties.result": 10
+    },
+    "events": []
+  },
+  {
+    "click": 2,
+    "values": {
+      "dot.properties.result": 10
+    },
+    "events": []
+  },
+  {
+    "click": 3,
+    "values": {
+      "dot.properties.result": 10
+    },
+    "events": []
+  },
+  {
+    "click": 4,
+    "values": {
+      "dot.properties.result": 15
+    },
+    "events": []
+  },
+  {
+    "click": 5,
+    "values": {
+      "dot.properties.result": 20
+    },
+    "events": []
+  }
+]

@@ -1,4 +1,4 @@
 {
   "status": "todo",
-  "reason": "A script VM and forward/reverse scripting contract are not available; this also overlaps the parallel converter task."
+  "reason": "Scripted forward/reverse converter execution requires the P9 script VM/protocol; no VM exists in the decided P4e design."
 }

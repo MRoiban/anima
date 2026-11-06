@@ -1,0 +1,9 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[10:26:20.275] rive  deferred replay: inline
+[10:26:20.290] rive  built (270 bytes, 15ms, 0 errors, 0 warnings)
+[10:26:20.293] rive  showing Probe [1/1]
+[10:26:20.293] rive  viewport 20x20 @1x
+ok advance
+[10:26:20.293] rive  wrote tests/oracle/convert-model-operand/rive/raw.json
+ok data-dump: tests/oracle/convert-model-operand/rive/raw.json
+ok quit

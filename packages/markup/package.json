@@ -20,6 +20,7 @@
     "./modules": "./src/modules.ts",
     "./contour": "./src/contour.ts",
     "./data": "./src/data.ts",
+    "./convert": "./src/convert.ts",
     "./mix": "./src/mix.ts"
   },
   "files": [

@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "artboard": "Probe",
+  "stateMachine": "run",
+  "viewModel": {
+    "name": "main",
+    "viewModel": "Root",
+    "properties": [
+      {
+        "name": "value",
+        "path": "value",
+        "type": "string",
+        "value": "7",
+        "changed": false
+      },
+      {
+        "name": "result",
+        "path": "result",
+        "type": "string",
+        "value": "007",
+        "changed": true
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}

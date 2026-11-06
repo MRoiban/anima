@@ -295,7 +295,11 @@ export const dataMarkup = {
                   .filter(([k]) => k !== 'type')
                   .map(([k, v]) => [
                     k === 'assetType' ? 'type' : k,
-                    k === 'values' ? (v as string[]).join(' ') : v,
+                    k === 'values'
+                      ? (v as string[]).join(' ')
+                      : k === 'default' && typeof v === 'string'
+                        ? JSON.stringify(v)
+                        : v,
                   ]),
               ),
               [['name', key]],
@@ -310,7 +314,7 @@ export const dataMarkup = {
           [['name', name]],
         );
         el.children = Object.entries((def.values ?? {}) as Obj).map(([path, value]) =>
-          entry('set', { path, value }),
+          entry('set', { path, value: typeof value === 'string' ? JSON.stringify(value) : value }),
         );
         return el;
       }),

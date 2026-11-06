@@ -1,0 +1,19 @@
+{
+  "status": "finding",
+  "reason": "Native observation 0; independently specified Anima expectation 1. Native enum input is happy/index 1, while the numeric bridge remains 0 with changed=false; authorable native enum converter supplies no observed value in this build.",
+  "case": {
+    "name": "data-converter-enum-to-uint",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  "observed": {
+    "anima": 1,
+    "native": 0
+  }
+}

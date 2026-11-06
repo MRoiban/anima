@@ -1,0 +1,19 @@
+{
+  "status": "finding",
+  "reason": "Native observation '1'; independently specified Anima expectation 'true'. Native boolean-to-string uses a numeric spelling; Anima specifies ECMAScript String. Parent decision remains open.",
+  "case": {
+    "name": "data-converter-to-string",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  "observed": {
+    "anima": "true",
+    "native": "1"
+  }
+}

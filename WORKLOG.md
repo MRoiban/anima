@@ -3,7 +3,7 @@
 ## Now
 Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
 State: p4e-data has data core (60/73 rows) and paint findings (10/18 strict, 8 rasterisation findings) merged. data 8181/8192, bind 2046/2048.
-Running: P4e-2 convert integration (Sol). host merged (3878/4096 B).
+Merged: data, paint, host (3878/4096), convert (6161/8192). Full-featured 91.4/100 KB.
 Next: merge those; benchmark (scoreboard, both sides); quiet-machine perf vs main (prefix sweep); parity bookkeeping; LOG/PLAN; PR.
 Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests.
 
@@ -152,3 +152,20 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-06 10:32 [sol-host]: native capture retries (missing frames directory, wrong cwd) resolved with project-local commands; generated canvas metrics initially failed formatting → raw outputs preserved in /tmp/host-canvas-artifacts, ignored outputs cleaned; no Rive binary/scaffold docs retained.
 - 2026-11-06 10:32 [sol-host]: P4e-3 host implementation + evidence + handoff complete within ownership → final host 30 pass/1 retained docs failure; broad 4201 pass/6 fail/45 TODO (docs, 4 canvas asset-load, 1 machine timeout; exact machine rerun passes); size 3879/4096, core+web 20021, full 85387; strict oracle/typecheck/eslint/prettier/modules/build checks pass; perf bell 2.44 ms / 44.6 µs (evidence: requested commands; modules/host/REPORT.md). Shared diagnostic table and shared docs/spec remain unmet; no push/PR.
 - 2026-11-06 [claude]: merged P4e-3 host (3878/4096 B; core+web unchanged 20055; full 86.5 KB) + shared edits: spec `## host` chapter, AUTHORING page-data section → host scope 31/31 pass incl. browsers, oracle strict 0. Pending: data diagnostic-code table export (after convert); AUTHORING lacks an AniML data section (needed for benchmark)
+
+- 2026-11-06 06:43 [sol]: converter registry, temporal/math tables, AniML round trips and 35 Rive data-dump comparisons → 153 tests pass; first markup budget regression guarded, remeasure passes (evidence: /tmp/convert-tests.log, /tmp/convert-size2.log).
+- 2026-11-06 06:49 [sol]: final scoped convert+bind+conformance+oracle → 1870 pass / 132 TODO; 35 direct Rive observations match; typecheck green; convert 5692/8192 B, markup-convert 1049/2048 B, core+web unchanged 19831 B (evidence: scoped log, tools/size.ts).
+- 2026-11-06 06:49 [sol]: parallel lint/size verification raced tools/.size-entry.ts deletion → ESLint ENOENT; sequential rerun required (evidence: /tmp/convert-eslint-verified.log).
+- 2026-11-06 06:50 [sol]: sequential eslint + modules/parity checks → green (evidence: exit 0; 1238 capabilities, views current); lint race resolved.
+- 2026-11-06 06:50 [sol]: final format/type/scoped/size/generated artifact checks → green; 21 browser entries current, 311 AniML files checked with pending probes skipped; integration handoff ready (evidence: requested verification commands, 1870 pass / 132 TODO).
+
+- 2026-11-06 08:26 [codex]: merged convert foundation; kept both docs/list sides, regenerated wiring/schema/parity/AniML/web; npm ci installed missing tools → merge integration checkpoint (unverified tests).
+
+- 2026-11-06 08:58 [codex]: integrated named/group dispatch, active bind math parser/functions, live data options, ctx.state interpolation, player RNG and standalone markup hook → unit/browser checkpoints pass; shared-state compatibility failure fixed, recheck running (evidence: /tmp/convert-seam-tests2.log; six native findings retained).
+
+- 2026-11-06 09:25 [codex]: final budgets pass (convert 6165, data 8046, bind 1901, core+web 20021, full 86797 B); 3024 scoped tests pass with one worker → rechecking after restoring baseline operand evidence and adding isolated convert-model-operand (evidence: verification/size.txt, baseline-oracles.json; all 159 completed baseline oracle trees unchanged).
+
+- 2026-11-06 09:27 [codex]: development failures: numeric-string/args round trips and independent reader fixed; native units/key/format-width probe mistakes corrected; first combined scope hit five Firefox timeouts → unchanged limits pass with VITEST_MAX_WORKERS=1. Byte overages bind 2065/data 8212 fixed by existing VERBOSE diagnostic folding (now 1901/8046).
+
+- 2026-11-06 09:35 [codex]: final checkpoint → 3031 scope pass/49 TODO; oracle strict 212 cases/406 samples, all 159 baseline oracle trees unchanged; static/artifact/size checks pass; report retains 4 pending rows, 6 findings, markup +19 B and unverified noisy performance (evidence: 789538f, modules/convert/verification/).
+- 2026-11-06 [claude]: merged P4e-2 convert (52 native rows, 6 findings, 4 pending) → broad scope 5487 pass/43 todo incl. browsers, oracle strict 0, size 0: bind 1858, data 8046, convert 6161, core+web 20055, full 91422 B (9 KB under 100 KB ceiling — flag to owner)

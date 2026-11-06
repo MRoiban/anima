@@ -1,0 +1,21 @@
+Unchanged tools/perf.ts/workloads; CPU affinity 0; baseline 99940e9 vs integration. Scoped/browser/size jobs finished; a concurrent artifact-check job overlapped these readings. External machine load uncontrolled; not a quiet comparison.
+baseline-1 exit 0
+compile: bell 2.98 ms; all 9040 prefixes 778 ms
+frame: bell 71.7 µs; composite 55.9 µs
+frame: toolbar 78.6 µs (step + draw, 4 instances)
+compile: toolbar 13.21 ms
+convert-1 exit 0
+compile: bell 9.05 ms; all 9040 prefixes 1833 ms
+frame: bell 64.1 µs; composite 54.7 µs
+frame: toolbar 51.0 µs (step + draw, 4 instances)
+compile: toolbar 11.43 ms
+convert-2 exit 0
+compile: bell 8.29 ms; all 9040 prefixes 2007 ms
+frame: bell 85.6 µs; composite 46.2 µs
+frame: toolbar 62.4 µs (step + draw, 4 instances)
+compile: toolbar 7.50 ms
+baseline-2 exit 0
+compile: bell 3.51 ms; all 9040 prefixes 1061 ms
+frame: bell 48.0 µs; composite 29.3 µs
+frame: toolbar 51.7 µs (step + draw, 4 instances)
+compile: toolbar 8.74 ms

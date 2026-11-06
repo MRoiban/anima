@@ -206,6 +206,338 @@
     ]
   },
   {
+    "name": "data-interpolate-number",
+    "status": "finding",
+    "reason": "Native initializes lazily on the first non-default change, returning the changed value immediately; Anima initializes eagerly on first evaluation. Native trace [0, 10, 10, 10, 15, 20]. Independently specified Anima trace [0, 0, 5, 5, 12.5, 20]. Parent decision remains open; numeric/channel differences are retained.",
+    "frames": [
+      {
+        "time": 0.15,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.result": 0
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.result": 5
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.result": 5
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.result": 12.5
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.result": 20
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.result": 10
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.result": 10
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.result": 10
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.result": 15
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.result": 20
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "data-interpolate-color",
+    "status": "finding",
+    "reason": "Native initializes lazily on the first non-default change, returning the changed value immediately; Anima initializes eagerly on first evaluation. Native trace ['#000000', '#ffffff', '#ffffff', '#ffffff', '#7f7f7f', '#000000']. Independently specified Anima trace ['#000000', '#000000', '#808080', '#808080', '#404040', '#000000']. Parent decision remains open; numeric/channel differences are retained.",
+    "frames": [
+      {
+        "time": 0.15,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": "#000000"
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.result": "#000000"
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.result": "#808080"
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.result": "#808080"
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.result": "#404040"
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.result": "#000000"
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": "#000000"
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.result": "#ffffff"
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.result": "#ffffff"
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.result": "#ffffff"
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.result": "#7f7f7f"
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.result": "#000000"
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "data-converter-to-string",
+    "status": "finding",
+    "reason": "Native observation '1'; independently specified Anima expectation 'true'. Native boolean-to-string uses a numeric spelling; Anima specifies ECMAScript String. Parent decision remains open.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": "true"
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": "1"
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "data-converter-system-degs-to-rads",
+    "status": "finding",
+    "reason": "Native observation 3.14159274; independently specified Anima expectation 3.141592653589793. Native data-dump float32 precision differs from Anima binary64; no tolerance or numeric output is adjusted.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": 3.141592653589793
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": 3.14159274
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "data-converter-rounder",
+    "status": "finding",
+    "reason": "Native observation 2.3499999; independently specified Anima expectation 2.35. Native data-dump float32 precision differs from Anima binary64; no tolerance or numeric output is adjusted.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": 2.35
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": 2.3499999
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "data-converter-enum-to-uint",
+    "status": "finding",
+    "reason": "Native observation 0; independently specified Anima expectation 1. Native enum input is happy/index 1, while the numeric bridge remains 0 with changed=false; authorable native enum converter supplies no observed value in this build.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": 1
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": 0
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
     "name": "bind-condition-modulo/immediate-probe",
     "reason": "Immediate post-click observation differs: Anima emits at clicks 5/10/15/20/25; Rive at 6/11/16/21 with observed payloads 6/11/16/21 (5 versus 4 events, one-click lag). An extra native advance 1 settles each click and the separate completed case then matches. No elapsed-frame equivalence claimed.",
     "frames": [

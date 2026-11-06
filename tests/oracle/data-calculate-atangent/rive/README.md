@@ -1,0 +1,1 @@
+Self-authored native observation bridge; capture from the repository root with `~/.rive/bin/rive tests/oracle/data-calculate-atangent/rive --commands=tests/oracle/data-calculate-atangent/rive/commands.txt`. raw.json is unedited native output; observations.json maps result to dot.properties.result. No Anima values are used to create the reference.

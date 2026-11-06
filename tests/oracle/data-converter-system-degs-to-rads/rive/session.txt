@@ -1,0 +1,9 @@
+ok advance
+ok data-dump: tests/oracle/data-converter-system-degs-to-rads/rive/raw.json
+ok quit
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[09:48:04.256] rive  deferred replay: inline
+[09:48:04.259] rive  built (248 bytes, 3ms, 0 errors, 0 warnings)
+[09:48:04.259] rive  showing Probe [1/1]
+[09:48:04.259] rive  viewport 20x20 @1x
+[09:48:04.259] rive  wrote tests/oracle/data-converter-system-degs-to-rads/rive/raw.json

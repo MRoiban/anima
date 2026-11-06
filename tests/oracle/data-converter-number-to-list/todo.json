@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "Pure bounded index/repeated-item lists are implemented; retained default model-instance creation and identity are not. Data exposes no list-write or instance-creation hook, and making this converter retain instance state conflicts with the design\u2019s only-interpolate-is-stateful rule. Needs a design/seam decision."
+}

@@ -5,6 +5,7 @@ import './canvas.ts';
 import './components.ts';
 import './composite.ts';
 import './contour.ts';
+import './convert.ts';
 import './data.ts';
 import './events.ts';
 import './focus.ts';

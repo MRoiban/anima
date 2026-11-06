@@ -25,6 +25,7 @@ import {
   motionCompiler,
   eventsCompiler,
   dataCompiler,
+  convertCompiler,
 } from './module-hooks.ts';
 import { elementFields, compoundField } from './fields.ts';
 import { componentMarkup } from './components.ts';
@@ -259,7 +260,8 @@ export class Compiler {
     }
     const form = motionCompiler.form?.(el, base ?? { attrs: {} }) ?? base;
     const extended = eventsCompiler.form?.(el, form ?? { attrs: {} }) ?? form;
-    return dataCompiler.form?.(el, extended ?? { attrs: {} }) ?? extended;
+    const converted = convertCompiler.form?.(el, extended ?? { attrs: {} }) ?? extended;
+    return dataCompiler.form?.(el, converted ?? { attrs: {} }) ?? converted;
   }
   private kind(s: Shape): Kind {
     if (s.k === 'obj' || s.k === 'map' || s.k === 'any' || s.k === 'alt') return 'json';
@@ -710,6 +712,7 @@ export class Compiler {
   private rootChild(c: Element, o: Json, p: string): void {
     const name = c.attrs.find((a) => a.name === 'name');
     if (
+      convertCompiler.rootChild?.(this, c, o, p) ||
       dataCompiler.rootChild?.(this, c, o, p) ||
       eventsCompiler.rootChild?.(this, c, o, p) ||
       bindCompiler.rootChild?.(this, c, o, p) ||
