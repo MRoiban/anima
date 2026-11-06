@@ -1,0 +1,9 @@
+advance 0.35
+snapshot
+set syncing false
+advance 0.049
+snapshot
+advance 0.001
+snapshot
+advance 1
+snapshot

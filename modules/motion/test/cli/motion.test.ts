@@ -40,3 +40,32 @@ it('samples explicit instance controls using the conformance command language', 
     JSON.parse(readFileSync(new URL(folder + 'expected.jsonl', root), 'utf8')),
   );
 });
+it('serves every module spec chapter as a listed docs topic', async () => {
+  const spec = readFileSync(new URL('spec/SPEC.md', root), 'utf8');
+  const names = [...spec.matchAll(/^## ([a-z]+)$/gm)].map((m) => m[1]!);
+  const topics = JSON.parse((await cli('docs', '--list', '--format=json')).out);
+  for (const name of names) {
+    expect(topics).toContain(name);
+    const r = await cli('docs', name);
+    expect(r.code).toBe(0);
+    expect(r.out.startsWith('## ' + name + '\n')).toBe(true);
+    expect((r.out.match(/^## /gm) ?? []).length).toBe(1);
+  }
+  expect((await cli('schema', 'state')).out).toContain('time');
+  expect((await cli('schema', 'transition')).out).toContain('exitNext');
+});
+it('reproduces all committed sync acceptance samples with the CLI', async () => {
+  for (const name of ['rest', 'spin', 'sweep', 'stop', 'hover', 'phase', 'reduced']) {
+    const base = new URL('modules/motion/examples/', root);
+    const r = await cli(
+      'sample',
+      new URL('sync.ani', base).pathname,
+      '--script',
+      new URL('scripts/' + name + '.txt', base).pathname,
+    );
+    expect(r.code, r.err).toBe(0);
+    expect(r.out.trim()).toBe(
+      readFileSync(new URL('evidence/' + name + '.jsonl', base), 'utf8').trim(),
+    );
+  }
+});

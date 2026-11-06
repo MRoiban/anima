@@ -219,7 +219,12 @@ export function decompile(doc: string | object): string {
       const el = element('layer', l, ['initial'], [['name', name]]);
       for (const [name, v] of entries(l.states)) {
         const s = obj(v);
-        const state = element('state', s, ['play', 'speed', 'emit'], [['name', name]]);
+        const state = element(
+          'state',
+          s,
+          ['play', 'speed', 'emit', 'hold', 'time'],
+          [['name', name]],
+        );
         if (s.pose !== undefined)
           state.children.push(
             element(
@@ -242,6 +247,8 @@ export function decompile(doc: string | object): string {
               'interruptible',
               'exit',
               'exitFraction',
+              'sync',
+              'exitNext',
             ]),
           ),
         );

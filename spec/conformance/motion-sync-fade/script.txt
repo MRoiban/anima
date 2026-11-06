@@ -1,0 +1,18 @@
+advance 0
+set hover true
+advance 0
+advance 0.75
+snapshot
+set hover false
+advance 0
+advance 0.125
+snapshot
+set hover true
+advance 0
+snapshot
+advance 0.125
+snapshot
+advance 0.125
+snapshot
+advance 0.125
+snapshot

@@ -1280,3 +1280,63 @@ Compared with the initial 2.21 ms / 794 ms, 52.9 / 30.8 / 39.0 µs and 4.62 ms,
 the single bell-compile median varied upward in the final run while the fixed prefix sweep
 and frame timings remained below the initial observations. The earlier after sample is retained
 above to show the timing variability. The original performance test limits are unchanged.
+
+## P4b-3 — Declarative timeline control (2026-11-06 01:05 UTC)
+
+Implemented the three sync-button gaps behind motion: transition `sync`, transition `exitNext`
+(`step`/`loop`), state `hold`, and bind-backed state `time` expressions. Normative semantics are
+in SPEC's motion / Declarative timeline control; both syntaxes, schema, decompile/fmt and
+CLI samples use the existing player. State time/fades stay in core; selected clocks and armed
+boundaries stay in motion, expression compilation in bind. No runtime dependency added.
+Input-controlled states accept a synced capture until their evaluated expression changes,
+so a completed rotation holds without snapping to stale phase. Decimal boundary equality
+samples the exact boundary, and transition priority chooses the source event cutoff.
+
+Added ten hand-computed conformance cases: reverse, interruptible fade, boundary hold,
+stop cancellation, decimal boundary, competing-gate priority, reverse work-loop boundary,
+input scrub, synced input handoff and reduced motion. Existing conformance cases are unchanged.
+New diagnostic, round-trip, CLI docs/sample, named-machine isolation and Chromium/Firefox tests
+cover the controls. `anima docs <module>` serves every module chapter and lists it in `--list`.
+AUTHORING has Timeline control; the new sync example's 64 lines / 2,931 characters replace the
+benchmark's 144-line / 5,485-character behaviour attempt without modifying that record.
+
+Acceptance: `python modules/motion/examples/verify.py` → 6/6 items, 7 committed scripts,
+66 snapshots. Independent scalar assertions verify ticks/wrap, finish-current-step + held
+angle + elastic overshoot, same-timeline hover reversal and turnaround, phase scrub, reduced
+still/instant completion and rest geometry/visibility. Evidence lives beside the example.
+The CLI test replays every committed sample. No host timeline operations in the scripts.
+
+Verification: scoped motion/bind/conformance 728/728; standalone `npx prettier --check .`
+and `npx eslint .` passed. First full attempt stopped at an unused parameter type error
+(fixed). Default full run: 1,378 pass, 2 pre-existing browser test timeouts (demo 15 s,
+Firefox late registration 5 s), 15 existing oracle TODOs. Complete retry with
+`VITEST_MAX_WORKERS=2 npm run check`: 83 files, 1,380 pass, 15 existing oracle TODOs,
+including both browsers, all oracle comparisons, generated artifacts, original size budgets
+and perf method. No test limit, timeout, budget, assertion tolerance or measuring tool was
+relaxed; only worker scheduling changed after the default run failed. Load average was 13.38
+at the failure checkpoint; contention is plausible, not established. Full logs:
+`/tmp/motion-p4b3-final-check.log`, `/tmp/motion-p4b3-bounded-check.log`.
+
+Final measured lines (unchanged tools; timings are machine-dependent):
+
+```text
+core+web: 18376 B min+gzip (ceiling 30720 B)
+bind: 1676 B min+gzip incremental (budget 2048 B)
+motion: 6026 B min+gzip incremental (budget 8192 B)
+full-featured total: 51149 B min+gzip (ceiling 102400 B)
+compile: bell 2.43 ms; all 9040 prefixes 854 ms
+frame: bell 48.0 µs; composite 25.6 µs
+frame: toolbar 29.4 µs (step + draw, 4 instances)
+compile: toolbar 4.46 ms
+```
+
+Previous P4b-1 core+web: 18,290 B; motion: 4,982 / 8,192 B. Previous full-check perf:
+bell compile 2.64 ms, 9,040 prefixes 680 ms, frame bell 36.7 µs / composite 23.5 µs /
+toolbar 24.8 µs, toolbar compile 3.16 ms. These are separate observations, not a speed claim.
+
+Deviations: used the existing implementation worktree branch at p4b-motion HEAD. The required
+capability dry-run/run for `animation.reverse` predicted/created redundant existing-row parity
+mappings and two pending markers; all five generated changes were immediately reverted.
+No final oracle, parity or benchmark-record changes. No new oracle parity claim: another
+agent owns those captures, and P4b remains incomplete. No Rive commands/source/docs copying,
+binary reads, pushes, PRs or merges. Final changes are committed locally only.

@@ -58,6 +58,8 @@ function recover(root: Element): Obj {
         'speed',
         'blend',
         'interruptible',
+        'hold',
+        'sync',
         'at',
         'hitPadding',
       ].includes(k)

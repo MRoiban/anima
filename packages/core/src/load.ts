@@ -128,8 +128,22 @@ export interface PlaybackPolicy {
     layer: string,
     events: import('./player.ts').AnimaEvent[],
   ): number;
-  local(timeline: TimelineM, elapsed: number, speed: number): number;
-  duration(timeline: TimelineM, speed: number): number;
+  enter(
+    run: object,
+    from: StateM | undefined,
+    to: StateM,
+    transition: TransitionM | undefined,
+    carry: number,
+  ): void;
+  prepare(
+    run: object,
+    state: StateM,
+    dt: number,
+    eligible: (transition: TransitionM) => boolean,
+  ): void;
+  rest(run: object, state: StateM): boolean;
+  local(timeline: TimelineM, elapsed: number, speed: number, run: object): number;
+  duration(timeline: TimelineM, speed: number, run: object): number;
   events(
     timeline: TimelineM,
     a: number,
@@ -138,13 +152,16 @@ export interface PlaybackPolicy {
     layer: string,
     out: import('./player.ts').AnimaEvent[],
     speed: number,
+    run: object,
   ): void;
-  gate(transition: TransitionM, state: StateM, elapsed: number): boolean;
-  carry(transition: TransitionM, state: StateM, elapsed: number): number | undefined;
+  gate(transition: TransitionM, state: StateM, elapsed: number, run: object): boolean;
+  carry(transition: TransitionM, state: StateM, elapsed: number, run: object): number | undefined;
   pivot(player: import('./player.ts').Player, node: number): [number, number];
   compose(dt: number, values: Value[], events: import('./player.ts').AnimaEvent[]): boolean;
 }
 export interface Model {
+  /** Optional bind-module expressions controlling motion state clocks. */
+  timeBindings?: Map<StateM, (scope: ReadonlyMap<string, number | boolean>) => number>;
   playback?: (player: import('./player.ts').Player) => PlaybackPolicy;
   nesting?: (player: import('./player.ts').Player) => import('./player.ts').PlayerExtension;
   /** Optional post-state bindings; evaluators receive the current named inputs. */

@@ -216,6 +216,9 @@ and an oracle test against Rive.
   - [x] Local implementation behind `requires="motion"`; both syntaxes, CLI/schema and host APIs.
   - [x] 27 new conformance cases; existing 41 unchanged; Chromium + Firefox host coverage.
   - [x] Seven native frame probes / 25 frames, max delta 1 with unchanged comparison method.
+  - [x] P4b-3 declarative clock handoff/reversal, aligned step/loop exits, held/input-driven
+        clocks; ten conformance cases; `anima docs <module>` chapters; sync example 6/6 via
+        seven sample scripts / 66 snapshots. Full verification and measurements: LOG P4b-3.
   - [ ] Fifteen native API/consumer/origin observations remain pending; reasons in parity rows.
         No phase-completion claim. Local size/perf and final verification: LOG P4b.
 - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;

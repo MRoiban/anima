@@ -1,11 +1,11 @@
 # Work log
 
 ## Now
-Goal: P5 components/assets on branch p5-components (design/p5/DESIGN.md), then Pc canvas, P4b–e, P3b, P6–P10.
-State: main e0957cb = through P4a (PR #10 merged). Parity 173/1238. core+web 16901, compile ~2–3 ms bell.
-Next: P5-7 (markup owner) running → then D1 module folders + D2 scoped tests (parallel) → D3 new-capability scaffolder → P5 AniML benchmark run → P5 PR (full check in CI).
-Don't: spawn non-Sol agents or >5 at once; relax browser strictness; touch .riv or Rive account commands.
-Open for owner (only when publishing): npm scope/package names, licence. Name stays Anima, .ani/.animl.
+Goal: P4b-3 declarative motion controls and sync benchmark proof complete, committed locally.
+Verified: 10 new conformance cases; scope 728/728; sync 6/6 (7 scripts, 66 snapshots).
+Full: 1380 pass + 15 pre-existing oracle TODOs with VITEST_MAX_WORKERS=2; default had 2 browser timeouts.
+Next: parent integrates/reviews local commit; P4b oracle captures and phase closure remain with parent.
+Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -95,3 +95,8 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-06 11:00 [claude]: merged D3 scaffolder (c7e3012): 31 files per row, idempotent; opening P5 PR (full suite in CI)
 - 2026-11-06 18:00 [claude]: merged P4b-1 motion (7685c3f) into p4b-motion: 22 rows implemented, 7 oracle-verified, 15 oracle probes pending; motion 4982/8192, core+web 18290 (+501 hooks); perf improved; benchmark brief P4b (sync button) written
 - 2026-11-06 19:00 [claude]: merged P4b AniML benchmark run (4f5f72b): 4/6 — gaps: declarative reverse-from-current, stop at next quantized step + hold, input-bound timeline clock (scrub took 13 states), no 'anima docs motion' → P4b-3
+- 2026-11-06 00:58 [sol]: read task/baseline; npm ci restored missing tooling. Capability scaffold touched existing parity/oracle probes → immediately reverted its five generated changes; implementing extensions to existing capabilities without new parity mapping (evidence: git status).
+- 2026-11-06 00:58 [sol]: implemented/spec'd sync, exitNext, hold and bind-backed state time; CLI module chapters; sync proof 6/6 across 66 snapshots. Added ten hand-computed conformance cases including decimal boundary and transition priority; browser integration and diagnostics tests (evidence: modules/motion/examples/verify.py; final checks pending).
+- 2026-11-06 00:58 [sol]: final scoped run 728/728 green; standalone prettier/eslint green. First full check stopped at unused dt typecheck error after priority refactor → removed unused parameter name; restarting required full verification (evidence: /tmp/motion-p4b3-full-check.log).
+- 2026-11-06 01:01 [sol]: default full check reached 1378 passing / 2 browser timeouts / 15 existing oracle TODOs (standalone demo 15 s, Firefox late registration 5 s); load average 13.38. Retrying complete check with existing VITEST_MAX_WORKERS=2 scheduling, preserving all test limits and perf/size methods (evidence: /tmp/motion-p4b3-final-check.log).
+- 2026-11-06 01:05 [sol]: bounded full check green (83 files, 1380 passed, 15 pre-existing oracle TODOs); scoped 728/728; sync 6/6 / 66 snapshots; generated artifacts and size/perf tools pass → local commit ready (evidence: /tmp/motion-p4b3-bounded-check.log; docs/LOG.md P4b-3).

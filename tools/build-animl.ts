@@ -10,7 +10,12 @@ import { compile } from '@anima-format/markup';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const check = process.argv.includes('--check');
 const files = globSync(
-  ['examples/**/*.animl', 'spec/conformance/*/case.animl', 'spec/draw-conformance/*/case.animl'],
+  [
+    'examples/**/*.animl',
+    'modules/*/examples/**/*.animl',
+    'spec/conformance/*/case.animl',
+    'spec/draw-conformance/*/case.animl',
+  ],
   {
     cwd: root,
   },

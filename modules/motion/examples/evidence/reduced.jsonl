@@ -1,0 +1,6 @@
+{"time":0,"values":{"arrows.rotate":0,"check.scale":0,"peek.scale":1},"states":{"hover":"rest","rotation":"spin","completion":"running"},"events":[],"settled":true}
+{"time":0.35,"values":{"arrows.rotate":0,"check.scale":0,"peek.scale":1},"states":{"hover":"rest","rotation":"spin","completion":"running"},"events":[],"settled":true}
+{"time":2.35,"values":{"arrows.rotate":0,"check.scale":0,"peek.scale":1},"states":{"hover":"rest","rotation":"spin","completion":"running"},"events":[],"settled":true}
+{"time":2.35,"values":{"arrows.rotate":0,"check.scale":1,"peek.scale":1},"states":{"hover":"rest","rotation":"idle","completion":"done"},"events":[],"settled":true}
+{"time":2.95,"values":{"arrows.rotate":0,"check.scale":1,"peek.scale":1},"states":{"hover":"rest","rotation":"idle","completion":"done"},"events":[],"settled":true}
+{"time":4.95,"values":{"arrows.rotate":0,"check.scale":1,"peek.scale":1},"states":{"hover":"rest","rotation":"idle","completion":"done"},"events":[],"settled":true}

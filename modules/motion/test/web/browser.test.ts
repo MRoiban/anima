@@ -51,10 +51,10 @@ for (const [name, engine, executablePath] of [
   ],
 ] as const)
   describe.skipIf(!existsSync(executablePath))(`motion host in ${name}`, () => {
-    let browser: Browser, page: Page, base: string, motion: string, markup: string;
+    let browser: Browser, page: Page, base: string, motion: string, markup: string, bind: string;
     beforeAll(async () => {
-      [base, motion, markup] = await Promise.all(
-        ['index', 'motion', 'markup'].map((n) =>
+      [base, motion, markup, bind] = await Promise.all(
+        ['index', 'motion', 'markup', 'bind'].map((n) =>
           bundle(new URL(`packages/web/src/${n}.ts`, root).pathname),
         ),
       );
@@ -223,6 +223,44 @@ for (const [name, engine, executablePath] of [
       expect(r.events).toEqual([{ name: 'middle', layer: 't', time: 1 }]);
       expect(r.states).toContainEqual({ 'accent/l': 's' });
       expect(r.values).toEqual({ 'a.x': 20, 'a.y': 4 });
+    });
+
+    it('compiles declarative clocks in the browser and applies held/scrubbed frames', async () => {
+      await page.addScriptTag({ type: 'module', content: markup });
+      await page.addScriptTag({ type: 'module', content: bind });
+      const source = readFileSync(new URL('modules/motion/examples/sync.animl', root), 'utf8');
+      await page.waitForFunction(() => {
+        const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
+        return !!Icon.compiler && Icon.modules.has('bind');
+      });
+      const r = await page.evaluate((source) => {
+        const i = window.motionIcon;
+        const diagnostics = i.load(source, true);
+        i.pause();
+        const p = i.player!;
+        p.step(0);
+        p.set('syncing', true);
+        p.step(0);
+        p.step(0.35);
+        p.set('syncing', false);
+        p.step(0.1);
+        const held = p.value('arrows.rotate');
+        p.step(2);
+        const later = p.value('arrows.rotate');
+        p.set('phase', 0.5);
+        p.step(0);
+        i.invalidate();
+        return {
+          diagnostics,
+          held,
+          later,
+          scrub: p.value('arrows.rotate'),
+          state: p.states().rotation,
+        };
+      }, source);
+      expect(r).toMatchObject({ diagnostics: [], scrub: 180, state: 'idle' });
+      expect(r.held).toBeCloseTo(120, 12);
+      expect(r.later).toBe(r.held);
     });
 
     it('keeps stale handles detached after a new load', async () => {

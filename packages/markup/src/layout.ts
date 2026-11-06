@@ -1,4 +1,4 @@
-import { TIMELINE, TRANSITION, type ObjShape } from '@anima-format/core';
+import { TIMELINE, TRANSITION, STATE, type ObjShape } from '@anima-format/core';
 // Shared layout rules; formatting never interprets attribute values as animation data.
 import { ELEMENTS, markupName, type NodeType } from '@anima-format/core';
 import { NODE_ELEMENTS, nodeAttrs } from './names.ts';
@@ -37,6 +37,11 @@ export function attrOrder(name: string): string[] {
     return [
       'name',
       ...Object.keys((TIMELINE as ObjShape).p).filter((k) => k !== 'tracks' && k !== 'events'),
+    ];
+  if (name === 'state')
+    return [
+      'name',
+      ...Object.keys((STATE as ObjShape).p).filter((k) => k !== 'pose' && k !== 'on'),
     ];
   if (name === 'on') return Object.keys((TRANSITION as ObjShape).p);
   const form = ELEMENTS[name];

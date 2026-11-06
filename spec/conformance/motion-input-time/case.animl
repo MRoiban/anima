@@ -1,0 +1,11 @@
+<anima version="0.1" name="motion-input-time" grid="20" requires="motion bind">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <number name="phase" default="0.375"/>
+  <timeline name="t" duration="1" quantize="4">
+    <track target="a.x">0 0; 1 8</track>
+    <event at="0.5" name="mid"/>
+  </timeline>
+  <layer name="l" initial="scrub">
+    <state name="scrub" play="t" time="phase"/>
+  </layer>
+</anima>

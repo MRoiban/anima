@@ -1,0 +1,64 @@
+{
+  "anima": "0.1",
+  "name": "motion-exit-next-hold",
+  "grid": 20,
+  "requires": ["motion"],
+  "inputs": {
+    "syncing": {
+      "type": "bool",
+      "default": true
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "loop": "loop",
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [1, 8]
+        ]
+      },
+      "events": [
+        [0.5, "mid"],
+        [0.75, "late"]
+      ],
+      "quantize": 4
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "spin",
+        "states": {
+          "spin": {
+            "play": "t",
+            "on": [
+              {
+                "when": "!syncing",
+                "to": "held",
+                "sync": true,
+                "exitNext": "step"
+              }
+            ]
+          },
+          "held": {
+            "play": "t",
+            "hold": true
+          }
+        }
+      }
+    }
+  }
+}

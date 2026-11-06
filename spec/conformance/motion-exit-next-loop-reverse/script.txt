@@ -1,0 +1,7 @@
+advance 0.0625
+snapshot
+set stop true
+advance 0.3
+snapshot
+advance 3
+snapshot

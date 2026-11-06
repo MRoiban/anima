@@ -1,0 +1,16 @@
+<anima version="0.1" name="motion-sync-input-handoff" grid="20" requires="motion bind">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <bool name="syncing"/>
+  <number name="phase"/>
+  <timeline name="t" duration="1" loop="loop" quantize="4">
+    <track target="a.x">0 0; 1 8</track>
+  </timeline>
+  <layer name="l" initial="idle">
+    <state name="idle" play="t" time="phase">
+      <on when="syncing" to="spin"/>
+    </state>
+    <state name="spin" play="t">
+      <on when="!syncing" to="idle" sync="true" exitNext="step"/>
+    </state>
+  </layer>
+</anima>

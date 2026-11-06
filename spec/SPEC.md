@@ -232,7 +232,7 @@ per channel with rounding for colours (§5), and for booleans `a || b` while the
 1. **Inputs.** Apply queued writes in arrival order (`set`, `fire`, `toggle`). Number writes clamp to
    the input's `min`/`max`. A fired trigger becomes pending (firing a pending trigger again is a
    no-op). Listener `emit` actions add their events now.
-2. **Clocks.** Advance every layer's state time and crossfade elapsed time by `dt`. A crossfade whose
+2. **Clocks.** Motion clock expressions and `exitNext` gates prepare here (motion chapter). Advance every layer's state time and crossfade elapsed time by `dt`. A crossfade whose
    elapsed time reaches its duration ends.
 3. **Layers**, in declaration order, each against the values resolved by the layers before it:
    1. *Timeline events.* Report the current state's timeline events crossed by step 2 (below).
@@ -796,11 +796,14 @@ as described in [web research](../docs/research/rive-web-runtime.md).
 
 The optional `bind` module requires `requires: ["bind"]`. At document level,
 `bind: { "ring.stroke.trimEnd": "progress" }` maps animatable addresses to expressions.
-Every step evaluates bindings after all state layers resolve and before property clamping (§7),
+Property bindings evaluate after all state layers resolve and before property clamping (§7),
 so a binding overrides a pose, timeline or crossfade on the same address. Resolved bound
 addresses appear in `Player.values()`, `anima sample` snapshots, dirty slots and `anima inspect`
 (the `bound` list). Inputs still apply in queued arrival order. A settled binding sleeps until
 an input write wakes the player; its value changes on the next step, including `step(0)`.
+
+A motion play state may also use `time: "expression"`; see **Declarative timeline control**.
+These are clock expressions evaluated before sampling, rather than property bindings.
 
 ### Expressions and types
 
@@ -1176,6 +1179,71 @@ play source and must lie within its work span (`motion-exit`, pointing at the ex
 with a source/interval hint). Carry is the state-time overshoot of the gate, capped by
 any existing time-condition carry; an input-only condition uses the gate's carry.
 This avoids passing target time that predates the last gate becoming eligible.
+
+### Declarative timeline control
+
+These forms require `motion`; omitted fields preserve existing playback, including all 0.1
+behaviour. AniML uses the JSON names verbatim. They extend §7's clock/transition passes,
+not the post-state property-binding pass.
+
+- A transition's `sync: true` transfers the **unquantized local time** from source to target,
+  instead of restarting at the directional start. Both states must play the same timeline
+  (`motion-sync` at `/machine/layers/<layer>/states/<state>/on/<index>/sync`, with a same-timeline
+  hint). Work-area folding/clamping happens before transfer; quantization happens only at sample.
+  The target uses its own speed from that time. A once target completes after its remaining
+  directional distance, so `speed: -1` reverses from the current position and entering the forward
+  state again turns around immediately. State time and fade elapsed still reset to carry (§7);
+  interruptible fades still freeze the current output as their source. Sync does not replay
+  timeline entry events at the transfer point; events crossed during target carry are reported.
+- A play state's `hold: true` freezes its clock at the entry time (directional start normally,
+  transferred local time with `sync`). It continues writing the same sampled tracks. State time,
+  `@after`, input conditions and crossfades keep running. Holding does not itself satisfy `@end`.
+  A held state can settle once its fade and future `@after` waits finish. `hold` and `time` are
+  exclusive; either on a pose reports `motion-control` at the state (conflict at `/time`), with
+  a hint to choose a play clock.
+- A transition's `exitNext: "step" | "loop"` waits for the next clock boundary while its `when`
+  remains true. At the start of §7 step 2, after queued inputs apply, arm the gate from the
+  source clock **before advancing dt**. `step` uses the next local quantize grid point in the
+  direction of travel, or the work endpoint if earlier; without quantize it uses the work
+  endpoint. `loop` uses the next work endpoint (each turning point for pingpong). A request
+  observed exactly on a boundary is immediately eligible (clock comparisons within 1e-10 s
+  count as equal). Changing the condition to false cancels the armed gate; a later request
+  computes a new boundary. Frozen reduced-motion and zero-speed clocks are immediately eligible.
+  The source clock and its timeline event interval stop at that boundary, even for a large dt;
+  excess state time carries into the target (and its fade). A synced held target therefore
+  captures the boundary, not the overshooting frame. Transition priority and the 16-transition
+  cap stay as in §7. Locked fades do not arm gates. `exitNext` requires an autonomous play
+  source (no hold/time) and persistent bool/number terms only; it cannot combine with triggers,
+  `@end`, `@after`, `exit` or `exitFraction` (`motion-exit` at `/exitNext`, with an autonomous-source
+  and persistent-condition hint).
+- A play state's `time: "expression"` additionally requires `bind`. It evaluates the bind
+  grammar against this player's inputs, producing local timeline seconds clamped to its work
+  area. It owns the clock instead of advancing it; speed has no effect. It samples with the
+  timeline's loop and quantize rules (a loop's end folds to its start). An ordinary entry
+  evaluates the expression immediately. A synced entry keeps the transferred time and records
+  the current expression value; the next **different evaluated value** seeks to that value.
+  Thus completion can hold its angle until the author changes `phase`, without a snap to a
+  stale phase on entry. A change that evaluates to the same clamped value is not a seek.
+  Expressions update after inputs apply and before transitions/sample, including `step(0)`;
+  they also initialize the constructor's initial state. Seeking emits no timeline events,
+  does not complete `@end`, and can settle like a held clock. Errors use bind's existing codes
+  at the state's `/time`; missing `bind` reports `undeclared-feature` there with an add-bind hint.
+
+Held clocks report state `emit`s, but do not synthesize timeline events on entry or while held.
+The pre-existing `exit`/`exitFraction` gates retain their elapsed-state-time × absolute effective
+speed measurement; they do not observe seeks or the captured clock offset. `exitNext` instead
+observes the selected autonomous clock and is restricted to that clock kind above.
+
+Reduced-motion entry policy takes precedence over these clock controls, using the same
+fixed directional endpoints and event policy as other motion play states. Time/hold states
+still obey that frozen entry pose. Ordinary property bindings retain their post-state priority.
+Named machines and component players own independent control clocks and input scopes.
+
+Decision: put clock selection on states and clock handoff on transitions, keeping inputs as the
+single listener interface. This follows the separation of state time, animation time and fade
+snapshots discussed in [animation/state research](../docs/research/rive-animation-and-state.md)
+and the sleep-when-settled lesson in [web runtime research](../docs/research/rive-web-runtime.md).
+No animation is cloned and no property-read feedback is added to bind expressions.
 
 ### Animated transform origin
 
