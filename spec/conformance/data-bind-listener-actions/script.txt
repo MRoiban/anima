@@ -1,0 +1,24 @@
+pointer click 10 10
+snapshot count
+pointer click 10 10
+snapshot count
+pointer click 10 10
+snapshot count
+pointer click 10 10
+snapshot count
+pointer click 10 10
+snapshot count
+pointer click 10 10
+snapshot count
+pointer click 10 10
+snapshot count
+pointer click 10 10
+snapshot count
+pointer click 10 10
+snapshot count
+pointer click 10 10
+snapshot count
+pointer click 10 10
+snapshot count
+pointer click 10 10
+snapshot count

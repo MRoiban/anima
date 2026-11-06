@@ -1,0 +1,16 @@
+{"time":0,"values":{"count":1},"states":{"main":"idle"},"events":[],"settled":true}
+{"time":0,"values":{"count":2},"states":{"main":"idle"},"events":[],"settled":true}
+{"time":0,"values":{"count":3},"states":{"main":"idle"},"events":[],"settled":true}
+{"time":0,"values":{"count":4},"states":{"main":"idle"},"events":[],"settled":true}
+{"time":0,"values":{"count":5},"states":{"main":"idle"},"events":[{"name":"milestone","layer":"main","time":0}],"settled":true}
+{"time":0,"values":{"count":6},"states":{"main":"idle"},"events":[],"settled":true}
+{"time":0,"values":{"count":7},"states":{"main":"idle"},"events":[],"settled":true}
+{"time":0,"values":{"count":8},"states":{"main":"idle"},"events":[],"settled":true}
+{"time":0,"values":{"count":9},"states":{"main":"idle"},"events":[],"settled":true}
+{"time":0,"values":{"count":10},"states":{"main":"idle"},"events":[{"name":"milestone","layer":"main","time":0}],"settled":true}
+{"time":0,"values":{"count":11},"states":{"main":"idle"},"events":[],"settled":true}
+{"time":0,"values":{"count":12},"states":{"main":"idle"},"events":[],"settled":true}
+{"time":0,"values":{"count":13},"states":{"main":"idle"},"events":[],"settled":true}
+{"time":0,"values":{"count":14},"states":{"main":"idle"},"events":[],"settled":true}
+{"time":0,"values":{"count":15},"states":{"main":"idle"},"events":[{"name":"milestone","layer":"main","time":0}],"settled":true}
+{"time":0,"values":{"count":16},"states":{"main":"idle"},"events":[],"settled":true}

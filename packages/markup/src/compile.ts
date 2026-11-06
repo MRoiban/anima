@@ -44,6 +44,7 @@ export type Kind =
   | 'lengths'
   | 'set'
   | 'ease'
+  | 'json'
   | 'condition'
   | number;
 export interface Form {
@@ -120,13 +121,21 @@ const FORMS: Record<string, Form> = {
     children: ['state'],
   },
   state: {
-    attrs: { name: 'name', play: 'name', speed: 'number', emit: 'name' },
+    attrs: {
+      name: 'name',
+      play: 'name',
+      speed: 'number',
+      emit: 'name',
+      entry: 'json',
+      exit: 'json',
+    },
     required: ['name'],
     children: ['pose', 'on'],
   },
   pose: { attrs: {} },
   on: {
     attrs: {
+      actions: 'json',
       when: 'condition',
       to: 'name',
       blend: 'number',
@@ -448,6 +457,8 @@ export class Compiler {
         return v;
       }
       switch (kind) {
+        case 'json':
+          return JSON.parse(s);
         case 'number':
           return this.num(s);
         case 'boolean':
@@ -485,7 +496,7 @@ export class Compiler {
         }
         case 'set': {
           const o: Json = {};
-          for (const pair of s.split(/\s+/)) {
+          for (const pair of s.split(/\s+(?=[a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*=)/)) {
             const m = /^([a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*)=(.+)$/.exec(pair);
             if (!m)
               throw new Error(
@@ -493,7 +504,14 @@ export class Compiler {
               );
             if (Object.hasOwn(o, m[1]!))
               throw new Error(VERBOSE ? `repeated assignment "${m[1]}"` : '');
-            own(o, m[1]!, this.scalar(m[2]!, false));
+            const source = m[2]!.trim();
+            own(
+              o,
+              m[1]!,
+              IS_NUMBER.test(source) || /^(true|false)$/.test(source)
+                ? this.scalar(source, false)
+                : source,
+            );
           }
           return o;
         }

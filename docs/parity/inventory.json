@@ -5349,10 +5349,10 @@
    "rive-runtime/include/rive/data_bind/bindable_property_number.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: bind.<listener-actions>: {from: \"model.property\"}",
+   "construct": "bind input expression set values; SPEC bind / Input expressions in actions; modules/events/examples/share.animl",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-bind-listener-actions",
+   "test": "modules/bind/test/core/data-bind-listener-actions.test.ts; spec/conformance/data-bind-listener-actions; tests/oracle/data-bind-listener-actions (pending)",
    "phase": "P4"
   }
  },

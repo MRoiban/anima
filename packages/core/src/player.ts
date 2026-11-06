@@ -14,6 +14,7 @@ import {
 } from './geom.ts';
 import type { EaseFn } from './ease.ts';
 import type {
+  ActionM,
   InputM,
   LayerM,
   ListenerM,
@@ -143,7 +144,9 @@ export class Player {
   readonly #inputVals = new Map<string, number | boolean>();
   /** Pending triggers and how long they have been pending. */
   readonly #pending = new Map<string, number>();
-  #queue: [op: 'set' | 'fire' | 'toggle' | 'emit', name: string, v?: number | boolean][] = [];
+  #queue: (
+    [op: 'set' | 'fire' | 'toggle' | 'emit', name: string, v?: number | boolean] | ActionM
+  )[] = [];
   readonly #layers: LayerRun[];
   #entryEvents: AnimaEvent[] = [];
   #lastSettled = false;
@@ -387,10 +390,7 @@ export class Player {
 
   /** Queue an already validated listener, including actions routed by an optional module. */
   act(l: ListenerM): void {
-    for (const n of l.fire) this.#queue.push(['fire', n]);
-    for (const [n, v] of l.set) this.#queue.push(['set', n, v]);
-    for (const n of l.toggle) this.#queue.push(['toggle', n]);
-    if (l.emit) this.#queue.push(['emit', l.emit]);
+    this.#queue.push(l);
   }
 
   /** Does the listener's target contain the point? */
@@ -463,22 +463,47 @@ export class Player {
 
   // ------------------------------------------------------------------ step (spec §7)
 
+  #applyInput(
+    op: 'set' | 'fire' | 'toggle' | 'emit',
+    name: string,
+    v: number | boolean | undefined,
+    events: AnimaEvent[],
+  ): void {
+    if (this.nested?.input(op, name, v)) return;
+    if (op === 'fire') {
+      if (!this.#pending.has(name)) this.#pending.set(name, 0);
+    } else if (op === 'toggle') this.#inputVals.set(name, !this.#inputVals.get(name));
+    else if (op === 'emit') events.push({ name, layer: null, time: 0 });
+    else {
+      const inp = this.model.inputs.get(name)!;
+      this.#inputVals.set(name, typeof v === 'number' ? clamp(v, inp.min, inp.max) : v!);
+    }
+  }
+
+  #action(action: ActionM | undefined, events: AnimaEvent[]): void {
+    if (!action) return;
+    const values = action.set.map(
+      ([name, value]) =>
+        [name, typeof value === 'function' ? value(this.#inputVals) : value] as [
+          string,
+          number | boolean,
+        ],
+    );
+    for (const n of action.fire) this.#applyInput('fire', n, undefined, events);
+    for (const [n, v] of values) this.#applyInput('set', n, v, events);
+    for (const n of action.toggle) this.#applyInput('toggle', n, undefined, events);
+    if (action.emit) this.#applyInput('emit', action.emit, undefined, events);
+  }
+
   step(dt: number, base?: (address: string) => Value | undefined): StepResult {
     if (!(dt >= 0)) throw new Error(text('anima: step needs dt ≥ 0'));
     const events = this.#entryEvents;
     this.#entryEvents = [];
     this.time += dt;
     // 1. Inputs
-    for (const [op, name, v] of this.#queue) {
-      if (this.nested?.input(op, name, v)) continue;
-      if (op === 'fire') {
-        if (!this.#pending.has(name)) this.#pending.set(name, 0);
-      } else if (op === 'toggle') this.#inputVals.set(name, !this.#inputVals.get(name));
-      else if (op === 'emit') events.push({ name, layer: null, time: 0 });
-      else {
-        const inp = this.model.inputs.get(name)!;
-        this.#inputVals.set(name, typeof v === 'number' ? clamp(v, inp.min, inp.max) : v!);
-      }
+    for (const item of this.#queue) {
+      if (Array.isArray(item)) this.#applyInput(item[0], item[1], item[2], events);
+      else this.#action(item, events);
     }
     this.#queue = [];
     // 2. Clocks
@@ -607,6 +632,7 @@ export class Player {
   #holds(t: TransitionM, L: LayerRun, st: StateM, used: Set<string>, ungated = false): boolean {
     return (
       t.terms.every((x) => {
+        if (x.k === 'expr') return x.test!(this.#inputVals);
         if (x.k === 'end') return this.#finished(L, st);
         if (x.k === 'after') return reached(L.time, x.s);
         if (x.k === 'cmp') {
@@ -665,6 +691,8 @@ export class Player {
   ): void {
     const st = L.m.states[to]!;
     if (transition) {
+      this.#action(L.m.states[L.state]!.exit, events);
+      this.#action(transition.actions, events);
       this.model.eventSignal?.(
         events,
         'state-end',
@@ -693,6 +721,7 @@ export class Player {
         : null;
     if (transition && !L.fade)
       this.model.eventSignal?.(events, 'transition-end', L.m.name, st.name, this, transition);
+    this.#action(st.entry, events);
     if (st.emit) events.push({ name: st.emit, layer: L.m.name, time: 0 });
     if (st.play === undefined) return;
     const tl = this.model.timelines[st.play]!;

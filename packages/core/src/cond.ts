@@ -7,6 +7,13 @@ export type Op = '==' | '!=' | '<' | '<=' | '>' | '>=';
 export type Term =
   | { k: 'is'; name: string; not: boolean }
   | { k: 'cmp'; name: string; op: Op; value: number }
+  | {
+      k: 'expr';
+      a: string;
+      b: string;
+      op: Op;
+      test?: (scope: ReadonlyMap<string, number | boolean>) => boolean;
+    }
   | { k: 'end' }
   | { k: 'after'; s: number };
 
@@ -30,6 +37,8 @@ export function parseCondition(src: string): Term[] | string {
     } else if ((m = IS.exec(t))) terms.push({ k: 'is', name: m[2]!, not: m[1] === '!' });
     else if ((m = CMP.exec(t)))
       terms.push({ k: 'cmp', name: m[1]!, op: m[2] as Op, value: Number(m[3]) });
+    else if ((m = /^(.+?)\s*(==|!=|<=|>=|<|>)\s*(.+)$/.exec(t)))
+      terms.push({ k: 'expr', a: m[1]!, op: m[2] as Op, b: m[3]! });
     else return V ? (t ? `cannot read "${t}"` : 'empty term') : '';
   }
   return terms;

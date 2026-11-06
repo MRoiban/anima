@@ -1659,3 +1659,30 @@ regression was observed. These numbers do not establish a speedup.
 
 Checkout deviation: supplied HEAD was 692ea37 on `t3/event-boundary-tolerance`, containing the
 merged p4d-events work. Used that checkout/branch without resetting or creating another checkout.
+
+
+## P4d-3 — Input expressions in actions and arithmetic conditions (2026-11-06)
+
+Listener sets, local state entry/exit and transition action blocks reuse the optional bind
+compiler/evaluator. Each action evaluates all sets from one pre-action snapshot, then applies
+writes with ordinary input clamping; separate actions observe earlier writes. Conditions compare
+expressions; floor/mod share the bind evaluator. Typed event expressions preserve final-step
+payload sampling. The base runtime shares its expression compiler with independently bundled
+modules, avoiding an evaluator/registry copy. No runtime dependencies or 0.1 literal changes.
+The input-only scope and strict diagnostics follow the feedback/no-op cautions in
+`docs/research/rive-animation-and-state.md` §C; event request separation follows
+`docs/research/rive-web-runtime.md` §§2–3. No Rive source or documentation text was used.
+
+Seven conformance cases; public share example 6/6, 40 lines, count through 25 and milestones
+5/10/15/20/25, independent samples plus exact rest pixels. Audio request path passes with a
+mock AudioContext in Chromium and Firefox, not a claim of audible output. Scope 1274/1274;
+additional markup browser 18/18; typecheck/lint/format/module/artifact/size checks green.
+Budgets and measurement methods unchanged. Core+web 19347 → 19767 B (+420); bind 1664 → 1866,
+events 3419 → 3551; full SVG 55014 → 55857; Rive-class 59245 → 60115. All module budgets pass.
+Perf: compile bell 2.42 ms / prefixes 752 ms; frame bell 55.0 µs, composite 29.8 µs,
+toolbar 31.9 µs; compile toolbar 3.80 ms (baseline and load caveat in the results).
+
+The supplied branch is `t3/expression-actions-conditions`, base 383d99f (p4d-events HEAD).
+Independent comparative oracle is explicitly pending; parity status not promoted. Parent owns
+integration/phase closure. Local commit only, per task authorization. Detailed checks, deviations,
+initial failures and evidence: `modules/events/P4D-3-RESULTS.md`.

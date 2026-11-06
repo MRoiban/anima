@@ -246,6 +246,11 @@ and an oracle test against Rive.
         Fresh boundary captures: transition 30/30/45 matches; keys 15/30/60 vs Rive 15/30/61
         remain a recorded finding. Completed oracles 41; strict exit 0; full check 2530 tests green.
         See LOG P4d-2.
+  - [x] P4d-3 action expressions and arithmetic conditions: bind evaluator reused; floor/mod,
+        snapshot action sets, state entry/exit and transition blocks, typed event expressions.
+        Seven conformance probes, share 6/6 through 25 clicks, 1274 scoped tests plus 18 markup
+        browser tests. Core+web 19767 B (+420), bind 1866/2048, events 3551/4096.
+        See `modules/events/P4D-3-RESULTS.md`; comparative oracle capture remains pending.
   - [ ] Parent integration, phase benchmark and parity promotion/PR.
 - [ ] P4e `data`: view models, bindings, converters, lists.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide

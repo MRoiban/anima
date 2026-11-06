@@ -1,0 +1,8 @@
+<anima version="0.1" name="bind-action-event-listener" grid="20" requires="bind events">
+  <circle id="dot" cx="10" cy="10" r="2" fill="#000"/>
+  <number name="count"/>
+  <layer name="main" initial="idle">
+    <state name="idle" entry="{&quot;emit&quot;:&quot;ready&quot;}"/>
+  </layer>
+  <listener on="event:ready" set="count=count+1" emit="write"/>
+</anima>
