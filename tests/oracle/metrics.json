@@ -732,5 +732,399 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "animation-key-event-target",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 1.1,
+        "actual": [
+          {
+            "frame": 13,
+            "name": "first"
+          },
+          {
+            "frame": 28,
+            "name": "second"
+          },
+          {
+            "frame": 58,
+            "name": "last"
+          }
+        ],
+        "reference": [
+          {
+            "frame": 13,
+            "name": "first"
+          },
+          {
+            "frame": 28,
+            "name": "second"
+          },
+          {
+            "frame": 58,
+            "name": "last"
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "events-state-end",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 1.1,
+        "actual": [
+          {
+            "frame": 31,
+            "name": "exit"
+          },
+          {
+            "frame": 31,
+            "name": "begin"
+          },
+          {
+            "frame": 46,
+            "name": "done"
+          }
+        ],
+        "reference": [
+          {
+            "frame": 31,
+            "name": "exit"
+          },
+          {
+            "frame": 31,
+            "name": "begin"
+          },
+          {
+            "frame": 46,
+            "name": "done"
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "events-transition-start",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 1.1,
+        "actual": [
+          {
+            "frame": 31,
+            "name": "exit"
+          },
+          {
+            "frame": 31,
+            "name": "begin"
+          },
+          {
+            "frame": 46,
+            "name": "done"
+          }
+        ],
+        "reference": [
+          {
+            "frame": 31,
+            "name": "exit"
+          },
+          {
+            "frame": 31,
+            "name": "begin"
+          },
+          {
+            "frame": 46,
+            "name": "done"
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "events-transition-end",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 1.1,
+        "actual": [
+          {
+            "frame": 31,
+            "name": "exit"
+          },
+          {
+            "frame": 31,
+            "name": "begin"
+          },
+          {
+            "frame": 46,
+            "name": "done"
+          }
+        ],
+        "reference": [
+          {
+            "frame": 31,
+            "name": "exit"
+          },
+          {
+            "frame": 31,
+            "name": "begin"
+          },
+          {
+            "frame": 46,
+            "name": "done"
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "events-url",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 1.1,
+        "actual": [
+          {
+            "frame": 13,
+            "url": "https://example.org/probe"
+          },
+          {
+            "frame": 28,
+            "url": "https://example.org/probe"
+          },
+          {
+            "frame": 58,
+            "url": "https://example.org/probe"
+          }
+        ],
+        "reference": [
+          {
+            "frame": 13,
+            "url": "https://example.org/probe"
+          },
+          {
+            "frame": 28,
+            "url": "https://example.org/probe"
+          },
+          {
+            "frame": 58,
+            "url": "https://example.org/probe"
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "events-payload-number",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 1.1,
+        "actual": [
+          {
+            "frame": 13,
+            "name": "ping",
+            "payload": {
+              "value": 7
+            }
+          },
+          {
+            "frame": 28,
+            "name": "ping",
+            "payload": {
+              "value": 7
+            }
+          }
+        ],
+        "reference": [
+          {
+            "frame": 13,
+            "name": "ping",
+            "payload": {
+              "value": 7
+            }
+          },
+          {
+            "frame": 28,
+            "name": "ping",
+            "payload": {
+              "value": 7
+            }
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "events-payload-boolean",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 1.1,
+        "actual": [
+          {
+            "frame": 13,
+            "name": "ping",
+            "payload": {
+              "value": true
+            }
+          },
+          {
+            "frame": 28,
+            "name": "ping",
+            "payload": {
+              "value": true
+            }
+          }
+        ],
+        "reference": [
+          {
+            "frame": 13,
+            "name": "ping",
+            "payload": {
+              "value": true
+            }
+          },
+          {
+            "frame": 28,
+            "name": "ping",
+            "payload": {
+              "value": true
+            }
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "events-payload-string",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 1.1,
+        "actual": [
+          {
+            "frame": 13,
+            "name": "ping",
+            "payload": {
+              "value": "hello"
+            }
+          },
+          {
+            "frame": 28,
+            "name": "ping",
+            "payload": {
+              "value": "hello"
+            }
+          }
+        ],
+        "reference": [
+          {
+            "frame": 13,
+            "name": "ping",
+            "payload": {
+              "value": "hello"
+            }
+          },
+          {
+            "frame": 28,
+            "name": "ping",
+            "payload": {
+              "value": "hello"
+            }
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "events-payload-key-bind",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 1.1,
+        "actual": [
+          {
+            "frame": 13,
+            "name": "ping",
+            "payload": {
+              "value": 3
+            }
+          },
+          {
+            "frame": 28,
+            "name": "ping",
+            "payload": {
+              "value": 7
+            }
+          }
+        ],
+        "reference": [
+          {
+            "frame": 13,
+            "name": "ping",
+            "payload": {
+              "value": 3
+            }
+          },
+          {
+            "frame": 28,
+            "name": "ping",
+            "payload": {
+              "value": 7
+            }
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
   }
 ]

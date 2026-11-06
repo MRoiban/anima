@@ -1,0 +1,35 @@
+{
+  "time": 1.1,
+  "actual": [
+    {
+      "frame": 31,
+      "name": "exit"
+    },
+    {
+      "frame": 31,
+      "name": "begin"
+    },
+    {
+      "frame": 46,
+      "name": "done"
+    }
+  ],
+  "reference": [
+    {
+      "frame": 30,
+      "name": "exit"
+    },
+    {
+      "frame": 30,
+      "name": "begin"
+    },
+    {
+      "frame": 45,
+      "name": "done"
+    }
+  ],
+  "maxDiff": 1,
+  "over": 1,
+  "overPercent": 100,
+  "pass": false
+}

@@ -1,0 +1,133 @@
+[
+  {
+    "name": "input-event-listener",
+    "reason": "Rive event listeners fire their response in the triggering frame; Anima deliberately queues actions for the next step (spec events). Exact frame comparison disagrees, not a missing CLI observation path. Boundary keys also differ under float clocks.",
+    "frames": [
+      {
+        "time": 1.1,
+        "actual": [
+          {
+            "frame": 13,
+            "name": "first"
+          },
+          {
+            "frame": 14,
+            "name": "second"
+          },
+          {
+            "frame": 28,
+            "name": "first"
+          },
+          {
+            "frame": 29,
+            "name": "second"
+          }
+        ],
+        "reference": [
+          {
+            "frame": 13,
+            "name": "first"
+          },
+          {
+            "frame": 13,
+            "name": "second"
+          },
+          {
+            "frame": 28,
+            "name": "first"
+          },
+          {
+            "frame": 28,
+            "name": "second"
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "events-transition-end/boundary-probe",
+    "reason": "At frame-aligned thresholds, accumulated float clocks disagree by one frame. Retained exact comparison; no timing tolerance or corrected reference. The successful off-grid probe does not cover these boundaries.",
+    "frames": [
+      {
+        "time": 1.1,
+        "actual": [
+          {
+            "frame": 31,
+            "name": "exit"
+          },
+          {
+            "frame": 31,
+            "name": "begin"
+          },
+          {
+            "frame": 46,
+            "name": "done"
+          }
+        ],
+        "reference": [
+          {
+            "frame": 30,
+            "name": "exit"
+          },
+          {
+            "frame": 30,
+            "name": "begin"
+          },
+          {
+            "frame": 45,
+            "name": "done"
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "animation-key-event-target/boundary-probe",
+    "reason": "At frame-aligned thresholds, accumulated float clocks disagree by one frame. Retained exact comparison; no timing tolerance or corrected reference. The successful off-grid probe does not cover these boundaries.",
+    "frames": [
+      {
+        "time": 1.1,
+        "actual": [
+          {
+            "frame": 16,
+            "name": "first"
+          },
+          {
+            "frame": 31,
+            "name": "second"
+          },
+          {
+            "frame": 60,
+            "name": "last"
+          }
+        ],
+        "reference": [
+          {
+            "frame": 15,
+            "name": "first"
+          },
+          {
+            "frame": 30,
+            "name": "second"
+          },
+          {
+            "frame": 61,
+            "name": "last"
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  }
+]

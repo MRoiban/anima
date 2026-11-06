@@ -1,0 +1,212 @@
+ok advance
+ok data-dump: frames/0.json
+ok advance
+ok data-dump: frames/1.json
+ok advance
+ok data-dump: frames/2.json
+ok advance
+ok data-dump: frames/3.json
+ok advance
+ok data-dump: frames/4.json
+ok advance
+ok data-dump: frames/5.json
+ok advance
+ok data-dump: frames/6.json
+ok advance
+ok data-dump: frames/7.json
+ok advance
+ok data-dump: frames/8.json
+ok advance
+ok data-dump: frames/9.json
+ok advance
+ok data-dump: frames/10.json
+ok advance
+ok data-dump: frames/11.json
+ok advance
+ok data-dump: frames/12.json
+ok advance
+ok data-dump: frames/13.json
+ok advance
+ok data-dump: frames/14.json
+ok advance
+ok data-dump: frames/15.json
+ok advance
+ok data-dump: frames/16.json
+ok advance
+ok data-dump: frames/17.json
+ok advance
+ok data-dump: frames/18.json
+ok advance
+ok data-dump: frames/19.json
+ok advance
+ok data-dump: frames/20.json
+ok advance
+ok data-dump: frames/21.json
+ok advance
+ok data-dump: frames/22.json
+ok advance
+ok data-dump: frames/23.json
+ok advance
+ok data-dump: frames/24.json
+ok advance
+ok data-dump: frames/25.json
+ok advance
+ok data-dump: frames/26.json
+ok advance
+ok data-dump: frames/27.json
+ok advance
+ok data-dump: frames/28.json
+ok advance
+ok data-dump: frames/29.json
+ok advance
+ok data-dump: frames/30.json
+ok advance
+ok data-dump: frames/31.json
+ok advance
+ok data-dump: frames/32.json
+ok advance
+ok data-dump: frames/33.json
+ok advance
+ok data-dump: frames/34.json
+ok advance
+ok data-dump: frames/35.json
+ok advance
+ok data-dump: frames/36.json
+ok advance
+ok data-dump: frames/37.json
+ok advance
+ok data-dump: frames/38.json
+ok advance
+ok data-dump: frames/39.json
+ok advance
+ok data-dump: frames/40.json
+ok advance
+ok data-dump: frames/41.json
+ok advance
+ok data-dump: frames/42.json
+ok advance
+ok data-dump: frames/43.json
+ok advance
+ok data-dump: frames/44.json
+ok advance
+ok data-dump: frames/45.json
+ok advance
+ok data-dump: frames/46.json
+ok advance
+ok data-dump: frames/47.json
+ok advance
+ok data-dump: frames/48.json
+ok advance
+ok data-dump: frames/49.json
+ok advance
+ok data-dump: frames/50.json
+ok advance
+ok data-dump: frames/51.json
+ok advance
+ok data-dump: frames/52.json
+ok advance
+ok data-dump: frames/53.json
+ok advance
+ok data-dump: frames/54.json
+ok advance
+ok data-dump: frames/55.json
+ok advance
+ok data-dump: frames/56.json
+ok advance
+ok data-dump: frames/57.json
+ok advance
+ok data-dump: frames/58.json
+ok advance
+ok data-dump: frames/59.json
+ok advance
+ok data-dump: frames/60.json
+ok advance
+ok data-dump: frames/61.json
+ok advance
+ok data-dump: frames/62.json
+ok advance
+ok data-dump: frames/63.json
+ok advance
+ok data-dump: frames/64.json
+ok advance
+ok data-dump: frames/65.json
+ok advance
+ok data-dump: frames/66.json
+ok semantics: semantics.json
+ok quit
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[03:50:35.391] rive  deferred replay: inline
+[03:50:35.395] rive  built (196 bytes, 4ms, 0 errors, 0 warnings)
+[03:50:35.395] rive  showing Oracle [1/1]
+[03:50:35.395] rive  viewport 240x240 @1x
+[03:50:35.395] rive  wrote frames/0.json
+[03:50:35.396] rive  wrote frames/1.json
+[03:50:35.396] rive  wrote frames/2.json
+[03:50:35.396] rive  wrote frames/3.json
+[03:50:35.396] rive  wrote frames/4.json
+[03:50:35.396] rive  wrote frames/5.json
+[03:50:35.396] rive  wrote frames/6.json
+[03:50:35.396] rive  wrote frames/7.json
+[03:50:35.396] rive  wrote frames/8.json
+[03:50:35.396] rive  wrote frames/9.json
+[03:50:35.396] rive  wrote frames/10.json
+[03:50:35.396] rive  wrote frames/11.json
+[03:50:35.396] rive  wrote frames/12.json
+[03:50:35.396] rive  event first
+[03:50:35.396] rive  wrote frames/13.json
+[03:50:35.396] rive  wrote frames/14.json
+[03:50:35.396] rive  wrote frames/15.json
+[03:50:35.396] rive  wrote frames/16.json
+[03:50:35.396] rive  wrote frames/17.json
+[03:50:35.396] rive  wrote frames/18.json
+[03:50:35.396] rive  wrote frames/19.json
+[03:50:35.396] rive  wrote frames/20.json
+[03:50:35.396] rive  wrote frames/21.json
+[03:50:35.396] rive  wrote frames/22.json
+[03:50:35.396] rive  wrote frames/23.json
+[03:50:35.396] rive  wrote frames/24.json
+[03:50:35.396] rive  wrote frames/25.json
+[03:50:35.396] rive  wrote frames/26.json
+[03:50:35.396] rive  wrote frames/27.json
+[03:50:35.396] rive  event second
+[03:50:35.396] rive  wrote frames/28.json
+[03:50:35.396] rive  wrote frames/29.json
+[03:50:35.396] rive  wrote frames/30.json
+[03:50:35.396] rive  wrote frames/31.json
+[03:50:35.396] rive  wrote frames/32.json
+[03:50:35.396] rive  wrote frames/33.json
+[03:50:35.396] rive  wrote frames/34.json
+[03:50:35.396] rive  wrote frames/35.json
+[03:50:35.396] rive  wrote frames/36.json
+[03:50:35.397] rive  wrote frames/37.json
+[03:50:35.397] rive  wrote frames/38.json
+[03:50:35.397] rive  wrote frames/39.json
+[03:50:35.397] rive  wrote frames/40.json
+[03:50:35.397] rive  wrote frames/41.json
+[03:50:35.397] rive  wrote frames/42.json
+[03:50:35.397] rive  wrote frames/43.json
+[03:50:35.397] rive  wrote frames/44.json
+[03:50:35.397] rive  wrote frames/45.json
+[03:50:35.397] rive  wrote frames/46.json
+[03:50:35.397] rive  wrote frames/47.json
+[03:50:35.397] rive  wrote frames/48.json
+[03:50:35.397] rive  wrote frames/49.json
+[03:50:35.397] rive  wrote frames/50.json
+[03:50:35.397] rive  wrote frames/51.json
+[03:50:35.397] rive  wrote frames/52.json
+[03:50:35.397] rive  wrote frames/53.json
+[03:50:35.397] rive  wrote frames/54.json
+[03:50:35.397] rive  wrote frames/55.json
+[03:50:35.397] rive  wrote frames/56.json
+[03:50:35.397] rive  wrote frames/57.json
+[03:50:35.397] rive  event last
+[03:50:35.397] rive  wrote frames/58.json
+[03:50:35.397] rive  wrote frames/59.json
+[03:50:35.397] rive  wrote frames/60.json
+[03:50:35.397] rive  wrote frames/61.json
+[03:50:35.397] rive  wrote frames/62.json
+[03:50:35.397] rive  wrote frames/63.json
+[03:50:35.397] rive  wrote frames/64.json
+[03:50:35.397] rive  wrote frames/65.json
+[03:50:35.397] rive  wrote frames/66.json
+[03:50:35.397] rive  wrote semantics.json

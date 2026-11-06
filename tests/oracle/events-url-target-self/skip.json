@@ -1,8 +1,13 @@
 {
   "status": "skip",
-  "reason": "Local Rive CLI docs workflow/headless commands expose screenshots, semantics and view-model dumps, but no reported-event stream or host Web Audio/DOM/navigation observation. Pixel captures cannot prove event timing, typed payloads, subscriptions or host policy. No equivalence is claimed.",
+  "reason": "Local capture with OpenUrlEvent target=self reports the URL, but neither target nor event name in that report. data.json and semantics.json contain no navigation target/host window. Target-window delivery cannot be verified headlessly; generic reported URL timing is verified separately by events-url.",
   "tests": [
     "modules/events/test/core/events.test.ts",
     "modules/events/test/web/events.browser.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/events-url-target-self/rive/session.txt",
+    "tests/oracle/events-url-target-self/rive/data.json",
+    "tests/oracle/events-url-target-self/rive/semantics.json"
   ]
 }

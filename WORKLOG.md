@@ -1,11 +1,13 @@
 # Work log
 
 ## Now
-Goal: P4b-3 declarative motion controls and sync benchmark proof complete, committed locally.
-Verified: 10 new conformance cases; scope 728/728; sync 6/6 (7 scripts, 66 snapshots).
-Full: 1380 pass + 15 pre-existing oracle TODOs with VITEST_MAX_WORKERS=2; default had 2 browser timeouts.
-Next: parent integrates/reviews local commit; P4b oracle captures and phase closure remain with parent.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: events oracle re-audit complete; all 33 original skip rows re-decided locally.
+Verified: 9 exact paired event cases; 23 captured/evidence-backed skips; 1 listener row finding.
+Limits: 2 further frame-boundary findings; reflected payload source values, not host payload serialization.
+Checks: strict oracle exit 0 (40 completed cases; 3 explicit findings separate); scope 679 passed/82 scope-excluded.
+Checks: Prettier, ESLint, tools TypeScript, parity generation and staged diff checks pass.
+Next: integration owner reviews modules/events/ORACLE-RESULTS.md and known findings.
+Don't: push/PR/merge, promote parity status, read .riv, copy docs, relax any comparison/time limits.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -105,3 +107,7 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 04:00 [claude]: PR #13 CI red: canvas cross-backend harness hard-coded its module list → motion cases unknown-feature; generator now emits packages/web/src/all-modules.ts, harness uses it; canvas test 524 pass. Lesson: run browser tests for the merge's seams before pushing a phase PR
 - 2026-11-07 05:00 [claude]: PR #13 CI red again: timeouts from CPU starvation (module-order 4.7 s locally vs 30 s limit hit in CI) + scaffolder test used a now-done row; npm test now runs unit (15 s, 1229) then browser --maxWorkers=2 (2.5 min, 718); limits unchanged
 - 2026-11-07 08:00 [claude]: merged P4d events (3e98a55) into p4d-events: 32/33 rows (script context → P9), events 3418/4096, core+web 19278 (+266); 31 oracle skips claim no event output but the P4a Rive run's session logs showed emitted events → oracle pass to capture them
+- 2026-11-06 03:50 [test-agent]: local CLI probe reports timeline events and URL → original blanket skips disproved (evidence: /tmp/anima-events-probe; uncommitted follow-up).
+- 2026-11-06 03:56 [test-agent]: scoped reruns exposed evidence-field collision (8 inherited prose entries) → separate captureEvidence field; next run 678 passed/1 Firefox setup hook timeout, rerunning unchanged in isolation (evidence: /tmp/events-scope-final.txt, /tmp/events-scope-final2.txt).
+- 2026-11-06 03:56 [test-agent]: recaptured 9 exact event pairs + 3 findings and 23 skip scenes; strict exit 0, Prettier/ESLint/tools TypeScript pass (evidence: capture.py --events/--skip-evidence, tools/oracle.ts --strict; no tolerance changes).
+- 2026-11-06 03:57 [test-agent]: final isolated events+oracle scope green → 679 passed, 82 scope-excluded, 10 files/22.40s; retained Firefox timeout evidence and all 3 numeric findings; local commit ready (evidence: /tmp/events-scope-final3.txt; modules/events/ORACLE-RESULTS.md).

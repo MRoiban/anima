@@ -1538,3 +1538,5 @@ Events 3418/4096 B; core+web 19278 B (+266); full SVG 54867 B. Compile/frame lin
 are in modules/events/RESULTS.md; timings were collected with concurrent work. Optional seams in
 core/web/markup and motion are documented in MODULES. Parent owns phase integration/benchmark,
 parity promotion and PR; this implementation is committed locally only.
+
+- P4d oracle re-audit: 33/33 skip rows re-decided with local Rive headless runs; 9 exact paired event cases, 23 evidence-backed host/output/target/context skips, 1 listener-order finding. Retained two further boundary timing findings; no tolerance/runtime/spec changes. See modules/events/ORACLE-RESULTS.md and tests/oracle/findings-metrics.json. Local commit only; no push/PR/merge.

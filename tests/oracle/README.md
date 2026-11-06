@@ -158,3 +158,19 @@ typed-channel round-trip test. See MOTION-PROBES.md for details and reproduction
 New data comparisons are exact; existing image budgets are unchanged. Native
 fractional origins are not claimed equivalent to Anima pivots: the new pivot scene
 uses independently keyed parent/child translations to express the same transform.
+
+## P4d events re-audit
+
+Nine event cases now compare ordered reports at exact 60 fps frame indices, including
+observed typed payload fields. Reproduce with `python3 tests/oracle/capture.py --events`.
+The native CLI reports plain events and URLs in session logs. Outward custom-property
+bindings expose payload source values in data dumps at the firing frame. URL targets
+and browser host callbacks remain outside that observation surface.
+
+Three explicitly classified disagreements are printed separately by the strict command
+and recorded in `findings-metrics.json`; their tests preserve the exact observed mismatch.
+They are excluded from the completed `cases.json` set. Strict exit 0 is consequently
+not a claim that those findings match. Retained skip evidence can be recaptured with
+`python3 tests/oracle/capture.py --skip-evidence`. See
+[the full per-row report](../../modules/events/ORACLE-RESULTS.md) for all 33 decisions,
+comparison mappings, payload limitations and the one-frame timing disagreements.
