@@ -1,0 +1,4 @@
+<!-- TODO: data.interpolate-color; replace this baseline scene with a capability probe. -->
+<anima version="0.1" name="data-interpolate-color" grid="20">
+  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+</anima>

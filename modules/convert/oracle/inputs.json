@@ -1,0 +1,303 @@
+[
+  {
+    "name": "calculate0",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "add",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate1",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "subtract",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate2",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "multiply",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate3",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "divide",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate4",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "modulo",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate5",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "squareRoot",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate6",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "power",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate7",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "exp",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate8",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "log",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate9",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "cosine",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate10",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "sine",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate11",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "tangent",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate12",
+    "type": "calculate",
+    "input": 0.5,
+    "options": {
+      "operation": "acosine",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate13",
+    "type": "calculate",
+    "input": 0.5,
+    "options": {
+      "operation": "asine",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate14",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "atangent",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate15",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "atangent2",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate16",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "round",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate17",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "floor",
+      "operand": 2
+    }
+  },
+  {
+    "name": "calculate18",
+    "type": "calculate",
+    "input": 2.25,
+    "options": {
+      "operation": "ceil",
+      "operand": 2
+    }
+  },
+  {
+    "name": "map",
+    "type": "range",
+    "input": 0.25,
+    "options": {
+      "to": [0, 100]
+    }
+  },
+  {
+    "name": "wrap",
+    "type": "range",
+    "input": 1.25,
+    "options": {
+      "to": [0, 100],
+      "modulo": true
+    }
+  },
+  {
+    "name": "reverse",
+    "type": "range",
+    "input": 0.25,
+    "options": {
+      "to": [0, 100],
+      "reverse": true
+    }
+  },
+  {
+    "name": "clampLow",
+    "type": "range",
+    "input": -1,
+    "options": {
+      "to": [0, 100],
+      "clamp": true
+    }
+  },
+  {
+    "name": "clampHigh",
+    "type": "range",
+    "input": 2,
+    "options": {
+      "to": [0, 100],
+      "clamp": true
+    }
+  },
+  {
+    "name": "rounded",
+    "type": "round",
+    "input": 2.345,
+    "options": {
+      "decimals": 2
+    }
+  },
+  {
+    "name": "trimnone",
+    "type": "trim",
+    "input": "  x  ",
+    "options": {
+      "mode": "none"
+    }
+  },
+  {
+    "name": "trimstart",
+    "type": "trim",
+    "input": "  x  ",
+    "options": {
+      "mode": "start"
+    }
+  },
+  {
+    "name": "trimend",
+    "type": "trim",
+    "input": "  x  ",
+    "options": {
+      "mode": "end"
+    }
+  },
+  {
+    "name": "trimall",
+    "type": "trim",
+    "input": "  x  ",
+    "options": {
+      "mode": "all"
+    }
+  },
+  {
+    "name": "padstart",
+    "type": "pad",
+    "input": "7",
+    "options": {
+      "side": "start",
+      "length": 3,
+      "fill": "0"
+    }
+  },
+  {
+    "name": "padend",
+    "type": "pad",
+    "input": "7",
+    "options": {
+      "side": "end",
+      "length": 3,
+      "fill": "0"
+    }
+  },
+  {
+    "name": "zeros",
+    "type": "remove-zeros",
+    "input": "2.3000",
+    "options": {}
+  },
+  {
+    "name": "negated",
+    "type": "negate",
+    "input": true,
+    "options": {}
+  },
+  {
+    "name": "formatted",
+    "type": "number-format",
+    "input": 2.5,
+    "options": {
+      "decimals": 2
+    }
+  },
+  {
+    "name": "parsed",
+    "type": "to-number",
+    "input": "2.5",
+    "options": {}
+  }
+]

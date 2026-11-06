@@ -1,0 +1,4 @@
+<!-- TODO: data.range-modulo; replace this baseline scene with a capability probe. -->
+<anima version="0.1" name="data-range-modulo" grid="20">
+  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+</anima>

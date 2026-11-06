@@ -1,10 +1,10 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
-State: p4e-data has data core merged (60/73 rows, 13 pending; data 8181/8192, bind 2046/2048; core+web 20021; full 81.8 KB). P4e-5 paint running.
-Next: convert integration (needs a split: data/bind have 11 B / 2 B headroom) + host API; benchmark (scoreboard); quiet-machine perf; PR.
-Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests.
+Goal: P4e-2 integrate convert on t3/integrate-convert-data-hooks; local commits only.
+State: data merged baseline 20021 B; converter foundation merged, generated artifacts rebuilt.
+Next: shared hooks and player state, canonical probes/native references, full required verification.
+Don’t: change budgets/tests/oracle inputs or parity status; touch host/paint; push or PR.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -137,3 +137,11 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-06 09:18 [codex/data]: startup regeneration failed with missing prettier/esbuild/workspace dependencies → npm ci restored tooling. Initial text-conflict join overmatched WORKLOG → restored conflict text and reapplied bounded matching before generation; verified merged cases/statuses retained.
 - 2026-11-06 [claude]: reviewed P4e-1 → merged into p4e-data. In-process A/B (taskset, 40 alternations) bell frame min 31.5/31.6/32.2 µs p4e/data/main, compile 1.97/1.70/1.92 ms → no data regression; agent's 2× composite/toolbar frames were load noise (evidence: scratchpad perf/ab.mjs). Prefix sweep inconclusive (p4e-data vs main p25 215/183 ms) → re-measure quiet before PR
 - 2026-11-06 [claude]: decided internal-trigger listener (Anima 9 vs Rive 0) = intentional difference: change listeners fire for every source, after the step; finding stays recorded
+
+- 2026-11-06 06:43 [sol]: converter registry, temporal/math tables, AniML round trips and 35 Rive data-dump comparisons → 153 tests pass; first markup budget regression guarded, remeasure passes (evidence: /tmp/convert-tests.log, /tmp/convert-size2.log).
+- 2026-11-06 06:49 [sol]: final scoped convert+bind+conformance+oracle → 1870 pass / 132 TODO; 35 direct Rive observations match; typecheck green; convert 5692/8192 B, markup-convert 1049/2048 B, core+web unchanged 19831 B (evidence: scoped log, tools/size.ts).
+- 2026-11-06 06:49 [sol]: parallel lint/size verification raced tools/.size-entry.ts deletion → ESLint ENOENT; sequential rerun required (evidence: /tmp/convert-eslint-verified.log).
+- 2026-11-06 06:50 [sol]: sequential eslint + modules/parity checks → green (evidence: exit 0; 1238 capabilities, views current); lint race resolved.
+- 2026-11-06 06:50 [sol]: final format/type/scoped/size/generated artifact checks → green; 21 browser entries current, 311 AniML files checked with pending probes skipped; integration handoff ready (evidence: requested verification commands, 1870 pass / 132 TODO).
+
+- 2026-11-06 12:00 [codex]: merged convert foundation; kept both docs/list sides, regenerated wiring/schema/parity/AniML/web; npm ci installed missing tools → merge integration checkpoint (unverified tests).

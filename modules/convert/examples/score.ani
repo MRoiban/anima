@@ -1,0 +1,44 @@
+{
+  "anima": "0.1",
+  "name": "converted-score",
+  "grid": 20,
+  "requires": ["bind", "convert"],
+  "inputs": {
+    "progress": {
+      "type": "number",
+      "default": 0.126
+    }
+  },
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "bind": {
+    "dot.x": "progress * 10"
+  },
+  "converters": {
+    "pct": {
+      "type": "range",
+      "from": [0, 1],
+      "to": [0, 100],
+      "clamp": true
+    },
+    "rounded": {
+      "type": "round"
+    },
+    "label": {
+      "type": "template",
+      "text": "{0} pts"
+    },
+    "fmt": {
+      "chain": ["pct", "rounded", "label"]
+    }
+  }
+}
