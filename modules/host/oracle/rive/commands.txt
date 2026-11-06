@@ -1,0 +1,13 @@
+data-dump frames/initial.json
+data score=5
+data score=9
+data label=Grace
+data active=true
+data tint=DDAABBCC
+data mood=happy
+data team/title=Gold
+advance 0
+data-dump frames/changed.json
+advance 0
+data-dump frames/unchanged.json
+quit

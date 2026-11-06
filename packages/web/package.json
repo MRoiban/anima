@@ -24,6 +24,7 @@
     "./composite": "./src/composite.ts",
     "./contour": "./src/contour.ts",
     "./data": "./src/data.ts",
+    "./host": "./src/host.ts",
     "./surface": "./src/surface.ts",
     "./markup-surface": "./src/markup-surface.ts",
     "./mix": "./src/mix.ts"

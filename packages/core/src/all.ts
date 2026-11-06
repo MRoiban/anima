@@ -24,6 +24,7 @@ import { compositeSVG } from '../../../modules/composite/core/svg.ts';
 import { contour } from '../../../modules/contour/core/index.ts';
 import { contourSVG } from '../../../modules/contour/core/svg.ts';
 import { data } from '../../../modules/data/core/index.ts';
+import { host } from '../../../modules/host/core/index.ts';
 import { surface } from '../../../modules/surface/core/index.ts';
 import { surfaceSVG } from '../../../modules/surface/core/svg.ts';
 import { mix } from '../../../modules/mix/core/index.ts';
@@ -51,6 +52,7 @@ if (VERBOSE) {
   registerModule(contour);
   registerSVGBackend('contour', contourSVG);
   registerModule(data);
+  registerModule(host);
   registerModule(surface);
   registerSVGBackend('surface', surfaceSVG);
   registerModule(mix);

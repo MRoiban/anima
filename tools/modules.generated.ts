@@ -21,6 +21,7 @@ export const webEntries = [
   'machine',
   'contour',
   'data',
+  'host',
   'mix',
 ];
 export const webOwners: Record<string, string> = {
@@ -42,6 +43,7 @@ export const webOwners: Record<string, string> = {
   composite: 'composite',
   contour: 'contour',
   data: 'data',
+  host: 'host',
   surface: 'surface',
   'markup-surface': 'surface',
   mix: 'mix',
@@ -74,6 +76,7 @@ export const moduleBudgets: {
   { name: 'machine', budget: 8192 },
   { name: 'contour', budget: 5120 },
   { name: 'data', budget: 8192 },
+  { name: 'host', budget: 4096 },
   { name: 'mix', budget: 5120 },
 ];
 export const moduleScopes = {
@@ -471,6 +474,7 @@ export const moduleScopes = {
       'input-write-gamepad-changed-value',
     ],
   },
+  host: { tests: ['modules/host/test/**/*.test.ts'], conformance: [] },
   surface: {
     tests: [
       'modules/surface/test/**/*.test.ts',

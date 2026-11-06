@@ -1,0 +1,14 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[09:57:05.178] rive  deferred replay: inline
+[09:57:05.187] rive  built (477 bytes, 8ms, 0 errors, 0 warnings)
+[09:57:05.187] rive  showing Data [1/1]
+[09:57:05.187] rive  viewport 20x20 @1x
+--data image, mid-run: no property at this path
+err data: image: no property at this path
+--data font, mid-run: no property at this path
+err data: font: no property at this path
+--data items, mid-run: no property at this path
+err data: items: no property at this path
+err data-create: unknown command 'data-create', type ? for the list
+err data-bind: unknown command 'data-bind', type ? for the list
+ok quit

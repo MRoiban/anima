@@ -2216,3 +2216,10 @@ Capability evidence and incomplete rows are enumerated in
 <!-- capability: input.write-gamepad-button-pressed -->
 <!-- capability: input.write-gamepad-button-value -->
 <!-- capability: input.write-gamepad-changed-value -->
+
+## host
+
+Optional host data scripting is specified in [modules/host/SPEC.md](../modules/host/SPEC.md).
+Import the host entry alongside `data`; it adds no document fields or AniML spellings. It provides
+typed handles, reflection, instances, binding, batched writes, change subscriptions delivered after
+the step that made the change, and the web `auto-bind` attribute.
