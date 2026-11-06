@@ -1,0 +1,6 @@
+data image=empty
+data font=empty
+data items=[]
+data-create Score
+data-bind main
+quit

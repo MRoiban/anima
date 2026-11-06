@@ -1,0 +1,6 @@
+advance 0
+pointer down 23.75 18
+pointer move 24.501 18
+snapshot $main:players.0.score $main:players.0.label ada-bar.width knob.x
+pointer up 24.501 18
+snapshot $main:players.0.score $main:players.0.label ada-bar.width knob.x

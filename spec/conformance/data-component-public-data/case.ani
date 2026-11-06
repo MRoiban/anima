@@ -1,0 +1,66 @@
+{
+  "anima": "0.1",
+  "name": "data-probe",
+  "grid": 20,
+  "requires": ["data", "bind", "components"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "instance",
+      "component": "badge",
+      "data": "main"
+    },
+    {
+      "id": "b",
+      "type": "instance",
+      "component": "badge",
+      "data": "other"
+    }
+  ],
+  "components": {
+    "badge": {
+      "grid": 20,
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [10, 10],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "bind": {
+        "dot.x": "$value"
+      },
+      "data": "Root"
+    }
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "number",
+            "default": 3
+          }
+        },
+        "global": false
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Root",
+        "default": true,
+        "values": {}
+      },
+      "other": {
+        "model": "Root",
+        "values": {
+          "value": 8
+        }
+      }
+    }
+  }
+}

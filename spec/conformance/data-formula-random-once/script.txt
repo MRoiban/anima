@@ -1,0 +1,7 @@
+advance 0
+snapshot dot.properties.result
+advance 0
+snapshot dot.properties.result
+set $value 2
+advance 0
+snapshot dot.properties.result

@@ -1,0 +1,43 @@
+scoreboard (grid 40, viewBox 0 0 40 20)
+
+glyphs (bbox: minX minY maxX maxY, grid units; hole hints use bbox containment only)
+
+nodes
+  ada-swatch (circle) animates fill.color
+  ada-bar (rect) animates w, fill.color, stroke.width
+  lin-swatch (circle) animates fill.color
+  lin-bar (rect) animates w, fill.color, stroke.width
+  sam-swatch (circle) animates fill.color
+  sam-bar (rect) animates w, fill.color, stroke.width
+  track (path)
+  slider (group)
+    knob (circle) animates x
+
+inputs: $main:players.length (number), $main:players.0.name (string), $main:players.0.score (number), $main:players.0.tint (color), $main:players.0.label (string), $main:players.1.name (string), $main:players.1.score (number), $main:players.1.tint (color), $main:players.1.label (string), $main:players.2.name (string), $main:players.2.score (number), $main:players.2.tint (color), $main:players.2.label (string)
+
+timelines
+
+machine
+  layer threshold (writes nothing)
+    *below: pose {}
+        $players.0.score >= 1500 → above
+     above: pose {}, emit milestone
+        $players.0.score < 1500 → below
+
+bound
+  ada-bar.w
+  lin-bar.w
+  sam-bar.w
+  ada-swatch.fill.color
+  ada-bar.fill.color
+  lin-swatch.fill.color
+  lin-bar.fill.color
+  sam-swatch.fill.color
+  sam-bar.fill.color
+  ada-bar.stroke.width
+  lin-bar.stroke.width
+  sam-bar.stroke.width
+  knob.x
+
+listeners
+  drag-start|drag|drag-end on knob → write x → $players.0.score

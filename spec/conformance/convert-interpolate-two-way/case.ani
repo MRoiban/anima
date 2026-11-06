@@ -1,0 +1,49 @@
+{
+  "anima": "0.1",
+  "name": "interpolate-probe",
+  "grid": 20,
+  "requires": ["data", "bind", "convert"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "properties": {
+        "result": {
+          "type": "number",
+          "default": 0
+        }
+      }
+    }
+  ],
+  "bind": {
+    "dot.properties.result": {
+      "value": "$value",
+      "mode": "two-way",
+      "convert": "smooth"
+    }
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "number",
+            "default": 0
+          }
+        }
+      }
+    }
+  },
+  "converters": {
+    "smooth": {
+      "type": "interpolate",
+      "ease": "linear",
+      "duration": 100
+    }
+  }
+}

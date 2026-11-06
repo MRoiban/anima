@@ -1,0 +1,9 @@
+ok advance
+ok data-dump: tests/oracle/data-formula-function-asine/rive/raw.json
+ok quit
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[09:43:26.857] rive  deferred replay: inline
+[09:43:26.864] rive  built (237 bytes, 6ms, 0 errors, 0 warnings)
+[09:43:26.864] rive  showing Probe [1/1]
+[09:43:26.864] rive  viewport 20x20 @1x
+[09:43:26.864] rive  wrote tests/oracle/data-formula-function-asine/rive/raw.json

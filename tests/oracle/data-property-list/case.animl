@@ -1,0 +1,16 @@
+<anima version="0.1" name="data-probe" grid="20" requires="data bind">
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+
+  <model name="Root">
+    <model-ref name="team" model="Team"/>
+    <list name="items" of="Team"/>
+  </model>
+  <model name="Team">
+    <string name="title" default="Blue"/>
+  </model>
+  <instance name="main" model="Root" default="true">
+    <set path="team" value="blue"/>
+    <set path="items" value="[&quot;blue&quot;]"/>
+  </instance>
+  <instance name="blue" model="Team"/>
+</anima>

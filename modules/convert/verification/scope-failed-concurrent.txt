@@ -1,0 +1,151 @@
+
+> test:scope
+> node tools/test-scope.ts convert data bind markup conformance oracle
+
+Scopes: convert, data, bind, markup, conformance, oracle
+  unit: modules/bind/test/core/bind.test.ts
+  unit: modules/bind/test/core/data-bind-listener-actions.test.ts
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/convert/test/cli/convert.test.ts
+  unit: modules/convert/test/core/convert.test.ts
+  unit: modules/convert/test/core/integration.test.ts
+  unit: modules/convert/test/core/oracle.test.ts
+  unit: modules/convert/test/markup/convert.test.ts
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/data/test/core/components.test.ts
+  unit: modules/data/test/core/conformance.test.ts
+  unit: modules/data/test/core/data-bind-converter-options.test.ts
+  unit: modules/data/test/core/data-bind-keyframes.test.ts
+  unit: modules/data/test/core/data-bind-layout.test.ts
+  unit: modules/data/test/core/data-bind-script-inputs.test.ts
+  unit: modules/data/test/core/data-bind-text.test.ts
+  unit: modules/data/test/core/data-binding-relative.test.ts
+  unit: modules/data/test/core/data-editor-preview-instance.test.ts
+  unit: modules/data/test/core/data-instance-export.test.ts
+  unit: modules/data/test/core/data-property-artboard.test.ts
+  unit: modules/data/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/data/test/core/data-property-text-style.test.ts
+  unit: modules/data/test/core/data-script-model-api.test.ts
+  unit: modules/data/test/core/data-scripted-converter.test.ts
+  unit: modules/data/test/core/diagnostics.test.ts
+  unit: modules/data/test/core/input.test.ts
+  unit: modules/data/test/core/oracle.test.ts
+  unit: modules/data/test/core/runtime.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: modules/markup-libraries/test/markup/reuse.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: modules/surface/test/markup/surface.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: packages/markup/test/xml.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/bind/test/web/bind.test.ts
+  browser: modules/convert/test/web/convert.test.ts
+  browser: modules/data/test/web/browser.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-4acff7c4
+
+ ❯ |scope-unit| packages/markup/test/decompile.test.ts (1086 tests | 2 failed) 8097ms
+   ❯ decompile (363)
+     × components-inputs-bound preserves every compiled value deterministically 59ms
+     × components-nested preserves every compiled value deterministically 34ms
+ ❯ |scope-browser| modules/bind/test/web/bind.test.ts (2 tests | 1 failed) 38501ms
+   ❯ Firefox bind (1)
+     × a separate module wakes a settled ring and applies input on exactly the next frame 30014ms
+ ❯ |scope-browser| modules/data/test/web/browser.test.ts (4 tests | 2 failed) 70637ms
+   ❯ Firefox data (2)
+     × loads separate runtime/markup bundles, data first=true 30011ms
+     × loads separate runtime/markup bundles, data first=false 30014ms
+ ❯ |scope-browser| modules/convert/test/web/convert.test.ts (4 tests | 2 failed) 70693ms
+   ❯ Firefox convert (2)
+     × loads separate runtime/markup bundles, data first=true 30003ms
+     × loads separate runtime/markup bundles, data first=false 30012ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/bind/test/web/bind.test.ts > Firefox bind > a separate module wakes a settled ring and applies input on exactly the next frame
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/bind/test/web/bind.test.ts:33:5
+     31| ] as const)
+     32|   describe(name + ' bind', () => {
+     33|     it('a separate module wakes a settled ring and applies input on ex…
+       |     ^
+     34|       const executablePath = paths.find((p) => p && existsSync(p));
+     35|       if (!executablePath) throw Error('browser absent');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  |scope-browser| modules/convert/test/web/convert.test.ts > Firefox convert > loads separate runtime/markup bundles, data first=true
+ FAIL  |scope-browser| modules/convert/test/web/convert.test.ts > Firefox convert > loads separate runtime/markup bundles, data first=false
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/convert/test/web/convert.test.ts:33:7
+     31|   describe(name + ' convert', () => {
+     32|     for (const first of [true, false])
+     33|       it(
+       |       ^
+     34|         'loads separate runtime/markup bundles, data first=' + first,
+     35|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  |scope-browser| modules/data/test/web/browser.test.ts > Firefox data > loads separate runtime/markup bundles, data first=true
+ FAIL  |scope-browser| modules/data/test/web/browser.test.ts > Firefox data > loads separate runtime/markup bundles, data first=false
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/data/test/web/browser.test.ts:35:7
+     33|   describe(name + ' data', () => {
+     34|     for (const first of [true, false])
+     35|       it(
+       |       ^
+     36|         'loads separate runtime/markup bundles, data first=' + first,
+     37|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > components-inputs-bound preserves every compiled value deterministically
+SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)
+ ❯ scalar packages/markup/test/decompile.test.ts:34:12
+     32| function recover(root: Element): Obj {
+     33|   const types = new Map<string, NodeType>();
+     34|   const collect = (e: Element) => {
+       |            ^
+     35|     if (NODE_ELEMENTS.includes(e.name)) types.set(attrs(e).id!, e.name…
+     36|     elements(e)
+ ❯ node packages/markup/test/decompile.test.ts:181:64
+ ❯ recover packages/markup/test/decompile.test.ts:281:77
+ ❯ check packages/markup/test/decompile.test.ts:524:10
+ ❯ packages/markup/test/decompile.test.ts:529:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  |scope-unit| packages/markup/test/decompile.test.ts > decompile > components-nested preserves every compiled value deterministically
+SyntaxError: Expected property name or '}' in JSON at position 1 (line 1 column 2)
+ ❯ scalar packages/markup/test/decompile.test.ts:34:12
+     32| function recover(root: Element): Obj {
+     33|   const types = new Map<string, NodeType>();
+     34|   const collect = (e: Element) => {
+       |            ^
+     35|     if (NODE_ELEMENTS.includes(e.name)) types.set(attrs(e).id!, e.name…
+     36|     elements(e)
+ ❯ node packages/markup/test/decompile.test.ts:181:64
+ ❯ recover packages/markup/test/decompile.test.ts:281:77
+ ❯ recover packages/markup/test/decompile.test.ts:256:25
+ ❯ check packages/markup/test/decompile.test.ts:524:10
+ ❯ packages/markup/test/decompile.test.ts:529:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+
+ Test Files  4 failed | 28 passed | 13 skipped (45)
+      Tests  7 failed | 3011 passed | 49 todo (3067)
+   Start at  10:10:09
+   Duration  72.83s (tests 86%, import 8%, transform 5%)
+

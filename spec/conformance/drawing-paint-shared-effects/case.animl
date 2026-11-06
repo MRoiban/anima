@@ -1,0 +1,3 @@
+<anima version="0.1" name="drawing-paint-shared-effects" grid="20" requires="contour" effects="{&quot;half&quot;:[{&quot;type&quot;:&quot;trim&quot;,&quot;end&quot;:0.5}]}">
+  <path id="a" d="M2 4L8 4M2 10L18 10" stroke="#4263eb" stroke-width="0.5" effects="[&quot;half&quot;]"/>
+</anima>

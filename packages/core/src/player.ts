@@ -26,6 +26,7 @@ import type {
   TransitionM,
   Value,
 } from './load.ts';
+import { compare } from './cond.ts';
 import { modules } from './modules.ts';
 import { reached, snapTime, foldTime } from './time.ts';
 import { flatten } from './path.ts';
@@ -60,8 +61,8 @@ export interface StepResult {
 
 /** Optional nested-player seam; implemented entirely by the components module. */
 export interface PlayerExtension {
-  input(op: string, name: string, value?: number | boolean): boolean;
-  get(name: string): number | boolean | undefined;
+  input(op: string, name: string, value?: Value): boolean;
+  get(name: string): Value | undefined;
   states(): Record<string, string>;
   values(): Record<string, number | boolean | string>;
   inspect(): LayerInspect[];
@@ -141,12 +142,10 @@ export class Player {
   readonly #slots: Map<string, number>;
   readonly #rest: Value[];
   #vals: Value[];
-  readonly #inputVals = new Map<string, number | boolean>();
+  readonly #inputVals: Map<string, Value>;
   /** Pending triggers and how long they have been pending. */
   readonly #pending = new Map<string, number>();
-  #queue: (
-    [op: 'set' | 'fire' | 'toggle' | 'emit', name: string, v?: number | boolean] | ActionM
-  )[] = [];
+  #queue: ([op: 'set' | 'fire' | 'toggle' | 'emit', name: string, v?: Value] | ActionM)[] = [];
   readonly #layers: LayerRun[];
   #entryEvents: AnimaEvent[] = [];
   #lastSettled = false;
@@ -175,6 +174,7 @@ export class Player {
     this.addrs = [...model.addrs.keys()];
     const slots = (this.#slots = new Map(this.addrs.map((a, i) => [a, i])));
     this.#rest = this.addrs.map((a) => model.addrs.get(a)!.rest);
+    this.#inputVals = model.inputScope?.(this) ?? new Map();
     for (const inp of model.inputs.values())
       if (inp.type !== 'trigger') this.#inputVals.set(inp.name, inp.def);
     this.#layers = model.layers.map((m) => ({
@@ -225,16 +225,27 @@ export class Player {
   }
 
   /** Queue a write to a bool or number input (applied by the next step). */
-  set(name: string, value: number | boolean): void {
-    const inp = this.#input(name, ['bool', 'number']);
-    if (inp.type === 'bool' ? typeof value !== 'boolean' : !Number.isFinite(value))
+  set(name: string, value: Value): void {
+    const inp = this.#input(name, ['bool', 'number', 'string', 'color']);
+    if (inp.readonly)
+      throw new Error(
+        V
+          ? `anima: input "${name}" is read-only (read-only-path): write its source properties instead`
+          : 'anima: ' + name,
+      );
+    if (!(
+      inp.accepts?.(value) ??
+      (inp.type === 'bool'
+        ? typeof value === 'boolean'
+        : typeof value === 'number' && Number.isFinite(value))
+    ))
       throw new Error(V ? `anima: input "${name}" takes a ${inp.type}` : 'anima: ' + name);
     this.#queue.push(['set', name, value]);
   }
 
   fire(name: string): void {
     this.#input(name, ['trigger']);
-    this.#queue.push(['fire', name]);
+    this.#queue.push(['fire', this.model.inputs.get(name)!.name]);
   }
 
   toggle(name: string): void {
@@ -243,7 +254,7 @@ export class Player {
   }
 
   /** Current value of a bool or number input (before queued writes). */
-  get(name: string): number | boolean | undefined {
+  get(name: string): Value | undefined {
     return this.nested?.get(name) ?? this.#inputVals.get(name);
   }
 
@@ -415,14 +426,20 @@ export class Player {
       const polys = this.#outline(i);
       const r = n.raw;
       const half = r.stroke ? this.num(i, 'stroke.width', 1) / 2 : 0;
+      let fill: boolean | undefined;
+      for (const module of modules.values()) {
+        fill = module.fillContains?.(this, i, polys, lx, ly);
+        if (fill !== undefined) break;
+      }
       if (
-        r.fill &&
-        inside(
-          polys.filter((p) => p.closed).map((p) => p.pts),
-          lx,
-          ly,
-          r.fill.rule === 'evenodd',
-        )
+        fill ??
+        (r.fill &&
+          inside(
+            polys.filter((p) => p.closed).map((p) => p.pts),
+            lx,
+            ly,
+            r.fill.rule === 'evenodd',
+          ))
       )
         return true;
       return (r.stroke || pad > 0) && distance(polys, lx, ly) <= half + pad;
@@ -466,11 +483,13 @@ export class Player {
   #applyInput(
     op: 'set' | 'fire' | 'toggle' | 'emit',
     name: string,
-    v: number | boolean | undefined,
+    v: Value | undefined,
     events: AnimaEvent[],
   ): void {
     if (this.nested?.input(op, name, v)) return;
     if (op === 'fire') {
+      name = this.model.inputs.get(name)!.name;
+      this.model.signal?.(this, name);
       if (!this.#pending.has(name)) this.#pending.set(name, 0);
     } else if (op === 'toggle') this.#inputVals.set(name, !this.#inputVals.get(name));
     else if (op === 'emit') events.push({ name, layer: null, time: 0 });
@@ -484,10 +503,7 @@ export class Player {
     if (!action) return;
     const values = action.set.map(
       ([name, value]) =>
-        [name, typeof value === 'function' ? value(this.#inputVals) : value] as [
-          string,
-          number | boolean,
-        ],
+        [name, typeof value === 'function' ? value(this.#inputVals) : value] as [string, Value],
     );
     for (const n of action.fire) this.#applyInput('fire', n, undefined, events);
     for (const [n, v] of values) this.#applyInput('set', n, v, events);
@@ -575,6 +591,7 @@ export class Player {
     this.model.bindings?.forEach((evaluate, address) => {
       V[this.#slots.get(address)!] = evaluate(this.#inputVals);
     });
+    this.model.resolveBindings?.(this, V, this.#inputVals, dt);
     const playbackSettled = this.playbackPolicy?.compose(dt, V, events) ?? true;
     // 4. Clamp, and note what changed
     V.forEach((v, i) => {
@@ -598,6 +615,7 @@ export class Player {
     this.model.reportEvents?.(this, events);
     const nested = this.nested?.step(dt);
     if (nested) events.push(...nested.events);
+    this.model.afterStep?.(this);
     // 6. Settled
     this.#lastSettled =
       playbackSettled &&
@@ -635,20 +653,12 @@ export class Player {
         if (x.k === 'expr') return x.test!(this.#inputVals);
         if (x.k === 'end') return this.#finished(L, st);
         if (x.k === 'after') return reached(L.time, x.s);
-        if (x.k === 'cmp') {
-          const v = this.get(x.name) as number;
-          const c = x.value;
-          return {
-            '==': v === c,
-            '!=': v !== c,
-            '<': v < c,
-            '<=': v <= c,
-            '>': v > c,
-            '>=': v >= c,
-          }[x.op];
-        }
+        if (x.k === 'cmp') return compare(this.get(x.name)!, x.value, x.op);
         if (this.model.inputs.get(x.name)!.type === 'trigger')
-          return this.#pending.has(x.name) && !used.has(x.name);
+          return (
+            this.#pending.has(this.model.inputs.get(x.name)!.name) &&
+            !used.has(this.model.inputs.get(x.name)!.name)
+          );
         return !this.get(x.name) === x.not;
       }) &&
       (ungated || (this.playbackPolicy?.gate(t, st, L.time, L) ?? true))

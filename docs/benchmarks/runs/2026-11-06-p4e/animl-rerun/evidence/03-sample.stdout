@@ -1,0 +1,1 @@
+{"time":0,"values":{"$players.length":3,"$players.0.name":"Ada","$players.0.score":1250,"$players.0.tint":"#d97757","$players.0.label":"1,250 pts","$players.1.label":"980 pts","$players.2.label":"40 pts","ada-bar.w":18.75,"ada-bar.stroke.width":0.5,"knob.x":1250},"states":{"threshold":"below"},"events":[],"settled":true}

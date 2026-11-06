@@ -28,7 +28,11 @@ const local = (t: TimelineM, time: number) =>
   t.loop === 'once'
     ? Math.min(t.duration, snapTime(time, t.duration))
     : foldTime(time, t.duration, t.loop === 'pingpong');
-const compare = (a: number | boolean, b: number | boolean, op: string): boolean => {
+const compare = (
+  a: import('../../../packages/core/src/load.ts').Value,
+  b: import('../../../packages/core/src/load.ts').Value,
+  op: string,
+): boolean => {
   if (op === '==') return a === b;
   if (op === '!=') return a !== b;
   if (op === '<') return a < b;
@@ -57,7 +61,7 @@ export class MachinePolicy implements PlaybackPolicy {
   readonly runs = new Map<Run, Data>();
   readonly originalStates = new WeakMap<StateM, StateM>();
   readonly originalTransitions = new WeakMap<TransitionM, TransitionM>();
-  readonly previous = new Map<string, number | boolean>();
+  readonly previous = new Map<string, import('../../../packages/core/src/load.ts').Value>();
   readonly slots: Map<string, number>;
   #seed: number;
 
@@ -85,7 +89,7 @@ export class MachinePolicy implements PlaybackPolicy {
   transition(t: TransitionM): TransitionM {
     return this.originalTransitions.get(t) ?? t;
   }
-  operand(o: Operand): number | boolean {
+  operand(o: Operand): import('../../../packages/core/src/load.ts').Value {
     if (typeof o !== 'object') return o;
     if (o.focus !== undefined) return this.p.machineFocus?.(o.focus) ?? false;
     if (o.component !== undefined) return this.p.get(o.component)!;

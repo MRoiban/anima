@@ -15,10 +15,18 @@ if (VERBOSE) Object.assign(eventsCompiler, eventsMarkup);
 import { structuralMarkup, structuralForms } from '../../../modules/paint/markup/index.ts';
 export const moduleCompiler: Partial<typeof structuralMarkup> = {};
 if (VERBOSE) Object.assign(moduleCompiler, structuralMarkup);
+import { dataMarkup } from '../../../modules/data/markup/index.ts';
+export const dataCompiler: Partial<typeof dataMarkup> = {};
+if (VERBOSE) Object.assign(dataCompiler, dataMarkup);
+import { converterCompiler } from '../../../modules/convert/markup/index.ts';
+export const convertCompiler: Partial<typeof converterCompiler> = {};
+if (VERBOSE) Object.assign(convertCompiler, converterCompiler);
 export function prepareModuleMarkup(hooks: Record<string, object>): void {
   Object.assign(componentCompiler, hooks['components']);
   Object.assign(bindCompiler, hooks['bind']);
   Object.assign(motionCompiler, hooks['motion']);
   Object.assign(eventsCompiler, hooks['events']);
   Object.assign(moduleCompiler, structuralForms, hooks['paint']);
+  Object.assign(dataCompiler, hooks['data']);
+  Object.assign(convertCompiler, hooks['convert']);
 }

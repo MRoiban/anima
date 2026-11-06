@@ -1,0 +1,41 @@
+{
+  "anima": "0.1",
+  "name": "shared-effects",
+  "grid": 20,
+  "requires": ["contour"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "path",
+      "d": "M2 5L18 5",
+      "stroke": {
+        "color": "#4263eb",
+        "width": 0.5,
+        "cap": "butt",
+        "join": "miter",
+        "effects": ["middle"]
+      }
+    },
+    {
+      "id": "b",
+      "type": "path",
+      "d": "M2 15L18 15",
+      "stroke": {
+        "color": "#4263eb",
+        "width": 0.5,
+        "cap": "butt",
+        "join": "miter",
+        "effects": ["middle"]
+      }
+    }
+  ],
+  "effects": {
+    "middle": [
+      {
+        "start": 0.25,
+        "end": 0.75,
+        "type": "trim"
+      }
+    ]
+  }
+}

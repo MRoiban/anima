@@ -6,7 +6,7 @@ import { PNG } from 'pngjs';
 import { beforeAll, afterAll, describe, it, expect } from 'vitest';
 import { bundle } from '../../../../tools/browser-build.ts';
 import '@anima-format/core/all';
-import { load, drawFrame, runScript } from '@anima-format/core';
+import { load, drawFrame, runScript, Player, toSVG } from '@anima-format/core';
 import type {} from './harness.ts';
 
 // Fixed feature tolerances, declared before measurements; see README. Never widen on failure.
@@ -18,7 +18,7 @@ const limit = (doc: object) => {
       ? { max: 128, percent: 0.5, feature: 'curved/dashed geometry' }
       : { max: 2, percent: 0, feature: 'flat/gradient interiors' };
 };
-const cases: { name: string; doc: object; script: string }[] = [];
+const cases: { name: string; doc: object; script: string; svgUnsupported: boolean }[] = [];
 for (const file of globSync([
   'spec/conformance/*/case.ani',
   'spec/draw-conformance/*/case.ani',
@@ -39,8 +39,108 @@ for (const file of globSync([
     const f = drawFrame(runScript(model, script).player);
     if (!f.nodes.some((n) => n.geometry && (n.paints.some((p) => p.visible) || n.geometry.image)))
       continue;
-    cases.push({ name: `${file}#${index}`, doc, script });
+    cases.push({
+      name: `${file}#${index}`,
+      doc,
+      script,
+      svgUnsupported: existsSync(resolve(dirname(file), 'unsupported-svg.json')),
+    });
   }
+}
+// Regression corpus: per-paint blending must see the same backdrop through transforms,
+// while authored opacity/masks continue to isolate it. Same fixed comparison classifier.
+const blendDoc = JSON.parse(
+  readFileSync('spec/conformance/drawing-paint-paint-blend-override/case.ani', 'utf8'),
+);
+for (const variant of [
+  'parent',
+  'reflect',
+  'opacity',
+  'mask',
+  'clip',
+  'position',
+  'gradient',
+  'ordered',
+  'contour',
+  'animate',
+]) {
+  const doc = structuredClone(blendDoc);
+  doc.requires.push('paint', 'contour');
+  const front = doc.nodes[1];
+  front.x = 1;
+  front.stroke.join = 'miter';
+  if (variant === 'reflect') {
+    front.x = 20;
+    front.scaleX = -1;
+  }
+  if (variant === 'opacity') front.opacity = 0.5;
+  if (variant === 'position') front.stroke.position = 'outside';
+  if (variant === 'mask' || variant === 'clip') {
+    doc.nodes.push({
+      id: 'source',
+      type: 'circle',
+      center: [10, 10],
+      r: 6,
+      x: 1,
+      fill: { color: variant === 'clip' ? '#00000000' : '#00000080' },
+    });
+    front[variant] = {
+      source: 'source',
+      ...(variant === 'mask' ? { mode: 'alpha', sourceDraws: false } : {}),
+    };
+  }
+  if (variant === 'gradient')
+    Object.assign(front.fill, {
+      type: 'linear',
+      x1: 0,
+      y1: 0,
+      x2: 20,
+      y2: 0,
+      stops: [
+        { position: 0, color: '#804020' },
+        { position: 1, color: '#204080' },
+      ],
+    });
+  if (variant === 'gradient') delete front.fill.color;
+  if (variant === 'ordered') {
+    front.paints = [{ fill: front.fill }, { stroke: front.stroke }];
+    delete front.fill;
+    delete front.stroke;
+  }
+  if (variant === 'contour') {
+    front.type = 'contour';
+    front.vertices = [
+      { point: [4, 4], kind: 'straight' },
+      { point: [16, 4], kind: 'straight' },
+      { point: [16, 16], kind: 'straight' },
+      { point: [4, 16], kind: 'straight' },
+    ];
+    front.closed = true;
+    for (const k of ['x0', 'y0', 'w', 'h']) Reflect.deleteProperty(front, k);
+  }
+  if (variant === 'parent' || variant === 'animate') {
+    doc.nodes[1] = { id: 'group', type: 'group', x: 1, y: 1, children: [front] };
+    if (variant === 'animate') {
+      doc.timelines = {
+        move: {
+          duration: 1,
+          tracks: {
+            'group.x': [
+              [0, 1],
+              [1, 2],
+            ],
+          },
+        },
+      };
+      doc.machine = { layers: { move: { initial: 's', states: { s: { play: 'move' } } } } };
+    }
+  }
+  cases.push({
+    name: 'mix-regression-' + variant,
+    doc,
+    script: variant === 'animate' ? 'advance 1' : '',
+    svgUnsupported: false,
+  });
 }
 for (const [name, engine, paths] of [
   [
@@ -102,6 +202,83 @@ for (const [name, engine, paths] of [
       it(
         c.name,
         async () => {
+          if (c.svgUnsupported) {
+            const p = new Player(load(c.doc).model!);
+            expect(() => toSVG(p)).toThrowError(
+              expect.objectContaining({
+                code: 'unsupported-render',
+                message: expect.stringContaining(
+                  JSON.stringify(c.doc).includes('angular')
+                    ? 'angular'
+                    : JSON.stringify(c.doc).includes('screen')
+                      ? 'per-paint'
+                      : 'additive',
+                ),
+                hint: expect.stringContaining('canvas'),
+              }),
+            );
+            await page.evaluate(
+              ({ doc, script }) => window.canvasTest.mount(doc, 'canvas', script),
+              c,
+            );
+            expect(await page.evaluate(() => window.canvasTest.errors)).toEqual([]);
+            const colors = await page.evaluate(() => {
+              const renderer = window.canvasTest.renderer;
+              const ctx = renderer.canvas.getContext('2d')!;
+              const at = (x: number, y: number) => [...ctx.getImageData(x, y, 1, 1).data];
+              return [at(180, 120), at(120, 180), at(60, 120), at(120, 60)];
+            });
+            expect(colors.every((p) => p[3] === 255)).toBe(true);
+            if (JSON.stringify(c.doc).includes('angular')) {
+              const locations = [
+                [180, 120],
+                [120, 180],
+                [60, 120],
+                [120, 60],
+              ];
+              const expected = locations.map(([x, y]) => {
+                const t = Math.atan2(y! + 0.5, x! + 0.5) / (2 * Math.PI);
+                return [66 + 151 * t, 99 + 20 * t, 235 - 148 * t];
+              });
+              colors.forEach((p, i) =>
+                p
+                  .slice(0, 3)
+                  .forEach((v, k) =>
+                    expect(Math.abs(v - Math.round(expected[i]![k]!))).toBeLessThanOrEqual(1),
+                  ),
+              );
+            } else {
+              const center = await page.evaluate(() => [
+                ...window.canvasTest.renderer.canvas.getContext('2d')!.getImageData(120, 120, 1, 1)
+                  .data,
+              ]);
+              const strength = JSON.stringify(c.doc).includes('timelines')
+                ? [...c.script.matchAll(/^advance ([\d.]+)/gm)].reduce(
+                    (sum, m) => sum + Number(m[1]),
+                    0,
+                  )
+                : JSON.stringify(c.doc).includes('strength')
+                  ? 0.5
+                  : 1;
+              expect(center).toEqual(
+                JSON.stringify(c.doc).includes('screen')
+                  ? [144, 112, 116, 255]
+                  : [
+                      Math.round(128 + 32 * strength),
+                      Math.round(64 + 64 * strength),
+                      Math.round(32 + 96 * strength),
+                      255,
+                    ],
+              );
+            }
+            metrics.push({
+              name: c.name,
+              status: 'unsupported-svg',
+              reason: 'SVG explicitly refuses this feature',
+              canvasColors: colors,
+            });
+            return;
+          }
           const images: PNG[] = [];
           const diagnostics: unknown[] = [];
           for (const backend of ['svg', 'canvas']) {
@@ -156,6 +333,14 @@ for (const [name, engine, paths] of [
         },
         15000,
       );
+    it('lets a host renderer factory own and release its paths and gradient resources', async () => {
+      const events = await page.evaluate(() => window.canvasTest.customFactory());
+      expect(events.filter((e) => e === 'factory')).toHaveLength(1);
+      expect(events).toEqual(
+        expect.arrayContaining(['resources', 'draw', 'force', 'destroy', 'disconnect', 'connect']),
+      );
+      expect(events.filter((e) => e === 'destroy')).toHaveLength(1);
+    });
     it('keeps nearest image texels and half-pixel fitted-edge coverage', async () => {
       await page.evaluate(
         (doc) => window.canvasTest.mount(doc, 'canvas', 'advance 0.5'),

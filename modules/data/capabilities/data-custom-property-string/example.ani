@@ -1,0 +1,35 @@
+{
+  "anima": "0.1",
+  "name": "data-probe",
+  "grid": 20,
+  "requires": ["data", "bind"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "properties": {
+        "custom": ""
+      }
+    }
+  ],
+  "bind": {
+    "dot.properties.custom": "$value"
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "string",
+            "default": "Ada"
+          }
+        }
+      }
+    }
+  }
+}

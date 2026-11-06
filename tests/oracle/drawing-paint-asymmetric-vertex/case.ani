@@ -1,0 +1,34 @@
+{
+  "anima": "0.1",
+  "name": "asymmetric",
+  "grid": 20,
+  "requires": ["contour"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "contour",
+      "stroke": {
+        "color": "#4263eb",
+        "width": 0.5,
+        "cap": "butt",
+        "join": "miter"
+      },
+      "vertices": [
+        {
+          "point": [2, 10],
+          "kind": "straight"
+        },
+        {
+          "point": [6, 4],
+          "kind": "asymmetric",
+          "outgoing": [2, 0],
+          "incoming": [1, 0]
+        },
+        {
+          "point": [14, 10],
+          "kind": "straight"
+        }
+      ]
+    }
+  ]
+}

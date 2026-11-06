@@ -1,0 +1,35 @@
+{
+  "anima": "0.1",
+  "name": "geometry-origin",
+  "grid": 20,
+  "requires": ["contour"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "contour",
+      "fill": {
+        "color": "#4263eb"
+      },
+      "vertices": [
+        {
+          "point": [5, 6],
+          "kind": "straight"
+        },
+        {
+          "point": [15, 6],
+          "kind": "straight"
+        },
+        {
+          "point": [15, 16],
+          "kind": "straight"
+        },
+        {
+          "point": [5, 16],
+          "kind": "straight"
+        }
+      ],
+      "closed": true,
+      "geometryOrigin": [3, 4]
+    }
+  ]
+}

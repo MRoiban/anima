@@ -1,0 +1,13 @@
+{
+  "name": "host-javascript-subscription-order-and-runtime-instances",
+  "reason": "The locally inspected headless command interface exposes data writes/dumps and advance, but no JS callback registration, unsubscribe, instance factory, bind or batch callback operation. Native idle changed flags remain true for 5 scalar paths, so those flags cannot establish callback drain counts or order. Direct probes additionally reject image/font/list property writes and data-create/data-bind commands; these cannot faithfully compare the host asset/list/factory API.",
+  "evidence": [
+    "rive/commands.txt",
+    "rive/session.txt",
+    "rive/frames/changed.json",
+    "rive/frames/unchanged.json",
+    "unsupported/rive/commands.txt",
+    "unsupported/rive/session.txt"
+  ],
+  "coveredInstead": "Independent Anima subscription/batching script and Chromium/Firefox separate-bundle tests; exact native scalar writes and final trigger-listener values compared separately."
+}

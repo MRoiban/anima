@@ -1,0 +1,32 @@
+{
+  "anima": "0.1",
+  "name": "detached",
+  "grid": 20,
+  "requires": ["contour"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "contour",
+      "stroke": {
+        "color": "#4263eb",
+        "width": 0.5
+      },
+      "vertices": [
+        {
+          "point": [2, 10],
+          "kind": "straight"
+        },
+        {
+          "point": [6, 4],
+          "kind": "detached",
+          "outgoing": [2, 1],
+          "incoming": [-1, 2]
+        },
+        {
+          "point": [14, 10],
+          "kind": "straight"
+        }
+      ]
+    }
+  ]
+}

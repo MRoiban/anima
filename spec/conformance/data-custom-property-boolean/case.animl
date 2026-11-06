@@ -1,0 +1,9 @@
+<anima version="0.1" name="data-probe" grid="20" requires="data bind">
+  <circle id="dot" cx="10" cy="10" properties="{&quot;custom&quot;:false}" r="1" fill="#000"/>
+
+  <model name="Root">
+    <bool name="value" default="true"/>
+  </model>
+
+  <bind target="dot.properties.custom" value="$value"/>
+</anima>

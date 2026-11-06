@@ -49,6 +49,22 @@
     ]
   },
   {
+    "name": "input-data-listener/internal-trigger-difference",
+    "status": "finding",
+    "reason": "A native state-action trigger sets the trigger changed flag but does not run the view-model change listener (n stays 0); Anima delivers on change:$pulse after its step boundary (n becomes 9). Host data pulse=1 does invoke the native listener. This variant needs an owner design decision and is not verified parity.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": 9,
+        "reference": 0,
+        "maxDiff": 9,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
     "name": "input-align-preserve",
     "status": "intentional difference",
     "reason": "Intentional difference: Anima follows the pointer with the grab offset measured at pointer-down (x=88 on origin x=80; move to x=104 yields x=96). Native preserve-offset remains x=80 at the first move and after release; absolute delta 16. Neither result nor tolerance is normalized.",
@@ -85,6 +101,436 @@
         "actual": 96,
         "reference": 80,
         "maxDiff": 16,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-trim-synchronized",
+    "status": "finding",
+    "reason": "Rasterisation-only finding: observed native path commands and controls exactly equal Anima at 12px/unit. Rendering the native observer commands in resvg gives max 0 against Anima; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 95,
+        "over": 26,
+        "overPercent": 0.04513888888888889,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-trim-sequential",
+    "status": "finding",
+    "reason": "Rasterisation-only finding: observed native path commands and controls exactly equal Anima at 12px/unit. Rendering the native observer commands in resvg gives max 0 against Anima; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 95,
+        "over": 25,
+        "overPercent": 0.043402777777777776,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-straight-vertex",
+    "status": "finding",
+    "reason": "Rasterisation-only finding: observed native path commands and controls exactly equal Anima at 12px/unit. Rendering the native observer commands in resvg gives max 0 against Anima; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 153,
+        "over": 162,
+        "overPercent": 0.28125,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-rounded-vertex",
+    "status": "finding",
+    "reason": "Rasterisation-only finding: observed native path commands/controls agree with Anima (rounded controls within 0.0001px float32/serialization precision). Rendering the native observer commands in resvg gives max 0 against Anima; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 153,
+        "over": 160,
+        "overPercent": 0.2777777777777778,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-mirrored-vertex",
+    "status": "finding",
+    "reason": "Rasterisation-only finding: observed native path commands and controls exactly equal Anima at 12px/unit. Rendering the native observer commands in resvg gives max 0 against Anima; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 142,
+        "over": 216,
+        "overPercent": 0.375,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-detached-vertex",
+    "status": "finding",
+    "reason": "Rasterisation-only finding: observed native path commands and controls exactly equal Anima at 12px/unit. Equivalent coordinate representations differ by max 12 in resvg; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 153,
+        "over": 100,
+        "overPercent": 0.1736111111111111,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-asymmetric-vertex",
+    "status": "finding",
+    "reason": "Rasterisation-only finding: observed native path commands and controls exactly equal Anima at 12px/unit. Rendering the native observer commands in resvg gives max 0 against Anima; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 141,
+        "over": 206,
+        "overPercent": 0.3576388888888889,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "data-interpolate-number",
+    "status": "finding",
+    "reason": "Native initializes lazily on the first non-default change, returning the changed value immediately; Anima initializes eagerly on first evaluation. Native trace [0, 10, 10, 10, 15, 20]. Independently specified Anima trace [0, 0, 5, 5, 12.5, 20]. Parent decision remains open; numeric/channel differences are retained.",
+    "frames": [
+      {
+        "time": 0.15,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.result": 0
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.result": 5
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.result": 5
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.result": 12.5
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.result": 20
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.result": 10
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.result": 10
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.result": 10
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.result": 15
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.result": 20
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "data-interpolate-color",
+    "status": "finding",
+    "reason": "Native initializes lazily on the first non-default change, returning the changed value immediately; Anima initializes eagerly on first evaluation. Native trace ['#000000', '#ffffff', '#ffffff', '#ffffff', '#7f7f7f', '#000000']. Independently specified Anima trace ['#000000', '#000000', '#808080', '#808080', '#404040', '#000000']. Parent decision remains open; numeric/channel differences are retained.",
+    "frames": [
+      {
+        "time": 0.15,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": "#000000"
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.result": "#000000"
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.result": "#808080"
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.result": "#808080"
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.result": "#404040"
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.result": "#000000"
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": "#000000"
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.result": "#ffffff"
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.result": "#ffffff"
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.result": "#ffffff"
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.result": "#7f7f7f"
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.result": "#000000"
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "data-converter-to-string",
+    "status": "finding",
+    "reason": "Native observation '1'; independently specified Anima expectation 'true'. Native boolean-to-string uses a numeric spelling; Anima specifies ECMAScript String. Parent decision remains open.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": "true"
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": "1"
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "data-converter-system-degs-to-rads",
+    "status": "finding",
+    "reason": "Native observation 3.14159274; independently specified Anima expectation 3.141592653589793. Native data-dump float32 precision differs from Anima binary64; no tolerance or numeric output is adjusted.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": 3.141592653589793
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": 3.14159274
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "data-converter-rounder",
+    "status": "finding",
+    "reason": "Native observation 2.3499999; independently specified Anima expectation 2.35. Native data-dump float32 precision differs from Anima binary64; no tolerance or numeric output is adjusted.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": 2.35
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": 2.3499999
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 1,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
+    "name": "data-converter-enum-to-uint",
+    "status": "finding",
+    "reason": "Native observation 0; independently specified Anima expectation 1. Native enum input is happy/index 1, while the numeric bridge remains 0 with changed=false; authorable native enum converter supplies no observed value in this build.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": 1
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.result": 0
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 1,
         "over": 1,
         "overPercent": 100,
         "pass": false

@@ -1,0 +1,28 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[09:52:21.487] rive  deferred replay: inline
+[09:52:21.493] rive  built (444 bytes, 5ms, 0 errors, 0 warnings)
+[09:52:21.493] rive  showing Data [1/1]
+[09:52:21.493] rive  viewport 20x20 @1x
+[09:52:21.494] rive  wrote frames/initial.json
+ok data-dump: frames/initial.json
+[09:52:21.494] rive  data: score = 5 (mid-run)
+ok data
+[09:52:21.494] rive  data: score = 9 (mid-run)
+ok data
+[09:52:21.494] rive  data: label = Grace (mid-run)
+ok data
+[09:52:21.494] rive  data: active = true (mid-run)
+ok data
+[09:52:21.494] rive  data: tint = DDAABBCC (mid-run)
+ok data
+[09:52:21.494] rive  data: mood = happy (mid-run)
+ok data
+[09:52:21.494] rive  data: team/title = Gold (mid-run)
+ok data
+ok advance
+[09:52:21.494] rive  wrote frames/changed.json
+ok data-dump: frames/changed.json
+ok advance
+[09:52:21.494] rive  wrote frames/unchanged.json
+ok data-dump: frames/unchanged.json
+ok quit

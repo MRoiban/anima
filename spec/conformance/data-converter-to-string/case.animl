@@ -1,0 +1,8 @@
+<anima version="0.1" name="converter-probe" grid="20" requires="data bind convert">
+  <model name="Root">
+    <bool name="value" default="true"/>
+  </model>
+  <converter name="cv" type="to-string"/>
+  <circle id="dot" cx="10" cy="10" properties="{&quot;result&quot;:{&quot;type&quot;:&quot;string&quot;,&quot;default&quot;:&quot;&quot;}}" r="1" fill="#000"/>
+  <bind target="dot.properties.result" value="$value" convert="cv"/>
+</anima>

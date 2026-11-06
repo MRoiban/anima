@@ -1,0 +1,21 @@
+Unchanged tools/perf.ts/workloads; CPU affinity 7; baseline 99940e9 vs integration. All own tests/build/size/static jobs finished. External load remains uncontrolled.
+baseline-1 exit 0
+compile: bell 2.54 ms; all 9040 prefixes 797 ms
+frame: bell 51.0 µs; composite 28.8 µs
+frame: toolbar 29.0 µs (step + draw, 4 instances)
+compile: toolbar 4.38 ms
+convert-1 exit 0
+compile: bell 2.85 ms; all 9040 prefixes 739 ms
+frame: bell 47.6 µs; composite 28.8 µs
+frame: toolbar 48.8 µs (step + draw, 4 instances)
+compile: toolbar 10.73 ms
+baseline-2 exit 0
+compile: bell 6.79 ms; all 9040 prefixes 1713 ms
+frame: bell 81.6 µs; composite 63.6 µs
+frame: toolbar 73.6 µs (step + draw, 4 instances)
+compile: toolbar 10.06 ms
+convert-2 exit 0
+compile: bell 5.77 ms; all 9040 prefixes 1260 ms
+frame: bell 91.3 µs; composite 54.1 µs
+frame: toolbar 58.6 µs (step + draw, 4 instances)
+compile: toolbar 9.39 ms

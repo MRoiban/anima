@@ -381,12 +381,47 @@ export class CanvasRenderer implements IconRenderer {
       ctx.resetTransform();
       ctx.globalAlpha *= n.opacity;
       ctx.globalCompositeOperation = (
-        n.mask || n.clip || n.blend === 'normal' ? 'source-over' : (n.blend ?? 'source-over')
+        n.blend !== 'additive' && (n.mask || n.clip || n.blend === 'normal')
+          ? 'source-over'
+          : n.blend === 'additive'
+            ? 'lighter'
+            : (n.blend ?? 'source-over')
       ) as GlobalCompositeOperation;
-      ctx.drawImage(layer, 0, 0);
+      this.#blendImage(ctx, layer, n.blend, n.blendAmount ?? 1);
       ctx.restore();
     }
   }
+  #blendImage(ctx: Ctx, source: HTMLCanvasElement, mode: string | undefined, amount: number): void {
+    if (mode === 'additive' && amount > 0 && amount < 1) {
+      // Evaluate once in premultiplied space: two 8-bit draws round the source twice.
+      const w = source.width,
+        h = source.height;
+      const src = context(source).getImageData(0, 0, w, h).data;
+      const dst = ctx.getImageData(0, 0, w, h);
+      for (let i = 0; i < src.length; i += 4) {
+        const sa = (src[i + 3]! / 255) * ctx.globalAlpha;
+        const da = dst.data[i + 3]! / 255;
+        const keep = 1 - sa * (1 - amount);
+        const alpha = Math.min(1, sa + da * keep);
+        for (let k = 0; k < 3; k++)
+          dst.data[i + k] = alpha
+            ? Math.min(255, (src[i + k]! * sa + dst.data[i + k]! * da * keep) / alpha)
+            : 0;
+        dst.data[i + 3] = alpha * 255;
+      }
+      const result = this.#surface();
+      context(result).putImageData(dst, 0, 0);
+      ctx.save();
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = 'copy';
+      ctx.drawImage(result, 0, 0);
+      ctx.restore();
+    } else {
+      if (mode === 'additive') ctx.globalCompositeOperation = amount ? 'lighter' : 'source-over';
+      ctx.drawImage(source, 0, 0);
+    }
+  }
+
   #shape(ctx: Ctx, i: number, world: Mat): void {
     const n = this.#frame!.nodes[i]!,
       g = n.geometry!,
@@ -462,14 +497,30 @@ export class CanvasRenderer implements IconRenderer {
     for (const paint of n.paints) {
       if (!paint.visible) continue;
       ctx.save();
+      const amount = paint.blendAmount ?? 1;
+      const layer = paint.blend === 'additive' && amount < 1 ? this.#surface() : undefined;
+      const out = layer ? context(layer) : ctx;
+      if (layer) out.setTransform(ctx.getTransform());
+      if (paint.blend && !layer)
+        out.globalCompositeOperation = (
+          paint.blend === 'normal'
+            ? 'source-over'
+            : paint.blend === 'additive'
+              ? 'lighter'
+              : paint.blend
+        ) as GlobalCompositeOperation;
       const feather = paint.feather;
       if (feather?.enabled && (feather.inner || feather.outer || feather.offset.some(Boolean))) {
         const base = this.#surface(),
           bc = context(base);
-        bc.setTransform(ctx.getTransform());
+        bc.setTransform(out.getTransform());
         this.#paint(bc, i, paint, p, world);
-        this.#feather(ctx, base, paint, i, world);
-      } else this.#paint(ctx, i, paint, p, world);
+        this.#feather(out, base, paint, i, world);
+      } else this.#paint(out, i, paint, p, world);
+      if (layer) {
+        ctx.resetTransform();
+        this.#blendImage(ctx, layer, paint.blend, amount);
+      }
       ctx.restore();
     }
   }
@@ -508,17 +559,61 @@ export class CanvasRenderer implements IconRenderer {
     ctx.drawImage(sum, 0, 0);
     ctx.restore();
   }
-  #paint(ctx: Ctx, i: number, p: DrawPaint, local: Path2D, world: Mat): void {
-    let style: string | CanvasGradient | CanvasPattern = this.#color(p.color);
-    if (p.type) {
-      const c = p.coordinates!;
-      const gradient =
-        p.type === 'linear'
-          ? ctx.createLinearGradient(c.x1!, c.y1!, c.x2!, c.y2!)
+  #gradient(ctx: Ctx, p: DrawPaint): CanvasGradient {
+    const c = p.coordinates!;
+    const gradient =
+      p.type === 'linear'
+        ? ctx.createLinearGradient(c.x1!, c.y1!, c.x2!, c.y2!)
+        : p.type === 'angular'
+          ? ctx.createConicGradient(Math.atan2(c.y2! - c.y1!, c.x2! - c.x1!), c.x1!, c.y1!)
           : ctx.createRadialGradient(c.fx ?? c.cx!, c.fy ?? c.cy!, 0, c.cx!, c.cy!, c.r!);
-      for (const stop of p.stops!) gradient.addColorStop(stop.position, this.#color(stop.color));
-      style = gradient;
+    for (const stop of p.stops!) gradient.addColorStop(stop.position, this.#color(stop.color));
+    return gradient;
+  }
+  #paint(ctx: Ctx, i: number, p: DrawPaint, local: Path2D, world: Mat): void {
+    if (p.geometry) local = this.#path(p.geometry);
+    let style: string | CanvasGradient | CanvasPattern = this.#color(p.color);
+    if (p.type && p.gradientTransform) {
+      const mask = this.#surface(),
+        mc = context(mask),
+        layer = this.#surface(),
+        lc = context(layer);
+      mc.setTransform(ctx.getTransform());
+      this.#paint(
+        mc,
+        i,
+        { ...p, type: undefined, gradientTransform: undefined, blend: undefined, color: '#fff' },
+        local,
+        world,
+      );
+      lc.setTransform(ctx.getTransform());
+      lc.transform(...p.gradientTransform);
+      lc.fillStyle = this.#gradient(lc, p);
+      const inv = lc.getTransform().inverse();
+      const corners = [
+        [0, 0],
+        [layer.width, 0],
+        [0, layer.height],
+        [layer.width, layer.height],
+      ].map(([x, y]) => new DOMPoint(x, y).matrixTransform(inv));
+      const x = Math.min(...corners.map((p) => p.x)),
+        y = Math.min(...corners.map((p) => p.y));
+      lc.fillRect(
+        x,
+        y,
+        Math.max(...corners.map((p) => p.x)) - x,
+        Math.max(...corners.map((p) => p.y)) - y,
+      );
+      lc.resetTransform();
+      lc.globalCompositeOperation = 'destination-in';
+      lc.drawImage(mask, 0, 0);
+      ctx.save();
+      ctx.resetTransform();
+      ctx.drawImage(layer, 0, 0);
+      ctx.restore();
+      return;
     }
+    if (p.type) style = this.#gradient(ctx, p);
     if (p.image) {
       const img = this.#image(p.image.source);
       if (!img) return;

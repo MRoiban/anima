@@ -1,0 +1,10 @@
+<anima version="0.1" name="host-score" grid="20" requires="data">
+  <model name="Score">
+    <number name="score" default="4" min="0" max="9"/>
+    <string name="label" default="Ada"/>
+    <trigger name="pulse"/>
+  </model>
+  <instance name="main" model="Score" default="true"/>
+  <circle id="dot" cx="10" cy="10" r="1" fill="#d97757"/>
+  <bind target="dot.r" value="$score"/>
+</anima>

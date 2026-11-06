@@ -1,0 +1,131 @@
+{
+  "anima": "0.1",
+  "name": "derived-scoreboard",
+  "grid": 20,
+  "requires": ["data", "bind", "derive", "convert"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [4, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "properties": {
+        "label": ""
+      }
+    },
+    {
+      "id": "b",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "properties": {
+        "label": ""
+      }
+    },
+    {
+      "id": "c",
+      "type": "circle",
+      "center": [16, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "properties": {
+        "label": ""
+      }
+    }
+  ],
+  "bind": {
+    "a.properties.label": "$players.0.label",
+    "b.properties.label": "$players.1.label",
+    "c.properties.label": "$players.2.label",
+    "a.x": "$players.0.score >= $players.1.score and $players.0.score >= $players.2.score",
+    "b.x": "$players.1.score > $players.0.score and $players.1.score >= $players.2.score",
+    "c.x": "$players.2.score > $players.0.score and $players.2.score > $players.1.score"
+  },
+  "data": {
+    "models": {
+      "Player": {
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "score": {
+            "type": "number",
+            "min": 0,
+            "max": 2000
+          },
+          "bounded": {
+            "type": "number",
+            "min": 10,
+            "max": 20,
+            "value": "$score / 100"
+          },
+          "leading": {
+            "type": "number",
+            "value": "$score >= 1000"
+          },
+          "label": {
+            "type": "string",
+            "value": "$score",
+            "convert": "points"
+          },
+          "milestone": {
+            "type": "bool",
+            "value": "$score >= 1500"
+          }
+        }
+      },
+      "Board": {
+        "properties": {
+          "players": {
+            "type": "list",
+            "of": "Player"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Board",
+        "default": true,
+        "values": {
+          "players": [
+            {
+              "name": "Ada",
+              "score": 1250
+            },
+            {
+              "name": "Lin",
+              "score": 980
+            },
+            {
+              "name": "Sam",
+              "score": 40
+            }
+          ]
+        }
+      }
+    }
+  },
+  "converters": {
+    "grouped": {
+      "type": "number-format",
+      "decimals": 0,
+      "grouping": true
+    },
+    "suffix": {
+      "type": "template",
+      "text": "{0} pts"
+    },
+    "points": {
+      "chain": ["grouped", "suffix"]
+    }
+  }
+}

@@ -9,9 +9,13 @@ import type { Player } from './player.ts';
 export type DrawColor = string | { slot: string; fallback: string };
 export interface DrawPaint {
   kind: 'fill' | 'stroke';
+  blend?: string;
+  blendAmount?: number;
+  geometry?: Geometry;
   key?: string;
   color?: DrawColor;
-  type?: 'linear' | 'radial';
+  type?: 'linear' | 'radial' | 'angular';
+  gradientTransform?: Mat;
   image?: {
     source: string;
     width: number;
@@ -92,6 +96,7 @@ export function geometryLength(g: Geometry | undefined, owner: object = g!): num
   return value;
 }
 export interface DrawEntry {
+  pointer?: string;
   /** Scoped identity supplied by nested draw trees. */
   id?: string;
   node: number;
@@ -128,6 +133,7 @@ export interface DrawNode {
   geometry?: Geometry;
   paints: DrawPaint[];
   blend?: string;
+  blendAmount?: number;
   mask?: { source: number; mode: string; sourceDraws: boolean };
   clip?: { source: number; rule: string };
   patches?: { source: number[]; target: number[]; mode: string }[];

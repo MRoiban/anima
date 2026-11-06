@@ -1,0 +1,52 @@
+{
+  "anima": "0.1",
+  "name": "effect-order",
+  "grid": 20,
+  "requires": ["contour"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "path",
+      "d": "M2 5L18 5",
+      "stroke": {
+        "color": "#4263eb",
+        "width": 0.5,
+        "cap": "butt",
+        "join": "miter",
+        "effects": [
+          {
+            "type": "trim",
+            "start": 0.2,
+            "end": 0.8
+          },
+          {
+            "type": "dash",
+            "dash": [2, 2]
+          }
+        ]
+      }
+    },
+    {
+      "id": "b",
+      "type": "path",
+      "d": "M2 15L18 15",
+      "stroke": {
+        "color": "#4263eb",
+        "width": 0.5,
+        "cap": "butt",
+        "join": "miter",
+        "effects": [
+          {
+            "type": "dash",
+            "dash": [2, 2]
+          },
+          {
+            "type": "trim",
+            "start": 0.2,
+            "end": 0.8
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1994,3 +1994,218 @@ No push, PR, merge into main, benchmark rerun or parity-status promotion by this
   compile (interleaved with main, 4 rounds, load ~6): prefix sweep median ~660 ms both, bell
   ~2.5–2.8 ms; frame bell ~38–41 µs both.
 - **Parity**: 95 rows done (387 / 1 238).
+
+
+## P4e paint backend subtask — partial (2026-11-06)
+
+- Added angular gradients (canvas; explicit SVG refusal), affine gradient matrices, optional
+  contour authoring/effects/positive-winding and mix/additive modules. Existing paint/composite
+  output is preserved; no runtime dependencies or budget/tolerance changes.
+- 18 rows mapped, **3/18 strict local completion**; no inventory statuses promoted. Per-paint
+  SVG blending is explicitly refused after Firefox disagreed; clockwise rendering works but
+  core hit testing is unchanged. Vertex authoring is static; rounded vertices use specified
+  quadratic cutback, with the native disagreement retained.
+- Scoped check: **3379 passed, six pending oracle TODOs**, plus five CLI/API tests. Chromium and
+  Firefox: 716 image comparisons each, all within unchanged limits. Two new native render probes
+  pass; eight new findings remain separately measured. Details: `modules/paint/REPORT.md`.
+- Typecheck, lint, format, module wiring, browser/AniML artifacts and size checks pass.
+  Core+web unchanged 19831 B; paint 4233/5120, composite 3861/4096, contour 3380/5120,
+  mix 898/5120, canvas 4293/8192. Local implementation commit only; no push/PR/merge.
+## P4e-1 data runtime checkpoint (partial)
+
+- Added typed view models, reusable/nested/list instances, named/default/global contexts, `$` paths,
+  binding directions and converter hooks, scalar/custom property writes, change listeners and
+  gradient channel targets. Generic typed/preparation/binding/after-child hooks preserve base inputs.
+- Independent implementation; research rationale is in modules/data/SPEC.md. No runtime dependencies,
+  Rive source/CLI text copying, .riv reading/conversion, push, PR, merge or publication.
+- Sixty row conformance cases plus two ordering vectors; 39 exact native comparison cases and 21
+  evidenced CLI limits. One separately recorded internal-trigger listener finding: Anima 9, Rive 0.
+  Thirteen assigned rows remain pending; parity statuses and the phase checkbox remain unchanged.
+- Latest broad scoped run: 60 files / 2540 passing tests / 39 TODO, Chromium and Firefox included.
+  The prefix robustness test timed out once under concurrent load; subsequent runs passed without
+  changing its 5000 ms limit. Full phase CI/benchmark and the parallel convert/host integration remain.
+- Final size/performance measurements are recorded in modules/data/REPORT.md. Bind stays below 2048 B;
+  data stays below 8192 B. Components reuses the shared expression compiler and stays below 4096 B.
+
+## P4e-1 resumed data checkpoint — partial (2026-11-06)
+
+- Restored saved WIP with paint/contour/mix via merge `02c0007`; 16 conflicts resolved and generated
+  wiring/schema/parity/AniML/web rebuilt. Parity statuses remain unchanged.
+- Fixed named model instances without components in lean markup, shared function/converter registration
+  and foreign parser diagnostics. Reduced duplicated converter/listener code; composed forms cache
+  lasts one compilation and keeps late module registration visible.
+- Required scope: **2485 pass / 45 TODO**; shared core+web: **1007 pass / 26 TODO**. Four owned browser
+  probes pass across Chromium/Firefox and both arrival orders. CLI schema/inspect/docs verified.
+  Typecheck, lint, format, module wiring and generated artifact checks pass.
+- Size check passes: data **8181/8192 B**, bind **2046/2048 B**, components **3167/4096 B**; other
+  module budgets unchanged and passing. Core+web **20021 B (+190 vs main)**; full-featured
+  **81802 B vs main 69666 B (+12136)**, including the starting branch's paint additions.
+- Strict oracle exits **0**: 159 cases / 353 frames. Data adds 37 global comparisons plus two exact
+  module-owned trigger flags, with 21 evidenced native observation skips. The shared oracle tool
+  is restored unchanged. Internal-trigger finding remains **Anima 9 vs native 0**; no thresholds adjusted.
+- 59/73 assigned rows have complete comparable/skip evidence; one finding and thirteen explicit pending
+  rows remain. No-regression performance is **unverified**: final pinned prefix runs 713/1015 ms
+  versus main 569/962 ms; bell frames 42.4/56.7 µs versus 35.3/40.9 µs. Other slower frame/compile
+  readings and earlier noise remain in `modules/data/verification/`; no passing perf claim.
+- Full report: `modules/data/REPORT.md`; provenance: `modules/data/EVIDENCE.md`. Local commits only;
+  no push, PR, publication, design change, .riv reading/conversion or new runtime dependencies.
+
+
+## P4e-5 paint root causes and SVG follow-up (2026-11-06)
+
+- Restored the saved paint WIP with merge c849aae. Rounded authoring now emits native-matching
+  natural-rounding cubics (MIT attribution in NOTICE/SPEC). Additive strength interpolates
+  source-over/addition and avoids double 8-bit rounding. Clockwise fills own local hit winding;
+  per-paint SVG blend wrappers preserve backdrop access in Firefox under transforms.
+- Strict capability count 3/18 → **10/18**. Eight raw pixel failures remain documented with
+  rasterisation proof: native observer controls/paths, equivalent resvg renders and zero interior/
+  exterior errors over 2; angular's seam fits a periodic 512-texel sampler within 2, including an
+  independent black/white holdout. Original thresholds and raw image comparisons remain intact.
+- Shared SVG-only oracle tool restored byte-for-byte to base: **126 cases / 320 frames**, strict
+  exit 0. Three explicit SVG backend skips have active module-owned Chromium/Firefox native
+  comparisons: additive max0, strength max1, angular retained failure max50 / 0.236111%.
+- Requested scope **3436 pass**/28 files (both browsers); broader core **893 pass**/90 files;
+  post-fix mix **530 pass**; native Canvas suite6 and numerical evidence39 pass. Schema/browser
+  artifacts regenerated by their tools; typecheck, ESLint, Prettier, modules/artifact checks clean.
+- Core+web **19865 B** (+34 from main19831), paint4229/5120, contour3735/5120, mix1656/5120,
+  canvas4494/8192; every module in budget. Full-featured75294 B vs69666 (+5628), heavy79973 B.
+  Three interleaved main/branch perf pairs show no observed per-frame regression; raw noisy
+  measurements and every command/root cause/SVG decision are in `modules/paint/REPORT.md`.
+- Initial failures: missing dependencies; five scoped failures (unsupported SVG dispatch and
+  double rounding); six lint errors; stale schema in broad core run. All fixed without loosening
+  checks. No parity status changes, data/bind/components implementation edits, push or PR.
+## P4e-2 converter foundation (partial, 2026-11-06)
+
+- Added dependency-free convert registry, pure converters, math compilation adapter, player-owned
+  random/interpolation state, JSON schema and AniML declaration/group round trips.
+- Scoped convert + bind + conformance + oracle: 1870 pass, 132 explicit pending probes; module-owned
+  checks include 35 captured Rive data-dump comparisons. No new parity row promoted to done.
+- Size: convert 5692/8192 B, markup-convert 1049/2048 B; core+web unchanged 19831 B;
+  full-featured 74014/102400 B. Existing budgets and measurement methods unchanged.
+- Data merge must wire named bindings, math registration and player scheduling; canonical probes,
+  model operands, trigger delivery and instance lists remain pending. Scripted converters belong
+  to P9. Full handoff: modules/convert/HANDOFF.md. No push, PR or package publication.
+
+
+## P4e-2 converter/data integration checkpoint — partial (2026-11-06)
+
+- Local commits `f02e0bd` (foundation merge) and `789538f` (integration/evidence): named/group dispatch
+  through data, active bind registration/parser, live model operands/options/arguments, ctx.state
+  interpolation, per-player seeded random and standalone AniML dispatch. Events stopgap deleted.
+- Required scope passes with `VITEST_MAX_WORKERS=1`: **3,031 pass / 49 TODO**, Chromium and Firefox
+  included. Earlier parallel execution hit five Firefox timeouts; no timeout/test was relaxed.
+  Typecheck, lint, format, module generation and AniML/web artifact checks pass.
+- All budgets pass: core+web **20,021 B (+0, byte-identical)**; convert **6,165/8,192**;
+  data **8,046/8,192 (−135)**; bind **1,901/2,048 (−145)**; markup-convert **620/2,048**;
+  markup **7,882/8,192 (+19)**; full-featured **86,797 B (+4,995 vs p4e-data)**.
+- Strict oracle exits **0**, **212 cases / 406 samples**. All files of the 159 baseline completed
+  case trees are byte-identical; the new converter operand proof has its own path after a collision
+  was caught and restored. Fifty-three completed oracle entries were appended; no reference changed.
+- Sixty-two of 66 capability conformance vectors complete: **52 verified / four evidenced RNG skips /
+  six findings / four pending**. Findings preserve float32 rounder/unit values, enum observation,
+  boolean text and numeric/colour interpolation traces. HSL markers, retained model lists, trigger
+  delivery and P9 scripted conversion remain pending with precise reasons. Parity statuses unchanged.
+- Standalone perf: bell compile **1.97 ms**, prefixes **622 ms**; bell/composite/toolbar frames
+  **38.6/23.9/31.7 µs**, toolbar compile **4.45 ms**. Interleaved serial comparisons remain noisy;
+  quantitative no-regression is **unverified**. The default browser entry is byte-identical, while
+  strict zero overhead for the markup compiler is unmet (+19 B).
+- Full command results, baseline comparisons, pending reasons and native numbers are in
+  `modules/convert/REPORT.md` and `verification/`. No design replacement, dependency, measurement tool
+  edit, loosened limit, push, PR or publication. Necessary data/bind and shared markup seams only;
+  host/paint/contour/mix/canvas sources untouched.
+
+## P4e-6 — data authoring and shared diagnostics
+
+Added the data authoring section: all nine property types, default/named/global instances, `$` paths
+across input consumers, binding modes, common converters/groups, custom channels, three explicit
+list-driven nodes, step ordering, CLI checks, diagnostic fixes and two exact validator transcripts.
+Five new XML documents compile; all 28 authoring tests pass, including chapter/link checks for data,
+convert and host. The guide names thirteen pending data rows and four pending converter rows,
+including the now-integrated converter-options seam whose inventory status stays unchanged.
+
+Data exports `dataCodes` from core and its composed module; data diagnostics and host share that
+source table. No behavior or dependency change. Sizes: data **8191/8192 B** (one byte headroom),
+host **3924/4096 B**, bind **1858/2048 B**, convert **6161/8192 B**, full-featured **91462/102400 B**.
+Convert's normative chapters record decided boolean spelling, eager interpolation/half-up channels,
+double precision and the enum dump observation limit, linking all six unchanged oracle findings.
+
+`npm run test:scope -- cli data convert host markup`: **2584 passed / 253 skipped / 13 todo**,
+46 files passed / 13 skipped; includes Chromium/Firefox host load-order suites. Final guide-only
+rerun **28/28** after fixing invalid examples that initially hit missing-node errors first.
+Typecheck, ESLint, Prettier, module wiring (0 stale), size and diff checks pass. Initial tooling
+needed `npm ci`; old trigger transcript was stale and corrected to actual output. No test limits,
+measurement inputs, oracle findings or parity status fields changed. Local commit only.
+
+
+## P4e-8: computed model scalars and benchmark format fixes (2026-11-06)
+
+Optional `derive` provides per-instance computed read-only scalar properties, local/absolute `$`
+expressions, converter groups, dependency cycle diagnostics, host reads/subscriptions and rejected
+writes. Bind gains typed comparison/logic expressions with shared scalar guard evaluation. Data
+uses the active bind parser instead of bundling a duplicate; non-derived documents keep their
+original scope factory and allocate no computed instance metadata. `schema data` and executable
+AUTHORING command extraction close the CLI mismatch; a compiled player-list example and two
+independently calculated conformance cases cover the benchmark gaps. Dotted data-change events
+also stop being misclassified as component outputs.
+
+Requested scope: **3362 passed / 43 existing TODO**, Chromium and Firefox included; final
+converter-reference follow-up **35/35**, shared core/generator checks **9/9**. Strict oracle exits
+0: **216 cases / 410 samples / 0 failed strict samples**, all **18 findings** retained. Typecheck,
+ESLint, Prettier, generated wiring/schema/browser bundles and **406 AniML** artifact checks pass.
+Budgets unchanged: core+web **20107 B** (+52), full-featured **93550 B** (+2088), derive
+**2103/4096**, data **7413/8192**, bind **2048/2048**, host **4042/4096**. Markup **7912/8192 B**
+passes its budget but is 12 B above the historical P5-7 7900 B target. Two alternating unchanged
+perf runs show no consistent regression; raw numbers are in modules/derive/verification/perf.txt.
+
+Fresh native computed-storage evidence remains **unverified**: installed CLI 1.9.0 refuses local
+schema/docs requiring 1.9.1, and updating is prohibited. No new passing native case or skip is
+claimed. Upward component lookup remains pending (`data.binding-relative`). No benchmark,
+inventory, measurement inputs, thresholds, budgets or timeouts were changed. Development failures,
+fixes and native evidence limits are in modules/derive/REPORT.md. Local branch commit only.
+
+
+P4e-8 bounded-scalar follow-up: computed numbers bypass the stored-property fallback-zero bounds
+check and bool results coerce to 0/1 before number validation/clamping. Unit tests and independent
+scoreboard snapshots cover positive minima, bounds and comparison outputs. Final requested scope
+**3365 passed / 43 existing TODO**, extra conformance/core run **389 passed / 15 existing TODO**;
+strict oracle remains exit 0. Final sizes: data **7420/8192**, derive **2117/4096**, full-featured
+**93573/102400 B**; core+web **20107** and bind **2048/2048 B** unchanged. Generated artifacts
+were regenerated/rechecked after the last validation fix. Main commit **85409b0**, follow-up local.
+
+## P4e — data (2026-11-06)
+
+- **Five modules** (own folders and budgets): `data` — view models (number, string, bool, color,
+  trigger, enum, list, model-ref, asset-ref), default/named/global instances, component public data,
+  `$` paths wherever an input name is valid, binding modes (`to-target`, `to-source`, `two-way` with
+  `prefer`, `once`), `copy` and `change:$path` listeners, node custom properties; `convert` — named
+  converters and groups, formula functions, number/string/colour formatting, interpolation (the only
+  stateful converter, player-local), seeded random; `host` — the page data API (`player.data`,
+  `icon.data`, typed handles, reflection, instances, `batch`, subscriptions after the step,
+  `auto-bind`); `derive` — computed read-only model properties (from the benchmark); paint leftovers
+  in `paint`/`contour`/`mix`/`canvas`. Bind expressions gained the comparisons and logic of `when`
+  guards (one grammar).
+- **Bugs fixed on the way**: rounded vertex corners used quadratic controls (now Rive's natural
+  rounding, attributed in NOTICE); additive strength scaled the source and rounded twice; Firefox
+  isolated per-paint SVG blends under transformed groups; clockwise fills hit-tested as non-zero; a
+  merge pushed `bind` over budget by gzip shift (motion time bindings now reuse `bind.expression`,
+  −46 B); an image asset-ref case pointed at missing files (visual harness); sample/host writes to a
+  computed property reported a type error instead of `read-only-path`.
+- **Oracle** (strict exit 0, 216 cases): data 38 verified + 21 evidenced skips; convert 52 verified,
+  4 RNG skips; host 16 exact values; paint 10/18 strict and 8 rasterisation-only findings (native
+  geometry equal; Anima's renderer on Rive's own commands max 0, or 12 on one). Decided intentional
+  differences: change listeners fire for every source, after the step (Rive skips state-action
+  triggers: 9 vs 0); boolean → string `"true"` (Rive `"1"`); interpolation starts from the value at
+  load (Rive snaps on the first change). Float32 dumps (rounder, degrees → radians) and the
+  enum-index dump are recorded, not differences.
+- **Benchmark** (scoreboard): AniML 5/6 → **6/6** after P4e-8 (44 lines, 5 min 11 s); Rive 5/6
+  (205 lines, 7 min 6 s: labels stay host-writable).
+- **Numbers** (main after P4c → P4e): core + web 19 831 → 20 109 B (+278: data hooks in core, shared
+  comparison grammar); data 7 419 / 8 192, convert 6 326 / 8 192, derive 2 118 / 4 096, host
+  4 042 / 4 096, bind 2 048 / 2 048 B; full-featured 69.7 → 93.6 KB / 100 KB; Rive-class 98.3 KB /
+  250 KB. Perf vs main, in-process alternating, pinned, load ~10 (minimums): bell frame 34.9 / 34.0 µs
+  (p25 40.2 / 41.2), composite 22.3 / 23.0, toolbar 22.4 / 24.0 µs; bell compile 1.95 / 2.07 ms,
+  toolbar compile 3.52 / 3.80 ms; prefix sweep 151 / 153 ms — no regression.
+- **Parity**: 160 rows done (547 / 1 238); 54 moved to P5b (40), P3b (6), P6 (3), P7 (2), P9 (3).
+- **Open**: `bind` and `host` have no room — split before the next change; the full-featured page
+  has ~9 KB left under its ceiling; the Rive CLI now refuses local commands until updated to 1.9.1
+  (owner decision), so `derive` has no fresh native capture.

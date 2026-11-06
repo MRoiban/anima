@@ -102,17 +102,19 @@ export interface LayerM {
 
 export interface InputM {
   name: string;
-  type: 'bool' | 'number' | 'trigger';
-  def: number | boolean;
+  type: 'bool' | 'number' | 'trigger' | 'string' | 'color';
+  def: Value;
+  readonly?: boolean;
+  accepts?: (value: Value) => boolean;
   min: number;
   max: number;
   buffer: number;
 }
 
-export type InputEvaluator = (scope: ReadonlyMap<string, number | boolean>) => Value;
+export type InputEvaluator = (scope: ReadonlyMap<string, Value>) => Value;
 export interface ActionM {
   fire: string[];
-  set: [string, number | boolean | InputEvaluator][];
+  set: [string, Value | InputEvaluator][];
   toggle: string[];
   emit?: string;
 }
@@ -170,6 +172,21 @@ export interface PlaybackPolicy {
   compose(dt: number, values: Value[], events: import('./player.ts').AnimaEvent[]): boolean;
 }
 export interface Model {
+  /** Optional typed data scope and post-state binding pass. */
+  afterStep?: (player: import('./player.ts').Player) => void;
+  signal?: (player: import('./player.ts').Player, name: string) => void;
+  bindData?: (
+    parent: import('./player.ts').Player,
+    child: import('./player.ts').Player,
+    node: NodeM,
+  ) => void;
+  inputScope?: (player: import('./player.ts').Player) => Map<string, Value>;
+  resolveBindings?: (
+    player: import('./player.ts').Player,
+    values: Value[],
+    scope: Map<string, Value>,
+    dt: number,
+  ) => void;
   /** Module-declared event names exposed by nested players. */
   eventNames?: ReadonlySet<string>;
   timelineMarkers?: (timeline: TimelineM) => [number, string][] | undefined;
@@ -187,11 +204,11 @@ export interface Model {
     transition?: TransitionM,
   ) => void;
   /** Optional bind-module expressions controlling motion state clocks. */
-  timeBindings?: Map<StateM, (scope: ReadonlyMap<string, number | boolean>) => number>;
+  timeBindings?: Map<StateM, (scope: ReadonlyMap<string, Value>) => number>;
   playback?: (player: import('./player.ts').Player) => PlaybackPolicy;
   nesting?: (player: import('./player.ts').Player) => import('./player.ts').PlayerExtension;
   /** Optional post-state bindings; evaluators receive the current named inputs. */
-  bindings?: Map<string, (scope: ReadonlyMap<string, number | boolean>) => Value>;
+  bindings?: Map<string, (scope: ReadonlyMap<string, Value>) => Value>;
   /** Built after successful validation; stable for the document lifetime. */
   draw?: DrawTree;
   drawModules?: import('./modules.ts').Module[];
@@ -446,6 +463,7 @@ function resolve(doc: Raw, d: Diags): Model {
     layers: [],
     listeners: [],
   };
+  for (const m of modules.values()) m.prepare?.(model, d);
   for (const m of modules.values()) m.resolve?.(model, d);
 
   // Addresses
@@ -587,7 +605,9 @@ function resolve(doc: Raw, d: Diags): Model {
     const set: ActionM['set'] = [];
     for (const [n, val] of entries<number | boolean | string>(r.set)) {
       const sp = ptr(p + '/set', n);
-      const inp = needInput(n, sp, ['bool', 'number'], V && '"set"');
+      const inp = needInput(n, sp, ['bool', 'number', 'string', 'color'], V && '"set"');
+      if (inp?.readonly)
+        d.err('data-readonly', sp, V && 'path is read-only', V && 'write an item property instead');
       if (typeof val === 'string' && inp && inp.type !== 'trigger') {
         const e = inputExpression(model, val, inp.type, sp, d, (n) => used?.add(n));
         if (e) set.push([n, e]);
@@ -596,7 +616,7 @@ function resolve(doc: Raw, d: Diags): Model {
       if (
         inp &&
         inp.type !== 'trigger' &&
-        typeof val !== (inp.type === 'bool' ? 'boolean' : 'number')
+        !(inp.accepts?.(val) ?? typeof val === (inp.type === 'bool' ? 'boolean' : 'number'))
       )
         d.err(
           'input-type',
@@ -679,7 +699,21 @@ function resolve(doc: Raw, d: Diags): Model {
       (sr.on ?? []).forEach((tr: Raw, ti: number) => {
         const tp = `${sp}/on/${ti}`;
         const to = stateIdx(tr.to, tp + '/to');
-        const terms = parseCondition(tr.when);
+        let terms = parseCondition(tr.when);
+        // Scalar guards share bind's grammar. Trigger and clock terms keep their consumption
+        // and time-boundary behavior; they are not ordinary boolean expression values.
+        if (
+          doc.requires?.includes('bind') &&
+          /\b(?:or|not)\b|^\s*\(/.test(tr.when.replace(/"(?:[^"\\]|\\.)*"/g, ''))
+        ) {
+          const source = tr.when.replace(/("(?:[^"\\]|\\.)*"|&&|!(?!=))/g, (token: string) =>
+            token === '&&' ? ' and ' : token === '!' ? 'not ' : token,
+          );
+          const run = inputExpression(model, source, 'bool', tp + '/when', d, (n) => used?.add(n));
+          terms = run
+            ? [{ k: 'expr', a: '', b: '', op: '==', test: (scope) => Boolean(run(scope)) }]
+            : [];
+        }
         const t: TransitionM = {
           actions: tr.actions ? action(tr.actions, tp + '/actions') : undefined,
           to,
@@ -710,25 +744,20 @@ function resolve(doc: Raw, d: Diags): Model {
               if (inp?.type === 'trigger') {
                 if (term.not)
                   d.err('input-type', wp, V && `trigger "${term.name}" cannot be negated`);
-                t.triggers.push(term.name);
+                t.triggers.push(inp.name);
               }
             } else if (term.k === 'cmp') needInput(term.name, wp, ['number'], V && 'a comparison');
             else if (term.k === 'expr') {
-              const a = inputExpression(model, term.a, 'number', wp, d, (n) => used?.add(n));
-              const b = inputExpression(model, term.b, 'number', wp, d, (n) => used?.add(n));
-              if (a && b)
-                term.test = (scope) => {
-                  const x = a(scope) as number,
-                    y = b(scope) as number;
-                  return {
-                    '==': x === y,
-                    '!=': x !== y,
-                    '<': x < y,
-                    '<=': x <= y,
-                    '>': x > y,
-                    '>=': x >= y,
-                  }[term.op];
-                };
+              if (term.test) continue;
+              const run = inputExpression(
+                model,
+                `${term.a} ${term.op} ${term.b}`,
+                'bool',
+                wp,
+                d,
+                (n) => used?.add(n),
+              );
+              if (run) term.test = (scope) => Boolean(run(scope));
             } else if (term.k === 'end' && (!tl || tl.loop !== 'once'))
               d.err(
                 'bad-end',
@@ -792,7 +821,7 @@ function resolve(doc: Raw, d: Diags): Model {
           V && suggest(r.target, ids.keys()),
         );
     }
-    if (!['fire', 'set', 'toggle', 'emit'].some((k) => k in r))
+    if (!['fire', 'set', 'toggle', 'emit', 'copy'].some((k) => k in r))
       d.err(
         'missing-key',
         p,
@@ -823,7 +852,7 @@ function resolve(doc: Raw, d: Diags): Model {
   }
   if (V)
     for (const n of inputs.keys())
-      if (!used!.has(n))
+      if (!n.startsWith('$') && !used!.has(n))
         d.warn('unused-input', ptr('/inputs', n), V && `nothing reads or writes "${n}"`);
 
   return Object.assign(model, { addrs, timelines, layers, listeners });

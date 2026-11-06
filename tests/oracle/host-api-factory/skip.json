@@ -1,0 +1,5 @@
+{
+  "reason": "Host API only. AnimaIcon.renderers[name] creates an IconRenderer that owns paths, paints, buffers and decoding. This is tested in both browser engines; the local Rive screenshot runner cannot observe host resource factories.",
+  "status": "skip",
+  "tests": ["modules/canvas/test/web/canvas.test.ts"]
+}

@@ -1,0 +1,14 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[09:54:02.231] rive  deferred replay: inline
+[09:54:02.236] rive  built (328 bytes, 4ms, 0 errors, 0 warnings)
+[09:54:02.236] rive  showing Interaction [1/1]
+[09:54:02.236] rive  viewport 240x240 @1x
+ok advance
+[09:54:02.236] rive  wrote frames/initial.json
+ok data-dump: frames/initial.json
+[09:54:02.236] rive  data: pulse = 1 (mid-run)
+ok data
+ok advance
+[09:54:02.236] rive  wrote frames/changed.json
+ok data-dump: frames/changed.json
+ok quit

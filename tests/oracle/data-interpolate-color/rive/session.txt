@@ -1,0 +1,28 @@
+ok advance
+ok data-dump: tests/oracle/data-interpolate-color/rive/raw-0.json
+ok data
+ok advance
+ok data-dump: tests/oracle/data-interpolate-color/rive/raw-1.json
+ok advance
+ok data-dump: tests/oracle/data-interpolate-color/rive/raw-2.json
+ok data
+ok advance
+ok data-dump: tests/oracle/data-interpolate-color/rive/raw-3.json
+ok advance
+ok data-dump: tests/oracle/data-interpolate-color/rive/raw-4.json
+ok advance
+ok data-dump: tests/oracle/data-interpolate-color/rive/raw-5.json
+ok quit
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[09:50:21.272] rive  deferred replay: inline
+[09:50:21.277] rive  built (232 bytes, 4ms, 0 errors, 0 warnings)
+[09:50:21.277] rive  showing Probe [1/1]
+[09:50:21.278] rive  viewport 20x20 @1x
+[09:50:21.278] rive  wrote tests/oracle/data-interpolate-color/rive/raw-0.json
+[09:50:21.278] rive  data: value = FFFFFFFF (mid-run)
+[09:50:21.278] rive  wrote tests/oracle/data-interpolate-color/rive/raw-1.json
+[09:50:21.278] rive  wrote tests/oracle/data-interpolate-color/rive/raw-2.json
+[09:50:21.278] rive  data: value = FF000000 (mid-run)
+[09:50:21.278] rive  wrote tests/oracle/data-interpolate-color/rive/raw-3.json
+[09:50:21.278] rive  wrote tests/oracle/data-interpolate-color/rive/raw-4.json
+[09:50:21.278] rive  wrote tests/oracle/data-interpolate-color/rive/raw-5.json

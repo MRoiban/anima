@@ -1,0 +1,6 @@
+types:
+  DataConverterSystemNormalizer
+
+properties:
+  Axis.normalized   (abstract base -- set it on a type that extends it)
+no type or property matching "Degrees"

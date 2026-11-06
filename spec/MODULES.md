@@ -109,11 +109,13 @@ metadata); no Rive implementation or file conversion is involved.
 Hook points (revised at P4a, owner decision 2026-11-06: rendering is renderer-neutral):
 
 - `registerModule(m: Module)` in core; `Module = { name, entries, load?, model?, value?,
-  interpolate?, outline?, resolve?, draw? }`.
+  interpolate?, outline?, fillContains?, resolve?, draw? }`.
 - `load(model, raw, diag)`: validate and compile the module's keys after the core loader.
 - `model` / `value` / `interpolate`: new animatable value kinds use the player's existing slots and
   sampling; a module declares their value type and default.
 - `outline(player, node)`: the node's current outline for hit testing.
+- `fillContains(player, node, outline, x, y)`: optional local-space fill containment override;
+  undefined delegates to the base fill rule. It does not replace stroke/padding distance.
 - `draw`: the module's contribution to the **draw layer** (§3.1). Modules never produce SVG
   elements, attributes or canvas calls.
 
@@ -134,7 +136,9 @@ and tuple fields retain their ordinary attribute forms. Compound object/map/arra
 use JSON-valued attributes (normal XML escaping applies); existing listener `set`,
 `fire` and `toggle` retain their assignment/name-list syntax. Structural containers
 (`states`, `on`, `pose`, `tracks`, `events`) remain children. Scalar module fields on
-`document` also become `<anima>` attributes. No per-module compiler hook is needed
+`document` also become `<anima>` attributes. Compound document fields opt in to a
+JSON-valued attribute by declaring an explicit `markup` name without an `element`;
+this preserves existing structural containers. No per-module compiler hook is needed
 for these attributes; `packages/markup/test/module-fields.test.ts` covers all five
 non-node targets, aliases, compounds and rejection of unknown fields. Descriptor
 caches last one compilation, so late registration is visible to the next compile.
@@ -201,7 +205,9 @@ independently of whether `sourceDraws` hides their ordinary drawing. Source ance
 apply, ancestor opacity/visibility do not. Geometry clips ignore source paint and visibility.
 
 Colours are literal colours/`currentColor` or `{slot, fallback}`. Gradient coordinates/stops are
-resolved in local grid space; stops already obey the nondecreasing rule. Paints include fill rule,
+resolved in local grid space; stops already obey the nondecreasing rule. Paints may override `geometry` with a resolved path (for ordered stroke effects and winding
+compilation), independently of the node outline and other paints. Entries may carry an authored
+JSON `pointer` for exact backend diagnostics. Paints include fill rule,
 visibility, stroke width/cap/join, trim fractions/offset, dashes in local grid units, position
 and scale mode. Relative authored dashes also retain `dashNormalized`/`dashOffsetNormalized`
 fractions so SVG can preserve normalized pathLength output, including zero-length outlines;

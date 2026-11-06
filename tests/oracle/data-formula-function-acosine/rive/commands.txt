@@ -1,0 +1,3 @@
+advance 0
+data-dump tests/oracle/data-formula-function-acosine/rive/raw.json
+quit

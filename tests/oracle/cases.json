@@ -1548,5 +1548,1037 @@
       "script": "script.txt",
       "reference": "rive/observations.json"
     }
+  },
+  {
+    "name": "drawing-paint-geometry-origin",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "drawing-paint-fill-rule-clockwise",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "data-property-number",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-property-boolean",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-property-string",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-property-color",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-property-enum-custom",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-enum-members",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-list-items",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-property-list",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-property-view-model",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-model-definition",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-default-instance",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-binding-once",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-binding-to-source",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-binding-two-way-prefer-source",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-binding-two-way-prefer-target",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-binding-absolute",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "input-write-gamepad-axis",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "input-write-gamepad-button-pressed",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "input-write-gamepad-button-value",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "input-write-gamepad-changed-value",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "input-write-focused",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "input-write-data-constant",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "input-write-data-copy",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "input-data-listener",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-custom-property-number",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-custom-property-boolean",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-custom-property-string",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-custom-property-color",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-custom-property-enum",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-operation-operand-view-model",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-bind-conditions",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "drawing-paint-gradient-channel-binding",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-property-trigger",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-bind-instance-values",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-component-public-data",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-named-instances",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-global-model",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "drawing-paint-gradient-transform",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "drawing-paint-paint-blend-override",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "drawing-paint-shared-effects",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 110,
+    "maxOverPercent": 0.3
+  },
+  {
+    "name": "drawing-paint-effect-order",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 110,
+    "maxOverPercent": 0.3
+  },
+  {
+    "name": "data-calculate-acosine",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-formula-function-acosine",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-calculate-asine",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-formula-function-asine",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-calculate-atangent",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-formula-function-atangent",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-calculate-atangent2",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-formula-function-atangent2",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-calculate-ceil",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-formula-function-ceil",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-calculate-cosine",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-formula-function-cosine",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-calculate-exp",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-formula-function-exp",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-calculate-floor",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-formula-function-floor",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-calculate-log",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-formula-function-log",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-calculate-modulo",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-formula-operator-modulo",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-calculate-power",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-formula-function-pow",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-calculate-round",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-formula-function-round",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-calculate-sine",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-formula-function-sine",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-calculate-squareroot",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-formula-function-sqrt",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-calculate-tangent",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-formula-function-tangent",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-converter-boolean-negate",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-converter-number-formatting",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-converter-string-remove-zeros",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-converter-to-number",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-converter-list-to-length",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-converter-range-mapper",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-range-modulo",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-range-reverse",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-converter-group",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-bind-converter-options",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-trim-none",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-trim-start",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-trim-end",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-trim-all",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-pad-start",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-pad-end",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-converter-system-normalizer",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-converter-string-template",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-converter-template-delimiters",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-converter-template-number-formatting",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-template-argument-number",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "data-template-argument-string",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "convert-model-operand",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
   }
 ]

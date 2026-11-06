@@ -1,19 +1,20 @@
+import { formatHex } from '../../../packages/core/src/color.ts';
 import type { EventModule, EventKinds } from './events.ts';
 import { after } from '../manifest.ts';
 import type { Module, ModuleRegistry } from '../../../packages/core/src/modules.ts';
-import type { Model, NodeM } from '../../../packages/core/src/load.ts';
+import type { Model, NodeM, InputEvaluator } from '../../../packages/core/src/load.ts';
 import type { Player, PlayerExtension } from '../../../packages/core/src/player.ts';
 import type { ObjShape, NodeType, Shape } from '../../../packages/core/src/registry.ts';
 import { ptr } from '../../../packages/core/src/diag.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import { apply, invert, mul } from '../../../packages/core/src/geom.ts';
 import { drawFrame, drawTree, type DrawNode } from '../../../packages/core/src/draw.ts';
-import { BindError, expression, evaluate, type Expression } from '../../bind/core/expression.ts';
 
 interface Instance {
   node: number;
   model: Model;
-  inputs: Map<string, Expression>;
+  inputs: Map<string, InputEvaluator>;
+  reads: Set<string>;
   offset: number;
 }
 interface Info {
@@ -30,12 +31,13 @@ interface Context {
   cache: Map<string, Model | undefined>;
   stack: Set<string>;
   requires: string[];
+  data?: Model['doc'];
 }
 let context: Context | undefined;
 const scoped = /^[a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*$/;
 
 function create(
-  runtime: Pick<ModuleRegistry, 'load' | 'Player' | 'DOC' | 'nodeShape'>,
+  runtime: Pick<ModuleRegistry, 'load' | 'Player' | 'DOC' | 'nodeShape' | 'inputExpression'>,
   eventKinds: EventKinds = new Map(
     ['enter', 'leave', 'down', 'up', 'click', 'move'].map((name) => [name, undefined]),
   ),
@@ -99,9 +101,21 @@ function create(
       },
     ],
     resolve(model, diag) {
+      const local = (value: string) =>
+        value.split('|').every((on) => {
+          const kind = on.startsWith('event:')
+            ? 'event:'
+            : on.startsWith('change:')
+              ? 'change:'
+              : on;
+          return (
+            eventKinds.has(kind) &&
+            (!eventKinds.get(kind) || model.doc.requires?.includes(eventKinds.get(kind)))
+          );
+        });
       if (!model.doc.requires?.includes('components')) {
         for (const [i, l] of (model.doc.listeners ?? []).entries())
-          if (l.on.includes('.'))
+          if (l.on.includes('.') && !local(l.on))
             diag.err(
               'undeclared-feature',
               '/listeners/' + i + '/on',
@@ -116,6 +130,7 @@ function create(
         cache: new Map(),
         stack: new Set(),
         requires: model.doc.requires,
+        data: model.doc.data,
       });
       const data: Info = { events: new Set(), instances: [], count: 0, depth: 0 };
       info.set(model, data);
@@ -170,6 +185,14 @@ function create(
           name: 'component',
           requires: ctx.requires,
           ...def,
+          ...(ctx.data || def.data
+            ? {
+                data:
+                  typeof def.data === 'string'
+                    ? { ...ctx.data, model: def.data }
+                    : (def.data ?? ctx.data),
+              }
+            : {}),
         });
         ctx.stack.delete(name);
         for (const d of result.diagnostics)
@@ -187,14 +210,19 @@ function create(
         if (!outer)
           for (const name of Object.keys(ctx.definitions))
             if (name !== '$comment') component(name, ptr('/components', name));
-        const types = new Map([...model.inputs].map(([n, i]) => [n, i.type]));
         model.nodes.forEach((node, ni) => {
           if ((node.type as string) !== 'instance') return;
           const pointer = nodePointer(model, ni);
           const child = component(node.raw.component, pointer + '/component');
           if (!child) return;
           targets.set(node, child);
-          const entry: Instance = { node: ni, model: child, inputs: new Map(), offset: 0 };
+          const entry: Instance = {
+            node: ni,
+            model: child,
+            inputs: new Map(),
+            reads: new Set(),
+            offset: 0,
+          };
           data.instances.push(entry);
           const nested = info.get(child);
           data.count += 1 + (nested?.count ?? 0);
@@ -207,27 +235,29 @@ function create(
               err('unknown-input', p, `no component input "${name}"`);
               continue;
             }
-            try {
-              if (typeof value === 'string') {
-                if (!model.doc.requires.includes('bind')) {
-                  err('undeclared-feature', p, 'instance expressions require bind');
-                  continue;
-                }
-                if (!/^\{[\s\S]+\}$/.test(value))
-                  throw new BindError('bind-syntax', 0, 'use {expression}');
-                const e = expression(value.slice(1, -1), types);
-                if (e.type !== input.type && !(input.type === 'number' && e.type === 'bool'))
-                  throw new BindError('bind-type', 0, 'instance input type mismatch');
-                entry.inputs.set(name, e);
-              } else if (
-                input.type === 'trigger' ||
-                typeof value !== (input.type === 'bool' ? 'boolean' : 'number')
-              )
-                err('input-type', p, 'instance input type mismatch');
-            } catch (e) {
-              if (!(e instanceof BindError)) throw e;
-              err(e.code, p, e.message);
-            }
+            if (typeof value === 'string') {
+              if (!model.doc.requires.includes('bind')) {
+                err('undeclared-feature', p, 'instance expressions require bind');
+                continue;
+              }
+              if (!/^\{[\s\S]+\}$/.test(value)) {
+                err('bind-syntax', p, 'use {expression}');
+                continue;
+              }
+              const e = runtime.inputExpression(
+                model,
+                value.slice(1, -1),
+                input.type,
+                p,
+                diag,
+                (n) => entry.reads.add(n),
+              );
+              if (e) entry.inputs.set(name, e);
+            } else if (
+              input.type === 'trigger' ||
+              typeof value !== (input.type === 'bool' ? 'boolean' : 'number')
+            )
+              err('input-type', p, 'instance input type mismatch');
           }
           // The child model distinguishes its authored inputs from bubbled event triggers.
           const events = new Set([...(info.get(child)?.events ?? []), ...(child.eventNames ?? [])]);
@@ -254,16 +284,7 @@ function create(
           err('limit-exceeded', '/nodes', 'components exceed depth 8 or 256 expanded instances');
         if (data.instances.length) model.nesting = (p) => nest(p, data, runtime.Player);
         for (const [i, l] of (model.doc.listeners ?? []).entries())
-          if (
-            !l.on.split('|').every((on: string) => {
-              const kind = on.startsWith('event:') ? 'event:' : on;
-              return (
-                eventKinds.has(kind) &&
-                (!eventKinds.get(kind) || model.doc.requires?.includes(eventKinds.get(kind)))
-              );
-            }) &&
-            (!l.on.includes('.') || model.inputs.get(l.on)?.type !== 'trigger')
-          )
+          if (!local(l.on) && (!l.on.includes('.') || model.inputs.get(l.on)?.type !== 'trigger'))
             err('unknown-event', '/listeners/' + i + '/on', 'unknown instance event');
       } finally {
         context = outer;
@@ -291,11 +312,7 @@ function create(
             data.events.add(model.nodes[i.node]!.id + '.' + name);
       }
       // Proxy inputs and instance expressions are real uses, not unused declarations.
-      const used = new Set(
-        info
-          .get(model)
-          ?.instances.flatMap((i) => [...i.inputs.values()].flatMap((e) => [...e.inputs])),
-      );
+      const used = new Set(info.get(model)?.instances.flatMap((i) => [...i.reads]));
       for (let i = diag.list.length - 1; i >= 0; i--)
         if (
           diag.list[i]!.code === 'unused-input' &&
@@ -388,6 +405,11 @@ function nest(parent: Player, data: Info, Child: typeof Player): Nested {
     ]),
   );
   for (const i of data.instances) {
+    parent.model.bindData?.(
+      parent,
+      players.get(parent.model.nodes[i.node]!.id)!,
+      parent.model.nodes[i.node]!,
+    );
     const n = parent.model.nodes[i.node]!;
     for (const [name, value] of Object.entries(n.raw.inputs ?? {}))
       if (typeof value !== 'string') players.get(n.id)!.set(name, value as number | boolean);
@@ -433,7 +455,10 @@ function nest(parent: Player, data: Info, Child: typeof Player): Nested {
         ...Object.fromEntries(
           [...p.model.inputs]
             .filter(([n, i]) => i.type !== 'trigger' && !n.includes('.'))
-            .map(([n]) => [n, p.get(n)!]),
+            .map(([n]) => {
+              const v = p.get(n)!;
+              return [n, Array.isArray(v) ? formatHex(v) : v];
+            }),
         ),
         ...p.values(),
       })),
@@ -458,7 +483,7 @@ function nest(parent: Player, data: Info, Child: typeof Player): Nested {
         const n = parent.model.nodes[i.node]!,
           p = players.get(n.id)!;
         for (const [name, e] of i.inputs) {
-          const value = evaluate(e, scope);
+          const value = e(scope);
           const v =
             p.model.inputs.get(name)!.type === 'number' ? Number(value) : (value as boolean);
           if (p.busy || v !== p.get(name)) p.set(name, v);

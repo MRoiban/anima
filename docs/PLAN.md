@@ -276,7 +276,20 @@ and an oracle test against Rive.
         browser tests. Core+web 19767 B (+420), bind 1866/2048, events 3551/4096.
         See `modules/events/P4D-3-RESULTS.md`; four exact post-click comparative oracles and one immediate-timing finding in `tests/oracle/ACTION-EXPRESSIONS.md`.
   - [ ] Parent integration, phase benchmark and parity promotion/PR.
-- [ ] P4e `data`: view models, bindings, converters, lists.
+- [x] P4e `data`: view models, bindings, converters, host data API, paint leftovers (LOG "P4e — data").
+  - [x] `data` core (models, instances, lists, `$` paths, binding modes, data listeners, custom
+        properties), `convert` (named converters and groups, formula functions, formatting,
+        interpolation), `host` (page data API, `auto-bind`), `derive` (computed read-only model
+        properties, from the benchmark), comparisons in bind expressions; paint leftovers 10/18 strict
+        plus 8 rasterisation-only findings. Parity 160 rows done (547 / 1 238).
+  - [x] Decided intentional differences: change listeners fire for every source; boolean → string
+        `"true"`; interpolation starts from the value at load. Float32 dumps and the enum-index
+        observation limit are recorded, not differences.
+  - Moved on: 54 rows to P5b (40: lists and list helpers, artboard values, default-instance
+    discovery, listener value sources, typed literals), P3b (6), P6 (3), P7 (2), P9 (3).
+  - Open: `data` is near its budget (7 420 / 8 192 B after `derive` took bytes out), `bind` at
+    2 048 / 2 048 B and `host` at 4 042 / 4 096 B — split before the next change to any of them;
+    fresh Rive captures need the Rive CLI updated to 1.9.1 (owner decision).
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide
       whether switching to reduced motion stops in-progress loops at once (P4b benchmark).
 - [ ] P6 Text.

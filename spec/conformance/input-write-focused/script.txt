@@ -1,0 +1,3 @@
+focus target dot
+pointer click 10 10
+snapshot $value

@@ -609,9 +609,10 @@ A `fill` or `stroke` contains either `color` or a gradient, never both. A gradie
 | Type | Required coordinates (grid units) | Optional coordinates |
 |---|---|---|
 | `linear` | `x1`, `y1`, `x2`, `y2` (start and end) | — |
+| `angular` | `x1`, `y1`, `x2`, `y2` (centre and initial ray) | — |
 | `radial` | `cx`, `cy`, `r` (centre and radius, `r ≥ 0`) | `fx`, `fy` (focal point, each defaults to the corresponding resolved centre coordinate) |
 
-Both have `stops`, an array of at least two `{ position, color }` objects. `position` is 0..1,
+All have `stops`, an array of at least two `{ position, color }` objects. `position` is 0..1,
 nondecreasing at rest; repeated positions are permitted (hard edges). `color` follows §6, including
 slots, `currentColor` and hex alpha. Fill rule and stroke width/cap/join/trim/dashes remain on the
 paint object. Coordinates belonging to the other gradient type are errors.
@@ -635,6 +636,26 @@ with `gradientUnits="userSpaceOnUse"`, sRGB colour interpolation and SVG's defau
 the node transform carries the paint with its geometry. Degenerate gradients and focal points
 outside the radius follow SVG gradient semantics. Knockout geometry and hit tests stay as in §4/§9;
 they do not acquire gradient alpha sampling.
+
+### Angular gradients and affine gradient transforms
+
+`type: "angular"` uses `(x1,y1)` as its centre and the ray to `(x2,y2)` as
+position zero. Positions increase clockwise in SVG's y-down local coordinates over one full
+turn. Coincident endpoints use the positive x axis. Stops pad to the first/last colour and
+may repeat; the seam joins position one back to zero. Coordinates/stops animate like linear
+gradients. AniML uses `<angularGradient x1="…" y1="…" x2="…" y2="…">` with `<stop>` children.
+Canvas uses `createConicGradient`. SVG refuses angular gradient resources with
+`unsupported-render`, a paint `/type` pointer and a hint to use canvas; it never substitutes
+linear/radial interpolation or a finite wedge approximation.
+
+Every gradient accepts static `gradientTransform` (AniML `gradient-transform`), six finite
+numbers `[a,b,c,d,e,f]`. It maps gradient coordinates by
+`(x,y) → (a*x+c*y+e,b*x+d*y+f)` before the node transform, affecting paint only.
+Translations are grid units; linear coefficients are dimensionless (rotation coefficients
+are cosine/sine of the desired angle). A singular matrix is `bad-value` at
+`/gradientTransform`, with an invertibility hint. Non-gradient paints reject the field.
+SVG emits `gradientTransform="matrix(…)"`; canvas paints the transformed gradient into a layer masked by the independently drawn
+geometry, preserving stroke widths under nonuniform matrices. The matrix is static and theme slots still resolve normally.
 
 ### Dashes
 
@@ -755,6 +776,8 @@ so this tolerance describes subdivision flatness, not the initial arc approximat
 These are independent constructions, extending the shared scene and registry designs
 in the format/graph and web-runtime research cited above. No algorithm follows Rive
 runtime source; no additional NOTICE attribution is required.
+
+
 ## composite
 
 The optional `composite` module extends 0.1 documents with `requires: ["composite"]`.
@@ -848,6 +871,14 @@ as described in [web research](../docs/research/rive-web-runtime.md).
 
 ## bind
 
+Bind expressions include numeric comparisons `< <= > >=`, typed equality `== !=`, and boolean
+`and or not`. Ordering requires number operands; equality requires identical operand types.
+Logical operands must be bool. Precedence from low to high is or, and, not, comparison,
+addition/subtraction, multiplication/division, unary signs. Evaluation short-circuits logical
+operators and produces bool, coercible to 0/1 for number destinations. These rules apply to
+bindings, set actions and derive expressions. Guard scalar expressions use the same parser when
+bind is declared; trigger and clock guard terms retain their specialized semantics.
+
 The optional `bind` module requires `requires: ["bind"]`. At document level,
 `bind: { "ring.stroke.trimEnd": "progress" }` maps animatable addresses to expressions.
 Property bindings evaluate after all state layers resolve and before property clamping (§7),
@@ -863,8 +894,8 @@ These are clock expressions evaluated before sampling, rather than property bind
 
 Sources are declared number or bool input names, finite JSON number literals, hex colours
 (`#rgb`, `#rrggbb`, `#rrggbbaa`), parentheses, unary `+`/`-`, binary `+ - * /`, and the functions
-`min(a,b)`, `max(a,b)`, `clamp(x,lo,hi)`, `mix(a,b,t)`, `floor(x)`, `mod(a,b)`. Nothing else is allowed: no property
-reads, strings, boolean literals, comparisons, assignments or arbitrary calls. Identifiers use
+`min(a,b)`, `max(a,b)`, `clamp(x,lo,hi)`, `mix(a,b,t)`, `floor(x)`, `mod(a,b)`. Double-quoted strings, typed comparisons and `and or not` use the grammar above.
+No scene property reads, boolean literals, assignments or arbitrary calls are allowed. Identifiers use
 the input-name grammar; a hyphen is part of a name, so write `level - other` for subtraction
 between inputs. Multiplication/division precede addition/subtraction; binary operators associate
 left; unary signs have highest precedence. Whitespace is insignificant between tokens.
@@ -1965,3 +1996,343 @@ normal XML escaping. Neither form changes timeline `<event at="…" name="…"/>
 
 The event delivery/subscription separation follows the host/runtime concerns recorded in
 `docs/research/rive-web-runtime.md` §§2–3; no Rive implementation or documentation text is used.
+
+
+## contour
+
+The optional `contour` module (5120 B browser budget) contains authoring geometry and path
+operations. Declare `requires: ["contour"]`; gradients additionally require paint, ordered
+paints additionally require composite. Core hooks contribute resolved geometry, never backend
+commands. This follows MODULES §3.1 and the separation discussed in
+[web runtime research](../docs/research/rive-web-runtime.md#lessons-for-anima).
+The corner-control distance below follows Rive’s MIT natural-rounding construction; see NOTICE.
+The other algorithms are independent constructions.
+
+### Editable vertex authoring forms and geometry origin
+
+A `contour` node has `vertices`, at least two objects `{point:[x,y], kind, …}`, optional
+`closed` (default false), and optional `geometryOrigin:[x,y]` (default `[0,0]`). It accepts
+ordinary painted-node transforms/fills/strokes. Each vertex point is in grid units; origin is
+subtracted from every point before ordinary node transforms, independently of paint coordinates.
+AniML `<contour>` uses `vertices="[…JSON…]"`, `closed="true"`, and
+`geometry-origin="x y"`. The array is explicitly JSON-valued in the registry. Node/paint
+fields, schema and CLI names derive from the ordinary registry. Authoring fields are static;
+editing means reloading revised vertex data. Path morphing remains the paint module's `d` API.
+
+Vertex kinds compile to an ordinary path shared by SVG, canvas and the outline hook:
+
+| kind | Optional fields and construction |
+| --- | --- |
+| straight | No handles; adjacent edges are lines unless the neighbour supplies a cubic handle. |
+| mirrored | `handle:[dx,dy]`, default zero; outgoing is handle, incoming is its exact negative. |
+| asymmetric | `outgoing:[dx,dy]`, `incoming:[dx,dy]`, defaults zero. Outgoing supplies direction and length; incoming supplies length only, projected opposite outgoing. Nonzero incoming length requires a nonzero outgoing direction. |
+| detached | `incoming` and `outgoing` vectors, independently positioned, default zero. |
+| rounded | `radius ≥ 0`, default zero. Use one cutback min(radius, half previous length, half next length) and a cubic with the natural-rounding controls below. Open endpoints do not round. |
+
+A cubic edge uses source outgoing and destination incoming controls (point plus vector).
+A closed contour joins the last vertex to the first, then closes. Fields belonging to another
+kind produce `bad-value` at that vertex field with a corrective hint; invalid array sizes,
+coordinates, kinds and negative radii retain structural diagnostics. This is an explicit,
+deterministic authoring contract. For rounded corners, let u/v be the vectors from the point to
+its previous/next neighbour (using the neighbour’s adjacent cubic control when present).
+Let θ = atan2(abs(cross(u,v)), dot(u,v)). With cutback r, set
+h = min(1, (4/3) tan(θ/4) × (θ < π/2 ? 1+cos θ : 2−sin θ)).
+The cubic’s controls lie fraction h from each cut toward the authored point. Zero-length
+neighbour vectors collapse the rounding. This mathematical construction closely follows
+[Rive’s MIT path implementation](https://github.com/rive-app/rive-runtime/blob/main/src/shapes/path.cpp),
+reimplemented here without source-text copying; attribution/license are in NOTICE. Native
+identity path-effect captures check acute, right, obtuse and degenerate corners independently.
+
+### Sequential and synchronized trim; ordered/shared effects
+
+`stroke.trim` is `{start?,end?,offset?,mode?}`: defaults 0,1,0,`sequential`. Start/end are
+fractions in 0..1. Offset is an arbitrary fraction of one turn. Sequential trim measures the
+concatenation of all subpath lengths in authored order; synchronized trim applies the same
+fractions independently to each subpath. A nonpositive end−start draws nothing; a full span
+keeps all geometry; other spans begin at `(start+offset) mod 1`, wrapping at one.
+
+`stroke.effects` is an ordered JSON array of trim/dash objects or shared-stack names.
+A trim is `{type:"trim",start?,end?,offset?,mode?}`. A dash is
+`{type:"dash",dash:[nonnegative grid lengths…],offset?}`. Odd dash arrays repeat twice;
+at least one entry must be positive. Positive offsets advance into the pattern. Dashes restart
+at each input subpath. Each operation consumes the previous operation's output, so trim after
+dash measures the remaining dash fragments, while dash after trim restarts at each trimmed
+fragment. Effects alter stroke geometry only, preserving fill geometry and the hit outline.
+
+Document `effects` maps names to arrays of effect objects, expanded by name at each use.
+Shared arrays cannot contain references, so cycles are impossible. Each use starts from its
+own node geometry. AniML uses JSON-valued root `effects` and stroke `effects` / `trim`
+attributes, with ordinary XML escaping. Compound document fields explicitly opt in via their
+registry markup name; existing document containers retain their structural forms.
+`unknown-source` identifies a missing stack name at its exact array index. A dash without
+positive length or fields of the wrong effect kind is `bad-value`, with field pointer and hint.
+An effect stack and `trim`, or either plus legacy `dash` / `trimStart` / `trimEnd` /
+`trimOffset`, is `paint-conflict`; move all operations into one stack. Legacy stroke behaviour
+is unchanged. Effects are static; changing the stack requires reloading the document.
+
+Cubic path segments are subdivided at the midpoint until control-polygon length minus chord
+is at most 0.0001 local grid units (maximum depth 20). Operations slice the resulting segments
+by Euclidean length. Geometry is compiled into resolved per-paint paths; neither backend uses
+its own dash/trim approximation. Existing path-length/dash algorithms are unchanged.
+
+### Clockwise fill
+
+`fill.winding: "clockwise"` (AniML `fill-winding="clockwise"`) selects strictly positive
+winding, overriding the ordinary fill `rule` for rendering. In local SVG y-down coordinates,
+a clockwise contour contributes +1, counterclockwise −1. The filled region contains exactly
+points whose total winding is greater than zero; nonzero negative regions are empty. Open
+contours implicitly close. This applies to self-intersections, not merely signed whole-contour
+area. The operation runs in local geometry space before transforms (a reflected node remains
+filled). It compiles to nonoverlapping trapezoids split at endpoints and edge intersections;
+curves use the same subdivision rule as effects. Both backends fill that ordinary path nonzero.
+Stroke geometry is unchanged. Core pointer hit testing uses the same positive local winding,
+including implicit closure of open fill contours, holes and self-intersections. Reflections do
+not change the local winding test. Ordered fills contain a point if any fill contains it; stroke
+and listener padding continue to use the original outline distance.
+
+## mix
+
+The optional `mix` module (5120 B browser budget) refines backend compositing. Declare
+`requires: ["mix"]`; base node blend and ordered paints still require composite.
+
+### Additive blend and strength
+
+`node.mix: {mode, strength?}` selects a node compositor. Mode accepts the existing composite
+blend names plus `additive`; strength defaults one and is in 0..1. `mix` and node `blend`
+cannot coexist (`paint-conflict` at `/mix` with an instruction to choose one).
+`<group mix="{&quot;mode&quot;:&quot;additive&quot;,&quot;strength&quot;:0.5}">` illustrates the
+JSON-valued AniML spelling. `node.mix.strength` is an ordinary animatable number address.
+
+Additive means Canvas2D `lighter`: sum premultiplied source and destination components,
+clamping to the output range. Strength interpolates between source-over (zero) and addition (one). For premultiplied
+source `S`, destination `D`, source alpha `Sa` and strength `a`, the result is
+`S + D * (1 - Sa * (1 - a))`, clamped per component (including alpha). Node opacity
+scales `S` and `Sa` before this operation. Canvas evaluates fractional strength once in premultiplied pixel space to avoid rounding
+the source contribution twice in 8-bit intermediate surfaces; strength zero/one use native
+source-over/lighter. Strength has no effect on other compositors. SVG refuses
+additive nodes or paints with `unsupported-render`, reason and a canvas hint because
+`plus-lighter` is not consistently supported by the supported SVG engines/static renderer.
+
+### Per-paint blend override
+
+Fill and stroke objects accept static `blend`, default `inherit`, selecting any node mix mode,
+and animatable `blendAmount` in 0..1 (AniML `fill-blend`, `stroke-blend`,
+`fill-blend-amount`, `stroke-blend-amount`). If any paint overrides blending, the node blend
+is moved to each paint: inherit chooses the node blend, explicit mode replaces it. Paints
+compose in authored order, then ordinary node opacity/masking/group isolation applies.
+`blendAmount` selects the same source-over/addition interpolation for an additive paint; it
+has no effect on other modes. Canvas uses each paint's compositor. SVG gives each paint a
+separate blend group, with the geometry transform on an inner group. To avoid Firefox isolating
+transformed ancestors, documents with paint overrides move node transforms into these inner
+world-space groups; authored opacity, masks and node compositors retain their isolation. Mask
+sources and clip outlines use the same world coordinate space. Gradients and fixed strokes
+remain local to the inner geometry transform. Additive overrides retain the explicit SVG refusal.
+A node without paint overrides retains the existing group compositor exactly.
+
+### Host renderer and factory mapping
+
+`AnimaIcon.renderers[name] = icon => renderer` is the host factory. It creates an `IconRenderer`
+whose `draw(DrawFrame,force)`, `layout()`, `point(x,y)`, `connect()`, `disconnect()` and
+`destroy()` implement the backend bridge. Factories own their paths, gradients, buffers, image
+decoding and resource caches; there is no mandatory global resource superclass or per-verb
+bridge. A custom backend may inject its own resource factory through that closure. The core
+contract is the draw frame, including transforms, geometry, paints, clipping and opacity, so
+playback is shared. Browser tests create and release host-owned paths and gradients in both
+engines. These host-only API rows have no observable Rive screenshot counterpart.
+## data
+
+The optional `data` module generalizes typed inputs with view models, scalar and reference properties,
+named instances, `$` paths, binding direction modes, data-writing listeners and node custom properties.
+Its normative contract, step position, spellings, diagnostics and explicit pending limits are in
+[modules/data/SPEC.md](../modules/data/SPEC.md). `data` bindings resolve in §7's existing binding
+position, after layers and before clamping/reporting/children. Change listeners queue for the next
+step; no callback re-enters the machine. Existing 0.1 input behavior is unchanged.
+
+Capability evidence and incomplete rows are enumerated in
+[modules/data/ROWS.json](../modules/data/ROWS.json). No phase-completion claim is made.
+
+<!-- capability: data.bind-conditions -->
+<!-- capability: data.bind-converter-options -->
+<!-- capability: data.bind-instance-values -->
+<!-- capability: data.bind-keyframes -->
+<!-- capability: data.bind-layout -->
+<!-- capability: data.bind-script-inputs -->
+<!-- capability: data.bind-text -->
+<!-- capability: data.binding-absolute -->
+<!-- capability: data.binding-once -->
+<!-- capability: data.binding-relative -->
+<!-- capability: data.binding-to-source -->
+<!-- capability: data.binding-two-way-prefer-source -->
+<!-- capability: data.binding-two-way-prefer-target -->
+<!-- capability: data.component-public-data -->
+<!-- capability: data.custom-property-boolean -->
+<!-- capability: data.custom-property-color -->
+<!-- capability: data.custom-property-enum -->
+<!-- capability: data.custom-property-number -->
+<!-- capability: data.custom-property-string -->
+<!-- capability: data.custom-property-trigger -->
+<!-- capability: data.default-instance -->
+<!-- capability: data.editor-preview-instance -->
+<!-- capability: data.enum-members -->
+<!-- capability: data.global-model -->
+<!-- capability: data.instance-export -->
+<!-- capability: data.list-items -->
+<!-- capability: data.model-definition -->
+<!-- capability: data.named-instances -->
+<!-- capability: data.operation-operand-view-model -->
+<!-- capability: data.property-artboard -->
+<!-- capability: data.property-asset-blob -->
+<!-- capability: data.property-asset-font -->
+<!-- capability: data.property-asset-image -->
+<!-- capability: data.property-boolean -->
+<!-- capability: data.property-color -->
+<!-- capability: data.property-enum-custom -->
+<!-- capability: data.property-enum-system -->
+<!-- capability: data.property-list -->
+<!-- capability: data.property-number -->
+<!-- capability: data.property-string -->
+<!-- capability: data.property-symbol-list-index -->
+<!-- capability: data.property-text-style -->
+<!-- capability: data.property-trigger -->
+<!-- capability: data.property-view-model -->
+<!-- capability: data.script-model-api -->
+<!-- capability: data.scripted-converter -->
+<!-- capability: data.state-action-trigger -->
+<!-- capability: data.system-enum-horizontal-text-align -->
+<!-- capability: data.system-enum-layout-alignment -->
+<!-- capability: data.system-enum-layout-direction -->
+<!-- capability: data.system-enum-layout-display -->
+<!-- capability: data.system-enum-layout-flex-direction -->
+<!-- capability: data.system-enum-layout-position -->
+<!-- capability: data.system-enum-layout-position-units -->
+<!-- capability: data.system-enum-layout-scale-type -->
+<!-- capability: data.system-enum-layout-wrap -->
+<!-- capability: data.system-enum-scroll-direction -->
+<!-- capability: data.system-enum-semantic-check-state -->
+<!-- capability: data.system-enum-text-box -->
+<!-- capability: data.system-enum-text-overflow -->
+<!-- capability: data.system-enum-text-trim-bottom -->
+<!-- capability: data.system-enum-text-trim-top -->
+<!-- capability: data.system-enum-vertical-text-align -->
+<!-- capability: data.system-enum-word-wrap -->
+<!-- capability: drawing-paint.gradient-channel-binding -->
+<!-- capability: input.data-listener -->
+<!-- capability: input.write-data-constant -->
+<!-- capability: input.write-data-copy -->
+<!-- capability: input.write-focused -->
+<!-- capability: input.write-gamepad-axis -->
+<!-- capability: input.write-gamepad-button-pressed -->
+<!-- capability: input.write-gamepad-button-value -->
+<!-- capability: input.write-gamepad-changed-value -->
+
+## host
+
+Optional host data scripting is specified in [modules/host/SPEC.md](../modules/host/SPEC.md).
+Import the host entry alongside `data`; it adds no document fields or AniML spellings. It provides
+typed handles, reflection, instances, binding, batched writes, change subscriptions delivered after
+the step that made the change, and the web `auto-bind` attribute.
+
+## convert
+
+Optional feature `convert`, after `bind` and `data`; no runtime dependencies. JSON declarations are a
+`converters` map at the document root. Each value is `{type, ...options}` or `{chain: [names...]}`.
+Names in a group execute left to right; forward references are permitted, cycles and missing
+references are errors. A group occurrence has its own state key, including repeated names.
+
+Named converters/groups register through the active data module’s `registerConverter(name, fn)`;
+`fn(value, options, ctx)` receives `{player, dt, direction, get, state, key}`. Definitions are selected
+from that player’s document, so equal names in different documents remain independent. Bindings
+require `data` and `convert`. Binding `options` override declaration options; whole `$path` strings
+resolve from the player’s current data scope. Formula `$` operands use the same resolver and bind
+parser. Unknown named converters and invalid numeric operand paths fail at load with pointers.
+
+`ctx.state` is a shared player-local Map. Convert namespaces a separate map per stable binding
+`key` inside it, preserving external converters’ access to the shared map. Interpolation state is stored only
+there, keyed by group occurrence and direction, including repeated converter names. No state is
+stored on a loaded model or shared between players. The direct API `convertValue` and
+`createConverterRunner` accept `{player,time,state,key?,get?,direction?}`; `time` is milliseconds
+and direct temporal calls retain their context map. The runtime supplies `player.time * 1000`.
+Converter-free documents install no scheduler wrappers. Active interpolation and `random="always"`
+keep the player unsettled; `once`, `on-change`, and completed interpolation allow sleep.
+Bindings evaluate once per data binding evaluation; `mode="once"` retains its converted output.
+
+| Type | Options and semantics |
+| --- | --- |
+| formula | `expression`, `random`: always (default), once, on-change. Variable `value` is the input. |
+| calculate | `operation`, numeric `operand` (default 1); arithmetic and registered math operations. |
+| range | `from` and `to` number pairs (default 0 1); map linearly. `modulo`, then `clamp`, then `reverse` apply to normalized progress. Reversed endpoints are permitted; zero-width source is invalid. Optional `ease` uses the existing timeline easing grammar (default linear). |
+| round | `decimals` (0–100, default 0), `mode`: round/floor/ceil; ECMAScript rounding semantics. |
+| negate | Boolean inversion; numeric inputs are errors. |
+| to-number | Number, boolean or string conversion using ECMAScript Number; nonnumeric strings become zero. |
+| to-string | ECMAScript String conversion. |
+| number-format | `decimals` (0–100, default 0), `grouping` boolean; fixed precision, dot decimal, comma thousands; locale independent. |
+| color-format | Hex colour or 4-channel RGBA tuple → `format` hex/hexa/rgb/rgba (default hex). |
+| pad | String `length` (0–10000), `fill` (nonempty string, default space), `side` start/end. UTF-16 length. |
+| trim | `mode`: start/end/all/none; ECMAScript whitespace. |
+| template | `text`, `open`/`close` delimiters (default braces), `grouping`, optional `args` map/array. Without `args`, scalar input is argument 0 and a list supplies positional arguments. Named keys, numeric positions and sequential `{}` placeholders are supported. `args` values may be `$` paths. `{points:2:8}` fixes two decimals and left-pads to width 8 (maximum 10000). Missing arguments are errors. |
+| remove-zeros | Strip redundant fractional zeros and empty decimal point; integer zeros remain. |
+| enum-to-index | `values`: ordered strings. Unknown values are errors. |
+| list-length | Return list length. |
+| number-to-list | Integer count 0–10000; produce index values or repeated `item`. Model instance creation awaits data integration. |
+| trigger | Boolean pulse passthrough or truncated integer signal counter. Counter-to-trigger delivery awaits data integration. |
+| degrees-to-radians | Multiply by pi/180 forward; by 180/pi in reverse. |
+| normalize | Normalize using `from` pair, default 0 1; reverse denormalizes with the same pair. No implicit clamp. |
+| interpolate | `duration` in milliseconds, default 0. First evaluation returns input immediately; changes retarget from the current sample. Numeric or rounded RGBA channel interpolation; optional `ease` uses the existing timeline easing grammar (default linear). No extrapolation before start or after completion. |
+
+Expressions reuse bind precedence, token/depth limits, numeric/bool coercion and non-finite-to-zero
+rules without eval or dynamic code generation. Added calls: sin/cos/tan/asin/acos/atan/atan2,
+log (natural), exp, pow, sqrt, round, ceil, floor, abs, random(). Long aliases sine/cosine/tangent,
+asine/acosine/atangent/atangent2/power/squareRoot are accepted. Radians for trig. Existing
+min/max/clamp/mix/mod remain available. All math functions, including random(), register through the active bind module’s
+`registerFunction(name,arity,fn)` and formulas compile with its `parse` hook. There is no second
+expression parser. Random is evaluated within the formula context; unscoped random calls outside
+a formula return zero. Math functions are available to ordinary bindings whenever convert is
+installed. Random uses independently implemented uint32 LCG
+`seed = (1664525 * seed + 1013904223) mod 2^32`, output seed/2^32; the stream is shared per player in authored evaluation order, while sites/bindings cache separately.
+`always` advances on evaluation, `once` caches per site, `on-change` invalidates when the incoming
+value changes under Object.is. Repeated evaluation of unchanged input retains the cached value.
+
+Diagnostics: `convert-unknown-type`, `convert-options`, `convert-type`, `convert-cycle`,
+`convert-reference`; formula errors retain bind codes. Load-time diagnostics point at
+`/converters/<escaped-name>/<option>` where possible and include message and hint.
+`ConverterError` carries code and option for the data integration to attach a binding pointer.
+
+AniML adapter: `convertMarkup.rootChild` accepts `<converter name="pct" type="range" from="0 1"
+to="0 100"/>` and `<converter-group name="fmt" chain="pct round label"/>`.
+The generated `convertCompiler` hook supplies declaration compilation/decompilation independently
+of events/data authoring. Browser `markup-convert` registers the `convert` slot. JSON declarations,
+AniML, CLI schema/inspect and `anima docs convert` use the same metadata and module chapter.
+
+Remaining parity limits: HSL component-format markers; retained model-instance list creation;
+trigger-counter delivery into a trigger destination; scripted conversion (P9). Their canonical
+probes retain precise `todo.json` reasons. Existing scalar/index-list/boolean conversion functions
+are useful independently but do not complete those broader rows. See ROWS.json and REPORT.md.
+
+### Intentional differences and observation limits
+
+These decisions retain the original oracle findings unchanged; none becomes a passing comparison.
+
+- Boolean → string uses ECMAScript `"true"`/`"false"`, rather than the native numeric spelling
+  (`"1"` for true). See [boolean text finding](../tests/oracle/data-converter-to-string/finding.json).
+- Interpolation initializes eagerly from the value at load. A later source change interpolates from
+  that value rather than snapping on the first non-default change as native does. See
+  [number interpolation finding](../tests/oracle/data-interpolate-number/finding.json).
+  RGBA channels round half up, so a black/white midpoint is `#808080`, rather than native `#7f7f7f`;
+  see [colour interpolation finding](../tests/oracle/data-interpolate-color/finding.json).
+- Decimal rounding and degrees → radians retain doubles. Their measured differences are solely
+  native float32 storage precision, not different arithmetic contracts. See
+  [decimal rounder finding](../tests/oracle/data-converter-rounder/finding.json) and
+  [degrees → radians finding](../tests/oracle/data-converter-system-degs-to-rads/finding.json).
+- Enum → index returns the declared zero-based index. The native dump's unchanged numeric bridge
+  is an observation limit, not evidence of a different enum conversion rule. See
+  [enum observation finding](../tests/oracle/data-converter-enum-to-uint/finding.json).
+
+Algorithms are independently implemented from standard arithmetic and ECMAScript functions.
+No Rive source or .riv files were read; no CLI documentation text was copied. The registry design follows
+the metadata rationale in `docs/research/rive-format-and-graph.md`; this is not a Rive algorithm port.
+
+## derive
+
+The optional `derive` module adds computed, read-only scalar model properties. The normative
+contract is [modules/derive/SPEC.md](../modules/derive/SPEC.md); its `value` and `convert` keys
+have identical JSON/AniML spellings. Dependencies resolve per instance and cycles are invalid.

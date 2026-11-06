@@ -1,0 +1,51 @@
+[
+  {
+    "next": [120, 48],
+    "commands": [
+      "PATH 1 moveTo 24,48",
+      "PATH 2 lineTo 60,48",
+      "PATH 3 cubicTo 72,48 72,48 84,48",
+      "PATH 4 lineTo 120,48"
+    ]
+  },
+  {
+    "next": [120, 96],
+    "commands": [
+      "PATH 1 moveTo 24,48",
+      "PATH 2 lineTo 60,48",
+      "PATH 3 cubicTo 72,48 72,48 80.48528289794922,56.48528289794922",
+      "PATH 4 lineTo 120,96"
+    ]
+  },
+  {
+    "next": [72, 120],
+    "commands": [
+      "PATH 1 moveTo 24,48",
+      "PATH 2 lineTo 60,48",
+      "PATH 3 cubicTo 66.6274185180664,48 72,53.372581481933594 72,60",
+      "PATH 4 lineTo 72,120"
+    ]
+  },
+  {
+    "next": [24, 96],
+    "commands": [
+      "PATH 1 moveTo 24,48",
+      "PATH 2 lineTo 60,48",
+      "PATH 3 cubicTo 65.43303680419922,48 67.35645294189453,52.64354705810547 63.51471710205078,56.48528289794922",
+      "PATH 4 lineTo 24,96"
+    ]
+  },
+  {
+    "next": [24, 48],
+    "commands": ["PATH 1 moveTo 24,48", "PATH 2 lineTo 60,48", "PATH 3 lineTo 24,48"]
+  },
+  {
+    "next": [120, 0],
+    "commands": [
+      "PATH 1 moveTo 24,48",
+      "PATH 2 lineTo 60,48",
+      "PATH 3 cubicTo 72,48 72,48 80.48528289794922,39.51471710205078",
+      "PATH 4 lineTo 120,0"
+    ]
+  }
+]

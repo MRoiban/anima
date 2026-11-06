@@ -1,0 +1,8 @@
+advance 0
+data-dump frames/initial.json
+gamepad connect
+advance 0
+gamepad axis@0:0.5
+advance 0
+data-dump frames/changed.json
+quit

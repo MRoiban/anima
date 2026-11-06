@@ -310,8 +310,9 @@ describe('AniML compiler', () => {
     for (const form of ['slice', 'feather', 'imagePaint'])
       expect(paintElements.some((e) => e.name === form)).toBe(true);
     collectPaint(
-      parseXml('<anima><instance id="i" component="badge" speed="2" paused="true"/></anima>').doc
-        .root!,
+      parseXml(
+        '<anima><instance id="i" component="badge" speed="2" paused="true" data="main"/></anima>',
+      ).doc.root!,
     );
     collectPaint(
       parseXml(readFileSync(new URL('../../../examples/motion.animl', import.meta.url), 'utf8')).doc
@@ -319,7 +320,28 @@ describe('AniML compiler', () => {
     );
     collectPaint(
       parseXml(
-        '<anima><group id="g" opaque="true" cursor="pointer" pointerEnabled="false" collapsed="true" solo="0"/></anima>',
+        '<anima><group id="g" opaque="true" cursor="pointer" pointerEnabled="false" collapsed="true" solo="0" properties="{}"/></anima>',
+      ).doc.root!,
+    );
+    for (const file of [
+      'drawing-paint-straight-vertex',
+      'drawing-paint-geometry-origin',
+      'drawing-paint-trim-sequential',
+      'drawing-paint-effect-order',
+      'drawing-paint-paint-blend-override',
+      'drawing-paint-fill-rule-clockwise',
+    ])
+      collectPaint(
+        parseXml(
+          readFileSync(
+            new URL('../../../spec/conformance/' + file + '/case.animl', import.meta.url),
+            'utf8',
+          ),
+        ).doc.root!,
+      );
+    collectPaint(
+      parseXml(
+        '<anima><rect mix="{&quot;mode&quot;:&quot;normal&quot;}" fill-blend-amount="0.5" stroke-blend-amount="0.5"/></anima>',
       ).doc.root!,
     );
     const attrs = new Set(

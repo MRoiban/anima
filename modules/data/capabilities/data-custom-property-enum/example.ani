@@ -1,0 +1,40 @@
+{
+  "anima": "0.1",
+  "name": "data-probe",
+  "grid": 20,
+  "requires": ["data", "bind"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "properties": {
+        "custom": {
+          "type": "enum",
+          "values": ["calm", "happy"],
+          "default": "happy"
+        }
+      }
+    }
+  ],
+  "bind": {
+    "dot.properties.custom": "$value"
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "enum",
+            "default": "calm",
+            "values": ["calm", "happy"]
+          }
+        }
+      }
+    }
+  }
+}

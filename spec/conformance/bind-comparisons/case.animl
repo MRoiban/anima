@@ -1,0 +1,19 @@
+<anima version="0.1" name="comparison-values" grid="20" requires="bind">
+  <number name="score" default="3"/>
+  <bool name="flag"/>
+  <circle id="a" cx="4" cy="10" r="1" fill="#000"/>
+  <circle id="b" cx="10" cy="10" r="1" fill="#000"/>
+  <circle id="c" cx="16" cy="10" r="1" fill="#000"/>
+  <bind target="a.x" value="score + 2 * 3 >= 9 and not flag"/>
+  <bind target="b.x" value="score &lt; 3 or flag"/>
+  <bind target="c.x" value="not score == 3 or flag and score != 0"/>
+  <listener on="click" set="flag=score >= 3"/>
+  <layer name="m" initial="idle">
+    <state name="idle">
+      <on when="score >= 3 and (not flag or score > 5)" to="done"/>
+    </state>
+    <state name="done">
+      <pose/>
+    </state>
+  </layer>
+</anima>

@@ -1,0 +1,15 @@
+<anima version="0.1" name="drawing-paint-additive-strength" grid="20" requires="mix composite">
+  <rect id="back" x0="0" y0="0" width="20" height="20" fill="#204060"/>
+  <rect id="a" x0="4" y0="4" mix="{&quot;mode&quot;:&quot;additive&quot;,&quot;strength&quot;:0.5}" width="12" height="12" fill="#804020"/>
+
+  <timeline name="t" duration="1">
+    <track target="a.mix.strength">
+      0  0
+      1  1
+    </track>
+  </timeline>
+
+  <layer name="l" initial="s">
+    <state name="s" play="t"/>
+  </layer>
+</anima>

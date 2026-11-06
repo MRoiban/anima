@@ -1,0 +1,10 @@
+[
+  {
+    "click": 0,
+    "values": {
+      "dot.properties.custom": "#11223344",
+      "$value": "#11223344"
+    },
+    "events": []
+  }
+]

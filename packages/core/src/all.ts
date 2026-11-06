@@ -21,8 +21,16 @@ import { paint } from '../../../modules/paint/core/index.ts';
 import { paintSVG } from '../../../modules/paint/core/svg.ts';
 import { composite } from '../../../modules/composite/core/index.ts';
 import { compositeSVG } from '../../../modules/composite/core/svg.ts';
+import { contour } from '../../../modules/contour/core/index.ts';
+import { contourSVG } from '../../../modules/contour/core/svg.ts';
+import { data } from '../../../modules/data/core/index.ts';
+import { convert } from '../../../modules/convert/core/index.ts';
+import { derive } from '../../../modules/derive/core/index.ts';
+import { host } from '../../../modules/host/core/index.ts';
 import { surface } from '../../../modules/surface/core/index.ts';
 import { surfaceSVG } from '../../../modules/surface/core/svg.ts';
+import { mix } from '../../../modules/mix/core/index.ts';
+import { mixSVG } from '../../../modules/mix/core/svg.ts';
 if (VERBOSE) {
   registerModule(components);
   registerSVGBackend('components', componentsSVG);
@@ -43,6 +51,14 @@ if (VERBOSE) {
   registerSVGBackend('paint', paintSVG);
   registerModule(composite);
   registerSVGBackend('composite', compositeSVG);
+  registerModule(contour);
+  registerSVGBackend('contour', contourSVG);
+  registerModule(data);
+  registerModule(convert);
+  registerModule(derive);
+  registerModule(host);
   registerModule(surface);
   registerSVGBackend('surface', surfaceSVG);
+  registerModule(mix);
+  registerSVGBackend('mix', mixSVG);
 }

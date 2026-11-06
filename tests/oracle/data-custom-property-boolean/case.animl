@@ -1,0 +1,9 @@
+<anima version="0.1" name="oracle-data" grid="20" requires="data bind">
+  <circle id="dot" cx="10" cy="10" properties="{&quot;custom&quot;:{&quot;type&quot;:&quot;bool&quot;,&quot;default&quot;:true}}" r="1" fill="#000"/>
+
+  <model name="Root">
+    <bool name="value" default="false"/>
+  </model>
+
+  <bind target="dot.properties.custom" value="$value" mode="to-source"/>
+</anima>

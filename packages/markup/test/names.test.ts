@@ -42,6 +42,8 @@ describe('one registry, two spellings', () => {
       'opaque',
       'cursor',
       'mix-blend-mode',
+      'properties',
+      'mix',
       'pointerEnabled',
       'collapsed',
       'solo',
@@ -105,7 +107,9 @@ describe('one registry, two spellings', () => {
       'clip',
       'drawOrder',
       'paints',
+      'properties',
       'slice',
+      'mix',
     ]);
   });
 });

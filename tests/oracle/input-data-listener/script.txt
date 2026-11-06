@@ -1,0 +1,6 @@
+advance 0
+snapshot $value
+set $source 7
+advance 0
+advance 0
+snapshot $value

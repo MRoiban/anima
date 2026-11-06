@@ -1,0 +1,52 @@
+{
+  "anima": "0.1",
+  "name": "data-probe",
+  "grid": 20,
+  "requires": ["data", "bind"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "properties": {
+        "pulse": {
+          "type": "trigger"
+        }
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "m": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {},
+            "on": [
+              {
+                "when": "dot.properties.pulse",
+                "to": "done"
+              }
+            ]
+          },
+          "done": {
+            "pose": {
+              "dot.x": 9
+            }
+          }
+        }
+      }
+    }
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {}
+      }
+    }
+  }
+}

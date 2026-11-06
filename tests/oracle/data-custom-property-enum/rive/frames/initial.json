@@ -1,0 +1,23 @@
+{
+  "schema": 1,
+  "artboard": "Custom",
+  "stateMachine": "main",
+  "viewModel": {
+    "name": "main",
+    "viewModel": "Root",
+    "properties": [
+      {
+        "name": "value",
+        "path": "value",
+        "type": "enum",
+        "enumType": "Mood",
+        "value": "calm",
+        "index": 0,
+        "values": ["calm", "happy"],
+        "changed": true
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}

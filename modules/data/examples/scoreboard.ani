@@ -1,0 +1,74 @@
+{
+  "anima": "0.1",
+  "name": "scoreboard",
+  "grid": 20,
+  "requires": ["data", "bind"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "properties": {
+        "label": "score"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "click",
+      "set": {
+        "$score": "$score+1"
+      }
+    }
+  ],
+  "bind": {
+    "dot.r": "$score / 2",
+    "dot.fill.color": "$tint",
+    "dot.properties.label": "$label"
+  },
+  "data": {
+    "models": {
+      "Player": {
+        "properties": {
+          "score": {
+            "type": "number",
+            "default": 4,
+            "min": 0,
+            "max": 20
+          },
+          "label": {
+            "type": "string",
+            "default": "Ada"
+          },
+          "active": {
+            "type": "bool"
+          },
+          "tint": {
+            "type": "color",
+            "default": "#d97757"
+          },
+          "levelUp": {
+            "type": "trigger"
+          },
+          "mood": {
+            "type": "enum",
+            "values": ["calm", "happy"]
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Player",
+        "default": true,
+        "values": {
+          "score": 8
+        }
+      }
+    }
+  }
+}

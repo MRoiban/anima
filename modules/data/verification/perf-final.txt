@@ -1,0 +1,21 @@
+Same CPU affinity: 7; unchanged tools/perf.ts and workload
+main-1
+compile: bell 2.45 ms; all 9040 prefixes 569 ms
+frame: bell 35.3 µs; composite 21.7 µs
+frame: toolbar 24.3 µs (step + draw, 4 instances)
+compile: toolbar 3.86 ms
+data-1
+compile: bell 2.15 ms; all 9040 prefixes 713 ms
+frame: bell 42.4 µs; composite 45.7 µs
+frame: toolbar 57.2 µs (step + draw, 4 instances)
+compile: toolbar 7.21 ms
+data-2
+compile: bell 4.23 ms; all 9040 prefixes 1015 ms
+frame: bell 56.7 µs; composite 39.3 µs
+frame: toolbar 44.6 µs (step + draw, 4 instances)
+compile: toolbar 6.75 ms
+main-2
+compile: bell 5.19 ms; all 9040 prefixes 962 ms
+frame: bell 40.9 µs; composite 27.2 µs
+frame: toolbar 30.0 µs (step + draw, 4 instances)
+compile: toolbar 4.21 ms

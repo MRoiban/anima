@@ -1,0 +1,15 @@
+export const dataCodes = {
+  asset: 'data-asset',
+  binding: 'data-binding',
+  converter: 'data-converter',
+  copy: 'data-copy',
+  cycle: 'data-cycle',
+  enum: 'data-enum',
+  instance: 'data-instance',
+  model: 'data-model',
+  path: 'data-path',
+  property: 'data-property',
+  readonly: 'data-readonly',
+  type: 'data-type',
+  'value-source': 'data-value-source',
+} as const;

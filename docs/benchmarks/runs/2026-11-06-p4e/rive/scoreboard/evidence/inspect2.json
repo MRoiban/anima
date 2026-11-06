@@ -1,0 +1,3488 @@
+{
+  "schema": 1,
+  "problems": [],
+  "backboard": {
+    "type": "Backboard",
+    "line": 0
+  },
+  "defaultArtboard": {"id": "0:1", "name": "Scoreboard"},
+  "artboards": [
+    {
+      "type": "Artboard",
+      "id": "0:1",
+      "line": 2,
+      "originX": 0,
+      "originY": 0,
+      "defaultStateMachineId": "0:2",
+      "viewModelId": "0:100",
+      "clip": false,
+      "width": 480,
+      "height": 240,
+      "styleId": "0:3",
+      "fractionalWidth": 1,
+      "fractionalHeight": 1,
+      "blendModeValue": 3,
+      "additiveAmount": 255,
+      "drawableFlags": 0,
+      "x": 0,
+      "y": 0,
+      "computedLocalX": 0,
+      "computedLocalY": 0,
+      "computedWorldX": 0,
+      "computedWorldY": 0,
+      "computedRootX": 0,
+      "computedRootY": 0,
+      "computedWidth": 0,
+      "computedHeight": 0,
+      "rotation": 0,
+      "scaleX": 1,
+      "scaleY": 1,
+      "opacity": 1,
+      "name": "Scoreboard",
+      "enums": {"blendModeValue": "srcOver"},
+      "children": [
+        {
+          "type": "LayoutComponentStyle",
+          "id": "0:3",
+          "line": 2,
+          "gapHorizontal": 0,
+          "gapVertical": 0,
+          "borderLeft": 0,
+          "borderRight": 0,
+          "borderTop": 0,
+          "borderBottom": 0,
+          "marginLeft": 0,
+          "marginRight": 0,
+          "marginTop": 0,
+          "marginBottom": 0,
+          "paddingLeft": 0,
+          "paddingRight": 0,
+          "paddingTop": 0,
+          "paddingBottom": 0,
+          "positionLeft": 0,
+          "positionRight": 0,
+          "positionTop": 0,
+          "positionBottom": 0,
+          "positionLeftUnitsValue": 0,
+          "positionRightUnitsValue": 0,
+          "positionTopUnitsValue": 0,
+          "positionBottomUnitsValue": 0,
+          "flexBasis": 0,
+          "aspectRatio": 0,
+          "aspectRatioAxisValue": 0,
+          "interpolationTime": 0,
+          "flexBasisUnitsValue": 3,
+          "layoutAlignmentType": 0,
+          "animationStyleType": 0,
+          "interpolationType": 0,
+          "positionTypeValue": 1,
+          "flexDirectionValue": 2,
+          "directionValue": 0,
+          "flexWrapValue": 0,
+          "overflowValue": 0,
+          "intrinsicallySizedValue": false,
+          "borderLeftUnitsValue": 0,
+          "borderRightUnitsValue": 0,
+          "borderTopUnitsValue": 0,
+          "borderBottomUnitsValue": 0,
+          "marginLeftUnitsValue": 1,
+          "marginRightUnitsValue": 1,
+          "marginTopUnitsValue": 1,
+          "marginBottomUnitsValue": 1,
+          "paddingLeftUnitsValue": 1,
+          "paddingRightUnitsValue": 1,
+          "paddingTopUnitsValue": 1,
+          "paddingBottomUnitsValue": 1,
+          "gapHorizontalUnitsValue": 1,
+          "gapVerticalUnitsValue": 1,
+          "justifyItemsValue": 7,
+          "layoutTypeValue": 0,
+          "linkCornerRadius": true,
+          "cornerRadiusTL": 0,
+          "cornerRadiusTR": 0,
+          "cornerRadiusBL": 0,
+          "cornerRadiusBR": 0,
+          "minWidth": 0,
+          "maxWidth": 0,
+          "minHeight": 0,
+          "maxHeight": 0,
+          "minWidthUnitsValue": 0,
+          "maxWidthUnitsValue": 0,
+          "minHeightUnitsValue": 0,
+          "maxHeightUnitsValue": 0,
+          "layoutWidthScaleType": 0,
+          "layoutHeightScaleType": 0,
+          "hugUnbounded": false,
+          "widthUnitsValue": 1,
+          "heightUnitsValue": 1,
+          "justifySelfValue": 6,
+          "displayValue": 0,
+          "name": "",
+          "enums": {"positionLeftUnitsValue": "undefined", "positionRightUnitsValue": "undefined", "positionTopUnitsValue": "undefined", "positionBottomUnitsValue": "undefined", "aspectRatioAxisValue": "auto", "flexBasisUnitsValue": "auto", "layoutAlignmentType": "topLeft", "animationStyleType": "none", "interpolationType": "hold", "positionTypeValue": "relative", "flexDirectionValue": "row", "directionValue": "inherit", "flexWrapValue": "noWrap", "overflowValue": "visible", "borderLeftUnitsValue": "undefined", "borderRightUnitsValue": "undefined", "borderTopUnitsValue": "undefined", "borderBottomUnitsValue": "undefined", "marginLeftUnitsValue": "points", "marginRightUnitsValue": "points", "marginTopUnitsValue": "points", "marginBottomUnitsValue": "points", "paddingLeftUnitsValue": "points", "paddingRightUnitsValue": "points", "paddingTopUnitsValue": "points", "paddingBottomUnitsValue": "points", "gapHorizontalUnitsValue": "points", "gapVerticalUnitsValue": "points", "justifyItemsValue": "stretch", "layoutTypeValue": "flex", "minWidthUnitsValue": "undefined", "maxWidthUnitsValue": "undefined", "minHeightUnitsValue": "undefined", "maxHeightUnitsValue": "undefined", "layoutWidthScaleType": "fixed", "layoutHeightScaleType": "fixed", "widthUnitsValue": "points", "heightUnitsValue": "points", "justifySelfValue": "auto", "displayValue": "flex"}
+        },
+        {
+          "type": "Shape",
+          "line": 3,
+          "length": 0,
+          "blendModeValue": 3,
+          "additiveAmount": 255,
+          "drawableFlags": 0,
+          "x": 24,
+          "y": 36,
+          "computedLocalX": 0,
+          "computedLocalY": 0,
+          "computedWorldX": 0,
+          "computedWorldY": 0,
+          "computedRootX": 0,
+          "computedRootY": 0,
+          "computedWidth": 0,
+          "computedHeight": 0,
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "opacity": 1,
+          "name": "AdaSwatch",
+          "enums": {"blendModeValue": "srcOver"},
+          "children": [
+            {
+              "type": "Ellipse",
+              "line": 3,
+              "width": 24,
+              "height": 24,
+              "originX": 0.5,
+              "originY": 0.5,
+              "pathFlags": 0,
+              "isHole": false,
+              "x": 0,
+              "y": 0,
+              "computedLocalX": 0,
+              "computedLocalY": 0,
+              "computedWorldX": 0,
+              "computedWorldY": 0,
+              "computedRootX": 0,
+              "computedRootY": 0,
+              "computedWidth": 0,
+              "computedHeight": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "opacity": 1,
+              "name": ""
+            },
+            {
+              "type": "Fill",
+              "line": 3,
+              "fillRule": 0,
+              "isVisible": true,
+              "blendModeValue": 127,
+              "additiveAmount": 255,
+              "name": "",
+              "enums": {"fillRule": "nonZero", "blendModeValue": "inherit"},
+              "children": [
+                {
+                  "type": "SolidColor",
+                  "line": 3,
+                  "colorValue": "FFD97757",
+                  "colorRed": 0,
+                  "colorGreen": 0,
+                  "colorBlue": 0,
+                  "colorAlpha": 0,
+                  "name": "",
+                  "children": [
+                    {
+                      "type": "DataBindContext",
+                      "line": 3,
+                      "propertyKey": 37,
+                      "flags": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Shape",
+          "line": 4,
+          "length": 0,
+          "blendModeValue": 3,
+          "additiveAmount": 255,
+          "drawableFlags": 0,
+          "x": 60,
+          "y": 36,
+          "computedLocalX": 0,
+          "computedLocalY": 0,
+          "computedWorldX": 0,
+          "computedWorldY": 0,
+          "computedRootX": 0,
+          "computedRootY": 0,
+          "computedWidth": 0,
+          "computedHeight": 0,
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "opacity": 1,
+          "name": "AdaBar",
+          "enums": {"blendModeValue": "srcOver"},
+          "children": [
+            {
+              "type": "Rectangle",
+              "line": 4,
+              "linkCornerRadius": true,
+              "cornerRadiusTL": 0,
+              "cornerRadiusTR": 0,
+              "cornerRadiusBL": 0,
+              "cornerRadiusBR": 0,
+              "width": 225,
+              "height": 24,
+              "originX": 0,
+              "originY": 0.5,
+              "pathFlags": 0,
+              "isHole": false,
+              "x": 0,
+              "y": 0,
+              "computedLocalX": 0,
+              "computedLocalY": 0,
+              "computedWorldX": 0,
+              "computedWorldY": 0,
+              "computedRootX": 0,
+              "computedRootY": 0,
+              "computedWidth": 0,
+              "computedHeight": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "opacity": 1,
+              "name": "",
+              "children": [
+                {
+                  "type": "DataBindContext",
+                  "line": 4,
+                  "propertyKey": 20,
+                  "flags": 0,
+                  "converterId": "0:300"
+                }
+              ]
+            },
+            {
+              "type": "Fill",
+              "line": 4,
+              "fillRule": 0,
+              "isVisible": true,
+              "blendModeValue": 127,
+              "additiveAmount": 255,
+              "name": "",
+              "enums": {"fillRule": "nonZero", "blendModeValue": "inherit"},
+              "children": [
+                {
+                  "type": "SolidColor",
+                  "line": 4,
+                  "colorValue": "FFD97757",
+                  "colorRed": 0,
+                  "colorGreen": 0,
+                  "colorBlue": 0,
+                  "colorAlpha": 0,
+                  "name": "",
+                  "children": [
+                    {
+                      "type": "DataBindContext",
+                      "line": 4,
+                      "propertyKey": 37,
+                      "flags": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Stroke",
+              "id": "0:400",
+              "line": 4,
+              "thickness": 6,
+              "cap": 0,
+              "join": 0,
+              "transformAffectsStroke": true,
+              "position": 1,
+              "isVisible": true,
+              "blendModeValue": 127,
+              "additiveAmount": 255,
+              "name": "AdaLeader",
+              "enums": {"cap": "butt", "join": "miter", "position": "center", "blendModeValue": "inherit"},
+              "children": [
+                {
+                  "type": "SolidColor",
+                  "line": 4,
+                  "colorValue": "FFD97757",
+                  "colorRed": 0,
+                  "colorGreen": 0,
+                  "colorBlue": 0,
+                  "colorAlpha": 0,
+                  "name": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Shape",
+          "line": 5,
+          "length": 0,
+          "blendModeValue": 3,
+          "additiveAmount": 255,
+          "drawableFlags": 0,
+          "x": 24,
+          "y": 96,
+          "computedLocalX": 0,
+          "computedLocalY": 0,
+          "computedWorldX": 0,
+          "computedWorldY": 0,
+          "computedRootX": 0,
+          "computedRootY": 0,
+          "computedWidth": 0,
+          "computedHeight": 0,
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "opacity": 1,
+          "name": "LinSwatch",
+          "enums": {"blendModeValue": "srcOver"},
+          "children": [
+            {
+              "type": "Ellipse",
+              "line": 5,
+              "width": 24,
+              "height": 24,
+              "originX": 0.5,
+              "originY": 0.5,
+              "pathFlags": 0,
+              "isHole": false,
+              "x": 0,
+              "y": 0,
+              "computedLocalX": 0,
+              "computedLocalY": 0,
+              "computedWorldX": 0,
+              "computedWorldY": 0,
+              "computedRootX": 0,
+              "computedRootY": 0,
+              "computedWidth": 0,
+              "computedHeight": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "opacity": 1,
+              "name": ""
+            },
+            {
+              "type": "Fill",
+              "line": 5,
+              "fillRule": 0,
+              "isVisible": true,
+              "blendModeValue": 127,
+              "additiveAmount": 255,
+              "name": "",
+              "enums": {"fillRule": "nonZero", "blendModeValue": "inherit"},
+              "children": [
+                {
+                  "type": "SolidColor",
+                  "line": 5,
+                  "colorValue": "FF6A9BCC",
+                  "colorRed": 0,
+                  "colorGreen": 0,
+                  "colorBlue": 0,
+                  "colorAlpha": 0,
+                  "name": "",
+                  "children": [
+                    {
+                      "type": "DataBindContext",
+                      "line": 5,
+                      "propertyKey": 37,
+                      "flags": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Shape",
+          "line": 6,
+          "length": 0,
+          "blendModeValue": 3,
+          "additiveAmount": 255,
+          "drawableFlags": 0,
+          "x": 60,
+          "y": 96,
+          "computedLocalX": 0,
+          "computedLocalY": 0,
+          "computedWorldX": 0,
+          "computedWorldY": 0,
+          "computedRootX": 0,
+          "computedRootY": 0,
+          "computedWidth": 0,
+          "computedHeight": 0,
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "opacity": 1,
+          "name": "LinBar",
+          "enums": {"blendModeValue": "srcOver"},
+          "children": [
+            {
+              "type": "Rectangle",
+              "line": 6,
+              "linkCornerRadius": true,
+              "cornerRadiusTL": 0,
+              "cornerRadiusTR": 0,
+              "cornerRadiusBL": 0,
+              "cornerRadiusBR": 0,
+              "width": 176.399994,
+              "height": 24,
+              "originX": 0,
+              "originY": 0.5,
+              "pathFlags": 0,
+              "isHole": false,
+              "x": 0,
+              "y": 0,
+              "computedLocalX": 0,
+              "computedLocalY": 0,
+              "computedWorldX": 0,
+              "computedWorldY": 0,
+              "computedRootX": 0,
+              "computedRootY": 0,
+              "computedWidth": 0,
+              "computedHeight": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "opacity": 1,
+              "name": "",
+              "children": [
+                {
+                  "type": "DataBindContext",
+                  "line": 6,
+                  "propertyKey": 20,
+                  "flags": 0,
+                  "converterId": "0:300"
+                }
+              ]
+            },
+            {
+              "type": "Fill",
+              "line": 6,
+              "fillRule": 0,
+              "isVisible": true,
+              "blendModeValue": 127,
+              "additiveAmount": 255,
+              "name": "",
+              "enums": {"fillRule": "nonZero", "blendModeValue": "inherit"},
+              "children": [
+                {
+                  "type": "SolidColor",
+                  "line": 6,
+                  "colorValue": "FF6A9BCC",
+                  "colorRed": 0,
+                  "colorGreen": 0,
+                  "colorBlue": 0,
+                  "colorAlpha": 0,
+                  "name": "",
+                  "children": [
+                    {
+                      "type": "DataBindContext",
+                      "line": 6,
+                      "propertyKey": 37,
+                      "flags": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Stroke",
+              "id": "0:401",
+              "line": 6,
+              "thickness": 6,
+              "cap": 0,
+              "join": 0,
+              "transformAffectsStroke": true,
+              "position": 1,
+              "isVisible": true,
+              "blendModeValue": 127,
+              "additiveAmount": 255,
+              "name": "LinLeader",
+              "enums": {"cap": "butt", "join": "miter", "position": "center", "blendModeValue": "inherit"},
+              "children": [
+                {
+                  "type": "SolidColor",
+                  "line": 6,
+                  "colorValue": "FFD97757",
+                  "colorRed": 0,
+                  "colorGreen": 0,
+                  "colorBlue": 0,
+                  "colorAlpha": 0,
+                  "name": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Shape",
+          "line": 7,
+          "length": 0,
+          "blendModeValue": 3,
+          "additiveAmount": 255,
+          "drawableFlags": 0,
+          "x": 24,
+          "y": 156,
+          "computedLocalX": 0,
+          "computedLocalY": 0,
+          "computedWorldX": 0,
+          "computedWorldY": 0,
+          "computedRootX": 0,
+          "computedRootY": 0,
+          "computedWidth": 0,
+          "computedHeight": 0,
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "opacity": 1,
+          "name": "SamSwatch",
+          "enums": {"blendModeValue": "srcOver"},
+          "children": [
+            {
+              "type": "Ellipse",
+              "line": 7,
+              "width": 24,
+              "height": 24,
+              "originX": 0.5,
+              "originY": 0.5,
+              "pathFlags": 0,
+              "isHole": false,
+              "x": 0,
+              "y": 0,
+              "computedLocalX": 0,
+              "computedLocalY": 0,
+              "computedWorldX": 0,
+              "computedWorldY": 0,
+              "computedRootX": 0,
+              "computedRootY": 0,
+              "computedWidth": 0,
+              "computedHeight": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "opacity": 1,
+              "name": ""
+            },
+            {
+              "type": "Fill",
+              "line": 7,
+              "fillRule": 0,
+              "isVisible": true,
+              "blendModeValue": 127,
+              "additiveAmount": 255,
+              "name": "",
+              "enums": {"fillRule": "nonZero", "blendModeValue": "inherit"},
+              "children": [
+                {
+                  "type": "SolidColor",
+                  "line": 7,
+                  "colorValue": "FF788C5D",
+                  "colorRed": 0,
+                  "colorGreen": 0,
+                  "colorBlue": 0,
+                  "colorAlpha": 0,
+                  "name": "",
+                  "children": [
+                    {
+                      "type": "DataBindContext",
+                      "line": 7,
+                      "propertyKey": 37,
+                      "flags": 0
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Shape",
+          "line": 8,
+          "length": 0,
+          "blendModeValue": 3,
+          "additiveAmount": 255,
+          "drawableFlags": 0,
+          "x": 60,
+          "y": 156,
+          "computedLocalX": 0,
+          "computedLocalY": 0,
+          "computedWorldX": 0,
+          "computedWorldY": 0,
+          "computedRootX": 0,
+          "computedRootY": 0,
+          "computedWidth": 0,
+          "computedHeight": 0,
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "opacity": 1,
+          "name": "SamBar",
+          "enums": {"blendModeValue": "srcOver"},
+          "children": [
+            {
+              "type": "Rectangle",
+              "line": 8,
+              "linkCornerRadius": true,
+              "cornerRadiusTL": 0,
+              "cornerRadiusTR": 0,
+              "cornerRadiusBL": 0,
+              "cornerRadiusBR": 0,
+              "width": 7.19999981,
+              "height": 24,
+              "originX": 0,
+              "originY": 0.5,
+              "pathFlags": 0,
+              "isHole": false,
+              "x": 0,
+              "y": 0,
+              "computedLocalX": 0,
+              "computedLocalY": 0,
+              "computedWorldX": 0,
+              "computedWorldY": 0,
+              "computedRootX": 0,
+              "computedRootY": 0,
+              "computedWidth": 0,
+              "computedHeight": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "opacity": 1,
+              "name": "",
+              "children": [
+                {
+                  "type": "DataBindContext",
+                  "line": 8,
+                  "propertyKey": 20,
+                  "flags": 0,
+                  "converterId": "0:300"
+                }
+              ]
+            },
+            {
+              "type": "Fill",
+              "line": 8,
+              "fillRule": 0,
+              "isVisible": true,
+              "blendModeValue": 127,
+              "additiveAmount": 255,
+              "name": "",
+              "enums": {"fillRule": "nonZero", "blendModeValue": "inherit"},
+              "children": [
+                {
+                  "type": "SolidColor",
+                  "line": 8,
+                  "colorValue": "FF788C5D",
+                  "colorRed": 0,
+                  "colorGreen": 0,
+                  "colorBlue": 0,
+                  "colorAlpha": 0,
+                  "name": "",
+                  "children": [
+                    {
+                      "type": "DataBindContext",
+                      "line": 8,
+                      "propertyKey": 37,
+                      "flags": 0
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Stroke",
+              "id": "0:402",
+              "line": 8,
+              "thickness": 6,
+              "cap": 0,
+              "join": 0,
+              "transformAffectsStroke": true,
+              "position": 1,
+              "isVisible": true,
+              "blendModeValue": 127,
+              "additiveAmount": 255,
+              "name": "SamLeader",
+              "enums": {"cap": "butt", "join": "miter", "position": "center", "blendModeValue": "inherit"},
+              "children": [
+                {
+                  "type": "SolidColor",
+                  "line": 8,
+                  "colorValue": "FFD97757",
+                  "colorRed": 0,
+                  "colorGreen": 0,
+                  "colorBlue": 0,
+                  "colorAlpha": 0,
+                  "name": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Shape",
+          "id": "0:10",
+          "line": 9,
+          "length": 0,
+          "blendModeValue": 3,
+          "additiveAmount": 255,
+          "drawableFlags": 0,
+          "x": 285,
+          "y": 216,
+          "computedLocalX": 0,
+          "computedLocalY": 0,
+          "computedWorldX": 0,
+          "computedWorldY": 0,
+          "computedRootX": 0,
+          "computedRootY": 0,
+          "computedWidth": 0,
+          "computedHeight": 0,
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "opacity": 1,
+          "name": "Knob",
+          "enums": {"blendModeValue": "srcOver"},
+          "children": [
+            {
+              "type": "DataBindContext",
+              "line": 9,
+              "propertyKey": 13,
+              "flags": 10,
+              "converterId": "0:301"
+            },
+            {
+              "type": "Ellipse",
+              "line": 9,
+              "width": 24,
+              "height": 24,
+              "originX": 0.5,
+              "originY": 0.5,
+              "pathFlags": 0,
+              "isHole": false,
+              "x": 0,
+              "y": 0,
+              "computedLocalX": 0,
+              "computedLocalY": 0,
+              "computedWorldX": 0,
+              "computedWorldY": 0,
+              "computedRootX": 0,
+              "computedRootY": 0,
+              "computedWidth": 0,
+              "computedHeight": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "opacity": 1,
+              "name": ""
+            },
+            {
+              "type": "Fill",
+              "line": 9,
+              "fillRule": 0,
+              "isVisible": true,
+              "blendModeValue": 127,
+              "additiveAmount": 255,
+              "name": "",
+              "enums": {"fillRule": "nonZero", "blendModeValue": "inherit"},
+              "children": [
+                {
+                  "type": "SolidColor",
+                  "line": 9,
+                  "colorValue": "FFD97757",
+                  "colorRed": 0,
+                  "colorGreen": 0,
+                  "colorBlue": 0,
+                  "colorAlpha": 0,
+                  "name": ""
+                }
+              ]
+            },
+            {
+              "type": "TranslationConstraint",
+              "line": 9,
+              "copyFactorY": 1,
+              "minValueY": 216,
+              "maxValueY": 216,
+              "doesCopyY": false,
+              "minY": true,
+              "maxY": true,
+              "minMaxSpaceValue": 0,
+              "copyFactor": 1,
+              "minValue": 60,
+              "maxValue": 420,
+              "offset": false,
+              "doesCopy": false,
+              "min": true,
+              "max": true,
+              "sourceSpaceValue": 0,
+              "destSpaceValue": 0,
+              "strength": 1,
+              "name": "",
+              "enums": {"minMaxSpaceValue": "world", "sourceSpaceValue": "world", "destSpaceValue": "world"}
+            }
+          ]
+        },
+        {
+          "type": "Shape",
+          "line": 10,
+          "length": 0,
+          "blendModeValue": 3,
+          "additiveAmount": 255,
+          "drawableFlags": 0,
+          "x": 60,
+          "y": 216,
+          "computedLocalX": 0,
+          "computedLocalY": 0,
+          "computedWorldX": 0,
+          "computedWorldY": 0,
+          "computedRootX": 0,
+          "computedRootY": 0,
+          "computedWidth": 0,
+          "computedHeight": 0,
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "opacity": 1,
+          "name": "Track",
+          "enums": {"blendModeValue": "srcOver"},
+          "children": [
+            {
+              "type": "PointsPath",
+              "line": 10,
+              "isClosed": false,
+              "pathFlags": 0,
+              "isHole": false,
+              "x": 0,
+              "y": 0,
+              "computedLocalX": 0,
+              "computedLocalY": 0,
+              "computedWorldX": 0,
+              "computedWorldY": 0,
+              "computedRootX": 0,
+              "computedRootY": 0,
+              "computedWidth": 0,
+              "computedHeight": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "opacity": 1,
+              "name": "",
+              "children": [
+                {
+                  "type": "StraightVertex",
+                  "line": 10,
+                  "radius": 0,
+                  "x": 0,
+                  "y": 0,
+                  "name": ""
+                },
+                {
+                  "type": "StraightVertex",
+                  "line": 10,
+                  "radius": 0,
+                  "x": 360,
+                  "y": 0,
+                  "name": ""
+                }
+              ]
+            },
+            {
+              "type": "Stroke",
+              "line": 10,
+              "thickness": 12,
+              "cap": 0,
+              "join": 0,
+              "transformAffectsStroke": true,
+              "position": 1,
+              "isVisible": true,
+              "blendModeValue": 127,
+              "additiveAmount": 255,
+              "name": "",
+              "enums": {"cap": "butt", "join": "miter", "position": "center", "blendModeValue": "inherit"},
+              "children": [
+                {
+                  "type": "SolidColor",
+                  "line": 10,
+                  "colorValue": "FF141413",
+                  "colorRed": 0,
+                  "colorGreen": 0,
+                  "colorBlue": 0,
+                  "colorAlpha": 0,
+                  "name": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "CustomPropertyString",
+          "id": "0:500",
+          "line": 11,
+          "propertyValue": "${score} pts",
+          "nameId": 4294967295,
+          "name": "Template0",
+          "children": [
+            {
+              "type": "DataBindContext",
+              "line": 11,
+              "propertyKey": 246,
+              "flags": 1
+            }
+          ]
+        },
+        {
+          "type": "CustomPropertyString",
+          "line": 12,
+          "propertyValue": "",
+          "nameId": 4294967295,
+          "name": "ComputedLabel0",
+          "children": [
+            {
+              "type": "DataBindContext",
+              "line": 12,
+              "propertyKey": 246,
+              "flags": 0,
+              "converterId": "0:510"
+            },
+            {
+              "type": "DataBindContext",
+              "line": 12,
+              "propertyKey": 246,
+              "flags": 1
+            }
+          ]
+        },
+        {
+          "type": "CustomPropertyString",
+          "id": "0:501",
+          "line": 13,
+          "propertyValue": "${score} pts",
+          "nameId": 4294967295,
+          "name": "Template1",
+          "children": [
+            {
+              "type": "DataBindContext",
+              "line": 13,
+              "propertyKey": 246,
+              "flags": 1
+            }
+          ]
+        },
+        {
+          "type": "CustomPropertyString",
+          "line": 14,
+          "propertyValue": "",
+          "nameId": 4294967295,
+          "name": "ComputedLabel1",
+          "children": [
+            {
+              "type": "DataBindContext",
+              "line": 14,
+              "propertyKey": 246,
+              "flags": 0,
+              "converterId": "0:511"
+            },
+            {
+              "type": "DataBindContext",
+              "line": 14,
+              "propertyKey": 246,
+              "flags": 1
+            }
+          ]
+        },
+        {
+          "type": "CustomPropertyString",
+          "id": "0:502",
+          "line": 15,
+          "propertyValue": "${score} pts",
+          "nameId": 4294967295,
+          "name": "Template2",
+          "children": [
+            {
+              "type": "DataBindContext",
+              "line": 15,
+              "propertyKey": 246,
+              "flags": 1
+            }
+          ]
+        },
+        {
+          "type": "CustomPropertyString",
+          "line": 16,
+          "propertyValue": "",
+          "nameId": 4294967295,
+          "name": "ComputedLabel2",
+          "children": [
+            {
+              "type": "DataBindContext",
+              "line": 16,
+              "propertyKey": 246,
+              "flags": 0,
+              "converterId": "0:512"
+            },
+            {
+              "type": "DataBindContext",
+              "line": 16,
+              "propertyKey": 246,
+              "flags": 1
+            }
+          ]
+        },
+        {
+          "type": "Event",
+          "id": "0:20",
+          "line": 17,
+          "name": "milestone",
+          "firedBy": ["state \"Idle\", on entering (atStart)"]
+        },
+        {
+          "type": "StateMachine",
+          "id": "0:2",
+          "line": 18,
+          "name": "Scoreboard",
+          "children": [
+            {
+              "type": "StateMachineListenerSingle",
+              "line": 19,
+              "listenerTypeValue": 12,
+              "targetId": "0:10",
+              "phaseValue": 0,
+              "name": "Drag",
+              "enums": {"listenerTypeValue": "drag", "phaseValue": "normal"},
+              "children": [
+                {
+                  "type": "ListenerAlignTarget",
+                  "line": 19,
+                  "targetId": "0:10",
+                  "preserveOffset": true,
+                  "flags": 0
+                }
+              ]
+            },
+            {
+              "type": "StateMachineLayer",
+              "line": 20,
+              "name": "Leader",
+              "children": [
+                {
+                  "type": "AnyState",
+                  "line": 20,
+                  "flags": 0
+                },
+                {
+                  "type": "ExitState",
+                  "line": 20,
+                  "flags": 0
+                },
+                {
+                  "type": "EntryState",
+                  "line": 20,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 20,
+                      "stateToId": "0:410",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"}
+                    }
+                  ]
+                },
+                {
+                  "type": "AnimationState",
+                  "id": "0:410",
+                  "line": 21,
+                  "animationId": "0:420",
+                  "speed": 1,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 22,
+                      "stateToId": "0:411",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"},
+                      "children": [
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 23,
+                          "opValue": 5,
+                          "enums": {"opValue": "greaterThan"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 23,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 23,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 23,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 23,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 23,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 23,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 24,
+                          "opValue": 3,
+                          "enums": {"opValue": "greaterThanOrEqual"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 24,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 24,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 24,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 24,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 24,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 24,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "StateTransition",
+                      "line": 26,
+                      "stateToId": "0:412",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"},
+                      "children": [
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 27,
+                          "opValue": 5,
+                          "enums": {"opValue": "greaterThan"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 27,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 27,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 27,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 27,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 27,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 27,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 28,
+                          "opValue": 5,
+                          "enums": {"opValue": "greaterThan"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 28,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 28,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 28,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 28,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 28,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 28,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "AnimationState",
+                  "id": "0:411",
+                  "line": 31,
+                  "animationId": "0:421",
+                  "speed": 1,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 32,
+                      "stateToId": "0:410",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"},
+                      "children": [
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 33,
+                          "opValue": 3,
+                          "enums": {"opValue": "greaterThanOrEqual"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 33,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 33,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 33,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 33,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 33,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 33,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 34,
+                          "opValue": 3,
+                          "enums": {"opValue": "greaterThanOrEqual"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 34,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 34,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 34,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 34,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 34,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 34,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "StateTransition",
+                      "line": 36,
+                      "stateToId": "0:412",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"},
+                      "children": [
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 37,
+                          "opValue": 5,
+                          "enums": {"opValue": "greaterThan"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 37,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 37,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 37,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 37,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 37,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 37,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 38,
+                          "opValue": 5,
+                          "enums": {"opValue": "greaterThan"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 38,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 38,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 38,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 38,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 38,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 38,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "AnimationState",
+                  "id": "0:412",
+                  "line": 41,
+                  "animationId": "0:422",
+                  "speed": 1,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 42,
+                      "stateToId": "0:410",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"},
+                      "children": [
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 43,
+                          "opValue": 3,
+                          "enums": {"opValue": "greaterThanOrEqual"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 43,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 43,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 43,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 43,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 43,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 43,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 44,
+                          "opValue": 3,
+                          "enums": {"opValue": "greaterThanOrEqual"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 44,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 44,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 44,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 44,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 44,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 44,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "StateTransition",
+                      "line": 46,
+                      "stateToId": "0:411",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"},
+                      "children": [
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 47,
+                          "opValue": 5,
+                          "enums": {"opValue": "greaterThan"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 47,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 47,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 47,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 47,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 47,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 47,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 48,
+                          "opValue": 3,
+                          "enums": {"opValue": "greaterThanOrEqual"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 48,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 48,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 48,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 48,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 48,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 48,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "StateMachineLayer",
+              "line": 52,
+              "name": "Label0",
+              "children": [
+                {
+                  "type": "AnyState",
+                  "line": 52,
+                  "flags": 0
+                },
+                {
+                  "type": "ExitState",
+                  "line": 52,
+                  "flags": 0
+                },
+                {
+                  "type": "EntryState",
+                  "line": 52,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 52,
+                      "stateToId": "0:520",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"}
+                    }
+                  ]
+                },
+                {
+                  "type": "AnimationState",
+                  "id": "0:520",
+                  "line": 53,
+                  "animationId": "0:530",
+                  "speed": 1,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 53,
+                      "stateToId": "0:521",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"},
+                      "children": [
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 53,
+                          "opValue": 3,
+                          "enums": {"opValue": "greaterThanOrEqual"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 53,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 53,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 53,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionValueNumberComparator",
+                              "line": 53,
+                              "value": 1000
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "AnimationState",
+                  "id": "0:521",
+                  "line": 54,
+                  "animationId": "0:531",
+                  "speed": 1,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 54,
+                      "stateToId": "0:520",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"},
+                      "children": [
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 54,
+                          "opValue": 4,
+                          "enums": {"opValue": "lessThan"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 54,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 54,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 54,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionValueNumberComparator",
+                              "line": 54,
+                              "value": 1000
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "StateMachineLayer",
+              "line": 56,
+              "name": "Label1",
+              "children": [
+                {
+                  "type": "AnyState",
+                  "line": 56,
+                  "flags": 0
+                },
+                {
+                  "type": "ExitState",
+                  "line": 56,
+                  "flags": 0
+                },
+                {
+                  "type": "EntryState",
+                  "line": 56,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 56,
+                      "stateToId": "0:522",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"}
+                    }
+                  ]
+                },
+                {
+                  "type": "AnimationState",
+                  "id": "0:522",
+                  "line": 57,
+                  "animationId": "0:532",
+                  "speed": 1,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 57,
+                      "stateToId": "0:523",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"},
+                      "children": [
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 57,
+                          "opValue": 3,
+                          "enums": {"opValue": "greaterThanOrEqual"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 57,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 57,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 57,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionValueNumberComparator",
+                              "line": 57,
+                              "value": 1000
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "AnimationState",
+                  "id": "0:523",
+                  "line": 58,
+                  "animationId": "0:533",
+                  "speed": 1,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 58,
+                      "stateToId": "0:522",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"},
+                      "children": [
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 58,
+                          "opValue": 4,
+                          "enums": {"opValue": "lessThan"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 58,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 58,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 58,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionValueNumberComparator",
+                              "line": 58,
+                              "value": 1000
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "StateMachineLayer",
+              "line": 60,
+              "name": "Label2",
+              "children": [
+                {
+                  "type": "AnyState",
+                  "line": 60,
+                  "flags": 0
+                },
+                {
+                  "type": "ExitState",
+                  "line": 60,
+                  "flags": 0
+                },
+                {
+                  "type": "EntryState",
+                  "line": 60,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 60,
+                      "stateToId": "0:524",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"}
+                    }
+                  ]
+                },
+                {
+                  "type": "AnimationState",
+                  "id": "0:524",
+                  "line": 61,
+                  "animationId": "0:534",
+                  "speed": 1,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 61,
+                      "stateToId": "0:525",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"},
+                      "children": [
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 61,
+                          "opValue": 3,
+                          "enums": {"opValue": "greaterThanOrEqual"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 61,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 61,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 61,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionValueNumberComparator",
+                              "line": 61,
+                              "value": 1000
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "AnimationState",
+                  "id": "0:525",
+                  "line": 62,
+                  "animationId": "0:535",
+                  "speed": 1,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 62,
+                      "stateToId": "0:524",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"},
+                      "children": [
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 62,
+                          "opValue": 4,
+                          "enums": {"opValue": "lessThan"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 62,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 62,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 62,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionValueNumberComparator",
+                              "line": 62,
+                              "value": 1000
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "StateMachineLayer",
+              "line": 64,
+              "name": "Milestone",
+              "children": [
+                {
+                  "type": "AnyState",
+                  "line": 64,
+                  "flags": 0
+                },
+                {
+                  "type": "ExitState",
+                  "line": 64,
+                  "flags": 0
+                },
+                {
+                  "type": "EntryState",
+                  "line": 64,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 64,
+                      "stateToId": "0:430",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"}
+                    }
+                  ]
+                },
+                {
+                  "type": "AnimationState",
+                  "id": "0:430",
+                  "line": 65,
+                  "animationId": "0:440",
+                  "speed": 1,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 65,
+                      "stateToId": "0:431",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"},
+                      "children": [
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 65,
+                          "opValue": 3,
+                          "enums": {"opValue": "greaterThanOrEqual"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 65,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 65,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 65,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionValueNumberComparator",
+                              "line": 65,
+                              "value": 1500
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "AnimationState",
+                  "id": "0:431",
+                  "line": 66,
+                  "animationId": "0:440",
+                  "speed": 1,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateMachineFireEvent",
+                      "line": 66,
+                      "eventId": "0:20",
+                      "occursValue": 0,
+                      "enums": {"occursValue": "atStart"}
+                    },
+                    {
+                      "type": "StateTransition",
+                      "line": 66,
+                      "stateToId": "0:430",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": {"interpolationType": "linear"},
+                      "children": [
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 66,
+                          "opValue": 4,
+                          "enums": {"opValue": "lessThan"},
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 66,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyNumber",
+                                  "line": 66,
+                                  "propertyValue": 0,
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 66,
+                                      "propertyKey": 636,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionValueNumberComparator",
+                              "line": 66,
+                              "value": 1500
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "LinearAnimation",
+          "id": "0:420",
+          "line": 67,
+          "fps": 60,
+          "duration": 1,
+          "speed": 1,
+          "loopValue": 0,
+          "workStart": 4294967295,
+          "workEnd": 4294967295,
+          "enableWorkArea": false,
+          "quantize": false,
+          "name": "Leader0",
+          "enums": {"loopValue": "oneShot"},
+          "children": [
+            {
+              "type": "KeyedObject",
+              "line": 68,
+              "objectId": "0:400",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 68,
+                  "propertyKey": 47,
+                  "propertyName": "thickness",
+                  "children": [
+                    {
+                      "type": "KeyFrameDouble",
+                      "line": 68,
+                      "value": 6,
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": {"interpolationType": "hold"}
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "KeyedObject",
+              "line": 69,
+              "objectId": "0:401",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 69,
+                  "propertyKey": 47,
+                  "propertyName": "thickness",
+                  "children": [
+                    {
+                      "type": "KeyFrameDouble",
+                      "line": 69,
+                      "value": 0,
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": {"interpolationType": "hold"}
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "KeyedObject",
+              "line": 70,
+              "objectId": "0:402",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 70,
+                  "propertyKey": 47,
+                  "propertyName": "thickness",
+                  "children": [
+                    {
+                      "type": "KeyFrameDouble",
+                      "line": 70,
+                      "value": 0,
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": {"interpolationType": "hold"}
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "LinearAnimation",
+          "id": "0:421",
+          "line": 72,
+          "fps": 60,
+          "duration": 1,
+          "speed": 1,
+          "loopValue": 0,
+          "workStart": 4294967295,
+          "workEnd": 4294967295,
+          "enableWorkArea": false,
+          "quantize": false,
+          "name": "Leader1",
+          "enums": {"loopValue": "oneShot"},
+          "children": [
+            {
+              "type": "KeyedObject",
+              "line": 73,
+              "objectId": "0:400",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 73,
+                  "propertyKey": 47,
+                  "propertyName": "thickness",
+                  "children": [
+                    {
+                      "type": "KeyFrameDouble",
+                      "line": 73,
+                      "value": 0,
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": {"interpolationType": "hold"}
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "KeyedObject",
+              "line": 74,
+              "objectId": "0:401",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 74,
+                  "propertyKey": 47,
+                  "propertyName": "thickness",
+                  "children": [
+                    {
+                      "type": "KeyFrameDouble",
+                      "line": 74,
+                      "value": 6,
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": {"interpolationType": "hold"}
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "KeyedObject",
+              "line": 75,
+              "objectId": "0:402",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 75,
+                  "propertyKey": 47,
+                  "propertyName": "thickness",
+                  "children": [
+                    {
+                      "type": "KeyFrameDouble",
+                      "line": 75,
+                      "value": 0,
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": {"interpolationType": "hold"}
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "LinearAnimation",
+          "id": "0:422",
+          "line": 77,
+          "fps": 60,
+          "duration": 1,
+          "speed": 1,
+          "loopValue": 0,
+          "workStart": 4294967295,
+          "workEnd": 4294967295,
+          "enableWorkArea": false,
+          "quantize": false,
+          "name": "Leader2",
+          "enums": {"loopValue": "oneShot"},
+          "children": [
+            {
+              "type": "KeyedObject",
+              "line": 78,
+              "objectId": "0:400",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 78,
+                  "propertyKey": 47,
+                  "propertyName": "thickness",
+                  "children": [
+                    {
+                      "type": "KeyFrameDouble",
+                      "line": 78,
+                      "value": 0,
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": {"interpolationType": "hold"}
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "KeyedObject",
+              "line": 79,
+              "objectId": "0:401",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 79,
+                  "propertyKey": 47,
+                  "propertyName": "thickness",
+                  "children": [
+                    {
+                      "type": "KeyFrameDouble",
+                      "line": 79,
+                      "value": 0,
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": {"interpolationType": "hold"}
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "KeyedObject",
+              "line": 80,
+              "objectId": "0:402",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 80,
+                  "propertyKey": 47,
+                  "propertyName": "thickness",
+                  "children": [
+                    {
+                      "type": "KeyFrameDouble",
+                      "line": 80,
+                      "value": 6,
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": {"interpolationType": "hold"}
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "LinearAnimation",
+          "id": "0:530",
+          "line": 82,
+          "fps": 60,
+          "duration": 1,
+          "speed": 1,
+          "loopValue": 0,
+          "workStart": 4294967295,
+          "workEnd": 4294967295,
+          "enableWorkArea": false,
+          "quantize": false,
+          "name": "Label0_0",
+          "enums": {"loopValue": "oneShot"},
+          "children": [
+            {
+              "type": "KeyedObject",
+              "line": 82,
+              "objectId": "0:500",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 82,
+                  "propertyKey": 246,
+                  "propertyName": "propertyValue",
+                  "children": [
+                    {
+                      "type": "KeyFrameString",
+                      "line": 82,
+                      "value": "${score} pts",
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": {"interpolationType": "hold"}
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "LinearAnimation",
+          "id": "0:531",
+          "line": 83,
+          "fps": 60,
+          "duration": 1,
+          "speed": 1,
+          "loopValue": 0,
+          "workStart": 4294967295,
+          "workEnd": 4294967295,
+          "enableWorkArea": false,
+          "quantize": false,
+          "name": "Label0_1",
+          "enums": {"loopValue": "oneShot"},
+          "children": [
+            {
+              "type": "KeyedObject",
+              "line": 83,
+              "objectId": "0:500",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 83,
+                  "propertyKey": 246,
+                  "propertyName": "propertyValue",
+                  "children": [
+                    {
+                      "type": "KeyFrameString",
+                      "line": 83,
+                      "value": "${thousands},${remainder} pts",
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": {"interpolationType": "hold"}
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "LinearAnimation",
+          "id": "0:532",
+          "line": 84,
+          "fps": 60,
+          "duration": 1,
+          "speed": 1,
+          "loopValue": 0,
+          "workStart": 4294967295,
+          "workEnd": 4294967295,
+          "enableWorkArea": false,
+          "quantize": false,
+          "name": "Label1_0",
+          "enums": {"loopValue": "oneShot"},
+          "children": [
+            {
+              "type": "KeyedObject",
+              "line": 84,
+              "objectId": "0:501",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 84,
+                  "propertyKey": 246,
+                  "propertyName": "propertyValue",
+                  "children": [
+                    {
+                      "type": "KeyFrameString",
+                      "line": 84,
+                      "value": "${score} pts",
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": {"interpolationType": "hold"}
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "LinearAnimation",
+          "id": "0:533",
+          "line": 85,
+          "fps": 60,
+          "duration": 1,
+          "speed": 1,
+          "loopValue": 0,
+          "workStart": 4294967295,
+          "workEnd": 4294967295,
+          "enableWorkArea": false,
+          "quantize": false,
+          "name": "Label1_1",
+          "enums": {"loopValue": "oneShot"},
+          "children": [
+            {
+              "type": "KeyedObject",
+              "line": 85,
+              "objectId": "0:501",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 85,
+                  "propertyKey": 246,
+                  "propertyName": "propertyValue",
+                  "children": [
+                    {
+                      "type": "KeyFrameString",
+                      "line": 85,
+                      "value": "${thousands},${remainder} pts",
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": {"interpolationType": "hold"}
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "LinearAnimation",
+          "id": "0:534",
+          "line": 86,
+          "fps": 60,
+          "duration": 1,
+          "speed": 1,
+          "loopValue": 0,
+          "workStart": 4294967295,
+          "workEnd": 4294967295,
+          "enableWorkArea": false,
+          "quantize": false,
+          "name": "Label2_0",
+          "enums": {"loopValue": "oneShot"},
+          "children": [
+            {
+              "type": "KeyedObject",
+              "line": 86,
+              "objectId": "0:502",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 86,
+                  "propertyKey": 246,
+                  "propertyName": "propertyValue",
+                  "children": [
+                    {
+                      "type": "KeyFrameString",
+                      "line": 86,
+                      "value": "${score} pts",
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": {"interpolationType": "hold"}
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "LinearAnimation",
+          "id": "0:535",
+          "line": 87,
+          "fps": 60,
+          "duration": 1,
+          "speed": 1,
+          "loopValue": 0,
+          "workStart": 4294967295,
+          "workEnd": 4294967295,
+          "enableWorkArea": false,
+          "quantize": false,
+          "name": "Label2_1",
+          "enums": {"loopValue": "oneShot"},
+          "children": [
+            {
+              "type": "KeyedObject",
+              "line": 87,
+              "objectId": "0:502",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 87,
+                  "propertyKey": 246,
+                  "propertyName": "propertyValue",
+                  "children": [
+                    {
+                      "type": "KeyFrameString",
+                      "line": 87,
+                      "value": "${thousands},${remainder} pts",
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": {"interpolationType": "hold"}
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "LinearAnimation",
+          "id": "0:440",
+          "line": 88,
+          "fps": 60,
+          "duration": 1,
+          "speed": 1,
+          "loopValue": 0,
+          "workStart": 4294967295,
+          "workEnd": 4294967295,
+          "enableWorkArea": false,
+          "quantize": false,
+          "name": "Idle",
+          "enums": {"loopValue": "oneShot"}
+        }
+      ]
+    }
+  ],
+  "roots": [
+    {
+      "type": "DataConverterRangeMapper",
+      "id": "0:300",
+      "line": 89,
+      "interpolationType": 1,
+      "flags": 0,
+      "minInput": 0,
+      "maxInput": 2000,
+      "minOutput": 0,
+      "maxOutput": 360,
+      "name": "ScoreWidth",
+      "enums": {"interpolationType": "linear"}
+    },
+    {
+      "type": "DataConverterRangeMapper",
+      "id": "0:301",
+      "line": 90,
+      "interpolationType": 1,
+      "flags": 3,
+      "minInput": 0,
+      "maxInput": 2000,
+      "minOutput": 60,
+      "maxOutput": 420,
+      "name": "ScorePosition",
+      "enums": {"interpolationType": "linear"}
+    },
+    {
+      "type": "DataConverterToString",
+      "id": "0:550",
+      "line": 91,
+      "flags": 1,
+      "decimals": 0,
+      "colorFormat": "",
+      "name": ""
+    },
+    {
+      "type": "DataConverterFormula",
+      "id": "0:551",
+      "line": 92,
+      "randomModeValue": 0,
+      "name": "",
+      "enums": {"randomModeValue": "once"},
+      "children": [
+        {
+          "type": "FormulaTokenFunction",
+          "line": 92,
+          "functionType": 4,
+          "enums": {"functionType": "floor"}
+        },
+        {
+          "type": "FormulaTokenInput",
+          "line": 92
+        },
+        {
+          "type": "FormulaTokenOperation",
+          "line": 92,
+          "operationType": 3,
+          "enums": {"operationType": "divide"}
+        },
+        {
+          "type": "FormulaTokenValue",
+          "line": 92,
+          "operationValue": 1000
+        },
+        {
+          "type": "FormulaTokenParenthesisClose",
+          "line": 92
+        }
+      ]
+    },
+    {
+      "type": "DataConverterFormula",
+      "id": "0:552",
+      "line": 93,
+      "randomModeValue": 0,
+      "name": "",
+      "enums": {"randomModeValue": "once"},
+      "children": [
+        {
+          "type": "FormulaTokenFunction",
+          "line": 93,
+          "functionType": 4,
+          "enums": {"functionType": "floor"}
+        },
+        {
+          "type": "FormulaTokenInput",
+          "line": 93
+        },
+        {
+          "type": "FormulaTokenParenthesisClose",
+          "line": 93
+        },
+        {
+          "type": "FormulaTokenOperation",
+          "line": 93,
+          "operationType": 4,
+          "enums": {"operationType": "modulo"}
+        },
+        {
+          "type": "FormulaTokenValue",
+          "line": 93,
+          "operationValue": 1000
+        }
+      ]
+    },
+    {
+      "type": "DataConverterStringPad",
+      "id": "0:553",
+      "line": 94,
+      "length": 3,
+      "text": "0",
+      "padType": 0,
+      "name": "",
+      "enums": {"padType": "start"}
+    },
+    {
+      "type": "DataConverterGroup",
+      "id": "0:554",
+      "line": 95,
+      "name": "",
+      "children": [
+        {
+          "type": "DataConverterGroupItem",
+          "line": 95,
+          "converterId": "0:551"
+        },
+        {
+          "type": "DataConverterGroupItem",
+          "line": 95,
+          "converterId": "0:550"
+        }
+      ]
+    },
+    {
+      "type": "DataConverterGroup",
+      "id": "0:555",
+      "line": 96,
+      "name": "",
+      "children": [
+        {
+          "type": "DataConverterGroupItem",
+          "line": 96,
+          "converterId": "0:552"
+        },
+        {
+          "type": "DataConverterGroupItem",
+          "line": 96,
+          "converterId": "0:550"
+        },
+        {
+          "type": "DataConverterGroupItem",
+          "line": 96,
+          "converterId": "0:553"
+        }
+      ]
+    },
+    {
+      "type": "DataConverterStringTemplate",
+      "id": "0:510",
+      "line": 97,
+      "openDelimiter": "${",
+      "closeDelimiter": "}",
+      "name": "",
+      "children": [
+        {
+          "type": "StringTemplateArgumentString",
+          "line": 98,
+          "propertyValue": "",
+          "name": "score",
+          "children": [
+            {
+              "type": "DataBindContext",
+              "line": 98,
+              "propertyKey": 482,
+              "flags": 0,
+              "converterId": "0:550"
+            }
+          ]
+        },
+        {
+          "type": "StringTemplateArgumentString",
+          "line": 99,
+          "propertyValue": "",
+          "name": "thousands",
+          "children": [
+            {
+              "type": "DataBindContext",
+              "line": 99,
+              "propertyKey": 482,
+              "flags": 0,
+              "converterId": "0:554"
+            }
+          ]
+        },
+        {
+          "type": "StringTemplateArgumentString",
+          "line": 100,
+          "propertyValue": "",
+          "name": "remainder",
+          "children": [
+            {
+              "type": "DataBindContext",
+              "line": 100,
+              "propertyKey": 482,
+              "flags": 0,
+              "converterId": "0:555"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "DataConverterStringTemplate",
+      "id": "0:511",
+      "line": 102,
+      "openDelimiter": "${",
+      "closeDelimiter": "}",
+      "name": "",
+      "children": [
+        {
+          "type": "StringTemplateArgumentString",
+          "line": 103,
+          "propertyValue": "",
+          "name": "score",
+          "children": [
+            {
+              "type": "DataBindContext",
+              "line": 103,
+              "propertyKey": 482,
+              "flags": 0,
+              "converterId": "0:550"
+            }
+          ]
+        },
+        {
+          "type": "StringTemplateArgumentString",
+          "line": 104,
+          "propertyValue": "",
+          "name": "thousands",
+          "children": [
+            {
+              "type": "DataBindContext",
+              "line": 104,
+              "propertyKey": 482,
+              "flags": 0,
+              "converterId": "0:554"
+            }
+          ]
+        },
+        {
+          "type": "StringTemplateArgumentString",
+          "line": 105,
+          "propertyValue": "",
+          "name": "remainder",
+          "children": [
+            {
+              "type": "DataBindContext",
+              "line": 105,
+              "propertyKey": 482,
+              "flags": 0,
+              "converterId": "0:555"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "DataConverterStringTemplate",
+      "id": "0:512",
+      "line": 107,
+      "openDelimiter": "${",
+      "closeDelimiter": "}",
+      "name": "",
+      "children": [
+        {
+          "type": "StringTemplateArgumentString",
+          "line": 108,
+          "propertyValue": "",
+          "name": "score",
+          "children": [
+            {
+              "type": "DataBindContext",
+              "line": 108,
+              "propertyKey": 482,
+              "flags": 0,
+              "converterId": "0:550"
+            }
+          ]
+        },
+        {
+          "type": "StringTemplateArgumentString",
+          "line": 109,
+          "propertyValue": "",
+          "name": "thousands",
+          "children": [
+            {
+              "type": "DataBindContext",
+              "line": 109,
+              "propertyKey": 482,
+              "flags": 0,
+              "converterId": "0:554"
+            }
+          ]
+        },
+        {
+          "type": "StringTemplateArgumentString",
+          "line": 110,
+          "propertyValue": "",
+          "name": "remainder",
+          "children": [
+            {
+              "type": "DataBindContext",
+              "line": 110,
+              "propertyKey": 482,
+              "flags": 0,
+              "converterId": "0:555"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ViewModel",
+      "id": "0:200",
+      "line": 112,
+      "viewModelType": 0,
+      "name": "Player",
+      "enums": {"viewModelType": "standard"},
+      "children": [
+        {
+          "type": "ViewModelPropertyString",
+          "id": "0:201",
+          "line": 112,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "name",
+          "enums": {"symbolTypeValue": "none"}
+        },
+        {
+          "type": "ViewModelPropertyNumber",
+          "id": "0:202",
+          "line": 112,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "score",
+          "enums": {"symbolTypeValue": "none"}
+        },
+        {
+          "type": "ViewModelPropertyColor",
+          "id": "0:203",
+          "line": 112,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "color",
+          "enums": {"symbolTypeValue": "none"}
+        },
+        {
+          "type": "ViewModelPropertyString",
+          "id": "0:204",
+          "line": 112,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "label",
+          "enums": {"symbolTypeValue": "none"}
+        },
+        {
+          "type": "ViewModelPropertyString",
+          "id": "0:205",
+          "line": 112,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "_labelTemplate",
+          "enums": {"symbolTypeValue": "none"}
+        },
+        {
+          "type": "ViewModelInstance",
+          "id": "0:210",
+          "line": 113,
+          "name": "Ada",
+          "children": [
+            {
+              "type": "ViewModelInstanceString",
+              "line": 113,
+              "propertyValue": "Ada",
+              "viewModelPropertyId": "0:201",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceNumber",
+              "line": 113,
+              "propertyValue": 1250,
+              "viewModelPropertyId": "0:202",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceColor",
+              "line": 113,
+              "propertyValue": "FFD97757",
+              "viewModelPropertyId": "0:203",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 113,
+              "propertyValue": "1,250 pts",
+              "viewModelPropertyId": "0:204",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 113,
+              "propertyValue": "${score} pts",
+              "viewModelPropertyId": "0:205",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "ViewModelInstance",
+          "id": "0:211",
+          "line": 114,
+          "name": "Lin",
+          "children": [
+            {
+              "type": "ViewModelInstanceString",
+              "line": 114,
+              "propertyValue": "Lin",
+              "viewModelPropertyId": "0:201",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceNumber",
+              "line": 114,
+              "propertyValue": 980,
+              "viewModelPropertyId": "0:202",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceColor",
+              "line": 114,
+              "propertyValue": "FF6A9BCC",
+              "viewModelPropertyId": "0:203",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 114,
+              "propertyValue": "980 pts",
+              "viewModelPropertyId": "0:204",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 114,
+              "propertyValue": "${score} pts",
+              "viewModelPropertyId": "0:205",
+              "name": ""
+            }
+          ]
+        },
+        {
+          "type": "ViewModelInstance",
+          "id": "0:212",
+          "line": 115,
+          "name": "Sam",
+          "children": [
+            {
+              "type": "ViewModelInstanceString",
+              "line": 115,
+              "propertyValue": "Sam",
+              "viewModelPropertyId": "0:201",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceNumber",
+              "line": 115,
+              "propertyValue": 40,
+              "viewModelPropertyId": "0:202",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceColor",
+              "line": 115,
+              "propertyValue": "FF788C5D",
+              "viewModelPropertyId": "0:203",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 115,
+              "propertyValue": "40 pts",
+              "viewModelPropertyId": "0:204",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 115,
+              "propertyValue": "${score} pts",
+              "viewModelPropertyId": "0:205",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "ViewModel",
+      "id": "0:100",
+      "line": 116,
+      "viewModelType": 0,
+      "name": "Scoreboard",
+      "enums": {"viewModelType": "standard"},
+      "children": [
+        {
+          "type": "ViewModelPropertyList",
+          "id": "0:105",
+          "line": 116,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "players",
+          "enums": {"symbolTypeValue": "none"}
+        },
+        {
+          "type": "ViewModelPropertyViewModel",
+          "id": "0:110",
+          "line": 117,
+          "viewModelReferenceId": "0:200",
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "ada",
+          "enums": {"symbolTypeValue": "none"}
+        },
+        {
+          "type": "ViewModelPropertyViewModel",
+          "id": "0:111",
+          "line": 118,
+          "viewModelReferenceId": "0:200",
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "lin",
+          "enums": {"symbolTypeValue": "none"}
+        },
+        {
+          "type": "ViewModelPropertyViewModel",
+          "id": "0:112",
+          "line": 119,
+          "viewModelReferenceId": "0:200",
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "sam",
+          "enums": {"symbolTypeValue": "none"}
+        },
+        {
+          "type": "ViewModelInstance",
+          "id": "0:101",
+          "line": 120,
+          "name": "Default",
+          "children": [
+            {
+              "type": "ViewModelInstanceList",
+              "line": 120,
+              "viewModelPropertyId": "0:105",
+              "name": "",
+              "children": [
+                {
+                  "type": "ViewModelInstanceListItem",
+                  "line": 121,
+                  "viewModelId": "0:200",
+                  "viewModelInstanceId": "0:210"
+                },
+                {
+                  "type": "ViewModelInstanceListItem",
+                  "line": 122,
+                  "viewModelId": "0:200",
+                  "viewModelInstanceId": "0:211"
+                },
+                {
+                  "type": "ViewModelInstanceListItem",
+                  "line": 123,
+                  "viewModelId": "0:200",
+                  "viewModelInstanceId": "0:212"
+                }
+              ]
+            },
+            {
+              "type": "ViewModelInstanceViewModel",
+              "line": 125,
+              "propertyValue": "0:210",
+              "viewModelPropertyId": "0:110",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceViewModel",
+              "line": 126,
+              "propertyValue": "0:211",
+              "viewModelPropertyId": "0:111",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceViewModel",
+              "line": 127,
+              "propertyValue": "0:212",
+              "viewModelPropertyId": "0:112",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Backboard",
+      "line": 0
+    }
+  ]
+}

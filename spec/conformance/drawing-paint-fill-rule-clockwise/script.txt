@@ -1,0 +1,6 @@
+pointer click 1 1
+snapshot hit
+pointer click 3 10
+snapshot hit
+pointer click 10 10
+snapshot hit

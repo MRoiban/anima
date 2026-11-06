@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "Scripted forward/reverse converter execution requires the P9 script VM/protocol; no VM exists in the decided P4e design."
+}

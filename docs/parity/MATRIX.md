@@ -14,12 +14,12 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Category | Total | done | spec'd | planned | deferred | maybe-later | wont-do |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Drawing and paint | 125 | 88 |  | 37 |  |  |  |
+| Drawing and paint | 125 | 105 |  | 20 |  |  |  |
 | Transforms and draw order | 17 | 15 |  | 2 |  |  |  |
 | Animation | 40 | 33 |  | 7 |  |  |  |
-| State machines | 61 | 51 |  | 10 |  |  |  |
-| Listeners and input | 93 | 72 |  | 21 |  |  |  |
-| Data: view models, binding, converters | 169 | 17 |  | 152 |  |  |  |
+| State machines | 61 | 52 |  | 9 |  |  |  |
+| Listeners and input | 93 | 80 |  | 13 |  |  |  |
+| Data: view models, binding, converters | 169 | 141 |  | 28 |  |  |  |
 | Events | 18 | 17 |  | 1 |  |  |  |
 | Components | 30 | 14 |  | 16 |  |  |  |
 | Text | 61 |  |  | 61 |  |  |  |
@@ -29,10 +29,10 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | GPU | 35 |  |  | 8 |  | 27 |  |
 | Assets | 50 | 7 |  | 43 |  |  |  |
 | Accessibility | 63 | 5 |  | 58 |  |  |  |
-| Host runtime API | 125 | 52 |  | 69 |  | 4 |  |
+| Host runtime API | 125 | 62 |  | 59 |  | 4 |  |
 | Platforms | 64 | 2 |  | 8 |  | 54 |  |
 | Tooling | 119 | 14 |  | 50 | 1 | 51 | 3 |
-| **Total** | **1238** | **387** | **0** | **685** | **1** | **162** | **3** |
+| **Total** | **1238** | **547** | **0** | **525** | **1** | **162** | **3** |
 
 | Phase | Rows |
 |---|---:|
@@ -40,19 +40,20 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | [P1](#p1) — Done: AniML, the authoring markup | 1 |
 | [P2](#p2) — Done: M5, Glyphy export, more glyphs, the head-to-head test | 0 |
 | [P3](#p3) — Done: the playground/inspector and the web host API | 15 |
-| [P3b](#p3b) — The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras | 139 |
+| [P3b](#p3b) — The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras | 145 |
 | [P4a](#p4a) — Done: paint and composite on the module system and the draw layer | 46 |
 | [P4b](#p4b) — Done: motion — eases, typed tracks, timeline control, mixing, host timeline API | 22 |
 | [P4c](#p4c) — Done: interaction — machine (blends, actions, on-change), input (pointer, keys, gamepad, scroll, drag), focus | 95 |
 | [P4d](#p4d) — Done: events — payloads, URL events with a host policy, audio, lifecycle events, expression actions | 33 |
-| [P4](#p4) — Interaction, paint, events and data binding | 214 |
+| [P4e](#p4e) — Done: data — view models, $ paths, binding modes, converters, host data API, paint leftovers | 160 |
+| [P4](#p4) — Interaction, paint, events and data binding | 0 |
 | [P5](#p5) — Done: components, bindings, assets, images, n-slice and feathering | 61 |
-| [P5b](#p5b) — The rest of P5: asset pipelines (encodings, imports), library detach/update, lists, script instances | 72 |
+| [P5b](#p5b) — The rest of P5: asset pipelines (encodings, imports), library detach/update, lists, script instances | 112 |
 | [Pc](#pc) — Done: the canvas backend (minimal), brought forward from P10 | 3 |
-| [P6](#p6) — Text | 67 |
-| [P7](#p7) — Layout | 69 |
+| [P6](#p6) — Text | 70 |
+| [P7](#p7) — Layout | 71 |
 | [P8](#p8) — Rigging | 25 |
-| [P9](#p9) — Scripting | 83 |
+| [P9](#p9) — Scripting | 86 |
 | [P10](#p10) — GPU effects and the canvas/WebGL renderer | 17 |
 | [Maybe / later](#maybe-later) | 162 |
 | [Won't do](#wont-do) | 3 |
@@ -294,6 +295,17 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `input.semantic-decrease` | Semantic decrease | new: listener.semantic: decrease | a11y | planned | conformance/input-semantic-decrease |
 | `input.semantic-increase` | Semantic increase | new: listener.semantic: increase | a11y | planned | conformance/input-semantic-increase |
 | `input.semantic-tap` | Semantic tap | new: listener.semantic: tap | a11y | planned | conformance/input-semantic-tap |
+| `input.write-key-pressed` | Store key-pressed | new: listener value source: key-pressed | data | planned | conformance/input-write-key-pressed |
+| `input.write-pointer-delta-x` | Store pointer-delta-x | new: listener value source: pointer-delta-x | data | planned | conformance/input-write-pointer-delta-x |
+| `input.write-pointer-delta-y` | Store pointer-delta-y | new: listener value source: pointer-delta-y | data | planned | conformance/input-write-pointer-delta-y |
+| `input.write-pointer-x` | Store pointer-x | new: listener value source: pointer-x | data | planned | conformance/input-write-pointer-x |
+| `input.write-pointer-y` | Store pointer-y | new: listener value source: pointer-y | data | planned | conformance/input-write-pointer-y |
+
+### Data: view models, binding, converters
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `data.editor-preview-instance` | Editor preview instance | TODO: modules/data/capabilities/data-editor-preview-instance/registry.ts; spec/SPEC.md (Editor preview instance); modules/data/capabilities/data-editor-preview-instance/example.animl | data | planned | TODO: modules/data/test/core/data-editor-preview-instance.test.ts; spec/conformance/data-editor-preview-instance; tests/oracle/data-editor-preview-instance |
 
 ### Accessibility
 
@@ -722,251 +734,194 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.event-subscriptions` | Subscribe to player events | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | done | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-subscriptions/skip.json) |
 | `host-api.volume` | Artboard volume | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | done | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-volume/skip.json) |
 
-## P4 — Interaction, paint, events and data binding <a id="p4"></a>
+## P4e — Done: data — view models, $ paths, binding modes, converters, host data API, paint leftovers <a id="p4e"></a>
 
 ### Drawing and paint
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `drawing-paint.additive-strength` | Additive blend strength | new: blendAmount: 0..1 | paint | planned | oracle/additive-strength |
-| `drawing-paint.asymmetric-vertex` | asymmetric vertex | new: editable vertices with asymmetric vertex geometry | paint | planned | oracle/asymmetric-vertex |
-| `drawing-paint.blend-additive` | Blend mode additive | deferred: plus-lighter lacks consistent SVG renderer support (SPEC paint Blend modes) | paint | planned | SPEC paint Blend modes (deferred; no render claim) |
-| `drawing-paint.detached-vertex` | detached vertex | new: editable vertices with detached vertex geometry | paint | planned | oracle/detached-vertex |
-| `drawing-paint.effect-order` | Ordered path effect stacks | new: paint.effects ordered array | paint | planned | oracle/effect-order |
-| `drawing-paint.fill-rule-clockwise` | Fill rule clockwise | new: fill.rule: clockwise | paint | planned | oracle/fill-rule-clockwise |
-| `drawing-paint.geometry-origin` | Parametric geometry origin | new: geometry origin expressed as an explicit point in grid units | paint | planned | oracle/geometry-origin |
-| `drawing-paint.gradient-angular` | angular gradients | new: fill or stroke gradient: angular with grid-unit endpoints | paint | planned | oracle/gradient-angular |
-| `drawing-paint.gradient-channel-binding` | Gradient color channels | new: gradient stop channel property paths | data | planned | oracle/gradient-channel-binding |
-| `drawing-paint.gradient-transform` | Gradient transforms | new: gradient.transform using grid units and degrees | paint | planned | oracle/gradient-transform |
-| `drawing-paint.mirrored-vertex` | mirrored vertex | new: editable vertices with mirrored vertex geometry | paint | planned | oracle/mirrored-vertex |
-| `drawing-paint.paint-blend-override` | Per-paint compositing | new: paints[].blend with inherit | paint | planned | oracle/paint-blend-override |
-| `drawing-paint.rounded-vertex` | rounded vertex | new: editable vertices with rounded vertex geometry | paint | planned | oracle/rounded-vertex |
-| `drawing-paint.shared-effects` | Reusable path effects | new: effects map with reusable trim and dash stacks | paint | planned | oracle/shared-effects |
-| `drawing-paint.straight-vertex` | straight vertex | new: editable vertices with straight vertex geometry | paint | planned | oracle/straight-vertex |
-| `drawing-paint.trim-sequential` | Sequential contour trim | new: stroke.trim.mode: sequential | paint | planned | oracle/trim-sequential |
-| `drawing-paint.trim-synchronized` | Synchronized contour trim | new: stroke.trim.mode: synchronized | paint | planned | oracle/trim-synchronized |
-
-### Transforms and draw order
-
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `transforms.computed-transform-values` | Read computed geometry | new: computed geometry read-only property paths | data | planned | conformance/computed-transform-values |
+| `drawing-paint.additive-strength` | Additive blend strength | node.mix.strength / paint.blendAmount scales additive source contribution | mix | done | modules/mix/test/core; spec/conformance/drawing-paint-additive-strength; tests/oracle/drawing-paint-additive-strength (see REPORT.md) |
+| `drawing-paint.asymmetric-vertex` | asymmetric vertex | contour vertices/geometryOrigin | contour | done | modules/contour/test/core; spec/conformance/drawing-paint-asymmetric-vertex; tests/oracle/drawing-paint-asymmetric-vertex (see REPORT.md) |
+| `drawing-paint.blend-additive` | Blend mode additive | node.mix.mode additive / paint.blend additive; canvas lighter, SVG unsupported-render | mix | done | modules/mix/test/core; spec/conformance/drawing-paint-blend-additive; tests/oracle/drawing-paint-blend-additive (see REPORT.md) |
+| `drawing-paint.detached-vertex` | detached vertex | contour vertices/geometryOrigin | contour | done | modules/contour/test/core; spec/conformance/drawing-paint-detached-vertex; tests/oracle/drawing-paint-detached-vertex (see REPORT.md) |
+| `drawing-paint.effect-order` | Ordered path effect stacks | stroke.trim / ordered stroke.effects and document.effects | contour | done | modules/contour/test/core; spec/conformance/drawing-paint-effect-order; tests/oracle/drawing-paint-effect-order (see REPORT.md) |
+| `drawing-paint.fill-rule-clockwise` | Fill rule clockwise | fill.winding clockwise: positive local y-down winding; rendering only, hit testing pending | contour | done | modules/contour/test/core; spec/conformance/drawing-paint-fill-rule-clockwise; tests/oracle/drawing-paint-fill-rule-clockwise (see REPORT.md) |
+| `drawing-paint.geometry-origin` | Parametric geometry origin | contour vertices/geometryOrigin | contour | done | modules/contour/test/core; spec/conformance/drawing-paint-geometry-origin; tests/oracle/drawing-paint-geometry-origin (see REPORT.md) |
+| `drawing-paint.gradient-angular` | angular gradients | fill/stroke.type angular; canvas createConicGradient, SVG unsupported-render | paint | done | modules/paint/test/core; spec/conformance/drawing-paint-gradient-angular; tests/oracle/drawing-paint-gradient-angular (see REPORT.md) |
+| `drawing-paint.gradient-channel-binding` | Gradient color channels | TODO: modules/data/capabilities/drawing-paint-gradient-channel-binding/registry.ts; spec/SPEC.md (Gradient color channels); modules/data/capabilities/drawing-paint-gradient-channel-binding/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/drawing-paint-gradient-channel-binding; tests/oracle/drawing-paint-gradient-channel-binding |
+| `drawing-paint.gradient-transform` | Gradient transforms | fill/stroke.gradientTransform affine matrix; SVG and canvas; native transform observation disagrees | paint | done | modules/paint/test/core; spec/conformance/drawing-paint-gradient-transform; tests/oracle/drawing-paint-gradient-transform (see REPORT.md) |
+| `drawing-paint.mirrored-vertex` | mirrored vertex | contour vertices/geometryOrigin | contour | done | modules/contour/test/core; spec/conformance/drawing-paint-mirrored-vertex; tests/oracle/drawing-paint-mirrored-vertex (see REPORT.md) |
+| `drawing-paint.paint-blend-override` | Per-paint compositing | fill/stroke.blend with inherit; ordered paints supported; Firefox verification pending | mix | done | modules/mix/test/core; spec/conformance/drawing-paint-paint-blend-override; tests/oracle/drawing-paint-paint-blend-override (see REPORT.md) |
+| `drawing-paint.rounded-vertex` | rounded vertex | contour vertices/geometryOrigin | contour | done | modules/contour/test/core; spec/conformance/drawing-paint-rounded-vertex; tests/oracle/drawing-paint-rounded-vertex (see REPORT.md) |
+| `drawing-paint.shared-effects` | Reusable path effects | stroke.trim / ordered stroke.effects and document.effects | contour | done | modules/contour/test/core; spec/conformance/drawing-paint-shared-effects; tests/oracle/drawing-paint-shared-effects (see REPORT.md) |
+| `drawing-paint.straight-vertex` | straight vertex | contour vertices/geometryOrigin | contour | done | modules/contour/test/core; spec/conformance/drawing-paint-straight-vertex; tests/oracle/drawing-paint-straight-vertex (see REPORT.md) |
+| `drawing-paint.trim-sequential` | Sequential contour trim | stroke.trim / ordered stroke.effects and document.effects | contour | done | modules/contour/test/core; spec/conformance/drawing-paint-trim-sequential; tests/oracle/drawing-paint-trim-sequential (see REPORT.md) |
+| `drawing-paint.trim-synchronized` | Synchronized contour trim | stroke.trim / ordered stroke.effects and document.effects | contour | done | modules/contour/test/core; spec/conformance/drawing-paint-trim-synchronized; tests/oracle/drawing-paint-trim-synchronized (see REPORT.md) |
 
 ### State machines
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `state-machine.condition-data` | Live data comparisons | new: typed when expressions reading property paths | data | planned | conformance/condition-data |
-| `state-machine.literal-artboard` | artboard comparison literal | new: typed artboard literal in when expression | data | planned | conformance/literal-artboard |
-| `state-machine.literal-asset` | asset comparison literal | new: typed asset literal in when expression | data | planned | conformance/literal-asset |
-| `state-machine.literal-boolean` | boolean comparison literal | new: typed boolean literal in when expression | data | planned | conformance/literal-boolean |
-| `state-machine.literal-color` | color comparison literal | new: typed color literal in when expression | data | planned | conformance/literal-color |
-| `state-machine.literal-enum` | enum comparison literal | new: typed enum literal in when expression | data | planned | conformance/literal-enum |
-| `state-machine.literal-number` | number comparison literal | new: typed number literal in when expression | data | planned | conformance/literal-number |
-| `state-machine.literal-string` | string comparison literal | new: typed string literal in when expression | data | planned | conformance/literal-string |
-| `state-machine.literal-trigger` | trigger comparison literal | new: typed trigger literal in when expression | data | planned | conformance/literal-trigger |
+| `state-machine.literal-number` | number comparison literal | new: typed number literal in when expression | data | done | conformance/literal-number |
 
 ### Listeners and input
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `input.data-listener` | View model listeners | new: listener.onChange property path | data | planned | conformance/input-data-listener |
-| `input.write-data-constant` | Write typed properties | new: listener.set property-path to typed literal | data | planned | conformance/input-write-data-constant |
-| `input.write-data-copy` | Copy live data | new: listener.copy from property-path to property-path | data | planned | conformance/input-write-data-copy |
-| `input.write-focused` | Store focused | new: listener value source: focused | data | planned | conformance/input-write-focused |
-| `input.write-gamepad-axis` | Store gamepad-axis | new: listener value source: gamepad-axis | data | planned | conformance/input-write-gamepad-axis |
-| `input.write-gamepad-button-pressed` | Store gamepad-button-pressed | new: listener value source: gamepad-button-pressed | data | planned | conformance/input-write-gamepad-button-pressed |
-| `input.write-gamepad-button-value` | Store gamepad-button-value | new: listener value source: gamepad-button-value | data | planned | conformance/input-write-gamepad-button-value |
-| `input.write-gamepad-changed-value` | Store gamepad-changed-value | new: listener value source: gamepad-changed-value | data | planned | conformance/input-write-gamepad-changed-value |
-| `input.write-key-pressed` | Store key-pressed | new: listener value source: key-pressed | data | planned | conformance/input-write-key-pressed |
-| `input.write-pointer-delta-x` | Store pointer-delta-x | new: listener value source: pointer-delta-x | data | planned | conformance/input-write-pointer-delta-x |
-| `input.write-pointer-delta-y` | Store pointer-delta-y | new: listener value source: pointer-delta-y | data | planned | conformance/input-write-pointer-delta-y |
-| `input.write-pointer-x` | Store pointer-x | new: listener value source: pointer-x | data | planned | conformance/input-write-pointer-x |
-| `input.write-pointer-y` | Store pointer-y | new: listener value source: pointer-y | data | planned | conformance/input-write-pointer-y |
-| `input.write-text` | Store text | new: listener value source: text | data | planned | conformance/input-write-text |
+| `input.data-listener` | View model listeners | TODO: modules/data/capabilities/input-data-listener/registry.ts; spec/SPEC.md (View model listeners); modules/data/capabilities/input-data-listener/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/input-data-listener; tests/oracle/input-data-listener |
+| `input.write-data-constant` | Write typed properties | TODO: modules/data/capabilities/input-write-data-constant/registry.ts; spec/SPEC.md (Write typed properties); modules/data/capabilities/input-write-data-constant/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/input-write-data-constant; tests/oracle/input-write-data-constant |
+| `input.write-data-copy` | Copy live data | TODO: modules/data/capabilities/input-write-data-copy/registry.ts; spec/SPEC.md (Copy live data); modules/data/capabilities/input-write-data-copy/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/input-write-data-copy; tests/oracle/input-write-data-copy |
+| `input.write-focused` | Store focused | TODO: modules/data/capabilities/input-write-focused/registry.ts; spec/SPEC.md (Store focused); modules/data/capabilities/input-write-focused/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/input-write-focused; tests/oracle/input-write-focused |
+| `input.write-gamepad-axis` | Store gamepad-axis | TODO: modules/data/capabilities/input-write-gamepad-axis/registry.ts; spec/SPEC.md (Store gamepad-axis); modules/data/capabilities/input-write-gamepad-axis/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/input-write-gamepad-axis; tests/oracle/input-write-gamepad-axis |
+| `input.write-gamepad-button-pressed` | Store gamepad-button-pressed | TODO: modules/data/capabilities/input-write-gamepad-button-pressed/registry.ts; spec/SPEC.md (Store gamepad-button-pressed); modules/data/capabilities/input-write-gamepad-button-pressed/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/input-write-gamepad-button-pressed; tests/oracle/input-write-gamepad-button-pressed |
+| `input.write-gamepad-button-value` | Store gamepad-button-value | TODO: modules/data/capabilities/input-write-gamepad-button-value/registry.ts; spec/SPEC.md (Store gamepad-button-value); modules/data/capabilities/input-write-gamepad-button-value/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/input-write-gamepad-button-value; tests/oracle/input-write-gamepad-button-value |
+| `input.write-gamepad-changed-value` | Store gamepad-changed-value | TODO: modules/data/capabilities/input-write-gamepad-changed-value/registry.ts; spec/SPEC.md (Store gamepad-changed-value); modules/data/capabilities/input-write-gamepad-changed-value/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/input-write-gamepad-changed-value; tests/oracle/input-write-gamepad-changed-value |
 
 ### Data: view models, binding, converters
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `data.bind-conditions` | Bind transition operands | new: bind.<conditions>: {from: "model.property"} | data | planned | oracle/data-bind-conditions |
-| `data.bind-converter-options` | Bind converter options | new: bind.<converter-options>: {from: "model.property"} | data | planned | oracle/data-bind-converter-options |
-| `data.bind-instance-values` | Bind instance values | new: bind.<instance-values>: {from: "model.property"} | data | planned | oracle/data-bind-instance-values |
-| `data.bind-keyframes` | Bind keyframe values | new: bind.<keyframes>: {from: "model.property"} | data | planned | oracle/data-bind-keyframes |
-| `data.bind-layout` | Bind layout parameters | new: bind.<layout>: {from: "model.property"} | data | planned | oracle/data-bind-layout |
-| `data.bind-script-inputs` | Bind script inputs | new: bind.<script-inputs>: {from: "model.property"} | data | planned | oracle/data-bind-script-inputs |
-| `data.bind-text` | Bind text runs | new: bind.<text>: {from: "model.property"} | data | planned | oracle/data-bind-text |
-| `data.binding-absolute` | Absolute binding path binding | new: bind.<address>: {from: "model.property", mode: "absolute"} | data | planned | oracle/data-binding-absolute |
-| `data.binding-once` | Bind once binding | new: bind.<address>: {from: "model.property", mode: "once"} | data | planned | oracle/data-binding-once |
-| `data.binding-relative` | Relative binding path binding | new: bind.<address>: {from: "model.property", mode: "relative"} | data | planned | oracle/data-binding-relative |
-| `data.binding-to-source` | Target to source binding | new: bind.<address>: {from: "model.property", mode: "to-source"} | data | planned | oracle/data-binding-to-source |
-| `data.binding-two-way-prefer-source` | Two-way, prefer source binding | new: bind.<address>: {from: "model.property", mode: "two-way-prefer-source"} | data | planned | oracle/data-binding-two-way-prefer-source |
-| `data.binding-two-way-prefer-target` | Two-way, prefer target binding | new: bind.<address>: {from: "model.property", mode: "two-way-prefer-target"} | data | planned | oracle/data-binding-two-way-prefer-target |
-| `data.calculate-acosine` | Calculate: acosine | new: data.converters.<name>: {type: "calculate", operation: "acosine", operand: 1} | data | planned | oracle/data-calculate-acosine |
-| `data.calculate-asine` | Calculate: asine | new: data.converters.<name>: {type: "calculate", operation: "asine", operand: 1} | data | planned | oracle/data-calculate-asine |
-| `data.calculate-atangent` | Calculate: atangent | new: data.converters.<name>: {type: "calculate", operation: "atangent", operand: 1} | data | planned | oracle/data-calculate-atangent |
-| `data.calculate-atangent2` | Calculate: atangent2 | new: data.converters.<name>: {type: "calculate", operation: "atangent2", operand: 1} | data | planned | oracle/data-calculate-atangent2 |
-| `data.calculate-ceil` | Calculate: ceil | new: data.converters.<name>: {type: "calculate", operation: "ceil", operand: 1} | data | planned | oracle/data-calculate-ceil |
-| `data.calculate-cosine` | Calculate: cosine | new: data.converters.<name>: {type: "calculate", operation: "cosine", operand: 1} | data | planned | oracle/data-calculate-cosine |
-| `data.calculate-exp` | Calculate: exp | new: data.converters.<name>: {type: "calculate", operation: "exp", operand: 1} | data | planned | oracle/data-calculate-exp |
-| `data.calculate-floor` | Calculate: floor | new: data.converters.<name>: {type: "calculate", operation: "floor", operand: 1} | data | planned | oracle/data-calculate-floor |
-| `data.calculate-log` | Calculate: log | new: data.converters.<name>: {type: "calculate", operation: "log", operand: 1} | data | planned | oracle/data-calculate-log |
-| `data.calculate-modulo` | Calculate: modulo | new: data.converters.<name>: {type: "calculate", operation: "modulo", operand: 1} | data | planned | oracle/data-calculate-modulo |
-| `data.calculate-power` | Calculate: power | new: data.converters.<name>: {type: "calculate", operation: "power", operand: 1} | data | planned | oracle/data-calculate-power |
-| `data.calculate-round` | Calculate: round | new: data.converters.<name>: {type: "calculate", operation: "round", operand: 1} | data | planned | oracle/data-calculate-round |
-| `data.calculate-sine` | Calculate: sine | new: data.converters.<name>: {type: "calculate", operation: "sine", operand: 1} | data | planned | oracle/data-calculate-sine |
-| `data.calculate-squareRoot` | Calculate: squareRoot | new: data.converters.<name>: {type: "calculate", operation: "squareRoot", operand: 1} | data | planned | oracle/data-calculate-squareRoot |
-| `data.calculate-tangent` | Calculate: tangent | new: data.converters.<name>: {type: "calculate", operation: "tangent", operand: 1} | data | planned | oracle/data-calculate-tangent |
-| `data.component-public-data` | Component interface properties | new: data.<component-public-data>: named typed declarations with explicit model and instance references | data | planned | oracle/data-component-public-data |
-| `data.converter-boolean-negate` | Negate boolean | new: data.converters.<name>: {type: "converter-boolean-negate", options: {...}} | data | planned | oracle/data-converter-boolean-negate |
-| `data.converter-color-formatting` | Color formatting | new: data.converters.<name>: {type: "converter-color-formatting", options: {...}} | data | planned | oracle/data-converter-color-formatting |
-| `data.converter-enum-to-uint` | Enum to unsigned index | new: data.converters.<name>: {type: "converter-enum-to-uint", options: {...}} | data | planned | oracle/data-converter-enum-to-uint |
-| `data.converter-group` | Converter chain | new: data.converters.<name>: {type: "converter-group", options: {...}} | data | planned | oracle/data-converter-group |
-| `data.converter-list-to-length` | List length | new: data.converters.<name>: {type: "converter-list-to-length", options: {...}} | data | planned | oracle/data-converter-list-to-length |
-| `data.converter-number-formatting` | Number formatting | new: data.converters.<name>: {type: "converter-number-formatting", options: {...}} | data | planned | oracle/data-converter-number-formatting |
-| `data.converter-number-to-list` | Number to list | new: data.converters.<name>: {type: "converter-number-to-list", options: {...}} | data | planned | oracle/data-converter-number-to-list |
-| `data.converter-range-mapper` | Range map | new: data.converters.<name>: {type: "converter-range-mapper", options: {...}} | data | planned | oracle/data-converter-range-mapper |
-| `data.converter-rounder` | Round decimal places | new: data.converters.<name>: {type: "converter-rounder", options: {...}} | data | planned | oracle/data-converter-rounder |
-| `data.converter-string-remove-zeros` | Remove trailing zeros | new: data.converters.<name>: {type: "converter-string-remove-zeros", options: {...}} | data | planned | oracle/data-converter-string-remove-zeros |
-| `data.converter-string-template` | String template | new: data.converters.<name>: {type: "converter-string-template", options: {...}} | data | planned | oracle/data-converter-string-template |
-| `data.converter-system-degs-to-rads` | Degrees and radians adapter | new: data.converters.<name>: {type: "converter-system-degs-to-rads", options: {...}} | data | planned | oracle/data-converter-system-degs-to-rads |
-| `data.converter-system-normalizer` | System normalization adapter | new: data.converters.<name>: {type: "converter-system-normalizer", options: {...}} | data | planned | oracle/data-converter-system-normalizer |
-| `data.converter-template-delimiters` | Template delimiters | new: data.converters.<name>: {type: "converter-template-delimiters", options: {...}} | data | planned | oracle/data-converter-template-delimiters |
-| `data.converter-template-number-formatting` | Template number formatting | new: data.converters.<name>: {type: "converter-template-number-formatting", options: {...}} | data | planned | oracle/data-converter-template-number-formatting |
-| `data.converter-to-number` | Convert to number | new: data.converters.<name>: {type: "converter-to-number", options: {...}} | data | planned | oracle/data-converter-to-number |
-| `data.converter-to-string` | Convert to string | new: data.converters.<name>: {type: "converter-to-string", options: {...}} | data | planned | oracle/data-converter-to-string |
-| `data.converter-trigger` | Trigger conversion | new: data.converters.<name>: {type: "converter-trigger", options: {...}} | data | planned | oracle/data-converter-trigger |
-| `data.custom-property-boolean` | Boolean custom property | new: nodes[].properties.<name>: {type: "boolean", value: ...} | data | planned | oracle/data-custom-property-boolean |
-| `data.custom-property-color` | Color custom property | new: nodes[].properties.<name>: {type: "color", value: ...} | data | planned | oracle/data-custom-property-color |
-| `data.custom-property-enum` | Enum custom property | new: nodes[].properties.<name>: {type: "enum", value: ...} | data | planned | oracle/data-custom-property-enum |
-| `data.custom-property-number` | Number custom property | new: nodes[].properties.<name>: {type: "number", value: ...} | data | planned | oracle/data-custom-property-number |
-| `data.custom-property-string` | String custom property | new: nodes[].properties.<name>: {type: "string", value: ...} | data | planned | oracle/data-custom-property-string |
-| `data.custom-property-trigger` | Trigger custom property | new: nodes[].properties.<name>: {type: "trigger", value: ...} | data | planned | oracle/data-custom-property-trigger |
-| `data.default-instance` | Default instance | new: data.<default-instance>: named typed declarations with explicit model and instance references | data | planned | oracle/data-default-instance |
-| `data.editor-preview-instance` | Editor preview instance | new: data.<editor-preview-instance>: named typed declarations with explicit model and instance references | data | planned | oracle/data-editor-preview-instance |
-| `data.enum-members` | Custom enum members | new: data.<enum-members>: named typed declarations with explicit model and instance references | data | planned | oracle/data-enum-members |
-| `data.formula-function-acosine` | Formula function: acosine | new: data.converters.<name>: {type: "formula", expression: "function-acosine(...)"} | data | planned | oracle/data-formula-function-acosine |
-| `data.formula-function-asine` | Formula function: asine | new: data.converters.<name>: {type: "formula", expression: "function-asine(...)"} | data | planned | oracle/data-formula-function-asine |
-| `data.formula-function-atangent` | Formula function: atangent | new: data.converters.<name>: {type: "formula", expression: "function-atangent(...)"} | data | planned | oracle/data-formula-function-atangent |
-| `data.formula-function-atangent2` | Formula function: atangent2 | new: data.converters.<name>: {type: "formula", expression: "function-atangent2(...)"} | data | planned | oracle/data-formula-function-atangent2 |
-| `data.formula-function-ceil` | Formula function: ceil | new: data.converters.<name>: {type: "formula", expression: "function-ceil(...)"} | data | planned | oracle/data-formula-function-ceil |
-| `data.formula-function-cosine` | Formula function: cosine | new: data.converters.<name>: {type: "formula", expression: "function-cosine(...)"} | data | planned | oracle/data-formula-function-cosine |
-| `data.formula-function-exp` | Formula function: exp | new: data.converters.<name>: {type: "formula", expression: "function-exp(...)"} | data | planned | oracle/data-formula-function-exp |
-| `data.formula-function-floor` | Formula function: floor | new: data.converters.<name>: {type: "formula", expression: "function-floor(...)"} | data | planned | oracle/data-formula-function-floor |
-| `data.formula-function-log` | Formula function: log | new: data.converters.<name>: {type: "formula", expression: "function-log(...)"} | data | planned | oracle/data-formula-function-log |
-| `data.formula-function-pow` | Formula function: pow | new: data.converters.<name>: {type: "formula", expression: "function-pow(...)"} | data | planned | oracle/data-formula-function-pow |
-| `data.formula-function-random` | Formula function: random | new: data.converters.<name>: {type: "formula", expression: "function-random(...)"} | data | planned | oracle/data-formula-function-random |
-| `data.formula-function-round` | Formula function: round | new: data.converters.<name>: {type: "formula", expression: "function-round(...)"} | data | planned | oracle/data-formula-function-round |
-| `data.formula-function-sine` | Formula function: sine | new: data.converters.<name>: {type: "formula", expression: "function-sine(...)"} | data | planned | oracle/data-formula-function-sine |
-| `data.formula-function-sqrt` | Formula function: sqrt | new: data.converters.<name>: {type: "formula", expression: "function-sqrt(...)"} | data | planned | oracle/data-formula-function-sqrt |
-| `data.formula-function-tangent` | Formula function: tangent | new: data.converters.<name>: {type: "formula", expression: "function-tangent(...)"} | data | planned | oracle/data-formula-function-tangent |
-| `data.formula-operator-modulo` | Formula operator: modulo | new: data.converters.<name>: {type: "formula", expression: "operator-modulo(...)"} | data | planned | oracle/data-formula-operator-modulo |
-| `data.formula-random-always` | Formula random mode: always | new: data.converters.<name>: {type: "formula", expression: "random-always(...)"} | data | planned | oracle/data-formula-random-always |
-| `data.formula-random-once` | Formula random mode: once | new: data.converters.<name>: {type: "formula", expression: "random-once(...)"} | data | planned | oracle/data-formula-random-once |
-| `data.formula-random-source-change` | Formula random mode: sourceChange | new: data.converters.<name>: {type: "formula", expression: "random-source-change(...)"} | data | planned | oracle/data-formula-random-source-change |
-| `data.global-model` | Shared global model | new: data.<global-model>: named typed declarations with explicit model and instance references | data | planned | oracle/data-global-model |
-| `data.host-artboard` | Set model artboard | new: player.data API for set model artboard | data | planned | oracle/data-host-artboard |
-| `data.host-bind-instance` | Bind instance to player | new: player.data API for bind instance to player | data | planned | oracle/data-host-bind-instance |
-| `data.host-color` | Color host access | new: player.data API for color host access | data | planned | oracle/data-host-color |
-| `data.host-create-instance` | Create fresh instance | new: player.data API for create fresh instance | data | planned | oracle/data-host-create-instance |
-| `data.host-default-instance` | Get default instance | new: player.data API for get default instance | data | planned | oracle/data-host-default-instance |
-| `data.host-discover-models` | Discover models | new: player.data API for discover models | data | planned | oracle/data-host-discover-models |
-| `data.host-enum` | Enum host access | new: player.data API for enum host access | data | planned | oracle/data-host-enum |
-| `data.host-font` | Set model font | new: player.data API for set model font | data | planned | oracle/data-host-font |
-| `data.host-global-instance` | Set global instances | new: player.data API for set global instances | data | planned | oracle/data-host-global-instance |
-| `data.host-image` | Set model image | new: player.data API for set model image | data | planned | oracle/data-host-image |
-| `data.host-list-add-instance` | Host list: addInstance | new: player.data.<model> typed API: ViewModelInstanceList.addInstance | data | planned | oracle/data-host-list-add-instance |
-| `data.host-list-add-instance-at` | Host list: addInstanceAt | new: player.data.<model> typed API: ViewModelInstanceList.addInstanceAt | data | planned | oracle/data-host-list-add-instance-at |
-| `data.host-list-instance-at` | Host list: instanceAt | new: player.data.<model> typed API: ViewModelInstanceList.instanceAt | data | planned | oracle/data-host-list-instance-at |
-| `data.host-list-length` | Host list: length | new: player.data.<model> typed API: ViewModelInstanceList.length | data | planned | oracle/data-host-list-length |
-| `data.host-list-remove-instance` | Host list: removeInstance | new: player.data.<model> typed API: ViewModelInstanceList.removeInstance | data | planned | oracle/data-host-list-remove-instance |
-| `data.host-list-remove-instance-at` | Host list: removeInstanceAt | new: player.data.<model> typed API: ViewModelInstanceList.removeInstanceAt | data | planned | oracle/data-host-list-remove-instance-at |
-| `data.host-list-swap` | Host list: swap | new: player.data.<model> typed API: ViewModelInstanceList.swap | data | planned | oracle/data-host-list-swap |
-| `data.host-nested-paths` | Typed nested paths | new: player.data API for typed nested paths | data | planned | oracle/data-host-nested-paths |
-| `data.host-scalar-boolean` | Host boolean values | new: player.data.<model> typed API: ViewModelInstanceBoolean.value | data | planned | oracle/data-host-scalar-boolean |
-| `data.host-scalar-number` | Host number values | new: player.data.<model> typed API: ViewModelInstanceNumber.value | data | planned | oracle/data-host-scalar-number |
-| `data.host-scalar-string` | Host string values | new: player.data.<model> typed API: ViewModelInstanceString.value | data | planned | oracle/data-host-scalar-string |
-| `data.host-select-instance` | Select authored instance | new: player.data API for select authored instance | data | planned | oracle/data-host-select-instance |
-| `data.host-subscriptions` | Property subscriptions | new: player.data API for property subscriptions | data | planned | oracle/data-host-subscriptions |
-| `data.host-trigger` | Fire model trigger | new: player.data API for fire model trigger | data | planned | oracle/data-host-trigger |
-| `data.instance-export` | Exported instances | new: data.<instance-export>: named typed declarations with explicit model and instance references | data | planned | oracle/data-instance-export |
-| `data.interpolate-color` | Interpolate color changes | new: data.converters.<name>: {type: "interpolate-color", options: {...}} | data | planned | oracle/data-interpolate-color |
-| `data.interpolate-number` | Interpolate number changes | new: data.converters.<name>: {type: "interpolate-number", options: {...}} | data | planned | oracle/data-interpolate-number |
-| `data.list-items` | Explicit list items | new: data.<list-items>: named typed declarations with explicit model and instance references | data | planned | oracle/data-list-items |
-| `data.model-definition` | Typed model definition | new: data.<model-definition>: named typed declarations with explicit model and instance references | data | planned | oracle/data-model-definition |
-| `data.named-instances` | Named instances | new: data.<named-instances>: named typed declarations with explicit model and instance references | data | planned | oracle/data-named-instances |
-| `data.operation-operand-view-model` | Calculation operand: ViewModel | new: data.converters.<name>: {type: "operation-operand-view-model", options: {...}} | data | planned | oracle/data-operation-operand-view-model |
-| `data.pad-end` | String pad: end | new: data.converters.<name>: {type: "pad-end", options: {...}} | data | planned | oracle/data-pad-end |
-| `data.pad-start` | String pad: start | new: data.converters.<name>: {type: "pad-start", options: {...}} | data | planned | oracle/data-pad-start |
-| `data.property-artboard` | Artboard property | new: data.models.<model>.properties.<name>: {type: "artboard"} | data | planned | oracle/data-property-artboard |
-| `data.property-asset-blob` | Blob asset property | new: data.models.<model>.properties.<name>: {type: "asset-blob"} | data | planned | oracle/data-property-asset-blob |
-| `data.property-asset-font` | Font asset property | new: data.models.<model>.properties.<name>: {type: "asset-font"} | data | planned | oracle/data-property-asset-font |
-| `data.property-asset-image` | Image asset property | new: data.models.<model>.properties.<name>: {type: "asset-image"} | data | planned | oracle/data-property-asset-image |
-| `data.property-boolean` | Boolean property | new: data.models.<model>.properties.<name>: {type: "boolean"} | data | planned | oracle/data-property-boolean |
-| `data.property-color` | Color property | new: data.models.<model>.properties.<name>: {type: "color"} | data | planned | oracle/data-property-color |
-| `data.property-enum-custom` | Custom enum property | new: data.models.<model>.properties.<name>: {type: "enum-custom"} | data | planned | oracle/data-property-enum-custom |
-| `data.property-enum-system` | System enum property | new: data.models.<model>.properties.<name>: {type: "enum-system"} | data | planned | oracle/data-property-enum-system |
-| `data.property-list` | List property | new: data.models.<model>.properties.<name>: {type: "list"} | data | planned | oracle/data-property-list |
-| `data.property-number` | Number property | new: data.models.<model>.properties.<name>: {type: "number"} | data | planned | oracle/data-property-number |
-| `data.property-string` | String property | new: data.models.<model>.properties.<name>: {type: "string"} | data | planned | oracle/data-property-string |
-| `data.property-symbol-list-index` | Symbol list index property | new: data.models.<model>.properties.<name>: {type: "symbol-list-index"} | data | planned | oracle/data-property-symbol-list-index |
-| `data.property-text-style` | Text style property | new: data.models.<model>.properties.<name>: {type: "text-style"} | data | planned | oracle/data-property-text-style |
-| `data.property-trigger` | Trigger property | new: data.models.<model>.properties.<name>: {type: "trigger"} | data | planned | oracle/data-property-trigger |
-| `data.property-view-model` | Nested model property | new: data.models.<model>.properties.<name>: {type: "view-model"} | data | planned | oracle/data-property-view-model |
-| `data.range-modulo` | Range option: modulo | new: data.converters.<name>: {type: "range-modulo", options: {...}} | data | planned | oracle/data-range-modulo |
-| `data.range-reverse` | Range option: reverse | new: data.converters.<name>: {type: "range-reverse", options: {...}} | data | planned | oracle/data-range-reverse |
-| `data.script-model-api` | Script model API | new: data.<script-model-api>: named typed declarations with explicit model and instance references | data | planned | oracle/data-script-model-api |
-| `data.scripted-converter` | Scripted conversion | new: data.<scripted-converter>: named typed declarations with explicit model and instance references | data | planned | oracle/data-scripted-converter |
-| `data.state-action-trigger` | State or transition model trigger | new: data.<state-action-trigger>: named typed declarations with explicit model and instance references | data | planned | oracle/data-state-action-trigger |
-| `data.system-enum-horizontal-text-align` | System enum: horizontalTextAlign | new: data.enums.<name>: {system: "horizontal-text-align"} | data | planned | oracle/data-system-enum-horizontal-text-align |
-| `data.system-enum-layout-alignment` | System enum: layoutAlignment | new: data.enums.<name>: {system: "layout-alignment"} | data | planned | oracle/data-system-enum-layout-alignment |
-| `data.system-enum-layout-direction` | System enum: layoutDirection | new: data.enums.<name>: {system: "layout-direction"} | data | planned | oracle/data-system-enum-layout-direction |
-| `data.system-enum-layout-display` | System enum: layoutDisplay | new: data.enums.<name>: {system: "layout-display"} | data | planned | oracle/data-system-enum-layout-display |
-| `data.system-enum-layout-flex-direction` | System enum: layoutFlexDirection | new: data.enums.<name>: {system: "layout-flex-direction"} | data | planned | oracle/data-system-enum-layout-flex-direction |
-| `data.system-enum-layout-position` | System enum: layoutPosition | new: data.enums.<name>: {system: "layout-position"} | data | planned | oracle/data-system-enum-layout-position |
-| `data.system-enum-layout-position-units` | System enum: layoutPositionUnits | new: data.enums.<name>: {system: "layout-position-units"} | data | planned | oracle/data-system-enum-layout-position-units |
-| `data.system-enum-layout-scale-type` | System enum: layoutScaleType | new: data.enums.<name>: {system: "layout-scale-type"} | data | planned | oracle/data-system-enum-layout-scale-type |
-| `data.system-enum-layout-wrap` | System enum: layoutWrap | new: data.enums.<name>: {system: "layout-wrap"} | data | planned | oracle/data-system-enum-layout-wrap |
-| `data.system-enum-scroll-direction` | System enum: scrollDirection | new: data.enums.<name>: {system: "scroll-direction"} | data | planned | oracle/data-system-enum-scroll-direction |
-| `data.system-enum-semantic-check-state` | System enum: semanticCheckState | new: data.enums.<name>: {system: "semantic-check-state"} | data | planned | oracle/data-system-enum-semantic-check-state |
-| `data.system-enum-text-box` | System enum: textBox | new: data.enums.<name>: {system: "text-box"} | data | planned | oracle/data-system-enum-text-box |
-| `data.system-enum-text-overflow` | System enum: textOverflow | new: data.enums.<name>: {system: "text-overflow"} | data | planned | oracle/data-system-enum-text-overflow |
-| `data.system-enum-text-trim-bottom` | System enum: textTrimBottom | new: data.enums.<name>: {system: "text-trim-bottom"} | data | planned | oracle/data-system-enum-text-trim-bottom |
-| `data.system-enum-text-trim-top` | System enum: textTrimTop | new: data.enums.<name>: {system: "text-trim-top"} | data | planned | oracle/data-system-enum-text-trim-top |
-| `data.system-enum-vertical-text-align` | System enum: verticalTextAlign | new: data.enums.<name>: {system: "vertical-text-align"} | data | planned | oracle/data-system-enum-vertical-text-align |
-| `data.system-enum-word-wrap` | System enum: wordWrap | new: data.enums.<name>: {system: "word-wrap"} | data | planned | oracle/data-system-enum-word-wrap |
-| `data.template-argument-number` | Number template argument | new: data.converters.<name>: {type: "template-argument-number", options: {...}} | data | planned | oracle/data-template-argument-number |
-| `data.template-argument-string` | String template argument | new: data.converters.<name>: {type: "template-argument-string", options: {...}} | data | planned | oracle/data-template-argument-string |
-| `data.trim-all` | String trim: all | new: data.converters.<name>: {type: "trim-all", options: {...}} | data | planned | oracle/data-trim-all |
-| `data.trim-end` | String trim: end | new: data.converters.<name>: {type: "trim-end", options: {...}} | data | planned | oracle/data-trim-end |
-| `data.trim-none` | String trim: none | new: data.converters.<name>: {type: "trim-none", options: {...}} | data | planned | oracle/data-trim-none |
-| `data.trim-start` | String trim: start | new: data.converters.<name>: {type: "trim-start", options: {...}} | data | planned | oracle/data-trim-start |
+| `data.bind-conditions` | Bind transition operands | TODO: modules/data/capabilities/data-bind-conditions/registry.ts; spec/SPEC.md (Bind transition operands); modules/data/capabilities/data-bind-conditions/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-bind-conditions; tests/oracle/data-bind-conditions |
+| `data.bind-converter-options` | Bind converter options | TODO: modules/data/capabilities/data-bind-converter-options/registry.ts; spec/SPEC.md (Bind converter options); modules/data/capabilities/data-bind-converter-options/example.animl | data | done | modules/data/test/core/data-bind-converter-options.test.ts; spec/conformance/data-bind-converter-options; tests/oracle/data-bind-converter-options |
+| `data.bind-instance-values` | Bind instance values | TODO: modules/data/capabilities/data-bind-instance-values/registry.ts; spec/SPEC.md (Bind instance values); modules/data/capabilities/data-bind-instance-values/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-bind-instance-values; tests/oracle/data-bind-instance-values |
+| `data.binding-absolute` | Absolute binding path binding | TODO: modules/data/capabilities/data-binding-absolute/registry.ts; spec/SPEC.md (Absolute binding path binding); modules/data/capabilities/data-binding-absolute/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-binding-absolute; tests/oracle/data-binding-absolute |
+| `data.binding-once` | Bind once binding | TODO: modules/data/capabilities/data-binding-once/registry.ts; spec/SPEC.md (Bind once binding); modules/data/capabilities/data-binding-once/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-binding-once; tests/oracle/data-binding-once |
+| `data.binding-to-source` | Target to source binding | TODO: modules/data/capabilities/data-binding-to-source/registry.ts; spec/SPEC.md (Target to source binding); modules/data/capabilities/data-binding-to-source/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-binding-to-source; tests/oracle/data-binding-to-source |
+| `data.binding-two-way-prefer-source` | Two-way, prefer source binding | TODO: modules/data/capabilities/data-binding-two-way-prefer-source/registry.ts; spec/SPEC.md (Two-way, prefer source binding); modules/data/capabilities/data-binding-two-way-prefer-source/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-binding-two-way-prefer-source; tests/oracle/data-binding-two-way-prefer-source |
+| `data.binding-two-way-prefer-target` | Two-way, prefer target binding | TODO: modules/data/capabilities/data-binding-two-way-prefer-target/registry.ts; spec/SPEC.md (Two-way, prefer target binding); modules/data/capabilities/data-binding-two-way-prefer-target/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-binding-two-way-prefer-target; tests/oracle/data-binding-two-way-prefer-target |
+| `data.calculate-acosine` | Calculate: acosine | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-acosine |
+| `data.calculate-asine` | Calculate: asine | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-asine |
+| `data.calculate-atangent` | Calculate: atangent | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-atangent |
+| `data.calculate-atangent2` | Calculate: atangent2 | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-atangent2 |
+| `data.calculate-ceil` | Calculate: ceil | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-ceil |
+| `data.calculate-cosine` | Calculate: cosine | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-cosine |
+| `data.calculate-exp` | Calculate: exp | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-exp |
+| `data.calculate-floor` | Calculate: floor | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-floor |
+| `data.calculate-log` | Calculate: log | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-log |
+| `data.calculate-modulo` | Calculate: modulo | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-modulo |
+| `data.calculate-power` | Calculate: power | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-power |
+| `data.calculate-round` | Calculate: round | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-round |
+| `data.calculate-sine` | Calculate: sine | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-sine |
+| `data.calculate-squareRoot` | Calculate: squareRoot | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-squareroot |
+| `data.calculate-tangent` | Calculate: tangent | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-calculate-tangent |
+| `data.component-public-data` | Component interface properties | TODO: modules/data/capabilities/data-component-public-data/registry.ts; spec/SPEC.md (Component interface properties); modules/data/capabilities/data-component-public-data/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-component-public-data; tests/oracle/data-component-public-data |
+| `data.converter-boolean-negate` | Negate boolean | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-boolean-negate |
+| `data.converter-enum-to-uint` | Enum to unsigned index | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-enum-to-uint |
+| `data.converter-group` | Converter chain | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-group |
+| `data.converter-list-to-length` | List length | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-list-to-length |
+| `data.converter-number-formatting` | Number formatting | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-number-formatting |
+| `data.converter-range-mapper` | Range map | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-range-mapper |
+| `data.converter-rounder` | Round decimal places | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-rounder |
+| `data.converter-string-remove-zeros` | Remove trailing zeros | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-string-remove-zeros |
+| `data.converter-string-template` | String template | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-string-template |
+| `data.converter-system-degs-to-rads` | Degrees and radians adapter | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-system-degs-to-rads |
+| `data.converter-system-normalizer` | System normalization adapter | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-system-normalizer |
+| `data.converter-template-delimiters` | Template delimiters | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-template-delimiters |
+| `data.converter-template-number-formatting` | Template number formatting | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-template-number-formatting |
+| `data.converter-to-number` | Convert to number | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-to-number |
+| `data.converter-to-string` | Convert to string | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-converter-to-string |
+| `data.custom-property-boolean` | Boolean custom property | TODO: modules/data/capabilities/data-custom-property-boolean/registry.ts; spec/SPEC.md (Boolean custom property); modules/data/capabilities/data-custom-property-boolean/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-custom-property-boolean; tests/oracle/data-custom-property-boolean |
+| `data.custom-property-color` | Color custom property | TODO: modules/data/capabilities/data-custom-property-color/registry.ts; spec/SPEC.md (Color custom property); modules/data/capabilities/data-custom-property-color/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-custom-property-color; tests/oracle/data-custom-property-color |
+| `data.custom-property-enum` | Enum custom property | TODO: modules/data/capabilities/data-custom-property-enum/registry.ts; spec/SPEC.md (Enum custom property); modules/data/capabilities/data-custom-property-enum/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-custom-property-enum; tests/oracle/data-custom-property-enum |
+| `data.custom-property-number` | Number custom property | TODO: modules/data/capabilities/data-custom-property-number/registry.ts; spec/SPEC.md (Number custom property); modules/data/capabilities/data-custom-property-number/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-custom-property-number; tests/oracle/data-custom-property-number |
+| `data.custom-property-string` | String custom property | TODO: modules/data/capabilities/data-custom-property-string/registry.ts; spec/SPEC.md (String custom property); modules/data/capabilities/data-custom-property-string/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-custom-property-string; tests/oracle/data-custom-property-string |
+| `data.custom-property-trigger` | Trigger custom property | TODO: modules/data/capabilities/data-custom-property-trigger/registry.ts; spec/SPEC.md (Trigger custom property); modules/data/capabilities/data-custom-property-trigger/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-custom-property-trigger; tests/oracle/data-custom-property-trigger |
+| `data.default-instance` | Default instance | TODO: modules/data/capabilities/data-default-instance/registry.ts; spec/SPEC.md (Default instance); modules/data/capabilities/data-default-instance/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-default-instance; tests/oracle/data-default-instance |
+| `data.enum-members` | Custom enum members | TODO: modules/data/capabilities/data-enum-members/registry.ts; spec/SPEC.md (Custom enum members); modules/data/capabilities/data-enum-members/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-enum-members; tests/oracle/data-enum-members |
+| `data.formula-function-acosine` | Formula function: acosine | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-acosine |
+| `data.formula-function-asine` | Formula function: asine | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-asine |
+| `data.formula-function-atangent` | Formula function: atangent | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-atangent |
+| `data.formula-function-atangent2` | Formula function: atangent2 | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-atangent2 |
+| `data.formula-function-ceil` | Formula function: ceil | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-ceil |
+| `data.formula-function-cosine` | Formula function: cosine | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-cosine |
+| `data.formula-function-exp` | Formula function: exp | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-exp |
+| `data.formula-function-floor` | Formula function: floor | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-floor |
+| `data.formula-function-log` | Formula function: log | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-log |
+| `data.formula-function-pow` | Formula function: pow | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-pow |
+| `data.formula-function-random` | Formula function: random | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-random |
+| `data.formula-function-round` | Formula function: round | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-round |
+| `data.formula-function-sine` | Formula function: sine | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-sine |
+| `data.formula-function-sqrt` | Formula function: sqrt | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-sqrt |
+| `data.formula-function-tangent` | Formula function: tangent | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-function-tangent |
+| `data.formula-operator-modulo` | Formula operator: modulo | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-operator-modulo |
+| `data.formula-random-always` | Formula random mode: always | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-random-always |
+| `data.formula-random-once` | Formula random mode: once | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-random-once |
+| `data.formula-random-source-change` | Formula random mode: sourceChange | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-formula-random-source-change |
+| `data.global-model` | Shared global model | TODO: modules/data/capabilities/data-global-model/registry.ts; spec/SPEC.md (Shared global model); modules/data/capabilities/data-global-model/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-global-model; tests/oracle/data-global-model |
+| `data.host-bind-instance` | Bind instance to player | new: player.data API for bind instance to player | data | done | oracle/data-host-bind-instance |
+| `data.host-create-instance` | Create fresh instance | new: player.data API for create fresh instance | data | done | oracle/data-host-create-instance |
+| `data.host-discover-models` | Discover models | new: player.data API for discover models | data | done | oracle/data-host-discover-models |
+| `data.host-list-instance-at` | Host list: instanceAt | new: player.data.<model> typed API: ViewModelInstanceList.instanceAt | data | done | oracle/data-host-list-instance-at |
+| `data.host-list-length` | Host list: length | new: player.data.<model> typed API: ViewModelInstanceList.length | data | done | oracle/data-host-list-length |
+| `data.host-scalar-boolean` | Host boolean values | new: player.data.<model> typed API: ViewModelInstanceBoolean.value | data | done | oracle/data-host-scalar-boolean |
+| `data.host-scalar-number` | Host number values | new: player.data.<model> typed API: ViewModelInstanceNumber.value | data | done | oracle/data-host-scalar-number |
+| `data.host-scalar-string` | Host string values | new: player.data.<model> typed API: ViewModelInstanceString.value | data | done | oracle/data-host-scalar-string |
+| `data.host-select-instance` | Select authored instance | new: player.data API for select authored instance | data | done | oracle/data-host-select-instance |
+| `data.host-subscriptions` | Property subscriptions | new: player.data API for property subscriptions | data | done | oracle/data-host-subscriptions |
+| `data.host-trigger` | Fire model trigger | new: player.data API for fire model trigger | data | done | oracle/data-host-trigger |
+| `data.interpolate-color` | Interpolate color changes | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-interpolate-color |
+| `data.interpolate-number` | Interpolate number changes | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-interpolate-number |
+| `data.list-items` | Explicit list items | TODO: modules/data/capabilities/data-list-items/registry.ts; spec/SPEC.md (Explicit list items); modules/data/capabilities/data-list-items/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-list-items; tests/oracle/data-list-items |
+| `data.model-definition` | Typed model definition | TODO: modules/data/capabilities/data-model-definition/registry.ts; spec/SPEC.md (Typed model definition); modules/data/capabilities/data-model-definition/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-model-definition; tests/oracle/data-model-definition |
+| `data.named-instances` | Named instances | TODO: modules/data/capabilities/data-named-instances/registry.ts; spec/SPEC.md (Named instances); modules/data/capabilities/data-named-instances/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-named-instances; tests/oracle/data-named-instances |
+| `data.operation-operand-view-model` | Calculation operand: ViewModel | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-operation-operand-view-model |
+| `data.pad-end` | String pad: end | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-pad-end |
+| `data.pad-start` | String pad: start | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-pad-start |
+| `data.property-asset-blob` | Blob asset property | TODO: modules/data/capabilities/data-property-asset-blob/registry.ts; spec/SPEC.md (Blob asset property); modules/data/capabilities/data-property-asset-blob/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-property-asset-blob; tests/oracle/data-property-asset-blob |
+| `data.property-asset-font` | Font asset property | TODO: modules/data/capabilities/data-property-asset-font/registry.ts; spec/SPEC.md (Font asset property); modules/data/capabilities/data-property-asset-font/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-property-asset-font; tests/oracle/data-property-asset-font |
+| `data.property-asset-image` | Image asset property | TODO: modules/data/capabilities/data-property-asset-image/registry.ts; spec/SPEC.md (Image asset property); modules/data/capabilities/data-property-asset-image/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-property-asset-image; tests/oracle/data-property-asset-image |
+| `data.property-boolean` | Boolean property | TODO: modules/data/capabilities/data-property-boolean/registry.ts; spec/SPEC.md (Boolean property); modules/data/capabilities/data-property-boolean/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-property-boolean; tests/oracle/data-property-boolean |
+| `data.property-color` | Color property | TODO: modules/data/capabilities/data-property-color/registry.ts; spec/SPEC.md (Color property); modules/data/capabilities/data-property-color/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-property-color; tests/oracle/data-property-color |
+| `data.property-enum-custom` | Custom enum property | TODO: modules/data/capabilities/data-property-enum-custom/registry.ts; spec/SPEC.md (Custom enum property); modules/data/capabilities/data-property-enum-custom/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-property-enum-custom; tests/oracle/data-property-enum-custom |
+| `data.property-enum-system` | System enum property | TODO: modules/data/capabilities/data-property-enum-system/registry.ts; spec/SPEC.md (System enum property); modules/data/capabilities/data-property-enum-system/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-property-enum-system; tests/oracle/data-property-enum-system |
+| `data.property-list` | List property | TODO: modules/data/capabilities/data-property-list/registry.ts; spec/SPEC.md (List property); modules/data/capabilities/data-property-list/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-property-list; tests/oracle/data-property-list |
+| `data.property-number` | Number property | TODO: modules/data/capabilities/data-property-number/registry.ts; spec/SPEC.md (Number property); modules/data/capabilities/data-property-number/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-property-number; tests/oracle/data-property-number |
+| `data.property-string` | String property | TODO: modules/data/capabilities/data-property-string/registry.ts; spec/SPEC.md (String property); modules/data/capabilities/data-property-string/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-property-string; tests/oracle/data-property-string |
+| `data.property-trigger` | Trigger property | TODO: modules/data/capabilities/data-property-trigger/registry.ts; spec/SPEC.md (Trigger property); modules/data/capabilities/data-property-trigger/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-property-trigger; tests/oracle/data-property-trigger |
+| `data.property-view-model` | Nested model property | TODO: modules/data/capabilities/data-property-view-model/registry.ts; spec/SPEC.md (Nested model property); modules/data/capabilities/data-property-view-model/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-property-view-model; tests/oracle/data-property-view-model |
+| `data.range-modulo` | Range option: modulo | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-range-modulo |
+| `data.range-reverse` | Range option: reverse | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-range-reverse |
+| `data.state-action-trigger` | State or transition model trigger | TODO: modules/data/capabilities/data-state-action-trigger/registry.ts; spec/SPEC.md (State or transition model trigger); modules/data/capabilities/data-state-action-trigger/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-state-action-trigger; tests/oracle/data-state-action-trigger |
+| `data.system-enum-horizontal-text-align` | System enum: horizontalTextAlign | TODO: modules/data/capabilities/data-system-enum-horizontal-text-align/registry.ts; spec/SPEC.md (System enum: horizontalTextAlign); modules/data/capabilities/data-system-enum-horizontal-text-align/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-horizontal-text-align; tests/oracle/data-system-enum-horizontal-text-align |
+| `data.system-enum-layout-alignment` | System enum: layoutAlignment | TODO: modules/data/capabilities/data-system-enum-layout-alignment/registry.ts; spec/SPEC.md (System enum: layoutAlignment); modules/data/capabilities/data-system-enum-layout-alignment/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-layout-alignment; tests/oracle/data-system-enum-layout-alignment |
+| `data.system-enum-layout-direction` | System enum: layoutDirection | TODO: modules/data/capabilities/data-system-enum-layout-direction/registry.ts; spec/SPEC.md (System enum: layoutDirection); modules/data/capabilities/data-system-enum-layout-direction/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-layout-direction; tests/oracle/data-system-enum-layout-direction |
+| `data.system-enum-layout-display` | System enum: layoutDisplay | TODO: modules/data/capabilities/data-system-enum-layout-display/registry.ts; spec/SPEC.md (System enum: layoutDisplay); modules/data/capabilities/data-system-enum-layout-display/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-layout-display; tests/oracle/data-system-enum-layout-display |
+| `data.system-enum-layout-flex-direction` | System enum: layoutFlexDirection | TODO: modules/data/capabilities/data-system-enum-layout-flex-direction/registry.ts; spec/SPEC.md (System enum: layoutFlexDirection); modules/data/capabilities/data-system-enum-layout-flex-direction/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-layout-flex-direction; tests/oracle/data-system-enum-layout-flex-direction |
+| `data.system-enum-layout-position` | System enum: layoutPosition | TODO: modules/data/capabilities/data-system-enum-layout-position/registry.ts; spec/SPEC.md (System enum: layoutPosition); modules/data/capabilities/data-system-enum-layout-position/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-layout-position; tests/oracle/data-system-enum-layout-position |
+| `data.system-enum-layout-position-units` | System enum: layoutPositionUnits | TODO: modules/data/capabilities/data-system-enum-layout-position-units/registry.ts; spec/SPEC.md (System enum: layoutPositionUnits); modules/data/capabilities/data-system-enum-layout-position-units/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-layout-position-units; tests/oracle/data-system-enum-layout-position-units |
+| `data.system-enum-layout-scale-type` | System enum: layoutScaleType | TODO: modules/data/capabilities/data-system-enum-layout-scale-type/registry.ts; spec/SPEC.md (System enum: layoutScaleType); modules/data/capabilities/data-system-enum-layout-scale-type/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-layout-scale-type; tests/oracle/data-system-enum-layout-scale-type |
+| `data.system-enum-layout-wrap` | System enum: layoutWrap | TODO: modules/data/capabilities/data-system-enum-layout-wrap/registry.ts; spec/SPEC.md (System enum: layoutWrap); modules/data/capabilities/data-system-enum-layout-wrap/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-layout-wrap; tests/oracle/data-system-enum-layout-wrap |
+| `data.system-enum-scroll-direction` | System enum: scrollDirection | TODO: modules/data/capabilities/data-system-enum-scroll-direction/registry.ts; spec/SPEC.md (System enum: scrollDirection); modules/data/capabilities/data-system-enum-scroll-direction/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-scroll-direction; tests/oracle/data-system-enum-scroll-direction |
+| `data.system-enum-semantic-check-state` | System enum: semanticCheckState | TODO: modules/data/capabilities/data-system-enum-semantic-check-state/registry.ts; spec/SPEC.md (System enum: semanticCheckState); modules/data/capabilities/data-system-enum-semantic-check-state/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-semantic-check-state; tests/oracle/data-system-enum-semantic-check-state |
+| `data.system-enum-text-box` | System enum: textBox | TODO: modules/data/capabilities/data-system-enum-text-box/registry.ts; spec/SPEC.md (System enum: textBox); modules/data/capabilities/data-system-enum-text-box/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-text-box; tests/oracle/data-system-enum-text-box |
+| `data.system-enum-text-overflow` | System enum: textOverflow | TODO: modules/data/capabilities/data-system-enum-text-overflow/registry.ts; spec/SPEC.md (System enum: textOverflow); modules/data/capabilities/data-system-enum-text-overflow/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-text-overflow; tests/oracle/data-system-enum-text-overflow |
+| `data.system-enum-text-trim-bottom` | System enum: textTrimBottom | TODO: modules/data/capabilities/data-system-enum-text-trim-bottom/registry.ts; spec/SPEC.md (System enum: textTrimBottom); modules/data/capabilities/data-system-enum-text-trim-bottom/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-text-trim-bottom; tests/oracle/data-system-enum-text-trim-bottom |
+| `data.system-enum-text-trim-top` | System enum: textTrimTop | TODO: modules/data/capabilities/data-system-enum-text-trim-top/registry.ts; spec/SPEC.md (System enum: textTrimTop); modules/data/capabilities/data-system-enum-text-trim-top/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-text-trim-top; tests/oracle/data-system-enum-text-trim-top |
+| `data.system-enum-vertical-text-align` | System enum: verticalTextAlign | TODO: modules/data/capabilities/data-system-enum-vertical-text-align/registry.ts; spec/SPEC.md (System enum: verticalTextAlign); modules/data/capabilities/data-system-enum-vertical-text-align/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-vertical-text-align; tests/oracle/data-system-enum-vertical-text-align |
+| `data.system-enum-word-wrap` | System enum: wordWrap | TODO: modules/data/capabilities/data-system-enum-word-wrap/registry.ts; spec/SPEC.md (System enum: wordWrap); modules/data/capabilities/data-system-enum-word-wrap/example.animl | data | done | modules/data/test/core/conformance.test.ts; spec/conformance/data-system-enum-word-wrap; tests/oracle/data-system-enum-word-wrap |
+| `data.template-argument-number` | Number template argument | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-template-argument-number |
+| `data.template-argument-string` | String template argument | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-template-argument-string |
+| `data.trim-all` | String trim: all | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-trim-all |
+| `data.trim-end` | String trim: end | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-trim-end |
+| `data.trim-none` | String trim: none | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-trim-none |
+| `data.trim-start` | String trim: start | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | done | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; spec/conformance/data-trim-start |
 
 ### Host runtime API
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `host-api.auto-bind` | Automatic data binding | new: <anima-icon auto-bind> | data | planned | browser/auto-bind |
-| `host-api.batched-binding` | Batch binding updates | new: data binding transaction | data | planned | browser/batched-binding |
-| `host-api.bind-view-model` | Explicit model binding | new: <anima-icon>.bind(instance) | data | planned | browser/bind-view-model |
-| `host-api.data-artboard` | View model artboard | new: typed data.artboard(path) | data | planned | browser/data-artboard |
-| `host-api.data-boolean` | View model boolean | new: typed data.boolean(path) | data | planned | browser/data-boolean |
-| `host-api.data-color` | View model color | new: typed data.color(path) | data | planned | browser/data-color |
-| `host-api.data-enum` | View model enum | new: typed data.enum(path) | data | planned | browser/data-enum |
-| `host-api.data-font` | View model font | new: typed data.font(path) | data | planned | browser/data-font |
-| `host-api.data-image` | View model image | new: typed data.image(path) | data | planned | browser/data-image |
-| `host-api.data-list` | View model lists | new: typed data lists | data | planned | browser/data-list |
-| `host-api.data-number` | View model number | new: typed data.number(path) | data | planned | browser/data-number |
-| `host-api.data-reflection` | Property reflection | new: inspectable typed data schema | data | planned | browser/data-reflection |
-| `host-api.data-string` | View model string | new: typed data.string(path) | data | planned | browser/data-string |
-| `host-api.data-subscriptions` | Property subscriptions | new: data property subscriptions | data | planned | browser/data-subscriptions |
-| `host-api.data-trigger` | View model trigger | new: typed data.trigger(path) | data | planned | browser/data-trigger |
-| `host-api.factory` | Custom resource factory | new: Custom resource factory | paint | planned | browser/factory |
-| `host-api.global-models` | Global view models | new: document-scoped shared data contexts | data | planned | browser/global-models |
-| `host-api.nested-models` | Nested view model paths | new: typed property paths | data | planned | browser/nested-models |
-| `host-api.renderer` | Custom renderer bridge | new: Custom renderer bridge | paint | planned | browser/renderer |
-| `host-api.view-model-discovery` | Discover view models | new: scene.data.models() | data | planned | browser/view-model-discovery |
-| `host-api.view-model-instances` | Create view model instances | new: typed model instance factory | data | planned | browser/view-model-instances |
+| `host-api.auto-bind` | Automatic data binding | new: <anima-icon auto-bind> | data | done | browser/auto-bind |
+| `host-api.bind-view-model` | Explicit model binding | new: <anima-icon>.bind(instance) | data | done | browser/bind-view-model |
+| `host-api.data-boolean` | View model boolean | new: typed data.boolean(path) | data | done | browser/data-boolean |
+| `host-api.data-number` | View model number | new: typed data.number(path) | data | done | browser/data-number |
+| `host-api.data-reflection` | Property reflection | new: inspectable typed data schema | data | done | browser/data-reflection |
+| `host-api.data-string` | View model string | new: typed data.string(path) | data | done | browser/data-string |
+| `host-api.data-subscriptions` | Property subscriptions | new: data property subscriptions | data | done | browser/data-subscriptions |
+| `host-api.data-trigger` | View model trigger | new: typed data.trigger(path) | data | done | browser/data-trigger |
+| `host-api.factory` | Custom resource factory | AnimaIcon.renderers[name] factory owns backend resources; IconRenderer.draw(DrawFrame) and lifecycle | mix | done | modules/canvas/test/web/canvas.test.ts (customFactory, both engines); tests/oracle/host-api-factory/skip.json |
+| `host-api.renderer` | Custom renderer bridge | AnimaIcon.renderers[name] factory owns backend resources; IconRenderer.draw(DrawFrame) and lifecycle | mix | done | modules/canvas/test/web/canvas.test.ts (customFactory, both engines); tests/oracle/host-api-renderer/skip.json |
+
+## P4 — Interaction, paint, events and data binding <a id="p4"></a>
 
 ## P5 — Done: components, bindings, assets, images, n-slice and feathering <a id="p5"></a>
 
@@ -1063,6 +1018,45 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `drawing-paint.image-wrap-repeat` | repeat image wrapping | new: image.wrapX/wrapY: repeat | paint | planned | oracle/image-wrap-repeat |
 | `drawing-paint.paint-artboard` | Live artboard paint | new: paint.scene references a component | components | planned | oracle/paint-artboard |
 
+### State machines
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `state-machine.condition-data` | Live data comparisons | new: typed when expressions reading property paths | data | planned | conformance/condition-data |
+| `state-machine.literal-artboard` | artboard comparison literal | new: typed artboard literal in when expression | data | planned | conformance/literal-artboard |
+| `state-machine.literal-asset` | asset comparison literal | new: typed asset literal in when expression | data | planned | conformance/literal-asset |
+| `state-machine.literal-boolean` | boolean comparison literal | new: typed boolean literal in when expression | data | planned | conformance/literal-boolean |
+| `state-machine.literal-color` | color comparison literal | new: typed color literal in when expression | data | planned | conformance/literal-color |
+| `state-machine.literal-enum` | enum comparison literal | new: typed enum literal in when expression | data | planned | conformance/literal-enum |
+| `state-machine.literal-string` | string comparison literal | new: typed string literal in when expression | data | planned | conformance/literal-string |
+| `state-machine.literal-trigger` | trigger comparison literal | new: typed trigger literal in when expression | data | planned | conformance/literal-trigger |
+
+### Data: view models, binding, converters
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `data.bind-keyframes` | Bind keyframe values | TODO: modules/data/capabilities/data-bind-keyframes/registry.ts; spec/SPEC.md (Bind keyframe values); modules/data/capabilities/data-bind-keyframes/example.animl | data | planned | TODO: modules/data/test/core/data-bind-keyframes.test.ts; spec/conformance/data-bind-keyframes; tests/oracle/data-bind-keyframes |
+| `data.binding-relative` | Relative binding path binding | TODO: modules/data/capabilities/data-binding-relative/registry.ts; spec/SPEC.md (Relative binding path binding); modules/data/capabilities/data-binding-relative/example.animl | data | planned | TODO: modules/data/test/core/data-binding-relative.test.ts; spec/conformance/data-binding-relative; tests/oracle/data-binding-relative |
+| `data.converter-color-formatting` | Color formatting | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | planned | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending |
+| `data.converter-number-to-list` | Number to list | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | planned | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending |
+| `data.converter-trigger` | Trigger conversion | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | planned | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending |
+| `data.host-artboard` | Set model artboard | new: player.data API for set model artboard | data | planned | oracle/data-host-artboard |
+| `data.host-color` | Color host access | new: player.data API for color host access | data | planned | oracle/data-host-color |
+| `data.host-default-instance` | Get default instance | new: player.data API for get default instance | data | planned | oracle/data-host-default-instance |
+| `data.host-enum` | Enum host access | new: player.data API for enum host access | data | planned | oracle/data-host-enum |
+| `data.host-font` | Set model font | new: player.data API for set model font | data | planned | oracle/data-host-font |
+| `data.host-global-instance` | Set global instances | new: player.data API for set global instances | data | planned | oracle/data-host-global-instance |
+| `data.host-image` | Set model image | new: player.data API for set model image | data | planned | oracle/data-host-image |
+| `data.host-list-add-instance` | Host list: addInstance | new: player.data.<model> typed API: ViewModelInstanceList.addInstance | data | planned | oracle/data-host-list-add-instance |
+| `data.host-list-add-instance-at` | Host list: addInstanceAt | new: player.data.<model> typed API: ViewModelInstanceList.addInstanceAt | data | planned | oracle/data-host-list-add-instance-at |
+| `data.host-list-remove-instance` | Host list: removeInstance | new: player.data.<model> typed API: ViewModelInstanceList.removeInstance | data | planned | oracle/data-host-list-remove-instance |
+| `data.host-list-remove-instance-at` | Host list: removeInstanceAt | new: player.data.<model> typed API: ViewModelInstanceList.removeInstanceAt | data | planned | oracle/data-host-list-remove-instance-at |
+| `data.host-list-swap` | Host list: swap | new: player.data.<model> typed API: ViewModelInstanceList.swap | data | planned | oracle/data-host-list-swap |
+| `data.host-nested-paths` | Typed nested paths | new: player.data API for typed nested paths | data | planned | oracle/data-host-nested-paths |
+| `data.instance-export` | Exported instances | TODO: modules/data/capabilities/data-instance-export/registry.ts; spec/SPEC.md (Exported instances); modules/data/capabilities/data-instance-export/example.animl | data | planned | TODO: modules/data/test/core/data-instance-export.test.ts; spec/conformance/data-instance-export; tests/oracle/data-instance-export |
+| `data.property-artboard` | Artboard property | TODO: modules/data/capabilities/data-property-artboard/registry.ts; spec/SPEC.md (Artboard property); modules/data/capabilities/data-property-artboard/example.animl | data | planned | TODO: modules/data/test/core/data-property-artboard.test.ts; spec/conformance/data-property-artboard; tests/oracle/data-property-artboard |
+| `data.property-symbol-list-index` | Symbol list index property | TODO: modules/data/capabilities/data-property-symbol-list-index/registry.ts; spec/SPEC.md (Symbol list index property); modules/data/capabilities/data-property-symbol-list-index/example.animl | data | planned | TODO: modules/data/test/core/data-property-symbol-list-index.test.ts; spec/conformance/data-property-symbol-list-index; tests/oracle/data-property-symbol-list-index |
+
 ### Components
 
 | Id | Capability | Anima construct | Module | Status | Test |
@@ -1140,8 +1134,19 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.asset-cdn-policy` | Asset CDN policy | new: explicit external asset fetch policy; default local | assets | planned | browser/asset-cdn-policy |
 | `host-api.asset-loader` | Custom asset resolver | new: host-provided asset resolver | assets | planned | browser/asset-loader |
 | `host-api.asset-metadata` | Asset metadata inspection | new: typed asset descriptors | assets | planned | browser/asset-metadata |
+| `host-api.batched-binding` | Batch binding updates | new: data binding transaction | data | planned | browser/batched-binding |
 | `host-api.bindable-artboards` | Bindable component instances | new: component instance handles | components | planned | browser/bindable-artboards |
+| `host-api.data-artboard` | View model artboard | new: typed data.artboard(path) | data | planned | browser/data-artboard |
+| `host-api.data-color` | View model color | new: typed data.color(path) | data | planned | browser/data-color |
+| `host-api.data-enum` | View model enum | new: typed data.enum(path) | data | planned | browser/data-enum |
+| `host-api.data-font` | View model font | new: typed data.font(path) | data | planned | browser/data-font |
+| `host-api.data-image` | View model image | new: typed data.image(path) | data | planned | browser/data-image |
+| `host-api.data-list` | View model lists | new: typed data lists | data | planned | browser/data-list |
+| `host-api.global-models` | Global view models | new: document-scoped shared data contexts | data | planned | browser/global-models |
+| `host-api.nested-models` | Nested view model paths | new: typed property paths | data | planned | browser/nested-models |
 | `host-api.reuse-loaded-file` | Reuse parsed files | new: cache compiled documents and decoded assets | assets | planned | browser/reuse-loaded-file |
+| `host-api.view-model-discovery` | Discover view models | new: scene.data.models() | data | planned | browser/view-model-discovery |
+| `host-api.view-model-instances` | Create view model instances | new: typed model instance factory | data | planned | browser/view-model-instances |
 | `host-api.wasm-preload` | Preload runtime | new: backend preload promise | assets | planned | browser/wasm-preload |
 | `host-api.wasm-url` | Self-host WASM | new: optional backend loader URLs | assets | planned | browser/wasm-url |
 
@@ -1167,6 +1172,14 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
 | `input.text-listener` | Text input listeners | new: listener.on: text-input | text | planned | conformance/input-text-listener |
+| `input.write-text` | Store text | new: listener value source: text | data | planned | conformance/input-write-text |
+
+### Data: view models, binding, converters
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `data.bind-text` | Bind text runs | TODO: modules/data/capabilities/data-bind-text/registry.ts; spec/SPEC.md (Bind text runs); modules/data/capabilities/data-bind-text/example.animl | data | planned | TODO: modules/data/test/core/data-bind-text.test.ts; spec/conformance/data-bind-text; tests/oracle/data-bind-text |
+| `data.property-text-style` | Text style property | TODO: modules/data/capabilities/data-property-text-style/registry.ts; spec/SPEC.md (Text style property); modules/data/capabilities/data-property-text-style/example.animl | data | planned | TODO: modules/data/test/core/data-property-text-style.test.ts; spec/conformance/data-property-text-style; tests/oracle/data-property-text-style |
 
 ### Text
 
@@ -1245,6 +1258,18 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.text-run` | Text run access | new: named text run access | text | planned | browser/text-run |
 
 ## P7 — Layout <a id="p7"></a>
+
+### Transforms and draw order
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `transforms.computed-transform-values` | Read computed geometry | new: computed geometry read-only property paths | data | planned | conformance/computed-transform-values |
+
+### Data: view models, binding, converters
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `data.bind-layout` | Bind layout parameters | TODO: modules/data/capabilities/data-bind-layout/registry.ts; spec/SPEC.md (Bind layout parameters); modules/data/capabilities/data-bind-layout/example.animl | data | planned | TODO: modules/data/test/core/data-bind-layout.test.ts; spec/conformance/data-bind-layout; tests/oracle/data-bind-layout |
 
 ### Layout
 
@@ -1393,6 +1418,14 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `input.hit-claims` | Script pointer claims | new: pointer event.claim({opaque}) | script | planned | conformance/input-hit-claims |
 | `input.script-action` | Script listener actions | new: listener action script reference | script | planned | conformance/input-script-action |
 | `input.scroll-script` | Script scroll handlers | new: script pointerScroll hook and event.claim() | script | planned | conformance/input-scroll-script |
+
+### Data: view models, binding, converters
+
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `data.bind-script-inputs` | Bind script inputs | TODO: modules/data/capabilities/data-bind-script-inputs/registry.ts; spec/SPEC.md (Bind script inputs); modules/data/capabilities/data-bind-script-inputs/example.animl | data | planned | TODO: modules/data/test/core/data-bind-script-inputs.test.ts; spec/conformance/data-bind-script-inputs; tests/oracle/data-bind-script-inputs |
+| `data.script-model-api` | Script model API | TODO: modules/data/capabilities/data-script-model-api/registry.ts; spec/SPEC.md (Script model API); modules/data/capabilities/data-script-model-api/example.animl | data | planned | TODO: modules/data/test/core/data-script-model-api.test.ts; spec/conformance/data-script-model-api; tests/oracle/data-script-model-api |
+| `data.scripted-converter` | Scripted conversion | modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending) | data | planned | modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending |
 
 ### Events
 

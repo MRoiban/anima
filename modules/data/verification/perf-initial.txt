@@ -1,0 +1,40 @@
+main-1
+compile: bell 4.24 ms; all 9040 prefixes 1126 ms
+frame: bell 60.2 µs; composite 35.9 µs
+frame: toolbar 36.8 µs (step + draw, 4 instances)
+compile: toolbar 7.19 ms
+data-1
+compile: bell 4.39 ms; all 9040 prefixes 1059 ms
+frame: bell 55.0 µs; composite 30.0 µs
+frame: toolbar 30.0 µs (step + draw, 4 instances)
+compile: toolbar 4.53 ms
+main-2
+compile: bell 2.70 ms; all 9040 prefixes 1604 ms
+frame: bell 101.8 µs; composite 66.1 µs
+frame: toolbar 54.4 µs (step + draw, 4 instances)
+compile: toolbar 9.67 ms
+data-2
+compile: bell 4.78 ms; all 9040 prefixes 1621 ms
+frame: bell 71.2 µs; composite 56.6 µs
+frame: toolbar 58.8 µs (step + draw, 4 instances)
+compile: toolbar 9.93 ms
+data-3
+compile: bell 2.43 ms; all 9040 prefixes 575 ms
+frame: bell 32.5 µs; composite 22.1 µs
+frame: toolbar 25.1 µs (step + draw, 4 instances)
+compile: toolbar 3.82 ms
+main-3
+compile: bell 2.10 ms; all 9040 prefixes 615 ms
+frame: bell 32.7 µs; composite 24.7 µs
+frame: toolbar 23.6 µs (step + draw, 4 instances)
+compile: toolbar 4.15 ms
+data-4
+compile: bell 2.61 ms; all 9040 prefixes 641 ms
+frame: bell 41.0 µs; composite 25.1 µs
+frame: toolbar 29.5 µs (step + draw, 4 instances)
+compile: toolbar 4.74 ms
+main-4
+compile: bell 2.98 ms; all 9040 prefixes 730 ms
+frame: bell 57.9 µs; composite 30.3 µs
+frame: toolbar 30.3 µs (step + draw, 4 instances)
+compile: toolbar 5.17 ms

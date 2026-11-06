@@ -69,7 +69,7 @@ export interface Module {
     pointer: string,
     diag: Diags,
     read?: (name: string) => void,
-  ): ((scope: ReadonlyMap<string, number | boolean>) => Value) | undefined;
+  ): ((scope: ReadonlyMap<string, Value>) => Value) | undefined;
   ease?(source: string, pointer: string, diag: Diags): import('./ease.ts').EaseFn | undefined;
   track?(
     track: import('./load.ts').TrackM,
@@ -78,12 +78,21 @@ export interface Module {
     pointer: string,
     diag: Diags,
   ): void;
+  prepare?(model: Model, diag: Diags): void;
   resolve?(model: Model, diag: Diags): void;
   load?(model: Model, raw: Model['doc'], diag: Diags): void;
   /** Resolve additional addresses to the existing number/colour/bool sampling slots. */
   model?(node: NodeM, key: string): Pick<Addr, 'prop' | 'rest'> | undefined;
   value?(addr: Addr, value: unknown, pointer: string, diag: Diags): Value | undefined;
   outline?(player: Player, node: number): { pts: number[]; closed: boolean }[] | undefined;
+  /** Override fill containment in local coordinates, preserving the stroke/padding outline. */
+  fillContains?(
+    player: Player,
+    node: number,
+    outline: { pts: number[]; closed: boolean }[],
+    x: number,
+    y: number,
+  ): boolean | undefined;
   interpolate?(a: Value, b: Value, weight: number): Value | undefined;
   draw?: {
     end?(player: Player, frame: DrawFrame): void;

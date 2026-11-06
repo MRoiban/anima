@@ -1,0 +1,14 @@
+advance 0
+snapshot dot.properties.result
+set $value 10
+advance 0
+snapshot dot.properties.result
+advance 0.05
+snapshot dot.properties.result
+set $value 20
+advance 0
+snapshot dot.properties.result
+advance 0.05
+snapshot dot.properties.result
+advance 0.05
+snapshot dot.properties.result

@@ -1,0 +1,7 @@
+{"time":0,"values":{"$players.0.score":1500,"knob.x":1500,"adaBar.w":22.5,"ada.properties.label":"1,500 pts"},"states":{"leader":"ada","milestones":"above"},"events":[{"name":"milestone","layer":"milestones","time":0}],"settled":true}
+{"time":0,"values":{"$players.0.score":1000.0000000000001,"knob.x":1000.0000000000001,"adaBar.w":15.000000000000002,"ada.properties.label":"1,000 pts"},"states":{"leader":"ada","milestones":"below"},"events":[],"settled":true}
+{"time":0,"values":{"$players.0.score":2000,"knob.x":2000,"adaBar.w":30,"ada.properties.label":"2,000 pts"},"states":{"leader":"ada","milestones":"above"},"events":[{"name":"milestone","layer":"milestones","time":0}],"settled":true}
+{"time":0,"values":{"$players.0.score":0,"knob.x":0,"adaBar.w":0,"ada.properties.label":"0 pts"},"states":{"leader":"lin","milestones":"below"},"events":[],"settled":true}
+{"time":0,"values":{"$players.0.score":1000,"knob.x":1000,"adaBar.w":15,"ada.properties.label":"1,000 pts"},"states":{"leader":"ada","milestones":"below"},"events":[],"settled":true}
+{"time":0,"values":{"$players.0.score":1200,"knob.x":1200,"adaBar.w":18,"ada.properties.label":"1,200 pts"},"states":{"leader":"ada","milestones":"below"},"events":[],"settled":true}
+{"time":0,"values":{"$players.0.score":1200,"knob.x":1200},"states":{"leader":"ada","milestones":"below"},"events":[],"settled":true}

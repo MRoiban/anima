@@ -1,0 +1,15 @@
+<anima version="0.1" name="data-probe" grid="20" requires="data bind">
+  <circle id="dot" cx="10" cy="10" properties="{&quot;pulse&quot;:{&quot;type&quot;:&quot;trigger&quot;}}" r="1" fill="#000"/>
+
+  <model name="Root"/>
+
+  <layer name="m" initial="idle">
+    <state name="idle">
+      <pose/>
+      <on when="dot.properties.pulse" to="done"/>
+    </state>
+    <state name="done">
+      <pose dot.x="9"/>
+    </state>
+  </layer>
+</anima>

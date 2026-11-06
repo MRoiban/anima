@@ -1,0 +1,19 @@
+{
+  "status": "finding",
+  "reason": "Native observation 2.3499999; independently specified Anima expectation 2.35. Native data-dump float32 precision differs from Anima binary64; no tolerance or numeric output is adjusted.",
+  "case": {
+    "name": "data-converter-rounder",
+    "times": [0],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  "observed": {
+    "anima": 2.35,
+    "native": 2.3499999
+  }
+}

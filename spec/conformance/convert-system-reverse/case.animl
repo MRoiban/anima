@@ -1,0 +1,11 @@
+<anima version="0.1" name="reverse-unit-probe" grid="20" requires="data bind convert">
+  <model name="Root">
+    <number name="angle"/>
+    <number name="percent"/>
+  </model>
+  <converter name="angle" type="degrees-to-radians"/>
+  <converter name="percent" type="normalize" from="0 100"/>
+  <circle id="dot" cx="10" cy="10" r="1" x="3.141592653589793" y="0.25" fill="#000"/>
+  <bind target="dot.x" value="$angle" mode="to-source" convert="angle"/>
+  <bind target="dot.y" value="$percent" mode="to-source" convert="percent"/>
+</anima>

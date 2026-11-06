@@ -767,7 +767,8 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
       ...(value.k === 'num' && value.min !== undefined ? { min: value.min } : {}),
     }));
   };
-  const nodeField = topic && nodeShape('path').p[topic];
+  const nodeField =
+    topic && (nodeShape('path').p[topic] ?? (DOC as Extract<typeof DOC, { k: 'obj' }>).p[topic]);
   const compositeField =
     nodeField &&
     (nodeField.k === 'arr' ? { ...nodeField.of, feature: nodeField.feature } : nodeField);

@@ -1,0 +1,21 @@
+advance 0
+snapshot $players.length $players.0.name $players.1.name $players.2.name $players.0.score $players.1.score $players.2.score $players.0.colour $players.1.colour $players.2.colour adaBar.width linBar.width samBar.width ada.fill lin.fill sam.fill adaBar.fill linBar.fill samBar.fill ada.properties.label lin.properties.label sam.properties.label knob.x adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.1.score 1800
+set $players.1.colour #123456
+advance 0
+snapshot $players.1.score $players.1.colour linBar.width lin.fill linBar.fill lin.properties.label adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.2.score 1900
+set $players.2.colour #abcdef
+advance 0
+snapshot $players.2.score $players.2.colour samBar.width sam.fill samBar.fill sam.properties.label adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 2000
+set $players.0.colour #654321
+advance 0
+snapshot $main:players.0.score adaBar.width ada.fill adaBar.fill ada.properties.label knob.x adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.1.score 2000
+set $players.2.score 2000
+advance 0
+snapshot adaBar.stroke-width linBar.stroke-width samBar.stroke-width
+set $players.0.score 100
+advance 0
+snapshot knob.x adaBar.width ada.properties.label adaBar.stroke-width linBar.stroke-width samBar.stroke-width

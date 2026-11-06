@@ -1,3 +1,4 @@
+import { dataCompiler } from './module-hooks.ts';
 import { elementFields } from './fields.ts';
 // Shared layout rules; formatting never interprets attribute values as animation data.
 import { ELEMENTS, markupName, type NodeType } from '@anima-format/core';
@@ -33,6 +34,9 @@ export const ATTR_ORDER: Record<string, string[]> = {
   listener: ['on', 'target', 'hitPadding', 'fire', 'set', 'toggle', 'emit'],
 };
 export function attrOrder(name: string): string[] {
+  return [...new Set([...baseAttrOrder(name), ...(dataCompiler.attributes?.(name) ?? [])])];
+}
+function baseAttrOrder(name: string): string[] {
   const fields = elementFields(name);
   if (fields.length)
     return [

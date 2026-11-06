@@ -1,0 +1,9 @@
+ok advance
+ok data-dump: tests/oracle/data-converter-range-mapper/rive/raw.json
+ok quit
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[09:43:36.752] rive  deferred replay: inline
+[09:43:36.755] rive  built (259 bytes, 3ms, 0 errors, 0 warnings)
+[09:43:36.756] rive  showing Probe [1/1]
+[09:43:36.756] rive  viewport 20x20 @1x
+[09:43:36.756] rive  wrote tests/oracle/data-converter-range-mapper/rive/raw.json

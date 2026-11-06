@@ -1,0 +1,15 @@
+{
+  "status": "finding",
+  "reason": "Native initializes lazily on the first non-default change, returning the changed value immediately; Anima initializes eagerly on first evaluation. Native trace ['#000000', '#ffffff', '#ffffff', '#ffffff', '#7f7f7f', '#000000']. Independently specified Anima trace ['#000000', '#000000', '#808080', '#808080', '#404040', '#000000']. Parent decision remains open; numeric/channel differences are retained.",
+  "case": {
+    "name": "data-interpolate-color",
+    "times": [0, 0.05, 0.1, 0.15],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  }
+}

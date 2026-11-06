@@ -1,0 +1,14 @@
+<anima version="0.1" name="data-probe" grid="20" requires="data bind paint">
+  <circle id="dot" cx="10" cy="10" r="1">
+    <linearGradient x1="0" y1="0" x2="20" y2="0">
+      <stop offset="0" stop-color="#000"/>
+      <stop offset="1" stop-color="#fff"/>
+    </linearGradient>
+  </circle>
+
+  <model name="Root">
+    <number name="value" default="40"/>
+  </model>
+
+  <bind target="dot.fill.stops.0.red" value="$value"/>
+</anima>

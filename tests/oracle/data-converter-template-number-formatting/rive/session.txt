@@ -1,0 +1,9 @@
+ok advance
+ok data-dump: tests/oracle/data-converter-template-number-formatting/rive/raw.json
+ok quit
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[09:50:21.584] rive  deferred replay: inline
+[09:50:21.589] rive  built (298 bytes, 5ms, 0 errors, 0 warnings)
+[09:50:21.589] rive  showing Probe [1/1]
+[09:50:21.590] rive  viewport 20x20 @1x
+[09:50:21.590] rive  wrote tests/oracle/data-converter-template-number-formatting/rive/raw.json

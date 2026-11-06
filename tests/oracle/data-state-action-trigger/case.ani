@@ -1,0 +1,43 @@
+{
+  "anima": "0.1",
+  "name": "oracle-data",
+  "grid": 20,
+  "requires": ["data", "bind"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 8,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "m": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {},
+            "entry": {
+              "fire": "$pulse"
+            }
+          }
+        }
+      }
+    }
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "pulse": {
+            "type": "trigger"
+          }
+        }
+      }
+    }
+  }
+}

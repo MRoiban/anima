@@ -1,0 +1,8 @@
+<anima version="0.1" name="interpolate-probe" grid="20" requires="data bind convert">
+  <model name="Root">
+    <color name="value" default="#000000"/>
+  </model>
+  <converter name="smooth" type="interpolate" ease="linear" duration="100"/>
+  <circle id="dot" cx="10" cy="10" properties="{&quot;result&quot;:{&quot;type&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#000000&quot;}}" r="1" fill="#000"/>
+  <bind target="dot.properties.result" value="$value" convert="smooth"/>
+</anima>

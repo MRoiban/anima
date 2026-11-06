@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "Text consumers are P6; no text-run target exists on this branch."
+}

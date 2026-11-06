@@ -1,5 +1,6 @@
 // Transition conditions (spec §8): term ("&&" term)*.
 
+import type { Value } from './load.ts';
 import { VERBOSE as V } from './flags.ts';
 
 export type Op = '==' | '!=' | '<' | '<=' | '>' | '>=';
@@ -12,12 +13,12 @@ export type Term =
       a: string;
       b: string;
       op: Op;
-      test?: (scope: ReadonlyMap<string, number | boolean>) => boolean;
+      test?: (scope: ReadonlyMap<string, Value>) => boolean;
     }
   | { k: 'end' }
   | { k: 'after'; s: number };
 
-const NAME = '([a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)*)';
+const NAME = '((?:\\$[a-zA-Z][a-zA-Z0-9-]*:)?\\$?[a-zA-Z][a-zA-Z0-9-]*(?:\\.[a-zA-Z0-9-]+)*)';
 const NUM = '(-?(?:\\d+\\.?\\d*|\\.\\d+)(?:[eE][-+]?\\d+)?)';
 const IS = new RegExp(`^(!?)\\s*${NAME}$`);
 const CMP = new RegExp(`^${NAME}\\s*(==|!=|<=|>=|<|>)\\s*${NUM}$`);
@@ -42,4 +43,9 @@ export function parseCondition(src: string): Term[] | string {
     else return V ? (t ? `cannot read "${t}"` : 'empty term') : '';
   }
   return terms;
+}
+
+/** Typed scalar comparison shared by guard and bind expression evaluation. */
+export function compare(x: Value, y: Value, op: string): boolean {
+  return { '==': x === y, '!=': x !== y, '<': x < y, '<=': x <= y, '>': x > y, '>=': x >= y }[op]!;
 }

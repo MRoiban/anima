@@ -1,0 +1,48 @@
+{
+  "anima": "0.1",
+  "name": "converter-probe",
+  "grid": 20,
+  "requires": ["data", "bind", "convert"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "properties": {
+        "result": {
+          "type": "number",
+          "default": 0
+        }
+      }
+    }
+  ],
+  "bind": {
+    "dot.properties.result": {
+      "value": "$value",
+      "convert": "cv"
+    }
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "number",
+            "default": 1
+          }
+        }
+      }
+    }
+  },
+  "converters": {
+    "cv": {
+      "type": "formula",
+      "expression": "random()",
+      "random": "once"
+    }
+  }
+}
