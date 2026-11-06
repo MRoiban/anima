@@ -34,6 +34,7 @@ friction point that blocks an item — is a bug, fixed before the phase's PR mer
 | 2026-11-07 | P5 | toolbar | Rive markup | 6/6 | 36 | 10 min 48 s | 997 lines (73.3 k chars, incl. generator and a self-made digit font) | one button and one badge artboard reused; pop timing source-verified only |
 | 2026-11-08 | P4b | [sync button](runs/2026-11-08-p4b/BRIEF.md) | AniML | 4/6 | 19 | 5 min 10 s | 144 lines | stop-at-next-tick and reverse-from-current not expressible declaratively (only as host API); scrubbing took 13 states; no `anima docs motion` — fixed in P4b-3, AniML rerun after it |
 | 2026-11-08 | P4b | sync button | Rive markup | 5/6 | 14 | 5 min 19 s | 911 lines (49.7 k chars, incl. generator) | reduced motion only through a host-set input |
+| 2026-11-08 | P4b (rerun after P4b-3) | sync button | AniML | 5/6 | 32 | 4 min 46 s | 64 lines | stop-at-tick, reverse-from-current and scrubbing now declarative (`exitNext`, `hold`, `sync`, input `time`); item 5 partial: turning reduced motion on mid-spin keeps the loop ticking (spec §10 applies it to states entered afterwards). The reported 'stop stays pending' was the script's `advance 0`; one step later it completes (orchestrator re-check) |
 
 ### P4a findings → actions
 
@@ -57,3 +58,13 @@ friction point that blocks an item — is a bug, fixed before the phase's PR mer
 - Orchestrator re-check: AniML pop at 0.125 s renders `matrix(1.25 0 0 1.25 -1 -1)` on both badge
   groups with the agent's `badge.script`; Rive frame 08 shows the shared badge on bell (3) and
   trash (2).
+
+### P4b findings → actions
+
+- **Declarative timeline control** (first AniML run 4/6): `sync`, `exitNext="step|loop"`, `hold`
+  and an input-driven timeline `time` added in P4b-3; the rerun met those items (5/6).
+- **Reduced motion switched mid-animation**: spec §10 applies the policy to states entered after the
+  switch, so a looping timeline keeps playing until its state changes. For accessibility an
+  in-progress loop should probably stop at once; that changes 0.1 playback, so it is a spec decision
+  scheduled with the `a11y` work (P3b), not patched in P4b.
+- Rive again needed a host-set input for reduced motion (no OS preference in the runtime).

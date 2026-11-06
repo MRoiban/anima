@@ -239,7 +239,8 @@ and an oracle test against Rive.
       an on-change / previous-value condition (P5 benchmark: 'count increased' took 10 states).
 - [ ] P4d `events`: payloads, open-URL, audio.
 - [ ] P4e `data`: view models, bindings, converters, lists.
-- [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras.
+- [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide
+      whether switching to reduced motion stops in-progress loops at once (P4b benchmark).
 - [ ] P6 Text.
 - [ ] P7 Layout.
 - [ ] P8 Rigging (on the canvas backend: bones, skinning, meshes).
