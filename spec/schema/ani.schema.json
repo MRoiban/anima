@@ -496,6 +496,265 @@
                               "loop"
                             ],
                             "feature": "motion"
+                          },
+                          "disabled": {
+                            "type": "boolean",
+                            "feature": "machine"
+                          },
+                          "weight": {
+                            "type": "number",
+                            "minimum": 0,
+                            "feature": "machine"
+                          },
+                          "continue": {
+                            "type": "boolean",
+                            "feature": "machine"
+                          },
+                          "exitRatio": {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1,
+                            "feature": "machine"
+                          },
+                          "blendRatio": {
+                            "type": "number",
+                            "minimum": 0,
+                            "feature": "machine"
+                          },
+                          "actions": {
+                            "type": "object",
+                            "properties": {
+                              "$comment": {
+                                "type": "string"
+                              },
+                              "fire": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "minItems": 1
+                                  }
+                                ]
+                              },
+                              "set": {
+                                "type": "object",
+                                "properties": {
+                                  "$comment": {
+                                    "type": "string"
+                                  }
+                                },
+                                "additionalProperties": {
+                                  "anyOf": [
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "boolean"
+                                    }
+                                  ]
+                                }
+                              },
+                              "toggle": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "minItems": 1
+                                  }
+                                ]
+                              },
+                              "emit": {
+                                "type": "string"
+                              }
+                            },
+                            "additionalProperties": false,
+                            "feature": "machine"
+                          },
+                          "endActions": {
+                            "type": "object",
+                            "properties": {
+                              "$comment": {
+                                "type": "string"
+                              },
+                              "fire": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "minItems": 1
+                                  }
+                                ]
+                              },
+                              "set": {
+                                "type": "object",
+                                "properties": {
+                                  "$comment": {
+                                    "type": "string"
+                                  }
+                                },
+                                "additionalProperties": {
+                                  "anyOf": [
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "boolean"
+                                    }
+                                  ]
+                                }
+                              },
+                              "toggle": {
+                                "anyOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                    },
+                                    "minItems": 1
+                                  }
+                                ]
+                              },
+                              "emit": {
+                                "type": "string"
+                              }
+                            },
+                            "additionalProperties": false,
+                            "feature": "machine"
+                          },
+                          "change": {
+                            "type": "object",
+                            "properties": {
+                              "$comment": {
+                                "type": "string"
+                              },
+                              "input": {
+                                "type": "string"
+                              },
+                              "mode": {
+                                "type": "string",
+                                "enum": [
+                                  "changed",
+                                  "increased",
+                                  "decreased"
+                                ]
+                              }
+                            },
+                            "required": [
+                              "input",
+                              "mode"
+                            ],
+                            "additionalProperties": false,
+                            "feature": "machine"
+                          },
+                          "guard": {
+                            "type": "object",
+                            "properties": {
+                              "$comment": {
+                                "type": "string"
+                              },
+                              "left": {
+                                "anyOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "$comment": {
+                                        "type": "string"
+                                      },
+                                      "artboard": {
+                                        "type": "string",
+                                        "enum": [
+                                          "width",
+                                          "height",
+                                          "aspect"
+                                        ]
+                                      },
+                                      "component": {
+                                        "type": "string"
+                                      },
+                                      "focus": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              },
+                              "right": {
+                                "anyOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "boolean"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "$comment": {
+                                        "type": "string"
+                                      },
+                                      "artboard": {
+                                        "type": "string",
+                                        "enum": [
+                                          "width",
+                                          "height",
+                                          "aspect"
+                                        ]
+                                      },
+                                      "component": {
+                                        "type": "string"
+                                      },
+                                      "focus": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              },
+                              "op": {
+                                "type": "string",
+                                "enum": [
+                                  "==",
+                                  "!=",
+                                  "<",
+                                  "<=",
+                                  ">",
+                                  ">="
+                                ]
+                              }
+                            },
+                            "required": [
+                              "left",
+                              "right",
+                              "op"
+                            ],
+                            "additionalProperties": false,
+                            "feature": "machine"
                           }
                         },
                         "required": [
@@ -512,6 +771,236 @@
                     "time": {
                       "type": "string",
                       "feature": "motion"
+                    },
+                    "kind": {
+                      "type": "string",
+                      "enum": [
+                        "entry",
+                        "exit",
+                        "any",
+                        "random"
+                      ],
+                      "feature": "machine"
+                    },
+                    "reset": {
+                      "type": "boolean",
+                      "feature": "machine"
+                    },
+                    "enterActions": {
+                      "type": "object",
+                      "properties": {
+                        "$comment": {
+                          "type": "string"
+                        },
+                        "fire": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "minItems": 1
+                            }
+                          ]
+                        },
+                        "set": {
+                          "type": "object",
+                          "properties": {
+                            "$comment": {
+                              "type": "string"
+                            }
+                          },
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              }
+                            ]
+                          }
+                        },
+                        "toggle": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "minItems": 1
+                            }
+                          ]
+                        },
+                        "emit": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "feature": "machine"
+                    },
+                    "exitActions": {
+                      "type": "object",
+                      "properties": {
+                        "$comment": {
+                          "type": "string"
+                        },
+                        "fire": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "minItems": 1
+                            }
+                          ]
+                        },
+                        "set": {
+                          "type": "object",
+                          "properties": {
+                            "$comment": {
+                              "type": "string"
+                            }
+                          },
+                          "additionalProperties": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "boolean"
+                              }
+                            ]
+                          }
+                        },
+                        "toggle": {
+                          "anyOf": [
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "array",
+                              "items": {
+                                "type": "string"
+                              },
+                              "minItems": 1
+                            }
+                          ]
+                        },
+                        "emit": {
+                          "type": "string"
+                        }
+                      },
+                      "additionalProperties": false,
+                      "feature": "machine"
+                    },
+                    "mix": {
+                      "type": "object",
+                      "properties": {
+                        "$comment": {
+                          "type": "string"
+                        },
+                        "mode": {
+                          "type": "string",
+                          "enum": [
+                            "1d",
+                            "direct",
+                            "additive"
+                          ]
+                        },
+                        "axis": {
+                          "anyOf": [
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "string"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "$comment": {
+                                  "type": "string"
+                                },
+                                "bind": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "bind"
+                              ],
+                              "additionalProperties": false
+                            }
+                          ]
+                        },
+                        "exit": {
+                          "type": "integer",
+                          "minimum": 0
+                        },
+                        "children": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "$comment": {
+                                "type": "string"
+                              },
+                              "play": {
+                                "type": "string"
+                              },
+                              "at": {
+                                "type": "number"
+                              },
+                              "weight": {
+                                "anyOf": [
+                                  {
+                                    "type": "number"
+                                  },
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "$comment": {
+                                        "type": "string"
+                                      },
+                                      "bind": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "bind"
+                                    ],
+                                    "additionalProperties": false
+                                  }
+                                ]
+                              }
+                            },
+                            "required": [
+                              "play"
+                            ],
+                            "additionalProperties": false
+                          },
+                          "minItems": 1
+                        }
+                      },
+                      "required": [
+                        "mode",
+                        "children"
+                      ],
+                      "additionalProperties": false,
+                      "feature": "machine"
                     }
                   },
                   "additionalProperties": false
@@ -827,6 +1316,265 @@
                                 "loop"
                               ],
                               "feature": "motion"
+                            },
+                            "disabled": {
+                              "type": "boolean",
+                              "feature": "machine"
+                            },
+                            "weight": {
+                              "type": "number",
+                              "minimum": 0,
+                              "feature": "machine"
+                            },
+                            "continue": {
+                              "type": "boolean",
+                              "feature": "machine"
+                            },
+                            "exitRatio": {
+                              "type": "number",
+                              "minimum": 0,
+                              "maximum": 1,
+                              "feature": "machine"
+                            },
+                            "blendRatio": {
+                              "type": "number",
+                              "minimum": 0,
+                              "feature": "machine"
+                            },
+                            "actions": {
+                              "type": "object",
+                              "properties": {
+                                "$comment": {
+                                  "type": "string"
+                                },
+                                "fire": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      },
+                                      "minItems": 1
+                                    }
+                                  ]
+                                },
+                                "set": {
+                                  "type": "object",
+                                  "properties": {
+                                    "$comment": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "additionalProperties": {
+                                    "anyOf": [
+                                      {
+                                        "type": "number"
+                                      },
+                                      {
+                                        "type": "boolean"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "toggle": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      },
+                                      "minItems": 1
+                                    }
+                                  ]
+                                },
+                                "emit": {
+                                  "type": "string"
+                                }
+                              },
+                              "additionalProperties": false,
+                              "feature": "machine"
+                            },
+                            "endActions": {
+                              "type": "object",
+                              "properties": {
+                                "$comment": {
+                                  "type": "string"
+                                },
+                                "fire": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      },
+                                      "minItems": 1
+                                    }
+                                  ]
+                                },
+                                "set": {
+                                  "type": "object",
+                                  "properties": {
+                                    "$comment": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "additionalProperties": {
+                                    "anyOf": [
+                                      {
+                                        "type": "number"
+                                      },
+                                      {
+                                        "type": "boolean"
+                                      }
+                                    ]
+                                  }
+                                },
+                                "toggle": {
+                                  "anyOf": [
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string"
+                                      },
+                                      "minItems": 1
+                                    }
+                                  ]
+                                },
+                                "emit": {
+                                  "type": "string"
+                                }
+                              },
+                              "additionalProperties": false,
+                              "feature": "machine"
+                            },
+                            "change": {
+                              "type": "object",
+                              "properties": {
+                                "$comment": {
+                                  "type": "string"
+                                },
+                                "input": {
+                                  "type": "string"
+                                },
+                                "mode": {
+                                  "type": "string",
+                                  "enum": [
+                                    "changed",
+                                    "increased",
+                                    "decreased"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "input",
+                                "mode"
+                              ],
+                              "additionalProperties": false,
+                              "feature": "machine"
+                            },
+                            "guard": {
+                              "type": "object",
+                              "properties": {
+                                "$comment": {
+                                  "type": "string"
+                                },
+                                "left": {
+                                  "anyOf": [
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "boolean"
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "$comment": {
+                                          "type": "string"
+                                        },
+                                        "artboard": {
+                                          "type": "string",
+                                          "enum": [
+                                            "width",
+                                            "height",
+                                            "aspect"
+                                          ]
+                                        },
+                                        "component": {
+                                          "type": "string"
+                                        },
+                                        "focus": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "additionalProperties": false
+                                    }
+                                  ]
+                                },
+                                "right": {
+                                  "anyOf": [
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "boolean"
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "$comment": {
+                                          "type": "string"
+                                        },
+                                        "artboard": {
+                                          "type": "string",
+                                          "enum": [
+                                            "width",
+                                            "height",
+                                            "aspect"
+                                          ]
+                                        },
+                                        "component": {
+                                          "type": "string"
+                                        },
+                                        "focus": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "additionalProperties": false
+                                    }
+                                  ]
+                                },
+                                "op": {
+                                  "type": "string",
+                                  "enum": [
+                                    "==",
+                                    "!=",
+                                    "<",
+                                    "<=",
+                                    ">",
+                                    ">="
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "left",
+                                "right",
+                                "op"
+                              ],
+                              "additionalProperties": false,
+                              "feature": "machine"
                             }
                           },
                           "required": [
@@ -843,6 +1591,236 @@
                       "time": {
                         "type": "string",
                         "feature": "motion"
+                      },
+                      "kind": {
+                        "type": "string",
+                        "enum": [
+                          "entry",
+                          "exit",
+                          "any",
+                          "random"
+                        ],
+                        "feature": "machine"
+                      },
+                      "reset": {
+                        "type": "boolean",
+                        "feature": "machine"
+                      },
+                      "enterActions": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "fire": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "minItems": 1
+                              }
+                            ]
+                          },
+                          "set": {
+                            "type": "object",
+                            "properties": {
+                              "$comment": {
+                                "type": "string"
+                              }
+                            },
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          },
+                          "toggle": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "minItems": 1
+                              }
+                            ]
+                          },
+                          "emit": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "machine"
+                      },
+                      "exitActions": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "fire": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "minItems": 1
+                              }
+                            ]
+                          },
+                          "set": {
+                            "type": "object",
+                            "properties": {
+                              "$comment": {
+                                "type": "string"
+                              }
+                            },
+                            "additionalProperties": {
+                              "anyOf": [
+                                {
+                                  "type": "number"
+                                },
+                                {
+                                  "type": "boolean"
+                                }
+                              ]
+                            }
+                          },
+                          "toggle": {
+                            "anyOf": [
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                                },
+                                "minItems": 1
+                              }
+                            ]
+                          },
+                          "emit": {
+                            "type": "string"
+                          }
+                        },
+                        "additionalProperties": false,
+                        "feature": "machine"
+                      },
+                      "mix": {
+                        "type": "object",
+                        "properties": {
+                          "$comment": {
+                            "type": "string"
+                          },
+                          "mode": {
+                            "type": "string",
+                            "enum": [
+                              "1d",
+                              "direct",
+                              "additive"
+                            ]
+                          },
+                          "axis": {
+                            "anyOf": [
+                              {
+                                "type": "number"
+                              },
+                              {
+                                "type": "string"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "$comment": {
+                                    "type": "string"
+                                  },
+                                  "bind": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "bind"
+                                ],
+                                "additionalProperties": false
+                              }
+                            ]
+                          },
+                          "exit": {
+                            "type": "integer",
+                            "minimum": 0
+                          },
+                          "children": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "$comment": {
+                                  "type": "string"
+                                },
+                                "play": {
+                                  "type": "string"
+                                },
+                                "at": {
+                                  "type": "number"
+                                },
+                                "weight": {
+                                  "anyOf": [
+                                    {
+                                      "type": "number"
+                                    },
+                                    {
+                                      "type": "string"
+                                    },
+                                    {
+                                      "type": "object",
+                                      "properties": {
+                                        "$comment": {
+                                          "type": "string"
+                                        },
+                                        "bind": {
+                                          "type": "string"
+                                        }
+                                      },
+                                      "required": [
+                                        "bind"
+                                      ],
+                                      "additionalProperties": false
+                                    }
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "play"
+                              ],
+                              "additionalProperties": false
+                            },
+                            "minItems": 1
+                          }
+                        },
+                        "required": [
+                          "mode",
+                          "children"
+                        ],
+                        "additionalProperties": false,
+                        "feature": "machine"
                       }
                     },
                     "additionalProperties": false
@@ -863,6 +1841,12 @@
         "additionalProperties": false
       },
       "feature": "motion"
+    },
+    "machineSeed": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 4294967295,
+      "feature": "machine"
     }
   },
   "required": [

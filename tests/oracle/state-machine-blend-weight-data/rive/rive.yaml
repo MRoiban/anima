@@ -1,0 +1,4 @@
+name: oracle-machine-blend-weight-data
+logs:
+  file: build/rive.log
+  problems: build/problems.log

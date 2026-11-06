@@ -1,0 +1,17 @@
+<anima version="0.1" name="machine-probe" grid="20" requires="machine" machineSeed="1000">
+  <circle id="dot" cx="10" cy="10" r="1" fill="#4263eb"/>
+
+  <layer name="l" initial="a">
+    <state name="a" kind="random">
+      <pose/>
+      <on when="@after(0)" to="b" weight="1"/>
+      <on when="@after(0)" to="c" weight="3"/>
+    </state>
+    <state name="b">
+      <pose dot.x="5"/>
+    </state>
+    <state name="c">
+      <pose dot.x="10"/>
+    </state>
+  </layer>
+</anima>

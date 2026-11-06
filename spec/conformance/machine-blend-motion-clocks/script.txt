@@ -1,0 +1,4 @@
+advance 0.2
+snapshot dot.x
+advance 1.8
+snapshot dot.x

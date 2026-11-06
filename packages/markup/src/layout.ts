@@ -1,4 +1,4 @@
-import { TIMELINE, TRANSITION, STATE, type ObjShape } from '@anima-format/core';
+import { elementFields } from './fields.ts';
 // Shared layout rules; formatting never interprets attribute values as animation data.
 import { ELEMENTS, markupName, type NodeType } from '@anima-format/core';
 import { NODE_ELEMENTS, nodeAttrs } from './names.ts';
@@ -33,17 +33,16 @@ export const ATTR_ORDER: Record<string, string[]> = {
   listener: ['on', 'target', 'hitPadding', 'fire', 'set', 'toggle', 'emit'],
 };
 export function attrOrder(name: string): string[] {
-  if (name === 'timeline')
+  const fields = elementFields(name);
+  if (fields.length)
     return [
-      'name',
-      ...Object.keys((TIMELINE as ObjShape).p).filter((k) => k !== 'tracks' && k !== 'events'),
+      ...(name === 'anima'
+        ? ATTR_ORDER.anima!
+        : ['timeline', 'state', 'layer'].includes(name)
+          ? ['name']
+          : []),
+      ...fields.map((f) => f.attr),
     ];
-  if (name === 'state')
-    return [
-      'name',
-      ...Object.keys((STATE as ObjShape).p).filter((k) => k !== 'pose' && k !== 'on'),
-    ];
-  if (name === 'on') return Object.keys((TRANSITION as ObjShape).p);
   const form = ELEMENTS[name];
   if (form)
     return [

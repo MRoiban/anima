@@ -1,0 +1,362 @@
+import type { Module } from '../../../packages/core/src/modules.ts';
+import type { Diags } from '../../../packages/core/src/diag.ts';
+import { ptr } from '../../../packages/core/src/diag.ts';
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
+import type { StateM } from '../../../packages/core/src/load.ts';
+import type { Player } from '../../../packages/core/src/player.ts';
+import { BindError, expression, evaluate } from '../../bind/core/expression.ts';
+import { after } from '../manifest.ts';
+import { entries } from './registry.ts';
+import { MachinePolicy, install } from './runtime.ts';
+import {
+  states,
+  transitions,
+  type Source,
+  type Actions,
+  type StateOptions,
+  type TransitionOptions,
+} from './types.ts';
+export type { Actions, StateOptions, TransitionOptions } from './types.ts';
+const list = (x: string | string[] | undefined): string[] =>
+  x === undefined ? [] : typeof x === 'string' ? [x] : x;
+const err = (
+  d: Diags,
+  code: string,
+  p: string,
+  message: string,
+  hint = 'check the machine field and its referenced input, state or timeline',
+) => d.err(code, p, V && message, V && hint);
+export const machine: Module = {
+  name: 'machine',
+  after,
+  entries,
+  init(_modules, shared) {
+    install(shared.sampleTrack, shared.mixValues);
+    return { ...machine, init: undefined };
+  },
+  load(model, raw, d) {
+    if (!raw.requires?.includes('machine')) return;
+    const used = new Set<string>();
+    const input = (name: string, type: string, p: string) => {
+      const i = model.inputs.get(name);
+      if (!i) err(d, 'unknown-input', p, `unknown machine input ${name}`);
+      else if (i.type !== type) err(d, 'input-type', p, `expected ${type} input`);
+      used.add(name);
+      return i;
+    };
+    const actions = (a: Actions | undefined, p: string) => {
+      for (const name of list(a?.fire)) input(name, 'trigger', p + '/fire');
+      for (const name of list(a?.toggle)) input(name, 'bool', p + '/toggle');
+      for (const [name, val] of Object.entries(a?.set ?? {})) {
+        if (name === '$comment') continue;
+        input(name, typeof val === 'boolean' ? 'bool' : 'number', ptr(p + '/set', name));
+      }
+    };
+    const number = (src: Source | undefined, p: string): ((p: Player) => number) => {
+      if (src === undefined || typeof src === 'number') return () => src ?? 1;
+      if (typeof src === 'string') {
+        input(src, 'number', p);
+        return (p) => Number(p.get(src));
+      }
+      if (!raw.requires.includes('bind'))
+        err(
+          d,
+          'undeclared-feature',
+          p,
+          'machine data sources use bind until P4e',
+          'add "bind" to requires',
+        );
+      try {
+        const e = expression(src.bind, new Map([...model.inputs].map(([n, i]) => [n, i.type])));
+        if (e.type !== 'number')
+          throw new BindError('bind-type', 0, 'expected a numeric blend expression');
+        for (const name of e.inputs) used.add(name);
+        return (p) => Number(evaluate(e, new Map([...e.inputs].map((n) => [n, p.get(n)!]))));
+      } catch (e) {
+        if (!(e instanceof BindError)) throw e;
+        err(d, e.code, p + '/bind', e.message, 'use a numeric input expression');
+        return () => 0;
+      }
+    };
+    const timeline = (name: string, p: string) => {
+      const index = model.timelines.findIndex((t) => t.name === name);
+      if (index < 0) err(d, 'unknown-timeline', p, `unknown blend timeline ${name}`);
+      return index;
+    };
+    for (const layer of model.layers) {
+      const any: StateM[] = [];
+      for (const state of layer.states) {
+        const r = raw.machine.layers[layer.name].states[state.name] as StateOptions;
+        const p = ptr(ptr('/machine/layers', layer.name) + '/states', state.name);
+        const info = {
+          ...r,
+          axis: r.mix?.axis === undefined ? undefined : number(r.mix.axis, p + '/mix/axis'),
+        };
+        states.set(state, info);
+        if (r.reset === false)
+          err(
+            d,
+            'machine-state',
+            p + '/reset',
+            'reset false is not a supported suspension policy',
+            'omit reset or use reset: true',
+          );
+        actions(r.enterActions, p + '/enterActions');
+        actions(r.exitActions, p + '/exitActions');
+        if (r.kind && (state.play !== undefined || state.pose?.size || r.mix))
+          err(
+            d,
+            'machine-state',
+            p + '/kind',
+            'special states require an empty pose',
+            'use pose: {} and omit play/mix',
+          );
+        if (r.kind === 'any') {
+          any.push(state);
+          if (layer.states[layer.initial] === state)
+            err(d, 'machine-state', p + '/kind', 'any state cannot be initial');
+        }
+        if (r.kind === 'exit' && state.on.length)
+          err(
+            d,
+            'machine-state',
+            p + '/on',
+            'terminal state has no outgoing transitions',
+            'remove its on list',
+          );
+        const clock = raw.machine.layers[layer.name].states[state.name];
+        if (r.mix && (clock.hold || clock.time !== undefined))
+          err(
+            d,
+            'machine-clock',
+            p + '/mix',
+            'blend children need autonomous clocks',
+            'omit hold/time on a blend state',
+          );
+        if (
+          r.kind === 'random' &&
+          !Number.isFinite(state.on.reduce((sum, _t, i) => sum + (clock.on[i].weight ?? 1), 0))
+        )
+          err(
+            d,
+            'machine-state',
+            p + '/on',
+            'random weight sum must be finite',
+            'reduce the random weights',
+          );
+        if (r.mix) {
+          if (state.play === undefined)
+            err(
+              d,
+              'machine-blend',
+              p + '/mix',
+              'a blend needs play as its exit clock',
+              'set play to the selected child animation',
+            );
+          const children = r.mix.children.map((c, i) => ({
+            timeline: timeline(c.play, `${p}/mix/children/${i}/play`),
+            at: c.at ?? 0,
+            weight: number(c.weight, `${p}/mix/children/${i}/weight`),
+          }));
+          Object.assign(info, { children });
+          if (
+            r.mix.mode === '1d' &&
+            (r.mix.axis === undefined ||
+              r.mix.children.some(
+                (c, i, a) => c.at === undefined || (i > 0 && c.at <= a[i - 1]!.at!),
+              ))
+          )
+            err(
+              d,
+              'machine-blend',
+              p + '/mix',
+              '1d needs an axis and strictly increasing thresholds',
+              'supply axis and a unique increasing at for every child',
+            );
+          if (
+            r.mix.exit !== undefined &&
+            (r.mix.exit >= children.length || children[r.mix.exit]?.timeline !== state.play)
+          )
+            err(
+              d,
+              'machine-blend',
+              p + '/mix/exit',
+              'exit child must exist and match play',
+              'choose the index whose play matches the state play',
+            );
+          if (!children.some((c) => c.timeline === state.play))
+            err(d, 'machine-blend', p + '/play', 'exit clock must be a blend child');
+          for (const c of children)
+            for (const tr of model.timelines[c.timeline]?.tracks ?? [])
+              if (!state.writes.includes(tr.addr)) state.writes.push(tr.addr);
+        }
+        for (const [i, t] of state.on.entries()) {
+          const tr = raw.machine.layers[layer.name].states[state.name].on[i] as TransitionOptions;
+          const tp = p + '/on/' + i;
+          transitions.set(t, tr);
+          const synced =
+            tr.continue &&
+            Object.values(raw.machine.layers[layer.name].states).some((s) =>
+              (s as { on?: { to: string; sync?: boolean }[] }).on?.some(
+                (edge) => edge.to === state.name && edge.sync,
+              ),
+            );
+          if (tr.continue && (clock.hold || clock.time !== undefined || synced))
+            err(
+              d,
+              'machine-clock',
+              tp + '/continue',
+              'continued outgoing playback needs an autonomous, unsynchronized source',
+              'omit continue or hold/time/sync',
+            );
+          if (
+            raw.machine.layers[layer.name].states[state.name].on[i].sync &&
+            raw.machine.layers[layer.name].states[layer.states[t.to]!.name].mix
+          )
+            err(
+              d,
+              'machine-clock',
+              tp + '/sync',
+              'blend child clocks cannot inherit a synchronized primary clock',
+              'omit sync when entering a blend',
+            );
+          if (
+            ((tr.exitRatio ?? 0) > 0 || (tr.blendRatio ?? 0) > 0) &&
+            state.play !== undefined &&
+            state.speed * (raw.timelines[model.timelines[state.play]!.name].speed ?? 1) === 0
+          )
+            err(
+              d,
+              'machine-clock',
+              tp,
+              'a positive relative time needs nonzero playback speed',
+              'use an explicit duration or a nonzero speed',
+            );
+
+          actions(tr.actions, tp + '/actions');
+          actions(tr.endActions, tp + '/endActions');
+          if (
+            states.get(layer.states[t.to]!)?.kind === 'any' ||
+            raw.machine.layers[layer.name].states[layer.states[t.to]!.name].kind === 'any'
+          )
+            err(d, 'machine-state', tp + '/to', 'any state is not a transition destination');
+          if (tr.change)
+            input(
+              tr.change.input,
+              tr.change.mode === 'changed'
+                ? model.inputs.get(tr.change.input)?.type === 'bool'
+                  ? 'bool'
+                  : 'number'
+                : 'number',
+              tp + '/change/input',
+            );
+          for (const [key, operand] of Object.entries(tr.guard ?? {}))
+            if (typeof operand === 'object' && operand !== null) {
+              if (Object.keys(operand).filter((x) => x !== '$comment').length !== 1)
+                err(d, 'machine-guard', tp + '/guard/' + key, 'choose exactly one operand source');
+              if ('component' in operand) {
+                const n = String(operand.component),
+                  inp = model.inputs.get(n);
+                if (!n.includes('.') || !inp || inp.type === 'trigger')
+                  err(
+                    d,
+                    'machine-guard',
+                    tp + '/guard/' + key + '/component',
+                    'expected a numeric or boolean component input',
+                  );
+                used.add(n);
+              }
+              if ('focus' in operand && !model.ids.has(String(operand.focus)))
+                err(d, 'unknown-target', tp + '/guard/' + key + '/focus', 'unknown focus node');
+            }
+          if (tr.guard) {
+            const type = (o: typeof tr.guard.left) =>
+              typeof o !== 'object'
+                ? typeof o
+                : o.focus !== undefined
+                  ? 'boolean'
+                  : o.component !== undefined
+                    ? model.inputs.get(o.component)?.type === 'bool'
+                      ? 'boolean'
+                      : 'number'
+                    : 'number';
+            if (
+              type(tr.guard.left) !== type(tr.guard.right) ||
+              (type(tr.guard.left) === 'boolean' && !['==', '!='].includes(tr.guard.op))
+            )
+              err(
+                d,
+                'machine-guard',
+                tp + '/guard',
+                'guard operand types or operator do not match',
+              );
+          }
+          if (
+            (tr.exitRatio !== undefined || tr.blendRatio !== undefined) &&
+            state.play === undefined
+          )
+            err(d, 'machine-clock', tp, 'relative times need a play state');
+          if (
+            tr.blendRatio !== undefined &&
+            raw.machine.layers[layer.name].states[state.name].on[i].blend !== undefined
+          )
+            err(d, 'machine-clock', tp + '/blendRatio', 'blend and blendRatio are exclusive');
+        }
+      }
+      // Any transitions have priority, but cannot re-enter their own target indefinitely.
+      for (const state of layer.states)
+        if (states.get(state)?.kind !== 'any' && states.get(state)?.kind !== 'exit')
+          state.on = [
+            ...any.flatMap((s) =>
+              s.on.filter(
+                (t) =>
+                  layer.states[t.to] !== state ||
+                  t.triggers.length > 0 ||
+                  !!transitions.get(t)?.change,
+              ),
+            ),
+            ...state.on,
+          ];
+    }
+    // Any-state edges are real edges; the base loader's pre-extension graph did not see them.
+    for (const layer of model.layers) {
+      const seen = new Set([layer.initial]);
+      const pending = [layer.initial];
+      while (pending.length)
+        for (const t of layer.states[pending.pop()!]!.on)
+          if (!seen.has(t.to)) {
+            seen.add(t.to);
+            pending.push(t.to);
+          }
+      for (let i = d.list.length - 1; i >= 0; i--)
+        if (
+          d.list[i]!.code === 'unreachable-state' &&
+          layer.states.some(
+            (s, j) =>
+              (seen.has(j) || states.get(s)?.kind === 'any') &&
+              d.list[i]!.pointer === ptr(ptr('/machine/layers', layer.name) + '/states', s.name),
+          )
+        )
+          d.list.splice(i, 1);
+    }
+    for (const n of used)
+      if (n.includes('.')) {
+        const [id, inputName] = n.split('.');
+        const node = model.nodes[model.ids.get(id!)!];
+        if (node?.raw.component) {
+          const pointer = ptr(ptr('/components', node.raw.component) + '/inputs', inputName!);
+          for (let i = d.list.length - 1; i >= 0; i--)
+            if (d.list[i]!.code === 'unused-input' && d.list[i]!.pointer === pointer)
+              d.list.splice(i, 1);
+        }
+      }
+    for (let i = d.list.length - 1; i >= 0; i--)
+      if (
+        d.list[i]!.code === 'unused-input' &&
+        [...used].some((n) => d.list[i]!.pointer === ptr('/inputs', n))
+      )
+        d.list.splice(i, 1);
+    const previous = model.playback;
+    model.playback = (p) => new MachinePolicy(p, previous?.(p));
+  },
+};

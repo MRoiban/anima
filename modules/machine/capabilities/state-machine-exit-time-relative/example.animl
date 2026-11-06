@@ -1,0 +1,19 @@
+<anima version="0.1" name="machine-probe" grid="20" requires="machine">
+  <circle id="dot" cx="10" cy="10" r="1" fill="#4263eb"/>
+
+  <timeline name="t" duration="2">
+    <track target="dot.x">
+      0  0
+      2  8
+    </track>
+  </timeline>
+
+  <layer name="l" initial="a">
+    <state name="a" play="t">
+      <on when="@after(0)" to="b" exitRatio="0.5"/>
+    </state>
+    <state name="b">
+      <pose dot.x="10"/>
+    </state>
+  </layer>
+</anima>

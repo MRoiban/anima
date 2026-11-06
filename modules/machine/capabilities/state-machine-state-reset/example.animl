@@ -1,0 +1,18 @@
+<anima version="0.1" name="machine-probe" grid="20" requires="machine">
+  <trigger name="go"/>
+
+  <circle id="dot" cx="10" cy="10" r="1" fill="#4263eb"/>
+
+  <timeline name="t" duration="2">
+    <track target="dot.x">
+      0  0
+      2  10
+    </track>
+  </timeline>
+
+  <layer name="l" initial="a">
+    <state name="a" play="t" reset="true">
+      <on when="go" to="a"/>
+    </state>
+  </layer>
+</anima>

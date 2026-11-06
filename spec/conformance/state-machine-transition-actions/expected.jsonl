@@ -1,0 +1,2 @@
+{"time": 0, "values": {"dot.x": 10, "flag": false}, "states": {"l": "b"}, "events": [], "settled": false}
+{"time": 0, "values": {"dot.x": 10, "flag": true}, "states": {"l": "b"}, "events": [{"name": "transition-actions", "layer": null, "time": 0}], "settled": true}

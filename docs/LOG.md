@@ -1539,3 +1539,21 @@ Full typecheck, prettier, eslint, generated wiring, schema and AniML checks pass
 adds focus/key inspection commands; input agent must compose key dispatch. Exact shared corpus
 census and static-property expectations updated for new evidence; no budgets/limits changed.
 Parity statuses stay planned pending phase integration. No push, PR or merge.
+
+## P4c-1 machine (implementation branch)
+
+Machine provides the 25 assigned inventory rows plus changed/increased/decreased guards: seeded
+weighted selection, blend states and input/bind sources, relative clocks, any/entry/terminal
+states, continued source sampling, live component/artboard/focus-reader guards and queued actions.
+37 independent conformance cases; 18 native cases/45 frames, maximum channel delta 1 with unchanged
+limits, eight explicit semantic/observation skips. No Rive source or CLI docs text copied.
+The owner authorized a generic non-node AniML registry extension (state/on/layer/timeline/listener;
+compile, decompile, layout; core layer/listener registry targets). Focus supplies
+`Player.machineFocus(nodeId)` and wakes onChange; actual focus ownership belongs to its module.
+
+Final scoped run: 937 tests green including Chromium/Firefox. Core+web 19048 B (+36 from 19012),
+machine 5736/8192, markup 7643/8192; full SVG 56311/102400, Rive-class 60558/256000 B.
+Perf: bell compile 1.92 ms, 9040 prefixes 535 ms; bell frame 30.4 µs, composite 19.5 µs,
+toolbar 22.2 µs and compile 2.99 ms (unchanged measuring method). Inventory statuses and overall
+P4c completion remain with the phase owner. Full phase CI and companion-module integration remain;
+no push, PR or merge. Detailed row list and limits: modules/machine/REPORT.md.

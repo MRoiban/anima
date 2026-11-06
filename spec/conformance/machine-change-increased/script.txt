@@ -1,0 +1,5 @@
+advance 0
+snapshot dot.x
+set count 3
+advance 0
+snapshot dot.x

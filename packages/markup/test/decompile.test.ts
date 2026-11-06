@@ -62,13 +62,21 @@ function recover(root: Element): Obj {
         'sync',
         'at',
         'hitPadding',
+        'continue',
+        'disabled',
+        'reset',
+        'weight',
+        'exitRatio',
+        'blendRatio',
       ].includes(k)
         ? scalar(v)
         : k === 'work'
           ? vector(v)
           : k === 'when'
             ? v.replace(/\band\b/g, '&&')
-            : v;
+            : v.startsWith('{"') || v.startsWith('[')
+              ? JSON.parse(v)
+              : v;
     return o;
   };
   const node = (e: Element): Obj => {
@@ -143,6 +151,7 @@ function recover(root: Element): Obj {
   d.anima = d.version;
   delete d.version;
   d.grid = Number(d.grid);
+  if (d.machineSeed !== undefined) d.machineSeed = Number(d.machineSeed);
   if (d.viewBox) d.viewBox = vector(d.viewBox as string);
   if (d.requires) d.requires = (d.requires as string).split(' ');
   const insert = (key: string, name: string, v: unknown) => (((d[key] ??= {}) as Obj)[name] = v);

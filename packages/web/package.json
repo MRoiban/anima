@@ -16,6 +16,7 @@
     "./markup": "./src/markup.ts",
     "./markup-libraries": "./src/markup-libraries.ts",
     "./motion": "./src/motion.ts",
+    "./machine": "./src/machine.ts",
     "./paint": "./src/paint.ts",
     "./markup-paint": "./src/markup-paint.ts",
     "./composite": "./src/composite.ts",

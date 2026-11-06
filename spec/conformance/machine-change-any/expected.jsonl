@@ -1,0 +1,3 @@
+{"time": 0, "values": {"dot.x": 10}, "states": {"l": "pop"}, "events": [{"name": "pop", "layer": "l", "time": 0}], "settled": true}
+{"time": 0, "values": {"dot.x": 10}, "states": {"l": "pop"}, "events": [{"name": "pop", "layer": "l", "time": 0}], "settled": true}
+{"time": 0, "values": {"dot.x": 10}, "states": {"l": "pop"}, "events": [], "settled": true}

@@ -1,0 +1,52 @@
+{
+  "anima": "0.1",
+  "name": "machine-probe",
+  "grid": 20,
+  "requires": ["machine"],
+  "inputs": {
+    "count": {
+      "type": "number",
+      "default": 2
+    }
+  },
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "a",
+        "states": {
+          "a": {
+            "pose": {
+              "dot.x": 0
+            },
+            "on": [
+              {
+                "when": "@after(0)",
+                "to": "b",
+                "change": {
+                  "input": "count",
+                  "mode": "decreased"
+                }
+              }
+            ]
+          },
+          "b": {
+            "pose": {
+              "dot.x": 10
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "anima": "0.1",
+  "name": "machine-probe",
+  "grid": 20,
+  "requires": [],
+  "inputs": {
+    "go": {
+      "type": "trigger"
+    },
+    "flag": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "type": "circle",
+      "id": "dot",
+      "center": [
+        10,
+        10
+      ],
+      "r": 1,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "timelines": {},
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "a",
+        "states": {
+          "a": {
+            "pose": {
+              "dot.x": 0
+            },
+            "on": [
+              {
+                "when": "go",
+                "to": "b"
+              }
+            ]
+          },
+          "b": {
+            "pose": {
+              "dot.x": 10
+            },
+            "enterActions": {
+              "set": {
+                "flag": true
+              },
+              "emit": "state-entry-actions"
+            }
+          }
+        }
+      }
+    }
+  }
+}

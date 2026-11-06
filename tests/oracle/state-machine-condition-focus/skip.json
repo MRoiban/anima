@@ -1,0 +1,9 @@
+{
+  "status": "skip",
+  "reason": "The machine feature exposes a host-supplied pure focus reader; it does not create a native focus tree. The local command runner cannot install that arbitrary host callback or query the same document node IDs. Native DOM/key ownership parity belongs to the separately developed focus module; this module tests true/false equality against its explicit reader contract. This skip does not claim native focus traversal parity.",
+  "evidence": "Local Rive CLI 1.9.0 --help and state-machine schema/docs; independently authored probes; no binary reading or account operations.",
+  "tests": [
+    "modules/machine/test/core/state-machine-condition-focus.test.ts",
+    "modules/machine/test/core/runtime.test.ts"
+  ]
+}

@@ -27534,10 +27534,10 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: layer.any transitions",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-any-state/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/any-state",
+   "test": "modules/machine/test/core/state-machine-any-state.test.ts; spec/conformance/state-machine-any-state; tests/oracle/state-machine-any-state",
    "phase": "P4"
   }
  },
@@ -27565,10 +27565,10 @@
    "rive-runtime/include/rive/generated/animation/blend_animation_1d_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state.blend with from property and ordered stops",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-blend-1d-data/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/blend-1d-data",
+   "test": "modules/machine/test/core/state-machine-blend-1d-data.test.ts; spec/conformance/state-machine-blend-1d-data; tests/oracle/state-machine-blend-1d-data",
    "phase": "P4"
   }
  },
@@ -27597,10 +27597,10 @@
    "rive-runtime/include/rive/generated/animation/blend_animation_1d_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state.blend with input and ordered stops",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-blend-1d-input/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/blend-1d-input",
+   "test": "modules/machine/test/core/state-machine-blend-1d-input.test.ts; spec/conformance/state-machine-blend-1d-input; tests/oracle/state-machine-blend-1d-input",
    "phase": "P4"
   }
  },
@@ -27629,10 +27629,10 @@
    "rive-runtime/include/rive/generated/animation/blend_animation_direct_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state.mix with baseline and independent weights",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-blend-additive/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/blend-additive",
+   "test": "modules/machine/test/core/state-machine-blend-additive.test.ts; spec/conformance/state-machine-blend-additive; tests/oracle/state-machine-blend-additive",
    "phase": "P4"
   }
  },
@@ -27661,10 +27661,10 @@
    "rive-runtime/include/rive/generated/animation/blend_animation_direct_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state.mix array with per-timeline weights",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-blend-direct/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/blend-direct",
+   "test": "modules/machine/test/core/state-machine-blend-direct.test.ts; spec/conformance/state-machine-blend-direct; tests/oracle/state-machine-blend-direct",
    "phase": "P4"
   }
  },
@@ -27688,10 +27688,10 @@
    "rive-runtime/include/rive/generated/animation/blend_state_transition_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: transition.exitClock: timelineName",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-blend-exit-clock/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/blend-exit-clock",
+   "test": "modules/machine/test/core/state-machine-blend-exit-clock.test.ts; spec/conformance/state-machine-blend-exit-clock; tests/oracle/state-machine-blend-exit-clock",
    "phase": "P4"
   }
  },
@@ -27716,10 +27716,10 @@
    "rive-runtime/include/rive/generated/animation/blend_animation_direct_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: mix weight source: constant",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-blend-weight-constant/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/blend-weight-constant",
+   "test": "modules/machine/test/core/state-machine-blend-weight-constant.test.ts; spec/conformance/state-machine-blend-weight-constant; tests/oracle/state-machine-blend-weight-constant",
    "phase": "P4"
   }
  },
@@ -27744,10 +27744,10 @@
    "rive-runtime/include/rive/generated/animation/blend_animation_direct_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: mix weight source: data",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-blend-weight-data/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/blend-weight-data",
+   "test": "modules/machine/test/core/state-machine-blend-weight-data.test.ts; spec/conformance/state-machine-blend-weight-data; tests/oracle/state-machine-blend-weight-data",
    "phase": "P4"
   }
  },
@@ -27772,10 +27772,10 @@
    "rive-runtime/include/rive/generated/animation/blend_animation_direct_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: mix weight source: input",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-blend-weight-input/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/blend-weight-input",
+   "test": "modules/machine/test/core/state-machine-blend-weight-input.test.ts; spec/conformance/state-machine-blend-weight-input; tests/oracle/state-machine-blend-weight-input",
    "phase": "P4"
   }
  },
@@ -27970,10 +27970,10 @@
    "rive-runtime/include/rive/generated/animation/transition_property_artboard_comparator_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: when @width/@height/@ratio comparisons",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-condition-artboard/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/condition-artboard",
+   "test": "modules/machine/test/core/state-machine-condition-artboard.test.ts; spec/conformance/state-machine-condition-artboard; tests/oracle/state-machine-condition-artboard",
    "phase": "P4"
   }
  },
@@ -28025,10 +28025,10 @@
    "rive-runtime/include/rive/generated/animation/transition_property_component_comparator_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: when node.property comparisons",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-condition-component/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/condition-component",
+   "test": "modules/machine/test/core/state-machine-condition-component.test.ts; spec/conformance/state-machine-condition-component; tests/oracle/state-machine-condition-component",
    "phase": "P4"
   }
  },
@@ -28086,10 +28086,10 @@
    "rive-runtime/include/rive/generated/animation/transition_property_component_comparator_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: when @focus == node",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-condition-focus/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/condition-focus",
+   "test": "modules/machine/test/core/state-machine-condition-focus.test.ts; spec/conformance/state-machine-condition-focus; tests/oracle/state-machine-condition-focus",
    "phase": "P4"
   }
  },
@@ -28196,10 +28196,10 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: transition.source: advance",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-continue-on-exit/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/continue-on-exit",
+   "test": "modules/machine/test/core/state-machine-continue-on-exit.test.ts; spec/conformance/state-machine-continue-on-exit; tests/oracle/state-machine-continue-on-exit",
    "phase": "P4"
   }
  },
@@ -28278,10 +28278,10 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: layer entry transition list",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-entry-state/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/entry-state",
+   "test": "modules/machine/test/core/state-machine-entry-state.test.ts; spec/conformance/state-machine-entry-state; tests/oracle/state-machine-entry-state",
    "phase": "P4"
   }
  },
@@ -28303,10 +28303,10 @@
    "rive-runtime/include/rive/generated/animation/exit_state_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state kind exit",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-exit-state/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/exit-state",
+   "test": "modules/machine/test/core/state-machine-exit-state.test.ts; spec/conformance/state-machine-exit-state; tests/oracle/state-machine-exit-state",
    "phase": "P4"
   }
  },
@@ -28331,10 +28331,10 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: transition.exitFraction; @end for one-shot 100% case",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-exit-time-relative/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/exit-time-relative",
+   "test": "modules/machine/test/core/state-machine-exit-time-relative.test.ts; spec/conformance/state-machine-exit-time-relative; tests/oracle/state-machine-exit-time-relative",
    "phase": "P4"
   }
  },
@@ -28766,10 +28766,10 @@
    "rive-runtime/include/rive/generated/animation/state_machine_fire_trigger_base.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state.onEnter action list",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-state-entry-actions/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/state-entry-actions",
+   "test": "modules/machine/test/core/state-machine-state-entry-actions.test.ts; spec/conformance/state-machine-state-entry-actions; tests/oracle/state-machine-state-entry-actions",
    "phase": "P4"
   }
  },
@@ -28829,10 +28829,10 @@
    "rive-runtime/include/rive/generated/animation/state_machine_fire_trigger_base.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state.onExit action list",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-state-exit-actions/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/state-exit-actions",
+   "test": "modules/machine/test/core/state-machine-state-exit-actions.test.ts; spec/conformance/state-machine-state-exit-actions; tests/oracle/state-machine-state-exit-actions",
    "phase": "P4"
   }
  },
@@ -28860,10 +28860,10 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state.random with seeded player randomness",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-state-random/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/state-random",
+   "test": "modules/machine/test/core/state-machine-state-random.test.ts; spec/conformance/state-machine-state-random; tests/oracle/state-machine-state-random",
    "phase": "P4"
   }
  },
@@ -28890,10 +28890,10 @@
    "rive-runtime/include/rive/generated/animation/blend_state_direct_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: state.reset: true",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-state-reset/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/state-reset",
+   "test": "modules/machine/test/core/state-machine-state-reset.test.ts; spec/conformance/state-machine-state-reset; tests/oracle/state-machine-state-reset",
    "phase": "P4"
   }
  },
@@ -28943,10 +28943,10 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: transition.actions",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-transition-actions/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/transition-actions",
+   "test": "modules/machine/test/core/state-machine-transition-actions.test.ts; spec/conformance/state-machine-transition-actions; tests/oracle/state-machine-transition-actions",
    "phase": "P4"
   }
  },
@@ -29022,10 +29022,10 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: transition.disabled",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-transition-disabled/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/transition-disabled",
+   "test": "modules/machine/test/core/state-machine-transition-disabled.test.ts; spec/conformance/state-machine-transition-disabled; tests/oracle/state-machine-transition-disabled",
    "phase": "P4"
   }
  },
@@ -29077,10 +29077,10 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: transition.blendFraction",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-transition-duration-relative/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/transition-duration-relative",
+   "test": "modules/machine/test/core/state-machine-transition-duration-relative.test.ts; spec/conformance/state-machine-transition-duration-relative; tests/oracle/state-machine-transition-duration-relative",
    "phase": "P4"
   }
  },
@@ -29131,10 +29131,10 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: transition.onComplete action list",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-transition-end-actions/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/transition-end-actions",
+   "test": "modules/machine/test/core/state-machine-transition-end-actions.test.ts; spec/conformance/state-machine-transition-end-actions; tests/oracle/state-machine-transition-end-actions",
    "phase": "P4"
   }
  },
@@ -29185,10 +29185,10 @@
    "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: transition.weight with seeded random selection",
-   "module": "interaction",
+   "construct": "machine module; spec/SPEC.md (machine); modules/machine/capabilities/state-machine-transition-random-weight/example.animl",
+   "module": "machine",
    "status": "planned",
-   "test": "conformance/transition-random-weight",
+   "test": "modules/machine/test/core/state-machine-transition-random-weight.test.ts; spec/conformance/state-machine-transition-random-weight; tests/oracle/state-machine-transition-random-weight",
    "phase": "P4"
   }
  },

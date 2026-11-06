@@ -1,0 +1,4 @@
+name: oracle-machine-entry-state
+logs:
+  file: build/rive.log
+  problems: build/problems.log

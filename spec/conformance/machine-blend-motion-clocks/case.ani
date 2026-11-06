@@ -1,0 +1,69 @@
+{
+  "anima": "0.1",
+  "name": "machine-probe",
+  "grid": 20,
+  "requires": ["machine", "motion"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "timelines": {
+    "t0": {
+      "duration": 2,
+      "tracks": {
+        "dot.x": [
+          [0, 0],
+          [2, 8]
+        ]
+      },
+      "speed": 2,
+      "quantize": 4,
+      "work": [0.5, 1.5]
+    },
+    "t1": {
+      "duration": 2,
+      "tracks": {
+        "dot.x": [
+          [0, 8],
+          [2, 16]
+        ]
+      },
+      "speed": -1,
+      "quantize": 4
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "a",
+        "states": {
+          "a": {
+            "play": "t0",
+            "mix": {
+              "mode": "direct",
+              "children": [
+                {
+                  "play": "t0",
+                  "at": 0,
+                  "weight": 0.25
+                },
+                {
+                  "play": "t1",
+                  "at": 1,
+                  "weight": 0.75
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

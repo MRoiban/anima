@@ -1,0 +1,27 @@
+<anima version="0.1" name="machine-probe" grid="20" requires="machine">
+  <trigger name="go"/>
+
+  <circle id="dot" cx="10" cy="10" r="1" fill="#4263eb"/>
+
+  <timeline name="t0" duration="2" reducedMotion="end">
+    <track target="dot.x">
+      0  0
+      2  8
+    </track>
+  </timeline>
+  <timeline name="t1" duration="2" reducedMotion="play">
+    <track target="dot.x">
+      0  8
+      2  16
+    </track>
+  </timeline>
+
+  <layer name="l" initial="idle">
+    <state name="a" play="t0"
+        mix="{&quot;mode&quot;:&quot;direct&quot;,&quot;children&quot;:[{&quot;play&quot;:&quot;t0&quot;,&quot;at&quot;:0,&quot;weight&quot;:0.25},{&quot;play&quot;:&quot;t1&quot;,&quot;at&quot;:1,&quot;weight&quot;:0.75}]}"/>
+    <state name="idle">
+      <pose dot.x="0"/>
+      <on when="go" to="a"/>
+    </state>
+  </layer>
+</anima>

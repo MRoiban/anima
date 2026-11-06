@@ -11,6 +11,8 @@ import { focus } from '../../../modules/focus/core/index.ts';
 import { focusSVG } from '../../../modules/focus/core/svg.ts';
 import { motion } from '../../../modules/motion/core/index.ts';
 import { motionSVG } from '../../../modules/motion/core/svg.ts';
+import { machine } from '../../../modules/machine/core/index.ts';
+import { machineSVG } from '../../../modules/machine/core/svg.ts';
 import { paint } from '../../../modules/paint/core/index.ts';
 import { paintSVG } from '../../../modules/paint/core/svg.ts';
 import { composite } from '../../../modules/composite/core/index.ts';
@@ -27,6 +29,8 @@ if (VERBOSE) {
   registerSVGBackend('focus', focusSVG);
   registerModule(motion);
   registerSVGBackend('motion', motionSVG);
+  registerModule(machine);
+  registerSVGBackend('machine', machineSVG);
   registerModule(paint);
   registerSVGBackend('paint', paintSVG);
   registerModule(composite);

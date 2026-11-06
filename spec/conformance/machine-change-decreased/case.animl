@@ -1,0 +1,15 @@
+<anima version="0.1" name="machine-probe" grid="20" requires="machine">
+  <number name="count" default="2"/>
+
+  <circle id="dot" cx="10" cy="10" r="1" fill="#4263eb"/>
+
+  <layer name="l" initial="a">
+    <state name="a">
+      <pose dot.x="0"/>
+      <on when="@after(0)" to="b" change="{&quot;input&quot;:&quot;count&quot;,&quot;mode&quot;:&quot;decreased&quot;}"/>
+    </state>
+    <state name="b">
+      <pose dot.x="10"/>
+    </state>
+  </layer>
+</anima>

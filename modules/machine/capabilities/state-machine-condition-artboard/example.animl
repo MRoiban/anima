@@ -1,0 +1,13 @@
+<anima version="0.1" name="machine-probe" grid="20" viewBox="0 0 40 20" requires="machine">
+  <circle id="dot" cx="10" cy="10" r="1" fill="#4263eb"/>
+
+  <layer name="l" initial="a">
+    <state name="a">
+      <pose dot.x="0"/>
+      <on when="@after(0)" to="b" guard="{&quot;left&quot;:{&quot;artboard&quot;:&quot;aspect&quot;},&quot;op&quot;:&quot;==&quot;,&quot;right&quot;:2}"/>
+    </state>
+    <state name="b">
+      <pose dot.x="10"/>
+    </state>
+  </layer>
+</anima>
