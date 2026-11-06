@@ -1,12 +1,11 @@
 # Work log
 
 ## Now
-Goal: P4e fresh AniML rerun scoreboard complete, local commit only.
-Branch: t3/animl-scoreboard-rerun; no push, PR or merge.
-Verified: 6/6 brief items; 63 snapshots each source/build, exact parity; 3 PNGs inspected.
-Metrics: 39 CLI checks; 5 expected readonly errors, 2 setup errors, 1 verifier error.
-Next: parent review of animl-rerun/REPORT.md and evidence.
-Don't: read forbidden benchmark runs, .riv files or oracle/reference directories.
+Goal: smaller, agent-native Rive. P4e done on p4e-data → PR; then P5b, P3b, P6–P10.
+State: parity 547/1238; core+web 20109; full 93.6/100 KB; benchmark AniML 6/6, Rive 5/6; perf = main.
+Next: PR p4e-data → main; merge when CI green. P5b next (split bind/host/data before touching them).
+Owner: Rive CLI needs `update` to 1.9.1 for any capture; full-featured ceiling ~9 KB left.
+Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -197,3 +196,4 @@ Don't: read forbidden benchmark runs, .riv files or oracle/reference directories
 - 2026-11-06 12:10 [claude]: perf vs main, in-process A/B pinned (load ~10): bell frame min 34.9/34.0 µs (p25 40.2/41.2), composite 22.3/23.0, toolbar 22.4/24.0 µs; bell compile 1.95/2.07 ms, toolbar compile 3.52/3.80 ms, quarter-prefix sweep 151/153 ms → no regression. PLAN P4e block closed; LOG after AniML rerun
 
 - 2026-11-06 12:12 [codex-test]: P4e AniML rerun 6/6; 39 CLI checks, 126 final asserted snapshots, 3 inspected PNGs → local deliverable complete (evidence: animl-rerun/REPORT.md, evidence/checks.jsonl); misleading readonly sample diagnostic retained.
+- 2026-11-06 [claude]: AniML rerun 6/6 merged; fixed read-only write message (core+web +2 B); LOG P4e entry written → opening PR

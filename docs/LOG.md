@@ -2171,3 +2171,41 @@ scoreboard snapshots cover positive minima, bounds and comparison outputs. Final
 strict oracle remains exit 0. Final sizes: data **7420/8192**, derive **2117/4096**, full-featured
 **93573/102400 B**; core+web **20107** and bind **2048/2048 B** unchanged. Generated artifacts
 were regenerated/rechecked after the last validation fix. Main commit **85409b0**, follow-up local.
+
+## P4e — data (2026-11-06)
+
+- **Five modules** (own folders and budgets): `data` — view models (number, string, bool, color,
+  trigger, enum, list, model-ref, asset-ref), default/named/global instances, component public data,
+  `$` paths wherever an input name is valid, binding modes (`to-target`, `to-source`, `two-way` with
+  `prefer`, `once`), `copy` and `change:$path` listeners, node custom properties; `convert` — named
+  converters and groups, formula functions, number/string/colour formatting, interpolation (the only
+  stateful converter, player-local), seeded random; `host` — the page data API (`player.data`,
+  `icon.data`, typed handles, reflection, instances, `batch`, subscriptions after the step,
+  `auto-bind`); `derive` — computed read-only model properties (from the benchmark); paint leftovers
+  in `paint`/`contour`/`mix`/`canvas`. Bind expressions gained the comparisons and logic of `when`
+  guards (one grammar).
+- **Bugs fixed on the way**: rounded vertex corners used quadratic controls (now Rive's natural
+  rounding, attributed in NOTICE); additive strength scaled the source and rounded twice; Firefox
+  isolated per-paint SVG blends under transformed groups; clockwise fills hit-tested as non-zero; a
+  merge pushed `bind` over budget by gzip shift (motion time bindings now reuse `bind.expression`,
+  −46 B); an image asset-ref case pointed at missing files (visual harness); sample/host writes to a
+  computed property reported a type error instead of `read-only-path`.
+- **Oracle** (strict exit 0, 216 cases): data 38 verified + 21 evidenced skips; convert 52 verified,
+  4 RNG skips; host 16 exact values; paint 10/18 strict and 8 rasterisation-only findings (native
+  geometry equal; Anima's renderer on Rive's own commands max 0, or 12 on one). Decided intentional
+  differences: change listeners fire for every source, after the step (Rive skips state-action
+  triggers: 9 vs 0); boolean → string `"true"` (Rive `"1"`); interpolation starts from the value at
+  load (Rive snaps on the first change). Float32 dumps (rounder, degrees → radians) and the
+  enum-index dump are recorded, not differences.
+- **Benchmark** (scoreboard): AniML 5/6 → **6/6** after P4e-8 (44 lines, 5 min 11 s); Rive 5/6
+  (205 lines, 7 min 6 s: labels stay host-writable).
+- **Numbers** (main after P4c → P4e): core + web 19 831 → 20 109 B (+278: data hooks in core, shared
+  comparison grammar); data 7 419 / 8 192, convert 6 326 / 8 192, derive 2 118 / 4 096, host
+  4 042 / 4 096, bind 2 048 / 2 048 B; full-featured 69.7 → 93.6 KB / 100 KB; Rive-class 98.3 KB /
+  250 KB. Perf vs main, in-process alternating, pinned, load ~10 (minimums): bell frame 34.9 / 34.0 µs
+  (p25 40.2 / 41.2), composite 22.3 / 23.0, toolbar 22.4 / 24.0 µs; bell compile 1.95 / 2.07 ms,
+  toolbar compile 3.52 / 3.80 ms; prefix sweep 151 / 153 ms — no regression.
+- **Parity**: 160 rows done (547 / 1 238); 54 moved to P5b (40), P3b (6), P6 (3), P7 (2), P9 (3).
+- **Open**: `bind` and `host` have no room — split before the next change; the full-featured page
+  has ~9 KB left under its ceiling; the Rive CLI now refuses local commands until updated to 1.9.1
+  (owner decision), so `derive` has no fresh native capture.
