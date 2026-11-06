@@ -118,3 +118,4 @@ Don't: change runtime/oracle limits/parity statuses; no push/PR/merge; no prohib
 - 2026-11-06 17:01 [codex-test]: final evidence/docs/tests ready → Prettier/ESLint/typecheck green; generator capture/regeneration exit0; initial three formatting warnings and bare-tsc no-config failure resolved; no runtime/tool/threshold/status edits or native binaries; local commit next.
 
 - 2026-11-06 17:03 [codex-test]: staging audit caught trailing blank lines in9 native logs/1 AniML source → normalized final newlines in driver/fixtures; no observed values changed; ownership/native-binary/baseline-integrity audits pass.
+- 2026-11-06 [claude]: merged P4e follow-up (9 verified derive/bind-logic cases, 186 checks; read-only write = evidenced skip, recorded as intentional difference in derive SPEC); oracle strict 0 (225 cases)

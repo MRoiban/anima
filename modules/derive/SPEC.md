@@ -46,3 +46,9 @@ converter-to-model composition permits destination writes, including retaining a
 manual label after an advance. Its read-only parity comparison is an evidenced
 skip, not verified parity or a decided intentional difference. No normative
 behavior changes in this evidence follow-up.
+
+**Intentional difference from Rive:** a computed property is read-only. Rive's closest counterpart
+accepts a write to the derived destination and keeps it (1 accepted write) until the next source
+change; Anima rejects it with `read-only-path` (0). The captured evidence is the read-only skip in
+`tests/oracle/`; it is recorded, never counted as a passing comparison.
+
