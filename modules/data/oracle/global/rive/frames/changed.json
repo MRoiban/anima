@@ -1,0 +1,114 @@
+{
+  "schema": 1,
+  "artboard": "Parent",
+  "stateMachine": "main",
+  "viewModel": {
+    "name": "parent",
+    "viewModel": "ParentModel",
+    "properties": [
+      {
+        "name": "source",
+        "path": "source",
+        "type": "number",
+        "value": 7,
+        "changed": true
+      },
+      {
+        "name": "a",
+        "path": "a",
+        "type": "viewModel",
+        "value": {
+          "name": "localA",
+          "viewModel": "Local",
+          "properties": [
+            {
+              "name": "n",
+              "path": "a/n",
+              "type": "number",
+              "value": 7,
+              "changed": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "b",
+        "path": "b",
+        "type": "viewModel",
+        "value": {
+          "name": "localB",
+          "viewModel": "Local",
+          "properties": [
+            {
+              "name": "n",
+              "path": "b/n",
+              "type": "number",
+              "value": 7,
+              "changed": true
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "globals": [
+    {
+      "name": "main",
+      "viewModel": "Score",
+      "properties": [
+        {
+          "name": "observed",
+          "path": "observed",
+          "type": "number",
+          "value": 0,
+          "changed": false
+        },
+        {
+          "name": "value",
+          "path": "value",
+          "type": "number",
+          "value": 7,
+          "changed": true
+        }
+      ]
+    }
+  ],
+  "nested": [
+    {
+      "path": "a",
+      "artboard": "Badge",
+      "viewModels": [
+        {
+          "name": "localA",
+          "viewModel": "Local",
+          "properties": [
+            {
+              "name": "n",
+              "path": "n",
+              "type": "number",
+              "value": 7
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "b",
+      "artboard": "Badge",
+      "viewModels": [
+        {
+          "name": "localB",
+          "viewModel": "Local",
+          "properties": [
+            {
+              "name": "n",
+              "path": "n",
+              "type": "number",
+              "value": 7
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "artboard": "Data",
+  "stateMachine": "main",
+  "viewModel": {
+    "name": "main",
+    "viewModel": "Score",
+    "properties": [
+      {
+        "name": "score",
+        "path": "score",
+        "type": "number",
+        "value": 9,
+        "changed": true
+      },
+      {
+        "name": "label",
+        "path": "label",
+        "type": "string",
+        "value": "Grace",
+        "changed": true
+      },
+      {
+        "name": "active",
+        "path": "active",
+        "type": "boolean",
+        "value": true,
+        "changed": true
+      },
+      {
+        "name": "tint",
+        "path": "tint",
+        "type": "color",
+        "value": "DDAABBCC",
+        "changed": true
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}

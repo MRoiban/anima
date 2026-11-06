@@ -24,6 +24,7 @@ import {
   bindCompiler,
   motionCompiler,
   eventsCompiler,
+  dataCompiler,
 } from './module-hooks.ts';
 import { elementFields, compoundField } from './fields.ts';
 import { componentMarkup } from './components.ts';
@@ -225,7 +226,7 @@ export class Compiler {
         ],
       };
       base = motionCompiler.form?.(el, base) ?? base;
-      return eventsCompiler.form?.(el, base) ?? base;
+      return dataCompiler.form?.(el, eventsCompiler.form?.(el, base) ?? base) ?? base;
     }
     let base =
       moduleCompiler.form?.(this, el) ??
@@ -251,7 +252,8 @@ export class Compiler {
       base = { ...base, attrs };
     }
     const form = motionCompiler.form?.(el, base ?? { attrs: {} }) ?? base;
-    return eventsCompiler.form?.(el, form ?? { attrs: {} }) ?? form;
+    const extended = eventsCompiler.form?.(el, form ?? { attrs: {} }) ?? form;
+    return dataCompiler.form?.(el, extended ?? { attrs: {} }) ?? extended;
   }
   private kind(s: Shape): Kind {
     if (s.k === 'obj' || s.k === 'map' || s.k === 'any' || s.k === 'alt') return 'json';
@@ -336,6 +338,10 @@ export class Compiler {
         !Object.hasOwn(FORMS, c.name) &&
         c.name !== 'component' &&
         !(['event-def', 'audio-volume'].includes(c.name) && eventsCompiler.form) &&
+        !(
+          ['model', 'enum', 'string', 'list', 'model-ref', 'asset-ref', 'set'].includes(c.name) &&
+          dataCompiler.form
+        ) &&
         !(['channel', 'machine'].includes(c.name) && motionCompiler.form) &&
         !Object.hasOwn(ELEMENTS, c.name)
       )
@@ -477,7 +483,8 @@ export class Compiler {
                 (x) =>
                   !NAME.test(x) &&
                   !(
-                    ['fire', 'toggle'].includes(a.name) && /^[a-z][\w-]*(?:\.[a-z][\w-]*)+$/.test(x)
+                    ['fire', 'toggle'].includes(a.name) &&
+                    /^(?:\$[\w-]+:)?\$?[a-zA-Z][\w-]*(?:\.[\w-]+)*$/.test(x)
                   ),
               ))
           )
@@ -487,9 +494,9 @@ export class Compiler {
         case 'set': {
           const o: Json = {};
           for (const pair of s
-            ? s.split(/\s+(?=[a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*=)/)
+            ? s.split(/\s+(?=(?:\$[\w-]+:)?\$?[a-zA-Z][\w-]*(?:\.[\w-]+)*=)/)
             : []) {
-            const m = /^([a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*)=(.+)$/.exec(pair);
+            const m = /^((?:\$[\w-]+:)?\$?[a-zA-Z][\w-]*(?:\.[\w-]+)*)=(.+)$/.exec(pair);
             if (!m)
               throw new Error(
                 VERBOSE ? 'expected whitespace-separated name=value assignments' : '',
@@ -564,6 +571,7 @@ export class Compiler {
       moduleCompiler.node?.(this, el, children, o, p);
       componentCompiler.node?.(this, el, a, o, p);
       motionCompiler.node?.(this, el, children, o, p);
+      dataCompiler.node?.(el, o);
       if (el.name === 'group') {
         this.put(o, 'children', [], p, el.at);
         for (const c of children.filter((c) => NODES.includes(c.name))) {
@@ -572,7 +580,7 @@ export class Compiler {
         }
       }
     } else if (el.name === 'bind') {
-      return bindCompiler.build?.(a);
+      return dataCompiler.binding?.(a) ?? bindCompiler.build?.(a);
     } else if (ELEMENTS[el.name]) {
       moduleCompiler.build?.(this, el, a, children, o, p);
     } else if (el.name === 'track') {
@@ -693,6 +701,7 @@ export class Compiler {
   private rootChild(c: Element, o: Json, p: string): void {
     const name = c.attrs.find((a) => a.name === 'name');
     if (
+      dataCompiler.rootChild?.(this, c, o, p) ||
       eventsCompiler.rootChild?.(this, c, o, p) ||
       bindCompiler.rootChild?.(this, c, o, p) ||
       motionCompiler.rootChild?.(this, c, o, p)

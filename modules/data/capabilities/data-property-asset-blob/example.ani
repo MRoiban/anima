@@ -1,0 +1,40 @@
+{
+  "anima": "0.1",
+  "name": "data-probe",
+  "grid": 20,
+  "requires": ["data", "bind", "assets"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "assets": {
+    "first": {
+      "type": "blob",
+      "source": "first.bin"
+    },
+    "second": {
+      "type": "blob",
+      "source": "second.bin"
+    }
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "asset-ref",
+            "default": "first",
+            "assetType": "blob"
+          }
+        }
+      }
+    }
+  }
+}

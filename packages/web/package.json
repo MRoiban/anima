@@ -23,6 +23,7 @@
     "./markup-paint": "./src/markup-paint.ts",
     "./composite": "./src/composite.ts",
     "./contour": "./src/contour.ts",
+    "./data": "./src/data.ts",
     "./mix": "./src/mix.ts",
     "./surface": "./src/surface.ts",
     "./markup-surface": "./src/markup-surface.ts"

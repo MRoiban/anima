@@ -1,0 +1,5 @@
+<anima version="0.1" name="oracle-data" grid="20" requires="data bind">
+  <circle id="dot" cx="10" cy="10" properties="{&quot;custom&quot;:{&quot;type&quot;:&quot;trigger&quot;}}" r="1" fill="#000"/>
+
+  <model name="Root"/>
+</anima>

@@ -310,8 +310,9 @@ describe('AniML compiler', () => {
     for (const form of ['slice', 'feather', 'imagePaint'])
       expect(paintElements.some((e) => e.name === form)).toBe(true);
     collectPaint(
-      parseXml('<anima><instance id="i" component="badge" speed="2" paused="true"/></anima>').doc
-        .root!,
+      parseXml(
+        '<anima><instance id="i" component="badge" speed="2" paused="true" data="main"/></anima>',
+      ).doc.root!,
     );
     collectPaint(
       parseXml(readFileSync(new URL('../../../examples/motion.animl', import.meta.url), 'utf8')).doc
@@ -319,7 +320,7 @@ describe('AniML compiler', () => {
     );
     collectPaint(
       parseXml(
-        '<anima><group id="g" opaque="true" cursor="pointer" pointerEnabled="false" collapsed="true" solo="0"/></anima>',
+        '<anima><group id="g" opaque="true" cursor="pointer" pointerEnabled="false" collapsed="true" solo="0" properties="{}"/></anima>',
       ).doc.root!,
     );
     for (const file of [

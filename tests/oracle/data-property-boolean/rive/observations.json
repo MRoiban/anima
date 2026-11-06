@@ -1,0 +1,16 @@
+[
+  {
+    "click": 0,
+    "values": {
+      "$value": false
+    },
+    "events": []
+  },
+  {
+    "click": 1,
+    "values": {
+      "$value": true
+    },
+    "events": []
+  }
+]

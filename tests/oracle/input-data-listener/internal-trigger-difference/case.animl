@@ -1,0 +1,16 @@
+<anima version="0.1" name="trigger-listener-boundary" grid="20" requires="data bind">
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+
+  <model name="Root">
+    <trigger name="pulse"/>
+    <number name="n"/>
+  </model>
+
+  <layer name="m" initial="idle">
+    <state name="idle" entry="{&quot;fire&quot;:&quot;$pulse&quot;}">
+      <pose/>
+    </state>
+  </layer>
+
+  <listener on="change:$pulse" set="$n=9"/>
+</anima>

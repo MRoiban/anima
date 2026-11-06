@@ -1,0 +1,3 @@
+fire $pulse
+advance 0
+snapshot dot.x

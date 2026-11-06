@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "Preview naming metadata round-trips; the editor does not yet consume it."
+}

@@ -1,0 +1,43 @@
+{
+  "anima": "0.1",
+  "name": "data-probe",
+  "grid": 20,
+  "requires": ["data", "bind"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Root",
+        "default": true,
+        "values": {
+          "value": 4
+        }
+      },
+      "other": {
+        "model": "Root",
+        "values": {
+          "value": 9
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "click": 0,
+    "values": {
+      "dot.fill.stops.0.red": 40
+    },
+    "events": []
+  },
+  {
+    "click": 1,
+    "values": {
+      "dot.fill.stops.0.red": 80
+    },
+    "events": []
+  }
+]

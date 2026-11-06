@@ -1,0 +1,13 @@
+<anima version="0.1" name="oracle-data" grid="20" requires="data bind">
+  <circle id="dot" cx="10" cy="10" r="8" fill="#000"/>
+
+  <model name="Root">
+    <number name="value"/>
+  </model>
+  <instance name="main" model="Root" default="true">
+    <set path="value" value="3"/>
+  </instance>
+  <instance name="other" model="Root">
+    <set path="value" value="8"/>
+  </instance>
+</anima>

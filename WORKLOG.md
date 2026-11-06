@@ -1,10 +1,11 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
-State: main 49d418c = through P4c/P4d (PRs #14, #15). Parity 387/1238. core+web 19831; full-featured 69.7 KB.
-Next: BLOCKED — Sol (codex) usage limit until 2026-11-11 09:28. P4e-5 paint failed mid-run (WIP in refs/wip/p4e-5-paint, unverified); P4e-1 data core failed too (WIP in refs/wip/p4e-1-data, unverified). Owner decides: wait or allow another coder model.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: resume P4e-1 data on this branch; commit only, no push/PR.
+State: WIP restored with paint/contour/mix; merge scope passes (1946 tests, 13 TODO).
+Next: preserve measuring tools; verify independent probes/browser seams, final scope and metrics.
+Don't: change design, parity status, tools/thresholds, read .riv or copy Rive text.
+Pending: keyframe/text/layout/script/artboard/text-style/contextual-index/upward-relative rows.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -120,3 +121,9 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-08 09:00 [claude]: merged P4e-4 paint leftovers (f00aa82): 3/18 strict; contour + mix modules; canvas implements all, SVG refuses angular/additive/per-paint blend; 8 native findings + 6 pending oracles → follow-up after data
 - 2026-11-06 08:01 [claude]: P4e-5 paint findings (Sol) failed: codex usage limit, resets 2026-11-11 09:28 → 118 uncommitted files snapshotted to refs/wip/p4e-5-paint (unverified; not reviewed, tests not run by me) (evidence: git show --stat refs/wip/p4e-5-paint)
 - 2026-11-06 08:04 [claude]: P4e-1 data core (Sol) failed: same usage limit → worktree t3-54bfb1e8 snapshotted to refs/wip/p4e-1-data, 1439 files (unverified; not reviewed) (evidence: git show --stat refs/wip/p4e-1-data)
+- 2026-11-06 07:21 [codex/data]: read task/design/contracts; npm ci fixed missing prettier; identified out-of-design rows → recorded as coverage blockers (unverified).
+- 2026-11-06 07:21 [codex/data]: implemented typed $ scopes, data storage, modes/converter hooks, listeners/custom props; broad scoped run 1970 pass/1 legacy bool-literal failure → removed literal extension; components now uses shared bind evaluator (2001/2048 B bind, 3165/4096 B components).
+- 2026-11-06 07:21 [codex/data]: captured native scalar/reference/system model dumps with local --commands; eight scalar values match; system dump has empty enum values (evidence: modules/data/oracle/*/rive/frames). Browser exposed unshared resolver and missing optional instance type → fixes under test (unverified).
+- 2026-11-06 07:21 [codex/data]: final-data checkpoints: 60 row conformance vectors + 1 shared-child ordering vector, 24 exact native cases + 18 evidenced system-enum limits; 13 row gaps explicitly pending (evidence: modules/data/ROWS.json).
+- 2026-11-06 08:55 [codex/data]: restored WIP with 16 conflicts; regenerated wiring/schema/parity/AniML/web; initial merge scope 1942 pass/4 failed (strict census/order assertions from both sides) → reconciled 297-case census and registry order; no limits changed. npm ci installed absent dependencies.
+- 2026-11-06 08:59 [codex/data]: merge scope data/paint/contour/mix/markup passed (1946 pass, 225 filtered, 13 TODO); modules --check current; parity statuses exactly match original branch.

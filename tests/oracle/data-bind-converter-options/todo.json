@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "Live option lookup and registration hooks are tested; a named authored converter requires the parallel convert module, absent from this branch."
+}

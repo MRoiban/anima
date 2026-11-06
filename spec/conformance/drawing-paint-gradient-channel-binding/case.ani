@@ -1,0 +1,46 @@
+{
+  "anima": "0.1",
+  "name": "data-probe",
+  "grid": 20,
+  "requires": ["data", "bind", "paint"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "type": "linear",
+        "x1": 0,
+        "y1": 0,
+        "x2": 20,
+        "y2": 0,
+        "stops": [
+          {
+            "position": 0,
+            "color": "#000"
+          },
+          {
+            "position": 1,
+            "color": "#fff"
+          }
+        ]
+      }
+    }
+  ],
+  "bind": {
+    "dot.fill.stops.0.red": "$value"
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "number",
+            "default": 40
+          }
+        }
+      }
+    }
+  }
+}

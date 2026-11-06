@@ -1,0 +1,43 @@
+{
+  "anima": "0.1",
+  "name": "oracle-data",
+  "grid": 20,
+  "requires": ["data", "bind", "focus"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 8,
+      "fill": {
+        "color": "#000"
+      },
+      "focus": {}
+    }
+  ],
+  "listeners": [
+    {
+      "on": "focus",
+      "target": "dot",
+      "set": {
+        "$value": false
+      },
+      "value": "focused"
+    }
+  ],
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "bool"
+          },
+          "source": {
+            "type": "number",
+            "default": 4
+          }
+        }
+      }
+    }
+  }
+}

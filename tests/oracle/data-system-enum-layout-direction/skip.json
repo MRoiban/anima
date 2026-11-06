@@ -1,0 +1,11 @@
+{
+  "status": "skip",
+  "reason": "The native local CLI accepts these system enum declarations but its data dump reports an empty value and an empty member list for all 17 kinds. No value mapping can be observed through this path; Anima declaration/default/member validation is covered independently. This does not verify future layout/text consumers.",
+  "tests": ["modules/data/test/core/oracle.test.ts", "modules/data/test/core/runtime.test.ts"],
+  "captureEvidence": [
+    "modules/data/oracle/system/rive/scene.rml",
+    "modules/data/oracle/system/rive/commands.txt",
+    "modules/data/oracle/system/rive/session.txt",
+    "modules/data/oracle/system/rive/frames/initial.json"
+  ]
+}

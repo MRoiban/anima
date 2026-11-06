@@ -1,0 +1,11 @@
+[
+  {
+    "click": 0,
+    "values": {
+      "$team.title": "Blue",
+      "$items.0.title": "Blue",
+      "$items.length": 1
+    },
+    "events": []
+  }
+]

@@ -1,0 +1,10 @@
+[
+  {
+    "click": 0,
+    "values": {
+      "$main:value": 3,
+      "$other:value": 8
+    },
+    "events": []
+  }
+]

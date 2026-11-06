@@ -1,0 +1,6 @@
+advance 0
+data-dump frames/initial.json
+data score=80
+advance 0
+data-dump frames/changed.json
+quit

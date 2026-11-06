@@ -1,3 +1,4 @@
+import { dataState } from '../modules/data/core/index.ts';
 import '@anima-format/core/all';
 import { pendingReason } from './pending.ts';
 import { globSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
@@ -27,6 +28,7 @@ export interface OracleCase {
   values?: { address: string; path: string; tolerance: number };
   /** Post-click observations, indexed by interaction rather than animation frame. */
   observations?: { script: string; reference: string };
+  signals?: { path: string; nativePath: string; reference: string; script: string };
 }
 export const root = new URL('../tests/oracle/', import.meta.url);
 export const cases: OracleCase[] = JSON.parse(readFileSync(new URL('cases.json', root), 'utf8'));
@@ -105,6 +107,19 @@ export async function measure(c: OracleCase, output: URL) {
   if (readFileSync(new URL('case.ani', dir), 'utf8') !== compiled.text)
     throw new Error(`${c.name}: stale case.ani (node tools/oracle.ts --build)`);
   mkdirSync(output, { recursive: true });
+  if (c.signals) {
+    const config = c.signals,
+      model = load(compiled.doc!).model!;
+    const { player } = runScript(model, readFileSync(new URL(config.script, dir), 'utf8'));
+    const canonical = model.inputs.get(config.path)?.name ?? config.path;
+    const actual = (dataState(player)?.signals.get(canonical) ?? 0) > 0;
+    const native = JSON.parse(readFileSync(new URL(config.reference, dir), 'utf8'));
+    const reference = native.viewModel.properties.find(
+      (p: { path: string }) => p.path === config.nativePath,
+    )?.changed;
+    if (typeof reference !== 'boolean') throw Error(c.name + ': missing native signal flag');
+    return [{ time: c.times.at(-1)!, ...compareEvents(actual, reference) }];
+  }
   if (c.observations) {
     const config = c.observations;
     const model = load(compiled.doc!).model!;

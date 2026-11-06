@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "artboard": "Interaction",
+  "stateMachine": "interaction",
+  "viewModel": {
+    "name": "Default",
+    "viewModel": "Model",
+    "properties": [
+      {
+        "name": "source",
+        "path": "source",
+        "type": "number",
+        "value": 4,
+        "changed": false
+      },
+      {
+        "name": "n",
+        "path": "n",
+        "type": "number",
+        "value": 0,
+        "changed": false
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}
