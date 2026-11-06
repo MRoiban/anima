@@ -1,0 +1,1 @@
+Host errors live on HTML attributes, not document JSON. Browser tests assert unsupported-render and bad-pixel-ratio with code, root pointer (host attribute), message and hint. No invalid document vocabulary is invented.

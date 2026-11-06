@@ -18,7 +18,8 @@ describe('authored AniML corpus', () => {
   it('includes the bell example and all conformance sources', () => {
     expect(files).toContain('examples/bell.animl');
     const cases = globSync('spec/conformance/*/case.ani', { cwd: fileURLToPath(root) }).sort();
-    expect(cases).toHaveLength(68);
+    // Pc adds three completed host probes; this is an exact corpus census, not a limit.
+    expect(cases).toHaveLength(71);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);

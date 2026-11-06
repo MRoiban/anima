@@ -34,7 +34,7 @@ const browsers: [string, BrowserType, string | undefined][] = [
 ];
 for (const [name, type, executablePath] of browsers) {
   describe.skipIf(!executablePath)(name + ' paint geometry', () => {
-    it('renders every shape and morph with the shared scene attributes, retaining normalized browser dashes', async () => {
+    it('renders every shape and morph with the shared scene attributes, using absolute browser dashes', async () => {
       const browser = await type.launch({ executablePath, headless: true });
       try {
         const page = await browser.newPage();
@@ -78,7 +78,7 @@ for (const [name, type, executablePath] of browsers) {
         expect(attrs).toHaveLength(7);
         expect(attrs.every((p) => p.measured > 0)).toBe(true);
         expect(attrs[3]!.effect).toBe('non-scaling-stroke');
-        expect(attrs[6]).toMatchObject({ length: '1', dash: '0.1 0.05' });
+        expect(attrs[6]).toMatchObject({ length: null, dash: '1.8 0.9' });
         const p = new Player(load(doc).model!);
         p.step(0.5);
         const svg = toSVG(p);

@@ -541,6 +541,8 @@ Let the box be W×H and the intrinsic size I×J. The image is scaled and clipped
 `align` is `center` (default), `top-left`, `top`, `top-right`, `left`, `right`,
 `bottom-left`, `bottom`, or `bottom-right`. Each axis places the scaled image at 0,
 (box−image)/2, or box−image. Overflow is always clipped, including `none`.
+The fitted image rectangle has geometric edge coverage even at fractional device coordinates;
+nearest sampling selects texels without snapping that rectangle to whole pixels.
 `sampling` is `bilinear` (default) or `nearest`; SVG maps these to `image-rendering="auto"`
 and `image-rendering="pixelated"`. The browser's final display scaling remains host-controlled.
 
@@ -599,8 +601,10 @@ The array is static. Each subpath restarts the pattern as in SVG.
 
 `stroke.dashOffset` is an animatable number, default 0, positive or negative. With numeric dashes
 it is in grid units; with percentage dashes it is a fraction of total path length (0.1 = 10%).
-It uses the existing number sampling and blending. SVG uses `pathLength="1"` for relative patterns,
-and emits their lengths as fractions; absolute patterns use natural path units.
+It uses the existing number sampling and blending. Every backend resolves relative patterns to
+natural local outline lengths using the core length algorithm below. Live and static SVG emit
+absolute dasharray and dashoffset values, without `pathLength` normalization: browser engines'
+internal primitive-length approximations must not change authored dash or trim lengths.
 
 **Trim wins:** when resolved `trimEnd − trimStart < 1`, §4's trim dasharray and offset replace the
 authored dashes and offset. A nonpositive trim suppresses the stroke entirely. A full trim permits
@@ -686,13 +690,15 @@ including viewport resizing. This is not an inverse adjustment by one scalar for
 nonuniform transforms. Geometry coordinates and sampled width stay unchanged.
 Invalid scale values produce bad-value at the stroke scale field.
 
-### Static raster lengths
+### Shared outline lengths
 
-The toSVG option staticLengths:true replaces normalized pathLength="1" dashes/trims
-with natural local outline lengths: both dasharray components and dashoffset multiply
-by length, and pathLength is omitted. CLI frames and sheets enable it because resvg
-ignores pathLength. Default toSVG and browser attributes remain unchanged. Lengths
-include all subpaths and closing edges. Circles use 2πr; rectangles account for their
+All renderers use natural local outline lengths for relative dashes and trims: both
+dasharray components and dashoffset multiply by core's length before output rounding.
+SVG omits `pathLength`. The `toSVG` option `staticLengths` remains accepted for compatibility;
+absolute lengths are now unconditional, including live retained SVG and default `toSVG`.
+Measurements are cached per retained geometry owner; path/radius/dimension/corner changes
+invalidate the measurement, while transforms, colours and trim/offset changes reuse it.
+Lengths include all subpaths and closing edges. Circles use 2πr; rectangles account for their
 clamped elliptical corners; other outlines use current path data, including morphs.
 
 Core pathLength parses into absolute lines/cubics, then recursively subdivides cubics
@@ -733,7 +739,9 @@ ancestor opacity or visibility. Mask space is the target's parent space. The tar
 stays inside a permanent, untransformed mask wrapper. Masks cover three viewBoxes, as knockouts do.
 Luminance uses SVG luminance masking. Inversion uses an SVG filter with `feComponentTransfer`
 alpha table `1 0`; inverted luminance first uses `feColorMatrix type="luminanceToAlpha"`, and
-then uses alpha masking. Filter interpolation is sRGB. Source drawing is independent of hiding
+then multiplies that alpha by `SourceGraphic` alpha with `feComposite operator="in"` before
+inverting it and using alpha masking. This preserves source opacity and antialias coverage,
+which `luminanceToAlpha` alone discards. Filter interpolation is sRGB. Source drawing is independent of hiding
 its ordinary copy. Unknown sources, self references and cycles are load errors.
 
 ### Geometry clips
@@ -1250,3 +1258,57 @@ use the same registry and player; no separate motion evaluator is introduced.
 
 Native frame oracle mappings and unsupported observations are recorded per capability
 and in the oracle README. A browser/API test is not evidence of a Rive frame match.
+
+## canvas
+
+<!-- capability: host-api.device-pixel-ratio -->
+### Pixel ratio
+
+The optional web Canvas2D backend reads `window.devicePixelRatio`. The HTML host's `pixel-ratio`
+attribute overrides it with a finite positive number; `devicePixelRatioUsed` exposes the chosen
+ratio when this backend is active. Invalid overrides emit `bad-pixel-ratio` at pointer `""` (the
+host, not a document field), with a message and hint, and fall back to browser DPR. A resolution
+media query and window resize notification track browser DPR changes, including monitor moves.
+No document JSON or AniML key, `requires` name, or player property is introduced by canvas.
+
+<!-- capability: host-api.resize-backing-surface -->
+### Backing surface
+
+Canvas viewport CSS placement follows the SVG host's grid/viewBox bleed, fit and alignment.
+Backing dimensions are the rounded CSS viewport dimensions times the selected ratio, with a
+one-pixel minimum. A ResizeObserver resizes and redraws when the host's CSS content size changes.
+Size or pixel-ratio changes redraw without advancing the player or consuming queued input.
+Repeated player revisions do not redraw; explicit `invalidate()` redraws once and resolves current
+CSS colour slots. Playback, reduced motion, scheduler sleeping, visibility and hit outlines remain
+those of the existing web host. Disconnect/destroy removes observers and DPR listeners; reconnect
+resumes observation. Canvas contents are clipped to the viewBox viewport; SVG overflow is visible.
+
+<!-- capability: platforms.web-canvas -->
+### Canvas2D rendering
+
+Import `@anima-format/web/canvas` and set `renderer="canvas"` on `<anima-icon>`. SVG remains the
+default (`renderer="svg"` or absent). Selection may change on a loaded element without resetting
+its player. An unavailable renderer emits `unsupported-render`, pointer `""`, with the renderer
+name and an import hint. Other rendering diagnostics use the source JSON pointer where available.
+This is a host selection, not a change to `.ani`, AniML, CLI render or schema.
+
+The canvas backend consumes DrawFrame (§3.1 in MODULES) directly. Path2D geometry/primitives,
+ordered fills/strokes, colour slots/currentColor, linear/radial gradients, grid-unit dashes/trims,
+transforms, group opacity, source-relative clips, alpha/inverted/luminance masks, blend modes,
+images, image patterns/modulation, components, n-slice patches and feathering use Canvas2D.
+Group opacity and masks isolate into transparent offscreen surfaces; ordinary opaque groups do
+not. A canvas is a compositing boundary and cannot blend with page content outside itself.
+Fixed strokes use CSS viewport pixels (as SVG non-scaling-stroke does), without approximating
+nonuniform node transforms with a scalar inverse. Trims use core outline lengths.
+
+Feather follows the existing premultiplied Gaussian formula using `ctx.filter` blur and in/out
+alpha composition. World space keeps the Gaussian isotropic after node transforms. The current
+backend declines nonuniform/sheared **local** feathering, nonuniform viewport feathering, and
+partial trims on fixed strokes with `unsupported-render` naming the feature, a pointer, message
+and hint. It never silently substitutes an inverse average scale. Disabled feathering is ordinary
+paint. Cross-origin image sources need CORS permission for canvas readback/patterns; failures emit
+`asset-load`. CSS slot changes on an idle canvas require `invalidate()`.
+
+Cross-backend pixel differences are measured and retained by the canvas browser conformance suite;
+limits and findings are in `modules/canvas/test/web/README.md` and `RESULTS.md`. Renderer support
+is not a claim of exact rasterizer identity or a passing Rive oracle for host-only operations.

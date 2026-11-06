@@ -170,7 +170,13 @@ A Canvas2D backend can traverse the same groups and primitives/paths, resolve co
 apply transforms/opacity, use ordered paints, and isolate masks/blends in offscreen surfaces.
 Fixed strokes follow the viewport semantics in SPEC; a backend must not approximate nonuniform
 scales with a scalar inverse. No SVG attributes, element tags or canvas calls occur in module draw
-hooks. No canvas backend is implemented in this phase.
+hooks. The optional `modules/canvas/web/renderer.ts` backend implements this traversal. Its heavy web
+entry has an 8192 B incremental budget; it adds no core registry feature. The host's renderer
+factory seam provides draw/layout, connect/disconnect/destroy and inverse pointer mapping.
+`renderer="canvas"` opts in; SVG remains the default. Offscreen surfaces are pooled per renderer
+and used only for opacity, masking, knockout lists, feathering and outside strokes. Unsupported
+features emit `unsupported-render` with a feature name, source pointer, message and hint; see the
+canvas chapter in SPEC and the browser comparison README for the explicit limits.
 
 SVG registers separate `SVGBackend.tree/attrs` functions. `sceneTree` and `attrs` remain SVG backend
 APIs for existing callers; they consume the draw tree/frame. Optional web compositing also installs

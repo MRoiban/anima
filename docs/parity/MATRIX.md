@@ -29,10 +29,10 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | GPU | 35 |  |  | 8 |  | 27 |  |
 | Assets | 50 | 6 |  | 44 |  |  |  |
 | Accessibility | 63 | 5 |  | 58 |  |  |  |
-| Host runtime API | 125 | 22 |  | 99 |  | 4 |  |
-| Platforms | 64 | 1 |  | 9 |  | 54 |  |
+| Host runtime API | 125 | 24 |  | 97 |  | 4 |  |
+| Platforms | 64 | 2 |  | 8 |  | 54 |  |
 | Tooling | 119 | 14 |  | 50 | 1 | 51 | 3 |
-| **Total** | **1238** | **234** | **0** | **838** | **1** | **162** | **3** |
+| **Total** | **1238** | **237** | **0** | **835** | **1** | **162** | **3** |
 
 | Phase | Rows |
 |---|---:|
@@ -45,7 +45,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | [P4](#p4) — Interaction, paint, events and data binding | 365 |
 | [P5](#p5) — Done: components, bindings, assets, images, n-slice and feathering | 61 |
 | [P5b](#p5b) — The rest of P5: asset pipelines (encodings, imports), library detach/update, lists, script instances | 72 |
-| [Pc](#pc) — Canvas backend, minimal (brought forward from P10) | 3 |
+| [Pc](#pc) — Done: the canvas backend (minimal), brought forward from P10 | 3 |
 | [P6](#p6) — Text | 67 |
 | [P7](#p7) — Layout | 69 |
 | [P8](#p8) — Rigging | 25 |
@@ -1082,20 +1082,20 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.wasm-preload` | Preload runtime | new: backend preload promise | assets | planned | browser/wasm-preload |
 | `host-api.wasm-url` | Self-host WASM | new: optional backend loader URLs | assets | planned | browser/wasm-url |
 
-## Pc — Canvas backend, minimal (brought forward from P10) <a id="pc"></a>
+## Pc — Done: the canvas backend (minimal), brought forward from P10 <a id="pc"></a>
 
 ### Host runtime API
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `host-api.device-pixel-ratio` | Pixel ratio override | new: canvas pixelRatio option | canvas | planned | browser/device-pixel-ratio |
-| `host-api.resize-backing-surface` | Resize drawing surface | new: raster surface resize helper; SVG already scales without backing pixels | canvas | planned | browser/resize-backing-surface |
+| `host-api.device-pixel-ratio` | Pixel ratio override | HTML pixel-ratio override; devicePixelRatioUsed; automatic browser DPR tracking (SPEC canvas) | canvas | done | modules/canvas/test/web/canvas.test.ts; spec/conformance/host-api-device-pixel-ratio; tests/oracle/host-api-device-pixel-ratio/rive/README.md (host oracle skip) |
+| `host-api.resize-backing-surface` | Resize drawing surface | Canvas backing store = rounded CSS viewport × DPR; ResizeObserver without stepping (SPEC canvas) | canvas | done | modules/canvas/test/web/canvas.test.ts; spec/conformance/host-api-resize-backing-surface; tests/oracle/host-api-resize-backing-surface/rive/README.md (host oracle skip) |
 
 ### Platforms
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `platforms.web-canvas` | Web Canvas2D | new: Web Canvas2D | canvas | planned | platform/web-canvas |
+| `platforms.web-canvas` | Web Canvas2D | @anima-format/web/canvas; HTML renderer="canvas"; draw-frame Canvas2D; raster findings remain (modules/canvas/test/web/RESULTS.md) | canvas | done | modules/canvas/test/web/canvas.test.ts; spec/conformance/platforms-web-canvas; tests/oracle/platforms-web-canvas/rive/README.md (host oracle skip) |
 
 ## P6 — Text <a id="p6"></a>
 

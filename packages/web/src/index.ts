@@ -33,6 +33,16 @@ export interface SourceDiagnostic extends Diagnostic {
   column?: number;
 }
 
+/** Optional renderers own drawing, layout and coordinate mapping; playback stays in the host. */
+export interface IconRenderer {
+  draw(frame: DrawFrame, force: boolean): void;
+  layout(): void;
+  point(x: number, y: number): DOMPoint;
+  connect(): void;
+  disconnect(): void;
+  destroy(): void;
+}
+
 const SVG = 'http://www.w3.org/2000/svg';
 const MAX_DT = 0.25;
 
@@ -84,7 +94,18 @@ export class AnimaIcon extends HTMLElement {
   /** Installed by the composite SVG backend; 0.1 scenes keep authored DOM order. */
   declare static orderSVG?: (frame: DrawFrame, elements: [El, Element, Attrs][]) => void;
   declare static loadAssets?: (icon: AnimaIcon, model: Model) => Promise<void>;
-  static observedAttributes = ['src', 'motion', 'label', 'speed', 'paused', 'fit', 'align'];
+  static renderers: Record<string, (icon: AnimaIcon) => IconRenderer> = {};
+  #renderer?: IconRenderer;
+  static observedAttributes = [
+    'src',
+    'motion',
+    'label',
+    'speed',
+    'paused',
+    'fit',
+    'align',
+    'renderer',
+  ];
   /** Registered by @anima-format/web/markup; the runtime never imports a compiler itself. */
   declare static compiler?: (source: string) => { doc?: object; diagnostics: SourceDiagnostic[] };
 
@@ -170,6 +191,7 @@ export class AnimaIcon extends HTMLElement {
       }
     });
     this.#observe();
+    this.#renderer?.connect();
     if (this.player?.busy) this.#wake();
   }
 
@@ -185,6 +207,7 @@ export class AnimaIcon extends HTMLElement {
   }
 
   disconnectedCallback(): void {
+    this.#renderer?.disconnect();
     this.#observing = false;
     removeEventListener('anima:register', this.#registered);
     seen?.unobserve(this);
@@ -222,7 +245,8 @@ export class AnimaIcon extends HTMLElement {
         this.#step(0);
         if (this.player.busy) this.#wake();
       }
-    } else if (name === 'fit' || name === 'align') this.#layout();
+    } else if (name === 'renderer' && this.player) this.#build(this.player.model);
+    else if (name === 'fit' || name === 'align') this.#layout();
     else if (name === 'speed') {
       if (this.speed === 0) schedule(this, false);
       else if (this.player?.busy) this.#wake();
@@ -374,6 +398,8 @@ export class AnimaIcon extends HTMLElement {
     this.#listeners?.abort();
     this.#listeners = undefined;
     this.player = undefined;
+    this.#renderer?.destroy();
+    this.#renderer = undefined;
     this.#svg = undefined;
     this.#els = [];
     this.#root.replaceChildren();
@@ -432,6 +458,33 @@ export class AnimaIcon extends HTMLElement {
   // ------------------------------------------------------------ DOM
 
   #build(m: Model): void {
+    this.#renderer?.destroy();
+    this.#renderer = undefined;
+    this.#svg = undefined;
+    this.#els = [];
+    const renderer = this.getAttribute('renderer');
+    if (renderer && renderer !== 'svg') {
+      this.#root.replaceChildren();
+      const factory = AnimaIcon.renderers[renderer];
+      if (factory) {
+        this.#renderer = factory(this);
+        this.#renderer.draw(drawFrame(this.player!), true);
+      } else
+        this.dispatchEvent(
+          new CustomEvent('anima:error', {
+            detail: [
+              {
+                code: 'unsupported-render',
+                severity: 'error',
+                pointer: '',
+                message: `renderer ${renderer} is unavailable`,
+                hint: 'import @anima-format/web/' + renderer,
+              },
+            ],
+          }),
+        );
+      return;
+    }
     const [x, y, w, h] = m.viewBox;
     const g = m.grid;
     const pct = (v: number) => (v / g) * 100 + '%';
@@ -460,6 +513,7 @@ export class AnimaIcon extends HTMLElement {
   }
 
   #layout(): void {
+    this.#renderer?.layout();
     const svg = this.#svg;
     const m = this.player?.model;
     if (!svg || !m) return;
@@ -502,6 +556,7 @@ export class AnimaIcon extends HTMLElement {
 
   #draw(all = false): void {
     const f = drawFrame(this.player!);
+    if (this.#renderer) return this.#renderer.draw(f, all);
     const changed = new Set(f.changed);
     for (const [el, d, cur] of this.#els) {
       if (!all && !changed.has(el.node)) continue;
@@ -601,13 +656,15 @@ export class AnimaIcon extends HTMLElement {
 
   #ptr(kind: 'move' | 'down' | 'up' | 'leave', e?: PointerEvent): void {
     const p = this.player;
-    if (!p || !this.#svg) return;
+    if (!p || (!this.#svg && !this.#renderer)) return;
     let x = 0;
     let y = 0;
     if (e) {
-      const m = this.#svg.getScreenCTM()?.inverse();
-      if (!m) return;
-      ({ x, y } = new DOMPoint(e.clientX, e.clientY).matrixTransform(m));
+      const m = this.#svg?.getScreenCTM()?.inverse();
+      if (!m && !this.#renderer) return;
+      ({ x, y } = this.#renderer
+        ? this.#renderer.point(e.clientX, e.clientY)
+        : new DOMPoint(e.clientX, e.clientY).matrixTransform(m!));
       if (kind === 'down') this.setPointerCapture?.(e.pointerId);
     }
     this.trace?.push(['pointer', kind, x, y]);
