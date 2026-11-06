@@ -1,0 +1,5 @@
+advance 0
+snapshot dot.fill.stops.0.red
+set $value 80
+advance 0
+snapshot dot.fill.stops.0.red

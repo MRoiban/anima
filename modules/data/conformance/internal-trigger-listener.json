@@ -1,0 +1,81 @@
+{
+  "doc": {
+    "anima": "0.1",
+    "name": "trigger-listener-boundary",
+    "grid": 20,
+    "requires": ["data", "bind"],
+    "data": {
+      "models": {
+        "Root": {
+          "properties": {
+            "pulse": {
+              "type": "trigger"
+            },
+            "n": {
+              "type": "number"
+            }
+          }
+        }
+      }
+    },
+    "nodes": [
+      {
+        "id": "dot",
+        "type": "circle",
+        "center": [10, 10],
+        "r": 1,
+        "fill": {
+          "color": "#000"
+        }
+      }
+    ],
+    "machine": {
+      "layers": {
+        "m": {
+          "initial": "idle",
+          "states": {
+            "idle": {
+              "pose": {},
+              "entry": {
+                "fire": "$pulse"
+              }
+            }
+          }
+        }
+      }
+    },
+    "listeners": [
+      {
+        "on": "change:$pulse",
+        "set": {
+          "$n": 9
+        }
+      }
+    ]
+  },
+  "script": "advance 0\nsnapshot $n\nadvance 0\nsnapshot $n",
+  "expected": [
+    {
+      "time": 0,
+      "values": {
+        "$n": 0
+      },
+      "states": {
+        "m": "idle"
+      },
+      "events": [],
+      "settled": false
+    },
+    {
+      "time": 0,
+      "values": {
+        "$n": 9
+      },
+      "states": {
+        "m": "idle"
+      },
+      "events": [],
+      "settled": true
+    }
+  ]
+}

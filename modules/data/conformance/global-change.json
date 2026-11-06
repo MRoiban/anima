@@ -1,0 +1,56 @@
+{
+  "doc": {
+    "anima": "0.1",
+    "name": "global-change",
+    "grid": 20,
+    "requires": ["data", "bind", "components"],
+    "data": {
+      "models": {
+        "Root": {
+          "global": true,
+          "properties": {
+            "value": { "type": "number", "default": 3 },
+            "count": { "type": "number" }
+          }
+        }
+      },
+      "instances": { "main": { "model": "Root", "default": true } }
+    },
+    "nodes": [{ "id": "child", "type": "instance", "component": "badge" }],
+    "components": {
+      "badge": {
+        "grid": 20,
+        "data": "Root",
+        "nodes": [
+          {
+            "id": "dot",
+            "type": "circle",
+            "center": [10, 10],
+            "r": 1,
+            "x": 1,
+            "fill": { "color": "#000" }
+          }
+        ],
+        "bind": { "dot.x": { "value": "$value", "mode": "to-source" } }
+      }
+    },
+    "listeners": [{ "on": "change:$value", "set": { "$count": "$count+1" } }]
+  },
+  "script": "advance 0\nsnapshot $value $count\nadvance 0\nsnapshot $value $count",
+  "expected": [
+    {
+      "time": 0,
+      "values": { "$value": 1, "$count": 0 },
+      "states": {},
+      "events": [],
+      "settled": false
+    },
+    {
+      "time": 0,
+      "values": { "$value": 1, "$count": 1 },
+      "states": {},
+      "events": [],
+      "settled": true
+    }
+  ]
+}

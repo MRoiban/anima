@@ -1,0 +1,2 @@
+advance 0
+snapshot dot.fill.stops.0.color

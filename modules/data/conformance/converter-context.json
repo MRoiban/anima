@@ -1,0 +1,53 @@
+{
+  "converter": "probe-counter",
+  "doc": {
+    "anima": "0.1",
+    "name": "converter-context",
+    "grid": 20,
+    "requires": ["data", "bind"],
+    "inputs": {
+      "n": {
+        "type": "number",
+        "default": 2
+      }
+    },
+    "nodes": [
+      {
+        "id": "dot",
+        "type": "circle",
+        "center": [10, 10],
+        "r": 1,
+        "fill": {
+          "color": "#000"
+        }
+      }
+    ],
+    "bind": {
+      "dot.x": {
+        "value": "n",
+        "convert": "probe-counter"
+      }
+    }
+  },
+  "script": "advance 0\nsnapshot dot.x\nadvance 0\nsnapshot dot.x",
+  "expected": [
+    {
+      "time": 0,
+      "values": {
+        "dot.x": 3
+      },
+      "states": {},
+      "events": [],
+      "settled": true
+    },
+    {
+      "time": 0,
+      "values": {
+        "dot.x": 4
+      },
+      "states": {},
+      "events": [],
+      "settled": true
+    }
+  ]
+}

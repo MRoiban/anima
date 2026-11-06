@@ -1,0 +1,3 @@
+fire dot.properties.pulse
+advance 0
+snapshot dot.x

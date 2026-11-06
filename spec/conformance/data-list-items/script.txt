@@ -1,0 +1,2 @@
+advance 0
+snapshot $team.title $items.0.title $items.length

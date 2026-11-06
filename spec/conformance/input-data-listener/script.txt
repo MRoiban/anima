@@ -1,0 +1,4 @@
+set $a 9
+advance 0
+advance 0
+snapshot $b

@@ -1,0 +1,19 @@
+<Rive version="1" kind="fragment">
+  <Artboard id="0:1" name="Data" width="20" height="20" viewModelId="0:40" defaultStateMachineId="0:101">
+    <Shape id="0:10" name="dot" x="1" y="10"><DataBindContext sourcePathIds="0:40-0:42" propertyKey="13" twoWay="true"/><DataBindContext sourcePathIds="0:40-0:46" propertyKey="13" direction="true"/><Ellipse width="2" height="2"/><Fill><SolidColor colorValue="FF000000"/></Fill></Shape>
+    <LinearAnimation id="0:100" name="hold" duration="60" fps="60"/>
+    <StateMachine id="0:101" name="main"><StateMachineLayer><EntryState><StateTransition stateToId="0:102"/></EntryState><AnimationState id="0:102" animationId="0:100"/></StateMachineLayer></StateMachine>
+  </Artboard>
+  <ViewModel id="0:40" name="Score" defaultInstanceId="0:41">
+    <ViewModelPropertyNumber id="0:46" name="observed"/><ViewModelPropertyNumber id="0:42" name="score"/>
+    <ViewModelPropertyString id="0:43" name="label"/>
+    <ViewModelPropertyBoolean id="0:44" name="active"/>
+    <ViewModelPropertyColor id="0:45" name="tint"/>
+    <ViewModelInstance id="0:41" name="main" exports="true">
+      <ViewModelInstanceNumber viewModelPropertyId="0:46" propertyValue="0"/><ViewModelInstanceNumber viewModelPropertyId="0:42" propertyValue="4"/>
+      <ViewModelInstanceString viewModelPropertyId="0:43" propertyValue="Ada"/>
+      <ViewModelInstanceBoolean viewModelPropertyId="0:44" propertyValue="false"/>
+      <ViewModelInstanceColor viewModelPropertyId="0:45" propertyValue="44112233"/>
+    </ViewModelInstance>
+  </ViewModel>
+</Rive>

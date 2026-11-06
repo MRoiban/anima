@@ -2,8 +2,16 @@
 import { lerpColor, parseHex } from '../../../packages/core/src/color.ts';
 import type { Value } from '../../../packages/core/src/load.ts';
 
-export type BindType = 'number' | 'bool' | 'color';
-export type InputScope = ReadonlyMap<string, number | boolean>;
+export type BindType = 'number' | 'bool' | 'color' | 'string';
+export const functions = new Map<string, { arity: number; run: (...args: number[]) => number }>();
+export function registerFunction(
+  name: string,
+  arity: number,
+  run: (...args: number[]) => number,
+): void {
+  functions.set(name, { arity, run });
+}
+export type InputScope = ReadonlyMap<string, import('../../../packages/core/src/load.ts').Value>;
 export interface Expression {
   type: BindType;
   at: number;
@@ -35,7 +43,7 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
     while (/\s/.test(source[pos] ?? '') && pos < source.length) pos++;
     at = pos;
     const match =
-      /^(?:#[\da-fA-F]+|(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?|[a-z][a-zA-Z0-9-]*|[+*/(),-])/.exec(
+      /^(?:\$[a-zA-Z][\w-]*(?::[a-zA-Z][\w-]*)?(?:\.[\w-]+)*|"(?:[^"\\]|\\.)*"|#[\da-fA-F]+|(?:0|[1-9]\d*)(?:\.\d+)?(?:[eE][+-]?\d+)?|[a-z][\w-]*(?:\.[\w-]+)*|[+*/(),-])/.exec(
         source.slice(pos),
       );
     token = match?.[0] ?? '';
@@ -54,7 +62,8 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
     evaluate,
   });
   const numeric = (e: Expression) => {
-    if (e.type === 'color') fail('bind-type', 'expected a number or bool', e.at);
+    if (e.type !== 'number' && e.type !== 'bool')
+      fail('bind-type', 'expected a number or bool', e.at);
   };
   const number = (e: Expression, scope: InputScope) => Number(evaluate(e, scope));
   const parse = (minimum = 0): Expression => {
@@ -78,18 +87,25 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
       const value = parseHex(word);
       if (!value) fail('bind-syntax', 'expected #rgb, #rrggbb or #rrggbbaa', start);
       left = node('color', start, () => value!);
-    } else if (/^[a-z]/.test(word)) {
+    } else if (word.startsWith('"')) {
+      const value = JSON.parse(word) as string;
+      left = node('string', start, () => value);
+    } else if (/^[a-z$]/.test(word)) {
       if (token === '(') {
-        if (!['min', 'max', 'clamp', 'mix', 'floor', 'mod'].includes(word))
+        const fn = functions.get(word);
+        if (!['min', 'max', 'clamp', 'mix', 'floor', 'mod'].includes(word) && !fn)
           fail('bind-syntax', 'unknown function', start);
         next();
-        const args = [parse()];
+        const args = (token as string) === ')' ? [] : [parse()];
         while ((token as string) === ',') {
           next();
           args.push(parse());
         }
         take(')');
-        if (args.length !== (word === 'floor' ? 1 : ['min', 'max', 'mod'].includes(word) ? 2 : 3))
+        if (
+          args.length !==
+          (fn?.arity ?? (word === 'floor' ? 1 : ['min', 'max', 'mod'].includes(word) ? 2 : 3))
+        )
           fail('bind-syntax', 'wrong argument count', start);
         const [a, b, c] = args as [Expression, Expression, Expression];
         const color = word === 'mix' && a.type === 'color' && b.type === 'color';
@@ -102,6 +118,7 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
               b.evaluate(s) as import('../../../packages/core/src/color.ts').RGBA,
               number(c, s),
             );
+          if (fn) return fn.run(...args.map((a) => number(a, s)));
           const x = number(a, s);
           if (word === 'floor') return Math.floor(x);
           const y = number(b, s);
@@ -117,7 +134,7 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
       } else {
         const type = types.get(word);
         if (!type) fail('unknown-input', `unknown input ${word}`, start);
-        if (type !== 'number' && type !== 'bool')
+        if (!['number', 'bool', 'color', 'string'].includes(type!))
           fail('bind-type', 'triggers are not binding values', start);
         inputs.add(word);
         left = node(type as BindType, start, (s) => s.get(word)!);

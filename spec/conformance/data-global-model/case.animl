@@ -1,0 +1,17 @@
+<anima version="0.1" name="data-probe" grid="20" requires="data bind components">
+  <component name="badge" grid="20" data="Root">
+    <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+    <bind target="dot.x" value="$value"/>
+  </component>
+
+  <instance id="a" component="badge"/>
+  <instance id="b" component="badge"/>
+
+  <model name="Root" global="true">
+    <number name="value" default="3"/>
+  </model>
+  <instance name="main" model="Root" default="true"/>
+  <instance name="other" model="Root">
+    <set path="value" value="8"/>
+  </instance>
+</anima>

@@ -1,0 +1,454 @@
+[
+  {
+    "id": "data.bind-conditions",
+    "status": "verified",
+    "conformance": "spec/conformance/data-bind-conditions",
+    "oracle": "tests/oracle/data-bind-conditions"
+  },
+  {
+    "id": "data.bind-converter-options",
+    "status": "pending",
+    "conformance": null,
+    "oracle": null,
+    "reason": "Live option lookup and registration hooks are tested; a named authored converter requires the parallel convert module, absent from this branch."
+  },
+  {
+    "id": "data.bind-instance-values",
+    "status": "verified",
+    "conformance": "spec/conformance/data-bind-instance-values",
+    "oracle": "tests/oracle/data-bind-instance-values"
+  },
+  {
+    "id": "data.bind-keyframes",
+    "status": "pending",
+    "conformance": null,
+    "oracle": null,
+    "reason": "The decided design specifies scalar key values only in existing tracks; no data-backed keyframe representation or resampling policy is decided."
+  },
+  {
+    "id": "data.bind-layout",
+    "status": "pending",
+    "conformance": null,
+    "oracle": null,
+    "reason": "Layout consumers are P7; no layout dimensions/style target exists on this branch."
+  },
+  {
+    "id": "data.bind-script-inputs",
+    "status": "pending",
+    "conformance": null,
+    "oracle": null,
+    "reason": "Script inputs require the P9 VM and typed script interface."
+  },
+  {
+    "id": "data.bind-text",
+    "status": "pending",
+    "conformance": null,
+    "oracle": null,
+    "reason": "Text consumers are P6; no text-run target exists on this branch."
+  },
+  {
+    "id": "data.binding-absolute",
+    "status": "verified",
+    "conformance": "spec/conformance/data-binding-absolute",
+    "oracle": "tests/oracle/data-binding-absolute"
+  },
+  {
+    "id": "data.binding-once",
+    "status": "verified",
+    "conformance": "spec/conformance/data-binding-once",
+    "oracle": "tests/oracle/data-binding-once"
+  },
+  {
+    "id": "data.binding-relative",
+    "status": "pending",
+    "conformance": null,
+    "oracle": null,
+    "reason": "Local/default and named absolute paths work; upward lookup across heterogeneous component model contexts is not implemented."
+  },
+  {
+    "id": "data.binding-to-source",
+    "status": "verified",
+    "conformance": "spec/conformance/data-binding-to-source",
+    "oracle": "tests/oracle/data-binding-to-source"
+  },
+  {
+    "id": "data.binding-two-way-prefer-source",
+    "status": "verified",
+    "conformance": "spec/conformance/data-binding-two-way-prefer-source",
+    "oracle": "tests/oracle/data-binding-two-way-prefer-source"
+  },
+  {
+    "id": "data.binding-two-way-prefer-target",
+    "status": "verified",
+    "conformance": "spec/conformance/data-binding-two-way-prefer-target",
+    "oracle": "tests/oracle/data-binding-two-way-prefer-target"
+  },
+  {
+    "id": "data.component-public-data",
+    "status": "verified",
+    "conformance": "spec/conformance/data-component-public-data",
+    "oracle": "tests/oracle/data-component-public-data"
+  },
+  {
+    "id": "data.custom-property-boolean",
+    "status": "verified",
+    "conformance": "spec/conformance/data-custom-property-boolean",
+    "oracle": "tests/oracle/data-custom-property-boolean"
+  },
+  {
+    "id": "data.custom-property-color",
+    "status": "verified",
+    "conformance": "spec/conformance/data-custom-property-color",
+    "oracle": "tests/oracle/data-custom-property-color"
+  },
+  {
+    "id": "data.custom-property-enum",
+    "status": "verified",
+    "conformance": "spec/conformance/data-custom-property-enum",
+    "oracle": "tests/oracle/data-custom-property-enum"
+  },
+  {
+    "id": "data.custom-property-number",
+    "status": "verified",
+    "conformance": "spec/conformance/data-custom-property-number",
+    "oracle": "tests/oracle/data-custom-property-number"
+  },
+  {
+    "id": "data.custom-property-string",
+    "status": "verified",
+    "conformance": "spec/conformance/data-custom-property-string",
+    "oracle": "tests/oracle/data-custom-property-string"
+  },
+  {
+    "id": "data.custom-property-trigger",
+    "status": "verified",
+    "conformance": "spec/conformance/data-custom-property-trigger",
+    "oracle": "tests/oracle/data-custom-property-trigger"
+  },
+  {
+    "id": "data.default-instance",
+    "status": "verified",
+    "conformance": "spec/conformance/data-default-instance",
+    "oracle": "tests/oracle/data-default-instance"
+  },
+  {
+    "id": "data.editor-preview-instance",
+    "status": "pending",
+    "conformance": null,
+    "oracle": null,
+    "reason": "Preview naming metadata round-trips; the editor does not yet consume it."
+  },
+  {
+    "id": "data.enum-members",
+    "status": "verified",
+    "conformance": "spec/conformance/data-enum-members",
+    "oracle": "tests/oracle/data-enum-members"
+  },
+  {
+    "id": "data.global-model",
+    "status": "verified",
+    "conformance": "spec/conformance/data-global-model",
+    "oracle": "tests/oracle/data-global-model"
+  },
+  {
+    "id": "data.instance-export",
+    "status": "pending",
+    "conformance": null,
+    "oracle": null,
+    "reason": "Export naming metadata round-trips; runtime export filtering is not implemented."
+  },
+  {
+    "id": "data.list-items",
+    "status": "verified",
+    "conformance": "spec/conformance/data-list-items",
+    "oracle": "tests/oracle/data-list-items"
+  },
+  {
+    "id": "data.model-definition",
+    "status": "verified",
+    "conformance": "spec/conformance/data-model-definition",
+    "oracle": "tests/oracle/data-model-definition"
+  },
+  {
+    "id": "data.named-instances",
+    "status": "verified",
+    "conformance": "spec/conformance/data-named-instances",
+    "oracle": "tests/oracle/data-named-instances"
+  },
+  {
+    "id": "data.operation-operand-view-model",
+    "status": "verified",
+    "conformance": "spec/conformance/data-operation-operand-view-model",
+    "oracle": "tests/oracle/data-operation-operand-view-model"
+  },
+  {
+    "id": "data.property-artboard",
+    "status": "pending",
+    "conformance": null,
+    "oracle": null,
+    "reason": "Artboard-reference is absent from the decided property type list; changing its consumer/representation needs a design decision."
+  },
+  {
+    "id": "data.property-asset-blob",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-property-asset-blob",
+    "oracle": "tests/oracle/data-property-asset-blob/skip.json"
+  },
+  {
+    "id": "data.property-asset-font",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-property-asset-font",
+    "oracle": "tests/oracle/data-property-asset-font/skip.json"
+  },
+  {
+    "id": "data.property-asset-image",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-property-asset-image",
+    "oracle": "tests/oracle/data-property-asset-image/skip.json"
+  },
+  {
+    "id": "data.property-boolean",
+    "status": "verified",
+    "conformance": "spec/conformance/data-property-boolean",
+    "oracle": "tests/oracle/data-property-boolean"
+  },
+  {
+    "id": "data.property-color",
+    "status": "verified",
+    "conformance": "spec/conformance/data-property-color",
+    "oracle": "tests/oracle/data-property-color"
+  },
+  {
+    "id": "data.property-enum-custom",
+    "status": "verified",
+    "conformance": "spec/conformance/data-property-enum-custom",
+    "oracle": "tests/oracle/data-property-enum-custom"
+  },
+  {
+    "id": "data.property-enum-system",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-property-enum-system",
+    "oracle": "tests/oracle/data-property-enum-system/skip.json"
+  },
+  {
+    "id": "data.property-list",
+    "status": "verified",
+    "conformance": "spec/conformance/data-property-list",
+    "oracle": "tests/oracle/data-property-list"
+  },
+  {
+    "id": "data.property-number",
+    "status": "verified",
+    "conformance": "spec/conformance/data-property-number",
+    "oracle": "tests/oracle/data-property-number"
+  },
+  {
+    "id": "data.property-string",
+    "status": "verified",
+    "conformance": "spec/conformance/data-property-string",
+    "oracle": "tests/oracle/data-property-string"
+  },
+  {
+    "id": "data.property-symbol-list-index",
+    "status": "pending",
+    "conformance": null,
+    "oracle": null,
+    "reason": "The contextual list-position property and list instantiation scope are not specified in the decided design."
+  },
+  {
+    "id": "data.property-text-style",
+    "status": "pending",
+    "conformance": null,
+    "oracle": null,
+    "reason": "Text-style is absent from the decided property type list and depends on P6."
+  },
+  {
+    "id": "data.property-trigger",
+    "status": "verified",
+    "conformance": "spec/conformance/data-property-trigger",
+    "oracle": "tests/oracle/data-property-trigger"
+  },
+  {
+    "id": "data.property-view-model",
+    "status": "verified",
+    "conformance": "spec/conformance/data-property-view-model",
+    "oracle": "tests/oracle/data-property-view-model"
+  },
+  {
+    "id": "data.script-model-api",
+    "status": "pending",
+    "conformance": null,
+    "oracle": null,
+    "reason": "The requested scripting API requires P9 and is outside the defined data runtime contract."
+  },
+  {
+    "id": "data.scripted-converter",
+    "status": "pending",
+    "conformance": null,
+    "oracle": null,
+    "reason": "A script VM and forward/reverse scripting contract are not available; this also overlaps the parallel converter task."
+  },
+  {
+    "id": "data.state-action-trigger",
+    "status": "verified",
+    "conformance": "spec/conformance/data-state-action-trigger",
+    "oracle": "tests/oracle/data-state-action-trigger"
+  },
+  {
+    "id": "data.system-enum-horizontal-text-align",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-horizontal-text-align",
+    "oracle": "tests/oracle/data-system-enum-horizontal-text-align/skip.json"
+  },
+  {
+    "id": "data.system-enum-layout-alignment",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-layout-alignment",
+    "oracle": "tests/oracle/data-system-enum-layout-alignment/skip.json"
+  },
+  {
+    "id": "data.system-enum-layout-direction",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-layout-direction",
+    "oracle": "tests/oracle/data-system-enum-layout-direction/skip.json"
+  },
+  {
+    "id": "data.system-enum-layout-display",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-layout-display",
+    "oracle": "tests/oracle/data-system-enum-layout-display/skip.json"
+  },
+  {
+    "id": "data.system-enum-layout-flex-direction",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-layout-flex-direction",
+    "oracle": "tests/oracle/data-system-enum-layout-flex-direction/skip.json"
+  },
+  {
+    "id": "data.system-enum-layout-position",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-layout-position",
+    "oracle": "tests/oracle/data-system-enum-layout-position/skip.json"
+  },
+  {
+    "id": "data.system-enum-layout-position-units",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-layout-position-units",
+    "oracle": "tests/oracle/data-system-enum-layout-position-units/skip.json"
+  },
+  {
+    "id": "data.system-enum-layout-scale-type",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-layout-scale-type",
+    "oracle": "tests/oracle/data-system-enum-layout-scale-type/skip.json"
+  },
+  {
+    "id": "data.system-enum-layout-wrap",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-layout-wrap",
+    "oracle": "tests/oracle/data-system-enum-layout-wrap/skip.json"
+  },
+  {
+    "id": "data.system-enum-scroll-direction",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-scroll-direction",
+    "oracle": "tests/oracle/data-system-enum-scroll-direction/skip.json"
+  },
+  {
+    "id": "data.system-enum-semantic-check-state",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-semantic-check-state",
+    "oracle": "tests/oracle/data-system-enum-semantic-check-state/skip.json"
+  },
+  {
+    "id": "data.system-enum-text-box",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-text-box",
+    "oracle": "tests/oracle/data-system-enum-text-box/skip.json"
+  },
+  {
+    "id": "data.system-enum-text-overflow",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-text-overflow",
+    "oracle": "tests/oracle/data-system-enum-text-overflow/skip.json"
+  },
+  {
+    "id": "data.system-enum-text-trim-bottom",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-text-trim-bottom",
+    "oracle": "tests/oracle/data-system-enum-text-trim-bottom/skip.json"
+  },
+  {
+    "id": "data.system-enum-text-trim-top",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-text-trim-top",
+    "oracle": "tests/oracle/data-system-enum-text-trim-top/skip.json"
+  },
+  {
+    "id": "data.system-enum-vertical-text-align",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-vertical-text-align",
+    "oracle": "tests/oracle/data-system-enum-vertical-text-align/skip.json"
+  },
+  {
+    "id": "data.system-enum-word-wrap",
+    "status": "skip-evidenced",
+    "conformance": "spec/conformance/data-system-enum-word-wrap",
+    "oracle": "tests/oracle/data-system-enum-word-wrap/skip.json"
+  },
+  {
+    "id": "drawing-paint.gradient-channel-binding",
+    "status": "verified",
+    "conformance": "spec/conformance/drawing-paint-gradient-channel-binding",
+    "oracle": "tests/oracle/drawing-paint-gradient-channel-binding"
+  },
+  {
+    "id": "input.data-listener",
+    "status": "finding",
+    "conformance": "spec/conformance/input-data-listener",
+    "oracle": "tests/oracle/input-data-listener",
+    "reason": "Numeric/host-fired observations match; internal state/custom trigger signals differ. See tests/oracle/input-data-listener/internal-trigger-difference/finding.json."
+  },
+  {
+    "id": "input.write-data-constant",
+    "status": "verified",
+    "conformance": "spec/conformance/input-write-data-constant",
+    "oracle": "tests/oracle/input-write-data-constant"
+  },
+  {
+    "id": "input.write-data-copy",
+    "status": "verified",
+    "conformance": "spec/conformance/input-write-data-copy",
+    "oracle": "tests/oracle/input-write-data-copy"
+  },
+  {
+    "id": "input.write-focused",
+    "status": "verified",
+    "conformance": "spec/conformance/input-write-focused",
+    "oracle": "tests/oracle/input-write-focused"
+  },
+  {
+    "id": "input.write-gamepad-axis",
+    "status": "verified",
+    "conformance": "spec/conformance/input-write-gamepad-axis",
+    "oracle": "tests/oracle/input-write-gamepad-axis"
+  },
+  {
+    "id": "input.write-gamepad-button-pressed",
+    "status": "verified",
+    "conformance": "spec/conformance/input-write-gamepad-button-pressed",
+    "oracle": "tests/oracle/input-write-gamepad-button-pressed"
+  },
+  {
+    "id": "input.write-gamepad-button-value",
+    "status": "verified",
+    "conformance": "spec/conformance/input-write-gamepad-button-value",
+    "oracle": "tests/oracle/input-write-gamepad-button-value"
+  },
+  {
+    "id": "input.write-gamepad-changed-value",
+    "status": "verified",
+    "conformance": "spec/conformance/input-write-gamepad-changed-value",
+    "oracle": "tests/oracle/input-write-gamepad-changed-value"
+  }
+]

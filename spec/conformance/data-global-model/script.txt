@@ -1,0 +1,5 @@
+advance 0
+snapshot a/dot.x b/dot.x
+set $value 7
+advance 0
+snapshot a/dot.x b/dot.x

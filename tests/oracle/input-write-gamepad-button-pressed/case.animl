@@ -1,0 +1,10 @@
+<anima version="0.1" name="oracle-data" grid="20" requires="data bind input">
+  <circle id="dot" cx="10" cy="10" r="8" fill="#000"/>
+
+  <model name="Root">
+    <bool name="value"/>
+    <number name="source" default="4"/>
+  </model>
+
+  <listener on="gamepad-button" set="$value=false" value="gamepad-button-pressed:0"/>
+</anima>

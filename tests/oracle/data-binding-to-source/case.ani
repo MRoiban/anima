@@ -1,0 +1,36 @@
+{
+  "anima": "0.1",
+  "name": "oracle-data",
+  "grid": 20,
+  "requires": ["data", "bind"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "x": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "bind": {
+    "dot.x": {
+      "value": "$value",
+      "mode": "to-source"
+    }
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "number",
+            "default": 4
+          }
+        }
+      }
+    }
+  }
+}

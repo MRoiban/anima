@@ -1,0 +1,18 @@
+<anima version="0.1" name="scoreboard" grid="20" requires="data bind">
+  <model name="Player">
+    <number name="score" default="4" min="0" max="20"/>
+    <string name="label" default="Ada"/>
+    <bool name="active"/>
+    <color name="tint" default="#d97757"/>
+    <trigger name="levelUp"/>
+    <enum name="mood" values="calm happy"/>
+  </model>
+  <instance name="main" model="Player" default="true">
+    <set path="score" value="8"/>
+  </instance>
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000" data-label="score"/>
+  <bind target="dot.r" value="$score / 2"/>
+  <bind target="dot.fill" value="$tint"/>
+  <bind target="dot.properties.label" value="$label"/>
+  <listener on="click" set="$score=$score+1"/>
+</anima>

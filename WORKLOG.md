@@ -2,9 +2,9 @@
 
 ## Now
 Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
-State: main 49d418c = through P4c/P4d (PRs #14, #15). Parity 387/1238. core+web 19831; full-featured 69.7 KB.
-Next: P4e-1 data and P4e-5 paint resumed from refs/wip/* (Sol xhigh); then convert integration + host API; benchmark (scoreboard); PR.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+State: p4e-data has data core merged (60/73 rows, 13 pending; data 8181/8192, bind 2046/2048; core+web 20021; full 81.8 KB). P4e-5 paint running.
+Next: convert integration (needs a split: data/bind have 11 B / 2 B headroom) + host API; benchmark (scoreboard); quiet-machine perf; PR.
+Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -121,3 +121,19 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-06 08:01 [claude]: P4e-5 paint findings (Sol) failed: codex usage limit, resets 2026-11-11 09:28 → 118 uncommitted files snapshotted to refs/wip/p4e-5-paint (unverified; not reviewed, tests not run by me) (evidence: git show --stat refs/wip/p4e-5-paint)
 - 2026-11-06 08:04 [claude]: P4e-1 data core (Sol) failed: same usage limit → worktree t3-54bfb1e8 snapshotted to refs/wip/p4e-1-data, 1439 files (unverified; not reviewed) (evidence: git show --stat refs/wip/p4e-1-data)
 - 2026-11-06 [claude]: Sol limits back (owner) → relaunched P4e-1 data (merge refs/wip/p4e-1-data, 16 conflicts expected) and P4e-5 paint (merge refs/wip/p4e-5-paint) in fresh worktrees
+- 2026-11-06 07:21 [codex/data]: read task/design/contracts; npm ci fixed missing prettier; identified out-of-design rows → recorded as coverage blockers (unverified).
+- 2026-11-06 07:21 [codex/data]: implemented typed $ scopes, data storage, modes/converter hooks, listeners/custom props; broad scoped run 1970 pass/1 legacy bool-literal failure → removed literal extension; components now uses shared bind evaluator (2001/2048 B bind, 3165/4096 B components).
+- 2026-11-06 07:21 [codex/data]: captured native scalar/reference/system model dumps with local --commands; eight scalar values match; system dump has empty enum values (evidence: modules/data/oracle/*/rive/frames). Browser exposed unshared resolver and missing optional instance type → fixes under test (unverified).
+- 2026-11-06 07:21 [codex/data]: final-data checkpoints: 60 row conformance vectors + 1 shared-child ordering vector, 24 exact native cases + 18 evidenced system-enum limits; 13 row gaps explicitly pending (evidence: modules/data/ROWS.json).
+- 2026-11-06 08:55 [codex/data]: restored WIP with 16 conflicts; regenerated wiring/schema/parity/AniML/web; initial merge scope 1942 pass/4 failed (strict census/order assertions from both sides) → reconciled 297-case census and registry order; no limits changed. npm ci installed absent dependencies.
+- 2026-11-06 08:59 [codex/data]: merge scope data/paint/contour/mix/markup passed (1946 pass, 225 filtered, 13 TODO); modules --check current; parity statuses exactly match original branch.
+- 2026-11-06 09:00 [codex/data]: stronger separate-bundle probes exposed named-instance requiring components and foreign BindError rejection → fixed compiler routing/error boundary; four Chromium/Firefox probes pass with shared function/converter hooks and named instances.
+- 2026-11-06 09:00 [codex/data]: initial size 8217/8192 failed → consolidated converter dispatch/listener snapshots; data 8178/8192, bind 2046/2048; tools/oracle restored to original with exact trigger comparisons module-owned; strict oracle exits 0 and retains 9-vs-0 finding.
+- 2026-11-06 09:00 [codex/data]: broad scope after fixes 2479 pass/1 failed/45 TODO → new CLI test used nonexistent --json; corrected to documented --format=json (verification pending). Enum conformance generator no longer imports its expected vocabulary from runtime.
+- 2026-11-06 09:03 [codex/data]: requested data/bind/components/machine/markup/conformance/oracle scope passed (2480 tests, 45 TODO); four strengthened separate-bundle browser checks pass; added missing value-source diagnostics and nonempty message/hint assertions (verification pending).
+- 2026-11-06 09:10 [codex/data]: same-CPU perf follow-up found prefix slowdown (912–1023 ms vs main 701–708) despite noisy earlier runs → investigating repeated composed form construction; adding compile-local per-element form cache, correctness/perf unverified.
+- 2026-11-06 09:17 [codex/data]: final required scope 2485 pass/45 TODO; core+web 1007 pass/26 TODO; four owned browser probes pass in Chromium/Firefox; strict oracle exits 0 (159 cases/353 frames), 13 findings/16 frames retained.
+- 2026-11-06 09:17 [codex/data]: typecheck/prettier/eslint/module/artifact/size checks pass; data 8181/8192, bind 2046/2048, components 3167/4096; core+web 20021 (+190 vs main), full 81802 (+12136). Pinned perf shows slower samples → no-regression target unverified; raw readings in modules/data/verification.
+- 2026-11-06 09:18 [codex/data]: startup regeneration failed with missing prettier/esbuild/workspace dependencies → npm ci restored tooling. Initial text-conflict join overmatched WORKLOG → restored conflict text and reapplied bounded matching before generation; verified merged cases/statuses retained.
+- 2026-11-06 [claude]: reviewed P4e-1 → merged into p4e-data. In-process A/B (taskset, 40 alternations) bell frame min 31.5/31.6/32.2 µs p4e/data/main, compile 1.97/1.70/1.92 ms → no data regression; agent's 2× composite/toolbar frames were load noise (evidence: scratchpad perf/ab.mjs). Prefix sweep inconclusive (p4e-data vs main p25 215/183 ms) → re-measure quiet before PR
+- 2026-11-06 [claude]: decided internal-trigger listener (Anima 9 vs Rive 0) = intentional difference: change listeners fire for every source, after the step; finding stays recorded

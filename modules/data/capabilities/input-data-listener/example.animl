@@ -1,0 +1,10 @@
+<anima version="0.1" name="data-probe" grid="20" requires="data bind">
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+
+  <model name="Root">
+    <number name="a" default="4"/>
+    <number name="b" default="2"/>
+  </model>
+
+  <listener on="change:$a" set="$b=$b+1"/>
+</anima>

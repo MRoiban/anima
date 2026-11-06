@@ -1,0 +1,8 @@
+<anima version="0.1" name="data-probe" grid="20" requires="data bind">
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+
+  <enum name="Mood" values="[{&quot;key&quot;:&quot;calm&quot;,&quot;label&quot;:&quot;Calm&quot;},{&quot;key&quot;:&quot;happy&quot;,&quot;label&quot;:&quot;Happy&quot;}]"/>
+  <model name="Root">
+    <enum name="value" enum="Mood"/>
+  </model>
+</anima>

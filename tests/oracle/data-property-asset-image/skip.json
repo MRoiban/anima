@@ -1,0 +1,11 @@
+{
+  "status": "skip",
+  "reason": "The native CLI dump identifies this asset-reference property type but emits no value; the local data setter rejects its declared path with \"no property at this path\". Decoded host asset objects cannot be supplied or compared through that observation route. Anima validates typed resource references independently.",
+  "tests": ["modules/data/test/core/oracle.test.ts", "modules/data/test/core/diagnostics.test.ts"],
+  "captureEvidence": [
+    "modules/data/oracle/assets/rive/scene.rml",
+    "modules/data/oracle/assets/rive/commands.txt",
+    "modules/data/oracle/assets/rive/session.txt",
+    "modules/data/oracle/assets/rive/frames/initial.json"
+  ]
+}

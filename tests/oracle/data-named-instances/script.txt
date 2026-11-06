@@ -1,0 +1,2 @@
+advance 0
+snapshot $main:value $other:value

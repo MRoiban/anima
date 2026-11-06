@@ -1,0 +1,5 @@
+advance 0
+snapshot $value
+set $value happy
+advance 0
+snapshot $value

@@ -1,0 +1,43 @@
+{
+  "anima": "0.1",
+  "name": "oracle-data",
+  "grid": 20,
+  "requires": ["data", "bind"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "properties": {
+        "custom": {
+          "type": "enum",
+          "default": "calm",
+          "values": ["calm", "happy"]
+        }
+      }
+    }
+  ],
+  "bind": {
+    "dot.properties.custom": {
+      "value": "$value",
+      "mode": "to-source"
+    }
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "enum",
+            "default": "happy",
+            "values": ["calm", "happy"]
+          }
+        }
+      }
+    }
+  }
+}

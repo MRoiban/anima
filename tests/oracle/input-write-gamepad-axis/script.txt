@@ -1,0 +1,5 @@
+advance 0
+snapshot $value
+gamepads [{"index":0,"connected":true,"axes":[0],"buttons":[{"value":0,"pressed":false}]}]
+gamepads [{"index":0,"connected":true,"axes":[0.5],"buttons":[{"value":0.75,"pressed":true}]}]
+snapshot $value

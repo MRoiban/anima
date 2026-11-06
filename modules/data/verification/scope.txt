@@ -1,0 +1,84 @@
+
+> test:scope
+> node tools/test-scope.ts data bind components machine markup conformance oracle
+
+Scopes: data, bind, components, machine, markup, conformance, oracle
+  unit: modules/bind/test/core/bind.test.ts
+  unit: modules/bind/test/core/data-bind-listener-actions.test.ts
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/components/test/core/components.test.ts
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/data/test/core/components.test.ts
+  unit: modules/data/test/core/conformance.test.ts
+  unit: modules/data/test/core/data-bind-converter-options.test.ts
+  unit: modules/data/test/core/data-bind-keyframes.test.ts
+  unit: modules/data/test/core/data-bind-layout.test.ts
+  unit: modules/data/test/core/data-bind-script-inputs.test.ts
+  unit: modules/data/test/core/data-bind-text.test.ts
+  unit: modules/data/test/core/data-binding-relative.test.ts
+  unit: modules/data/test/core/data-editor-preview-instance.test.ts
+  unit: modules/data/test/core/data-instance-export.test.ts
+  unit: modules/data/test/core/data-property-artboard.test.ts
+  unit: modules/data/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/data/test/core/data-property-text-style.test.ts
+  unit: modules/data/test/core/data-script-model-api.test.ts
+  unit: modules/data/test/core/data-scripted-converter.test.ts
+  unit: modules/data/test/core/diagnostics.test.ts
+  unit: modules/data/test/core/input.test.ts
+  unit: modules/data/test/core/oracle.test.ts
+  unit: modules/data/test/core/runtime.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: modules/machine/test/core/diagnostics.test.ts
+  unit: modules/machine/test/core/runtime.test.ts
+  unit: modules/machine/test/core/state-machine-any-state.test.ts
+  unit: modules/machine/test/core/state-machine-blend-1d-data.test.ts
+  unit: modules/machine/test/core/state-machine-blend-1d-input.test.ts
+  unit: modules/machine/test/core/state-machine-blend-additive.test.ts
+  unit: modules/machine/test/core/state-machine-blend-direct.test.ts
+  unit: modules/machine/test/core/state-machine-blend-exit-clock.test.ts
+  unit: modules/machine/test/core/state-machine-blend-weight-constant.test.ts
+  unit: modules/machine/test/core/state-machine-blend-weight-data.test.ts
+  unit: modules/machine/test/core/state-machine-blend-weight-input.test.ts
+  unit: modules/machine/test/core/state-machine-condition-artboard.test.ts
+  unit: modules/machine/test/core/state-machine-condition-component.test.ts
+  unit: modules/machine/test/core/state-machine-condition-focus.test.ts
+  unit: modules/machine/test/core/state-machine-continue-on-exit.test.ts
+  unit: modules/machine/test/core/state-machine-entry-state.test.ts
+  unit: modules/machine/test/core/state-machine-exit-state.test.ts
+  unit: modules/machine/test/core/state-machine-exit-time-relative.test.ts
+  unit: modules/machine/test/core/state-machine-state-entry-actions.test.ts
+  unit: modules/machine/test/core/state-machine-state-exit-actions.test.ts
+  unit: modules/machine/test/core/state-machine-state-random.test.ts
+  unit: modules/machine/test/core/state-machine-state-reset.test.ts
+  unit: modules/machine/test/core/state-machine-transition-actions.test.ts
+  unit: modules/machine/test/core/state-machine-transition-disabled.test.ts
+  unit: modules/machine/test/core/state-machine-transition-duration-relative.test.ts
+  unit: modules/machine/test/core/state-machine-transition-end-actions.test.ts
+  unit: modules/machine/test/core/state-machine-transition-random-weight.test.ts
+  unit: modules/markup-libraries/test/markup/reuse.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: modules/surface/test/markup/surface.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: packages/markup/test/xml.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/bind/test/web/bind.test.ts
+  browser: modules/components/test/web/components.test.ts
+  browser: modules/data/test/web/browser.test.ts
+  browser: modules/machine/test/web/browser.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-44a6ab23
+
+
+ Test Files  57 passed | 13 skipped (70)
+      Tests  2485 passed | 45 todo (2530)
+   Start at  09:09:55
+   Duration  64.10s (tests 81%, import 14%, transform 4%, worker 1%)
+

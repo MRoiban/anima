@@ -5736,5 +5736,1553 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "data-property-number",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 4
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": 9
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 4
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": 9
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-property-boolean",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$value": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": true
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$value": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": true
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-property-string",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$value": "Ada"
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": "Grace"
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$value": "Ada"
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": "Grace"
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-property-color",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$value": "#11223344"
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": "#aabbccdd"
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$value": "#11223344"
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": "#aabbccdd"
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-property-enum-custom",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$value": "calm"
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$value": "calm"
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-enum-members",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$value": "calm"
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$value": "calm"
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-list-items",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$team.title": "Blue",
+              "$items.0.title": "Blue",
+              "$items.length": 1
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$team.title": "Blue",
+              "$items.0.title": "Blue",
+              "$items.length": 1
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-property-list",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$team.title": "Blue",
+              "$items.0.title": "Blue",
+              "$items.length": 1
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$team.title": "Blue",
+              "$items.0.title": "Blue",
+              "$items.length": 1
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-property-view-model",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$team.title": "Blue",
+              "$items.0.title": "Blue",
+              "$items.length": 1
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$team.title": "Blue",
+              "$items.0.title": "Blue",
+              "$items.length": 1
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-model-definition",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 4
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 4
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-default-instance",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 4
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 4
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-binding-once",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.x": 4,
+              "$value": 4
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.x": 4,
+              "$value": 8
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.x": 4,
+              "$value": 4
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.x": 4,
+              "$value": 8
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-binding-to-source",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.x": 1,
+              "$value": 1
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.x": 1,
+              "$value": 8
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.x": 1,
+              "$value": 1
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.x": 1,
+              "$value": 8
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-binding-two-way-prefer-source",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.x": 4,
+              "$value": 4
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.x": 8,
+              "$value": 8
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.x": 4,
+              "$value": 4
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.x": 8,
+              "$value": 8
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-binding-two-way-prefer-target",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.x": 1,
+              "$value": 1
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.x": 8,
+              "$value": 8
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.x": 1,
+              "$value": 1
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.x": 8,
+              "$value": 8
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-binding-absolute",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$main:value": 4
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$main:value": 4
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "input-write-gamepad-axis",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": 0.5
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": 0.5
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "input-write-gamepad-button-pressed",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$value": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": true
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$value": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": true
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "input-write-gamepad-button-value",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": 0.75
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": 0.75
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "input-write-gamepad-changed-value",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": 0.5
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": 0.5
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "input-write-focused",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$value": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": true
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$value": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": true
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "input-write-data-constant",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": 9
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": 9
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "input-write-data-copy",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": 4
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": 4
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "input-data-listener",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": 9
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$value": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$value": 9
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-custom-property-number",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.custom": 7,
+              "$value": 7
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.custom": 7,
+              "$value": 7
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-custom-property-boolean",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.custom": true,
+              "$value": true
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.custom": true,
+              "$value": true
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-custom-property-string",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.custom": "Ada",
+              "$value": "Ada"
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.custom": "Ada",
+              "$value": "Ada"
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-custom-property-color",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.custom": "#11223344",
+              "$value": "#11223344"
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.custom": "#11223344",
+              "$value": "#11223344"
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-custom-property-enum",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.custom": "calm",
+              "$value": "calm"
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.custom": "calm",
+              "$value": "calm"
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-operation-operand-view-model",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.x": 8
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.x": 16
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.x": 8
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.x": 16
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-bind-conditions",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.x": 9
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.x": 9
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-gradient-channel-binding",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.fill.stops.0.red": 40
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.fill.stops.0.red": 80
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.fill.stops.0.red": 40
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.fill.stops.0.red": 80
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-property-trigger",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$n": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$n": 9
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$n": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$n": 9
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-bind-instance-values",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "a/dot.x": 3,
+              "b/dot.x": 8
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "a/dot.x": 7,
+              "b/dot.x": 8
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "a/dot.x": 3,
+              "b/dot.x": 8
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "a/dot.x": 7,
+              "b/dot.x": 8
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-component-public-data",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "a/dot.x": 3,
+              "b/dot.x": 8
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "a/dot.x": 7,
+              "b/dot.x": 8
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "a/dot.x": 3,
+              "b/dot.x": 8
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "a/dot.x": 7,
+              "b/dot.x": 8
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-named-instances",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$main:value": 3,
+              "$other:value": 8
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$main:value": 3,
+              "$other:value": 8
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-global-model",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "a/dot.x": 3,
+              "b/dot.x": 3,
+              "$g:value": 3
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "a/dot.x": 7,
+              "b/dot.x": 7,
+              "$g:value": 7
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "a/dot.x": 3,
+              "b/dot.x": 3,
+              "$g:value": 3
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "a/dot.x": 7,
+              "b/dot.x": 7,
+              "$g:value": 7
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
   }
 ]

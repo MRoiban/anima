@@ -1,0 +1,194 @@
+{
+  "schema": 1,
+  "artboard": "Data",
+  "stateMachine": "main",
+  "viewModel": {
+    "name": "main",
+    "viewModel": "Score",
+    "properties": [
+      {
+        "name": "horizontalTextAlign",
+        "path": "horizontalTextAlign",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "verticalTextAlign",
+        "path": "verticalTextAlign",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "textBox",
+        "path": "textBox",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "textOverflow",
+        "path": "textOverflow",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "wordWrap",
+        "path": "wordWrap",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "layoutFlexDirection",
+        "path": "layoutFlexDirection",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "layoutWrap",
+        "path": "layoutWrap",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "layoutDirection",
+        "path": "layoutDirection",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "layoutAlignment",
+        "path": "layoutAlignment",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "layoutDisplay",
+        "path": "layoutDisplay",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "layoutPosition",
+        "path": "layoutPosition",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "layoutScaleType",
+        "path": "layoutScaleType",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "layoutPositionUnits",
+        "path": "layoutPositionUnits",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "scrollDirection",
+        "path": "scrollDirection",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "textTrimTop",
+        "path": "textTrimTop",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "textTrimBottom",
+        "path": "textTrimBottom",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "semanticCheckState",
+        "path": "semanticCheckState",
+        "type": "enum",
+        "value": "",
+        "index": 0,
+        "values": [],
+        "changed": false
+      },
+      {
+        "name": "score",
+        "path": "score",
+        "type": "number",
+        "value": 4,
+        "changed": false
+      },
+      {
+        "name": "label",
+        "path": "label",
+        "type": "string",
+        "value": "Ada",
+        "changed": false
+      },
+      {
+        "name": "active",
+        "path": "active",
+        "type": "boolean",
+        "value": false,
+        "changed": false
+      },
+      {
+        "name": "tint",
+        "path": "tint",
+        "type": "color",
+        "value": "44112233",
+        "changed": false
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}

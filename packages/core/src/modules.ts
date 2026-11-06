@@ -69,7 +69,7 @@ export interface Module {
     pointer: string,
     diag: Diags,
     read?: (name: string) => void,
-  ): ((scope: ReadonlyMap<string, number | boolean>) => Value) | undefined;
+  ): ((scope: ReadonlyMap<string, Value>) => Value) | undefined;
   ease?(source: string, pointer: string, diag: Diags): import('./ease.ts').EaseFn | undefined;
   track?(
     track: import('./load.ts').TrackM,
@@ -78,6 +78,7 @@ export interface Module {
     pointer: string,
     diag: Diags,
   ): void;
+  prepare?(model: Model, diag: Diags): void;
   resolve?(model: Model, diag: Diags): void;
   load?(model: Model, raw: Model['doc'], diag: Diags): void;
   /** Resolve additional addresses to the existing number/colour/bool sampling slots. */
