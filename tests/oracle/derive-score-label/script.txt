@@ -1,0 +1,24 @@
+set $score 1250
+advance 0
+snapshot $score $label $bounded
+set $score 980
+advance 0
+snapshot $score $label $bounded
+set $score 40
+advance 0
+snapshot $score $label $bounded
+set $score 1500
+advance 0
+snapshot $score $label $bounded
+set $score 0
+advance 0
+snapshot $score $label $bounded
+set $score 2000
+advance 0
+snapshot $score $label $bounded
+set $score 2500
+advance 0
+snapshot $score $label $bounded
+set $score 1250
+advance 0
+snapshot $score $label $bounded

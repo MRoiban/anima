@@ -1,0 +1,233 @@
+{
+  "schema": 1,
+  "artboard": "Board",
+  "stateMachine": "run",
+  "viewModel": {
+    "name": "main",
+    "viewModel": "Board",
+    "properties": [
+      {
+        "name": "players",
+        "path": "players",
+        "type": "list",
+        "size": 3,
+        "items": [
+          {
+            "name": "Ada",
+            "viewModel": "Player",
+            "properties": [
+              {
+                "name": "score",
+                "path": "players[0]/score",
+                "type": "number",
+                "value": 1250,
+                "changed": false
+              },
+              {
+                "name": "label",
+                "path": "players[0]/label",
+                "type": "string",
+                "value": "1,250 pts",
+                "changed": true
+              },
+              {
+                "name": "template",
+                "path": "players[0]/template",
+                "type": "string",
+                "value": "${score:,.0f} pts",
+                "changed": false
+              },
+              {
+                "name": "bounded",
+                "path": "players[0]/bounded",
+                "type": "number",
+                "value": 12.5,
+                "changed": true
+              }
+            ]
+          },
+          {
+            "name": "Lin",
+            "viewModel": "Player",
+            "properties": [
+              {
+                "name": "score",
+                "path": "players[1]/score",
+                "type": "number",
+                "value": 980,
+                "changed": false
+              },
+              {
+                "name": "label",
+                "path": "players[1]/label",
+                "type": "string",
+                "value": "980 pts",
+                "changed": true
+              },
+              {
+                "name": "template",
+                "path": "players[1]/template",
+                "type": "string",
+                "value": "${score:,.0f} pts",
+                "changed": false
+              },
+              {
+                "name": "bounded",
+                "path": "players[1]/bounded",
+                "type": "number",
+                "value": 10,
+                "changed": true
+              }
+            ]
+          },
+          {
+            "name": "Sam",
+            "viewModel": "Player",
+            "properties": [
+              {
+                "name": "score",
+                "path": "players[2]/score",
+                "type": "number",
+                "value": 1500,
+                "changed": true
+              },
+              {
+                "name": "label",
+                "path": "players[2]/label",
+                "type": "string",
+                "value": "1,500 pts",
+                "changed": true
+              },
+              {
+                "name": "template",
+                "path": "players[2]/template",
+                "type": "string",
+                "value": "${score:,.0f} pts",
+                "changed": false
+              },
+              {
+                "name": "bounded",
+                "path": "players[2]/bounded",
+                "type": "number",
+                "value": 15,
+                "changed": true
+              }
+            ]
+          }
+        ],
+        "changed": false
+      }
+    ]
+  },
+  "globals": [],
+  "nested": [
+    {
+      "path": "Rows[0]",
+      "artboard": "Row",
+      "viewModels": [
+        {
+          "name": "Ada",
+          "viewModel": "Player",
+          "properties": [
+            {
+              "name": "score",
+              "path": "score",
+              "type": "number",
+              "value": 1250
+            },
+            {
+              "name": "label",
+              "path": "label",
+              "type": "string",
+              "value": "1,250 pts"
+            },
+            {
+              "name": "template",
+              "path": "template",
+              "type": "string",
+              "value": "${score:,.0f} pts"
+            },
+            {
+              "name": "bounded",
+              "path": "bounded",
+              "type": "number",
+              "value": 12.5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Rows[1]",
+      "artboard": "Row",
+      "viewModels": [
+        {
+          "name": "Lin",
+          "viewModel": "Player",
+          "properties": [
+            {
+              "name": "score",
+              "path": "score",
+              "type": "number",
+              "value": 980
+            },
+            {
+              "name": "label",
+              "path": "label",
+              "type": "string",
+              "value": "980 pts"
+            },
+            {
+              "name": "template",
+              "path": "template",
+              "type": "string",
+              "value": "${score:,.0f} pts"
+            },
+            {
+              "name": "bounded",
+              "path": "bounded",
+              "type": "number",
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Rows[2]",
+      "artboard": "Row",
+      "viewModels": [
+        {
+          "name": "Sam",
+          "viewModel": "Player",
+          "properties": [
+            {
+              "name": "score",
+              "path": "score",
+              "type": "number",
+              "value": 1500
+            },
+            {
+              "name": "label",
+              "path": "label",
+              "type": "string",
+              "value": "1,500 pts"
+            },
+            {
+              "name": "template",
+              "path": "template",
+              "type": "string",
+              "value": "${score:,.0f} pts"
+            },
+            {
+              "name": "bounded",
+              "path": "bounded",
+              "type": "number",
+              "value": 15
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

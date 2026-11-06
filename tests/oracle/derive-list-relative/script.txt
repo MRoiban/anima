@@ -1,0 +1,11 @@
+advance 0
+snapshot $players.0.score $players.0.label $players.0.bounded $players.1.score $players.1.label $players.1.bounded $players.2.score $players.2.label $players.2.bounded
+set $players.2.score 1500
+advance 0
+snapshot $players.0.score $players.0.label $players.0.bounded $players.1.score $players.1.label $players.1.bounded $players.2.score $players.2.label $players.2.bounded
+set $players.0.score 980
+advance 0
+snapshot $players.0.score $players.0.label $players.0.bounded $players.1.score $players.1.label $players.1.bounded $players.2.score $players.2.label $players.2.bounded
+set $players.1.score 40
+advance 0
+snapshot $players.0.score $players.0.label $players.0.bounded $players.1.score $players.1.label $players.1.bounded $players.2.score $players.2.label $players.2.bounded

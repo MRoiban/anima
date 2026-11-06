@@ -1,0 +1,41 @@
+{
+  "schema": 1,
+  "artboard": "Probe",
+  "stateMachine": "run",
+  "viewModel": {
+    "name": "main",
+    "viewModel": "Player",
+    "properties": [
+      {
+        "name": "score",
+        "path": "score",
+        "type": "number",
+        "value": 2500,
+        "changed": true
+      },
+      {
+        "name": "label",
+        "path": "label",
+        "type": "string",
+        "value": "2,500 pts",
+        "changed": true
+      },
+      {
+        "name": "template",
+        "path": "template",
+        "type": "string",
+        "value": "${score:,.0f} pts",
+        "changed": false
+      },
+      {
+        "name": "bounded",
+        "path": "bounded",
+        "type": "number",
+        "value": 20,
+        "changed": true
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}

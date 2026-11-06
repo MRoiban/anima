@@ -208,3 +208,15 @@ Four additional exact post-click probes resolve the listener-action pending mark
 [ACTION-EXPRESSIONS.md](ACTION-EXPRESSIONS.md) for reproduction, native extra-advance
 boundary, payload observation limits, and the separately retained immediate timing
 finding. Strict now checks 45 completed cases, with three findings reported separately.
+
+
+## P4e derive and bind logic: fresh native follow-up
+
+Nine new CLI 1.9.1 data-dump cases compare 75 snapshots / 186 typed observations
+exactly: formatted/clamped computed values, three independent list instances and
+seven comparison/logic operations each driving number and bool targets. The native
+logic mapping uses transition comparators and compares settled results. Read-only
+parity is separately an evidenced skip: native accepts a manual destination write
+and retains it after an advance; Anima rejects it. See the
+[derive evidence report](../../modules/derive/oracle/README.md) for reproduction,
+raw dumps, mappings and explicit limits. Existing findings and limits are unchanged.

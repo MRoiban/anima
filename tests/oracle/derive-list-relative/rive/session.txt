@@ -1,0 +1,24 @@
+ok advance
+ok data-dump: tests/oracle/derive-list-relative/rive/frames/0.json
+ok data
+ok advance
+ok data-dump: tests/oracle/derive-list-relative/rive/frames/1.json
+ok data
+ok advance
+ok data-dump: tests/oracle/derive-list-relative/rive/frames/2.json
+ok data
+ok advance
+ok data-dump: tests/oracle/derive-list-relative/rive/frames/3.json
+ok quit
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[17:54:18.694] rive  deferred replay: inline
+[17:54:18.705] rive  built (809 bytes, 11ms, 0 errors, 0 warnings)
+[17:54:18.706] rive  showing Board [1/2]
+[17:54:18.706] rive  viewport 20x20 @1x
+[17:54:18.706] rive  wrote tests/oracle/derive-list-relative/rive/frames/0.json
+[17:54:18.706] rive  data: players[2]/score = 1500 (mid-run)
+[17:54:18.706] rive  wrote tests/oracle/derive-list-relative/rive/frames/1.json
+[17:54:18.706] rive  data: players[0]/score = 980 (mid-run)
+[17:54:18.707] rive  wrote tests/oracle/derive-list-relative/rive/frames/2.json
+[17:54:18.707] rive  data: players[1]/score = 40 (mid-run)
+[17:54:18.707] rive  wrote tests/oracle/derive-list-relative/rive/frames/3.json

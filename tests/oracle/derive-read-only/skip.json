@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "No faithful read-only counterpart in the captured converter-to-model composition: native data label=manual succeeds and remains manual after one further frame; Anima rejects that destination with read-only-path. This skips only native read-only parity, not computed value comparisons. Native score changes resume computation (1501 -> 1,501 pts).",
+  "tests": ["modules/derive/test/core/oracle.test.ts", "modules/derive/test/core/derive.test.ts"],
+  "captureEvidence": [
+    "tests/oracle/derive-score-label/rive/scene.rml",
+    "tests/oracle/derive-score-label/rive/commands.txt",
+    "tests/oracle/derive-score-label/rive/session.txt",
+    "tests/oracle/derive-score-label/rive/frames/write.json",
+    "tests/oracle/derive-score-label/rive/frames/write-settled.json",
+    "tests/oracle/derive-score-label/rive/frames/source-after-write.json",
+    "modules/derive/oracle/SCHEMA-NOTES.md"
+  ]
+}
