@@ -112,3 +112,4 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 16:30 [claude]: merged P4c-5 (1a785a5): keyboard stops by default + propagate opt-in, capture parent-first verified; spec now states capture-without-consume as an intentional difference from Rive (Rive capture claims by default); preserve-offset intentional; oracle 106 cases strict green
 - 2026-11-07 17:30 [claude]: P4c benchmark: AniML 5/6 (arrow increments need P4d-3 expression actions), Rive 6/6; plan: P4d PR first, then main into p4c, doc fixes, AniML rerun, P4c PR
 - 2026-11-07 21:00 [claude]: merged P4c-6 (68637ce): 6/6 docs/tooling fixes; @after(0) was a runtime bug (see LOG), fixed with machine-change-pulse case; scoped 1673 pass
+- 2026-11-07 23:30 [claude]: PR #14 (P4d) merged; main into p4c conflicts in 29 files (compile/decompile, components events, oracle tooling) → delegated integration P4c-7
