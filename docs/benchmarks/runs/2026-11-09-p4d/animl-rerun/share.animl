@@ -1,0 +1,33 @@
+<anima version="0.1" name="share" title="Share" grid="20" requires="bind events assets">
+  <color name="ink" value="#141413"/>
+  <color name="accent" value="#d97757"/>
+  <number name="count" default="0"/>
+  <trigger name="pulse"/>
+  <asset name="tone" type="audio" src="tone.wav"/>
+  <event-def name="shared" audio="tone" volume="0.4"
+    payload='{"count":{"type":"number","input":"count"},"channel":{"type":"string","value":"button"}}'/>
+  <event-def name="pulse-done"/>
+  <event-def name="milestone" url="https://example.org/thanks" target="_blank"/>
+  <path id="links" d="M5 10L15 5M5 10L15 15" stroke="ink" stroke-width="1.5"/>
+  <circle id="left" cx="5" cy="10" r="2" pivot="5 10" fill="ink"/>
+  <circle id="top" cx="15" cy="5" r="2" pivot="15 5" fill="ink"/>
+  <circle id="bottom" cx="15" cy="15" r="2" pivot="15 15" fill="ink"/>
+  <timeline name="pulse" duration="0.4" loop="once">
+    <track target="left.scale">0 1; 0.15 1.3; 0.3 1</track>
+    <track target="top.scale">0 1; 0.05 1; 0.2 1.3; 0.35 1</track>
+    <track target="bottom.scale">0 1; 0.1 1; 0.25 1.3; 0.4 1</track>
+    <event at="0.4" name="pulse-done"/>
+  </timeline>
+  <layer name="main" initial="idle">
+    <state name="idle">
+      <on when="pulse and mod(count, 5) == 0" to="pulsing" startEmit="milestone"/>
+      <on when="pulse" to="pulsing"/>
+    </state>
+    <state name="pulsing" play="pulse" emit="shared">
+      <on when="pulse and mod(count, 5) == 0" to="pulsing" startEmit="milestone"/>
+      <on when="pulse" to="pulsing"/>
+      <on when="@end" to="idle"/>
+    </state>
+  </layer>
+  <listener on="click" set="count=count+1" fire="pulse"/>
+</anima>
