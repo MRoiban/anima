@@ -1,0 +1,68 @@
+{
+  "branch": "t3/split-host-shared-queue",
+  "scope": {
+    "exit": 0,
+    "passed": 5579,
+    "todo": 59,
+    "passingFiles": 61,
+    "skippedFiles": 13,
+    "seconds": 541.77,
+    "engines": ["Chromium", "Firefox"]
+  },
+  "oracle": {
+    "exit": 0,
+    "cases": 245,
+    "samples": 441,
+    "retainedFindings": 24,
+    "findingSamples": 27
+  },
+  "size": {
+    "exit": 0,
+    "coreWeb": 20150,
+    "coreWebDelta": 41,
+    "host": 3424,
+    "hostBudget": 4096,
+    "hostOver": "host-values",
+    "hostValues": 1154,
+    "hostValuesBudget": 2048,
+    "hostEdit": 3409,
+    "hostEditBudget": 4096,
+    "bind": 2047,
+    "bindBudget": 2048,
+    "full": 103330,
+    "fullDelta": 1061,
+    "fullCeiling": 131072,
+    "riveClass": 108310
+  },
+  "perf": {
+    "exit": 0,
+    "bellCompileMs": 6.4,
+    "prefixes": 9040,
+    "prefixSweepMs": 1198,
+    "bellFrameUs": 80.0,
+    "compositeFrameUs": 54.5,
+    "toolbarFrameUs": 63.3,
+    "toolbarCompileMs": 12.1,
+    "comparativeNonRegression": "unverified; concurrent load, no paired baseline"
+  },
+  "typecheck": 0,
+  "eslint": 0,
+  "prettier": 0,
+  "modulesCheck": 0,
+  "webCheck": 0,
+  "animlCheck": 0,
+  "parityStatusesUnchanged": 1238,
+  "rowsImplemented": [
+    "data.host-global-instance",
+    "host-api.global-models",
+    "host-api.reuse-loaded-file"
+  ],
+  "existingRowsPending": [
+    "data.host-artboard",
+    "host-api.data-artboard",
+    "host-api.bindable-artboards",
+    "components.host-artboard-reference"
+  ],
+  "protectedSourceAndMeasurementInputChanges": [],
+  "designDeviations": []
+}

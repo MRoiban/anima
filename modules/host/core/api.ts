@@ -1,8 +1,9 @@
 import type { Model } from '../../../packages/core/src/load.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
 import type { DataState } from '../../data/core/storage.ts';
-import type { Property } from '../../data/core/types.ts';
+import type { DataDocument, Property } from '../../data/core/types.ts';
 import type { ModuleRegistry } from '../../../packages/core/src/modules.ts';
+import type { HostValues } from '../../host-values/core/index.ts';
 import { accepts, normalize } from '../../data/core/storage.ts';
 import { codes, DataError, fail } from './errors.ts';
 export { DataError } from './errors.ts';
@@ -21,9 +22,10 @@ export interface TriggerHandle extends DataHandle<undefined> {
 export type Color = string | [number, number, number, number];
 export interface ModelInfo {
   name: string;
+  global?: boolean;
   properties: { name: string; type: string; values?: string[]; assetType?: string }[];
 }
-interface RecordInstance extends DataInstance {
+export interface RecordInstance extends DataInstance {
   values: Record<string, unknown>;
 }
 interface Address {
@@ -41,9 +43,28 @@ interface Watch {
 import { clone as copy } from '../../data/core/types.ts';
 const apis = new WeakMap<Player, HostData>();
 const observed = new WeakSet<Model>();
+let scopeFor: (p: Player) => DataState | undefined;
 export function observe(model: Model): void {
   if (observed.has(model) || !model.doc.data || !model.doc.requires?.includes('data')) return;
   observed.add(model);
+  const document = model.doc.data as DataDocument;
+  const globals = Object.entries(document.instances ?? {}).filter(
+    ([, i]) => document.models[i.model]?.global,
+  );
+  if (globals.length) {
+    const previous = model.resolveBindings;
+    model.resolveBindings = (p, ...args) => {
+      const scope = scopeFor(p);
+      for (const [name] of globals) {
+        const value = scope?.instances['@' + name];
+        if (!value) continue;
+        scope!.instances[name] = value;
+        const record = apis.get(p)?.record(name);
+        if (record) record.values = value;
+      }
+      previous?.(p, ...args);
+    };
+  }
   const previousSignal = model.signal;
   model.signal = (player, name) => {
     previousSignal?.(player, name);
@@ -55,7 +76,13 @@ export function observe(model: Model): void {
     apis.get(player)?.notify();
   };
 }
-export function install(shared: ModuleRegistry, state: (p: Player) => DataState | undefined): void {
+export function install(
+  shared: ModuleRegistry,
+  state: (p: Player) => DataState | undefined,
+  Values: typeof HostValues,
+  children: (p: Player) => Player[],
+): void {
+  scopeFor = state;
   Object.defineProperty(shared.Player.prototype, 'data', {
     configurable: true,
     get(this: Player) {
@@ -64,7 +91,7 @@ export function install(shared: ModuleRegistry, state: (p: Player) => DataState 
         const scope = state(this);
         if (!scope) fail('model', '', 'this player has no data models');
         observe(this.model);
-        apis.set(this, (api = new HostData(this, scope, shared, state)));
+        apis.set(this, (api = new HostData(this, scope, shared, state, Values, children)));
       }
       return api;
     },
@@ -74,6 +101,7 @@ export class HostData {
   #records = new Map<string, RecordInstance>();
   #bound?: RecordInstance;
   #owned = new WeakSet<DataInstance>();
+  #projected = new Map<object, Map<string, unknown>>();
   #pending: (() => void)[] = [];
   #watches = new Set<Watch>();
   #depth = 0;
@@ -81,30 +109,35 @@ export class HostData {
   #signals = new Map<string, number>();
   #targets = new Map<string, string[]>();
   #stepping = false;
-  #models = new WeakMap<object, string>();
-  #created: Record<string, { model: string; values: Record<string, unknown> }> = {};
+  #values: HostValues;
   readonly player: Player;
   private scope: DataState;
-  private shared: ModuleRegistry;
-  private state: (p: Player) => DataState | undefined;
+  private children: (p: Player) => Player[];
   constructor(
     player: Player,
     scope: DataState,
     shared: ModuleRegistry,
     state: (p: Player) => DataState | undefined,
+    Values: typeof HostValues,
+    children: (p: Player) => Player[],
   ) {
     this.player = player;
-    this.#models = scope.modelTypes ?? this.#models;
+    this.#values = new Values(player, scope, shared, state, this.#records, this.#owned);
     this.scope = scope;
-    this.shared = shared;
-    this.state = state;
+    this.children = children;
     this.#signals = new Map(scope.signals);
     for (const [name, values] of Object.entries(scope.instances)) {
-      const model = scope.compiled.document.instances![name]!.model;
+      const definition = scope.compiled.document.instances?.[name];
+      if (!definition) continue;
+      const model = definition.model;
       this.#records.set(name, { name, model, values });
     }
     for (const [name, record] of this.#records)
-      this.#index(record.values, record.model, scope.compiled.document.instances![name]!.values);
+      this.#values.index(
+        record.values,
+        record.model,
+        scope.compiled.document.instances![name]!.values,
+      );
     const busy = Object.getOwnPropertyDescriptor(shared.Player.prototype, 'busy')!.get!;
     Object.defineProperty(player, 'busy', {
       configurable: true,
@@ -136,6 +169,7 @@ export class HostData {
       try {
         const pending = this.#pending;
         this.#pending = [];
+        this.#projected.clear();
         for (const write of pending) write();
         const result = step(...args);
         return this.#pending.length ? { ...result, settled: false } : result;
@@ -143,41 +177,6 @@ export class HostData {
         this.#stepping = false;
       }
     };
-  }
-  #index(values: Record<string, unknown>, model: string, raw: Record<string, unknown> = {}): void {
-    if (this.#models.has(values)) return;
-    this.#models.set(values, model);
-    this.#children(this.scope.compiled.document.models[model]!.properties, values, raw);
-  }
-  #children(
-    properties: Record<string, Property>,
-    values: Record<string, unknown>,
-    raw: Record<string, unknown>,
-  ): void {
-    for (const [key, p] of Object.entries(properties)) {
-      if (key === '$comment') continue;
-      const source = raw[key] ?? p.default;
-      const item = (v: unknown, input: unknown, fixed?: string) => {
-        const r = input as
-          { model?: string; values?: Record<string, unknown>; instance?: string } | undefined;
-        const named = typeof input === 'string' ? input : r?.instance;
-        const instance = named
-          ? (this.scope.compiled.document.instances?.[named] ?? this.#created[named])
-          : undefined;
-        const type = fixed ?? instance?.model ?? r?.model;
-        if (v && typeof v === 'object' && type)
-          this.#index(
-            v as Record<string, unknown>,
-            type,
-            instance?.values ?? r?.values ?? (input as Record<string, unknown>),
-          );
-      };
-      if (p.type === 'model-ref') item(values[key], source, p.model);
-      if (p.type === 'list')
-        (values[key] as unknown[]).forEach((v, i) =>
-          item(v, (source as unknown[] | undefined)?.[i], p.of),
-        );
-    }
   }
   signal(name: string): void {
     const prefix = '$' + this.scope.compiled.defaultName + ':';
@@ -208,7 +207,7 @@ export class HostData {
       const source =
         a.property.type === 'trigger' ? a.instance.name + ':' + a.keys.join('.') : undefined;
       if (stamp !== watch.last && source === watch.source)
-        deliveries.push([watch, this.#copy(value)]);
+        deliveries.push([watch, this.#values.copy(value)]);
       watch.last = stamp;
       watch.source = source;
     }
@@ -238,7 +237,7 @@ export class HostData {
         if (!/^(0|[1-9]\d*)$/.test(index) || !Array.isArray(value) || +index >= value.length)
           fail('path', path, 'unknown list index');
         value = value[+index];
-        const name = property.of ?? this.#models.get(value as object);
+        const name = property.of ?? this.#values.models.get(value as object);
         if (!name) fail('model', path, 'list item has no discoverable model');
         if (i === keys.length - 1)
           return { instance, keys, property: { type: 'model-ref', model: name } };
@@ -262,65 +261,34 @@ export class HostData {
     return JSON.stringify(value);
   }
   get(path: string): unknown {
-    return this.#copy(this.#read(this.#address(path)));
+    return this.#values.copy(this.#read(this.#address(path)));
   }
-  #copy(input: unknown): unknown {
-    const seen = new Map<object, unknown>();
-    const value = copy(input, seen);
-    for (const [source, cloned] of seen) {
-      const model = this.#models.get(source);
-      if (model) this.#models.set(cloned as object, model);
-    }
-    return value;
+  /** Internal live projection shared with optional identity-preserving editors. */
+  project(path: string, ...value: [] | [unknown]): unknown {
+    const a = this.#address(path.startsWith('$') ? path : '$' + path);
+    let object: Record<string, unknown> = this.#projection(
+      this.scope.instances,
+      a.instance.name,
+    ) as Record<string, unknown>;
+    for (const key of a.keys.slice(0, -1))
+      object = this.#projection(object, key) as Record<string, unknown>;
+    return this.#projection(object, a.keys.at(-1)!, ...value);
   }
-  #values(
-    properties: Record<string, Property>,
-    values: Record<string, unknown>,
-    seen = new Map<object, Record<string, unknown>>(),
-    depth = 0,
-  ): Record<string, unknown> {
-    if (!values || typeof values !== 'object' || Array.isArray(values))
-      fail('type', '', 'instance values must be property maps');
-    if (depth >= 32) return values;
-    if (seen.has(values)) return seen.get(values)!;
-    const out = { ...values };
-    seen.set(values, out);
-    const item = (value: unknown, fixed?: string): unknown => {
-      if (!value || typeof value !== 'object' || Array.isArray(value)) return value;
-      if (this.#owned.has(value as DataInstance)) return { instance: (value as DataInstance).name };
-      const raw = value as { model?: string; values?: Record<string, unknown>; instance?: string };
-      if (raw.instance) return value;
-      const known = this.#models.get(value);
-      const model = known ?? raw.model ?? fixed;
-      const def = model && this.scope.compiled.document.models[model];
-      return def
-        ? {
-            model,
-            values: this.#values(
-              def.properties,
-              known
-                ? (value as Record<string, unknown>)
-                : (raw.values ?? (value as Record<string, unknown>)),
-              seen,
-              depth + 1,
-            ),
-          }
-        : value;
-    };
-    for (const [key, value] of Object.entries(values)) {
-      const p = properties[key];
-      out[key] =
-        p?.type === 'list' && Array.isArray(value)
-          ? value.map((v) => item(v, p.of))
-          : p?.type === 'model-ref'
-            ? item(value, p.model)
-            : value;
+  #projection(object: Record<string, unknown>, key: string, ...value: [] | [unknown]): unknown {
+    let projected = this.#projected.get(object);
+    if (value.length) {
+      if (!projected) this.#projected.set(object, (projected = new Map()));
+      projected.set(key, value[0]);
     }
-    return out;
+    return projected?.has(key) ? projected.get(key) : object[key];
   }
 
-  #enqueue(write: () => void): void {
+  enqueue(write: () => void): void {
+    if (typeof write !== 'function') fail('type', '', 'enqueue requires a write callback');
     this.#pending.push(write);
+    this.wake();
+  }
+  wake(): void {
     this.#changed = true;
     if (!this.#depth) {
       this.#changed = false;
@@ -384,12 +352,13 @@ export class HostData {
       fail('asset', path, 'asset reference kind does not match');
     let normalized: unknown;
     if (p.type === 'list' || p.type === 'model-ref')
-      normalized = this.#validate({ properties: { value: p } }, { value }).value;
+      normalized = this.#values.validate({ properties: { value: p } }, { value }).value;
     else {
       normalized = copy(normalize(p, value));
     }
     this.#store(a, normalized, path, false);
-    this.#enqueue(() => this.#store(a, normalized, path, true));
+    this.project(path, normalized);
+    this.enqueue(() => this.#store(a, normalized, path, true));
   }
   #store(a: Address, value: unknown, path: string, apply: boolean): void {
     let object = a.instance.values;
@@ -411,60 +380,6 @@ export class HostData {
     if (apply) object[a.keys.at(-1)!] = value;
   }
 
-  #validate(
-    def: { properties: Record<string, Property> },
-    values: Record<string, unknown>,
-  ): Record<string, unknown> {
-    values = this.#values(def.properties, values);
-    const document = this.scope.compiled.document;
-    let instanceName = 'hostValue';
-    while (this.#records.has(instanceName)) instanceName += 'X';
-    let name = 'HostValue';
-    while (Object.hasOwn(document.models, name)) name += 'X';
-    const result = this.shared.load({
-      anima: '0.1',
-      name: 'host-value',
-      grid: 20,
-      nodes: [{ id: 'host', type: 'group', children: [] }],
-      requires: this.player.model.doc.requires,
-      ...(this.player.model.doc.converters ? { converters: this.player.model.doc.converters } : {}),
-      ...(this.player.model.doc.assets ? { assets: this.player.model.doc.assets } : {}),
-      data: {
-        ...document,
-        model: name,
-        models: { ...document.models, [name]: def },
-        instances: {
-          ...Object.fromEntries(
-            Object.entries({ ...document.instances, ...this.#created }).map(([k, v]) => [
-              k,
-              { ...v, default: false },
-            ]),
-          ),
-          [instanceName]: { model: name, values, default: true },
-        },
-      },
-    });
-    const error = result.diagnostics.find((d) => d.severity === 'error');
-    if (error) throw DataError.from(error);
-    const scope = this.state(new this.shared.Player(result.model!))!;
-    const replacements = new Map(
-      Object.entries(scope.instances)
-        .filter(([k]) => this.#records.has(k))
-        .map(([k, v]) => [v, this.#records.get(k)!.values]),
-    );
-    const seen = new Map<object, unknown>(replacements);
-    const clone = (v: unknown): unknown => {
-      if (!v || typeof v !== 'object') return v;
-      if (seen.has(v)) return seen.get(v);
-      const out: Record<string, unknown> | unknown[] = Array.isArray(v) ? [] : {};
-      seen.set(v, out);
-      for (const [k, x] of Object.entries(v)) (out as Record<string, unknown>)[k] = clone(x);
-      return out;
-    };
-    const built = clone(scope.instances[instanceName]) as Record<string, unknown>;
-    this.#children(def.properties, built, values);
-    return built;
-  }
   number(path: string): DataHandle<number> {
     return this.#handle(path, 'number');
   }
@@ -499,7 +414,7 @@ export class HostData {
           (this.#bound === a.instance
             ? this.scope.compiled.refs.get('$' + a.keys.join('.'))?.input.name
             : undefined) ?? this.scope.ref(key)?.input.name;
-        this.#enqueue(() => {
+        this.enqueue(() => {
           if (canonical && this.player.model.inputs.has(canonical)) {
             let targets = this.#targets.get(canonical);
             if (!targets) this.#targets.set(canonical, (targets = []));
@@ -517,14 +432,14 @@ export class HostData {
     const defs = this.scope.compiled.document.models;
     const definition = Object.hasOwn(defs, model) ? defs[model] : undefined;
     if (!definition) fail('model', model, 'unknown data model');
-    values = this.#values(definition.properties, values);
-    const built = this.#validate(definition, values);
+    values = this.#values.values(definition.properties, values);
+    const built = this.#values.validate(definition, values);
     let name = 'host' + this.#records.size;
     while (this.#records.has(name)) name += 'X';
     const record = { name, model, values: built };
     this.#records.set(name, record);
-    this.#created[name] = { model, values: copy(values) };
-    this.#index(built, model, values);
+    this.#values.created[name] = { model, values: copy(values) };
+    this.#values.index(built, model, values);
     this.scope.instances[name] = built;
     return this.#public(record);
   }
@@ -565,13 +480,54 @@ export class HostData {
         watch.source = a.instance.name + ':' + a.keys.join('.');
       }
     }
-    this.player.onChange?.();
+    this.wake();
+  }
+  record(name: string): RecordInstance | undefined {
+    return this.#records.get(name);
+  }
+  rebindInstance(name: string, instance: DataInstance): void {
+    const target = this.#records.get(name);
+    const source = instance && this.#records.get(instance.name);
+    if (!target || !source || !this.#owned.has(instance) || source.model !== instance.model)
+      fail('instance', String(name), 'unknown instance or foreign instance record');
+    if (target.model !== source.model) fail('type', name, 'replacement instance model must match');
+    if (target === source) return;
+    const projected = this.#projection(this.scope.instances, source.name);
+    for (const [key, value] of Object.entries(this.scope.instances))
+      if (value === target.values) this.#projection(this.scope.instances, key, projected);
+    this.enqueue(() => {
+      const old = target.values,
+        value = source.values;
+      const visit = (player: Player) => {
+        const scope = this.#values.state(player);
+        if (scope) {
+          this.#values.share(value, scope);
+          for (const [key, item] of Object.entries(scope.instances)) {
+            if (
+              item !== old &&
+              !(
+                key === name &&
+                this.scope.compiled.document.models[target.model]?.global &&
+                scope.compiled.document.instances?.[key]?.model === target.model
+              )
+            )
+              continue;
+            scope.instances[key] = value;
+            const record = apis.get(player)?.record(key);
+            if (record) record.values = value;
+          }
+        }
+        for (const child of this.children(player)) visit(child);
+      };
+      visit(this.player);
+    });
   }
   models(): ModelInfo[] {
     return Object.entries(this.scope.compiled.document.models)
       .filter(([name]) => name !== '$comment')
       .map(([name, def]) => ({
         name,
+        ...(def.global ? { global: true } : {}),
         properties: Object.entries(def.properties)
           .filter(([key]) => key !== '$comment')
           .map(([name, p]) => ({

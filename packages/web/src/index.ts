@@ -72,6 +72,44 @@ const motionQuery = () => matchMedia('(prefers-reduced-motion: reduce)');
 let ids = 0;
 
 export class AnimaIcon extends HTMLElement {
+  /** Instantiate a compiled model without reparsing or recompiling it. */
+  loadModel(model: Model): void {
+    this.#retry = undefined;
+    ++this.#generation;
+    this.#destroyed = false;
+    this.#listen();
+    this.#observe();
+    schedule(this, false);
+    this.#last = -1;
+    this.#states = '';
+    this.#held = false;
+    AnimaIcon.eventHook?.(this, 'cleanup', null);
+    this.player = undefined;
+    const generation = this.#generation;
+    const finish = () => {
+      if (generation !== this.#generation) return;
+      this.player = new Player(model);
+      const player = this.player;
+      player.onChange = () => {
+        if (this.player === player) this.#wake();
+      };
+      this.#build(model);
+      this.#motion();
+      this.#aria();
+      if (!this.hasAttribute('paused')) {
+        AnimaIcon.eventHook?.(this, 'play', null);
+        this.#step(0);
+      }
+      this.#resolve();
+      this.dispatchEvent(new CustomEvent('anima:load', { detail: this.info }));
+    };
+    if (model.doc.assets && AnimaIcon.loadAssets) {
+      AnimaIcon.loadAssets(this, model).then(finish, (d: SourceDiagnostic[]) => {
+        if (generation === this.#generation) this.#fail(d);
+      });
+    } else finish();
+  }
+
   /** Wake sources that were loaded before their compiler or runtime modules registered. */
   static registration = 0;
   static refresh(): void {
@@ -93,6 +131,7 @@ export class AnimaIcon extends HTMLElement {
   static registry = { DOC: DOC as ObjShape, FILL: FILL as ObjShape, STROKE: STROKE as ObjShape };
   /** Installed by the composite SVG backend; 0.1 scenes keep authored DOM order. */
   declare static orderSVG?: (frame: DrawFrame, elements: [El, Element, Attrs][]) => void;
+  declare static sourceLoader?: (icon: AnimaIcon, url: string) => Promise<string | Model>;
   declare static loadAssets?: (icon: AnimaIcon, model: Model) => Promise<void>;
   declare static eventHook?: (icon: AnimaIcon, kind: string, detail: unknown) => void;
   static renderers: Record<string, (icon: AnimaIcon) => IconRenderer> = {};
@@ -221,24 +260,22 @@ export class AnimaIcon extends HTMLElement {
   attributeChangedCallback(name: string, _old: string | null, value: string | null): void {
     if (name === 'src' && value) {
       const generation = ++this.#generation;
-      fetch(value)
-        .then((r) => r.text())
-        .then(
-          (t) => {
-            if (generation === this.#generation)
-              void this.#source(
-                t,
-                /\.animl(?:[?#]|$)/.test(value),
-                new URL(value, document.baseURI).href,
-              );
-          },
-          () => {
-            if (generation !== this.#generation) return;
-            this.#fail([
-              { code: 'fetch', severity: 'error', pointer: '', message: `cannot fetch ${value}` },
-            ]);
-          },
-        );
+      (AnimaIcon.sourceLoader?.(this, value) ?? fetch(value).then((r) => r.text())).then(
+        (t) => {
+          if (generation === this.#generation)
+            void this.#source(
+              t,
+              /\.animl(?:[?#]|$)/.test(value),
+              new URL(value, document.baseURI).href,
+            );
+        },
+        () => {
+          if (generation !== this.#generation) return;
+          this.#fail([
+            { code: 'fetch', severity: 'error', pointer: '', message: `cannot fetch ${value}` },
+          ]);
+        },
+      );
     } else if (name === 'motion') this.#motion();
     else if (name === 'label') this.#aria();
     else if (name === 'paused') {
@@ -256,7 +293,11 @@ export class AnimaIcon extends HTMLElement {
     }
   }
 
-  async #source(source: string, markup: boolean, file: string): Promise<void> {
+  async #source(source: string | Model, markup: boolean, file: string): Promise<void> {
+    if (typeof source !== 'string') {
+      this.loadModel(source);
+      return;
+    }
     const retry = () => {
       void this.#source(source, markup, file);
     };
@@ -302,40 +343,7 @@ export class AnimaIcon extends HTMLElement {
       this.#fail(diagnostics);
       return diagnostics;
     }
-    this.#retry = undefined;
-    ++this.#generation;
-    this.#destroyed = false;
-    this.#listen();
-    this.#observe();
-    schedule(this, false);
-    this.#last = -1;
-    this.#states = '';
-    this.#held = false;
-    AnimaIcon.eventHook?.(this, 'cleanup', null);
-    this.player = undefined;
-    const generation = this.#generation;
-    const finish = () => {
-      if (generation !== this.#generation) return;
-      this.player = new Player(model);
-      const player = this.player;
-      player.onChange = () => {
-        if (this.player === player) this.#wake();
-      };
-      this.#build(model);
-      this.#motion();
-      this.#aria();
-      if (!this.hasAttribute('paused')) {
-        AnimaIcon.eventHook?.(this, 'play', null);
-        this.#step(0);
-      }
-      this.#resolve();
-      this.dispatchEvent(new CustomEvent('anima:load', { detail: this.info }));
-    };
-    if (model.doc.assets && AnimaIcon.loadAssets) {
-      AnimaIcon.loadAssets(this, model).then(finish, (d: SourceDiagnostic[]) => {
-        if (generation === this.#generation) this.#fail(d);
-      });
-    } else finish();
+    this.loadModel(model);
     return diagnostics;
   }
 

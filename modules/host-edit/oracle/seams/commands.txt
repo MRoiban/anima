@@ -1,0 +1,7 @@
+data-global main
+data-set-global main other
+data-bind main
+data-create Board
+data-add items other
+data-swap items 0 1
+quit

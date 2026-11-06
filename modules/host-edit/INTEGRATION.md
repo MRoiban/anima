@@ -18,7 +18,7 @@ The CLI docs topic filter in packages/cli/src/cli.ts also accepts only /^[a-z]+$
 hyphen support before `anima docs host-edit` can discover this chapter. CLI validate/inspect/sample
 of both example spellings already work and are tested; no CLI documentation-topic claim is made.
 
-## Missing seams, precisely
+## Original missing seams, precisely (P5b-2; superseded below)
 
 1. Core modules.ts registerModule accepts `/^[a-z]+(?:@[1-9]\d*)?$/`, and new-capability.ts permits
    only lowercase letters for --module. Those validators reject the decided `host-edit` name; the CLI docs filter rejects its topic too. The folder,
@@ -45,7 +45,7 @@ of both example spellings already work and are tested; no CLI documentation-topi
    compiled-Model instantiation path and cache identity including resolver/policy. No global fetch,
    JSON.parse or browser prototype is patched; parsed-file/decoded-asset reuse remains pending.
 
-## Lists handoff
+## Original lists handoff (P5b-2; superseded below)
 
 Helpers mutate `activeDataModule.dataState(player).instances` in place with Array.splice. The live
 array and all surviving item objects keep identity, including named aliases and multiple queued
@@ -73,3 +73,19 @@ Cached-model image isolation: assets.resolvedAssets is keyed by Model. If the pa
 compiled-Model loading, image overrides need a per-player/per-icon layer over shared decoded base
 resources; otherwise replacing one icon's image would affect every player of that model. Current
 isolation is tested with independently loaded models; shared-model override isolation is unverified.
+
+## P5b-4 closure
+
+Seams 2, 3 and 5 are closed: host owns enqueue/wake/project and rebindInstance; host-edit uses that
+queue and adds setGlobal/globals. Host value construction is split into host-values (auto-imported
+by web/host). Compiled-Model loads and the web source-loader hook support the cache. The cache
+shares parse/decode; asset-bearing icons retain local models rebuilt from cached parsed data to
+isolate model-keyed asset records. No cross-module model-fork protocol is assumed.
+
+The former helpers-before-host rule is replaced by call order. The former late-host modelTypes
+fallback gap is closed by host initializing the shared scope map in HostValues. Lists × host-edit
+is tested in core and Chromium/Firefox: all four edits retain the surviving players, machine state
+and animation clock. Global replacement also updates a surviving repeat player's named/parent
+contexts. Seam 4 (component-valued properties) and runtime naming validator seam 1 remain outside
+this task's ownership. Existing Rive command-rejection evidence covers unsupported host instance
+attachment/list editing; browser source caches have no command-runner counterpart.

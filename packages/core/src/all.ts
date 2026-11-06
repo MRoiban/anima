@@ -27,6 +27,7 @@ import { contourSVG } from '../../../modules/contour/core/svg.ts';
 import { data } from '../../../modules/data/core/index.ts';
 import { convert } from '../../../modules/convert/core/index.ts';
 import { derive } from '../../../modules/derive/core/index.ts';
+import { hostValues } from '../../../modules/host-values/core/index.ts';
 import { host } from '../../../modules/host/core/index.ts';
 import { hostEdit } from '../../../modules/host-edit/core/index.ts';
 import { lists } from '../../../modules/lists/core/index.ts';
@@ -61,6 +62,7 @@ if (VERBOSE) {
   registerModule(data);
   registerModule(convert);
   registerModule(derive);
+  registerModule(hostValues);
   registerModule(host);
   registerModule(hostEdit);
   registerModule(lists);

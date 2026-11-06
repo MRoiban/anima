@@ -23,8 +23,8 @@ cycles are data-cycle. All diagnostics are DataError with JSON pointer, message 
 
 Edits are queued, visible after step, and notify through host's complete-step subscriptions.
 List edits compose in call order on a projected list; they splice data's live array, preserving every
-surviving item object and shared named reference. Host-edit edits run before host's ordinary queued
-writes in the same step (host exposes no common enqueue hook). Whole-list host replacement retains
+surviving item object and shared named reference. Host and host-edit writes use one queue and apply in call order, including a whole-list
+replacement followed by helper edits. Whole-list host replacement retains
 host's existing replacement semantics. A batch coalesces wake requests and cannot be stepped.
 Callback edits wait until the following step. Shared compiled metadata remains unchanged.
 
@@ -45,8 +45,26 @@ consumer/asset or unsupported/external URL is data-asset; malformed values are d
 and same-origin URLs are accepted by default; the assets module's assetPolicy='any' permits external
 URLs. Core-only host-edit retains asset ID writes and rejects decode requests as data-asset.
 
-Unimplemented seams are recorded in REPORT.md; no component-property, global rebinding or
-compiled-document cache behavior is claimed by this spec yet.
+`globals()` returns detached owned `{name,model}` records for authored named instances whose model
+is global. `setGlobal(name, ownedRecord)` validates that name and delegates to host's queued atomic
+rebind. A missing/non-global name or foreign record is data-instance; a wrong model is data-type.
+Use instance(name) or create(model, values) to supply the replacement. Globals remain player-local;
+shared child contexts see the replacement, while another root player retains its own globals.
+
+The web runtime exposes a sourceLoader hook and loadModel(model) to instantiate a compiled Model.
+Host-edit also accepts Models in load(). Host-edit
+caches successful source loads by absolute URL, asset resolver function identity, policy, selected
+root component and module registration generation. Concurrent consumers share the fetch and parse
+(including AniML compilation). Failed source/compile/decode loads are retryable. Late module
+registration retains the runtime's ordinary diagnostic/retry path. Same-src icons with identical
+resolver/policy decode each initial image once and receive independent mutable asset records.
+Asset-free icons share the compiled Model; icons with assets instantiate a validated model from
+the cached parsed document because module asset records are model-keyed. This does not reparse
+source text or redo the initial decode. Direct compiled-Model loads also isolate asset records.
+Changing resolver/policy before setting src creates a distinct cache entry. Image replacements
+remain local, even when initial decoding was shared. Cache lifetime is the current page.
+
+Component-valued properties remain pending in REPORT.md; they are outside this seam follow-up.
 
 The stable-object graph approach follows docs/research/rive-format-and-graph.md §6, and lifecycle/
 registration boundaries follow docs/research/rive-web-runtime.md §4. No Rive source is used.

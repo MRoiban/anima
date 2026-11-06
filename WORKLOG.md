@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: completed P4e derive/bind native oracle follow-up on t3/derive-bind-oracle-captures-1; local commit only.
-Verified: Rive 1.9.1, 9 exact cases/75 snapshots/186 typed values; read-only parity evidenced skip (native accepts writes).
-Checks: strict225 cases/419 samples exit0; scope2446 pass/367 filtered/15 TODO; Prettier/ESLint/typecheck pass; 18 old findings unchanged.
-Next: parent reviews/integrates local commit; no pending implementation work in this test-only follow-up.
-Don't: change runtime/oracle limits/parity statuses; no push/PR/merge; no prohibited Rive commands or binary files.
+Goal: P5b-4 host seams complete on t3/split-host-shared-queue; local commit only.
+Verified: requested scope5579 pass/59 TODO incl Chromium+Firefox; oracle245/441 exit0 with24 inherited findings.
+Sizes: core+web20150 (+41), full103330 (+1061); host3424/4096, values1154/2048, edit3409/4096; all gates pass.
+Checks: typecheck/ESLint/Prettier/modules/web/AniML pass; perf exit0 (comparative non-regression unverified under load).
+Next: parent review/integrate; three targeted rows implemented, four pre-existing component-value rows remain for other owners.
+Don't: protected modules, measurement tools/inputs, limits, parity statuses, pushes/PRs/merges, decided design.
 
 ## Log
 - 2026-11-06 16:59 [codex-test]: condensed oldest half of log per >200-line rule; M0–M4 established spec/CLI/web, PRs #1–6 merged; original 25 KB owner budget decision retained in docs (evidence: 1901923, 0defae8, 18f98ed, 591d0ce, 62cee1b).
@@ -156,3 +157,11 @@ Don't: change runtime/oracle limits/parity statuses; no push/PR/merge; no prohib
 
 - 2026-11-06 19:24 [assets]: committed P5b-3 partial implementation on t3/implement-assets-capabilities; 698 owned/generated/evidence files, clean staged whitespace; no push/PR/merge (evidence: git commit; modules/assets/REPORT.md).
 - 2026-11-06 [claude]: merged P5b-3 assets (partial: 12 native-passing rows, 6 findings, 19 pending; assets 2001/2048, media 2317/3072, paint 4557, paint-sampling 548/1024, markup 7913/8192) → full-featured 102,269 / 131,072 B. Seams: corpus count 373/399 → 408; assets browser pipeline test launched a browser per test (1–2 s inside 5 s) → one browser per engine in beforeAll, fresh context per test (Firefox 0.3–0.8 s). JPEG CLI test 185 ms idle; failed only when unit+browser ran together (CI runs them sequentially)
+
+- 2026-11-06 21:43 [host-seams]: read contracts/history; npm ci restored dependencies; split value construction and added shared queue/projection → initial 51 host unit tests pass (evidence: /tmp/p5b-host1.txt); new globals/cache unverified.
+
+- 2026-11-06 21:55 [host-seams]: shared FIFO/globals/repeat/cache contracts → focused70 pass incl both engines; repeated named globals needed slot-based rebinding (fixed; core60 pass). Explicit loadModel hook; source/decoder failure entries evict; full scope running (unverified).
+
+- 2026-11-06 22:12 [host-seams]: final size exit0 (host3424/4096, values1154/2048, edit3409/4096, core+web20150 +41, full103330 +1061); oracle strict exit0 (245/441, 24 findings/27 samples), typecheck/ESLint/modules pass; broad rerun pending after stale demo rebuild; formatting raw-output cleanup pending (evidence: modules/host-edit/verification/p5b4/).
+
+- 2026-11-06 22:15 [host-seams]: frozen-source requested scope5579 pass/59 TODO (541.77s, both engines); static/artifact/size/oracle checks exit0; raw Canvas metrics preserved unchanged at /tmp/anima-p5b4-raw-artifacts/ and ignored outputs cleaned for Prettier → report/evidence ready for branch-only commit (evidence: modules/host-edit/P5B-4-REPORT.md, verification/p5b4/checks.json).

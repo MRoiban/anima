@@ -1,0 +1,12 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[21:54:03.895] rive  deferred replay: inline
+[21:54:03.914] rive  built (529 bytes, 18ms, 0 errors, 0 warnings)
+[21:54:03.915] rive  showing Data [1/2]
+[21:54:03.915] rive  viewport 20x20 @1x
+err data-global: unknown command 'data-global', type ? for the list
+err data-set-global: unknown command 'data-set-global', type ? for the list
+err data-bind: unknown command 'data-bind', type ? for the list
+err data-create: unknown command 'data-create', type ? for the list
+err data-add: unknown command 'data-add', type ? for the list
+err data-swap: unknown command 'data-swap', type ? for the list
+ok quit

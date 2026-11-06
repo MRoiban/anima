@@ -1,3 +1,4 @@
+import '../../host-values/web/index.ts';
 import { fail } from '../core/errors.ts';
 import { host } from '../core/index.ts';
 import type { HostData } from '../core/api.ts';

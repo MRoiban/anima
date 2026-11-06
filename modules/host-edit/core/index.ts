@@ -38,9 +38,8 @@ export type ImageHandle = DataHandle<string> & {
 };
 export type ImageReplacement = (api: HostData, path: string, value: unknown) => Promise<void>;
 const extended = new WeakSet<HostData>();
-const queues = new WeakMap<HostData, (write: () => void) => void>();
 export function queueEdit(api: HostData, write: () => void): void {
-  queues.get(api)!(write);
+  api.enqueue(write);
 }
 const items = new WeakMap<object, object>();
 
@@ -94,56 +93,12 @@ function extend(api: HostData, state: DataState): void {
     }
     return { property: property!, value, path: '$' + name + ':' + match[2] };
   };
-  // Edit operations run before host's ordinary queued writes, then the complete player step
-  // delivers host subscriptions. This wrapper works for an already-created HostData as well.
-  let pending: (() => void)[] = [];
   const projected = new Map<object[], object[]>();
-  let depth = 0;
-  let stepping = false;
-  const step = player.step.bind(player);
-  player.step = (...args) => {
-    if (depth || stepping)
-      fail('type', '', 'step inside data.batch or subscription is not allowed');
-    if (!(args[0] >= 0)) return step(...args);
-    stepping = true;
-    try {
-      const writes = pending;
-      pending = [];
+  const enqueue = (write: () => void) =>
+    api.enqueue(() => {
       projected.clear();
-      for (const write of writes) write();
-      const result = step(...args);
-      return pending.length ? { ...result, settled: false } : result;
-    } finally {
-      stepping = false;
-    }
-  };
-  const busy = Object.getOwnPropertyDescriptor(player, 'busy')!.get!;
-  Object.defineProperty(player, 'busy', {
-    configurable: true,
-    get: () => pending.length > 0 || busy.call(player),
-  });
-  const enqueue = (write: () => void) => {
-    pending.push(write);
-    if (!depth) player.onChange?.();
-  };
-  queues.set(api, enqueue);
-  const batch = api.batch.bind(api);
-  api.batch = (fn) => {
-    depth++;
-    const before = pending.length;
-    const wake = player.onChange;
-    let changed = false;
-    player.onChange = () => {
-      changed = true;
-    };
-    try {
-      return batch(fn);
-    } finally {
-      player.onChange = wake;
-      depth--;
-      if (changed || pending.length > before) wake?.();
-    }
-  };
+      write();
+    });
   const color = api.color.bind(api);
   api.color = (path): ColorHandle =>
     Object.defineProperties(color(path), {
@@ -172,6 +127,19 @@ function extend(api: HostData, state: DataState): void {
     if (!instance) fail('instance', String(name), 'unknown data instance');
     return instance;
   };
+  api.globals = () =>
+    api
+      .instances()
+      .filter(
+        (i) =>
+          state.compiled.document.instances?.[i.name] &&
+          state.compiled.document.models[i.model]?.global,
+      );
+  api.setGlobal = (name, instance) => {
+    if (!api.globals().some((i) => i.name === name))
+      fail('instance', String(name), 'unknown global instance');
+    api.rebindInstance(name, instance);
+  };
   const image = api.image.bind(api);
   api.image = (path): ImageHandle => {
     const handle = image(path);
@@ -191,10 +159,11 @@ function extend(api: HostData, state: DataState): void {
   api.list = (path): ListHandle => {
     const handle = list(path);
     const current = () => address(path).value as object[];
-    const projection = () => projected.get(current()) ?? current();
+    const projection = () => api.project(path) as object[];
     const commit = (values: object[]) => {
       const a = address(path);
       projected.set(a.value as object[], values);
+      api.project(a.path, values);
       enqueue(() => {
         const target = address(a.path).value as object[];
         target.splice(0, target.length, ...values);
@@ -297,13 +266,19 @@ declare module '../../host/core/api.ts' {
     image(path: string): ImageHandle;
     defaultInstance(): DataInstance;
     instance(name: string): DataInstance;
+    globals(): DataInstance[];
+    setGlobal(name: string, instance: DataInstance): void;
   }
 }
-export const hostEdit: Module & { replaceImage?: ImageReplacement } = {
+export const hostEdit: Module & {
+  replaceImage?: ImageReplacement;
+  compile?: ModuleRegistry['load'];
+} = {
   name: 'hostedit',
   after,
   entries: [],
   init(registry, shared: ModuleRegistry) {
+    hostEdit.compile = shared.load;
     if (!registry.has('host')) return hostEdit;
     const get = Object.getOwnPropertyDescriptor(shared.Player.prototype, 'data')!.get!;
     const data = registry.get('data') as DataModule;
