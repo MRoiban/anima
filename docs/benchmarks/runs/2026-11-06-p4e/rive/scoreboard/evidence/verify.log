@@ -1,0 +1,106 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[10:54:24.569] rive  deferred replay: inline
+[10:54:24.640] rive  built (3746 bytes, 71ms, 0 errors, 0 warnings)
+[10:54:24.641] rive  showing Scoreboard [1/1]
+[10:54:24.642] rive  viewport 480x240 @1x
+ok advance
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[10:54:24.662] rive  wrote evidence/00-default.png
+ok screenshot: evidence/00-default.png
+[10:54:24.662] rive  wrote evidence/00-default.json
+ok data-dump: evidence/00-default.json
+[10:54:24.662] rive  data: ada/score = 1500 (mid-run)
+ok data
+[10:54:24.662] rive  event milestone
+ok advance
+[10:54:24.674] rive  wrote evidence/01-cross.png
+ok screenshot: evidence/01-cross.png
+[10:54:24.675] rive  wrote evidence/01-cross.json
+ok data-dump: evidence/01-cross.json
+[10:54:24.675] rive  data: ada/score = 1600 (mid-run)
+ok data
+ok advance
+[10:54:24.675] rive  data: ada/score = 1499 (mid-run)
+ok data
+ok advance
+[10:54:24.675] rive  data: ada/score = 1500 (mid-run)
+ok data
+[10:54:24.675] rive  event milestone
+ok advance
+[10:54:24.675] rive  data: ada/score = 1700 (mid-run)
+ok data
+ok advance
+[10:54:24.675] rive  data: ada/score = 1800 (mid-run)
+ok data
+ok advance
+ok pointer
+ok pointer
+ok advance
+[10:54:24.686] rive  wrote evidence/02-drag-middle.png
+ok screenshot: evidence/02-drag-middle.png
+[10:54:24.687] rive  wrote evidence/02-drag-middle.json
+ok data-dump: evidence/02-drag-middle.json
+ok pointer
+ok advance
+[10:54:24.700] rive  wrote evidence/03-drag-upper.png
+ok screenshot: evidence/03-drag-upper.png
+[10:54:24.701] rive  wrote evidence/03-drag-upper.json
+ok data-dump: evidence/03-drag-upper.json
+ok pointer
+ok advance
+[10:54:24.710] rive  wrote evidence/04-drag-lower.png
+ok screenshot: evidence/04-drag-lower.png
+[10:54:24.710] rive  wrote evidence/04-drag-lower.json
+ok data-dump: evidence/04-drag-lower.json
+ok pointer
+ok advance
+[10:54:24.710] rive  data: ada/score = 1000 (mid-run)
+ok data
+ok advance
+[10:54:24.711] rive  data: ada/color = FF8844CC (mid-run)
+ok data
+[10:54:24.711] rive  data: lin/color = FF22AA55 (mid-run)
+ok data
+[10:54:24.711] rive  data: sam/color = FFCCBB33 (mid-run)
+ok data
+ok advance
+[10:54:24.722] rive  wrote evidence/05-host-colors.png
+ok screenshot: evidence/05-host-colors.png
+[10:54:24.723] rive  wrote evidence/05-host-colors.json
+ok data-dump: evidence/05-host-colors.json
+[10:54:24.723] rive  data: lin/score = 1900 (mid-run)
+ok data
+ok advance
+[10:54:24.738] rive  wrote evidence/06-lin-leader.png
+ok screenshot: evidence/06-lin-leader.png
+[10:54:24.738] rive  data: sam/score = 2000 (mid-run)
+ok data
+ok advance
+[10:54:24.754] rive  wrote evidence/07-sam-leader.png
+ok screenshot: evidence/07-sam-leader.png
+[10:54:24.755] rive  data: ada/score = 2000 (mid-run)
+ok data
+[10:54:24.755] rive  event milestone
+ok advance
+[10:54:24.769] rive  wrote evidence/08-ada-tie.png
+ok screenshot: evidence/08-ada-tie.png
+[10:54:24.770] rive  data: ada/score = 1000 (mid-run)
+ok data
+[10:54:24.770] rive  data: lin/score = 2000 (mid-run)
+ok data
+ok advance
+[10:54:24.786] rive  wrote evidence/09-lin-tie.png
+ok screenshot: evidence/09-lin-tie.png
+[10:54:24.787] rive  data: ada/label = HOST OVERRIDE (mid-run)
+ok data
+ok advance
+[10:54:24.787] rive  wrote evidence/10-label-write.json
+ok data-dump: evidence/10-label-write.json
+[10:54:24.787] rive  data: ada/score = 40 (mid-run)
+ok data
+ok advance
+[10:54:24.788] rive  wrote evidence/11-label-update.json
+ok data-dump: evidence/11-label-update.json
+[10:54:24.788] rive  wrote evidence/semantics.json
+ok semantics: evidence/semantics.json
+ok quit

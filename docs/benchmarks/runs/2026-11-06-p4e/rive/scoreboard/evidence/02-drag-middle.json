@@ -1,0 +1,283 @@
+{
+  "schema": 1,
+  "artboard": "Scoreboard",
+  "stateMachine": "Scoreboard",
+  "viewModel": {
+    "name": "Default",
+    "viewModel": "Scoreboard",
+    "properties": [
+      {
+        "name": "players",
+        "path": "players",
+        "type": "list",
+        "size": 3,
+        "items": [
+          {
+            "name": "Ada",
+            "viewModel": "Player",
+            "properties": [
+              {
+                "name": "name",
+                "path": "players[0]/name",
+                "type": "string",
+                "value": "Ada",
+                "changed": false
+              },
+              {
+                "name": "score",
+                "path": "players[0]/score",
+                "type": "number",
+                "value": 1800,
+                "changed": true
+              },
+              {
+                "name": "color",
+                "path": "players[0]/color",
+                "type": "color",
+                "value": "FFD97757",
+                "changed": false
+              },
+              {
+                "name": "label",
+                "path": "players[0]/label",
+                "type": "string",
+                "value": "1,800 pts",
+                "changed": true
+              },
+              {
+                "name": "_labelTemplate",
+                "path": "players[0]/_labelTemplate",
+                "type": "string",
+                "value": "${thousands},${remainder} pts",
+                "changed": true
+              }
+            ]
+          },
+          {
+            "name": "Lin",
+            "viewModel": "Player",
+            "properties": [
+              {
+                "name": "name",
+                "path": "players[1]/name",
+                "type": "string",
+                "value": "Lin",
+                "changed": false
+              },
+              {
+                "name": "score",
+                "path": "players[1]/score",
+                "type": "number",
+                "value": 980,
+                "changed": false
+              },
+              {
+                "name": "color",
+                "path": "players[1]/color",
+                "type": "color",
+                "value": "FF6A9BCC",
+                "changed": false
+              },
+              {
+                "name": "label",
+                "path": "players[1]/label",
+                "type": "string",
+                "value": "980 pts",
+                "changed": true
+              },
+              {
+                "name": "_labelTemplate",
+                "path": "players[1]/_labelTemplate",
+                "type": "string",
+                "value": "${score} pts",
+                "changed": false
+              }
+            ]
+          },
+          {
+            "name": "Sam",
+            "viewModel": "Player",
+            "properties": [
+              {
+                "name": "name",
+                "path": "players[2]/name",
+                "type": "string",
+                "value": "Sam",
+                "changed": false
+              },
+              {
+                "name": "score",
+                "path": "players[2]/score",
+                "type": "number",
+                "value": 40,
+                "changed": false
+              },
+              {
+                "name": "color",
+                "path": "players[2]/color",
+                "type": "color",
+                "value": "FF788C5D",
+                "changed": false
+              },
+              {
+                "name": "label",
+                "path": "players[2]/label",
+                "type": "string",
+                "value": "40 pts",
+                "changed": true
+              },
+              {
+                "name": "_labelTemplate",
+                "path": "players[2]/_labelTemplate",
+                "type": "string",
+                "value": "${score} pts",
+                "changed": false
+              }
+            ]
+          }
+        ],
+        "changed": false
+      },
+      {
+        "name": "ada",
+        "path": "ada",
+        "type": "viewModel",
+        "value": {
+          "name": "Ada",
+          "viewModel": "Player",
+          "properties": [
+            {
+              "name": "name",
+              "path": "ada/name",
+              "type": "string",
+              "value": "Ada",
+              "changed": false
+            },
+            {
+              "name": "score",
+              "path": "ada/score",
+              "type": "number",
+              "value": 1800,
+              "changed": true
+            },
+            {
+              "name": "color",
+              "path": "ada/color",
+              "type": "color",
+              "value": "FFD97757",
+              "changed": false
+            },
+            {
+              "name": "label",
+              "path": "ada/label",
+              "type": "string",
+              "value": "1,800 pts",
+              "changed": true
+            },
+            {
+              "name": "_labelTemplate",
+              "path": "ada/_labelTemplate",
+              "type": "string",
+              "value": "${thousands},${remainder} pts",
+              "changed": true
+            }
+          ]
+        }
+      },
+      {
+        "name": "lin",
+        "path": "lin",
+        "type": "viewModel",
+        "value": {
+          "name": "Lin",
+          "viewModel": "Player",
+          "properties": [
+            {
+              "name": "name",
+              "path": "lin/name",
+              "type": "string",
+              "value": "Lin",
+              "changed": false
+            },
+            {
+              "name": "score",
+              "path": "lin/score",
+              "type": "number",
+              "value": 980,
+              "changed": false
+            },
+            {
+              "name": "color",
+              "path": "lin/color",
+              "type": "color",
+              "value": "FF6A9BCC",
+              "changed": false
+            },
+            {
+              "name": "label",
+              "path": "lin/label",
+              "type": "string",
+              "value": "980 pts",
+              "changed": true
+            },
+            {
+              "name": "_labelTemplate",
+              "path": "lin/_labelTemplate",
+              "type": "string",
+              "value": "${score} pts",
+              "changed": false
+            }
+          ]
+        }
+      },
+      {
+        "name": "sam",
+        "path": "sam",
+        "type": "viewModel",
+        "value": {
+          "name": "Sam",
+          "viewModel": "Player",
+          "properties": [
+            {
+              "name": "name",
+              "path": "sam/name",
+              "type": "string",
+              "value": "Sam",
+              "changed": false
+            },
+            {
+              "name": "score",
+              "path": "sam/score",
+              "type": "number",
+              "value": 40,
+              "changed": false
+            },
+            {
+              "name": "color",
+              "path": "sam/color",
+              "type": "color",
+              "value": "FF788C5D",
+              "changed": false
+            },
+            {
+              "name": "label",
+              "path": "sam/label",
+              "type": "string",
+              "value": "40 pts",
+              "changed": true
+            },
+            {
+              "name": "_labelTemplate",
+              "path": "sam/_labelTemplate",
+              "type": "string",
+              "value": "${score} pts",
+              "changed": false
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}
