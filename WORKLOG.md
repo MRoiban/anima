@@ -1,11 +1,12 @@
 # Work log
 
 ## Now
-Goal: resume P4e-1 data on this branch; commit only, no push/PR.
-State: WIP restored with paint/contour/mix; merge scope passes (1946 tests, 13 TODO).
-Next: preserve measuring tools; verify independent probes/browser seams, final scope and metrics.
-Don't: change design, parity status, tools/thresholds, read .riv or copy Rive text.
-Pending: keyframe/text/layout/script/artboard/text-style/contextual-index/upward-relative rows.
+Goal: P4e-1 data checkpoint on t3/p4e-data-module; local commits only.
+State: restored merge 02c0007; browser/diagnostic seams fixed; 60 row vectors + 3 local vectors.
+Verified: required scope 2485 pass/45 TODO; core+web scope 1007 pass/26 TODO; strict oracle 0 (159 cases/353 frames).
+Verified: typecheck/lint/format/artifacts/size pass; data 8181, bind 2046, components 3167 B; core+web 20021 B.
+Next: quiet-machine performance/profile (latest timings slower); owner decision on trigger listener 9 vs 0; 13 pending rows in modules/data/REPORT.md.
+Don't: push/PR/merge elsewhere, change design/parity statuses/measurement tools or thresholds, read .riv/copy native docs.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -127,3 +128,11 @@ Pending: keyframe/text/layout/script/artboard/text-style/contextual-index/upward
 - 2026-11-06 07:21 [codex/data]: final-data checkpoints: 60 row conformance vectors + 1 shared-child ordering vector, 24 exact native cases + 18 evidenced system-enum limits; 13 row gaps explicitly pending (evidence: modules/data/ROWS.json).
 - 2026-11-06 08:55 [codex/data]: restored WIP with 16 conflicts; regenerated wiring/schema/parity/AniML/web; initial merge scope 1942 pass/4 failed (strict census/order assertions from both sides) → reconciled 297-case census and registry order; no limits changed. npm ci installed absent dependencies.
 - 2026-11-06 08:59 [codex/data]: merge scope data/paint/contour/mix/markup passed (1946 pass, 225 filtered, 13 TODO); modules --check current; parity statuses exactly match original branch.
+- 2026-11-06 09:00 [codex/data]: stronger separate-bundle probes exposed named-instance requiring components and foreign BindError rejection → fixed compiler routing/error boundary; four Chromium/Firefox probes pass with shared function/converter hooks and named instances.
+- 2026-11-06 09:00 [codex/data]: initial size 8217/8192 failed → consolidated converter dispatch/listener snapshots; data 8178/8192, bind 2046/2048; tools/oracle restored to original with exact trigger comparisons module-owned; strict oracle exits 0 and retains 9-vs-0 finding.
+- 2026-11-06 09:00 [codex/data]: broad scope after fixes 2479 pass/1 failed/45 TODO → new CLI test used nonexistent --json; corrected to documented --format=json (verification pending). Enum conformance generator no longer imports its expected vocabulary from runtime.
+- 2026-11-06 09:03 [codex/data]: requested data/bind/components/machine/markup/conformance/oracle scope passed (2480 tests, 45 TODO); four strengthened separate-bundle browser checks pass; added missing value-source diagnostics and nonempty message/hint assertions (verification pending).
+- 2026-11-06 09:10 [codex/data]: same-CPU perf follow-up found prefix slowdown (912–1023 ms vs main 701–708) despite noisy earlier runs → investigating repeated composed form construction; adding compile-local per-element form cache, correctness/perf unverified.
+- 2026-11-06 09:17 [codex/data]: final required scope 2485 pass/45 TODO; core+web 1007 pass/26 TODO; four owned browser probes pass in Chromium/Firefox; strict oracle exits 0 (159 cases/353 frames), 13 findings/16 frames retained.
+- 2026-11-06 09:17 [codex/data]: typecheck/prettier/eslint/module/artifact/size checks pass; data 8181/8192, bind 2046/2048, components 3167/4096; core+web 20021 (+190 vs main), full 81802 (+12136). Pinned perf shows slower samples → no-regression target unverified; raw readings in modules/data/verification.
+- 2026-11-06 09:18 [codex/data]: startup regeneration failed with missing prettier/esbuild/workspace dependencies → npm ci restored tooling. Initial text-conflict join overmatched WORKLOG → restored conflict text and reapplied bounded matching before generation; verified merged cases/statuses retained.

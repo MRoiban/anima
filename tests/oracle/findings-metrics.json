@@ -49,6 +49,22 @@
     ]
   },
   {
+    "name": "input-data-listener/internal-trigger-difference",
+    "status": "finding",
+    "reason": "A native state-action trigger sets the trigger changed flag but does not run the view-model change listener (n stays 0); Anima delivers on change:$pulse after its step boundary (n becomes 9). Host data pulse=1 does invoke the native listener. This variant needs an owner design decision and is not verified parity.",
+    "frames": [
+      {
+        "time": 0,
+        "actual": 9,
+        "reference": 0,
+        "maxDiff": 9,
+        "over": 1,
+        "overPercent": 100,
+        "pass": false
+      }
+    ]
+  },
+  {
     "name": "input-align-preserve",
     "status": "intentional difference",
     "reason": "Intentional difference: Anima follows the pointer with the grab offset measured at pointer-down (x=88 on origin x=80; move to x=104 yields x=96). Native preserve-offset remains x=80 at the first move and after release; absolute delta 16. Neither result nor tolerance is normalized.",
@@ -682,22 +698,6 @@
           }
         ],
         "maxDiff": 1,
-        "over": 1,
-        "overPercent": 100,
-        "pass": false
-      }
-    ]
-  },
-  {
-    "name": "input-data-listener/internal-trigger-difference",
-    "status": "finding",
-    "reason": "A native state-action trigger sets the trigger changed flag but does not run the view-model change listener (n stays 0); Anima delivers on change:$pulse after its step boundary (n becomes 9). Host data pulse=1 does invoke the native listener. This variant needs an owner design decision and is not verified parity.",
-    "frames": [
-      {
-        "time": 0,
-        "actual": 9,
-        "reference": 0,
-        "maxDiff": 9,
         "over": 1,
         "overPercent": 100,
         "pass": false

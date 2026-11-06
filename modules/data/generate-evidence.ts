@@ -2,7 +2,26 @@
 import '../../packages/core/src/all.ts';
 import { mkdirSync, writeFileSync, rmSync } from 'node:fs';
 import { compile, decompile } from '../../packages/markup/src/index.ts';
-import { systemEnums } from './core/enums.ts';
+// Authored from the declared vocabulary in SPEC.md, independent of the runtime table.
+const enumBounds = {
+  'horizontal-text-align': ['left', 'justify'],
+  'vertical-text-align': ['top', 'bottom'],
+  'layout-alignment': ['start', 'space-evenly'],
+  'layout-direction': ['inherit', 'rtl'],
+  'layout-display': ['flex', 'none'],
+  'layout-flex-direction': ['row', 'column-reverse'],
+  'layout-position': ['relative', 'absolute'],
+  'layout-position-units': ['points', 'auto'],
+  'layout-scale-type': ['none', 'fill'],
+  'layout-wrap': ['no-wrap', 'wrap-reverse'],
+  'scroll-direction': ['horizontal', 'both'],
+  'semantic-check-state': ['unchecked', 'mixed'],
+  'text-box': ['auto-width', 'fixed'],
+  'text-overflow': ['visible', 'ellipsis'],
+  'text-trim-bottom': ['none', 'baseline'],
+  'text-trim-top': ['none', 'cap-height'],
+  'word-wrap': ['word', 'none'],
+};
 type Obj = Record<string, unknown>;
 const root = new URL('../../', import.meta.url);
 const completed: string[] = [];
@@ -71,7 +90,7 @@ for (const [kind, prop, before, after, token] of [
     `advance 0\nsnapshot $value\nset $value ${token}\nadvance 0\nsnapshot $value`,
     [snapshot({ $value: before }), snapshot({ $value: after })],
   );
-for (const [system, values] of Object.entries(systemEnums))
+for (const [system, values] of Object.entries(enumBounds))
   probe(
     'data.system-enum-' + system,
     base({ value: { type: 'enum', system } }),

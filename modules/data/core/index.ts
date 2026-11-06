@@ -256,28 +256,27 @@ export const data: DataModule = {
       const before =
         last.get(p) ??
         new Map(
-          [...c.refs].map(([path, r]) => [
-            path,
-            r.input.type === 'trigger' ? 0 : readDefault(c.defaults, r),
-          ]),
+          [...watched].map((path) => {
+            const r = c.refs.get(path)!;
+            return [path, r.input.type === 'trigger' ? 0 : readDefault(c.defaults, r)];
+          }),
         );
-      const now = new Map<string, unknown>();
+      const now = new Map(
+        [...watched].map((path) => {
+          const r = c.refs.get(path)!;
+          return [
+            path,
+            r.input.type === 'trigger'
+              ? (state.signals.get(r.input.name) ?? 0)
+              : clone(state.get(path)),
+          ];
+        }),
+      );
       for (const l of model.listeners)
         if (l.on.startsWith('change:')) {
-          const path = l.on.slice(7),
-            v =
-              c.refs.get(path)?.input.type === 'trigger'
-                ? (state.signals.get(c.refs.get(path)!.input.name) ?? 0)
-                : state.get(path);
-          if (!same(before.get(path), v)) p.act(l);
+          const path = l.on.slice(7);
+          if (!same(before.get(path), now.get(path))) p.act(l);
         }
-      for (const path of watched)
-        now.set(
-          path,
-          c.refs.get(path)!.input.type === 'trigger'
-            ? (state.signals.get(c.refs.get(path)!.input.name) ?? 0)
-            : clone(state.get(path)),
-        );
       last.set(p, now);
     };
   },

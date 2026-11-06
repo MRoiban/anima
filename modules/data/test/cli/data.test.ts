@@ -37,3 +37,16 @@ it('exposes all model property types and binding modes through JSON Schema', asy
   ]);
   expect(JSON.stringify(schema.properties.bind)).toContain('two-way');
 });
+it('documents the data contract and inspects typed data paths in both spellings', async () => {
+  const docs = await cli('docs', 'data');
+  expect(docs.code, docs.err).toBe(0);
+  expect(docs.out).toContain('two-way');
+  expect(docs.out).toContain('change:$path');
+  for (const ext of ['ani', 'animl']) {
+    const path = new URL('../../examples/scoreboard.' + ext, import.meta.url).pathname;
+    const result = await cli('inspect', path, '--format=json');
+    expect(result.code, result.err).toBe(0);
+    const summary = JSON.parse(result.out);
+    expect(summary.inputs).toMatchObject({ '$main:score': 'number', '$main:label': 'string' });
+  }
+});

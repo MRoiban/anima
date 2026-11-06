@@ -4,6 +4,8 @@ import { resolve } from 'node:path';
 import { chromium, firefox } from 'playwright-core';
 import { describe, it, expect } from 'vitest';
 import { cachedBundle as bundle } from '../../../../tools/browser-cache.ts';
+import type { DataModule } from '../../core/index.ts';
+import type { bind } from '../../../bind/core/index.ts';
 import type { AnimaIcon } from '../../../../packages/web/src/index.ts';
 for (const [name, engine, paths] of [
   [
@@ -60,12 +62,22 @@ for (const [name, engine, paths] of [
             );
             const result = await page.evaluate(async () => {
               const el = document.querySelector('anima-icon') as AnimaIcon;
-              const xml = `<anima version="0.1" name="browser-data" grid="20" requires="data bind"><model name="Score"><number name="score" default="4"/><string name="label" default="Ada"/></model><circle id="dot" cx="10" cy="10" r="1" data-label="start" fill="#000"/><bind target="dot.r" value="$score"/><bind target="dot.properties.label" value="$label"/></anima>`;
+              const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
+              (Icon.modules.get('bind') as typeof bind).registerFunction('triple', 1, (v) => 3 * v);
+              (Icon.modules.get('data') as DataModule).registerConverter(
+                'offset',
+                (v, options) => Number(v) + Number(options.bonus),
+              );
+              const xml = `<anima version="0.1" name="browser-data" grid="20" requires="data bind"><model name="Score"><number name="score" default="4"/><string name="label" default="Ada"/></model><instance name="main" model="Score" default="true"/><circle id="dot" cx="10" cy="10" r="1" data-label="start" fill="#000"/><bind target="dot.r" value="triple($main:score)" convert="offset" options="{&quot;bonus&quot;:5}"/><bind target="dot.properties.label" value="$label"/></anima>`;
               const compiled = (customElements.get('anima-icon') as typeof AnimaIcon).compiler!(
                 xml,
               );
               if (compiled.diagnostics.some((d) => d.severity === 'error'))
                 throw Error(JSON.stringify(compiled.diagnostics));
+              // The bind parser lives in a different bundle. Its errors must become diagnostics.
+              const invalid = Icon.compiler!(xml.replace('triple($main:score)', 'missing($score)'));
+              const diagnostic = invalid.diagnostics.find((d) => d.code === 'bind-syntax');
+              if (!diagnostic) throw Error(JSON.stringify(invalid.diagnostics));
               await el.load(compiled.doc!);
               el.player!.step(0);
               const before = el.player!.value('dot.r');
@@ -78,7 +90,7 @@ for (const [name, engine, paths] of [
                 label: el.player!.value('dot.properties.label'),
               };
             });
-            expect(result).toEqual({ before: 4, after: 8, label: 'Grace' });
+            expect(result).toEqual({ before: 17, after: 29, label: 'Grace' });
             expect(errors).toEqual([]);
           } finally {
             await browser.close();

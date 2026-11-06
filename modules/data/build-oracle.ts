@@ -426,6 +426,7 @@ for (const [id, probe] of Object.entries(verified)) {
   });
 }
 
+const signalCases: object[] = [];
 for (const [id, source, path, doc, script, frame] of [
   [
     'data.state-action-trigger',
@@ -485,7 +486,7 @@ for (const [id, source, path, doc, script, frame] of [
   rmSync(join(dir, 'todo.json'), { force: true });
   const previous = cases.findIndex((c: { name: string }) => c.name === slug);
   if (previous >= 0) cases.splice(previous, 1);
-  cases.push({
+  signalCases.push({
     name: slug,
     times: [0],
     threshold: 0,
@@ -499,6 +500,7 @@ for (const [id, source, path, doc, script, frame] of [
     },
   });
 }
+writeFileSync('modules/data/oracle/signals.json', JSON.stringify(signalCases, null, 2) + '\n');
 writeFileSync('tests/oracle/cases.json', JSON.stringify(cases, null, 2) + '\n');
 const implemented: string[] = json('modules/data/implemented.json');
 const rows = json('modules/data/ROWS.json');

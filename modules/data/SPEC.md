@@ -17,6 +17,28 @@ or `system` (one of the declared names in `core/enums.ts`); its default is its f
 `data.enums` entries are strings or `{key,label?}`; member order defines indices.
 System enums only declare vocabulary here; future layout/text consumers are not implemented.
 
+The system vocabulary is an Anima contract (native CLI dumps expose no members):
+
+| Name | Members, in index order |
+|---|---|
+| horizontal-text-align | left, right, center, justify |
+| vertical-text-align | top, center, bottom |
+| layout-alignment | start, center, end, stretch, baseline, space-between, space-around, space-evenly |
+| layout-direction | inherit, ltr, rtl |
+| layout-display | flex, none |
+| layout-flex-direction | row, row-reverse, column, column-reverse |
+| layout-position | relative, absolute |
+| layout-position-units | points, percent, auto |
+| layout-scale-type | none, fit, fill |
+| layout-wrap | no-wrap, wrap, wrap-reverse |
+| scroll-direction | horizontal, vertical, both |
+| semantic-check-state | unchecked, checked, mixed |
+| text-box | auto-width, auto-height, fixed |
+| text-overflow | visible, hidden, ellipsis |
+| text-trim-bottom | none, baseline |
+| text-trim-top | none, cap-height |
+| word-wrap | word, character, none |
+
 `list` contains model instances; `of` optionally constrains the model. `model-ref` requires
 `model`. Values use a named instance string, `{instance: name}`, `{model,values}` or inline
 values when the model is fixed. Named references retain identity, including through lists.
@@ -43,6 +65,8 @@ AniML uses `<model name="Player" global="true">`, typed child declarations (`<nu
 `<string>`, `<bool>`, `<color>`, `<trigger>`, `<enum>`, `<list>`, `<model-ref>`, `<asset-ref>`), and
 `<instance name="main" model="Player" default="true"><set path="score" value="12"/></instance>`.
 Property attributes follow JSON names; asset declarations use `type="image|font|blob"`.
+Named model instances do not require the components markup bundle. A placed component instance
+retains its separate `id`/`component` form and requires components.
 Initial compound values use JSON in `value`; enum member lists use whitespace, or JSON entries
 for root enum display labels. Optional root `data='{"preview":"main","model":"Player"}'`
 retains metadata while child declarations populate models/instances. Node placements use
@@ -58,6 +82,9 @@ post-state snapshot. Reverse writes apply after all bindings in authored order. 
 source changes and the target's underlying animated/rest value; simultaneous changes use
 `prefer: source` (default) or `target`. The initial step counts both as changed. Once converts
 once and retains that result. No binding iteration or same-frame reentry occurs.
+
+AniML caches composed forms per element for the duration of one compilation. A new compile
+reads the current module registry again, including hooks registered by separately loaded bundles.
 
 Converters register by name through the composed data module's `registerConverter(name, fn)`;
 `fn(value, options, ctx)` returns a value. Context is `{player,dt,direction,get,state}`; state is

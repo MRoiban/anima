@@ -2026,3 +2026,26 @@ No push, PR, merge into main, benchmark rerun or parity-status promotion by this
   changing its 5000 ms limit. Full phase CI/benchmark and the parallel convert/host integration remain.
 - Final size/performance measurements are recorded in modules/data/REPORT.md. Bind stays below 2048 B;
   data stays below 8192 B. Components reuses the shared expression compiler and stays below 4096 B.
+
+## P4e-1 resumed data checkpoint — partial (2026-11-06)
+
+- Restored saved WIP with paint/contour/mix via merge `02c0007`; 16 conflicts resolved and generated
+  wiring/schema/parity/AniML/web rebuilt. Parity statuses remain unchanged.
+- Fixed named model instances without components in lean markup, shared function/converter registration
+  and foreign parser diagnostics. Reduced duplicated converter/listener code; composed forms cache
+  lasts one compilation and keeps late module registration visible.
+- Required scope: **2485 pass / 45 TODO**; shared core+web: **1007 pass / 26 TODO**. Four owned browser
+  probes pass across Chromium/Firefox and both arrival orders. CLI schema/inspect/docs verified.
+  Typecheck, lint, format, module wiring and generated artifact checks pass.
+- Size check passes: data **8181/8192 B**, bind **2046/2048 B**, components **3167/4096 B**; other
+  module budgets unchanged and passing. Core+web **20021 B (+190 vs main)**; full-featured
+  **81802 B vs main 69666 B (+12136)**, including the starting branch's paint additions.
+- Strict oracle exits **0**: 159 cases / 353 frames. Data adds 37 global comparisons plus two exact
+  module-owned trigger flags, with 21 evidenced native observation skips. The shared oracle tool
+  is restored unchanged. Internal-trigger finding remains **Anima 9 vs native 0**; no thresholds adjusted.
+- 59/73 assigned rows have complete comparable/skip evidence; one finding and thirteen explicit pending
+  rows remain. No-regression performance is **unverified**: final pinned prefix runs 713/1015 ms
+  versus main 569/962 ms; bell frames 42.4/56.7 µs versus 35.3/40.9 µs. Other slower frame/compile
+  readings and earlier noise remain in `modules/data/verification/`; no passing perf claim.
+- Full report: `modules/data/REPORT.md`; provenance: `modules/data/EVIDENCE.md`. Local commits only;
+  no push, PR, publication, design change, .riv reading/conversion or new runtime dependencies.

@@ -1,0 +1,21 @@
+Same CPU affinity: 7
+main-1
+compile: bell 2.26 ms; all 9040 prefixes 708 ms
+frame: bell 57.8 µs; composite 39.8 µs
+frame: toolbar 44.3 µs (step + draw, 4 instances)
+compile: toolbar 7.06 ms
+data-1
+compile: bell 4.12 ms; all 9040 prefixes 912 ms
+frame: bell 50.1 µs; composite 31.2 µs
+frame: toolbar 34.0 µs (step + draw, 4 instances)
+compile: toolbar 6.93 ms
+data-2
+compile: bell 3.95 ms; all 9040 prefixes 1023 ms
+frame: bell 59.4 µs; composite 40.9 µs
+frame: toolbar 41.9 µs (step + draw, 4 instances)
+compile: toolbar 8.19 ms
+main-2
+compile: bell 4.26 ms; all 9040 prefixes 701 ms
+frame: bell 39.4 µs; composite 26.9 µs
+frame: toolbar 26.9 µs (step + draw, 4 instances)
+compile: toolbar 4.35 ms

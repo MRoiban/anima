@@ -91,8 +91,8 @@ export function bindings(
       model.addrs.set(target, a);
       links.push({ target, spec, read, source });
     } catch (e) {
-      if (!(e instanceof BindError)) throw e;
-      error(e.code, at, e.message);
+      if (!(e instanceof Error) || !('code' in e)) throw e;
+      error(String(e.code), at, e.message);
     }
   }
   const states = new WeakMap<Player, Map<Link, { source: unknown; raw: Value; output: Value }>>();
@@ -126,23 +126,16 @@ export function bindings(
           typeof v === 'string' && v.startsWith('$') ? state?.read(v) : v,
         ]),
       );
-      const convert = (v: unknown, direction: 'forward' | 'reverse'): Value => {
-        if (spec.convert) {
-          v = converters.get(spec.convert)!(v, options, {
-            player: p,
-            dt,
-            direction,
-            get: (path) => state?.read(path),
-            state: converterState,
-          });
-        }
-        const prop = model.addrs.get(target)!.prop;
-        return prop.type === 'color' && typeof v === 'string'
-          ? parseHex(v)!
-          : prop.type === 'number'
-            ? Number(v)
-            : (v as Value);
-      };
+      const convert = (v: unknown, direction: 'forward' | 'reverse'): unknown =>
+        spec.convert
+          ? converters.get(spec.convert)!(v, options, {
+              player: p,
+              dt,
+              direction,
+              get: (path) => state?.read(path),
+              state: converterState,
+            })
+          : v;
       const changedSource = !old || !same(value, old.source),
         changedTarget = !old || !same(raw, old.raw);
       let output = old?.output ?? raw;
@@ -151,21 +144,20 @@ export function bindings(
         (mode === 'two-way' && changedTarget && (!changedSource || spec.prefer === 'target'))
       ) {
         if (source) {
-          let v: unknown = raw;
-          if (spec.convert)
-            v = converters.get(spec.convert)!(v, options, {
-              player: p,
-              dt,
-              direction: 'reverse',
-              get: (path) => state?.read(path),
-              state: converterState,
-            });
-          value = normalize(c!.refs.get(source)!.property, v);
+          value = normalize(c!.refs.get(source)!.property, convert(raw, 'reverse'));
           writes.push([source, value as Value]);
         }
         output = raw;
-      } else if (mode === 'to-target' || !old || (mode === 'two-way' && changedSource))
-        output = convert(value, 'forward');
+      } else if (mode === 'to-target' || !old || (mode === 'two-way' && changedSource)) {
+        const v = convert(value, 'forward'),
+          prop = model.addrs.get(target)!.prop.type;
+        output =
+          prop === 'color' && typeof v === 'string'
+            ? parseHex(v)!
+            : prop === 'number'
+              ? Number(v)
+              : (v as Value);
+      }
       values[slot] = output;
       last.set(link, { source: clone(value), raw, output });
     }

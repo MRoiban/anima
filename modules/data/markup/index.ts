@@ -29,7 +29,7 @@ export const dataMarkup = {
           ...base.attrs,
           ...(el.name === 'component' ? { data: 'string' as const } : { data: 'json' as const }),
         },
-        children: [...(base.children ?? []), 'model', 'enum'],
+        children: [...(base.children ?? []), 'model', 'enum', 'instance'],
       };
     if (el.name === 'bind')
       return {

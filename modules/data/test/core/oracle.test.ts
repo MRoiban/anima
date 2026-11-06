@@ -1,7 +1,8 @@
 import '@anima-format/core/all';
+import { dataState } from '../../core/index.ts';
 import { readFileSync } from 'node:fs';
 import { it, expect } from 'vitest';
-import { load, Player } from '../../../../packages/core/src/index.ts';
+import { load, Player, runScript } from '../../../../packages/core/src/index.ts';
 import { printable } from '../../core/storage.ts';
 it('matches eight independently captured native scalar values exactly', () => {
   const raw = {
@@ -120,3 +121,24 @@ it('retains the native asset-reference observation limit rather than fabricating
   );
   expect(session.match(/no property at this path/g)).toHaveLength(6);
 });
+
+// Exact signal comparison belongs to data, keeping the repository oracle tool unchanged.
+const signals = JSON.parse(
+  readFileSync(new URL('../../oracle/signals.json', import.meta.url), 'utf8'),
+) as {
+  name: string;
+  signals: { path: string; nativePath: string; reference: string; script: string };
+}[];
+for (const { name, signals: config } of signals)
+  it(name + ' matches the independently captured native trigger flag exactly', () => {
+    const dir = new URL('../../../../tests/oracle/' + name + '/', import.meta.url);
+    const model = load(readFileSync(new URL('case.ani', dir), 'utf8')).model!;
+    const { player } = runScript(model, readFileSync(new URL(config.script, dir), 'utf8'));
+    const actual = (dataState(player)?.signals.get(model.inputs.get(config.path)!.name) ?? 0) > 0;
+    const native = JSON.parse(readFileSync(new URL(config.reference, dir), 'utf8'));
+    const reference = native.viewModel.properties.find(
+      (p: { path: string }) => p.path === config.nativePath,
+    )?.changed;
+    expect(typeof reference).toBe('boolean');
+    expect(actual).toBe(reference);
+  });

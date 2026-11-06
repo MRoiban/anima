@@ -1969,31 +1969,5 @@
       "script": "script.txt",
       "reference": "rive/observations.json"
     }
-  },
-  {
-    "name": "data-state-action-trigger",
-    "times": [0],
-    "threshold": 0,
-    "maxOverPercent": 0,
-    "maxDiff": 0,
-    "signals": {
-      "path": "$pulse",
-      "nativePath": "pulse",
-      "reference": "rive/frames/initial.json",
-      "script": "script.txt"
-    }
-  },
-  {
-    "name": "data-custom-property-trigger",
-    "times": [0],
-    "threshold": 0,
-    "maxOverPercent": 0,
-    "maxDiff": 0,
-    "signals": {
-      "path": "dot.properties.custom",
-      "nativePath": "pulse",
-      "reference": "rive/frames/changed.json",
-      "script": "script.txt"
-    }
   }
 ]

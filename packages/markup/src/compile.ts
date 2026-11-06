@@ -202,7 +202,13 @@ export class Compiler {
     return aniAddress(s, (id) => this.types.get(id), this.nodeAttrs) ?? s;
   }
 
+  private readonly forms = new WeakMap<Element, Form>();
   private form(el: Element): Form {
+    let form = this.forms.get(el);
+    if (!form) this.forms.set(el, (form = this.formFor(el)));
+    return form;
+  }
+  private formFor(el: Element): Form {
     if (NODES.includes(el.name)) {
       const attrs: Record<string, Kind> = { id: 'name' };
       const required = ['id'];
@@ -308,10 +314,12 @@ export class Compiler {
           VERBOSE ? `text is not allowed inside <${el.name}>` : '',
         );
       if (c.kind !== 'element') continue;
+      const dataInstance =
+        c.name === 'instance' && !!dataCompiler.form?.(c, { attrs: {} }).attrs.model;
       // Tooling installs every hook; missing-layer diagnostics belong to lean browser builds.
       if (!VERBOSE) {
         const feature =
-          ['component', 'instance'].includes(c.name) && !componentCompiler.enter
+          ['component', 'instance'].includes(c.name) && !dataInstance && !componentCompiler.enter
             ? 'components'
             : c.name === 'bind' && !bindCompiler.build
               ? 'bind'
@@ -339,7 +347,8 @@ export class Compiler {
         c.name !== 'component' &&
         !(['event-def', 'audio-volume'].includes(c.name) && eventsCompiler.form) &&
         !(
-          ['model', 'enum', 'string', 'list', 'model-ref', 'asset-ref', 'set'].includes(c.name) &&
+          (['model', 'enum', 'string', 'list', 'model-ref', 'asset-ref', 'set'].includes(c.name) ||
+            dataInstance) &&
           dataCompiler.form
         ) &&
         !(['channel', 'machine'].includes(c.name) && motionCompiler.form) &&

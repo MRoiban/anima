@@ -62,6 +62,46 @@ it.each([
     '/data/models/Root/properties/n',
     base({ n: { type: 'asset-ref', assetType: 'image', default: 'missing' } }),
   ],
+  [
+    'data-value-source',
+    '/listeners/0/value',
+    base(
+      { n: { type: 'number' } },
+      { listeners: [{ on: 'click', set: { $n: 0 }, value: 'missing' }] },
+    ),
+  ],
+  [
+    'data-value-source',
+    '/listeners/0/value',
+    base(
+      { n: { type: 'bool' } },
+      { listeners: [{ on: 'click', set: { $n: false }, value: 'focused' }] },
+    ),
+  ],
+  [
+    'data-type',
+    '/listeners/0/value',
+    base(
+      { n: { type: 'number' } },
+      {
+        requires: ['data', 'bind', 'focus'],
+        listeners: [{ on: 'click', set: { $n: 0 }, value: 'focused' }],
+      },
+    ),
+  ],
+  [
+    'data-path',
+    '/listeners/0/on',
+    base({ n: { type: 'number' } }, { listeners: [{ on: 'change:$missing', set: { $n: 0 } }] }),
+  ],
+  [
+    'data-readonly',
+    '/listeners/0/copy',
+    base(
+      { n: { type: 'number' }, items: { type: 'list' } },
+      { listeners: [{ on: 'click', copy: '$n -> $items.length' }] },
+    ),
+  ],
 ] as const)('%s includes a pointer, message and corrective hint', (code, pointer, raw) => {
   const r = load(raw);
   expect(r.model).toBeUndefined();
@@ -69,8 +109,8 @@ it.each([
     expect.objectContaining({
       code,
       pointer: expect.stringContaining(pointer),
-      message: expect.any(String),
-      hint: expect.any(String),
+      message: expect.stringMatching(/\S/),
+      hint: expect.stringMatching(/\S/),
     }),
   );
 });
