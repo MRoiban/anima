@@ -1,0 +1,62 @@
+<anima version="0.1" name="share" grid="20" requires="events assets">
+  <!-- Literal-only listener writes limit the counter to ten; the milestone cycle is unbounded. -->
+  <color name="ink" value="#141413"/>
+  <color name="accent" value="#d97757"/>
+  <number name="count" default="0"/>
+  <trigger name="clicked"/>
+  <trigger name="pulse"/>
+  <a11y role="button" label="Share" activate="clicked"/>
+  <asset name="tone" type="audio" src="tone.wav"/>
+  <event-def name="shared" payload='{"count":{"type":"number","input":"count"},"channel":{"type":"string","value":"button"}}' audio="tone"/>
+  <event-def name="milestone" url="https://example.org/thanks" target="_blank"/>
+  <path id="links" d="M5 10L15 5M5 10L15 15" stroke="ink" stroke-width="1.5"/>
+  <circle id="left" cx="5" cy="10" r="2" pivot="5 10" fill="ink"/>
+  <circle id="upper" cx="15" cy="5" r="2" pivot="15 5" fill="ink"/>
+  <circle id="lower" cx="15" cy="15" r="2" pivot="15 15" fill="ink"/>
+  <timeline name="pulse" duration="0.4" loop="once">
+    <track target="left.scale">0 1; 0.15 1.3; 0.3 1; 0.4 1</track>
+    <track target="upper.scale">0 1; 0.05 1; 0.2 1.3; 0.35 1; 0.4 1</track>
+    <track target="lower.scale">0 1; 0.1 1; 0.25 1.3; 0.4 1</track>
+    <event at="0" name="shared"/>
+    <event at="0.4" name="pulse-done"/>
+  </timeline>
+  <layer name="motion" initial="rest">
+    <state name="rest"><on when="pulse" to="playing"/></state>
+    <state name="playing" play="pulse">
+      <on when="pulse" to="playing"/>
+      <on when="@end" to="rest"/>
+    </state>
+  </layer>
+  <layer name="counter" initial="zero">
+    <state name="zero"><on when="clicked" to="one"/></state>
+    <state name="one" emit="count-one"><on when="clicked" to="two"/></state>
+    <state name="two" emit="count-two"><on when="clicked" to="three"/></state>
+    <state name="three" emit="count-three"><on when="clicked" to="four"/></state>
+    <state name="four" emit="count-four"><on when="clicked" to="five"/></state>
+    <state name="five" emit="count-five"><on when="clicked" to="six"/></state>
+    <state name="six" emit="count-six"><on when="clicked" to="seven"/></state>
+    <state name="seven" emit="count-seven"><on when="clicked" to="eight"/></state>
+    <state name="eight" emit="count-eight"><on when="clicked" to="nine"/></state>
+    <state name="nine" emit="count-nine"><on when="clicked" to="ten"/></state>
+    <state name="ten" emit="count-ten"><on when="clicked" to="ten"/></state>
+  </layer>
+  <layer name="fifths" initial="zero">
+    <state name="zero"><on when="clicked" to="one"/></state>
+    <state name="one"><on when="clicked" to="two"/></state>
+    <state name="two"><on when="clicked" to="three"/></state>
+    <state name="three"><on when="clicked" to="four"/></state>
+    <state name="four"><on when="clicked" to="fifth"/></state>
+    <state name="fifth" emit="milestone"><on when="clicked" to="one"/></state>
+  </layer>
+  <listener on="click" fire="clicked"/>
+  <listener on="event:count-one" set="count=1" fire="pulse"/>
+  <listener on="event:count-two" set="count=2" fire="pulse"/>
+  <listener on="event:count-three" set="count=3" fire="pulse"/>
+  <listener on="event:count-four" set="count=4" fire="pulse"/>
+  <listener on="event:count-five" set="count=5" fire="pulse"/>
+  <listener on="event:count-six" set="count=6" fire="pulse"/>
+  <listener on="event:count-seven" set="count=7" fire="pulse"/>
+  <listener on="event:count-eight" set="count=8" fire="pulse"/>
+  <listener on="event:count-nine" set="count=9" fire="pulse"/>
+  <listener on="event:count-ten" set="count=10" fire="pulse"/>
+</anima>
