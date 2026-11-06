@@ -1030,7 +1030,7 @@
           },
           "on": {
             "type": "string",
-            "pattern": "^(?:focus|blur|enter|leave|down|up|click|move|[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)+)$"
+            "pattern": "(?:^(?:focus|blur|enter|leave|down|up|click|move|[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)+)$)|(?:^(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected)(?:\\|(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected))*$)"
           },
           "target": {
             "type": "string",
@@ -1096,6 +1096,77 @@
           "emit": {
             "type": "string",
             "pattern": "^[a-z][a-zA-Z0-9-]*$"
+          },
+          "button": {
+            "type": "number",
+            "minimum": 0,
+            "feature": "input"
+          },
+          "capture": {
+            "type": "boolean",
+            "feature": "input"
+          },
+          "consume": {
+            "type": "boolean",
+            "feature": "input"
+          },
+          "key": {
+            "type": "string",
+            "feature": "input"
+          },
+          "modifiers": {
+            "type": "string",
+            "feature": "input"
+          },
+          "index": {
+            "type": "number",
+            "minimum": 0,
+            "feature": "input"
+          },
+          "control": {
+            "type": "number",
+            "minimum": 0,
+            "feature": "input"
+          },
+          "mapping": {
+            "type": "string",
+            "enum": [
+              "standard",
+              "raw"
+            ],
+            "feature": "input"
+          },
+          "phase": {
+            "type": "string",
+            "enum": [
+              "press",
+              "release",
+              "both"
+            ],
+            "feature": "input"
+          },
+          "write": {
+            "type": "object",
+            "properties": {
+              "$comment": {
+                "type": "string"
+              }
+            },
+            "propertyNames": {
+              "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+            },
+            "additionalProperties": {
+              "type": "string"
+            },
+            "feature": "input"
+          },
+          "align": {
+            "type": "string",
+            "enum": [
+              "preserve",
+              "snap"
+            ],
+            "feature": "input"
           }
         },
         "required": [
@@ -1979,6 +2050,35 @@
               "additionalProperties": false,
               "feature": "focus"
             },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "solo": {
+              "type": "number",
+              "minimum": -1,
+              "feature": "input"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -2736,6 +2836,30 @@
             "knockout": {
               "type": "number",
               "minimum": 0
+            },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
             },
             "pivotX": {
               "type": "number",
@@ -3925,6 +4049,30 @@
             "knockout": {
               "type": "number",
               "minimum": 0
+            },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
             },
             "pivotX": {
               "type": "number",
@@ -5116,6 +5264,30 @@
             "knockout": {
               "type": "number",
               "minimum": 0
+            },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
             },
             "pivotX": {
               "type": "number",
@@ -6341,6 +6513,30 @@
               "type": "number",
               "minimum": 0
             },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -7137,6 +7333,30 @@
               "additionalProperties": false,
               "feature": "focus"
             },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -7521,6 +7741,30 @@
               },
               "additionalProperties": false,
               "feature": "focus"
+            },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
             },
             "pivotX": {
               "type": "number",
@@ -8868,6 +9112,30 @@
               "additionalProperties": false,
               "feature": "focus"
             },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -10070,6 +10338,30 @@
               },
               "additionalProperties": false,
               "feature": "focus"
+            },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
             },
             "pivotX": {
               "type": "number",
@@ -11275,6 +11567,30 @@
               "additionalProperties": false,
               "feature": "focus"
             },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
+            },
             "pivotX": {
               "type": "number",
               "feature": "motion"
@@ -12468,6 +12784,30 @@
               },
               "additionalProperties": false,
               "feature": "focus"
+            },
+            "pointerEnabled": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "opaque": {
+              "type": "boolean",
+              "feature": "input"
+            },
+            "cursor": {
+              "type": "string",
+              "enum": [
+                "arrow",
+                "hidden",
+                "pointer",
+                "resize-horizontal",
+                "resize-vertical",
+                "text"
+              ],
+              "feature": "input"
+            },
+            "collapsed": {
+              "type": "boolean",
+              "feature": "input"
             },
             "pivotX": {
               "type": "number",

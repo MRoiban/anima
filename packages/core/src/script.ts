@@ -1,5 +1,6 @@
 // The command language of `anima sample` and the conformance suite (spec §11.2). Tooling only.
 
+import { inputCommand } from '../../../modules/input/core/commands.ts';
 import type { TimelineInstance } from '../../../modules/motion/core/api.ts';
 import type { Model } from './load.ts';
 import { type AnimaEvent, Player } from './player.ts';
@@ -107,6 +108,11 @@ export function runScript(
           break;
         }
         case 'key': {
+          if (model.doc.requires?.includes('input')) {
+            inputCommand(p, 'key', args);
+            step(0);
+            break;
+          }
           if (
             !['down', 'up'].includes(args[0]!) ||
             args.length < 2 ||
@@ -189,6 +195,10 @@ export function runScript(
           break;
         }
         default:
+          if (inputCommand(p, cmd!, args)) {
+            step(0);
+            break;
+          }
           throw new ScriptError(`unknown command "${cmd}"`, line);
       }
     } catch (e) {

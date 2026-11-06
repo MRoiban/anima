@@ -1,0 +1,86 @@
+{
+  "document": {
+    "anima": "0.1",
+    "name": "vector",
+    "grid": 20,
+    "requires": ["input"],
+    "nodes": [
+      {
+        "id": "disc",
+        "type": "circle",
+        "center": [10, 10],
+        "r": 5,
+        "fill": {
+          "color": "#000"
+        }
+      }
+    ],
+    "inputs": {
+      "dy": {
+        "type": "number"
+      }
+    },
+    "listeners": [
+      {
+        "on": "scroll",
+        "target": "disc",
+        "write": {
+          "deltaY": "dy"
+        },
+        "emit": "scroll"
+      }
+    ]
+  },
+  "script": [
+    "scroll 10 10 0 0.125 start 0",
+    "scroll 50 50 0 -2 move 0.1",
+    "scroll 50 50 0 3 move 0.251",
+    "scroll 10 10 0 4 start 1",
+    "scroll-cancel",
+    "scroll 50 50 0 5 move 1.01"
+  ],
+  "expected": [
+    {
+      "inputs": {
+        "dy": 0.125
+      },
+      "events": ["scroll"],
+      "states": {}
+    },
+    {
+      "inputs": {
+        "dy": -2
+      },
+      "events": ["scroll"],
+      "states": {}
+    },
+    {
+      "inputs": {
+        "dy": -2
+      },
+      "events": [],
+      "states": {}
+    },
+    {
+      "inputs": {
+        "dy": 4
+      },
+      "events": ["scroll"],
+      "states": {}
+    },
+    {
+      "inputs": {
+        "dy": 4
+      },
+      "events": [],
+      "states": {}
+    },
+    {
+      "inputs": {
+        "dy": 4
+      },
+      "events": [],
+      "states": {}
+    }
+  ]
+}

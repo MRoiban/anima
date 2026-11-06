@@ -244,6 +244,10 @@ and an oracle test against Rive.
         cases, 18 native oracle cases/45 frames + eight documented skips; 5736/8192 B. Generic
         non-node AniML fields and the pure focus-reader seam are ready for companion modules.
         Full phase integration/benchmark/CI remains; see modules/machine/REPORT.md.
+
+      P4c-2 input checkpoint: controller and browser implementation, 3/54 rows with complete
+      per-row evidence; shared AniML/sample call-site patch and remaining probes in
+      `modules/input/HANDOFF.md`. P4c-2 remains incomplete; parity statuses are unchanged.
 - [ ] P4d `events`: payloads, open-URL, audio.
 - [ ] P4e `data`: view models, bindings, converters, lists.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide

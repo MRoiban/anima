@@ -111,6 +111,14 @@ function recover(root: Element): Obj {
     }
     for (const child of elements(e)) {
       const a = attrs(child);
+      if (child.name === 'focus') {
+        const focus = base(child);
+        for (const [key, value] of Object.entries(a)) {
+          const jsonKey = key === 'enabled-input' ? 'enabledInput' : key === 'tab-stops' ? 'tabStops' : key;
+          focus[jsonKey] = key === 'bounds' ? vector(value) : scalar(value);
+        }
+        o.focus = focus;
+      }
       if (child.name === 'channel')
         ((o.channels ??= {}) as Obj)[a.name!] = { type: a.type, value: scalar(a.value!) };
       if (child.name === 'mask')
@@ -389,6 +397,7 @@ function check(source: string | object) {
       'fillPaint',
       'strokePaint',
       'channel',
+      'focus',
       'machine',
     ]).toContain(e.name);
     if (e.name !== 'pose')

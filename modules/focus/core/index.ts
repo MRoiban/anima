@@ -1,3 +1,4 @@
+import { registerEventKinds } from '../../components/core/events.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { ObjShape, Shape } from '../../../packages/core/src/registry.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
@@ -92,6 +93,7 @@ function install(P: typeof Player) {
       return state.get(this) ?? null;
     },
   });
+  P.prototype.machineFocus = function (nodeId) { return this.focused === nodeId; };
   P.prototype.focusItems = function (includeDisabled = false) {
     const items: FocusItem[] = this.model.nodes
       .flatMap((n, i) =>
@@ -287,24 +289,7 @@ export const focus: Module = {
   ],
   init(_modules, shared) {
     install(shared.Player);
-    const components = _modules.get('components');
-    if (components?.resolve) {
-      const resolve = components.resolve;
-      components.resolve = (model, d) => {
-        resolve(model, d);
-        for (let i = d.list.length - 1; i >= 0; i--) {
-          const error = d.list[i]!,
-            match = /^\/listeners\/(\d+)\/on$/.exec(error.pointer);
-          if (
-            error.code === 'unknown-event' &&
-            match &&
-            model.doc.requires?.includes('focus') &&
-            ['focus', 'blur'].includes(model.doc.listeners?.[Number(match[1])]?.on)
-          )
-            d.list.splice(i, 1);
-        }
-      };
-    }
+    registerEventKinds(_modules, 'focus', ['focus', 'blur']);
     const listeners = (shared.DOC as ObjShape).p.listeners!;
     if (listeners.k !== 'arr' || listeners.of.k !== 'obj') throw Error('listener registry');
     const shape = listeners.of;

@@ -9,6 +9,8 @@ import { assets } from '../../../modules/assets/core/index.ts';
 import { assetsSVG } from '../../../modules/assets/core/svg.ts';
 import { focus } from '../../../modules/focus/core/index.ts';
 import { focusSVG } from '../../../modules/focus/core/svg.ts';
+import { input } from '../../../modules/input/core/index.ts';
+import { inputSVG } from '../../../modules/input/core/svg.ts';
 import { motion } from '../../../modules/motion/core/index.ts';
 import { motionSVG } from '../../../modules/motion/core/svg.ts';
 import { machine } from '../../../modules/machine/core/index.ts';
@@ -27,6 +29,8 @@ if (VERBOSE) {
   registerSVGBackend('assets', assetsSVG);
   registerModule(focus);
   registerSVGBackend('focus', focusSVG);
+  registerModule(input);
+  registerSVGBackend('input', inputSVG);
   registerModule(motion);
   registerSVGBackend('motion', motionSVG);
   registerModule(machine);

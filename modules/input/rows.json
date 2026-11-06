@@ -1,0 +1,434 @@
+[
+  {
+    "row": "host-api.coordinate-mapping",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "skip",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "host-api.dom-listener-control",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "skip",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "host-api.gamepad",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "skip",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "host-api.low-level-pointer",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "host-api.low-level-scroll",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "host-api.manual-gamepad-batch",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "skip",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "host-api.multitouch",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "host-api.pointer-exit",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "host-api.scroll-hit-policy",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "skip",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "host-api.scroll-latching",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.align-preserve",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.align-snap",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.bounded-hit-tests",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.button-middle",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.button-secondary",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.capture-phase",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.cursor-arrow",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "skip",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.cursor-hidden",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "skip",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.cursor-intent",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "skip",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.cursor-pointer",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "skip",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.cursor-resize-horizontal",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "skip",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.cursor-resize-vertical",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "skip",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.cursor-text",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "skip",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.disable-listeners",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "skip",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.gamepad-axis",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.gamepad-button",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.gamepad-button-phases",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.gamepad-connected",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.gamepad-disconnected",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.gamepad-host",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "skip",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.gamepad-index-mapping",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.hit-occlusion-query",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.hit-parent-chain",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.hit-shape-geometry",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.hit-test-host",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.key-down",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.key-filter",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.key-modifiers",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.key-repeat",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.key-up",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.keyboard-bubbling",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.multi-touch",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.multi-trigger-listener",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.opaque-targets",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.pointer-cancel",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.pointer-drag",
+    "implementation": "controller/host API present",
+    "done": true,
+    "oracle": "captured",
+    "conformance": "spec/conformance/input-pointer-drag",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.pointer-drag-end",
+    "implementation": "controller/host API present",
+    "done": true,
+    "oracle": "captured",
+    "conformance": "spec/conformance/input-pointer-drag-end",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.pointer-drag-start",
+    "implementation": "controller/host API present",
+    "done": true,
+    "oracle": "captured",
+    "conformance": "spec/conformance/input-pointer-drag-start",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.pointer-enable",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.touch-page-scroll",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "skip",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.trackpad-scroll",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "input.wheel-scroll",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "transforms.collapse",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  },
+  {
+    "row": "transforms.solo",
+    "implementation": "controller/host API present",
+    "done": false,
+    "oracle": "pending",
+    "conformance": "module golden vectors/browser tests; per-row probe pending",
+    "note": "shared extended AniML/sample call sites in integration.patch; parity status not promoted"
+  }
+]

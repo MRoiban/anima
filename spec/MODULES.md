@@ -23,6 +23,8 @@ in `requires`; a runtime that lacks the module refuses the document with `unknow
 | `interaction` | blend states, transition flags, drag, keyboard, focus, scroll, gamepad | P4c |
 
 | `machine` | blend states, transition flags/actions, seeded selection, live/previous-value guards; input/focus are companion modules | P4c |
+
+| `input` | pointer IDs, drag values, keyboard, scroll, gamepads, hit policy, cursor and collapse (8192 B budget) | P4c |
 | `events` | event payloads, open-URL events, audio events | P4d |
 | `data` | view models, bindings, converters, lists | P4e |
 

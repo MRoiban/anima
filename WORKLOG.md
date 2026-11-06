@@ -1,10 +1,10 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now: P4c interaction (branch p4c-interaction; modules machine, input, focus) and P4d events (branch p4d-events) in parallel; then P4e data, P5b, P3b, P6–P10.
-State: main a02c0be = through P4b (PR #13). Parity 259/1238. core+web 19012; full-featured 51.4 KB.
-Next: merge agents per branch; before pushing a merge run browser tests for the seams; benchmark per phase; PR per phase.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4c-4 integrate input/focus/machine/components; complete input evidence.
+State: merging input 0dd104a into edf9eec; generated/docs conflicts resolved, runtime seams pending.
+Next: generic AniML node fields, event registry, key/pointer/focus integration and scoped tests.
+Don't: push/PR/merge remote, run Rive, weaken tests/budgets, change 0.1 behavior.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -107,3 +107,5 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 07:00 [claude]: merged P4c-3 focus (1ad668a): 16/16 rows, 3924/4096 B, core+web +0; its 16 oracle skips say 'Rive CLI unavailable' but ~/.rive/bin/rive works (agent likely used bare 'rive') → re-capture with the P4c oracle pass
 - 2026-11-07 09:00 [claude]: P4c-2 input (0dd104a) partial: 3/54 strict, broad implementation in modules/input + integration.patch (shared compile/decompile/script hooks); held unmerged until P4c-1 machine lands with the generic AniML field extension; then one integration agent (input via the generic extension, focus↔input key routing, components event registry, per-row evidence) + P4c oracle pass
 - 2026-11-07 10:00 [claude]: merged P4c-1 machine (dd995fa): 26/26, 37 cases, 18 oracle-verified, machine 5736/8192, core+web +36, generic AniML extension; seam: 17 focus decompile round-trips lose node 'focus' objects (generic extension lacks node-object fields) → integration agent P4c-4
+
+- 2026-11-06 03:43 [input]: P4c-2 module checkpoint → 457 scoped passes, 3 shared expectation failures, 87 pending; supplied integration patch passes 460/87 pending in temporary copy; 6056 B module, base +0; commit-only handoff (evidence: test:scope input conformance oracle; size.ts; modules/input/HANDOFF.md).

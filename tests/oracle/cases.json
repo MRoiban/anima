@@ -1,182 +1,261 @@
 [
   {
     "name": "linear",
-    "times": [0],
+    "times": [
+      0
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
   },
   {
     "name": "radial",
-    "times": [0],
+    "times": [
+      0
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
   },
   {
     "name": "animated-stop",
-    "times": [0, 0.5, 1],
+    "times": [
+      0,
+      0.5,
+      1
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
   },
   {
     "name": "dashes-absolute",
-    "times": [0],
+    "times": [
+      0
+    ],
     "threshold": 16,
     "maxDiff": 110,
     "maxOverPercent": 0.3
   },
   {
     "name": "dashes-percent",
-    "times": [0],
+    "times": [
+      0
+    ],
     "threshold": 16,
     "maxDiff": 110,
     "maxOverPercent": 0.3
   },
   {
     "name": "ellipse",
-    "times": [0],
+    "times": [
+      0
+    ],
     "threshold": 16,
     "maxDiff": 90,
     "maxOverPercent": 0.4
   },
   {
     "name": "polygon-rounded",
-    "times": [0],
+    "times": [
+      0
+    ],
     "threshold": 16,
     "maxDiff": 80,
     "maxOverPercent": 0.35
   },
   {
     "name": "star",
-    "times": [0],
+    "times": [
+      0
+    ],
     "threshold": 16,
     "maxDiff": 80,
     "maxOverPercent": 0.45
   },
   {
     "name": "rect-corners",
-    "times": [0],
+    "times": [
+      0
+    ],
     "threshold": 16,
     "maxDiff": 90,
     "maxOverPercent": 0.12
   },
   {
     "name": "path-morph",
-    "times": [0, 0.5, 1],
+    "times": [
+      0,
+      0.5,
+      1
+    ],
     "threshold": 16,
     "maxDiff": 65,
     "maxOverPercent": 0.4
   },
   {
     "name": "blend-multiply",
-    "times": [0],
+    "times": [
+      0
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
   },
   {
     "name": "blend-screen",
-    "times": [0],
+    "times": [
+      0
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
   },
   {
     "name": "clip",
-    "times": [0],
+    "times": [
+      0
+    ],
     "threshold": 16,
     "maxDiff": 90,
     "maxOverPercent": 0.4
   },
   {
     "name": "alpha-mask",
-    "times": [0],
+    "times": [
+      0
+    ],
     "threshold": 16,
     "maxDiff": 50,
     "maxOverPercent": 0.25
   },
   {
     "name": "stroke-inside",
-    "times": [0],
+    "times": [
+      0
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
   },
   {
     "name": "stroke-outside",
-    "times": [0],
+    "times": [
+      0
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
   },
   {
     "name": "multiple-paints",
-    "times": [0],
+    "times": [
+      0
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
   },
   {
     "name": "animation-cubic-value",
-    "times": [0, 1, 2],
+    "times": [
+      0,
+      1,
+      2
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
   },
   {
     "name": "animation-elastic-in",
-    "times": [0, 1, 2],
+    "times": [
+      0,
+      1,
+      2
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
   },
   {
     "name": "animation-elastic-in-out",
-    "times": [0, 1, 2],
+    "times": [
+      0,
+      1,
+      2
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
   },
   {
     "name": "animation-quantized-playback",
-    "times": [0, 0.75, 1.25, 2],
+    "times": [
+      0,
+      0.75,
+      1.25,
+      2
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
   },
   {
     "name": "animation-reverse",
-    "times": [0, 0.5, 1, 2],
+    "times": [
+      0,
+      0.5,
+      1,
+      2
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
   },
   {
     "name": "animation-work-area",
-    "times": [0, 0.25, 0.75, 1.25],
+    "times": [
+      0,
+      0.25,
+      0.75,
+      1.25
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
   },
   {
     "name": "state-machine-exit-time-seconds",
-    "times": [0, 0.25, 0.75, 1.5],
+    "times": [
+      0,
+      0.25,
+      0.75,
+      1.5
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
   },
   {
     "name": "transforms-origin-animation",
-    "times": [0, 1, 2],
+    "times": [
+      0,
+      1,
+      2
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
   },
   {
     "name": "animation-mix-numeric",
-    "times": [0, 0.25, 0.5, 1],
+    "times": [
+      0,
+      0.25,
+      0.5,
+      1
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
@@ -189,7 +268,9 @@
   },
   {
     "name": "animation-mix-discrete",
-    "times": [0],
+    "times": [
+      0
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
@@ -204,7 +285,12 @@
   },
   {
     "name": "animation-keys-string",
-    "times": [0, 0.5, 1.1, 2],
+    "times": [
+      0,
+      0.5,
+      1.1,
+      2
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
@@ -216,7 +302,13 @@
   },
   {
     "name": "animation-keys-unsigned-integer",
-    "times": [0, 0.5, 0.8, 1.1, 2],
+    "times": [
+      0,
+      0.5,
+      0.8,
+      1.1,
+      2
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
@@ -228,7 +320,12 @@
   },
   {
     "name": "animation-seek",
-    "times": [0, 0.25, 0.75, 1],
+    "times": [
+      0,
+      0.25,
+      0.75,
+      1
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
@@ -241,7 +338,12 @@
   },
   {
     "name": "host-api-scrub",
-    "times": [0, 0.25, 0.75, 1],
+    "times": [
+      0,
+      0.25,
+      0.75,
+      1
+    ],
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
@@ -257,70 +359,102 @@
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0]
+    "times": [
+      0
+    ]
   },
   {
     "name": "state-machine-blend-weight-input",
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0]
+    "times": [
+      0
+    ]
   },
   {
     "name": "state-machine-blend-weight-data",
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0]
+    "times": [
+      0
+    ]
   },
   {
     "name": "state-machine-blend-direct",
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0]
+    "times": [
+      0
+    ]
   },
   {
     "name": "state-machine-blend-1d-input",
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0, 0.001]
+    "times": [
+      0,
+      0.001
+    ]
   },
   {
     "name": "state-machine-blend-1d-data",
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0, 0.001]
+    "times": [
+      0,
+      0.001
+    ]
   },
   {
     "name": "state-machine-blend-additive",
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0, 0.001]
+    "times": [
+      0,
+      0.001
+    ]
   },
   {
     "name": "state-machine-continue-on-exit",
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0, 0.5, 0.75, 1.5]
+    "times": [
+      0,
+      0.5,
+      0.75,
+      1.5
+    ]
   },
   {
     "name": "state-machine-exit-time-relative",
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0, 0.5, 0.75, 1.5]
+    "times": [
+      0,
+      0.5,
+      0.75,
+      1.5
+    ]
   },
   {
     "name": "state-machine-transition-duration-relative",
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0, 0.5, 0.75, 1.5],
+    "times": [
+      0,
+      0.5,
+      0.75,
+      1.5
+    ],
     "scripts": {
       "0.75": "advance 0.5\nadvance 0.25",
       "1.5": "advance 0.5\nadvance 0.25\nadvance 0.75"
@@ -331,59 +465,138 @@
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0, 0.5, 0.75, 1]
+    "times": [
+      0,
+      0.5,
+      0.75,
+      1
+    ]
   },
   {
     "name": "state-machine-transition-disabled",
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0, 0.5, 0.75, 1.5]
+    "times": [
+      0,
+      0.5,
+      0.75,
+      1.5
+    ]
   },
   {
     "name": "state-machine-entry-state",
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0, 0.5, 0.75, 1.5]
+    "times": [
+      0,
+      0.5,
+      0.75,
+      1.5
+    ]
   },
   {
     "name": "state-machine-any-state",
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0]
+    "times": [
+      0
+    ]
   },
   {
     "name": "state-machine-condition-artboard",
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0]
+    "times": [
+      0
+    ]
   },
   {
     "name": "state-machine-condition-component",
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0]
+    "times": [
+      0
+    ]
   },
   {
     "name": "state-machine-blend-exit-clock",
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0, 0.5, 0.75, 1.5]
+    "times": [
+      0,
+      0.5,
+      0.75,
+      1.5
+    ]
   },
   {
     "name": "state-machine-exit-state",
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0,
-    "times": [0, 0.5, 0.75, 1.5],
+    "times": [
+      0,
+      0.5,
+      0.75,
+      1.5
+    ],
     "scripts": {
       "0.75": "advance 0.5\nadvance 0.25",
       "1.5": "advance 0.5\nadvance 0.25\nadvance 0.75"
+    }
+  },
+  {
+    "name": "input-pointer-drag",
+    "times": [
+      0,
+      1,
+      2
+    ],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0",
+      "1": "pointer down 3 10\npointer move 4 10",
+      "2": "pointer down 3 10\npointer move 4 10\npointer up 4 10"
+    }
+  },
+  {
+    "name": "input-pointer-drag-start",
+    "times": [
+      0,
+      1,
+      2
+    ],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0",
+      "1": "pointer down 3 10\npointer move 4 10",
+      "2": "pointer down 3 10\npointer move 4 10\npointer up 4 10"
+    }
+  },
+  {
+    "name": "input-pointer-drag-end",
+    "times": [
+      0,
+      1,
+      2
+    ],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "scripts": {
+      "0": "advance 0",
+      "1": "pointer down 3 10\npointer move 4 10",
+      "2": "pointer down 3 10\npointer move 4 10\npointer up 4 10"
     }
   }
 ]

@@ -1,0 +1,52 @@
+{
+  "document": {
+    "anima": "0.1",
+    "name": "vector",
+    "grid": 20,
+    "requires": ["input"],
+    "nodes": [
+      {
+        "id": "disc",
+        "type": "circle",
+        "center": [10, 10],
+        "r": 5,
+        "fill": {
+          "color": "#000"
+        }
+      }
+    ],
+    "inputs": {
+      "pressed": {
+        "type": "bool"
+      }
+    },
+    "listeners": [
+      {
+        "on": "key-up",
+        "key": "ArrowLeft",
+        "modifiers": "shift+control",
+        "write": {
+          "pressed": "pressed"
+        },
+        "emit": "key"
+      }
+    ]
+  },
+  "script": ["key up ArrowLeft shift+control+alt", "key up ArrowLeft shift+control"],
+  "expected": [
+    {
+      "inputs": {
+        "pressed": false
+      },
+      "events": [],
+      "states": {}
+    },
+    {
+      "inputs": {
+        "pressed": false
+      },
+      "events": ["key"],
+      "states": {}
+    }
+  ]
+}

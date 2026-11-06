@@ -1,0 +1,4 @@
+<!-- TODO: input.gamepad-axis; replace this baseline scene with a capability probe. -->
+<anima version="0.1" name="input-gamepad-axis" grid="20">
+  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+</anima>

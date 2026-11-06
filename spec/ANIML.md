@@ -472,3 +472,13 @@ The same registry extension supports module fields on `<layer>`, `<timeline>` an
 `<listener>`, honors `markup` aliases, and round-trips compound JSON values. Existing
 listener name lists and assignments retain their forms. Unknown fields still report
 `unknown-attribute`; malformed JSON attributes report `bad-attribute` with source position.
+
+## Input listener forms (integration pending)
+
+The input module extends `<listener on="…">` with `button`, `capture`, `consume`, `key`,
+`modifiers`, `index`, `control`, `mapping`, `phase`, `align` and `write`. Names and meaning are
+[the input contract](../modules/input/SPEC.md). `write="x=dragX y=dragY"` compiles to
+`write: {"x":"dragX","y":"dragY"}`. Combine event names in `on` with `|`.
+The module exports compiler/decompiler hooks; the shared call-site patch in
+`modules/input/integration.patch` is required for the additional attributes. Plain new `on`
+names with existing actions already compile. Do not count pending attribute probes as passing.
