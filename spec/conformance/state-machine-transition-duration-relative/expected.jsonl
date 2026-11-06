@@ -1,0 +1,2 @@
+{"time": 0.75, "values": {"dot.x": 6.25}, "states": {"l": "b"}, "events": [], "settled": false}
+{"time": 1, "values": {"dot.x": 10}, "states": {"l": "b"}, "events": [], "settled": true}

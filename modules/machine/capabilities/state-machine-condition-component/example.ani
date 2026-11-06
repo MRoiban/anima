@@ -1,0 +1,76 @@
+{
+  "anima": "0.1",
+  "name": "machine-probe",
+  "grid": 20,
+  "requires": ["machine", "components"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#4263eb"
+      }
+    },
+    {
+      "id": "child",
+      "type": "instance",
+      "component": "badge"
+    }
+  ],
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "a",
+        "states": {
+          "a": {
+            "pose": {
+              "dot.x": 0
+            },
+            "on": [
+              {
+                "when": "@after(0)",
+                "to": "b",
+                "guard": {
+                  "left": {
+                    "component": "child.count"
+                  },
+                  "right": 2,
+                  "op": ">"
+                }
+              }
+            ]
+          },
+          "b": {
+            "pose": {
+              "dot.x": 10
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "badge": {
+      "grid": 20,
+      "inputs": {
+        "count": {
+          "type": "number",
+          "default": 3
+        }
+      },
+      "nodes": [
+        {
+          "id": "c",
+          "type": "circle",
+          "center": [0, 0],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ]
+    }
+  }
+}

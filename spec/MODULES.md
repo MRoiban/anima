@@ -19,7 +19,7 @@ in `requires`; a runtime that lacks the module refuses the document with `unknow
 | `surface` | image paints, n-slice patches, feathering (8192 B budget) | P5 |
 | `assets` | image, font, audio and blob assets; the `image` node (P5, §5) | P5 |
 | `motion` | more eases, typed and string tracks, seek / reverse / work area / quantize, host timeline control, animatable pivot | P4b |
-| `interaction` | blend states, transition flags, drag, keyboard, focus, scroll, gamepad | P4c |
+| `machine` | blend states, transition flags/actions, seeded selection, live/previous-value guards; input/focus are companion modules | P4c |
 | `events` | event payloads, open-URL events, audio events | P4d |
 | `data` | view models, bindings, converters, lists | P4e |
 
@@ -113,6 +113,27 @@ Hook points (revised at P4a, owner decision 2026-11-06: rendering is renderer-ne
 - `outline(player, node)`: the node's current outline for hit testing.
 - `draw`: the module's contribution to the **draw layer** (§3.1). Modules never produce SVG
   elements, attributes or canvas calls.
+
+### Non-node AniML fields
+
+Module entries may target `state`, `transition` (AniML `<on>`), `layer`, `timeline`,
+and `listener`. Both compiler and decompiler derive their attributes from the live
+registry shapes, including each shape's `markup` alias. Unknown attributes still fail
+with `unknown-attribute`; JSON spellings do not bypass an alias. Number, bool, string,
+and tuple fields retain their ordinary attribute forms. Compound object/map/array/union fields
+use JSON-valued attributes (normal XML escaping applies); existing listener `set`,
+`fire` and `toggle` retain their assignment/name-list syntax. Structural containers
+(`states`, `on`, `pose`, `tracks`, `events`) remain children. Scalar module fields on
+`document` also become `<anima>` attributes. No per-module compiler hook is needed
+for these attributes; `packages/markup/test/module-fields.test.ts` covers all five
+non-node targets, aliases, compounds and rejection of unknown fields. Descriptor
+caches last one compilation, so late registration is visible to the next compile.
+Layer/listener fields are reset and recomposed with the registry like state/timeline
+fields; separately bundled browser markup reads the runtime's live document shape.
+
+The machine/focus condition seam is `Player.machineFocus?: (nodeId: string) => boolean`.
+Focus supplies the reader and wakes `player.onChange` when ownership changes; machine
+only reads it during transition evaluation. Missing reader means no node owns focus.
 
 ### 3.1 The draw layer
 

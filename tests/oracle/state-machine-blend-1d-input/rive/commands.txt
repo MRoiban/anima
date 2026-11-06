@@ -1,0 +1,3 @@
+screenshot frames/0.png
+advance 1ms
+screenshot frames/0.001.png

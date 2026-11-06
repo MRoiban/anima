@@ -237,6 +237,10 @@ and an oracle test against Rive.
 
 - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
       an on-change / previous-value condition (P5 benchmark: 'count increased' took 10 states).
+  - [x] P4c-1 `machine`: assigned 25 inventory rows + previous-value condition; 37 conformance
+        cases, 18 native oracle cases/45 frames + eight documented skips; 5736/8192 B. Generic
+        non-node AniML fields and the pure focus-reader seam are ready for companion modules.
+        Full phase integration/benchmark/CI remains; see modules/machine/REPORT.md.
 - [ ] P4d `events`: payloads, open-URL, audio.
 - [ ] P4e `data`: view models, bindings, converters, lists.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide

@@ -448,3 +448,18 @@ are normative in SPEC's **Declarative timeline control** subsection.
 ```
 
 The complete sync button is [modules/motion/examples/sync.animl](../modules/motion/examples/sync.animl).
+
+## Machine fields and registry extension
+
+With `requires="machine"`, state and transition attributes derive from the registry
+(SPEC's machine chapter). Scalar fields keep their JSON names; `machineSeed` is an
+`<anima>` attribute. Compound object, array and union fields use JSON-valued attributes, for example:
+
+```xml
+<on when="@after(0)" to="pop" change='{"input":"count","mode":"increased"}'/>
+```
+
+The same registry extension supports module fields on `<layer>`, `<timeline>` and
+`<listener>`, honors `markup` aliases, and round-trips compound JSON values. Existing
+listener name lists and assignments retain their forms. Unknown fields still report
+`unknown-attribute`; malformed JSON attributes report `bad-attribute` with source position.

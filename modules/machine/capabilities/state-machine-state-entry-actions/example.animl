@@ -1,0 +1,16 @@
+<anima version="0.1" name="machine-probe" grid="20" requires="machine">
+  <trigger name="go"/>
+  <bool name="flag"/>
+
+  <circle id="dot" cx="10" cy="10" r="1" fill="#4263eb"/>
+
+  <layer name="l" initial="a">
+    <state name="a">
+      <pose dot.x="0"/>
+      <on when="go" to="b"/>
+    </state>
+    <state name="b" enterActions="{&quot;set&quot;:{&quot;flag&quot;:true},&quot;emit&quot;:&quot;state-entry-actions&quot;}">
+      <pose dot.x="10"/>
+    </state>
+  </layer>
+</anima>

@@ -4,6 +4,7 @@ import './bind.ts';
 import './canvas.ts';
 import './components.ts';
 import './composite.ts';
+import './machine.ts';
 import './motion.ts';
 import './paint.ts';
 import './surface.ts';

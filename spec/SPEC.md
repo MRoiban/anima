@@ -1380,3 +1380,221 @@ paint. Cross-origin image sources need CORS permission for canvas readback/patte
 Cross-backend pixel differences are measured and retained by the canvas browser conformance suite;
 limits and findings are in `modules/canvas/test/web/README.md` and `RESULTS.md`. Renderer support
 is not a claim of exact rasterizer identity or a passing Rive oracle for host-only operations.
+
+## machine
+
+
+`requires: ["machine"]` adds the fields below to 0.1 documents. Without that requirement,
+playback is unchanged, even when this module is installed. The implementation extends the
+base player's playback policy; it does not replace its input queue, transition chain cap,
+trigger consumption, interpolation, clamping or frame resolution. `motion`, `bind` and
+`components` order before machine when installed; none is imported as a runtime dependency.
+
+This design independently implements the graph and deterministic-frame ideas discussed in
+`docs/research/rive-animation-and-state.md` §§A.6–A.8 and its pitfalls about shared mutable
+state. No Rive algorithm or source was copied; no additional NOTICE attribution is needed.
+
+### State kinds and priority
+
+States retain exactly one `pose` or `play`. `kind` optionally names `entry`, `exit`, `any`, or
+`random`; these special states require `pose: {}`. An entry state is an ordinary empty pose
+whose ordered conditions choose the next state at the first `step`, including `step(0)`.
+An exit state is terminal and has no `on` list. It retains the outgoing state's own keyed samples at exit time as constant writes; its clock stops. With no outgoing state it writes nothing. Other layers continue, and post-state bindings retain priority.
+
+An any state is a declaration, cannot be initial or a transition target, and does not run.
+Its transitions are searched before the current state's transitions, in declaration order of
+any states and then of their `on` lists. They are available in every nonterminal real state.
+An any edge targeting the current state is omitted unless it has a trigger or `change` guard,
+which permits restarting a pop animation on another increase without repeated re-entry.
+All transitions still count toward the base limit of 16 per layer per step.
+
+`reset: true` explicitly requests the normal restart on every re-entry. Omission is identical.
+`reset: false` is rejected (`machine-state`); implicit pause/resume is not specified.
+
+### Transitions and previous values
+
+Transition fields (JSON and AniML names are identical):
+
+- `disabled: boolean`: keep the edge but never select it.
+- `exitRatio: number` in [0,1]: gate by this fraction of the source play duration. With motion,
+  use its work span and effective speed. Spill the overshoot into the target, as in §7.
+- `blendRatio: number` ≥ 0: blend for that multiple of source play duration, including work
+  span and effective speed with motion. Exclusive with `blend`.
+- `continue: boolean`: default false. True advances the outgoing timeline sampler during the
+  crossfade instead of freezing its exit pose. It does not keep the outgoing state active or
+  eligible for transitions. The target clock and transition fade advance as usual. Continued sources honor autonomous motion speed/work/quantization; held, expression-controlled or sync-entered sources are rejected with `machine-clock`. Outgoing timeline events stop at exit.
+- `change: {input, mode}`: `mode` is `changed`, `increased` or `decreased`. Compare the input's
+  current applied value with its value at the end of the preceding step (defaults before the
+  first step). `changed` accepts bool or number; ordered modes require number. Queued writes
+  are coalesced by the ordinary input stage: only the final applied value is compared.
+  Advance the previous-value baseline once, after all parent layers and before nested players advance, even if no edge consumed it. Scoped input changes are observed when their component stage makes them available.
+  The same change edge may fire once per layer per step, across any-state and self re-entry;
+  every layer sees the same signal. A locked or disabled edge does not buffer changes.
+
+`when` remains required. For an otherwise unconditional change edge use `when: "@after(0)"`:
+
+```json
+{"when":"@after(0)","to":"pop","change":{"input":"count","mode":"increased"}}
+```
+
+A single such edge on an any state handles arbitrary counts, including another increment
+while popping; there is no ladder of numeric states. A zero-duration self-reentry does not
+produce `@limit`. A held unchanged value never retriggers.
+
+### Typed live guards and the focus seam
+
+`guard: {left, op, right}` ANDs another predicate with `when` and `change`. Each operand is a
+number, bool, or exactly one of `{artboard: "width"|"height"|"aspect"}`, `{component: "id.input"}`,
+`{focus: "node-id"}`. Artboard dimensions are the document's viewBox dimensions in grid units,
+not CSS pixels. Component operands read a validated scoped bool/number input through
+`Player.get`, at the component stage already specified by the components module; they do not
+read rendered geometry or create layout feedback. Equality accepts matching bool or numeric
+operands; ordered comparisons require numbers. Operators are `== != < <= > >=`.
+
+The focus module supplies `player.machineFocus = (nodeId: string) => boolean`, a pure live
+reader returning whether that document node owns focus. It calls `player.onChange?.()` after
+changes so a settled machine wakes. No focus owner or no installed reader means false.
+Machine owns neither DOM focus nor focus traversal, and does not import the focus runtime.
+A standalone headless host can install the same reader; both equality and inequality work.
+
+### Blends and bound data
+
+A blend is a play state with `mix: {mode, children, axis?, exit?}`. `children` is a nonempty
+array of `{play: timelineName, at?: number, weight?: source}`. The state's `play` names the
+child used for `@end`, exitRatio and blendRatio; `exit`, if present, is that child's zero-based
+index and must agree with `play`. This makes the exit clock explicit even when its weight is 0.
+Every child samples its own timeline at state elapsed time × state speed, with its own loop
+mode. With motion installed and declared, each child also honors its own speed, work area and
+quantization. A blend's primary state clock must be autonomous: hold/time and incoming sync
+are rejected with `machine-clock`, rather than silently applying one child's clock to the others. A blend remains unsettled while any child timeline can move, including a zero-weight
+child. Reduced motion is recorded on entry for every child: end/skip freeze at its directional work endpoint, while play children keep advancing. A zero-speed child is at rest. Missing child tracks
+contribute the addressed property's rest value, never a value from an earlier frame.
+
+A source is a number, a numeric input name string, or `{bind: "numeric expression"}`. The last
+form additionally requires `bind` and compiles the existing bind expression language against
+inputs. It evaluates at sampling time after queued input writes, before the ordinary
+post-state property bindings. This is P4c's data-source bridge until P4e view models arrive:
+there is no implicit view model, scene-property reference or binding feedback.
+
+- `mode: "1d"`: requires `axis` and an `at` on every child, strictly increasing. Clamp the
+  axis outside the first/last threshold to that endpoint. Within a segment interpolate its
+  neighboring child samples. All other children have weight 0. One child is permitted.
+- `mode: "direct"`: sample each child in authored order and interpolate the accumulated
+  value toward it by its independently clamped [0,1] weight (default 1), starting at rest.
+  Weights are not normalized. A first child at weight 1 establishes a baseline.
+- `mode: "additive"`: apply the first child as the full baseline, then interpolate
+  toward each later child's sample by its independent weight, in authored order.
+  This is the direct-blend family exposed as Additive Blend in Rive's editor;
+  it combines animations over a baseline, rather than accumulating numeric offsets
+  from previous frames. The first child's authored weight is ignored.
+
+The same base interpolation rules apply to colours and discrete values. State output still
+passes through the base crossfade, layer ordering, property bindings and clamping.
+
+### Deterministic random selection
+
+`kind: "random"` selects among eligible outgoing transitions, using nonnegative `weight`
+(default 1). Ignore disabled, false-condition and zero-weight edges. The first gate evaluation
+selects once for that search; later probes do not redraw. No eligible edge consumes no random
+number. A taken edge invalidates that search; another visit can choose again. Trigger names
+already consumed in this layer/step remain ineligible. Declaration order resolves intervals.
+
+Every player owns an unsigned 32-bit seed, `machineSeed` at the document root, default
+`0x6d2b79f5` (1831565813). Before each choice:
+`seed = (1664525 * seed + 1013904223) mod 2^32`, using integer multiplication;
+`u = seed / 4294967296`. Choose the first eligible edge whose cumulative weight exceeds
+`u * sum(weights)`. Players, component instances and named-machine players never share RNG
+state. Identical applied inputs, seed and step sequence produce identical choices. This
+portable LCG is independent of Rive's unseeded native selection.
+
+### Actions and completion
+
+States support `enterActions` and `exitActions`; transitions support `actions` and `endActions`.
+Each is an object with the listener actions `fire`, `set`, `toggle`, `emit`, using the existing
+input types and name/list forms. Order on entry: outgoing exitActions, transition actions,
+incoming enterActions. Queue in that order using the ordinary input queue. Effects become
+visible at the next step's input stage; emits have `layer: null`, as other queued actions.
+The initial state's enterActions are queued during player construction and apply on the
+first step. No action mutates the current transition search's inputs.
+
+A positive blend's endActions queue when the fade completes at the clock stage. Zero-duration
+or reduced-motion transitions queue them after entry actions at entry. Overshoot at or beyond
+blend duration also completes immediately. An interrupted fade discards its endActions.
+Pending actions prevent settlement through the existing queue; they never run twice.
+
+### Syntax, diagnostics and tooling
+
+Registry entries define JSON Schema, `anima schema`, both syntaxes and formatting. AniML keeps
+scalar fields as attributes. Object-valued fields (`mix`, `guard`, `change`, each action group)
+are JSON-valued attributes, with normal XML escaping; single quotes make authored JSON easier:
+`<on when="@after(0)" to="pop" change='{"input":"count","mode":"increased"}'/>`.
+`machineSeed` is an attribute of `<anima>`. Build/decompile/format use the same generic
+non-node registry extension documented in MODULES §3. Browser JSON requires only machine;
+browser AniML additionally loads markup, with no machine-specific compiler hook.
+
+Shape errors retain `type`, `missing-key`, `bad-value`, `unknown-key` and declared-feature
+errors. Semantic errors provide pointer, message and hint:
+
+| Code | Pointer | Meaning / correction |
+|---|---|---|
+| `machine-state` | state `/kind`, `/reset`, `/on` or edge `/to` | Special state needs empty pose; any cannot be initial/target; exit has no edges; reset must be true; random weights must have finite total. |
+| `machine-blend` | state `/mix`, `/mix/exit`, `/play` | Supply a numeric axis and sorted unique thresholds; choose an existing child exit clock matching play. |
+| `machine-clock` | edge or `/blendRatio` | Relative timing needs a play source with finite duration (zero ratios remain zero); choose blend or blendRatio. Blend/continued clocks must be autonomous and unsynchronized. |
+| `machine-guard` | edge `/guard` or operand | Choose one valid source and matching types; ordered comparisons require numbers. |
+| `unknown-input`, `input-type` | source, action or `/change/input` | Declare the correctly typed input, including scoped component inputs. |
+| `unknown-timeline` | `/mix/children/i/play` | Name an existing timeline. |
+| `unknown-target` | guard operand `/focus` | Name an existing document node. |
+| bind diagnostics | source `/bind` | Correct the numeric expression. |
+
+The capability directories map rows to examples, validation, independently calculated
+conformance cases and native-oracle evidence. A documented oracle skip is not native parity.
+
+<!-- capability: state-machine.any-state -->
+
+<!-- capability: state-machine.blend-1d-data -->
+
+<!-- capability: state-machine.blend-1d-input -->
+
+<!-- capability: state-machine.blend-additive -->
+
+<!-- capability: state-machine.blend-direct -->
+
+<!-- capability: state-machine.blend-exit-clock -->
+
+<!-- capability: state-machine.blend-weight-constant -->
+
+<!-- capability: state-machine.blend-weight-data -->
+
+<!-- capability: state-machine.blend-weight-input -->
+
+<!-- capability: state-machine.condition-artboard -->
+
+<!-- capability: state-machine.condition-component -->
+
+<!-- capability: state-machine.condition-focus -->
+
+<!-- capability: state-machine.continue-on-exit -->
+
+<!-- capability: state-machine.entry-state -->
+
+<!-- capability: state-machine.exit-state -->
+
+<!-- capability: state-machine.exit-time-relative -->
+
+<!-- capability: state-machine.state-entry-actions -->
+
+<!-- capability: state-machine.state-exit-actions -->
+
+<!-- capability: state-machine.state-random -->
+
+<!-- capability: state-machine.state-reset -->
+
+<!-- capability: state-machine.transition-actions -->
+
+<!-- capability: state-machine.transition-disabled -->
+
+<!-- capability: state-machine.transition-duration-relative -->
+
+<!-- capability: state-machine.transition-end-actions -->
+
+<!-- capability: state-machine.transition-random-weight -->

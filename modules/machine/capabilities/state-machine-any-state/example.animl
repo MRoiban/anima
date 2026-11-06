@@ -1,0 +1,22 @@
+<anima version="0.1" name="machine-probe" grid="20" requires="machine">
+  <trigger name="go"/>
+
+  <circle id="dot" cx="10" cy="10" r="1" fill="#4263eb"/>
+
+  <layer name="l" initial="a">
+    <state name="a">
+      <pose dot.x="0"/>
+      <on when="go" to="b"/>
+    </state>
+    <state name="b">
+      <pose dot.x="5"/>
+    </state>
+    <state name="all" kind="any">
+      <pose/>
+      <on when="go" to="c"/>
+    </state>
+    <state name="c">
+      <pose dot.x="10"/>
+    </state>
+  </layer>
+</anima>

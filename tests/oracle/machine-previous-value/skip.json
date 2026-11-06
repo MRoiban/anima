@@ -1,0 +1,8 @@
+{
+  "status": "skip",
+  "reason": "Anima adds a previous-step input comparison primitive to eliminate the benchmark count-state ladder. No corresponding native transition comparator primitive is exposed in the local schema. Recreating it with extra states, listeners or a script would test that substitute, not the new single-edge primitive. Independent conformance covers changes, increases/decreases, queued coalescing, self/any re-entry and shared layer baselines.",
+  "tests": [
+    "spec/conformance/machine-change-any/case.ani",
+    "modules/machine/test/core/runtime.test.ts"
+  ]
+}

@@ -1,0 +1,19 @@
+<anima version="0.1" name="machine-probe" grid="20" requires="machine components">
+  <component name="badge" grid="20">
+    <number name="count" default="3"/>
+    <circle id="c" cx="0" cy="0" r="1" fill="#000"/>
+  </component>
+
+  <circle id="dot" cx="10" cy="10" r="1" fill="#4263eb"/>
+  <instance id="child" component="badge"/>
+
+  <layer name="l" initial="a">
+    <state name="a">
+      <pose dot.x="0"/>
+      <on when="@after(0)" to="b" guard="{&quot;left&quot;:{&quot;component&quot;:&quot;child.count&quot;},&quot;op&quot;:&quot;>&quot;,&quot;right&quot;:2}"/>
+    </state>
+    <state name="b">
+      <pose dot.x="10"/>
+    </state>
+  </layer>
+</anima>

@@ -1,0 +1,8 @@
+set count 1
+advance 0
+snapshot dot.x
+set count 99
+advance 0
+snapshot dot.x
+advance 0
+snapshot dot.x

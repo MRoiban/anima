@@ -1,0 +1,3 @@
+set count true
+advance 0
+snapshot dot.x

@@ -1,10 +1,10 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now: P4c interaction (branch p4c-interaction; modules machine, input, focus) and P4d events (branch p4d-events) in parallel; then P4e data, P5b, P3b, P6–P10.
-State: main a02c0be = through P4b (PR #13). Parity 259/1238. core+web 19012; full-featured 51.4 KB.
-Next: merge agents per branch; before pushing a merge run browser tests for the seams; benchmark per phase; PR per phase.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4c-1 machine module, 25 inventory rows + previous-value condition, local commit only.
+State: 37 independent conformance cases; 18 native cases/45 frames + eight skips; 937 scoped tests green incl. both browsers.
+Next: final lint/generation/artifact checks and local commit; phase owner integrates focus reader and companion modules.
+Don't: push/PR/merge, change other modules, promote parity status, loosen limits or budgets.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -104,3 +104,7 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 04:00 [claude]: PR #13 CI red: canvas cross-backend harness hard-coded its module list → motion cases unknown-feature; generator now emits packages/web/src/all-modules.ts, harness uses it; canvas test 524 pass. Lesson: run browser tests for the merge's seams before pushing a phase PR
 - 2026-11-07 05:00 [claude]: PR #13 CI red again: timeouts from CPU starvation (module-order 4.7 s locally vs 30 s limit hit in CI) + scaffolder test used a now-done row; npm test now runs unit (15 s, 1229) then browser --maxWorkers=2 (2.5 min, 718); limits unchanged
 - 2026-11-07 05:30 [claude]: PR #13 merged (a02c0be); P4c split into modules machine/input/focus (3 agents) + P4d events (1 agent)
+- 2026-11-06 03:28 [sol]: machine runtime + generic AniML fields implemented; 29 hand-calculated conformance vectors and 25 syntax/feature tests green; first native captures written → native checking in progress (evidence: /tmp/machine-tests-implemented.log: 437 pass, 25 oracle TODO; six fresh local-only captures)
+- 2026-11-06 03:45 [sol]: 18 independently authored native cases/45 frames verified at existing max delta 2 (observed 1); eight explicit skips document host/queue/seed semantics; broad core+markup scope 1323 pass/32 independent-reader failures → extended the independent reader for JSON-valued attributes, targeted 366 tests green (evidence: /tmp/machine-tests-broad.log, /tmp/machine-tests-parser2.log); generic registry extension authorized by owner, docs/CLI hooks complete.
+- 2026-11-06 03:51 [sol]: finished machine + generic AniML registry fields; 937 scoped tests pass (both engines), module 5736/8192 B, core+web 19048 (+36), 37 conformance cases, 18 native probes/45 frames + eight skips → final local checks/commit (evidence: /tmp/machine-scoped-complete.log; modules/machine/REPORT.md). Motion/reduced child clocks and explicit unsupported-control diagnostics verified; no thresholds changed.
+- 2026-11-06 03:54 [sol]: final Prettier, ESLint, core/core-test/markup/web typechecks, module/parity generation, 136 AniML and 16 browser artifacts all pass; CLI schema/validate/docs/sample exercised; no pending machine probes or TODO stubs → committing locally (evidence: /tmp/machine-prettier-complete.log, /tmp/machine-eslint-complete.log, /tmp/machine-build-complete-check.log; 937 scoped tests).

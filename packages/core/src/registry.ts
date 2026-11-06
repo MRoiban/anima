@@ -277,6 +277,8 @@ const baseTables = [
   ...Object.values(STATIC),
   ...Object.values(PAINT),
   (DOC as ObjShape).p,
+  (LAYER as ObjShape).p,
+  (((DOC as ObjShape).p.listeners as Extract<Shape, { k: 'arr' }>).of as ObjShape).p,
   (TIMELINE as ObjShape).p,
   (STATE as ObjShape).p,
   (TRANSITION as ObjShape).p,

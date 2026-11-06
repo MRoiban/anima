@@ -1,0 +1,5 @@
+advance 0.5
+snapshot dot.x
+fire go
+advance 0
+snapshot dot.x

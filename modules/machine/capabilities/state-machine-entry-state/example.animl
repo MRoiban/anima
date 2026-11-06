@@ -1,0 +1,19 @@
+<anima version="0.1" name="machine-probe" grid="20" requires="machine">
+  <bool name="enabled" default="true"/>
+
+  <circle id="dot" cx="10" cy="10" r="1" fill="#4263eb"/>
+
+  <layer name="l" initial="entry">
+    <state name="entry" kind="entry">
+      <pose/>
+      <on when="enabled" to="a"/>
+      <on when="@after(0)" to="b"/>
+    </state>
+    <state name="a">
+      <pose dot.x="5"/>
+    </state>
+    <state name="b">
+      <pose dot.x="10"/>
+    </state>
+  </layer>
+</anima>

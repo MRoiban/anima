@@ -1,0 +1,18 @@
+<anima version="0.1" name="machine-probe" grid="20" requires="machine">
+  <number name="count"/>
+
+  <circle id="dot" cx="10" cy="10" r="1" fill="#4263eb"/>
+
+  <layer name="l" initial="idle">
+    <state name="all" kind="any">
+      <pose/>
+      <on when="@after(0)" to="pop" change="{&quot;input&quot;:&quot;count&quot;,&quot;mode&quot;:&quot;increased&quot;}"/>
+    </state>
+    <state name="idle">
+      <pose dot.x="0"/>
+    </state>
+    <state name="pop" emit="pop">
+      <pose dot.x="10"/>
+    </state>
+  </layer>
+</anima>

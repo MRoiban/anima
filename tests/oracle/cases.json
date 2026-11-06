@@ -251,5 +251,139 @@
       "0.75": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0\ntimeline t scrub 1\nadvance 0",
       "1": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0\ntimeline t scrub 1\nadvance 0\ntimeline t scrub 0\nadvance 0"
     }
+  },
+  {
+    "name": "state-machine-blend-weight-constant",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0]
+  },
+  {
+    "name": "state-machine-blend-weight-input",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0]
+  },
+  {
+    "name": "state-machine-blend-weight-data",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0]
+  },
+  {
+    "name": "state-machine-blend-direct",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0]
+  },
+  {
+    "name": "state-machine-blend-1d-input",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.001]
+  },
+  {
+    "name": "state-machine-blend-1d-data",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.001]
+  },
+  {
+    "name": "state-machine-blend-additive",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.001]
+  },
+  {
+    "name": "state-machine-continue-on-exit",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.5, 0.75, 1.5]
+  },
+  {
+    "name": "state-machine-exit-time-relative",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.5, 0.75, 1.5]
+  },
+  {
+    "name": "state-machine-transition-duration-relative",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.5, 0.75, 1.5],
+    "scripts": {
+      "0.75": "advance 0.5\nadvance 0.25",
+      "1.5": "advance 0.5\nadvance 0.25\nadvance 0.75"
+    }
+  },
+  {
+    "name": "state-machine-state-reset",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.5, 0.75, 1]
+  },
+  {
+    "name": "state-machine-transition-disabled",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.5, 0.75, 1.5]
+  },
+  {
+    "name": "state-machine-entry-state",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.5, 0.75, 1.5]
+  },
+  {
+    "name": "state-machine-any-state",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0]
+  },
+  {
+    "name": "state-machine-condition-artboard",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0]
+  },
+  {
+    "name": "state-machine-condition-component",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0]
+  },
+  {
+    "name": "state-machine-blend-exit-clock",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.5, 0.75, 1.5]
+  },
+  {
+    "name": "state-machine-exit-state",
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0,
+    "times": [0, 0.5, 0.75, 1.5],
+    "scripts": {
+      "0.75": "advance 0.5\nadvance 0.25",
+      "1.5": "advance 0.5\nadvance 0.25\nadvance 0.75"
+    }
   }
 ]
