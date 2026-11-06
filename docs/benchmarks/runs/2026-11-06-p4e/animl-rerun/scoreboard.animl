@@ -1,0 +1,44 @@
+<anima version="0.1" name="scoreboard" grid="40" viewBox="0 0 40 20" requires="data bind derive convert input">
+  <model name="Player">
+    <string name="name"/>
+    <number name="score" min="0" max="2000"/>
+    <color name="tint"/>
+    <string name="label" value="$score" convert="points"/>
+  </model>
+  <model name="Board"><list name="players" of="Player"/></model>
+  <instance name="main" model="Board" default="true">
+    <set path="players" value='[{"name":"Ada","score":1250,"tint":"#d97757"},{"name":"Lin","score":980,"tint":"#6a9bcc"},{"name":"Sam","score":40,"tint":"#788c5d"}]'/>
+  </instance>
+  <converter name="grouped" type="number-format" decimals="0" grouping="true"/>
+  <converter name="suffix" type="template" text="{0} pts"/>
+  <converter-group name="points" chain="grouped suffix"/>
+  <circle id="ada-swatch" cx="2" cy="3" r="1" fill="#d97757"/>
+  <rect id="ada-bar" x0="5" y0="2" width="18.75" height="2" fill="#d97757" stroke="#d97757" stroke-width="0"/>
+  <circle id="lin-swatch" cx="2" cy="8" r="1" fill="#6a9bcc"/>
+  <rect id="lin-bar" x0="5" y0="7" width="14.7" height="2" fill="#6a9bcc" stroke="#d97757" stroke-width="0"/>
+  <circle id="sam-swatch" cx="2" cy="13" r="1" fill="#788c5d"/>
+  <rect id="sam-bar" x0="5" y0="12" width="0.6" height="2" fill="#788c5d" stroke="#d97757" stroke-width="0"/>
+  <path id="track" d="M5 18H35" stroke="#141413" stroke-width="1"/>
+  <!-- Parent coordinates express scores; inverse child scale keeps the knob circular. -->
+  <group id="slider" x="5" y="18" scaleX="0.015">
+    <circle id="knob" cx="0" cy="0" r="1" x="1250" scaleX="66.66666666666667" fill="#d97757"/>
+  </group>
+  <bind target="ada-bar.width" value="30 * $players.0.score / 2000"/>
+  <bind target="lin-bar.width" value="30 * $players.1.score / 2000"/>
+  <bind target="sam-bar.width" value="30 * $players.2.score / 2000"/>
+  <bind target="ada-swatch.fill" value="$players.0.tint"/>
+  <bind target="ada-bar.fill" value="$players.0.tint"/>
+  <bind target="lin-swatch.fill" value="$players.1.tint"/>
+  <bind target="lin-bar.fill" value="$players.1.tint"/>
+  <bind target="sam-swatch.fill" value="$players.2.tint"/>
+  <bind target="sam-bar.fill" value="$players.2.tint"/>
+  <bind target="ada-bar.stroke-width" value="0.5 * ($players.0.score >= $players.1.score and $players.0.score >= $players.2.score)"/>
+  <bind target="lin-bar.stroke-width" value="0.5 * ($players.1.score > $players.0.score and $players.1.score >= $players.2.score)"/>
+  <bind target="sam-bar.stroke-width" value="0.5 * ($players.2.score > $players.0.score and $players.2.score > $players.1.score)"/>
+  <bind target="knob.x" value="$players.0.score"/>
+  <listener on="drag-start|drag|drag-end" target="knob" write='{"x":"$players.0.score"}' align="preserve"/>
+  <layer name="threshold" initial="below">
+    <state name="below"><on when="$players.0.score >= 1500" to="above"/></state>
+    <state name="above" emit="milestone"><on when="$players.0.score &lt; 1500" to="below"/></state>
+  </layer>
+</anima>

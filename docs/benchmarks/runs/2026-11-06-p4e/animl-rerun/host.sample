@@ -1,0 +1,179 @@
+advance 0
+advance 0
+set $players.0.score 0
+set $players.1.score 0
+set $players.2.score 0
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 0
+set $players.1.score 0
+set $players.2.score 1000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 0
+set $players.1.score 0
+set $players.2.score 2000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 0
+set $players.1.score 1000
+set $players.2.score 0
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 0
+set $players.1.score 1000
+set $players.2.score 1000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 0
+set $players.1.score 1000
+set $players.2.score 2000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 0
+set $players.1.score 2000
+set $players.2.score 0
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 0
+set $players.1.score 2000
+set $players.2.score 1000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 0
+set $players.1.score 2000
+set $players.2.score 2000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 1000
+set $players.1.score 0
+set $players.2.score 0
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 1000
+set $players.1.score 0
+set $players.2.score 1000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 1000
+set $players.1.score 0
+set $players.2.score 2000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 1000
+set $players.1.score 1000
+set $players.2.score 0
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 1000
+set $players.1.score 1000
+set $players.2.score 1000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 1000
+set $players.1.score 1000
+set $players.2.score 2000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 1000
+set $players.1.score 2000
+set $players.2.score 0
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 1000
+set $players.1.score 2000
+set $players.2.score 1000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 1000
+set $players.1.score 2000
+set $players.2.score 2000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 2000
+set $players.1.score 0
+set $players.2.score 0
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 2000
+set $players.1.score 0
+set $players.2.score 1000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 2000
+set $players.1.score 0
+set $players.2.score 2000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 2000
+set $players.1.score 1000
+set $players.2.score 0
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 2000
+set $players.1.score 1000
+set $players.2.score 1000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 2000
+set $players.1.score 1000
+set $players.2.score 2000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 2000
+set $players.1.score 2000
+set $players.2.score 0
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 2000
+set $players.1.score 2000
+set $players.2.score 1000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 2000
+set $players.1.score 2000
+set $players.2.score 2000
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.tint "#123456"
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.1.tint "#abcdef"
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.2.tint "#fedcba"
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x
+advance 0
+set $players.0.score 1234.25
+advance 0.016666666666666666
+snapshot $players.length $players.0.name $players.0.score $players.0.tint $players.0.label ada-bar.width ada-bar.fill ada-swatch.fill ada-bar.stroke-width $players.1.name $players.1.score $players.1.tint $players.1.label lin-bar.width lin-bar.fill lin-swatch.fill lin-bar.stroke-width $players.2.name $players.2.score $players.2.tint $players.2.label sam-bar.width sam-bar.fill sam-swatch.fill sam-bar.stroke-width knob.x

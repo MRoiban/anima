@@ -227,15 +227,18 @@ export class Player {
   /** Queue a write to a bool or number input (applied by the next step). */
   set(name: string, value: Value): void {
     const inp = this.#input(name, ['bool', 'number', 'string', 'color']);
-    if (
-      inp.readonly ||
-      !(
-        inp.accepts?.(value) ??
-        (inp.type === 'bool'
-          ? typeof value === 'boolean'
-          : typeof value === 'number' && Number.isFinite(value))
-      )
-    )
+    if (inp.readonly)
+      throw new Error(
+        V
+          ? `anima: input "${name}" is read-only (read-only-path): write its source properties instead`
+          : 'anima: ' + name,
+      );
+    if (!(
+      inp.accepts?.(value) ??
+      (inp.type === 'bool'
+        ? typeof value === 'boolean'
+        : typeof value === 'number' && Number.isFinite(value))
+    ))
       throw new Error(V ? `anima: input "${name}" takes a ${inp.type}` : 'anima: ' + name);
     this.#queue.push(['set', name, value]);
   }

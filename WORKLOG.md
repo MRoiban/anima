@@ -1,12 +1,12 @@
 # Work log
 
 ## Now
-Goal: P4e-8 implementation complete; fresh native computed-property evidence remains blocked.
-Branch: t3/computed-bind-expressions; local commit only; no push, PR or merge.
-Verified: scope 3365 pass/43 TODO; final reference tests 35/35; strict oracle 216 cases/410 samples.
-Sizes: core+web 20107; full 93573; derive 2117/4096, data 7420/8192, bind 2048/2048 B.
-Next: parent native capture with permitted CLI version, fresh benchmark agent, phase integration.
-Don't: modify benchmark/inventory/measurement inputs or loosen limits; upward lookup remains pending.
+Goal: P4e fresh AniML rerun scoreboard complete, local commit only.
+Branch: t3/animl-scoreboard-rerun; no push, PR or merge.
+Verified: 6/6 brief items; 63 snapshots each source/build, exact parity; 3 PNGs inspected.
+Metrics: 39 CLI checks; 5 expected readonly errors, 2 setup errors, 1 verifier error.
+Next: parent review of animl-rerun/REPORT.md and evidence.
+Don't: read forbidden benchmark runs, .riv files or oracle/reference directories.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -195,3 +195,5 @@ Don't: modify benchmark/inventory/measurement inputs or loosen limits; upward lo
 - 2026-11-06 11:56 [codex]: bounded/coercion follow-up → scope 3365 pass/43 TODO, independent conformance 389 pass/15 TODO, strict oracle exit 0; data 7420, derive 2117, full 93573 B, all limits unchanged (evidence: modules/derive/verification/).
 - 2026-11-06 [claude]: merged P4e-8 derive (2117/4096) + bind comparisons (bind 2048/2048, host 4042/4096, data 7420, core+web 20107 +52 for shared compare) → scope 3364 pass/43 todo, oracle 0. new-capability.test failed twice under the browser-loaded run, passed alone and in unit scope (load, unverified). Rive CLI 1.9.0 now refuses local commands ('1.9.1 is required') → owner decision on `rive update`
 - 2026-11-06 12:10 [claude]: perf vs main, in-process A/B pinned (load ~10): bell frame min 34.9/34.0 µs (p25 40.2/41.2), composite 22.3/23.0, toolbar 22.4/24.0 µs; bell compile 1.95/2.07 ms, toolbar compile 3.52/3.80 ms, quarter-prefix sweep 151/153 ms → no regression. PLAN P4e block closed; LOG after AniML rerun
+
+- 2026-11-06 12:12 [codex-test]: P4e AniML rerun 6/6; 39 CLI checks, 126 final asserted snapshots, 3 inspected PNGs → local deliverable complete (evidence: animl-rerun/REPORT.md, evidence/checks.jsonl); misleading readonly sample diagnostic retained.

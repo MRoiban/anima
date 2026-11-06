@@ -83,6 +83,7 @@ it('host reads bare paths, rejects writes and notifies once after resolution', (
       pointer: '/data/$players.0.label',
     }),
   );
+  expect(() => p.set('$players.0.label', 'bad')).toThrow(/read-only \(read-only-path\)/);
   api.number('$players.0.score').set(1000);
   api.number('$players.0.score').set(1500);
   p.step(0);
