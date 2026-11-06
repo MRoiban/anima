@@ -201,3 +201,16 @@ nonuniform/sheared local feathering (world feather works through nonuniform node
 nonuniform viewport feathering and partial fixed-stroke trims. Cross-origin images require CORS.
 SVG remains the CLI renderer and default browser renderer. Measurements and raster differences are
 recorded in [the canvas test report](../modules/canvas/test/web/RESULTS.md).
+
+## Focus module
+
+Import `@anima-format/web/focus` and declare `requires="focus"`. Nodes with a `<focus>`
+child become real shadow-DOM focus targets. The icon is one Tab stop by default;
+arrows move focus inside it, and Tab leaves. A node's `focus.tabStops: true`
+(AniML `tab-stops="true"`) opts into native inner Tab stops. Focus/blur listener
+actions queue through the core player. Existing host Enter/Space activation remains.
+
+`icon.player.focused` reports the local id or dotted component path. Core methods
+`focusTarget(id)`, `focusClear()`, `focusTraverse(direction)` and `focusPointer(x,y)`
+share browser and headless traversal. Component-local state machines read local ids.
+Use `anima sample`'s focus/key commands for deterministic inspection (SPEC §11.2).

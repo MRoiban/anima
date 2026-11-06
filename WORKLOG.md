@@ -1,10 +1,11 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now: P4c interaction (branch p4c-interaction; modules machine, input, focus) and P4d events (branch p4d-events) in parallel; then P4e data, P5b, P3b, P6–P10.
-State: main a02c0be = through P4b (PR #13). Parity 259/1238. core+web 19012; full-featured 51.4 KB.
-Next: merge agents per branch; before pushing a merge run browser tests for the seams; benchmark per phase; PR per phase.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4c-3 focus implementation for integration into p4c-interaction.
+Verified: focus 3924/4096 B; core+web 19012 (+0); scoped 416 pass incl. 17 new conformance and 10 browser checks.
+Verified: full typecheck, prettier, eslint, module wiring, AniML generation; schema/browser bundles regenerated.
+Next: parent composes input key dispatch and machine condition-focus using Player.focused; phase seam tests.
+Don't: push/PR/merge; change parity statuses/budgets; claim new Rive captures (CLI absent; 16 explicit skips).
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -99,8 +100,10 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-06 23:00 [claude]: PR #12 (Pc canvas) merged (86d2c43); merged main into p4b-motion (7 conflicts: generated wiring regenerated, corpus 71 cases); scoped changed 1149 pass + 1 expected fail
 - 2026-11-07 00:30 [claude]: merged P4b-3 (dbbbfed): sync/exitNext/hold/input time, 10 cases, sync example 6/6; fixed docs topics for web-only modules (canvas); scoped motion+cli+canvas green
 - 2026-11-07 01:30 [claude]: merged P4b-4 (aa7dc76): strict oracle exit 0, 71 samples; uint in-range exact; Rive dump float32 rounding documented
-- 2026-11-07 02:30 [claude]: merged P4b AniML rerun (afc413d): 5/6 (from 4/6); 'stall' was advance 0 (re-check completes); reduced-motion mid-loop = spec decision → P3b
+- 2026-11-07 02:30 [claude]: merged P4b AniML rerun (afc416d): 5/6 (from 4/6); 'stall' was advance 0 (re-check completes); reduced-motion mid-loop = spec decision → P3b
 - 2026-11-07 03:00 [claude]: P4b bookkeeping: 22 rows done (259/1238), LOG with numbers (core+web 19012, +1049 logged); opening PR
 - 2026-11-07 04:00 [claude]: PR #13 CI red: canvas cross-backend harness hard-coded its module list → motion cases unknown-feature; generator now emits packages/web/src/all-modules.ts, harness uses it; canvas test 524 pass. Lesson: run browser tests for the merge's seams before pushing a phase PR
 - 2026-11-07 05:00 [claude]: PR #13 CI red again: timeouts from CPU starvation (module-order 4.7 s locally vs 30 s limit hit in CI) + scaffolder test used a now-done row; npm test now runs unit (15 s, 1229) then browser --maxWorkers=2 (2.5 min, 718); limits unchanged
 - 2026-11-07 05:30 [claude]: PR #13 merged (a02c0be); P4c split into modules machine/input/focus (3 agents) + P4d events (1 agent)
+- 2026-11-06 03:25 [sol/focus]: focus core + DOM + dotted component targets, 16 probes, 16 explicit oracle skips → 416 scoped tests pass; typecheck/lint/format/wiring green; 3924 B module, core+web +0 (evidence: /tmp/focus-final-scope.log; standard browser-build gzip level 9).
+- 2026-11-06 03:25 [sol/focus]: initial browser failures (negative host tabindex, pointer default focus) and motion fade regression (dropped optional step argument) fixed → 10 browser tests and all 99 conformance cases pass; rive executable unavailable, no captures (evidence: /tmp/focus-browser.log; rive --help exit 127).

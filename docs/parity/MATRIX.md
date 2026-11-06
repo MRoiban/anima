@@ -636,20 +636,20 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `input.data-listener` | View model listeners | new: listener.onChange property path | data | planned | conformance/input-data-listener |
 | `input.disable-listeners` | Host listener opt-out | new: host.interactive: false | interaction | planned | conformance/input-disable-listeners |
 | `input.event-listener` | Rive event listeners | new: listener.onEvent with event reference | events | planned | conformance/input-event-listener |
-| `input.focus-clear` | Clear focus | new: listener action clearFocus | interaction | planned | conformance/input-focus-clear |
-| `input.focus-down` | Focus down | new: listener action focus: down | interaction | planned | conformance/input-focus-down |
-| `input.focus-edge-closed-loop` | Focus boundary closedLoop | new: focus.scope.edge: closedLoop | interaction | planned | conformance/input-focus-edge-closed-loop |
-| `input.focus-edge-parent-scope` | Focus boundary parentScope | new: focus.scope.edge: parentScope | interaction | planned | conformance/input-focus-edge-parent-scope |
-| `input.focus-edge-stop` | Focus boundary stop | new: focus.scope.edge: stop | interaction | planned | conformance/input-focus-edge-stop |
-| `input.focus-enabled` | Focus enabled | new: node.focus.enabled | interaction | planned | conformance/input-focus-enabled |
-| `input.focus-left` | Focus left | new: listener action focus: left | interaction | planned | conformance/input-focus-left |
-| `input.focus-next` | Focus next | new: listener action focus: next | interaction | planned | conformance/input-focus-next |
-| `input.focus-pointer` | Focus pointer | new: node.focus.pointer | interaction | planned | conformance/input-focus-pointer |
-| `input.focus-previous` | Focus previous | new: listener action focus: previous | interaction | planned | conformance/input-focus-previous |
-| `input.focus-right` | Focus right | new: listener action focus: right | interaction | planned | conformance/input-focus-right |
-| `input.focus-target` | Focus a specific target | new: listener action focusTarget: node | interaction | planned | conformance/input-focus-target |
-| `input.focus-traverse` | Focus traverse | new: node.focus.traverse | interaction | planned | conformance/input-focus-traverse |
-| `input.focus-up` | Focus up | new: listener action focus: up | interaction | planned | conformance/input-focus-up |
+| `input.focus-clear` | Clear focus | nodes[].focus; Player focus API; spec/SPEC.md focus | focus | planned | modules/focus/test; spec/conformance/input-focus-clear; oracle skip: modules/focus/capabilities/input-focus-clear/README.md |
+| `input.focus-down` | Focus down | nodes[].focus; Player focus API; spec/SPEC.md focus | focus | planned | modules/focus/test; spec/conformance/input-focus-down; oracle skip: modules/focus/capabilities/input-focus-down/README.md |
+| `input.focus-edge-closed-loop` | Focus boundary closedLoop | nodes[].focus; Player focus API; spec/SPEC.md focus | focus | planned | modules/focus/test; spec/conformance/input-focus-edge-closed-loop; oracle skip: modules/focus/capabilities/input-focus-edge-closed-loop/README.md |
+| `input.focus-edge-parent-scope` | Focus boundary parentScope | nodes[].focus; Player focus API; spec/SPEC.md focus | focus | planned | modules/focus/test; spec/conformance/input-focus-edge-parent-scope; oracle skip: modules/focus/capabilities/input-focus-edge-parent-scope/README.md |
+| `input.focus-edge-stop` | Focus boundary stop | nodes[].focus; Player focus API; spec/SPEC.md focus | focus | planned | modules/focus/test; spec/conformance/input-focus-edge-stop; oracle skip: modules/focus/capabilities/input-focus-edge-stop/README.md |
+| `input.focus-enabled` | Focus enabled | nodes[].focus; Player focus API; spec/SPEC.md focus | focus | planned | modules/focus/test; spec/conformance/input-focus-enabled; oracle skip: modules/focus/capabilities/input-focus-enabled/README.md |
+| `input.focus-left` | Focus left | nodes[].focus; Player focus API; spec/SPEC.md focus | focus | planned | modules/focus/test; spec/conformance/input-focus-left; oracle skip: modules/focus/capabilities/input-focus-left/README.md |
+| `input.focus-next` | Focus next | nodes[].focus; Player focus API; spec/SPEC.md focus | focus | planned | modules/focus/test; spec/conformance/input-focus-next; oracle skip: modules/focus/capabilities/input-focus-next/README.md |
+| `input.focus-pointer` | Focus pointer | nodes[].focus; Player focus API; spec/SPEC.md focus | focus | planned | modules/focus/test; spec/conformance/input-focus-pointer; oracle skip: modules/focus/capabilities/input-focus-pointer/README.md |
+| `input.focus-previous` | Focus previous | nodes[].focus; Player focus API; spec/SPEC.md focus | focus | planned | modules/focus/test; spec/conformance/input-focus-previous; oracle skip: modules/focus/capabilities/input-focus-previous/README.md |
+| `input.focus-right` | Focus right | nodes[].focus; Player focus API; spec/SPEC.md focus | focus | planned | modules/focus/test; spec/conformance/input-focus-right; oracle skip: modules/focus/capabilities/input-focus-right/README.md |
+| `input.focus-target` | Focus a specific target | nodes[].focus; Player focus API; spec/SPEC.md focus | focus | planned | modules/focus/test; spec/conformance/input-focus-target; oracle skip: modules/focus/capabilities/input-focus-target/README.md |
+| `input.focus-traverse` | Focus traverse | nodes[].focus; Player focus API; spec/SPEC.md focus | focus | planned | modules/focus/test; spec/conformance/input-focus-traverse; oracle skip: modules/focus/capabilities/input-focus-traverse/README.md |
+| `input.focus-up` | Focus up | nodes[].focus; Player focus API; spec/SPEC.md focus | focus | planned | modules/focus/test; spec/conformance/input-focus-up; oracle skip: modules/focus/capabilities/input-focus-up/README.md |
 | `input.gamepad-axis` | Gamepad axis | new: listener.gamepad.kind: axis | interaction | planned | conformance/input-gamepad-axis |
 | `input.gamepad-button` | Gamepad button | new: listener.gamepad.kind: button | interaction | planned | conformance/input-gamepad-button |
 | `input.gamepad-button-phases` | Controller button phases | new: listener.gamepad.phase: down/up | interaction | planned | conformance/input-gamepad-button-phases |
@@ -667,8 +667,8 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `input.key-repeat` | Keyboard repeat | new: listener.key with phase: repeat | interaction | planned | conformance/input-key-repeat |
 | `input.key-up` | Keyboard up | new: listener.key with phase: up | interaction | planned | conformance/input-key-up |
 | `input.keyboard-bubbling` | Focused keyboard routing | new: focused node dispatch and ancestor bubbling | interaction | planned | conformance/input-keyboard-bubbling |
-| `input.listen-blur` | blur listener | new: listener.on: blur | interaction | planned | conformance/input-listen-blur |
-| `input.listen-focus` | focus listener | new: listener.on: focus | interaction | planned | conformance/input-listen-focus |
+| `input.listen-blur` | blur listener | nodes[].focus; Player focus API; spec/SPEC.md focus | focus | planned | modules/focus/test; spec/conformance/input-listen-blur; oracle skip: modules/focus/capabilities/input-listen-blur/README.md |
+| `input.listen-focus` | focus listener | nodes[].focus; Player focus API; spec/SPEC.md focus | focus | planned | modules/focus/test; spec/conformance/input-listen-focus; oracle skip: modules/focus/capabilities/input-listen-focus/README.md |
 | `input.multi-touch` | Independent simultaneous touches | new: player.pointer(kind,{id,x,y}) | interaction | planned | conformance/input-multi-touch |
 | `input.multi-trigger-listener` | Several trigger types per listener | new: listener.on array | interaction | planned | conformance/input-multi-trigger-listener |
 | `input.opaque-targets` | Opaque hit targets | new: node.hit.opaque | interaction | planned | conformance/input-opaque-targets |

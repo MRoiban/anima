@@ -12,6 +12,7 @@
     "./bind": "./src/bind.ts",
     "./markup-bind": "./src/markup-bind.ts",
     "./assets": "./src/assets.ts",
+    "./focus": "./src/focus.ts",
     "./markup": "./src/markup.ts",
     "./markup-libraries": "./src/markup-libraries.ts",
     "./motion": "./src/motion.ts",

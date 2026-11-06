@@ -14,6 +14,7 @@ export const webEntries = [
   'surface',
   'markup-surface',
   'canvas',
+  'focus',
   'motion',
 ];
 export const webOwners: Record<string, string> = {
@@ -23,6 +24,7 @@ export const webOwners: Record<string, string> = {
   bind: 'bind',
   'markup-bind': 'bind',
   assets: 'assets',
+  focus: 'focus',
   markup: 'markup',
   'markup-libraries': 'markup-libraries',
   motion: 'motion',
@@ -53,6 +55,7 @@ export const moduleBudgets: {
   { name: 'surface', buildOrder: 11, sizeOrder: 10, budget: 8192 },
   { name: 'components', buildOrder: 5, sizeOrder: 11, budget: 4096 },
   { name: 'canvas', budget: 8192, heavy: true },
+  { name: 'focus', budget: 4096 },
   { name: 'motion', budget: 8192 },
 ];
 export const moduleScopes = {
@@ -100,6 +103,31 @@ export const moduleScopes = {
       'packages/markup/test/names.test.ts',
     ],
     conformance: ['assets-'],
+  },
+  focus: {
+    tests: [
+      'modules/focus/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+    ],
+    conformance: [
+      'input-focus-clear',
+      'input-focus-down',
+      'input-focus-edge-closed-loop',
+      'input-focus-edge-parent-scope',
+      'input-focus-edge-stop',
+      'input-focus-enabled',
+      'input-focus-left',
+      'input-focus-next',
+      'input-focus-previous',
+      'input-focus-pointer',
+      'input-focus-right',
+      'input-focus-target',
+      'input-focus-traverse',
+      'input-focus-up',
+      'input-listen-blur',
+      'input-listen-focus',
+    ],
   },
   markup: { tests: ['packages/web/test/markup-hooks.test.ts'], conformance: [] },
   'markup-libraries': { tests: ['modules/markup-libraries/test/**/*.test.ts'], conformance: [] },

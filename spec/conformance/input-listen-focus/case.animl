@@ -1,0 +1,28 @@
+<anima version="0.1" name="input-listen-focus" grid="20" requires="focus">
+  <bool name="enabled" default="true"/>
+
+  <group id="scope">
+    <focus enabled="false" scope="true" edge="stop"/>
+    <circle id="a" cx="2" cy="2" r="1" fill="#000">
+      <focus bounds="1 1 2 2"/>
+    </circle>
+    <circle id="b" cx="8" cy="2" r="1" fill="#000">
+      <focus enabled-input="enabled" bounds="7 1 2 2"/>
+    </circle>
+    <circle id="c" cx="2" cy="8" r="1" fill="#000">
+      <focus bounds="1 7 2 2"/>
+    </circle>
+  </group>
+  <circle id="outside" cx="15" cy="2" r="1" fill="#000">
+    <focus bounds="14 1 2 2"/>
+  </circle>
+
+  <listener on="focus" target="a" emit="a-focus"/>
+  <listener on="blur" target="a" emit="a-blur"/>
+  <listener on="focus" target="b" emit="b-focus"/>
+  <listener on="blur" target="b" emit="b-blur"/>
+  <listener on="focus" target="c" emit="c-focus"/>
+  <listener on="blur" target="c" emit="c-blur"/>
+  <listener on="focus" target="outside" emit="outside-focus"/>
+  <listener on="blur" target="outside" emit="outside-blur"/>
+</anima>

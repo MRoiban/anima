@@ -1,0 +1,3 @@
+focus target a
+focus traverse next
+snapshot

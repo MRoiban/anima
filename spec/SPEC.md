@@ -388,6 +388,9 @@ One command per line; `#` starts a comment. The same language drives `anima samp
 | `pointer move\|down\|up <x> <y>` | Report a pointer event in grid units, then `step(0)`. |
 | `pointer click <x> <y>` | `move`, `down`, `up` at that point, each followed by `step(0)`. |
 | `pointer leave` | Report `leave()`, then `step(0)`. |
+| `focus target <id>` / `focus clear` | Change logical focus, then step(0); requires focus. |
+| `focus traverse <direction>` | Traverse next/previous/left/right/up/down, then step(0). |
+| `key down\|up <key> [shift]` | Deliver a deterministic focus key, then step(0); input module integration extends this dispatch. |
 | `motion reduce\|full` | Turn reduced motion on or off for states entered from now on. |
 | `snapshot [address …]` | Print one JSON line (below), optionally limited to animated addresses and bool/number input names. An input is reported under its input name. |
 
@@ -1380,3 +1383,88 @@ paint. Cross-origin image sources need CORS permission for canvas readback/patte
 Cross-backend pixel differences are measured and retained by the canvas browser conformance suite;
 limits and findings are in `modules/canvas/test/web/README.md` and `RESULTS.md`. Renderer support
 is not a claim of exact rasterizer identity or a passing Rive oracle for host-only operations.
+
+## focus
+
+The optional `focus` module declares `requires: ["focus"]`. It adds a static `focus`
+object to any node: `enabled` (bool, default true), `enabledInput` (optional bool input
+name), `pointer` (bool, default true), `order` (finite number, default 0), `scope`
+(bool, default false), `edge` (`stop`, default, `closed-loop`, or `parent-scope`),
+`label` (string, defaults to node id), `bounds` (local `[x,y,width,height]`, nonnegative
+sizes; omitted means the local origin), and `tabStops` (bool, default false).
+A scope container may set `enabled: false` while retaining its scope policy.
+Unknown enabled inputs report `unknown-input` and non-bool inputs report `input-type`
+at the node's `/focus/enabledInput`, with a message and corrective hint. Ordinary
+registry shape/type/range and undeclared-feature diagnostics apply to all fields.
+
+`Player.focused` is a synchronous, read-only node id or null. This is the hook for
+machine `condition-focus`: compare the requested id with `player.focused`; no DOM
+query, step or input write is required. Each player owns independent focus state.
+`focusTarget(id|null)` changes the target if eligible; unknown/disabled/invisible
+ids leave it unchanged. `focusClear()` clears it. Both return whether it changed.
+`focusItems()` returns eligible targets; `focusItems(true)` includes unavailable
+configured targets for DOM reconciliation. A target needs a focus object, enabled
+true, enabledInput true when supplied, and visible ancestors (including itself).
+Opacity does not affect eligibility. Focus lost through a resolved visibility/input
+change clears after that step and queues blur actions; the step is unsettled until
+the next step has consumed them.
+
+`focusTraverse(next|previous|left|right|up|down)` defaults to next. Sequential order
+is ascending `order`, then document node index. From no focus, forward directions
+select the first eligible target and backward directions the last. Within a scope,
+next/previous take the adjacent target. Spatial directions use centers of the local
+bounds transformed by current world matrices. Candidates strictly ahead on the
+requested axis are ranked by squared Euclidean distance, then sequential order.
+The nearest enclosing ancestor with scope true owns the boundary. `stop` retains
+the target; `closed-loop` wraps sequentially to the opposite end, or spatially to
+the opposite extreme on that axis (ties use authored node order); `parent-scope`
+retries in the enclosing scope, including its descendants. The outer icon boundary
+stops. Traversal returns whether the target changed. Invalid direction names throw.
+
+Focusable component internals are exposed as dotted instance paths (`save.label`),
+with each component player's local traversal and scope rules. Root targets precede
+component targets; instances and their descendants follow authored instance order.
+An instance is an implicit scope: after local traversal stops, its node's focus.edge
+must be parent-scope to traverse outside it. Nested transforms compose for spatial
+centers and pointer mapping. Focus changes route to the owning player's local
+listeners; the parent hook reports the dotted path. Component-local state machines
+read their local `focused` ids. Instance visibility excludes its focus descendants.
+
+`focusPointer(x,y)` focuses the last eligible painted target under the point using
+§9 hit testing, excluding targets with pointer false. Primary pointer down calls it
+before ordinary pointer listener actions; up, move and leave do not change focus.
+Component forwarding does not independently focus other overlapped instances.
+
+Listeners add `on: "focus"` and `on: "blur"` (requires focus); `target` is a local node
+id or omitted to observe every local change. Changing targets queues old blur
+listeners then new focus listeners, each in authored order, with the existing §9
+action semantics. Re-selecting the same target does nothing. Nested listeners act
+inside their owning component. These hooks are independent of pointer enter/leave.
+
+`focusKey(key, down=true, shift=false)` handles ArrowLeft/Right/Up/Down on down;
+key up is inert. Tab traverses next/previous only with an authored tabStops opt-in.
+This hook lets the input module share the same deterministic keyboard policy.
+
+### AniML and browser mapping
+
+AniML uses a child `<focus enabled="true" enabled-input="available" pointer="true"
+order="0" scope="true" edge="closed-loop" label="Save" bounds="0 0 4 4"
+tab-stops="false"/>`. Names otherwise match JSON. Registry descriptors drive both
+spellings, CLI/schema inspection, compilation and decompilation. Browser markup
+loads focus and markup; the focus entry supplies structural authoring hooks.
+
+The browser entry `@anima-format/web/focus` maps logical targets to real focusable
+shadow-DOM elements, with button roles and labels. Focus is roving by default:
+Tab enters the host's first eligible target; arrows move within it; Tab/Shift+Tab
+leave to the surrounding document. Leaving clears logical focus. The icon remains
+one sequential stop. Any authored focus.tabStops true opts the document into native
+inner Tab stops (one per eligible target); the host then adds no extra stop. A parent
+icon's a11y role/label/activate/pressed/held and §10 Enter/Space behavior are retained.
+Pointer default focus is suppressed after logical pointer focus to prevent it from
+displacing the chosen shadow target. Explicit pause ignores arrow navigation.
+
+Focus proxies are semantic targets, not extra painted shapes. The small semantic
+DOM and shared core input policy follow the guidance in
+`docs/research/rive-web-runtime.md` (lessons 2 and 6); no Rive implementation is used.
+Headless pixel oracles cannot observe DOM focus, logical focus ids or Tab order;
+per-row skip notes explain why painted-frame equality would not test these rows.

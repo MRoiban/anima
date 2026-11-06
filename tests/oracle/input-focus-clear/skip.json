@@ -1,0 +1,6 @@
+{
+  "status": "skip",
+  "reason": "Browser DOM focus, native Tab order and shadow focus targets have no faithful painted-frame counterpart. Logical focus oracle capture remains unverified: the local Rive CLI is unavailable in this checkout (rive: command not found). Independent deterministic Anima conformance and Chromium/Firefox keyboard tests cover this row.",
+  "evidence": "Local command -v rive and rive --help: executable unavailable; no Rive source/docs text or .riv files accessed.",
+  "tests": ["modules/focus/test/core/focus.test.ts", "modules/focus/test/web/focus.test.ts"]
+}
