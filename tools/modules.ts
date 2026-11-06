@@ -132,6 +132,17 @@ export async function generate(root: string, check = false): Promise<string[]> {
     registry += `Object.assign(${h.slot}, ${h.browserBase ? h.browserBase + ', ' : ''}hooks['${h.browserName ?? h.slot}']);\n`;
   registry += '}\n';
   await emit('packages/markup/src/module-hooks.ts', registry);
+  // Every runtime browser module, for tests and tools that must play any document (not a page
+  // entry: pages import only what they use).
+  await emit(
+    'packages/web/src/all-modules.ts',
+    banner +
+      [...entries]
+        .filter((e) => e !== 'index' && !e.startsWith('markup'))
+        .sort()
+        .map((e) => `import './${e}.ts';\n`)
+        .join(''),
+  );
   await emit(
     'tools/modules.generated.ts',
     `${banner}export const webEntries = ${JSON.stringify([
