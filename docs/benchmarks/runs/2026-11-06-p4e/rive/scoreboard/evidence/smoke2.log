@@ -1,0 +1,34 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[10:52:26.485] rive  deferred replay: inline
+[10:52:26.511] rive  built (2244 bytes, 26ms, 0 errors, 0 warnings)
+[10:52:26.513] rive  showing Scoreboard [1/1]
+[10:52:26.513] rive  viewport 480x240 @1x
+ok help
+ok advance
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[10:52:26.525] rive  wrote evidence/default.png
+ok screenshot: evidence/default.png
+[10:52:26.525] rive  wrote evidence/default.json
+ok data-dump: evidence/default.json
+[10:52:26.525] rive  data: ada/score = 1800 (mid-run)
+ok data
+[10:52:26.525] rive  event milestone
+ok advance
+[10:52:26.532] rive  wrote evidence/ada1800.png
+ok screenshot: evidence/ada1800.png
+[10:52:26.532] rive  wrote evidence/ada1800.json
+ok data-dump: evidence/ada1800.json
+[10:52:26.532] rive  data: lin/score = 1900 (mid-run)
+ok data
+ok advance
+[10:52:26.539] rive  wrote evidence/lin1900.png
+ok screenshot: evidence/lin1900.png
+[10:52:26.539] rive  wrote evidence/lin1900.json
+ok data-dump: evidence/lin1900.json
+ok pointer
+ok advance
+[10:52:26.546] rive  wrote evidence/drag.png
+ok screenshot: evidence/drag.png
+[10:52:26.546] rive  wrote evidence/drag.json
+ok data-dump: evidence/drag.json
+ok quit

@@ -1,0 +1,128 @@
+<Rive version="1" kind="fragment">
+<Artboard name="Scoreboard" id="0:1" width="480" height="240" viewModelId="0:100" viewModelInstanceId="0:101" defaultStateMachineId="0:2" styleId="0:3"><LayoutComponentStyle id="0:3"/>
+<Shape name="AdaSwatch" x="24" y="36"><Ellipse width="24" height="24"/><Fill><SolidColor colorValue="FFD97757"><DataBindContext sourcePathIds="0:100-0:110-0:203" propertyKey="37" /></SolidColor></Fill></Shape>
+<Shape name="AdaBar" x="60" y="36"><Rectangle width="225.0" height="24" originX="0"><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="20" converterId="0:300"/></Rectangle><Fill><SolidColor colorValue="FFD97757"><DataBindContext sourcePathIds="0:100-0:110-0:203" propertyKey="37" /></SolidColor></Fill><Stroke name="AdaLeader" id="0:400" thickness="6"><SolidColor colorValue="FFD97757"/></Stroke></Shape>
+<Shape name="LinSwatch" x="24" y="96"><Ellipse width="24" height="24"/><Fill><SolidColor colorValue="FF6A9BCC"><DataBindContext sourcePathIds="0:100-0:111-0:203" propertyKey="37" /></SolidColor></Fill></Shape>
+<Shape name="LinBar" x="60" y="96"><Rectangle width="176.4" height="24" originX="0"><DataBindContext sourcePathIds="0:100-0:111-0:202" propertyKey="20" converterId="0:300"/></Rectangle><Fill><SolidColor colorValue="FF6A9BCC"><DataBindContext sourcePathIds="0:100-0:111-0:203" propertyKey="37" /></SolidColor></Fill><Stroke name="LinLeader" id="0:401" thickness="6"><SolidColor colorValue="FFD97757"/></Stroke></Shape>
+<Shape name="SamSwatch" x="24" y="156"><Ellipse width="24" height="24"/><Fill><SolidColor colorValue="FF788C5D"><DataBindContext sourcePathIds="0:100-0:112-0:203" propertyKey="37" /></SolidColor></Fill></Shape>
+<Shape name="SamBar" x="60" y="156"><Rectangle width="7.199999999999999" height="24" originX="0"><DataBindContext sourcePathIds="0:100-0:112-0:202" propertyKey="20" converterId="0:300"/></Rectangle><Fill><SolidColor colorValue="FF788C5D"><DataBindContext sourcePathIds="0:100-0:112-0:203" propertyKey="37" /></SolidColor></Fill><Stroke name="SamLeader" id="0:402" thickness="6"><SolidColor colorValue="FFD97757"/></Stroke></Shape>
+<Shape name="Knob" id="0:10" x="285" y="216"><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="13" twoWay="true" sourceToTargetRunsFirst="true" converterId="0:301"/><Ellipse width="24" height="24"/><Fill><SolidColor colorValue="FFD97757"/></Fill><TranslationConstraint doesCopy="false" doesCopyY="false" min="true" max="true" minValue="60" maxValue="420" minY="true" maxY="true" minValueY="216" maxValueY="216"/></Shape>
+<Shape name="Track" x="60" y="216"><PointsPath><StraightVertex x="0" y="0"/><StraightVertex x="360" y="0"/></PointsPath><Stroke thickness="12"><SolidColor colorValue="FF141413"/></Stroke></Shape>
+<CustomPropertyString name="Template0" id="0:500" propertyValue="${score} pts"><DataBindContext sourcePathIds="0:100-0:110-0:205" propertyKey="246" direction="true"/></CustomPropertyString>
+<CustomPropertyString name="ComputedLabel0" propertyValue=""><DataBindContext sourcePathIds="0:100-0:110-0:205" propertyKey="246" converterId="0:510"/><DataBindContext sourcePathIds="0:100-0:110-0:204" propertyKey="246" direction="true"/></CustomPropertyString>
+<CustomPropertyString name="Template1" id="0:501" propertyValue="${score} pts"><DataBindContext sourcePathIds="0:100-0:111-0:205" propertyKey="246" direction="true"/></CustomPropertyString>
+<CustomPropertyString name="ComputedLabel1" propertyValue=""><DataBindContext sourcePathIds="0:100-0:111-0:205" propertyKey="246" converterId="0:511"/><DataBindContext sourcePathIds="0:100-0:111-0:204" propertyKey="246" direction="true"/></CustomPropertyString>
+<CustomPropertyString name="Template2" id="0:502" propertyValue="${score} pts"><DataBindContext sourcePathIds="0:100-0:112-0:205" propertyKey="246" direction="true"/></CustomPropertyString>
+<CustomPropertyString name="ComputedLabel2" propertyValue=""><DataBindContext sourcePathIds="0:100-0:112-0:205" propertyKey="246" converterId="0:512"/><DataBindContext sourcePathIds="0:100-0:112-0:204" propertyKey="246" direction="true"/></CustomPropertyString>
+<Event name="milestone" id="0:20"/>
+<StateMachine name="Scoreboard" id="0:2">
+<StateMachineListenerSingle targetId="0:10" listenerTypeValue="drag" name="Drag"><ListenerAlignTarget targetId="0:10" preserveOffset="false"/></StateMachineListenerSingle>
+<StateMachineLayer name="Leader"><AnyState x="0" y="-100"/><ExitState x="500" y="-100"/><EntryState x="0" y="0"><StateTransition stateToId="0:410"/></EntryState>
+<AnimationState id="0:410" x="160" y="0" animationId="0:420">
+<StateTransition stateToId="0:411" duration="0">
+<TransitionViewModelCondition opValue="greaterThan"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:111-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator></TransitionViewModelCondition>
+<TransitionViewModelCondition opValue="greaterThanOrEqual"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:111-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:112-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator></TransitionViewModelCondition>
+</StateTransition>
+<StateTransition stateToId="0:412" duration="0">
+<TransitionViewModelCondition opValue="greaterThan"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:112-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator></TransitionViewModelCondition>
+<TransitionViewModelCondition opValue="greaterThan"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:112-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:111-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator></TransitionViewModelCondition>
+</StateTransition>
+</AnimationState>
+<AnimationState id="0:411" x="340" y="150" animationId="0:421">
+<StateTransition stateToId="0:410" duration="0">
+<TransitionViewModelCondition opValue="greaterThanOrEqual"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:111-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator></TransitionViewModelCondition>
+<TransitionViewModelCondition opValue="greaterThanOrEqual"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:112-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator></TransitionViewModelCondition>
+</StateTransition>
+<StateTransition stateToId="0:412" duration="0">
+<TransitionViewModelCondition opValue="greaterThan"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:112-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator></TransitionViewModelCondition>
+<TransitionViewModelCondition opValue="greaterThan"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:112-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:111-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator></TransitionViewModelCondition>
+</StateTransition>
+</AnimationState>
+<AnimationState id="0:412" x="520" y="0" animationId="0:422">
+<StateTransition stateToId="0:410" duration="0">
+<TransitionViewModelCondition opValue="greaterThanOrEqual"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:111-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator></TransitionViewModelCondition>
+<TransitionViewModelCondition opValue="greaterThanOrEqual"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:112-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator></TransitionViewModelCondition>
+</StateTransition>
+<StateTransition stateToId="0:411" duration="0">
+<TransitionViewModelCondition opValue="greaterThan"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:111-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator></TransitionViewModelCondition>
+<TransitionViewModelCondition opValue="greaterThanOrEqual"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:111-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:112-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator></TransitionViewModelCondition>
+</StateTransition>
+</AnimationState>
+</StateMachineLayer>
+<StateMachineLayer name="Label0"><AnyState x="0" y="-100"/><ExitState x="500" y="-100"/><EntryState x="0" y="0"><StateTransition stateToId="0:520"/></EntryState>
+<AnimationState id="0:520" animationId="0:530" x="160" y="0"><StateTransition stateToId="0:521" duration="0"><TransitionViewModelCondition opValue="greaterThanOrEqual"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionValueNumberComparator value="1000"/></TransitionViewModelCondition></StateTransition></AnimationState>
+<AnimationState id="0:521" animationId="0:531" x="340" y="120"><StateTransition stateToId="0:520" duration="0"><TransitionViewModelCondition opValue="lessThan"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionValueNumberComparator value="1000"/></TransitionViewModelCondition></StateTransition></AnimationState>
+</StateMachineLayer>
+<StateMachineLayer name="Label1"><AnyState x="0" y="-100"/><ExitState x="500" y="-100"/><EntryState x="0" y="0"><StateTransition stateToId="0:522"/></EntryState>
+<AnimationState id="0:522" animationId="0:532" x="160" y="0"><StateTransition stateToId="0:523" duration="0"><TransitionViewModelCondition opValue="greaterThanOrEqual"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:111-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionValueNumberComparator value="1000"/></TransitionViewModelCondition></StateTransition></AnimationState>
+<AnimationState id="0:523" animationId="0:533" x="340" y="120"><StateTransition stateToId="0:522" duration="0"><TransitionViewModelCondition opValue="lessThan"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:111-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionValueNumberComparator value="1000"/></TransitionViewModelCondition></StateTransition></AnimationState>
+</StateMachineLayer>
+<StateMachineLayer name="Label2"><AnyState x="0" y="-100"/><ExitState x="500" y="-100"/><EntryState x="0" y="0"><StateTransition stateToId="0:524"/></EntryState>
+<AnimationState id="0:524" animationId="0:534" x="160" y="0"><StateTransition stateToId="0:525" duration="0"><TransitionViewModelCondition opValue="greaterThanOrEqual"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:112-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionValueNumberComparator value="1000"/></TransitionViewModelCondition></StateTransition></AnimationState>
+<AnimationState id="0:525" animationId="0:535" x="340" y="120"><StateTransition stateToId="0:524" duration="0"><TransitionViewModelCondition opValue="lessThan"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:112-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionValueNumberComparator value="1000"/></TransitionViewModelCondition></StateTransition></AnimationState>
+</StateMachineLayer>
+<StateMachineLayer name="Milestone"><AnyState x="0" y="-100"/><ExitState x="500" y="-100"/><EntryState x="0" y="0"><StateTransition stateToId="0:430"/></EntryState>
+<AnimationState id="0:430" x="160" y="0" animationId="0:440"><StateTransition stateToId="0:431" duration="0"><TransitionViewModelCondition opValue="greaterThanOrEqual"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionValueNumberComparator value="1500"/></TransitionViewModelCondition></StateTransition></AnimationState>
+<AnimationState id="0:431" x="340" y="120" animationId="0:440"><StateMachineFireEvent eventId="0:20"/><StateTransition stateToId="0:430" duration="0"><TransitionViewModelCondition opValue="lessThan"><TransitionPropertyViewModelComparator><BindablePropertyNumber><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="636" /></BindablePropertyNumber></TransitionPropertyViewModelComparator><TransitionValueNumberComparator value="1500"/></TransitionViewModelCondition></StateTransition></AnimationState></StateMachineLayer></StateMachine>
+<LinearAnimation name="Leader0" id="0:420" duration="1" fps="60">
+<KeyedObject objectId="0:400"><KeyedProperty property="thickness"><KeyFrameDouble frame="0" value="6"/></KeyedProperty></KeyedObject>
+<KeyedObject objectId="0:401"><KeyedProperty property="thickness"><KeyFrameDouble frame="0" value="0"/></KeyedProperty></KeyedObject>
+<KeyedObject objectId="0:402"><KeyedProperty property="thickness"><KeyFrameDouble frame="0" value="0"/></KeyedProperty></KeyedObject>
+</LinearAnimation>
+<LinearAnimation name="Leader1" id="0:421" duration="1" fps="60">
+<KeyedObject objectId="0:400"><KeyedProperty property="thickness"><KeyFrameDouble frame="0" value="0"/></KeyedProperty></KeyedObject>
+<KeyedObject objectId="0:401"><KeyedProperty property="thickness"><KeyFrameDouble frame="0" value="6"/></KeyedProperty></KeyedObject>
+<KeyedObject objectId="0:402"><KeyedProperty property="thickness"><KeyFrameDouble frame="0" value="0"/></KeyedProperty></KeyedObject>
+</LinearAnimation>
+<LinearAnimation name="Leader2" id="0:422" duration="1" fps="60">
+<KeyedObject objectId="0:400"><KeyedProperty property="thickness"><KeyFrameDouble frame="0" value="0"/></KeyedProperty></KeyedObject>
+<KeyedObject objectId="0:401"><KeyedProperty property="thickness"><KeyFrameDouble frame="0" value="0"/></KeyedProperty></KeyedObject>
+<KeyedObject objectId="0:402"><KeyedProperty property="thickness"><KeyFrameDouble frame="0" value="6"/></KeyedProperty></KeyedObject>
+</LinearAnimation>
+<LinearAnimation name="Label0_0" id="0:530" duration="1"><KeyedObject objectId="0:500"><KeyedProperty property="propertyValue"><KeyFrameString frame="0" value="${score} pts"/></KeyedProperty></KeyedObject></LinearAnimation>
+<LinearAnimation name="Label0_1" id="0:531" duration="1"><KeyedObject objectId="0:500"><KeyedProperty property="propertyValue"><KeyFrameString frame="0" value="${thousands},${remainder} pts"/></KeyedProperty></KeyedObject></LinearAnimation>
+<LinearAnimation name="Label1_0" id="0:532" duration="1"><KeyedObject objectId="0:501"><KeyedProperty property="propertyValue"><KeyFrameString frame="0" value="${score} pts"/></KeyedProperty></KeyedObject></LinearAnimation>
+<LinearAnimation name="Label1_1" id="0:533" duration="1"><KeyedObject objectId="0:501"><KeyedProperty property="propertyValue"><KeyFrameString frame="0" value="${thousands},${remainder} pts"/></KeyedProperty></KeyedObject></LinearAnimation>
+<LinearAnimation name="Label2_0" id="0:534" duration="1"><KeyedObject objectId="0:502"><KeyedProperty property="propertyValue"><KeyFrameString frame="0" value="${score} pts"/></KeyedProperty></KeyedObject></LinearAnimation>
+<LinearAnimation name="Label2_1" id="0:535" duration="1"><KeyedObject objectId="0:502"><KeyedProperty property="propertyValue"><KeyFrameString frame="0" value="${thousands},${remainder} pts"/></KeyedProperty></KeyedObject></LinearAnimation>
+<LinearAnimation name="Idle" id="0:440" duration="1" fps="60"/></Artboard>
+<DataConverterRangeMapper id="0:300" name="ScoreWidth" minInput="0" maxInput="2000" minOutput="0" maxOutput="360"/>
+<DataConverterRangeMapper id="0:301" name="ScorePosition" minInput="0" maxInput="2000" minOutput="60" maxOutput="420" clampLower="true" clampUpper="true"/>
+<DataConverterToString id="0:550" round="true" decimals="0"/>
+<DataConverterFormula id="0:551"><FormulaTokenFunction functionType="4"/><FormulaTokenInput/><FormulaTokenOperation operationType="3"/><FormulaTokenValue operationValue="1000"/><FormulaTokenParenthesisClose/></DataConverterFormula>
+<DataConverterFormula id="0:552"><FormulaTokenFunction functionType="4"/><FormulaTokenInput/><FormulaTokenParenthesisClose/><FormulaTokenOperation operationType="4"/><FormulaTokenValue operationValue="1000"/></DataConverterFormula>
+<DataConverterStringPad id="0:553" length="3" text="0"/>
+<DataConverterGroup id="0:554"><DataConverterGroupItem converterId="0:551"/><DataConverterGroupItem converterId="0:550"/></DataConverterGroup>
+<DataConverterGroup id="0:555"><DataConverterGroupItem converterId="0:552"/><DataConverterGroupItem converterId="0:550"/><DataConverterGroupItem converterId="0:553"/></DataConverterGroup>
+<DataConverterStringTemplate id="0:510">
+<StringTemplateArgumentString name="score"><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="482" converterId="0:550"/></StringTemplateArgumentString>
+<StringTemplateArgumentString name="thousands"><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="482" converterId="0:554"/></StringTemplateArgumentString>
+<StringTemplateArgumentString name="remainder"><DataBindContext sourcePathIds="0:100-0:110-0:202" propertyKey="482" converterId="0:555"/></StringTemplateArgumentString>
+</DataConverterStringTemplate>
+<DataConverterStringTemplate id="0:511">
+<StringTemplateArgumentString name="score"><DataBindContext sourcePathIds="0:100-0:111-0:202" propertyKey="482" converterId="0:550"/></StringTemplateArgumentString>
+<StringTemplateArgumentString name="thousands"><DataBindContext sourcePathIds="0:100-0:111-0:202" propertyKey="482" converterId="0:554"/></StringTemplateArgumentString>
+<StringTemplateArgumentString name="remainder"><DataBindContext sourcePathIds="0:100-0:111-0:202" propertyKey="482" converterId="0:555"/></StringTemplateArgumentString>
+</DataConverterStringTemplate>
+<DataConverterStringTemplate id="0:512">
+<StringTemplateArgumentString name="score"><DataBindContext sourcePathIds="0:100-0:112-0:202" propertyKey="482" converterId="0:550"/></StringTemplateArgumentString>
+<StringTemplateArgumentString name="thousands"><DataBindContext sourcePathIds="0:100-0:112-0:202" propertyKey="482" converterId="0:554"/></StringTemplateArgumentString>
+<StringTemplateArgumentString name="remainder"><DataBindContext sourcePathIds="0:100-0:112-0:202" propertyKey="482" converterId="0:555"/></StringTemplateArgumentString>
+</DataConverterStringTemplate>
+<ViewModel name="Player" id="0:200" defaultInstanceId="0:210"><ViewModelPropertyString name="name" id="0:201"/><ViewModelPropertyNumber name="score" id="0:202"/><ViewModelPropertyColor name="color" id="0:203"/><ViewModelPropertyString name="label" id="0:204"/><ViewModelPropertyString name="_labelTemplate" id="0:205"/>
+<ViewModelInstance name="Ada" id="0:210" exports="true"><ViewModelInstanceString viewModelPropertyId="0:201" propertyValue="Ada"/><ViewModelInstanceNumber viewModelPropertyId="0:202" propertyValue="1250"/><ViewModelInstanceColor viewModelPropertyId="0:203" propertyValue="FFD97757"/><ViewModelInstanceString viewModelPropertyId="0:204" propertyValue="1,250 pts"/><ViewModelInstanceString viewModelPropertyId="0:205" propertyValue="${score} pts"/></ViewModelInstance>
+<ViewModelInstance name="Lin" id="0:211" exports="true"><ViewModelInstanceString viewModelPropertyId="0:201" propertyValue="Lin"/><ViewModelInstanceNumber viewModelPropertyId="0:202" propertyValue="980"/><ViewModelInstanceColor viewModelPropertyId="0:203" propertyValue="FF6A9BCC"/><ViewModelInstanceString viewModelPropertyId="0:204" propertyValue="980 pts"/><ViewModelInstanceString viewModelPropertyId="0:205" propertyValue="${score} pts"/></ViewModelInstance>
+<ViewModelInstance name="Sam" id="0:212" exports="true"><ViewModelInstanceString viewModelPropertyId="0:201" propertyValue="Sam"/><ViewModelInstanceNumber viewModelPropertyId="0:202" propertyValue="40"/><ViewModelInstanceColor viewModelPropertyId="0:203" propertyValue="FF788C5D"/><ViewModelInstanceString viewModelPropertyId="0:204" propertyValue="40 pts"/><ViewModelInstanceString viewModelPropertyId="0:205" propertyValue="${score} pts"/></ViewModelInstance>
+</ViewModel><ViewModel name="Scoreboard" id="0:100" defaultInstanceId="0:101"><ViewModelPropertyList name="players" id="0:105"/>
+<ViewModelPropertyViewModel name="ada" id="0:110" viewModelReferenceId="0:200"/>
+<ViewModelPropertyViewModel name="lin" id="0:111" viewModelReferenceId="0:200"/>
+<ViewModelPropertyViewModel name="sam" id="0:112" viewModelReferenceId="0:200"/>
+<ViewModelInstance name="Default" id="0:101" exports="true"><ViewModelInstanceList viewModelPropertyId="0:105">
+<ViewModelInstanceListItem viewModelId="0:200" viewModelInstanceId="0:210"/>
+<ViewModelInstanceListItem viewModelId="0:200" viewModelInstanceId="0:211"/>
+<ViewModelInstanceListItem viewModelId="0:200" viewModelInstanceId="0:212"/>
+</ViewModelInstanceList>
+<ViewModelInstanceViewModel viewModelPropertyId="0:110" propertyValue="0:210"/>
+<ViewModelInstanceViewModel viewModelPropertyId="0:111" propertyValue="0:211"/>
+<ViewModelInstanceViewModel viewModelPropertyId="0:112" propertyValue="0:212"/>
+</ViewModelInstance></ViewModel></Rive>

@@ -1,0 +1,2 @@
+/bin/bash: line 25: evidence/smoke.log: No such file or directory
+Capture launch failed before Rive started; corrected the project-relative paths.

@@ -1,0 +1,17 @@
+help
+advance 1
+screenshot evidence/default.png
+data-dump evidence/default.json
+data ada/score=1800
+advance 1
+screenshot evidence/ada1800.png
+data-dump evidence/ada1800.json
+data lin/score=1900
+advance 1
+screenshot evidence/lin1900.png
+data-dump evidence/lin1900.json
+pointer drag@384,216>150,216:12
+advance 1
+screenshot evidence/drag.png
+data-dump evidence/drag.json
+quit
