@@ -4,7 +4,7 @@
 Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
 State: p4e-data has data core (60/73 rows) and paint findings (10/18 strict, 8 rasterisation findings) merged. data 8181/8192, bind 2046/2048.
 Merged: data, paint, host (3878/4096), convert (6161/8192). Full-featured 91.4/100 KB.
-Next: P4e-6 docs+code table (Sol, running); Rive benchmark run (running); AniML run after P4e-6 merges; quiet perf vs main; parity bookkeeping; LOG/PLAN; PR.
+Next: running — Rive + AniML benchmark runs, P4e-7 parity bookkeeping (Sol). Then quiet perf vs main, LOG/PLAN, PR. data 8191/8192: split before next data change.
 Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests.
 
 ## Log
@@ -174,3 +174,4 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-06 10:57 [sol]: P4e-6 checks → scope 2584 pass/253 skipped/13 todo (54.83s), host browser suites included; typecheck/eslint/prettier/modules/size exit 0; final authoring 28/28 after correcting invalid examples to reach data diagnostics (evidence: /tmp/p4e-{tests,authoring-final,size-final,typecheck,eslint,prettier,modules}.log).
 - 2026-11-06 10:57 [sol]: CLI inspect/sample → list Lin/3/2/radius6 and converter labels 25 percent/1,234.50 confirmed; exploratory bare click command rejected (requires pointer click); no guide command used that invalid form. Findings and parity unchanged.
 - 2026-11-06 [claude]: merged P4e-6 (AUTHORING data section, dataCodes, convert differences); data 8191/8192 (+145 B for the code table)
+- 2026-11-06 [claude]: launched AniML benchmark run (after AUTHORING data section) and P4e-7 parity bookkeeping (214 P4 rows → P4e done or a real phase; 41 uncovered data rows to check)
