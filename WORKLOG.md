@@ -3,7 +3,7 @@
 ## Now
 Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
 State: main 49d418c = through P4c/P4d (PRs #14, #15). Parity 387/1238. core+web 19831; full-featured 69.7 KB.
-Next: BLOCKED — Sol (codex) usage limit until 2026-11-11 09:28. P4e-5 paint failed mid-run (WIP in refs/wip/p4e-5-paint, unverified); P4e-1 data core failed too (WIP in refs/wip/p4e-1-data, unverified). Owner decides: wait or allow another coder model.
+Next: P4e-1 data and P4e-5 paint resumed from refs/wip/* (Sol xhigh); then convert integration + host API; benchmark (scoreboard); PR.
 Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
 
 ## Log
@@ -120,3 +120,4 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-08 09:00 [claude]: merged P4e-4 paint leftovers (f00aa82): 3/18 strict; contour + mix modules; canvas implements all, SVG refuses angular/additive/per-paint blend; 8 native findings + 6 pending oracles → follow-up after data
 - 2026-11-06 08:01 [claude]: P4e-5 paint findings (Sol) failed: codex usage limit, resets 2026-11-11 09:28 → 118 uncommitted files snapshotted to refs/wip/p4e-5-paint (unverified; not reviewed, tests not run by me) (evidence: git show --stat refs/wip/p4e-5-paint)
 - 2026-11-06 08:04 [claude]: P4e-1 data core (Sol) failed: same usage limit → worktree t3-54bfb1e8 snapshotted to refs/wip/p4e-1-data, 1439 files (unverified; not reviewed) (evidence: git show --stat refs/wip/p4e-1-data)
+- 2026-11-06 [claude]: Sol limits back (owner) → relaunched P4e-1 data (merge refs/wip/p4e-1-data, 16 conflicts expected) and P4e-5 paint (merge refs/wip/p4e-5-paint) in fresh worktrees
