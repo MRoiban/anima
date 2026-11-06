@@ -13,7 +13,6 @@ import {
   markupName,
   COMMON,
   NODE_TYPES,
-  modules,
   ELEMENTS,
   OWN,
   PAINT,
@@ -866,7 +865,9 @@ function docs(topic: string | undefined, list: boolean, json: boolean, io: IO): 
   }));
   const spec = read('spec/SPEC.md');
   const chapters = [...spec.matchAll(/^## (.+)$/gm)];
-  const moduleTopics = chapters.filter((m) => modules.has(m[1]!));
+  // Module chapters are the one-word lower-case headings (`## paint`); web-only modules such as
+  // `canvas` have a chapter but nothing registered in core.
+  const moduleTopics = chapters.filter((m) => /^[a-z]+$/.test(m[1]!));
   if (list) {
     const topics = [
       ...new Set([
