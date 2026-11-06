@@ -235,7 +235,7 @@ and an oracle test against Rive.
         4294967295. Historical number-dump -1 is a documented observation-path limit,
         with no expected failure. See tests/oracle/MOTION-PROBES.md.
 
-- [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
+- [x] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
       an on-change / previous-value condition (P5 benchmark: 'count increased' took 10 states).
 - [x] P4c-3 `focus`: traversal/scopes, pointer focus, focus/blur, component targets and real DOM
       focus; 16 conformance probes, Chromium + Firefox. 16 native focus/data oracle comparisons captured with the full-path CLI.

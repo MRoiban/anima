@@ -40,6 +40,7 @@ friction point that blocks an item — is a bug, fixed before the phase's PR mer
 | 2026-11-09 | P4d | [share button](runs/2026-11-09-p4d/BRIEF.md) | AniML | 3/6 | 15 | 5 min 53 s | 62 lines | a listener cannot increment an input (`set` takes literals only) → a ladder of states capped at 10, milestones stop after 10; audio requests verified, audible output not — fixed in P4d-3, AniML rerun after it |
 | 2026-11-09 | P4d | share button | Rive markup | 5/6 | 9 | 3 min 55 s | 150 lines | event payload fields not visible in the headless log; audible output and new-tab opening unverified |
 | 2026-11-09 | P4d (rerun after P4d-3) | share button | AniML | 5/6 | 13 | 3 min 30 s | 33 lines | increments, event fields and milestones verified to click 1 000; audible playback unverified (request verified; neither format can hear headlessly); `inspect` printed compiled code for the increment (fixed) |
+| 2026-11-10 | P4c (rerun after P4d merged) | volume control | AniML | 6/6 | 19 | 3 min 17 s | 66 lines | arrow keys now step `volume` with an expression action; 370 sampled comparisons |
 
 ### P4a findings → actions
 

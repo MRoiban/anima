@@ -1965,3 +1965,32 @@ when review proved a multiply/floor rounding edge at 0.58 s / 100 samples/s. Ret
 tick directly and adding machine-boundaries-blend fixed it; the completed final full run above
 verifies final source. Actual checkout branch name differs from the brief; HEAD was preserved.
 No push, PR, merge into main, benchmark rerun or parity-status promotion by this task.
+
+## P4c — interaction (2026-11-08)
+
+- **Three modules** (folders, own budgets): `machine` — blend states (1D, direct, additive, weights
+  from inputs or bindings), any/entry/exit states, state and transition actions (with P4d's
+  expressions), seeded random states and transitions, resets, relative exit times and durations,
+  disabled transitions, and the **on-change condition** the P5 benchmark asked for; `input` —
+  pointer buttons, capture phase, drag (grab offset), multitouch, wheel/trackpad scroll and
+  latching, keyboard with modifiers/repeat and target-first propagation (`propagate` opt-in),
+  gamepad, cursors, hit-testing controls, solo and collapse; `focus` — spatial and sequential
+  traversal, scopes and edges, focus/blur listeners, mapped to real DOM focus.
+- **Shared seams made generic**: modules add fields to state/on/layer/timeline/listener elements
+  through the registry (AniML compiles and decompiles them); components get an event-kind registry
+  modules extend; one keyboard route through input → focus.
+- **Bugs fixed on the way**: change-gated transitions carried the whole idle time into the next
+  state (a pulse could finish at once) — capped at zero; module listeners lost focus round trips in
+  a test reader.
+- **Oracle**: machine 18 verified + 8 skips; input 37 verified, 14 skips, 3 findings → 2 fixed
+  (keyboard propagation now target-first) and 1 intentional difference (grab-offset drag: Anima
+  follows the pointer, Rive stays put); focus 16 verified (the first agent had not found the CLI by
+  path). Capture listeners observe without claiming unless they consume (DOM rule; intentional
+  difference from Rive).
+- **Benchmark** (volume control): AniML 5/6 → **6/6** after P4d's expression actions (66 lines,
+  3 min 17 s); Rive 6/6 (155 lines, 7 min 8 s, two hand workarounds).
+- **Numbers** (main after P4d → P4c): core + web 19 767 → 19 831 B; machine 5 882, input 6 187 /
+  8 192 B; focus 3 803 / 4 096 B; full-featured 69.7 KB / 100 KB; Rive-class 73.8 KB / 250 KB;
+  compile (interleaved with main, 4 rounds, load ~6): prefix sweep median ~660 ms both, bell
+  ~2.5–2.8 ms; frame bell ~38–41 µs both.
+- **Parity**: 95 rows done (387 / 1 238).

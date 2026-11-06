@@ -65,6 +65,10 @@ export const PHASES: [string, string][] = [
   ['P4a', 'Done: paint and composite on the module system and the draw layer'],
   ['P4b', 'Done: motion — eases, typed tracks, timeline control, mixing, host timeline API'],
   [
+    'P4c',
+    'Done: interaction — machine (blends, actions, on-change), input (pointer, keys, gamepad, scroll, drag), focus',
+  ],
+  [
     'P4d',
     'Done: events — payloads, URL events with a host policy, audio, lifecycle events, expression actions',
   ],
@@ -83,7 +87,7 @@ export const PHASES: [string, string][] = [
 ];
 
 /** Phases whose rows are all done. */
-export const FINISHED = ['P0', 'P1', 'P2', 'P3', 'P4a', 'P4b', 'P4d', 'P5', 'Pc'];
+export const FINISHED = ['P0', 'P1', 'P2', 'P3', 'P4a', 'P4b', 'P4c', 'P4d', 'P5', 'Pc'];
 
 const ROOT = new URL('../docs/parity/', import.meta.url);
 
