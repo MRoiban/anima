@@ -1,0 +1,51 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[04:48:36.933] rive  deferred replay: inline
+[04:48:36.958] rive  built (2839 bytes, 24ms, 0 errors, 0 warnings)
+[04:48:36.958] rive  showing Volume [1/1]
+[04:48:36.959] rive  viewport 480x144 @1x
+ok advance
+ok pointer
+ok pointer
+ok advance
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[04:48:36.966] rive  wrote evidence/06-drag-offset.png
+ok screenshot: evidence/06-drag-offset.png
+[04:48:36.966] rive  wrote evidence/06-drag-offset.json
+ok data-dump: evidence/06-drag-offset.json
+ok pointer
+ok advance
+[04:48:36.971] rive  wrote evidence/07-drag-max.png
+ok screenshot: evidence/07-drag-max.png
+[04:48:36.971] rive  wrote evidence/07-drag-max.json
+ok data-dump: evidence/07-drag-max.json
+ok pointer
+ok advance
+[04:48:36.974] rive  wrote evidence/08-drag-min.png
+ok screenshot: evidence/08-drag-min.png
+[04:48:36.975] rive  wrote evidence/08-drag-min.json
+ok data-dump: evidence/08-drag-min.json
+ok pointer
+ok key
+ok advance
+[04:48:36.978] rive  wrote evidence/09-right-after-drag.png
+ok screenshot: evidence/09-right-after-drag.png
+[04:48:36.979] rive  wrote evidence/09-right-after-drag.json
+ok data-dump: evidence/09-right-after-drag.json
+ok key
+ok advance
+[04:48:36.982] rive  wrote evidence/10-left-after-drag.png
+ok screenshot: evidence/10-left-after-drag.png
+[04:48:36.983] rive  wrote evidence/10-left-after-drag.json
+ok data-dump: evidence/10-left-after-drag.json
+ok key
+ok advance
+[04:48:36.983] rive  wrote evidence/11-key-min.json
+ok data-dump: evidence/11-key-min.json
+[04:48:36.983] rive  data: volume = 1 (mid-run)
+ok data
+ok advance
+ok key
+ok advance
+[04:48:36.983] rive  wrote evidence/12-key-max.json
+ok data-dump: evidence/12-key-max.json
+ok quit

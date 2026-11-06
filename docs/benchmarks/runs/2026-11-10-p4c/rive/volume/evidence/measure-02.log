@@ -1,0 +1,25 @@
+final-default.json {'volume': 0.5, 'muted': False, 'previousVolume': 0.5, 'grabOffset': 0}
+final-drag-max.json {'volume': 1, 'muted': False, 'previousVolume': 1, 'grabOffset': 12}
+final-drag-min.json {'volume': 0, 'muted': False, 'previousVolume': 0, 'grabOffset': 12}
+final-drag-offset.json {'volume': 0.75, 'muted': False, 'previousVolume': 0.75, 'grabOffset': 12}
+final-key-left.json {'volume': 0, 'muted': False, 'previousVolume': 0, 'grabOffset': 12}
+final-key-max.json {'volume': 1, 'muted': False, 'previousVolume': 1, 'grabOffset': 12}
+final-key-min.json {'volume': 0, 'muted': False, 'previousVolume': 0, 'grabOffset': 12}
+final-key-right.json {'volume': 0.100000001, 'muted': False, 'previousVolume': 0.100000001, 'grabOffset': 12}
+final-muted.json {'volume': 1, 'muted': True, 'previousVolume': 1, 'grabOffset': 0}
+final-unmuted.json {'volume': 1, 'muted': False, 'previousVolume': 1, 'grabOffset': 0}
+pulse-a-f12.png speaker bbox (24, 24, 95, 119)
+pulse-a-f13.png speaker bbox (24, 24, 95, 119)
+pulse-a-f3.png speaker bbox (22, 22, 97, 121)
+pulse-a-f6.png speaker bbox (21, 20, 98, 123)
+pulse-b-f13.png speaker bbox (24, 24, 95, 119)
+pulse-b-f6.png speaker bbox (21, 20, 98, 123)
+pulse-decrease-f6.png speaker bbox (24, 24, 95, 119)
+pulse-rest.png speaker bbox (24, 24, 95, 119)
+blend-000.png wave-centre RGB [(29, 29, 29), (217, 119, 87), (217, 119, 87)]
+blend-0165.png wave-centre RGB [(23, 23, 23), (29, 29, 29), (217, 119, 87)]
+blend-033.png wave-centre RGB [(20, 20, 19), (29, 29, 29), (217, 119, 87)]
+blend-0495.png wave-centre RGB [(20, 20, 19), (23, 23, 23), (217, 119, 87)]
+blend-066.png wave-centre RGB [(20, 20, 19), (20, 20, 19), (217, 119, 87)]
+blend-083.png wave-centre RGB [(20, 20, 19), (20, 20, 19), (217, 119, 87)]
+blend-100.png wave-centre RGB [(20, 20, 19), (20, 20, 19), (217, 119, 87)]
