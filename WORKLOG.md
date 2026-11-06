@@ -1,10 +1,10 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
-State: main 49d418c = through P4c/P4d (PRs #14, #15). Parity 387/1238. core+web 19831; full-featured 69.7 KB.
-Next: data core + convert + paint leftovers in parallel; host API after data core; benchmark (scoreboard); PR.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4e-2 converter module in isolation; data integration follows in the orchestrator.
+State: pure converters + AniML + 35 captured Rive comparisons pass; canonical probes pending.
+Next: data merge wires named bindings/math registration/scheduling and completes canonical probes.
+Don't: push/PR/merge; loosen budgets; claim pending Player integration as complete.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -116,3 +116,8 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-08 02:00 [claude]: merged P4c-7 (62a23c6): main with P4d integrated, full check 4227 pass, oracle 120 cases strict 0; core+web 19831; next P4c AniML benchmark rerun → PR
 - 2026-11-08 03:30 [claude]: P4c rerun 6/6; parity 95 rows done (387/1238); LOG with numbers (perf interleaved: no regression); opening PR
 - 2026-11-08 04:00 [claude]: PR #15 merged (49d418c); P4e design written (modules data + convert, $ paths, binding modes, converters, host API)
+- 2026-11-06 06:43 [sol]: converter registry, temporal/math tables, AniML round trips and 35 Rive data-dump comparisons → 153 tests pass; first markup budget regression guarded, remeasure passes (evidence: /tmp/convert-tests.log, /tmp/convert-size2.log).
+- 2026-11-06 06:49 [sol]: final scoped convert+bind+conformance+oracle → 1870 pass / 132 TODO; 35 direct Rive observations match; typecheck green; convert 5692/8192 B, markup-convert 1049/2048 B, core+web unchanged 19831 B (evidence: scoped log, tools/size.ts).
+- 2026-11-06 06:49 [sol]: parallel lint/size verification raced tools/.size-entry.ts deletion → ESLint ENOENT; sequential rerun required (evidence: /tmp/convert-eslint-verified.log).
+- 2026-11-06 06:50 [sol]: sequential eslint + modules/parity checks → green (evidence: exit 0; 1238 capabilities, views current); lint race resolved.
+- 2026-11-06 06:50 [sol]: final format/type/scoped/size/generated artifact checks → green; 21 browser entries current, 311 AniML files checked with pending probes skipped; integration handoff ready (evidence: requested verification commands, 1870 pass / 132 TODO).

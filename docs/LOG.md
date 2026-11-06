@@ -1994,3 +1994,16 @@ No push, PR, merge into main, benchmark rerun or parity-status promotion by this
   compile (interleaved with main, 4 rounds, load ~6): prefix sweep median ~660 ms both, bell
   ~2.5–2.8 ms; frame bell ~38–41 µs both.
 - **Parity**: 95 rows done (387 / 1 238).
+
+
+## P4e-2 converter foundation (partial, 2026-11-06)
+
+- Added dependency-free convert registry, pure converters, math compilation adapter, player-owned
+  random/interpolation state, JSON schema and AniML declaration/group round trips.
+- Scoped convert + bind + conformance + oracle: 1870 pass, 132 explicit pending probes; module-owned
+  checks include 35 captured Rive data-dump comparisons. No new parity row promoted to done.
+- Size: convert 5692/8192 B, markup-convert 1049/2048 B; core+web unchanged 19831 B;
+  full-featured 74014/102400 B. Existing budgets and measurement methods unchanged.
+- Data merge must wire named bindings, math registration and player scheduling; canonical probes,
+  model operands, trigger delivery and instance lists remain pending. Scripted converters belong
+  to P9. Full handoff: modules/convert/HANDOFF.md. No push, PR or package publication.

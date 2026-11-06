@@ -7,6 +7,7 @@ import { componentsSVG } from '../../../modules/components/core/svg.ts';
 import { bind } from '../../../modules/bind/core/index.ts';
 import { assets } from '../../../modules/assets/core/index.ts';
 import { assetsSVG } from '../../../modules/assets/core/svg.ts';
+import { convert } from '../../../modules/convert/core/index.ts';
 import { focus } from '../../../modules/focus/core/index.ts';
 import { focusSVG } from '../../../modules/focus/core/svg.ts';
 import { input } from '../../../modules/input/core/index.ts';
@@ -29,6 +30,7 @@ if (VERBOSE) {
   registerModule(bind);
   registerModule(assets);
   registerSVGBackend('assets', assetsSVG);
+  registerModule(convert);
   registerModule(focus);
   registerSVGBackend('focus', focusSVG);
   registerModule(input);

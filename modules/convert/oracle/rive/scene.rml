@@ -1,0 +1,219 @@
+<Rive version="1" kind="fragment">
+<Artboard id="0:1" name="Probe" width="20" height="20" viewModelId="0:40" defaultStateMachineId="0:101">
+<Event name="observation">
+<CustomPropertyNumber name="calculate0" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:200" propertyKey="243" converterId="0:400"/><DataBindContext sourcePathIds="0:40-0:201" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate1" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:202" propertyKey="243" converterId="0:401"/><DataBindContext sourcePathIds="0:40-0:203" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate2" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:204" propertyKey="243" converterId="0:402"/><DataBindContext sourcePathIds="0:40-0:205" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate3" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:206" propertyKey="243" converterId="0:403"/><DataBindContext sourcePathIds="0:40-0:207" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate4" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:208" propertyKey="243" converterId="0:404"/><DataBindContext sourcePathIds="0:40-0:209" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate5" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:210" propertyKey="243" converterId="0:405"/><DataBindContext sourcePathIds="0:40-0:211" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate6" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:212" propertyKey="243" converterId="0:406"/><DataBindContext sourcePathIds="0:40-0:213" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate7" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:214" propertyKey="243" converterId="0:407"/><DataBindContext sourcePathIds="0:40-0:215" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate8" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:216" propertyKey="243" converterId="0:408"/><DataBindContext sourcePathIds="0:40-0:217" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate9" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:218" propertyKey="243" converterId="0:409"/><DataBindContext sourcePathIds="0:40-0:219" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate10" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:220" propertyKey="243" converterId="0:410"/><DataBindContext sourcePathIds="0:40-0:221" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate11" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:222" propertyKey="243" converterId="0:411"/><DataBindContext sourcePathIds="0:40-0:223" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate12" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:224" propertyKey="243" converterId="0:412"/><DataBindContext sourcePathIds="0:40-0:225" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate13" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:226" propertyKey="243" converterId="0:413"/><DataBindContext sourcePathIds="0:40-0:227" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate14" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:228" propertyKey="243" converterId="0:414"/><DataBindContext sourcePathIds="0:40-0:229" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate15" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:230" propertyKey="243" converterId="0:415"/><DataBindContext sourcePathIds="0:40-0:231" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate16" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:232" propertyKey="243" converterId="0:416"/><DataBindContext sourcePathIds="0:40-0:233" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate17" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:234" propertyKey="243" converterId="0:417"/><DataBindContext sourcePathIds="0:40-0:235" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="calculate18" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:236" propertyKey="243" converterId="0:418"/><DataBindContext sourcePathIds="0:40-0:237" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="map" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:238" propertyKey="243" converterId="0:419"/><DataBindContext sourcePathIds="0:40-0:239" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="wrap" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:240" propertyKey="243" converterId="0:420"/><DataBindContext sourcePathIds="0:40-0:241" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="reverse" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:242" propertyKey="243" converterId="0:421"/><DataBindContext sourcePathIds="0:40-0:243" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="clampLow" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:244" propertyKey="243" converterId="0:422"/><DataBindContext sourcePathIds="0:40-0:245" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="clampHigh" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:246" propertyKey="243" converterId="0:423"/><DataBindContext sourcePathIds="0:40-0:247" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyNumber name="rounded" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:248" propertyKey="243" converterId="0:424"/><DataBindContext sourcePathIds="0:40-0:249" propertyKey="243" direction="true"/></CustomPropertyNumber>
+<CustomPropertyString name="trimnone" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:250" propertyKey="246" converterId="0:425"/><DataBindContext sourcePathIds="0:40-0:251" propertyKey="246" direction="true"/></CustomPropertyString>
+<CustomPropertyString name="trimstart" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:252" propertyKey="246" converterId="0:426"/><DataBindContext sourcePathIds="0:40-0:253" propertyKey="246" direction="true"/></CustomPropertyString>
+<CustomPropertyString name="trimend" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:254" propertyKey="246" converterId="0:427"/><DataBindContext sourcePathIds="0:40-0:255" propertyKey="246" direction="true"/></CustomPropertyString>
+<CustomPropertyString name="trimall" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:256" propertyKey="246" converterId="0:428"/><DataBindContext sourcePathIds="0:40-0:257" propertyKey="246" direction="true"/></CustomPropertyString>
+<CustomPropertyString name="padstart" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:258" propertyKey="246" converterId="0:429"/><DataBindContext sourcePathIds="0:40-0:259" propertyKey="246" direction="true"/></CustomPropertyString>
+<CustomPropertyString name="padend" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:260" propertyKey="246" converterId="0:430"/><DataBindContext sourcePathIds="0:40-0:261" propertyKey="246" direction="true"/></CustomPropertyString>
+<CustomPropertyString name="zeros" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:262" propertyKey="246" converterId="0:431"/><DataBindContext sourcePathIds="0:40-0:263" propertyKey="246" direction="true"/></CustomPropertyString>
+<CustomPropertyBoolean name="negated" propertyValue="false"><DataBindContext sourcePathIds="0:40-0:264" propertyKey="245" converterId="0:432"/><DataBindContext sourcePathIds="0:40-0:265" propertyKey="245" direction="true"/></CustomPropertyBoolean>
+<CustomPropertyString name="formatted" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:266" propertyKey="246" converterId="0:433"/><DataBindContext sourcePathIds="0:40-0:267" propertyKey="246" direction="true"/></CustomPropertyString>
+<CustomPropertyNumber name="parsed" propertyValue="0"><DataBindContext sourcePathIds="0:40-0:268" propertyKey="243" converterId="0:434"/><DataBindContext sourcePathIds="0:40-0:269" propertyKey="243" direction="true"/></CustomPropertyNumber>
+</Event><LinearAnimation id="0:100" name="idle" duration="60" fps="60"/>
+<StateMachine id="0:101" name="run"><StateMachineLayer><EntryState><StateTransition stateToId="0:102"/></EntryState><AnimationState id="0:102" animationId="0:100"/></StateMachineLayer></StateMachine></Artboard>
+<ViewModel id="0:40" name="ProbeData" defaultInstanceId="0:41">
+<ViewModelPropertyNumber id="0:200" name="calculate0Input"/>
+<ViewModelPropertyNumber id="0:201" name="calculate0"/>
+<ViewModelPropertyNumber id="0:202" name="calculate1Input"/>
+<ViewModelPropertyNumber id="0:203" name="calculate1"/>
+<ViewModelPropertyNumber id="0:204" name="calculate2Input"/>
+<ViewModelPropertyNumber id="0:205" name="calculate2"/>
+<ViewModelPropertyNumber id="0:206" name="calculate3Input"/>
+<ViewModelPropertyNumber id="0:207" name="calculate3"/>
+<ViewModelPropertyNumber id="0:208" name="calculate4Input"/>
+<ViewModelPropertyNumber id="0:209" name="calculate4"/>
+<ViewModelPropertyNumber id="0:210" name="calculate5Input"/>
+<ViewModelPropertyNumber id="0:211" name="calculate5"/>
+<ViewModelPropertyNumber id="0:212" name="calculate6Input"/>
+<ViewModelPropertyNumber id="0:213" name="calculate6"/>
+<ViewModelPropertyNumber id="0:214" name="calculate7Input"/>
+<ViewModelPropertyNumber id="0:215" name="calculate7"/>
+<ViewModelPropertyNumber id="0:216" name="calculate8Input"/>
+<ViewModelPropertyNumber id="0:217" name="calculate8"/>
+<ViewModelPropertyNumber id="0:218" name="calculate9Input"/>
+<ViewModelPropertyNumber id="0:219" name="calculate9"/>
+<ViewModelPropertyNumber id="0:220" name="calculate10Input"/>
+<ViewModelPropertyNumber id="0:221" name="calculate10"/>
+<ViewModelPropertyNumber id="0:222" name="calculate11Input"/>
+<ViewModelPropertyNumber id="0:223" name="calculate11"/>
+<ViewModelPropertyNumber id="0:224" name="calculate12Input"/>
+<ViewModelPropertyNumber id="0:225" name="calculate12"/>
+<ViewModelPropertyNumber id="0:226" name="calculate13Input"/>
+<ViewModelPropertyNumber id="0:227" name="calculate13"/>
+<ViewModelPropertyNumber id="0:228" name="calculate14Input"/>
+<ViewModelPropertyNumber id="0:229" name="calculate14"/>
+<ViewModelPropertyNumber id="0:230" name="calculate15Input"/>
+<ViewModelPropertyNumber id="0:231" name="calculate15"/>
+<ViewModelPropertyNumber id="0:232" name="calculate16Input"/>
+<ViewModelPropertyNumber id="0:233" name="calculate16"/>
+<ViewModelPropertyNumber id="0:234" name="calculate17Input"/>
+<ViewModelPropertyNumber id="0:235" name="calculate17"/>
+<ViewModelPropertyNumber id="0:236" name="calculate18Input"/>
+<ViewModelPropertyNumber id="0:237" name="calculate18"/>
+<ViewModelPropertyNumber id="0:238" name="mapInput"/>
+<ViewModelPropertyNumber id="0:239" name="map"/>
+<ViewModelPropertyNumber id="0:240" name="wrapInput"/>
+<ViewModelPropertyNumber id="0:241" name="wrap"/>
+<ViewModelPropertyNumber id="0:242" name="reverseInput"/>
+<ViewModelPropertyNumber id="0:243" name="reverse"/>
+<ViewModelPropertyNumber id="0:244" name="clampLowInput"/>
+<ViewModelPropertyNumber id="0:245" name="clampLow"/>
+<ViewModelPropertyNumber id="0:246" name="clampHighInput"/>
+<ViewModelPropertyNumber id="0:247" name="clampHigh"/>
+<ViewModelPropertyNumber id="0:248" name="roundedInput"/>
+<ViewModelPropertyNumber id="0:249" name="rounded"/>
+<ViewModelPropertyString id="0:250" name="trimnoneInput"/>
+<ViewModelPropertyString id="0:251" name="trimnone"/>
+<ViewModelPropertyString id="0:252" name="trimstartInput"/>
+<ViewModelPropertyString id="0:253" name="trimstart"/>
+<ViewModelPropertyString id="0:254" name="trimendInput"/>
+<ViewModelPropertyString id="0:255" name="trimend"/>
+<ViewModelPropertyString id="0:256" name="trimallInput"/>
+<ViewModelPropertyString id="0:257" name="trimall"/>
+<ViewModelPropertyString id="0:258" name="padstartInput"/>
+<ViewModelPropertyString id="0:259" name="padstart"/>
+<ViewModelPropertyString id="0:260" name="padendInput"/>
+<ViewModelPropertyString id="0:261" name="padend"/>
+<ViewModelPropertyString id="0:262" name="zerosInput"/>
+<ViewModelPropertyString id="0:263" name="zeros"/>
+<ViewModelPropertyBoolean id="0:264" name="negatedInput"/>
+<ViewModelPropertyBoolean id="0:265" name="negated"/>
+<ViewModelPropertyNumber id="0:266" name="formattedInput"/>
+<ViewModelPropertyString id="0:267" name="formatted"/>
+<ViewModelPropertyString id="0:268" name="parsedInput"/>
+<ViewModelPropertyNumber id="0:269" name="parsed"/>
+<ViewModelInstance id="0:41" name="Default" exports="true">
+<ViewModelInstanceNumber viewModelPropertyId="0:200" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:201" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:202" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:203" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:204" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:205" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:206" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:207" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:208" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:209" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:210" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:211" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:212" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:213" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:214" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:215" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:216" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:217" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:218" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:219" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:220" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:221" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:222" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:223" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:224" propertyValue="0.5"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:225" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:226" propertyValue="0.5"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:227" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:228" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:229" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:230" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:231" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:232" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:233" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:234" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:235" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:236" propertyValue="2.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:237" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:238" propertyValue="0.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:239" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:240" propertyValue="1.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:241" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:242" propertyValue="0.25"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:243" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:244" propertyValue="-1"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:245" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:246" propertyValue="2"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:247" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:248" propertyValue="2.345"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:249" propertyValue="0"/>
+<ViewModelInstanceString viewModelPropertyId="0:250" propertyValue="  x  "/>
+<ViewModelInstanceString viewModelPropertyId="0:251" propertyValue="0"/>
+<ViewModelInstanceString viewModelPropertyId="0:252" propertyValue="  x  "/>
+<ViewModelInstanceString viewModelPropertyId="0:253" propertyValue="0"/>
+<ViewModelInstanceString viewModelPropertyId="0:254" propertyValue="  x  "/>
+<ViewModelInstanceString viewModelPropertyId="0:255" propertyValue="0"/>
+<ViewModelInstanceString viewModelPropertyId="0:256" propertyValue="  x  "/>
+<ViewModelInstanceString viewModelPropertyId="0:257" propertyValue="0"/>
+<ViewModelInstanceString viewModelPropertyId="0:258" propertyValue="7"/>
+<ViewModelInstanceString viewModelPropertyId="0:259" propertyValue="0"/>
+<ViewModelInstanceString viewModelPropertyId="0:260" propertyValue="7"/>
+<ViewModelInstanceString viewModelPropertyId="0:261" propertyValue="0"/>
+<ViewModelInstanceString viewModelPropertyId="0:262" propertyValue="2.3000"/>
+<ViewModelInstanceString viewModelPropertyId="0:263" propertyValue="0"/>
+<ViewModelInstanceBoolean viewModelPropertyId="0:264" propertyValue="true"/>
+<ViewModelInstanceBoolean viewModelPropertyId="0:265" propertyValue="false"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:266" propertyValue="2.5"/>
+<ViewModelInstanceString viewModelPropertyId="0:267" propertyValue="0"/>
+<ViewModelInstanceString viewModelPropertyId="0:268" propertyValue="2.5"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:269" propertyValue="0"/>
+</ViewModelInstance></ViewModel>
+<DataConverterOperationValue id="0:400" name="calculate0" operationType="0" operationValue="2"/>
+<DataConverterOperationValue id="0:401" name="calculate1" operationType="1" operationValue="2"/>
+<DataConverterOperationValue id="0:402" name="calculate2" operationType="2" operationValue="2"/>
+<DataConverterOperationValue id="0:403" name="calculate3" operationType="3" operationValue="2"/>
+<DataConverterOperationValue id="0:404" name="calculate4" operationType="4" operationValue="2"/>
+<DataConverterOperationValue id="0:405" name="calculate5" operationType="5" operationValue="2"/>
+<DataConverterOperationValue id="0:406" name="calculate6" operationType="6" operationValue="2"/>
+<DataConverterOperationValue id="0:407" name="calculate7" operationType="7" operationValue="2"/>
+<DataConverterOperationValue id="0:408" name="calculate8" operationType="8" operationValue="2"/>
+<DataConverterOperationValue id="0:409" name="calculate9" operationType="9" operationValue="2"/>
+<DataConverterOperationValue id="0:410" name="calculate10" operationType="10" operationValue="2"/>
+<DataConverterOperationValue id="0:411" name="calculate11" operationType="11" operationValue="2"/>
+<DataConverterOperationValue id="0:412" name="calculate12" operationType="12" operationValue="2"/>
+<DataConverterOperationValue id="0:413" name="calculate13" operationType="13" operationValue="2"/>
+<DataConverterOperationValue id="0:414" name="calculate14" operationType="14" operationValue="2"/>
+<DataConverterOperationValue id="0:415" name="calculate15" operationType="15" operationValue="2"/>
+<DataConverterOperationValue id="0:416" name="calculate16" operationType="16" operationValue="2"/>
+<DataConverterOperationValue id="0:417" name="calculate17" operationType="17" operationValue="2"/>
+<DataConverterOperationValue id="0:418" name="calculate18" operationType="18" operationValue="2"/>
+<DataConverterRangeMapper id="0:419" name="map" minInput="0" maxInput="1" minOutput="0" maxOutput="100"/>
+<DataConverterRangeMapper id="0:420" name="wrap" minInput="0" maxInput="1" minOutput="0" maxOutput="100" modulo="true"/>
+<DataConverterRangeMapper id="0:421" name="reverse" minInput="0" maxInput="1" minOutput="0" maxOutput="100" reverse="true"/>
+<DataConverterRangeMapper id="0:422" name="clampLow" minInput="0" maxInput="1" minOutput="0" maxOutput="100" clampLower="true" clampUpper="true"/>
+<DataConverterRangeMapper id="0:423" name="clampHigh" minInput="0" maxInput="1" minOutput="0" maxOutput="100" clampLower="true" clampUpper="true"/>
+<DataConverterRounder id="0:424" name="rounded" decimals="2"/>
+<DataConverterStringTrim id="0:425" name="trimnone" trimType="0"/>
+<DataConverterStringTrim id="0:426" name="trimstart" trimType="1"/>
+<DataConverterStringTrim id="0:427" name="trimend" trimType="2"/>
+<DataConverterStringTrim id="0:428" name="trimall" trimType="3"/>
+<DataConverterStringPad id="0:429" name="padstart" padType="0" length="3" text="0"/>
+<DataConverterStringPad id="0:430" name="padend" padType="1" length="3" text="0"/>
+<DataConverterStringRemoveZeros id="0:431" name="zeros" />
+<DataConverterBooleanNegate id="0:432" name="negated" />
+<DataConverterToString id="0:433" name="formatted" decimals="2" round="true"/>
+<DataConverterToNumber id="0:434" name="parsed" />
+</Rive>

@@ -1,0 +1,503 @@
+{
+  "schema": 1,
+  "artboard": "Probe",
+  "stateMachine": "run",
+  "viewModel": {
+    "name": "Default",
+    "viewModel": "ProbeData",
+    "properties": [
+      {
+        "name": "calculate0Input",
+        "path": "calculate0Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate0",
+        "path": "calculate0",
+        "type": "number",
+        "value": 4.25,
+        "changed": true
+      },
+      {
+        "name": "calculate1Input",
+        "path": "calculate1Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate1",
+        "path": "calculate1",
+        "type": "number",
+        "value": 0.25,
+        "changed": true
+      },
+      {
+        "name": "calculate2Input",
+        "path": "calculate2Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate2",
+        "path": "calculate2",
+        "type": "number",
+        "value": 4.5,
+        "changed": true
+      },
+      {
+        "name": "calculate3Input",
+        "path": "calculate3Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate3",
+        "path": "calculate3",
+        "type": "number",
+        "value": 1.125,
+        "changed": true
+      },
+      {
+        "name": "calculate4Input",
+        "path": "calculate4Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate4",
+        "path": "calculate4",
+        "type": "number",
+        "value": 0.25,
+        "changed": true
+      },
+      {
+        "name": "calculate5Input",
+        "path": "calculate5Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate5",
+        "path": "calculate5",
+        "type": "number",
+        "value": 1.5,
+        "changed": true
+      },
+      {
+        "name": "calculate6Input",
+        "path": "calculate6Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate6",
+        "path": "calculate6",
+        "type": "number",
+        "value": 5.0625,
+        "changed": true
+      },
+      {
+        "name": "calculate7Input",
+        "path": "calculate7Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate7",
+        "path": "calculate7",
+        "type": "number",
+        "value": 9.48773575,
+        "changed": true
+      },
+      {
+        "name": "calculate8Input",
+        "path": "calculate8Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate8",
+        "path": "calculate8",
+        "type": "number",
+        "value": 0.810930192,
+        "changed": true
+      },
+      {
+        "name": "calculate9Input",
+        "path": "calculate9Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate9",
+        "path": "calculate9",
+        "type": "number",
+        "value": -0.628173649,
+        "changed": true
+      },
+      {
+        "name": "calculate10Input",
+        "path": "calculate10Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate10",
+        "path": "calculate10",
+        "type": "number",
+        "value": 0.778073192,
+        "changed": true
+      },
+      {
+        "name": "calculate11Input",
+        "path": "calculate11Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate11",
+        "path": "calculate11",
+        "type": "number",
+        "value": -1.23862767,
+        "changed": true
+      },
+      {
+        "name": "calculate12Input",
+        "path": "calculate12Input",
+        "type": "number",
+        "value": 0.5,
+        "changed": false
+      },
+      {
+        "name": "calculate12",
+        "path": "calculate12",
+        "type": "number",
+        "value": 1.04719758,
+        "changed": true
+      },
+      {
+        "name": "calculate13Input",
+        "path": "calculate13Input",
+        "type": "number",
+        "value": 0.5,
+        "changed": false
+      },
+      {
+        "name": "calculate13",
+        "path": "calculate13",
+        "type": "number",
+        "value": 0.52359879,
+        "changed": true
+      },
+      {
+        "name": "calculate14Input",
+        "path": "calculate14Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate14",
+        "path": "calculate14",
+        "type": "number",
+        "value": 1.15257204,
+        "changed": true
+      },
+      {
+        "name": "calculate15Input",
+        "path": "calculate15Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate15",
+        "path": "calculate15",
+        "type": "number",
+        "value": 0.844154,
+        "changed": true
+      },
+      {
+        "name": "calculate16Input",
+        "path": "calculate16Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate16",
+        "path": "calculate16",
+        "type": "number",
+        "value": 2,
+        "changed": true
+      },
+      {
+        "name": "calculate17Input",
+        "path": "calculate17Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate17",
+        "path": "calculate17",
+        "type": "number",
+        "value": 2,
+        "changed": true
+      },
+      {
+        "name": "calculate18Input",
+        "path": "calculate18Input",
+        "type": "number",
+        "value": 2.25,
+        "changed": false
+      },
+      {
+        "name": "calculate18",
+        "path": "calculate18",
+        "type": "number",
+        "value": 3,
+        "changed": true
+      },
+      {
+        "name": "mapInput",
+        "path": "mapInput",
+        "type": "number",
+        "value": 0.25,
+        "changed": false
+      },
+      {
+        "name": "map",
+        "path": "map",
+        "type": "number",
+        "value": 25,
+        "changed": true
+      },
+      {
+        "name": "wrapInput",
+        "path": "wrapInput",
+        "type": "number",
+        "value": 1.25,
+        "changed": false
+      },
+      {
+        "name": "wrap",
+        "path": "wrap",
+        "type": "number",
+        "value": 25,
+        "changed": true
+      },
+      {
+        "name": "reverseInput",
+        "path": "reverseInput",
+        "type": "number",
+        "value": 0.25,
+        "changed": false
+      },
+      {
+        "name": "reverse",
+        "path": "reverse",
+        "type": "number",
+        "value": 75,
+        "changed": true
+      },
+      {
+        "name": "clampLowInput",
+        "path": "clampLowInput",
+        "type": "number",
+        "value": -1,
+        "changed": false
+      },
+      {
+        "name": "clampLow",
+        "path": "clampLow",
+        "type": "number",
+        "value": 0,
+        "changed": false
+      },
+      {
+        "name": "clampHighInput",
+        "path": "clampHighInput",
+        "type": "number",
+        "value": 2,
+        "changed": false
+      },
+      {
+        "name": "clampHigh",
+        "path": "clampHigh",
+        "type": "number",
+        "value": 100,
+        "changed": true
+      },
+      {
+        "name": "roundedInput",
+        "path": "roundedInput",
+        "type": "number",
+        "value": 2.34500003,
+        "changed": false
+      },
+      {
+        "name": "rounded",
+        "path": "rounded",
+        "type": "number",
+        "value": 2.3499999,
+        "changed": true
+      },
+      {
+        "name": "trimnoneInput",
+        "path": "trimnoneInput",
+        "type": "string",
+        "value": "  x  ",
+        "changed": false
+      },
+      {
+        "name": "trimnone",
+        "path": "trimnone",
+        "type": "string",
+        "value": "  x  ",
+        "changed": true
+      },
+      {
+        "name": "trimstartInput",
+        "path": "trimstartInput",
+        "type": "string",
+        "value": "  x  ",
+        "changed": false
+      },
+      {
+        "name": "trimstart",
+        "path": "trimstart",
+        "type": "string",
+        "value": "x  ",
+        "changed": true
+      },
+      {
+        "name": "trimendInput",
+        "path": "trimendInput",
+        "type": "string",
+        "value": "  x  ",
+        "changed": false
+      },
+      {
+        "name": "trimend",
+        "path": "trimend",
+        "type": "string",
+        "value": "  x",
+        "changed": true
+      },
+      {
+        "name": "trimallInput",
+        "path": "trimallInput",
+        "type": "string",
+        "value": "  x  ",
+        "changed": false
+      },
+      {
+        "name": "trimall",
+        "path": "trimall",
+        "type": "string",
+        "value": "x",
+        "changed": true
+      },
+      {
+        "name": "padstartInput",
+        "path": "padstartInput",
+        "type": "string",
+        "value": "7",
+        "changed": false
+      },
+      {
+        "name": "padstart",
+        "path": "padstart",
+        "type": "string",
+        "value": "007",
+        "changed": true
+      },
+      {
+        "name": "padendInput",
+        "path": "padendInput",
+        "type": "string",
+        "value": "7",
+        "changed": false
+      },
+      {
+        "name": "padend",
+        "path": "padend",
+        "type": "string",
+        "value": "700",
+        "changed": true
+      },
+      {
+        "name": "zerosInput",
+        "path": "zerosInput",
+        "type": "string",
+        "value": "2.3000",
+        "changed": false
+      },
+      {
+        "name": "zeros",
+        "path": "zeros",
+        "type": "string",
+        "value": "2.3",
+        "changed": true
+      },
+      {
+        "name": "negatedInput",
+        "path": "negatedInput",
+        "type": "boolean",
+        "value": true,
+        "changed": false
+      },
+      {
+        "name": "negated",
+        "path": "negated",
+        "type": "boolean",
+        "value": false,
+        "changed": false
+      },
+      {
+        "name": "formattedInput",
+        "path": "formattedInput",
+        "type": "number",
+        "value": 2.5,
+        "changed": false
+      },
+      {
+        "name": "formatted",
+        "path": "formatted",
+        "type": "string",
+        "value": "2.50",
+        "changed": true
+      },
+      {
+        "name": "parsedInput",
+        "path": "parsedInput",
+        "type": "string",
+        "value": "2.5",
+        "changed": false
+      },
+      {
+        "name": "parsed",
+        "path": "parsed",
+        "type": "number",
+        "value": 2.5,
+        "changed": true
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}

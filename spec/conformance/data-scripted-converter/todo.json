@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "P9: custom converters require sandboxed forward/reverse scripting; intentionally outside P4e."
+}

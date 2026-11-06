@@ -1427,6 +1427,146 @@
       },
       "feature": "assets"
     },
+    "converters": {
+      "type": "object",
+      "properties": {
+        "$comment": {
+          "type": "string"
+        }
+      },
+      "propertyNames": {
+        "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "$comment": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "expression": {
+            "type": "string"
+          },
+          "random": {
+            "type": "string",
+            "enum": [
+              "always",
+              "once",
+              "on-change"
+            ]
+          },
+          "from": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "items": false,
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "to": {
+            "type": "array",
+            "prefixItems": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "items": false,
+            "minItems": 2,
+            "maxItems": 2
+          },
+          "clamp": {
+            "type": "boolean"
+          },
+          "modulo": {
+            "type": "boolean"
+          },
+          "reverse": {
+            "type": "boolean"
+          },
+          "decimals": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "grouping": {
+            "type": "boolean"
+          },
+          "format": {
+            "type": "string",
+            "enum": [
+              "hex",
+              "hexa",
+              "rgb",
+              "rgba"
+            ]
+          },
+          "length": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 10000
+          },
+          "fill": {
+            "type": "string"
+          },
+          "side": {
+            "type": "string",
+            "enum": [
+              "start",
+              "end"
+            ]
+          },
+          "mode": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          },
+          "open": {
+            "type": "string"
+          },
+          "close": {
+            "type": "string"
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "item": {},
+          "duration": {
+            "type": "number",
+            "minimum": 0
+          },
+          "operation": {
+            "type": "string"
+          },
+          "operand": {
+            "type": "number"
+          },
+          "chain": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          }
+        },
+        "additionalProperties": false
+      },
+      "feature": "convert"
+    },
     "machines": {
       "type": "object",
       "properties": {

@@ -5685,10 +5685,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_operation_viewmodel.cpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"acosine\", operand: 1}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-calculate-acosine",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -5747,10 +5747,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_operation_viewmodel.cpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"asine\", operand: 1}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-calculate-asine",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -5778,10 +5778,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_operation_viewmodel.cpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"atangent\", operand: 1}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-calculate-atangent",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -5809,10 +5809,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_operation_viewmodel.cpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"atangent2\", operand: 1}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-calculate-atangent2",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -5840,10 +5840,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_operation_viewmodel.cpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"ceil\", operand: 1}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-calculate-ceil",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -5871,10 +5871,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_operation_viewmodel.cpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"cosine\", operand: 1}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-calculate-cosine",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -5933,10 +5933,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_operation_viewmodel.cpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"exp\", operand: 1}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-calculate-exp",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -5964,10 +5964,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_operation_viewmodel.cpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"floor\", operand: 1}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-calculate-floor",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -5995,10 +5995,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_operation_viewmodel.cpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"log\", operand: 1}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-calculate-log",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6026,10 +6026,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_operation_viewmodel.cpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"modulo\", operand: 1}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-calculate-modulo",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6088,10 +6088,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_operation_viewmodel.cpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"power\", operand: 1}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-calculate-power",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6119,10 +6119,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_operation_viewmodel.cpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"round\", operand: 1}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-calculate-round",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6150,10 +6150,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_operation_viewmodel.cpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"sine\", operand: 1}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-calculate-sine",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6181,10 +6181,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_operation_viewmodel.cpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"squareRoot\", operand: 1}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-calculate-squareRoot",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6243,10 +6243,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_operation_viewmodel.cpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"calculate\", operation: \"tangent\", operand: 1}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-calculate-tangent",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6299,10 +6299,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_boolean_negate.cpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-boolean-negate\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-boolean-negate",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6328,10 +6328,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_to_string.cpp:157@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-color-formatting\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-color-formatting",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6353,10 +6353,10 @@
    "rive schema DataConverterEnumToUint --all --json"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-enum-to-uint\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-enum-to-uint",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6380,10 +6380,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_group.cpp:24@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-group\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-group",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6407,10 +6407,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_list_to_length.cpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-list-to-length\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-list-to-length",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6436,10 +6436,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_to_string.cpp:157@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-number-formatting\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-number-formatting",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6463,10 +6463,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_number_to_list.cpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-number-to-list\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-number-to-list",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6490,10 +6490,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_range_mapper.cpp:69@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-range-mapper\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-range-mapper",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6517,10 +6517,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_rounder.cpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-rounder\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-rounder",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6544,10 +6544,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_string_remove_zeros.cpp:24@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-string-remove-zeros\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-string-remove-zeros",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6571,10 +6571,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_string_template.cpp:48@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-string-template\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-string-template",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6598,10 +6598,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_system_degs_to_rads.cpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-system-degs-to-rads\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-system-degs-to-rads",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6625,10 +6625,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_system_normalizer.cpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-system-normalizer\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-system-normalizer",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6654,10 +6654,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_string_template.cpp:48@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-template-delimiters\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-template-delimiters",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6683,10 +6683,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_string_template.cpp:48@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-template-number-formatting\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-template-number-formatting",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6710,10 +6710,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_to_number.cpp:43@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-to-number\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-to-number",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6737,10 +6737,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_to_string.cpp:157@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-to-string\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-to-string",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -6764,10 +6764,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_trigger.cpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"converter-trigger\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-converter-trigger",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7104,10 +7104,10 @@
    "rive-runtime/include/rive/data_bind/converters/formula/formula_token_function.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-acosine(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-function-acosine",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7131,10 +7131,10 @@
    "rive-runtime/include/rive/data_bind/converters/formula/formula_token_function.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-asine(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-function-asine",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7158,10 +7158,10 @@
    "rive-runtime/include/rive/data_bind/converters/formula/formula_token_function.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-atangent(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-function-atangent",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7185,10 +7185,10 @@
    "rive-runtime/include/rive/data_bind/converters/formula/formula_token_function.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-atangent2(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-function-atangent2",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7212,10 +7212,10 @@
    "rive-runtime/include/rive/data_bind/converters/formula/formula_token_function.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-ceil(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-function-ceil",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7239,10 +7239,10 @@
    "rive-runtime/include/rive/data_bind/converters/formula/formula_token_function.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-cosine(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-function-cosine",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7266,10 +7266,10 @@
    "rive-runtime/include/rive/data_bind/converters/formula/formula_token_function.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-exp(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-function-exp",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7293,10 +7293,10 @@
    "rive-runtime/include/rive/data_bind/converters/formula/formula_token_function.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-floor(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-function-floor",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7320,10 +7320,10 @@
    "rive-runtime/include/rive/data_bind/converters/formula/formula_token_function.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-log(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-function-log",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7401,10 +7401,10 @@
    "rive-runtime/include/rive/data_bind/converters/formula/formula_token_function.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-pow(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-function-pow",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7428,10 +7428,10 @@
    "rive-runtime/include/rive/data_bind/converters/formula/formula_token_function.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-random(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-function-random",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7455,10 +7455,10 @@
    "rive-runtime/include/rive/data_bind/converters/formula/formula_token_function.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-round(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-function-round",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7482,10 +7482,10 @@
    "rive-runtime/include/rive/data_bind/converters/formula/formula_token_function.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-sine(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-function-sine",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7509,10 +7509,10 @@
    "rive-runtime/include/rive/data_bind/converters/formula/formula_token_function.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-sqrt(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-function-sqrt",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7536,10 +7536,10 @@
    "rive-runtime/include/rive/data_bind/converters/formula/formula_token_function.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"function-tangent(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-function-tangent",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7617,10 +7617,10 @@
    "rive-runtime/include/rive/data_bind/converters/formula/formula_token_operation.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"operator-modulo(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-operator-modulo",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7700,10 +7700,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_formula.cpp:408@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"random-always(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-random-always",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7729,10 +7729,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_formula.cpp:408@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"random-once(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-random-once",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -7758,10 +7758,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_formula.cpp:408@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"formula\", expression: \"random-source-change(...)\"}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-formula-random-source-change",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -8443,10 +8443,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_interpolator.cpp:199@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"interpolate-color\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-interpolate-color",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -8474,10 +8474,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_interpolator.cpp:199@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"interpolate-number\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-interpolate-number",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -8619,10 +8619,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_operation_viewmodel.cpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"operation-operand-view-model\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-operation-operand-view-model",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -8649,10 +8649,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_string_pad.cpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"pad-end\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-pad-end",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -8679,10 +8679,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_string_pad.cpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"pad-start\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-pad-start",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -9224,10 +9224,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_range_mapper.cpp:69@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"range-modulo\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-range-modulo",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -9252,10 +9252,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_range_mapper.cpp:69@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"range-reverse\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-range-reverse",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -9315,10 +9315,10 @@
    "rive-runtime/include/rive/scripted/scripted_data_converter.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.<scripted-converter>: named typed declarations with explicit model and instance references",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-scripted-converter",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -9879,10 +9879,10 @@
    "rive-runtime/include/rive/data_bind/converters/string_template/string_template_argument_number.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"template-argument-number\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-template-argument-number",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -9905,10 +9905,10 @@
    "rive-runtime/include/rive/data_bind/converters/string_template/string_template_argument_string.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"template-argument-string\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-template-argument-string",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -9933,10 +9933,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_string_trim.cpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"trim-all\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-trim-all",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -9961,10 +9961,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_string_trim.cpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"trim-end\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-trim-end",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -9989,10 +9989,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_string_trim.cpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"trim-none\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-trim-none",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },
@@ -10017,10 +10017,10 @@
    "rive-runtime/src/data_bind/converters/data_converter_string_trim.cpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: data.converters.<name>: {type: \"trim-start\", options: {...}}",
+   "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
    "module": "data",
    "status": "planned",
-   "test": "oracle/data-trim-start",
+   "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
    "phase": "P4"
   }
  },

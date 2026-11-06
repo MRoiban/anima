@@ -1,0 +1,9 @@
+<anima version="0.1" name="converted-score" grid="20" requires="bind convert">
+  <number name="progress" default="0.126"/>
+  <converter name="pct" type="range" from="0 1" to="0 100" clamp="true"/>
+  <converter name="rounded" type="round"/>
+  <converter name="label" type="template" text="{0} pts"/>
+  <converter-group name="fmt" chain="pct rounded label"/>
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+  <bind target="dot.x" value="progress * 10"/>
+</anima>
