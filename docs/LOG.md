@@ -1309,3 +1309,24 @@ assets **1513/2048**, surface **7536/8192**, components **4000/4096**, markup **
 remaining hook/library budgets pass. SVG full-featured **44639/102400 B**, Rive-class
 **48796/256000 B**. Every unchanged ceiling passes. Canvas's three explicit partial modes remain;
 Pc phase/parity integration belongs to the owner. Implementation branch: t3/svg-canvas-renderer-parity.
+
+## Pc — the canvas backend, minimal (2026-11-06)
+
+Brought forward from P10 by the owner so it exists before rigging. `<anima-icon renderer="canvas">`
+(module `canvas`, heavy, loaded only on demand) draws the renderer-neutral draw frame with Canvas2D:
+21 of 24 feature groups fully (paths and primitives, colours and slots, gradients, strokes and
+dashes, fixed strokes, transforms, visibility, opacity groups, clips, all four mask modes, blend
+modes, images and image paints, components, n-slice, knockouts), three with documented limits that
+report `unsupported-render` (partial trims on fixed strokes, local feather under nonuniform/sheared
+transforms, world feather under nonuniform viewport scale). DPR-crisp backing surface, resize,
+same scheduler, visibility pause and reduced motion as SVG.
+
+- **Both backends agree**: every visual conformance case and example rendered in both, in Chromium
+  and Firefox — 338/338 comparisons within limits. Getting there fixed the SVG backend: dash and
+  trim lengths now come from core (Chromium measured an r=8 circle as 49.94 instead of 50.27),
+  inverted-luminance masks are antialiased, image edges aligned. Static SVG for 0.1 icons unchanged.
+- **Numbers**: canvas 4 114 / 8 192 B; core + web 17 789 → 17 963 B (+174 B renderer hook); Rive-class
+  total 48.6 KB / 250 KB. Browser bell per frame, SVG / canvas: Chromium 80.7 / 254.2 µs, Firefox
+  71.7 / 285.0 µs. The standalone-demo test no longer rebuilds bundles (it used to time out under load).
+- **Benchmark**: none for Pc — it adds no authoring surface (a renderer choice); the P5 and P4b runs
+  stand.

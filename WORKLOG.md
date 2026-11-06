@@ -94,3 +94,4 @@ Open for owner (only when publishing): npm scope/package names, licence. Name st
 - 2026-11-07 09:30 [claude]: merged D1 module folders (d9510ae): 6 modules + libraries in folders, generator --check, 12 orders identical; core+web 17789 (+248, logged); test:scope paint 12 files/4.2 s; next D3 scaffolder then P5 PR
 - 2026-11-06 11:00 [claude]: merged D3 scaffolder (c7e3012): 31 files per row, idempotent; opening P5 PR (full suite in CI)
 - 2026-11-06 16:00 [claude]: merged Pc-1 canvas (d7fb13d) into pc-canvas: canvas 4114/8192, core+web 17963 (+174), 326/338 cross-backend comparisons; findings are SVG-side (Chromium pathLength on circles, inverted-luminance aliasing, one image frame) → Pc-2
+- 2026-11-06 21:00 [claude]: merged Pc-2 (6595b11): 338/338 both engines, full check green 1442; parity Pc 3 rows done (237/1238); opening Pc PR

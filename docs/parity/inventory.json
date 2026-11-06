@@ -16191,7 +16191,7 @@
   "anima": {
    "construct": "HTML pixel-ratio override; devicePixelRatioUsed; automatic browser DPR tracking (SPEC canvas)",
    "module": "canvas",
-   "status": "planned",
+   "status": "done",
    "test": "modules/canvas/test/web/canvas.test.ts; spec/conformance/host-api-device-pixel-ratio; tests/oracle/host-api-device-pixel-ratio/rive/README.md (host oracle skip)",
    "phase": "Pc"
   }
@@ -18152,7 +18152,7 @@
   "anima": {
    "construct": "Canvas backing store = rounded CSS viewport × DPR; ResizeObserver without stepping (SPEC canvas)",
    "module": "canvas",
-   "status": "planned",
+   "status": "done",
    "test": "modules/canvas/test/web/canvas.test.ts; spec/conformance/host-api-resize-backing-surface; tests/oracle/host-api-resize-backing-surface/rive/README.md (host oracle skip)",
    "phase": "Pc"
   }
@@ -24054,7 +24054,7 @@
   "anima": {
    "construct": "@anima-format/web/canvas; HTML renderer=\"canvas\"; draw-frame Canvas2D; raster findings remain (modules/canvas/test/web/RESULTS.md)",
    "module": "canvas",
-   "status": "planned",
+   "status": "done",
    "test": "modules/canvas/test/web/canvas.test.ts; spec/conformance/platforms-web-canvas; tests/oracle/platforms-web-canvas/rive/README.md (host oracle skip)",
    "phase": "Pc"
   }

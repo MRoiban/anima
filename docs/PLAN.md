@@ -208,7 +208,7 @@ and an oracle test against Rive.
         restore the unchanged size gates. `npm run check`: 966 tests pass; markup 8010/8192 B.
 - [ ] P5b The rest of P5: asset pipelines (encodings, imports), library detach/update, lists,
       script instances (72 rows).
-- [ ] Pc **Canvas backend, minimal** — brought forward from P10 (owner, 2026-11-06): the draw layer
+- [x] Pc **Canvas backend, minimal** — brought forward from P10 (owner, 2026-11-06): the draw layer
       rendered to Canvas2D as `@anima-format/web/canvas`; runs every conformance case with a pixel
       comparison against the SVG backend; SVG stays the default for icons. Must exist before P8.
   - [x] Opt-in heavy canvas module, DPR/ResizeObserver, draw-frame traversal and tiny host hook.
