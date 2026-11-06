@@ -42,14 +42,9 @@ it('moves node blend to each paint when one paint overrides it', () => {
     n = drawFrame(p).nodes[0]!;
   expect(n.blend).toBe('normal');
   expect(n.paints.map((p) => p.blend)).toEqual(['screen', 'multiply']);
-  expect(() => toSVG(p)).toThrowError(
-    expect.objectContaining({
-      code: 'unsupported-render',
-      message: expect.stringContaining('per-paint'),
-      pointer: '/nodes/0/paints/0/fill/blend',
-      hint: expect.stringContaining('canvas'),
-    }),
-  );
+  const svg = toSVG(p);
+  expect(svg).toContain('mix-blend-mode:screen');
+  expect(svg).toContain('mix-blend-mode:multiply');
   expect(compile(decompile(document)).doc).toEqual(document);
 });
 it('rejects competing node blend declarations', () => {
@@ -61,6 +56,24 @@ it('rejects competing node blend declarations', () => {
       pointer: '/nodes/0/mix',
       message: expect.any(String),
       hint: expect.any(String),
+    }),
+  );
+});
+
+it('reports an existing authored pointer for unsupported nested additive paints', () => {
+  const document = doc({
+    fill: undefined,
+    paints: [{ fill: { color: '#804020', blend: 'additive' } }],
+  });
+  Reflect.deleteProperty(document.nodes[0]!, 'fill');
+  const r = load({ ...document, nodes: [{ id: 'g', type: 'group', children: document.nodes }] });
+  expect(r.diagnostics).toEqual([]);
+  expect(() => toSVG(new Player(r.model!))).toThrowError(
+    expect.objectContaining({
+      code: 'unsupported-render',
+      pointer: '/nodes/0/children/0/paints/0/fill',
+      message: expect.stringContaining('additive paint'),
+      hint: expect.stringContaining('canvas'),
     }),
   );
 });

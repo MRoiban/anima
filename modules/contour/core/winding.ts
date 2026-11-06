@@ -1,6 +1,7 @@
 // Positive winding expressed as a union of trapezoids; backends use ordinary nonzero fill.
 // Coordinates use the SVG y-down convention, so clockwise contributes positive winding.
 import { polylines, geometryPath } from './effects.ts';
+import { inside } from '../../../packages/core/src/geom.ts';
 import { fmt } from '../../../packages/core/src/draw.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 type Edge = { x: number; y: number; dx: number; dy: number };
@@ -63,6 +64,36 @@ export const winding: Module = {
       shapes: { winding: { k: 'str', of: ['clockwise'], markup: 'fill-winding' } },
     },
   ],
+  fillContains(p, i, outline, x, y) {
+    const raw = p.model.nodes[i]!.raw;
+    const fills = raw.paints
+      ?.map((paint: { fill?: { winding?: string; rule?: string } }) => paint.fill)
+      .filter(Boolean) ?? [raw.fill];
+    if (!fills.some((fill: { winding?: string } | undefined) => fill?.winding === 'clockwise'))
+      return;
+    let wind = 0;
+    for (const { pts } of outline)
+      for (let j = 0; j < pts.length; j += 2) {
+        const x0 = pts[j]!,
+          y0 = pts[j + 1]!,
+          x1 = pts[(j + 2) % pts.length]!,
+          y1 = pts[(j + 3) % pts.length]!;
+        if ((y0 <= y ? y1 > y : y1 <= y) && x0 + ((y - y0) / (y1 - y0)) * (x1 - x0) > x)
+          wind += y1 > y0 ? 1 : -1;
+      }
+    return fills.some(
+      (fill: { winding?: string; rule?: string } | undefined) =>
+        fill &&
+        (fill.winding === 'clockwise'
+          ? wind > 0
+          : inside(
+              outline.filter((p) => p.closed).map((p) => p.pts),
+              x,
+              y,
+              fill.rule === 'evenodd',
+            )),
+    );
+  },
   draw: {
     frame(p, i, data) {
       if (!data.geometry) return;

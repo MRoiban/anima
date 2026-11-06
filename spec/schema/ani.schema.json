@@ -3055,46 +3055,6 @@
               "additionalProperties": {},
               "feature": "data"
             },
-            "mix": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
-                },
-                "mode": {
-                  "type": "string",
-                  "enum": [
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ]
-                },
-                "strength": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1
-                }
-              },
-              "required": [
-                "mode"
-              ],
-              "additionalProperties": false,
-              "feature": "mix"
-            },
             "slice": {
               "type": "object",
               "properties": {
@@ -3143,6 +3103,46 @@
               ],
               "additionalProperties": false,
               "feature": "surface"
+            },
+            "mix": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ]
+                },
+                "strength": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "additionalProperties": false,
+              "feature": "mix"
             }
           },
           "required": [
@@ -3407,36 +3407,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -3516,6 +3486,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -3796,36 +3796,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -3905,6 +3875,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -4227,36 +4227,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -4336,6 +4306,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -4616,36 +4616,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -4725,6 +4695,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -4744,46 +4744,6 @@
               },
               "additionalProperties": {},
               "feature": "data"
-            },
-            "mix": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
-                },
-                "mode": {
-                  "type": "string",
-                  "enum": [
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ]
-                },
-                "strength": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1
-                }
-              },
-              "required": [
-                "mode"
-              ],
-              "additionalProperties": false,
-              "feature": "mix"
             },
             "slice": {
               "type": "object",
@@ -4833,6 +4793,46 @@
               ],
               "additionalProperties": false,
               "feature": "surface"
+            },
+            "mix": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ]
+                },
+                "strength": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "additionalProperties": false,
+              "feature": "mix"
             }
           },
           "required": [
@@ -5100,36 +5100,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -5209,6 +5179,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -5489,36 +5489,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -5598,6 +5568,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -5920,36 +5920,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -6029,6 +5999,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -6309,36 +6309,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -6418,6 +6388,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -6437,46 +6437,6 @@
               },
               "additionalProperties": {},
               "feature": "data"
-            },
-            "mix": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
-                },
-                "mode": {
-                  "type": "string",
-                  "enum": [
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ]
-                },
-                "strength": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1
-                }
-              },
-              "required": [
-                "mode"
-              ],
-              "additionalProperties": false,
-              "feature": "mix"
             },
             "slice": {
               "type": "object",
@@ -6526,6 +6486,46 @@
               ],
               "additionalProperties": false,
               "feature": "surface"
+            },
+            "mix": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ]
+                },
+                "strength": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "additionalProperties": false,
+              "feature": "mix"
             }
           },
           "required": [
@@ -6795,36 +6795,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -6904,6 +6874,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -7184,36 +7184,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -7293,6 +7263,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -7640,36 +7640,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -7749,6 +7719,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -8029,36 +8029,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -8138,6 +8108,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -8157,46 +8157,6 @@
               },
               "additionalProperties": {},
               "feature": "data"
-            },
-            "mix": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
-                },
-                "mode": {
-                  "type": "string",
-                  "enum": [
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ]
-                },
-                "strength": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1
-                }
-              },
-              "required": [
-                "mode"
-              ],
-              "additionalProperties": false,
-              "feature": "mix"
             },
             "slice": {
               "type": "object",
@@ -8246,6 +8206,46 @@
               ],
               "additionalProperties": false,
               "feature": "surface"
+            },
+            "mix": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ]
+                },
+                "strength": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "additionalProperties": false,
+              "feature": "mix"
             }
           },
           "required": [
@@ -8523,36 +8523,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -8632,6 +8602,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -8912,36 +8912,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -9021,6 +8991,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -9343,36 +9343,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -9452,6 +9422,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -9732,36 +9732,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -9841,6 +9811,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -9860,46 +9860,6 @@
               },
               "additionalProperties": {},
               "feature": "data"
-            },
-            "mix": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
-                },
-                "mode": {
-                  "type": "string",
-                  "enum": [
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ]
-                },
-                "strength": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1
-                }
-              },
-              "required": [
-                "mode"
-              ],
-              "additionalProperties": false,
-              "feature": "mix"
             },
             "slice": {
               "type": "object",
@@ -9949,6 +9909,46 @@
               ],
               "additionalProperties": false,
               "feature": "surface"
+            },
+            "mix": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ]
+                },
+                "strength": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "additionalProperties": false,
+              "feature": "mix"
             }
           },
           "required": [
@@ -10307,46 +10307,6 @@
               "type": "string",
               "feature": "data"
             },
-            "mix": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
-                },
-                "mode": {
-                  "type": "string",
-                  "enum": [
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ]
-                },
-                "strength": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1
-                }
-              },
-              "required": [
-                "mode"
-              ],
-              "additionalProperties": false,
-              "feature": "mix"
-            },
             "slice": {
               "type": "object",
               "properties": {
@@ -10395,6 +10355,46 @@
               ],
               "additionalProperties": false,
               "feature": "surface"
+            },
+            "mix": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ]
+                },
+                "strength": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "additionalProperties": false,
+              "feature": "mix"
             }
           },
           "required": [
@@ -10766,46 +10766,6 @@
               "additionalProperties": {},
               "feature": "data"
             },
-            "mix": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
-                },
-                "mode": {
-                  "type": "string",
-                  "enum": [
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ]
-                },
-                "strength": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1
-                }
-              },
-              "required": [
-                "mode"
-              ],
-              "additionalProperties": false,
-              "feature": "mix"
-            },
             "slice": {
               "type": "object",
               "properties": {
@@ -10854,6 +10814,46 @@
               ],
               "additionalProperties": false,
               "feature": "surface"
+            },
+            "mix": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ]
+                },
+                "strength": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "additionalProperties": false,
+              "feature": "mix"
             }
           },
           "required": [
@@ -11065,36 +11065,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -11174,6 +11144,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -11454,36 +11454,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -11563,6 +11533,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -11809,36 +11809,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -11918,6 +11888,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -12198,36 +12198,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -12307,6 +12277,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -12326,46 +12326,6 @@
               },
               "additionalProperties": {},
               "feature": "data"
-            },
-            "mix": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
-                },
-                "mode": {
-                  "type": "string",
-                  "enum": [
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ]
-                },
-                "strength": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1
-                }
-              },
-              "required": [
-                "mode"
-              ],
-              "additionalProperties": false,
-              "feature": "mix"
             },
             "slice": {
               "type": "object",
@@ -12415,6 +12375,46 @@
               ],
               "additionalProperties": false,
               "feature": "surface"
+            },
+            "mix": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ]
+                },
+                "strength": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "additionalProperties": false,
+              "feature": "mix"
             },
             "focus": {
               "type": "object",
@@ -12772,36 +12772,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -12881,6 +12851,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -13161,36 +13161,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -13270,6 +13240,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -13516,36 +13516,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -13625,6 +13595,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -13905,36 +13905,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -14014,6 +13984,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -14033,46 +14033,6 @@
               },
               "additionalProperties": {},
               "feature": "data"
-            },
-            "mix": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
-                },
-                "mode": {
-                  "type": "string",
-                  "enum": [
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ]
-                },
-                "strength": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1
-                }
-              },
-              "required": [
-                "mode"
-              ],
-              "additionalProperties": false,
-              "feature": "mix"
             },
             "slice": {
               "type": "object",
@@ -14122,6 +14082,46 @@
               ],
               "additionalProperties": false,
               "feature": "surface"
+            },
+            "mix": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ]
+                },
+                "strength": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "additionalProperties": false,
+              "feature": "mix"
             },
             "focus": {
               "type": "object",
@@ -14480,36 +14480,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -14589,6 +14559,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -14869,36 +14869,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -14978,6 +14948,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -15224,36 +15224,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -15333,6 +15303,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -15613,36 +15613,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -15722,6 +15692,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -15741,46 +15741,6 @@
               },
               "additionalProperties": {},
               "feature": "data"
-            },
-            "mix": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
-                },
-                "mode": {
-                  "type": "string",
-                  "enum": [
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ]
-                },
-                "strength": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1
-                }
-              },
-              "required": [
-                "mode"
-              ],
-              "additionalProperties": false,
-              "feature": "mix"
             },
             "slice": {
               "type": "object",
@@ -15830,6 +15790,46 @@
               ],
               "additionalProperties": false,
               "feature": "surface"
+            },
+            "mix": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ]
+                },
+                "strength": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "additionalProperties": false,
+              "feature": "mix"
             },
             "focus": {
               "type": "object",
@@ -16178,36 +16178,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -16287,6 +16257,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -16567,36 +16567,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -16676,6 +16646,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -16922,36 +16922,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -17031,6 +17001,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -17311,36 +17311,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -17420,6 +17390,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -17439,46 +17439,6 @@
               },
               "additionalProperties": {},
               "feature": "data"
-            },
-            "mix": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
-                },
-                "mode": {
-                  "type": "string",
-                  "enum": [
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ]
-                },
-                "strength": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1
-                }
-              },
-              "required": [
-                "mode"
-              ],
-              "additionalProperties": false,
-              "feature": "mix"
             },
             "slice": {
               "type": "object",
@@ -17528,6 +17488,46 @@
               ],
               "additionalProperties": false,
               "feature": "surface"
+            },
+            "mix": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ]
+                },
+                "strength": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "additionalProperties": false,
+              "feature": "mix"
             },
             "focus": {
               "type": "object",
@@ -17968,36 +17968,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -18077,6 +18047,36 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
+                },
+                "blend": {
+                  "type": "string",
+                  "enum": [
+                    "inherit",
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ],
+                  "feature": "mix"
+                },
+                "blendAmount": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
               "additionalProperties": false
@@ -18357,36 +18357,6 @@
                   ],
                   "feature": "contour"
                 },
-                "blend": {
-                  "type": "string",
-                  "enum": [
-                    "inherit",
-                    "normal",
-                    "multiply",
-                    "screen",
-                    "overlay",
-                    "darken",
-                    "lighten",
-                    "color-dodge",
-                    "color-burn",
-                    "hard-light",
-                    "soft-light",
-                    "difference",
-                    "exclusion",
-                    "hue",
-                    "saturation",
-                    "color",
-                    "luminosity",
-                    "additive"
-                  ],
-                  "feature": "mix"
-                },
-                "blendAmount": {
-                  "type": "number",
-                  "minimum": 0,
-                  "maximum": 1,
-                  "feature": "mix"
-                },
                 "asset": {
                   "type": "string",
                   "feature": "surface"
@@ -18466,33 +18436,11 @@
                   },
                   "additionalProperties": false,
                   "feature": "surface"
-                }
-              },
-              "additionalProperties": false
-            },
-            "knockout": {
-              "type": "number",
-              "minimum": 0
-            },
-            "properties": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
-                }
-              },
-              "additionalProperties": {},
-              "feature": "data"
-            },
-            "mix": {
-              "type": "object",
-              "properties": {
-                "$comment": {
-                  "type": "string"
                 },
-                "mode": {
+                "blend": {
                   "type": "string",
                   "enum": [
+                    "inherit",
                     "normal",
                     "multiply",
                     "screen",
@@ -18510,19 +18458,31 @@
                     "color",
                     "luminosity",
                     "additive"
-                  ]
+                  ],
+                  "feature": "mix"
                 },
-                "strength": {
+                "blendAmount": {
                   "type": "number",
                   "minimum": 0,
-                  "maximum": 1
+                  "maximum": 1,
+                  "feature": "mix"
                 }
               },
-              "required": [
-                "mode"
-              ],
-              "additionalProperties": false,
-              "feature": "mix"
+              "additionalProperties": false
+            },
+            "knockout": {
+              "type": "number",
+              "minimum": 0
+            },
+            "properties": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": {},
+              "feature": "data"
             },
             "slice": {
               "type": "object",
@@ -18572,6 +18532,46 @@
               ],
               "additionalProperties": false,
               "feature": "surface"
+            },
+            "mix": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "mode": {
+                  "type": "string",
+                  "enum": [
+                    "normal",
+                    "multiply",
+                    "screen",
+                    "overlay",
+                    "darken",
+                    "lighten",
+                    "color-dodge",
+                    "color-burn",
+                    "hard-light",
+                    "soft-light",
+                    "difference",
+                    "exclusion",
+                    "hue",
+                    "saturation",
+                    "color",
+                    "luminosity",
+                    "additive"
+                  ]
+                },
+                "strength": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                }
+              },
+              "required": [
+                "mode"
+              ],
+              "additionalProperties": false,
+              "feature": "mix"
             },
             "focus": {
               "type": "object",
@@ -18948,36 +18948,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -19057,6 +19027,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false
@@ -19337,36 +19337,6 @@
                         ],
                         "feature": "contour"
                       },
-                      "blend": {
-                        "type": "string",
-                        "enum": [
-                          "inherit",
-                          "normal",
-                          "multiply",
-                          "screen",
-                          "overlay",
-                          "darken",
-                          "lighten",
-                          "color-dodge",
-                          "color-burn",
-                          "hard-light",
-                          "soft-light",
-                          "difference",
-                          "exclusion",
-                          "hue",
-                          "saturation",
-                          "color",
-                          "luminosity",
-                          "additive"
-                        ],
-                        "feature": "mix"
-                      },
-                      "blendAmount": {
-                        "type": "number",
-                        "minimum": 0,
-                        "maximum": 1,
-                        "feature": "mix"
-                      },
                       "asset": {
                         "type": "string",
                         "feature": "surface"
@@ -19446,6 +19416,36 @@
                         },
                         "additionalProperties": false,
                         "feature": "surface"
+                      },
+                      "blend": {
+                        "type": "string",
+                        "enum": [
+                          "inherit",
+                          "normal",
+                          "multiply",
+                          "screen",
+                          "overlay",
+                          "darken",
+                          "lighten",
+                          "color-dodge",
+                          "color-burn",
+                          "hard-light",
+                          "soft-light",
+                          "difference",
+                          "exclusion",
+                          "hue",
+                          "saturation",
+                          "color",
+                          "luminosity",
+                          "additive"
+                        ],
+                        "feature": "mix"
+                      },
+                      "blendAmount": {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1,
+                        "feature": "mix"
                       }
                     },
                     "additionalProperties": false

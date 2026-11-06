@@ -3,15 +3,27 @@
   "name": "drawing-paint-fill-rule-clockwise",
   "grid": 20,
   "requires": ["contour"],
+  "inputs": {
+    "hit": {
+      "type": "bool"
+    }
+  },
   "nodes": [
     {
       "id": "a",
       "type": "path",
-      "d": "M2 2H18V18H2Z M5 5V15H15V5Z",
+      "d": "M2 2H18V18H2Z M5 5V15H15V5Z M0.25 0.25V1.75H1.75V0.25Z",
       "fill": {
         "color": "#4263eb",
         "winding": "clockwise"
       }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "click",
+      "target": "a",
+      "toggle": "hit"
     }
   ]
 }

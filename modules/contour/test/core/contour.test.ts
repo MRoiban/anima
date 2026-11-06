@@ -21,7 +21,7 @@ describe('authoring vertices', () => {
     ['mirrored', { handle: [2, 0] }, 'M0 10C0 10 8 0 10 0C12 0 20 10 20 10'],
     ['asymmetric', { incoming: [0, 1], outgoing: [2, 0] }, 'M0 10C0 10 9 0 10 0C12 0 20 10 20 10'],
     ['detached', { incoming: [-1, 2], outgoing: [2, 1] }, 'M0 10C0 10 9 2 10 0C12 1 20 10 20 10'],
-    ['rounded', { radius: Math.SQRT2 }, 'M0 10L9 1Q10 0 11 1L20 10'],
+    ['rounded', { radius: Math.SQRT2 }, 'M0 10L9 1C9.55228 0.44772 10.44772 0.44772 11 1L20 10'],
   ] as const)('compiles %s handles independently', (kind, fields, expected) => {
     const vs = vertices(kind, fields);
     expect(compileVertices(vs)).toBe(expected);
@@ -54,7 +54,7 @@ describe('authoring vertices', () => {
         ],
         true,
       ),
-    ).toBe('M2 2Q0 0 2 0L4 0L4 4L2 2Z');
+    ).toBe('M1.41421 1.41421C0.77392 0.77392 1.09449 0 2 0L4 0L4 4L1.41421 1.41421Z');
   });
   it.each([
     [vertices('straight', { handle: [1, 0] }), '/nodes/0/vertices/1/handle'],

@@ -1,4 +1,4 @@
-name: oracle-gradient-transform
+name: paint-gradient-transform
 logs:
   file: build/rive.log
   problems: build/problems.log

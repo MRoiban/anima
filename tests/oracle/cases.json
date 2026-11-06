@@ -1969,5 +1969,33 @@
       "script": "script.txt",
       "reference": "rive/observations.json"
     }
+  },
+  {
+    "name": "drawing-paint-gradient-transform",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "drawing-paint-paint-blend-override",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "drawing-paint-shared-effects",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 110,
+    "maxOverPercent": 0.3
+  },
+  {
+    "name": "drawing-paint-effect-order",
+    "times": [0],
+    "threshold": 16,
+    "maxDiff": 110,
+    "maxOverPercent": 0.3
   }
 ]

@@ -24,10 +24,10 @@ import { compositeSVG } from '../../../modules/composite/core/svg.ts';
 import { contour } from '../../../modules/contour/core/index.ts';
 import { contourSVG } from '../../../modules/contour/core/svg.ts';
 import { data } from '../../../modules/data/core/index.ts';
-import { mix } from '../../../modules/mix/core/index.ts';
-import { mixSVG } from '../../../modules/mix/core/svg.ts';
 import { surface } from '../../../modules/surface/core/index.ts';
 import { surfaceSVG } from '../../../modules/surface/core/svg.ts';
+import { mix } from '../../../modules/mix/core/index.ts';
+import { mixSVG } from '../../../modules/mix/core/svg.ts';
 if (VERBOSE) {
   registerModule(components);
   registerSVGBackend('components', componentsSVG);
@@ -51,8 +51,8 @@ if (VERBOSE) {
   registerModule(contour);
   registerSVGBackend('contour', contourSVG);
   registerModule(data);
-  registerModule(mix);
-  registerSVGBackend('mix', mixSVG);
   registerModule(surface);
   registerSVGBackend('surface', surfaceSVG);
+  registerModule(mix);
+  registerSVGBackend('mix', mixSVG);
 }

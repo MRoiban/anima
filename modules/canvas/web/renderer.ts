@@ -379,7 +379,7 @@ export class CanvasRenderer implements IconRenderer {
       }
       ctx.save();
       ctx.resetTransform();
-      ctx.globalAlpha *= n.opacity * (n.blend === 'additive' ? (n.blendAmount ?? 1) : 1);
+      ctx.globalAlpha *= n.opacity;
       ctx.globalCompositeOperation = (
         n.blend !== 'additive' && (n.mask || n.clip || n.blend === 'normal')
           ? 'source-over'
@@ -387,10 +387,41 @@ export class CanvasRenderer implements IconRenderer {
             ? 'lighter'
             : (n.blend ?? 'source-over')
       ) as GlobalCompositeOperation;
-      ctx.drawImage(layer, 0, 0);
+      this.#blendImage(ctx, layer, n.blend, n.blendAmount ?? 1);
       ctx.restore();
     }
   }
+  #blendImage(ctx: Ctx, source: HTMLCanvasElement, mode: string | undefined, amount: number): void {
+    if (mode === 'additive' && amount > 0 && amount < 1) {
+      // Evaluate once in premultiplied space: two 8-bit draws round the source twice.
+      const w = source.width,
+        h = source.height;
+      const src = context(source).getImageData(0, 0, w, h).data;
+      const dst = ctx.getImageData(0, 0, w, h);
+      for (let i = 0; i < src.length; i += 4) {
+        const sa = (src[i + 3]! / 255) * ctx.globalAlpha;
+        const da = dst.data[i + 3]! / 255;
+        const keep = 1 - sa * (1 - amount);
+        const alpha = Math.min(1, sa + da * keep);
+        for (let k = 0; k < 3; k++)
+          dst.data[i + k] = alpha
+            ? Math.min(255, (src[i + k]! * sa + dst.data[i + k]! * da * keep) / alpha)
+            : 0;
+        dst.data[i + 3] = alpha * 255;
+      }
+      const result = this.#surface();
+      context(result).putImageData(dst, 0, 0);
+      ctx.save();
+      ctx.globalAlpha = 1;
+      ctx.globalCompositeOperation = 'copy';
+      ctx.drawImage(result, 0, 0);
+      ctx.restore();
+    } else {
+      if (mode === 'additive') ctx.globalCompositeOperation = amount ? 'lighter' : 'source-over';
+      ctx.drawImage(source, 0, 0);
+    }
+  }
+
   #shape(ctx: Ctx, i: number, world: Mat): void {
     const n = this.#frame!.nodes[i]!,
       g = n.geometry!,
@@ -466,24 +497,30 @@ export class CanvasRenderer implements IconRenderer {
     for (const paint of n.paints) {
       if (!paint.visible) continue;
       ctx.save();
-      if (paint.blend) {
-        ctx.globalCompositeOperation = (
+      const amount = paint.blendAmount ?? 1;
+      const layer = paint.blend === 'additive' && amount < 1 ? this.#surface() : undefined;
+      const out = layer ? context(layer) : ctx;
+      if (layer) out.setTransform(ctx.getTransform());
+      if (paint.blend && !layer)
+        out.globalCompositeOperation = (
           paint.blend === 'normal'
             ? 'source-over'
             : paint.blend === 'additive'
               ? 'lighter'
               : paint.blend
         ) as GlobalCompositeOperation;
-        if (paint.blend === 'additive') ctx.globalAlpha *= paint.blendAmount ?? 1;
-      }
       const feather = paint.feather;
       if (feather?.enabled && (feather.inner || feather.outer || feather.offset.some(Boolean))) {
         const base = this.#surface(),
           bc = context(base);
-        bc.setTransform(ctx.getTransform());
+        bc.setTransform(out.getTransform());
         this.#paint(bc, i, paint, p, world);
-        this.#feather(ctx, base, paint, i, world);
-      } else this.#paint(ctx, i, paint, p, world);
+        this.#feather(out, base, paint, i, world);
+      } else this.#paint(out, i, paint, p, world);
+      if (layer) {
+        ctx.resetTransform();
+        this.#blendImage(ctx, layer, paint.blend, amount);
+      }
       ctx.restore();
     }
   }

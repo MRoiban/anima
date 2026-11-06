@@ -38,16 +38,7 @@ export function compileVertices(
   origin: Point = [0, 0],
 ): string {
   const points = vertices.map((v) => add(v.point, [-origin[0], -origin[1]]));
-  const cut = (p: Point, q: Point, radius: number): Point => {
-    const length = Math.hypot(q[0] - p[0], q[1] - p[1]);
-    const t = length ? Math.min(0.5, radius / length) : 0;
-    return [p[0] + (q[0] - p[0]) * t, p[1] + (q[1] - p[1]) * t];
-  };
-  const contours = vertices.map((v, i) => {
-    const p = points[i]!;
-    const rounded = v.kind === 'rounded' && (closed || (i > 0 && i < vertices.length - 1));
-    const a = rounded ? cut(p, points[(i + points.length - 1) % points.length]!, v.radius ?? 0) : p;
-    const b = rounded ? cut(p, points[(i + 1) % points.length]!, v.radius ?? 0) : p;
+  const handles = vertices.map((v) => {
     let incoming: Point = [0, 0],
       outgoing: Point = [0, 0];
     if (v.kind === 'mirrored') {
@@ -64,7 +55,39 @@ export function compileVertices(
       incoming = v.incoming ?? [0, 0];
       outgoing = v.outgoing ?? [0, 0];
     }
-    return { p, a, b, incoming, outgoing, rounded };
+    return { incoming, outgoing };
+  });
+  const contours = vertices.map((v, i) => {
+    const p = points[i]!;
+    const rounded = v.kind === 'rounded' && (closed || (i > 0 && i < vertices.length - 1));
+    let a = p,
+      b = p,
+      c1 = p,
+      c2 = p;
+    if (rounded) {
+      const previous = (i + points.length - 1) % points.length;
+      const next = (i + 1) % points.length;
+      const u = add(add(points[previous]!, handles[previous]!.outgoing), [-p[0], -p[1]]);
+      const v = add(add(points[next]!, handles[next]!.incoming), [-p[0], -p[1]]);
+      const ul = Math.hypot(...u),
+        vl = Math.hypot(...v);
+      const radius = Math.min(vertices[i]!.radius ?? 0, ul / 2, vl / 2);
+      if (ul && vl) {
+        const angle = Math.atan2(Math.abs(u[0] * v[1] - u[1] * v[0]), u[0] * v[0] + u[1] * v[1]);
+        // Natural corner rounding; mathematical construction follows Rive (MIT), see NOTICE.
+        const fraction = Math.min(
+          1,
+          (4 / 3) *
+            Math.tan(angle / 4) *
+            (angle < Math.PI / 2 ? 1 + Math.cos(angle) : 2 - Math.sin(angle)),
+        );
+        a = add(p, [(radius * u[0]) / ul, (radius * u[1]) / ul]);
+        b = add(p, [(radius * v[0]) / vl, (radius * v[1]) / vl]);
+        c1 = add(a, [(p[0] - a[0]) * fraction, (p[1] - a[1]) * fraction]);
+        c2 = add(b, [(p[0] - b[0]) * fraction, (p[1] - b[1]) * fraction]);
+      }
+    }
+    return { p, a, b, c1, c2, ...handles[i]!, rounded };
   });
   let d = 'M' + text(contours[0]!.a);
   const edge = (i: number, j: number) => {
@@ -77,7 +100,7 @@ export function compileVertices(
   };
   for (let i = 0; i < contours.length; i++) {
     const v = contours[i]!;
-    if (v.rounded) d += 'Q' + text(v.p) + ' ' + text(v.b);
+    if (v.rounded) d += 'C' + text(v.c1) + ' ' + text(v.c2) + ' ' + text(v.b);
     if (i + 1 < contours.length) d += edge(i, i + 1);
     else if (closed) d += edge(i, 0) + 'Z';
   }
@@ -142,6 +165,7 @@ export const contour: Module = {
     const d = compiled.get(p.model.nodes[i]!.raw);
     if (d !== undefined) return flatten(parsePath(d));
   },
+  fillContains: winding.fillContains,
   draw: {
     tree(model, tree) {
       model.nodes.forEach((n, i) => {

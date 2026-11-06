@@ -108,8 +108,8 @@ describe('one registry, two spellings', () => {
       'drawOrder',
       'paints',
       'properties',
-      'mix',
       'slice',
+      'mix',
     ]);
   });
 });

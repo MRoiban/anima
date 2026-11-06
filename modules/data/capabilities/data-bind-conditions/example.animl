@@ -2,13 +2,13 @@
   <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
 
   <model name="Root">
-    <number name="value" default="4"/>
+    <number name="Value" default="4"/>
   </model>
 
   <layer name="m" initial="idle">
     <state name="idle">
       <pose/>
-      <on when="$value > 3" to="done"/>
+      <on when="$Value > 3" to="done"/>
     </state>
     <state name="done">
       <pose dot.x="9"/>

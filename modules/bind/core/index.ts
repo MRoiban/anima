@@ -90,30 +90,8 @@ export const bind: Module & {
           const source = raw.machine.layers[layer.name].states[state.name].time;
           if (source === undefined) continue;
           const pointer = ptr(ptr('/machine/layers', layer.name) + '/states', state.name) + '/time';
-          try {
-            const e = expression(source, types);
-            if (e.type !== 'number' && e.type !== 'bool')
-              throw new BindError('bind-type', e.at, 'expected number');
-            for (const name of e.inputs) {
-              const i = diag.list.findIndex(
-                (d) => d.code === 'unused-input' && d.pointer === ptr('/inputs', name),
-              );
-              if (i >= 0) diag.list.splice(i, 1);
-            }
-            (model.timeBindings ??= new Map()).set(
-              state,
-              (scope: ReadonlyMap<string, import('../../../packages/core/src/load.ts').Value>) =>
-                Number(evaluate(e, scope)),
-            );
-          } catch (err) {
-            if (!(err instanceof BindError)) throw err;
-            diag.err(
-              err.code,
-              pointer,
-              V && `${err.message} at character ${err.at + 1}`,
-              V && 'use a numeric input expression',
-            );
-          }
+          const run = bind.expression!(source, types, 'number', pointer, diag);
+          if (run) (model.timeBindings ??= new Map()).set(state, run as (scope: unknown) => number);
         }
     // Property references are forbidden, including attempted cycles. Valid sources are inputs only.
     const dependencies = new Map(

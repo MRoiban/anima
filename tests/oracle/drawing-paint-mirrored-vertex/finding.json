@@ -1,6 +1,6 @@
 {
   "status": "finding",
-  "reason": "Native screenshot differs from the independent Anima construction under the fixed comparison limits. The cause is not established; this is not verified parity.",
+  "reason": "Rasterisation-only finding: observed native path commands and controls exactly equal Anima at 12px/unit. Rendering the native observer commands in resvg gives max 0 against Anima; all native differences over 2 are confined to the one-pixel stroke fringe, with zero interior/exterior differences over 2. Fixed oracle limits remain unchanged and the original PNG comparison remains failing. See modules/paint/probes/raster.json and modules/contour/test/core/raster-evidence.test.ts.",
   "case": {
     "name": "drawing-paint-mirrored-vertex",
     "times": [0],

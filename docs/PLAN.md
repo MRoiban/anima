@@ -286,6 +286,11 @@ and an oracle test against Rive.
   - [ ] P4e-1 completion: decide the internal-trigger listener finding and resolve thirteen pending
         design/consumer/integration rows; confirm the no-regression performance target on a quiet machine.
         See `modules/data/REPORT.md` and `ROWS.json`.
+  - [x] P4e-5 paint/backend root causes and portable per-paint SVG: 10/18 strict, eight
+        documented rasterisation-only findings with independent native geometry/sampler evidence.
+        Clockwise hits and rounded cubic controls fixed; additive strength corrected. All native
+        probes captured; SVG-only oracle skips have active Canvas comparisons in both browsers.
+        See `modules/paint/REPORT.md`; phase completion/parity promotion remain deferred.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide
       whether switching to reduced motion stops in-progress loops at once (P4b benchmark).
 - [ ] P6 Text.

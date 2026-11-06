@@ -1,6 +1,8 @@
 <anima version="0.1" name="data-probe" grid="20" requires="data bind assets">
-  <asset name="first" type="image" src="first.bin"/>
-  <asset name="second" type="image" src="second.bin"/>
+  <asset name="first" type="image"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR42mO4WR4OAAPUAahSxzpbAAAAAElFTkSuQmCC"/>
+  <asset name="second" type="image"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR42mMIL78JAALQAagz8EUKAAAAAElFTkSuQmCC"/>
 
   <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
 

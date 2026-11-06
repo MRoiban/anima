@@ -23,7 +23,7 @@
             "pose": {},
             "on": [
               {
-                "when": "$value > 3",
+                "when": "$Value > 3",
                 "to": "done"
               }
             ]
@@ -41,7 +41,7 @@
     "models": {
       "Root": {
         "properties": {
-          "value": {
+          "Value": {
             "type": "number",
             "default": 4
           }

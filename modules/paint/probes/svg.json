@@ -1,0 +1,155 @@
+[
+  {
+    "engine": "resvg",
+    "variant": "plain",
+    "center": [144, 112, 116, 255]
+  },
+  {
+    "engine": "resvg",
+    "variant": "transform",
+    "center": [144, 112, 116, 255]
+  },
+  {
+    "engine": "resvg",
+    "variant": "portable",
+    "center": [144, 112, 116, 255]
+  },
+  {
+    "engine": "resvg",
+    "variant": "plus",
+    "center": [128, 64, 32, 255]
+  },
+  {
+    "engine": "resvg",
+    "variant": "explicitArithmetic",
+    "center": [160, 128, 128, 255]
+  },
+  {
+    "engine": "resvg",
+    "variant": "arithmetic",
+    "center": [255, 128, 64, 255]
+  },
+  {
+    "engine": "chromium",
+    "variant": "plain",
+    "center": [144, 112, 116, 255]
+  },
+  {
+    "engine": "chromium",
+    "variant": "transform",
+    "center": [144, 112, 116, 255]
+  },
+  {
+    "engine": "chromium",
+    "variant": "portable",
+    "center": [144, 112, 116, 255]
+  },
+  {
+    "engine": "chromium",
+    "variant": "plus",
+    "center": [160, 128, 128, 255]
+  },
+  {
+    "engine": "chromium",
+    "variant": "explicitArithmetic",
+    "center": [160, 128, 128, 255]
+  },
+  {
+    "engine": "chromium",
+    "variant": "arithmetic",
+    "center": [255, 128, 64, 255]
+  },
+  {
+    "engine": "chromium",
+    "wedges": 64,
+    "max": 62,
+    "over": 5272,
+    "percent": 9.152777777777779
+  },
+  {
+    "engine": "resvg-vs-chromium-conic",
+    "wedges": 64,
+    "max": 58,
+    "over": 5171,
+    "percent": 8.977430555555555
+  },
+  {
+    "engine": "chromium",
+    "wedges": 256,
+    "max": 72,
+    "over": 20146,
+    "percent": 34.97569444444444
+  },
+  {
+    "engine": "resvg-vs-chromium-conic",
+    "wedges": 256,
+    "max": 62,
+    "over": 19951,
+    "percent": 34.63715277777778
+  },
+  {
+    "engine": "chromium",
+    "wedges": 1024,
+    "max": 101,
+    "over": 55958,
+    "percent": 97.14930555555556
+  },
+  {
+    "engine": "resvg-vs-chromium-conic",
+    "wedges": 1024,
+    "max": 63,
+    "over": 55480,
+    "percent": 96.31944444444444
+  },
+  {
+    "engine": "firefox",
+    "variant": "plain",
+    "center": [144, 112, 116, 255]
+  },
+  {
+    "engine": "firefox",
+    "variant": "transform",
+    "center": [128, 64, 32, 255]
+  },
+  {
+    "engine": "firefox",
+    "variant": "portable",
+    "center": [144, 112, 116, 255]
+  },
+  {
+    "engine": "firefox",
+    "variant": "plus",
+    "center": [160, 128, 128, 255]
+  },
+  {
+    "engine": "firefox",
+    "variant": "explicitArithmetic",
+    "center": [128, 64, 32, 255]
+  },
+  {
+    "engine": "firefox",
+    "variant": "arithmetic",
+    "center": [128, 64, 32, 255]
+  },
+  {
+    "engine": "firefox",
+    "wedges": 64,
+    "max": 62,
+    "over": 5273,
+    "percent": 9.15451388888889
+  },
+  {
+    "engine": "firefox",
+    "wedges": 256,
+    "max": 72,
+    "over": 20138,
+    "percent": 34.96180555555556
+  },
+  {
+    "engine": "firefox",
+    "wedges": 1024,
+    "max": 98,
+    "over": 55957,
+    "percent": 97.14756944444444
+  }
+]

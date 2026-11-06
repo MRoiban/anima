@@ -414,8 +414,21 @@ for (const kind of ['image', 'font', 'blob'])
       {
         requires: ['data', 'bind', 'assets'],
         assets: {
-          first: { type: kind, source: 'first.bin' },
-          second: { type: kind, source: 'second.bin' },
+          // Images get real 1×1 PNGs: visual harnesses load every image asset.
+          first: {
+            type: kind,
+            source:
+              kind === 'image'
+                ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR42mO4WR4OAAPUAahSxzpbAAAAAElFTkSuQmCC'
+                : 'first.bin',
+          },
+          second: {
+            type: kind,
+            source:
+              kind === 'image'
+                ? 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR42mMIL78JAALQAagz8EUKAAAAAElFTkSuQmCC'
+                : 'second.bin',
+          },
         },
       },
     ),

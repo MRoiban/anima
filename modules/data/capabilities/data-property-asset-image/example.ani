@@ -17,11 +17,11 @@
   "assets": {
     "first": {
       "type": "image",
-      "source": "first.bin"
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR42mO4WR4OAAPUAahSxzpbAAAAAElFTkSuQmCC"
     },
     "second": {
       "type": "image",
-      "source": "second.bin"
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR42mMIL78JAALQAagz8EUKAAAAAElFTkSuQmCC"
     }
   },
   "data": {

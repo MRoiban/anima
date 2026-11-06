@@ -2,8 +2,9 @@
 
 ## Now
 Goal: smaller, agent-native Rive. Now P4e data on branch p4e-data (design/p4e/DESIGN.md); then P5b, P3b, P6–P10.
-State: p4e-data has data core merged (60/73 rows, 13 pending; data 8181/8192, bind 2046/2048; core+web 20021; full 81.8 KB). P4e-5 paint running.
-Next: convert integration (needs a split: data/bind have 11 B / 2 B headroom) + host API; benchmark (scoreboard); quiet-machine perf; PR.
+State: p4e-data has data core (60/73 rows) and paint findings (10/18 strict, 8 rasterisation findings) merged. data 8181/8192, bind 2046/2048.
+Running: P4e-2 convert integration, P4e-3 host module (Sol).
+Next: merge those; benchmark (scoreboard, both sides); quiet-machine perf vs main (prefix sweep); parity bookkeeping; LOG/PLAN; PR.
 Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests.
 
 ## Log
@@ -138,3 +139,11 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-06 [claude]: reviewed P4e-1 → merged into p4e-data. In-process A/B (taskset, 40 alternations) bell frame min 31.5/31.6/32.2 µs p4e/data/main, compile 1.97/1.70/1.92 ms → no data regression; agent's 2× composite/toolbar frames were load noise (evidence: scratchpad perf/ab.mjs). Prefix sweep inconclusive (p4e-data vs main p25 215/183 ms) → re-measure quiet before PR
 - 2026-11-06 [claude]: decided internal-trigger listener (Anima 9 vs Rive 0) = intentional difference: change listeners fire for every source, after the step; finding stays recorded
 - 2026-11-06 [claude]: launched P4e-2 convert integration (merge t3/convert-module, data/bind hooks, split before any budget raise) and P4e-3 host module (modules/host, 4096 B, no data edits) in parallel with P4e-5 paint (3 Sol agents)
+- 2026-11-06 07:50 [sol]: P4e-5 native captures + six exact path/control comparisons; native gradient fields ignored, endpoint mapping passes; additive-strength bug fixed; per-paint SVG common case passes both engines, seams under test (evidence: /tmp/paint-oracle2.log, /tmp/paint-geometry-test.log, /tmp/paint-blend-browser.log).
+
+- 2026-11-06 09:10 [sol]: resumed WIP via c849aae, kept both WORKLOG sides; restored oracle tool to base to honor no-tool-change rule; Canvas evidence will run separately.
+- 2026-11-06 09:19 [sol]: root causes resolved: rounded cubic controls <0.0001px, six exact native paths, angular 512-texel model + black/white holdout max2, all path errors confined to fringe; fractional additive double-rounding fixed; SVG blend regression 26/26 (evidence: probes/*.json, /tmp/resume-blend.log).
+- 2026-11-06 09:19 [sol]: restored oracle tool to base, moved Canvas dispatch into module-owned both-engine tests with unchanged comparator/limits; strict runner 126 cases/320 frames exit0; full requested scope 3436 pass/28 files, mix pointer follow-up 530 pass, native suite6 and contour39 pass; 10/18 strict, eight documented raster findings (evidence: /tmp/resume-oracle2.log, /tmp/resume-scope-final.log).
+- 2026-11-06 09:19 [sol]: size all budgets pass (core+web19865, paint4229/contour3735/mix1656/canvas4494, full75294); 3 sequential main/branch perf pairs show no observed frame regression; first scope lacked deps, next scope5 failures and lint6 errors corrected; final hygiene checks pending (evidence: /tmp/resume-size-final.log, /tmp/resume-perf-{main,branch}{1,2,3}.log).
+- 2026-11-06 09:25 [sol]: final hygiene typecheck/ESLint/Prettier and modules/web/AniML checks exit0; strict oracle exit0 rechecked. Broader core found stale schema (892 pass/1 fail), regenerated with npm run gen then 893/893 pass; final mix1656 B and full75294 B; no tool/input/threshold or prohibited-module diffs (evidence: /tmp/resume-core-final.log, /tmp/resume-*-last.log; REPORT.md).
+- 2026-11-06 [claude]: merged P4e-5 paint (10/18 strict; 8 rasterisation findings: native geometry equal, resvg of native commands max 0/12). Seams: bind 2053>2048 after merge (gzip shift) → motion time bindings reuse bind.expression, bind 2007 B; canvas harness asset-load on data-property-asset-image (missing first.bin) → generator emits 1×1 PNGs. Scope 2412 pass/39 todo, canvas+machine browser 1688 pass, oracle strict 0, size 0 (core+web 20055, full 82.9 KB)

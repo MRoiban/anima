@@ -47,6 +47,101 @@ for (const file of globSync([
     });
   }
 }
+// Regression corpus: per-paint blending must see the same backdrop through transforms,
+// while authored opacity/masks continue to isolate it. Same fixed comparison classifier.
+const blendDoc = JSON.parse(
+  readFileSync('spec/conformance/drawing-paint-paint-blend-override/case.ani', 'utf8'),
+);
+for (const variant of [
+  'parent',
+  'reflect',
+  'opacity',
+  'mask',
+  'clip',
+  'position',
+  'gradient',
+  'ordered',
+  'contour',
+  'animate',
+]) {
+  const doc = structuredClone(blendDoc);
+  doc.requires.push('paint', 'contour');
+  const front = doc.nodes[1];
+  front.x = 1;
+  front.stroke.join = 'miter';
+  if (variant === 'reflect') {
+    front.x = 20;
+    front.scaleX = -1;
+  }
+  if (variant === 'opacity') front.opacity = 0.5;
+  if (variant === 'position') front.stroke.position = 'outside';
+  if (variant === 'mask' || variant === 'clip') {
+    doc.nodes.push({
+      id: 'source',
+      type: 'circle',
+      center: [10, 10],
+      r: 6,
+      x: 1,
+      fill: { color: variant === 'clip' ? '#00000000' : '#00000080' },
+    });
+    front[variant] = {
+      source: 'source',
+      ...(variant === 'mask' ? { mode: 'alpha', sourceDraws: false } : {}),
+    };
+  }
+  if (variant === 'gradient')
+    Object.assign(front.fill, {
+      type: 'linear',
+      x1: 0,
+      y1: 0,
+      x2: 20,
+      y2: 0,
+      stops: [
+        { position: 0, color: '#804020' },
+        { position: 1, color: '#204080' },
+      ],
+    });
+  if (variant === 'gradient') delete front.fill.color;
+  if (variant === 'ordered') {
+    front.paints = [{ fill: front.fill }, { stroke: front.stroke }];
+    delete front.fill;
+    delete front.stroke;
+  }
+  if (variant === 'contour') {
+    front.type = 'contour';
+    front.vertices = [
+      { point: [4, 4], kind: 'straight' },
+      { point: [16, 4], kind: 'straight' },
+      { point: [16, 16], kind: 'straight' },
+      { point: [4, 16], kind: 'straight' },
+    ];
+    front.closed = true;
+    for (const k of ['x0', 'y0', 'w', 'h']) Reflect.deleteProperty(front, k);
+  }
+  if (variant === 'parent' || variant === 'animate') {
+    doc.nodes[1] = { id: 'group', type: 'group', x: 1, y: 1, children: [front] };
+    if (variant === 'animate') {
+      doc.timelines = {
+        move: {
+          duration: 1,
+          tracks: {
+            'group.x': [
+              [0, 1],
+              [1, 2],
+            ],
+          },
+        },
+      };
+      doc.machine = { layers: { move: { initial: 's', states: { s: { play: 'move' } } } } };
+    }
+  }
+  cases.push({
+    name: 'mix-regression-' + variant,
+    doc,
+    script: variant === 'animate' ? 'advance 1' : '',
+    svgUnsupported: false,
+  });
+}
 for (const [name, engine, paths] of [
   [
     'Chromium',
@@ -169,9 +264,9 @@ for (const [name, engine, paths] of [
                 JSON.stringify(c.doc).includes('screen')
                   ? [144, 112, 116, 255]
                   : [
-                      Math.round(32 + 128 * strength),
+                      Math.round(128 + 32 * strength),
                       Math.round(64 + 64 * strength),
-                      Math.round(96 + 32 * strength),
+                      Math.round(32 + 96 * strength),
                       255,
                     ],
               );

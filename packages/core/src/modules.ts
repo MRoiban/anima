@@ -85,6 +85,14 @@ export interface Module {
   model?(node: NodeM, key: string): Pick<Addr, 'prop' | 'rest'> | undefined;
   value?(addr: Addr, value: unknown, pointer: string, diag: Diags): Value | undefined;
   outline?(player: Player, node: number): { pts: number[]; closed: boolean }[] | undefined;
+  /** Override fill containment in local coordinates, preserving the stroke/padding outline. */
+  fillContains?(
+    player: Player,
+    node: number,
+    outline: { pts: number[]; closed: boolean }[],
+    x: number,
+    y: number,
+  ): boolean | undefined;
   interpolate?(a: Value, b: Value, weight: number): Value | undefined;
   draw?: {
     end?(player: Player, frame: DrawFrame): void;

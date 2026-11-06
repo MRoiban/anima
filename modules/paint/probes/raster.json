@@ -1,0 +1,137 @@
+[
+  {
+    "name": "straight-vertex",
+    "sameRenderer": {
+      "maxDiff": 0,
+      "over": 0,
+      "overPercent": 0
+    },
+    "native": {
+      "maxDiff": 153,
+      "over": 162,
+      "overPercent": 0.28125
+    },
+    "nonEdgeOver2": 0,
+    "edgeOver2": 450
+  },
+  {
+    "name": "mirrored-vertex",
+    "sameRenderer": {
+      "maxDiff": 0,
+      "over": 0,
+      "overPercent": 0
+    },
+    "native": {
+      "maxDiff": 142,
+      "over": 216,
+      "overPercent": 0.375
+    },
+    "nonEdgeOver2": 0,
+    "edgeOver2": 408
+  },
+  {
+    "name": "asymmetric-vertex",
+    "sameRenderer": {
+      "maxDiff": 0,
+      "over": 0,
+      "overPercent": 0
+    },
+    "native": {
+      "maxDiff": 141,
+      "over": 206,
+      "overPercent": 0.3576388888888889
+    },
+    "nonEdgeOver2": 0,
+    "edgeOver2": 388
+  },
+  {
+    "name": "detached-vertex",
+    "sameRenderer": {
+      "maxDiff": 12,
+      "over": 0,
+      "overPercent": 0
+    },
+    "native": {
+      "maxDiff": 153,
+      "over": 100,
+      "overPercent": 0.1736111111111111
+    },
+    "nonEdgeOver2": 0,
+    "edgeOver2": 374
+  },
+  {
+    "name": "rounded-vertex",
+    "sameRenderer": {
+      "maxDiff": 0,
+      "over": 0,
+      "overPercent": 0
+    },
+    "native": {
+      "maxDiff": 153,
+      "over": 160,
+      "overPercent": 0.2777777777777778
+    },
+    "nonEdgeOver2": 0,
+    "edgeOver2": 430
+  },
+  {
+    "name": "trim-sequential",
+    "sameRenderer": {
+      "maxDiff": 0,
+      "over": 0,
+      "overPercent": 0
+    },
+    "native": {
+      "maxDiff": 95,
+      "over": 25,
+      "overPercent": 0.043402777777777776
+    },
+    "nonEdgeOver2": 0,
+    "edgeOver2": 25
+  },
+  {
+    "name": "trim-synchronized",
+    "sameRenderer": {
+      "maxDiff": 0,
+      "over": 0,
+      "overPercent": 0
+    },
+    "native": {
+      "maxDiff": 95,
+      "over": 26,
+      "overPercent": 0.04513888888888889
+    },
+    "nonEdgeOver2": 0,
+    "edgeOver2": 26
+  },
+  {
+    "name": "effect-order",
+    "sameRenderer": {
+      "maxDiff": 0,
+      "over": 0,
+      "overPercent": 0
+    },
+    "native": {
+      "maxDiff": 95,
+      "over": 100,
+      "overPercent": 0.1736111111111111
+    },
+    "nonEdgeOver2": 0,
+    "edgeOver2": 100
+  },
+  {
+    "name": "shared-effects",
+    "sameRenderer": {
+      "maxDiff": 0,
+      "over": 0,
+      "overPercent": 0
+    },
+    "native": {
+      "maxDiff": 95,
+      "over": 26,
+      "overPercent": 0.04513888888888889
+    },
+    "nonEdgeOver2": 0,
+    "edgeOver2": 26
+  }
+]

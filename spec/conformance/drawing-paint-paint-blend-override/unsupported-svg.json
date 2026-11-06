@@ -1,5 +1,0 @@
-{
-  "code": "unsupported-render",
-  "feature": "per-paint",
-  "reason": "Firefox SVG isolates nested blend groups; canvas implements the requested compositors. No portable faithful SVG output is claimed."
-}

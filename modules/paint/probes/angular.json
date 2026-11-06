@@ -1,0 +1,35 @@
+{
+  "samplerModels": [
+    {
+      "rampTexels": 128,
+      "maxChannelDelta": 57,
+      "channelsOver2": 1873,
+      "channelsOver16": 1092
+    },
+    {
+      "rampTexels": 256,
+      "maxChannelDelta": 38,
+      "channelsOver2": 873,
+      "channelsOver16": 432
+    },
+    {
+      "rampTexels": 512,
+      "maxChannelDelta": 2,
+      "channelsOver2": 0,
+      "channelsOver16": 0
+    },
+    {
+      "rampTexels": 1024,
+      "maxChannelDelta": 38,
+      "channelsOver2": 443,
+      "channelsOver16": 271
+    }
+  ],
+  "seamMax": 50,
+  "interiorMax": 2,
+  "seamOver2": 156,
+  "interiorOver2": 0,
+  "holdoutMax": 2,
+  "holdoutChannelsOver2": 0,
+  "ignoredCenterMax": 0
+}

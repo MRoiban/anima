@@ -109,11 +109,13 @@ metadata); no Rive implementation or file conversion is involved.
 Hook points (revised at P4a, owner decision 2026-11-06: rendering is renderer-neutral):
 
 - `registerModule(m: Module)` in core; `Module = { name, entries, load?, model?, value?,
-  interpolate?, outline?, resolve?, draw? }`.
+  interpolate?, outline?, fillContains?, resolve?, draw? }`.
 - `load(model, raw, diag)`: validate and compile the module's keys after the core loader.
 - `model` / `value` / `interpolate`: new animatable value kinds use the player's existing slots and
   sampling; a module declares their value type and default.
 - `outline(player, node)`: the node's current outline for hit testing.
+- `fillContains(player, node, outline, x, y)`: optional local-space fill containment override;
+  undefined delegates to the base fill rule. It does not replace stroke/padding distance.
 - `draw`: the module's contribution to the **draw layer** (§3.1). Modules never produce SVG
   elements, attributes or canvas calls.
 
