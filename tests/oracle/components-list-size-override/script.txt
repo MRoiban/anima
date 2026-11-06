@@ -1,0 +1,4 @@
+advance 0
+snapshot rows/0/dot.opacity rows/1/dot.opacity
+pointer click 25 5
+snapshot rows/0/dot.opacity rows/1/dot.opacity

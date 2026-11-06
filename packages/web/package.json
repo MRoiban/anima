@@ -28,6 +28,7 @@
     "./markup-convert": "./src/markup-convert.ts",
     "./derive": "./src/derive.ts",
     "./host": "./src/host.ts",
+    "./lists": "./src/lists.ts",
     "./surface": "./src/surface.ts",
     "./markup-surface": "./src/markup-surface.ts",
     "./mix": "./src/mix.ts"

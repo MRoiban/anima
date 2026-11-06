@@ -60,8 +60,8 @@ Paths are `$property`, `$nested.property`, `$list.0.property`, `$list.length`, o
 read-only. Scalar paths are typed inputs to existing conditions, bindings, actions, component
 initializers and event payload fields. Trigger aliases share one pending signal. Number guards
 support existing arithmetic; string/enum guards support `==`/`!=` with double-quoted literals.
-Bare boolean guards retain the existing rule. The full upward-relative lookup row is pending;
-local default and explicitly named paths work. Opaque lists/models can be converter sources.
+Bare boolean guards retain the existing rule. The optional lists module adds `$index` and upward-relative `$parent` lookup;
+without lists, local default and explicitly named paths work. Opaque lists/models can be converter sources.
 
 AniML uses `<model name="Player" global="true">`, typed child declarations (`<number>`,
 `<string>`, `<bool>`, `<color>`, `<trigger>`, `<enum>`, `<list>`, `<model-ref>`, `<asset-ref>`), and

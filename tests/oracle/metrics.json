@@ -9036,5 +9036,325 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "components-list",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.r": 3,
+              "rows/1/dot.r": 7
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.r": 3,
+              "rows/1/dot.r": 7
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "components-list-map",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.r": 3,
+              "rows/1/dot.r": 7,
+              "rows/2/dot.r": 9
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.r": 3,
+              "rows/1/dot.r": 7,
+              "rows/2/dot.r": 9
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-property-symbol-list-index",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.x": 0,
+              "rows/1/dot.x": 1
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.x": 0,
+              "rows/1/dot.x": 1
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-binding-relative",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.y": 2,
+              "rows/1/dot.y": 2
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.y": 2,
+              "rows/1/dot.y": 2
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "components-explicit-context",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "one/dot.r": 3
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "one/dot.r": 3
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "components-inherited-context",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/child/dot.r": 3,
+              "rows/1/child/dot.r": 7
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/child/dot.r": 3,
+              "rows/1/child/dot.r": 7
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "components-list-size-override",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.opacity": 0,
+              "rows/1/dot.opacity": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "rows/0/dot.opacity": 1,
+              "rows/1/dot.opacity": 0
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.opacity": 0,
+              "rows/1/dot.opacity": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "rows/0/dot.opacity": 1,
+              "rows/1/dot.opacity": 0
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-converter-number-to-list",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.x": 0,
+              "rows/1/dot.x": 1
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "rows/0/dot.x": 0,
+              "rows/1/dot.x": 1,
+              "rows/2/dot.x": 2
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "rows/0/dot.x": 0
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.x": 0,
+              "rows/1/dot.x": 1
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "rows/0/dot.x": 0,
+              "rows/1/dot.x": 1,
+              "rows/2/dot.x": 2
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "rows/0/dot.x": 0
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
   }
 ]

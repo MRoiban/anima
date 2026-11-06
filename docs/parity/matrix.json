@@ -1534,10 +1534,10 @@
   "id": "components.explicit-context",
   "category": "components",
   "capability": "Explicit component context",
-  "construct": "new: components.<name> / nodes[].component: named explicit-context settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
+  "construct": "modules/lists/SPEC.md; modules/lists/capabilities/components-explicit-context/example.animl",
+  "module": "lists",
   "status": "planned",
-  "test": "oracle/components-explicit-context",
+  "test": "modules/lists/test/core/components-explicit-context.test.ts; spec/conformance/components-explicit-context; tests/oracle/components-explicit-context",
   "phase": "P5b"
  },
  {
@@ -1564,10 +1564,10 @@
   "id": "components.inherited-context",
   "category": "components",
   "capability": "Inherited component context",
-  "construct": "new: components.<name> / nodes[].component: named inherited-context settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
+  "construct": "modules/lists/SPEC.md; modules/lists/capabilities/components-inherited-context/example.animl",
+  "module": "lists",
   "status": "planned",
-  "test": "oracle/components-inherited-context",
+  "test": "modules/lists/test/core/components-inherited-context.test.ts; spec/conformance/components-inherited-context; tests/oracle/components-inherited-context",
   "phase": "P5b"
  },
  {
@@ -1644,10 +1644,10 @@
   "id": "components.list",
   "category": "components",
   "capability": "Repeated component list",
-  "construct": "new: components.<name> / nodes[].component: named list settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
+  "construct": "modules/lists/SPEC.md; modules/lists/capabilities/components-list/example.animl",
+  "module": "lists",
   "status": "planned",
-  "test": "oracle/components-list",
+  "test": "modules/lists/test/core/components-list.test.ts; spec/conformance/components-list; tests/oracle/components-list",
   "phase": "P5b"
  },
  {
@@ -1664,20 +1664,20 @@
   "id": "components.list-map",
   "category": "components",
   "capability": "Map model to row artboard",
-  "construct": "new: components.<name> / nodes[].component: named list-map settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
+  "construct": "modules/lists/SPEC.md; modules/lists/capabilities/components-list-map/example.animl",
+  "module": "lists",
   "status": "planned",
-  "test": "oracle/components-list-map",
+  "test": "modules/lists/test/core/components-list-map.test.ts; spec/conformance/components-list-map; tests/oracle/components-list-map",
   "phase": "P5b"
  },
  {
   "id": "components.list-size-override",
   "category": "components",
   "capability": "Generated item sizing",
-  "construct": "new: components.<name> / nodes[].component: named list-size-override settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
+  "construct": "modules/lists/SPEC.md; modules/lists/capabilities/components-list-size-override/example.animl",
+  "module": "lists",
   "status": "planned",
-  "test": "oracle/components-list-size-override",
+  "test": "modules/lists/test/core/components-list-size-override.test.ts; spec/conformance/components-list-size-override; tests/oracle/components-list-size-override",
   "phase": "P5b"
  },
  {
@@ -1944,10 +1944,10 @@
   "id": "data.binding-relative",
   "category": "data",
   "capability": "Relative binding path binding",
-  "construct": "TODO: modules/data/capabilities/data-binding-relative/registry.ts; spec/SPEC.md (Relative binding path binding); modules/data/capabilities/data-binding-relative/example.animl",
-  "module": "data",
+  "construct": "modules/lists/SPEC.md; modules/lists/capabilities/data-binding-relative/example.animl",
+  "module": "lists",
   "status": "planned",
-  "test": "TODO: modules/data/test/core/data-binding-relative.test.ts; spec/conformance/data-binding-relative; tests/oracle/data-binding-relative",
+  "test": "modules/lists/test/core/data-binding-relative.test.ts; spec/conformance/data-binding-relative; tests/oracle/data-binding-relative",
   "phase": "P5b"
  },
  {
@@ -2254,10 +2254,10 @@
   "id": "data.converter-number-to-list",
   "category": "data",
   "capability": "Number to list",
-  "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
-  "module": "data",
+  "construct": "modules/lists/SPEC.md; modules/lists/capabilities/data-converter-number-to-list/example.animl",
+  "module": "lists",
   "status": "planned",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "test": "modules/lists/test/core/data-converter-number-to-list.test.ts; spec/conformance/data-converter-number-to-list; tests/oracle/data-converter-number-to-list",
   "phase": "P5b"
  },
  {
@@ -3184,10 +3184,10 @@
   "id": "data.property-symbol-list-index",
   "category": "data",
   "capability": "Symbol list index property",
-  "construct": "TODO: modules/data/capabilities/data-property-symbol-list-index/registry.ts; spec/SPEC.md (Symbol list index property); modules/data/capabilities/data-property-symbol-list-index/example.animl",
-  "module": "data",
+  "construct": "modules/lists/SPEC.md; modules/lists/capabilities/data-property-symbol-list-index/example.animl",
+  "module": "lists",
   "status": "planned",
-  "test": "TODO: modules/data/test/core/data-property-symbol-list-index.test.ts; spec/conformance/data-property-symbol-list-index; tests/oracle/data-property-symbol-list-index",
+  "test": "modules/lists/test/core/data-property-symbol-list-index.test.ts; spec/conformance/data-property-symbol-list-index; tests/oracle/data-property-symbol-list-index",
   "phase": "P5b"
  },
  {

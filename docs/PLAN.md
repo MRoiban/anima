@@ -211,6 +211,8 @@ and an oracle test against Rive.
       lists and data contexts (`lists`), host data editing (`host-edit`), audio/blob assets, image
       sampling, build-time import/encoding (SVG, Lottie), then data and component extras. P5b may add
       at most 6 KB to the full-featured page.
+  - P5b-1 lists/context implementation and eight capability probes delivered; see
+    `modules/lists/REPORT.md`. Performance non-regression remains unverified under shared load.
 - [x] Pc **Canvas backend, minimal** — brought forward from P10 (owner, 2026-11-06): the draw layer
       rendered to Canvas2D as `@anima-format/web/canvas`; runs every conformance case with a pixel
       comparison against the SVG backend; SVG stays the default for icons. Must exist before P8.

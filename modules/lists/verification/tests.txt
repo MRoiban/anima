@@ -1,0 +1,65 @@
+
+> test:scope
+> node tools/test-scope.ts lists components data markup conformance oracle
+
+Scopes: lists, components, data, markup, conformance, oracle
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/components/test/core/components.test.ts
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/convert/test/markup/convert.test.ts
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/data/test/core/components.test.ts
+  unit: modules/data/test/core/conformance.test.ts
+  unit: modules/data/test/core/data-bind-converter-options.test.ts
+  unit: modules/data/test/core/data-bind-keyframes.test.ts
+  unit: modules/data/test/core/data-bind-layout.test.ts
+  unit: modules/data/test/core/data-bind-script-inputs.test.ts
+  unit: modules/data/test/core/data-bind-text.test.ts
+  unit: modules/data/test/core/data-binding-relative.test.ts
+  unit: modules/data/test/core/data-editor-preview-instance.test.ts
+  unit: modules/data/test/core/data-instance-export.test.ts
+  unit: modules/data/test/core/data-property-artboard.test.ts
+  unit: modules/data/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/data/test/core/data-property-text-style.test.ts
+  unit: modules/data/test/core/data-script-model-api.test.ts
+  unit: modules/data/test/core/data-scripted-converter.test.ts
+  unit: modules/data/test/core/diagnostics.test.ts
+  unit: modules/data/test/core/input.test.ts
+  unit: modules/data/test/core/oracle.test.ts
+  unit: modules/data/test/core/runtime.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: modules/lists/test/cli/lists.test.ts
+  unit: modules/lists/test/core/components-explicit-context.test.ts
+  unit: modules/lists/test/core/components-inherited-context.test.ts
+  unit: modules/lists/test/core/components-list-map.test.ts
+  unit: modules/lists/test/core/components-list-size-override.test.ts
+  unit: modules/lists/test/core/components-list.test.ts
+  unit: modules/lists/test/core/data-binding-relative.test.ts
+  unit: modules/lists/test/core/data-converter-number-to-list.test.ts
+  unit: modules/lists/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/lists/test/core/lists.test.ts
+  unit: modules/markup-libraries/test/markup/reuse.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: modules/surface/test/markup/surface.test.ts
+  unit: packages/cli/test/authoring.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: packages/markup/test/xml.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/components/test/web/components.test.ts
+  browser: modules/data/test/web/browser.test.ts
+  browser: modules/lists/test/web/lists.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-f9a880e5
+
+
+ Test Files  39 passed | 13 skipped (52)
+      Tests  2971 passed | 37 todo (3008)
+   Start at  18:54:22
+   Duration  99.79s (tests 88%, import 11%, transform 1%)

@@ -24,6 +24,22 @@ interface Info {
   depth: number;
 }
 const info = new WeakMap<Model, Info>();
+export type ComponentModule = EventModule & {
+  placements: WeakMap<NodeM, Map<string, Model>>;
+  externalDrawing?: (model: Model) => boolean;
+  forkModel: (source: Model, target: Model) => void;
+  placementContext?: (model: Model, node: NodeM, key?: string) => string | undefined;
+  componentKey?: (model: Model, name: string) => string;
+  loadComponent?: (
+    parent: Model,
+    name: string,
+    doc: Model['doc'],
+    inherited: boolean,
+    run: (doc: Model['doc']) => ReturnType<ModuleRegistry['load']>,
+    itemModel?: string,
+  ) => ReturnType<ModuleRegistry['load']>;
+};
+const placements = new WeakMap<NodeM, Map<string, Model>>();
 const targets = new WeakMap<NodeM, Model>();
 // Synchronous loader context: definitions are lexical to the enclosing document, never global.
 interface Context {
@@ -32,8 +48,10 @@ interface Context {
   stack: Set<string>;
   requires: string[];
   data?: Model['doc'];
+  used: Set<string>;
 }
 let context: Context | undefined;
+let active: ComponentModule | undefined;
 const scoped = /^[a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*$/;
 
 function create(
@@ -41,7 +59,7 @@ function create(
   eventKinds: EventKinds = new Map(
     ['enter', 'leave', 'down', 'up', 'click', 'move'].map((name) => [name, undefined]),
   ),
-): EventModule {
+): ComponentModule {
   const name = (
     runtime.nodeShape('group').p.id as Extract<
       import('../../../packages/core/src/registry.ts').Shape,
@@ -50,6 +68,11 @@ function create(
   ).re!;
   return {
     eventKinds,
+    placements,
+    forkModel(source, target) {
+      const i = info.get(source);
+      if (i) info.set(target, i);
+    },
     name: 'components',
     after,
     init(_modules, shared) {
@@ -76,7 +99,7 @@ function create(
         of: (listener.p.set as Extract<Shape, { k: 'map' }>).of,
       };
       // Preserve composed kinds when AniML replays a module into its isolated registry.
-      return create(shared, new Map(eventKinds));
+      return (active = create(shared, new Map(eventKinds)));
     },
     entries: [
       {
@@ -131,6 +154,7 @@ function create(
         stack: new Set(),
         requires: model.doc.requires,
         data: model.doc.data,
+        used: new Set(),
       });
       const data: Info = { events: new Set(), instances: [], count: 0, depth: 0 };
       info.set(model, data);
@@ -144,12 +168,17 @@ function create(
               ? 'add "bind" to "requires"'
               : 'check the component declaration and its input types'),
         );
-      const component = (name: string, pointer: string): Model | undefined => {
+      const component = (name: string, pointer: string, itemModel?: string): Model | undefined => {
         if (ctx.stack.has(name)) {
           err('component-cycle', pointer, 'recursive component reference');
           return;
         }
-        if (ctx.cache.has(name)) return ctx.cache.get(name);
+        const key = (active?.componentKey?.(model, name) ?? name) + ':' + (itemModel ?? '');
+        ctx.used.add(name);
+        if (ctx.cache.has(key)) {
+          const child = ctx.cache.get(key);
+          return child;
+        }
         if (!Object.hasOwn(ctx.definitions, name) || name === '$comment') {
           err('unknown-component', pointer, `no component "${name}"`);
           return;
@@ -180,7 +209,7 @@ function create(
               V && `rename the input; ${input} is an instance property (e.g. use pos-x)`,
             );
         ctx.stack.add(name);
-        const result = runtime.load({
+        const document = {
           anima: '0.1',
           name: 'component',
           requires: ctx.requires,
@@ -193,7 +222,11 @@ function create(
                     : (def.data ?? ctx.data),
               }
             : {}),
-        });
+        };
+        const hook = active?.loadComponent;
+        const result = hook
+          ? hook(model, name, document, !def.data, runtime.load, itemModel)
+          : runtime.load(document);
         ctx.stack.delete(name);
         for (const d of result.diagnostics)
           diag.list.push({
@@ -202,20 +235,37 @@ function create(
               ? d.pointer
               : ptr('/components', name) + d.pointer,
           });
-        ctx.cache.set(name, result.model);
+        ctx.cache.set(key, result.model);
         return result.model;
       };
       try {
-        // Validate even unused definitions. Nested loads share this context without embedding copies.
-        if (!outer)
-          for (const name of Object.keys(ctx.definitions))
-            if (name !== '$comment') component(name, ptr('/components', name));
         model.nodes.forEach((node, ni) => {
+          if ((node.type as string) === 'repeat') {
+            const choices = new Map<string, Model>();
+            placements.set(node, choices);
+            for (const [key, name] of typeof node.raw.component === 'string'
+              ? [['*', node.raw.component]]
+              : Object.entries(node.raw.component ?? {}))
+              if (key !== '$comment') {
+                const child = component(
+                  String(name),
+                  nodePointer(model, ni) + '/component',
+                  active?.placementContext?.(model, node, key),
+                );
+                if (child) choices.set(key, child);
+              }
+            return;
+          }
           if ((node.type as string) !== 'instance') return;
           const pointer = nodePointer(model, ni);
-          const child = component(node.raw.component, pointer + '/component');
+          const child = component(
+            node.raw.component,
+            pointer + '/component',
+            active?.placementContext?.(model, node),
+          );
           if (!child) return;
           targets.set(node, child);
+          placements.set(node, new Map([['*', child]]));
           const entry: Instance = {
             node: ni,
             model: child,
@@ -280,6 +330,11 @@ function create(
             });
           }
         });
+        // Validate unused definitions after placements establish their inherited contexts.
+        if (!outer)
+          for (const name of Object.keys(ctx.definitions))
+            if (name !== '$comment' && !ctx.used.has(name))
+              component(name, ptr('/components', name));
         if (data.count > 256 || data.depth > 8)
           err('limit-exceeded', '/nodes', 'components exceed depth 8 or 256 expanded instances');
         if (data.instances.length) model.nesting = (p) => nest(p, data, runtime.Player);
@@ -324,6 +379,7 @@ function create(
     },
     draw: {
       tree(model, tree) {
+        if (active?.externalDrawing?.(model)) return;
         for (const i of info.get(model)?.instances ?? []) {
           const child = drawTree(i.model),
             offset = (i.offset = tree.nodes.length);
@@ -351,6 +407,7 @@ function create(
         }
       },
       end(p, frame) {
+        if (active?.externalDrawing?.(p.model)) return;
         for (const i of info.get(p.model)?.instances ?? []) {
           const node = i.node;
           const child = (p.nested as Nested).players.get(p.model.nodes[node]!.id)!;

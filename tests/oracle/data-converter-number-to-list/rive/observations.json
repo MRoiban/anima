@@ -1,0 +1,26 @@
+[
+  {
+    "click": 0,
+    "values": {
+      "rows/0/dot.x": 0,
+      "rows/1/dot.x": 1
+    },
+    "events": []
+  },
+  {
+    "click": 1,
+    "values": {
+      "rows/0/dot.x": 0,
+      "rows/1/dot.x": 1,
+      "rows/2/dot.x": 2
+    },
+    "events": []
+  },
+  {
+    "click": 2,
+    "values": {
+      "rows/0/dot.x": 0
+    },
+    "events": []
+  }
+]

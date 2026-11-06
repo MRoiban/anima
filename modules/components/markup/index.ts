@@ -14,6 +14,7 @@ export const componentMarkup = {
       };
   },
   form(el: Element, attrs: Record<string, Kind>, required: string[]): void {
+    if (el.name === 'repeat') attrs.component = 'string';
     if (el.name === 'instance') {
       required.push('component');
       for (const a of el.attrs) if (!Object.hasOwn(attrs, a.name)) attrs[a.name] = 'value';
@@ -25,6 +26,14 @@ export const componentMarkup = {
     _children: Element[],
     p: string,
   ): (() => void) | undefined {
+    if (el.name === 'repeat') {
+      const attr = compiler.nodeAttrs(el.name as NodeType).find((a) => a.attr === 'component')!;
+      const shape = attr.shape;
+      attr.shape = { k: 'str' };
+      return () => {
+        attr.shape = shape;
+      };
+    }
     if (el.name !== 'component') return;
     const saved = [compiler.types, compiler.eases, compiler.resolved] as const;
     compiler.types = new Map();
@@ -35,6 +44,17 @@ export const componentMarkup = {
     return () => ([compiler.types, compiler.eases, compiler.resolved] = saved);
   },
   node(compiler: Compiler, el: Element, a: Map<string, Attr>, o: Json, p: string): void {
+    if (el.name === 'repeat' && typeof o.component === 'string') {
+      const value = o.component;
+      if (value.startsWith('{') || value.startsWith('"')) {
+        try {
+          o.component = JSON.parse(value);
+        } catch {
+          /* semantic validation retains the bad name */
+        }
+      } else if (value.includes(':'))
+        o.component = Object.fromEntries(value.split(/\s+/).map((v) => v.split(':')));
+    }
     if (el.name === 'instance') {
       for (const [name, attr] of a)
         if (

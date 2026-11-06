@@ -307,6 +307,11 @@ describe('AniML compiler', () => {
         ),
       ).doc.root!,
     );
+    collectPaint(
+      parseXml(
+        '<anima><repeat id="rows" list="$items" count="$n" component="row" dx="2" dy="3" size="10 5"/></anima>',
+      ).doc.root!,
+    );
     for (const form of ['slice', 'feather', 'imagePaint'])
       expect(paintElements.some((e) => e.name === form)).toBe(true);
     collectPaint(
