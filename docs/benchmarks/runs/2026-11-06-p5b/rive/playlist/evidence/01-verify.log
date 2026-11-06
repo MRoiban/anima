@@ -1,0 +1,3 @@
+[23:19:55.473] error   controller:20:16  [type] Operator '#' could not be applied to operand of type PropertyList; there is no corresponding overload for __len
+[23:19:55.473] error   controller:20:16  [type] Expected type table, got 'PropertyList' instead
+[23:19:55.473] rive  build failed (0 bytes, 29ms, 2 errors, 0 warnings)

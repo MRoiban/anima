@@ -1,0 +1,520 @@
+{
+  "schema": 1,
+  "artboard": "Playlist",
+  "stateMachine": "Main",
+  "viewModel": {
+    "name": "Default",
+    "viewModel": "Playlist",
+    "properties": [
+      {
+        "name": "tracks",
+        "path": "tracks",
+        "type": "list",
+        "size": 3,
+        "items": [
+          {
+            "name": "Dawn",
+            "viewModel": "Track",
+            "properties": [
+              {
+                "name": "title",
+                "path": "tracks[0]/title",
+                "type": "string",
+                "value": "Dawn",
+                "changed": false
+              },
+              {
+                "name": "duration",
+                "path": "tracks[0]/duration",
+                "type": "number",
+                "value": 90,
+                "changed": false
+              },
+              {
+                "name": "cover",
+                "path": "tracks[0]/cover",
+                "type": "image"
+              },
+              {
+                "name": "audioClip",
+                "path": "tracks[0]/audioClip",
+                "type": "string",
+                "value": "dawnClip",
+                "changed": false
+              },
+              {
+                "name": "requests",
+                "path": "tracks[0]/requests",
+                "type": "number",
+                "value": 0,
+                "changed": false
+              },
+              {
+                "name": "titleWidth",
+                "path": "tracks[0]/titleWidth",
+                "type": "number",
+                "value": 48,
+                "changed": false
+              },
+              {
+                "name": "selected",
+                "path": "tracks[0]/selected",
+                "type": "number",
+                "value": 0,
+                "changed": false
+              },
+              {
+                "name": "uid",
+                "path": "tracks[0]/uid",
+                "type": "string",
+                "value": "dawn",
+                "changed": false
+              }
+            ]
+          },
+          {
+            "name": "Tide",
+            "viewModel": "Track",
+            "properties": [
+              {
+                "name": "title",
+                "path": "tracks[1]/title",
+                "type": "string",
+                "value": "Tide",
+                "changed": false
+              },
+              {
+                "name": "duration",
+                "path": "tracks[1]/duration",
+                "type": "number",
+                "value": 150,
+                "changed": false
+              },
+              {
+                "name": "cover",
+                "path": "tracks[1]/cover",
+                "type": "image"
+              },
+              {
+                "name": "audioClip",
+                "path": "tracks[1]/audioClip",
+                "type": "string",
+                "value": "tideClip",
+                "changed": false
+              },
+              {
+                "name": "requests",
+                "path": "tracks[1]/requests",
+                "type": "number",
+                "value": 0,
+                "changed": false
+              },
+              {
+                "name": "titleWidth",
+                "path": "tracks[1]/titleWidth",
+                "type": "number",
+                "value": 48,
+                "changed": false
+              },
+              {
+                "name": "selected",
+                "path": "tracks[1]/selected",
+                "type": "number",
+                "value": 0,
+                "changed": false
+              },
+              {
+                "name": "uid",
+                "path": "tracks[1]/uid",
+                "type": "string",
+                "value": "tide",
+                "changed": false
+              }
+            ]
+          },
+          {
+            "name": "Ember",
+            "viewModel": "Track",
+            "properties": [
+              {
+                "name": "title",
+                "path": "tracks[2]/title",
+                "type": "string",
+                "value": "Ember",
+                "changed": false
+              },
+              {
+                "name": "duration",
+                "path": "tracks[2]/duration",
+                "type": "number",
+                "value": 60,
+                "changed": false
+              },
+              {
+                "name": "cover",
+                "path": "tracks[2]/cover",
+                "type": "image"
+              },
+              {
+                "name": "audioClip",
+                "path": "tracks[2]/audioClip",
+                "type": "string",
+                "value": "emberClip",
+                "changed": false
+              },
+              {
+                "name": "requests",
+                "path": "tracks[2]/requests",
+                "type": "number",
+                "value": 0,
+                "changed": false
+              },
+              {
+                "name": "titleWidth",
+                "path": "tracks[2]/titleWidth",
+                "type": "number",
+                "value": 60,
+                "changed": false
+              },
+              {
+                "name": "selected",
+                "path": "tracks[2]/selected",
+                "type": "number",
+                "value": 0,
+                "changed": false
+              },
+              {
+                "name": "uid",
+                "path": "tracks[2]/uid",
+                "type": "string",
+                "value": "ember",
+                "changed": false
+              }
+            ]
+          }
+        ],
+        "changed": false
+      },
+      {
+        "name": "command",
+        "path": "command",
+        "type": "string",
+        "value": "",
+        "changed": false
+      },
+      {
+        "name": "index",
+        "path": "index",
+        "type": "number",
+        "value": 1,
+        "changed": false
+      },
+      {
+        "name": "otherIndex",
+        "path": "otherIndex",
+        "type": "number",
+        "value": 0,
+        "changed": false
+      },
+      {
+        "name": "newTrack",
+        "path": "newTrack",
+        "type": "viewModel",
+        "value": {
+          "name": "Moon",
+          "viewModel": "Track",
+          "properties": [
+            {
+              "name": "title",
+              "path": "newTrack/title",
+              "type": "string",
+              "value": "Moon",
+              "changed": false
+            },
+            {
+              "name": "duration",
+              "path": "newTrack/duration",
+              "type": "number",
+              "value": 120,
+              "changed": false
+            },
+            {
+              "name": "cover",
+              "path": "newTrack/cover",
+              "type": "image"
+            },
+            {
+              "name": "audioClip",
+              "path": "newTrack/audioClip",
+              "type": "string",
+              "value": "moonClip",
+              "changed": false
+            },
+            {
+              "name": "requests",
+              "path": "newTrack/requests",
+              "type": "number",
+              "value": 0,
+              "changed": false
+            },
+            {
+              "name": "titleWidth",
+              "path": "newTrack/titleWidth",
+              "type": "number",
+              "value": 48,
+              "changed": false
+            },
+            {
+              "name": "selected",
+              "path": "newTrack/selected",
+              "type": "number",
+              "value": 0,
+              "changed": false
+            },
+            {
+              "name": "uid",
+              "path": "newTrack/uid",
+              "type": "string",
+              "value": "moon",
+              "changed": false
+            }
+          ]
+        }
+      },
+      {
+        "name": "playbackRequests",
+        "path": "playbackRequests",
+        "type": "number",
+        "value": 0,
+        "changed": false
+      },
+      {
+        "name": "lastClip",
+        "path": "lastClip",
+        "type": "string",
+        "value": "",
+        "changed": false
+      },
+      {
+        "name": "clipDuration",
+        "path": "clipDuration",
+        "type": "number",
+        "value": 0,
+        "changed": false
+      }
+    ]
+  },
+  "globals": [],
+  "nested": [
+    {
+      "path": "Rows[0]",
+      "artboard": "TrackRow",
+      "viewModels": [
+        {
+          "name": "Dawn",
+          "viewModel": "Track",
+          "properties": [
+            {
+              "name": "title",
+              "path": "title",
+              "type": "string",
+              "value": "Dawn"
+            },
+            {
+              "name": "duration",
+              "path": "duration",
+              "type": "number",
+              "value": 90
+            },
+            {
+              "name": "cover",
+              "path": "cover",
+              "type": "image"
+            },
+            {
+              "name": "audioClip",
+              "path": "audioClip",
+              "type": "string",
+              "value": "dawnClip"
+            },
+            {
+              "name": "requests",
+              "path": "requests",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "titleWidth",
+              "path": "titleWidth",
+              "type": "number",
+              "value": 48
+            },
+            {
+              "name": "selected",
+              "path": "selected",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "uid",
+              "path": "uid",
+              "type": "string",
+              "value": "dawn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Rows[1]",
+      "artboard": "TrackRow",
+      "viewModels": [
+        {
+          "name": "Tide",
+          "viewModel": "Track",
+          "properties": [
+            {
+              "name": "title",
+              "path": "title",
+              "type": "string",
+              "value": "Tide"
+            },
+            {
+              "name": "duration",
+              "path": "duration",
+              "type": "number",
+              "value": 150
+            },
+            {
+              "name": "cover",
+              "path": "cover",
+              "type": "image"
+            },
+            {
+              "name": "audioClip",
+              "path": "audioClip",
+              "type": "string",
+              "value": "tideClip"
+            },
+            {
+              "name": "requests",
+              "path": "requests",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "titleWidth",
+              "path": "titleWidth",
+              "type": "number",
+              "value": 48
+            },
+            {
+              "name": "selected",
+              "path": "selected",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "uid",
+              "path": "uid",
+              "type": "string",
+              "value": "tide"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Rows[2]",
+      "artboard": "TrackRow",
+      "viewModels": [
+        {
+          "name": "Ember",
+          "viewModel": "Track",
+          "properties": [
+            {
+              "name": "title",
+              "path": "title",
+              "type": "string",
+              "value": "Ember"
+            },
+            {
+              "name": "duration",
+              "path": "duration",
+              "type": "number",
+              "value": 60
+            },
+            {
+              "name": "cover",
+              "path": "cover",
+              "type": "image"
+            },
+            {
+              "name": "audioClip",
+              "path": "audioClip",
+              "type": "string",
+              "value": "emberClip"
+            },
+            {
+              "name": "requests",
+              "path": "requests",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "titleWidth",
+              "path": "titleWidth",
+              "type": "number",
+              "value": 60
+            },
+            {
+              "name": "selected",
+              "path": "selected",
+              "type": "number",
+              "value": 0
+            },
+            {
+              "name": "uid",
+              "path": "uid",
+              "type": "string",
+              "value": "ember"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Dots[0]",
+      "artboard": "Dot",
+      "viewModels": [
+        {
+          "name": "Default",
+          "viewModel": "Dot",
+          "properties": []
+        }
+      ]
+    },
+    {
+      "path": "Dots[1]",
+      "artboard": "Dot",
+      "viewModels": [
+        {
+          "name": "Default",
+          "viewModel": "Dot",
+          "properties": []
+        }
+      ]
+    },
+    {
+      "path": "Dots[2]",
+      "artboard": "Dot",
+      "viewModels": [
+        {
+          "name": "Default",
+          "viewModel": "Dot",
+          "properties": []
+        }
+      ]
+    }
+  ]
+}

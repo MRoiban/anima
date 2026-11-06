@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/jarvis/.t3/worktrees/anima/t3-d90c2c27/docs/benchmarks/runs/2026-11-06-p5b/rive/generate.py", line 87, in <module>
+    validate()
+    ~~~~~~~~^^
+  File "/home/jarvis/.t3/worktrees/anima/t3-d90c2c27/docs/benchmarks/runs/2026-11-06-p5b/rive/generate.py", line 65, in validate
+    check(mismatches==0, f'{name} cover {i}: {mismatches} differs from exact nearest')
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jarvis/.t3/worktrees/anima/t3-d90c2c27/docs/benchmarks/runs/2026-11-06-p5b/rive/generate.py", line 13, in check
+    assert condition, message
+           ^^^^^^^^^
+AssertionError: initial cover 0: 207 differs from exact nearest

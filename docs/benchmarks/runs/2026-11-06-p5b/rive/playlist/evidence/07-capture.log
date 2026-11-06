@@ -1,0 +1,76 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[23:21:09.023] rive  deferred replay: inline
+[23:21:09.052] rive  built (159241 bytes, 28ms, 0 errors, 0 warnings)
+controller-init
+controller-init
+[23:21:09.053] rive  showing Playlist [1/3]
+[23:21:09.053] rive  viewport 480x360 @1x
+ok advance
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[23:21:09.067] rive  wrote evidence/initial.png
+ok screenshot: evidence/initial.png
+[23:21:09.067] rive  wrote evidence/initial.json
+ok data-dump: evidence/initial.json
+missing-audio dawnClip
+ok pointer
+ok advance
+[23:21:09.079] rive  wrote evidence/dawn-click.png
+ok screenshot: evidence/dawn-click.png
+[23:21:09.079] rive  wrote evidence/dawn-click.json
+ok data-dump: evidence/dawn-click.json
+missing-audio tideClip
+ok pointer
+ok advance
+[23:21:09.089] rive  wrote evidence/tide-click.png
+ok screenshot: evidence/tide-click.png
+[23:21:09.090] rive  wrote evidence/tide-click.json
+ok data-dump: evidence/tide-click.json
+[23:21:09.090] rive  data: command = append (mid-run)
+host-edit append
+ok data
+ok advance
+[23:21:09.100] rive  wrote evidence/appended.png
+ok screenshot: evidence/appended.png
+[23:21:09.101] rive  wrote evidence/appended.json
+ok data-dump: evidence/appended.json
+[23:21:09.101] rive  data: index = 1 (mid-run)
+ok data
+[23:21:09.101] rive  data: command = insert (mid-run)
+host-edit insert
+ok data
+ok advance
+[23:21:09.111] rive  wrote evidence/inserted.png
+ok screenshot: evidence/inserted.png
+[23:21:09.112] rive  wrote evidence/inserted.json
+ok data-dump: evidence/inserted.json
+[23:21:09.112] rive  data: index = 0 (mid-run)
+ok data
+[23:21:09.112] rive  data: otherIndex = 2 (mid-run)
+ok data
+[23:21:09.112] rive  data: command = swap (mid-run)
+host-edit swap
+ok data
+ok advance
+[23:21:09.123] rive  wrote evidence/swapped.png
+ok screenshot: evidence/swapped.png
+[23:21:09.124] rive  wrote evidence/swapped.json
+ok data-dump: evidence/swapped.json
+[23:21:09.124] rive  data: index = 1 (mid-run)
+ok data
+[23:21:09.124] rive  data: command = remove (mid-run)
+host-edit remove
+ok data
+ok advance
+[23:21:09.139] rive  wrote evidence/removed.png
+ok screenshot: evidence/removed.png
+[23:21:09.140] rive  wrote evidence/removed.json
+ok data-dump: evidence/removed.json
+ok quit
+[23:21:09.140] console controller:21  controller-init
+[23:21:09.140] console controller:21  controller-init
+[23:21:09.140] console controller:65  missing-audio dawnClip
+[23:21:09.140] console controller:65  missing-audio tideClip
+[23:21:09.140] console controller:39  host-edit append
+[23:21:09.140] console controller:39  host-edit insert
+[23:21:09.140] console controller:39  host-edit swap
+[23:21:09.140] console controller:39  host-edit remove
