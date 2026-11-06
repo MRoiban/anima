@@ -153,6 +153,7 @@ export interface PlaybackPolicy {
     out: import('./player.ts').AnimaEvent[],
     speed: number,
     run: object,
+    source?: [number, string][],
   ): void;
   gate(transition: TransitionM, state: StateM, elapsed: number, run: object): boolean;
   carry(transition: TransitionM, state: StateM, elapsed: number, run: object): number | undefined;
@@ -160,6 +161,22 @@ export interface PlaybackPolicy {
   compose(dt: number, values: Value[], events: import('./player.ts').AnimaEvent[]): boolean;
 }
 export interface Model {
+  /** Module-declared event names exposed by nested players. */
+  eventNames?: ReadonlySet<string>;
+  timelineMarkers?: (timeline: TimelineM) => [number, string][] | undefined;
+  /** Optional event-module reporting, before child events bubble. */
+  reportEvents?: (
+    player: import('./player.ts').Player,
+    events: import('./player.ts').AnimaEvent[],
+  ) => void;
+  eventSignal?: (
+    events: import('./player.ts').AnimaEvent[],
+    kind: string,
+    layer: string,
+    state: string,
+    player: import('./player.ts').Player,
+    transition?: TransitionM,
+  ) => void;
   /** Optional bind-module expressions controlling motion state clocks. */
   timeBindings?: Map<StateM, (scope: ReadonlyMap<string, number | boolean>) => number>;
   playback?: (player: import('./player.ts').Player) => PlaybackPolicy;

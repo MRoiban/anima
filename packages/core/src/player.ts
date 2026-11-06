@@ -34,6 +34,11 @@ export interface AnimaEvent {
   name: string;
   layer: string | null;
   time: number;
+  payload?: Record<string, number | boolean | string>;
+  url?: string;
+  target?: string;
+  audio?: string;
+  volume?: number;
 }
 
 export interface LayerInspect {
@@ -486,7 +491,16 @@ export class Player {
         (t) => !L.fade?.lock && this.#holds(t, L, L.m.states[L.state]!, new Set(), true),
       );
       L.time += dt;
-      if (L.fade && (L.fade.t += dt) >= L.fade.dur) L.fade = null;
+      if (L.fade && (L.fade.t += dt) >= L.fade.dur) {
+        L.fade = null;
+        this.model.eventSignal?.(
+          events,
+          'transition-end',
+          L.m.name,
+          L.m.states[L.state]!.name,
+          this,
+        );
+      }
     }
     // 3. Layers
     const consumed = new Set<string>();
@@ -556,6 +570,7 @@ export class Player {
       if (consumed.has(name) || !buf || age + dt > buf) this.#pending.delete(name);
       else this.#pending.set(name, age + dt);
     }
+    this.model.reportEvents?.(this, events);
     const nested = this.nested?.step(dt);
     if (nested) events.push(...nested.events);
     // 6. Settled
@@ -655,6 +670,17 @@ export class Player {
     transition?: TransitionM,
   ): void {
     const st = L.m.states[to]!;
+    if (transition) {
+      this.model.eventSignal?.(
+        events,
+        'state-end',
+        L.m.name,
+        L.m.states[L.state]!.name,
+        this,
+        transition,
+      );
+      this.model.eventSignal?.(events, 'transition-start', L.m.name, st.name, this, transition);
+    }
     this.playbackPolicy?.enter(
       L,
       transition ? L.m.states[L.state] : undefined,
@@ -671,6 +697,8 @@ export class Player {
       snap && blend > 0 && carry < blend
         ? { lock, from: snap, dur: blend, ease: ease!, t: carry }
         : null;
+    if (transition && !L.fade)
+      this.model.eventSignal?.(events, 'transition-end', L.m.name, st.name, this, transition);
     if (st.emit) events.push({ name: st.emit, layer: L.m.name, time: 0 });
     if (st.play === undefined) return;
     const tl = this.model.timelines[st.play]!;
@@ -693,20 +721,26 @@ export class Player {
     b: number,
     closed: boolean,
     events: AnimaEvent[],
+    source?: [number, string][],
   ): void {
     const tl = this.model.timelines[st.play!]!;
+    if (!source) {
+      const markers = this.model.timelineMarkers?.(tl);
+      if (markers) this.#timelineEvents(L, st, a, b, false, events, markers);
+    }
+    source ??= tl.events;
     if (this.playbackPolicy)
-      return this.playbackPolicy.events(tl, a, b, closed, L.m.name, events, st.speed, L);
+      return this.playbackPolicy.events(tl, a, b, closed, L.m.name, events, st.speed, L, source);
     a *= st.speed;
     b *= st.speed;
-    if (!tl.events.length || b < a) return;
+    if (!source.length || b < a) return;
     const d = tl.duration;
     const found: [number, number, string][] = []; // [played time, event time, name]
     const inRange = (t: number) => (closed ? t >= a : t > a) && t <= b;
     const once = tl.loop === 'once';
     const loop = tl.loop === 'loop';
     const period = loop ? d : 2 * d;
-    tl.events.forEach(([te, name]) => {
+    source.forEach(([te, name]) => {
       // Repeats k0..k1 of the period (a 'once' timeline has just k = 0); pingpong plays each
       // event twice per period, forwards and back.
       const k0 = once ? 0 : Math.max(0, Math.floor(a / period) - 1);

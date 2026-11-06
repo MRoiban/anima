@@ -357,6 +357,7 @@ export class MotionRuntime implements PlaybackPolicy {
     out: AnimaEvent[],
     _speed: number,
     run: object,
+    source?: [number, string][],
   ): void {
     // Seeking/holding never synthesizes timeline crossings.
     if (this.clocks.isControlled(run)) return;
@@ -367,6 +368,8 @@ export class MotionRuntime implements PlaybackPolicy {
       closed && !this.clocks.synced(run),
       layer,
       out,
+      t.loop,
+      source,
     );
   }
   gate(t: TransitionM, st: StateM, elapsed: number, run: object): boolean {

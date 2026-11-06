@@ -1,10 +1,11 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive. Now: P4c interaction (branch p4c-interaction; modules machine, input, focus) and P4d events (branch p4d-events) in parallel; then P4e data, P5b, P3b, P6–P10.
-State: main a02c0be = through P4b (PR #13). Parity 259/1238. core+web 19012; full-featured 51.4 KB.
-Next: merge agents per branch; before pushing a merge run browser tests for the seams; benchmark per phase; PR per phase.
-Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen budgets/tests.
+Goal: P4d events implementation, local branch t3/p4d-animation-events; parent owns integration.
+State: 32/33 runtime rows implemented; script-event-context deferred to P9; parity statuses unchanged.
+Verified: scoped 758 pass incl. 24 browser; 7 new conformance cases; events 3418 B; core+web 19278 B (+266).
+Next: parent integration/benchmark and parity promotion; see modules/events/RESULTS.md.
+Don't: push, open PR, merge, publish, copy Rive text/source, read/convert .riv, loosen limits.
 
 ## Log
 - 2026-11-05 13:01 [claude]: the next nine entries were back-filled from git history; times are commit times, the 12:48–12:55 ones approximate (unverified)
@@ -104,3 +105,9 @@ Don't: push/PR/merge; modify oracle, parity status or benchmark records; loosen 
 - 2026-11-07 04:00 [claude]: PR #13 CI red: canvas cross-backend harness hard-coded its module list → motion cases unknown-feature; generator now emits packages/web/src/all-modules.ts, harness uses it; canvas test 524 pass. Lesson: run browser tests for the merge's seams before pushing a phase PR
 - 2026-11-07 05:00 [claude]: PR #13 CI red again: timeouts from CPU starvation (module-order 4.7 s locally vs 30 s limit hit in CI) + scaffolder test used a now-done row; npm test now runs unit (15 s, 1229) then browser --maxWorkers=2 (2.5 min, 718); limits unchanged
 - 2026-11-07 05:30 [claude]: PR #13 merged (a02c0be); P4c split into modules machine/input/focus (3 agents) + P4d events (1 agent)
+- 2026-11-06 03:30 [sol-events]: npm ci restored missing tooling; fixed first-pass URL base/audio, loaderror subscription, listener validation, oracle skip schema and independent AniML reader failures → scoped 756 green (evidence: /tmp/events-reviewed-tests.log).
+- 2026-11-06 03:30 [sol-events]: 32/33 rows implemented, 7 conformance cases, 24 browser tests and 33 explicit oracle skips; events 3155 B/core+web +261 → local integration handoff in modules/events/RESULTS.md; static/artifact final checks pending (unverified).
+- 2026-11-06 03:33 [sol-events]: final review preserved error subscriptions during failed-load cleanup and made listener shape extension non-mutating; scoped 756 pass, events 3155 B (evidence: /tmp/events-stable-tests.log, /tmp/events-stable-size.log).
+- 2026-11-06 03:33 [sol-events]: ESLint overlapped size temporary-file removal (ENOENT tools/.size-entry.ts) → rerunning static checks sequentially after size completion (unverified).
+- 2026-11-06 03:40 [sol-events]: authored state endEmit/transition startEmit/endEmit actions added with per-player tracking; component event-name seam and scoped parent listener verified; initial fixture syntax/no-paint warning failures fixed → events scope 758 pass, components/motion scope 692 pass (48 scope skips), all size budgets green; events 3418 B/core+web +266 (evidence: /tmp/events-good-tests.log, /tmp/events-component-motion-check.log, /tmp/events-good-size.log).
+- 2026-11-06 03:41 [sol-events]: final Prettier, ESLint (sequential after size), TypeScript, module wiring, AniML and browser artifact checks exit 0; perf bell 2.34 ms/prefix 872 ms, frame bell 49.6 µs/composite 30.5 µs/toolbar 34.3 µs, toolbar compile 4.14 ms → ready for local commit (evidence: /tmp/events-pass-*.log, /tmp/events-handoff-perf.log).

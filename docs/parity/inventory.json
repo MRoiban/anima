@@ -2194,10 +2194,10 @@
    "rive-runtime/include/rive/animation/keyframe_callback.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: timeline event object references and payloads",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "conformance/key-event-target",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/animation-key-event-target/skip.json)",
    "phase": "P4"
   },
   "aliases": [
@@ -2483,10 +2483,10 @@
    "rive-runtime/include/rive/generated/animation/linear_animation_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: timeline loop event",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "conformance/loop-callback",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/animation-loop-callback/skip.json)",
    "phase": "P4"
   }
  },
@@ -3040,10 +3040,10 @@
    "rive schema AudioAssetClip --all --json"
   ],
   "anima": {
-   "construct": "new: assets.<name> / build.assets.<name>: named audio-volume resource setting",
-   "module": "audio",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
+   "module": "events",
    "status": "planned",
-   "test": "oracle/assets-audio-volume",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/assets-audio-volume/skip.json)",
    "phase": "P4"
   }
  },
@@ -13676,10 +13676,10 @@
    "rive-runtime/include/rive/assets/audio_asset.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: events.<name> and listener / state actions: audio with typed named payloads",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "oracle/events-audio",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-audio/skip.json)",
    "phase": "P4"
   }
  },
@@ -13704,10 +13704,10 @@
    "rive-wasm/js/src/rive.ts:479@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: event subscription API with typed payload reports and low-level report queue",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "oracle/events-host-delivery",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-host-delivery/skip.json)",
    "phase": "P4"
   }
  },
@@ -13756,10 +13756,10 @@
    "rive-wasm/js/src/rive.ts:1640@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: events.<name> and listener / state actions: host-url-policy with typed named payloads",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "oracle/events-host-url-policy",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-host-url-policy/skip.json)",
    "phase": "P4"
   }
  },
@@ -13814,10 +13814,10 @@
    "rive-runtime/include/rive/custom_property_boolean.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: events.<name> and listener / state actions: payload-boolean with typed named payloads",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "oracle/events-payload-boolean",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-payload-boolean/skip.json)",
    "phase": "P4"
   }
  },
@@ -13848,10 +13848,10 @@
    "rive-runtime/include/rive/data_bind/data_bind_context.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: events.<name> and listener / state actions: payload-key-bind with typed named payloads",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "oracle/events-payload-key-bind",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-payload-key-bind/skip.json)",
    "phase": "P4"
   }
  },
@@ -13879,10 +13879,10 @@
    "rive-runtime/include/rive/custom_property_number.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: events.<name> and listener / state actions: payload-number with typed named payloads",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "oracle/events-payload-number",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-payload-number/skip.json)",
    "phase": "P4"
   }
  },
@@ -13910,10 +13910,10 @@
    "rive-runtime/include/rive/custom_property_string.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: events.<name> and listener / state actions: payload-string with typed named payloads",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "oracle/events-payload-string",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-payload-string/skip.json)",
    "phase": "P4"
   }
  },
@@ -13937,11 +13937,12 @@
    "rive docs animascript/api/events"
   ],
   "anima": {
-   "construct": "new: events.<name> and listener / state actions: script-event-context with typed named payloads",
+   "construct": "Deferred to P9: no script VM/context exists.",
    "module": "events",
    "status": "planned",
-   "test": "oracle/events-script-event-context",
-   "phase": "P4"
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-script-event-context/skip.json)",
+   "phase": "P9",
+   "reason": "No scripting VM or event context exists; implement alongside P9 scripting."
   }
  },
  {
@@ -13966,10 +13967,10 @@
    "rive-runtime/include/rive/animation/state_machine_fire_event.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: events.<name> and listener / state actions: state-end with typed named payloads",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "oracle/events-state-end",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-state-end/skip.json)",
    "phase": "P4"
   }
  },
@@ -13995,10 +13996,10 @@
    "rive-runtime/include/rive/animation/state_machine_fire_event.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: events.<name> and listener / state actions: transition-end with typed named payloads",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "oracle/events-transition-end",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-transition-end/skip.json)",
    "phase": "P4"
   }
  },
@@ -14024,10 +14025,10 @@
    "rive-runtime/include/rive/animation/state_machine_fire_event.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: events.<name> and listener / state actions: transition-start with typed named payloads",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "oracle/events-transition-start",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-transition-start/skip.json)",
    "phase": "P4"
   }
  },
@@ -14054,10 +14055,10 @@
    "rive-runtime/include/rive/open_url_event.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: events.<name> and listener / state actions: url with typed named payloads",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "oracle/events-url",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url/skip.json)",
    "phase": "P4"
   }
  },
@@ -14082,10 +14083,10 @@
    "rive-runtime/include/rive/open_url_event.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: events.<name> and listener / state actions: url-target-blank with typed named payloads",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "oracle/events-url-target-blank",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url-target-blank/skip.json)",
    "phase": "P4"
   }
  },
@@ -14110,10 +14111,10 @@
    "rive-runtime/include/rive/open_url_event.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: events.<name> and listener / state actions: url-target-parent with typed named payloads",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "oracle/events-url-target-parent",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url-target-parent/skip.json)",
    "phase": "P4"
   }
  },
@@ -14138,10 +14139,10 @@
    "rive-runtime/include/rive/open_url_event.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: events.<name> and listener / state actions: url-target-self with typed named payloads",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "oracle/events-url-target-self",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url-target-self/skip.json)",
    "phase": "P4"
   }
  },
@@ -14166,10 +14167,10 @@
    "rive-runtime/include/rive/open_url_event.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: events.<name> and listener / state actions: url-target-top with typed named payloads",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "oracle/events-url-target-top",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url-target-top/skip.json)",
    "phase": "P4"
   }
  },
@@ -15600,10 +15601,10 @@
    "rive-wasm/js/src/rive.ts:1630@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: explicit host URL action policy",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "browser/automatic-url-events",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-automatic-url-events/skip.json)",
    "phase": "P4"
   }
  },
@@ -16271,10 +16272,10 @@
    "rive-wasm/js/src/rive.ts:997@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: anima:advance DOM event",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "browser/event-advance",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-advance/skip.json)",
    "phase": "P4"
   }
  },
@@ -16298,10 +16299,10 @@
    "rive-wasm/js/src/rive.ts:997@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: anima:draw DOM event",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "browser/event-draw",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-draw/skip.json)",
    "phase": "P4"
   }
  },
@@ -16325,10 +16326,10 @@
    "rive-wasm/js/src/rive.ts:997@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: anima:load DOM event",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "browser/event-load",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-load/skip.json)",
    "phase": "P4"
   }
  },
@@ -16352,10 +16353,10 @@
    "rive-wasm/js/src/rive.ts:997@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: anima:loaderror DOM event",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "browser/event-loaderror",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-loaderror/skip.json)",
    "phase": "P4"
   }
  },
@@ -16379,10 +16380,10 @@
    "rive-wasm/js/src/rive.ts:997@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: anima:loop DOM event",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "browser/event-loop",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-loop/skip.json)",
    "phase": "P4"
   }
  },
@@ -16406,10 +16407,10 @@
    "rive-wasm/js/src/rive.ts:997@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: anima:pause DOM event",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "browser/event-pause",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-pause/skip.json)",
    "phase": "P4"
   }
  },
@@ -16433,10 +16434,10 @@
    "rive-wasm/js/src/rive.ts:997@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: anima:play DOM event",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "browser/event-play",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-play/skip.json)",
    "phase": "P4"
   }
  },
@@ -16460,10 +16461,10 @@
    "rive-wasm/js/src/rive.ts:997@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: anima:riveevent DOM event",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "browser/event-riveevent",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-riveevent/skip.json)",
    "phase": "P4"
   }
  },
@@ -16487,10 +16488,10 @@
    "rive-wasm/js/src/rive.ts:997@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: anima:statechange DOM event",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "browser/event-statechange",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-statechange/skip.json)",
    "phase": "P4"
   }
  },
@@ -16514,10 +16515,10 @@
    "rive-wasm/js/src/rive.ts:997@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: anima:stop DOM event",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "browser/event-stop",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-stop/skip.json)",
    "phase": "P4"
   }
  },
@@ -16542,10 +16543,10 @@
    "rive-wasm/js/src/rive.ts:4742@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: DOM event lifecycle callbacks",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "browser/event-subscriptions",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-subscriptions/skip.json)",
    "phase": "P4"
   }
  },
@@ -18562,10 +18563,10 @@
    "rive-wasm/js/src/rive.ts:4937@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
   ],
   "anima": {
-   "construct": "new: <anima-icon>.volume",
-   "module": "audio",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
+   "module": "events",
    "status": "planned",
-   "test": "browser/volume",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-volume/skip.json)",
    "phase": "P4"
   }
  },
@@ -19070,10 +19071,10 @@
    "rive-runtime/include/rive/animation/listener_types/listener_input_type_event.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
   ],
   "anima": {
-   "construct": "new: listener.onEvent with event reference",
+   "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
    "module": "events",
    "status": "planned",
-   "test": "conformance/input-event-listener",
+   "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/input-event-listener/skip.json)",
    "phase": "P4"
   },
   "aliases": [

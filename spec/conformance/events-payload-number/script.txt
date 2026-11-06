@@ -1,0 +1,8 @@
+advance 0
+snapshot
+set count 7
+set flag true
+advance 0.5
+snapshot
+advance 0.5
+snapshot

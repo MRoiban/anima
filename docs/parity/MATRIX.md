@@ -43,14 +43,14 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | [P3b](#p3b) — The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras | 139 |
 | [P4a](#p4a) — Done: paint and composite on the module system and the draw layer | 46 |
 | [P4b](#p4b) — Done: motion — eases, typed tracks, timeline control, mixing, host timeline API | 22 |
-| [P4](#p4) — Interaction, paint, events and data binding | 343 |
+| [P4](#p4) — Interaction, paint, events and data binding | 342 |
 | [P5](#p5) — Done: components, bindings, assets, images, n-slice and feathering | 61 |
 | [P5b](#p5b) — The rest of P5: asset pipelines (encodings, imports), library detach/update, lists, script instances | 72 |
 | [Pc](#pc) — Done: the canvas backend (minimal), brought forward from P10 | 3 |
 | [P6](#p6) — Text | 67 |
 | [P7](#p7) — Layout | 69 |
 | [P8](#p8) — Rigging | 25 |
-| [P9](#p9) — Scripting | 82 |
+| [P9](#p9) — Scripting | 83 |
 | [P10](#p10) — GPU effects and the canvas/WebGL renderer | 17 |
 | [Maybe / later](#maybe-later) | 162 |
 | [Won't do](#wont-do) | 3 |
@@ -574,8 +574,8 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `animation.key-event-target` | Keyed event callbacks | new: timeline event object references and payloads | events | planned | conformance/key-event-target |
-| `animation.loop-callback` | Loop notifications | new: timeline loop event | events | planned | conformance/loop-callback |
+| `animation.key-event-target` | Keyed event callbacks | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/animation-key-event-target/skip.json) |
+| `animation.loop-callback` | Loop notifications | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/animation-loop-callback/skip.json) |
 
 ### State machines
 
@@ -635,7 +635,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `input.cursor-text` | Cursor text | new: host cursor intent: text | interaction | planned | oracle/cursor-text |
 | `input.data-listener` | View model listeners | new: listener.onChange property path | data | planned | conformance/input-data-listener |
 | `input.disable-listeners` | Host listener opt-out | new: host.interactive: false | interaction | planned | conformance/input-disable-listeners |
-| `input.event-listener` | Rive event listeners | new: listener.onEvent with event reference | events | planned | conformance/input-event-listener |
+| `input.event-listener` | Rive event listeners | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/input-event-listener/skip.json) |
 | `input.focus-clear` | Clear focus | new: listener action clearFocus | interaction | planned | conformance/input-focus-clear |
 | `input.focus-down` | Focus down | new: listener action focus: down | interaction | planned | conformance/input-focus-down |
 | `input.focus-edge-closed-loop` | Focus boundary closedLoop | new: focus.scope.edge: closedLoop | interaction | planned | conformance/input-focus-edge-closed-loop |
@@ -856,35 +856,34 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `events.audio` | Audio event | new: events.<name> and listener / state actions: audio with typed named payloads | events | planned | oracle/events-audio |
-| `events.host-delivery` | Host event delivery | new: event subscription API with typed payload reports and low-level report queue | events | planned | oracle/events-host-delivery |
-| `events.host-url-policy` | Host navigation policy | new: events.<name> and listener / state actions: host-url-policy with typed named payloads | events | planned | oracle/events-host-url-policy |
-| `events.payload-boolean` | Boolean event payload | new: events.<name> and listener / state actions: payload-boolean with typed named payloads | events | planned | oracle/events-payload-boolean |
-| `events.payload-key-bind` | Animated and bound payloads | new: events.<name> and listener / state actions: payload-key-bind with typed named payloads | events | planned | oracle/events-payload-key-bind |
-| `events.payload-number` | Number event payload | new: events.<name> and listener / state actions: payload-number with typed named payloads | events | planned | oracle/events-payload-number |
-| `events.payload-string` | String event payload | new: events.<name> and listener / state actions: payload-string with typed named payloads | events | planned | oracle/events-payload-string |
-| `events.script-event-context` | Script event context | new: events.<name> and listener / state actions: script-event-context with typed named payloads | events | planned | oracle/events-script-event-context |
-| `events.state-end` | State end event | new: events.<name> and listener / state actions: state-end with typed named payloads | events | planned | oracle/events-state-end |
-| `events.transition-end` | Transition end event | new: events.<name> and listener / state actions: transition-end with typed named payloads | events | planned | oracle/events-transition-end |
-| `events.transition-start` | Transition start event | new: events.<name> and listener / state actions: transition-start with typed named payloads | events | planned | oracle/events-transition-start |
-| `events.url` | URL event | new: events.<name> and listener / state actions: url with typed named payloads | events | planned | oracle/events-url |
-| `events.url-target-blank` | URL target: blank | new: events.<name> and listener / state actions: url-target-blank with typed named payloads | events | planned | oracle/events-url-target-blank |
-| `events.url-target-parent` | URL target: parent | new: events.<name> and listener / state actions: url-target-parent with typed named payloads | events | planned | oracle/events-url-target-parent |
-| `events.url-target-self` | URL target: self | new: events.<name> and listener / state actions: url-target-self with typed named payloads | events | planned | oracle/events-url-target-self |
-| `events.url-target-top` | URL target: top | new: events.<name> and listener / state actions: url-target-top with typed named payloads | events | planned | oracle/events-url-target-top |
+| `events.audio` | Audio event | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-audio/skip.json) |
+| `events.host-delivery` | Host event delivery | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-host-delivery/skip.json) |
+| `events.host-url-policy` | Host navigation policy | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-host-url-policy/skip.json) |
+| `events.payload-boolean` | Boolean event payload | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-payload-boolean/skip.json) |
+| `events.payload-key-bind` | Animated and bound payloads | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-payload-key-bind/skip.json) |
+| `events.payload-number` | Number event payload | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-payload-number/skip.json) |
+| `events.payload-string` | String event payload | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-payload-string/skip.json) |
+| `events.state-end` | State end event | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-state-end/skip.json) |
+| `events.transition-end` | Transition end event | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-transition-end/skip.json) |
+| `events.transition-start` | Transition start event | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-transition-start/skip.json) |
+| `events.url` | URL event | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url/skip.json) |
+| `events.url-target-blank` | URL target: blank | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url-target-blank/skip.json) |
+| `events.url-target-parent` | URL target: parent | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url-target-parent/skip.json) |
+| `events.url-target-self` | URL target: self | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url-target-self/skip.json) |
+| `events.url-target-top` | URL target: top | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url-target-top/skip.json) |
 
 ### Assets
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `assets.audio-volume` | Resource-wide audio volume | new: assets.<name> / build.assets.<name>: named audio-volume resource setting | audio | planned | oracle/assets-audio-volume |
+| `assets.audio-volume` | Resource-wide audio volume | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/assets-audio-volume/skip.json) |
 
 ### Host runtime API
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
 | `host-api.auto-bind` | Automatic data binding | new: <anima-icon auto-bind> | data | planned | browser/auto-bind |
-| `host-api.automatic-url-events` | Automatic URL actions | new: explicit host URL action policy | events | planned | browser/automatic-url-events |
+| `host-api.automatic-url-events` | Automatic URL actions | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-automatic-url-events/skip.json) |
 | `host-api.batched-binding` | Batch binding updates | new: data binding transaction | data | planned | browser/batched-binding |
 | `host-api.bind-view-model` | Explicit model binding | new: <anima-icon>.bind(instance) | data | planned | browser/bind-view-model |
 | `host-api.coordinate-mapping` | Coordinate transforms | new: Coordinate transforms | interaction | planned | browser/coordinate-mapping |
@@ -901,17 +900,17 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.data-subscriptions` | Property subscriptions | new: data property subscriptions | data | planned | browser/data-subscriptions |
 | `host-api.data-trigger` | View model trigger | new: typed data.trigger(path) | data | planned | browser/data-trigger |
 | `host-api.dom-listener-control` | Automatic pointer wiring | new: <anima-icon interactive> | interaction | planned | browser/dom-listener-control |
-| `host-api.event-advance` | Callback: Advance | new: anima:advance DOM event | events | planned | browser/event-advance |
-| `host-api.event-draw` | Callback: Draw | new: anima:draw DOM event | events | planned | browser/event-draw |
-| `host-api.event-load` | Callback: Load | new: anima:load DOM event | events | planned | browser/event-load |
-| `host-api.event-loaderror` | Callback: LoadError | new: anima:loaderror DOM event | events | planned | browser/event-loaderror |
-| `host-api.event-loop` | Callback: Loop | new: anima:loop DOM event | events | planned | browser/event-loop |
-| `host-api.event-pause` | Callback: Pause | new: anima:pause DOM event | events | planned | browser/event-pause |
-| `host-api.event-play` | Callback: Play | new: anima:play DOM event | events | planned | browser/event-play |
-| `host-api.event-riveevent` | Callback: RiveEvent | new: anima:riveevent DOM event | events | planned | browser/event-riveevent |
-| `host-api.event-statechange` | Callback: StateChange | new: anima:statechange DOM event | events | planned | browser/event-statechange |
-| `host-api.event-stop` | Callback: Stop | new: anima:stop DOM event | events | planned | browser/event-stop |
-| `host-api.event-subscriptions` | Subscribe to player events | new: DOM event lifecycle callbacks | events | planned | browser/event-subscriptions |
+| `host-api.event-advance` | Callback: Advance | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-advance/skip.json) |
+| `host-api.event-draw` | Callback: Draw | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-draw/skip.json) |
+| `host-api.event-load` | Callback: Load | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-load/skip.json) |
+| `host-api.event-loaderror` | Callback: LoadError | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-loaderror/skip.json) |
+| `host-api.event-loop` | Callback: Loop | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-loop/skip.json) |
+| `host-api.event-pause` | Callback: Pause | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-pause/skip.json) |
+| `host-api.event-play` | Callback: Play | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-play/skip.json) |
+| `host-api.event-riveevent` | Callback: RiveEvent | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-riveevent/skip.json) |
+| `host-api.event-statechange` | Callback: StateChange | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-statechange/skip.json) |
+| `host-api.event-stop` | Callback: Stop | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-stop/skip.json) |
+| `host-api.event-subscriptions` | Subscribe to player events | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-subscriptions/skip.json) |
 | `host-api.factory` | Custom resource factory | new: Custom resource factory | paint | planned | browser/factory |
 | `host-api.gamepad` | Gamepad wiring | new: opt-in gamepad adapter | interaction | planned | browser/gamepad |
 | `host-api.global-models` | Global view models | new: document-scoped shared data contexts | data | planned | browser/global-models |
@@ -926,7 +925,7 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `host-api.scroll-latching` | Scroll gesture lifecycle | new: Scroll gesture lifecycle | interaction | planned | browser/scroll-latching |
 | `host-api.view-model-discovery` | Discover view models | new: scene.data.models() | data | planned | browser/view-model-discovery |
 | `host-api.view-model-instances` | Create view model instances | new: typed model instance factory | data | planned | browser/view-model-instances |
-| `host-api.volume` | Artboard volume | new: <anima-icon>.volume | audio | planned | browser/volume |
+| `host-api.volume` | Artboard volume | modules/events; spec/SPEC.md (events); modules/events/examples/events.animl | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-volume/skip.json) |
 
 ## P5 — Done: components, bindings, assets, images, n-slice and feathering <a id="p5"></a>
 
@@ -1353,6 +1352,12 @@ Statuses: **done** (specified and implemented) · **spec'd** (specified or reser
 | `input.hit-claims` | Script pointer claims | new: pointer event.claim({opaque}) | script | planned | conformance/input-hit-claims |
 | `input.script-action` | Script listener actions | new: listener action script reference | script | planned | conformance/input-script-action |
 | `input.scroll-script` | Script scroll handlers | new: script pointerScroll hook and event.claim() | script | planned | conformance/input-scroll-script |
+
+### Events
+
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `events.script-event-context` | Script event context | Deferred to P9: no script VM/context exists. | events | planned | modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-script-event-context/skip.json) | No scripting VM or event context exists; implement alongside P9 scripting. |
 
 ### Scripting
 

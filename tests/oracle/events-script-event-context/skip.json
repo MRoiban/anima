@@ -1,0 +1,8 @@
+{
+  "status": "skip",
+  "reason": "No script VM or script event context exists in Anima before the planned P9 scripting phase.",
+  "tests": [
+    "modules/events/test/core/events.test.ts",
+    "modules/events/test/web/events.browser.test.ts"
+  ]
+}

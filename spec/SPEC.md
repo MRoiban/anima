@@ -1380,3 +1380,79 @@ paint. Cross-origin image sources need CORS permission for canvas readback/patte
 Cross-backend pixel differences are measured and retained by the canvas browser conformance suite;
 limits and findings are in `modules/canvas/test/web/README.md` and `RESULTS.md`. Renderer support
 is not a claim of exact rasterizer identity or a passing Rive oracle for host-only operations.
+
+## events
+
+Declare `requires: ["events"]` and import the optional events runtime. The module adds
+`eventDefs`, a name-keyed map of event definitions, and `audioVolumes`, an audio-asset-name map
+of resource gains in [0,1]. Existing timeline `[time,name]`, state `emit` and listener `emit`
+spellings and ordering remain unchanged. Definitions enrich every occurrence of that name;
+undeclared names continue to report the original `{name,layer,time}` record.
+
+A definition has optional `payload`, `url`, `target`, `audio` and `volume` fields. `payload`
+is a field-name map of `{type,value? ,input?,address?}` objects. Type is `number`, `bool` or
+`string`; exactly one source is required. A literal must have the declared type. `input`
+references a bool/number input of the same type; `address` references an animatable property
+of the same type. Each reported event gets its own detached `payload` object. Values resolve
+at the end of the local player's step, after queued inputs, state resolution and bindings;
+all occurrences in that step observe that resolved snapshot, including time-zero entry events.
+Payloads survive component bubbling unchanged; parent definitions do not reinterpret child names.
+`anima sample` snapshots include these fields verbatim. This is snapshot sampling, not scripting.
+`events.script-event-context` is deferred to P9 because no script VM/context exists.
+
+`url` is an HTTP(S) URL or a relative reference. `target` is `_self` (default), `_blank`,
+`_parent` or `_top` and requires `url`. Core rejects non-HTTP schemes (`event-url`). Host URL
+parsing is authoritative: no navigation occurs without explicit `url-policy="allow"` or an
+`icon.urlPolicy(url,target,event)` callback returning exactly true. Relative references resolve
+against the host document and must stay on its origin; absolute HTTP(S) may cross origins.
+Protocol-relative or backslash references that resolve off-origin are rejected. Canonical
+protocol checks run even with a permissive policy. Delivery uses `window.open` with `noopener`;
+browser popup/target restrictions still apply. There is no navigation in core or CLI.
+
+`audio` references an assets-module audio asset (`event-audio` otherwise); `volume` is an
+optional [0,1] event gain, default 1. The browser requires prior user activation; earlier events
+are dropped without fetching or decoding and are never replayed later. Decode is on demand and
+cached per element/load/asset. Each occurrence starts a separate source. Effective gain is
+`event.volume * audioVolumes[asset] * icon.volume`, with each omitted gain equal to 1.
+For bubbled component events the owning child supplies the asset and resource gain; the host
+resolver receives its dot-scoped asset name (for example `child.tone`).
+The asset resolver is consulted as for image assets. Relative asset sources use the element's
+`src`, falling back to the host document. Reload/disconnect/destroy stops sources, closes the
+context and invalidates outstanding decodes. Browser resume/fetch/decode failures report an
+`anima:error` diagnostic `event-audio-load`; they do not change deterministic player output.
+
+Local listeners may use `on: "event:<name>"` to queue their existing fire/set/toggle/emit
+actions for the next step. Unknown local event names are `unknown-event`. Pending actions keep
+the player unsettled; callbacks never recursively re-enter a step. Components retain their
+existing scoped listener spelling and next-parent-step semantics.
+
+For documents requiring events, state exits additionally report `@state-end`, then
+`@transition-start`, each with `{payload:{state}}` (source state for end, target for start).
+A completed blend reports `@transition-end` once with the target state. A state may additionally name
+`endEmit`, and each transition may name `startEmit` and `endEmit`. Each named action reports an
+ordinary event immediately after its corresponding metadata signal, using the same definitions,
+payload resolution, URL/audio policy and next-step listeners as timeline and entry events.
+Interrupted transitions do not fire their end action. These optional fields require events and
+use the identical attribute names on AniML `<state>` and `<on>`. Component scopes expose the
+named action events to existing parent listeners. Each player's active action is independent.
+ Zero-duration,
+reduced-motion and fully carried blends report end immediately before the target's entry emit.
+Interrupted blends do not report completion. Fade completion is checked before layer timeline
+crossings, after listener actions. These signals have timeline time 0 and the owning layer.
+
+Repeating timeline states report `@loop` at each boundary: every duration for `loop`, every
+turn for `pingpong`. There is no loop signal at initial entry, held/seeked clocks, reduced-motion
+freezes or `once` completion. The existing motion crossing policy supplies work area, speed,
+reverse and carry behavior. Loop signals precede that state's ordinary timeline event block;
+ordinary event ordering is unchanged. Coincident authored endpoints remain distinct, while each
+loop boundary is reported once. Existing crossing caps remain unchanged.
+
+`event-payload`, `event-input` and `event-address` reject ambiguous/mistyped sources, missing
+or mistyped input/property references. Diagnostics include a JSON pointer, message and hint.
+AniML uses root `<event-def name="…" payload='{"field":{"type":"number","input":"count"}}'
+url="…" target="_blank" audio="tone" volume="0.5"/>` and
+`<audio-volume asset="tone" value="0.4"/>`. Payload is JSON inside the XML attribute and obeys
+normal XML escaping. Neither form changes timeline `<event at="…" name="…"/>`.
+
+The event delivery/subscription separation follows the host/runtime concerns recorded in
+`docs/research/rive-web-runtime.md` §§2–3; no Rive implementation or documentation text is used.

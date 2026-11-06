@@ -238,6 +238,10 @@ and an oracle test against Rive.
 - [ ] P4c `interaction`: blend states, transition flags, drag, keyboard, focus, scroll, gamepad;
       an on-change / previous-value condition (P5 benchmark: 'count increased' took 10 states).
 - [ ] P4d `events`: payloads, open-URL, audio.
+  - [x] Local implementation: 32/33 requested rows; script-event-context deferred to P9.
+        Events 3418/4096 B, core+web +266 B; 7 conformance cases and Chromium/Firefox coverage.
+        Evidence: `modules/events/RESULTS.md`.
+  - [ ] Parent integration, phase benchmark and parity promotion/PR.
 - [ ] P4e `data`: view models, bindings, converters, lists.
 - [ ] P3b The rest of P3: the `a11y` module, authoring/drawing tools, headless CLI extras; decide
       whether switching to reduced motion stops in-progress loops at once (P4b benchmark).

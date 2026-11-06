@@ -9,6 +9,8 @@ import { assets } from '../../../modules/assets/core/index.ts';
 import { assetsSVG } from '../../../modules/assets/core/svg.ts';
 import { motion } from '../../../modules/motion/core/index.ts';
 import { motionSVG } from '../../../modules/motion/core/svg.ts';
+import { events } from '../../../modules/events/core/index.ts';
+import { eventsSVG } from '../../../modules/events/core/svg.ts';
 import { paint } from '../../../modules/paint/core/index.ts';
 import { paintSVG } from '../../../modules/paint/core/svg.ts';
 import { composite } from '../../../modules/composite/core/index.ts';
@@ -23,6 +25,8 @@ if (VERBOSE) {
   registerSVGBackend('assets', assetsSVG);
   registerModule(motion);
   registerSVGBackend('motion', motionSVG);
+  registerModule(events);
+  registerSVGBackend('events', eventsSVG);
   registerModule(paint);
   registerSVGBackend('paint', paintSVG);
   registerModule(composite);

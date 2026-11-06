@@ -1,0 +1,75 @@
+{
+  "anima": "0.1",
+  "name": "events",
+  "grid": 20,
+  "requires": ["events"],
+  "inputs": {
+    "count": {
+      "type": "number"
+    },
+    "flag": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "a.x": [
+          [0, 0],
+          [1, 10]
+        ]
+      },
+      "events": [
+        [0, "ping"],
+        [0.5, "ping"],
+        [1, "ping"]
+      ]
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  },
+  "eventDefs": {
+    "ping": {
+      "payload": {
+        "count": {
+          "type": "number",
+          "input": "count"
+        },
+        "flag": {
+          "type": "bool",
+          "input": "flag"
+        },
+        "label": {
+          "type": "string",
+          "value": "hello"
+        },
+        "x": {
+          "type": "number",
+          "address": "a.x"
+        }
+      }
+    }
+  }
+}

@@ -1524,3 +1524,17 @@ push, PR or merge. Local commit only.
   full-featured 51.4 KB / 100 KB; Rive-class 55.6 KB / 250 KB; compile bell 2.08 ms, prefix sweep
   712 ms; frame bell 39.2 µs, composite 25.8 µs, toolbar 29.3 µs (load-dependent).
 - **Parity**: 22 rows done (259 / 1 238).
+
+## P4d — events (local implementation, 2026-11-06)
+
+32/33 requested rows implemented in modules/events (script-event-context explicitly deferred to P9).
+Typed literals/input/property payloads, local next-step event listeners, loop/state/transition signals,
+URL policy, Web Audio with resource/event/master gains, lifecycle events and subscriptions. Existing
+base event records are unchanged without events; child payloads and audio ownership survive bubbling.
+Scoped verification: 758 checks, including 7 new conformance cases and 24 browser tests across
+Chromium/Firefox. No new Rive event oracle claim: 33 documented observation-limit/deferred skips;
+existing 31 captured oracle cases pass. No limits/budgets/measuring methods changed.
+Events 3418/4096 B; core+web 19278 B (+266); full SVG 54867 B. Compile/frame lines and limitations
+are in modules/events/RESULTS.md; timings were collected with concurrent work. Optional seams in
+core/web/markup and motion are documented in MODULES. Parent owns phase integration/benchmark,
+parity promotion and PR; this implementation is committed locally only.
