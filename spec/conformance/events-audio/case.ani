@@ -1,0 +1,47 @@
+{
+  "anima": "0.1",
+  "name": "events",
+  "grid": 20,
+  "requires": ["events", "assets"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "pose": {},
+            "emit": "ping"
+          }
+        }
+      }
+    }
+  },
+  "assets": {
+    "tone": {
+      "type": "audio",
+      "source": "data:audio/wav;base64,AA=="
+    }
+  },
+  "eventDefs": {
+    "ping": {
+      "url": "https://example.com/path",
+      "target": "_blank",
+      "audio": "tone",
+      "volume": 0.5
+    }
+  },
+  "audioVolumes": {
+    "tone": 0.3
+  }
+}

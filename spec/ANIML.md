@@ -448,3 +448,16 @@ are normative in SPEC's **Declarative timeline control** subsection.
 ```
 
 The complete sync button is [modules/motion/examples/sync.animl](../modules/motion/examples/sync.animl).
+
+## Event definitions (`events`)
+
+With `requires="events"`, root `<event-def name="…" payload='{"n":{"type":"number","input":"count"}}'/>`
+declares typed payload fields. Optional url/target/audio/volume attributes map directly to the
+JSON definition. Payload is a JSON object encoded in a normal XML attribute; the compiler and
+decompiler preserve its structure. `<audio-volume asset="tone" value="0.5"/>` supplies a
+resource gain. Timeline `<event at="0.5" name="…"/>`, state emit and listener emit are unchanged.
+Local listeners use `on="event:name"`; component listeners keep their scoped event names.
+
+State `endEmit="name"` and transition `<on startEmit="name" endEmit="name" .../>` report
+named events at state exit, transition start and successful transition completion. Payloads and
+host effects use the same event definitions. Interrupted transition end actions do not run.

@@ -1,0 +1,15 @@
+<anima version="0.1" name="events" grid="20" requires="events">
+  <number name="n"/>
+
+  <circle id="a" cx="10" cy="10" r="1" fill="#000"/>
+
+  <event-def name="ping" payload="{&quot;n&quot;:{&quot;type&quot;:&quot;number&quot;,&quot;input&quot;:&quot;n&quot;}}"/>
+
+  <layer name="main" initial="s">
+    <state name="s" emit="ping">
+      <pose/>
+    </state>
+  </layer>
+
+  <listener on="event:ping" set="n=9"/>
+</anima>

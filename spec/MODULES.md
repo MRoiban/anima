@@ -272,3 +272,19 @@ base player exposes `writes()` for exact active/fading address coverage and an
 and `mixValues` so separately bundled modules share sampling and value interpolation
 with other modules. Motion's API implementation and clock policy live in its module,
 not in core/web. It needs no SVG backend; its scaffold backend is an empty declaration.
+
+### Event reporting hooks
+
+`Model.reportEvents(player, events)` resolves optional payloads after local state/binding
+resolution and before nested-player events are appended. Components can keep spreading each
+child event unchanged while scoping its name/layer. `Model.eventSignal(events,kind,layer,state)`
+observes state exit, transition entry and completed fades without adding event policy to core.
+It also receives the owning player and transition identity; per-player action tracking stays in
+events. `Model.eventNames` exposes module-declared names to component scope validation.
+`Model.timelineMarkers(timeline)` supplies optional synthetic crossing markers; core samples
+them through the same crossing algorithm, excluding the interval's initial endpoint.
+`PlaybackPolicy.events` accepts an optional event list so motion can apply its existing work
+area, reverse, carry and controlled-clock rules without mutating timeline definitions.
+The optional web `AnimaIcon.eventHook(icon,kind,detail)` observes host stepping, drawing,
+controls, cleanup and load failure. Events owns subscriptions, navigation policy and Web Audio;
+core retains no DOM or audio implementation. Absent these hooks the original paths remain.

@@ -49,6 +49,7 @@ export function crossings(
   layer: string,
   out: AnimaEvent[],
   loop: Loop = t.loop,
+  source = t.events,
 ): void {
   const [start, end] = bounds(t),
     d = end - start;
@@ -57,7 +58,7 @@ export function crossings(
     hi = Math.max(a, b);
   const period = loop === 'pingpong' ? 2 * d : d;
   const found: [number, number, string][] = [];
-  for (const [at, name] of t.events) {
+  for (const [at, name] of source) {
     if (at < start || at > end) continue;
     const first = loop === 'once' ? 0 : Math.floor((lo - start) / period) - 1;
     const last =

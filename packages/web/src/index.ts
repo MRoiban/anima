@@ -94,6 +94,7 @@ export class AnimaIcon extends HTMLElement {
   /** Installed by the composite SVG backend; 0.1 scenes keep authored DOM order. */
   declare static orderSVG?: (frame: DrawFrame, elements: [El, Element, Attrs][]) => void;
   declare static loadAssets?: (icon: AnimaIcon, model: Model) => Promise<void>;
+  declare static eventHook?: (icon: AnimaIcon, kind: string, detail: unknown) => void;
   static renderers: Record<string, (icon: AnimaIcon) => IconRenderer> = {};
   #renderer?: IconRenderer;
   static observedAttributes = [
@@ -207,6 +208,7 @@ export class AnimaIcon extends HTMLElement {
   }
 
   disconnectedCallback(): void {
+    AnimaIcon.eventHook?.(this, 'cleanup', null);
     this.#renderer?.disconnect();
     this.#observing = false;
     removeEventListener('anima:register', this.#registered);
@@ -240,6 +242,7 @@ export class AnimaIcon extends HTMLElement {
     } else if (name === 'motion') this.#motion();
     else if (name === 'label') this.#aria();
     else if (name === 'paused') {
+      if (_old !== value) AnimaIcon.eventHook?.(this, value === null ? 'play' : 'pause', null);
       if (value !== null) schedule(this, false);
       else if (this.player) {
         this.#step(0);
@@ -308,6 +311,7 @@ export class AnimaIcon extends HTMLElement {
     this.#last = -1;
     this.#states = '';
     this.#held = false;
+    AnimaIcon.eventHook?.(this, 'cleanup', null);
     this.player = undefined;
     const generation = this.#generation;
     const finish = () => {
@@ -320,7 +324,10 @@ export class AnimaIcon extends HTMLElement {
       this.#build(model);
       this.#motion();
       this.#aria();
-      if (!this.hasAttribute('paused')) this.#step(0);
+      if (!this.hasAttribute('paused')) {
+        AnimaIcon.eventHook?.(this, 'play', null);
+        this.#step(0);
+      }
       this.#resolve();
       this.dispatchEvent(new CustomEvent('anima:load', { detail: this.info }));
     };
@@ -441,6 +448,7 @@ export class AnimaIcon extends HTMLElement {
 
   #fail(d: SourceDiagnostic[]): void {
     const retry = this.#retry;
+    AnimaIcon.eventHook?.(this, 'loaderror', d);
     this.destroy();
     if (retry) {
       this.#destroyed = false;
@@ -556,7 +564,11 @@ export class AnimaIcon extends HTMLElement {
 
   #draw(all = false): void {
     const f = drawFrame(this.player!);
-    if (this.#renderer) return this.#renderer.draw(f, all);
+    if (this.#renderer) {
+      this.#renderer.draw(f, all);
+      AnimaIcon.eventHook?.(this, 'draw', { revision: f.revision });
+      return;
+    }
     const changed = new Set(f.changed);
     for (const [el, d, cur] of this.#els) {
       if (!all && !changed.has(el.node)) continue;
@@ -570,6 +582,7 @@ export class AnimaIcon extends HTMLElement {
       }
     }
     this.#order();
+    AnimaIcon.eventHook?.(this, 'draw', { revision: f.revision });
   }
 
   #aria(): void {
@@ -597,13 +610,17 @@ export class AnimaIcon extends HTMLElement {
     this.trace?.push(['step', dt]);
     const { events, settled } = p.step(dt);
     this.#draw();
-    for (const e of events)
+    AnimaIcon.eventHook?.(this, 'advance', { dt, events, settled });
+    for (const e of events) {
+      AnimaIcon.eventHook?.(this, 'event', e);
       this.dispatchEvent(
         new CustomEvent('anima:event', { detail: e, bubbles: true, composed: true }),
       );
+    }
     const states = JSON.stringify(p.states());
     if (states !== this.#states) {
       this.#states = states;
+      AnimaIcon.eventHook?.(this, 'statechange', p.states());
       this.#aria();
       this.dispatchEvent(
         new CustomEvent('anima:state', { detail: p.states(), bubbles: true, composed: true }),

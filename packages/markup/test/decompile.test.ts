@@ -181,6 +181,12 @@ function recover(root: Element): Obj {
         ),
       };
     else if (el.name === 'color') insert('colors', name, a.value);
+    else if (el.name === 'event-def') {
+      const def: Obj = { ...p };
+      if (a.payload !== undefined) def.payload = JSON.parse(a.payload);
+      if (a.volume !== undefined) def.volume = Number(a.volume);
+      insert('eventDefs', name, def);
+    } else if (el.name === 'audio-volume') insert('audioVolumes', a.asset!, Number(a.value));
     else if (el.name === 'glyph') insert('glyphs', name, p);
     else if (el.name === 'asset') {
       const asset: Obj = { ...p, source: p.src };
@@ -381,6 +387,8 @@ function check(source: string | object) {
       'strokePaint',
       'channel',
       'machine',
+      'event-def',
+      'audio-volume',
     ]).toContain(e.name);
     if (e.name !== 'pose')
       for (const a of e.attrs) {

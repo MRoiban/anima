@@ -222,7 +222,7 @@ function create(runtime: Pick<ModuleRegistry, 'load' | 'Player' | 'DOC' | 'nodeS
             }
           }
           // The child model distinguishes its authored inputs from bubbled event triggers.
-          const events = info.get(child)?.events ?? new Set<string>();
+          const events = new Set([...(info.get(child)?.events ?? []), ...(child.eventNames ?? [])]);
           for (const [name, input] of child.inputs)
             if (!events.has(name))
               model.inputs.set(node.id + '.' + name, { ...input, name: node.id + '.' + name });
@@ -246,10 +246,7 @@ function create(runtime: Pick<ModuleRegistry, 'load' | 'Player' | 'DOC' | 'nodeS
           err('limit-exceeded', '/nodes', 'components exceed depth 8 or 256 expanded instances');
         if (data.instances.length) model.nesting = (p) => nest(p, data, runtime.Player);
         for (const [i, l] of (model.doc.listeners ?? []).entries())
-          if (
-            !['enter', 'leave', 'down', 'up', 'click', 'move'].includes(l.on) &&
-            (!l.on.includes('.') || model.inputs.get(l.on)?.type !== 'trigger')
-          )
+          if (l.on.includes('.') && model.inputs.get(l.on)?.type !== 'trigger')
             err('unknown-event', '/listeners/' + i + '/on', 'unknown instance event');
       } finally {
         context = outer;
@@ -270,7 +267,10 @@ function create(runtime: Pick<ModuleRegistry, 'load' | 'Player' | 'DOC' | 'nodeS
         for (const t of model.timelines) for (const [, name] of t.events) data.events.add(name);
         for (const l of model.listeners) if (l.emit) data.events.add(l.emit);
         for (const i of data.instances)
-          for (const name of info.get(i.model)?.events ?? [])
+          for (const name of new Set([
+            ...(info.get(i.model)?.events ?? []),
+            ...(i.model.eventNames ?? []),
+          ]))
             data.events.add(model.nodes[i.node]!.id + '.' + name);
       }
       // Proxy inputs and instance expressions are real uses, not unused declarations.
