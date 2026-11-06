@@ -14,6 +14,7 @@ import {
 } from './geom.ts';
 import type { EaseFn } from './ease.ts';
 import type {
+  ActionM,
   InputM,
   LayerM,
   ListenerM,
@@ -26,6 +27,7 @@ import type {
   Value,
 } from './load.ts';
 import { modules } from './modules.ts';
+import { reached, snapTime, foldTime } from './time.ts';
 import { flatten } from './path.ts';
 import { text } from './diag.ts';
 import { VERBOSE as V } from './flags.ts';
@@ -34,6 +36,11 @@ export interface AnimaEvent {
   name: string;
   layer: string | null;
   time: number;
+  payload?: Record<string, number | boolean | string>;
+  url?: string;
+  target?: string;
+  audio?: string;
+  volume?: number;
 }
 
 export interface LayerInspect {
@@ -93,10 +100,8 @@ const MAX_CHAIN = 16;
 
 const loopTime = (tl: TimelineM, tau: number): number => {
   const d = tl.duration;
-  if (tl.loop === 'once') return Math.min(tau, d);
-  if (tl.loop === 'loop') return tau - d * Math.floor(tau / d);
-  const q = tau - 2 * d * Math.floor(tau / (2 * d));
-  return q <= d ? q : 2 * d - q;
+  if (tl.loop === 'once') return Math.min(snapTime(snapTime(tau, 0), d), d);
+  return foldTime(tau, d, tl.loop === 'pingpong');
 };
 
 /** Spec §5 sampling. */
@@ -104,10 +109,11 @@ export function sampleTrack(tr: TrackM, t: number): Value {
   if (tr.sample) return tr.sample(t);
   const ts = tr.times;
   const n = ts.length - 1;
-  if (t <= ts[0]!) return tr.values[0]!;
-  if (t >= ts[n]!) return tr.values[n]!;
+  if (!reached(t, ts[0]!)) return tr.values[0]!;
+  if (reached(t, ts[n]!)) return tr.values[n]!;
   let i = 0;
-  while (ts[i + 1]! <= t) i++;
+  while (reached(t, ts[i + 1]!)) i++;
+  t = snapTime(t, ts[i]!);
   const a = tr.values[i]!;
   const b = tr.values[i + 1]!;
   if (typeof a === 'boolean') return a;
@@ -138,7 +144,9 @@ export class Player {
   readonly #inputVals = new Map<string, number | boolean>();
   /** Pending triggers and how long they have been pending. */
   readonly #pending = new Map<string, number>();
-  #queue: [op: 'set' | 'fire' | 'toggle' | 'emit', name: string, v?: number | boolean][] = [];
+  #queue: (
+    [op: 'set' | 'fire' | 'toggle' | 'emit', name: string, v?: number | boolean] | ActionM
+  )[] = [];
   readonly #layers: LayerRun[];
   #entryEvents: AnimaEvent[] = [];
   #lastSettled = false;
@@ -382,10 +390,7 @@ export class Player {
 
   /** Queue an already validated listener, including actions routed by an optional module. */
   act(l: ListenerM): void {
-    for (const n of l.fire) this.#queue.push(['fire', n]);
-    for (const [n, v] of l.set) this.#queue.push(['set', n, v]);
-    for (const n of l.toggle) this.#queue.push(['toggle', n]);
-    if (l.emit) this.#queue.push(['emit', l.emit]);
+    this.#queue.push(l);
   }
 
   /** Does the listener's target contain the point? */
@@ -458,22 +463,47 @@ export class Player {
 
   // ------------------------------------------------------------------ step (spec §7)
 
+  #applyInput(
+    op: 'set' | 'fire' | 'toggle' | 'emit',
+    name: string,
+    v: number | boolean | undefined,
+    events: AnimaEvent[],
+  ): void {
+    if (this.nested?.input(op, name, v)) return;
+    if (op === 'fire') {
+      if (!this.#pending.has(name)) this.#pending.set(name, 0);
+    } else if (op === 'toggle') this.#inputVals.set(name, !this.#inputVals.get(name));
+    else if (op === 'emit') events.push({ name, layer: null, time: 0 });
+    else {
+      const inp = this.model.inputs.get(name)!;
+      this.#inputVals.set(name, typeof v === 'number' ? clamp(v, inp.min, inp.max) : v!);
+    }
+  }
+
+  #action(action: ActionM | undefined, events: AnimaEvent[]): void {
+    if (!action) return;
+    const values = action.set.map(
+      ([name, value]) =>
+        [name, typeof value === 'function' ? value(this.#inputVals) : value] as [
+          string,
+          number | boolean,
+        ],
+    );
+    for (const n of action.fire) this.#applyInput('fire', n, undefined, events);
+    for (const [n, v] of values) this.#applyInput('set', n, v, events);
+    for (const n of action.toggle) this.#applyInput('toggle', n, undefined, events);
+    if (action.emit) this.#applyInput('emit', action.emit, undefined, events);
+  }
+
   step(dt: number, base?: (address: string) => Value | undefined): StepResult {
     if (!(dt >= 0)) throw new Error(text('anima: step needs dt ≥ 0'));
     const events = this.#entryEvents;
     this.#entryEvents = [];
     this.time += dt;
     // 1. Inputs
-    for (const [op, name, v] of this.#queue) {
-      if (this.nested?.input(op, name, v)) continue;
-      if (op === 'fire') {
-        if (!this.#pending.has(name)) this.#pending.set(name, 0);
-      } else if (op === 'toggle') this.#inputVals.set(name, !this.#inputVals.get(name));
-      else if (op === 'emit') events.push({ name, layer: null, time: 0 });
-      else {
-        const inp = this.model.inputs.get(name)!;
-        this.#inputVals.set(name, typeof v === 'number' ? clamp(v, inp.min, inp.max) : v!);
-      }
+    for (const item of this.#queue) {
+      if (Array.isArray(item)) this.#applyInput(item[0], item[1], item[2], events);
+      else this.#action(item, events);
     }
     this.#queue = [];
     // 2. Clocks
@@ -486,7 +516,16 @@ export class Player {
         (t) => !L.fade?.lock && this.#holds(t, L, L.m.states[L.state]!, new Set(), true),
       );
       L.time += dt;
-      if (L.fade && (L.fade.t += dt) >= L.fade.dur) L.fade = null;
+      if (L.fade && reached((L.fade.t += dt), L.fade.dur)) {
+        L.fade = null;
+        this.model.eventSignal?.(
+          events,
+          'transition-end',
+          L.m.name,
+          L.m.states[L.state]!.name,
+          this,
+        );
+      }
     }
     // 3. Layers
     const consumed = new Set<string>();
@@ -553,9 +592,10 @@ export class Player {
     // 5. Triggers
     for (const [name, age] of this.#pending) {
       const buf = this.model.inputs.get(name)!.buffer;
-      if (consumed.has(name) || !buf || age + dt > buf) this.#pending.delete(name);
+      if (consumed.has(name) || !buf || !reached(buf, age + dt)) this.#pending.delete(name);
       else this.#pending.set(name, age + dt);
     }
+    this.model.reportEvents?.(this, events);
     const nested = this.nested?.step(dt);
     if (nested) events.push(...nested.events);
     // 6. Settled
@@ -573,16 +613,10 @@ export class Player {
     const st = L.m.states[L.state]!;
     if (st.play !== undefined && L.frozen < 0) {
       const tl = this.model.timelines[st.play]!;
-      if (
-        !this.playbackPolicy?.rest(L, st) &&
-        (tl.loop !== 'once' ||
-          (this.playbackPolicy
-            ? L.time < this.playbackPolicy.duration(tl, st.speed, L)
-            : L.time * st.speed < tl.duration))
-      )
+      if (!this.playbackPolicy?.rest(L, st) && (tl.loop !== 'once' || !this.#finished(L, st)))
         return false;
     }
-    return !st.on.some((t) => t.terms.some((x) => x.k === 'after' && x.s > L.time));
+    return !st.on.some((t) => t.terms.some((x) => x.k === 'after' && !reached(L.time, x.s)));
   }
 
   #finished(L: LayerRun, st: StateM): boolean {
@@ -590,16 +624,17 @@ export class Player {
     return (
       L.frozen >= 0 ||
       (this.playbackPolicy
-        ? L.time >= this.playbackPolicy.duration(this.model.timelines[st.play]!, st.speed, L)
-        : L.time * st.speed >= this.model.timelines[st.play]!.duration)
+        ? this.playbackPolicy.finished(this.model.timelines[st.play]!, L.time, L)
+        : reached(L.time * st.speed, this.model.timelines[st.play]!.duration))
     );
   }
 
   #holds(t: TransitionM, L: LayerRun, st: StateM, used: Set<string>, ungated = false): boolean {
     return (
       t.terms.every((x) => {
+        if (x.k === 'expr') return x.test!(this.#inputVals);
         if (x.k === 'end') return this.#finished(L, st);
-        if (x.k === 'after') return L.time >= x.s;
+        if (x.k === 'after') return reached(L.time, x.s);
         if (x.k === 'cmp') {
           const v = this.get(x.name) as number;
           const c = x.value;
@@ -655,6 +690,19 @@ export class Player {
     transition?: TransitionM,
   ): void {
     const st = L.m.states[to]!;
+    if (transition) {
+      this.#action(L.m.states[L.state]!.exit, events);
+      this.#action(transition.actions, events);
+      this.model.eventSignal?.(
+        events,
+        'state-end',
+        L.m.name,
+        L.m.states[L.state]!.name,
+        this,
+        transition,
+      );
+      this.model.eventSignal?.(events, 'transition-start', L.m.name, st.name, this, transition);
+    }
     this.playbackPolicy?.enter(
       L,
       transition ? L.m.states[L.state] : undefined,
@@ -668,9 +716,12 @@ export class Player {
     L.frozen = -1;
     if (this.reducedMotion) blend = 0;
     L.fade =
-      snap && blend > 0 && carry < blend
+      snap && blend > 0 && !reached(carry, blend)
         ? { lock, from: snap, dur: blend, ease: ease!, t: carry }
         : null;
+    if (transition && !L.fade)
+      this.model.eventSignal?.(events, 'transition-end', L.m.name, st.name, this, transition);
+    this.#action(st.entry, events);
     if (st.emit) events.push({ name: st.emit, layer: L.m.name, time: 0 });
     if (st.play === undefined) return;
     const tl = this.model.timelines[st.play]!;
@@ -693,27 +744,36 @@ export class Player {
     b: number,
     closed: boolean,
     events: AnimaEvent[],
+    source?: [number, string][],
   ): void {
     const tl = this.model.timelines[st.play!]!;
+    if (!source) {
+      const markers = this.model.timelineMarkers?.(tl);
+      if (markers) this.#timelineEvents(L, st, a, b, false, events, markers);
+    }
+    source ??= tl.events;
     if (this.playbackPolicy)
-      return this.playbackPolicy.events(tl, a, b, closed, L.m.name, events, st.speed, L);
+      return this.playbackPolicy.events(tl, a, b, closed, L.m.name, events, st.speed, L, source);
     a *= st.speed;
     b *= st.speed;
-    if (!tl.events.length || b < a) return;
+    if (!source.length || b < a) return;
     const d = tl.duration;
     const found: [number, number, string][] = []; // [played time, event time, name]
-    const inRange = (t: number) => (closed ? t >= a : t > a) && t <= b;
+    const inRange = (t: number) => (closed ? reached(t, a) : !reached(a, t)) && reached(b, t);
     const once = tl.loop === 'once';
     const loop = tl.loop === 'loop';
     const period = loop ? d : 2 * d;
-    tl.events.forEach(([te, name]) => {
+    source.forEach(([te, name]) => {
       // Repeats k0..k1 of the period (a 'once' timeline has just k = 0); pingpong plays each
-      // event twice per period, forwards and back.
+      // interior event twice per period. Endpoints have one canonical occurrence series,
+      // avoiding two algebraically equal but binary64-distinct turn times.
       const k0 = once ? 0 : Math.max(0, Math.floor(a / period) - 1);
       const k1 = once ? 0 : Math.min(k0 + 10000, Math.floor(b / period) + 1);
       const seen = new Set<number>();
       for (let k = k0; k <= k1; k++)
-        for (const t of loop || once ? [te + k * d] : [te + 2 * k * d, 2 * (k + 1) * d - te])
+        for (const t of loop || once || te === 0 || te === d
+          ? [te + k * period]
+          : [te + 2 * k * d, 2 * (k + 1) * d - te])
           if (inRange(t) && !seen.has(t)) {
             seen.add(t);
             found.push([t, te, name]);

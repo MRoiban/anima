@@ -2,6 +2,7 @@ import '@anima-format/core/all';
 import { pendingReason } from './pending.ts';
 import { globSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
+import { isDeepStrictEqual } from 'node:util';
 import { PNG } from 'pngjs';
 import { compile } from '@anima-format/markup';
 import { run } from '../packages/cli/src/cli.ts';
@@ -14,7 +15,17 @@ export interface OracleCase {
   maxOverPercent: number;
   maxDiff: number;
   scripts?: Record<string, string>;
+  events?: {
+    fps: number;
+    script: string;
+    reference: string;
+    omitLifecycle?: boolean;
+    urls?: boolean;
+    payloadPaths?: Record<string, Record<string, string>>;
+  };
   values?: { address: string; path: string; tolerance: number };
+  /** Post-click observations, indexed by interaction rather than animation frame. */
+  observations?: { script: string; reference: string };
 }
 export const root = new URL('../tests/oracle/', import.meta.url);
 export const cases: OracleCase[] = JSON.parse(readFileSync(new URL('cases.json', root), 'utf8'));
@@ -23,11 +34,19 @@ export const pendingCases = globSync('*/todo.json', { cwd: root }).map((path) =>
   name: path.split('/')[0]!,
   reason: pendingReason(new URL('./', new URL(path, root)))!,
 }));
-export const skippedCases: { name: string; status: string; reason: string; tests: string[] }[] =
-  globSync('*/skip.json', { cwd: root }).map((path) => ({
-    name: path.split('/')[0]!,
-    ...JSON.parse(readFileSync(new URL(path, root), 'utf8')),
-  }));
+export const skippedCases: {
+  name: string;
+  status: string;
+  reason: string;
+  tests: string[];
+  captureEvidence?: string[];
+}[] = globSync('*/skip.json', { cwd: root }).map((path) => ({
+  name: path.split('/')[0]!,
+  ...JSON.parse(readFileSync(new URL(path, root), 'utf8')),
+}));
+export const findingCases: { reason: string; case: OracleCase }[] = globSync('**/finding.json', {
+  cwd: root,
+}).map((path) => JSON.parse(readFileSync(new URL(path, root), 'utf8')));
 for (const c of cases)
   if (pendingReason(new URL(`${c.name}/`, root)))
     throw Error(`${c.name}: pending oracle must not be in cases.json`);
@@ -56,6 +75,19 @@ export function compare(actual: Buffer, reference: Buffer, threshold: number) {
   };
 }
 
+/** Compare ordered reports exactly, including frame and every observed payload field. */
+export function compareEvents(actual: unknown, reference: unknown) {
+  const pass = isDeepStrictEqual(actual, reference);
+  return {
+    actual,
+    reference,
+    maxDiff: pass ? 0 : 1,
+    over: pass ? 0 : 1,
+    overPercent: pass ? 0 : 100,
+    pass,
+  };
+}
+
 export async function measure(c: OracleCase, output: URL) {
   const dir = new URL(`${c.name}/`, root);
   const compiled = compile(readFileSync(new URL('case.animl', dir), 'utf8'));
@@ -64,6 +96,47 @@ export async function measure(c: OracleCase, output: URL) {
   if (readFileSync(new URL('case.ani', dir), 'utf8') !== compiled.text)
     throw new Error(`${c.name}: stale case.ani (node tools/oracle.ts --build)`);
   mkdirSync(output, { recursive: true });
+  if (c.observations) {
+    const config = c.observations;
+    const model = load(compiled.doc!).model!;
+    const { snapshots } = runScript(model, readFileSync(new URL(config.script, dir), 'utf8'));
+    const actual = snapshots.map((snapshot, click) => ({
+      click,
+      values: snapshot.values,
+      events: snapshot.events
+        .filter(
+          (event) => !['@state-end', '@transition-start', '@transition-end'].includes(event.name),
+        )
+        .map((event) => ({
+          name: event.name,
+          ...(event.payload === undefined ? {} : { payload: event.payload }),
+        })),
+    }));
+    const reference = JSON.parse(readFileSync(new URL(config.reference, dir), 'utf8'));
+    return [{ time: c.times.at(-1)!, ...compareEvents(actual, reference) }];
+  }
+  if (c.events) {
+    const config = c.events;
+    const model = load(compiled.doc!).model!;
+    const { snapshots } = runScript(model, readFileSync(new URL(config.script, dir), 'utf8'));
+    const actual = snapshots.flatMap((snapshot, frame) => {
+      if (Math.round(snapshot.time * config.fps) !== frame)
+        throw Error(`${c.name}: event script must snapshot every frame including zero`);
+      return snapshot.events
+        .filter(
+          (event) =>
+            !config.omitLifecycle ||
+            !['@state-end', '@transition-start', '@transition-end'].includes(event.name),
+        )
+        .map((event) => ({
+          frame,
+          ...(config.urls && event.url ? { url: event.url } : { name: event.name }),
+          ...(event.payload === undefined ? {} : { payload: event.payload }),
+        }));
+    });
+    const reference = JSON.parse(readFileSync(new URL(config.reference, dir), 'utf8'));
+    return [{ time: c.times.at(-1)!, ...compareEvents(actual, reference) }];
+  }
   const metrics = [];
   for (const time of c.times) {
     if (c.values) {
@@ -128,10 +201,12 @@ export async function measure(c: OracleCase, output: URL) {
 }
 
 if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) {
+  for (const finding of findingCases)
+    console.log(`FINDING ${finding.case.name}: ${finding.reason}`);
   for (const c of pendingCases) console.log(`Pending oracle ${c.name}: ${c.reason}`);
   for (const c of skippedCases) console.log(`Skipped oracle ${c.name}: ${c.reason}`);
   if (process.argv.includes('--build')) {
-    for (const c of cases) {
+    for (const c of [...cases, ...findingCases.map((f) => f.case)]) {
       const dir = new URL(`${c.name}/`, root);
       const r = compile(readFileSync(new URL('case.animl', dir), 'utf8'));
       if (r.diagnostics.length || !r.text) throw new Error(JSON.stringify(r.diagnostics));
@@ -149,6 +224,13 @@ if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) 
     });
     console.log(c.name, JSON.stringify(frames));
   }
+  const findings = [];
+  for (const finding of findingCases) {
+    const frames = await measure(finding.case, new URL(`${finding.case.name}/anima/`, root));
+    findings.push({ name: finding.case.name, reason: finding.reason, frames });
+    console.log(`FINDING comparison ${finding.case.name}`, JSON.stringify(frames));
+  }
+  writeFileSync(new URL('findings-metrics.json', root), JSON.stringify(findings, null, 2) + '\n');
   writeFileSync(new URL('metrics.json', root), JSON.stringify(results, null, 2) + '\n');
   if (process.argv.includes('--strict') && results.some((r) => r.frames.some((f) => !f.pass)))
     process.exitCode = 1;

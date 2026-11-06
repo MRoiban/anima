@@ -1,0 +1,11 @@
+<anima version="0.1" name="bind-condition-modulo" grid="20" requires="bind events">
+  <circle id="dot" cx="10" cy="10" r="2" fill="#000"/>
+  <number name="count"/>
+  <trigger name="tap"/>
+  <listener on="click" set="count=count+1" fire="tap"/>
+  <event-def name="shared" payload='{"count":{"type":"number","value":"{count}"}}'/>
+  <layer name="main" initial="idle">
+    <state name="idle"><on when="tap and count > 0 and mod(count, 5) == 0" to="milestone"/></state>
+    <state name="milestone" emit="shared"><on when="@after(0)" to="idle"/></state>
+  </layer>
+</anima>

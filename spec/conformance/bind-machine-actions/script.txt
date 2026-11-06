@@ -1,0 +1,5 @@
+advance 0
+snapshot count copy
+fire go
+advance 0
+snapshot count copy

@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "artboard": "Oracle",
+  "stateMachine": "s",
+  "viewModel": {
+    "name": "Default",
+    "viewModel": "Payload",
+    "properties": [
+      {
+        "name": "value",
+        "path": "value",
+        "type": "number",
+        "value": 7,
+        "changed": true
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}

@@ -167,6 +167,39 @@ notification dot cuts the body and clapper.)
 - `events` *(not in bell)*: `[time, name]` pairs, `time` in `[0, duration]`, reported when playback
   crosses them (§7).
 
+**Clock boundaries** *(normative, every runtime)*. Time calculations use IEEE-754 binary64
+seconds. Use the absolute constant `ε = 1e-9` seconds in the clock being compared (state,
+fade, or unquantized timeline seconds, after speed/offset conversion). A clock `t` has
+**reached** a boundary `b` iff `t ≥ b − ε`; it is strictly before it otherwise. This
+applies to event crossings, key sampling, `@after`/`@end`, exit/exitFraction/exitNext,
+fade completion (including entry carry), trigger-buffer expiry and settled detection.
+A strict "later than" comparison means `!reached(b, t)` (`b < t − ε`). Never scale ε with
+elapsed time, frame rate, speed or duration; never round the accumulated clock or `dt` to a time grid.
+Carry remains `max(0, t − b)`, so early recognition introduces no negative target time.
+Events, sampling, once completion and `exit`/`exitFraction` compare in source-timeline
+seconds; `@after`, fades, buffer ages and armed `exitNext` state-time gates compare in
+state/fade seconds. Authored times, input/value comparisons and validation ranges retain
+their exact meaning.
+
+For forward events use `!reached(previous, event) && reached(now, event)`; on entry replace
+the first test with `reached(event, previous)`. For reverse events use
+`!reached(event, previous) && reached(event, now)`, likewise including the previous bound
+on entry. Thus an event recognized within ε fires once, including across `step(0)`;
+nearby distinct authored events retain their identity and authored ordering. A pingpong
+endpoint has one occurrence per full period: enumerate it with the authored endpoint
+plus an integer multiple of the period, never both the forward and reflected formulas
+(they can differ by a binary64 rounding bit). This does not merge distinct authored events.
+
+For sampling choose the last key reached by `t` (or the first if none), snapping `t`
+to that key when within ε before interpolating. For repeating clocks and work areas,
+snap the offset from work start to the nearest integer multiple of the work span when
+within ε, before folding; a loop boundary folds to the start and a pingpong turn to
+its endpoint. Grid-index floor operations recognize that integer tick directly,
+avoiding a second division rounding below it. Quantize similarly recognizes a sample
+grid point within ε; otherwise it floors as usual. Halfway ties choose the greater
+grid index. This local comparison rule preserves arbitrary authored sub-microsecond
+times without imposing integer-microsecond rounding on all frames or changing clock speed.
+
 **Sampling** *(normative)*, for track keys `k0 … kn` at local time `t`:
 - `t ≤ t0` → `v0`; `t ≥ tn` → `vn`.
 - Otherwise find `i` with `ti ≤ t < ti+1`; `u = (t − ti) / (ti+1 − ti)`; the **ease on key `i`**
@@ -231,9 +264,11 @@ per channel with rounding for colours (§5), and for booleans `a || b` while the
 
 1. **Inputs.** Apply queued writes in arrival order (`set`, `fire`, `toggle`). Number writes clamp to
    the input's `min`/`max`. A fired trigger becomes pending (firing a pending trigger again is a
-   no-op). Listener `emit` actions add their events now.
+   no-op). Listener `emit` actions add their events now. A queued listener action evaluates its
+   expression-valued sets here, when that action is reached, using one pre-action input snapshot
+   for all its sets (§bind). Later actions see earlier writes.
 2. **Clocks.** Motion clock expressions and `exitNext` gates prepare here (motion chapter). Advance every layer's state time and crossfade elapsed time by `dt`. A crossfade whose
-   elapsed time reaches its duration ends.
+   elapsed time reaches its duration ends (using §5 clock boundaries).
 3. **Layers**, in declaration order, each against the values resolved by the layers before it:
    1. *Timeline events.* Report the current state's timeline events crossed by step 2 (below).
    2. *Transitions.* Unless a non-interruptible crossfade is running (§8), evaluate the current
@@ -243,7 +278,8 @@ per channel with rounding for colours (§5), and for booleans `a || b` while the
       triggers the condition named as consumed by this layer; (c) enter the target: state time =
       **carry** (the overshoot `t − threshold` of the `@end`/`@after` term that made the condition
       hold, the largest one if several; else 0), crossfade elapsed = carry; a `blend` of 0 drops the
-      snapshot; (d) report the target's `emit`, then its timeline events in `[0, carry]`. Then
+      snapshot; (d) run the source exit, transition actions and target entry blocks (§bind), then
+      report the target's `emit`, then its timeline events in `[0, carry]`. Then
       evaluate the new state's `on` list the same way. A layer takes at most **16** transitions per
       step; reaching the cap reports the event `@limit` for that layer and stops its transitions for
       this step. A trigger already consumed by this layer does not hold for it again in this step.
@@ -308,7 +344,7 @@ writes to an unknown input or with the wrong type are rejected by the API, never
 
   ```
   condition := term ( "&&" term )*
-  term      := "!"? NAME  |  NAME OP NUMBER  |  "@end"  |  "@after(" NUMBER ")"
+  term      := "!"? NAME  |  NAME OP NUMBER  |  EXPR OP EXPR  |  "@end"  |  "@after(" NUMBER ")"
   OP        := "==" | "!=" | "<" | "<=" | ">" | ">="
   ```
 
@@ -316,7 +352,9 @@ writes to an unknown input or with the wrong type are rejected by the API, never
   bool is true · `!name` when the bool is false · `name OP number` compares a number input ·
   `@end` when the state's `once` timeline has finished · `@after(s)` when the state time is at least
   `s`. All terms must hold. There is no `||`: write two transitions. Whitespace between tokens is
-  ignored.
+  ignored. `EXPR OP EXPR` requires `bind` and uses its numeric expression language; legacy
+  `NAME OP NUMBER` keeps its number-input-only type rule, including when bind is declared.
+  Arithmetic comparisons may be joined with existing trigger/time/bool terms.
 - Load errors: unknown input (`unknown-input`); a negated trigger, a bare number or a compared
   bool/trigger (`input-type`); `@end` on a pose state or a `loop`/`pingpong` timeline (`bad-end`).
   Warnings: states no transition can reach (`unreachable-state`), inputs nothing reads or writes
@@ -336,7 +374,7 @@ writes to an unknown input or with the wrong type are rejected by the API, never
   Hit testing may approximate curves, but must be exact for points farther than 0.05 units from an
   edge.
 - Actions, at least one: `fire` (trigger name or list), `set` (`{ input: value }` for bool and
-  number inputs), `toggle` (bool input name or list) *(not in bell)*, `emit` (event name)
+  number inputs; expression strings additionally require `bind`), `toggle` (bool input name or list) *(not in bell)*, `emit` (event name)
   *(not in bell)*. Action keys run in that order: `fire`, `set`, `toggle`, `emit`.
 - **Pointer model** *(normative)*. The host reports pointer events in grid coordinates:
   `move(x, y)`, `down(x, y)`, `up(x, y)` (primary button only) and `leave()` (pointer left the icon
@@ -817,7 +855,7 @@ These are clock expressions evaluated before sampling, rather than property bind
 
 Sources are declared number or bool input names, finite JSON number literals, hex colours
 (`#rgb`, `#rrggbb`, `#rrggbbaa`), parentheses, unary `+`/`-`, binary `+ - * /`, and the functions
-`min(a,b)`, `max(a,b)`, `clamp(x,lo,hi)`, `mix(a,b,t)`. Nothing else is allowed: no property
+`min(a,b)`, `max(a,b)`, `clamp(x,lo,hi)`, `mix(a,b,t)`, `floor(x)`, `mod(a,b)`. Nothing else is allowed: no property
 reads, strings, boolean literals, comparisons, assignments or arbitrary calls. Identifiers use
 the input-name grammar; a hyphen is part of a name, so write `level - other` for subtraction
 between inputs. Multiplication/division precede addition/subtraction; binary operators associate
@@ -828,7 +866,9 @@ targets convert bools to 0/1. Numbers do not implicitly become bools. `min`, `ma
 numeric `mix` return numbers; `mix` also accepts two hex colours and a numeric/bool weight,
 returning a colour. Mixing a number and colour is invalid. Colour interpolation is §5 sRGB
 channel interpolation (including alpha, rounding and channel clamping); weights may extrapolate.
-Numeric `mix` is `a + (b-a)*t`; `clamp` is `min(max(x,lo),hi)`. Non-finite arithmetic results
+`floor(x)` returns the greatest integer ≤ x. `mod(a,b)` is `a - b*floor(a/b)`
+(the result has the divisor's sign; a zero divisor resolves to zero). Numeric `mix` is
+`a + (b-a)*t`; `clamp` is `min(max(x,lo),hi)`. Non-finite arithmetic results
 (including division by zero) resolve to zero when consumed by another operation or the target,
 before property clamping. Trigger inputs cannot
 be values. Evaluators accept a scope map of named inputs, reusable for component input bindings.
@@ -849,6 +889,52 @@ The grammar and evaluator are independently written. Strict unknown-name checks 
 post-state pass follow the lessons about silent unresolved bindings and feedback loops in
 [animation/state research](../docs/research/rive-animation-and-state.md) §C. No Rive source,
 documentation text or binary format was used.
+
+<!-- capability: data.bind-listener-actions -->
+### Input expressions in actions
+
+Declare `bind`. Listener `set` values may be expression strings, e.g.
+`{"set":{"count":"count+1","previous":"count"}}`. Numeric/bool JSON literals keep their
+0.1 meaning and type checks; a string is always an expression, never an implicit literal.
+Number targets accept numeric or bool expressions (bool becomes 0/1); bool targets require bool
+expressions. Colour expressions remain valid for colour properties and typed event fields;
+there are no colour inputs, so setting a bool/number input to a colour is `bind-type`.
+Unknown inputs are `unknown-input`; assigning a trigger is `input-type` (use `fire` instead).
+Trigger reads and incompatible result types are `bind-type`; parser/arity errors are
+`bind-syntax`. Diagnostics point to the set value, condition, or event field, with an expression
+character offset where applicable and a hint. No property reads or assignments are added to the
+expression language. No runtime dependencies or evaluator copies are introduced: the optional
+bind module supplies a compile hook to core, returning pure input-scope closures. Merely importing
+bind does not enable expressions in a document without `requires: ["bind"]`.
+
+A listener is queued intact. When its action runs at §7.1, evaluate every set expression against
+one input snapshot **before any write in that action**, then apply `fire`, all sets (clamping each
+number result to its target min/max), `toggle`, and `emit`. Non-finite arithmetic becomes zero
+before clamping. Separate actions run sequentially and see prior writes, including host writes
+queued before them. Queuing two increments before one step increments twice.
+
+The existing core machine also accepts state `entry` and `exit` blocks and transition `actions`
+blocks. Each is an object with the same optional `fire`, `set`, `toggle`, `emit` keys as listeners;
+these blocks require bind even if their values are literals. Machine blocks target local input names; scoped child writes remain a listener/host feature.
+On initial construction, run each
+initial state's entry in layer order before its entry emit and timeline events. On a transition,
+run source exit then transition actions before the existing state-end/transition-start signals;
+run target entry after the immediate transition-end signal (if any), before target emit and entry
+timeline events. Each block is a separate snapshot action; writes are immediate and visible to
+subsequent blocks, transitions in the chain, and later layers. Exit runs on reentry too; blend
+completion does not rerun actions. Existing chain limits and trigger consumption apply. Pending
+triggers fired from entry actions are checked during the next step; triggers fired in a step
+remain subject to that step's ordinary consumption/expiry rule.
+
+AniML listeners use `set="count=count+1 previous=count"`; spaces and commas within expressions
+are allowed. Whitespace followed by an input name and `=` begins the next assignment. Machine
+blocks are JSON attributes, e.g. `<state name="idle" entry='{"set":{"count":0}}'>` and
+`<on when="tap" to="playing" actions='{"set":{"count":"count+1"}}'/>`.
+Arithmetic conditions use `when="count > 0 and mod(count, 5) == 0"`. `anima schema listener`,
+`state`, `transition` and `--json-schema` expose these forms. Input-only scopes avoid the
+feedback loops described in [animation/state research](../docs/research/rive-animation-and-state.md)
+§C; snapshot action maps avoid depending on JSON member order.
+
 ## assets
 
 The optional `assets` module adds an `assets` map and image draw data. Image nodes also
@@ -1214,8 +1300,8 @@ not the post-state property-binding pass.
   source clock **before advancing dt**. `step` uses the next local quantize grid point in the
   direction of travel, or the work endpoint if earlier; without quantize it uses the work
   endpoint. `loop` uses the next work endpoint (each turning point for pingpong). A request
-  observed exactly on a boundary is immediately eligible (clock comparisons within 1e-10 s
-  count as equal). Changing the condition to false cancels the armed gate; a later request
+  observed exactly on a boundary is immediately eligible (using the §5 clock-boundary rule).
+  Changing the condition to false cancels the armed gate; a later request
   computes a new boundary. Frozen reduced-motion and zero-speed clocks are immediately eligible.
   The source clock and its timeline event interval stop at that boundary, even for a large dt;
   excess state time carries into the target (and its fade). A synced held target therefore
@@ -1380,3 +1466,95 @@ paint. Cross-origin image sources need CORS permission for canvas readback/patte
 Cross-backend pixel differences are measured and retained by the canvas browser conformance suite;
 limits and findings are in `modules/canvas/test/web/README.md` and `RESULTS.md`. Renderer support
 is not a claim of exact rasterizer identity or a passing Rive oracle for host-only operations.
+
+## events
+
+Declare `requires: ["events"]` and import the optional events runtime. The module adds
+`eventDefs`, a name-keyed map of event definitions, and `audioVolumes`, an audio-asset-name map
+of resource gains in [0,1]. Existing timeline `[time,name]`, state `emit` and listener `emit`
+spellings and ordering remain unchanged. Definitions enrich every occurrence of that name;
+undeclared names continue to report the original `{name,layer,time}` record.
+
+A definition has optional `payload`, `url`, `target`, `audio` and `volume` fields. `payload`
+is a field-name map of `{type,value?,input?,address?}` objects. Type is `number`, `bool` or
+`string` or `color`; exactly one source is required. A literal must have the declared type. `input`
+references a bool/number input of the same type; `address` references an animatable property
+of the same type. Each reported event gets its own detached `payload` object. Values resolve
+at the end of the local player's step, after queued inputs, state resolution and bindings;
+all occurrences in that step observe that resolved snapshot, including time-zero entry events.
+Payloads survive component bubbling unchanged; parent definitions do not reinterpret child names.
+For number/bool/color fields, `value: "{expression}"` additionally requires bind and evaluates
+against the same final-step input snapshot as `input` sources; it does not capture the instant of
+an emit action. String fields always stay literal, including braces. Number fields accept bool
+expressions as 0/1; bool fields require bool; colour fields require a colour expression or hex
+literal and report a canonical hex string (including alpha when needed). Colours cannot reference
+inputs because inputs are bool/number/trigger only. `anima sample` snapshots include these fields
+verbatim. This is snapshot sampling, not scripting.
+`events.script-event-context` is deferred to P9 because no script VM/context exists.
+
+`url` is an HTTP(S) URL or a relative reference. `target` is `_self` (default), `_blank`,
+`_parent` or `_top` and requires `url`. Core rejects non-HTTP schemes (`event-url`). Host URL
+parsing is authoritative: no navigation occurs without explicit `url-policy="allow"` or an
+`icon.urlPolicy(url,target,event)` callback returning exactly true. Relative references resolve
+against the host document and must stay on its origin; absolute HTTP(S) may cross origins.
+Protocol-relative or backslash references that resolve off-origin are rejected. Canonical
+protocol checks run even with a permissive policy. Delivery uses `window.open` with `noopener`;
+browser popup/target restrictions still apply. There is no navigation in core or CLI.
+
+`audio` references an assets-module audio asset (`event-audio` otherwise); `volume` is an
+optional [0,1] event gain, default 1. The browser requires prior user activation; earlier events
+are dropped without fetching or decoding and are never replayed later. Decode is on demand and
+cached per element/load/asset. Each occurrence starts a separate source. Effective gain is
+`event.volume * audioVolumes[asset] * icon.volume`, with each omitted gain equal to 1.
+For bubbled component events the owning child supplies the asset and resource gain; the host
+resolver receives its dot-scoped asset name (for example `child.tone`).
+The asset resolver is consulted as for image assets. Relative asset sources use the element's
+`src`, falling back to the host document. Reload/disconnect/destroy stops sources, closes the
+context and invalidates outstanding decodes. Browser resume/fetch/decode failures report an
+`anima:error` diagnostic `event-audio-load`; they do not change deterministic player output.
+
+Local listeners may use `on: "event:<name>"` to queue their existing fire/set/toggle/emit
+actions for the next step. This is an **intentional difference** from Rive's same-frame
+listener response: a step cannot re-enter itself, so event-caused writes cannot affect
+its own transitions or recursively run an event cascade. All runtimes keep this queue
+boundary, including `step(0)` calls. Unknown local event names are `unknown-event`.
+Pending actions keep the player unsettled; callbacks never recursively re-enter a step.
+Components retain their existing scoped listener spelling and next-parent-step semantics.
+
+Conditions and event fields that read an input changed by a listener action see the **new**
+value in the step that applies the action: a click that sets `count = count + 1` and a
+transition `when="mod(count, 5) == 0"` report the milestone at counts 5, 10, 15, … This is an
+**intentional difference** from the measured Rive behaviour (`tests/oracle/data-bind-listener-actions`),
+where the same scene reports at counts 6, 11, 16, … because its condition still sees the value
+from before the increment. Anima follows what the author wrote.
+
+For documents requiring events, state exits additionally report `@state-end`, then
+`@transition-start`, each with `{payload:{state}}` (source state for end, target for start).
+A completed blend reports `@transition-end` once with the target state. A state may additionally name
+`endEmit`, and each transition may name `startEmit` and `endEmit`. Each named action reports an
+ordinary event immediately after its corresponding metadata signal, using the same definitions,
+payload resolution, URL/audio policy and next-step listeners as timeline and entry events.
+Interrupted transitions do not fire their end action. These optional fields require events and
+use the identical attribute names on AniML `<state>` and `<on>`. Component scopes expose the
+named action events to existing parent listeners. Each player's active action is independent.
+ Zero-duration,
+reduced-motion and fully carried blends report end immediately before the target's entry emit.
+Interrupted blends do not report completion. Fade completion is checked before layer timeline
+crossings, after listener actions. These signals have timeline time 0 and the owning layer.
+
+Repeating timeline states report `@loop` at each boundary: every duration for `loop`, every
+turn for `pingpong`. There is no loop signal at initial entry, held/seeked clocks, reduced-motion
+freezes or `once` completion. The existing motion crossing policy supplies work area, speed,
+reverse and carry behavior. Loop signals precede that state's ordinary timeline event block;
+ordinary event ordering is unchanged. Coincident authored endpoints remain distinct, while each
+loop boundary is reported once. Existing crossing caps remain unchanged.
+
+`event-payload`, `event-input` and `event-address` reject ambiguous/mistyped sources, missing
+or mistyped input/property references. Diagnostics include a JSON pointer, message and hint.
+AniML uses root `<event-def name="…" payload='{"field":{"type":"number","input":"count"}}'
+url="…" target="_blank" audio="tone" volume="0.5"/>` and
+`<audio-volume asset="tone" value="0.4"/>`. Payload is JSON inside the XML attribute and obeys
+normal XML escaping. Neither form changes timeline `<event at="…" name="…"/>`.
+
+The event delivery/subscription separation follows the host/runtime concerns recorded in
+`docs/research/rive-web-runtime.md` §§2–3; no Rive implementation or documentation text is used.

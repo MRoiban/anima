@@ -1,0 +1,8 @@
+advance 0
+set count 999
+advance 0
+snapshot count
+pointer click 10 10
+snapshot count left.scale top.scale bottom.scale
+advance 0.4
+snapshot count left.scale top.scale bottom.scale

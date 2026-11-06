@@ -1,0 +1,49 @@
+{
+  "anima": "0.1",
+  "name": "events-oracle",
+  "grid": 20,
+  "requires": ["events"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {},
+      "events": [
+        [0.20833333333333334, "ping"],
+        [0.4583333333333333, "ping"]
+      ]
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t"
+          }
+        }
+      }
+    }
+  },
+  "eventDefs": {
+    "ping": {
+      "payload": {
+        "value": {
+          "type": "bool",
+          "value": true
+        }
+      }
+    }
+  }
+}

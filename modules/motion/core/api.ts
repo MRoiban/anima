@@ -11,6 +11,7 @@ import type { Player, AnimaEvent } from '../../../packages/core/src/player.ts';
 import { sampleTrack, mixValues } from '../../../packages/core/src/player.ts';
 import type { NodeType } from '../../../packages/core/src/registry.ts';
 import { StateClocks } from './control.ts';
+import { reached, timeFloor } from '../../../packages/core/src/time.ts';
 import { bounds, crossings, position, timing, type Loop } from './clock.ts';
 
 export interface AnimationInfo {
@@ -84,7 +85,9 @@ export class TimelineInstance {
   }
   get finished(): boolean {
     const [a, b] = bounds(this.animation);
-    return this.#loop === 'once' && (this.#speed < 0 ? this.#clock <= a : this.#clock >= b);
+    return (
+      this.#loop === 'once' && (this.#speed < 0 ? reached(a, this.#clock) : reached(this.#clock, b))
+    );
   }
   get mix(): number {
     return this.#mix;
@@ -170,8 +173,8 @@ export class TimelineInstance {
       d = hi - lo;
     this.didLoop =
       this.#loop === 'once'
-        ? (a > lo && b <= lo) || (a < hi && b >= hi)
-        : Math.floor((a - lo) / d) !== Math.floor((b - lo) / d);
+        ? (!reached(lo, a) && reached(lo, b)) || (!reached(a, hi) && reached(b, hi))
+        : timeFloor(a - lo, d) !== timeFloor(b - lo, d);
     crossings(this.animation, a, b, this.#entered, this.name, events, this.#loop);
     this.#entered = false;
     this.#clock = this.#loop === 'once' ? Math.max(lo, Math.min(hi, b)) : b;
@@ -340,6 +343,7 @@ export class MotionRuntime implements PlaybackPolicy {
     return position(t, this.clocks.raw(run, elapsed));
   }
   duration = (t: TimelineM, speed: number, run: object) => this.clocks.duration(t, speed, run);
+  finished = (t: TimelineM, elapsed: number, run: object) => this.clocks.finished(t, elapsed, run);
   reduce(t: TimelineM, speed: number, end: boolean, layer: string, events: AnimaEvent[]): number {
     const [a, b] = bounds(t),
       reverse = speed * (timing.get(t)?.speed ?? 1) < 0;
@@ -357,6 +361,7 @@ export class MotionRuntime implements PlaybackPolicy {
     out: AnimaEvent[],
     _speed: number,
     run: object,
+    source?: [number, string][],
   ): void {
     // Seeking/holding never synthesizes timeline crossings.
     if (this.clocks.isControlled(run)) return;
@@ -367,6 +372,8 @@ export class MotionRuntime implements PlaybackPolicy {
       closed && !this.clocks.synced(run),
       layer,
       out,
+      t.loop,
+      source,
     );
   }
   gate(t: TransitionM, st: StateM, elapsed: number, run: object): boolean {
@@ -374,9 +381,11 @@ export class MotionRuntime implements PlaybackPolicy {
     return (
       this.clocks.gate(run, st, t, elapsed) &&
       (threshold === undefined ||
-        elapsed *
-          Math.abs(st.speed * (timing.get(this.player.model.timelines[st.play!]!)?.speed ?? 1)) >=
-          threshold)
+        reached(
+          elapsed *
+            Math.abs(st.speed * (timing.get(this.player.model.timelines[st.play!]!)?.speed ?? 1)),
+          threshold,
+        ))
     );
   }
   carry(t: TransitionM, st: StateM, elapsed: number, run: object): number | undefined {

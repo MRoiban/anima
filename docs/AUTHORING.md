@@ -276,6 +276,7 @@ input.animl: 1 error
 <!-- diagnostics: trigger.animl -->
 ```text
 trigger.animl:4:27 error input-type "set" needs a bool or number input; "ring" is trigger
+  hint: use fire for a trigger
 trigger.animl: 1 error
 ```
 
@@ -528,3 +529,19 @@ Reduced-motion entry policy still takes precedence. See `anima docs motion` for 
 and `modules/motion/examples/sync.animl` plus its sample scripts for a complete button.
 
 `anima docs --list` includes every module chapter; `anima docs bind` explains expressions.
+
+## Counting clicks with expressions
+
+Declare `requires="bind events"`, a number `count`, and a trigger `pulse`. Then use
+`<listener on="click" set="count=count+1" fire="pulse"/>`. No state ladder or host increment is
+needed. A transition can use `when="pulse and count > 0 and mod(count, 5) == 0"` to select a
+milestone state; keep the ordinary pulse transition after it. `floor(x)` and `mod(a,b)` use the
+same evaluator as property bindings. Spaces around subtraction avoid hyphenated input names.
+
+Sets within one action read one pre-action snapshot; separate actions see prior writes. Numbers
+clamp to their input bounds. Machine state `entry`/`exit` and transition `actions` JSON attributes
+accept the same actions. Emit `shared` on pulse entry and define its fields with
+`<event-def name="shared" payload='{"count":{"type":"number","value":"{count}"},"channel":{"type":"string","value":"button"}}'/>`.
+Fields resolve at the end of the step. Run `anima schema listener`/`state`/`transition` to inspect
+the forms. See `modules/events/examples/share.animl` and its sample scripts for a complete share
+button, including milestones past ten and an audio request verified through browser tests.

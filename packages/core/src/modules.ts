@@ -21,7 +21,15 @@ import {
   type Shape,
 } from './registry.ts';
 import type { Diags } from './diag.ts';
-import { load, resolveAddress, type Addr, type Model, type NodeM, type Value } from './load.ts';
+import {
+  load,
+  inputExpression,
+  resolveAddress,
+  type Addr,
+  type Model,
+  type NodeM,
+  type Value,
+} from './load.ts';
 import { Player, sampleTrack, mixValues } from './player.ts';
 import type { DrawTree, DrawNode, DrawEntry, DrawFrame } from './draw.ts';
 
@@ -42,6 +50,7 @@ export interface ModuleRegistry {
   sampleTrack: typeof sampleTrack;
   mixValues: typeof mixValues;
   resolveAddress: typeof resolveAddress;
+  inputExpression: typeof inputExpression;
   PAINTED: typeof PAINTED;
   FILL: typeof FILL;
   STROKE: typeof STROKE;
@@ -53,6 +62,14 @@ export interface Module {
   after?: readonly string[];
   init?(registry: ReadonlyMap<string, Module>, shapes: ModuleRegistry): Module;
   entries: ModuleEntry[];
+  expression?(
+    source: string,
+    types: ReadonlyMap<string, string>,
+    expected: string,
+    pointer: string,
+    diag: Diags,
+    read?: (name: string) => void,
+  ): ((scope: ReadonlyMap<string, number | boolean>) => Value) | undefined;
   ease?(source: string, pointer: string, diag: Diags): import('./ease.ts').EaseFn | undefined;
   track?(
     track: import('./load.ts').TrackM,
@@ -111,6 +128,7 @@ export function registerModule(m: Module): void {
         STROKE,
         PAINT,
         resolveAddress,
+        inputExpression,
         load,
         Player,
         sampleTrack,

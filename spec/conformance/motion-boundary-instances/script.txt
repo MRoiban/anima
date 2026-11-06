@@ -1,0 +1,20 @@
+instance one once
+timeline one speed -1
+timeline one seek 0.7
+instance two loop
+advance 0
+snapshot
+advance 0.25 in 15
+snapshot
+advance 0.25 in 15
+snapshot
+advance 0
+snapshot
+timeline two pause
+advance 0
+snapshot
+timeline one speed 1
+timeline one play
+timeline two stop
+advance 0.5 in 30
+snapshot

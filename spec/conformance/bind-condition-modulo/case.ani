@@ -1,0 +1,62 @@
+{
+  "anima": "0.1",
+  "name": "bind-condition-modulo",
+  "grid": 20,
+  "requires": ["bind"],
+  "inputs": {
+    "count": {
+      "type": "number"
+    },
+    "click": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 2,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {},
+            "on": [
+              {
+                "when": "click && count > 0 && mod(count, 5) == floor(0.9)",
+                "to": "milestone"
+              }
+            ]
+          },
+          "milestone": {
+            "pose": {},
+            "emit": "milestone",
+            "on": [
+              {
+                "when": "@after(0)",
+                "to": "idle"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "click",
+      "fire": "click",
+      "set": {
+        "count": "count+1"
+      }
+    }
+  ]
+}

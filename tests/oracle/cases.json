@@ -251,5 +251,201 @@
       "0.75": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0\ntimeline t scrub 1\nadvance 0",
       "1": "timeline t scrub 0.75\nadvance 0\ntimeline t scrub 0.25\nadvance 0\ntimeline t scrub 1\nadvance 0\ntimeline t scrub 0\nadvance 0"
     }
+  },
+  {
+    "name": "animation-key-event-target",
+    "times": [1.1],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "events": {
+      "fps": 60,
+      "script": "script.txt",
+      "reference": "rive/events.json",
+      "omitLifecycle": false,
+      "urls": false
+    }
+  },
+  {
+    "name": "events-state-end",
+    "times": [1.1],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "events": {
+      "fps": 60,
+      "script": "script.txt",
+      "reference": "rive/events.json",
+      "omitLifecycle": true,
+      "urls": false
+    }
+  },
+  {
+    "name": "events-transition-start",
+    "times": [1.1],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "events": {
+      "fps": 60,
+      "script": "script.txt",
+      "reference": "rive/events.json",
+      "omitLifecycle": true,
+      "urls": false
+    }
+  },
+  {
+    "name": "events-transition-end",
+    "times": [1.1],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "events": {
+      "fps": 60,
+      "script": "script.txt",
+      "reference": "rive/events.json",
+      "omitLifecycle": true,
+      "urls": false
+    }
+  },
+  {
+    "name": "events-url",
+    "times": [1.1],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "events": {
+      "fps": 60,
+      "script": "script.txt",
+      "reference": "rive/events.json",
+      "omitLifecycle": false,
+      "urls": true
+    }
+  },
+  {
+    "name": "events-payload-number",
+    "times": [1.1],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "events": {
+      "fps": 60,
+      "script": "script.txt",
+      "reference": "rive/events.json",
+      "payloadPaths": {
+        "ping": {
+          "value": "value"
+        }
+      }
+    }
+  },
+  {
+    "name": "events-payload-boolean",
+    "times": [1.1],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "events": {
+      "fps": 60,
+      "script": "script.txt",
+      "reference": "rive/events.json",
+      "payloadPaths": {
+        "ping": {
+          "value": "value"
+        }
+      }
+    }
+  },
+  {
+    "name": "events-payload-string",
+    "times": [1.1],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "events": {
+      "fps": 60,
+      "script": "script.txt",
+      "reference": "rive/events.json",
+      "payloadPaths": {
+        "ping": {
+          "value": "value"
+        }
+      }
+    }
+  },
+  {
+    "name": "events-payload-key-bind",
+    "times": [1.1],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "events": {
+      "fps": 60,
+      "script": "script.txt",
+      "reference": "rive/events.json",
+      "payloadPaths": {
+        "ping": {
+          "value": "value"
+        }
+      }
+    }
+  },
+  {
+    "name": "events-transition-end/boundary-probe",
+    "times": [1.1],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "events": {
+      "fps": 60,
+      "script": "script.txt",
+      "reference": "events.json",
+      "omitLifecycle": true,
+      "urls": false
+    }
+  },
+  {
+    "name": "data-bind-listener-actions",
+    "times": [0.4166666666666667],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "bind-action-clamp",
+    "times": [0.4166666666666667],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "bind-event-expression",
+    "times": [0.4166666666666667],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
+  },
+  {
+    "name": "bind-condition-modulo",
+    "times": [0.4166666666666667],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "observations": {
+      "script": "script.txt",
+      "reference": "rive/observations.json"
+    }
   }
 ]

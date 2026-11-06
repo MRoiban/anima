@@ -1,0 +1,167 @@
+{
+  "anima": "0.1",
+  "name": "share",
+  "title": "Share",
+  "grid": 20,
+  "requires": ["bind", "events", "assets"],
+  "colors": {
+    "ink": "#141413",
+    "accent": "#d97757"
+  },
+  "inputs": {
+    "count": {
+      "type": "number",
+      "default": 0
+    },
+    "pulse": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "links",
+      "type": "path",
+      "d": "M5 10L15 5M5 10L15 15",
+      "stroke": {
+        "color": "ink",
+        "width": 1.5
+      }
+    },
+    {
+      "id": "left",
+      "type": "circle",
+      "center": [5, 10],
+      "r": 2,
+      "pivot": [5, 10],
+      "fill": {
+        "color": "ink"
+      }
+    },
+    {
+      "id": "top",
+      "type": "circle",
+      "center": [15, 5],
+      "r": 2,
+      "pivot": [15, 5],
+      "fill": {
+        "color": "ink"
+      }
+    },
+    {
+      "id": "bottom",
+      "type": "circle",
+      "center": [15, 15],
+      "r": 2,
+      "pivot": [15, 15],
+      "fill": {
+        "color": "ink"
+      }
+    }
+  ],
+  "timelines": {
+    "pulse": {
+      "duration": 0.4,
+      "loop": "once",
+      "tracks": {
+        "left.scale": [
+          [0, 1],
+          [0.15, 1.3],
+          [0.3, 1]
+        ],
+        "top.scale": [
+          [0, 1],
+          [0.05, 1],
+          [0.2, 1.3],
+          [0.35, 1]
+        ],
+        "bottom.scale": [
+          [0, 1],
+          [0.1, 1],
+          [0.25, 1.3],
+          [0.4, 1]
+        ]
+      },
+      "events": [
+        [0.4, "pulse-done"]
+      ]
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {},
+            "on": [
+              {
+                "when": "pulse && mod(count, 5) == 0",
+                "to": "pulsing",
+                "startEmit": "milestone"
+              },
+              {
+                "when": "pulse",
+                "to": "pulsing"
+              }
+            ]
+          },
+          "pulsing": {
+            "play": "pulse",
+            "emit": "shared",
+            "on": [
+              {
+                "when": "pulse && mod(count, 5) == 0",
+                "to": "pulsing",
+                "startEmit": "milestone"
+              },
+              {
+                "when": "pulse",
+                "to": "pulsing"
+              },
+              {
+                "when": "@end",
+                "to": "idle"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "click",
+      "fire": "pulse",
+      "set": {
+        "count": "count+1"
+      }
+    }
+  ],
+  "assets": {
+    "tone": {
+      "type": "audio",
+      "source": "tone.wav"
+    }
+  },
+  "eventDefs": {
+    "shared": {
+      "payload": {
+        "count": {
+          "type": "number",
+          "input": "count"
+        },
+        "channel": {
+          "type": "string",
+          "value": "button"
+        }
+      },
+      "audio": "tone",
+      "volume": 0.4
+    },
+    "pulse-done": {},
+    "milestone": {
+      "url": "https://example.org/thanks",
+      "target": "_blank"
+    }
+  }
+}

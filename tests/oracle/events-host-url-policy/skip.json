@@ -1,0 +1,13 @@
+{
+  "status": "skip",
+  "reason": "Local capture reports url https://example.org/probe with no OS opener. The headless runner provides no browser host URL-policy callback, document origin, window.open target or automatic-link policy. URL reports are verified separately; allow/deny navigation policy remains browser-only.",
+  "tests": [
+    "modules/events/test/core/events.test.ts",
+    "modules/events/test/web/events.browser.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/events-host-url-policy/rive/session.txt",
+    "tests/oracle/events-host-url-policy/rive/data.json",
+    "tests/oracle/events-host-url-policy/rive/semantics.json"
+  ]
+}

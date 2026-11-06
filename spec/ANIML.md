@@ -448,3 +448,40 @@ are normative in SPEC's **Declarative timeline control** subsection.
 ```
 
 The complete sync button is [modules/motion/examples/sync.animl](../modules/motion/examples/sync.animl).
+
+## Event definitions (`events`)
+
+With `requires="events"`, root `<event-def name="…" payload='{"n":{"type":"number","input":"count"}}'/>`
+declares typed payload fields. Optional url/target/audio/volume attributes map directly to the
+JSON definition. Payload is a JSON object encoded in a normal XML attribute; the compiler and
+decompiler preserve its structure. `<audio-volume asset="tone" value="0.5"/>` supplies a
+resource gain. Timeline `<event at="0.5" name="…"/>`, state emit and listener emit are unchanged.
+Local listeners use `on="event:name"`; component listeners keep their scoped event names.
+
+State `endEmit="name"` and transition `<on startEmit="name" endEmit="name" .../>` report
+named events at state exit, transition start and successful transition completion. Payloads and
+host effects use the same event definitions. Interrupted transition end actions do not run.
+
+## Input expressions in actions and conditions (`bind`)
+
+With `requires="bind"`, listener assignments accept expressions:
+`<listener on="click" set="count=count+1 previous=count" fire="pulse"/>`.
+Finite numeric and bool literals keep their 0.1 meaning. Spaces and commas inside expressions
+are retained; whitespace followed by `name=` starts the next assignment. All assignments in one
+action read the same pre-action input snapshot when the queued action runs, then numeric results
+clamp to the target bounds. Separate actions see earlier writes. Bool targets require bool results;
+number targets also accept bools as 0/1. Colour results cannot be assigned to bool/number inputs.
+
+The existing bind grammar adds `floor(x)` and `mod(a,b)` (SPEC bind chapter). Arithmetic comparisons
+work on either side of a condition operator, for example
+`when="count > 0 and mod(count, 5) == 0"`; legacy conditions retain their type rules.
+State `entry`/`exit` and transition `actions` use JSON attributes with the listener action keys:
+`<state name="idle" entry='{"set":{"count":0}}'>` and
+`<on when="tap" to="playing" actions='{"set":{"count":"count+1"}}'/>`.
+These blocks require bind and run immediately in SPEC §7/§bind order.
+
+Typed event payload fields use the existing JSON payload attribute:
+`payload='{"count":{"type":"number","value":"{count}"}}'`.
+Number/bool/color expression fields require bind and resolve at event reporting after state
+resolution and bindings, as existing input payload fields do. String fields keep literal braces.
+Examples and executable evidence: `modules/events/examples/share.animl` and `share-evidence/`.

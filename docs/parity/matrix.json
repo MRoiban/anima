@@ -793,11 +793,11 @@
   "id": "animation.key-event-target",
   "category": "animation",
   "capability": "Keyed event callbacks",
-  "construct": "new: timeline event object references and payloads",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "conformance/key-event-target",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/animation-key-event-target)",
+  "phase": "P4d"
  },
  {
   "id": "animation.keys-boolean",
@@ -893,11 +893,11 @@
   "id": "animation.loop-callback",
   "category": "animation",
   "capability": "Loop notifications",
-  "construct": "new: timeline loop event",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "conformance/loop-callback",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/animation-loop-callback/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "animation.loop-loop",
@@ -1093,11 +1093,11 @@
   "id": "assets.audio-volume",
   "category": "assets",
   "capability": "Resource-wide audio volume",
-  "construct": "new: assets.<name> / build.assets.<name>: named audio-volume resource setting",
-  "module": "audio",
-  "status": "planned",
-  "test": "oracle/assets-audio-volume",
-  "phase": "P4"
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
+  "module": "events",
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/assets-audio-volume/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "assets.blob",
@@ -1893,11 +1893,11 @@
   "id": "data.bind-listener-actions",
   "category": "data",
   "capability": "Bind listener values",
-  "construct": "new: bind.<listener-actions>: {from: \"model.property\"}",
+  "construct": "bind input expression set values; SPEC bind / Input expressions in actions; modules/events/examples/share.animl",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-bind-listener-actions",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/bind/test/core/data-bind-listener-actions.test.ts; spec/conformance/data-bind-listener-actions; tests/oracle/data-bind-listener-actions; tests/oracle/bind-action-clamp; tests/oracle/bind-condition-modulo (exact post-click observations; immediate timing finding in immediate-probe/finding.json)",
+  "phase": "P4d"
  },
  {
   "id": "data.bind-script-inputs",
@@ -4773,21 +4773,21 @@
   "id": "events.audio",
   "category": "events",
   "capability": "Audio event",
-  "construct": "new: events.<name> and listener / state actions: audio with typed named payloads",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "oracle/events-audio",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-audio/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "events.host-delivery",
   "category": "events",
   "capability": "Host event delivery",
-  "construct": "new: event subscription API with typed payload reports and low-level report queue",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "oracle/events-host-delivery",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-host-delivery/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "events.host-name-report",
@@ -4803,11 +4803,11 @@
   "id": "events.host-url-policy",
   "category": "events",
   "capability": "Host navigation policy",
-  "construct": "new: events.<name> and listener / state actions: host-url-policy with typed named payloads",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "oracle/events-host-url-policy",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-host-url-policy/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "events.named-event",
@@ -4823,131 +4823,132 @@
   "id": "events.payload-boolean",
   "category": "events",
   "capability": "Boolean event payload",
-  "construct": "new: events.<name> and listener / state actions: payload-boolean with typed named payloads",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "oracle/events-payload-boolean",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-payload-boolean)",
+  "phase": "P4d"
  },
  {
   "id": "events.payload-key-bind",
   "category": "events",
   "capability": "Animated and bound payloads",
-  "construct": "new: events.<name> and listener / state actions: payload-key-bind with typed named payloads",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "oracle/events-payload-key-bind",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-payload-key-bind)",
+  "phase": "P4d"
  },
  {
   "id": "events.payload-number",
   "category": "events",
   "capability": "Number event payload",
-  "construct": "new: events.<name> and listener / state actions: payload-number with typed named payloads",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "oracle/events-payload-number",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-payload-number); tests/oracle/bind-event-expression; tests/oracle/bind-condition-modulo (new-count expressions, exact post-click dumps/reports)",
+  "phase": "P4d"
  },
  {
   "id": "events.payload-string",
   "category": "events",
   "capability": "String event payload",
-  "construct": "new: events.<name> and listener / state actions: payload-string with typed named payloads",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "oracle/events-payload-string",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-payload-string)",
+  "phase": "P4d"
  },
  {
   "id": "events.script-event-context",
   "category": "events",
   "capability": "Script event context",
-  "construct": "new: events.<name> and listener / state actions: script-event-context with typed named payloads",
+  "construct": "Deferred to P9: no script VM/context exists.",
   "module": "events",
   "status": "planned",
-  "test": "oracle/events-script-event-context",
-  "phase": "P4"
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-script-event-context/skip.json)",
+  "phase": "P9",
+  "reason": "No scripting VM or event context exists; implement alongside P9 scripting."
  },
  {
   "id": "events.state-end",
   "category": "events",
   "capability": "State end event",
-  "construct": "new: events.<name> and listener / state actions: state-end with typed named payloads",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "oracle/events-state-end",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-state-end)",
+  "phase": "P4d"
  },
  {
   "id": "events.transition-end",
   "category": "events",
   "capability": "Transition end event",
-  "construct": "new: events.<name> and listener / state actions: transition-end with typed named payloads",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "oracle/events-transition-end",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-transition-end)",
+  "phase": "P4d"
  },
  {
   "id": "events.transition-start",
   "category": "events",
   "capability": "Transition start event",
-  "construct": "new: events.<name> and listener / state actions: transition-start with typed named payloads",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "oracle/events-transition-start",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-transition-start)",
+  "phase": "P4d"
  },
  {
   "id": "events.url",
   "category": "events",
   "capability": "URL event",
-  "construct": "new: events.<name> and listener / state actions: url with typed named payloads",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "oracle/events-url",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle exact events (tests/oracle/events-url)",
+  "phase": "P4d"
  },
  {
   "id": "events.url-target-blank",
   "category": "events",
   "capability": "URL target: blank",
-  "construct": "new: events.<name> and listener / state actions: url-target-blank with typed named payloads",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "oracle/events-url-target-blank",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url-target-blank/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "events.url-target-parent",
   "category": "events",
   "capability": "URL target: parent",
-  "construct": "new: events.<name> and listener / state actions: url-target-parent with typed named payloads",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "oracle/events-url-target-parent",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url-target-parent/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "events.url-target-self",
   "category": "events",
   "capability": "URL target: self",
-  "construct": "new: events.<name> and listener / state actions: url-target-self with typed named payloads",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "oracle/events-url-target-self",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url-target-self/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "events.url-target-top",
   "category": "events",
   "capability": "URL target: top",
-  "construct": "new: events.<name> and listener / state actions: url-target-top with typed named payloads",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "oracle/events-url-target-top",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-url-target-top/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "gpu.artboard-textures",
@@ -5490,11 +5491,11 @@
   "id": "host-api.automatic-url-events",
   "category": "host-api",
   "capability": "Automatic URL actions",
-  "construct": "new: explicit host URL action policy",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "browser/automatic-url-events",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-automatic-url-events/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "host-api.autoplay",
@@ -5730,111 +5731,111 @@
   "id": "host-api.event-advance",
   "category": "host-api",
   "capability": "Callback: Advance",
-  "construct": "new: anima:advance DOM event",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "browser/event-advance",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-advance/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "host-api.event-draw",
   "category": "host-api",
   "capability": "Callback: Draw",
-  "construct": "new: anima:draw DOM event",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "browser/event-draw",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-draw/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "host-api.event-load",
   "category": "host-api",
   "capability": "Callback: Load",
-  "construct": "new: anima:load DOM event",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "browser/event-load",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-load/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "host-api.event-loaderror",
   "category": "host-api",
   "capability": "Callback: LoadError",
-  "construct": "new: anima:loaderror DOM event",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "browser/event-loaderror",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-loaderror/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "host-api.event-loop",
   "category": "host-api",
   "capability": "Callback: Loop",
-  "construct": "new: anima:loop DOM event",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "browser/event-loop",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-loop/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "host-api.event-pause",
   "category": "host-api",
   "capability": "Callback: Pause",
-  "construct": "new: anima:pause DOM event",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "browser/event-pause",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-pause/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "host-api.event-play",
   "category": "host-api",
   "capability": "Callback: Play",
-  "construct": "new: anima:play DOM event",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "browser/event-play",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-play/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "host-api.event-riveevent",
   "category": "host-api",
   "capability": "Callback: RiveEvent",
-  "construct": "new: anima:riveevent DOM event",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "browser/event-riveevent",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-riveevent/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "host-api.event-statechange",
   "category": "host-api",
   "capability": "Callback: StateChange",
-  "construct": "new: anima:statechange DOM event",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "browser/event-statechange",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-statechange/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "host-api.event-stop",
   "category": "host-api",
   "capability": "Callback: Stop",
-  "construct": "new: anima:stop DOM event",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "browser/event-stop",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-stop/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "host-api.event-subscriptions",
   "category": "host-api",
   "capability": "Subscribe to player events",
-  "construct": "new: DOM event lifecycle callbacks",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "browser/event-subscriptions",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-event-subscriptions/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "host-api.factory",
@@ -6544,11 +6545,11 @@
   "id": "host-api.volume",
   "category": "host-api",
   "capability": "Artboard volume",
-  "construct": "new: <anima-icon>.volume",
-  "module": "audio",
-  "status": "planned",
-  "test": "browser/volume",
-  "phase": "P4"
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
+  "module": "events",
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/host-api-volume/skip.json)",
+  "phase": "P4d"
  },
  {
   "id": "host-api.wasm-parallelism",
@@ -6744,11 +6745,11 @@
   "id": "input.event-listener",
   "category": "input",
   "capability": "Rive event listeners",
-  "construct": "new: listener.onEvent with event reference",
+  "construct": "modules/events; spec/SPEC.md (events); modules/events/examples/events.animl",
   "module": "events",
-  "status": "planned",
-  "test": "conformance/input-event-listener",
-  "phase": "P4"
+  "status": "done",
+  "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle finding (tests/oracle/input-event-listener/finding.json)",
+  "phase": "P4d"
  },
  {
   "id": "input.fire-event",

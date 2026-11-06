@@ -1,0 +1,1 @@
+{"time":0,"values":{},"states":{"main":"s"},"events":[{"name":"ping","layer":"main","time":0,"url":"https://example.com/path","target":"_blank","audio":"tone","volume":0.5}],"settled":true}

@@ -1,6 +1,13 @@
-import { motionCompiler } from './module-hooks.ts';
+import { motionCompiler, eventsCompiler } from './module-hooks.ts';
 import { parseXml, type Element } from './xml.ts';
-import { ELEMENTS, markupName, type NodeType } from '@anima-format/core';
+import {
+  ELEMENTS,
+  STATE,
+  TRANSITION,
+  type ObjShape,
+  markupName,
+  type NodeType,
+} from '@anima-format/core';
 import { markupAddress, nodeAttrs } from './names.ts';
 import { type LayoutElement, type LayoutChild, render } from './layout.ts';
 
@@ -41,7 +48,9 @@ export function decompile(doc: string | object): string {
               ? entries(o[k])
                   .map(([n, v]) => `${n}=${value(v)}`)
                   .join(' ')
-              : value(o[k]),
+              : ['entry', 'exit', 'actions'].includes(k)
+                ? JSON.stringify(o[k])
+                : value(o[k]),
         ]),
     ],
     children: typeof o.$comment === 'string' ? [{ comment: ` ${o.$comment} ` }] : [],
@@ -222,7 +231,7 @@ export function decompile(doc: string | object): string {
         const state = element(
           'state',
           s,
-          ['play', 'speed', 'emit', 'hold', 'time'],
+          Object.keys((STATE as ObjShape).p).filter((k) => k !== 'pose' && k !== 'on'),
           [['name', name]],
         );
         if (s.pose !== undefined)
@@ -239,23 +248,14 @@ export function decompile(doc: string | object): string {
           );
         state.children.push(
           ...((s.on ?? []) as Obj[]).map((on) =>
-            element('on', on, [
-              'when',
-              'to',
-              'blend',
-              'ease',
-              'interruptible',
-              'exit',
-              'exitFraction',
-              'sync',
-              'exitNext',
-            ]),
+            element('on', on, Object.keys((TRANSITION as ObjShape).p)),
           ),
         );
         el.children.push(state);
       }
       return el;
     });
+  groups.push(eventsCompiler.definitions?.(d) ?? []);
   groups.push(machineLayers(d.machine));
   groups.push(
     entries(d.machines).map(([name, machine]) => ({

@@ -1,0 +1,18 @@
+{
+  "reason": "Intentional difference (SPEC events): Anima listener responses occur on the next step to prevent step re-entry and recursive cascades. Sources: frames 13/28 in both; responses: Anima 14/29, Rive 13/28. This exact disagreement is retained, never a pass.",
+  "case": {
+    "name": "input-event-listener",
+    "times": [1.1],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0,
+    "events": {
+      "fps": 60,
+      "script": "script.txt",
+      "reference": "rive/events.json",
+      "omitLifecycle": false,
+      "urls": false
+    }
+  },
+  "classification": "intentional difference"
+}

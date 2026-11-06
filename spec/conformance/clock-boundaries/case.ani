@@ -1,0 +1,100 @@
+{
+  "anima": "0.1",
+  "name": "clock-boundaries",
+  "grid": 20,
+  "nodes": [
+    {
+      "id": "a",
+      "type": "circle",
+      "center": [0, 0],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "t": {
+      "duration": 1,
+      "tracks": {
+        "a.x": [
+          [0, 0, "hold"],
+          [0.25, 10, "hold"],
+          [0.5, 20, "hold"],
+          [1, 30]
+        ],
+        "a.visible": [
+          [0, true],
+          [0.25, false],
+          [0.5, true]
+        ]
+      },
+      "events": [
+        [0.25, "quarter"],
+        [0.5, "half"],
+        [1, "end"]
+      ]
+    }
+  },
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "play": "t",
+            "on": [
+              {
+                "when": "@end",
+                "to": "done"
+              }
+            ]
+          },
+          "done": {
+            "pose": {
+              "a.x": 30,
+              "a.visible": true
+            },
+            "emit": "finished"
+          }
+        }
+      },
+      "timer": {
+        "initial": "s",
+        "states": {
+          "s": {
+            "pose": {
+              "a.y": 0
+            },
+            "on": [
+              {
+                "when": "@after(0.5)",
+                "to": "fade",
+                "blend": 0.25,
+                "interruptible": false
+              }
+            ]
+          },
+          "fade": {
+            "pose": {
+              "a.y": 10
+            },
+            "emit": "begin",
+            "on": [
+              {
+                "when": "@after(0)",
+                "to": "done"
+              }
+            ]
+          },
+          "done": {
+            "pose": {
+              "a.y": 20
+            },
+            "emit": "done"
+          }
+        }
+      }
+    }
+  }
+}

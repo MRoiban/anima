@@ -1,0 +1,34 @@
+{
+  "share.animl": {
+    "lines": 33,
+    "characters": 1635
+  },
+  "make-tone.py": {
+    "lines": 12,
+    "characters": 464
+  },
+  "check.py": {
+    "lines": 19,
+    "characters": 795
+  },
+  "verify.py": {
+    "lines": 69,
+    "characters": 3377
+  },
+  "high-count.script": {
+    "lines": 8,
+    "characters": 179
+  },
+  "motion.script": {
+    "lines": 24,
+    "characters": 746
+  },
+  "rapid.script": {
+    "lines": 13,
+    "characters": 393
+  },
+  "repeat.script": {
+    "lines": 102,
+    "characters": 3250
+  }
+}

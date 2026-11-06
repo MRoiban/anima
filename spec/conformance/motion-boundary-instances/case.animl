@@ -1,0 +1,12 @@
+<anima version="0.1" name="motion-boundary-instances" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000"/>
+  <timeline name="once" duration="1" quantize="10" work="0.2 0.7">
+    <track target="a.x">0 0; 1 10</track>
+    <event at="0.2" name="lo"/>
+    <event at="0.7" name="hi"/>
+  </timeline>
+  <timeline name="loop" duration="1" loop="loop" quantize="10" work="0.2 0.7">
+    <track target="a.y">0 0; 1 10</track>
+    <event at="0.45" name="mid"/>
+  </timeline>
+</anima>

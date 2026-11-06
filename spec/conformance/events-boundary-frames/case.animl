@@ -1,0 +1,13 @@
+<anima version="0.1" name="events-oracle" grid="20" requires="events">
+  <circle id="a" cx="10" cy="10" r="1" fill="#000"/>
+  <timeline name="t" duration="1"/>
+  <layer name="main" initial="s">
+    <state name="s" play="t" endEmit="exit">
+      <on when="@after(0.5)" to="end" blend="0.25" startEmit="begin" endEmit="done"/>
+    </state>
+    <state name="end">
+      <pose/>
+    </state>
+  </layer>
+  <listener on="event:begin" emit="response"/>
+</anima>

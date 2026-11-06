@@ -1,0 +1,30 @@
+<anima version="0.1" name="motion-boundary-work" grid="20" requires="motion">
+  <circle id="a" cx="0" cy="0" r="1" fill="#000">
+    <channel name="n" type="int" value="0"/>
+    <channel name="p" type="int" value="0"/>
+  </circle>
+  <timeline name="loop" duration="1" loop="loop" quantize="10" work="0.2 0.7">
+    <track target="a.x">0 0 value-cubic(0.3333333333333333,3.3333333333333335,0.6666666666666666,6.666666666666667); 1 10</track>
+    <track target="a.channels.n">0 0; 0.4 4; 0.7 7</track>
+    <event at="0.45" name="mid"/>
+  </timeline>
+  <timeline name="ping" duration="1" loop="pingpong" speed="-1" quantize="10" work="0.2 0.7">
+    <track target="a.y">0 0; 1 10</track>
+    <track target="a.channels.p">0 0; 0.4 4; 0.7 7</track>
+    <event at="0.45" name="mid"/>
+  </timeline>
+  <timeline name="turn" duration="1" loop="pingpong" quantize="10" work="0.2 0.75">
+    <track target="a.rotate">0 0; 1 100</track>
+    <event at="0.2" name="start"/>
+    <event at="0.75" name="end"/>
+  </timeline>
+  <layer name="turn" initial="s">
+    <state name="s" play="turn"/>
+  </layer>
+  <layer name="loop" initial="s">
+    <state name="s" play="loop"/>
+  </layer>
+  <layer name="ping" initial="s">
+    <state name="s" play="ping"/>
+  </layer>
+</anima>

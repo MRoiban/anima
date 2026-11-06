@@ -1,3 +1,4 @@
+import { entries } from '../capabilities/data-bind-listener-actions/registry.ts';
 import { after } from '../manifest.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import { resolveAddress } from '../../../packages/core/src/load.ts';
@@ -14,7 +15,35 @@ export const bind: Module = {
     resolve = shared.resolveAddress;
     return { ...bind, init: undefined };
   },
+  expression(source, types, expected, pointer, diag, read) {
+    try {
+      const e = expression(source, types);
+      if (e.type !== expected && !(expected === 'number' && e.type === 'bool'))
+        throw new BindError('bind-type', e.at, `expected ${expected}, got ${e.type}`);
+      for (const name of e.inputs) {
+        read?.(name);
+        const i = diag.list.findIndex(
+          (d) => d.code === 'unused-input' && d.pointer === ptr('/inputs', name),
+        );
+        if (i >= 0) diag.list.splice(i, 1);
+      }
+      const run = (scope: Parameters<typeof evaluate>[1]) =>
+        expected === 'number' ? Number(evaluate(e, scope)) : evaluate(e, scope);
+      // Printed as its expression (anima inspect), not as compiled code.
+      run.toString = () => source;
+      return run;
+    } catch (err) {
+      if (!(err instanceof BindError)) throw err;
+      diag.err(
+        err.code,
+        pointer,
+        V && `${err.message} at character ${err.at + 1}`,
+        V && 'use declared non-trigger inputs and an expression matching the target type',
+      );
+    }
+  },
   entries: [
+    ...entries,
     {
       target: 'document',
       shapes: { bind: { k: 'map', of: { k: 'str' } } },

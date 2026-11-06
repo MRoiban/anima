@@ -1,0 +1,6 @@
+<anima version="0.1" name="bind-event-expression" grid="20" requires="bind events">
+  <circle id="dot" cx="10" cy="10" r="2" fill="#000"/>
+  <number name="count"/>
+  <listener on="click" set="count=count+1" emit="shared"/>
+  <event-def name="shared" payload='{"count":{"type":"number","value":"{count}"}}'/>
+</anima>
