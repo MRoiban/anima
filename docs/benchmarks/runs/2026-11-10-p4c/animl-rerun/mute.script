@@ -1,0 +1,12 @@
+advance 0
+snapshot muted volume waves.opacity slash.opacity wave1.opacity wave2.opacity wave3.opacity
+pointer click 3 6
+snapshot muted volume waves.opacity slash.opacity wave1.opacity wave2.opacity wave3.opacity
+set volume 0.83
+advance 0
+advance 0.2
+snapshot muted volume waves.opacity slash.opacity wave1.opacity wave2.opacity wave3.opacity
+pointer click 3 6
+snapshot muted volume waves.opacity slash.opacity wave1.opacity wave2.opacity wave3.opacity
+pointer click 7 6
+snapshot muted volume waves.opacity slash.opacity

@@ -1,0 +1,7 @@
+{"time":0,"values":{"volume":0.5},"states":{"blend":"level","feedback":"idle"},"events":[],"settled":false}
+{"time":0,"values":{"volume":0.6,"knob.x":0.6,"fill.stroke.trimEnd":0.6},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}
+{"time":0,"values":{"volume":0.5},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}
+{"time":0,"values":{"volume":0.4},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}
+{"time":0,"values":{"volume":1},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}
+{"time":0,"values":{"volume":0},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}
+{"time":0,"values":{"volume":0},"states":{"blend":"level","feedback":"pulse"},"events":[],"settled":false}

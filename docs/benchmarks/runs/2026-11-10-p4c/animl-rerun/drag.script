@@ -1,0 +1,19 @@
+advance 0
+# Grab one unit right of center (24,6): preserve offset -1.
+pointer down 25 6
+pointer move 31 6
+snapshot volume knob.x fill.trimEnd
+pointer move 50 6
+snapshot volume knob.x fill.trimEnd
+pointer move 0 6
+snapshot volume knob.x fill.trimEnd
+pointer move 19 6
+snapshot volume knob.x fill.trimEnd
+pointer up 19 6
+snapshot volume knob.x fill.trimEnd
+# Regrab half a unit left of center (18,6): preserve offset +0.5.
+pointer down 17.5 6
+pointer move 23.5 6
+snapshot volume knob.x fill.trimEnd
+pointer up 23.5 6
+snapshot volume knob.x fill.trimEnd
