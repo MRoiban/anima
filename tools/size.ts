@@ -28,7 +28,7 @@ const RUNTIME_SUM_CEILING = 160 * KB;
 const AUTHORING_CEILING = 16 * KB;
 const RIVE_CLASS_CEILING = 250 * KB;
 // The app-UI reference set (owner, 2026-11-07), by browser entry. Text, text-effects, fonts and fonts-text
-// are in (text input is heavy); add layout entries as they land.
+// and a11y-text are in (text input is heavy; text-hit is optional); add layout entries as they land.
 const APP_UI = [
   'paint',
   'assets',
@@ -54,6 +54,7 @@ const APP_UI = [
   'text',
   'fonts-text',
   'text-effects',
+  'a11y-text',
 ];
 
 import { moduleBudgets as MODULES, webOwners } from './modules.generated.ts';

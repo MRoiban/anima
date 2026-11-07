@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "P6-7: inferred names and measured layout bounds are implemented. Native text/container labels remain empty in both independently captured controls, unlike the specified Anima names; generated-font tool/browser line-gap policy also differs. Disposition and exact painted bounds remain open; see modules/a11y/oracle/text/README.md."
+}

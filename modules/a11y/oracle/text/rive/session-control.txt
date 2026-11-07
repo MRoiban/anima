@@ -1,0 +1,12 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[22:55:11.263] rive  deferred replay: inline
+[22:55:11.313] rive  built (8191 bytes, 50ms, 0 errors, 0 warnings)
+[22:55:11.314] rive  showing Inferred [1/1]
+[22:55:11.314] rive  viewport 100x60 @1x
+ok advance
+[22:55:11.314] rive  wrote frames/no-child-semantic.json
+ok semantics: frames/no-child-semantic.json
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[22:55:11.368] rive  wrote frames/no-child-semantic.png
+ok screenshot: frames/no-child-semantic.png
+ok quit

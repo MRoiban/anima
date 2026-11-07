@@ -1,4 +1,6 @@
 import type { Module } from '../../../packages/core/src/modules.ts';
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
+import { installTextSemantics } from './text.ts';
 import { after } from '../manifest.ts';
 import { entries } from './registry.ts';
 import { validate } from './validate.ts';
@@ -11,6 +13,7 @@ export const a11y: Module & { runtime: typeof runtime } = {
   entries,
   init(modules, shared) {
     install(shared.Player, modules);
+    if (V) installTextSemantics(runtime, modules);
     return {
       ...a11y,
       init: undefined,

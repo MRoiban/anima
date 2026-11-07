@@ -3116,3 +3116,13 @@ JSON `effects` array is AniML `text-effects` or structural `<text-effect>` child
 weights and matrix composition, animation addresses, validation, backend limits and evidence.
 The registry drives schema, CLI and both syntax spellings. Thirteen raw native captures are retained; accepted
 comparisons remain unresolved and these rows remain planned. Bidi's measured addition is 150 B min+gzip (owner guard: <=150 B).
+
+<!-- capability: text.script-hit-testing -->
+<!-- capability: a11y.inferred-text -->
+### Text hit testing and inferred semantics (P6)
+
+The optional `text-hit` host adapter exposes grapheme hit positions and caret/selection boxes
+from the shared text layout. `input` listeners may write `text-index` on a text target. The
+optional `a11y-text` browser adapter supplies visible text names and layout bounds to the semantic
+tree; headless tools install this adapter with a11y. Existing JSON/AniML text, label, bounds and
+listener fields are unchanged. See [the normative text semantics contract](../modules/a11y/TEXT.md).

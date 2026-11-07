@@ -33,6 +33,7 @@
     "./fonts": "./src/modules/fonts/index.ts",
     "./lists": "./src/modules/lists/index.ts",
     "./a11y": "./src/modules/a11y/index.ts",
+    "./a11y-text": "./src/modules/a11y/text.ts",
     "./a11y-actions": "./src/modules/a11y-actions/index.ts",
     "./nested": "./src/modules/nested/index.ts",
     "./surface": "./src/modules/surface/index.ts",
@@ -40,6 +41,7 @@
     "./mix": "./src/modules/mix/index.ts",
     "./componentpaint": "./src/modules/componentpaint/index.ts",
     "./text": "./src/modules/text/index.ts",
+    "./text-hit": "./src/modules/text/hit.ts",
     "./text-host": "./src/modules/text/host.ts",
     "./text-effects": "./src/modules/text-effects/index.ts"
   },

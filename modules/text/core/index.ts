@@ -9,6 +9,8 @@ import { ptr } from '../../../packages/core/src/diag.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import { after } from '../manifest.ts';
 import { entries, styleShape } from './registry.ts';
+// seam(P6-7): tooling gets listener hit testing; browser pays only in text-hit.
+import { installTextHit } from './hit.ts';
 import type { TextRunAccess } from './host.ts';
 export { textRun, createTextRunAccess } from './host.ts';
 import type { ObjShape, Shape } from '../../../packages/core/src/registry.ts';
@@ -115,6 +117,8 @@ const paint = (
       } as DrawPaint)
     : undefined;
 export interface TextModule extends Module {
+  // seam(P6-7): optional text-hit listener adapter.
+  hitTest?: (p: Player, i: number, x: number, y: number) => number;
   invalidateText: typeof invalidateText;
   textLayout: typeof textLayout;
   input: typeof textInput;
@@ -129,6 +133,7 @@ export const text: TextModule = {
   textLayout,
   input: textInput,
   init(registry, shared) {
+    if (V) installTextHit(text); // seam(P6-7): stripped from the display bundle.
     data = registry.get('data') as typeof data;
     fonts = registry.get('fonts') as typeof fonts;
     if (data) {

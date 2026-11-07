@@ -149,8 +149,8 @@ them as false. `live` defaults to off (absent from the tree). Slider defaults ar
 omission of that metadata. An omitted activation binding does not make a static
 literal checked/pressed/selected state writable. Explicit activate takes precedence
 and may name a trigger or writable bool. Numeric input/data constraints still apply
-after the semantic range clamp. These rules do not infer text labels or add fields
-to the shared tree contract.
+after the semantic range clamp. The optional text consumer infers labels as specified in [TEXT.md](TEXT.md), without adding
+fields to the shared tree contract.
 
 Independent conformance now covers every role (including none/heading),
 state changes through semantic actions, a legal role × state trait matrix, live
@@ -243,3 +243,8 @@ just as for pointer activation; a shared selected index with derived checked val
 triggers can express it. Browser Tab entry uses the checked enabled radio, else the first;
 arrow movement wraps and selects. Tabs retain manual activation. This extends the existing
 `a11y.roving-focus` policy rather than introducing a new focus system.
+
+## Optional text consumer (P6)
+
+[TEXT.md](TEXT.md) specifies grapheme host/listener access, inferred labels, and measured
+text layout bounds. Exact path/stroke bounds remain open as recorded above.

@@ -1,0 +1,18 @@
+
+> test:scope
+> node tools/test-scope.ts a11y-dom --browser=firefox
+
+Scopes: a11y-dom
+  browser: modules/a11y-dom/test/web/bf4.test.ts
+  browser: modules/a11y-dom/test/web/downstream.test.ts
+  browser: modules/a11y-dom/test/web/overlay.test.ts
+  browser: modules/a11y-dom/test/web/text-hit.test.ts
+  browser filter: firefox
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-22fba684
+
+
+ Test Files  4 passed (4)
+      Tests  58 passed | 58 skipped (116)
+   Start at  23:13:20
+   Duration  149.52s (tests 95%, import 5%)

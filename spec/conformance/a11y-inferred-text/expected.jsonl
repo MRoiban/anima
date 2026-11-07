@@ -1,0 +1,1 @@
+{"time": 0, "values": {}, "states": {}, "events": [], "settled": true, "semantics": [{"id": "container", "role": "group", "states": {}, "bounds": [10, 20.5, 18, 10], "actions": [], "children": [{"id": "label", "role": "text", "states": {}, "bounds": [10, 20.5, 18, 10], "actions": [], "children": [], "label": "ABC"}], "label": "ABC"}]}

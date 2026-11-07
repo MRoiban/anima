@@ -2,6 +2,7 @@
 import './a11y.ts';
 import './a11y-actions.ts';
 import './a11y-dom.ts';
+import './a11y-text.ts';
 import './assetio.ts';
 import './assets.ts';
 import './bind.ts';
@@ -34,4 +35,5 @@ import './paint-sampling.ts';
 import './surface.ts';
 import './text.ts';
 import './text-effects.ts';
+import './text-hit.ts';
 import './text-host.ts';

@@ -35,7 +35,8 @@ describe('authored AniML corpus', () => {
     // [BF-2] Manual tab activation keys. [BF-1] Inherited library data and qualified/legacy component lookup. [P6-3] Generated font asset declaration. [BF-4] Additional roles, radio keys and repeated data writes. [BF-3] Empty component library and settled derived guard. [P6-1] 29 text capability probes.
     // seam(P6-5): fourteen effect/direction probes plus negative-tracking background.
     // seam(P6-8): seven font probes now have real resource/text expectations.
-    expect(cases).toHaveLength(553);
+    // seam(P6-7): inferred-text and listener-index conformance probes.
+    expect(cases).toHaveLength(555);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);

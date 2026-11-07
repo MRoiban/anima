@@ -16,20 +16,31 @@ const files = globSync([
   'spec/conformance/*/case.ani',
   'spec/draw-conformance/*/case.ani',
 ]).sort();
-const models = files.map((file) => {
-  const result = load(readFileSync(file, 'utf8'));
+// seam(P6-7): text semantics need the tool measurer before runScript, without importing core/all.
+const { documentFonts, installToolMeasurer } = await import('../../../cli/src/font/document.ts');
+const models = [];
+for (const file of files) {
+  const source = readFileSync(file, 'utf8');
+  const doc = JSON.parse(source);
+  if (doc.requires?.includes('text')) {
+    const fonts = documentFonts(doc, file);
+    if (fonts.diagnostics.some((d) => d.severity === 'error'))
+      throw Error(`${file}: ${JSON.stringify(fonts.diagnostics)}`);
+    await installToolMeasurer(fonts.measurer);
+  }
+  const result = load(source);
   if (!result.model) throw Error(`${file}: ${JSON.stringify(result.diagnostics)}`);
   const player = new Player(result.model);
   const script = file.startsWith('spec/conformance/')
     ? readFileSync(file.replace('case.ani', 'script.txt'), 'utf8')
     : 'advance 0.25\nsnapshot';
-  return {
+  models.push({
     file,
     ...result,
     snapshots: runScript(result.model, script).snapshots,
     initial: player.values(),
-  };
-});
+  });
+}
 const { run } = await import('../../../cli/src/cli.ts');
 const cli: string[] = [];
 for (const topic of [

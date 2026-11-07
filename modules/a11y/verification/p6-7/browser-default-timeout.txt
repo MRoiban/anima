@@ -1,0 +1,32 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-22fba684
+
+ ❯ |browser| modules/a11y-dom/test/web/text-hit.test.ts (4 tests | 4 failed) 22747ms
+   × Chromium text hit and semantics index→text→a11y-dom→a11y-text→text-hit→input→text-host 6063ms
+   × Chromium text hit and semantics text-hit→a11y-text→input→a11y-dom→text-host→text→index 5682ms
+   × Firefox text hit and semantics index→text→a11y-dom→a11y-text→text-hit→input→text-host 5161ms
+   × Firefox text hit and semantics text-hit→a11y-text→input→a11y-dom→text-host→text→index 5838ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/a11y-dom/test/web/text-hit.test.ts > Chromium text hit and semantics index→text→a11y-dom→a11y-text→text-hit→input→text-host
+ FAIL  |browser| modules/a11y-dom/test/web/text-hit.test.ts > Chromium text hit and semantics text-hit→a11y-text→input→a11y-dom→text-host→text→index
+ FAIL  |browser| modules/a11y-dom/test/web/text-hit.test.ts > Firefox text hit and semantics index→text→a11y-dom→a11y-text→text-hit→input→text-host
+ FAIL  |browser| modules/a11y-dom/test/web/text-hit.test.ts > Firefox text hit and semantics text-hit→a11y-text→input→a11y-dom→text-host→text→index
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/a11y-dom/test/web/text-hit.test.ts:26:43
+     24|     ['text-hit', 'a11y-text', 'input', 'a11y-dom', 'text-host', 'text'…
+     25|   ])
+     26|     it.skipIf(!existsSync(executablePath))(
+       |                                           ^
+     27|       `${name} text hit and semantics ${order.join('→')}`,
+     28|       async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed (4)
+   Start at  23:00:14
+   Duration  24.19s (tests 95%, import 4%)

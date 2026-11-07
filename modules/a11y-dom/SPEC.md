@@ -126,3 +126,7 @@ DESIGN §3.4 and the size/lifecycle observations in
 [the web-runtime research](../../docs/research/rive-web-runtime.md) (§§2, 7, 8).
 It uses browser controls and Anima's existing diff/focus policies; no Rive code or
 CLI documentation text was copied.
+
+With the optional `a11y-text` entry, the same overlay consumes inferred text labels and measured
+layout bounds as specified in [a11y/TEXT.md](../a11y/TEXT.md). Renderer rebuilds restore the layer
+without advancing the player.
