@@ -1,3 +1,9 @@
+import { documentFonts, installToolMeasurer } from './font/document.ts';
+import { ToolMeasurer } from './font/measure.ts';
+import { outlineSVG } from './font/svg.ts';
+import { browserTextPNG, embedFontCSS } from './font/browser.ts';
+import { importFont, googleFonts } from './font/import.ts';
+import { flattenText } from './font/flatten.ts';
 import { createScriptSession } from '../../core/src/script.ts';
 import { resolve, basename } from 'node:path';
 import { findProject, projectSource, substituteConstants } from './project.ts';
@@ -67,6 +73,9 @@ const ROOT = new URL('../../../', import.meta.url);
 const HELP = `anima — check, see and scaffold .animl and .ani animations
 
   anima playground [file.animl] [--port 4519]  local live editor (built-in bell is read-only)
+  anima import-font <font> -o local.ttf [--chars "ABC"]  store/subset a font
+  anima import-font --google "Family:wght@400;600" -o local.ttf  fetch at build time
+  anima flatten <file> [--node id] [-o out.ani] [--font name=path]  text to outlines
   anima validate <file>                 all diagnostics, with JSON pointers, lines and hints
   anima inspect <file>                  nodes, glyph subpaths and bounds, timelines, state graph
   anima sample <file> [-s script | -e "cmds"] [--reduced-motion] [--all] [--semantics] [--seed N]
@@ -75,7 +84,7 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
   anima bench <file> [-s script] [--frames N] [--format=json]  compile and frame costs
   anima render <file> -o out.svg|png [--at t] [-s script | -e "cmds"] [--size px]
                [--sheet N [--over seconds]] [--dark] [--color slot=#hex] [--current #hex]
-               [--background #hex]       draw a frame or a labelled contact sheet
+               [--background #hex] [--font name=path] [--browser-text] draw a frame or a labelled contact sheet
   anima render <file> --compare glyph.svg [--at t] [-s script | -e "cmds"]
                [--size px] [--tolerance 0..255] [-o diff.png]
                                         compare RGBA pixels (default 256px, black currentColor,
@@ -112,6 +121,11 @@ export async function run(argv: string[], io: IO): Promise<number> {
       args: argv,
       allowPositionals: true,
       options: {
+        font: { type: 'string', multiple: true },
+        'browser-text': { type: 'boolean' },
+        google: { type: 'string' },
+        chars: { type: 'string' },
+        node: { type: 'string' },
         component: { type: 'string' },
         fit: { type: 'string' },
         viewport: { type: 'string' },
@@ -171,6 +185,48 @@ export async function run(argv: string[], io: IO): Promise<number> {
   if (!cmd || o.help) return (io.out(HELP), cmd || o.help ? 0 : 2);
   const emit = (v: unknown) => io.out(JSON.stringify(v, null, json ? undefined : 2));
   try {
+    let fonts = { measurer: new ToolMeasurer(), diagnostics: [] as Diagnostic[] };
+    if (['sample', 'validate', 'render', 'flatten', 'build'].includes(cmd)) {
+      const f = file(rest),
+        source = projectSource(f);
+      let doc: unknown;
+      let sourceMap: Map<string, import('@anima-format/markup').Pos> | undefined;
+      if (f.endsWith('.animl'))
+        ({ doc, map: sourceMap } = compile(source, {
+          file: f,
+          validate: false,
+          resolve: (path) =>
+            substituteConstants(readFileSync(path, 'utf8'), findProject()?.constants),
+        }));
+      else {
+        try {
+          doc = JSON.parse(source);
+        } catch {
+          /* normal validation owns syntax diagnostics */
+        }
+      }
+      if (
+        doc &&
+        typeof doc === 'object' &&
+        (o.font?.length ||
+          ('requires' in doc &&
+            Array.isArray(doc.requires) &&
+            doc.requires.some((r: unknown) => r === 'text' || r === 'fonts')))
+      )
+        fonts = documentFonts(doc, f, o.font, (pointer) => sourceMap?.get(pointer)?.file ?? f);
+      if (fonts.diagnostics.some((d) => d.severity === 'error')) {
+        if (json) emit({ file: f, ok: false, diagnostics: fonts.diagnostics });
+        else report(f, fonts.diagnostics, io);
+        return 1;
+      }
+      fonts.measurer.onDiagnostic = (diagnostic) => {
+        if (fonts.diagnostics.some((d) => d.code === diagnostic.code)) return;
+        fonts.diagnostics.push(diagnostic);
+        if (cmd !== 'validate') report(f, [diagnostic], io);
+      };
+      await installToolMeasurer(fonts.measurer);
+      if (cmd !== 'validate') report(f, fonts.diagnostics, io);
+    }
     switch (cmd) {
       case 'doctor': {
         const result = await doctor();
@@ -237,7 +293,7 @@ export async function run(argv: string[], io: IO): Promise<number> {
         }
       }
       case 'validate':
-        return validate(file(rest), json, io);
+        return validate(file(rest), json, io, fonts.diagnostics);
       case 'inspect':
         return inspect(file(rest), json, io, !!o.summary);
       case 'sample': {
@@ -291,9 +347,32 @@ export async function run(argv: string[], io: IO): Promise<number> {
             { ...presets[i], ...explicit, out: output },
             json,
             io,
+            fonts.measurer,
           );
           if (result) return result;
         }
+        return 0;
+      }
+      case 'import-font': {
+        if (!o.out) throw new Usage('import-font needs -o local.ttf|otf');
+        if (o.google ? rest.length !== 0 : rest.length !== 1)
+          throw new Usage('import-font takes a font file or --google family:axes@values');
+        const assets = o.google
+          ? await googleFonts(o.google, o.out, o.chars)
+          : [importFont(file(rest), o.out, o.chars)];
+        emit({ assets });
+        return 0;
+      }
+      case 'flatten': {
+        const f = file(rest),
+          result = loaded(f, io, json);
+        if (!result.model) return 1;
+        const doc = flattenText(JSON.parse(result.text), fonts.measurer, o.node),
+          text = format(doc);
+        if (o.out) writeFileSync(o.out, o.out.endsWith('.animl') ? decompile(text) : text);
+        else if (io.write) io.write(text);
+        else io.out(text);
+        if (json && o.out) emit({ wrote: o.out });
         return 0;
       }
       case 'build': {
@@ -588,8 +667,9 @@ function report(f: string, ds: Located[], io: IO): void {
   }
 }
 
-function validate(f: string, json: boolean, io: IO): number {
+function validate(f: string, json: boolean, io: IO, extra: Diagnostic[] = []): number {
   const { model, diagnostics } = check(f);
+  diagnostics.push(...extra);
   if (json) io.out(JSON.stringify({ file: f, ok: !!model, diagnostics }));
   else {
     report(f, diagnostics, io);
@@ -822,7 +902,14 @@ async function render(
   o: Record<string, unknown>,
   json: boolean,
   io: IO,
+  measurer: ToolMeasurer,
 ): Promise<number> {
+  const drawFrame = (player: Player, look: Look, size?: number, id?: string) => {
+    const svg = frameSVG(player, look, size, id);
+    return o['browser-text'] ? embedFontCSS(svg, measurer) : outlineSVG(svg, measurer);
+  };
+  const rasterize = (svg: string) =>
+    o['browser-text'] ? browserTextPNG(svg, measurer) : Promise.resolve(toPNG(svg));
   const out = o.out as string | undefined;
   const compare = o.compare as string | undefined;
   if ((!compare && !out && !o.probe && !o.audio) || (out && !/\.(svg|png|webm)$/.test(out)))
@@ -912,13 +999,20 @@ async function render(
   if (compare) {
     if (o.sheet || (out && !out.endsWith('.png')))
       throw new Usage('--compare takes a single frame and optional -o diff.png');
-    const result = compareSVG(
-      frameSVG(player, { paint: look.paint, color: '#000' }, size),
-      readFileSync(compare, 'utf8'),
-      size,
-      tolerance,
-      !!out,
-    );
+    const result = o['browser-text']
+      ? comparePNG(
+          await rasterize(drawFrame(player, { paint: look.paint, color: '#000' }, size)),
+          toPNG(readFileSync(compare, 'utf8'), size),
+          tolerance,
+          !!out,
+        )
+      : compareSVG(
+          drawFrame(player, { paint: look.paint, color: '#000' }, size),
+          readFileSync(compare, 'utf8'),
+          size,
+          tolerance,
+          !!out,
+        );
     if (out) writeFileSync(out, result.diff!);
     const { diff, ...metrics } = result;
     void diff;
@@ -953,14 +1047,14 @@ async function render(
     for (let i = 0; i < n; i++) {
       if (i) session.execute('advance ' + 1 / fps);
       const svg = viewportSVG(
-        frameSVG(player, look, size),
+        drawFrame(player, look, size),
         width!,
         height!,
         fit,
         scale,
         look.background,
       );
-      const png = toPNG(svg);
+      const png = await rasterize(svg);
       if (out.endsWith('.webm')) images.push(png);
       else {
         const path = out.replace(/\.png$/, '-' + String(i).padStart(4, '0') + '.png');
@@ -999,13 +1093,13 @@ async function render(
       if (k) player.step(span / (n - 1));
       frames.push([
         `t=${(player.time - t0).toFixed(3)}s`,
-        frameSVG(player, look, undefined, `f${k}`),
+        drawFrame(player, look, undefined, `f${k}`),
       ]);
     }
     svg = sheetSVG(frames, look, size >= 240 ? 160 : size);
-  } else svg = frameSVG(player, look, size);
+  } else svg = drawFrame(player, look, size);
   if (!o.sheet) svg = viewportSVG(svg, width!, height!, fit, scale, look.background);
-  const png = out?.endsWith('.png') || o.probe ? toPNG(svg) : undefined;
+  const png = out?.endsWith('.png') || o.probe ? await rasterize(svg) : undefined;
   let probes;
   if (o.probe) {
     try {

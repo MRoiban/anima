@@ -1,0 +1,95 @@
+
+> test:scope
+> node tools/test-scope.ts cli --no-browser
+
+Scopes: cli
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/assets/test/cli/assets.test.ts
+  unit: modules/assets/test/cli/pipeline.test.ts
+  unit: modules/componentpaint/test/cli/componentpaint.test.ts
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/convert/test/cli/convert.test.ts
+  unit: modules/data-host/test/cli/api.test.ts
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/data/test/cli/extras.test.ts
+  unit: modules/derive/test/cli/derive.test.ts
+  unit: modules/events/test/cli/events.test.ts
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host/test/cli/host.test.ts
+  unit: modules/lists/test/cli/lists.test.ts
+  unit: modules/markup-libraries/test/cli/library.test.ts
+  unit: modules/motion/test/cli/data-keys.test.ts
+  unit: modules/motion/test/cli/motion.test.ts
+  unit: modules/nested/test/cli/nested.test.ts
+  unit: modules/paint/test/cli/advanced.test.ts
+  unit: modules/paint/test/cli/paint-geometry.test.ts
+  unit: modules/surface/test/cli/surface.test.ts
+  unit: packages/cli/test/agent-tools.test.ts
+  unit: packages/cli/test/authoring.test.ts
+  unit: packages/cli/test/cli.test.ts
+  unit: packages/cli/test/commands.test.ts
+  unit: packages/cli/test/font.test.ts
+  unit: packages/cli/test/glyphs.test.ts
+  unit: packages/cli/test/markup.test.ts
+  unit: packages/cli/test/p3b-benchmark.test.ts
+  unit: packages/cli/test/p3c-tooling.test.ts
+  unit: packages/cli/test/render.test.ts
+  unit: packages/cli/test/tooling-leftovers.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-7cdabf87
+
+ ❯ |scope-unit| modules/assets/test/cli/pipeline.test.ts (19 tests | 2 failed) 16030ms
+   × encodes jpeg, updates MIME/byte size and decodes dimensions 5034ms
+   × encodes webp, updates MIME/byte size and decodes dimensions 5004ms
+ ❯ |scope-unit| packages/cli/test/authoring.test.ts (57 tests | 2 failed) 170350ms
+   ❯ authoring guide executable examples (36)
+     × docs convert serves its chapter and data authoring link 5855ms
+     × exposes the forgotten pivot through inspect and rendered geometry 9562ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > docs convert serves its chapter and data authoring link
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/cli/test/authoring.test.ts:80:39
+     78|   );
+     79|
+     80|   it.each(['data', 'convert', 'host'])(
+       |                                       ^
+     81|     'docs %s serves its chapter and data authoring link',
+     82|     (topic) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  |scope-unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > exposes the forgotten pivot through inspect and rendered geometry
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/cli/test/authoring.test.ts:91:3
+     89|   );
+     90|
+     91|   it('exposes the forgotten pivot through inspect and rendered geometr…
+       |   ^
+     92|     const example = xml.find((b) => b.source.includes('name="pivot"'));
+     93|     expect(example).toBeDefined();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+ FAIL  |scope-unit| modules/assets/test/cli/pipeline.test.ts > encodes jpeg, updates MIME/byte size and decodes dimensions
+ FAIL  |scope-unit| modules/assets/test/cli/pipeline.test.ts > encodes webp, updates MIME/byte size and decodes dimensions
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/assets/test/cli/pipeline.test.ts:105:33
+    103|   expect(JSON.parse(upper.out).assets.photo.source).toBe('anima:photo'…
+    104| });
+    105| it.each(['png', 'jpeg', 'webp'])(
+       |                                 ^
+    106|   'encodes %s, updates MIME/byte size and decodes dimensions',
+    107|   async (encode) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯
+
+
+ Test Files  2 failed | 30 passed (32)
+      Tests  4 failed | 358 passed | 1 skipped (363)
+   Start at  17:09:06
+   Duration  204.27s (tests 82%, import 17%, transform 1%)

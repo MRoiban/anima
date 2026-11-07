@@ -1,3 +1,4 @@
+import { buildFont, type FontDocument } from './font/document.ts';
 import { readFileSync } from 'node:fs';
 import { resolve, extname } from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -8,6 +9,7 @@ import { sniff, type AssetInfo } from './asset-info.ts';
 import { encodeImage, validateWebP, ImageEncoder } from './encode.ts';
 
 export interface AssetDocument {
+  requires?: string[];
   assets?: Record<string, Asset>;
   components?: Record<string, AssetDocument>;
 }
@@ -18,11 +20,12 @@ export async function buildAssets(
   encoder?: ImageEncoder,
   sourceFile: (pointer: string) => string = () => file,
   base = '',
+  fontRoot: FontDocument = doc,
 ): Promise<Diagnostic[]> {
   if (!encoder) {
     const owned = new ImageEncoder();
     try {
-      return await buildAssets(doc, file, embed, owned, sourceFile, base);
+      return await buildAssets(doc, file, embed, owned, sourceFile, base, fontRoot);
     } finally {
       await owned.close();
     }
@@ -40,6 +43,8 @@ export async function buildAssets(
     const pointer = base + '/assets/' + name.replaceAll('~', '~0').replaceAll('/', '~1');
     let field = '/source';
     try {
+      if (asset.type === 'font' && ('glyphs' in asset || doc.requires?.includes('fonts')))
+        buildFont(asset, fontRoot, sourceFile(pointer + '/source'));
       const url = new URL(asset.source, pathToFileURL(resolve(sourceFile(pointer + '/source'))));
       // Disk builds never fetch network assets. Encoding requires local bytes.
       if (!['file:', 'data:'].includes(url.protocol)) {
@@ -74,6 +79,7 @@ export async function buildAssets(
         '.woff': 'font/woff',
         '.woff2': 'font/woff2',
         '.ttf': 'font/ttf',
+        '.otf': 'font/otf',
       };
       const mime =
         url.protocol === 'data:'
@@ -160,7 +166,10 @@ export async function buildAssets(
       const code = (error as { code?: string }).code;
       diagnostics.push({
         code:
-          code === 'build-encoder-unavailable' || code === 'asset-format' || code === 'asset-clip'
+          code?.startsWith('font-') ||
+          code === 'build-encoder-unavailable' ||
+          code === 'asset-format' ||
+          code === 'asset-clip'
             ? code
             : 'asset-load',
         severity: 'error',
@@ -183,6 +192,7 @@ export async function buildAssets(
         encoder,
         sourceFile,
         base + '/components/' + name.replaceAll('~', '~0').replaceAll('/', '~1'),
+        fontRoot,
       )),
     );
   }
