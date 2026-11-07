@@ -119,61 +119,38 @@ Icon.prototype.instance = function (id: string): Player {
   return player!;
 };
 
-const instantiate = Icon.prototype.loadModel;
-Icon.prototype.loadModel = function (source: Model) {
+// Root choice belongs to instantiation. Component compilation already validates every export.
+Icon.selectModel = (icon, source) => {
   prepareAssets();
-  const base = origins.get(source) ?? source;
-  const model = origins.has(source) && base.doc.assets ? hostEdit.compile!(base.doc).model! : base;
-  origins.set(model, base);
-  instantiate.call(this, model);
+  const name = icon.getAttribute('component');
+  if (!name) return { model: source, diagnostics: [] };
+  const model = hostEdit.roots.get(source)?.get(name);
+  return model
+    ? { model, diagnostics: [] }
+    : {
+        diagnostics: [
+          {
+            code: 'unknown-component',
+            severity: 'error',
+            pointer: '/component',
+            message: `no exported component "${name}"`,
+            hint:
+              'available components: ' +
+              Object.keys(source.doc.components ?? {})
+                .filter((n) => n !== '$comment')
+                .join(', '),
+          },
+        ],
+      };
 };
-
 const load = Icon.prototype.load;
 Icon.prototype.load = function (source, markup = false) {
   if ((source as Model)?.inputs instanceof Map) {
     this.loadModel(source as Model);
     return [];
   }
-  const component = this.getAttribute('component');
-  if (!component) return load.call(this, source, markup);
-  let doc: Record<string, unknown>;
-  try {
-    if (typeof source === 'string') {
-      if (markup) {
-        const result = Icon.compiler?.(source);
-        if (!result?.doc) return load.call(this, source, markup);
-        doc = result.doc as Record<string, unknown>;
-      } else doc = JSON.parse(source);
-    } else doc = source as Record<string, unknown>;
-  } catch {
-    return load.call(this, source, markup);
-  }
-  return load.call(this, selectRoot(doc, component));
+  return load.call(this, source, markup);
 };
-function selectRoot(doc: Record<string, unknown>, component: string): object {
-  const definition = (doc.components as Record<string, object> | undefined)?.[component];
-  if (!definition) {
-    // Use the normal loader/diagnostic path, including its lifecycle and error event.
-    return {
-      ...doc,
-      requires: [...new Set([...((doc.requires as string[]) ?? []), 'components'])],
-      nodes: [{ id: 'root', type: 'instance', component }],
-    };
-  }
-  return {
-    anima: '0.1',
-    name: component,
-    requires: doc.requires,
-    components: doc.components,
-    ...(doc.data ? { data: doc.data } : {}),
-    ...(doc.assets ? { assets: doc.assets } : {}),
-    ...(doc.converters ? { converters: doc.converters } : {}),
-    ...definition,
-    ...(typeof (definition as { data?: unknown }).data === 'string'
-      ? { data: { ...(doc.data as object), model: (definition as { data: string }).data } }
-      : {}),
-  };
-}
 
 declare module '../../../packages/web/src/index.ts' {
   interface AnimaIcon {
@@ -184,17 +161,15 @@ declare module '../../../packages/web/src/index.ts' {
 /** The registered constructor with the optional preload promise typed. */
 export const AnimaIcon = Icon as typeof Icon & { readonly ready: Promise<void> };
 
-// Cache source validation by URL, module generation and consumer policy. Rejected loads are retryable.
+// Cache compilation by URL and module generation, independently of resource policy.
 type Model = import('../../../packages/core/src/load.ts').Model;
-const documents = new Map<IconType['assets'], Map<string, Promise<Model | string>>>();
-const origins = new WeakMap<Model, Model>();
-Icon.sourceLoader = async (icon, source) => {
+const defaultResolver = () => '';
+const documents = new Map<string, Promise<Model | string>>();
+Icon.sourceLoader = async (_icon, source) => {
   prepareAssets();
   const url = new URL(source, document.baseURI).href;
-  let cache = documents.get(icon.assets);
-  if (!cache) documents.set(icon.assets, (cache = new Map()));
-  const component = icon.getAttribute('component');
-  const key = JSON.stringify([url, icon.assetPolicy, component, Icon.registration]);
+  const cache = documents;
+  const key = JSON.stringify([url, Icon.registration]);
   let result = cache.get(key);
   if (!result) {
     result = (async () => {
@@ -210,41 +185,50 @@ Icon.sourceLoader = async (icon, source) => {
         return text;
       }
       if (!parsed?.doc) return text;
-      const compiled = hostEdit.compile!(
-        component ? selectRoot(parsed.doc as Record<string, unknown>, component) : parsed.doc,
-      );
+      const compiled = Icon.compile(parsed.doc);
       if (!compiled.model) return text;
       return compiled.model;
     })();
     cache.set(key, result);
+    if (cache.size > 16) cache.delete(cache.keys().next().value!);
     result.then(
       (value) => {
         if (typeof value === 'string') cache!.delete(key);
       },
       () => cache!.delete(key),
     );
+  } else {
+    cache.delete(key);
+    cache.set(key, result);
   }
   return result;
 };
-const decoded = new WeakMap<Model, Promise<Record<string, Asset>>>();
+const decoded = new WeakMap<
+  Model,
+  WeakMap<
+    NonNullable<IconType['assets']>,
+    Map<string, ReturnType<NonNullable<typeof Icon.loadAssets>>>
+  >
+>();
 let installed: typeof Icon.loadAssets;
 function prepareAssets(): void {
   if (Icon.loadAssets === installed) return;
   const loadAssets = Icon.loadAssets;
   installed = Icon.loadAssets = async (icon, model) => {
     const assetsModule = Icon.modules.get('assets') as typeof assets | undefined;
-    const base = origins.get(model);
-    if (!base || !assetsModule || !loadAssets) return loadAssets?.(icon, model);
-    let result = decoded.get(base);
+    if (!assetsModule || !loadAssets) return loadAssets?.(icon, model);
+    let resolvers = decoded.get(model);
+    if (!resolvers) decoded.set(model, (resolvers = new WeakMap()));
+    let cache = resolvers.get(icon.assets ?? defaultResolver);
+    if (!cache) resolvers.set(icon.assets ?? defaultResolver, (cache = new Map()));
+    const key = JSON.stringify([icon.assetPolicy, new URL(icon.src ?? '', document.baseURI).href]);
+    let result = cache.get(key);
     if (!result) {
-      result = loadAssets(icon, model).then(() => assetsModule.resolvedAssets.get(model)!);
-      decoded.set(base, result);
-      result.catch(() => decoded.delete(base));
+      result = loadAssets(icon, model);
+      cache.set(key, result);
+      if (cache.size > 16) cache.delete(cache.keys().next().value!);
+      result.catch(() => cache!.delete(key));
     }
-    const records = await result;
-    assetsModule.resolvedAssets.set(
-      model,
-      Object.fromEntries(Object.entries(records).map(([k, a]) => [k, { ...a }])),
-    );
+    return result;
   };
 }

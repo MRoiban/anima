@@ -2469,3 +2469,26 @@ explicit author dimensions (core+web +13 B). Small scenes also retain the two
 unreproduced report details: trigger buttons already activate without focus, and
 normal opacity already hides range paint. See
 [BF-2 report](../modules/a11y-dom/BF2-REPORT.md) for evidence, limits and gate values.
+
+
+## BF-3 — shared web compilation, root reuse and host settling
+
+The web host caches successful compilation by parsed-object identity or bounded source caches,
+retains validated exported roots through host-edit's existing component hook, and chooses the root
+when instantiating each Player. URL compilation is independent of resource resolver and policy;
+resource initialization attaches host-local catalogs to root, nested and repeated players. Reset
+reuses the compiled root. An absent root has a diagnostic naming available components.
+Component-only libraries explicitly allow an empty root drawing, with matching schema/conformance.
+
+Visibility re-entry commits queued data with a zero-time step before drawing. Computed inputs now
+resolve after queued writes and before clocks and machine guards, so one write on a settled host
+updates a derived guard and its state in the same step. This is one pre-machine snapshot per step;
+stateful converters receive dt once. Missing-feature verbose diagnostics name the web import.
+
+All five downstream bugs reproduced on the base. A generated 108,286-byte, 24-host scene goes
+from 253 later compile-hook calls to zero (local total 301.7 → 122.7 ms). Core+web is 21,077 B,
+assetio 680 B, derive 2,381 B and host-edit 3,642 B; all module budgets and six gates pass.
+The final changed scope exits 0 with 8,175 pass, 1 skip and 40 existing TODOs across both browsers;
+strict oracle is 266 cases / 475 passing samples, with 24 unchanged findings. Earlier timeouts,
+an enclosing session's exit143 after green totals, and its clean standalone retry are retained in
+[the BF-3 report](../modules/host-edit/BF3-REPORT.md). Branch-only delivery; no publication or PR.

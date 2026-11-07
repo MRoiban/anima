@@ -56,8 +56,11 @@ step updates existing root/child handles and bindings together. The target must 
 instance of a model declared `global="true"`; a replacement must come from this player's API.
 
 With host-edit loaded, icons using the same absolute src, resolver function, asset policy and
-component selection share successful source parsing and initial image decoding. Set assets and
+component selection share successful source parsing; matching resolver/policy also shares initial
+image decoding. Set assets and
 assetPolicy before src. Resolvers shared by identity should resolve the same resource for each
 consumer. Writes and replacement images remain per-icon. `icon.loadModel(model)` (or host-edit's `icon.load(model)`) accepts an
 already compiled Model and creates fresh player state; asset-bearing documents keep local models
-and asset records while using cached parsed data and initial decodes.
+and asset records while using cached parsed data and initial decodes. Configure the receiving
+host's `assets`, `assetPolicy` and source base before `loadModel`; a shared model does not carry
+another host's resolver or URL context.

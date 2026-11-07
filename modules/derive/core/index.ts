@@ -425,9 +425,9 @@ function prepare(
     );
     return s;
   };
-  const previous = model.resolveBindings;
-  model.resolveBindings = (p, values, scope, dt) => {
+  const previous = model.prepareInputs;
+  model.prepareInputs = (p, scope, dt) => {
+    previous?.(p, scope, dt);
     step(scope as DataState, dt);
-    previous?.(p, values, scope, dt);
   };
 }

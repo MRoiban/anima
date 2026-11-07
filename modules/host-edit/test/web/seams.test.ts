@@ -149,11 +149,18 @@ for (const [name, engine, executablePath] of [
           ];
           const c = make(resolver, 'any');
           await c.ready;
-          const d = make(() => red);
+          const d = make(() => blue);
           await d.ready;
           const isolatedKeys = { parses, decodes, resolves };
+          b.invalidate();
+          const contextColors = [
+            c.shadowRoot!.querySelector('image')!.getAttribute('href') === red,
+            d.shadowRoot!.querySelector('image')!.getAttribute('href') === blue,
+            b.shadowRoot!.querySelector('image')!.getAttribute('href') === red,
+          ];
           // Supported compiled-model instantiation starts fresh player state, with no parsing.
           const e = document.createElement('anima-icon');
+          e.assets = resolver;
           e.setAttribute('paused', '');
           document.body.append(e);
           e.load(a.player!.model);
@@ -163,15 +170,16 @@ for (const [name, engine, executablePath] of [
           for (const icon of [a, b, c, d, e]) icon.destroy();
           Icon.compilerAsync = compile;
           HTMLImageElement.prototype.decode = decode;
-          return { initial, independent, isolatedKeys, compiledValue };
+          return { initial, independent, isolatedKeys, compiledValue, contextColors };
         });
         expect(cached).toEqual({
-          initial: { parses: 1, decodes: 1, resolves: 1, sameModel: false },
+          initial: { parses: 1, decodes: 1, resolves: 1, sameModel: true },
           independent: [9, 3, true, true],
-          isolatedKeys: { parses: 3, decodes: 4, resolves: 2 },
+          isolatedKeys: { parses: 1, decodes: 4, resolves: 2 },
           compiledValue: 3,
+          contextColors: [true, true, true],
         });
-        expect(fetches).toBe(3);
+        expect(fetches).toBe(1);
         expect(errors).toEqual([]);
       } finally {
         await browser.close();

@@ -1,0 +1,20 @@
+<anima version="0.1" name="settled-guard" grid="20" requires="data bind derive">
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+
+  <model name="Kit">
+    <number name="status"/>
+    <bool name="hasStatus" value="$status > 0"/>
+  </model>
+  <instance name="kit" model="Kit" default="true"/>
+
+  <layer name="status" initial="none">
+    <state name="none">
+      <pose dot.r="1"/>
+      <on when="$kit:hasStatus == true" to="on"/>
+    </state>
+    <state name="on">
+      <pose dot.r="3"/>
+      <on when="$kit:hasStatus == false" to="none"/>
+    </state>
+  </layer>
+</anima>

@@ -57,6 +57,7 @@ host box. The optional canvas renderer retains its own sizing defaults.
 | Attribute | Meaning |
 | --- | --- |
 | `renderer` | `svg` (default) or `canvas`; import `@anima-format/web/canvas` before selecting canvas. Switching preserves player state. |
+| `component` | With host-edit: exported root name. Set before load, loadModel or reset; changing it alone does not reload. |
 | `pixel-ratio` | Canvas only: finite positive DPR override; absent follows browser DPR. |
 | `src` | Document URL; `.animl` URLs use the optional compiler. |
 | `speed` | Finite number ≥ 0, default 1. Invalid values use 1. Frame dt is clamped to 0.25 s before multiplication. Zero sleeps until a positive rate or another operation wakes it. |
@@ -103,6 +104,7 @@ playback or the loaded model.
 | Method | Meaning |
 | --- | --- |
 | `load(textOrObject, markup = false)` | Load a document; returns diagnostics. Errors leave the element empty and emit `anima:error`. |
+| `loadModel(model)` | Instantiate a compiled model with fresh player state. With `host-edit`, the host's `component` selects any retained exported root, independent of the root previously loaded from that model. |
 | `set(name, value)` | Queue a bool or number write; applied on the next step. |
 | `fire(name)` | Queue a trigger. |
 | `toggle(name)` | Queue a bool toggle. |
@@ -114,7 +116,23 @@ playback or the loaded model.
 | `destroy()` | Idempotently detach internal listeners, observers and scheduler entry, invalidate pending URL responses, and clear the player and SVG. Keeps the host and external listeners. A later `load()` or new `src` can reuse it. |
 | `invalidate()` | Repaint the retained SVG once without stepping, consuming queued inputs, or scheduling frames. Empty elements are unchanged. |
 
+Successful `load()` compilation is shared by parsed document identity (weak references) or exact
+source text (a 16-entry LRU, separately keyed for JSON and AniML). Treat parsed documents as
+immutable; pass a new object after editing one. Module registration invalidates these caches;
+failed loads are never cached. Every host still owns its Player, queued writes, resolved resource catalog and DOM. With
+`host-edit` imported before compilation, all validated component roots are retained and chosen
+at instantiation, including for `loadModel` and reset. An absent root reports `unknown-component`
+at `/component` with the available component names. No root-specific recompilation is needed.
+`AnimaIcon.compile(source, markup?)` exposes the same cached `{ model?, diagnostics }` result
+when an application wants a compiled model before creating any hosts.
+URL sources with host-edit share a bounded cache by absolute URL and module registration
+generation; roots, asset resolvers and policy do not split compilation. Asset decoding retains
+its separate resolver/policy/base-URL cache. Inline JSON uses the text cache.
+
 The shared scheduler sleeps when settled; offscreen and hidden documents suspend animation.
+On viewport re-entry, an unpaused host commits pending data with `step(0)` and draws synchronously
+in the visibility callback before resuming animation. Explicit pause retains queued data until play;
+speed zero still permits this zero-time refresh.
 Disconnecting the host removes its scheduler entry and observations; reconnecting resumes a busy
 player. Keyboard, pointer, reduced motion and accessibility behavior follow spec §9–10.
 The API follows the small imperative handle, shared sleeping scheduler and idempotent teardown

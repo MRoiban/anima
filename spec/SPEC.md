@@ -67,6 +67,13 @@ with its code, severity and pointer, and `anima validate` gives the full text. D
 keep the last value. Keys reserved for a later version (§12) are reported as `reserved`, not as
 unknown keys, so the message can say which version brings them.
 
+For an unavailable optional feature, verbose diagnostics include the web module import,
+for example `import '@anima-format/web/machine' before loading this document`. CLI tools
+register the full feature set; an accepted CLI document still needs its declared modules in the browser.
+
+A document declaring `components` may have an empty `nodes` array: it is a library container
+whose exported components can be instantiated as host roots. Ordinary documents need a node.
+
 **Limits.** Loaders refuse documents beyond these limits with `limit-exceeded`: 1 MiB of text, nesting
 depth 32 nodes, 2 048 nodes, 20 000 keyframes in total, 64 layers, 256 states per layer.
 
@@ -266,7 +273,8 @@ per channel with rounding for colours (§5), and for booleans `a || b` while the
    the input's `min`/`max`. A fired trigger becomes pending (firing a pending trigger again is a
    no-op). Listener `emit` actions add their events now. A queued listener action evaluates its
    expression-valued sets here, when that action is reached, using one pre-action input snapshot
-   for all its sets (§bind). Later actions see earlier writes.
+   for all its sets (§bind). Later actions see earlier writes. With `derive`, recompute
+   computed inputs once after this queue, before clocks and machine guards (derive chapter).
 2. **Clocks.** Motion clock expressions and `exitNext` gates prepare here (motion chapter). Advance every layer's state time and crossfade elapsed time by `dt`. A crossfade whose
    elapsed time reaches its duration ends (using §5 clock boundaries).
 3. **Layers**, in declaration order, each against the values resolved by the layers before it:

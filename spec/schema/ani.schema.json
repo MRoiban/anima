@@ -241,7 +241,7 @@
       "items": {
         "$ref": "#/$defs/node"
       },
-      "minItems": 1
+      "minItems": 0
     },
     "timelines": {
       "type": "object",
@@ -2968,6 +2968,27 @@
     "nodes"
   ],
   "additionalProperties": false,
+  "if": {
+    "required": [
+      "requires"
+    ],
+    "properties": {
+      "requires": {
+        "type": "array",
+        "contains": {
+          "const": "components"
+        }
+      }
+    }
+  },
+  "else": {
+    "properties": {
+      "nodes": {
+        "type": "array",
+        "minItems": 1
+      }
+    }
+  },
   "$defs": {
     "node": {
       "oneOf": [

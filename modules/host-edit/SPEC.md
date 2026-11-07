@@ -55,17 +55,24 @@ Use instance(name) or create(model, values) to supply the replacement. Globals r
 shared child contexts see the replacement, while another root player retains its own globals.
 
 The web runtime exposes a sourceLoader hook and loadModel(model) to instantiate a compiled Model.
-Host-edit also accepts Models in load(). Host-edit
-caches successful source loads by absolute URL, asset resolver function identity, policy, selected
-root component and module registration generation. Concurrent consumers share the fetch and parse
-(including AniML compilation). Failed source/compile/decode loads are retryable. Late module
-registration retains the runtime's ordinary diagnostic/retry path. Same-src icons with identical
-resolver/policy decode each initial image once and receive independent mutable asset records.
-Asset-free icons share the compiled Model; icons with assets instantiate a validated model from
-the cached parsed document because module asset records are model-keyed. This does not reparse
-source text or redo the initial decode. Direct compiled-Model loads also isolate asset records.
-Changing resolver/policy before setting src creates a distinct cache entry. Image replacements
-remain local, even when initial decoding was shared. Cache lifetime is the current page.
+Host-edit also accepts Models in load(). Import host-edit before compiling a reusable model:
+it retains every validated exported component through the existing component compiler hook.
+Component libraries may have an empty root `nodes` array. Root selection occurs at instantiation, so a model loaded as A may be loaded as B without
+recompiling. An absent root reports `unknown-component` at `/component` with a message and
+an available-components hint. Reset retains the selected compiled root and creates a fresh Player.
+
+Successful object and text loads share the base web compilation cache (docs/WEB.md). Host-edit
+caches URL loads by absolute URL and module registration generation in a 16-entry LRU;
+root selection, asset resolver identity and policy do not split compilation.
+Concurrent consumers share fetch and parse, including AniML compilation. Failed source/compile/decode
+loads are retryable. Late registration retains the ordinary diagnostic/retry path. Compiled models
+are shared even with assets. Initial image decoding is shared for matching model, resolver,
+policy and source base URL; each player's catalog association is local, including nested
+components. Initial records are shared read-only; resource replacements install a local copy. Decode entries per model/resolver are bounded to 16; model keys are weak.
+Compiled-model instantiation uses the receiving host's resolver, policy and source base; it does
+not inherit them from another host. Set those options before loadModel, as for load.
+Changing resolver/policy before setting src creates a distinct decode entry. Image replacements remain
+local even when compilation and initial decoding are shared.
 
 `data.component(path)` returns a typed `DataHandle<string>` for a component property. Reads
 are committed definition names (or empty string); `set(name)` validates against the same
