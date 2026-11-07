@@ -153,10 +153,9 @@
     "anima": {
       "construct": "modules/a11y/SPEC.md; Traverse focus",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
-      "phase": "P3c",
-      "reason": "Sequential/repeat traversal passes, but native right traversal selects the sibling while Anima selects its focusable ancestor; synthesized focus points use transform origins rather than painted bounds (modules/a11y/oracle/focus-policy/README.md)."
+      "status": "done",
+      "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/focus-policy/frames/right.json; modules/a11y/oracle/focus-policy/frames/outside.json; spec/conformance/a11y-spatial-focus; spec/conformance/a11y-focus-policy",
+      "phase": "P3c"
     }
   },
   {
@@ -180,10 +179,9 @@
     "anima": {
       "construct": "modules/a11y/SPEC.md; Focus transition condition",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
-      "phase": "P3c",
-      "reason": "Anima ancestor/repeat conditions pass, but the native ancestor-condition wiring is unverified: both accepted comparator probes leave marker center 90 instead of 70 (modules/a11y/oracle/focus-policy/README.md)."
+      "status": "done",
+      "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/p3c8-condition/README.md; modules/a11y/oracle/p3c8-condition/verify.ts; modules/a11y/oracle/p3c8-condition/frames; spec/conformance/a11y-focus-condition",
+      "phase": "P3c"
     }
   },
   {
@@ -1053,10 +1051,9 @@
     "anima": {
       "construct": "modules/a11y/SPEC.md; Directional focus navigation",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
-      "phase": "P3c",
-      "reason": "Native directional candidate selection differs (sibling versus focusable ancestor), even with matching semantic bounds; synthesized focus points lack painted bounds (modules/a11y/oracle/focus-policy/README.md)."
+      "status": "done",
+      "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/focus-policy/frames/right.json; modules/a11y/oracle/focus-policy/frames/outside.json; spec/conformance/a11y-spatial-focus; spec/conformance/a11y-focus-policy",
+      "phase": "P3c"
     }
   },
   {
@@ -1646,9 +1643,9 @@
       "construct": "modules/a11y/SPEC.md; Semantic bounds",
       "module": "a11y",
       "status": "planned",
-      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-tree-bounds",
-      "phase": "P3c",
-      "reason": "Exact painted path/stroke extents are absent in overlay and CLI; Chromium and Firefox stroke bbox measurements differ (modules/a11y/REPORT.md)."
+      "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds",
+      "phase": "P6",
+      "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): exact painted path/stroke extents in the CLI and the overlay's SVG measurement seam remain; P6's text accessibility rows need the same exact-extent work (modules/a11y/P3C8-REPORT.md)."
     }
   },
   {
@@ -1676,10 +1673,9 @@
     "anima": {
       "construct": "modules/a11y/SPEC.md; Semantic subtree visibility",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-tree-visibility; spec/conformance/a11y-state-hidden",
-      "phase": "P3c",
-      "reason": "Hidden/modal and collapse probes pass; the inactive Solo/native visibility matrix remains incomplete (modules/a11y/REPORT.md)."
+      "status": "done",
+      "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/test/core/visibility-native.test.ts; modules/a11y/oracle/p3c8-visibility/frames/tree.json; modules/a11y/oracle/p3c8-visibility/solo-first/frames/tree.json; spec/conformance/a11y-tree-visibility; spec/conformance/a11y-state-hidden",
+      "phase": "P3c"
     }
   },
   {
@@ -1702,10 +1698,9 @@
     "anima": {
       "construct": "modules/a11y/SPEC.md; Accessible web overlay",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
-      "phase": "P3c",
-      "reason": "SVG overlay is browser-tested; positioning over canvas output, explicitly required by this row, remains unimplemented and unverified (modules/a11y-dom/REPORT.md)."
+      "status": "done",
+      "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md; modules/canvas/web/index.ts",
+      "phase": "P3c"
     }
   },
   {
@@ -4553,10 +4548,9 @@
     "anima": {
       "construct": "modules/markup-libraries/SPEC.md",
       "module": "markup-libraries",
-      "status": "planned",
-      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-export; tests/oracle/components-library-export; tests/oracle/components-library-export/todo.json; modules/devtools/REPORT.md",
-      "phase": "P3c",
-      "reason": "Export/select aliases are tested, but the cited native probe remains TODO with no completed comparison, evidenced skip or numbered finding (tests/oracle/components-library-export/todo.json)."
+      "status": "done",
+      "test": "modules/markup-libraries/REPORT.md; modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-export; tests/oracle/components-library-export/skip.json",
+      "phase": "P3c"
     }
   },
   {
@@ -4584,10 +4578,9 @@
     "anima": {
       "construct": "modules/markup-libraries/SPEC.md",
       "module": "markup-libraries",
-      "status": "planned",
-      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-models; tests/oracle/components-library-models; tests/oracle/components-library-models/todo.json; modules/devtools/REPORT.md",
-      "phase": "P3c",
-      "reason": "Tests establish shared model definitions, not shared authored instances and enums; the native probe is still TODO with no evidenced skip (modules/markup-libraries/test/markup/extras.test.ts; tests/oracle/components-library-models/todo.json)."
+      "status": "done",
+      "test": "modules/markup-libraries/REPORT.md; modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-models; tests/oracle/components-library-models/skip.json",
+      "phase": "P3c"
     }
   },
   {
@@ -4608,10 +4601,9 @@
     "anima": {
       "construct": "modules/markup-libraries/SPEC.md",
       "module": "markup-libraries",
-      "status": "planned",
-      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-update; tests/oracle/components-library-update; tests/oracle/components-library-update/todo.json; modules/devtools/REPORT.md",
-      "phase": "P3c",
-      "reason": "Local vendored refresh is tested, but the native probe remains TODO with no completed comparison, evidenced skip or numbered finding (tests/oracle/components-library-update/todo.json)."
+      "status": "done",
+      "test": "modules/markup-libraries/REPORT.md; modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-update; tests/oracle/components-library-update/skip.json",
+      "phase": "P3c"
     }
   },
   {
@@ -16222,10 +16214,9 @@
     "anima": {
       "construct": "Optional @anima-format/web/devtools: deprecation-policy; modules/devtools/SPEC.md",
       "module": "devtools",
-      "status": "planned",
-      "test": "packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-deprecation-policy/example.animl; tests/oracle/host-api-deprecation-policy/SKIP.md",
-      "phase": "P3c",
-      "reason": "Warning IDs are accepted, but policy is global once/always/off; suppression of selected IDs is not implemented (modules/devtools/web/index.ts)."
+      "status": "done",
+      "test": "modules/devtools/SPEC.md; modules/devtools/web/index.ts; packages/web/test/browser.test.ts; tests/oracle/host-api-deprecation-policy/SKIP.md; modules/data-host/P3c-9-REPORT.md; modules/devtools/test/core/policy.test.ts",
+      "phase": "P3c"
     }
   },
   {
@@ -17569,10 +17560,9 @@
     "anima": {
       "construct": "modules/a11y/SPEC.md; Semantic diffs and actions",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md",
-      "phase": "P3c",
-      "reason": "Owner replacement routing passes, but collection rebuilds entries/signatures on every read without dependency subscriptions (modules/a11y/REPORT.md)."
+      "status": "done",
+      "test": "modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/roles/P3B9.md",
+      "phase": "P3c"
     }
   },
   {
@@ -17978,10 +17968,9 @@
     "anima": {
       "construct": "Optional @anima-format/web/devtools: performance-marks; modules/devtools/SPEC.md",
       "module": "devtools",
-      "status": "planned",
-      "test": "packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-performance-marks/example.animl; tests/oracle/host-api-performance-marks/SKIP.md",
-      "phase": "P3c",
-      "reason": "Optional frame marks are tested; initialization timing entries required by this row are absent (modules/devtools/web/index.ts)."
+      "status": "done",
+      "test": "modules/devtools/SPEC.md; modules/devtools/web/index.ts; packages/web/test/browser.test.ts; tests/oracle/host-api-performance-marks/SKIP.md",
+      "phase": "P3c"
     }
   },
   {
@@ -31217,10 +31206,9 @@
     "anima": {
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/bench.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
-      "phase": "P3c",
-      "reason": "Compile/step/draw timing statistics are tested; WASM memory-growth reporting required by the inventory is absent. The native timing skip does not complete that requirement (modules/tooling/oracle/README.md)."
+      "status": "done",
+      "test": "modules/tooling/P3C-2-REPORT.md; packages/cli/test/p3c-tooling.test.ts; packages/cli/test/agent-tools.test.ts; packages/cli/test/commands.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md",
+      "phase": "P3c"
     }
   },
   {
@@ -31926,10 +31914,9 @@
     "anima": {
       "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
-      "phase": "P3c",
-      "reason": "Doctor checks Node, browsers, cache and module wiring; authentication, ports, project and device checks from the inventory are absent (packages/cli/src/doctor.ts)."
+      "status": "done",
+      "test": "modules/tooling/P3C-2-REPORT.md; packages/cli/test/p3c-tooling.test.ts; packages/cli/test/agent-tools.test.ts; packages/cli/test/commands.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md",
+      "phase": "P3c"
     }
   },
   {
@@ -33330,10 +33317,9 @@
     "anima": {
       "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
-      "phase": "P3c",
-      "reason": "Manifest entry/sources/presets/out are supported; excluded sources and build constants required by the inventory are not accepted (packages/cli/src/project.ts)."
+      "status": "done",
+      "test": "modules/tooling/P3C-2-REPORT.md; packages/cli/test/p3c-tooling.test.ts; packages/cli/test/agent-tools.test.ts; packages/cli/test/commands.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md",
+      "phase": "P3c"
     }
   },
   {
@@ -33477,10 +33463,9 @@
     "anima": {
       "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
-      "phase": "P3c",
-      "reason": "Synchronous image preset substitution is tested; reusable video presets and background render queuing are not delivered (packages/cli/src/project.ts; docs/p3b/CLI.md)."
+      "status": "done",
+      "test": "modules/tooling/P3C-2-REPORT.md; packages/cli/test/p3c-tooling.test.ts; packages/cli/test/agent-tools.test.ts; packages/cli/test/commands.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md",
+      "phase": "P3c"
     }
   },
   {
@@ -33600,10 +33585,9 @@
     "anima": {
       "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
-      "phase": "P3c",
-      "reason": "Type/field lookup and animatable output are tested; inherited-property filtering for animatable, bindable and editor-only entries is not delivered (packages/cli/src/cli.ts; packages/cli/test/commands.test.ts)."
+      "status": "done",
+      "test": "modules/tooling/P3C-2-REPORT.md; packages/cli/test/p3c-tooling.test.ts; packages/cli/test/agent-tools.test.ts; packages/cli/test/commands.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md",
+      "phase": "P3c"
     }
   },
   {
@@ -33856,10 +33840,9 @@
     "anima": {
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
-      "phase": "P3c",
-      "reason": "Inline expect comparisons and exit failures are tested; grouped cases, expected-error assertions and test-only export exclusion are not delivered (packages/core/src/script.ts; packages/cli/test/agent-tools.test.ts)."
+      "status": "done",
+      "test": "modules/tooling/P3C-2-REPORT.md; packages/cli/test/p3c-tooling.test.ts; packages/cli/test/agent-tools.test.ts; packages/cli/test/commands.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md",
+      "phase": "P3c"
     }
   },
   {
@@ -34121,10 +34104,9 @@
     "anima": {
       "construct": "P3b-4 implemented: modules/data-host/SPEC.md player.computed(id), frozen world matrix/geometric bounds/resolved opacity; modules/data-host/core/index.ts",
       "module": "data-host",
-      "status": "planned",
-      "test": "modules/data-host/test/core/computed.test.ts; modules/data-host/test/web/browser.test.ts; tests/oracle/transforms-computed-transform-values/skip.json",
-      "phase": "P3c",
-      "reason": "API returns world matrix, geometric bounds and opacity; separate computed local/root-space coordinates as derived properties required by the inventory are not delivered (modules/data-host/core/index.ts; modules/data-host/SPEC.md)."
+      "status": "done",
+      "test": "modules/data-host/P3c-9-REPORT.md; modules/data-host/SPEC.md; modules/data-host/core/index.ts; modules/data-host/test/core/computed.test.ts; modules/data-host/test/web/browser.test.ts; tests/oracle/transforms-computed-transform-values/skip.json",
+      "phase": "P3c"
     }
   },
   {
