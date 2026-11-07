@@ -1,10 +1,10 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive for animated web UI. P5b merged (PR #17). Scope triage on branch scope-triage → PR; then P3b (a11y + agent tools), P6 text, P7 minimal layout, P8 rigging.
-State: in scope 624/883 done (71 %); full matrix 624/1238 (50 %). core+web 20,362; full 109.1/128 KB (P3b+P6+P7 estimate 127–134 KB → size round before P6).
-Next: triage PR green → merge; then P3b design.
-Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests; leave merged worktrees behind.
+Goal: smaller, agent-native Rive for animated web UI. Order P3b (a11y + agent tools) → P6 text → P7 minimal layout → P8 rigging.
+State: triage merged (PR #18, b97a2d5). Branch p3b: design/p3b/DESIGN.md decided; 5 text a11y rows moved to P6 (119 P3b rows). In scope 624/883 (71 %). full 111,723/131,072 B; core+web 20,362.
+Next: wave 1 (5 Sol agents: a11y core, script/session, CLI commands, data-host, reduced motion+stop+devtools+libraries) → wave 2 web overlay, benchmark, closure.
+Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests; grow data/bind/components; leave merged worktrees behind.
 
 ## Log
 - 2026-11-06 23:40 [P5b-8]: condensed oldest half per 200-line rule; M0–M5/P1/P3 established spec, runtime, AniML and icons; Glyphy remains draft-only (evidence: prior WORKLOG at 0c5028a; PRs1–6).
@@ -171,3 +171,4 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-07 [claude]: perf p5b vs main, in-process alternating, pinned, load ~4 (min): bell frame 32.5/31.6 µs (p25 33.7/33.0), composite 20.9/20.3, toolbar 22.0/22.1 µs; bell compile 1.74/1.73 ms, toolbar compile 3.26/3.30 ms, quarter-prefix 139/140 ms → no regression. Launched P5b-11 parity bookkeeping
 - 2026-11-07 [claude]: merged P5b-11 parity (624/1238, 77 done, 16 moved; audit: 0 done rows citing TODO/pending). LOG P5b entry + PLAN closed
 - 2026-11-07 [claude]: PR #17 (P5b) green → merged (33e8d21). Applied owner scope triage on scope-triage: 164 won't-do, 25 maybe-later, 1 moved P7→P3b, kept P3b 124 / P6 76 / P7 34 / P8 25; in-scope 624/883 (71 %); MATRIX shows in-scope progress; parity test policy now accepts owner-triage won't-do; scaffolder test row frame-grid → tooling.seed; PLAN phase list + size estimates
+- 2026-11-07 [claude]: PR #18 merged (b97a2d5). P3b design written (design/p3b/DESIGN.md); 5 text a11y rows → P6; wave 1 launch (evidence: node tools/parity.ts)

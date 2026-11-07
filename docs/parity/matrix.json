@@ -127,7 +127,8 @@
   "module": "a11y",
   "status": "planned",
   "test": "oracle/a11y-inferred-text",
-  "phase": "P3b"
+  "phase": "P6",
+  "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
  },
  {
   "id": "a11y.overlay-policy",
@@ -357,7 +358,8 @@
   "module": "a11y",
   "status": "planned",
   "test": "oracle/a11y-role-text-field",
-  "phase": "P3b"
+  "phase": "P6",
+  "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
  },
  {
   "id": "a11y.roving-focus",
@@ -457,7 +459,8 @@
   "module": "a11y",
   "status": "planned",
   "test": "oracle/a11y-state-multiline",
-  "phase": "P3b"
+  "phase": "P6",
+  "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
  },
  {
   "id": "a11y.state-obscured",
@@ -467,7 +470,8 @@
   "module": "a11y",
   "status": "planned",
   "test": "oracle/a11y-state-obscured",
-  "phase": "P3b"
+  "phase": "P6",
+  "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
  },
  {
   "id": "a11y.state-read-only",
@@ -527,7 +531,8 @@
   "module": "a11y",
   "status": "planned",
   "test": "oracle/a11y-text-proxy",
-  "phase": "P3b"
+  "phase": "P6",
+  "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
  },
  {
   "id": "a11y.trait-checkable",

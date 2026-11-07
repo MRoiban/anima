@@ -331,7 +331,8 @@
       "module": "a11y",
       "status": "planned",
       "test": "oracle/a11y-inferred-text",
-      "phase": "P3b"
+      "phase": "P6",
+      "reason": "P3b design \u00a70: text and text input render from P6; its DOM-backed input field is the element these map to"
     }
   },
   {
@@ -975,7 +976,8 @@
       "module": "a11y",
       "status": "planned",
       "test": "oracle/a11y-role-text-field",
-      "phase": "P3b"
+      "phase": "P6",
+      "reason": "P3b design \u00a70: text and text input render from P6; its DOM-backed input field is the element these map to"
     }
   },
   {
@@ -1240,7 +1242,8 @@
       "module": "a11y",
       "status": "planned",
       "test": "oracle/a11y-state-multiline",
-      "phase": "P3b"
+      "phase": "P6",
+      "reason": "P3b design \u00a70: text and text input render from P6; its DOM-backed input field is the element these map to"
     }
   },
   {
@@ -1267,7 +1270,8 @@
       "module": "a11y",
       "status": "planned",
       "test": "oracle/a11y-state-obscured",
-      "phase": "P3b"
+      "phase": "P6",
+      "reason": "P3b design \u00a70: text and text input render from P6; its DOM-backed input field is the element these map to"
     }
   },
   {
@@ -1424,7 +1428,8 @@
       "module": "a11y",
       "status": "planned",
       "test": "oracle/a11y-text-proxy",
-      "phase": "P3b"
+      "phase": "P6",
+      "reason": "P3b design \u00a70: text and text input render from P6; its DOM-backed input field is the element these map to"
     }
   },
   {

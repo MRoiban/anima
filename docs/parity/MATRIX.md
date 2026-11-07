@@ -43,7 +43,7 @@ scope by the owner's triage of 2026-11-07).
 | [P1](#p1) — Done: AniML, the authoring markup | 1 |
 | [P2](#p2) — Done: M5, Glyphy export, more glyphs, the head-to-head test | 0 |
 | [P3](#p3) — Done: the playground/inspector and the web host API | 15 |
-| [P3b](#p3b) — The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras | 124 |
+| [P3b](#p3b) — The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras | 119 |
 | [P4a](#p4a) — Done: paint and composite on the module system and the draw layer | 46 |
 | [P4b](#p4b) — Done: motion — eases, typed tracks, timeline control, mixing, host timeline API | 22 |
 | [P4c](#p4c) — Done: interaction — machine (blends, actions, on-change), input (pointer, keys, gamepad, scroll, drag), focus | 95 |
@@ -53,7 +53,7 @@ scope by the owner's triage of 2026-11-07).
 | [P5](#p5) — Done: components, bindings, assets, images, n-slice and feathering | 61 |
 | [P5b](#p5b) — Done: lists, assets, host editing, typed data guards, live keyframes and component controls | 77 |
 | [Pc](#pc) — Done: the canvas backend (minimal), brought forward from P10 | 3 |
-| [P6](#p6) — Text, on the browser (shaping, FontFace, DOM-backed input) | 76 |
+| [P6](#p6) — Text, on the browser (shaping, FontFace, DOM-backed input) | 81 |
 | [P7](#p7) — Minimal layout (hug, padding, min/max, fixed, row/column stacks) and host fit | 34 |
 | [P8](#p8) — Rigging | 25 |
 | [P9](#p9) — Scripting — won't do (owner triage, 2026-11-07) | 0 |
@@ -326,7 +326,6 @@ scope by the owner's triage of 2026-11-07).
 | `a11y.focus-retarget` | Hidden focus retargeting | new: nodes[].a11y / player semantics API: focus-retarget; bounds in grid units | a11y | planned | oracle/a11y-focus-retarget |
 | `a11y.focus-sync` | Scene and DOM focus synchronization | new: nodes[].a11y / player semantics API: focus-sync; bounds in grid units | a11y | planned | oracle/a11y-focus-sync |
 | `a11y.headless-inspection` | Headless semantic inspection | new: nodes[].a11y / player semantics API: headless-inspection; bounds in grid units | a11y | planned | oracle/a11y-headless-inspection |
-| `a11y.inferred-text` | Inferred text semantics | new: nodes[].a11y / player semantics API: inferred-text; bounds in grid units | a11y | planned | oracle/a11y-inferred-text |
 | `a11y.overlay-policy` | Host semantics policy | new: nodes[].a11y / player semantics API: overlay-policy; bounds in grid units | a11y | planned | oracle/a11y-overlay-policy |
 | `a11y.property-heading-level` | Heading hierarchy | new: nodes[].a11y.headingLevel: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-property-heading-level |
 | `a11y.property-hint` | Accessible hint | new: nodes[].a11y.hint: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-property-hint |
@@ -346,7 +345,6 @@ scope by the owner's triage of 2026-11-07).
 | `a11y.role-tab` | Semantic role: tab | new: nodes[].a11y.role: tab | a11y | planned | oracle/a11y-role-tab |
 | `a11y.role-tab-list` | Semantic role: tabList | new: nodes[].a11y.role: tab-list | a11y | planned | oracle/a11y-role-tab-list |
 | `a11y.role-text` | Semantic role: text | new: nodes[].a11y.role: text | a11y | planned | oracle/a11y-role-text |
-| `a11y.role-text-field` | Semantic role: textField | new: nodes[].a11y.role: text-field | a11y | planned | oracle/a11y-role-text-field |
 | `a11y.roving-focus` | Tab and radio keyboard handling | new: nodes[].a11y / player semantics API: roving-focus; bounds in grid units | a11y | planned | oracle/a11y-roving-focus |
 | `a11y.semantic-diffs` | Host semantic tree updates | new: nodes[].a11y / player semantics API: semantic-diffs; bounds in grid units | a11y | planned | oracle/a11y-semantic-diffs |
 | `a11y.spatial-focus` | Directional focus navigation | new: nodes[].a11y / player semantics API: spatial-focus; bounds in grid units | a11y | planned | oracle/a11y-spatial-focus |
@@ -356,14 +354,11 @@ scope by the owner's triage of 2026-11-07).
 | `a11y.state-hidden` | Semantic state: Hidden | new: nodes[].a11y.isHidden: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-state-hidden |
 | `a11y.state-live-region` | Semantic state: LiveRegion | new: nodes[].a11y.isLiveRegion: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-state-live-region |
 | `a11y.state-modal` | Semantic state: Modal | new: nodes[].a11y.isModal: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-state-modal |
-| `a11y.state-multiline` | Semantic state: Multiline | new: nodes[].a11y.isMultiline: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-state-multiline |
-| `a11y.state-obscured` | Semantic state: Obscured | new: nodes[].a11y.isObscured: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-state-obscured |
 | `a11y.state-read-only` | Semantic state: ReadOnly | new: nodes[].a11y.isReadOnly: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-state-read-only |
 | `a11y.state-required` | Semantic state: Required | new: nodes[].a11y.isRequired: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-state-required |
 | `a11y.state-selected` | Semantic state: Selected | new: nodes[].a11y.isSelected: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-state-selected |
 | `a11y.state-toggled` | Semantic state: Toggled | new: nodes[].a11y.isToggled: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-state-toggled |
 | `a11y.tab-focus` | Sequential focus navigation | new: nodes[].a11y / player semantics API: tab-focus; bounds in grid units | a11y | planned | oracle/a11y-tab-focus |
-| `a11y.text-proxy` | Accessible text proxy | new: nodes[].a11y / player semantics API: text-proxy; bounds in grid units | a11y | planned | oracle/a11y-text-proxy |
 | `a11y.trait-checkable` | Semantic trait: Checkable | new: nodes[].a11y.isCheckable: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-trait-checkable |
 | `a11y.trait-enablable` | Semantic trait: Enablable | new: nodes[].a11y.isEnablable: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-trait-enablable |
 | `a11y.trait-expandable` | Semantic trait: Expandable | new: nodes[].a11y.isExpandable: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-trait-expandable |
@@ -1203,6 +1198,16 @@ scope by the owner's triage of 2026-11-07).
 | `assets.google-font-import` | Google Fonts import | new: assets.<name> / build.assets.<name>: named google-font-import resource setting | assets | planned | oracle/assets-google-font-import |
 | `assets.host-decode-font` | Host decode font | new: player asset loader API with explicit source resolution: host-decode-font | assets | planned | oracle/assets-host-decode-font |
 | `assets.replacement-scope-font` | Font replacement scope | new: assets.<name> / build.assets.<name>: named replacement-scope-font resource setting | assets | planned | oracle/assets-replacement-scope-font |
+
+### Accessibility
+
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `a11y.inferred-text` | Inferred text semantics | new: nodes[].a11y / player semantics API: inferred-text; bounds in grid units | a11y | planned | oracle/a11y-inferred-text | P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to |
+| `a11y.role-text-field` | Semantic role: textField | new: nodes[].a11y.role: text-field | a11y | planned | oracle/a11y-role-text-field | P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to |
+| `a11y.state-multiline` | Semantic state: Multiline | new: nodes[].a11y.isMultiline: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-state-multiline | P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to |
+| `a11y.state-obscured` | Semantic state: Obscured | new: nodes[].a11y.isObscured: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-state-obscured | P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to |
+| `a11y.text-proxy` | Accessible text proxy | new: nodes[].a11y / player semantics API: text-proxy; bounds in grid units | a11y | planned | oracle/a11y-text-proxy | P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to |
 
 ### Host runtime API
 

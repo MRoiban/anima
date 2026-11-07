@@ -308,7 +308,7 @@ for the full matrix. Size estimates are min+gzip against the full-featured ceili
 (131 072 B; 111 723 B now, so about 18.9 KB of headroom); heavy modules count toward Rive-class
 (250 KB) instead.
 
-- [ ] P3b Accessibility and headless agent tools (124 rows). Real ARIA and focus on `<anima-icon>`
+- [ ] P3b Accessibility and headless agent tools (119 rows; 5 text rows moved to P6; design in `design/p3b/DESIGN.md`). Real ARIA and focus on `<anima-icon>`
       and its hosts (roles; pressed/checked/disabled/selected states; labels bound to data; focus),
       not an emulation of Rive's semantics system. Agent tools in the CLI: synthetic pointer/key/
       wheel/gamepad input, setting and snapshotting bound data, image comparison and pixel probes, a
