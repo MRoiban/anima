@@ -2892,3 +2892,70 @@ key phase. Missing event fields leave data unchanged. Wrong/read-only destinatio
 unknown sources report `input-write` at `/listeners/<i>/write/<source>` with a type hint.
 Both data properties and ordinary inputs of the matching type are writable. See
 [input](../modules/input/SPEC.md) and its independent conformance/oracle probes.
+
+## Tool font processing (P6-2)
+
+The CLI's optional font tooling adds no browser runtime code. Text measurements use the contract
+in `design/p6/DESIGN.md` §4: cumulative advances after each `Intl.Segmenter('und')` grapheme,
+kerning included, in grid units. Tracking is inserted between graphemes. Metrics are in grid units;
+descent is positive below the baseline. The tool uses OS/2 typographic metrics when USE_TYPO_METRICS
+is set, otherwise hhea metrics; absent cap/x heights fall back to ascent / half ascent. It never
+selects a system font for deterministic measurement. Missing registered families are `font-missing`.
+A family list selects the first registered face; style and nearest weight select among local faces.
+The weight supplies `wght` unless an explicit axis overrides it. Axis coordinates clamp to fvar bounds;
+avar maps normalized coordinates and gvar tuples vary outlines and phantom-point advances.
+
+Tool sources are local TTF/OTF/WOFF/WOFF2 or base64 data URIs. Font collections, CFF2, HVAR metric
+variations and Type2 arithmetic/seac operators are currently unsupported. CFF1 Type2 contours,
+subroutines and CID FDSelect 0/3 are supported, along with TrueType simple and composite glyphs.
+WOFF uses bounded zlib decompression; WOFF2 uses bounded Brotli and inverse glyf/loca/hmtx transforms.
+The reader maps cmap 4/12, reads hhea/hmtx, OS/2, head, maxp, name, kern and GPOS kern pair adjustments
+1/2 (including extension lookups). Pair placement and advances are supported; GPOS device/variation adjustments, mark placement and GSUB
+shaping are not. Arabic, Hebrew, Indic, combining marks and joining controls issue
+`text-shaping-approximate`; the tool does not claim shaped glyph equivalence.
+
+`anima sample`, `validate`, `render` and the conformance runner install the tool measurer when text
+is installed. `--font family=path` registers or overrides local faces. Font asset names, explicit
+family names and name-table family names are aliases. The optional text module supplies
+`setTextMeasurer(TextMeasurer)` (or `setMeasurer`) from `modules/text/core/measure.ts`.
+
+`render` converts SVG text/tspan output into glyph outline paths before the existing rasterizer.
+It preserves transforms, clipping and paints; scalar x/y/dx/dy and numeric grid-unit sizes are
+supported. SVG position lists, nonzero glyph rotation and RTL outline conversion currently give
+`font-unsupported`. `render --browser-text` explicitly selects cached Chromium for PNG shaping and
+rasterization; SVG output embeds local faces for browser display. It uses the image encoder's lazy
+browser and closes it after use. System-font fallback is browser-dependent in this explicit mode.
+
+Font assets may request `glyphs: "all" | "used" | "custom"` (AniML `glyphs`), plus `chars` for custom
+coverage; these keys are registered by the fonts module. All preserves every glyph. Used includes
+literal authored text and string `default`/`value`/`placeholder` fields, including bound defaults.
+Custom includes each Unicode scalar in `chars`. Subsetting embeds an sfnt TTF/OTF asset even without `--embed`.
+TrueType subsetting retains glyph IDs, .notdef, composite dependencies and kerning/variation tables,
+removes unused glyf payloads and replaces cmap coverage. With GSUB present it retains every outline
+conservatively. CFF1 subsetting retains glyph IDs and subroutines, replaces unused charstrings with
+empty glyphs, and relocates offset-bearing top/FD/private dictionaries and INDEXes. Unsupported
+retained Type2 glyph operators diagnose instead of discarding implicit glyph dependencies.
+
+`anima import-font <source> -o local.ttf|otf [--chars text]` normalizes a container to sfnt and emits
+font asset metadata. `--google "Family:wght@400;600"` instead explicitly fetches Google Fonts CSS
+and its font files at build time. Multiple sources use numbered output files. `--chars` requests
+custom coverage and local subsetting. Network, invalid CSS/font bytes and unsupported forms are
+errors; imports never require a network request at runtime. Downloads and font decompression are
+limited to 32 MiB; malformed offsets and bounded recursion produce structured diagnostics rather
+than uncaught CLI exceptions.
+
+`anima flatten <file> [--node id] [-o out.ani|animl]` freezes authored/default text into editable path
+groups, retaining surrounding nodes and common transforms. Remaining references to text-only
+properties are rejected instead of silently dropped. Unsupported SVG features are rejected by the
+conversion. The text module must be installed for text documents; layout semantics remain owned by
+that module. The committed `fixtures/fonts/anima-test.ttf` is original generated test data;
+`node tools/test-font.ts` reproduces it deterministically. Third-party fonts are not fixtures.
+
+Tool font diagnostics carry severity, code, JSON pointer, message and hint: `font-invalid`,
+`font-format`, `font-limit`, `font-unsupported`, `font-source`, `font-missing`, `font-option`,
+`font-glyphs`, `font-download`, `font-flatten`, `font-contract`, `text-shaping-approximate`.
+
+The independent implementation follows the [OpenType specification](https://learn.microsoft.com/en-us/typography/opentype/spec/)
+and [WOFF2 specification §5](https://www.w3.org/TR/WOFF2/#compressed-data-format), not another reader's
+source code. `docs/research/rive-format-and-graph.md` §1's bounded-reader pitfall informs the
+allocation limits; `docs/research/glyphy-compat.md` §1's grid-unit convention informs the tool boundary.
