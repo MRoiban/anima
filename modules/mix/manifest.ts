@@ -4,7 +4,7 @@ export default {
     name: 'mix',
     after: [],
     core: { entry: 'core/index.ts', export: 'mix', svg: 'core/svg.ts', svgExport: 'mixSVG' },
-    web: [{ name: 'mix', budget: 5120 }],
+    web: [{ name: 'mix', budget: 1856 }],
     adapters: {
       'packages/core/src/modules/mix/index.ts': 'core/index.ts',
       'packages/core/src/modules/mix/svg.ts': 'core/svg.ts',

@@ -5,7 +5,7 @@ export default {
     name: 'motion',
     after: [],
     core: { entry: 'core/index.ts', export: 'motion', svg: 'core/svg.ts', svgExport: 'motionSVG' },
-    web: [{ name: 'motion', budget: 8192 }],
+    web: [{ name: 'motion', budget: 6528 }],
     adapters: {
       'packages/core/src/modules/motion/index.ts': 'core/index.ts',
       'packages/core/src/modules/motion/svg.ts': 'core/svg.ts',

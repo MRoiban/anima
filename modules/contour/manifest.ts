@@ -9,7 +9,7 @@ export default {
       svg: 'core/svg.ts',
       svgExport: 'contourSVG',
     },
-    web: [{ name: 'contour', budget: 5120 }],
+    web: [{ name: 'contour', budget: 4160 }],
     adapters: {
       'packages/core/src/modules/contour/index.ts': 'core/index.ts',
       'packages/core/src/modules/contour/svg.ts': 'core/svg.ts',

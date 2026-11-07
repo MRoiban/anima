@@ -3,7 +3,7 @@ export default {
   name: 'a11y-actions',
   after,
   core: { entry: 'core/index.ts', export: 'a11yActions' },
-  web: [{ name: 'a11y-actions', budget: 1024, over: 'a11y' }],
+  web: [{ name: 'a11y-actions', budget: 1152, over: 'a11y' }],
   adapters: {
     'packages/core/src/modules/a11y-actions/index.ts': 'core/index.ts',
     'packages/web/src/a11y-actions.ts': 'web/index.ts',

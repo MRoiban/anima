@@ -4,7 +4,7 @@ export default {
     name: 'nested',
     after: [],
     core: { entry: 'core/index.ts', export: 'nested', svg: 'core/svg.ts', svgExport: 'nestedSVG' },
-    web: [{ name: 'nested', budget: 5120 }],
+    web: [{ name: 'nested', budget: 5056 }],
     adapters: {
       'packages/core/src/modules/nested/index.ts': 'core/index.ts',
       'packages/core/src/modules/nested/svg.ts': 'core/svg.ts',

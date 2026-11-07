@@ -3,7 +3,7 @@ export default {
   name: 'derive',
   after,
   core: { entry: 'core/index.ts', export: 'derive' },
-  web: [{ name: 'derive', budget: 4096 }],
+  web: [{ name: 'derive', budget: 2624 }],
   adapters: {
     'packages/core/src/modules/derive/index.ts': 'core/index.ts',
     'packages/web/src/derive.ts': 'web/index.ts',

@@ -3,7 +3,7 @@ export default {
   name: 'host-values',
   after,
   core: { entry: 'core/index.ts', export: 'hostValues' },
-  web: [{ name: 'host-values', budget: 2048 }],
+  web: [{ name: 'host-values', budget: 1344 }],
   adapters: {
     'packages/core/src/modules/host-values/index.ts': 'core/index.ts',
     'packages/web/src/host-values.ts': 'web/index.ts',

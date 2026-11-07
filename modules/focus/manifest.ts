@@ -5,7 +5,7 @@ export default {
     name: 'focus',
     after: [],
     core: { entry: 'core/index.ts', export: 'focus', svg: 'core/svg.ts', svgExport: 'focusSVG' },
-    web: [{ name: 'focus', budget: 4096 }],
+    web: [{ name: 'focus', budget: 3392 }],
     adapters: {
       'packages/core/src/modules/focus/index.ts': 'core/index.ts',
       'packages/core/src/modules/focus/svg.ts': 'core/svg.ts',

@@ -4,8 +4,8 @@ export default {
   after,
   core: { entry: 'core/index.ts', export: 'convert' },
   web: [
-    { name: 'convert', budget: 8192 },
-    { name: 'markup-convert', budget: 2048, over: 'index', authoring: true },
+    { name: 'convert', budget: 6464 },
+    { name: 'markup-convert', budget: 704, over: 'index', authoring: true },
   ],
   markupHook: {
     slot: 'convertCompiler',

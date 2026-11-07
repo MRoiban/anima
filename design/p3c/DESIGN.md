@@ -64,3 +64,13 @@ so every entry stays ≤ 8 KB. Pages that compile AniML in the browser must keep
 | P3c-5 diagnostics: events/data/machine | survey T2 files | 578 |
 | P3c-6 diagnostics: visual | survey T3 files (no clone sharing) | 561 |
 | P3c-7 diagnostics: converter/bind + node pointers | survey T1 + T4 files | 447 |
+
+## 5. Budget reset (2026-11-07, after P3c-4/5/7)
+
+Every module budget was reset to ⌈measured × 1.10 / 64⌉ × 64 B, capped at the 8 KB module ceiling
+(owner rule 2; values from `node tools/size.ts` on `p3c` after the authoring move and the event,
+data, machine, converter and bind guards). Budgets went down where modules were far below them
+(e.g. `mix` 5 120 → 1 856, `assetio` 2 048 → 768) and up where they sat at their limits (e.g. `a11y`
+2 048 → 2 304). Two entries are capped by the ceiling with less than 10 % headroom: `markup` (authoring,
+8 007 / 8 192) and `surface` (7 821 / 8 192); either must split before it grows. P3c-6's modules
+(paint, composite, surface, mix, componentpaint, contour) only shrink, so their reset values stand.

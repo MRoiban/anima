@@ -10,7 +10,7 @@ export default {
       svg: 'core/svg.ts',
       svgExport: 'machineSVG',
     },
-    web: [{ name: 'machine', budget: 8192 }],
+    web: [{ name: 'machine', budget: 6720 }],
     adapters: {
       'packages/core/src/modules/machine/index.ts': 'core/index.ts',
       'packages/core/src/modules/machine/svg.ts': 'core/svg.ts',

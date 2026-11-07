@@ -8,7 +8,7 @@ export default {
     svg: 'core/svg.ts',
     svgExport: 'componentpaintSVG',
   },
-  web: [{ name: 'componentpaint', budget: 5120 }],
+  web: [{ name: 'componentpaint', budget: 2176 }],
   adapters: {
     'packages/core/src/modules/componentpaint/index.ts': 'core/index.ts',
     'packages/core/src/modules/componentpaint/svg.ts': 'core/svg.ts',
