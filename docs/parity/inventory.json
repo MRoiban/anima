@@ -12729,7 +12729,7 @@
       "status": "wont-do",
       "test": "conformance/path-measure",
       "phase": "\u2014",
-      "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
+      "reason": "Won't do as a public API (owner, 2026-11-07 triage follow-up): path measurement stays internal to P8 rigging, where follow-path may use it."
     },
     "aliases": [
       "scripting.path-measure"
@@ -21319,10 +21319,10 @@
     "anima": {
       "construct": "new: animated layout reflow with readable named properties; lengths in grid units, time in seconds and angles in degrees",
       "module": "layout",
-      "status": "wont-do",
+      "status": "planned",
       "test": "oracle/layout-animated-reflow",
-      "phase": "\u2014",
-      "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
+      "phase": "P7",
+      "reason": "Owner, 2026-11-07 (triage follow-up): brought back for P7 \u2014 in the growing-button case the background animates as the label grows instead of snapping; counted in P7's size estimate."
     }
   },
   {
@@ -30733,10 +30733,10 @@
     "anima": {
       "construct": "new: bidirectional text control with readable named properties; lengths in grid units, time in seconds and angles in degrees",
       "module": "text",
-      "status": "wont-do",
+      "status": "planned",
       "test": "oracle/text-script-direction",
-      "phase": "\u2014",
-      "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
+      "phase": "P6",
+      "reason": "Owner, 2026-11-07 (triage follow-up): P6 exposes direction control only if it is nearly free, since the browser already handles bidi; otherwise the P6 design records the measured cost and returns it to won't do."
     }
   },
   {
@@ -30789,10 +30789,10 @@
     "anima": {
       "construct": "new: text hit testing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
       "module": "text",
-      "status": "wont-do",
+      "status": "planned",
       "test": "oracle/text-script-hit-testing",
-      "phase": "\u2014",
-      "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
+      "phase": "P6",
+      "reason": "Owner, 2026-11-07 (triage follow-up): brought back for P6 through the host API and listeners (position \u2192 text index, caret/selection geometry), not a script VM."
     }
   },
   {

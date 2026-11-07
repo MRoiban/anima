@@ -303,7 +303,7 @@ and an oracle test against Rive.
 **Scope and order after P5b** (owner triage, 2026-11-07; rows and reasons in
 `docs/parity/triage-2026-11-07.md`). Anima is a smaller, agent-native Rive for animated web UI in general;
 where the browser already does something well, Anima binds to it instead of reimplementing it.
-Progress is reported against the in-scope rows: **624 of 883 done (71 %)**, next to 624 of 1 238 (50 %)
+Progress is reported against the in-scope rows: **624 of 886 done (70 %)**, next to 624 of 1 238 (50 %)
 for the full matrix. Size estimates are min+gzip against the full-featured ceiling of 128 KB
 (131 072 B; 111 723 B now, so about 18.9 KB of headroom); heavy modules count toward Rive-class
 (250 KB) instead.
@@ -317,7 +317,9 @@ for the full matrix. Size estimates are min+gzip against the full-featured ceili
       values in `sample`); the P5b data/host leftovers. Decide whether switching to reduced motion
       stops in-progress loops at once (P4b benchmark). **Estimate:** a11y module 3–4 KB in the
       full-featured page; agent tools are CLI-only (0 KB). → ~113 KB.
-- [ ] P6 Text on the browser (76 rows; the 4 `text.script-*` rows went with scripting). Shaping,
+- [ ] P6 Text on the browser (83 rows: 76, plus 5 text a11y rows from P3b and, by the owner's
+      follow-up of 2026-11-07, text hit testing through the host API and listeners and bidi control
+      only if nearly free; the other `text.script-*` rows went with scripting). Shaping,
       fonts (`FontFace`), bidi, OpenType features and variable axes from the browser (`measureText`,
       SVG text, `Intl.Segmenter`); per-glyph modifiers and ranges kept; DOM-backed text input (a
       native field over the drawn text, caret and selection drawn from the native selection);
@@ -325,13 +327,15 @@ for the full matrix. Size estimates are min+gzip against the full-featured ceili
       renders text without a browser. Separate modules (text, text effects, text input, fonts).
       **Estimate:** text 5–7 KB, text effects 3–4 KB, fonts 1–2 KB, text input 3–4 KB → 12–17 KB,
       which alone would use most of the remaining headroom (see the risk below). → ~125–130 KB.
-- [ ] P7 Minimal layout and host fit (34 rows): hug content, padding/gaps, min/max, fixed sizes,
+- [ ] P7 Minimal layout and host fit (35 rows, with animated reflow brought back by the owner): hug content, padding/gaps, min/max, fixed sizes,
       row/column stacks with alignment and distribution, nested containers, painted layout boxes,
       layout values bound to data; host `Fit:*`, `Alignment:*` and override size. Design case: a
-      button whose background grows with a label of changing length. **Estimate:** 3–4 KB (host
-      fit/alignment mostly in the existing web element).
+      button whose background grows with a label of changing length and animates as it grows (no
+      snap). **Estimate:** 3–4 KB plus ~1 KB for animated reflow (host fit/alignment mostly in the
+      existing web element).
 - [ ] P8 Rigging (25 rows): bones, constraints, IK, skinning, meshes and vertex weights, as optional
-      **heavy** modules on the canvas backend. **Estimate:** 8–11 KB, counted toward Rive-class
+      **heavy** modules on the canvas backend (owner confirmed 2026-11-07); path measurement stays internal
+      to rigging (follow-path), not a public API. **Estimate:** 8–11 KB, counted toward Rive-class
       (114.5 KB now) rather than the full-featured page.
 - P9 Scripting: **won't do** (a runtime VM is the largest size and security cost; expressions,
   `derive` and the host page's JavaScript cover it). P10 GPU (WebGL/WebGPU backends, multipass effects,

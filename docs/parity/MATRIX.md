@@ -23,8 +23,8 @@ scope by the owner's triage of 2026-11-07).
 | Data: view models, binding, converters | 169 | 157 |  | 8 |  |  | 4 |
 | Events | 18 | 17 |  |  |  |  | 1 |
 | Components | 30 | 23 |  | 4 |  |  | 3 |
-| Text | 61 |  |  | 57 |  |  | 4 |
-| Layout | 49 |  |  | 15 |  |  | 34 |
+| Text | 61 |  |  | 59 |  |  | 2 |
+| Layout | 49 |  |  | 16 |  |  | 33 |
 | Rigging | 23 |  |  | 22 |  | 1 |  |
 | Scripting | 96 |  |  |  |  | 25 | 71 |
 | GPU | 35 |  |  |  |  | 35 |  |
@@ -33,9 +33,9 @@ scope by the owner's triage of 2026-11-07).
 | Host runtime API | 125 | 74 |  | 37 |  | 11 | 3 |
 | Platforms | 64 | 2 |  |  |  | 59 | 3 |
 | Tooling | 119 | 14 |  | 34 |  | 51 | 20 |
-| **Total** | **1238** | **624** | **0** | **259** | **0** | **188** | **167** |
+| **Total** | **1238** | **624** | **0** | **262** | **0** | **188** | **164** |
 
-**Progress:** 624 of 883 in-scope capabilities done (71 %); 624 of 1238 in the full matrix (50 %).
+**Progress:** 624 of 886 in-scope capabilities done (70 %); 624 of 1238 in the full matrix (50 %).
 
 | Phase | Rows |
 |---|---:|
@@ -53,13 +53,13 @@ scope by the owner's triage of 2026-11-07).
 | [P5](#p5) — Done: components, bindings, assets, images, n-slice and feathering | 61 |
 | [P5b](#p5b) — Done: lists, assets, host editing, typed data guards, live keyframes and component controls | 77 |
 | [Pc](#pc) — Done: the canvas backend (minimal), brought forward from P10 | 3 |
-| [P6](#p6) — Text, on the browser (shaping, FontFace, DOM-backed input) | 81 |
-| [P7](#p7) — Minimal layout (hug, padding, min/max, fixed, row/column stacks) and host fit | 34 |
+| [P6](#p6) — Text, on the browser (shaping, FontFace, DOM-backed input) | 83 |
+| [P7](#p7) — Minimal layout (hug, padding, min/max, fixed, row/column stacks) and host fit | 35 |
 | [P8](#p8) — Rigging | 25 |
 | [P9](#p9) — Scripting — won't do (owner triage, 2026-11-07) | 0 |
 | [P10](#p10) — GPU effects and WebGL/WebGPU — maybe later (owner triage, 2026-11-07) | 0 |
 | [Maybe / later](#maybe-later) | 188 |
-| [Won't do](#wont-do) | 167 |
+| [Won't do](#wont-do) | 164 |
 
 ## P0 — Done: format 0.1, core, CLI, `<anima-icon>` (M0–M4) <a id="p0"></a>
 
@@ -1126,65 +1126,67 @@ scope by the owner's triage of 2026-11-07).
 
 ### Text
 
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `text.background` | Text highlight geometry | new: text highlight geometry with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-background |
-| `text.fit-baseline` | Baseline-aware fitting | new: baseline-aware fitting with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-fit-baseline |
-| `text.fit-layout-measure` | Fitted text layout measurement | new: fitted text layout measurement with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-fit-layout-measure |
-| `text.flatten` | Text outline conversion | new: text outline conversion through a separate optional module; seconds, degrees and grid units at the format boundary | text | planned | oracle/text-flatten |
-| `text.font-assets` | Font asset selection | new: font asset selection with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-font-assets |
-| `text.font-decoding` | Runtime font decoding | new: runtime font decoding with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-font-decoding |
-| `text.font-fallback` | Host font fallback | new: host font fallback through a separate optional module; seconds, degrees and grid units at the format boundary | text | planned | oracle/text-font-fallback |
-| `text.font-metrics` | Font metrics and coverage | new: font metrics and coverage with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-font-metrics |
-| `text.font-size` | Font sizing | new: font sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-font-size |
-| `text.horizontal-alignment` | Horizontal text alignment | new: horizontal text alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-horizontal-alignment |
-| `text.input-clipboard` | Text clipboard integration | new: text clipboard integration through a separate optional module; seconds, degrees and grid units at the format boundary | text | planned | oracle/text-input-clipboard |
-| `text.input-cursor` | Styled input caret | new: styled input caret with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-cursor |
-| `text.input-editable` | Editable text fields | new: editable text fields with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-editable |
-| `text.input-focus-selection` | Select all on focus | new: select all on focus with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-focus-selection |
-| `text.input-ime` | IME and dead-key text entry | new: ime and dead-key text entry through a separate optional module; seconds, degrees and grid units at the format boundary | text | planned | oracle/text-input-ime |
-| `text.input-limits` | Text input limits | new: text input limits with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-limits |
-| `text.input-multiline` | Multiline text input | new: multiline text input with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-multiline |
-| `text.input-obscured` | Obscured text input | new: obscured text input with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-obscured |
-| `text.input-placeholder` | Text input placeholder | new: text input placeholder through a separate optional module; seconds, degrees and grid units at the format boundary | text | planned | oracle/text-input-placeholder |
-| `text.input-selection` | Styled input selection | new: styled input selection with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-selection |
-| `text.input-selection-rounding` | Rounded selection geometry | new: rounded selection geometry with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-selection-rounding |
-| `text.input-text` | Independent field text drawable | new: independent field text drawable with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-text |
-| `text.line-spacing` | Line spacing | new: line spacing with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-line-spacing |
-| `text.modifier-follow-path` | Text along a path | new: text along a path with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-follow-path |
-| `text.modifier-opacity` | Per-glyph opacity | new: per-glyph opacity with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-opacity |
-| `text.modifier-origin` | Per-glyph transform origin | new: per-glyph transform origin with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-origin |
-| `text.modifier-rotation` | Per-glyph rotation | new: per-glyph rotation with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-rotation |
-| `text.modifier-scale` | Per-glyph scaling | new: per-glyph scaling with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-scale |
-| `text.modifier-translation` | Per-glyph translation | new: per-glyph translation with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-translation |
-| `text.modifier-variation` | Per-glyph variable axes | new: per-glyph variable axes with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-variation |
-| `text.opentype-features` | OpenType features | new: opentype features with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-opentype-features |
-| `text.origin` | Text origin and baseline | new: text origin and baseline with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-origin |
-| `text.overflow-clipped` | Text overflow: clipped | new: text overflow: clipped with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-overflow-clipped |
-| `text.overflow-ellipsis` | Text overflow: ellipsis | new: text overflow: ellipsis with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-overflow-ellipsis |
-| `text.overflow-fit` | Text overflow: fit | new: text overflow: fit with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-overflow-fit |
-| `text.overflow-fit-font-size` | Text overflow: fit-font-size | new: text overflow: fit-font-size with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-overflow-fit-font-size |
-| `text.overflow-hidden` | Text overflow: hidden | new: text overflow: hidden with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-overflow-hidden |
-| `text.overflow-visible` | Text overflow: visible | new: text overflow: visible with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-overflow-visible |
-| `text.paint` | Glyph fill and stroke | new: glyph fill and stroke with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-paint |
-| `text.paragraph-spacing` | Paragraph spacing | new: paragraph spacing with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-paragraph-spacing |
-| `text.range-combine` | Range combination | new: range combination with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-range-combine |
-| `text.range-easing` | Eased range falloff | new: eased range falloff with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-range-easing |
-| `text.range-falloff` | Range falloff and offset | new: range falloff and offset with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-range-falloff |
-| `text.range-run` | Run-scoped ranges | new: run-scoped ranges with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-range-run |
-| `text.range-units` | Glyph range units | new: glyph range units with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-range-units |
-| `text.rich-runs` | Rich text runs | new: rich text runs with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-rich-runs |
-| `text.run-list` | Data-driven run lists | new: data-driven run lists with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-run-list |
-| `text.sizing-auto-height` | Width-constrained text | new: width-constrained text with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-sizing-auto-height |
-| `text.sizing-auto-width` | Content-sized text | new: content-sized text with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-sizing-auto-width |
-| `text.sizing-fixed` | Fixed text box | new: fixed text box with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-sizing-fixed |
-| `text.style-reference` | Reusable global text styles | new: reusable global text styles with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-style-reference |
-| `text.tracking` | Letter spacing | new: letter spacing with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-tracking |
-| `text.variable-axes` | Variable font axes | new: variable font axes with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-variable-axes |
-| `text.vertical-alignment` | Vertical text alignment | new: vertical text alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-vertical-alignment |
-| `text.vertical-trim` | Metric-based vertical trimming | new: metric-based vertical trimming with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-vertical-trim |
-| `text.word-break` | Word breaking | new: word breaking with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-word-break |
-| `text.wrap` | Line wrapping | new: line wrapping with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-wrap |
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `text.background` | Text highlight geometry | new: text highlight geometry with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-background |  |
+| `text.fit-baseline` | Baseline-aware fitting | new: baseline-aware fitting with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-fit-baseline |  |
+| `text.fit-layout-measure` | Fitted text layout measurement | new: fitted text layout measurement with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-fit-layout-measure |  |
+| `text.flatten` | Text outline conversion | new: text outline conversion through a separate optional module; seconds, degrees and grid units at the format boundary | text | planned | oracle/text-flatten |  |
+| `text.font-assets` | Font asset selection | new: font asset selection with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-font-assets |  |
+| `text.font-decoding` | Runtime font decoding | new: runtime font decoding with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-font-decoding |  |
+| `text.font-fallback` | Host font fallback | new: host font fallback through a separate optional module; seconds, degrees and grid units at the format boundary | text | planned | oracle/text-font-fallback |  |
+| `text.font-metrics` | Font metrics and coverage | new: font metrics and coverage with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-font-metrics |  |
+| `text.font-size` | Font sizing | new: font sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-font-size |  |
+| `text.horizontal-alignment` | Horizontal text alignment | new: horizontal text alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-horizontal-alignment |  |
+| `text.input-clipboard` | Text clipboard integration | new: text clipboard integration through a separate optional module; seconds, degrees and grid units at the format boundary | text | planned | oracle/text-input-clipboard |  |
+| `text.input-cursor` | Styled input caret | new: styled input caret with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-cursor |  |
+| `text.input-editable` | Editable text fields | new: editable text fields with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-editable |  |
+| `text.input-focus-selection` | Select all on focus | new: select all on focus with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-focus-selection |  |
+| `text.input-ime` | IME and dead-key text entry | new: ime and dead-key text entry through a separate optional module; seconds, degrees and grid units at the format boundary | text | planned | oracle/text-input-ime |  |
+| `text.input-limits` | Text input limits | new: text input limits with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-limits |  |
+| `text.input-multiline` | Multiline text input | new: multiline text input with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-multiline |  |
+| `text.input-obscured` | Obscured text input | new: obscured text input with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-obscured |  |
+| `text.input-placeholder` | Text input placeholder | new: text input placeholder through a separate optional module; seconds, degrees and grid units at the format boundary | text | planned | oracle/text-input-placeholder |  |
+| `text.input-selection` | Styled input selection | new: styled input selection with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-selection |  |
+| `text.input-selection-rounding` | Rounded selection geometry | new: rounded selection geometry with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-selection-rounding |  |
+| `text.input-text` | Independent field text drawable | new: independent field text drawable with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-input-text |  |
+| `text.line-spacing` | Line spacing | new: line spacing with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-line-spacing |  |
+| `text.modifier-follow-path` | Text along a path | new: text along a path with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-follow-path |  |
+| `text.modifier-opacity` | Per-glyph opacity | new: per-glyph opacity with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-opacity |  |
+| `text.modifier-origin` | Per-glyph transform origin | new: per-glyph transform origin with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-origin |  |
+| `text.modifier-rotation` | Per-glyph rotation | new: per-glyph rotation with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-rotation |  |
+| `text.modifier-scale` | Per-glyph scaling | new: per-glyph scaling with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-scale |  |
+| `text.modifier-translation` | Per-glyph translation | new: per-glyph translation with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-translation |  |
+| `text.modifier-variation` | Per-glyph variable axes | new: per-glyph variable axes with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-variation |  |
+| `text.opentype-features` | OpenType features | new: opentype features with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-opentype-features |  |
+| `text.origin` | Text origin and baseline | new: text origin and baseline with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-origin |  |
+| `text.overflow-clipped` | Text overflow: clipped | new: text overflow: clipped with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-overflow-clipped |  |
+| `text.overflow-ellipsis` | Text overflow: ellipsis | new: text overflow: ellipsis with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-overflow-ellipsis |  |
+| `text.overflow-fit` | Text overflow: fit | new: text overflow: fit with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-overflow-fit |  |
+| `text.overflow-fit-font-size` | Text overflow: fit-font-size | new: text overflow: fit-font-size with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-overflow-fit-font-size |  |
+| `text.overflow-hidden` | Text overflow: hidden | new: text overflow: hidden with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-overflow-hidden |  |
+| `text.overflow-visible` | Text overflow: visible | new: text overflow: visible with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-overflow-visible |  |
+| `text.paint` | Glyph fill and stroke | new: glyph fill and stroke with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-paint |  |
+| `text.paragraph-spacing` | Paragraph spacing | new: paragraph spacing with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-paragraph-spacing |  |
+| `text.range-combine` | Range combination | new: range combination with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-range-combine |  |
+| `text.range-easing` | Eased range falloff | new: eased range falloff with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-range-easing |  |
+| `text.range-falloff` | Range falloff and offset | new: range falloff and offset with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-range-falloff |  |
+| `text.range-run` | Run-scoped ranges | new: run-scoped ranges with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-range-run |  |
+| `text.range-units` | Glyph range units | new: glyph range units with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-range-units |  |
+| `text.rich-runs` | Rich text runs | new: rich text runs with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-rich-runs |  |
+| `text.run-list` | Data-driven run lists | new: data-driven run lists with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-run-list |  |
+| `text.script-direction` | Bidirectional text control | new: bidirectional text control with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-script-direction | Owner, 2026-11-07 (triage follow-up): P6 exposes direction control only if it is nearly free, since the browser already handles bidi; otherwise the P6 design records the measured cost and returns it to won't do. |
+| `text.script-hit-testing` | Text hit testing | new: text hit testing with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-script-hit-testing | Owner, 2026-11-07 (triage follow-up): brought back for P6 through the host API and listeners (position → text index, caret/selection geometry), not a script VM. |
+| `text.sizing-auto-height` | Width-constrained text | new: width-constrained text with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-sizing-auto-height |  |
+| `text.sizing-auto-width` | Content-sized text | new: content-sized text with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-sizing-auto-width |  |
+| `text.sizing-fixed` | Fixed text box | new: fixed text box with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-sizing-fixed |  |
+| `text.style-reference` | Reusable global text styles | new: reusable global text styles with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-style-reference |  |
+| `text.tracking` | Letter spacing | new: letter spacing with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-tracking |  |
+| `text.variable-axes` | Variable font axes | new: variable font axes with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-variable-axes |  |
+| `text.vertical-alignment` | Vertical text alignment | new: vertical text alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-vertical-alignment |  |
+| `text.vertical-trim` | Metric-based vertical trimming | new: metric-based vertical trimming with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-vertical-trim |  |
+| `text.word-break` | Word breaking | new: word breaking with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-word-break |  |
+| `text.wrap` | Line wrapping | new: line wrapping with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-wrap |  |
 
 ### Assets
 
@@ -1230,23 +1232,24 @@ scope by the owner's triage of 2026-11-07).
 
 ### Layout
 
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `layout.alignment` | Container alignment | new: container alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-alignment |
-| `layout.containers` | Nested layout containers | new: nested layout containers with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-containers |
-| `layout.fill-sizing` | Weighted fill sizing | new: weighted fill sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-fill-sizing |
-| `layout.fixed-sizing` | Fixed dimensions | new: fixed dimensions with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-fixed-sizing |
-| `layout.flex-align-items` | Flex item alignment | new: flex item alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-flex-align-items |
-| `layout.flex-direction` | Flex rows and columns | new: flex rows and columns with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-flex-direction |
-| `layout.flex-justify` | Main-axis distribution | new: main-axis distribution with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-flex-justify |
-| `layout.hug-sizing` | Content hugging | new: content hugging with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-hug-sizing |
-| `layout.intrinsic` | Intrinsic sizing | new: intrinsic sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-intrinsic |
-| `layout.paint` | Painted layout boxes | new: painted layout boxes with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-paint |
-| `layout.participants` | Leaf layout participation | new: leaf layout participation with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-participants |
-| `layout.self-alignment` | Per-item alignment | new: per-item alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-self-alignment |
-| `layout.size-bounds` | Minimum and maximum size | new: minimum and maximum size with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-size-bounds |
-| `layout.spacing` | Gaps margins and padding | new: gaps margins and padding with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-spacing |
-| `layout.visibility` | Layout display participation | new: layout display participation with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-visibility |
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `layout.alignment` | Container alignment | new: container alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-alignment |  |
+| `layout.animated-reflow` | Animated layout reflow | new: animated layout reflow with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-animated-reflow | Owner, 2026-11-07 (triage follow-up): brought back for P7 — in the growing-button case the background animates as the label grows instead of snapping; counted in P7's size estimate. |
+| `layout.containers` | Nested layout containers | new: nested layout containers with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-containers |  |
+| `layout.fill-sizing` | Weighted fill sizing | new: weighted fill sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-fill-sizing |  |
+| `layout.fixed-sizing` | Fixed dimensions | new: fixed dimensions with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-fixed-sizing |  |
+| `layout.flex-align-items` | Flex item alignment | new: flex item alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-flex-align-items |  |
+| `layout.flex-direction` | Flex rows and columns | new: flex rows and columns with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-flex-direction |  |
+| `layout.flex-justify` | Main-axis distribution | new: main-axis distribution with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-flex-justify |  |
+| `layout.hug-sizing` | Content hugging | new: content hugging with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-hug-sizing |  |
+| `layout.intrinsic` | Intrinsic sizing | new: intrinsic sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-intrinsic |  |
+| `layout.paint` | Painted layout boxes | new: painted layout boxes with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-paint |  |
+| `layout.participants` | Leaf layout participation | new: leaf layout participation with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-participants |  |
+| `layout.self-alignment` | Per-item alignment | new: per-item alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-self-alignment |  |
+| `layout.size-bounds` | Minimum and maximum size | new: minimum and maximum size with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-size-bounds |  |
+| `layout.spacing` | Gaps margins and padding | new: gaps margins and padding with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-spacing |  |
+| `layout.visibility` | Layout display participation | new: layout display participation with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | planned | oracle/layout-visibility |  |
 
 ### Host runtime API
 
@@ -1570,7 +1573,7 @@ Only capabilities that conflict with the project guardrails.
 | `drawing-paint.freehand-brush` | Freehand brush authoring | new: brush authoring tool producing path outlines | tooling | wont-do | oracle/freehand-brush | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
 | `drawing-paint.freehand-eraser` | Eraser authoring | new: eraser geometry operation | tooling | wont-do | oracle/freehand-eraser | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
 | `drawing-paint.freehand-pencil` | Pencil authoring | new: pencil authoring tool producing paths | tooling | wont-do | oracle/freehand-pencil | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |
-| `drawing-paint.path-measure` | Path measurements | new: path measure API in grid units | script | wont-do | conformance/path-measure | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
+| `drawing-paint.path-measure` | Path measurements | new: path measure API in grid units | script | wont-do | conformance/path-measure | Won't do as a public API (owner, 2026-11-07 triage follow-up): path measurement stays internal to P8 rigging, where follow-path may use it. |
 | `drawing-paint.script-path-api` | Procedural path construction | new: script Path API | script | wont-do | conformance/script-path-api | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
 | `drawing-paint.script-render-paint` | Procedural paint objects | new: script paint factory | script | wont-do | conformance/script-render-paint | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
 | `drawing-paint.scripted-path-effects` | Procedural path effects | new: paint.effects script reference | script | wont-do | conformance/scripted-path-effects | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
@@ -1583,7 +1586,6 @@ Only capabilities that conflict with the project guardrails.
 | `input.hit-claims` | Script pointer claims | new: pointer event.claim({opaque}) | script | wont-do | conformance/input-hit-claims | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
 | `input.script-action` | Script listener actions | new: listener action script reference | script | wont-do | conformance/input-script-action | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
 | `input.scroll-script` | Script scroll handlers | new: script pointerScroll hook and event.claim() | script | wont-do | conformance/input-scroll-script | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
-| `layout.animated-reflow` | Animated layout reflow | new: animated layout reflow with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-animated-reflow | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
 | `layout.artboard-alignment` | Artboard alignment | new: artboard alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-artboard-alignment | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
 | `layout.aspect-ratio` | Aspect ratio sizing | new: aspect ratio sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-aspect-ratio | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
 | `layout.borders` | Layout borders | new: layout borders with readable named properties; lengths in grid units, time in seconds and angles in degrees | layout | wont-do | oracle/layout-borders | Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it. |
@@ -1692,9 +1694,7 @@ Only capabilities that conflict with the project guardrails.
 | `scripting.utf8-byte-strings` | UTF-8 byte string compatibility | new: script standard-library support for utf-8 byte string compatibility; language choice remains open | script | wont-do | oracle/script-utf8-byte-strings | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
 | `scripting.vectors` | Script vector math | new: script standard-library support for script vector math; language choice remains open | script | wont-do | oracle/script-vectors | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
 | `state-machine.condition-script` | Script transition conditions | new: when script guard reference | script | wont-do | conformance/condition-script | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
-| `text.script-direction` | Bidirectional text control | new: bidirectional text control with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | wont-do | oracle/text-script-direction | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
 | `text.script-glyphs` | Glyph inspection | new: glyph inspection with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | wont-do | oracle/text-script-glyphs | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
-| `text.script-hit-testing` | Text hit testing | new: text hit testing with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | wont-do | oracle/text-script-hit-testing | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
 | `text.script-shaping` | Scripted text shaping | new: scripted text shaping with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | wont-do | oracle/text-script-shaping | Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it. |
 | `tooling.binary-rive-io` | Rive binary import/export | new: no .riv reader or writer | tooling | wont-do | cli/binary-rive-io | The guardrails prohibit reading, writing or converting .riv files. |
 | `tooling.debug-rebuild` | Preserve debugger session on rebuild | new: stable debug IDs across preview reloads | tooling | wont-do | cli/debug-rebuild | Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough. |

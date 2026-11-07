@@ -53,7 +53,7 @@ and data binding (157/169). `MATRIX.md` has the per-category table.
 general, and it runs only in web pages: where the browser already does something well (ARIA and
 focus, text shaping and fonts, text editing, page layout), Anima binds to it instead of
 reimplementing it. Progress is reported against the in-scope rows — every row except maybe-later and
-won't-do: **624 of 883 in-scope capabilities are done (71 %)**, next to 624 of 1 238 (50 %) for the
+won't-do: **624 of 886 in-scope capabilities are done (70 %)**, next to 624 of 1 238 (50 %) for the
 full matrix. Out of scope: scripting (P9), visual editor tooling, layout beyond a minimal subset and
 Rive's WASM build variants (won't do, with reasons); GPU backends and effects (P10) are maybe later.
 Remaining in-scope work: P3b accessibility and headless agent tools, P6 text, P7 minimal layout and
