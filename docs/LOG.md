@@ -2393,3 +2393,36 @@ compile succeed, so the bell compile figure jumped to ~2.2 ms: the first valid m
 regression (found by an in-process A/B against main, then by bisecting the failing compile). The tool
 now throws if its bell or toolbar workload produces any diagnostic. Frame costs and toolbar compile
 were valid throughout and show no regression in P3b.
+
+## P3b — accessibility on the browser and headless agent tools (2026-11-07)
+
+- **Rows:** 96 of 119 done (full matrix 624 → 720 of 1 238; in scope 624 → 720 of 886, 70 % → 81 %);
+  23 moved to P3c with reasons (`docs/parity/P3b-closure.md`); 5 text a11y rows moved to P6 before work.
+- **Accessibility:** node semantics (`a11y`: roles, labels/hints/values/value text bound to data,
+  states, tree, visibility), interaction (`a11y-actions`: actions, focus policy, diffs), a DOM overlay
+  of native elements (`a11y-dom`: button, checkbox, radio, range, link, headings; ARIA roles for the
+  rest), in-browser AniML forms (`markup-a11y`). Headless `semantics` / `semantic` commands and
+  native-element key behaviour in scripts; 48+ nodes match Rive's headless semantics dump.
+  Splits instead of budget raises: `a11y-actions` out of `a11y` (3 623 B), `markup-a11y` out of the
+  web entry (the paint/bind pattern).
+- **Agent tools (CLI, 0 runtime bytes):** `anima session`, `bench`, `compare`, `doctor`,
+  `schema --search` and lookup, `inspect --summary`, `anima.json` projects, presets, samples,
+  local export, render component/fit/viewport/scale/probe/audio; script `data set/dump/watch/break`,
+  `expect`, `seed` (one seeded source for machine and converter randomness), `touch`, `pointer drag`,
+  `snapshot --all/--semantics`.
+- **Runtime:** `data-host` (color/nested/component handles, batch, listener writes of pointer/key,
+  live data guards, computed geometry, scoped image replacement, `asset()` in bindings, `icon.src`);
+  reduced motion stops in-progress loops at the next step (WCAG 2.2.2); `icon.stop()`; `devtools`
+  (fps, performance marks, warning policy; authoring class).
+- **Size gates (owner decision, 2026-11-07, see above), end of P3b:** core+web 20 622 / 24 576;
+  largest scene 55 313 / 65 536 (29 scenes); app-UI 91 158 / 131 072; runtime sum 109 971 / 163 840
+  (the P3c baseline); authoring 11 949 / 16 384; Rive-class 115 473 / 256 000. Modules at ≥ 95 % of
+  budget: a11y, a11y-actions, bind, components, focus, markup, surface, data.
+- **Perf:** frame costs equal to main (bell 32.6 / 32.6 µs, composite 24.0 / 24.1, toolbar 26.5 / 26.1);
+  toolbar compile 3.9 / 4.0 ms; bell compile 2.2 ms is the first valid figure (see the perf fix entry).
+- **Benchmark (settings card):** AniML 4/6 → 5/6 after P3b-10a/10b; Rive 5/6. Item 1 (visible text
+  from data) is an owner-accepted gap, rerun after P6.
+- **Process:** CI red twice on formatting / a parity reason → Prettier hooks (pre-commit,
+  pre-merge-commit, pre-push) and an AGENTS.md rule; the hooks skip with a warning without
+  `node_modules`. Unverified: a screen reader's spoken slider value (Chromium's CDP tree and
+  Playwright's snapshot do not surface `aria-valuetext`).

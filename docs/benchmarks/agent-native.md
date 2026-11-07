@@ -49,6 +49,7 @@ friction point that blocks an item — is a bug, fixed before the phase's PR mer
 | 2026-11-06 | P5b (rerun after P5b-10) | playlist | AniML | 6/6 | 34 | 7 min 53 s | 67-line scene (224 lines / 14.1 k chars with media generator and checks) | repeated-row clips start and finish with exact trims in the browser; list edits keep row state; friction: `asset(...)` works in guards but not bindings, `icon.src` as a JS property loads nothing (attribute works), unanimated values absent from `sample` snapshots |
 | 2026-11-07 | P3b | [settings card](runs/2026-11-07-p3b/BRIEF.md) | AniML | 4/6 | 27 | ~10 min | 123-line scene (17.3 k chars; 278 lines of generator/verifier) | item 1 not met: no text until P6, so labels are vector glyphs and renaming a tab changes only its accessible name; item 3 not met: no value text separate from the numeric value, so "Volume 40 %" is the label. Friction: `docs a11y` / `docs --list` lack node accessibility, `schema a11y` shows only the root roles, the `semantic` action command is undiscoverable, focused-slider arrow keys do nothing headlessly, `expect` rejects AniML spellings (`volumeFill.width`), `$volume-5` parses as one path, the pre-commit hook fails without local node_modules. Orchestrator re-check: `validate` ok, the tabs evidence reproduces byte for byte |
 | 2026-11-07 | P3b | settings card | Rive markup | 5/6 | 15 | ~10.5 min | 924 lines (46.7 k chars, incl. two logic scripts and verifier) | item 3 partial: the semantic tree has no numeric min/max/step (range stated in the hint); spoken value "Volume 40 %" → "45 %" checked. Text runs bound to data with a downloaded open font; focus on click needed explicit listeners. Orchestrator re-check: slider and checkbox captures match the report |
+| 2026-11-07 | P3b (rerun after P3b-10a/10b) | settings card | AniML | 5/6 | 16 | ~6 min | 129-line scene (29.9 k chars; 507 lines / 55.7 k chars with generator, verifier and six input scripts) | item 1 not met — owner-accepted gap (no text until P6; accessible names follow the data, drawn labels do not). Items 2–6 met with headless semantic trees and synthetic keys/actions; spoken value via `value-text`. Friction: tab-list arrows rove focus but don't select (needed explicit focus listeners; no recipe in the docs); acting on a hidden control silently does nothing; `docs authoring` too long for one output; `docs spec --list` repeats the topic list; stale "pending" notes in the convert and a11y guides. Orchestrator re-check: `validate` ok; slider spoken values 40→45→50→45→40→100 % reproduce |
 
 ### P4a findings → actions
 
@@ -131,3 +132,8 @@ Gate: AniML 4/6 is below Rive (5/6). Both misses are bugs except the one that ne
   data path (`$volume-5`) gets a hint to write `$volume - 5`.
 - **Hook**: the pre-commit hook skipped neither gracefully nor clearly without `node_modules`; it
   now warns and skips (CI still checks formatting).
+- **Rerun (after P3b-10a/10b): AniML 5/6**, item 1 the only miss (owner-accepted). Remaining friction,
+  for P3c: a tab-selection-follows-focus recipe (or option) in the a11y guide; a script diagnostic
+  when an action targets a hidden or absent semantic node; `docs authoring` paging or a table of
+  contents; `docs spec --list` listing spec sections; remove stale "pending" notes from the convert
+  and a11y guides.

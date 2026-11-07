@@ -1,10 +1,10 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive for animated web UI. Order P3b (a11y + agent tools) → P6 text → P7 minimal layout → P8 rigging.
-State: triage merged (PR #18, b97a2d5). Branch p3b: design/p3b/DESIGN.md decided; 5 text a11y rows moved to P6 (119 P3b rows). In scope 624/883 (71 %). full 111,723/131,072 B; core+web 20,362.
-Next: running AniML benchmark rerun (target ≥5/6, item 1 owner-accepted gap) + P3b-11 parity closure (unmet rows → P3c size round + carry-overs) → perf A/B vs main → LOG/PLAN → PR with six gates.
-Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests; grow data/bind/components; leave merged worktrees behind.
+Goal: smaller, agent-native Rive for animated web UI. Order: P3b (PR) → P3c size round + carry-overs → P6 text → P7 minimal layout → P8 rigging.
+State: P3b complete on branch p3b: 96 rows done (in scope 720/886, 81 %), 23 → P3c; benchmark AniML 5/6 (item 1 owner-accepted), Rive 5/6. Gates: core+web 20,622/24,576; scene 55,313/65,536; app-UI 91,158/131,072; sum 109,971/163,840; authoring 11,949/16,384; Rive 115,473/256,000.
+Next: P3b PR → green CI → merge; then P3c design (runtime sum ≤ 104,472 B; modules ≥95 %: a11y, a11y-actions, bind, components, focus, markup, surface, data).
+Don't: push to main; modify oracle findings or benchmark records; raise ceilings (final through P8); grow full modules; leave merged worktrees; --no-verify.
 
 ## Log
 - 2026-11-06 23:40 [P5b-8]: condensed oldest half per 200-line rule; M0–M5/P1/P3 established spec, runtime, AniML and icons; Glyphy remains draft-only (evidence: prior WORKLOG at 0c5028a; PRs1–6).
@@ -256,3 +256,4 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-07 [claude]: launched AniML rerun (animl-rerun/) and P3b-11 parity closure; AUTHORING value-text/keys TODO filled
 - 2026-11-07 [claude]: perf A/B p3b vs main: frames equal (bell 32.6/32.6 µs min, composite 24.0/24.1, toolbar 26.5/26.1), toolbar compile 3.9/4.0 ms; bell compile 'regression' 1.1→2.2 ms is main measuring a failing compile since P4a (784b77cd: bare compiler rejected <a11y held>); tools/perf.ts now throws on workload diagnostics
 - 2026-11-07 13:08 [P3b-11]: audited119 rows →96done/23P3c; progress624→720/1238 and /886; all canonical citations exist; parity generation/check +3/3policy +format pass, tools427pass/2fail/23TODO (hard-coded completed tooling.seed scaffolder fixtures; tests unchanged); bookkeeping only (evidence: docs/parity/P3b-closure.md; npm run test:scope -- tools --no-browser).
+- 2026-11-07 [claude]: merged AniML rerun (5/6, re-checked: slider valueText 40→45→50→45→40→100 % reproduces) and P3b-11 closure (96 done, 23 → P3c); scaffolder test repointed to animation.joystick-handle (tools 429 pass); LOG P3b entry, PLAN P3b [x] + P3c

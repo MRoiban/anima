@@ -320,15 +320,23 @@ Progress is reported against the in-scope rows: **624 of 886 done (70 %)**, next
 for the full matrix. Size estimates are min+gzip against the gates above (owner, 2026-11-07): the
 app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-class (250 KB).
 
-- [ ] P3b Accessibility and headless agent tools (119 rows; 5 text rows moved to P6; design in `design/p3b/DESIGN.md`). Real ARIA and focus on `<anima-icon>`
-      and its hosts (roles; pressed/checked/disabled/selected states; labels bound to data; focus),
-      not an emulation of Rive's semantics system. Agent tools in the CLI: synthetic pointer/key/
-      wheel/gamepad input, setting and snapshotting bound data, image comparison and pixel probes, a
-      deterministic seed, accessibility-tree capture, schema search, a persistent command session;
-      the P5b benchmark follow-ups (`asset(...)` in bindings, `icon.src` as a property, unanimated
-      values in `sample`); the P5b data/host leftovers. Decide whether switching to reduced motion
-      stops in-progress loops at once (P4b benchmark). **Estimate:** a11y module 3–4 KB in the
-      full-featured page; agent tools are CLI-only (0 KB). → ~113 KB.
+- [x] P3b Accessibility and headless agent tools (119 rows; design `design/p3b/DESIGN.md`; closure
+      `docs/parity/P3b-closure.md`). 96 rows done (in scope 624 → 720 of 886, 81 %), 23 moved to P3c.
+      Node semantics bound to native browser elements (`a11y`, `a11y-actions`, `a11y-dom`,
+      `markup-a11y`), headless semantics, actions and keys; agent tools (`anima session`, `bench`,
+      `compare`, `doctor`, `schema --search`, `inspect --summary`, `anima.json`, data set/dump/watch/
+      break, `expect`, seed, touch/drag); `data-host`; reduced motion stops running loops at once;
+      `icon.stop()`; `devtools` (authoring). Benchmark: AniML 4/6 → 5/6 after fixes, Rive 5/6; item 1
+      (visible text) an owner-accepted gap until P6. Size gates (owner, 2026-11-07) replaced the
+      full-featured ceiling.
+- [ ] P3c Size round and P3b carry-overs (before P6). Owner rule: the runtime sum drops ≥ 5 % from
+      its end-of-P3b value (109 971 B → ≤ 104 472 B); start with the modules at ≥ 95 % of budget
+      (`a11y`, `a11y-actions`, `bind`, `components`, `focus`, `markup`, `surface`, `data`) and
+      helpers duplicated across modules; then reset budgets to ~10 % headroom. Carry-overs: the 23
+      P3c rows (directional/conditional semantic focus, exact semantic bounds, visibility matrix,
+      dependency-driven semantics, canvas overlay positioning, library probes, bindable artboards,
+      devtools and tooling details, computed local/root coordinates) and the P3b benchmark rerun's
+      remaining friction (`docs/benchmarks/agent-native.md`).
 - [ ] P6 Text on the browser (83 rows: 76, plus 5 text a11y rows from P3b and, by the owner's
       follow-up of 2026-11-07, text hit testing through the host API and listeners and bidi control
       only if nearly free; the other `text.script-*` rows went with scripting). Shaping,
