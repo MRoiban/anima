@@ -22,7 +22,7 @@ Traits follow from role/states; do not write trait bits. Root `<a11y>` is unchan
 See [SPEC.md](SPEC.md) for the draft tree contract, diagnostics and remaining gaps.
 
 
-For static labels/roles load only `@anima-format/web/a11y`. For interaction and
+For static labels/roles load only `@anima-format/web/a11y` (add `@anima-format/web/markup-a11y` when the page compiles AniML in the browser). For interaction and
 focus policy load `@anima-format/web/a11y-actions` (which imports that base entry),
 plus the optional focus module when needed. The runtime key for the companion is
 `a11yactions`. The CLI registers both automatically. Core hosts import `a11y` and

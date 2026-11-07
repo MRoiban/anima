@@ -100,7 +100,7 @@ Design follows `design/p3b/DESIGN.md` §3.1–3.3. Research context:
 No source algorithms or documentation text from Rive were copied.
 
 
-## P3b-1b module seam (partial, budget blocked)
+## Module seam (P3b-1b; markup entry split by the orchestrator)
 
 `@anima-format/web/a11y` registers validation, registry shapes and the static semantic
 forest. It installs only `player.semantics()`. Static snapshots have empty action
@@ -110,6 +110,10 @@ tree, with the prototype's disabled-node omission retained.
 `@anima-format/web/a11y-actions` imports the base web entry and registers its
 companion afterward (`after: ['a11y']`). It adds action descriptions, semanticAction,
 semanticDiff, synthesized focus configuration, ancestor focus states and retargeting.
+
+`@anima-format/web/markup-a11y` registers the registry-driven structural forms so that
+in-browser AniML can use `<a11y …/>` children, as `markup-paint` does for paint. Pages that
+load compiled `.ani` do not need it.
 The runtime registry key is `a11yactions`, following the existing `host-values` /
 `hostvalues` convention: core's current module-name grammar rejects hyphens. Core
 consumers register both modules; either arrival order is supported. Initialization
