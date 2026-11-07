@@ -2,6 +2,7 @@ import { formatHex } from './color.ts';
 // The command language of `anima sample` and the conformance suite (spec §11.2). Tooling only.
 
 import { COMMON, OWN, PAINT, markupName } from './registry.ts';
+import { semanticCommand } from '../../../modules/a11y/core/commands.ts';
 import { inputCommand } from '../../../modules/input/core/commands.ts';
 import type { TimelineInstance } from '../../../modules/motion/core/api.ts';
 import type { Model } from './load.ts';
@@ -54,6 +55,8 @@ export function runScript(
       return n;
     };
     try {
+      // prettier-ignore
+      if (semanticCommand(p, cmd!, args, out, step, () => ({ time: p.time, values: p.values(), states: p.states(), events, settled }))) { if (cmd === 'snapshot') events = []; return; }
       switch (cmd) {
         case 'advance': {
           const t = num(args[0], 'advance time');

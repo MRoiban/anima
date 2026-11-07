@@ -572,6 +572,7 @@ export class Compiler {
   }
   build(el: Element, p: string): unknown {
     this.map.set(p, el.at);
+    if (p === '/a11y') this.forms.set(el, FORMS.a11y!);
     const a = this.attrs(el, p);
     const children = this.children(el, p);
     const o: Json = {};
@@ -592,7 +593,7 @@ export class Compiler {
       }
     } else if (el.name === 'bind') {
       return dataCompiler.binding?.(a) ?? bindCompiler.build?.(a);
-    } else if (ELEMENTS[el.name]) {
+    } else if (ELEMENTS[el.name] && p !== '/a11y') {
       moduleCompiler.build?.(this, el, a, children, o, p);
     } else if (el.name === 'track') {
       this.map.set(p, a.get('target')?.valueAt ?? el.at);

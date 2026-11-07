@@ -2588,3 +2588,10 @@ per parent step and honors reduced motion. Flat color/type/ordered-paint conflic
 components and recursive sources are errors. An ordinary stroke remains independent.
 The normative lifetime, sampling, diagnostic and backend contract is
 [modules/componentpaint/README.md](../modules/componentpaint/README.md).
+
+
+## a11y
+
+Node semantics are specified in [modules/a11y/SPEC.md](../modules/a11y/SPEC.md).
+P3b-1 is a partial implementation, blocked on its 2,048 B core budget. No parity
+completion is claimed; the web overlay remains wave 2. Root §10 is unchanged.

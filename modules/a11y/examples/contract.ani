@@ -1,0 +1,74 @@
+{
+  "anima": "0.1",
+  "name": "semantic-contract",
+  "grid": 20,
+  "requires": ["a11y", "focus"],
+  "inputs": {
+    "checked": {
+      "type": "bool"
+    },
+    "mixed": {
+      "type": "bool",
+      "default": true
+    },
+    "hidden": {
+      "type": "bool"
+    },
+    "volume": {
+      "type": "number",
+      "default": 40
+    }
+  },
+  "nodes": [
+    {
+      "id": "settings",
+      "type": "group",
+      "children": [
+        {
+          "id": "mute",
+          "type": "rect",
+          "x0": 1,
+          "y0": 2,
+          "w": 3,
+          "h": 4,
+          "fill": {
+            "color": "#000"
+          },
+          "a11y": {
+            "role": "checkbox",
+            "label": "Mute",
+            "checked": "checked",
+            "hidden": "hidden",
+            "checkedMixed": "mixed",
+            "bounds": [1, 2, 3, 4]
+          }
+        },
+        {
+          "id": "volume",
+          "type": "rect",
+          "x0": 5,
+          "y0": 6,
+          "w": 7,
+          "h": 8,
+          "fill": {
+            "color": "#000"
+          },
+          "a11y": {
+            "role": "slider",
+            "label": "Volume",
+            "value": "volume",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "bounds": [5, 6, 7, 8]
+          }
+        }
+      ],
+      "a11y": {
+        "role": "group",
+        "label": "Settings",
+        "bounds": [0, 0, 20, 20]
+      }
+    }
+  ]
+}

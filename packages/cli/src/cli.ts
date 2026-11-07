@@ -58,7 +58,7 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
   anima playground [file.animl] [--port 4519]  local live editor (built-in bell is read-only)
   anima validate <file>                 all diagnostics, with JSON pointers, lines and hints
   anima inspect <file>                  nodes, glyph subpaths and bounds, timelines, state graph
-  anima sample <file> [-s script | -e "cmds"] [--reduced-motion]
+  anima sample <file> [-s script | -e "cmds"] [--reduced-motion] [--semantics]
                                         run a script (spec §11.2), print snapshots as JSON lines
   anima render <file> -o out.svg|png [--at t] [-s script | -e "cmds"] [--size px]
                [--sheet N [--over seconds]] [--dark] [--color slot=#hex] [--current #hex]
@@ -93,6 +93,7 @@ export async function run(argv: string[], io: IO): Promise<number> {
         script: { type: 'string', short: 's' },
         eval: { type: 'string', short: 'e' },
         'reduced-motion': { type: 'boolean' },
+        semantics: { type: 'boolean' },
         out: { type: 'string', short: 'o' },
         at: { type: 'string' },
         size: { type: 'string' },
@@ -172,7 +173,10 @@ export async function run(argv: string[], io: IO): Promise<number> {
       case 'sample': {
         const { model } = loaded(file(rest), io, json);
         if (!model) return 1;
-        const script = scriptText(o.script, o.eval) ?? 'snapshot';
+        const source = scriptText(o.script, o.eval) ?? 'snapshot';
+        const script = o.semantics
+          ? source.replace(/^(\s*snapshot)\s*$/gm, '$1 --semantics')
+          : source;
         const { snapshots } = runScript(model, script, { reducedMotion: o['reduced-motion'] });
         for (const s of snapshots) io.out(JSON.stringify(s));
         return 0;

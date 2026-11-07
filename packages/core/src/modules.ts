@@ -107,7 +107,7 @@ const declarations = new Map<string, Module>();
 
 /** Idempotent by name; compose from declarations, independent of arrival order. */
 export function registerModule(m: Module): void {
-  if (!/^[a-z]+(?:@[1-9]\d*)?$/.test(m.name)) throw new Error('invalid module name');
+  if (!/^[a-z][a-z0-9]*(?:@[1-9]\d*)?$/.test(m.name)) throw new Error('invalid module name');
   if (declarations.has(m.name)) return;
   declarations.set(m.name, m);
   const pending = new Map([...declarations].sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)));
