@@ -1,0 +1,93 @@
+{
+  "status": "partial",
+  "branch": "t3/text-font-integration",
+  "base": "777c0a5d",
+  "rowsClosed": [],
+  "rowsRemainPlanned": 47,
+  "changed": {
+    "command": "VITEST_MAX_WORKERS=2 npm run test:scope -- changed",
+    "exit": 1,
+    "passed": 8658,
+    "failed": 2,
+    "todo": 88,
+    "passingFiles": 273,
+    "failedFiles": 2,
+    "skippedFiles": 13,
+    "seconds": 1205.03,
+    "failures": [
+      "Firefox asset pipeline: component-only image preload, 5000 ms timeout",
+      "tools/new-capability.test.ts: registered/typechecked scaffold, 60000 ms timeout"
+    ]
+  },
+  "ownedBrowsers": {
+    "Chromium": 12,
+    "Firefox": 12,
+    "failed": 0
+  },
+  "fileRetries": {
+    "prefix": {
+      "passed": 51,
+      "failed": 0
+    },
+    "scaffolder": {
+      "passed": 4,
+      "failed": 0,
+      "seconds": 57.95
+    },
+    "pipelineEarlier": {
+      "passed": 21,
+      "failed": 1
+    },
+    "pipelineFinal": {
+      "passed": 22,
+      "failed": 0,
+      "seconds": 37.51
+    },
+    "cacheIdentityBothEngines": {
+      "passed": 4,
+      "failed": 0
+    }
+  },
+  "checks": {
+    "typecheck": 0,
+    "eslint": 0,
+    "prettier": 0,
+    "moduleWiring": 0,
+    "schemaGeneration": 0,
+    "animlCheck": 0,
+    "parityCheck": 0,
+    "browserBuildCheck": 0,
+    "strictOracle": 0,
+    "size": 0,
+    "perf": 0
+  },
+  "oracle": {
+    "completedCases": 266,
+    "samples": 475,
+    "newCases": 0,
+    "findingsChanged": false
+  },
+  "entries": {
+    "text": [6053, 6142, 6144],
+    "text-host": [355, 355, 1024],
+    "markup-text": [529, 529, 1024],
+    "fonts": [1796, 1807, 2048],
+    "fonts-text": [0, 532, 768],
+    "assetio": [709, 713, 768]
+  },
+  "gates": {
+    "core+web": [21136, 21136, 24576],
+    "largestScene": [53201, 53201, 65536],
+    "appUI": [94068, 94176, 131072],
+    "runtimeSum": [113443, 114121, 163840],
+    "authoring": [15226, 15226, 16384],
+    "RiveClass": [119089, 119760, 256000]
+  },
+  "limitations": [
+    "The fixed APP_UI measurement excludes the new optional fonts-text entry; add it during parent integration.",
+    "Controlled <=3% performance gate is unverified under shared load.",
+    "All native row closure remains pending.",
+    "Automatic lineGap differences are retained as findings.",
+    "Full flatten traversal/live-reference preservation and advanced SVG import features remain pending."
+  ]
+}

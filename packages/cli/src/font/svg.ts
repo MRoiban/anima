@@ -23,6 +23,24 @@ const num = (value: string | undefined, fallback: number) => {
     );
   return n;
 };
+// Only properties emitted by our text backend are accepted. Do not silently discard CSS paint.
+const textStyle = (own: Record<string, string>) => {
+  for (const declaration of (own.style ?? '').split(';')) {
+    if (!declaration.trim()) continue;
+    const colon = declaration.indexOf(':');
+    const key = declaration.slice(0, colon).trim();
+    const value = declaration.slice(colon + 1).trim();
+    if (
+      colon < 0 ||
+      !/^(font-(family|size|weight|style|variation-settings|feature-settings)|letter-spacing|white-space|text-rendering|fill|fill-opacity|stroke|stroke-width|stroke-opacity|stroke-linecap|stroke-linejoin|opacity)$/.test(
+        key,
+      )
+    )
+      fault('unsupported text SVG style property: ' + key, 'font-unsupported');
+    own[key] = value;
+  }
+  delete own.style;
+};
 const settings = (s: string | undefined) =>
   s
     ? Object.fromEntries(
@@ -39,9 +57,10 @@ export function outlineSVG(svg: string, measurer: ToolMeasurer): string {
     inherited: Record<string, string>,
     pen?: { x: number; y: number },
   ): string => {
-    const own = attr(element),
-      a = { ...inherited, ...own },
-      isText = element.name === 'text' || element.name === 'tspan';
+    const own = attr(element);
+    const isText = element.name === 'text' || element.name === 'tspan';
+    if (isText) textStyle(own);
+    const a = { ...inherited, ...own };
     let content = '';
     if (isText) {
       pen ??= { x: 0, y: 0 };
@@ -80,6 +99,9 @@ export function outlineSVG(svg: string, measurer: ToolMeasurer): string {
             ![
               'letter-spacing',
               'word-spacing',
+              'white-space',
+              'text-rendering',
+              'xml:space',
               'direction',
               'dominant-baseline',
               'alignment-baseline',

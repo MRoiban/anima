@@ -17,6 +17,7 @@ export function testFont(): Buffer {
     0x627,
     0x628,
     0x1f600,
+    0x2026,
   ];
   const count = chars.length + 1,
     tables = new Map<string, Buffer>();

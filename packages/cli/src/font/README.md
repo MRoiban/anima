@@ -20,3 +20,5 @@ then call `measure(fontSpec, text)` or `outline(fontSpec, text, x, baseline)`. R
 faces with weight/style arguments; variable `wght` comes from FontSpec.weight by default. No system
 fonts are used by this measurer. The optional text module must export `setTextMeasurer` (or
 `setMeasurer`) for CLI/conformance installation. See the spec's “Tool font processing” for limits.
+
+Flatten accepts the text backend's inline font/paint CSS and whitespace/geometricPrecision hints, translating paint to SVG presentation attributes and removing text-only hints after outlining. Unsupported CSS still reports font-unsupported instead of silently dropping visible effects.

@@ -1,5 +1,7 @@
 # P6-1 implementation report
 
+P6-4 integration follow-up: [current integration report](../fonts/P6-4-REPORT.md). This document records the wave-1 delivery.
+
 Status: **partial delivery; no parity rows closure-ready**. Branch `t3/p6-text-module`, initially
 based on `216eecf3`, advanced to unchanged P6-2 commit `4a5fd75b` for tool integration. Local commit
 only; no push, PR, publication, external font or proprietary binary read/conversion.

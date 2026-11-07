@@ -13,17 +13,19 @@ export function browserMeasurer(): TextMeasurer {
       context.font = cssFont(font);
       context.fontKerning = 'normal';
       context.textRendering = 'geometricPrecision';
-      const parts = [...graphemes.segment(text)];
+      const advances = Float64Array.from(
+        [...graphemes.segment(text)],
+        (g) => context.measureText(text.slice(0, g.index + g.segment.length)).width,
+      );
+      const scale = font.size / 1000;
+      context.font = cssFont({ ...font, size: 1000 });
       const metrics = context.measureText('Hx');
       result = {
-        advances: Float64Array.from(
-          parts,
-          (g) => context.measureText(text.slice(0, g.index + g.segment.length)).width,
-        ),
-        ascent: metrics.fontBoundingBoxAscent ?? metrics.actualBoundingBoxAscent,
-        descent: metrics.fontBoundingBoxDescent ?? metrics.actualBoundingBoxDescent,
-        capHeight: context.measureText('H').actualBoundingBoxAscent,
-        xHeight: context.measureText('x').actualBoundingBoxAscent,
+        advances,
+        ascent: (metrics.fontBoundingBoxAscent ?? metrics.actualBoundingBoxAscent) * scale,
+        descent: (metrics.fontBoundingBoxDescent ?? metrics.actualBoundingBoxDescent) * scale,
+        capHeight: context.measureText('H').actualBoundingBoxAscent * scale,
+        xHeight: context.measureText('x').actualBoundingBoxAscent * scale,
         lineGap: 0,
       };
       if (cache.size >= 512) cache.clear();

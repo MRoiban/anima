@@ -44,8 +44,8 @@ trailing paragraphs are retained. Whitespace is preserved, including at line edg
 Greedy wrapping defaults to true. `wordBreak: normal` breaks at word boundaries and preserves an
 oversize unbreakable word. `break-word` additionally splits oversized words at graphemes; `break-all`
 allows any grapheme boundary. Disabling wrap still respects explicit newlines. `sizing: auto-width`
-(default) ignores width and measures both dimensions; `auto-height` requires width and measures
-height; `fixed` requires width and height. Nonnegative dimensions may be zero.
+(the default unless both width and height are supplied) ignores width and measures both dimensions; `auto-height` requires width and measures
+height; `fixed` requires width and height. If sizing is absent and both dimensions are present, sizing is fixed. Explicit sizing always wins. Nonnegative dimensions may be zero.
 
 `align` is left (default), center, right, start or end; start/end currently resolve to left/right.
 `valign` is top (default), middle or bottom. `origin` is top-left (default), baseline (first line's
@@ -83,7 +83,7 @@ linear and radial paints are resolved through paint's gradient helpers. Angular 
 paint's unsupported-render diagnostic. Canvas draws runs with fillText/strokeText and the same
 coordinates, brushes and clip. Browser measurement uses cumulative Canvas prefix widths, preserves
 kerning, and caches up to 512 font/string pairs. Font loading clears measurement/layout caches.
-SVG and canvas use geometricPrecision and normal kerning. FontBoundingBox metrics fall back to actualBoundingBox metrics; cap and x-height use H and x.
+SVG and canvas use geometricPrecision and normal kerning. Canvas prefix measurement also sets textRendering="geometricPrecision": Chromium's default rounding changes AV widths (23 vs 22 px at size 20 in the generated font). Explicit lineHeight is needed for identical browser/tool line leading: Canvas does not expose OpenType lineGap, so automatic browser leading omits it. This retained difference is tested and recorded, never absorbed by widening the 0.5%-of-font-size position tolerance. Metrics are measured at 1000 px and converted back to grid units to avoid integer-pixel ascent/descent rounding at icon sizes; advances still use the authored size. FontBoundingBox metrics fall back to actualBoundingBox metrics; cap and x-height use H and x.
 The browser retains text roots; changed layouts replace only their generated contents.
 
 The optional `web/text-host` entry augments `web/text` with named run access; text display and
@@ -108,3 +108,7 @@ comparisons retained in verification/native-comparison.json; native data/host in
 and completed oracle integration remain open. No raster finding or tolerance is suppressed. The architectural
 choice of one shared registry and a separate backend follows docs/research/rive-format-and-graph.md
 and docs/research/rive-web-runtime.md; no external implementation or proprietary text was copied.
+
+## Font resource integration (P6-4)
+
+Browser scenes combining fonts and text import `web/fonts-text` in addition to `web/text` (the former includes `web/fonts`). The optional fonts hook resolves each style with the host controller's cssFont, waits for ready(spec, actualRunText) before any measurement, and includes both model and root font revisions in its layout/readiness keys. While awaiting readiness the text node draws an empty layout; readiness redraws without advancing the player or consuming queued host input, including on paused hosts. Font asset preload remains part of anima:load; CSS-family text readiness may complete immediately after it. The bridge has no text runtime import, and all DOM work stays in fonts/web. Without the bridge, text retains the CSS-family-only measurer.
