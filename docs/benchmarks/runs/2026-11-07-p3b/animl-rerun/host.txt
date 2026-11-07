@@ -1,0 +1,16 @@
+advance 0
+snapshot --semantics $volume $volumeText $muted $selectedTab $email $push $sms $allChecked $someChecked generalPanel.visible soundPanel.visible volumeFill.width muteKnob.x mixedBar.visible notificationsFill.visible emailFill.visible pushFill.visible smsFill.visible
+data set $generalTitle "Basics"
+data set $soundTitle "Audio"
+data set $selectedTab "sound"
+data set $volume 75
+data set $muted true
+advance 0
+snapshot --semantics $volume $volumeText $muted $selectedTab $email $push $sms $allChecked $someChecked generalPanel.visible soundPanel.visible volumeFill.width muteKnob.x mixedBar.visible notificationsFill.visible emailFill.visible pushFill.visible smsFill.visible
+data dump
+data set $volume 200
+advance 0
+snapshot --semantics $volume $volumeText $muted $selectedTab $email $push $sms $allChecked $someChecked generalPanel.visible soundPanel.visible volumeFill.width muteKnob.x mixedBar.visible notificationsFill.visible emailFill.visible pushFill.visible smsFill.visible
+data set $volume -10
+advance 0
+snapshot --semantics $volume $volumeText $muted $selectedTab $email $push $sms $allChecked $someChecked generalPanel.visible soundPanel.visible volumeFill.width muteKnob.x mixedBar.visible notificationsFill.visible emailFill.visible pushFill.visible smsFill.visible

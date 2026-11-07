@@ -1,0 +1,17 @@
+advance 0
+snapshot --semantics $volume $volumeText $muted $selectedTab $email $push $sms $allChecked $someChecked generalPanel.visible soundPanel.visible volumeFill.width muteKnob.x mixedBar.visible notificationsFill.visible emailFill.visible pushFill.visible smsFill.visible
+pointer click 19 3.5
+advance 0
+snapshot --semantics $volume $volumeText $muted $selectedTab $email $push $sms $allChecked $someChecked generalPanel.visible soundPanel.visible volumeFill.width muteKnob.x mixedBar.visible notificationsFill.visible emailFill.visible pushFill.visible smsFill.visible
+pointer click 5 17.5
+advance 0
+snapshot --semantics $volume $volumeText $muted $selectedTab $email $push $sms $allChecked $someChecked generalPanel.visible soundPanel.visible volumeFill.width muteKnob.x mixedBar.visible notificationsFill.visible emailFill.visible pushFill.visible smsFill.visible
+pointer click 7 3.5
+advance 0
+snapshot --semantics $volume $volumeText $muted $selectedTab $email $push $sms $allChecked $someChecked generalPanel.visible soundPanel.visible volumeFill.width muteKnob.x mixedBar.visible notificationsFill.visible emailFill.visible pushFill.visible smsFill.visible
+pointer click 3 9
+advance 0
+snapshot --semantics $volume $volumeText $muted $selectedTab $email $push $sms $allChecked $someChecked generalPanel.visible soundPanel.visible volumeFill.width muteKnob.x mixedBar.visible notificationsFill.visible emailFill.visible pushFill.visible smsFill.visible
+pointer click 5 13
+advance 0
+snapshot --semantics $volume $volumeText $muted $selectedTab $email $push $sms $allChecked $someChecked generalPanel.visible soundPanel.visible volumeFill.width muteKnob.x mixedBar.visible notificationsFill.visible emailFill.visible pushFill.visible smsFill.visible
