@@ -1,0 +1,5 @@
+artboard Other
+viewport 240x240
+fit contain
+screenshot frames/0.png
+quit

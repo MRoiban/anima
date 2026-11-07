@@ -1,0 +1,16 @@
+advance 0
+data set $selectedTab 1
+advance 0
+focus target muteSwitch
+snapshot --semantics --all
+key down Space
+snapshot --semantics --all
+expect $muted == true
+expect muteKnob.x == 3
+key down Enter
+snapshot --semantics --all
+expect $muted == false
+expect muteKnob.x == 0
+pointer click 5 17
+snapshot --semantics --all
+expect $muted == true

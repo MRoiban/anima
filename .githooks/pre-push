@@ -1,0 +1,14 @@
+#!/bin/sh
+# Prettier check on every file the pushed branch changes relative to origin/main (backstop for
+# commits made with --no-verify or before the hooks were installed).
+if [ ! -x node_modules/.bin/prettier ]; then
+  echo "format hook: node_modules/.bin/prettier not found (run npm install); skipping the local check, CI still runs it" >&2
+  exit 0
+fi
+base=$(git merge-base HEAD origin/main 2>/dev/null) || exit 0
+files=$(git diff --name-only --diff-filter=ACMR "$base" HEAD)
+[ -z "$files" ] && exit 0
+echo "$files" | xargs node_modules/.bin/prettier --check --ignore-unknown --log-level warn || {
+  echo "pre-push: formatting issues above; run: npx prettier --write <files> and commit" >&2
+  exit 1
+}

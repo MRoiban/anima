@@ -1,3 +1,4 @@
+import { installRandom } from '../../../packages/core/src/random.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Diags } from '../../../packages/core/src/diag.ts';
 import { ptr } from '../../../packages/core/src/diag.ts';
@@ -33,6 +34,7 @@ export const machine: Module = {
   after,
   entries,
   init(_modules, shared) {
+    installRandom(shared.Player);
     install(shared.sampleTrack, shared.mixValues);
     compileValue = shared.inputExpression;
     return { ...machine, init: undefined };

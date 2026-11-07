@@ -33,6 +33,7 @@ export default {
     ],
     conformance: [
       'motion-',
+      'reduced-motion',
       'animation-cubic-value',
       'animation-elastic-in',
       'animation-elastic-in-out',

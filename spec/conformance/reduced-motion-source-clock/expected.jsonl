@@ -1,0 +1,4 @@
+{"time": 0.25, "values": {"badge/dot.x": 2.5}, "states": {"badge/main": "go"}, "events": [], "settled": false}
+{"time": 0.25, "values": {"badge/dot.x": 10}, "states": {"badge/main": "go"}, "events": [], "settled": true}
+{"time": 0.25, "values": {"badge/dot.x": 0}, "states": {"badge/main": "go"}, "events": [], "settled": false}
+{"time": 0.25, "values": {"badge/dot.x": 1}, "states": {"badge/main": "go"}, "events": [], "settled": false}

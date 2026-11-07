@@ -1,0 +1,69 @@
+{
+  "anima": "0.1",
+  "name": "focus-condition",
+  "grid": 20,
+  "requires": ["a11y", "focus", "input", "machine"],
+  "nodes": [
+    {
+      "id": "parent",
+      "type": "group",
+      "children": [
+        {
+          "id": "child",
+          "type": "group",
+          "children": [],
+          "a11y": {
+            "role": "button",
+            "bounds": [1, 2, 3, 4]
+          }
+        }
+      ],
+      "focus": {},
+      "a11y": {
+        "role": "group",
+        "bounds": [1, 2, 3, 4]
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {},
+            "on": [
+              {
+                "when": "@after(0)",
+                "to": "focused",
+                "guard": {
+                  "left": {
+                    "focus": "parent"
+                  },
+                  "right": true,
+                  "op": "=="
+                }
+              }
+            ]
+          },
+          "focused": {
+            "pose": {},
+            "on": [
+              {
+                "when": "@after(0)",
+                "to": "idle",
+                "guard": {
+                  "left": {
+                    "focus": "parent"
+                  },
+                  "right": false,
+                  "op": "=="
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+}

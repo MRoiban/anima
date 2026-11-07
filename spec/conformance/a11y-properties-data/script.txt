@@ -1,0 +1,8 @@
+advance 0
+snapshot --semantics
+set $title "After"
+set $help "More"
+set $text "Changed"
+set $depth 4
+advance 0
+snapshot --semantics

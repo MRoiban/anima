@@ -33,7 +33,10 @@ export async function scaffold(root: string, id: string, moduleName?: string): P
   if (row.anima.status === 'done')
     throw Error(`${id}: already done; refusing to replace completion evidence`);
   const name = moduleName ?? row.anima.module;
-  if (!/^[a-z]+$/.test(name)) throw Error('Module name must contain only lower-case letters');
+  if (!/^[a-z][a-z0-9]*$/.test(name))
+    throw Error(
+      'Module name must start with a lower-case letter and contain only lower-case letters or digits',
+    );
   const caseName = slug(id);
   if (!caseName) throw Error('Row id must contain letters or digits');
   const base = `modules/${name}`;

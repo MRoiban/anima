@@ -1,0 +1,54 @@
+{
+  "anima": "0.1",
+  "name": "focus-repeat",
+  "grid": 20,
+  "requires": ["a11y", "focus", "data", "components", "lists"],
+  "nodes": [
+    {
+      "id": "rows",
+      "type": "repeat",
+      "count": "$n",
+      "component": "row",
+      "dx": 5,
+      "focus": {
+        "enabled": false,
+        "edge": "parent-scope"
+      }
+    }
+  ],
+  "components": {
+    "row": {
+      "grid": 20,
+      "nodes": [
+        {
+          "id": "item",
+          "type": "group",
+          "children": [],
+          "a11y": {
+            "role": "button",
+            "bounds": [1, 2, 3, 4]
+          }
+        }
+      ]
+    }
+  },
+  "data": {
+    "models": {
+      "M": {
+        "properties": {
+          "n": {
+            "type": "number",
+            "default": 2
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "M",
+        "default": true,
+        "values": {}
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Chromium > [P3b-10a] exposes numeric slider value and independent spoken value text
+AssertionError: expected '- group:\n  - slider "Volume": "40"' to contain 'Volume 40 %'
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > maps every role to a real element, with heading levels and state attributes
+Error: Hook timed out in 10000ms.
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > maps every role to a real element, with heading levels and state attributes
+TypeError: Cannot read properties of undefined (reading 'close')
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > [P3b-10a] exposes numeric slider value and independent spoken value text
+AssertionError: expected '- group:\n  - slider "Volume": "40"' to contain 'Volume 40 %'
+ FAIL  |scope-browser| modules/focus/test/web/focus.test.ts > focus Firefox > one Tab stop, arrows, forward exit and reverse entry/exit
+Error: Hook timed out in 10000ms.
+ FAIL  |scope-browser| modules/focus/test/web/focus.test.ts > focus Firefox > one Tab stop, arrows, forward exit and reverse entry/exit
+TypeError: Cannot read properties of undefined (reading 'close')
+ Test Files  2 failed | 13 passed | 1 skipped (16)
+      Tests  4 failed | 1237 passed | 440 skipped | 1 todo (1682)
+   Duration  64.75s (tests 97%, import 3%)

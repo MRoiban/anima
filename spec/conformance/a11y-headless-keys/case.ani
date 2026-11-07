@@ -1,0 +1,118 @@
+{
+  "anima": "0.1",
+  "name": "headless-keys",
+  "grid": 20,
+  "requires": ["a11y", "focus"],
+  "inputs": {
+    "buttonOn": {
+      "type": "bool"
+    },
+    "switchOn": {
+      "type": "bool"
+    },
+    "checkboxOn": {
+      "type": "bool"
+    },
+    "radioOn": {
+      "type": "bool"
+    },
+    "linkOn": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "button",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "button",
+        "activate": "buttonOn",
+        "pressed": "buttonOn",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "switch",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "switch",
+        "activate": "switchOn",
+        "checked": "switchOn",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "checkbox",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "checkbox",
+        "activate": "checkboxOn",
+        "checked": "checkboxOn",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "radio",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "radio",
+        "activate": "radioOn",
+        "checked": "radioOn",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "link",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "link",
+        "href": "/help",
+        "activate": "linkOn",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "tabs",
+      "type": "group",
+      "children": [
+        {
+          "id": "t1",
+          "type": "group",
+          "children": [],
+          "a11y": {
+            "role": "tab",
+            "bounds": [1, 2, 3, 4]
+          }
+        },
+        {
+          "id": "skip",
+          "type": "group",
+          "children": [],
+          "a11y": {
+            "role": "tab",
+            "disabled": true,
+            "bounds": [1, 2, 3, 4]
+          }
+        },
+        {
+          "id": "t2",
+          "type": "group",
+          "children": [],
+          "a11y": {
+            "role": "tab",
+            "bounds": [1, 2, 3, 4]
+          }
+        }
+      ],
+      "a11y": {
+        "role": "tab-list",
+        "bounds": [1, 2, 3, 4]
+      }
+    }
+  ]
+}

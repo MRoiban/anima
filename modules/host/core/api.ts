@@ -16,6 +16,24 @@ export interface DataHandle<T> {
   set(value: T): void;
   on(event: 'change', callback: (value: T) => void): () => void;
 }
+export type PropertyHandle = {
+  [K in keyof HandleValues]: DataHandle<HandleValues[K]> & { readonly type: K };
+}[keyof HandleValues];
+interface HandleValues {
+  number: number;
+  string: string;
+  boolean: boolean;
+  color: Color;
+  enum: string;
+  image: string;
+  font: string;
+  audio: string;
+  blob: string;
+  component: string;
+  list: unknown[];
+  'model-ref': Record<string, unknown>;
+  trigger: undefined;
+}
 export interface TriggerHandle extends DataHandle<undefined> {
   fire(): void;
 }
@@ -98,6 +116,8 @@ export function install(
   });
 }
 export class HostData {
+  /** Optional runtime resource catalog supplied by the host image editor. */
+  declare resourceType?: (name: string) => string | undefined;
   #records = new Map<string, RecordInstance>();
   #bound?: RecordInstance;
   #owned = new WeakSet<DataInstance>();
@@ -263,6 +283,11 @@ export class HostData {
   get(path: string): unknown {
     return this.#values.copy(this.#read(this.#address(path)));
   }
+  /** Canonical identity for optional editors; retained aliases follow the current binding. */
+  canonical(path: string): string {
+    const a = this.#address(path.startsWith('$') ? path : '$' + path);
+    return '$' + a.instance.name + ':' + a.keys.join('.');
+  }
   /** Internal live projection shared with optional identity-preserving editors. */
   project(path: string, ...value: [] | [unknown]): unknown {
     const a = this.#address(path.startsWith('$') ? path : '$' + path);
@@ -347,7 +372,8 @@ export class HostData {
     if (
       p.type === 'asset-ref' &&
       value !== '' &&
-      this.player.model.doc.assets?.[String(value)]?.type !== p.assetType
+      (this.resourceType?.(String(value)) ??
+        this.player.model.doc.assets?.[String(value)]?.type) !== p.assetType
     )
       fail('asset', path, 'asset reference kind does not match');
     let normalized: unknown;
@@ -380,6 +406,18 @@ export class HostData {
     if (apply) object[a.keys.at(-1)!] = value;
   }
 
+  /** Resolve a nested path to its declared scalar handle. */
+  at(path: string): PropertyHandle {
+    path = path.startsWith('$') ? path : '$' + path;
+    const p = this.#address(path).property;
+    const type = p.type === 'bool' ? 'boolean' : p.type === 'asset-ref' ? p.assetType! : p.type;
+    return Object.assign(this.#handle(path, type), { type }) as PropertyHandle;
+  }
+  exportedInstances(): DataInstance[] {
+    return this.instances().filter(
+      (i) => this.scope.compiled.document.instances?.[i.name]?.exported,
+    );
+  }
   number(path: string): DataHandle<number> {
     return this.#handle(path, 'number');
   }

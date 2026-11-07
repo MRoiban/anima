@@ -1,0 +1,1 @@
+{"time":0,"values":{},"states":{},"events":[],"settled":true,"semantics":[{"id":"item","role":"slider","states":{"focused":false},"bounds":[1,2,3,4],"actions":["increase","decrease","focus"],"children":[],"label":"Example","value":0,"min":0,"max":100,"step":1}]}

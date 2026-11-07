@@ -1,3 +1,4 @@
+import { compareRGBA } from './compare-png.ts';
 // `anima render`: single frames and labelled contact sheets, as SVG or PNG.
 
 import { type Paint, type Player, staticSlots, toSVG } from '@anima-format/core';
@@ -85,47 +86,5 @@ function comparisonSVG(svg: string, size: number): string {
 export function compareSVG(a: string, b: string, size: number, tolerance = 0, diff = false) {
   const left = pixels(comparisonSVG(a, size), size);
   const right = pixels(comparisonSVG(b, size), size);
-  if (left.length !== size * size * 4 || right.length !== left.length)
-    throw new Error('comparison raster dimensions do not match');
-  let differingPixels = 0,
-    maxChannelDifference = 0,
-    pixelsBeyondTolerance = 0;
-  const rects: string[] = [];
-  for (let y = 0; y < size; y++) {
-    let run = 0,
-      previous = -1;
-    const flush = (end: number) => {
-      if (previous > 0)
-        rects.push(
-          `<rect x="${run}" y="${y}" width="${end - run}" height="1" fill="rgb(${previous},${previous},${previous})"/>`,
-        );
-    };
-    for (let x = 0; x < size; x++) {
-      const i = (y * size + x) * 4;
-      let delta = 0;
-      for (let c = 0; c < 4; c++) delta = Math.max(delta, Math.abs(left[i + c]! - right[i + c]!));
-      if (delta) differingPixels++;
-      if (delta > tolerance) pixelsBeyondTolerance++;
-      maxChannelDifference = Math.max(maxChannelDifference, delta);
-      if (diff && delta !== previous) {
-        flush(x);
-        run = x;
-        previous = delta;
-      }
-    }
-    if (diff) flush(size);
-  }
-  return {
-    differingPixels,
-    maxChannelDifference,
-    pixelsBeyondTolerance,
-    pass: pixelsBeyondTolerance === 0,
-    ...(diff
-      ? {
-          diff: toPNG(
-            `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><rect width="100%" height="100%" fill="black"/>${rects.join('')}</svg>`,
-          ),
-        }
-      : {}),
-  };
+  return compareRGBA(left, right, size, size, tolerance, diff);
 }

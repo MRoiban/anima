@@ -1,4 +1,0 @@
-{
-  "status": "todo",
-  "reason": "P5b-5 implementation and independently captured native comparisons are in module-owned tests (modules/machine/test/core/p5b-oracle.test.ts and modules/convert/test/core/p5b-oracle.test.ts). Canonical cases.json integration remains pending: measurement inputs are outside this task ownership. See modules/data/P5B-5-REPORT.md."
-}

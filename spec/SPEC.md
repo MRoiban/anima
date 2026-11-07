@@ -388,6 +388,10 @@ writes to an unknown input or with the wrong type are rejected by the API, never
 
 ## 10. Accessibility and motion
 
+The optional browser semantic overlay, native controls, focus synchronization and
+host tree/diff API are specified in [a11y-dom/SPEC.md](../modules/a11y-dom/SPEC.md).
+It consumes node accessibility; root document `a11y` below is unchanged.
+
 `"a11y": { "role": "button" | "switch" | "img", "label": "…", "activate": "<trigger or bool>", "pressed": "<bool>", "held": "<bool>" }`
 
 - `button`/`switch`: the element is focusable and exposes the role and `label`. **Enter** activates
@@ -402,6 +406,14 @@ writes to an unknown input or with the wrong type are rejected by the API, never
   `d`, reporting all its events at once; `skip` freezes it at local time 0 and reports none; `play`
   plays normally. A frozen `once` timeline counts as finished (so `@end` holds at once) and a frozen
   timeline of any loop mode counts as at rest. Every crossfade takes 0 s. The web runtime follows
+  Switching reduced motion on re-resolves all active play states at the next step: `end`
+  freezes at `d`, reporting only events in (current local time, `d`] once (the rest of the
+  current cycle for loops); `skip` freezes at 0 without events; `play` is unchanged.
+  Motion work ranges and reverse playback use the same start/finish endpoint as state entry.
+  In-progress crossfades complete immediately. Switching off resumes frozen loops from
+  their frozen local time; frozen `once` states stay finished. This implements the stop
+  request behind WCAG 2.2.2 even when the preference changes mid-animation (see
+  `docs/research/rive-web-runtime.md`, recommendation 7). The web runtime follows
   `prefers-reduced-motion` unless the element sets `motion="full"` (or `motion="reduce"` to force it).
 
 ## 11. Conformance
@@ -417,8 +429,6 @@ whole suite in CI. Numbers are compared at 1e-6, everything else exactly.
 ### 11.2 Script language
 
 One command per line; `#` starts a comment. The same language drives `anima sample`.
-The input extension command handler and its pending shared-dispatch integration are specified
-in [the input contract](../modules/input/SPEC.md#diagnostics-and-script-integration).
 
 | Command | Does |
 |---|---|
@@ -431,8 +441,62 @@ in [the input contract](../modules/input/SPEC.md#diagnostics-and-script-integrat
 | `focus target <id>` / `focus clear` | Change logical focus, then step(0); requires focus. |
 | `focus traverse <direction>` | Traverse next/previous/left/right/up/down, then step(0). |
 | `key down\|up <key> [shift]` | Deliver a deterministic focus key, then step(0); input module integration extends this dispatch. |
-| `motion reduce\|full` | Turn reduced motion on or off for states entered from now on. |
-| `snapshot [address …]` | Print one JSON line (below), optionally limited to animated addresses and bool/number input names. An input is reported under its input name. |
+| `semantics [id]` | Print the semantic tree or subtree as one JSON line; requires a11y. |
+| `semantic <id> tap\|increase\|decrease\|focus` | Perform an advertised semantic action, then step(0); requires a11y-actions. |
+| `motion reduce\|full` | Turn reduced motion on or off at the next step, including active states. |
+| `touch down\|move\|up <id> <x> <y>` | Input-module pointer API with an integer id ≥ 0, in grid units; `up` also leaves. Each delivery is followed by `step(0)`. |
+| `pointer drag <x0> <y0> <x1> <y1> [in <n>]` | Move/down at start, `n` equally spaced moves, up at end; each delivery steps at 0. Default `n=1`. |
+| `contact move\|down\|up <id> <x> <y> [button]` | Input-module pointer, preserving pointer ids. `contact leave\|cancel <id>` ends a contact. |
+| `key down\|up\|repeat <key\|Space> [shift+control+alt+meta\|-] [target]` | Extended key API when input is required; otherwise the focus-only spelling above. |
+| `scroll <x> <y> <dx> <dy> [start\|move\|end\|cancel] [seconds]` | Input-module scroll API in grid units, followed by `step(0)`. |
+| `gamepads <JSON-array>` | Poll the input-module gamepad API, then `step(0)`; records have index, connected, optional mapping, axes and buttons. |
+| `pointer-enable <id> <true\|false>` / `scroll-cancel` | Enable a pointer or cancel scroll latching, then `step(0)`. |
+| `data set <$path> <value>` | Queue a typed public host-data handle write; applies on the next step. JSON strings, bools, numbers, colors and lists are accepted according to the property type. |
+| `data dump [prefix …]` | Print `{data: {path: value}}` as one JSON line. No prefixes selects all; multiple prefixes form a union. Includes named instance paths and default scalar aliases. |
+| `data watch <$path …>` | Remember current values. Each later snapshot carries a `data` object of watched values changed since the previous snapshot (or watch registration). |
+| `data break <$path> [== value]` | Preflight each next step by instrumented replay on an isolated player. Stop before applying the step live at the first write (including same-value or overwritten writes, optionally matching the condition), reporting `script-breakpoint`, old/written values and the actual writer. |
+| `data break clear` | Clear all breakpoints; a session can then advance the pending step. |
+| `expect <address\|$path\|input> ==\|!=\|<\|>\|~ <value>` | Compare applied values; `~` is absolute numeric error ≤ 1e-6. Failure emits `script-expect` with pointer and hint; execution continues. |
+| `seed <n>` | Reset the shared core uint32 random source for this player and nested stepping to n. The player constructor option `seed` and CLI `--seed` initialize the same source. Without an explicit seed, existing deterministic machine/converter defaults are preserved. |
+| `snapshot [--all] [--semantics] [address …]` | Print one JSON line. `--all` adds unanimated animatable properties and persistent inputs. `--semantics` appends `player.semantics()` or errors clearly if unavailable. Explicit addresses accept static properties too. |
+
+`instance <id> <timeline> [mix]`, `timeline <name> play|pause|stop|seek|scrub|speed|mix|loop [value]`
+and `machine <name> play|pause|stop|mix|fire|set [value …]` retain the motion module's control API.
+JSON quoted strings can contain spaces and `#`; unquoted hex colors are values rather than comments.
+Data commands require data in the document and the host module loaded; scripts without data commands
+do not access host data. Commands add no authoring fields or registry spellings. Both `expect` and selected
+`snapshot` addresses resolve AniML property spellings (for example `volumeFill.width` →
+`volumeFill.w`) through the registry, including slash-scoped nested addresses. Exact inputs
+and JSON addresses take precedence over aliases. The CLI groups unknown `$path-number`
+diagnostics at the same pointer into one `data-path` diagnostic with a spaced subtraction
+hint; declared hyphenated paths retain their meaning.
+
+`anima sample` prints outputs in script order, emits assertion/breakpoint diagnostics on stderr,
+and returns 1 for those diagnostics, 2 for invalid arguments/script commands. Other script syntax
+errors carry `script-usage`, `/script/<zero-based-line>`, a message and hint.
+
+`anima session <file>` keeps the interpreter alive. Each stdin line is one command or a JSON
+object with a string `cmd`; each receives exactly one JSON reply containing `ok`, outputs,
+snapshots and diagnostics. A bad request does not end the process. `quit` replies then exits;
+`reload` reads and validates the source again, resets time/inputs/control state, restores compatible
+data values through public handles and steps at 0. Its reply lists restored/skipped paths; failed
+reload retains the old interpreter. Breakpoints pause the current command, and the next request
+may inspect/edit data or clear them. Preflight replays all prior operations, so its cost grows with
+history and includes the next step. Tooling instruments instance setters and queued operations in
+the replay player, capturing writes before mutation, including same-value and transient writes.
+Writers identify a script line, listener pointer, state/transition action pointer or the actual
+binding write function. Timeline-driven reverse writes identify the binding that stores the value.
+Instrumentation is absent from shipped data/host bundles.
+
+`anima bench <file> [-s script] [--frames N] [--format=json]` measures source compilation/loading
+once, then renderer-neutral `Player.step(1/60)` and `drawFrame` separately for N frames (default
+600, integer 1–1,000,000). It warms 50 frames on a separate player. Output includes `compileMs`,
+frame count and step/draw median and p95 in microseconds, using sorted samples at indices
+floor(N×0.5) and floor(N×0.95), capped at N−1. Script setup, filesystem I/O except source loading,
+DOM and raster/GPU work are not frame costs. This follows the measurement boundary in
+`tools/perf.ts`; see also `docs/research/rive-web-runtime.md` on native/GPU versus host overhead.
+Both session and bench accept `--seed`, `--all`, `--semantics` and `--reduced-motion`; seed has
+the shared source semantics above. Debugging and audio capture instrumentation are tooling-only.
 
 A snapshot line is `{"time": t, "values": {address: value}, "states": {layer: state},
 "events": [...], "settled": bool}`: `time` is the total step time so far, `values` holds every
@@ -445,7 +509,7 @@ selected. Selected addresses accept both JSON paths and AniML property spellings
 `ring.stroke.trimEnd` and `ring.trimEnd`). Snapshot keys always use JSON paths, for both
 selected and complete snapshots, including slash-scoped component addresses. Exact input
 names and JSON paths take precedence over aliases. An unknown address or input is a script error. With no arguments, `snapshot`
-continues to include only animated addresses, never inputs.
+continues to include only animated addresses, never inputs (unless `--all` is set).
 
 ### 11.3 Diagnostic codes
 
@@ -1838,9 +1902,12 @@ Every player owns an unsigned 32-bit seed, `machineSeed` at the document root, d
 `0x6d2b79f5` (1831565813). Before each choice:
 `seed = (1664525 * seed + 1013904223) mod 2^32`, using integer multiplication;
 `u = seed / 4294967296`. Choose the first eligible edge whose cumulative weight exceeds
-`u * sum(weights)`. Players, component instances and named-machine players never share RNG
-state. Identical applied inputs, seed and step sequence produce identical choices. This
-portable LCG is independent of Rive's unseeded native selection.
+`u * sum(weights)`. Without an explicit player/script seed, players, component instances and
+named-machine players keep independent RNG state. An explicitly seeded root shares its core
+source with nested stepping in authored order. Identical applied inputs, seed and step sequence produce identical choices. This
+portable LCG is independent of Rive's unseeded native selection. With an explicit player/script
+seed, machine and converter draws share one core source in evaluation order; the explicit seed
+overrides `machineSeed`. Without it, the machine stream and converter stream retain these legacy defaults.
 
 ### Actions and completion
 
@@ -2034,6 +2101,11 @@ oracle captures remain pending where marked; this is not a claim that the whole 
 <!-- capability: input.wheel-scroll -->
 <!-- capability: transforms.collapse -->
 <!-- capability: transforms.solo -->
+
+
+
+
+
 
 ## events
 
@@ -2372,6 +2444,16 @@ Import the host entry alongside `data`; it adds no document fields or AniML spel
 typed handles, reflection, instances, binding, batched writes, change subscriptions delivered after
 the step that made the change, and the web `auto-bind` attribute.
 
+
+<!-- capability: assets.replacement-scope-image -->
+### Image replacement scope
+
+Host `image(path).set(URL | Blob)` decodes a player-local replacement and queues only that
+property's resource ID; image `asset` bindings follow it at the next step. Shared compiled
+components, other data properties and authored resources retain their identities. Static nodes
+without asset bindings keep legacy per-player resource replacement. See
+[host editing](../modules/host-edit/SPEC.md) and [data-host](../modules/data-host/SPEC.md).
+
 ## host-edit
 
 Optional page-data editing is specified in [modules/host-edit/SPEC.md](../modules/host-edit/SPEC.md).
@@ -2437,6 +2519,8 @@ expression parser. Random is evaluated within the formula context; unscoped rand
 a formula return zero. Math functions are available to ordinary bindings whenever convert is
 installed. Random uses independently implemented uint32 LCG
 `seed = (1664525 * seed + 1013904223) mod 2^32`, output seed/2^32; the stream is shared per player in authored evaluation order, while sites/bindings cache separately.
+An explicit player/script seed joins this stream with machine draws through the core source, in
+evaluation order. Reseeding resets the source, preserving existing once/on-change site caches.
 `always` advances on evaluation, `once` caches per site, `on-change` invalidates when the incoming
 value changes under Object.is. Repeated evaluation of unchanged input retains the cached value.
 
@@ -2588,3 +2672,169 @@ per parent step and honors reduced motion. Flat color/type/ordered-paint conflic
 components and recursive sources are errors. An ordinary stroke remains independent.
 The normative lifetime, sampling, diagnostic and backend contract is
 [modules/componentpaint/README.md](../modules/componentpaint/README.md).
+
+## CLI projects and capture (tooling)
+
+These operations are authoring tools, not runtime features: they do not alter `Player.step` or
+require a feature declaration, registry field or conformance vector.
+
+The CLI discovers `anima.json` from its working directory upward, taking the nearest file.
+Supported keys are `entry` (default input path), `sources` (array of AniML library paths),
+`presets` (map of render-option objects), and `out` (default local export directory). Paths are
+relative to that configuration file. Unknown keys and malformed values fail with
+`project-configuration`, a JSON pointer and a repair hint. Commands needing an input use `entry`
+when no positional file is supplied. Explicit files take precedence. Configuration discovery is
+based on the working directory, not the input file's directory.
+
+`sources` requires an AniML entry. Each source is an ordinary named `<library>` imported before
+compilation, with its declared name as namespace. For example a library named `ui` exposes
+`ui:button`. Existing import resolution, export selection, duplicate-name and cycle diagnostics
+apply. Sources are not concatenated into a second format. Imported asset origins remain subject
+to the existing compiler/build asset rules. A project file has no representation in `.ani`;
+the generated `.ani` schema describes runtime documents only.
+
+Render presets accept `component`, `fit`, `viewport`, `scale`, `size`, `at`, `dark`, `color`,
+`current`, `background`, `sheet`, `over`, and `reduced-motion`. Numeric options may be numbers or
+strings, boolean options must be booleans, and `color` is an array of `slot=value` strings.
+`--preset name` supplies defaults; explicit flags override them. Presets cannot redirect files
+or execute scripts.
+
+`anima render` selects a component with `--component name`, using the same inherited assets,
+data, converters and component declarations as the web component root selector. Scripts address
+the selected root's own inputs and nodes. Unknown names are usage errors.
+`--viewport WxH` sets positive integer output dimensions (default `--size` square).
+`--fit contain` (default) centres a uniform fit, `cover` centres and crops, `fill` stretches,
+and `none` centres the authored view box with one output pixel per view-box unit.
+An explicit background covers the entire output viewport, including letterbox regions.
+`--scale k` accepts finite `0 < k ≤ 1`, rounds each output dimension to the nearest integer,
+with a minimum of one pixel. Fit is computed before downscaling. These options apply to single
+frames; contact sheets reject viewport, fit and scale overrides.
+
+`--probe 'x,y;x,y'` reports `{x,y,rgba:[r,g,b,a]}` for each point as one JSON object containing
+`probes`. Coordinates are zero-based integer **output pixels after viewport and scale**, with
+origin at the top left; channels are 0–255 including alpha. Out-of-bounds or malformed points
+are usage errors. Probes can be requested without an output file.
+
+`--audio out.wav` mixes script audio events at their exact occurrence within each step, with clip start/end and per-event
+and document volume into stereo, 48 kHz signed 16-bit PCM using Chromium's `OfflineAudioContext`.
+The output duration is the player's final time, at least one sample; clips are truncated there.
+Audio sources must be local or base64 data URIs. Assets and document gains resolve in the emitting
+player’s catalog, including inherited and shadowed component/repeat catalogs. Tooling captures source
+clock crossing fractions before loop folding; the script session’s `onEvents` callback receives
+absolute times and the emitting model via symbol metadata. Ordinary event JSON and shipped browser
+bundles are unchanged. Unresolved assets fail explicitly.
+The Chromium launch is lazy and always closed, including failures. Missing/unlaunchable Chromium
+reports `build-encoder-unavailable` with a browser installation hint. It is not silently replaced
+by a muted WAV.
+
+`anima compare a.png b.png [--tolerance 0..255] [-o diff.png]` compares decoded RGBA without
+resizing. Different dimensions fail. JSON reports `maxChannelDifference`,
+`meanChannelDifference` (absolute differences averaged over all four channels of all pixels),
+`differingPixels` (any channel differs), `pixelsBeyondTolerance` (any channel exceeds tolerance)
+and `pass`. The diff is opaque grayscale with the largest channel delta per pixel. Exit 1 means
+comparison failure; invalid tolerance, argument count or output extension is exit 2.
+
+`anima schema --search words` searches registered node types, structural topics and fields
+(including both spellings), and the diagnostic table in this spec. Each query term scores 100
+for an exact name, 10 for a name substring, or 1 for a description substring. Scores add; zero
+scores are omitted. Results sort by descending score then ascending name (code-point order).
+`anima schema type.field` returns the matching registry field by JSON or markup spelling.
+
+`anima inspect --summary` returns a wiring table (JSON: `{wiring:[…]}`) of unbound inputs,
+unused component/model/property declarations, listener targets and unreachable states. Each
+finding has code, pointer, message and hint. This is a conservative static aid: dynamic host writes
+and imported/dynamically selected components may require human interpretation. Invalid documents
+still report normal loader diagnostics rather than a partially linked graph.
+
+`anima doctor` checks Node ≥24, cached Chromium/Firefox executables, cache write permission and,
+inside a repository containing `tools/modules.ts` and `spec/MODULES.md`, generated module
+wiring with `node tools/modules.ts --check`. It exits 1 if any check fails and supplies repair hints.
+It does not install browsers or rewrite wiring.
+
+`anima new directory --sample bell|moon|progress` creates a fresh project directory containing
+`main.animl`, supporting local libraries, `anima.json` and agent instructions. An existing directory
+is never overwritten. Existing `new --glyph`/`--glyphy` single-document scaffolding is unchanged.
+`anima build [file] --out-dir directory` (or project `out`) exports canonical `.ani`, embedded local
+assets, `anima.js` and an `index.html` with inline document JSON. It performs no upload or package
+publication. HTML script text escapes `<` to preserve the raw-text boundary.
+
+The renderer uses SVG viewports and the existing rasterizer; browser services supply audio.
+This retains the browser-host split discussed in `docs/research/rive-web-runtime.md` without
+copying runtime code or adopting a binary/native publishing path.
+
+### Browser host stop and diagnostics
+
+<!-- capability: host-api.stop -->
+`icon.stop()` pauses playback and the shared clock, preserving the current frame.
+`icon.play()` resumes from that frame without accounting for stopped wall time.
+This host-only operation adds no JSON/AniML grammar, loader diagnostics or CLI operation.
+
+<!-- capability: host-api.fps-counter -->
+<!-- capability: host-api.performance-marks -->
+<!-- capability: host-api.deprecation-policy -->
+The optional browser-only `devtools` contract is specified in
+[modules/devtools/SPEC.md](../modules/devtools/SPEC.md). It adds no document grammar.
+
+## a11y
+
+Node semantics are specified in [modules/a11y/SPEC.md](../modules/a11y/SPEC.md). Interaction,
+diffs and focus policy live in the companion `a11y-actions` (runtime key `a11yactions`); in-browser
+AniML forms in the `markup-a11y` web entry. The web overlay is P3b wave 2. Root §10 is unchanged.
+
+<!-- capability: a11y.tree-bounds -->
+### Semantic bounds
+
+`nodes[].a11y.bounds` (AniML `bounds`) is a local `[x,y,w,h]` box with nonnegative width and height,
+transformed to world-grid coordinates. Without it, visible child boxes are unioned
+for unpainted groups; an empty node reports its transformed origin as a point.
+The bounded implementation and explicit path/stroke limitations are specified in
+[modules/a11y/SPEC.md](../modules/a11y/SPEC.md). This row remains planned.
+
+
+<!-- capability: a11y.property-heading-level -->
+### Heading hierarchy
+
+[P3b-9] A node with `a11y.role: "heading"` accepts `level` as an integer 1–6 or a
+number input/data path. AniML uses `<a11y role="heading" level="2"/>`; a bound
+level uses a JSON string attribute, for example `level="&quot;depth&quot;"`.
+Bound values must remain integers 1–6. Unknown names report `unknown-input`,
+wrong types `input-type`, and invalid literal levels `bad-value`, at that field's
+JSON pointer. See [the node semantics contract](../modules/a11y/SPEC.md), its
+`a11y-property-heading-level` conformance case and paired capability example.
+
+
+<!-- capability: a11y.focus-condition -->
+### Focus transition condition
+
+[P3b-9] With `a11y-actions` and `focus`, a machine guard operand `{ "focus": "id" }`
+is true for the primary target and focusable semantic ancestors. Documents without
+node semantics retain exact-target focus conditions. The existing machine guard
+registry and AniML JSON `guard` attribute own both spellings and unknown-target
+validation. See `spec/conformance/a11y-focus-condition` and
+[the node semantics contract](../modules/a11y/SPEC.md). Repeated targets and native
+ancestor-condition comparison remain open in the closure report.
+
+## data-host
+
+<!-- capability: transforms.computed-transform-values -->
+<!-- capability: data.host-nested-paths -->
+<!-- capability: host-api.nested-models -->
+The optional `data-host` entry adds read-only computed geometry; the host API also resolves
+nested paths through `at(path)` and discovers authored exports with `exportedInstances()`.
+Host components, colors and batching use the existing data vocabulary in both syntaxes.
+Bindings can use validated `asset("name")` literals with the `datahost` feature.
+The normative contract is [modules/data-host/SPEC.md](../modules/data-host/SPEC.md).
+
+<!-- capability: input.write-key-pressed -->
+<!-- capability: input.write-pointer-x -->
+<!-- capability: input.write-pointer-y -->
+<!-- capability: input.write-pointer-delta-x -->
+<!-- capability: input.write-pointer-delta-y -->
+With `input data`, JSON `write: "$x", value: "pointer-x"` is AniML
+`write="$x" value="pointer-x"`. A write map also accepts these source names as keys.
+Coordinates are grid units; deltas are from the preceding event for the same pointer, initially
+zero. `key-pressed` stores the triggering `KeyboardEvent.key` name (a string), on any selected
+key phase. Missing event fields leave data unchanged. Wrong/read-only destination types or
+unknown sources report `input-write` at `/listeners/<i>/write/<source>` with a type hint.
+Both data properties and ordinary inputs of the matching type are writable. See
+[input](../modules/input/SPEC.md) and its independent conformance/oracle probes.

@@ -1,0 +1,58 @@
+{
+  "anima": "0.1",
+  "name": "data-host-image-binding",
+  "grid": 20,
+  "requires": ["data", "bind", "assets", "paint"],
+  "nodes": [
+    {
+      "id": "one",
+      "type": "image",
+      "x0": 0,
+      "y0": 0,
+      "asset": "photo",
+      "width": 10,
+      "height": 10
+    },
+    {
+      "id": "two",
+      "type": "image",
+      "x0": 10,
+      "y0": 0,
+      "asset": "photo",
+      "width": 10,
+      "height": 10
+    }
+  ],
+  "bind": {
+    "one.asset": "$one",
+    "two.asset": "$two"
+  },
+  "assets": {
+    "photo": {
+      "type": "image",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAG0lEQVR4AWP8r8HwnwEPYGIgAJgYCAAmBgIAABjwAi5tDXySAAAAAElFTkSuQmCC"
+    },
+    "other": {
+      "type": "image",
+      "source": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAG0lEQVR4AWP8r8HwnwEPYGIgAJgYCAAmBgIAABjwAi5tDXySAAAAAElFTkSuQmCC"
+    }
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "one": {
+            "type": "asset-ref",
+            "default": "photo",
+            "assetType": "image"
+          },
+          "two": {
+            "type": "asset-ref",
+            "default": "photo",
+            "assetType": "image"
+          }
+        }
+      }
+    }
+  }
+}

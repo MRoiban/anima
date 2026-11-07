@@ -1,0 +1,21 @@
+<anima version="0.1" name="nested-host" grid="20" requires="data bind datahost">
+  <model name="Root">
+    <model-ref name="team" model="Team"/>
+    <number name="a" default="3"/>
+    <number name="b" default="4"/>
+  </model>
+  <model name="Team">
+    <model-ref name="lead" model="Person"/>
+  </model>
+  <model name="Person">
+    <string name="name" default="Ada"/>
+    <color name="tint" default="#123456"/>
+  </model>
+  <instance name="main" model="Root" default="true" export="true"/>
+  <instance name="private" model="Root"/>
+  <group id="parent" x="2" y="3" opacity="0.5">
+    <circle id="dot" cx="10" cy="10" r="3" fill="#123456"/>
+  </group>
+  <bind target="dot.r" value="$a"/>
+  <bind target="dot.fill.color" value="$team.lead.tint"/>
+</anima>

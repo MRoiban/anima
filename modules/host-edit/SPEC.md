@@ -36,9 +36,12 @@ await module imports first. Per-element `icon.ready` retains its existing load s
 
 Web `image(path).set(assetName | URL | Blob)` retains declared asset-name writes. URL/Blob writes
 return a promise that resolves after decode and queues replacement for the following step. The
-property must already name a loaded image asset. The replacement affects uses of that asset in
-that icon's model, leaves other icons unchanged, and does not mutate authored asset declarations.
-The property value remains the asset ID, so decoding alone does not deliver a data change event.
+property must already name a loaded image asset. The replacement receives a player-local generated asset ID and updates only the addressed data
+property at the next step. Image `asset` bindings follow it; two paths sharing the original asset
+remain independent, including nested players sharing one compiled component. Static consumers
+without any `asset` bindings retain the legacy per-player resource replacement. Authored asset
+declarations and other players are unchanged. Decoding alone does not deliver a data change event;
+the step publishes the replacement ID through the normal property subscription.
 Blob sources are persisted as data URIs, with no retained object URLs. A later replacement request
 wins over an earlier decode; reload/destroy prevents stale commits. Failed decode, unavailable
 consumer/asset or unsupported/external URL is data-asset; malformed values are data-type. Data URLs
@@ -79,3 +82,8 @@ are outside the decided component-name representation. Root selection remains th
 
 The stable-object graph approach follows docs/research/rive-format-and-graph.md §6, and lifecycle/
 registration boundaries follow docs/research/rive-web-runtime.md §4. No Rive source is used.
+
+Decoded URL/Blob replacements have a reserved, path-and-request-scoped runtime ID. Assigning
+that ID to another image property is supported within the same player; replacing the original
+property again does not mutate the copied resource. Runtime resources stay in the player-local
+catalog until that player is collected. Reloads start a fresh catalog.

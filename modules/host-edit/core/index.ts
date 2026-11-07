@@ -49,6 +49,7 @@ function extend(api: HostData, state: DataState): void {
   if (extended.has(api)) return;
   extended.add(api);
   const player = api.player;
+  api.resourceType = (name) => hostEdit.resourceType?.(player, name);
   const canonical = (path: string) => (path.startsWith('$') ? path : '$' + path);
   const types = (state.modelTypes ??= new WeakMap<object, string>());
   const indexTypes = (raw: unknown, live: unknown) => {
@@ -148,7 +149,10 @@ function extend(api: HostData, state: DataState): void {
     handle.set = (value: string | object) => {
       if (typeof value !== 'string' && (!value || typeof value !== 'object'))
         fail('type', path, 'image replacement must be an asset name, URL or Blob');
-      if (typeof value === 'string' && (value === '' || player.model.doc.assets?.[value]))
+      if (
+        typeof value === 'string' &&
+        (value === '' || player.model.doc.assets?.[value] || api.resourceType?.(value) === 'image')
+      )
         return set(value);
       if (!hostEdit.replaceImage)
         fail('asset', path, 'image replacement requires the web host-edit entry');
@@ -273,6 +277,7 @@ declare module '../../host/core/api.ts' {
   }
 }
 export const hostEdit: Module & {
+  resourceType?: (player: Player, name: string) => string | undefined;
   replaceImage?: ImageReplacement;
   compile?: ModuleRegistry['load'];
 } = {

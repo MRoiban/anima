@@ -1,0 +1,6 @@
+<anima version="0.1" name="role-slider" grid="20" requires="a11y focus">
+  <number name="amount"/>
+  <group id="item">
+    <a11y role="slider" label="Example" value="amount" bounds="1 2 3 4"/>
+  </group>
+</anima>

@@ -1,0 +1,8 @@
+<anima version="0.1" name="data-host-asset-literal" grid="20" requires="data bind datahost assets">
+  <asset name="photo" type="blob" src="data:application/octet-stream,hello"/>
+  <model name="Root">
+    <asset-ref name="picture" default="photo" type="blob"/>
+  </model>
+  <circle id="dot" cx="10" cy="10" r="2" fill="#000"/>
+  <bind target="dot.r" value="$picture == asset(&quot;photo&quot;)"/>
+</anima>

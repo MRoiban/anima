@@ -1,0 +1,89 @@
+{
+  "anima": "0.1",
+  "name": "convert-repeat",
+  "grid": 20,
+  "requires": ["components", "nested", "lists", "data", "bind", "convert"],
+  "nodes": [
+    {
+      "id": "rows",
+      "type": "repeat",
+      "list": "$items",
+      "component": "row",
+      "dx": 10
+    }
+  ],
+  "components": {
+    "row": {
+      "grid": 10,
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [5, 5],
+          "r": 2,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "bind": {
+        "dot.x": {
+          "value": "$score",
+          "convert": "double"
+        },
+        "dot.y": {
+          "value": "$score",
+          "convert": "rng"
+        }
+      },
+      "data": "Item",
+      "converters": {
+        "double": {
+          "type": "calculate",
+          "operation": "multiply",
+          "operand": 2
+        },
+        "rng": {
+          "type": "formula",
+          "expression": "random()",
+          "random": "always"
+        }
+      }
+    }
+  },
+  "data": {
+    "models": {
+      "Item": {
+        "properties": {
+          "score": {
+            "type": "number"
+          }
+        }
+      },
+      "Board": {
+        "properties": {
+          "items": {
+            "type": "list",
+            "of": "Item"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Board",
+        "default": true,
+        "values": {
+          "items": [
+            {
+              "score": 2
+            },
+            {
+              "score": 4
+            }
+          ]
+        }
+      }
+    }
+  }
+}

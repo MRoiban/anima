@@ -1244,3 +1244,107 @@ Use the same name to retain the current child, `''` to hide it, or another decla
 that component with default state. The handle uses the ordinary shared host write queue and
 subscriptions; another root icon keeps its own selection. `icon.instance('badge')` addresses the
 selected nested player. It is distinct from the component-valued data handle.
+
+## Project defaults and headless tools
+
+Put `anima.json` beside your sources. Set `entry` to your `.animl`, `out` to a local export
+folder, and optionally `sources` to named AniML libraries and `presets` to render defaults.
+Paths resolve relative to the configuration file; commands find the nearest file upward from
+the working directory. A library named `ui` in `sources` is available as `ui:button`, using
+the ordinary library import system. These files remain normal AniML libraries.
+
+For example, a project can use `entry: "main.animl"`, `out: "dist"`, and
+`presets: {"thumb": {"viewport": "64x32", "fit": "contain", "scale": 0.5}}`.
+Run `anima validate`, `anima render --preset thumb -o thumb.png`, or `anima build` from that
+project. Explicit render flags override presets. `anima build --out-dir dist` exports the
+compiled document, embedded assets, a runtime and an HTML page locally.
+
+Start with `anima new my-icon --sample bell` (also `moon` or `progress`). Existing directories
+are protected. Glyph-based `anima new` remains available for your own SVGs.
+
+Use `anima render --component button --viewport 200x100 --fit cover --scale 0.5 -o frame.png`
+for a selected component. Fit choices are `contain`, `cover`, `fill`, `none`; scale is in `(0,1]`.
+A probe such as `--probe '0,0;50,25'` returns RGBA in the **final output pixel coordinates**, so
+the second point in this example is in a 100×50 image. Probes can run without `-o`.
+`anima compare before.png after.png --tolerance 2 -o diff.png` compares all RGBA channels and
+prints maximum/mean differences and pixel counts; exit 1 means the tolerance was exceeded.
+
+`anima render -s interaction.txt --audio out.wav` mixes audio events offline up to the final
+script time. Use `advance` to include the intended playback duration. It requires cached
+Playwright Chromium (or `CHROMIUM_PATH`); missing browsers produce an actionable diagnostic.
+Local and base64 sources are supported, including inherited or shadowed component/repeat audio
+assets. Events are scheduled at their exact timeline crossing within each step, including loops.
+
+Use `anima schema --search 'stroke width'` for ranked registry and diagnostic matches,
+`anima schema rect.width` for one field, `anima inspect --summary` for a static wiring table,
+and `anima doctor --format=json` for Node, browser, cache and module-wiring checks. Doctor reports
+failures with hints and changes no installation or generated files.
+
+Host playback: `icon.stop()` holds the current frame and stops its clock; `icon.play()`
+resumes. Import `@anima-format/web/devtools` for `icon.stats`, the `perf` attribute or
+`icon.perfMarks`, and `AnimaIcon.warnings` (see `modules/devtools/SPEC.md`).
+
+
+## Agent tools
+
+`anima sample board.animl -e 'advance 0; snapshot --all'` includes static values as well as
+animated properties. Add `--semantics` to each snapshot (or the CLI invocation) to get the semantic
+tree; the a11y module must be loaded. `semantics [id]` prints the whole tree or a subtree;
+`semantic <id> tap|increase|decrease|focus` performs an advertised action and steps at zero.
+`snapshot --semantics` includes the tree alongside values. Use `anima docs a11y` for node
+roles, states, properties and actions, `anima docs a11y-dom` for native browser controls,
+and `anima schema a11y` for both node fields and the separately labelled root icon form.
+`anima docs --list` includes every module with an authoring guide or spec.
+Selected snapshot and expect addresses accept JSON and AniML property spellings, such as
+`volumeFill.w` and `volumeFill.width`; exact input/JSON addresses take precedence over aliases.
+Data names may contain hyphens: write `$volume - 5` with spaces for subtraction.
+
+A slider's spoken value can differ from its number: `<a11y role="slider" value="$volume"
+value-text="$volumeText" min="0" max="100" step="5"/>` (`.ani` `valueText`), with `$volumeText` a
+derived string such as "Volume 40 %"; see `anima docs a11y`. In scripts, keys delivered to the
+logically focused semantic control act as its native browser element would: slider
+ArrowRight/ArrowUp increase and ArrowLeft/ArrowDown decrease (Home/End reach the ends), Space and
+Enter activate buttons, switches, checkboxes, radios and links, and arrows rove a tab list
+(`semantic volume focus`, then `key down ArrowRight` / `key up ArrowRight`).
+
+For ordered synthetic input, use `pointer click 10 10`, `pointer drag 2 2 10 10 in 4`,
+`touch down 1 10 10` / `touch move 1 12 10` / `touch up 1 12 10`. Different touch ids coexist.
+The existing input commands also support `scroll 10 10 0 24`, `key down Enter - button` and
+`gamepads [{"index":0,"connected":true,"axes":[0.5],"buttons":[{"value":1,"pressed":true}]}]`.
+They use the same public input API as browser hosts. Touch up also delivers leave.
+
+Data debugging uses the public host API: `data set $score 12`, `data set $name "Ada Lovelace"`,
+`advance 0`, `data dump $score $name`. Prefixes filter the dump; omit them for all data.
+`data watch $score $name` puts changed watched values in every later snapshot's `data` object.
+`data break $score == 12` preflights steps and pauses before a matching write, even if the value
+is unchanged or overwritten later in the step. `data break clear` lets the next advance apply it.
+Diagnostics identify the actual script, listener, action or binding writer. Preflight instruments
+writes while replaying history on a separate player; it adds no bytes to the data/host runtime.
+
+Assertions collect failures while continuing: `expect $score == 12`, `expect knob.x > 0`,
+`expect knob.x ~ 0.5` (absolute error ≤ 1e-6). Operators are `==`, `!=`, `<`, `>`, `~`.
+A failed assertion makes sample exit 1; a malformed command exits 2. Values are read after the
+last applied step, so advance after queued data/input edits before asserting them.
+
+`anima session board.animl` reads one script command per stdin line, or `{"cmd":"snapshot --all"}`,
+and replies with one JSON line per request. It retains time, input, timeline handles, watches and
+breakpoints. `reload` validates the file again and restores compatible data, reporting any skipped
+paths; failed reload leaves the current player usable. `quit` closes the session.
+
+`anima bench board.animl -s exercise.txt --frames 600 --format=json` reports compile time in ms
+and per-frame step/draw median and p95 in µs, using the renderer-neutral path from `tools/perf.ts`.
+It excludes browser layout, DOM updates and rasterization. A script can establish the workload
+before measurement; failed assertions prevent a misleading timing report.
+
+## Accessible node controls in the browser
+
+Import `@anima-format/web/a11y-dom` to render node semantics as transparent native
+controls; add the optional focus module for shared logical/DOM focus and manual
+traversal. See [a11y-dom/AUTHORING.md](../modules/a11y-dom/AUTHORING.md) for the
+JSON/AniML authoring contract, host APIs and `a11y="off"` host-owned policy.
+
+`seed 42` and `--seed 42` accept uint32 values and control every machine/converter random draw
+through core's shared source, including nested stepping. `new Player(model, { seed: 42 })` selects
+the same stream. Reseeding starts its sequence again without clearing converter once/on-change
+caches. Omit the seed to reproduce the established deterministic defaults exactly (machineSeed or
+0x6d2b79f5 for machines, 1 for converters). See spec §11.2 for all commands.

@@ -1,0 +1,39 @@
+{
+  "anima": "0.1",
+  "name": "input-write-key-pressed",
+  "grid": 20,
+  "requires": ["data", "input"],
+  "nodes": [
+    {
+      "id": "target",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 20,
+      "h": 20,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "key-down",
+      "set": {},
+      "write": {
+        "key-pressed": "$n"
+      }
+    }
+  ],
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "n": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

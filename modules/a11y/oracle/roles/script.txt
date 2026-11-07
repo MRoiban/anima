@@ -1,0 +1,6 @@
+focus target button
+snapshot --semantics
+focus target button
+snapshot --semantics
+focus traverse next
+snapshot --semantics

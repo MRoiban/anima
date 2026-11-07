@@ -1,0 +1,4832 @@
+{
+  "schema": 1,
+  "problems": [],
+  "backboard": {
+    "type": "Backboard",
+    "line": 0
+  },
+  "defaultArtboard": { "id": "0:1", "name": "Settings" },
+  "artboards": [
+    {
+      "type": "Artboard",
+      "id": "0:1",
+      "line": 2,
+      "originX": 0,
+      "originY": 0,
+      "defaultStateMachineId": "0:2",
+      "viewModelId": "0:90",
+      "clip": false,
+      "width": 480,
+      "height": 360,
+      "styleId": "0:3",
+      "fractionalWidth": 1,
+      "fractionalHeight": 1,
+      "blendModeValue": 3,
+      "additiveAmount": 255,
+      "drawableFlags": 0,
+      "x": 0,
+      "y": 0,
+      "computedLocalX": 0,
+      "computedLocalY": 0,
+      "computedWorldX": 0,
+      "computedWorldY": 0,
+      "computedRootX": 0,
+      "computedRootY": 0,
+      "computedWidth": 0,
+      "computedHeight": 0,
+      "rotation": 0,
+      "scaleX": 1,
+      "scaleY": 1,
+      "opacity": 1,
+      "name": "Settings",
+      "enums": { "blendModeValue": "srcOver" },
+      "children": [
+        {
+          "type": "LayoutComponentStyle",
+          "id": "0:3",
+          "line": 3,
+          "gapHorizontal": 0,
+          "gapVertical": 0,
+          "borderLeft": 0,
+          "borderRight": 0,
+          "borderTop": 0,
+          "borderBottom": 0,
+          "marginLeft": 0,
+          "marginRight": 0,
+          "marginTop": 0,
+          "marginBottom": 0,
+          "paddingLeft": 0,
+          "paddingRight": 0,
+          "paddingTop": 0,
+          "paddingBottom": 0,
+          "positionLeft": 0,
+          "positionRight": 0,
+          "positionTop": 0,
+          "positionBottom": 0,
+          "positionLeftUnitsValue": 0,
+          "positionRightUnitsValue": 0,
+          "positionTopUnitsValue": 0,
+          "positionBottomUnitsValue": 0,
+          "flexBasis": 0,
+          "aspectRatio": 0,
+          "aspectRatioAxisValue": 0,
+          "interpolationTime": 0,
+          "flexBasisUnitsValue": 3,
+          "layoutAlignmentType": 0,
+          "animationStyleType": 0,
+          "interpolationType": 0,
+          "positionTypeValue": 1,
+          "flexDirectionValue": 2,
+          "directionValue": 0,
+          "flexWrapValue": 0,
+          "overflowValue": 0,
+          "intrinsicallySizedValue": false,
+          "borderLeftUnitsValue": 0,
+          "borderRightUnitsValue": 0,
+          "borderTopUnitsValue": 0,
+          "borderBottomUnitsValue": 0,
+          "marginLeftUnitsValue": 1,
+          "marginRightUnitsValue": 1,
+          "marginTopUnitsValue": 1,
+          "marginBottomUnitsValue": 1,
+          "paddingLeftUnitsValue": 1,
+          "paddingRightUnitsValue": 1,
+          "paddingTopUnitsValue": 1,
+          "paddingBottomUnitsValue": 1,
+          "gapHorizontalUnitsValue": 1,
+          "gapVerticalUnitsValue": 1,
+          "justifyItemsValue": 7,
+          "layoutTypeValue": 0,
+          "linkCornerRadius": true,
+          "cornerRadiusTL": 0,
+          "cornerRadiusTR": 0,
+          "cornerRadiusBL": 0,
+          "cornerRadiusBR": 0,
+          "minWidth": 0,
+          "maxWidth": 0,
+          "minHeight": 0,
+          "maxHeight": 0,
+          "minWidthUnitsValue": 0,
+          "maxWidthUnitsValue": 0,
+          "minHeightUnitsValue": 0,
+          "maxHeightUnitsValue": 0,
+          "layoutWidthScaleType": 0,
+          "layoutHeightScaleType": 0,
+          "hugUnbounded": false,
+          "widthUnitsValue": 1,
+          "heightUnitsValue": 1,
+          "justifySelfValue": 6,
+          "displayValue": 0,
+          "name": "",
+          "enums": {
+            "positionLeftUnitsValue": "undefined",
+            "positionRightUnitsValue": "undefined",
+            "positionTopUnitsValue": "undefined",
+            "positionBottomUnitsValue": "undefined",
+            "aspectRatioAxisValue": "auto",
+            "flexBasisUnitsValue": "auto",
+            "layoutAlignmentType": "topLeft",
+            "animationStyleType": "none",
+            "interpolationType": "hold",
+            "positionTypeValue": "relative",
+            "flexDirectionValue": "row",
+            "directionValue": "inherit",
+            "flexWrapValue": "noWrap",
+            "overflowValue": "visible",
+            "borderLeftUnitsValue": "undefined",
+            "borderRightUnitsValue": "undefined",
+            "borderTopUnitsValue": "undefined",
+            "borderBottomUnitsValue": "undefined",
+            "marginLeftUnitsValue": "points",
+            "marginRightUnitsValue": "points",
+            "marginTopUnitsValue": "points",
+            "marginBottomUnitsValue": "points",
+            "paddingLeftUnitsValue": "points",
+            "paddingRightUnitsValue": "points",
+            "paddingTopUnitsValue": "points",
+            "paddingBottomUnitsValue": "points",
+            "gapHorizontalUnitsValue": "points",
+            "gapVerticalUnitsValue": "points",
+            "justifyItemsValue": "stretch",
+            "layoutTypeValue": "flex",
+            "minWidthUnitsValue": "undefined",
+            "maxWidthUnitsValue": "undefined",
+            "minHeightUnitsValue": "undefined",
+            "maxHeightUnitsValue": "undefined",
+            "layoutWidthScaleType": "fixed",
+            "layoutHeightScaleType": "fixed",
+            "widthUnitsValue": "points",
+            "heightUnitsValue": "points",
+            "justifySelfValue": "auto",
+            "displayValue": "flex"
+          }
+        },
+        {
+          "type": "ScriptedDrawable",
+          "line": 4,
+          "scriptAssetId": "0:81",
+          "blendModeValue": 3,
+          "additiveAmount": 255,
+          "drawableFlags": 0,
+          "x": 0,
+          "y": 0,
+          "computedLocalX": 0,
+          "computedLocalY": 0,
+          "computedWorldX": 0,
+          "computedWorldY": 0,
+          "computedRootX": 0,
+          "computedRootY": 0,
+          "computedWidth": 0,
+          "computedHeight": 0,
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "opacity": 1,
+          "name": "Derived settings",
+          "enums": { "blendModeValue": "srcOver" }
+        },
+        {
+          "type": "Node",
+          "line": 5,
+          "x": 0,
+          "y": 0,
+          "computedLocalX": 0,
+          "computedLocalY": 0,
+          "computedWorldX": 0,
+          "computedWorldY": 0,
+          "computedRootX": 0,
+          "computedRootY": 0,
+          "computedWidth": 0,
+          "computedHeight": 0,
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "opacity": 1,
+          "name": "Tabs",
+          "children": [
+            {
+              "type": "SemanticData",
+              "line": 6,
+              "role": 13,
+              "label": "",
+              "value": "",
+              "hint": "",
+              "headingLevel": 0,
+              "traitFlags": 0,
+              "stateFlags": 0,
+              "isExpandable": false,
+              "isSelectable": false,
+              "isCheckable": false,
+              "isToggleable": false,
+              "isRequirable": false,
+              "isEnablable": false,
+              "isFocusable": false,
+              "isExpanded": false,
+              "isSelected": false,
+              "isChecked": 0,
+              "isToggled": false,
+              "isRequired": false,
+              "isDisabled": false,
+              "isFocused": false,
+              "isHidden": false,
+              "isLiveRegion": false,
+              "isReadOnly": false,
+              "isModal": false,
+              "isObscured": false,
+              "isMultiline": false,
+              "name": "",
+              "enums": { "role": "tabList", "isChecked": "unchecked" },
+              "children": [
+                {
+                  "type": "DataBindContext",
+                  "line": 7,
+                  "propertyKey": 983,
+                  "flags": 0
+                }
+              ]
+            },
+            {
+              "type": "Shape",
+              "id": "0:10",
+              "line": 9,
+              "length": 0,
+              "blendModeValue": 3,
+              "additiveAmount": 255,
+              "drawableFlags": 0,
+              "x": 24,
+              "y": 24,
+              "computedLocalX": 0,
+              "computedLocalY": 0,
+              "computedWorldX": 0,
+              "computedWorldY": 0,
+              "computedRootX": 0,
+              "computedRootY": 0,
+              "computedWidth": 0,
+              "computedHeight": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "opacity": 1,
+              "name": "Box",
+              "enums": { "blendModeValue": "srcOver" },
+              "children": [
+                {
+                  "type": "SemanticData",
+                  "line": 10,
+                  "role": 12,
+                  "label": "",
+                  "value": "",
+                  "hint": "",
+                  "headingLevel": 0,
+                  "traitFlags": 34,
+                  "stateFlags": 0,
+                  "isExpandable": false,
+                  "isSelectable": true,
+                  "isCheckable": false,
+                  "isToggleable": false,
+                  "isRequirable": false,
+                  "isEnablable": true,
+                  "isFocusable": false,
+                  "isExpanded": false,
+                  "isSelected": false,
+                  "isChecked": 0,
+                  "isToggled": false,
+                  "isRequired": false,
+                  "isDisabled": false,
+                  "isFocused": false,
+                  "isHidden": false,
+                  "isLiveRegion": false,
+                  "isReadOnly": false,
+                  "isModal": false,
+                  "isObscured": false,
+                  "isMultiline": false,
+                  "name": "",
+                  "enums": { "role": "tab", "isChecked": "unchecked" },
+                  "children": [
+                    {
+                      "type": "DataBindContext",
+                      "line": 11,
+                      "propertyKey": 983,
+                      "flags": 0
+                    },
+                    {
+                      "type": "DataBindContext",
+                      "line": 12,
+                      "propertyKey": 997,
+                      "flags": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "FocusData",
+                  "line": 14,
+                  "focusFlags": 7,
+                  "canFocus": true,
+                  "canTouch": true,
+                  "canTraverse": true,
+                  "edgeBehaviorValue": 0,
+                  "name": "",
+                  "enums": { "edgeBehaviorValue": "parentScope" }
+                },
+                {
+                  "type": "Text",
+                  "line": 15,
+                  "alignValue": 0,
+                  "sizingValue": 0,
+                  "overflowValue": 0,
+                  "width": 0,
+                  "height": 0,
+                  "originX": 0.5,
+                  "originY": 0.5,
+                  "paragraphSpacing": 0,
+                  "originValue": 0,
+                  "wrapValue": 0,
+                  "wordBreakValue": 0,
+                  "verticalAlignValue": 0,
+                  "fitFromBaseline": true,
+                  "fitFontSizeResizesBox": true,
+                  "verticalTrimValue": 0,
+                  "verticalTrimTopValue": 0,
+                  "verticalTrimBottomValue": 0,
+                  "blendModeValue": 3,
+                  "additiveAmount": 255,
+                  "drawableFlags": 0,
+                  "x": 60,
+                  "y": 18,
+                  "computedLocalX": 0,
+                  "computedLocalY": 0,
+                  "computedWorldX": 0,
+                  "computedWorldY": 0,
+                  "computedRootX": 0,
+                  "computedRootY": 0,
+                  "computedWidth": 0,
+                  "computedHeight": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "name": "generalTitle label",
+                  "enums": {
+                    "alignValue": "left",
+                    "sizingValue": "autoWidth",
+                    "overflowValue": "visible",
+                    "originValue": "top",
+                    "wrapValue": "wrap",
+                    "wordBreakValue": "breakWord",
+                    "verticalAlignValue": "top",
+                    "verticalTrimTopValue": "none",
+                    "verticalTrimBottomValue": "none",
+                    "blendModeValue": "srcOver"
+                  },
+                  "children": [
+                    {
+                      "type": "TextStylePaint",
+                      "id": "0:201",
+                      "line": 16,
+                      "fontSize": 16,
+                      "lineHeight": -1,
+                      "letterSpacing": 0,
+                      "fontAssetId": "0:80",
+                      "name": "Body",
+                      "children": [
+                        {
+                          "type": "Fill",
+                          "line": 17,
+                          "fillRule": 0,
+                          "isVisible": true,
+                          "blendModeValue": 127,
+                          "additiveAmount": 255,
+                          "name": "",
+                          "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                          "children": [
+                            {
+                              "type": "SolidColor",
+                              "line": 18,
+                              "colorValue": "FF141413",
+                              "colorRed": 0,
+                              "colorGreen": 0,
+                              "colorBlue": 0,
+                              "colorAlpha": 0,
+                              "name": ""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "TextValueRun",
+                      "line": 21,
+                      "styleId": "0:201",
+                      "text": "",
+                      "name": "",
+                      "children": [
+                        {
+                          "type": "DataBindContext",
+                          "line": 22,
+                          "propertyKey": 268,
+                          "flags": 0
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Shape",
+                  "line": 25,
+                  "length": 0,
+                  "blendModeValue": 3,
+                  "additiveAmount": 255,
+                  "drawableFlags": 0,
+                  "x": 0,
+                  "y": 0,
+                  "computedLocalX": 0,
+                  "computedLocalY": 0,
+                  "computedWorldX": 0,
+                  "computedWorldY": 0,
+                  "computedRootX": 0,
+                  "computedRootY": 0,
+                  "computedWidth": 0,
+                  "computedHeight": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "name": "Box",
+                  "enums": { "blendModeValue": "srcOver" },
+                  "children": [
+                    {
+                      "type": "DataBindContext",
+                      "line": 26,
+                      "propertyKey": 18,
+                      "flags": 0
+                    },
+                    {
+                      "type": "Rectangle",
+                      "line": 27,
+                      "linkCornerRadius": true,
+                      "cornerRadiusTL": 0,
+                      "cornerRadiusTR": 0,
+                      "cornerRadiusBL": 0,
+                      "cornerRadiusBR": 0,
+                      "width": 120,
+                      "height": 36,
+                      "originX": 0,
+                      "originY": 0,
+                      "pathFlags": 0,
+                      "isHole": false,
+                      "x": 0,
+                      "y": 0,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": ""
+                    },
+                    {
+                      "type": "Fill",
+                      "line": 28,
+                      "fillRule": 0,
+                      "isVisible": true,
+                      "blendModeValue": 127,
+                      "additiveAmount": 255,
+                      "name": "",
+                      "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                      "children": [
+                        {
+                          "type": "SolidColor",
+                          "line": 29,
+                          "colorValue": "FFD97757",
+                          "colorRed": 0,
+                          "colorGreen": 0,
+                          "colorBlue": 0,
+                          "colorAlpha": 0,
+                          "name": ""
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Rectangle",
+                  "line": 32,
+                  "linkCornerRadius": true,
+                  "cornerRadiusTL": 0,
+                  "cornerRadiusTR": 0,
+                  "cornerRadiusBL": 0,
+                  "cornerRadiusBR": 0,
+                  "width": 120,
+                  "height": 36,
+                  "originX": 0,
+                  "originY": 0,
+                  "pathFlags": 0,
+                  "isHole": false,
+                  "x": 0,
+                  "y": 0,
+                  "computedLocalX": 0,
+                  "computedLocalY": 0,
+                  "computedWorldX": 0,
+                  "computedWorldY": 0,
+                  "computedRootX": 0,
+                  "computedRootY": 0,
+                  "computedWidth": 0,
+                  "computedHeight": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "name": ""
+                },
+                {
+                  "type": "Stroke",
+                  "line": 33,
+                  "thickness": 2,
+                  "cap": 0,
+                  "join": 0,
+                  "transformAffectsStroke": true,
+                  "position": 1,
+                  "isVisible": true,
+                  "blendModeValue": 127,
+                  "additiveAmount": 255,
+                  "name": "",
+                  "enums": {
+                    "cap": "butt",
+                    "join": "miter",
+                    "position": "center",
+                    "blendModeValue": "inherit"
+                  },
+                  "children": [
+                    {
+                      "type": "SolidColor",
+                      "line": 34,
+                      "colorValue": "FF141413",
+                      "colorRed": 0,
+                      "colorGreen": 0,
+                      "colorBlue": 0,
+                      "colorAlpha": 0,
+                      "name": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Shape",
+              "id": "0:11",
+              "line": 37,
+              "length": 0,
+              "blendModeValue": 3,
+              "additiveAmount": 255,
+              "drawableFlags": 0,
+              "x": 168,
+              "y": 24,
+              "computedLocalX": 0,
+              "computedLocalY": 0,
+              "computedWorldX": 0,
+              "computedWorldY": 0,
+              "computedRootX": 0,
+              "computedRootY": 0,
+              "computedWidth": 0,
+              "computedHeight": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "opacity": 1,
+              "name": "Box",
+              "enums": { "blendModeValue": "srcOver" },
+              "children": [
+                {
+                  "type": "SemanticData",
+                  "line": 38,
+                  "role": 12,
+                  "label": "",
+                  "value": "",
+                  "hint": "",
+                  "headingLevel": 0,
+                  "traitFlags": 34,
+                  "stateFlags": 0,
+                  "isExpandable": false,
+                  "isSelectable": true,
+                  "isCheckable": false,
+                  "isToggleable": false,
+                  "isRequirable": false,
+                  "isEnablable": true,
+                  "isFocusable": false,
+                  "isExpanded": false,
+                  "isSelected": false,
+                  "isChecked": 0,
+                  "isToggled": false,
+                  "isRequired": false,
+                  "isDisabled": false,
+                  "isFocused": false,
+                  "isHidden": false,
+                  "isLiveRegion": false,
+                  "isReadOnly": false,
+                  "isModal": false,
+                  "isObscured": false,
+                  "isMultiline": false,
+                  "name": "",
+                  "enums": { "role": "tab", "isChecked": "unchecked" },
+                  "children": [
+                    {
+                      "type": "DataBindContext",
+                      "line": 39,
+                      "propertyKey": 983,
+                      "flags": 0
+                    },
+                    {
+                      "type": "DataBindContext",
+                      "line": 40,
+                      "propertyKey": 997,
+                      "flags": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "FocusData",
+                  "line": 42,
+                  "focusFlags": 7,
+                  "canFocus": true,
+                  "canTouch": true,
+                  "canTraverse": true,
+                  "edgeBehaviorValue": 0,
+                  "name": "",
+                  "enums": { "edgeBehaviorValue": "parentScope" }
+                },
+                {
+                  "type": "Text",
+                  "line": 43,
+                  "alignValue": 0,
+                  "sizingValue": 0,
+                  "overflowValue": 0,
+                  "width": 0,
+                  "height": 0,
+                  "originX": 0.5,
+                  "originY": 0.5,
+                  "paragraphSpacing": 0,
+                  "originValue": 0,
+                  "wrapValue": 0,
+                  "wordBreakValue": 0,
+                  "verticalAlignValue": 0,
+                  "fitFromBaseline": true,
+                  "fitFontSizeResizesBox": true,
+                  "verticalTrimValue": 0,
+                  "verticalTrimTopValue": 0,
+                  "verticalTrimBottomValue": 0,
+                  "blendModeValue": 3,
+                  "additiveAmount": 255,
+                  "drawableFlags": 0,
+                  "x": 60,
+                  "y": 18,
+                  "computedLocalX": 0,
+                  "computedLocalY": 0,
+                  "computedWorldX": 0,
+                  "computedWorldY": 0,
+                  "computedRootX": 0,
+                  "computedRootY": 0,
+                  "computedWidth": 0,
+                  "computedHeight": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "name": "soundTitle label",
+                  "enums": {
+                    "alignValue": "left",
+                    "sizingValue": "autoWidth",
+                    "overflowValue": "visible",
+                    "originValue": "top",
+                    "wrapValue": "wrap",
+                    "wordBreakValue": "breakWord",
+                    "verticalAlignValue": "top",
+                    "verticalTrimTopValue": "none",
+                    "verticalTrimBottomValue": "none",
+                    "blendModeValue": "srcOver"
+                  },
+                  "children": [
+                    {
+                      "type": "TextStylePaint",
+                      "id": "0:202",
+                      "line": 44,
+                      "fontSize": 16,
+                      "lineHeight": -1,
+                      "letterSpacing": 0,
+                      "fontAssetId": "0:80",
+                      "name": "Body",
+                      "children": [
+                        {
+                          "type": "Fill",
+                          "line": 45,
+                          "fillRule": 0,
+                          "isVisible": true,
+                          "blendModeValue": 127,
+                          "additiveAmount": 255,
+                          "name": "",
+                          "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                          "children": [
+                            {
+                              "type": "SolidColor",
+                              "line": 46,
+                              "colorValue": "FF141413",
+                              "colorRed": 0,
+                              "colorGreen": 0,
+                              "colorBlue": 0,
+                              "colorAlpha": 0,
+                              "name": ""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "TextValueRun",
+                      "line": 49,
+                      "styleId": "0:202",
+                      "text": "",
+                      "name": "",
+                      "children": [
+                        {
+                          "type": "DataBindContext",
+                          "line": 50,
+                          "propertyKey": 268,
+                          "flags": 0
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Shape",
+                  "line": 53,
+                  "length": 0,
+                  "blendModeValue": 3,
+                  "additiveAmount": 255,
+                  "drawableFlags": 0,
+                  "x": 0,
+                  "y": 0,
+                  "computedLocalX": 0,
+                  "computedLocalY": 0,
+                  "computedWorldX": 0,
+                  "computedWorldY": 0,
+                  "computedRootX": 0,
+                  "computedRootY": 0,
+                  "computedWidth": 0,
+                  "computedHeight": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "name": "Box",
+                  "enums": { "blendModeValue": "srcOver" },
+                  "children": [
+                    {
+                      "type": "DataBindContext",
+                      "line": 54,
+                      "propertyKey": 18,
+                      "flags": 0
+                    },
+                    {
+                      "type": "Rectangle",
+                      "line": 55,
+                      "linkCornerRadius": true,
+                      "cornerRadiusTL": 0,
+                      "cornerRadiusTR": 0,
+                      "cornerRadiusBL": 0,
+                      "cornerRadiusBR": 0,
+                      "width": 120,
+                      "height": 36,
+                      "originX": 0,
+                      "originY": 0,
+                      "pathFlags": 0,
+                      "isHole": false,
+                      "x": 0,
+                      "y": 0,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": ""
+                    },
+                    {
+                      "type": "Fill",
+                      "line": 56,
+                      "fillRule": 0,
+                      "isVisible": true,
+                      "blendModeValue": 127,
+                      "additiveAmount": 255,
+                      "name": "",
+                      "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                      "children": [
+                        {
+                          "type": "SolidColor",
+                          "line": 57,
+                          "colorValue": "FFD97757",
+                          "colorRed": 0,
+                          "colorGreen": 0,
+                          "colorBlue": 0,
+                          "colorAlpha": 0,
+                          "name": ""
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Rectangle",
+                  "line": 60,
+                  "linkCornerRadius": true,
+                  "cornerRadiusTL": 0,
+                  "cornerRadiusTR": 0,
+                  "cornerRadiusBL": 0,
+                  "cornerRadiusBR": 0,
+                  "width": 120,
+                  "height": 36,
+                  "originX": 0,
+                  "originY": 0,
+                  "pathFlags": 0,
+                  "isHole": false,
+                  "x": 0,
+                  "y": 0,
+                  "computedLocalX": 0,
+                  "computedLocalY": 0,
+                  "computedWorldX": 0,
+                  "computedWorldY": 0,
+                  "computedRootX": 0,
+                  "computedRootY": 0,
+                  "computedWidth": 0,
+                  "computedHeight": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "name": ""
+                },
+                {
+                  "type": "Stroke",
+                  "line": 61,
+                  "thickness": 2,
+                  "cap": 0,
+                  "join": 0,
+                  "transformAffectsStroke": true,
+                  "position": 1,
+                  "isVisible": true,
+                  "blendModeValue": 127,
+                  "additiveAmount": 255,
+                  "name": "",
+                  "enums": {
+                    "cap": "butt",
+                    "join": "miter",
+                    "position": "center",
+                    "blendModeValue": "inherit"
+                  },
+                  "children": [
+                    {
+                      "type": "SolidColor",
+                      "line": 62,
+                      "colorValue": "FF141413",
+                      "colorRed": 0,
+                      "colorGreen": 0,
+                      "colorBlue": 0,
+                      "colorAlpha": 0,
+                      "name": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Solo",
+          "id": "0:20",
+          "line": 66,
+          "activeComponentId": "0:21",
+          "x": 0,
+          "y": 0,
+          "computedLocalX": 0,
+          "computedLocalY": 0,
+          "computedWorldX": 0,
+          "computedWorldY": 0,
+          "computedRootX": 0,
+          "computedRootY": 0,
+          "computedWidth": 0,
+          "computedHeight": 0,
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "opacity": 1,
+          "name": "Panels",
+          "children": [
+            {
+              "type": "Node",
+              "id": "0:21",
+              "line": 67,
+              "x": 0,
+              "y": 0,
+              "computedLocalX": 0,
+              "computedLocalY": 0,
+              "computedWorldX": 0,
+              "computedWorldY": 0,
+              "computedRootX": 0,
+              "computedRootY": 0,
+              "computedWidth": 0,
+              "computedHeight": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "opacity": 1,
+              "name": "General panel",
+              "children": [
+                {
+                  "type": "SemanticData",
+                  "line": 68,
+                  "role": 9,
+                  "label": "",
+                  "value": "",
+                  "hint": "",
+                  "headingLevel": 0,
+                  "traitFlags": 0,
+                  "stateFlags": 0,
+                  "isExpandable": false,
+                  "isSelectable": false,
+                  "isCheckable": false,
+                  "isToggleable": false,
+                  "isRequirable": false,
+                  "isEnablable": false,
+                  "isFocusable": false,
+                  "isExpanded": false,
+                  "isSelected": false,
+                  "isChecked": 0,
+                  "isToggled": false,
+                  "isRequired": false,
+                  "isDisabled": false,
+                  "isFocused": false,
+                  "isHidden": false,
+                  "isLiveRegion": false,
+                  "isReadOnly": false,
+                  "isModal": false,
+                  "isObscured": false,
+                  "isMultiline": false,
+                  "name": "",
+                  "enums": { "role": "group", "isChecked": "unchecked" },
+                  "children": [
+                    {
+                      "type": "DataBindContext",
+                      "line": 69,
+                      "propertyKey": 983,
+                      "flags": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "Shape",
+                  "id": "0:30",
+                  "line": 71,
+                  "length": 0,
+                  "blendModeValue": 3,
+                  "additiveAmount": 255,
+                  "drawableFlags": 0,
+                  "x": 24,
+                  "y": 96,
+                  "computedLocalX": 0,
+                  "computedLocalY": 0,
+                  "computedWorldX": 0,
+                  "computedWorldY": 0,
+                  "computedRootX": 0,
+                  "computedRootY": 0,
+                  "computedWidth": 0,
+                  "computedHeight": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "name": "Box",
+                  "enums": { "blendModeValue": "srcOver" },
+                  "children": [
+                    {
+                      "type": "SemanticData",
+                      "line": 72,
+                      "role": 3,
+                      "label": "",
+                      "value": "",
+                      "hint": "",
+                      "headingLevel": 0,
+                      "traitFlags": 36,
+                      "stateFlags": 0,
+                      "isExpandable": false,
+                      "isSelectable": false,
+                      "isCheckable": true,
+                      "isToggleable": false,
+                      "isRequirable": false,
+                      "isEnablable": true,
+                      "isFocusable": false,
+                      "isExpanded": false,
+                      "isSelected": false,
+                      "isChecked": 0,
+                      "isToggled": false,
+                      "isRequired": false,
+                      "isDisabled": false,
+                      "isFocused": false,
+                      "isHidden": false,
+                      "isLiveRegion": false,
+                      "isReadOnly": false,
+                      "isModal": false,
+                      "isObscured": false,
+                      "isMultiline": false,
+                      "name": "",
+                      "enums": { "role": "checkbox", "isChecked": "unchecked" },
+                      "children": [
+                        {
+                          "type": "DataBindContext",
+                          "line": 73,
+                          "propertyKey": 983,
+                          "flags": 0
+                        },
+                        {
+                          "type": "DataBindContext",
+                          "line": 74,
+                          "propertyKey": 998,
+                          "flags": 0
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FocusData",
+                      "line": 76,
+                      "focusFlags": 7,
+                      "canFocus": true,
+                      "canTouch": true,
+                      "canTraverse": true,
+                      "edgeBehaviorValue": 0,
+                      "name": "",
+                      "enums": { "edgeBehaviorValue": "parentScope" }
+                    },
+                    {
+                      "type": "Text",
+                      "line": 77,
+                      "alignValue": 0,
+                      "sizingValue": 0,
+                      "overflowValue": 0,
+                      "width": 0,
+                      "height": 0,
+                      "originX": 0,
+                      "originY": 0.5,
+                      "paragraphSpacing": 0,
+                      "originValue": 0,
+                      "wrapValue": 0,
+                      "wordBreakValue": 0,
+                      "verticalAlignValue": 0,
+                      "fitFromBaseline": true,
+                      "fitFontSizeResizesBox": true,
+                      "verticalTrimValue": 0,
+                      "verticalTrimTopValue": 0,
+                      "verticalTrimBottomValue": 0,
+                      "blendModeValue": 3,
+                      "additiveAmount": 255,
+                      "drawableFlags": 0,
+                      "x": 36,
+                      "y": 12,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": "notificationsTitle label",
+                      "enums": {
+                        "alignValue": "left",
+                        "sizingValue": "autoWidth",
+                        "overflowValue": "visible",
+                        "originValue": "top",
+                        "wrapValue": "wrap",
+                        "wordBreakValue": "breakWord",
+                        "verticalAlignValue": "top",
+                        "verticalTrimTopValue": "none",
+                        "verticalTrimBottomValue": "none",
+                        "blendModeValue": "srcOver"
+                      },
+                      "children": [
+                        {
+                          "type": "TextStylePaint",
+                          "id": "0:203",
+                          "line": 78,
+                          "fontSize": 16,
+                          "lineHeight": -1,
+                          "letterSpacing": 0,
+                          "fontAssetId": "0:80",
+                          "name": "Body",
+                          "children": [
+                            {
+                              "type": "Fill",
+                              "line": 79,
+                              "fillRule": 0,
+                              "isVisible": true,
+                              "blendModeValue": 127,
+                              "additiveAmount": 255,
+                              "name": "",
+                              "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                              "children": [
+                                {
+                                  "type": "SolidColor",
+                                  "line": 80,
+                                  "colorValue": "FF141413",
+                                  "colorRed": 0,
+                                  "colorGreen": 0,
+                                  "colorBlue": 0,
+                                  "colorAlpha": 0,
+                                  "name": ""
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TextValueRun",
+                          "line": 83,
+                          "styleId": "0:203",
+                          "text": "",
+                          "name": "",
+                          "children": [
+                            {
+                              "type": "DataBindContext",
+                              "line": 84,
+                              "propertyKey": 268,
+                              "flags": 0
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Shape",
+                      "line": 87,
+                      "length": 0,
+                      "blendModeValue": 3,
+                      "additiveAmount": 255,
+                      "drawableFlags": 0,
+                      "x": 4,
+                      "y": 10,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": "Box",
+                      "enums": { "blendModeValue": "srcOver" },
+                      "children": [
+                        {
+                          "type": "DataBindContext",
+                          "line": 88,
+                          "propertyKey": 18,
+                          "flags": 0
+                        },
+                        {
+                          "type": "Rectangle",
+                          "line": 89,
+                          "linkCornerRadius": true,
+                          "cornerRadiusTL": 0,
+                          "cornerRadiusTR": 0,
+                          "cornerRadiusBL": 0,
+                          "cornerRadiusBR": 0,
+                          "width": 16,
+                          "height": 4,
+                          "originX": 0,
+                          "originY": 0,
+                          "pathFlags": 0,
+                          "isHole": false,
+                          "x": 0,
+                          "y": 0,
+                          "computedLocalX": 0,
+                          "computedLocalY": 0,
+                          "computedWorldX": 0,
+                          "computedWorldY": 0,
+                          "computedRootX": 0,
+                          "computedRootY": 0,
+                          "computedWidth": 0,
+                          "computedHeight": 0,
+                          "rotation": 0,
+                          "scaleX": 1,
+                          "scaleY": 1,
+                          "opacity": 1,
+                          "name": ""
+                        },
+                        {
+                          "type": "Fill",
+                          "line": 90,
+                          "fillRule": 0,
+                          "isVisible": true,
+                          "blendModeValue": 127,
+                          "additiveAmount": 255,
+                          "name": "",
+                          "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                          "children": [
+                            {
+                              "type": "SolidColor",
+                              "line": 91,
+                              "colorValue": "FF141413",
+                              "colorRed": 0,
+                              "colorGreen": 0,
+                              "colorBlue": 0,
+                              "colorAlpha": 0,
+                              "name": ""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Shape",
+                      "line": 94,
+                      "length": 0,
+                      "blendModeValue": 3,
+                      "additiveAmount": 255,
+                      "drawableFlags": 0,
+                      "x": 0,
+                      "y": 0,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": "Box",
+                      "enums": { "blendModeValue": "srcOver" },
+                      "children": [
+                        {
+                          "type": "DataBindContext",
+                          "line": 95,
+                          "propertyKey": 18,
+                          "flags": 0
+                        },
+                        {
+                          "type": "Rectangle",
+                          "line": 96,
+                          "linkCornerRadius": true,
+                          "cornerRadiusTL": 0,
+                          "cornerRadiusTR": 0,
+                          "cornerRadiusBL": 0,
+                          "cornerRadiusBR": 0,
+                          "width": 24,
+                          "height": 24,
+                          "originX": 0,
+                          "originY": 0,
+                          "pathFlags": 0,
+                          "isHole": false,
+                          "x": 0,
+                          "y": 0,
+                          "computedLocalX": 0,
+                          "computedLocalY": 0,
+                          "computedWorldX": 0,
+                          "computedWorldY": 0,
+                          "computedRootX": 0,
+                          "computedRootY": 0,
+                          "computedWidth": 0,
+                          "computedHeight": 0,
+                          "rotation": 0,
+                          "scaleX": 1,
+                          "scaleY": 1,
+                          "opacity": 1,
+                          "name": ""
+                        },
+                        {
+                          "type": "Fill",
+                          "line": 97,
+                          "fillRule": 0,
+                          "isVisible": true,
+                          "blendModeValue": 127,
+                          "additiveAmount": 255,
+                          "name": "",
+                          "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                          "children": [
+                            {
+                              "type": "SolidColor",
+                              "line": 98,
+                              "colorValue": "FF141413",
+                              "colorRed": 0,
+                              "colorGreen": 0,
+                              "colorBlue": 0,
+                              "colorAlpha": 0,
+                              "name": ""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Rectangle",
+                      "line": 101,
+                      "linkCornerRadius": true,
+                      "cornerRadiusTL": 0,
+                      "cornerRadiusTR": 0,
+                      "cornerRadiusBL": 0,
+                      "cornerRadiusBR": 0,
+                      "width": 24,
+                      "height": 24,
+                      "originX": 0,
+                      "originY": 0,
+                      "pathFlags": 0,
+                      "isHole": false,
+                      "x": 0,
+                      "y": 0,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": ""
+                    },
+                    {
+                      "type": "Stroke",
+                      "line": 102,
+                      "thickness": 2,
+                      "cap": 0,
+                      "join": 0,
+                      "transformAffectsStroke": true,
+                      "position": 1,
+                      "isVisible": true,
+                      "blendModeValue": 127,
+                      "additiveAmount": 255,
+                      "name": "",
+                      "enums": {
+                        "cap": "butt",
+                        "join": "miter",
+                        "position": "center",
+                        "blendModeValue": "inherit"
+                      },
+                      "children": [
+                        {
+                          "type": "SolidColor",
+                          "line": 103,
+                          "colorValue": "FF141413",
+                          "colorRed": 0,
+                          "colorGreen": 0,
+                          "colorBlue": 0,
+                          "colorAlpha": 0,
+                          "name": ""
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Shape",
+                  "id": "0:31",
+                  "line": 106,
+                  "length": 0,
+                  "blendModeValue": 3,
+                  "additiveAmount": 255,
+                  "drawableFlags": 0,
+                  "x": 48,
+                  "y": 144,
+                  "computedLocalX": 0,
+                  "computedLocalY": 0,
+                  "computedWorldX": 0,
+                  "computedWorldY": 0,
+                  "computedRootX": 0,
+                  "computedRootY": 0,
+                  "computedWidth": 0,
+                  "computedHeight": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "name": "Box",
+                  "enums": { "blendModeValue": "srcOver" },
+                  "children": [
+                    {
+                      "type": "SemanticData",
+                      "line": 107,
+                      "role": 3,
+                      "label": "",
+                      "value": "",
+                      "hint": "",
+                      "headingLevel": 0,
+                      "traitFlags": 36,
+                      "stateFlags": 0,
+                      "isExpandable": false,
+                      "isSelectable": false,
+                      "isCheckable": true,
+                      "isToggleable": false,
+                      "isRequirable": false,
+                      "isEnablable": true,
+                      "isFocusable": false,
+                      "isExpanded": false,
+                      "isSelected": false,
+                      "isChecked": 0,
+                      "isToggled": false,
+                      "isRequired": false,
+                      "isDisabled": false,
+                      "isFocused": false,
+                      "isHidden": false,
+                      "isLiveRegion": false,
+                      "isReadOnly": false,
+                      "isModal": false,
+                      "isObscured": false,
+                      "isMultiline": false,
+                      "name": "",
+                      "enums": { "role": "checkbox", "isChecked": "unchecked" },
+                      "children": [
+                        {
+                          "type": "DataBindContext",
+                          "line": 108,
+                          "propertyKey": 983,
+                          "flags": 0
+                        },
+                        {
+                          "type": "DataBindContext",
+                          "line": 109,
+                          "propertyKey": 998,
+                          "flags": 0
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FocusData",
+                      "line": 111,
+                      "focusFlags": 7,
+                      "canFocus": true,
+                      "canTouch": true,
+                      "canTraverse": true,
+                      "edgeBehaviorValue": 0,
+                      "name": "",
+                      "enums": { "edgeBehaviorValue": "parentScope" }
+                    },
+                    {
+                      "type": "Text",
+                      "line": 112,
+                      "alignValue": 0,
+                      "sizingValue": 0,
+                      "overflowValue": 0,
+                      "width": 0,
+                      "height": 0,
+                      "originX": 0,
+                      "originY": 0.5,
+                      "paragraphSpacing": 0,
+                      "originValue": 0,
+                      "wrapValue": 0,
+                      "wordBreakValue": 0,
+                      "verticalAlignValue": 0,
+                      "fitFromBaseline": true,
+                      "fitFontSizeResizesBox": true,
+                      "verticalTrimValue": 0,
+                      "verticalTrimTopValue": 0,
+                      "verticalTrimBottomValue": 0,
+                      "blendModeValue": 3,
+                      "additiveAmount": 255,
+                      "drawableFlags": 0,
+                      "x": 36,
+                      "y": 12,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": "emailTitle label",
+                      "enums": {
+                        "alignValue": "left",
+                        "sizingValue": "autoWidth",
+                        "overflowValue": "visible",
+                        "originValue": "top",
+                        "wrapValue": "wrap",
+                        "wordBreakValue": "breakWord",
+                        "verticalAlignValue": "top",
+                        "verticalTrimTopValue": "none",
+                        "verticalTrimBottomValue": "none",
+                        "blendModeValue": "srcOver"
+                      },
+                      "children": [
+                        {
+                          "type": "TextStylePaint",
+                          "id": "0:204",
+                          "line": 113,
+                          "fontSize": 16,
+                          "lineHeight": -1,
+                          "letterSpacing": 0,
+                          "fontAssetId": "0:80",
+                          "name": "Body",
+                          "children": [
+                            {
+                              "type": "Fill",
+                              "line": 114,
+                              "fillRule": 0,
+                              "isVisible": true,
+                              "blendModeValue": 127,
+                              "additiveAmount": 255,
+                              "name": "",
+                              "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                              "children": [
+                                {
+                                  "type": "SolidColor",
+                                  "line": 115,
+                                  "colorValue": "FF141413",
+                                  "colorRed": 0,
+                                  "colorGreen": 0,
+                                  "colorBlue": 0,
+                                  "colorAlpha": 0,
+                                  "name": ""
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TextValueRun",
+                          "line": 118,
+                          "styleId": "0:204",
+                          "text": "",
+                          "name": "",
+                          "children": [
+                            {
+                              "type": "DataBindContext",
+                              "line": 119,
+                              "propertyKey": 268,
+                              "flags": 0
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Shape",
+                      "line": 122,
+                      "length": 0,
+                      "blendModeValue": 3,
+                      "additiveAmount": 255,
+                      "drawableFlags": 0,
+                      "x": 0,
+                      "y": 0,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": "Box",
+                      "enums": { "blendModeValue": "srcOver" },
+                      "children": [
+                        {
+                          "type": "DataBindContext",
+                          "line": 123,
+                          "propertyKey": 18,
+                          "flags": 0
+                        },
+                        {
+                          "type": "Rectangle",
+                          "line": 124,
+                          "linkCornerRadius": true,
+                          "cornerRadiusTL": 0,
+                          "cornerRadiusTR": 0,
+                          "cornerRadiusBL": 0,
+                          "cornerRadiusBR": 0,
+                          "width": 24,
+                          "height": 24,
+                          "originX": 0,
+                          "originY": 0,
+                          "pathFlags": 0,
+                          "isHole": false,
+                          "x": 0,
+                          "y": 0,
+                          "computedLocalX": 0,
+                          "computedLocalY": 0,
+                          "computedWorldX": 0,
+                          "computedWorldY": 0,
+                          "computedRootX": 0,
+                          "computedRootY": 0,
+                          "computedWidth": 0,
+                          "computedHeight": 0,
+                          "rotation": 0,
+                          "scaleX": 1,
+                          "scaleY": 1,
+                          "opacity": 1,
+                          "name": ""
+                        },
+                        {
+                          "type": "Fill",
+                          "line": 125,
+                          "fillRule": 0,
+                          "isVisible": true,
+                          "blendModeValue": 127,
+                          "additiveAmount": 255,
+                          "name": "",
+                          "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                          "children": [
+                            {
+                              "type": "SolidColor",
+                              "line": 126,
+                              "colorValue": "FF141413",
+                              "colorRed": 0,
+                              "colorGreen": 0,
+                              "colorBlue": 0,
+                              "colorAlpha": 0,
+                              "name": ""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Rectangle",
+                      "line": 129,
+                      "linkCornerRadius": true,
+                      "cornerRadiusTL": 0,
+                      "cornerRadiusTR": 0,
+                      "cornerRadiusBL": 0,
+                      "cornerRadiusBR": 0,
+                      "width": 24,
+                      "height": 24,
+                      "originX": 0,
+                      "originY": 0,
+                      "pathFlags": 0,
+                      "isHole": false,
+                      "x": 0,
+                      "y": 0,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": ""
+                    },
+                    {
+                      "type": "Stroke",
+                      "line": 130,
+                      "thickness": 2,
+                      "cap": 0,
+                      "join": 0,
+                      "transformAffectsStroke": true,
+                      "position": 1,
+                      "isVisible": true,
+                      "blendModeValue": 127,
+                      "additiveAmount": 255,
+                      "name": "",
+                      "enums": {
+                        "cap": "butt",
+                        "join": "miter",
+                        "position": "center",
+                        "blendModeValue": "inherit"
+                      },
+                      "children": [
+                        {
+                          "type": "SolidColor",
+                          "line": 131,
+                          "colorValue": "FF141413",
+                          "colorRed": 0,
+                          "colorGreen": 0,
+                          "colorBlue": 0,
+                          "colorAlpha": 0,
+                          "name": ""
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Shape",
+                  "id": "0:32",
+                  "line": 134,
+                  "length": 0,
+                  "blendModeValue": 3,
+                  "additiveAmount": 255,
+                  "drawableFlags": 0,
+                  "x": 48,
+                  "y": 192,
+                  "computedLocalX": 0,
+                  "computedLocalY": 0,
+                  "computedWorldX": 0,
+                  "computedWorldY": 0,
+                  "computedRootX": 0,
+                  "computedRootY": 0,
+                  "computedWidth": 0,
+                  "computedHeight": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "name": "Box",
+                  "enums": { "blendModeValue": "srcOver" },
+                  "children": [
+                    {
+                      "type": "SemanticData",
+                      "line": 135,
+                      "role": 3,
+                      "label": "",
+                      "value": "",
+                      "hint": "",
+                      "headingLevel": 0,
+                      "traitFlags": 36,
+                      "stateFlags": 0,
+                      "isExpandable": false,
+                      "isSelectable": false,
+                      "isCheckable": true,
+                      "isToggleable": false,
+                      "isRequirable": false,
+                      "isEnablable": true,
+                      "isFocusable": false,
+                      "isExpanded": false,
+                      "isSelected": false,
+                      "isChecked": 0,
+                      "isToggled": false,
+                      "isRequired": false,
+                      "isDisabled": false,
+                      "isFocused": false,
+                      "isHidden": false,
+                      "isLiveRegion": false,
+                      "isReadOnly": false,
+                      "isModal": false,
+                      "isObscured": false,
+                      "isMultiline": false,
+                      "name": "",
+                      "enums": { "role": "checkbox", "isChecked": "unchecked" },
+                      "children": [
+                        {
+                          "type": "DataBindContext",
+                          "line": 136,
+                          "propertyKey": 983,
+                          "flags": 0
+                        },
+                        {
+                          "type": "DataBindContext",
+                          "line": 137,
+                          "propertyKey": 998,
+                          "flags": 0
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FocusData",
+                      "line": 139,
+                      "focusFlags": 7,
+                      "canFocus": true,
+                      "canTouch": true,
+                      "canTraverse": true,
+                      "edgeBehaviorValue": 0,
+                      "name": "",
+                      "enums": { "edgeBehaviorValue": "parentScope" }
+                    },
+                    {
+                      "type": "Text",
+                      "line": 140,
+                      "alignValue": 0,
+                      "sizingValue": 0,
+                      "overflowValue": 0,
+                      "width": 0,
+                      "height": 0,
+                      "originX": 0,
+                      "originY": 0.5,
+                      "paragraphSpacing": 0,
+                      "originValue": 0,
+                      "wrapValue": 0,
+                      "wordBreakValue": 0,
+                      "verticalAlignValue": 0,
+                      "fitFromBaseline": true,
+                      "fitFontSizeResizesBox": true,
+                      "verticalTrimValue": 0,
+                      "verticalTrimTopValue": 0,
+                      "verticalTrimBottomValue": 0,
+                      "blendModeValue": 3,
+                      "additiveAmount": 255,
+                      "drawableFlags": 0,
+                      "x": 36,
+                      "y": 12,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": "pushTitle label",
+                      "enums": {
+                        "alignValue": "left",
+                        "sizingValue": "autoWidth",
+                        "overflowValue": "visible",
+                        "originValue": "top",
+                        "wrapValue": "wrap",
+                        "wordBreakValue": "breakWord",
+                        "verticalAlignValue": "top",
+                        "verticalTrimTopValue": "none",
+                        "verticalTrimBottomValue": "none",
+                        "blendModeValue": "srcOver"
+                      },
+                      "children": [
+                        {
+                          "type": "TextStylePaint",
+                          "id": "0:205",
+                          "line": 141,
+                          "fontSize": 16,
+                          "lineHeight": -1,
+                          "letterSpacing": 0,
+                          "fontAssetId": "0:80",
+                          "name": "Body",
+                          "children": [
+                            {
+                              "type": "Fill",
+                              "line": 142,
+                              "fillRule": 0,
+                              "isVisible": true,
+                              "blendModeValue": 127,
+                              "additiveAmount": 255,
+                              "name": "",
+                              "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                              "children": [
+                                {
+                                  "type": "SolidColor",
+                                  "line": 143,
+                                  "colorValue": "FF141413",
+                                  "colorRed": 0,
+                                  "colorGreen": 0,
+                                  "colorBlue": 0,
+                                  "colorAlpha": 0,
+                                  "name": ""
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TextValueRun",
+                          "line": 146,
+                          "styleId": "0:205",
+                          "text": "",
+                          "name": "",
+                          "children": [
+                            {
+                              "type": "DataBindContext",
+                              "line": 147,
+                              "propertyKey": 268,
+                              "flags": 0
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Shape",
+                      "line": 150,
+                      "length": 0,
+                      "blendModeValue": 3,
+                      "additiveAmount": 255,
+                      "drawableFlags": 0,
+                      "x": 0,
+                      "y": 0,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": "Box",
+                      "enums": { "blendModeValue": "srcOver" },
+                      "children": [
+                        {
+                          "type": "DataBindContext",
+                          "line": 151,
+                          "propertyKey": 18,
+                          "flags": 0
+                        },
+                        {
+                          "type": "Rectangle",
+                          "line": 152,
+                          "linkCornerRadius": true,
+                          "cornerRadiusTL": 0,
+                          "cornerRadiusTR": 0,
+                          "cornerRadiusBL": 0,
+                          "cornerRadiusBR": 0,
+                          "width": 24,
+                          "height": 24,
+                          "originX": 0,
+                          "originY": 0,
+                          "pathFlags": 0,
+                          "isHole": false,
+                          "x": 0,
+                          "y": 0,
+                          "computedLocalX": 0,
+                          "computedLocalY": 0,
+                          "computedWorldX": 0,
+                          "computedWorldY": 0,
+                          "computedRootX": 0,
+                          "computedRootY": 0,
+                          "computedWidth": 0,
+                          "computedHeight": 0,
+                          "rotation": 0,
+                          "scaleX": 1,
+                          "scaleY": 1,
+                          "opacity": 1,
+                          "name": ""
+                        },
+                        {
+                          "type": "Fill",
+                          "line": 153,
+                          "fillRule": 0,
+                          "isVisible": true,
+                          "blendModeValue": 127,
+                          "additiveAmount": 255,
+                          "name": "",
+                          "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                          "children": [
+                            {
+                              "type": "SolidColor",
+                              "line": 154,
+                              "colorValue": "FF141413",
+                              "colorRed": 0,
+                              "colorGreen": 0,
+                              "colorBlue": 0,
+                              "colorAlpha": 0,
+                              "name": ""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Rectangle",
+                      "line": 157,
+                      "linkCornerRadius": true,
+                      "cornerRadiusTL": 0,
+                      "cornerRadiusTR": 0,
+                      "cornerRadiusBL": 0,
+                      "cornerRadiusBR": 0,
+                      "width": 24,
+                      "height": 24,
+                      "originX": 0,
+                      "originY": 0,
+                      "pathFlags": 0,
+                      "isHole": false,
+                      "x": 0,
+                      "y": 0,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": ""
+                    },
+                    {
+                      "type": "Stroke",
+                      "line": 158,
+                      "thickness": 2,
+                      "cap": 0,
+                      "join": 0,
+                      "transformAffectsStroke": true,
+                      "position": 1,
+                      "isVisible": true,
+                      "blendModeValue": 127,
+                      "additiveAmount": 255,
+                      "name": "",
+                      "enums": {
+                        "cap": "butt",
+                        "join": "miter",
+                        "position": "center",
+                        "blendModeValue": "inherit"
+                      },
+                      "children": [
+                        {
+                          "type": "SolidColor",
+                          "line": 159,
+                          "colorValue": "FF141413",
+                          "colorRed": 0,
+                          "colorGreen": 0,
+                          "colorBlue": 0,
+                          "colorAlpha": 0,
+                          "name": ""
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Shape",
+                  "id": "0:33",
+                  "line": 162,
+                  "length": 0,
+                  "blendModeValue": 3,
+                  "additiveAmount": 255,
+                  "drawableFlags": 0,
+                  "x": 48,
+                  "y": 240,
+                  "computedLocalX": 0,
+                  "computedLocalY": 0,
+                  "computedWorldX": 0,
+                  "computedWorldY": 0,
+                  "computedRootX": 0,
+                  "computedRootY": 0,
+                  "computedWidth": 0,
+                  "computedHeight": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "name": "Box",
+                  "enums": { "blendModeValue": "srcOver" },
+                  "children": [
+                    {
+                      "type": "SemanticData",
+                      "line": 163,
+                      "role": 3,
+                      "label": "",
+                      "value": "",
+                      "hint": "",
+                      "headingLevel": 0,
+                      "traitFlags": 36,
+                      "stateFlags": 0,
+                      "isExpandable": false,
+                      "isSelectable": false,
+                      "isCheckable": true,
+                      "isToggleable": false,
+                      "isRequirable": false,
+                      "isEnablable": true,
+                      "isFocusable": false,
+                      "isExpanded": false,
+                      "isSelected": false,
+                      "isChecked": 0,
+                      "isToggled": false,
+                      "isRequired": false,
+                      "isDisabled": false,
+                      "isFocused": false,
+                      "isHidden": false,
+                      "isLiveRegion": false,
+                      "isReadOnly": false,
+                      "isModal": false,
+                      "isObscured": false,
+                      "isMultiline": false,
+                      "name": "",
+                      "enums": { "role": "checkbox", "isChecked": "unchecked" },
+                      "children": [
+                        {
+                          "type": "DataBindContext",
+                          "line": 164,
+                          "propertyKey": 983,
+                          "flags": 0
+                        },
+                        {
+                          "type": "DataBindContext",
+                          "line": 165,
+                          "propertyKey": 998,
+                          "flags": 0
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FocusData",
+                      "line": 167,
+                      "focusFlags": 7,
+                      "canFocus": true,
+                      "canTouch": true,
+                      "canTraverse": true,
+                      "edgeBehaviorValue": 0,
+                      "name": "",
+                      "enums": { "edgeBehaviorValue": "parentScope" }
+                    },
+                    {
+                      "type": "Text",
+                      "line": 168,
+                      "alignValue": 0,
+                      "sizingValue": 0,
+                      "overflowValue": 0,
+                      "width": 0,
+                      "height": 0,
+                      "originX": 0,
+                      "originY": 0.5,
+                      "paragraphSpacing": 0,
+                      "originValue": 0,
+                      "wrapValue": 0,
+                      "wordBreakValue": 0,
+                      "verticalAlignValue": 0,
+                      "fitFromBaseline": true,
+                      "fitFontSizeResizesBox": true,
+                      "verticalTrimValue": 0,
+                      "verticalTrimTopValue": 0,
+                      "verticalTrimBottomValue": 0,
+                      "blendModeValue": 3,
+                      "additiveAmount": 255,
+                      "drawableFlags": 0,
+                      "x": 36,
+                      "y": 12,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": "smsTitle label",
+                      "enums": {
+                        "alignValue": "left",
+                        "sizingValue": "autoWidth",
+                        "overflowValue": "visible",
+                        "originValue": "top",
+                        "wrapValue": "wrap",
+                        "wordBreakValue": "breakWord",
+                        "verticalAlignValue": "top",
+                        "verticalTrimTopValue": "none",
+                        "verticalTrimBottomValue": "none",
+                        "blendModeValue": "srcOver"
+                      },
+                      "children": [
+                        {
+                          "type": "TextStylePaint",
+                          "id": "0:206",
+                          "line": 169,
+                          "fontSize": 16,
+                          "lineHeight": -1,
+                          "letterSpacing": 0,
+                          "fontAssetId": "0:80",
+                          "name": "Body",
+                          "children": [
+                            {
+                              "type": "Fill",
+                              "line": 170,
+                              "fillRule": 0,
+                              "isVisible": true,
+                              "blendModeValue": 127,
+                              "additiveAmount": 255,
+                              "name": "",
+                              "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                              "children": [
+                                {
+                                  "type": "SolidColor",
+                                  "line": 171,
+                                  "colorValue": "FF141413",
+                                  "colorRed": 0,
+                                  "colorGreen": 0,
+                                  "colorBlue": 0,
+                                  "colorAlpha": 0,
+                                  "name": ""
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TextValueRun",
+                          "line": 174,
+                          "styleId": "0:206",
+                          "text": "",
+                          "name": "",
+                          "children": [
+                            {
+                              "type": "DataBindContext",
+                              "line": 175,
+                              "propertyKey": 268,
+                              "flags": 0
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Shape",
+                      "line": 178,
+                      "length": 0,
+                      "blendModeValue": 3,
+                      "additiveAmount": 255,
+                      "drawableFlags": 0,
+                      "x": 0,
+                      "y": 0,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": "Box",
+                      "enums": { "blendModeValue": "srcOver" },
+                      "children": [
+                        {
+                          "type": "DataBindContext",
+                          "line": 179,
+                          "propertyKey": 18,
+                          "flags": 0
+                        },
+                        {
+                          "type": "Rectangle",
+                          "line": 180,
+                          "linkCornerRadius": true,
+                          "cornerRadiusTL": 0,
+                          "cornerRadiusTR": 0,
+                          "cornerRadiusBL": 0,
+                          "cornerRadiusBR": 0,
+                          "width": 24,
+                          "height": 24,
+                          "originX": 0,
+                          "originY": 0,
+                          "pathFlags": 0,
+                          "isHole": false,
+                          "x": 0,
+                          "y": 0,
+                          "computedLocalX": 0,
+                          "computedLocalY": 0,
+                          "computedWorldX": 0,
+                          "computedWorldY": 0,
+                          "computedRootX": 0,
+                          "computedRootY": 0,
+                          "computedWidth": 0,
+                          "computedHeight": 0,
+                          "rotation": 0,
+                          "scaleX": 1,
+                          "scaleY": 1,
+                          "opacity": 1,
+                          "name": ""
+                        },
+                        {
+                          "type": "Fill",
+                          "line": 181,
+                          "fillRule": 0,
+                          "isVisible": true,
+                          "blendModeValue": 127,
+                          "additiveAmount": 255,
+                          "name": "",
+                          "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                          "children": [
+                            {
+                              "type": "SolidColor",
+                              "line": 182,
+                              "colorValue": "FF141413",
+                              "colorRed": 0,
+                              "colorGreen": 0,
+                              "colorBlue": 0,
+                              "colorAlpha": 0,
+                              "name": ""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Rectangle",
+                      "line": 185,
+                      "linkCornerRadius": true,
+                      "cornerRadiusTL": 0,
+                      "cornerRadiusTR": 0,
+                      "cornerRadiusBL": 0,
+                      "cornerRadiusBR": 0,
+                      "width": 24,
+                      "height": 24,
+                      "originX": 0,
+                      "originY": 0,
+                      "pathFlags": 0,
+                      "isHole": false,
+                      "x": 0,
+                      "y": 0,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": ""
+                    },
+                    {
+                      "type": "Stroke",
+                      "line": 186,
+                      "thickness": 2,
+                      "cap": 0,
+                      "join": 0,
+                      "transformAffectsStroke": true,
+                      "position": 1,
+                      "isVisible": true,
+                      "blendModeValue": 127,
+                      "additiveAmount": 255,
+                      "name": "",
+                      "enums": {
+                        "cap": "butt",
+                        "join": "miter",
+                        "position": "center",
+                        "blendModeValue": "inherit"
+                      },
+                      "children": [
+                        {
+                          "type": "SolidColor",
+                          "line": 187,
+                          "colorValue": "FF141413",
+                          "colorRed": 0,
+                          "colorGreen": 0,
+                          "colorBlue": 0,
+                          "colorAlpha": 0,
+                          "name": ""
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "Node",
+              "id": "0:22",
+              "line": 191,
+              "x": 0,
+              "y": 0,
+              "computedLocalX": 0,
+              "computedLocalY": 0,
+              "computedWorldX": 0,
+              "computedWorldY": 0,
+              "computedRootX": 0,
+              "computedRootY": 0,
+              "computedWidth": 0,
+              "computedHeight": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "opacity": 1,
+              "name": "Sound panel",
+              "children": [
+                {
+                  "type": "SemanticData",
+                  "line": 192,
+                  "role": 9,
+                  "label": "",
+                  "value": "",
+                  "hint": "",
+                  "headingLevel": 0,
+                  "traitFlags": 0,
+                  "stateFlags": 0,
+                  "isExpandable": false,
+                  "isSelectable": false,
+                  "isCheckable": false,
+                  "isToggleable": false,
+                  "isRequirable": false,
+                  "isEnablable": false,
+                  "isFocusable": false,
+                  "isExpanded": false,
+                  "isSelected": false,
+                  "isChecked": 0,
+                  "isToggled": false,
+                  "isRequired": false,
+                  "isDisabled": false,
+                  "isFocused": false,
+                  "isHidden": false,
+                  "isLiveRegion": false,
+                  "isReadOnly": false,
+                  "isModal": false,
+                  "isObscured": false,
+                  "isMultiline": false,
+                  "name": "",
+                  "enums": { "role": "group", "isChecked": "unchecked" },
+                  "children": [
+                    {
+                      "type": "DataBindContext",
+                      "line": 193,
+                      "propertyKey": 983,
+                      "flags": 0
+                    }
+                  ]
+                },
+                {
+                  "type": "Node",
+                  "line": 195,
+                  "x": 24,
+                  "y": 192,
+                  "computedLocalX": 0,
+                  "computedLocalY": 0,
+                  "computedWorldX": 0,
+                  "computedWorldY": 0,
+                  "computedRootX": 0,
+                  "computedRootY": 0,
+                  "computedWidth": 0,
+                  "computedHeight": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "name": "Knob placement",
+                  "children": [
+                    {
+                      "type": "Shape",
+                      "line": 196,
+                      "length": 0,
+                      "blendModeValue": 3,
+                      "additiveAmount": 255,
+                      "drawableFlags": 0,
+                      "x": 18,
+                      "y": 18,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": "Knob",
+                      "enums": { "blendModeValue": "srcOver" },
+                      "children": [
+                        {
+                          "type": "DataBindContext",
+                          "line": 197,
+                          "propertyKey": 13,
+                          "flags": 0
+                        },
+                        {
+                          "type": "Ellipse",
+                          "line": 198,
+                          "width": 28.7999992,
+                          "height": 28.7999992,
+                          "originX": 0.5,
+                          "originY": 0.5,
+                          "pathFlags": 0,
+                          "isHole": false,
+                          "x": 0,
+                          "y": 0,
+                          "computedLocalX": 0,
+                          "computedLocalY": 0,
+                          "computedWorldX": 0,
+                          "computedWorldY": 0,
+                          "computedRootX": 0,
+                          "computedRootY": 0,
+                          "computedWidth": 0,
+                          "computedHeight": 0,
+                          "rotation": 0,
+                          "scaleX": 1,
+                          "scaleY": 1,
+                          "opacity": 1,
+                          "name": ""
+                        },
+                        {
+                          "type": "Fill",
+                          "line": 199,
+                          "fillRule": 0,
+                          "isVisible": true,
+                          "blendModeValue": 127,
+                          "additiveAmount": 255,
+                          "name": "",
+                          "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                          "children": [
+                            {
+                              "type": "SolidColor",
+                              "line": 200,
+                              "colorValue": "FFD97757",
+                              "colorRed": 0,
+                              "colorGreen": 0,
+                              "colorBlue": 0,
+                              "colorAlpha": 0,
+                              "name": ""
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Shape",
+                  "line": 204,
+                  "length": 0,
+                  "blendModeValue": 3,
+                  "additiveAmount": 255,
+                  "drawableFlags": 0,
+                  "x": 24,
+                  "y": 120,
+                  "computedLocalX": 0,
+                  "computedLocalY": 0,
+                  "computedWorldX": 0,
+                  "computedWorldY": 0,
+                  "computedRootX": 0,
+                  "computedRootY": 0,
+                  "computedWidth": 0,
+                  "computedHeight": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "name": "Box",
+                  "enums": { "blendModeValue": "srcOver" },
+                  "children": [
+                    {
+                      "type": "Rectangle",
+                      "line": 205,
+                      "linkCornerRadius": true,
+                      "cornerRadiusTL": 0,
+                      "cornerRadiusTR": 0,
+                      "cornerRadiusBL": 0,
+                      "cornerRadiusBR": 0,
+                      "width": 144,
+                      "height": 12,
+                      "originX": 0,
+                      "originY": 0,
+                      "pathFlags": 0,
+                      "isHole": false,
+                      "x": 0,
+                      "y": 0,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": "",
+                      "children": [
+                        {
+                          "type": "DataBindContext",
+                          "line": 206,
+                          "propertyKey": 20,
+                          "flags": 0,
+                          "converterId": "0:83"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Fill",
+                      "line": 208,
+                      "fillRule": 0,
+                      "isVisible": true,
+                      "blendModeValue": 127,
+                      "additiveAmount": 255,
+                      "name": "",
+                      "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                      "children": [
+                        {
+                          "type": "SolidColor",
+                          "line": 209,
+                          "colorValue": "FFD97757",
+                          "colorRed": 0,
+                          "colorGreen": 0,
+                          "colorBlue": 0,
+                          "colorAlpha": 0,
+                          "name": ""
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Shape",
+                  "id": "0:40",
+                  "line": 212,
+                  "length": 0,
+                  "blendModeValue": 3,
+                  "additiveAmount": 255,
+                  "drawableFlags": 0,
+                  "x": 24,
+                  "y": 120,
+                  "computedLocalX": 0,
+                  "computedLocalY": 0,
+                  "computedWorldX": 0,
+                  "computedWorldY": 0,
+                  "computedRootX": 0,
+                  "computedRootY": 0,
+                  "computedWidth": 0,
+                  "computedHeight": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "name": "Box",
+                  "enums": { "blendModeValue": "srcOver" },
+                  "children": [
+                    {
+                      "type": "SemanticData",
+                      "line": 213,
+                      "role": 5,
+                      "label": "",
+                      "value": "",
+                      "hint": "Range 0 to 100; step 5. Use arrow keys.",
+                      "headingLevel": 0,
+                      "traitFlags": 32,
+                      "stateFlags": 0,
+                      "isExpandable": false,
+                      "isSelectable": false,
+                      "isCheckable": false,
+                      "isToggleable": false,
+                      "isRequirable": false,
+                      "isEnablable": true,
+                      "isFocusable": false,
+                      "isExpanded": false,
+                      "isSelected": false,
+                      "isChecked": 0,
+                      "isToggled": false,
+                      "isRequired": false,
+                      "isDisabled": false,
+                      "isFocused": false,
+                      "isHidden": false,
+                      "isLiveRegion": false,
+                      "isReadOnly": false,
+                      "isModal": false,
+                      "isObscured": false,
+                      "isMultiline": false,
+                      "name": "",
+                      "enums": { "role": "slider", "isChecked": "unchecked" },
+                      "children": [
+                        {
+                          "type": "DataBindContext",
+                          "line": 214,
+                          "propertyKey": 983,
+                          "flags": 0
+                        },
+                        {
+                          "type": "DataBindContext",
+                          "line": 215,
+                          "propertyKey": 984,
+                          "flags": 0
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FocusData",
+                      "line": 217,
+                      "focusFlags": 7,
+                      "canFocus": true,
+                      "canTouch": true,
+                      "canTraverse": true,
+                      "edgeBehaviorValue": 0,
+                      "name": "",
+                      "enums": { "edgeBehaviorValue": "parentScope" }
+                    },
+                    {
+                      "type": "Text",
+                      "line": 218,
+                      "alignValue": 0,
+                      "sizingValue": 0,
+                      "overflowValue": 0,
+                      "width": 0,
+                      "height": 0,
+                      "originX": 0,
+                      "originY": 0.5,
+                      "paragraphSpacing": 0,
+                      "originValue": 0,
+                      "wrapValue": 0,
+                      "wordBreakValue": 0,
+                      "verticalAlignValue": 0,
+                      "fitFromBaseline": true,
+                      "fitFontSizeResizesBox": true,
+                      "verticalTrimValue": 0,
+                      "verticalTrimTopValue": 0,
+                      "verticalTrimBottomValue": 0,
+                      "blendModeValue": 3,
+                      "additiveAmount": 255,
+                      "drawableFlags": 0,
+                      "x": 0,
+                      "y": -18,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": "volumeSpoken label",
+                      "enums": {
+                        "alignValue": "left",
+                        "sizingValue": "autoWidth",
+                        "overflowValue": "visible",
+                        "originValue": "top",
+                        "wrapValue": "wrap",
+                        "wordBreakValue": "breakWord",
+                        "verticalAlignValue": "top",
+                        "verticalTrimTopValue": "none",
+                        "verticalTrimBottomValue": "none",
+                        "blendModeValue": "srcOver"
+                      },
+                      "children": [
+                        {
+                          "type": "TextStylePaint",
+                          "id": "0:207",
+                          "line": 219,
+                          "fontSize": 16,
+                          "lineHeight": -1,
+                          "letterSpacing": 0,
+                          "fontAssetId": "0:80",
+                          "name": "Body",
+                          "children": [
+                            {
+                              "type": "Fill",
+                              "line": 220,
+                              "fillRule": 0,
+                              "isVisible": true,
+                              "blendModeValue": 127,
+                              "additiveAmount": 255,
+                              "name": "",
+                              "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                              "children": [
+                                {
+                                  "type": "SolidColor",
+                                  "line": 221,
+                                  "colorValue": "FF141413",
+                                  "colorRed": 0,
+                                  "colorGreen": 0,
+                                  "colorBlue": 0,
+                                  "colorAlpha": 0,
+                                  "name": ""
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TextValueRun",
+                          "line": 224,
+                          "styleId": "0:207",
+                          "text": "",
+                          "name": "",
+                          "children": [
+                            {
+                              "type": "DataBindContext",
+                              "line": 225,
+                              "propertyKey": 268,
+                              "flags": 0
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Rectangle",
+                      "line": 228,
+                      "linkCornerRadius": true,
+                      "cornerRadiusTL": 0,
+                      "cornerRadiusTR": 0,
+                      "cornerRadiusBL": 0,
+                      "cornerRadiusBR": 0,
+                      "width": 360,
+                      "height": 12,
+                      "originX": 0,
+                      "originY": 0,
+                      "pathFlags": 0,
+                      "isHole": false,
+                      "x": 0,
+                      "y": 0,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": ""
+                    },
+                    {
+                      "type": "Fill",
+                      "line": 229,
+                      "fillRule": 0,
+                      "isVisible": true,
+                      "blendModeValue": 127,
+                      "additiveAmount": 255,
+                      "name": "",
+                      "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                      "children": [
+                        {
+                          "type": "SolidColor",
+                          "line": 230,
+                          "colorValue": "FF141413",
+                          "colorRed": 0,
+                          "colorGreen": 0,
+                          "colorBlue": 0,
+                          "colorAlpha": 0,
+                          "name": ""
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "Shape",
+                  "id": "0:41",
+                  "line": 233,
+                  "length": 0,
+                  "blendModeValue": 3,
+                  "additiveAmount": 255,
+                  "drawableFlags": 0,
+                  "x": 24,
+                  "y": 192,
+                  "computedLocalX": 0,
+                  "computedLocalY": 0,
+                  "computedWorldX": 0,
+                  "computedWorldY": 0,
+                  "computedRootX": 0,
+                  "computedRootY": 0,
+                  "computedWidth": 0,
+                  "computedHeight": 0,
+                  "rotation": 0,
+                  "scaleX": 1,
+                  "scaleY": 1,
+                  "opacity": 1,
+                  "name": "Box",
+                  "enums": { "blendModeValue": "srcOver" },
+                  "children": [
+                    {
+                      "type": "SemanticData",
+                      "line": 234,
+                      "role": 4,
+                      "label": "",
+                      "value": "",
+                      "hint": "",
+                      "headingLevel": 0,
+                      "traitFlags": 40,
+                      "stateFlags": 0,
+                      "isExpandable": false,
+                      "isSelectable": false,
+                      "isCheckable": false,
+                      "isToggleable": true,
+                      "isRequirable": false,
+                      "isEnablable": true,
+                      "isFocusable": false,
+                      "isExpanded": false,
+                      "isSelected": false,
+                      "isChecked": 0,
+                      "isToggled": false,
+                      "isRequired": false,
+                      "isDisabled": false,
+                      "isFocused": false,
+                      "isHidden": false,
+                      "isLiveRegion": false,
+                      "isReadOnly": false,
+                      "isModal": false,
+                      "isObscured": false,
+                      "isMultiline": false,
+                      "name": "",
+                      "enums": { "role": "switchControl", "isChecked": "unchecked" },
+                      "children": [
+                        {
+                          "type": "DataBindContext",
+                          "line": 235,
+                          "propertyKey": 983,
+                          "flags": 0
+                        },
+                        {
+                          "type": "DataBindContext",
+                          "line": 236,
+                          "propertyKey": 1000,
+                          "flags": 0
+                        }
+                      ]
+                    },
+                    {
+                      "type": "FocusData",
+                      "line": 238,
+                      "focusFlags": 7,
+                      "canFocus": true,
+                      "canTouch": true,
+                      "canTraverse": true,
+                      "edgeBehaviorValue": 0,
+                      "name": "",
+                      "enums": { "edgeBehaviorValue": "parentScope" }
+                    },
+                    {
+                      "type": "Text",
+                      "line": 239,
+                      "alignValue": 0,
+                      "sizingValue": 0,
+                      "overflowValue": 0,
+                      "width": 0,
+                      "height": 0,
+                      "originX": 0,
+                      "originY": 0.5,
+                      "paragraphSpacing": 0,
+                      "originValue": 0,
+                      "wrapValue": 0,
+                      "wordBreakValue": 0,
+                      "verticalAlignValue": 0,
+                      "fitFromBaseline": true,
+                      "fitFontSizeResizesBox": true,
+                      "verticalTrimValue": 0,
+                      "verticalTrimTopValue": 0,
+                      "verticalTrimBottomValue": 0,
+                      "blendModeValue": 3,
+                      "additiveAmount": 255,
+                      "drawableFlags": 0,
+                      "x": 84,
+                      "y": 18,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": "muteTitle label",
+                      "enums": {
+                        "alignValue": "left",
+                        "sizingValue": "autoWidth",
+                        "overflowValue": "visible",
+                        "originValue": "top",
+                        "wrapValue": "wrap",
+                        "wordBreakValue": "breakWord",
+                        "verticalAlignValue": "top",
+                        "verticalTrimTopValue": "none",
+                        "verticalTrimBottomValue": "none",
+                        "blendModeValue": "srcOver"
+                      },
+                      "children": [
+                        {
+                          "type": "TextStylePaint",
+                          "id": "0:208",
+                          "line": 240,
+                          "fontSize": 16,
+                          "lineHeight": -1,
+                          "letterSpacing": 0,
+                          "fontAssetId": "0:80",
+                          "name": "Body",
+                          "children": [
+                            {
+                              "type": "Fill",
+                              "line": 241,
+                              "fillRule": 0,
+                              "isVisible": true,
+                              "blendModeValue": 127,
+                              "additiveAmount": 255,
+                              "name": "",
+                              "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                              "children": [
+                                {
+                                  "type": "SolidColor",
+                                  "line": 242,
+                                  "colorValue": "FF141413",
+                                  "colorRed": 0,
+                                  "colorGreen": 0,
+                                  "colorBlue": 0,
+                                  "colorAlpha": 0,
+                                  "name": ""
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "TextValueRun",
+                          "line": 245,
+                          "styleId": "0:208",
+                          "text": "",
+                          "name": "",
+                          "children": [
+                            {
+                              "type": "DataBindContext",
+                              "line": 246,
+                              "propertyKey": 268,
+                              "flags": 0
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "type": "Rectangle",
+                      "line": 249,
+                      "linkCornerRadius": true,
+                      "cornerRadiusTL": 18,
+                      "cornerRadiusTR": 0,
+                      "cornerRadiusBL": 0,
+                      "cornerRadiusBR": 0,
+                      "width": 72,
+                      "height": 36,
+                      "originX": 0,
+                      "originY": 0,
+                      "pathFlags": 0,
+                      "isHole": false,
+                      "x": 0,
+                      "y": 0,
+                      "computedLocalX": 0,
+                      "computedLocalY": 0,
+                      "computedWorldX": 0,
+                      "computedWorldY": 0,
+                      "computedRootX": 0,
+                      "computedRootY": 0,
+                      "computedWidth": 0,
+                      "computedHeight": 0,
+                      "rotation": 0,
+                      "scaleX": 1,
+                      "scaleY": 1,
+                      "opacity": 1,
+                      "name": ""
+                    },
+                    {
+                      "type": "Fill",
+                      "line": 250,
+                      "fillRule": 0,
+                      "isVisible": true,
+                      "blendModeValue": 127,
+                      "additiveAmount": 255,
+                      "name": "",
+                      "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+                      "children": [
+                        {
+                          "type": "SolidColor",
+                          "line": 251,
+                          "colorValue": "FF141413",
+                          "colorRed": 0,
+                          "colorGreen": 0,
+                          "colorBlue": 0,
+                          "colorAlpha": 0,
+                          "name": ""
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Shape",
+          "line": 256,
+          "length": 0,
+          "blendModeValue": 3,
+          "additiveAmount": 255,
+          "drawableFlags": 0,
+          "x": 0,
+          "y": 0,
+          "computedLocalX": 0,
+          "computedLocalY": 0,
+          "computedWorldX": 0,
+          "computedWorldY": 0,
+          "computedRootX": 0,
+          "computedRootY": 0,
+          "computedWidth": 0,
+          "computedHeight": 0,
+          "rotation": 0,
+          "scaleX": 1,
+          "scaleY": 1,
+          "opacity": 1,
+          "name": "Box",
+          "enums": { "blendModeValue": "srcOver" },
+          "children": [
+            {
+              "type": "Rectangle",
+              "line": 257,
+              "linkCornerRadius": true,
+              "cornerRadiusTL": 0,
+              "cornerRadiusTR": 0,
+              "cornerRadiusBL": 0,
+              "cornerRadiusBR": 0,
+              "width": 480,
+              "height": 360,
+              "originX": 0,
+              "originY": 0,
+              "pathFlags": 0,
+              "isHole": false,
+              "x": 0,
+              "y": 0,
+              "computedLocalX": 0,
+              "computedLocalY": 0,
+              "computedWorldX": 0,
+              "computedWorldY": 0,
+              "computedRootX": 0,
+              "computedRootY": 0,
+              "computedWidth": 0,
+              "computedHeight": 0,
+              "rotation": 0,
+              "scaleX": 1,
+              "scaleY": 1,
+              "opacity": 1,
+              "name": ""
+            },
+            {
+              "type": "Fill",
+              "line": 258,
+              "fillRule": 0,
+              "isVisible": true,
+              "blendModeValue": 127,
+              "additiveAmount": 255,
+              "name": "",
+              "enums": { "fillRule": "nonZero", "blendModeValue": "inherit" },
+              "children": [
+                {
+                  "type": "SolidColor",
+                  "line": 259,
+                  "colorValue": "FFF0EEE6",
+                  "colorRed": 0,
+                  "colorGreen": 0,
+                  "colorBlue": 0,
+                  "colorAlpha": 0,
+                  "name": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "StateMachine",
+          "id": "0:2",
+          "line": 262,
+          "name": "Settings interactions",
+          "children": [
+            {
+              "type": "StateMachineListener",
+              "line": 263,
+              "targetId": "0:10",
+              "phaseValue": 0,
+              "name": "general",
+              "enums": { "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "ListenerInputType",
+                  "line": 264,
+                  "listenerTypeValue": 6,
+                  "enums": { "listenerTypeValue": "click" }
+                },
+                {
+                  "type": "ListenerInputTypeSemantic",
+                  "line": 265,
+                  "listenerTypeValue": 16,
+                  "enums": { "listenerTypeValue": "semanticAction" },
+                  "children": [
+                    {
+                      "type": "SemanticInput",
+                      "line": 266,
+                      "actionType": 0,
+                      "enums": { "actionType": "tap" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ListenerInputTypeKeyboard",
+                  "line": 268,
+                  "listenerTypeValue": 15,
+                  "enums": { "listenerTypeValue": "keyboard" },
+                  "children": [
+                    {
+                      "type": "KeyboardInput",
+                      "line": 269,
+                      "keyType": 32,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "space" }
+                    },
+                    {
+                      "type": "KeyboardInput",
+                      "line": 270,
+                      "keyType": 257,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "enter" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ScriptedListenerAction",
+                  "line": 272,
+                  "scriptAssetId": "0:82",
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "ScriptInputString",
+                      "line": 273,
+                      "propertyValue": "general",
+                      "nameId": 4294967295,
+                      "name": "action"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListener",
+              "line": 276,
+              "targetId": "0:10",
+              "phaseValue": 0,
+              "name": "sound",
+              "enums": { "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "ListenerInputTypeKeyboard",
+                  "line": 277,
+                  "listenerTypeValue": 15,
+                  "enums": { "listenerTypeValue": "keyboard" },
+                  "children": [
+                    {
+                      "type": "KeyboardInput",
+                      "line": 278,
+                      "keyType": 262,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "right" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ScriptedListenerAction",
+                  "line": 280,
+                  "scriptAssetId": "0:82",
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "ScriptInputString",
+                      "line": 281,
+                      "propertyValue": "sound",
+                      "nameId": 4294967295,
+                      "name": "action"
+                    }
+                  ]
+                },
+                {
+                  "type": "FocusActionTarget",
+                  "line": 283,
+                  "targetId": "0:11",
+                  "flags": 0
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListener",
+              "line": 285,
+              "targetId": "0:11",
+              "phaseValue": 0,
+              "name": "sound",
+              "enums": { "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "ListenerInputType",
+                  "line": 286,
+                  "listenerTypeValue": 6,
+                  "enums": { "listenerTypeValue": "click" }
+                },
+                {
+                  "type": "ListenerInputTypeSemantic",
+                  "line": 287,
+                  "listenerTypeValue": 16,
+                  "enums": { "listenerTypeValue": "semanticAction" },
+                  "children": [
+                    {
+                      "type": "SemanticInput",
+                      "line": 288,
+                      "actionType": 0,
+                      "enums": { "actionType": "tap" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ListenerInputTypeKeyboard",
+                  "line": 290,
+                  "listenerTypeValue": 15,
+                  "enums": { "listenerTypeValue": "keyboard" },
+                  "children": [
+                    {
+                      "type": "KeyboardInput",
+                      "line": 291,
+                      "keyType": 32,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "space" }
+                    },
+                    {
+                      "type": "KeyboardInput",
+                      "line": 292,
+                      "keyType": 257,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "enter" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ScriptedListenerAction",
+                  "line": 294,
+                  "scriptAssetId": "0:82",
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "ScriptInputString",
+                      "line": 295,
+                      "propertyValue": "sound",
+                      "nameId": 4294967295,
+                      "name": "action"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListener",
+              "line": 298,
+              "targetId": "0:11",
+              "phaseValue": 0,
+              "name": "general",
+              "enums": { "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "ListenerInputTypeKeyboard",
+                  "line": 299,
+                  "listenerTypeValue": 15,
+                  "enums": { "listenerTypeValue": "keyboard" },
+                  "children": [
+                    {
+                      "type": "KeyboardInput",
+                      "line": 300,
+                      "keyType": 263,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "left" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ScriptedListenerAction",
+                  "line": 302,
+                  "scriptAssetId": "0:82",
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "ScriptInputString",
+                      "line": 303,
+                      "propertyValue": "general",
+                      "nameId": 4294967295,
+                      "name": "action"
+                    }
+                  ]
+                },
+                {
+                  "type": "FocusActionTarget",
+                  "line": 305,
+                  "targetId": "0:10",
+                  "flags": 0
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListener",
+              "line": 307,
+              "targetId": "0:30",
+              "phaseValue": 0,
+              "name": "parent",
+              "enums": { "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "ListenerInputType",
+                  "line": 308,
+                  "listenerTypeValue": 6,
+                  "enums": { "listenerTypeValue": "click" }
+                },
+                {
+                  "type": "ListenerInputTypeSemantic",
+                  "line": 309,
+                  "listenerTypeValue": 16,
+                  "enums": { "listenerTypeValue": "semanticAction" },
+                  "children": [
+                    {
+                      "type": "SemanticInput",
+                      "line": 310,
+                      "actionType": 0,
+                      "enums": { "actionType": "tap" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ListenerInputTypeKeyboard",
+                  "line": 312,
+                  "listenerTypeValue": 15,
+                  "enums": { "listenerTypeValue": "keyboard" },
+                  "children": [
+                    {
+                      "type": "KeyboardInput",
+                      "line": 313,
+                      "keyType": 32,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "space" }
+                    },
+                    {
+                      "type": "KeyboardInput",
+                      "line": 314,
+                      "keyType": 257,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "enter" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ScriptedListenerAction",
+                  "line": 316,
+                  "scriptAssetId": "0:82",
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "ScriptInputString",
+                      "line": 317,
+                      "propertyValue": "parent",
+                      "nameId": 4294967295,
+                      "name": "action"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListener",
+              "line": 320,
+              "targetId": "0:31",
+              "phaseValue": 0,
+              "name": "email",
+              "enums": { "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "ListenerInputType",
+                  "line": 321,
+                  "listenerTypeValue": 6,
+                  "enums": { "listenerTypeValue": "click" }
+                },
+                {
+                  "type": "ListenerInputTypeSemantic",
+                  "line": 322,
+                  "listenerTypeValue": 16,
+                  "enums": { "listenerTypeValue": "semanticAction" },
+                  "children": [
+                    {
+                      "type": "SemanticInput",
+                      "line": 323,
+                      "actionType": 0,
+                      "enums": { "actionType": "tap" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ListenerInputTypeKeyboard",
+                  "line": 325,
+                  "listenerTypeValue": 15,
+                  "enums": { "listenerTypeValue": "keyboard" },
+                  "children": [
+                    {
+                      "type": "KeyboardInput",
+                      "line": 326,
+                      "keyType": 32,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "space" }
+                    },
+                    {
+                      "type": "KeyboardInput",
+                      "line": 327,
+                      "keyType": 257,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "enter" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ScriptedListenerAction",
+                  "line": 329,
+                  "scriptAssetId": "0:82",
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "ScriptInputString",
+                      "line": 330,
+                      "propertyValue": "email",
+                      "nameId": 4294967295,
+                      "name": "action"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListener",
+              "line": 333,
+              "targetId": "0:32",
+              "phaseValue": 0,
+              "name": "push",
+              "enums": { "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "ListenerInputType",
+                  "line": 334,
+                  "listenerTypeValue": 6,
+                  "enums": { "listenerTypeValue": "click" }
+                },
+                {
+                  "type": "ListenerInputTypeSemantic",
+                  "line": 335,
+                  "listenerTypeValue": 16,
+                  "enums": { "listenerTypeValue": "semanticAction" },
+                  "children": [
+                    {
+                      "type": "SemanticInput",
+                      "line": 336,
+                      "actionType": 0,
+                      "enums": { "actionType": "tap" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ListenerInputTypeKeyboard",
+                  "line": 338,
+                  "listenerTypeValue": 15,
+                  "enums": { "listenerTypeValue": "keyboard" },
+                  "children": [
+                    {
+                      "type": "KeyboardInput",
+                      "line": 339,
+                      "keyType": 32,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "space" }
+                    },
+                    {
+                      "type": "KeyboardInput",
+                      "line": 340,
+                      "keyType": 257,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "enter" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ScriptedListenerAction",
+                  "line": 342,
+                  "scriptAssetId": "0:82",
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "ScriptInputString",
+                      "line": 343,
+                      "propertyValue": "push",
+                      "nameId": 4294967295,
+                      "name": "action"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListener",
+              "line": 346,
+              "targetId": "0:33",
+              "phaseValue": 0,
+              "name": "sms",
+              "enums": { "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "ListenerInputType",
+                  "line": 347,
+                  "listenerTypeValue": 6,
+                  "enums": { "listenerTypeValue": "click" }
+                },
+                {
+                  "type": "ListenerInputTypeSemantic",
+                  "line": 348,
+                  "listenerTypeValue": 16,
+                  "enums": { "listenerTypeValue": "semanticAction" },
+                  "children": [
+                    {
+                      "type": "SemanticInput",
+                      "line": 349,
+                      "actionType": 0,
+                      "enums": { "actionType": "tap" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ListenerInputTypeKeyboard",
+                  "line": 351,
+                  "listenerTypeValue": 15,
+                  "enums": { "listenerTypeValue": "keyboard" },
+                  "children": [
+                    {
+                      "type": "KeyboardInput",
+                      "line": 352,
+                      "keyType": 32,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "space" }
+                    },
+                    {
+                      "type": "KeyboardInput",
+                      "line": 353,
+                      "keyType": 257,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "enter" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ScriptedListenerAction",
+                  "line": 355,
+                  "scriptAssetId": "0:82",
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "ScriptInputString",
+                      "line": 356,
+                      "propertyValue": "sms",
+                      "nameId": 4294967295,
+                      "name": "action"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListener",
+              "line": 359,
+              "targetId": "0:40",
+              "phaseValue": 0,
+              "name": "increase",
+              "enums": { "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "ListenerInputTypeSemantic",
+                  "line": 360,
+                  "listenerTypeValue": 16,
+                  "enums": { "listenerTypeValue": "semanticAction" },
+                  "children": [
+                    {
+                      "type": "SemanticInput",
+                      "line": 361,
+                      "actionType": 1,
+                      "enums": { "actionType": "increase" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ListenerInputTypeKeyboard",
+                  "line": 363,
+                  "listenerTypeValue": 15,
+                  "enums": { "listenerTypeValue": "keyboard" },
+                  "children": [
+                    {
+                      "type": "KeyboardInput",
+                      "line": 364,
+                      "keyType": 262,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "right" }
+                    },
+                    {
+                      "type": "KeyboardInput",
+                      "line": 365,
+                      "keyType": 265,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "up" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ScriptedListenerAction",
+                  "line": 367,
+                  "scriptAssetId": "0:82",
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "ScriptInputString",
+                      "line": 368,
+                      "propertyValue": "increase",
+                      "nameId": 4294967295,
+                      "name": "action"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListener",
+              "line": 371,
+              "targetId": "0:40",
+              "phaseValue": 0,
+              "name": "decrease",
+              "enums": { "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "ListenerInputTypeSemantic",
+                  "line": 372,
+                  "listenerTypeValue": 16,
+                  "enums": { "listenerTypeValue": "semanticAction" },
+                  "children": [
+                    {
+                      "type": "SemanticInput",
+                      "line": 373,
+                      "actionType": 2,
+                      "enums": { "actionType": "decrease" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ListenerInputTypeKeyboard",
+                  "line": 375,
+                  "listenerTypeValue": 15,
+                  "enums": { "listenerTypeValue": "keyboard" },
+                  "children": [
+                    {
+                      "type": "KeyboardInput",
+                      "line": 376,
+                      "keyType": 263,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "left" }
+                    },
+                    {
+                      "type": "KeyboardInput",
+                      "line": 377,
+                      "keyType": 264,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "down" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ScriptedListenerAction",
+                  "line": 379,
+                  "scriptAssetId": "0:82",
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "ScriptInputString",
+                      "line": 380,
+                      "propertyValue": "decrease",
+                      "nameId": 4294967295,
+                      "name": "action"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListener",
+              "line": 383,
+              "targetId": "0:41",
+              "phaseValue": 0,
+              "name": "mute",
+              "enums": { "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "ListenerInputType",
+                  "line": 384,
+                  "listenerTypeValue": 6,
+                  "enums": { "listenerTypeValue": "click" }
+                },
+                {
+                  "type": "ListenerInputTypeSemantic",
+                  "line": 385,
+                  "listenerTypeValue": 16,
+                  "enums": { "listenerTypeValue": "semanticAction" },
+                  "children": [
+                    {
+                      "type": "SemanticInput",
+                      "line": 386,
+                      "actionType": 0,
+                      "enums": { "actionType": "tap" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ListenerInputTypeKeyboard",
+                  "line": 388,
+                  "listenerTypeValue": 15,
+                  "enums": { "listenerTypeValue": "keyboard" },
+                  "children": [
+                    {
+                      "type": "KeyboardInput",
+                      "line": 389,
+                      "keyType": 32,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "space" }
+                    },
+                    {
+                      "type": "KeyboardInput",
+                      "line": 390,
+                      "keyType": 257,
+                      "keyPhase": 1,
+                      "modifiers": 0,
+                      "enums": { "keyType": "enter" }
+                    }
+                  ]
+                },
+                {
+                  "type": "ScriptedListenerAction",
+                  "line": 392,
+                  "scriptAssetId": "0:82",
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "ScriptInputString",
+                      "line": 393,
+                      "propertyValue": "mute",
+                      "nameId": 4294967295,
+                      "name": "action"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "StateMachineLayer",
+              "line": 396,
+              "name": "Panels",
+              "children": [
+                {
+                  "type": "AnyState",
+                  "line": 397,
+                  "flags": 0
+                },
+                {
+                  "type": "ExitState",
+                  "line": 398,
+                  "flags": 0
+                },
+                {
+                  "type": "EntryState",
+                  "line": 399,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 400,
+                      "stateToId": "0:50",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": { "interpolationType": "linear" }
+                    }
+                  ]
+                },
+                {
+                  "type": "AnimationState",
+                  "id": "0:50",
+                  "line": 402,
+                  "animationId": "0:60",
+                  "speed": 1,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "FocusActionTarget",
+                      "line": 403,
+                      "targetId": "0:10",
+                      "flags": 0
+                    },
+                    {
+                      "type": "StateTransition",
+                      "line": 404,
+                      "stateToId": "0:51",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": { "interpolationType": "linear" },
+                      "children": [
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 405,
+                          "opValue": 0,
+                          "enums": { "opValue": "equal" },
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 406,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyString",
+                                  "line": 407,
+                                  "propertyValue": "",
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 408,
+                                      "propertyKey": 635,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionValueStringComparator",
+                              "line": 411,
+                              "value": "Sound"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "AnimationState",
+                  "id": "0:51",
+                  "line": 415,
+                  "animationId": "0:61",
+                  "speed": 1,
+                  "flags": 0,
+                  "children": [
+                    {
+                      "type": "StateTransition",
+                      "line": 416,
+                      "stateToId": "0:50",
+                      "flags": 0,
+                      "duration": 0,
+                      "exitTime": 0,
+                      "interpolationType": 1,
+                      "randomWeight": 1,
+                      "enums": { "interpolationType": "linear" },
+                      "children": [
+                        {
+                          "type": "TransitionViewModelCondition",
+                          "line": 417,
+                          "opValue": 0,
+                          "enums": { "opValue": "equal" },
+                          "children": [
+                            {
+                              "type": "TransitionPropertyViewModelComparator",
+                              "line": 418,
+                              "children": [
+                                {
+                                  "type": "BindablePropertyString",
+                                  "line": 419,
+                                  "propertyValue": "",
+                                  "children": [
+                                    {
+                                      "type": "DataBindContext",
+                                      "line": 420,
+                                      "propertyKey": 635,
+                                      "flags": 0
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "type": "TransitionValueStringComparator",
+                              "line": 423,
+                              "value": "General"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListenerSingle",
+              "line": 428,
+              "listenerTypeValue": 6,
+              "targetId": "0:10",
+              "phaseValue": 0,
+              "name": "Pointer focus 0:10",
+              "enums": { "listenerTypeValue": "click", "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "FocusActionTarget",
+                  "line": 429,
+                  "targetId": "0:10",
+                  "flags": 0
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListenerSingle",
+              "line": 431,
+              "listenerTypeValue": 6,
+              "targetId": "0:11",
+              "phaseValue": 0,
+              "name": "Pointer focus 0:11",
+              "enums": { "listenerTypeValue": "click", "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "FocusActionTarget",
+                  "line": 432,
+                  "targetId": "0:11",
+                  "flags": 0
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListenerSingle",
+              "line": 434,
+              "listenerTypeValue": 6,
+              "targetId": "0:30",
+              "phaseValue": 0,
+              "name": "Pointer focus 0:30",
+              "enums": { "listenerTypeValue": "click", "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "FocusActionTarget",
+                  "line": 435,
+                  "targetId": "0:30",
+                  "flags": 0
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListenerSingle",
+              "line": 437,
+              "listenerTypeValue": 6,
+              "targetId": "0:31",
+              "phaseValue": 0,
+              "name": "Pointer focus 0:31",
+              "enums": { "listenerTypeValue": "click", "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "FocusActionTarget",
+                  "line": 438,
+                  "targetId": "0:31",
+                  "flags": 0
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListenerSingle",
+              "line": 440,
+              "listenerTypeValue": 6,
+              "targetId": "0:32",
+              "phaseValue": 0,
+              "name": "Pointer focus 0:32",
+              "enums": { "listenerTypeValue": "click", "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "FocusActionTarget",
+                  "line": 441,
+                  "targetId": "0:32",
+                  "flags": 0
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListenerSingle",
+              "line": 443,
+              "listenerTypeValue": 6,
+              "targetId": "0:33",
+              "phaseValue": 0,
+              "name": "Pointer focus 0:33",
+              "enums": { "listenerTypeValue": "click", "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "FocusActionTarget",
+                  "line": 444,
+                  "targetId": "0:33",
+                  "flags": 0
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListenerSingle",
+              "line": 446,
+              "listenerTypeValue": 6,
+              "targetId": "0:40",
+              "phaseValue": 0,
+              "name": "Pointer focus 0:40",
+              "enums": { "listenerTypeValue": "click", "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "FocusActionTarget",
+                  "line": 447,
+                  "targetId": "0:40",
+                  "flags": 0
+                }
+              ]
+            },
+            {
+              "type": "StateMachineListenerSingle",
+              "line": 449,
+              "listenerTypeValue": 6,
+              "targetId": "0:41",
+              "phaseValue": 0,
+              "name": "Pointer focus 0:41",
+              "enums": { "listenerTypeValue": "click", "phaseValue": "normal" },
+              "children": [
+                {
+                  "type": "FocusActionTarget",
+                  "line": 450,
+                  "targetId": "0:41",
+                  "flags": 0
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "LinearAnimation",
+          "id": "0:60",
+          "line": 453,
+          "fps": 60,
+          "duration": 1,
+          "speed": 1,
+          "loopValue": 0,
+          "workStart": 4294967295,
+          "workEnd": 4294967295,
+          "enableWorkArea": false,
+          "quantize": false,
+          "name": "General",
+          "enums": { "loopValue": "oneShot" },
+          "children": [
+            {
+              "type": "KeyedObject",
+              "line": 454,
+              "objectId": "0:20",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 455,
+                  "propertyKey": 296,
+                  "propertyName": "activeComponentId",
+                  "children": [
+                    {
+                      "type": "KeyFrameId",
+                      "line": 456,
+                      "value": "0:21",
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": { "interpolationType": "hold" }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "LinearAnimation",
+          "id": "0:61",
+          "line": 460,
+          "fps": 60,
+          "duration": 1,
+          "speed": 1,
+          "loopValue": 0,
+          "workStart": 4294967295,
+          "workEnd": 4294967295,
+          "enableWorkArea": false,
+          "quantize": false,
+          "name": "Sound",
+          "enums": { "loopValue": "oneShot" },
+          "children": [
+            {
+              "type": "KeyedObject",
+              "line": 461,
+              "objectId": "0:20",
+              "children": [
+                {
+                  "type": "KeyedProperty",
+                  "line": 462,
+                  "propertyKey": 296,
+                  "propertyName": "activeComponentId",
+                  "children": [
+                    {
+                      "type": "KeyFrameId",
+                      "line": 463,
+                      "value": "0:22",
+                      "interpolationType": 0,
+                      "frame": 0,
+                      "enums": { "interpolationType": "hold" }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "roots": [
+    {
+      "type": "FontAsset",
+      "id": "0:80",
+      "line": 468,
+      "assetId": 0,
+      "cdnBaseUrl": "https://public.rive.app/cdn/uuid",
+      "name": "Roboto"
+    },
+    {
+      "type": "ScriptAsset",
+      "id": "0:81",
+      "line": 469,
+      "generatorFunctionRef": 0,
+      "isModule": false,
+      "serializedImplementedMethods": 2097151,
+      "folderPath": "",
+      "assetId": 0,
+      "cdnBaseUrl": "https://public.rive.app/cdn/uuid",
+      "name": "derived"
+    },
+    {
+      "type": "ScriptAsset",
+      "id": "0:82",
+      "line": 470,
+      "generatorFunctionRef": 0,
+      "isModule": false,
+      "serializedImplementedMethods": 2097151,
+      "folderPath": "",
+      "assetId": 0,
+      "cdnBaseUrl": "https://public.rive.app/cdn/uuid",
+      "name": "action"
+    },
+    {
+      "type": "DataConverterRangeMapper",
+      "id": "0:83",
+      "line": 471,
+      "interpolationType": 1,
+      "flags": 3,
+      "minInput": 0,
+      "maxInput": 100,
+      "minOutput": 0,
+      "maxOutput": 360,
+      "name": "Volume pixels",
+      "enums": { "interpolationType": "linear" }
+    },
+    {
+      "type": "ViewModel",
+      "id": "0:90",
+      "line": 472,
+      "viewModelType": 0,
+      "name": "Settings",
+      "enums": { "viewModelType": "standard" },
+      "children": [
+        {
+          "type": "ViewModelPropertyString",
+          "id": "0:128",
+          "line": 473,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "soundPanelTitle",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyString",
+          "id": "0:127",
+          "line": 474,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "generalPanelTitle",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyString",
+          "id": "0:126",
+          "line": 475,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "tabsTitle",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyNumber",
+          "id": "0:100",
+          "line": 476,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "volume",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyBoolean",
+          "id": "0:101",
+          "line": 477,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "muted",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyString",
+          "id": "0:102",
+          "line": 478,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "selectedTab",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyBoolean",
+          "id": "0:103",
+          "line": 479,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "email",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyBoolean",
+          "id": "0:104",
+          "line": 480,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "push",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyBoolean",
+          "id": "0:105",
+          "line": 481,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "sms",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyString",
+          "id": "0:106",
+          "line": 482,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "generalTitle",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyString",
+          "id": "0:107",
+          "line": 483,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "soundTitle",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyString",
+          "id": "0:108",
+          "line": 484,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "notificationsTitle",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyString",
+          "id": "0:109",
+          "line": 485,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "emailTitle",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyString",
+          "id": "0:110",
+          "line": 486,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "pushTitle",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyString",
+          "id": "0:111",
+          "line": 487,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "smsTitle",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyString",
+          "id": "0:112",
+          "line": 488,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "volumeTitle",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyString",
+          "id": "0:113",
+          "line": 489,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "muteTitle",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyString",
+          "id": "0:114",
+          "line": 490,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "volumeSpoken",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyBoolean",
+          "id": "0:115",
+          "line": 491,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "generalSelected",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyBoolean",
+          "id": "0:116",
+          "line": 492,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "soundSelected",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyNumber",
+          "id": "0:117",
+          "line": 493,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "parentState",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyNumber",
+          "id": "0:118",
+          "line": 494,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "parentFull",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyNumber",
+          "id": "0:119",
+          "line": 495,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "parentMixed",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyNumber",
+          "id": "0:120",
+          "line": 496,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "knobX",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyNumber",
+          "id": "0:121",
+          "line": 497,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "emailState",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyNumber",
+          "id": "0:122",
+          "line": 498,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "pushState",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyNumber",
+          "id": "0:123",
+          "line": 499,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "smsState",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyNumber",
+          "id": "0:124",
+          "line": 500,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "generalOpacity",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelPropertyNumber",
+          "id": "0:125",
+          "line": 501,
+          "symbolTypeValue": 0,
+          "componentProps": 0,
+          "name": "soundOpacity",
+          "enums": { "symbolTypeValue": "none" }
+        },
+        {
+          "type": "ViewModelInstance",
+          "id": "0:91",
+          "line": 502,
+          "name": "Default",
+          "children": [
+            {
+              "type": "ViewModelInstanceNumber",
+              "line": 503,
+              "propertyValue": 40,
+              "viewModelPropertyId": "0:100",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceBoolean",
+              "line": 504,
+              "propertyValue": false,
+              "viewModelPropertyId": "0:101",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 505,
+              "propertyValue": "General",
+              "viewModelPropertyId": "0:102",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceBoolean",
+              "line": 506,
+              "propertyValue": true,
+              "viewModelPropertyId": "0:103",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceBoolean",
+              "line": 507,
+              "propertyValue": false,
+              "viewModelPropertyId": "0:104",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceBoolean",
+              "line": 508,
+              "propertyValue": false,
+              "viewModelPropertyId": "0:105",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 509,
+              "propertyValue": "General",
+              "viewModelPropertyId": "0:106",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 510,
+              "propertyValue": "Sound",
+              "viewModelPropertyId": "0:107",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 511,
+              "propertyValue": "Notifications",
+              "viewModelPropertyId": "0:108",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 512,
+              "propertyValue": "Email",
+              "viewModelPropertyId": "0:109",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 513,
+              "propertyValue": "Push",
+              "viewModelPropertyId": "0:110",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 514,
+              "propertyValue": "SMS",
+              "viewModelPropertyId": "0:111",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 515,
+              "propertyValue": "Volume",
+              "viewModelPropertyId": "0:112",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 516,
+              "propertyValue": "Mute",
+              "viewModelPropertyId": "0:113",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 517,
+              "propertyValue": "Volume 40 %",
+              "viewModelPropertyId": "0:114",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceBoolean",
+              "line": 518,
+              "propertyValue": true,
+              "viewModelPropertyId": "0:115",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceBoolean",
+              "line": 519,
+              "propertyValue": false,
+              "viewModelPropertyId": "0:116",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceNumber",
+              "line": 520,
+              "propertyValue": 2,
+              "viewModelPropertyId": "0:117",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceNumber",
+              "line": 521,
+              "propertyValue": 0,
+              "viewModelPropertyId": "0:118",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceNumber",
+              "line": 522,
+              "propertyValue": 1,
+              "viewModelPropertyId": "0:119",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceNumber",
+              "line": 523,
+              "propertyValue": 42,
+              "viewModelPropertyId": "0:120",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceNumber",
+              "line": 524,
+              "propertyValue": 1,
+              "viewModelPropertyId": "0:121",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceNumber",
+              "line": 525,
+              "propertyValue": 0,
+              "viewModelPropertyId": "0:122",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceNumber",
+              "line": 526,
+              "propertyValue": 0,
+              "viewModelPropertyId": "0:123",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceNumber",
+              "line": 527,
+              "propertyValue": 1,
+              "viewModelPropertyId": "0:124",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceNumber",
+              "line": 528,
+              "propertyValue": 0,
+              "viewModelPropertyId": "0:125",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 529,
+              "propertyValue": "Settings tabs",
+              "viewModelPropertyId": "0:126",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 530,
+              "propertyValue": "General settings",
+              "viewModelPropertyId": "0:127",
+              "name": ""
+            },
+            {
+              "type": "ViewModelInstanceString",
+              "line": 531,
+              "propertyValue": "Sound settings",
+              "viewModelPropertyId": "0:128",
+              "name": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Backboard",
+      "line": 0
+    }
+  ]
+}

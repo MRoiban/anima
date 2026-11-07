@@ -63,18 +63,15 @@ export class MachinePolicy implements PlaybackPolicy {
   readonly originalTransitions = new WeakMap<TransitionM, TransitionM>();
   readonly previous = new Map<string, import('../../../packages/core/src/load.ts').Value>();
   readonly slots: Map<string, number>;
-  #seed: number;
 
   constructor(p: Player, base?: PlaybackPolicy) {
     this.p = p;
     this.base = base;
     this.slots = new Map(p.addrs.map((a, i) => [a, i]));
-    this.#seed = p.model.doc.machineSeed ?? 0x6d2b79f5;
     for (const [n, i] of p.model.inputs) if (i.type !== 'trigger') this.previous.set(n, i.def);
   }
   random(): number {
-    this.#seed = (Math.imul(this.#seed, 1664525) + 1013904223) >>> 0;
-    return this.#seed / 4294967296;
+    return this.p.randomSource.next(this.p.model.doc.machineSeed ?? 0x6d2b79f5, 'machine');
   }
   get busy(): boolean {
     return !!this.base?.busy;
@@ -221,7 +218,10 @@ export class MachinePolicy implements PlaybackPolicy {
       dt,
       (t) => !transitions.get(t)?.disabled && eligible(t),
     );
-    if (d.pending && reached((d.pending.elapsed += dt), d.pending.duration)) {
+    if (
+      d.pending &&
+      (this.p.reducedMotion || reached((d.pending.elapsed += dt), d.pending.duration))
+    ) {
       this.act(transitions.get(d.pending.transition)?.endActions);
       d.pending = undefined;
     }
@@ -310,6 +310,13 @@ export class MachinePolicy implements PlaybackPolicy {
           (ratio === 0 ? 0 : ratio * this.duration(this.p.model.timelines[s.play!]!, s.speed, run)),
       );
     return this.base?.carry(this.transition(t), this.original(s), elapsed, run);
+  }
+  resume(run: object, time: number): void {
+    if (this.base) this.base.resume(run, time);
+    else {
+      const r = run as Run;
+      r.time = time / r.m.states[r.state]!.speed;
+    }
   }
   reduce(t: TimelineM, speed: number, end: boolean, layer: string, out: AnimaEvent[]): number {
     if (this.base) return this.base.reduce(t, speed, end, layer, out);

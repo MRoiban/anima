@@ -1,0 +1,9 @@
+Pending spec/conformance/a11y-tree-visibility/case.animl: a11y.tree-visibility: implement the capability and independent expected evidence
+Pending spec/conformance/data-bind-layout/case.animl: Layout consumers are P7; no layout dimensions/style target exists on this branch.
+Pending spec/conformance/data-bind-script-inputs/case.animl: Script inputs require the P9 VM and typed script interface.
+Pending spec/conformance/data-bind-text/case.animl: Text consumers are P6; no text-run target exists on this branch.
+Pending spec/conformance/data-editor-preview-instance/case.animl: Preview naming metadata round-trips; the editor does not yet consume it.
+Pending spec/conformance/data-property-text-style/case.animl: Text-style is absent from the decided property type list and depends on P6.
+Pending spec/conformance/data-script-model-api/case.animl: The requested scripting API requires P9 and is outside the defined data runtime contract.
+Pending spec/conformance/data-scripted-converter/case.animl: Scripted forward/reverse converter execution requires the P9 script VM/protocol; no VM exists in the decided P4e design.
+Built 480 AniML files

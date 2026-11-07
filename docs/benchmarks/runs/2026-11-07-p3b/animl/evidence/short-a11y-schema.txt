@@ -1,0 +1,6 @@
+a11y (markup ↔ .ani: type)
+  role ↔ role: "button" | "switch" | "img"
+  label ↔ label: string
+  activate ↔ activate: string
+  pressed ↔ pressed: string
+  held ↔ held: string

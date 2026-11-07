@@ -1,0 +1,5 @@
+advance 0
+snapshot --semantics
+set depth 4
+advance 0
+snapshot --semantics

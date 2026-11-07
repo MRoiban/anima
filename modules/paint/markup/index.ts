@@ -4,18 +4,26 @@ import type { Compiler, Form, Kind } from '../../../packages/markup/src/compile.
 import type { Element, Attr } from '../../../packages/markup/src/xml.ts';
 
 const kind = (s: Shape): Kind =>
-  ['obj', 'map', 'any', 'alt'].includes(s.k)
-    ? 'json'
-    : s.k === 'num'
-      ? 'number'
-      : s.k === 'bool'
-        ? 'boolean'
-        : s.k === 'str' && s.re === NAME
-          ? 'name'
-          : 'string';
+  s.k === 'alt' && s.of.some((s) => s.k === 'bool') && s.of.some((s) => s.k === 'str')
+    ? 'string'
+    : ['obj', 'map', 'any', 'alt'].includes(s.k)
+      ? 'json'
+      : s.k === 'num'
+        ? 'number'
+        : s.k === 'bool'
+          ? 'boolean'
+          : s.k === 'str' && s.re === NAME
+            ? 'name'
+            : 'string';
 // Structural arrays contain scalar tokens; tuple arity and enum/range constraints still belong
 // to the strict loader. Preserve the attribute origin for each decoded entry.
 function readShape(compiler: Compiler, a: Attr, shape: Shape, p: string): unknown {
+  if (
+    shape.k === 'alt' &&
+    shape.of.some((s) => s.k === 'bool') &&
+    shape.of.some((s) => s.k === 'str')
+  )
+    return a.value === 'true' || a.value === 'false' ? a.value === 'true' : a.value;
   if (shape.k === 'arr' && shape.of.k === 'alt') return compiler.read(a, 'lengths', p);
   if (shape.k === 'arr' || shape.k === 'tup') {
     const text = a.value.trim();

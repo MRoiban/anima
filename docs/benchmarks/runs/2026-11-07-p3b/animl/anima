@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+HERE="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+ROOT="$(cd "$HERE/../../../../.." && pwd)"
+exec node --import "$HERE/loader.mjs" "$ROOT/packages/cli/src/main.ts" "$@"

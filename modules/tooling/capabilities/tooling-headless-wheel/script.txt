@@ -1,0 +1,2 @@
+scroll 10 10 0 1
+snapshot $count

@@ -17,6 +17,7 @@ export { dataCodes } from './errors.ts';
 export { dataState } from './storage.ts';
 export { converters, registerConverter, type Converter, type Context } from './types.ts';
 export { systemEnums } from './enums.ts';
+let listenerValue: typeof import('../../input/core/values.ts').listenerValue | undefined;
 let resolve = resolveAddress;
 let parse: typeof import('../../bind/core/expression.ts').expression | undefined;
 const path = /^(?:\$[a-zA-Z][\w-]*(?::[a-zA-Z][\w-]*)?(?:\.[\w-]+)*|[a-z][\w-]*(?:\.[\w-]+)*)$/;
@@ -44,6 +45,9 @@ export const data: DataModule = {
     prepare(model, d, (this as DataModule).prepareContext);
   },
   init(registry, shared) {
+    listenerValue = (
+      registry.get('input') as typeof import('../../input/core/index.ts').input | undefined
+    )?.listenerValue;
     resolve = shared.resolveAddress;
     parse = (registry.get('bind') as typeof import('../../bind/core/index.ts').bind | undefined)
       ?.parse;
@@ -237,12 +241,7 @@ export const data: DataModule = {
           (scope) => {
             const p = (scope as DataState).player!;
             if (focus) return p.machineFocus?.(model.nodes[l.target]?.id ?? '') ?? false;
-            const pad = p.input().pads.get(r.index ?? 0),
-              index = Number(m?.[2] ?? r.control ?? 0);
-            if (m?.[1] === 'button-pressed') return pad?.buttons?.[index]?.pressed ?? false;
-            return m?.[1] === 'axis' || (m?.[1] === 'changed-value' && r.on === 'gamepad-axis')
-              ? (pad?.axes?.[index] ?? 0)
-              : (pad?.buttons?.[index]?.value ?? 0);
+            return listenerValue?.(p, r) ?? 0;
           },
         ]);
       }

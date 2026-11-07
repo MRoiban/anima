@@ -1,0 +1,91 @@
+{
+  "anima": "0.1",
+  "name": "order",
+  "grid": 20,
+  "requires": ["a11y", "data", "components", "lists"],
+  "inputs": {
+    "hidden": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "first",
+      "type": "instance",
+      "component": "wrapper"
+    },
+    {
+      "id": "middle",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "text",
+        "label": "Middle",
+        "bounds": [0, 0, 1, 1]
+      }
+    },
+    {
+      "id": "rows",
+      "type": "repeat",
+      "count": "$n",
+      "component": "leaf"
+    },
+    {
+      "id": "last",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "text",
+        "label": "Last",
+        "hidden": "hidden",
+        "bounds": [0, 0, 1, 1]
+      }
+    }
+  ],
+  "components": {
+    "leaf": {
+      "grid": 20,
+      "nodes": [
+        {
+          "id": "item",
+          "type": "group",
+          "children": [],
+          "a11y": {
+            "role": "text",
+            "label": "Item",
+            "bounds": [0, 0, 1, 1]
+          }
+        }
+      ]
+    },
+    "wrapper": {
+      "grid": 20,
+      "nodes": [
+        {
+          "id": "inner",
+          "type": "instance",
+          "component": "leaf"
+        }
+      ]
+    }
+  },
+  "data": {
+    "models": {
+      "M": {
+        "properties": {
+          "n": {
+            "type": "number",
+            "default": 2
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "M",
+        "default": true,
+        "values": {}
+      }
+    }
+  }
+}

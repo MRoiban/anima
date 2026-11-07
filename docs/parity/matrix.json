@@ -3,100 +3,102 @@
   "id": "a11y.ancestor-focus",
   "category": "a11y",
   "capability": "Ancestor focus",
-  "construct": "new: nodes[].a11y / player semantics API: ancestor-focus; bounds in grid units",
+  "construct": "modules/a11y/SPEC.md; Ancestor focus",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-ancestor-focus",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.check-checked",
   "category": "a11y",
   "capability": "Check state: checked",
-  "construct": "new: nodes[].a11y.isChecked: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Check state: checked",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-check-checked",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-checked; spec/conformance/a11y-state-checked-mixed",
   "phase": "P3b"
  },
  {
   "id": "a11y.check-mixed",
   "category": "a11y",
   "capability": "Check state: mixed",
-  "construct": "new: nodes[].a11y.isChecked: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Check state: mixed",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-check-mixed",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-checked; spec/conformance/a11y-state-checked-mixed",
   "phase": "P3b"
  },
  {
   "id": "a11y.check-unchecked",
   "category": "a11y",
   "capability": "Check state: unchecked",
-  "construct": "new: nodes[].a11y.isChecked: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Check state: unchecked",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-check-unchecked",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-checked; spec/conformance/a11y-state-checked-mixed",
   "phase": "P3b"
  },
  {
   "id": "a11y.focus-action-target",
   "category": "a11y",
   "capability": "Focus a target",
-  "construct": "new: nodes[].a11y / player semantics API: focus-action-target; bounds in grid units",
+  "construct": "modules/a11y/SPEC.md; Focus a target",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-focus-action-target",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.focus-action-traversal",
   "category": "a11y",
   "capability": "Traverse focus",
-  "construct": "new: nodes[].a11y / player semantics API: focus-action-traversal; bounds in grid units",
+  "construct": "modules/a11y/SPEC.md; Traverse focus",
   "module": "a11y",
   "status": "planned",
-  "test": "oracle/a11y-focus-action-traversal",
-  "phase": "P3b"
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
+  "phase": "P3c",
+  "reason": "Sequential/repeat traversal passes, but native right traversal selects the sibling while Anima selects its focusable ancestor; synthesized focus points use transform origins rather than painted bounds (modules/a11y/oracle/focus-policy/README.md)."
  },
  {
   "id": "a11y.focus-condition",
   "category": "a11y",
   "capability": "Focus transition condition",
-  "construct": "new: nodes[].a11y / player semantics API: focus-condition; bounds in grid units",
+  "construct": "modules/a11y/SPEC.md; Focus transition condition",
   "module": "a11y",
   "status": "planned",
-  "test": "oracle/a11y-focus-condition",
-  "phase": "P3b"
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
+  "phase": "P3c",
+  "reason": "Anima ancestor/repeat conditions pass, but the native ancestor-condition wiring is unverified: both accepted comparator probes leave marker center 90 instead of 70 (modules/a11y/oracle/focus-policy/README.md)."
  },
  {
   "id": "a11y.focus-retarget",
   "category": "a11y",
   "capability": "Hidden focus retargeting",
-  "construct": "new: nodes[].a11y / player semantics API: focus-retarget; bounds in grid units",
+  "construct": "modules/a11y/SPEC.md; Hidden focus retargeting",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-focus-retarget",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.focus-sync",
   "category": "a11y",
   "capability": "Scene and DOM focus synchronization",
-  "construct": "new: nodes[].a11y / player semantics API: focus-sync; bounds in grid units",
+  "construct": "modules/a11y/SPEC.md; Scene and DOM focus synchronization",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-focus-sync",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.headless-inspection",
   "category": "a11y",
   "capability": "Headless semantic inspection",
-  "construct": "new: nodes[].a11y / player semantics API: headless-inspection; bounds in grid units",
+  "construct": "modules/a11y/SPEC.md; Headless semantic inspection",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-headless-inspection",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md",
   "phase": "P3b"
  },
  {
@@ -127,66 +129,67 @@
   "module": "a11y",
   "status": "planned",
   "test": "oracle/a11y-inferred-text",
-  "phase": "P3b"
+  "phase": "P6",
+  "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
  },
  {
   "id": "a11y.overlay-policy",
   "category": "a11y",
   "capability": "Host semantics policy",
-  "construct": "new: nodes[].a11y / player semantics API: overlay-policy; bounds in grid units",
+  "construct": "modules/a11y/SPEC.md; Host semantics policy",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-overlay-policy",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.property-heading-level",
   "category": "a11y",
   "capability": "Heading hierarchy",
-  "construct": "new: nodes[].a11y.headingLevel: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Heading hierarchy",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-property-heading-level",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-properties-data; spec/conformance/a11y-property-heading-level",
   "phase": "P3b"
  },
  {
   "id": "a11y.property-hint",
   "category": "a11y",
   "capability": "Accessible hint",
-  "construct": "new: nodes[].a11y.hint: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Accessible hint",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-property-hint",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-properties-data; spec/conformance/a11y-property-heading-level",
   "phase": "P3b"
  },
  {
   "id": "a11y.property-label",
   "category": "a11y",
   "capability": "Dynamic accessible label",
-  "construct": "new: nodes[].a11y.label: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Dynamic accessible label",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-property-label",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-properties-data; spec/conformance/a11y-property-heading-level",
   "phase": "P3b"
  },
  {
   "id": "a11y.property-value",
   "category": "a11y",
   "capability": "Accessible value",
-  "construct": "new: nodes[].a11y.value: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Accessible value",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-property-value",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-properties-data; spec/conformance/a11y-property-heading-level; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.role-alert-dialog",
   "category": "a11y",
   "capability": "Semantic role: alertDialog",
-  "construct": "new: nodes[].a11y.role: alert-dialog",
+  "construct": "modules/a11y/SPEC.md; Semantic role: alertDialog",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-role-alert-dialog",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-alert-dialog; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
@@ -203,30 +206,30 @@
   "id": "a11y.role-checkbox",
   "category": "a11y",
   "capability": "Semantic role: checkbox",
-  "construct": "new: nodes[].a11y.role: checkbox",
+  "construct": "modules/a11y/SPEC.md; Semantic role: checkbox",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-role-checkbox",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-checkbox; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.role-dialog",
   "category": "a11y",
   "capability": "Semantic role: dialog",
-  "construct": "new: nodes[].a11y.role: dialog",
+  "construct": "modules/a11y/SPEC.md; Semantic role: dialog",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-role-dialog",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-dialog; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.role-group",
   "category": "a11y",
   "capability": "Semantic role: group",
-  "construct": "new: nodes[].a11y.role: group",
+  "construct": "modules/a11y/SPEC.md; Semantic role: group",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-role-group",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-group; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
@@ -243,70 +246,70 @@
   "id": "a11y.role-link",
   "category": "a11y",
   "capability": "Semantic role: link",
-  "construct": "new: nodes[].a11y.role: link",
+  "construct": "modules/a11y/SPEC.md; Semantic role: link",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-role-link",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-link; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.role-list",
   "category": "a11y",
   "capability": "Semantic role: list",
-  "construct": "new: nodes[].a11y.role: list",
+  "construct": "modules/a11y/SPEC.md; Semantic role: list",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-role-list",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-list; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.role-list-item",
   "category": "a11y",
   "capability": "Semantic role: listItem",
-  "construct": "new: nodes[].a11y.role: list-item",
+  "construct": "modules/a11y/SPEC.md; Semantic role: listItem",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-role-list-item",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-list-item; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.role-none",
   "category": "a11y",
   "capability": "Semantic role: none",
-  "construct": "new: nodes[].a11y.role: none",
+  "construct": "modules/a11y/SPEC.md; Semantic role: none",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-role-none",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-none; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.role-radio-button",
   "category": "a11y",
   "capability": "Semantic role: radioButton",
-  "construct": "new: nodes[].a11y.role: radio-button",
+  "construct": "modules/a11y/SPEC.md; Semantic role: radioButton",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-role-radio-button",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-radio; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.role-radio-group",
   "category": "a11y",
   "capability": "Semantic role: radioGroup",
-  "construct": "new: nodes[].a11y.role: radio-group",
+  "construct": "modules/a11y/SPEC.md; Semantic role: radioGroup",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-role-radio-group",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-radio-group; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.role-slider",
   "category": "a11y",
   "capability": "Semantic role: slider",
-  "construct": "new: nodes[].a11y.role: slider",
+  "construct": "modules/a11y/SPEC.md; Semantic role: slider",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-role-slider",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-slider; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
@@ -323,30 +326,30 @@
   "id": "a11y.role-tab",
   "category": "a11y",
   "capability": "Semantic role: tab",
-  "construct": "new: nodes[].a11y.role: tab",
+  "construct": "modules/a11y/SPEC.md; Semantic role: tab",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-role-tab",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-tab; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.role-tab-list",
   "category": "a11y",
   "capability": "Semantic role: tabList",
-  "construct": "new: nodes[].a11y.role: tab-list",
+  "construct": "modules/a11y/SPEC.md; Semantic role: tabList",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-role-tab-list",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-tab-list; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.role-text",
   "category": "a11y",
   "capability": "Semantic role: text",
-  "construct": "new: nodes[].a11y.role: text",
+  "construct": "modules/a11y/SPEC.md; Semantic role: text",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-role-text",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-text; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
@@ -357,96 +360,98 @@
   "module": "a11y",
   "status": "planned",
   "test": "oracle/a11y-role-text-field",
-  "phase": "P3b"
+  "phase": "P6",
+  "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
  },
  {
   "id": "a11y.roving-focus",
   "category": "a11y",
   "capability": "Tab and radio keyboard handling",
-  "construct": "new: nodes[].a11y / player semantics API: roving-focus; bounds in grid units",
+  "construct": "modules/a11y/SPEC.md; Tab and radio keyboard handling",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-roving-focus",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.semantic-diffs",
   "category": "a11y",
   "capability": "Host semantic tree updates",
-  "construct": "new: nodes[].a11y / player semantics API: semantic-diffs; bounds in grid units",
+  "construct": "modules/a11y/SPEC.md; Host semantic tree updates",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-semantic-diffs",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.spatial-focus",
   "category": "a11y",
   "capability": "Directional focus navigation",
-  "construct": "new: nodes[].a11y / player semantics API: spatial-focus; bounds in grid units",
+  "construct": "modules/a11y/SPEC.md; Directional focus navigation",
   "module": "a11y",
   "status": "planned",
-  "test": "oracle/a11y-spatial-focus",
-  "phase": "P3b"
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
+  "phase": "P3c",
+  "reason": "Native directional candidate selection differs (sibling versus focusable ancestor), even with matching semantic bounds; synthesized focus points lack painted bounds (modules/a11y/oracle/focus-policy/README.md)."
  },
  {
   "id": "a11y.state-disabled",
   "category": "a11y",
   "capability": "Semantic state: Disabled",
-  "construct": "new: nodes[].a11y.isDisabled: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic state: Disabled",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-state-disabled",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-disabled",
   "phase": "P3b"
  },
  {
   "id": "a11y.state-expanded",
   "category": "a11y",
   "capability": "Semantic state: Expanded",
-  "construct": "new: nodes[].a11y.isExpanded: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic state: Expanded",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-state-expanded",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-expanded",
   "phase": "P3b"
  },
  {
   "id": "a11y.state-focused",
   "category": "a11y",
   "capability": "Semantic state: Focused",
-  "construct": "new: nodes[].a11y.isFocused: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic state: Focused",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-state-focused",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.state-hidden",
   "category": "a11y",
   "capability": "Semantic state: Hidden",
-  "construct": "new: nodes[].a11y.isHidden: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic state: Hidden",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-state-hidden",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-hidden",
   "phase": "P3b"
  },
  {
   "id": "a11y.state-live-region",
   "category": "a11y",
   "capability": "Semantic state: LiveRegion",
-  "construct": "new: nodes[].a11y.isLiveRegion: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic state: LiveRegion",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-state-live-region",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-live-region; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.state-modal",
   "category": "a11y",
   "capability": "Semantic state: Modal",
-  "construct": "new: nodes[].a11y.isModal: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic state: Modal",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-state-modal",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-modal",
   "phase": "P3b"
  },
  {
@@ -457,7 +462,8 @@
   "module": "a11y",
   "status": "planned",
   "test": "oracle/a11y-state-multiline",
-  "phase": "P3b"
+  "phase": "P6",
+  "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
  },
  {
   "id": "a11y.state-obscured",
@@ -467,56 +473,57 @@
   "module": "a11y",
   "status": "planned",
   "test": "oracle/a11y-state-obscured",
-  "phase": "P3b"
+  "phase": "P6",
+  "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
  },
  {
   "id": "a11y.state-read-only",
   "category": "a11y",
   "capability": "Semantic state: ReadOnly",
-  "construct": "new: nodes[].a11y.isReadOnly: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic state: ReadOnly",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-state-read-only",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-readonly",
   "phase": "P3b"
  },
  {
   "id": "a11y.state-required",
   "category": "a11y",
   "capability": "Semantic state: Required",
-  "construct": "new: nodes[].a11y.isRequired: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic state: Required",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-state-required",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-required",
   "phase": "P3b"
  },
  {
   "id": "a11y.state-selected",
   "category": "a11y",
   "capability": "Semantic state: Selected",
-  "construct": "new: nodes[].a11y.isSelected: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic state: Selected",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-state-selected",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-selected",
   "phase": "P3b"
  },
  {
   "id": "a11y.state-toggled",
   "category": "a11y",
   "capability": "Semantic state: Toggled",
-  "construct": "new: nodes[].a11y.isToggled: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic state: Toggled",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-state-toggled",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-pressed",
   "phase": "P3b"
  },
  {
   "id": "a11y.tab-focus",
   "category": "a11y",
   "capability": "Sequential focus navigation",
-  "construct": "new: nodes[].a11y / player semantics API: tab-focus; bounds in grid units",
+  "construct": "modules/a11y/SPEC.md; Sequential focus navigation",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-tab-focus",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
   "phase": "P3b"
  },
  {
@@ -527,107 +534,111 @@
   "module": "a11y",
   "status": "planned",
   "test": "oracle/a11y-text-proxy",
-  "phase": "P3b"
+  "phase": "P6",
+  "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
  },
  {
   "id": "a11y.trait-checkable",
   "category": "a11y",
   "capability": "Semantic trait: Checkable",
-  "construct": "new: nodes[].a11y.isCheckable: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic trait: Checkable",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-trait-checkable",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
   "phase": "P3b"
  },
  {
   "id": "a11y.trait-enablable",
   "category": "a11y",
   "capability": "Semantic trait: Enablable",
-  "construct": "new: nodes[].a11y.isEnablable: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic trait: Enablable",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-trait-enablable",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
   "phase": "P3b"
  },
  {
   "id": "a11y.trait-expandable",
   "category": "a11y",
   "capability": "Semantic trait: Expandable",
-  "construct": "new: nodes[].a11y.isExpandable: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic trait: Expandable",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-trait-expandable",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
   "phase": "P3b"
  },
  {
   "id": "a11y.trait-focusable",
   "category": "a11y",
   "capability": "Semantic trait: Focusable",
-  "construct": "new: nodes[].a11y.isFocusable: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic trait: Focusable",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-trait-focusable",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
   "phase": "P3b"
  },
  {
   "id": "a11y.trait-requirable",
   "category": "a11y",
   "capability": "Semantic trait: Requirable",
-  "construct": "new: nodes[].a11y.isRequirable: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic trait: Requirable",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-trait-requirable",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
   "phase": "P3b"
  },
  {
   "id": "a11y.trait-selectable",
   "category": "a11y",
   "capability": "Semantic trait: Selectable",
-  "construct": "new: nodes[].a11y.isSelectable: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic trait: Selectable",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-trait-selectable",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
   "phase": "P3b"
  },
  {
   "id": "a11y.trait-toggleable",
   "category": "a11y",
   "capability": "Semantic trait: Toggleable",
-  "construct": "new: nodes[].a11y.isToggleable: typed literal or {from: \"model.property\"}",
+  "construct": "modules/a11y/SPEC.md; Semantic trait: Toggleable",
   "module": "a11y",
-  "status": "planned",
-  "test": "oracle/a11y-trait-toggleable",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
   "phase": "P3b"
  },
  {
   "id": "a11y.tree-bounds",
   "category": "a11y",
   "capability": "Semantic bounds",
-  "construct": "new: nodes[].a11y / player semantics API: tree-bounds; bounds in grid units",
+  "construct": "modules/a11y/SPEC.md; Semantic bounds",
   "module": "a11y",
   "status": "planned",
-  "test": "oracle/a11y-tree-bounds",
-  "phase": "P3b"
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-tree-bounds",
+  "phase": "P3c",
+  "reason": "Exact painted path/stroke extents are absent in overlay and CLI; Chromium and Firefox stroke bbox measurements differ (modules/a11y/REPORT.md)."
  },
  {
   "id": "a11y.tree-visibility",
   "category": "a11y",
   "capability": "Semantic subtree visibility",
-  "construct": "new: nodes[].a11y / player semantics API: tree-visibility; bounds in grid units",
+  "construct": "modules/a11y/SPEC.md; Semantic subtree visibility",
   "module": "a11y",
   "status": "planned",
-  "test": "oracle/a11y-tree-visibility",
-  "phase": "P3b"
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-tree-visibility; spec/conformance/a11y-state-hidden",
+  "phase": "P3c",
+  "reason": "Hidden/modal and collapse probes pass; the inactive Solo/native visibility matrix remains incomplete (modules/a11y/REPORT.md)."
  },
  {
   "id": "a11y.web-overlay",
   "category": "a11y",
   "capability": "Accessible web overlay",
-  "construct": "new: nodes[].a11y / player semantics API: web-overlay; bounds in grid units",
+  "construct": "modules/a11y/SPEC.md; Accessible web overlay",
   "module": "a11y",
   "status": "planned",
-  "test": "oracle/a11y-web-overlay",
-  "phase": "P3b"
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
+  "phase": "P3c",
+  "reason": "SVG overlay is browser-tested; positioning over canvas output, explicitly required by this row, remains unimplemented and unverified (modules/a11y-dom/REPORT.md)."
  },
  {
   "id": "animation.cubic-ease",
@@ -1482,10 +1493,10 @@
   "id": "assets.replacement-scope-image",
   "category": "assets",
   "capability": "Image replacement scope",
-  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
-  "module": "assets",
-  "status": "planned",
-  "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-replacement-scope-image; native oracle pending (modules/assets/REPORT.md)",
+  "construct": "P3b-4 implemented: modules/host-edit/SPEC.md scoped replacement IDs; modules/assets/SPEC.md image asset bindings; spec/conformance/data-host-image-binding/case.animl",
+  "module": "data-host",
+  "status": "done",
+  "test": "modules/data-host/test/core/assets.test.ts; modules/data-host/test/web/browser.test.ts; spec/conformance/data-host-image-binding; tests/oracle/assets-replacement-scope-image/skip.json",
   "phase": "P3b"
  },
  {
@@ -1553,11 +1564,12 @@
   "id": "components.host-artboard-reference",
   "category": "components",
   "capability": "Host bindable artboard",
-  "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
-  "module": "components",
+  "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
+  "module": "data-host",
   "status": "planned",
-  "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
-  "phase": "P3b"
+  "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
+  "phase": "P3c",
+  "reason": "Only local component-definition name handles are tested; assignment from another loaded file remains absent. The native skip covers local assignment only (tests/oracle/data-host-artboards/skip.json)."
  },
  {
   "id": "components.host-nested-inputs",
@@ -1627,8 +1639,9 @@
   "construct": "modules/markup-libraries/SPEC.md",
   "module": "markup-libraries",
   "status": "planned",
-  "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-export; tests/oracle/components-library-export",
-  "phase": "P3b"
+  "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-export; tests/oracle/components-library-export; tests/oracle/components-library-export/todo.json; modules/devtools/REPORT.md",
+  "phase": "P3c",
+  "reason": "Export/select aliases are tested, but the cited native probe remains TODO with no completed comparison, evidenced skip or numbered finding (tests/oracle/components-library-export/todo.json)."
  },
  {
   "id": "components.library-models",
@@ -1637,8 +1650,9 @@
   "construct": "modules/markup-libraries/SPEC.md",
   "module": "markup-libraries",
   "status": "planned",
-  "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-models; tests/oracle/components-library-models",
-  "phase": "P3b"
+  "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-models; tests/oracle/components-library-models; tests/oracle/components-library-models/todo.json; modules/devtools/REPORT.md",
+  "phase": "P3c",
+  "reason": "Tests establish shared model definitions, not shared authored instances and enums; the native probe is still TODO with no evidenced skip (modules/markup-libraries/test/markup/extras.test.ts; tests/oracle/components-library-models/todo.json)."
  },
  {
   "id": "components.library-update",
@@ -1647,8 +1661,9 @@
   "construct": "modules/markup-libraries/SPEC.md",
   "module": "markup-libraries",
   "status": "planned",
-  "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-update; tests/oracle/components-library-update",
-  "phase": "P3b"
+  "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-update; tests/oracle/components-library-update; tests/oracle/components-library-update/todo.json; modules/devtools/REPORT.md",
+  "phase": "P3c",
+  "reason": "Local vendored refresh is tested, but the native probe remains TODO with no completed comparison, evidenced skip or numbered finding (tests/oracle/components-library-update/todo.json)."
  },
  {
   "id": "components.list",
@@ -2748,11 +2763,12 @@
   "id": "data.host-artboard",
   "category": "data",
   "capability": "Set model artboard",
-  "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
-  "module": "data",
+  "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
+  "module": "data-host",
   "status": "planned",
-  "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
-  "phase": "P3b"
+  "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
+  "phase": "P3c",
+  "reason": "Component-name assignment is tested, but assignment of an artboard together with associated model data is not established; the skip covers local-definition assignment (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json)."
  },
  {
   "id": "data.host-bind-instance",
@@ -2768,10 +2784,10 @@
   "id": "data.host-color",
   "category": "data",
   "capability": "Color host access",
-  "construct": "new: player.data API for color host access",
-  "module": "data",
-  "status": "planned",
-  "test": "oracle/data-host-color",
+  "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
+  "module": "data-host",
+  "status": "done",
+  "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/oracle/rive/frames/changed.json",
   "phase": "P3b"
  },
  {
@@ -2918,10 +2934,10 @@
   "id": "data.host-nested-paths",
   "category": "data",
   "capability": "Typed nested paths",
-  "construct": "new: player.data API for typed nested paths",
-  "module": "data",
-  "status": "planned",
-  "test": "oracle/data-host-nested-paths",
+  "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
+  "module": "data-host",
+  "status": "done",
+  "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; tests/oracle/data-host-nested-paths/skip.json",
   "phase": "P3b"
  },
  {
@@ -2988,10 +3004,10 @@
   "id": "data.instance-export",
   "category": "data",
   "capability": "Exported instances",
-  "construct": "modules/data/capabilities/data-instance-export/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
-  "module": "data",
-  "status": "planned",
-  "test": "spec/conformance/data-instance-export; modules/data/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
+  "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
+  "module": "data-host",
+  "status": "done",
+  "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; spec/conformance/data-instance-export; tests/oracle/data-instance-export/skip.json",
   "phase": "P3b"
  },
  {
@@ -4454,7 +4470,7 @@
   "status": "wont-do",
   "test": "conformance/path-measure",
   "phase": "—",
-  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
+  "reason": "Won't do as a public API (owner triage follow-up, 2026-11-07): path measurement stays internal to P8 rigging, where follow-path may use it."
  },
  {
   "id": "drawing-paint.polygon",
@@ -5551,10 +5567,10 @@
   "id": "host-api.batched-binding",
   "category": "host-api",
   "capability": "Batch binding updates",
-  "construct": "new: data binding transaction",
-  "module": "data",
-  "status": "planned",
-  "test": "browser/batched-binding",
+  "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
+  "module": "data-host",
+  "status": "done",
+  "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host/test/core/api.test.ts; tests/oracle/host-api-batched-binding/skip.json",
   "phase": "P3b"
  },
  {
@@ -5571,11 +5587,12 @@
   "id": "host-api.bindable-artboards",
   "category": "host-api",
   "capability": "Bindable component instances",
-  "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
-  "module": "components",
+  "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
+  "module": "data-host",
   "status": "planned",
-  "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
-  "phase": "P3b"
+  "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
+  "phase": "P3c",
+  "reason": "Local component-name handles do not establish acquisition of bindable artboard values with associated view-model instances (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json)."
  },
  {
   "id": "host-api.cleanup",
@@ -5611,11 +5628,12 @@
   "id": "host-api.data-artboard",
   "category": "host-api",
   "capability": "View model artboard",
-  "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
-  "module": "data",
+  "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
+  "module": "data-host",
   "status": "planned",
-  "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
-  "phase": "P3b"
+  "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
+  "phase": "P3c",
+  "reason": "Local component-name assignment is tested; no bindable artboard instance value is established by the cited tests/skip (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json)."
  },
  {
   "id": "host-api.data-boolean",
@@ -5631,10 +5649,10 @@
   "id": "host-api.data-color",
   "category": "host-api",
   "capability": "View model color",
-  "construct": "new: typed data.color(path)",
-  "module": "data",
-  "status": "planned",
-  "test": "browser/data-color",
+  "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
+  "module": "data-host",
+  "status": "done",
+  "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/oracle/rive/frames/changed.json",
   "phase": "P3b"
  },
  {
@@ -5731,11 +5749,12 @@
   "id": "host-api.deprecation-policy",
   "category": "host-api",
   "capability": "Deprecation warning controls",
-  "construct": "new: coded API deprecation diagnostics",
-  "module": "tooling",
+  "construct": "Optional @anima-format/web/devtools: deprecation-policy; modules/devtools/SPEC.md",
+  "module": "devtools",
   "status": "planned",
-  "test": "browser/deprecation-policy",
-  "phase": "P3b"
+  "test": "packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-deprecation-policy/example.animl; tests/oracle/host-api-deprecation-policy/SKIP.md",
+  "phase": "P3c",
+  "reason": "Warning IDs are accepted, but policy is global once/always/off; suppression of selected IDs is not implemented (modules/devtools/web/index.ts)."
  },
  {
   "id": "host-api.device-pixel-ratio",
@@ -5991,10 +6010,10 @@
   "id": "host-api.fps-counter",
   "category": "host-api",
   "capability": "FPS monitoring",
-  "construct": "new: inspector performance counters",
-  "module": "tooling",
-  "status": "planned",
-  "test": "browser/fps-counter",
+  "construct": "Optional @anima-format/web/devtools: fps-counter; modules/devtools/SPEC.md",
+  "module": "devtools",
+  "status": "done",
+  "test": "packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-fps-counter/example.animl; tests/oracle/host-api-fps-counter/SKIP.md",
   "phase": "P3b"
  },
  {
@@ -6053,10 +6072,10 @@
   "id": "host-api.keyboard-focus",
   "category": "host-api",
   "capability": "Keyboard focus integration",
-  "construct": "new: focus tree and host focus policy",
+  "construct": "modules/a11y/SPEC.md; Keyboard focus integration",
   "module": "a11y",
-  "status": "planned",
-  "test": "browser/keyboard-focus",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
@@ -6155,10 +6174,10 @@
   "id": "host-api.low-level-focus",
   "category": "host-api",
   "capability": "Manual focus traversal",
-  "construct": "new: focus tree handle",
+  "construct": "modules/a11y/SPEC.md; Manual focus traversal",
   "module": "a11y",
-  "status": "planned",
-  "test": "browser/low-level-focus",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
@@ -6195,11 +6214,12 @@
   "id": "host-api.low-level-semantics",
   "category": "host-api",
   "capability": "Semantic diffs and actions",
-  "construct": "new: semantic tree adapter API",
+  "construct": "modules/a11y/SPEC.md; Semantic diffs and actions",
   "module": "a11y",
   "status": "planned",
-  "test": "browser/low-level-semantics",
-  "phase": "P3b"
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md",
+  "phase": "P3c",
+  "reason": "Owner replacement routing passes, but collection rebuilds entries/signatures on every read without dependency subscriptions (modules/a11y/REPORT.md)."
  },
  {
   "id": "host-api.manual-advance",
@@ -6300,10 +6320,10 @@
   "id": "host-api.nested-models",
   "category": "host-api",
   "capability": "Nested view model paths",
-  "construct": "new: typed property paths",
-  "module": "data",
-  "status": "planned",
-  "test": "browser/nested-models",
+  "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
+  "module": "data-host",
+  "status": "done",
+  "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; tests/oracle/data-host-nested-paths/skip.json",
   "phase": "P3b"
  },
  {
@@ -6351,11 +6371,12 @@
   "id": "host-api.performance-marks",
   "category": "host-api",
   "capability": "Performance marks",
-  "construct": "new: opt-in performance marks",
-  "module": "tooling",
+  "construct": "Optional @anima-format/web/devtools: performance-marks; modules/devtools/SPEC.md",
+  "module": "devtools",
   "status": "planned",
-  "test": "browser/performance-marks",
-  "phase": "P3b"
+  "test": "packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-performance-marks/example.animl; tests/oracle/host-api-performance-marks/SKIP.md",
+  "phase": "P3c",
+  "reason": "Optional frame marks are tested; initialization timing entries required by this row are absent (modules/devtools/web/index.ts)."
  },
  {
   "id": "host-api.play",
@@ -6492,10 +6513,10 @@
   "id": "host-api.semantic-overlay",
   "category": "host-api",
   "capability": "Accessible semantic tree",
-  "construct": "new: nested semantic nodes mapped to SVG/DOM",
+  "construct": "modules/a11y/SPEC.md; Accessible semantic tree",
   "module": "a11y",
-  "status": "planned",
-  "test": "browser/semantic-overlay",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
   "phase": "P3b"
  },
  {
@@ -6533,10 +6554,10 @@
   "id": "host-api.stop",
   "category": "host-api",
   "capability": "Stop selected playback",
-  "construct": "new: <anima-icon>.stop(name)",
+  "construct": "AnimaIcon.stop(): pause shared scheduler while retaining frame; play resumes",
   "module": "web",
-  "status": "planned",
-  "test": "browser/stop",
+  "status": "done",
+  "test": "packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-stop/example.animl; tests/oracle/host-api-stop/SKIP.md; modules/motion/core/api.ts; modules/motion/test/core/host-api-low-level-animation.test.ts",
   "phase": "P3b"
  },
  {
@@ -7338,30 +7359,30 @@
   "id": "input.semantic-decrease",
   "category": "input",
   "capability": "Semantic decrease",
-  "construct": "new: listener.semantic: decrease",
+  "construct": "modules/a11y/SPEC.md; Semantic decrease",
   "module": "a11y",
-  "status": "planned",
-  "test": "conformance/input-semantic-decrease",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-action-edges; spec/conformance/a11y-actions-range; modules/a11y/test/core/p3b10.test.ts; spec/conformance/a11y-actions-input-limits; spec/conformance/a11y-headless-keys",
   "phase": "P3b"
  },
  {
   "id": "input.semantic-increase",
   "category": "input",
   "capability": "Semantic increase",
-  "construct": "new: listener.semantic: increase",
+  "construct": "modules/a11y/SPEC.md; Semantic increase",
   "module": "a11y",
-  "status": "planned",
-  "test": "conformance/input-semantic-increase",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-action-edges; spec/conformance/a11y-actions-range; modules/a11y/test/core/p3b10.test.ts; spec/conformance/a11y-actions-input-limits; spec/conformance/a11y-headless-keys",
   "phase": "P3b"
  },
  {
   "id": "input.semantic-tap",
   "category": "input",
   "capability": "Semantic tap",
-  "construct": "new: listener.semantic: tap",
+  "construct": "modules/a11y/SPEC.md; Semantic tap",
   "module": "a11y",
-  "status": "planned",
-  "test": "conformance/input-semantic-tap",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-action-edges; spec/conformance/a11y-actions-range; modules/a11y/test/core/p3b10.test.ts; spec/conformance/a11y-actions-input-limits; spec/conformance/a11y-headless-keys",
   "phase": "P3b"
  },
  {
@@ -7508,50 +7529,50 @@
   "id": "input.write-key-pressed",
   "category": "input",
   "capability": "Store key-pressed",
-  "construct": "new: listener value source: key-pressed",
-  "module": "data",
-  "status": "planned",
-  "test": "conformance/input-write-key-pressed",
+  "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-key-pressed/example.animl",
+  "module": "input",
+  "status": "done",
+  "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-key-pressed; tests/oracle/input-write-key-pressed; modules/data-host/test/web/browser.test.ts",
   "phase": "P3b"
  },
  {
   "id": "input.write-pointer-delta-x",
   "category": "input",
   "capability": "Store pointer-delta-x",
-  "construct": "new: listener value source: pointer-delta-x",
-  "module": "data",
-  "status": "planned",
-  "test": "conformance/input-write-pointer-delta-x",
+  "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-delta-x/example.animl",
+  "module": "input",
+  "status": "done",
+  "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-delta-x; tests/oracle/input-write-pointer-delta-x; modules/data-host/test/web/browser.test.ts",
   "phase": "P3b"
  },
  {
   "id": "input.write-pointer-delta-y",
   "category": "input",
   "capability": "Store pointer-delta-y",
-  "construct": "new: listener value source: pointer-delta-y",
-  "module": "data",
-  "status": "planned",
-  "test": "conformance/input-write-pointer-delta-y",
+  "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-delta-y/example.animl",
+  "module": "input",
+  "status": "done",
+  "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-delta-y; tests/oracle/input-write-pointer-delta-y; modules/data-host/test/web/browser.test.ts",
   "phase": "P3b"
  },
  {
   "id": "input.write-pointer-x",
   "category": "input",
   "capability": "Store pointer-x",
-  "construct": "new: listener value source: pointer-x",
-  "module": "data",
-  "status": "planned",
-  "test": "conformance/input-write-pointer-x",
+  "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-x/example.animl",
+  "module": "input",
+  "status": "done",
+  "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-x; tests/oracle/input-write-pointer-x; modules/data-host/test/web/browser.test.ts",
   "phase": "P3b"
  },
  {
   "id": "input.write-pointer-y",
   "category": "input",
   "capability": "Store pointer-y",
-  "construct": "new: listener value source: pointer-y",
-  "module": "data",
-  "status": "planned",
-  "test": "conformance/input-write-pointer-y",
+  "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-y/example.animl",
+  "module": "input",
+  "status": "done",
+  "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-y; tests/oracle/input-write-pointer-y; modules/data-host/test/web/browser.test.ts",
   "phase": "P3b"
  },
  {
@@ -7580,10 +7601,10 @@
   "capability": "Animated layout reflow",
   "construct": "new: animated layout reflow with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "layout",
-  "status": "wont-do",
+  "status": "planned",
   "test": "oracle/layout-animated-reflow",
-  "phase": "—",
-  "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
+  "phase": "P7",
+  "reason": "Owner, 2026-11-07 (triage follow-up): brought back for P7 — in the growing-button case the background animates as the label grows instead of snapping; counted in P7's size estimate."
  },
  {
   "id": "layout.artboard-alignment",
@@ -10271,10 +10292,10 @@
   "id": "state-machine.condition-data",
   "category": "state-machine",
   "capability": "Live data comparisons",
-  "construct": "modules/machine/capabilities/state-machine-condition-data/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
-  "module": "data",
-  "status": "planned",
-  "test": "spec/conformance/state-machine-condition-data; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
+  "construct": "P3b-4 existing bind/data evaluator verified for two live paths; modules/data-host/SPEC.md; spec/conformance/state-machine-condition-data/case.animl",
+  "module": "data-host",
+  "status": "done",
+  "test": "modules/data-host/test/core/host.test.ts; spec/conformance/state-machine-condition-data; tests/oracle/data-host-condition-paths",
   "phase": "P3b"
  },
  {
@@ -11164,10 +11185,10 @@
   "capability": "Bidirectional text control",
   "construct": "new: bidirectional text control with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "text",
-  "status": "wont-do",
+  "status": "planned",
   "test": "oracle/text-script-direction",
-  "phase": "—",
-  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
+  "phase": "P6",
+  "reason": "Owner, 2026-11-07 (triage follow-up): P6 exposes direction control only if it is nearly free, since the browser already handles bidi; otherwise the P6 design records the measured cost and returns it to won't do."
  },
  {
   "id": "text.script-glyphs",
@@ -11186,10 +11207,10 @@
   "capability": "Text hit testing",
   "construct": "new: text hit testing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
   "module": "text",
-  "status": "wont-do",
+  "status": "planned",
   "test": "oracle/text-script-hit-testing",
-  "phase": "—",
-  "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
+  "phase": "P6",
+  "reason": "Owner, 2026-11-07 (triage follow-up): brought back for P6 through the host API and listeners (position → text index, caret/selection geometry), not a script VM."
  },
  {
   "id": "text.script-shaping",
@@ -11339,11 +11360,12 @@
   "id": "tooling.benchmark",
   "category": "tooling",
   "capability": "Headless benchmark",
-  "construct": "new: anima bench",
+  "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/bench.ts",
   "module": "tooling",
   "status": "planned",
-  "test": "cli/benchmark",
-  "phase": "P3b"
+  "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+  "phase": "P3c",
+  "reason": "Compile/step/draw timing statistics are tested; WASM memory-growth reporting required by the inventory is absent. The native timing skip does not complete that requirement (modules/tooling/oracle/README.md)."
  },
  {
   "id": "tooling.binary-rive-io",
@@ -11404,20 +11426,20 @@
   "id": "tooling.data-breakpoints",
   "category": "tooling",
   "capability": "Data write breakpoints",
-  "construct": "new: inspector break-on-change",
+  "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/data-breakpoints",
+  "status": "done",
+  "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-data-breakpoints/skip.json",
   "phase": "P3b"
  },
  {
   "id": "tooling.data-debugger",
   "category": "tooling",
   "capability": "Live data inspection and editing",
-  "construct": "new: playground data inspector",
+  "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/session.ts",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/data-debugger",
+  "status": "done",
+  "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
@@ -11663,11 +11685,12 @@
   "id": "tooling.environment-doctor",
   "category": "tooling",
   "capability": "Environment diagnostics",
-  "construct": "new: anima doctor",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "tooling",
   "status": "planned",
-  "test": "cli/environment-doctor",
-  "phase": "P3b"
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+  "phase": "P3c",
+  "reason": "Doctor checks Node, browsers, cache and module wiring; authentication, ports, project and device checks from the inventory are absent (packages/cli/src/doctor.ts)."
  },
  {
   "id": "tooling.export-gif",
@@ -11772,8 +11795,8 @@
   "capability": "Capture artboard choice",
   "construct": "new: anima render --scene",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-artboard",
+  "status": "done",
+  "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-headless-artboard",
   "phase": "P3b"
  },
  {
@@ -11782,58 +11805,58 @@
   "capability": "Offline audio rendering",
   "construct": "new: anima render --audio --rate --channels",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-audio",
+  "status": "done",
+  "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts",
   "phase": "P3b"
  },
  {
   "id": "tooling.headless-command-session",
   "category": "tooling",
   "capability": "Persistent headless command session",
-  "construct": "new: anima session --commands with reload and captures",
+  "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/session.ts",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-command-session",
+  "status": "done",
+  "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
   "id": "tooling.headless-data",
   "category": "tooling",
   "capability": "Set bound data",
-  "construct": "new: sample data path=value",
+  "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-data",
+  "status": "done",
+  "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
   "id": "tooling.headless-data-dump",
   "category": "tooling",
   "capability": "Bound data snapshots",
-  "construct": "new: anima sample --data",
+  "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-data-dump",
+  "status": "done",
+  "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
   "id": "tooling.headless-data-filter",
   "category": "tooling",
   "capability": "Filtered data snapshots",
-  "construct": "new: anima sample --filter",
+  "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-data-filter",
+  "status": "done",
+  "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
   "id": "tooling.headless-data-stream",
   "category": "tooling",
   "capability": "Data change recording",
-  "construct": "new: anima sample --data-every",
+  "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-data-stream",
+  "status": "done",
+  "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
@@ -11842,38 +11865,38 @@
   "capability": "Capture fit choice",
   "construct": "new: anima render --fit",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-fit",
+  "status": "done",
+  "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-headless-fit-contain; tests/oracle/tooling-headless-fit-cover; tests/oracle/tooling-headless-fit-fill; tests/oracle/tooling-headless-fit-none",
   "phase": "P3b"
  },
  {
   "id": "tooling.headless-gamepad",
   "category": "tooling",
   "capability": "Synthetic gamepad",
-  "construct": "new: sample gamepad commands",
+  "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-gamepad",
+  "status": "done",
+  "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
   "id": "tooling.headless-key",
   "category": "tooling",
   "capability": "Synthetic keyboard",
-  "construct": "new: sample key commands",
+  "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-key",
+  "status": "done",
+  "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
   "id": "tooling.headless-pointer",
   "category": "tooling",
   "capability": "Synthetic pointer gestures",
-  "construct": "new: sample compound pointer gestures including drag",
+  "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-pointer",
+  "status": "done",
+  "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
@@ -11882,8 +11905,8 @@
   "capability": "Capture downscaling",
   "construct": "new: anima render --scale",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-scale",
+  "status": "done",
+  "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-headless-scale",
   "phase": "P3b"
  },
  {
@@ -11900,20 +11923,20 @@
   "id": "tooling.headless-semantic-actions",
   "category": "tooling",
   "capability": "Accessible action replay",
-  "construct": "new: sample semantic-action command",
+  "construct": "modules/a11y/SPEC.md; Accessible action replay",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-semantic-actions",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-action-edges; spec/conformance/a11y-actions-range; modules/a11y/test/core/p3b10.test.ts; spec/conformance/a11y-actions-input-limits; spec/conformance/a11y-headless-keys",
   "phase": "P3b"
  },
  {
   "id": "tooling.headless-semantics",
   "category": "tooling",
   "capability": "Accessible tree capture",
-  "construct": "new: anima inspect --semantics",
+  "construct": "modules/a11y/SPEC.md; Accessible tree capture",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-semantics",
+  "status": "done",
+  "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md",
   "phase": "P3b"
  },
  {
@@ -11941,10 +11964,10 @@
   "id": "tooling.headless-touch",
   "category": "tooling",
   "capability": "Synthetic multitouch",
-  "construct": "new: sample touch commands with pointer IDs",
+  "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-touch",
+  "status": "done",
+  "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
@@ -11953,18 +11976,18 @@
   "capability": "Capture viewport override",
   "construct": "new: anima render --viewport WIDTHxHEIGHT",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-viewport",
+  "status": "done",
+  "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-headless-viewport",
   "phase": "P3b"
  },
  {
   "id": "tooling.headless-wheel",
   "category": "tooling",
   "capability": "Synthetic wheel and trackpad",
-  "construct": "new: sample wheel/trackpad commands",
+  "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/headless-wheel",
+  "status": "done",
+  "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
@@ -11995,8 +12018,8 @@
   "capability": "Wiring diagnostics summary",
   "construct": "new: anima inspect --summary with data wiring diagnostics",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/inspect-summary",
+  "status": "done",
+  "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts",
   "phase": "P3b"
  },
  {
@@ -12186,10 +12209,10 @@
   "id": "tooling.multi-file-project",
   "category": "tooling",
   "capability": "Multi-file source project",
-  "construct": "new: anima project with explicit imports",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/multi-file-project",
+  "status": "done",
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
@@ -12239,10 +12262,10 @@
   "id": "tooling.pixel-compare",
   "category": "tooling",
   "capability": "Image comparison",
-  "construct": "new: anima render --compare reference.png",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/pixel-compare",
+  "status": "done",
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
@@ -12251,8 +12274,8 @@
   "capability": "Pixel color probes",
   "construct": "new: anima render --probe",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/pixel-probe",
+  "status": "done",
+  "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-pixel-probe",
   "phase": "P3b"
  },
  {
@@ -12269,20 +12292,21 @@
   "id": "tooling.project-configuration",
   "category": "tooling",
   "capability": "Project configuration",
-  "construct": "new: anima project configuration",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "tooling",
   "status": "planned",
-  "test": "cli/project-configuration",
-  "phase": "P3b"
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+  "phase": "P3c",
+  "reason": "Manifest entry/sources/presets/out are supported; excluded sources and build constants required by the inventory are not accepted (packages/cli/src/project.ts)."
  },
  {
   "id": "tooling.publish-local",
   "category": "tooling",
   "capability": "Runtime export",
-  "construct": "new: anima build self-contained web distributable",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "markup",
-  "status": "planned",
-  "test": "cli/publish-local",
+  "status": "done",
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
@@ -12333,11 +12357,12 @@
   "id": "tooling.render-presets",
   "category": "tooling",
   "capability": "Render presets and queue",
-  "construct": "new: Render presets and queue",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "tooling",
   "status": "planned",
-  "test": "cli/render-presets",
-  "phase": "P3b"
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+  "phase": "P3c",
+  "reason": "Synchronous image preset substitution is tested; reusable video presets and background render queuing are not delivered (packages/cli/src/project.ts; docs/p3b/CLI.md)."
  },
  {
   "id": "tooling.revision-history",
@@ -12365,40 +12390,41 @@
   "id": "tooling.sample-projects",
   "category": "tooling",
   "capability": "Runnable samples",
-  "construct": "new: anima examples copy",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/sample-projects",
+  "status": "done",
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
   "id": "tooling.scaffold",
   "category": "tooling",
   "capability": "Project scaffolding",
-  "construct": "new: anima init with AniML, manifest and agent instructions",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "markup",
-  "status": "planned",
-  "test": "cli/scaffold",
+  "status": "done",
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
   "id": "tooling.schema-lookup",
   "category": "tooling",
   "capability": "Schema property lookup",
-  "construct": "new: anima schema with inherited/animatable/bindable filters",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "tooling",
   "status": "planned",
-  "test": "cli/schema-lookup",
-  "phase": "P3b"
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+  "phase": "P3c",
+  "reason": "Type/field lookup and animatable output are tested; inherited-property filtering for animatable, bindable and editor-only entries is not delivered (packages/cli/src/cli.ts; packages/cli/test/commands.test.ts)."
  },
  {
   "id": "tooling.schema-search",
   "category": "tooling",
   "capability": "Schema search and discovery",
-  "construct": "new: anima schema --search --json",
+  "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/schema-search",
+  "status": "done",
+  "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
   "phase": "P3b"
  },
  {
@@ -12482,21 +12508,22 @@
   "id": "tooling.seed",
   "category": "tooling",
   "capability": "Deterministic random seed",
-  "construct": "new: explicit script seed in sample scripts",
+  "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
   "module": "tooling",
-  "status": "planned",
-  "test": "cli/seed",
+  "status": "done",
+  "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-random-source/skip.json",
   "phase": "P3b"
  },
  {
   "id": "tooling.test-assertions",
   "category": "tooling",
   "capability": "Script assertions",
-  "construct": "new: tooling-only script test protocol",
+  "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
   "module": "tooling",
   "status": "planned",
-  "test": "cli/test-assertions",
-  "phase": "P3b"
+  "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+  "phase": "P3c",
+  "reason": "Inline expect comparisons and exit failures are tested; grouped cases, expected-error assertions and test-only export exclusion are not delivered (packages/core/src/script.ts; packages/cli/test/agent-tools.test.ts)."
  },
  {
   "id": "tooling.unpublish-web",
@@ -12597,11 +12624,12 @@
   "id": "transforms.computed-transform-values",
   "category": "transforms",
   "capability": "Read computed geometry",
-  "construct": "new: computed geometry read-only property paths",
-  "module": "data",
+  "construct": "P3b-4 implemented: modules/data-host/SPEC.md player.computed(id), frozen world matrix/geometric bounds/resolved opacity; modules/data-host/core/index.ts",
+  "module": "data-host",
   "status": "planned",
-  "test": "conformance/computed-transform-values",
-  "phase": "P3b"
+  "test": "modules/data-host/test/core/computed.test.ts; modules/data-host/test/web/browser.test.ts; tests/oracle/transforms-computed-transform-values/skip.json",
+  "phase": "P3c",
+  "reason": "API returns world matrix, geometric bounds and opacity; separate computed local/root-space coordinates as derived properties required by the inventory are not delivered (modules/data-host/core/index.ts; modules/data-host/SPEC.md)."
  },
  {
   "id": "transforms.draw-order",

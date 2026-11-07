@@ -129,7 +129,7 @@ export function expand(
         active.add(path);
         const exports = scopeFor(parsed.doc.root, path, true);
         active.delete(path);
-        const selected = attr(c, 'select').split(/\s+/).filter(Boolean);
+        const selected = (attr(c, 'export') || attr(c, 'select')).split(/\s+/).filter(Boolean);
         for (const name of selected)
           if (![...exports.keys()].some((k) => k.split(' ')[1] === name))
             error('unknown-name', c.at, VERBOSE ? `unknown library export ${name}` : '');
@@ -171,7 +171,9 @@ export function expand(
           }
         }
       }
-    const selected = imported ? attr(el, 'exports').split(/\s+/).filter(Boolean) : [];
+    const selected = imported
+      ? (attr(el, 'export') || attr(el, 'exports')).split(/\s+/).filter(Boolean)
+      : [];
     for (const name of selected)
       if (![...scope.keys()].some((k) => k.split(' ')[1] === name))
         error('unknown-name', el.at, VERBOSE ? `unknown library export ${name}` : '');

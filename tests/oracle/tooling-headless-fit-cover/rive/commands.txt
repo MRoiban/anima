@@ -1,0 +1,5 @@
+artboard Main
+viewport 240x240
+fit cover
+screenshot frames/0.png
+quit

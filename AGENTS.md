@@ -41,6 +41,11 @@ HEAD plus staged, unstaged and untracked files; override with `--base=<ref>`. Sh
 select the whole package; shared tooling/config changes conservatively select all packages and tools
 (including oracle).
 
+Formatting: `npm install` sets `core.hooksPath` to `.githooks`, whose pre-commit, pre-merge-commit and
+pre-push hooks run `prettier --check` on the files you change. Never commit with `--no-verify`; if a hook
+fails, run `npx prettier --write <files>` and commit again. After a sed or script edit, run
+`npx prettier --check <files>` before committing. (A formatting slip turned CI red on PR #11 and on p3b.)
+
 CI runs the complete `npm run check` on every PR and push, including Chromium and Firefox, oracle,
 size budgets, generated artifacts and the perf report. Merge only when CI is green. Before a phase
 PR, do one full local run only for what CI cannot run; do not repeatedly run the full suite while coding.

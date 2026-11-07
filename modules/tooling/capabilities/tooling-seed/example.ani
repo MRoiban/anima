@@ -1,0 +1,76 @@
+{
+  "anima": "0.1",
+  "name": "seed-probe",
+  "grid": 20,
+  "requires": ["machine", "data", "bind", "convert"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "l": {
+        "initial": "a",
+        "states": {
+          "a": {
+            "pose": {},
+            "on": [
+              {
+                "when": "@after(0)",
+                "to": "b",
+                "weight": 1
+              },
+              {
+                "when": "@after(0)",
+                "to": "c",
+                "weight": 1
+              }
+            ],
+            "kind": "random"
+          },
+          "b": {
+            "pose": {
+              "dot.x": 5
+            }
+          },
+          "c": {
+            "pose": {
+              "dot.x": 10
+            }
+          }
+        }
+      }
+    }
+  },
+  "bind": {
+    "dot.y": {
+      "value": "$value",
+      "convert": "rng"
+    }
+  },
+  "machineSeed": 1000,
+  "data": {
+    "models": {
+      "State": {
+        "properties": {
+          "value": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  },
+  "converters": {
+    "rng": {
+      "type": "formula",
+      "expression": "random()"
+    }
+  }
+}

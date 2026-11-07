@@ -1,0 +1,123 @@
+<anima version="0.1" name="settings" grid="40" viewBox="0 0 40 30" requires="data bind derive convert a11y a11yactions focus input">
+<model name="Settings">
+<number name="volume" default="40" min="0" max="100"/>
+<bool name="muted" default="false"/>
+<number name="selectedTab" default="0" min="0" max="1"/>
+<bool name="email" default="true"/>
+<bool name="push" default="false"/>
+<bool name="sms" default="false"/>
+<string name="generalTitle" default="General"/>
+<string name="soundTitle" default="Sound"/>
+<string name="notificationsLabel" default="Notifications"/>
+<string name="emailLabel" default="Email"/>
+<string name="pushLabel" default="Push"/>
+<string name="smsLabel" default="SMS"/>
+<string name="muteLabel" default="Mute"/>
+<bool name="generalSelected" value="$selectedTab == 0"/>
+<bool name="soundSelected" value="$selectedTab == 1"/>
+<bool name="allChecked" value="$email and $push and $sms"/>
+<bool name="anyChecked" value="$email or $push or $sms"/>
+<bool name="mixed" value="($email or $push or $sms) and not ($email and $push and $sms)"/>
+<string name="volumeSpoken" value="$volume" convert="volumeText"/>
+</model>
+<instance name="main" model="Settings" default="true" export="true"/>
+<converter name="volumeText" type="template" text="Volume {0} %"/>
+<trigger name="chooseGeneral"/>
+<trigger name="chooseSound"/>
+<trigger name="toggleParent"/>
+<rect id="background" x0="0" y0="0" width="40" height="30" fill="#f0eee6"/>
+<group id="tabs"><a11y role="tab-list" label="Settings"/><focus enabled="false" scope="true" edge="closed-loop"/>
+<rect id="generalTab" x0="2" y0="2" width="10" height="3" fill="#f0eee6" stroke="#141413" stroke-width="0.15">
+<a11y role="tab" label="$generalTitle" selected="$generalSelected" activate="chooseGeneral"/>
+<focus bounds="2 2 10 3"/>
+</rect>
+<rect id="soundTab" x0="14" y0="2" width="10" height="3" fill="#f0eee6" stroke="#141413" stroke-width="0.15">
+<a11y role="tab" label="$soundTitle" selected="$soundSelected" activate="chooseSound"/>
+<focus bounds="14 2 10 3"/>
+</rect>
+</group>
+<group id="generalPanel">
+<rect id="parent" x0="2" y0="8" width="2" height="2" fill="#f0eee6" stroke="#141413" stroke-width="0.15">
+<a11y role="checkbox" label="$notificationsLabel" checked="$allChecked" activate="toggleParent" checked-mixed="$mixed"/>
+<focus bounds="2 8 2 2"/>
+</rect>
+<rect id="emailBox" x0="4" y0="12" width="2" height="2" fill="#f0eee6" stroke="#141413" stroke-width="0.15">
+<a11y role="checkbox" label="$emailLabel" checked="$email" activate="$email"/>
+<focus bounds="4 12 2 2"/>
+</rect>
+<rect id="pushBox" x0="4" y0="16" width="2" height="2" fill="#f0eee6" stroke="#141413" stroke-width="0.15">
+<a11y role="checkbox" label="$pushLabel" checked="$push" activate="$push"/>
+<focus bounds="4 16 2 2"/>
+</rect>
+<rect id="smsBox" x0="4" y0="20" width="2" height="2" fill="#f0eee6" stroke="#141413" stroke-width="0.15">
+<a11y role="checkbox" label="$smsLabel" checked="$sms" activate="$sms"/>
+<focus bounds="4 20 2 2"/>
+</rect>
+<path id="mixedBar" d="M2.4 9L3.6 9" stroke="#141413" stroke-width="0.25"/>
+</group>
+<group id="soundPanel">
+<rect id="volumeTrack" x0="2" y0="10" width="30" height="1" fill="#141413">
+<a11y role="slider" label="$volumeSpoken" value="$volume" min="0" max="100" step="5"/>
+<focus bounds="2 10 30 1"/>
+</rect>
+<rect id="volumeFill" x0="2" y0="10" width="12" height="1" fill="#d97757"/>
+<rect id="muteSwitch" x0="2" y0="16" width="6" height="3" rx="1.5" fill="#141413">
+<a11y role="switch" label="$muteLabel" checked="$muted" activate="$muted"/>
+<focus bounds="2 16 6 3"/>
+</rect>
+<circle id="muteKnob" cx="3.5" cy="17.5" r="1.2" fill="#d97757"/>
+</group>
+<path id="label-generalTitle" d="M3.180 2.900h0.18v0.18h-0.18ZM3.360 2.900h0.18v0.18h-0.18ZM3.000 3.080h0.18v0.18h-0.18ZM3.000 3.260h0.18v0.18h-0.18ZM3.000 3.440h0.18v0.18h-0.18ZM3.360 3.440h0.18v0.18h-0.18ZM3.000 3.620h0.18v0.18h-0.18ZM3.360 3.620h0.18v0.18h-0.18ZM3.180 3.800h0.18v0.18h-0.18ZM3.360 3.800h0.18v0.18h-0.18ZM3.900 3.260h0.18v0.18h-0.18ZM3.720 3.440h0.18v0.18h-0.18ZM4.080 3.440h0.18v0.18h-0.18ZM3.720 3.620h0.18v0.18h-0.18ZM3.900 3.620h0.18v0.18h-0.18ZM3.900 3.800h0.18v0.18h-0.18ZM4.080 3.800h0.18v0.18h-0.18ZM4.440 3.260h0.18v0.18h-0.18ZM4.620 3.260h0.18v0.18h-0.18ZM4.440 3.440h0.18v0.18h-0.18ZM4.800 3.440h0.18v0.18h-0.18ZM4.440 3.620h0.18v0.18h-0.18ZM4.800 3.620h0.18v0.18h-0.18ZM4.440 3.800h0.18v0.18h-0.18ZM4.800 3.800h0.18v0.18h-0.18ZM5.340 3.260h0.18v0.18h-0.18ZM5.160 3.440h0.18v0.18h-0.18ZM5.520 3.440h0.18v0.18h-0.18ZM5.160 3.620h0.18v0.18h-0.18ZM5.340 3.620h0.18v0.18h-0.18ZM5.340 3.800h0.18v0.18h-0.18ZM5.520 3.800h0.18v0.18h-0.18ZM5.880 3.260h0.18v0.18h-0.18ZM6.240 3.260h0.18v0.18h-0.18ZM5.880 3.440h0.18v0.18h-0.18ZM6.060 3.440h0.18v0.18h-0.18ZM5.880 3.620h0.18v0.18h-0.18ZM5.880 3.800h0.18v0.18h-0.18ZM6.780 3.080h0.18v0.18h-0.18ZM6.960 3.260h0.18v0.18h-0.18ZM6.780 3.440h0.18v0.18h-0.18ZM6.960 3.440h0.18v0.18h-0.18ZM6.600 3.620h0.18v0.18h-0.18ZM6.960 3.620h0.18v0.18h-0.18ZM6.780 3.800h0.18v0.18h-0.18ZM6.960 3.800h0.18v0.18h-0.18ZM7.320 2.900h0.18v0.18h-0.18ZM7.320 3.080h0.18v0.18h-0.18ZM7.320 3.260h0.18v0.18h-0.18ZM7.320 3.440h0.18v0.18h-0.18ZM7.320 3.620h0.18v0.18h-0.18ZM7.500 3.800h0.18v0.18h-0.18ZM7.680 3.800h0.18v0.18h-0.18Z" fill="#141413"/>
+<path id="label-soundTitle" d="M15.180 2.900h0.18v0.18h-0.18ZM15.360 2.900h0.18v0.18h-0.18ZM15.000 3.080h0.18v0.18h-0.18ZM15.180 3.260h0.18v0.18h-0.18ZM15.360 3.440h0.18v0.18h-0.18ZM15.360 3.620h0.18v0.18h-0.18ZM15.000 3.800h0.18v0.18h-0.18ZM15.180 3.800h0.18v0.18h-0.18ZM15.900 3.260h0.18v0.18h-0.18ZM15.720 3.440h0.18v0.18h-0.18ZM16.080 3.440h0.18v0.18h-0.18ZM15.720 3.620h0.18v0.18h-0.18ZM16.080 3.620h0.18v0.18h-0.18ZM15.900 3.800h0.18v0.18h-0.18ZM16.440 3.260h0.18v0.18h-0.18ZM16.800 3.260h0.18v0.18h-0.18ZM16.440 3.440h0.18v0.18h-0.18ZM16.800 3.440h0.18v0.18h-0.18ZM16.440 3.620h0.18v0.18h-0.18ZM16.800 3.620h0.18v0.18h-0.18ZM16.620 3.800h0.18v0.18h-0.18ZM16.800 3.800h0.18v0.18h-0.18ZM17.160 3.260h0.18v0.18h-0.18ZM17.340 3.260h0.18v0.18h-0.18ZM17.160 3.440h0.18v0.18h-0.18ZM17.520 3.440h0.18v0.18h-0.18ZM17.160 3.620h0.18v0.18h-0.18ZM17.520 3.620h0.18v0.18h-0.18ZM17.160 3.800h0.18v0.18h-0.18ZM17.520 3.800h0.18v0.18h-0.18ZM18.240 2.900h0.18v0.18h-0.18ZM18.240 3.080h0.18v0.18h-0.18ZM18.060 3.260h0.18v0.18h-0.18ZM18.240 3.260h0.18v0.18h-0.18ZM17.880 3.440h0.18v0.18h-0.18ZM18.240 3.440h0.18v0.18h-0.18ZM17.880 3.620h0.18v0.18h-0.18ZM18.240 3.620h0.18v0.18h-0.18ZM18.060 3.800h0.18v0.18h-0.18ZM18.240 3.800h0.18v0.18h-0.18Z" fill="#141413"/>
+<path id="label-notificationsLabel" d="M5.000 8.600h0.18v0.18h-0.18ZM5.360 8.600h0.18v0.18h-0.18ZM5.000 8.780h0.18v0.18h-0.18ZM5.180 8.780h0.18v0.18h-0.18ZM5.360 8.780h0.18v0.18h-0.18ZM5.000 8.960h0.18v0.18h-0.18ZM5.180 8.960h0.18v0.18h-0.18ZM5.360 8.960h0.18v0.18h-0.18ZM5.000 9.140h0.18v0.18h-0.18ZM5.360 9.140h0.18v0.18h-0.18ZM5.000 9.320h0.18v0.18h-0.18ZM5.360 9.320h0.18v0.18h-0.18ZM5.000 9.500h0.18v0.18h-0.18ZM5.360 9.500h0.18v0.18h-0.18ZM5.900 8.960h0.18v0.18h-0.18ZM5.720 9.140h0.18v0.18h-0.18ZM6.080 9.140h0.18v0.18h-0.18ZM5.720 9.320h0.18v0.18h-0.18ZM6.080 9.320h0.18v0.18h-0.18ZM5.900 9.500h0.18v0.18h-0.18ZM6.620 8.600h0.18v0.18h-0.18ZM6.440 8.780h0.18v0.18h-0.18ZM6.620 8.780h0.18v0.18h-0.18ZM6.620 8.960h0.18v0.18h-0.18ZM6.620 9.140h0.18v0.18h-0.18ZM6.620 9.320h0.18v0.18h-0.18ZM6.800 9.500h0.18v0.18h-0.18ZM7.340 8.600h0.18v0.18h-0.18ZM7.340 8.960h0.18v0.18h-0.18ZM7.340 9.140h0.18v0.18h-0.18ZM7.340 9.320h0.18v0.18h-0.18ZM7.340 9.500h0.18v0.18h-0.18ZM8.060 8.600h0.18v0.18h-0.18ZM8.240 8.600h0.18v0.18h-0.18ZM7.880 8.780h0.18v0.18h-0.18ZM7.880 8.960h0.18v0.18h-0.18ZM8.060 8.960h0.18v0.18h-0.18ZM7.880 9.140h0.18v0.18h-0.18ZM7.880 9.320h0.18v0.18h-0.18ZM7.880 9.500h0.18v0.18h-0.18ZM8.780 8.600h0.18v0.18h-0.18ZM8.780 8.960h0.18v0.18h-0.18ZM8.780 9.140h0.18v0.18h-0.18ZM8.780 9.320h0.18v0.18h-0.18ZM8.780 9.500h0.18v0.18h-0.18ZM9.500 8.960h0.18v0.18h-0.18ZM9.680 8.960h0.18v0.18h-0.18ZM9.320 9.140h0.18v0.18h-0.18ZM9.320 9.320h0.18v0.18h-0.18ZM9.500 9.500h0.18v0.18h-0.18ZM9.680 9.500h0.18v0.18h-0.18ZM10.220 8.780h0.18v0.18h-0.18ZM10.400 8.960h0.18v0.18h-0.18ZM10.220 9.140h0.18v0.18h-0.18ZM10.400 9.140h0.18v0.18h-0.18ZM10.040 9.320h0.18v0.18h-0.18ZM10.400 9.320h0.18v0.18h-0.18ZM10.220 9.500h0.18v0.18h-0.18ZM10.400 9.500h0.18v0.18h-0.18ZM10.940 8.600h0.18v0.18h-0.18ZM10.760 8.780h0.18v0.18h-0.18ZM10.940 8.780h0.18v0.18h-0.18ZM10.940 8.960h0.18v0.18h-0.18ZM10.940 9.140h0.18v0.18h-0.18ZM10.940 9.320h0.18v0.18h-0.18ZM11.120 9.500h0.18v0.18h-0.18ZM11.660 8.600h0.18v0.18h-0.18ZM11.660 8.960h0.18v0.18h-0.18ZM11.660 9.140h0.18v0.18h-0.18ZM11.660 9.320h0.18v0.18h-0.18ZM11.660 9.500h0.18v0.18h-0.18ZM12.380 8.960h0.18v0.18h-0.18ZM12.200 9.140h0.18v0.18h-0.18ZM12.560 9.140h0.18v0.18h-0.18ZM12.200 9.320h0.18v0.18h-0.18ZM12.560 9.320h0.18v0.18h-0.18ZM12.380 9.500h0.18v0.18h-0.18ZM12.920 8.960h0.18v0.18h-0.18ZM13.100 8.960h0.18v0.18h-0.18ZM12.920 9.140h0.18v0.18h-0.18ZM13.280 9.140h0.18v0.18h-0.18ZM12.920 9.320h0.18v0.18h-0.18ZM13.280 9.320h0.18v0.18h-0.18ZM12.920 9.500h0.18v0.18h-0.18ZM13.280 9.500h0.18v0.18h-0.18ZM13.820 8.960h0.18v0.18h-0.18ZM14.000 8.960h0.18v0.18h-0.18ZM13.640 9.140h0.18v0.18h-0.18ZM14.000 9.320h0.18v0.18h-0.18ZM13.640 9.500h0.18v0.18h-0.18ZM13.820 9.500h0.18v0.18h-0.18Z" fill="#141413"/>
+<path id="label-emailLabel" d="M7.000 12.600h0.18v0.18h-0.18ZM7.180 12.600h0.18v0.18h-0.18ZM7.360 12.600h0.18v0.18h-0.18ZM7.000 12.780h0.18v0.18h-0.18ZM7.000 12.960h0.18v0.18h-0.18ZM7.180 12.960h0.18v0.18h-0.18ZM7.000 13.140h0.18v0.18h-0.18ZM7.000 13.320h0.18v0.18h-0.18ZM7.000 13.500h0.18v0.18h-0.18ZM7.180 13.500h0.18v0.18h-0.18ZM7.360 13.500h0.18v0.18h-0.18ZM7.720 12.960h0.18v0.18h-0.18ZM7.900 12.960h0.18v0.18h-0.18ZM8.260 12.960h0.18v0.18h-0.18ZM8.440 12.960h0.18v0.18h-0.18ZM7.720 13.140h0.18v0.18h-0.18ZM8.080 13.140h0.18v0.18h-0.18ZM8.440 13.140h0.18v0.18h-0.18ZM7.720 13.320h0.18v0.18h-0.18ZM8.080 13.320h0.18v0.18h-0.18ZM8.440 13.320h0.18v0.18h-0.18ZM7.720 13.500h0.18v0.18h-0.18ZM8.080 13.500h0.18v0.18h-0.18ZM8.440 13.500h0.18v0.18h-0.18ZM8.980 12.780h0.18v0.18h-0.18ZM9.160 12.960h0.18v0.18h-0.18ZM8.980 13.140h0.18v0.18h-0.18ZM9.160 13.140h0.18v0.18h-0.18ZM8.800 13.320h0.18v0.18h-0.18ZM9.160 13.320h0.18v0.18h-0.18ZM8.980 13.500h0.18v0.18h-0.18ZM9.160 13.500h0.18v0.18h-0.18ZM9.700 12.600h0.18v0.18h-0.18ZM9.700 12.960h0.18v0.18h-0.18ZM9.700 13.140h0.18v0.18h-0.18ZM9.700 13.320h0.18v0.18h-0.18ZM9.700 13.500h0.18v0.18h-0.18ZM10.240 12.600h0.18v0.18h-0.18ZM10.240 12.780h0.18v0.18h-0.18ZM10.240 12.960h0.18v0.18h-0.18ZM10.240 13.140h0.18v0.18h-0.18ZM10.240 13.320h0.18v0.18h-0.18ZM10.420 13.500h0.18v0.18h-0.18ZM10.600 13.500h0.18v0.18h-0.18Z" fill="#141413"/>
+<path id="label-pushLabel" d="M7.000 16.600h0.18v0.18h-0.18ZM7.180 16.600h0.18v0.18h-0.18ZM7.000 16.780h0.18v0.18h-0.18ZM7.360 16.780h0.18v0.18h-0.18ZM7.000 16.960h0.18v0.18h-0.18ZM7.180 16.960h0.18v0.18h-0.18ZM7.000 17.140h0.18v0.18h-0.18ZM7.000 17.320h0.18v0.18h-0.18ZM7.000 17.500h0.18v0.18h-0.18ZM7.720 16.960h0.18v0.18h-0.18ZM8.080 16.960h0.18v0.18h-0.18ZM7.720 17.140h0.18v0.18h-0.18ZM8.080 17.140h0.18v0.18h-0.18ZM7.720 17.320h0.18v0.18h-0.18ZM8.080 17.320h0.18v0.18h-0.18ZM7.900 17.500h0.18v0.18h-0.18ZM8.080 17.500h0.18v0.18h-0.18ZM8.620 16.960h0.18v0.18h-0.18ZM8.800 16.960h0.18v0.18h-0.18ZM8.440 17.140h0.18v0.18h-0.18ZM8.800 17.320h0.18v0.18h-0.18ZM8.440 17.500h0.18v0.18h-0.18ZM8.620 17.500h0.18v0.18h-0.18ZM9.160 16.600h0.18v0.18h-0.18ZM9.160 16.780h0.18v0.18h-0.18ZM9.160 16.960h0.18v0.18h-0.18ZM9.340 16.960h0.18v0.18h-0.18ZM9.160 17.140h0.18v0.18h-0.18ZM9.520 17.140h0.18v0.18h-0.18ZM9.160 17.320h0.18v0.18h-0.18ZM9.520 17.320h0.18v0.18h-0.18ZM9.160 17.500h0.18v0.18h-0.18ZM9.520 17.500h0.18v0.18h-0.18Z" fill="#141413"/>
+<path id="label-smsLabel" d="M7.180 20.600h0.18v0.18h-0.18ZM7.360 20.600h0.18v0.18h-0.18ZM7.000 20.780h0.18v0.18h-0.18ZM7.180 20.960h0.18v0.18h-0.18ZM7.360 21.140h0.18v0.18h-0.18ZM7.360 21.320h0.18v0.18h-0.18ZM7.000 21.500h0.18v0.18h-0.18ZM7.180 21.500h0.18v0.18h-0.18ZM7.720 20.600h0.18v0.18h-0.18ZM8.440 20.600h0.18v0.18h-0.18ZM7.720 20.780h0.18v0.18h-0.18ZM7.900 20.780h0.18v0.18h-0.18ZM8.260 20.780h0.18v0.18h-0.18ZM8.440 20.780h0.18v0.18h-0.18ZM7.720 20.960h0.18v0.18h-0.18ZM8.080 20.960h0.18v0.18h-0.18ZM8.440 20.960h0.18v0.18h-0.18ZM7.720 21.140h0.18v0.18h-0.18ZM8.440 21.140h0.18v0.18h-0.18ZM7.720 21.320h0.18v0.18h-0.18ZM8.440 21.320h0.18v0.18h-0.18ZM7.720 21.500h0.18v0.18h-0.18ZM8.440 21.500h0.18v0.18h-0.18ZM8.980 20.600h0.18v0.18h-0.18ZM9.160 20.600h0.18v0.18h-0.18ZM8.800 20.780h0.18v0.18h-0.18ZM8.980 20.960h0.18v0.18h-0.18ZM9.160 21.140h0.18v0.18h-0.18ZM9.160 21.320h0.18v0.18h-0.18ZM8.800 21.500h0.18v0.18h-0.18ZM8.980 21.500h0.18v0.18h-0.18Z" fill="#141413"/>
+<path id="label-muteLabel" d="M10.000 16.800h0.18v0.18h-0.18ZM10.720 16.800h0.18v0.18h-0.18ZM10.000 16.980h0.18v0.18h-0.18ZM10.180 16.980h0.18v0.18h-0.18ZM10.540 16.980h0.18v0.18h-0.18ZM10.720 16.980h0.18v0.18h-0.18ZM10.000 17.160h0.18v0.18h-0.18ZM10.360 17.160h0.18v0.18h-0.18ZM10.720 17.160h0.18v0.18h-0.18ZM10.000 17.340h0.18v0.18h-0.18ZM10.720 17.340h0.18v0.18h-0.18ZM10.000 17.520h0.18v0.18h-0.18ZM10.720 17.520h0.18v0.18h-0.18ZM10.000 17.700h0.18v0.18h-0.18ZM10.720 17.700h0.18v0.18h-0.18ZM11.080 17.160h0.18v0.18h-0.18ZM11.440 17.160h0.18v0.18h-0.18ZM11.080 17.340h0.18v0.18h-0.18ZM11.440 17.340h0.18v0.18h-0.18ZM11.080 17.520h0.18v0.18h-0.18ZM11.440 17.520h0.18v0.18h-0.18ZM11.260 17.700h0.18v0.18h-0.18ZM11.440 17.700h0.18v0.18h-0.18ZM11.980 16.800h0.18v0.18h-0.18ZM11.800 16.980h0.18v0.18h-0.18ZM11.980 16.980h0.18v0.18h-0.18ZM11.980 17.160h0.18v0.18h-0.18ZM11.980 17.340h0.18v0.18h-0.18ZM11.980 17.520h0.18v0.18h-0.18ZM12.160 17.700h0.18v0.18h-0.18ZM12.700 17.160h0.18v0.18h-0.18ZM12.520 17.340h0.18v0.18h-0.18ZM12.880 17.340h0.18v0.18h-0.18ZM12.520 17.520h0.18v0.18h-0.18ZM12.700 17.520h0.18v0.18h-0.18ZM12.700 17.700h0.18v0.18h-0.18ZM12.880 17.700h0.18v0.18h-0.18Z" fill="#141413"/>
+<layer name="actions" initial="ready"><state name="ready">
+<on when="chooseGeneral" to="ready" actions='{"set":{"$selectedTab":0}}'/>
+<on when="chooseSound" to="ready" actions='{"set":{"$selectedTab":1}}'/>
+<on when="toggleParent" to="ready" actions='{"set":{"$email":"not ($email and $push and $sms)","$push":"not ($email and $push and $sms)","$sms":"not ($email and $push and $sms)"}}'/>
+</state></layer>
+<listener on="click" target="generalTab" fire="chooseGeneral"/>
+<listener on="focus" target="generalTab" fire="chooseGeneral"/>
+<listener on="click" target="soundTab" fire="chooseSound"/>
+<listener on="focus" target="soundTab" fire="chooseSound"/>
+<listener on="click" target="parent" fire="toggleParent"/>
+<listener on="key-down" target="parent" key="Enter" fire="toggleParent"/>
+<listener on="key-down" target="parent" key=" " fire="toggleParent"/>
+<listener on="click" target="emailBox" toggle="$email"/>
+<listener on="key-down" target="emailBox" key="Enter" toggle="$email"/>
+<listener on="key-down" target="emailBox" key=" " toggle="$email"/>
+<listener on="click" target="pushBox" toggle="$push"/>
+<listener on="key-down" target="pushBox" key="Enter" toggle="$push"/>
+<listener on="key-down" target="pushBox" key=" " toggle="$push"/>
+<listener on="click" target="smsBox" toggle="$sms"/>
+<listener on="key-down" target="smsBox" key="Enter" toggle="$sms"/>
+<listener on="key-down" target="smsBox" key=" " toggle="$sms"/>
+<listener on="click" target="muteSwitch" toggle="$muted"/>
+<listener on="key-down" target="muteSwitch" key="Enter" toggle="$muted"/>
+<listener on="key-down" target="muteSwitch" key=" " toggle="$muted"/>
+<listener on="key-down|key-repeat" target="volumeTrack" key="ArrowRight" set="$volume=min(100,$volume+5)"/>
+<listener on="key-down|key-repeat" target="volumeTrack" key="ArrowUp" set="$volume=min(100,$volume+5)"/>
+<listener on="key-down|key-repeat" target="volumeTrack" key="ArrowLeft" set="$volume=max(0,$volume+-5)"/>
+<listener on="key-down|key-repeat" target="volumeTrack" key="ArrowDown" set="$volume=max(0,$volume+-5)"/>
+<bind target="generalTab.fill" value="mix(#f0eee6, #d97757, $generalSelected)"/>
+<bind target="soundTab.fill" value="mix(#f0eee6, #d97757, $soundSelected)"/>
+<bind target="parent.fill" value="mix(#f0eee6, #141413, $allChecked)"/>
+<bind target="emailBox.fill" value="mix(#f0eee6, #141413, $email)"/>
+<bind target="pushBox.fill" value="mix(#f0eee6, #141413, $push)"/>
+<bind target="smsBox.fill" value="mix(#f0eee6, #141413, $sms)"/>
+<bind target="generalPanel.visible" value="$generalSelected"/>
+<bind target="soundPanel.visible" value="$soundSelected"/>
+<bind target="mixedBar.visible" value="$mixed"/>
+<bind target="volumeFill.width" value="$volume / 100 * 30"/>
+<bind target="muteKnob.x" value="3 * $muted"/>
+<bind target="label-generalTitle.visible" value="$generalTitle == &quot;General&quot;"/>
+<bind target="label-soundTitle.visible" value="$soundTitle == &quot;Sound&quot;"/>
+<bind target="label-notificationsLabel.visible" value="$notificationsLabel == &quot;Notifications&quot; and $generalSelected"/>
+<bind target="label-emailLabel.visible" value="$emailLabel == &quot;Email&quot; and $generalSelected"/>
+<bind target="label-pushLabel.visible" value="$pushLabel == &quot;Push&quot; and $generalSelected"/>
+<bind target="label-smsLabel.visible" value="$smsLabel == &quot;SMS&quot; and $generalSelected"/>
+<bind target="label-muteLabel.visible" value="$muteLabel == &quot;Mute&quot; and $soundSelected"/>
+</anima>

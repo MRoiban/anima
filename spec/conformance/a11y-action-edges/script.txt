@@ -1,0 +1,7 @@
+advance 0
+snapshot --semantics $on $items.length
+semantic edit tap
+snapshot --semantics $on $items.length
+semantic flag tap
+semantic size increase
+snapshot --semantics $on $items.length

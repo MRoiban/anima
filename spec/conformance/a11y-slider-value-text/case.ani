@@ -1,0 +1,53 @@
+{
+  "anima": "0.1",
+  "name": "slider-value-text",
+  "grid": 20,
+  "requires": ["a11y", "focus", "data", "bind", "derive", "convert"],
+  "nodes": [
+    {
+      "id": "volume",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "slider",
+        "label": "Volume",
+        "value": "$volume",
+        "valueText": "$volumeText",
+        "step": 5,
+        "bounds": [1, 2, 18, 4]
+      }
+    }
+  ],
+  "data": {
+    "models": {
+      "Settings": {
+        "properties": {
+          "volume": {
+            "type": "number",
+            "default": 40,
+            "min": 0,
+            "max": 100
+          },
+          "volumeText": {
+            "type": "string",
+            "value": "$volume",
+            "convert": "spoken"
+          }
+        }
+      }
+    },
+    "instances": {
+      "settings": {
+        "model": "Settings",
+        "default": true,
+        "values": {}
+      }
+    }
+  },
+  "converters": {
+    "spoken": {
+      "type": "template",
+      "text": "Volume {0} %"
+    }
+  }
+}

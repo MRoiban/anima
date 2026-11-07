@@ -1,0 +1,94 @@
+
+> test:scope
+> node tools/test-scope.ts a11y a11y-actions focus conformance --no-browser
+
+Scopes: a11y, a11y-actions, focus, conformance
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-bounds.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/edges.test.ts
+  unit: modules/a11y/test/core/oracle-actions.test.ts
+  unit: modules/a11y/test/core/oracle.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: modules/focus/test/core/focus.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-06195421
+
+ ❯ |scope-conformance| packages/core/test/conformance.test.ts (490 tests | 2 failed | 7 todo) 1046ms
+   ❯ conformance (490)
+     × input-focus-machine-integration 11ms
+     × input-write-focused 2ms
+ ❯ |scope-unit| packages/markup/test/corpus.test.ts (1041 tests | 1 failed) 1648ms
+   ❯ authored AniML corpus (1041)
+     × includes the bell example and all conformance sources 46ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-conformance| packages/core/test/conformance.test.ts > conformance > input-focus-machine-integration
+AssertionError: snapshot 3: expected '.states.l: "a" ≠ "b"' to be null
+
+- Expected:
+null
+
++ Received:
+".states.l: \"a\" ≠ \"b\""
+
+ ❯ packages/core/test/conformance.test.ts:57:75
+     55|         .map((l) => JSON.parse(l));
+     56|       expect(got.length).toBe(want.length);
+     57|       want.forEach((w, i) => expect(diff(got[i], w), `snapshot ${i + 1…
+       |                                                                           ^
+     58|     });
+     59|   }
+ ❯ packages/core/test/conformance.test.ts:57:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |scope-conformance| packages/core/test/conformance.test.ts > conformance > input-write-focused
+AssertionError: snapshot 1: expected '.values.$value: false ≠ true' to be null
+
+- Expected:
+null
+
++ Received:
+".values.$value: false ≠ true"
+
+ ❯ packages/core/test/conformance.test.ts:57:75
+     55|         .map((l) => JSON.parse(l));
+     56|       expect(got.length).toBe(want.length);
+     57|       want.forEach((w, i) => expect(diff(got[i], w), `snapshot ${i + 1…
+       |                                                                           ^
+     58|     });
+     59|   }
+ ❯ packages/core/test/conformance.test.ts:57:12
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > includes the bell example and all conformance sources
+AssertionError: expected [ …(482) ] to have a length of 481 but got 482
+
+- Expected
++ Received
+
+- 481
++ 482
+
+ ❯ packages/markup/test/corpus.test.ts:32:19
+     30|     // P3b-7: simple semantic bounds, semantic ordering and action edg…
+     31|     // [P3b-9] 31 independent semantic role/state/property/trait/actio…
+     32|     expect(cases).toHaveLength(481);
+       |                   ^
+     33|     for (const file of cases) expect(files).toContain(file.replace(/\.…
+     34|     const drawCases = globSync('spec/draw-conformance/*/case.ani', { c…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  2 failed | 9 passed | 1 skipped (12)
+      Tests  3 failed | 1571 passed | 8 todo (1582)
+   Start at  11:25:35
+   Duration  4.73s (tests 49%, import 41%, transform 9%, worker 1%)

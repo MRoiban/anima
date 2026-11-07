@@ -4,6 +4,7 @@ import type { ObjShape, Shape } from '../../../packages/core/src/registry.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
 import type { ListenerM } from '../../../packages/core/src/load.ts';
 import { apply, invert, mul, IDENTITY, type Mat } from '../../../packages/core/src/geom.ts';
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import { after } from '../manifest.ts';
 
 export type Direction = 'next' | 'previous' | 'left' | 'right' | 'up' | 'down';
@@ -82,7 +83,7 @@ const point = (p: Player, i: number): [number, number] => {
   const [x, y, w, h] = cfg(p, i)?.bounds ?? [0, 0, 0, 0];
   return apply(p.world(i), x + w / 2, y + h / 2);
 };
-function install(P: typeof Player) {
+function install(P: typeof Player, modules: ReadonlyMap<string, Module>) {
   if (installed.has(P.prototype)) return;
   installed.add(P.prototype);
   Object.defineProperty(P.prototype, 'focused', {
@@ -94,7 +95,7 @@ function install(P: typeof Player) {
   P.prototype.machineFocus = function (nodeId) {
     return this.focused === nodeId;
   };
-  P.prototype.focusItems = function (includeDisabled = false) {
+  P.prototype.focusItems = function (this: Player, includeDisabled = false) {
     const items: FocusItem[] = this.model.nodes
       .flatMap((n, i) =>
         (includeDisabled ? !!cfg(this, i) : eligible(this, i))
@@ -102,20 +103,41 @@ function install(P: typeof Player) {
           : [],
       )
       .sort((a, b) => (a.config.order ?? 0) - (b.config.order ?? 0) || a.node - b.node);
-    for (const [name, child] of (this.nested as unknown as { players?: Map<string, Player> })
-      ?.players ?? []) {
-      const node = this.model.ids.get(name)!;
-      if (!includeDisabled && !this.visible(node)) continue;
+    const append = (child: Player, name: string, node: number, matrix = this.world(node)) => {
+      if (!includeDisabled && !this.visible(node)) return;
       for (const item of child.focusItems(includeDisabled))
         items.push({
           ...item,
           id: name + '.' + item.id,
           node,
-          matrix: mul(this.world(node), item.matrix ?? IDENTITY),
+          matrix: mul(matrix, item.matrix ?? IDENTITY),
           owner: item.owner ?? child,
           local: item.local ?? item.id,
-          point: apply(this.world(node), ...(item.point ?? point(child, item.node))),
+          point: apply(matrix, ...(item.point ?? point(child, item.node))),
         });
+    };
+    for (const [name, child] of (this.nested as unknown as { players?: Map<string, Player> })
+      ?.players ?? [])
+      append(child, name, this.model.ids.get(name)!);
+    const lists = modules.get('lists') as
+      typeof import('../../lists/core/index.ts').lists | undefined;
+    for (const run of lists?.listState(this)?.runs ?? []) {
+      const node = run.spec.node,
+        raw = this.model.nodes[node]!.raw;
+      for (const item of run.items)
+        append(
+          item.player,
+          raw.id + '.' + item.index,
+          node,
+          mul(this.world(node), [
+            1,
+            0,
+            0,
+            1,
+            (raw.dx ?? 0) * item.index,
+            (raw.dy ?? 0) * item.index,
+          ]),
+        );
     }
     return items;
   };
@@ -149,7 +171,7 @@ function install(P: typeof Player) {
     };
     const dir =
       dirs[key] ??
-      (key === 'Tab' && this.model.nodes.some((n) => n.raw.focus?.tabStops)
+      (key === 'Tab' && this.focusItems(true).some((n) => n.config.tabStops)
         ? shift
           ? 'previous'
           : 'next'
@@ -161,7 +183,7 @@ function install(P: typeof Player) {
   };
   P.prototype.focusTraverse = function (direction = 'next') {
     if (!['next', 'previous', 'left', 'right', 'up', 'down'].includes(direction))
-      throw Error('anima: invalid focus direction');
+      throw Error(V ? 'anima: invalid focus direction' : 'anima: focus');
     const all = this.focusItems(),
       current = all.find((n) => n.id === this.focused);
     const reverse = ['previous', 'left', 'up'].includes(direction);
@@ -290,10 +312,12 @@ export const focus: Module = {
     },
   ],
   init(_modules, shared) {
-    install(shared.Player);
+    install(shared.Player, _modules);
     registerEventKinds(_modules, 'focus', ['focus', 'blur']);
-    const listeners = (shared.DOC as ObjShape).p.listeners!;
-    if (listeners.k !== 'arr' || listeners.of.k !== 'obj') throw Error('listener registry');
+    // The shared document registry always supplies object listeners.
+    const listeners = (shared.DOC as ObjShape).p.listeners as Extract<Shape, { k: 'arr' }> & {
+      of: ObjShape;
+    };
     const shape = listeners.of;
     const on = shape.p.on!;
     return {
@@ -333,8 +357,8 @@ export const focus: Module = {
         d.err(
           'undeclared-feature',
           `/listeners/${i}/on`,
-          'focus listener requires focus',
-          'add "focus" to requires',
+          V && 'focus listener requires focus',
+          V && 'add "focus" to requires',
         );
     const paths = new Map<object, string>();
     const visit = (nodes: typeof raw.nodes, base: string) =>
@@ -353,9 +377,10 @@ export const focus: Module = {
           (e) => e.code === 'unused-input' && e.pointer === '/inputs/' + f.enabledInput,
         );
         if (warning >= 0) d.list.splice(warning, 1);
-        if (!input) d.err('unknown-input', p, 'unknown focus enabled input', 'name a bool input');
+        if (!input)
+          d.err('unknown-input', p, V && 'unknown focus enabled input', V && 'name a bool input');
         else if (input.type !== 'bool')
-          d.err('input-type', p, 'focus enabled input must be bool', 'name a bool input');
+          d.err('input-type', p, V && 'focus enabled input must be bool', V && 'name a bool input');
       }
     });
   },

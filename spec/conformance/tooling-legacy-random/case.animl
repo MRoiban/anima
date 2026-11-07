@@ -1,0 +1,21 @@
+<anima version="0.1" name="legacy-seed-probe" grid="20" requires="machine data bind convert" machineSeed="1">
+  <model name="State">
+    <number name="value"/>
+  </model>
+  <converter name="rng" type="formula" expression="random()"/>
+  <circle id="dot" cx="10" cy="10" r="1" fill="#000"/>
+  <bind target="dot.y" value="$value" convert="rng"/>
+  <layer name="l" initial="a">
+    <state name="a" kind="random">
+      <pose/>
+      <on when="@after(0)" to="b" weight="1"/>
+      <on when="@after(0)" to="c" weight="1"/>
+    </state>
+    <state name="b">
+      <pose dot.x="5"/>
+    </state>
+    <state name="c">
+      <pose dot.x="10"/>
+    </state>
+  </layer>
+</anima>

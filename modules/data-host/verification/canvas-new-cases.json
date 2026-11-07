@@ -1,0 +1,106 @@
+[
+  {
+    "engine": "Firefox",
+    "name": "spec/conformance/data-host-image-binding/case.ani#0",
+    "max": 0,
+    "over": 0,
+    "percent": 0,
+    "tolerance": {
+      "max": 2,
+      "percent": 0,
+      "feature": "flat/gradient interiors"
+    },
+    "diagnostics": []
+  },
+  {
+    "engine": "Firefox",
+    "name": "spec/conformance/data-host-image-binding/case.ani#1",
+    "max": 0,
+    "over": 0,
+    "percent": 0,
+    "tolerance": {
+      "max": 2,
+      "percent": 0,
+      "feature": "flat/gradient interiors"
+    },
+    "diagnostics": []
+  },
+  {
+    "engine": "Firefox",
+    "name": "spec/conformance/data-host-asset-literal/case.ani#0",
+    "max": 0,
+    "over": 0,
+    "percent": 0,
+    "tolerance": {
+      "max": 128,
+      "percent": 0.5,
+      "feature": "curved/dashed geometry"
+    },
+    "diagnostics": []
+  },
+  {
+    "engine": "Firefox",
+    "name": "spec/conformance/data-host-asset-literal/case.ani#1",
+    "max": 0,
+    "over": 0,
+    "percent": 0,
+    "tolerance": {
+      "max": 128,
+      "percent": 0.5,
+      "feature": "curved/dashed geometry"
+    },
+    "diagnostics": []
+  },
+  {
+    "engine": "Chromium",
+    "name": "spec/conformance/data-host-image-binding/case.ani#0",
+    "max": 0,
+    "over": 0,
+    "percent": 0,
+    "tolerance": {
+      "max": 2,
+      "percent": 0,
+      "feature": "flat/gradient interiors"
+    },
+    "diagnostics": []
+  },
+  {
+    "engine": "Chromium",
+    "name": "spec/conformance/data-host-image-binding/case.ani#1",
+    "max": 0,
+    "over": 0,
+    "percent": 0,
+    "tolerance": {
+      "max": 2,
+      "percent": 0,
+      "feature": "flat/gradient interiors"
+    },
+    "diagnostics": []
+  },
+  {
+    "engine": "Chromium",
+    "name": "spec/conformance/data-host-asset-literal/case.ani#0",
+    "max": 0,
+    "over": 0,
+    "percent": 0,
+    "tolerance": {
+      "max": 128,
+      "percent": 0.5,
+      "feature": "curved/dashed geometry"
+    },
+    "diagnostics": []
+  },
+  {
+    "engine": "Chromium",
+    "name": "spec/conformance/data-host-asset-literal/case.ani#1",
+    "max": 0,
+    "over": 0,
+    "percent": 0,
+    "tolerance": {
+      "max": 128,
+      "percent": 0.5,
+      "feature": "curved/dashed geometry"
+    },
+    "diagnostics": []
+  }
+]

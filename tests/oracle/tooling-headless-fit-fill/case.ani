@@ -1,0 +1,40 @@
+{
+  "anima": "0.1",
+  "name": "tooling-headless-fit-fill",
+  "grid": 240,
+  "nodes": [
+    {
+      "id": "backdrop",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 240,
+      "h": 240,
+      "fill": {
+        "color": "#1d1d1d"
+      }
+    },
+    {
+      "id": "red",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 240,
+      "h": 240,
+      "fill": {
+        "color": "#ff0000"
+      }
+    },
+    {
+      "id": "blue",
+      "type": "rect",
+      "x0": 60,
+      "y0": 60,
+      "w": 120,
+      "h": 120,
+      "fill": {
+        "color": "#0000ff"
+      }
+    }
+  ]
+}

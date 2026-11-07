@@ -1,0 +1,53 @@
+{
+  "anima": "0.1",
+  "name": "focus-policy",
+  "grid": 20,
+  "requires": ["a11y", "focus"],
+  "inputs": {
+    "hide": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "parent",
+      "type": "group",
+      "children": [
+        {
+          "id": "child",
+          "type": "group",
+          "children": [],
+          "a11y": {
+            "role": "button",
+            "hidden": "hide",
+            "bounds": [1, 2, 3, 4]
+          }
+        }
+      ],
+      "focus": {},
+      "a11y": {
+        "role": "group",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "other",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "button",
+        "disabled": true,
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "last",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "button",
+        "bounds": [1, 2, 3, 4]
+      }
+    }
+  ]
+}

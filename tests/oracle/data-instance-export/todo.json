@@ -1,4 +1,0 @@
-{
-  "status": "todo",
-  "reason": "P5b-5: export metadata and dataState(player).exports() discovery implemented. Native schema confirms exports flag; native headless commands expose bound data but not an all-authored-instance export discovery API. A host-side counterpart observation is pending; no native runtime equivalence claim."
-}

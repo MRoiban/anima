@@ -1,0 +1,6 @@
+advance 0
+snapshot --semantics
+semantic child focus
+snapshot --semantics
+focus clear
+snapshot --semantics

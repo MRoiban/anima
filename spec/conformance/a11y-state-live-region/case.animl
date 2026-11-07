@@ -1,0 +1,12 @@
+<anima version="0.1" name="state-live-region" grid="20" requires="a11y data">
+  <model name="M">
+    <string name="title" default="Before"/>
+  </model>
+  <instance name="main" model="M" default="true"/>
+  <group id="polite">
+    <a11y role="text" label="$title" live="polite" bounds="1 2 3 4"/>
+  </group>
+  <group id="assertive">
+    <a11y role="text" label="$title" live="assertive" bounds="1 2 3 4"/>
+  </group>
+</anima>

@@ -23,6 +23,11 @@ const propertyNames = [
 ];
 export const dataMarkup = {
   form(el: Element, base: Form): Form {
+    if (
+      el.name === 'listener' &&
+      el.attrs.some((a) => a.name === 'write' && a.value.startsWith('$'))
+    )
+      return { ...base, attrs: { ...base.attrs, write: 'string' } };
     if (el.name === 'anima' || (el.name === 'component' && el.attrs.some((a) => a.name === 'grid')))
       return {
         ...base,

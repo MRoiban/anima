@@ -1,0 +1,6 @@
+{
+  "status": "skip",
+  "reason": "Native machine selection exposes no matching uint32 seed/PRNG control. Its seed flag controls script random, not native transition selection. Exact independent LCG and shared-source conformance is tested instead.",
+  "tests": ["packages/cli/test/tooling-leftovers.test.ts"],
+  "captureEvidence": ["modules/tooling/oracle/rive/session.txt"]
+}

@@ -1,0 +1,16 @@
+<anima version="0.1" name="focus-policy" grid="20" requires="a11y focus">
+  <bool name="hide"/>
+  <group id="parent">
+    <focus/>
+    <a11y role="group" bounds="1 2 3 4"/>
+    <group id="child">
+      <a11y role="button" hidden="hide" bounds="1 2 3 4"/>
+    </group>
+  </group>
+  <group id="other">
+    <a11y role="button" disabled="true" bounds="1 2 3 4"/>
+  </group>
+  <group id="last">
+    <a11y role="button" bounds="1 2 3 4"/>
+  </group>
+</anima>

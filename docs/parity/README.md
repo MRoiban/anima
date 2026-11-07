@@ -45,18 +45,18 @@ say so and a `NOTICE` file will carry the attribution.
 
 ## What 0.1 already covers
 
-624 of 1 238 capabilities (50 %) are done (111 in 0.1, AniML in P1, 15 in P3, 46 in P4a, 61 in P5: components, bindings, assets, images, n-slice, feathering, 3 in Pc: the canvas backend, 22 in P4b: motion, 33 in P4d: events, 95 in P4c: interaction, 160 in P4e: data, 77 in P5b: lists, assets, host editing), concentrated where icons live: transforms (15/17), animation
-(33/40), state machines (59/61), drawing and paint (110/125), input (80/93), host API (74/125),
-and data binding (157/169). `MATRIX.md` has the per-category table.
+720 of 1 238 capabilities (58 %) are done (111 in 0.1, AniML in P1, 15 in P3, 46 in P4a, 61 in P5: components, bindings, assets, images, n-slice, feathering, 3 in Pc: the canvas backend, 22 in P4b: motion, 33 in P4d: events, 95 in P4c: interaction, 160 in P4e: data, 77 in P5b: lists, assets, host editing, 96 in P3b: accessibility and agent tools), concentrated where icons live: transforms (15/17), animation
+(33/40), state machines (60/61), drawing and paint (110/125), input (88/93), host API (82/125),
+and data binding (160/169). `MATRIX.md` has the per-category table.
 
 **Scope (owner triage, 2026-11-07).** Anima is a smaller, agent-native Rive for animated web UI in
 general, and it runs only in web pages: where the browser already does something well (ARIA and
 focus, text shaping and fonts, text editing, page layout), Anima binds to it instead of
 reimplementing it. Progress is reported against the in-scope rows — every row except maybe-later and
-won't-do: **624 of 883 in-scope capabilities are done (71 %)**, next to 624 of 1 238 (50 %) for the
+won't-do: **720 of 886 in-scope capabilities are done (81 %)**, next to 720 of 1 238 (58 %) for the
 full matrix. Out of scope: scripting (P9), visual editor tooling, layout beyond a minimal subset and
 Rive's WASM build variants (won't do, with reasons); GPU backends and effects (P10) are maybe later.
-Remaining in-scope work: P3b accessibility and headless agent tools, P6 text, P7 minimal layout and
+Remaining in-scope work: P3c size round and P3b carry-overs (before P6), P6 text, P7 minimal layout and
 host fit, P8 rigging. Every changed row and its reason: [`triage-2026-11-07.md`](triage-2026-11-07.md).
 
 ## Module split and size budgets
@@ -94,7 +94,7 @@ ceiling is the owner's call. `tools/size.ts` checks every module's budget and bo
 
 Weighted toward what the owner uses: the web runtime, AniML, Glyphy and the playground first. Since
 2026-11-06 the goal is explicit — a smaller, agent-native Rive — and the order is P4a → P5 → Pc →
-P4b–e → P3b → P6 → P7 → P8 → P9 → P10, each phase gated by the agent-native benchmark
+P4b–e → P3b → P3c → P6 → P7 → P8 → P9 → P10, each phase gated by the agent-native benchmark
 (`docs/benchmarks/agent-native.md`).
 
 | Phase | Scope | Why here |
@@ -104,6 +104,7 @@ P4b–e → P3b → P6 → P7 → P8 → P9 → P10, each phase gated by the age
 | P2 | M5: Glyphy export draft, two more glyphs in AniML, the head-to-head test | Proves the authoring loop on real glyphs before the model grows. |
 | P3 | Playground/inspector (live AniML, state graph, timeline scrubber, input controls) and the web host API (fit/alignment, playback control, events, data access) | Moved ahead of the suggested order: it is the owner's main tool for seeing and tweaking, and it makes every later phase easier to check. |
 | P3b | The rest of P3: the `a11y` module (roles, states and focus per node), authoring/drawing tools, headless CLI extras (touch, wheel, gamepad, data streams), timeline editing | Split off when the playground and host API shipped; scheduled after P4 unless a later phase needs a piece earlier. |
+| P3c | Size round (≥ 5 % off the runtime sum) and P3b carry-overs | Before P6; remaining scope and evidence in [`P3b-closure.md`](P3b-closure.md). |
 | P4a | `paint`, on the module system and the renderer-neutral draw layer | The most-used Rive features after the basics; the module pilot. |
 | P5 | Components and assets | Moved up (owner): reuse is the main friction agents hit; per-instance inputs now, data-bound instances after P4e. |
 | P5b | The rest of P5: asset pipelines (encodings, imports), library detach/update, lists, script instances | Split off when P5 shipped; scheduled with the phases that need them. |

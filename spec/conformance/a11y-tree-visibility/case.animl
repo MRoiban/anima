@@ -1,0 +1,23 @@
+<anima version="0.1" name="order" grid="20" requires="a11y data components lists">
+  <bool name="hidden"/>
+  <model name="M">
+    <number name="n" default="2"/>
+  </model>
+  <instance name="main" model="M" default="true"/>
+  <component name="leaf" grid="20">
+    <group id="item">
+      <a11y role="text" label="Item" bounds="0 0 1 1"/>
+    </group>
+  </component>
+  <component name="wrapper" grid="20">
+    <instance id="inner" component="leaf"/>
+  </component>
+  <instance id="first" component="wrapper"/>
+  <group id="middle">
+    <a11y role="text" label="Middle" bounds="0 0 1 1"/>
+  </group>
+  <repeat id="rows" count="$n" component="leaf"/>
+  <group id="last">
+    <a11y role="text" label="Last" hidden="hidden" bounds="0 0 1 1"/>
+  </group>
+</anima>

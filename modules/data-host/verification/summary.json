@@ -1,0 +1,55 @@
+{
+  "featureScope": {
+    "passed": 2815,
+    "failed": 0,
+    "filtered": 353
+  },
+  "finalLifecycleScope": {
+    "passed": 1032,
+    "failed": 0,
+    "filtered": 449
+  },
+  "cliInputFollowup": {
+    "passed": 2702,
+    "failed": 0,
+    "filtered": 390
+  },
+  "changedFull": {
+    "passed": 7475,
+    "timeouts": 1,
+    "todo": 40
+  },
+  "changedUnit": {
+    "passed": 4757,
+    "timeouts": 3,
+    "todo": 40
+  },
+  "isolatedCombined": {
+    "passed": 4,
+    "timeouts": 1
+  },
+  "finalScaffolderPrimary": {
+    "passed": 1,
+    "failed": 0,
+    "seconds": 45.14
+  },
+  "unchangedBaselineScaffolderPrimary": {
+    "passed": 1,
+    "failed": 0,
+    "seconds": 44.19
+  },
+  "allPreviouslyFailingTimingCasesPassedInIsolation": true,
+  "testLimitsChanged": false,
+  "strictOracle": {
+    "cases": 258,
+    "observations": 467,
+    "newExactObservations": 18,
+    "exit": 0
+  },
+  "newCanvasComparisons": {
+    "count": 8,
+    "maxPixelDifference": 0
+  },
+  "inventoryRowsImplementationReady": 18,
+  "inventoryPromotionDeferred": "done rows require a wholly finished phase"
+}

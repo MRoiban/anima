@@ -1,0 +1,29 @@
+
+> test:scope
+> node tools/test-scope.ts a11y a11y-actions a11y-dom focus conformance oracle
+
+Scopes: a11y, a11y-actions, a11y-dom, focus, conformance, oracle
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-bounds.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/closure.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/edges.test.ts
+  unit: modules/a11y/test/core/oracle-actions.test.ts
+  unit: modules/a11y/test/core/oracle.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: modules/focus/test/core/focus.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/overlay.test.ts
+  browser: modules/focus/test/web/focus.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-06195421
+
+
+ Test Files  15 passed | 1 skipped (16)
+      Tests  2038 passed | 31 todo (2069)
+   Start at  11:49:56
+   Duration  51.02s (tests 87%, import 11%, transform 1%)

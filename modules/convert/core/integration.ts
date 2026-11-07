@@ -7,7 +7,6 @@ import type { ConverterValue } from './types.ts';
 
 const bindingStates = {};
 const busy = new WeakMap<Player, boolean>();
-const random = new WeakMap<Player, Map<unknown, unknown>>();
 const runs = new WeakMap<object, ReturnType<typeof createConverterRunner>>();
 
 // These maps belong to convert; no converter work is installed on converter-free models.
@@ -19,15 +18,13 @@ export function integration(
   const dispatch =
     (name: string) => (value: unknown, options: Record<string, unknown>, ctx: Context) => {
       const p = ctx.player;
-      let seed = random.get(p);
-      if (!seed) random.set(p, (seed = new Map()));
       let states = ctx.state.get(bindingStates) as Map<string, Map<unknown, unknown>> | undefined;
       if (!states) ctx.state.set(bindingStates, (states = new Map()));
       const key = ctx.key ?? name;
       let state = states.get(key);
       if (!state) states.set(key, (state = new Map()));
       // A random stream is per player, while caches/interpolation use the binding-local state.
-      return runs.get(p.model)!(name, value as ConverterValue, {
+      return runs.get(p.model.doc)!(name, value as ConverterValue, {
         player: p,
         time: p.time * 1000,
         direction: ctx.direction,
@@ -35,7 +32,7 @@ export function integration(
         state,
         get: ctx.get,
         active: () => busy.set(p, true),
-        randomState: seed,
+        random: () => p.randomSource.next(),
         options,
       });
     };
@@ -44,7 +41,7 @@ export function integration(
     if (!model.doc.requires?.includes('convert')) return;
     const defs = (model.doc.converters ?? {}) as Definitions;
     try {
-      runs.set(model, create(defs));
+      runs.set(model.doc, create(defs));
     } catch {
       return;
     } // load reports precise diagnostics

@@ -18,10 +18,10 @@
       "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: ancestor-focus; bounds in grid units",
+      "construct": "modules/a11y/SPEC.md; Ancestor focus",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-ancestor-focus",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
       "phase": "P3b"
     }
   },
@@ -45,10 +45,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isChecked: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Check state: checked",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-check-checked",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-checked; spec/conformance/a11y-state-checked-mixed",
       "phase": "P3b"
     }
   },
@@ -72,10 +72,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isChecked: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Check state: mixed",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-check-mixed",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-checked; spec/conformance/a11y-state-checked-mixed",
       "phase": "P3b"
     }
   },
@@ -99,10 +99,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isChecked: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Check state: unchecked",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-check-unchecked",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-checked; spec/conformance/a11y-state-checked-mixed",
       "phase": "P3b"
     }
   },
@@ -125,10 +125,10 @@
       "rive-runtime/include/rive/animation/focus_action_target.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: focus-action-target; bounds in grid units",
+      "construct": "modules/a11y/SPEC.md; Focus a target",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-focus-action-target",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
       "phase": "P3b"
     }
   },
@@ -151,11 +151,12 @@
       "rive-runtime/include/rive/animation/focus_action_traversal.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: focus-action-traversal; bounds in grid units",
+      "construct": "modules/a11y/SPEC.md; Traverse focus",
       "module": "a11y",
       "status": "planned",
-      "test": "oracle/a11y-focus-action-traversal",
-      "phase": "P3b"
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
+      "phase": "P3c",
+      "reason": "Sequential/repeat traversal passes, but native right traversal selects the sibling while Anima selects its focusable ancestor; synthesized focus points use transform origins rather than painted bounds (modules/a11y/oracle/focus-policy/README.md)."
     }
   },
   {
@@ -177,11 +178,12 @@
       "rive-runtime/include/rive/animation/transition_focus_condition.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: focus-condition; bounds in grid units",
+      "construct": "modules/a11y/SPEC.md; Focus transition condition",
       "module": "a11y",
       "status": "planned",
-      "test": "oracle/a11y-focus-condition",
-      "phase": "P3b"
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
+      "phase": "P3c",
+      "reason": "Anima ancestor/repeat conditions pass, but the native ancestor-condition wiring is unverified: both accepted comparator probes leave marker center 90 instead of 70 (modules/a11y/oracle/focus-policy/README.md)."
     }
   },
   {
@@ -203,10 +205,10 @@
       "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: focus-retarget; bounds in grid units",
+      "construct": "modules/a11y/SPEC.md; Hidden focus retargeting",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-focus-retarget",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
       "phase": "P3b"
     }
   },
@@ -229,10 +231,10 @@
       "https://rive.app/docs/editor/accessibility/semantics"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: focus-sync; bounds in grid units",
+      "construct": "modules/a11y/SPEC.md; Scene and DOM focus synchronization",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-focus-sync",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -252,10 +254,10 @@
       "rive docs semantics"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: headless-inspection; bounds in grid units",
+      "construct": "modules/a11y/SPEC.md; Headless semantic inspection",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-headless-inspection",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md",
       "phase": "P3b"
     }
   },
@@ -331,7 +333,8 @@
       "module": "a11y",
       "status": "planned",
       "test": "oracle/a11y-inferred-text",
-      "phase": "P3b"
+      "phase": "P6",
+      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
     }
   },
   {
@@ -355,10 +358,10 @@
       "https://rive.app/docs/editor/accessibility/semantics"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: overlay-policy; bounds in grid units",
+      "construct": "modules/a11y/SPEC.md; Host semantics policy",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-overlay-policy",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -383,10 +386,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.headingLevel: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Heading hierarchy",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-property-heading-level",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-properties-data; spec/conformance/a11y-property-heading-level",
       "phase": "P3b"
     }
   },
@@ -411,10 +414,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.hint: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Accessible hint",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-property-hint",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-properties-data; spec/conformance/a11y-property-heading-level",
       "phase": "P3b"
     }
   },
@@ -439,10 +442,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.label: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Dynamic accessible label",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-property-label",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-properties-data; spec/conformance/a11y-property-heading-level",
       "phase": "P3b"
     }
   },
@@ -467,10 +470,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.value: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Accessible value",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-property-value",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-properties-data; spec/conformance/a11y-property-heading-level; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -495,10 +498,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.role: alert-dialog",
+      "construct": "modules/a11y/SPEC.md; Semantic role: alertDialog",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-role-alert-dialog",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-alert-dialog; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -551,10 +554,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.role: checkbox",
+      "construct": "modules/a11y/SPEC.md; Semantic role: checkbox",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-role-checkbox",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-checkbox; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -579,10 +582,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.role: dialog",
+      "construct": "modules/a11y/SPEC.md; Semantic role: dialog",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-role-dialog",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-dialog; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -607,10 +610,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.role: group",
+      "construct": "modules/a11y/SPEC.md; Semantic role: group",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-role-group",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-group; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -663,10 +666,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.role: link",
+      "construct": "modules/a11y/SPEC.md; Semantic role: link",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-role-link",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-link; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -691,10 +694,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.role: list",
+      "construct": "modules/a11y/SPEC.md; Semantic role: list",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-role-list",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-list; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -719,10 +722,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.role: list-item",
+      "construct": "modules/a11y/SPEC.md; Semantic role: listItem",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-role-list-item",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-list-item; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -747,10 +750,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.role: none",
+      "construct": "modules/a11y/SPEC.md; Semantic role: none",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-role-none",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-none; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -775,10 +778,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.role: radio-button",
+      "construct": "modules/a11y/SPEC.md; Semantic role: radioButton",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-role-radio-button",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-radio; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -803,10 +806,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.role: radio-group",
+      "construct": "modules/a11y/SPEC.md; Semantic role: radioGroup",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-role-radio-group",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-radio-group; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -831,10 +834,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.role: slider",
+      "construct": "modules/a11y/SPEC.md; Semantic role: slider",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-role-slider",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-slider; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -887,10 +890,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.role: tab",
+      "construct": "modules/a11y/SPEC.md; Semantic role: tab",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-role-tab",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-tab; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -915,10 +918,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.role: tab-list",
+      "construct": "modules/a11y/SPEC.md; Semantic role: tabList",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-role-tab-list",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-tab-list; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -943,10 +946,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.role: text",
+      "construct": "modules/a11y/SPEC.md; Semantic role: text",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-role-text",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-text; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -975,7 +978,8 @@
       "module": "a11y",
       "status": "planned",
       "test": "oracle/a11y-role-text-field",
-      "phase": "P3b"
+      "phase": "P6",
+      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
     }
   },
   {
@@ -994,10 +998,10 @@
       "https://rive.app/docs/editor/accessibility/semantics"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: roving-focus; bounds in grid units",
+      "construct": "modules/a11y/SPEC.md; Tab and radio keyboard handling",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-roving-focus",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -1021,10 +1025,10 @@
       "https://rive.app/docs/editor/accessibility/semantics"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: semantic-diffs; bounds in grid units",
+      "construct": "modules/a11y/SPEC.md; Host semantic tree updates",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-semantic-diffs",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md",
       "phase": "P3b"
     }
   },
@@ -1047,11 +1051,12 @@
       "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: spatial-focus; bounds in grid units",
+      "construct": "modules/a11y/SPEC.md; Directional focus navigation",
       "module": "a11y",
       "status": "planned",
-      "test": "oracle/a11y-spatial-focus",
-      "phase": "P3b"
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
+      "phase": "P3c",
+      "reason": "Native directional candidate selection differs (sibling versus focusable ancestor), even with matching semantic bounds; synthesized focus points lack painted bounds (modules/a11y/oracle/focus-policy/README.md)."
     }
   },
   {
@@ -1074,10 +1079,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isDisabled: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic state: Disabled",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-state-disabled",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-disabled",
       "phase": "P3b"
     }
   },
@@ -1101,10 +1106,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isExpanded: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic state: Expanded",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-state-expanded",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-expanded",
       "phase": "P3b"
     }
   },
@@ -1128,10 +1133,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isFocused: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic state: Focused",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-state-focused",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
       "phase": "P3b"
     }
   },
@@ -1155,10 +1160,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isHidden: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic state: Hidden",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-state-hidden",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-hidden",
       "phase": "P3b"
     }
   },
@@ -1182,10 +1187,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isLiveRegion: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic state: LiveRegion",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-state-live-region",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-live-region; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -1209,10 +1214,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isModal: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic state: Modal",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-state-modal",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-modal",
       "phase": "P3b"
     }
   },
@@ -1240,7 +1245,8 @@
       "module": "a11y",
       "status": "planned",
       "test": "oracle/a11y-state-multiline",
-      "phase": "P3b"
+      "phase": "P6",
+      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
     }
   },
   {
@@ -1267,7 +1273,8 @@
       "module": "a11y",
       "status": "planned",
       "test": "oracle/a11y-state-obscured",
-      "phase": "P3b"
+      "phase": "P6",
+      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
     }
   },
   {
@@ -1290,10 +1297,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isReadOnly: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic state: ReadOnly",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-state-read-only",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-readonly",
       "phase": "P3b"
     }
   },
@@ -1317,10 +1324,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isRequired: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic state: Required",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-state-required",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-required",
       "phase": "P3b"
     }
   },
@@ -1344,10 +1351,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isSelected: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic state: Selected",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-state-selected",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-selected",
       "phase": "P3b"
     }
   },
@@ -1371,10 +1378,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isToggled: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic state: Toggled",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-state-toggled",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-pressed",
       "phase": "P3b"
     }
   },
@@ -1397,10 +1404,10 @@
       "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: tab-focus; bounds in grid units",
+      "construct": "modules/a11y/SPEC.md; Sequential focus navigation",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-tab-focus",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
       "phase": "P3b"
     }
   },
@@ -1424,7 +1431,8 @@
       "module": "a11y",
       "status": "planned",
       "test": "oracle/a11y-text-proxy",
-      "phase": "P3b"
+      "phase": "P6",
+      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
     }
   },
   {
@@ -1447,10 +1455,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isCheckable: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic trait: Checkable",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-trait-checkable",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
       "phase": "P3b"
     }
   },
@@ -1474,10 +1482,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isEnablable: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic trait: Enablable",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-trait-enablable",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
       "phase": "P3b"
     }
   },
@@ -1501,10 +1509,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isExpandable: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic trait: Expandable",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-trait-expandable",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
       "phase": "P3b"
     }
   },
@@ -1528,10 +1536,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isFocusable: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic trait: Focusable",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-trait-focusable",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
       "phase": "P3b"
     }
   },
@@ -1555,10 +1563,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isRequirable: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic trait: Requirable",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-trait-requirable",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
       "phase": "P3b"
     }
   },
@@ -1582,10 +1590,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isSelectable: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic trait: Selectable",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-trait-selectable",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
       "phase": "P3b"
     }
   },
@@ -1609,10 +1617,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y.isToggleable: typed literal or {from: \"model.property\"}",
+      "construct": "modules/a11y/SPEC.md; Semantic trait: Toggleable",
       "module": "a11y",
-      "status": "planned",
-      "test": "oracle/a11y-trait-toggleable",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
       "phase": "P3b"
     }
   },
@@ -1635,11 +1643,12 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: tree-bounds; bounds in grid units",
+      "construct": "modules/a11y/SPEC.md; Semantic bounds",
       "module": "a11y",
       "status": "planned",
-      "test": "oracle/a11y-tree-bounds",
-      "phase": "P3b"
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-tree-bounds",
+      "phase": "P3c",
+      "reason": "Exact painted path/stroke extents are absent in overlay and CLI; Chromium and Firefox stroke bbox measurements differ (modules/a11y/REPORT.md)."
     }
   },
   {
@@ -1665,11 +1674,12 @@
       "rive-runtime/include/rive/solo.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: tree-visibility; bounds in grid units",
+      "construct": "modules/a11y/SPEC.md; Semantic subtree visibility",
       "module": "a11y",
       "status": "planned",
-      "test": "oracle/a11y-tree-visibility",
-      "phase": "P3b"
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-tree-visibility; spec/conformance/a11y-state-hidden",
+      "phase": "P3c",
+      "reason": "Hidden/modal and collapse probes pass; the inactive Solo/native visibility matrix remains incomplete (modules/a11y/REPORT.md)."
     }
   },
   {
@@ -1690,18 +1700,19 @@
       "https://rive.app/docs/editor/accessibility/semantics"
     ],
     "anima": {
-      "construct": "new: nodes[].a11y / player semantics API: web-overlay; bounds in grid units",
+      "construct": "modules/a11y/SPEC.md; Accessible web overlay",
       "module": "a11y",
       "status": "planned",
-      "test": "oracle/a11y-web-overlay",
-      "phase": "P3b"
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
+      "phase": "P3c",
+      "reason": "SVG overlay is browser-tested; positioning over canvas output, explicitly required by this row, remains unimplemented and unverified (modules/a11y-dom/REPORT.md)."
     }
   },
   {
     "id": "animation.cubic-ease",
     "category": "animation",
     "capability": "Cubic timing easing",
-    "what": "Shape segment timing with a normalized cubic B\u00e9zier curve.",
+    "what": "Shape segment timing with a normalized cubic Bézier curve.",
     "rive": {
       "types": [
         "CubicEaseInterpolator"
@@ -1731,7 +1742,7 @@
     "id": "animation.cubic-value",
     "category": "animation",
     "capability": "Cubic value curves",
-    "what": "Place B\u00e9zier control values in property units so a segment can move even between equal endpoint values.",
+    "what": "Place Bézier control values in property units so a segment can move even between equal endpoint values.",
     "rive": {
       "types": [
         "CubicValueInterpolator"
@@ -1896,7 +1907,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "conformance/frame-grid",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -1904,7 +1915,7 @@
     "id": "animation.graph-editor",
     "category": "animation",
     "capability": "Value graph editing",
-    "what": "Edit key values and their B\u00e9zier handles through a graph authoring interface.",
+    "what": "Edit key values and their Bézier handles through a graph authoring interface.",
     "rive": {
       "types": [
         "LinearAnimation"
@@ -1925,7 +1936,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/graph-editor",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -2741,7 +2752,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/script-interpolator",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -2769,7 +2780,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/script-seek-normalized",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -4070,7 +4081,7 @@
       "status": "maybe-later",
       "test": "oracle/assets-psd-layers",
       "phase": "later",
-      "reason": "Binary PSD parsing for raster layers; little value for icon authoring (P5b design \u00a70)."
+      "reason": "Binary PSD parsing for raster layers; little value for icon authoring (P5b design §0)."
     }
   },
   {
@@ -4112,10 +4123,10 @@
       "https://rive.app/docs/runtimes/loading-assets"
     ],
     "anima": {
-      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
-      "module": "assets",
-      "status": "planned",
-      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-replacement-scope-image; native oracle pending (modules/assets/REPORT.md)",
+      "construct": "P3b-4 implemented: modules/host-edit/SPEC.md scoped replacement IDs; modules/assets/SPEC.md image asset bindings; spec/conformance/data-host-image-binding/case.animl",
+      "module": "data-host",
+      "status": "done",
+      "test": "modules/data-host/test/core/assets.test.ts; modules/data-host/test/web/browser.test.ts; spec/conformance/data-host-image-binding; tests/oracle/assets-replacement-scope-image/skip.json",
       "phase": "P3b"
     }
   },
@@ -4142,7 +4153,7 @@
       "module": "assets",
       "status": "wont-do",
       "test": "oracle/assets-script-blob",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -4340,11 +4351,12 @@
       "rive docs animascript/api/file"
     ],
     "anima": {
-      "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
-      "module": "components",
+      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
+      "module": "data-host",
       "status": "planned",
-      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
-      "phase": "P3b"
+      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
+      "phase": "P3c",
+      "reason": "Only local component-definition name handles are tested; assignment from another loaded file remains absent. The native skip covers local assignment only (tests/oracle/data-host-artboards/skip.json)."
     }
   },
   {
@@ -4435,7 +4447,7 @@
       "module": "components",
       "status": "wont-do",
       "test": "oracle/components-layout-size",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -4542,8 +4554,9 @@
       "construct": "modules/markup-libraries/SPEC.md",
       "module": "markup-libraries",
       "status": "planned",
-      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-export; tests/oracle/components-library-export",
-      "phase": "P3b"
+      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-export; tests/oracle/components-library-export; tests/oracle/components-library-export/todo.json; modules/devtools/REPORT.md",
+      "phase": "P3c",
+      "reason": "Export/select aliases are tested, but the cited native probe remains TODO with no completed comparison, evidenced skip or numbered finding (tests/oracle/components-library-export/todo.json)."
     }
   },
   {
@@ -4572,8 +4585,9 @@
       "construct": "modules/markup-libraries/SPEC.md",
       "module": "markup-libraries",
       "status": "planned",
-      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-models; tests/oracle/components-library-models",
-      "phase": "P3b"
+      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-models; tests/oracle/components-library-models; tests/oracle/components-library-models/todo.json; modules/devtools/REPORT.md",
+      "phase": "P3c",
+      "reason": "Tests establish shared model definitions, not shared authored instances and enums; the native probe is still TODO with no evidenced skip (modules/markup-libraries/test/markup/extras.test.ts; tests/oracle/components-library-models/todo.json)."
     }
   },
   {
@@ -4595,8 +4609,9 @@
       "construct": "modules/markup-libraries/SPEC.md",
       "module": "markup-libraries",
       "status": "planned",
-      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-update; tests/oracle/components-library-update",
-      "phase": "P3b"
+      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-update; tests/oracle/components-library-update; tests/oracle/components-library-update/todo.json; modules/devtools/REPORT.md",
+      "phase": "P3c",
+      "reason": "Local vendored refresh is tested, but the native probe remains TODO with no completed comparison, evidenced skip or numbered finding (tests/oracle/components-library-update/todo.json)."
     }
   },
   {
@@ -4650,7 +4665,7 @@
       "module": "components",
       "status": "wont-do",
       "test": "oracle/components-list-layout-inheritance",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -5030,7 +5045,7 @@
       "module": "components",
       "status": "wont-do",
       "test": "oracle/components-script-instance",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -5400,7 +5415,7 @@
       "module": "data",
       "status": "wont-do",
       "test": "TODO: modules/data/test/core/data-bind-script-inputs.test.ts; spec/conformance/data-bind-script-inputs; tests/oracle/data-bind-script-inputs",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -7024,7 +7039,7 @@
       "module": "data",
       "status": "wont-do",
       "test": "TODO: modules/data/test/core/data-editor-preview-instance.test.ts; spec/conformance/data-editor-preview-instance; tests/oracle/data-editor-preview-instance",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -7825,11 +7840,12 @@
       "rive-wasm/js/src/rive.ts:6273@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
-      "module": "data",
+      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
+      "module": "data-host",
       "status": "planned",
-      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
-      "phase": "P3b"
+      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
+      "phase": "P3c",
+      "reason": "Component-name assignment is tested, but assignment of an artboard together with associated model data is not established; the skip covers local-definition assignment (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json)."
     }
   },
   {
@@ -7876,10 +7892,10 @@
       "rive-wasm/js/src/rive.ts:6184@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: player.data API for color host access",
-      "module": "data",
-      "status": "planned",
-      "test": "oracle/data-host-color",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
+      "module": "data-host",
+      "status": "done",
+      "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/oracle/rive/frames/changed.json",
       "phase": "P3b"
     }
   },
@@ -8243,10 +8259,10 @@
       "rive-wasm/js/src/rive.ts:5397@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: player.data API for typed nested paths",
-      "module": "data",
-      "status": "planned",
-      "test": "oracle/data-host-nested-paths",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
+      "module": "data-host",
+      "status": "done",
+      "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; tests/oracle/data-host-nested-paths/skip.json",
       "phase": "P3b"
     }
   },
@@ -8427,10 +8443,10 @@
       "rive-runtime/include/rive/viewmodel/viewmodel_instance.hpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "modules/data/capabilities/data-instance-export/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
-      "module": "data",
-      "status": "planned",
-      "test": "spec/conformance/data-instance-export; modules/data/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
+      "module": "data-host",
+      "status": "done",
+      "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; spec/conformance/data-instance-export; tests/oracle/data-instance-export/skip.json",
       "phase": "P3b"
     }
   },
@@ -9301,7 +9317,7 @@
       "module": "data",
       "status": "wont-do",
       "test": "TODO: modules/data/test/core/data-script-model-api.test.ts; spec/conformance/data-script-model-api; tests/oracle/data-script-model-api",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -9311,7 +9327,7 @@
     "anima": {
       "status": "wont-do",
       "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
-      "phase": "\u2014",
+      "phase": "—",
       "module": "data",
       "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
@@ -10685,7 +10701,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/brush-flatten",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -10713,7 +10729,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/brush-pressure",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -10742,7 +10758,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/brush-smoothing",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -10770,7 +10786,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/brush-speed",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -10797,7 +10813,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "conformance/brush-tips",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -11307,7 +11323,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/freehand-brush",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -11335,7 +11351,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/freehand-eraser",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -11364,7 +11380,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/freehand-pencil",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -12723,8 +12739,8 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/path-measure",
-      "phase": "\u2014",
-      "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
+      "phase": "—",
+      "reason": "Won't do as a public API (owner triage follow-up, 2026-11-07): path measurement stays internal to P8 rigging, where follow-path may use it."
     },
     "aliases": [
       "scripting.path-measure"
@@ -12838,7 +12854,7 @@
       "rive-runtime/include/rive/generated/shapes/rectangle_base.hpp:21@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "rect corners [tl,tr,br,bl], animated corners.0\u20133",
+      "construct": "rect corners [tl,tr,br,bl], animated corners.0–3",
       "module": "paint",
       "status": "done",
       "test": "spec/conformance/paint-shape-corners; modules/paint/test/web/paint-geometry.test.ts; tests/oracle/rect-corners",
@@ -12927,7 +12943,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/script-path-api",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -12955,7 +12971,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/script-render-paint",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -12985,7 +13001,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/scripted-path-effects",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -13008,7 +13024,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/shape-builder-subtract",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -13031,7 +13047,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/shape-builder-union",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -13973,7 +13989,7 @@
       "module": "events",
       "status": "wont-do",
       "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-script-event-context/skip.json)",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -15697,10 +15713,10 @@
       "rive-wasm/js/src/rive.ts:5091@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: data binding transaction",
-      "module": "data",
-      "status": "planned",
-      "test": "browser/batched-binding",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
+      "module": "data-host",
+      "status": "done",
+      "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host/test/core/api.test.ts; tests/oracle/host-api-batched-binding/skip.json",
       "phase": "P3b"
     }
   },
@@ -15753,11 +15769,12 @@
       "rive-wasm/js/src/rive.ts:5264@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
-      "module": "components",
+      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
+      "module": "data-host",
       "status": "planned",
-      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
-      "phase": "P3b"
+      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
+      "phase": "P3c",
+      "reason": "Local component-name handles do not establish acquisition of bindable artboard values with associated view-model instances (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json)."
     }
   },
   {
@@ -15858,11 +15875,12 @@
       "rive-wasm/js/src/rive.ts:6273@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
-      "module": "data",
+      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
+      "module": "data-host",
       "status": "planned",
-      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
-      "phase": "P3b"
+      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
+      "phase": "P3c",
+      "reason": "Local component-name assignment is tested; no bindable artboard instance value is established by the cited tests/skip (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json)."
     }
   },
   {
@@ -15914,10 +15932,10 @@
       "rive-wasm/js/src/rive.ts:6184@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: typed data.color(path)",
-      "module": "data",
-      "status": "planned",
-      "test": "browser/data-color",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
+      "module": "data-host",
+      "status": "done",
+      "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/oracle/rive/frames/changed.json",
       "phase": "P3b"
     }
   },
@@ -16202,11 +16220,12 @@
       "rive-wasm/js/src/rive.ts:2422@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: coded API deprecation diagnostics",
-      "module": "tooling",
+      "construct": "Optional @anima-format/web/devtools: deprecation-policy; modules/devtools/SPEC.md",
+      "module": "devtools",
       "status": "planned",
-      "test": "browser/deprecation-policy",
-      "phase": "P3b"
+      "test": "packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-deprecation-policy/example.animl; tests/oracle/host-api-deprecation-policy/SKIP.md",
+      "phase": "P3c",
+      "reason": "Warning IDs are accepted, but policy is global once/always/off; suppression of selected IDs is not implemented (modules/devtools/web/index.ts)."
     }
   },
   {
@@ -16978,10 +16997,10 @@
       "rive-wasm/js/src/rive.ts:4880@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: inspector performance counters",
-      "module": "tooling",
-      "status": "planned",
-      "test": "browser/fps-counter",
+      "construct": "Optional @anima-format/web/devtools: fps-counter; modules/devtools/SPEC.md",
+      "module": "devtools",
+      "status": "done",
+      "test": "packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-fps-counter/example.animl; tests/oracle/host-api-fps-counter/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -17145,10 +17164,10 @@
       "rive-wasm/js/src/rive.ts:107@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: focus tree and host focus policy",
+      "construct": "modules/a11y/SPEC.md; Keyboard focus integration",
       "module": "a11y",
-      "status": "planned",
-      "test": "browser/keyboard-focus",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -17180,7 +17199,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "browser/layout-bounds",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -17209,7 +17228,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "browser/layout-scale",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -17434,10 +17453,10 @@
       "rive-wasm/js/src/rive_advanced.mjs.d.ts:1180@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: focus tree handle",
+      "construct": "modules/a11y/SPEC.md; Manual focus traversal",
       "module": "a11y",
-      "status": "planned",
-      "test": "browser/low-level-focus",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -17548,11 +17567,12 @@
       "rive-wasm/js/src/rive_advanced.mjs.d.ts:1329@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: semantic tree adapter API",
+      "construct": "modules/a11y/SPEC.md; Semantic diffs and actions",
       "module": "a11y",
       "status": "planned",
-      "test": "browser/low-level-semantics",
-      "phase": "P3b"
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md",
+      "phase": "P3c",
+      "reason": "Owner replacement routing passes, but collection rebuilds entries/signatures on every read without dependency subscriptions (modules/a11y/REPORT.md)."
     }
   },
   {
@@ -17821,10 +17841,10 @@
       "rive-wasm/js/src/rive.ts:5530@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: typed property paths",
-      "module": "data",
-      "status": "planned",
-      "test": "browser/nested-models",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
+      "module": "data-host",
+      "status": "done",
+      "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; tests/oracle/data-host-nested-paths/skip.json",
       "phase": "P3b"
     }
   },
@@ -17956,11 +17976,12 @@
       "rive-wasm/js/src/rive.ts:1687@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: opt-in performance marks",
-      "module": "tooling",
+      "construct": "Optional @anima-format/web/devtools: performance-marks; modules/devtools/SPEC.md",
+      "module": "devtools",
       "status": "planned",
-      "test": "browser/performance-marks",
-      "phase": "P3b"
+      "test": "packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-performance-marks/example.animl; tests/oracle/host-api-performance-marks/SKIP.md",
+      "phase": "P3c",
+      "reason": "Optional frame marks are tested; initialization timing entries required by this row are absent (modules/devtools/web/index.ts)."
     }
   },
   {
@@ -18198,7 +18219,7 @@
       "rive-wasm/js/src/rive.ts:4342@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "Canvas backing store = rounded CSS viewport \u00d7 DPR; ResizeObserver without stepping (SPEC canvas)",
+      "construct": "Canvas backing store = rounded CSS viewport × DPR; ResizeObserver without stepping (SPEC canvas)",
       "module": "canvas",
       "status": "done",
       "test": "modules/canvas/test/web/canvas.test.ts; spec/conformance/host-api-resize-backing-surface; tests/oracle/host-api-resize-backing-surface/rive/README.md (host oracle skip)",
@@ -18334,10 +18355,10 @@
       "rive-wasm/js/src/rive.ts:2658@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: nested semantic nodes mapped to SVG/DOM",
+      "construct": "modules/a11y/SPEC.md; Accessible semantic tree",
       "module": "a11y",
-      "status": "planned",
-      "test": "browser/semantic-overlay",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -18441,10 +18462,10 @@
       "rive-wasm/js/src/rive.ts:4219@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon>.stop(name)",
+      "construct": "AnimaIcon.stop(): pause shared scheduler while retaining frame; play resumes",
       "module": "web",
-      "status": "planned",
-      "test": "browser/stop",
+      "status": "done",
+      "test": "packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-stop/example.animl; tests/oracle/host-api-stop/SKIP.md; modules/motion/core/api.ts; modules/motion/test/core/host-api-low-level-animation.test.ts",
       "phase": "P3b"
     }
   },
@@ -18642,7 +18663,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "browser/wasm-parallelism",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -19827,7 +19848,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/input-hit-claims",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -20579,7 +20600,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/input-script-action",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -20603,7 +20624,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/input-scroll-script",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -20634,10 +20655,10 @@
       "rive-runtime/include/rive/animation/listener_types/listener_input_type_semantic.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: listener.semantic: decrease",
+      "construct": "modules/a11y/SPEC.md; Semantic decrease",
       "module": "a11y",
-      "status": "planned",
-      "test": "conformance/input-semantic-decrease",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-action-edges; spec/conformance/a11y-actions-range; modules/a11y/test/core/p3b10.test.ts; spec/conformance/a11y-actions-input-limits; spec/conformance/a11y-headless-keys",
       "phase": "P3b"
     },
     "aliases": [
@@ -20671,10 +20692,10 @@
       "rive-runtime/include/rive/animation/listener_types/listener_input_type_semantic.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: listener.semantic: increase",
+      "construct": "modules/a11y/SPEC.md; Semantic increase",
       "module": "a11y",
-      "status": "planned",
-      "test": "conformance/input-semantic-increase",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-action-edges; spec/conformance/a11y-actions-range; modules/a11y/test/core/p3b10.test.ts; spec/conformance/a11y-actions-input-limits; spec/conformance/a11y-headless-keys",
       "phase": "P3b"
     },
     "aliases": [
@@ -20708,10 +20729,10 @@
       "rive-runtime/include/rive/animation/listener_types/listener_input_type_semantic.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: listener.semantic: tap",
+      "construct": "modules/a11y/SPEC.md; Semantic tap",
       "module": "a11y",
-      "status": "planned",
-      "test": "conformance/input-semantic-tap",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-action-edges; spec/conformance/a11y-actions-range; modules/a11y/test/core/p3b10.test.ts; spec/conformance/a11y-actions-input-limits; spec/conformance/a11y-headless-keys",
       "phase": "P3b"
     },
     "aliases": [
@@ -21114,10 +21135,10 @@
       "rive-runtime/include/rive/generated/animation/listener_viewmodel_change_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: listener value source: key-pressed",
-      "module": "data",
-      "status": "planned",
-      "test": "conformance/input-write-key-pressed",
+      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-key-pressed/example.animl",
+      "module": "input",
+      "status": "done",
+      "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-key-pressed; tests/oracle/input-write-key-pressed; modules/data-host/test/web/browser.test.ts",
       "phase": "P3b"
     }
   },
@@ -21141,10 +21162,10 @@
       "rive-runtime/include/rive/generated/animation/listener_viewmodel_change_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: listener value source: pointer-delta-x",
-      "module": "data",
-      "status": "planned",
-      "test": "conformance/input-write-pointer-delta-x",
+      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-delta-x/example.animl",
+      "module": "input",
+      "status": "done",
+      "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-delta-x; tests/oracle/input-write-pointer-delta-x; modules/data-host/test/web/browser.test.ts",
       "phase": "P3b"
     }
   },
@@ -21168,10 +21189,10 @@
       "rive-runtime/include/rive/generated/animation/listener_viewmodel_change_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: listener value source: pointer-delta-y",
-      "module": "data",
-      "status": "planned",
-      "test": "conformance/input-write-pointer-delta-y",
+      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-delta-y/example.animl",
+      "module": "input",
+      "status": "done",
+      "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-delta-y; tests/oracle/input-write-pointer-delta-y; modules/data-host/test/web/browser.test.ts",
       "phase": "P3b"
     }
   },
@@ -21195,10 +21216,10 @@
       "rive-runtime/include/rive/generated/animation/listener_viewmodel_change_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: listener value source: pointer-x",
-      "module": "data",
-      "status": "planned",
-      "test": "conformance/input-write-pointer-x",
+      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-x/example.animl",
+      "module": "input",
+      "status": "done",
+      "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-x; tests/oracle/input-write-pointer-x; modules/data-host/test/web/browser.test.ts",
       "phase": "P3b"
     }
   },
@@ -21222,10 +21243,10 @@
       "rive-runtime/include/rive/generated/animation/listener_viewmodel_change_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: listener value source: pointer-y",
-      "module": "data",
-      "status": "planned",
-      "test": "conformance/input-write-pointer-y",
+      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-y/example.animl",
+      "module": "input",
+      "status": "done",
+      "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-y; tests/oracle/input-write-pointer-y; modules/data-host/test/web/browser.test.ts",
       "phase": "P3b"
     }
   },
@@ -21310,10 +21331,10 @@
     "anima": {
       "construct": "new: animated layout reflow with readable named properties; lengths in grid units, time in seconds and angles in degrees",
       "module": "layout",
-      "status": "wont-do",
+      "status": "planned",
       "test": "oracle/layout-animated-reflow",
-      "phase": "\u2014",
-      "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
+      "phase": "P7",
+      "reason": "Owner, 2026-11-07 (triage follow-up): brought back for P7 — in the growing-button case the background animates as the label grows instead of snapping; counted in P7's size estimate."
     }
   },
   {
@@ -21339,7 +21360,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-artboard-alignment",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21369,7 +21390,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-aspect-ratio",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21401,7 +21422,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-borders",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21434,7 +21455,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-clip",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21498,7 +21519,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-corners",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21527,7 +21548,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-edge-pinning",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21622,7 +21643,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-flex-align-content",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21680,7 +21701,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-flex-basis",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21739,7 +21760,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-flex-grow-shrink",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21796,7 +21817,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-grid",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21826,7 +21847,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-grid-list",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21856,7 +21877,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-grid-minmax",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21888,7 +21909,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-grid-placement",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21919,7 +21940,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-grid-tracks",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22007,7 +22028,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-layout-transforms",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22042,7 +22063,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-n-slicing",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22069,7 +22090,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-nested-artboards",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22166,7 +22187,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-positioning",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22197,7 +22218,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-axis",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22227,7 +22248,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-bar",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22263,7 +22284,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-binding",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22296,7 +22317,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-clamped",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22331,7 +22352,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-elastic",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22360,7 +22381,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-infinite",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22392,7 +22413,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-input",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22421,7 +22442,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-snap",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22451,7 +22472,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-virtualize",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22533,7 +22554,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-slice-component",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22559,7 +22580,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-slice-vector",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22626,7 +22647,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-stack",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22658,7 +22679,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-units",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22715,7 +22736,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-wrap",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22744,7 +22765,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-writing-direction",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -23975,7 +23996,7 @@
       "module": "web",
       "status": "wont-do",
       "test": "platform/threaded-wasm",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): Rive WASM/package build variant; Anima has no WASM runtime and optional modules replace build variants."
     }
   },
@@ -24170,7 +24191,7 @@
       "module": "web",
       "status": "wont-do",
       "test": "platform/web-canvas-lite",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): Rive WASM/package build variant; Anima has no WASM runtime and optional modules replace build variants."
     }
   },
@@ -24195,7 +24216,7 @@
       "module": "web",
       "status": "wont-do",
       "test": "platform/web-canvas-single",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): Rive WASM/package build variant; Anima has no WASM runtime and optional modules replace build variants."
     }
   },
@@ -25067,7 +25088,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-advance",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25097,7 +25118,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-animation-control",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25123,7 +25144,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-arguments",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25153,7 +25174,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-artboard-instance",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25179,7 +25200,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-artboard-path",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25206,7 +25227,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-async",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25288,7 +25309,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-audio-playback",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25342,7 +25363,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-boxing",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25367,7 +25388,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-byte-buffers",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25393,7 +25414,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-capture-settling",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25423,7 +25444,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-clocks",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25452,7 +25473,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-color-utils",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25479,7 +25500,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-condition",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25509,7 +25530,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-context-assets",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25538,7 +25559,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-context-data",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25565,7 +25586,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-converter",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25595,7 +25616,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-converter-values",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25632,7 +25653,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-data-properties",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25659,7 +25680,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-debugging",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25685,7 +25706,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-dispose",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25714,7 +25735,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-draw-visitor",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25741,7 +25762,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-drawable",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25766,7 +25787,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-dynamic-values",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25869,7 +25890,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-execution-budget",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25895,7 +25916,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-feature-detection",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25922,7 +25943,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-file-decode",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25952,7 +25973,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-formatting",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25980,7 +26001,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-forward-input",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26008,7 +26029,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-gamepad-hooks",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26034,7 +26055,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-gesture-claim",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26062,7 +26083,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-gradients",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26089,7 +26110,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-image-decode",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26115,7 +26136,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-init",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26142,7 +26163,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-interpolator",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26168,7 +26189,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-interpolator-values",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26194,7 +26215,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-invalidate",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26248,7 +26269,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-json",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26274,7 +26295,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-keyboard-hook",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26355,7 +26376,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-layout-measure",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26381,7 +26402,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-layout-resize",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26407,7 +26428,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-list-mutations",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26435,7 +26456,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-listener",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26463,7 +26484,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-luau",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26489,7 +26510,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-matrix-2d",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26544,7 +26565,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-model-create",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26571,7 +26592,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-modulated-draw",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26597,7 +26618,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-module-imports",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26732,7 +26753,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-path-construction",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26759,7 +26780,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-path-effect",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26787,7 +26808,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-patterns",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26816,7 +26837,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-pointer-hooks",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26868,7 +26889,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-property-observers",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26894,7 +26915,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-randomness",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26920,7 +26941,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-renderer-clip",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26946,7 +26967,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-renderer-images",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27025,7 +27046,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-renderer-path",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27053,7 +27074,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-renderer-state",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27079,7 +27100,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-reverse-converter",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27158,7 +27179,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-sandbox",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27188,7 +27209,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-scene-query",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27216,7 +27237,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-scene-transforms",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27254,7 +27275,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-script-inputs",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27280,7 +27301,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-script-paint",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27306,7 +27327,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-scroll-hook",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27408,7 +27429,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-sleep",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27459,7 +27480,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-text-hook",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27488,7 +27509,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-transition",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27518,7 +27539,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-unit-tests",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27544,7 +27565,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-update",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27569,7 +27590,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-utf8-byte-strings",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27595,7 +27616,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-vectors",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -28224,10 +28245,10 @@
       "rive-runtime/include/rive/generated/animation/transition_property_viewmodel_comparator_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "modules/machine/capabilities/state-machine-condition-data/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
-      "module": "data",
-      "status": "planned",
-      "test": "spec/conformance/state-machine-condition-data; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
+      "construct": "P3b-4 existing bind/data evaluator verified for two live paths; modules/data-host/SPEC.md; spec/conformance/state-machine-condition-data/case.animl",
+      "module": "data-host",
+      "status": "done",
+      "test": "modules/data-host/test/core/host.test.ts; spec/conformance/state-machine-condition-data; tests/oracle/data-host-condition-paths",
       "phase": "P3b"
     }
   },
@@ -28313,7 +28334,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/condition-script",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -28905,7 +28926,7 @@
       "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "every 0.1 crossfade freezes its source (spec \u00a77); a source that keeps playing during the crossfade is the missing variant",
+      "construct": "every 0.1 crossfade freezes its source (spec §7); a source that keeps playing during the crossfade is the missing variant",
       "module": "core",
       "status": "done",
       "test": "conformance/pause-on-exit",
@@ -30724,10 +30745,10 @@
     "anima": {
       "construct": "new: bidirectional text control with readable named properties; lengths in grid units, time in seconds and angles in degrees",
       "module": "text",
-      "status": "wont-do",
+      "status": "planned",
       "test": "oracle/text-script-direction",
-      "phase": "\u2014",
-      "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
+      "phase": "P6",
+      "reason": "Owner, 2026-11-07 (triage follow-up): P6 exposes direction control only if it is nearly free, since the browser already handles bidi; otherwise the P6 design records the measured cost and returns it to won't do."
     }
   },
   {
@@ -30754,7 +30775,7 @@
       "module": "text",
       "status": "wont-do",
       "test": "oracle/text-script-glyphs",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -30780,10 +30801,10 @@
     "anima": {
       "construct": "new: text hit testing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
       "module": "text",
-      "status": "wont-do",
+      "status": "planned",
       "test": "oracle/text-script-hit-testing",
-      "phase": "\u2014",
-      "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
+      "phase": "P6",
+      "reason": "Owner, 2026-11-07 (triage follow-up): brought back for P6 through the host API and listeners (position → text index, caret/selection geometry), not a script VM."
     }
   },
   {
@@ -30811,7 +30832,7 @@
       "module": "text",
       "status": "wont-do",
       "test": "oracle/text-script-shaping",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -31194,11 +31215,12 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: anima bench",
+      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/bench.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/benchmark",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3c",
+      "reason": "Compile/step/draw timing statistics are tested; WASM memory-growth reporting required by the inventory is absent. The native timing skip does not complete that requirement (modules/tooling/oracle/README.md)."
     }
   },
   {
@@ -31221,7 +31243,7 @@
       "status": "wont-do",
       "test": "cli/binary-rive-io",
       "reason": "The guardrails prohibit reading, writing or converting .riv files.",
-      "phase": "\u2014"
+      "phase": "—"
     }
   },
   {
@@ -31339,10 +31361,10 @@
       "rive docs debugging"
     ],
     "anima": {
-      "construct": "new: inspector break-on-change",
+      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/data-breakpoints",
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-data-breakpoints/skip.json",
       "phase": "P3b"
     }
   },
@@ -31363,10 +31385,10 @@
       "rive docs debugging"
     ],
     "anima": {
-      "construct": "new: playground data inspector",
+      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/session.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/data-debugger",
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -31391,7 +31413,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/debug-rebuild",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -31581,7 +31603,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/editor-hierarchy",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -31789,7 +31811,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/editor-property-inspector",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -31835,7 +31857,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/editor-svg-import",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -31858,7 +31880,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/editor-timeline",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -31902,11 +31924,12 @@
       "rive doctor --help"
     ],
     "anima": {
-      "construct": "new: anima doctor",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/environment-doctor",
-      "phase": "P3b"
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3c",
+      "reason": "Doctor checks Node, browsers, cache and module wiring; authentication, ports, project and device checks from the inventory are absent (packages/cli/src/doctor.ts)."
     }
   },
   {
@@ -31996,7 +32019,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/export-png-sequence",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -32041,7 +32064,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/export-svg-sequence",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -32089,7 +32112,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/failed-script-fixtures",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -32137,8 +32160,8 @@
     "anima": {
       "construct": "new: anima render --scene",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-artboard",
+      "status": "done",
+      "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-headless-artboard",
       "phase": "P3b"
     }
   },
@@ -32161,8 +32184,8 @@
     "anima": {
       "construct": "new: anima render --audio --rate --channels",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-audio",
+      "status": "done",
+      "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts",
       "phase": "P3b"
     }
   },
@@ -32183,10 +32206,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: anima session --commands with reload and captures",
+      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/session.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-command-session",
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -32207,10 +32230,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: sample data path=value",
+      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-data",
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -32231,10 +32254,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: anima sample --data",
+      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-data-dump",
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -32255,10 +32278,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: anima sample --filter",
+      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-data-filter",
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -32279,10 +32302,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: anima sample --data-every",
+      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-data-stream",
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -32305,8 +32328,8 @@
     "anima": {
       "construct": "new: anima render --fit",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-fit",
+      "status": "done",
+      "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-headless-fit-contain; tests/oracle/tooling-headless-fit-cover; tests/oracle/tooling-headless-fit-fill; tests/oracle/tooling-headless-fit-none",
       "phase": "P3b"
     }
   },
@@ -32327,10 +32350,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: sample gamepad commands",
+      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-gamepad",
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -32351,10 +32374,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: sample key commands",
+      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-key",
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -32375,10 +32398,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: sample compound pointer gestures including drag",
+      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-pointer",
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -32401,8 +32424,8 @@
     "anima": {
       "construct": "new: anima render --scale",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-scale",
+      "status": "done",
+      "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-headless-scale",
       "phase": "P3b"
     }
   },
@@ -32447,10 +32470,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: sample semantic-action command",
+      "construct": "modules/a11y/SPEC.md; Accessible action replay",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-semantic-actions",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-action-edges; spec/conformance/a11y-actions-range; modules/a11y/test/core/p3b10.test.ts; spec/conformance/a11y-actions-input-limits; spec/conformance/a11y-headless-keys",
       "phase": "P3b"
     }
   },
@@ -32471,10 +32494,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: anima inspect --semantics",
+      "construct": "modules/a11y/SPEC.md; Accessible tree capture",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-semantics",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md",
       "phase": "P3b"
     }
   },
@@ -32499,7 +32522,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/headless-settle-jobs",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): Anima has no worker jobs to settle; the player's settled state already reports idle."
     }
   },
@@ -32544,10 +32567,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: sample touch commands with pointer IDs",
+      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-touch",
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -32570,8 +32593,8 @@
     "anima": {
       "construct": "new: anima render --viewport WIDTHxHEIGHT",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-viewport",
+      "status": "done",
+      "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-headless-viewport",
       "phase": "P3b"
     }
   },
@@ -32593,10 +32616,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: sample wheel/trackpad commands",
+      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-wheel",
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -32645,7 +32668,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/inspect-editor-properties",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -32668,8 +32691,8 @@
     "anima": {
       "construct": "new: anima inspect --summary with data wiring diagnostics",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/inspect-summary",
+      "status": "done",
+      "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts",
       "phase": "P3b"
     }
   },
@@ -33110,10 +33133,10 @@
       "rive docs format"
     ],
     "anima": {
-      "construct": "new: anima project with explicit imports",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/multi-file-project",
+      "status": "done",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -33233,10 +33256,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: anima render --compare reference.png",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/pixel-compare",
+      "status": "done",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -33259,8 +33282,8 @@
     "anima": {
       "construct": "new: anima render --probe",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/pixel-probe",
+      "status": "done",
+      "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-pixel-probe",
       "phase": "P3b"
     }
   },
@@ -33281,7 +33304,7 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "playground: pause/play, \u00bc\u00d7 speed, scrubbing, inputs, reset",
+      "construct": "playground: pause/play, ¼× speed, scrubbing, inputs, reset",
       "module": "tooling",
       "status": "done",
       "test": "packages/playground/test (unit, server, Chromium + Firefox)",
@@ -33305,11 +33328,12 @@
       "rive docs project/rive-yaml"
     ],
     "anima": {
-      "construct": "new: anima project configuration",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/project-configuration",
-      "phase": "P3b"
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3c",
+      "reason": "Manifest entry/sources/presets/out are supported; excluded sources and build constants required by the inventory are not accepted (packages/cli/src/project.ts)."
     }
   },
   {
@@ -33329,10 +33353,10 @@
       "rive docs publishing"
     ],
     "anima": {
-      "construct": "new: anima build self-contained web distributable",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "markup",
-      "status": "planned",
-      "test": "cli/publish-local",
+      "status": "done",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -33451,11 +33475,12 @@
       "https://rive.app/docs/editor/exporting/exporting-for-video-and-static-design"
     ],
     "anima": {
-      "construct": "new: Render presets and queue",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/render-presets",
-      "phase": "P3b"
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3c",
+      "reason": "Synchronous image preset substitution is tested; reusable video presets and background render queuing are not delivered (packages/cli/src/project.ts; docs/p3b/CLI.md)."
     }
   },
   {
@@ -33505,7 +33530,7 @@
       "status": "wont-do",
       "test": "cli/rive-account-operations",
       "reason": "Rive account features are explicitly outside the permitted scope; generic hosting remains a separate maybe-later option.",
-      "phase": "\u2014"
+      "phase": "—"
     }
   },
   {
@@ -33525,10 +33550,10 @@
       "rive samples --help"
     ],
     "anima": {
-      "construct": "new: anima examples copy",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/sample-projects",
+      "status": "done",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -33549,10 +33574,10 @@
       "rive create --help"
     ],
     "anima": {
-      "construct": "new: anima init with AniML, manifest and agent instructions",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "markup",
-      "status": "planned",
-      "test": "cli/scaffold",
+      "status": "done",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -33573,11 +33598,12 @@
       "rive schema --help"
     ],
     "anima": {
-      "construct": "new: anima schema with inherited/animatable/bindable filters",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/schema-lookup",
-      "phase": "P3b"
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3c",
+      "reason": "Type/field lookup and animatable output are tested; inherited-property filtering for animatable, bindable and editor-only entries is not delivered (packages/cli/src/cli.ts; packages/cli/test/commands.test.ts)."
     }
   },
   {
@@ -33599,10 +33625,10 @@
       "rive schema --help"
     ],
     "anima": {
-      "construct": "new: anima schema --search --json",
+      "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/schema-search",
+      "status": "done",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -33628,7 +33654,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/script-build-constants",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -33653,7 +33679,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/script-debugger",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -33679,7 +33705,7 @@
       "status": "wont-do",
       "test": "cli/script-memory-bounds",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it.",
-      "phase": "\u2014"
+      "phase": "—"
     }
   },
   {
@@ -33703,7 +33729,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/script-network-permission",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -33729,7 +33755,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/script-release-build",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -33754,7 +33780,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/script-test-runner",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -33781,7 +33807,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/script-thread-controls",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -33802,10 +33828,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: explicit script seed in sample scripts",
+      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/seed",
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-random-source/skip.json",
       "phase": "P3b"
     }
   },
@@ -33828,11 +33854,12 @@
       "rive docs animascript/api/test"
     ],
     "anima": {
-      "construct": "new: tooling-only script test protocol",
+      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/test-assertions",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3c",
+      "reason": "Inline expect comparisons and exit failures are tested; grouped cases, expected-error assertions and test-only export exclusion are not delivered (packages/core/src/script.ts; packages/cli/test/agent-tools.test.ts)."
     }
   },
   {
@@ -33906,7 +33933,7 @@
       "status": "wont-do",
       "test": "cli/watermark-content",
       "reason": "Watermark content and Rive account enforcement conflict with the project guardrails.",
-      "phase": "\u2014"
+      "phase": "—"
     }
   },
   {
@@ -34092,11 +34119,12 @@
       "rive-runtime/include/rive/generated/node_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: computed geometry read-only property paths",
-      "module": "data",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md player.computed(id), frozen world matrix/geometric bounds/resolved opacity; modules/data-host/core/index.ts",
+      "module": "data-host",
       "status": "planned",
-      "test": "conformance/computed-transform-values",
-      "phase": "P3b"
+      "test": "modules/data-host/test/core/computed.test.ts; modules/data-host/test/web/browser.test.ts; tests/oracle/transforms-computed-transform-values/skip.json",
+      "phase": "P3c",
+      "reason": "API returns world matrix, geometric bounds and opacity; separate computed local/root-space coordinates as derived properties required by the inventory are not delivered (modules/data-host/core/index.ts; modules/data-host/SPEC.md)."
     }
   },
   {
@@ -34212,7 +34240,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "conformance/freeze-transform",
-      "phase": "\u2014",
+      "phase": "—",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },

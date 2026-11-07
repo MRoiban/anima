@@ -1,0 +1,5 @@
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > modules/a11y/examples/slider-value-text.animl builds byte for byte to its sibling .ani
+Error: ENOENT: no such file or directory, open '/home/jarvis/.t3/worktrees/anima/t3-355bca4d/modules/a11y/examples/slider-value-text.ani'
+ Test Files  1 failed | 11 passed | 1 skipped (13)
+      Tests  1 failed | 1139 passed | 457 skipped | 1 todo (1598)
+   Duration  4.84s (import 36%, transform 35%, tests 28%, worker 1%)

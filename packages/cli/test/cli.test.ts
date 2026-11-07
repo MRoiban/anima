@@ -114,8 +114,8 @@ describe('anima sample', () => {
     );
     expect(JSON.parse(r.out).values['swing.rotate']).toBeCloseTo(17.1887, 3);
     const bad = await cli('sample', BELL, '-e', 'fire rnig');
-    expect(bad.code).toBe(1);
-    expect(bad.err).toMatch(/line 1: no input "rnig"/);
+    expect(bad.code).toBe(2);
+    expect(JSON.parse(bad.err).message).toMatch(/line 1: no input "rnig"/);
   });
 });
 
@@ -431,7 +431,8 @@ describe('anima inspect, schema, docs', () => {
       if (shape.k !== 'obj') throw new Error('expected an object registry');
       const json = await cli('schema', topic, '--format=json');
       expect(json.code).toBe(0);
-      const fields = JSON.parse(json.out).fields;
+      const data = JSON.parse(json.out);
+      const fields = topic === 'a11y' ? data.root.fields : data.fields;
       expect(fields.map((f: { ani: string }) => f.ani)).toEqual(Object.keys(shape.p));
       const text = await cli('schema', topic);
       expect(text.code).toBe(0);

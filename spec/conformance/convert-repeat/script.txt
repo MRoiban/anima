@@ -1,0 +1,6 @@
+seed 42
+advance 0
+snapshot rows/0/dot.x rows/1/dot.x rows/0/dot.y rows/1/dot.y
+seed 42
+advance 0
+snapshot rows/0/dot.x rows/1/dot.x rows/0/dot.y rows/1/dot.y

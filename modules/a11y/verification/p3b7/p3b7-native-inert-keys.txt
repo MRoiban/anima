@@ -1,0 +1,19 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[10:23:17.366] rive  deferred replay: inline
+[10:23:17.396] rive  built (1345 bytes, 30ms, 0 errors, 0 warnings)
+[10:23:17.397] rive  showing Roles [1/1]
+[10:23:17.397] rive  viewport 240x240 @1x
+ok advance
+[10:23:17.399] rive  wrote frames/before.json
+ok semantics: frames/before.json
+[10:23:17.399] rive  key: nothing is focused, so no listener will see this. The file needs a FocusData on the listener's target and something to focus it
+ok key
+ok advance
+[10:23:17.399] rive  wrote frames/focused.json
+ok semantics: frames/focused.json
+[10:23:17.399] rive  key: nothing is focused, so no listener will see this. The file needs a FocusData on the listener's target and something to focus it
+ok key
+ok advance
+[10:23:17.399] rive  wrote frames/next.json
+ok semantics: frames/next.json
+ok quit

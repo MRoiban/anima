@@ -1,0 +1,20 @@
+advance 0
+semantics frames/child.json
+key p:down
+advance 0
+semantics frames/parent.json
+key t:down
+advance 0
+semantics frames/first.json
+key r:down
+advance 0
+semantics frames/right.json
+key t:down
+advance 0
+semantics frames/outside.json
+key c:down
+advance 0
+key h:down
+advance 0
+semantics frames/hidden.json
+quit

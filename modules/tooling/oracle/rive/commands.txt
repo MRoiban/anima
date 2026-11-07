@@ -1,0 +1,13 @@
+advance 0
+data-dump initial.json
+data count=3
+advance 0
+data-dump set.json
+reload
+data-dump reloaded.json
+data-dump-filter count
+data-dump filtered.json
+data-dump-every 1
+advance 2
+data-dump stream.json
+quit

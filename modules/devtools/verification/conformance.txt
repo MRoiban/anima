@@ -1,0 +1,17 @@
+
+> test:scope
+> node tools/test-scope.ts conformance markup-libraries --no-browser
+
+Scopes: conformance, markup-libraries
+  unit: modules/markup-libraries/test/cli/library.test.ts
+  unit: modules/markup-libraries/test/markup/extras.test.ts
+  unit: modules/markup-libraries/test/markup/reuse.test.ts
+  conformance: packages/core/test/conformance.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-3babee1c
+
+
+ Test Files  4 passed (4)
+      Tests  463 passed | 7 todo (470)
+   Start at  09:30:31
+   Duration  4.36s (tests 42%, import 39%, transform 18%, worker 1%)

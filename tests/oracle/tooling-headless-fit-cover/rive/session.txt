@@ -1,0 +1,15 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[10:01:49.640] rive  deferred replay: inline
+[10:01:49.645] rive  built (334 bytes, 5ms, 0 errors, 0 warnings)
+[10:01:49.646] rive  showing Main [1/2]
+[10:01:49.646] rive  viewport 120x60 @1x
+[10:01:49.646] rive  viewport 120x60 @1x
+ok artboard: Main
+[10:01:49.646] rive  viewport 240x240 @1x
+ok viewport
+[10:01:49.646] rive  viewport 240x240 @1x
+ok fit: cover
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[10:01:49.656] rive  wrote frames/0.png
+ok screenshot: frames/0.png
+ok quit

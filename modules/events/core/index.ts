@@ -1,3 +1,9 @@
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
+import {
+  eventSource,
+  capturing,
+  type CapturedEvent,
+} from '../../../packages/core/src/event-capture.ts';
 import { registerEventKinds } from '../../components/core/events.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Shape, ObjShape } from '../../../packages/core/src/registry.ts';
@@ -296,6 +302,7 @@ export const events: Module = {
         return Array.isArray(v) ? formatHex(v) : (v as number | boolean | string);
       };
       for (const e of out) {
+        if (V && capturing) (e as CapturedEvent)[eventSource] = model;
         const def = defs[e.name];
         for (const listener of model.listeners)
           if (listener.on === 'event:' + e.name) player.act(listener);

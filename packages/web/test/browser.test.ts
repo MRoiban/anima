@@ -1,3 +1,4 @@
+import type {} from '../src/devtools.ts';
 import { existsSync, readFileSync } from 'node:fs';
 import { homedir } from 'node:os';
 import { resolve } from 'node:path';
@@ -95,12 +96,14 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
     let markupJs: string;
     let leanMarkupJs: string;
     let paintJs: string;
+    let devtoolsJs: string;
     beforeAll(async () => {
-      [js, markupJs, paintJs, leanMarkupJs] = await Promise.all([
+      [js, markupJs, paintJs, leanMarkupJs, devtoolsJs] = await Promise.all([
         bundle(resolve('packages/web/src/index.ts')),
         bundle(resolve('packages/web/src/markup-libraries.ts')),
         bundle(resolve('packages/web/src/paint.ts')),
         bundle(resolve('packages/web/src/markup.ts')),
+        bundle(resolve('packages/web/src/devtools.ts')),
       ]);
       browser = await type.launch({ executablePath, headless: true });
     }, 30000);
@@ -458,6 +461,116 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
         });
       });
     }
+
+    it('stop holds the frame and play resumes without stopped wall time', async () => {
+      await manualClock();
+      await mount();
+      const result = await page.evaluate(() => {
+        const icon = window.icon;
+        icon.fire('ring');
+        window.dispatchEvent(new Event('test:frame'));
+        icon.stop();
+        const time = icon.player!.inspect()[0]!.time;
+        const values = icon.player!.values();
+        for (let i = 0; i < 10; i++) window.dispatchEvent(new Event('test:frame'));
+        const held = JSON.stringify(icon.player!.values()) === JSON.stringify(values);
+        icon.play();
+        window.dispatchEvent(new Event('test:frame'));
+        return { held, delta: icon.player!.inspect()[0]!.time! - time! };
+      });
+      expect(result.held).toBe(true);
+      expect(result.delta).toBeCloseTo(0.1);
+    });
+
+    it('re-resolves a running loop when the browser motion preference changes', async () => {
+      await manualClock();
+      await mount();
+      await page.evaluate(() => {
+        window.icon.load({
+          anima: '0.1',
+          name: 'loop',
+          grid: 20,
+          nodes: [{ id: 'a', type: 'circle', center: [10, 10], r: 1, fill: { color: '#000' } }],
+          timelines: {
+            t: {
+              duration: 1,
+              loop: 'loop',
+              tracks: {
+                'a.x': [
+                  [0, 0],
+                  [1, 10],
+                ],
+              },
+            },
+          },
+          machine: { layers: { l: { initial: 's', states: { s: { play: 't' } } } } },
+        });
+        window.dispatchEvent(new Event('test:frame'));
+      });
+      await page.emulateMedia({ reducedMotion: 'reduce' });
+      await page.waitForFunction(() => window.icon.player!.reducedMotion, undefined, {
+        polling: 10,
+      });
+      expect(
+        await page.evaluate(() => {
+          window.dispatchEvent(new Event('test:frame'));
+          return window.icon.player!.value('a.x');
+        }),
+      ).toBe(10);
+      await page.emulateMedia({ reducedMotion: 'no-preference' });
+      await page.waitForFunction(() => !window.icon.player!.reducedMotion, undefined, {
+        polling: 10,
+      });
+      expect(
+        await page.evaluate(() => {
+          window.dispatchEvent(new Event('test:frame'));
+          return window.icon.player!.value('a.x');
+        }),
+      ).toBeCloseTo(1);
+    });
+
+    it('optional devtools counts rolling frames, marks opt-in frames and applies warning policy', async () => {
+      await manualClock();
+      await mount();
+      await page.addScriptTag({
+        type: 'module',
+        content: devtoolsJs,
+      });
+      await page.waitForFunction(() => 'stats' in window.icon, undefined, { polling: 10 });
+      const messages: string[] = [];
+      page.on('console', (msg) => {
+        if (msg.type() === 'warning') messages.push(msg.text());
+      });
+      const result = await page.evaluate(() => {
+        const icon = window.icon;
+        icon.fire('ring');
+        window.dispatchEvent(new Event('test:frame'));
+        const noMarks = performance.getEntriesByName('anima:frame').length;
+        icon.perfMarks = true;
+        window.dispatchEvent(new Event('test:frame'));
+        icon.perfMarks = false;
+        icon.setAttribute('perf', '');
+        window.dispatchEvent(new Event('test:frame'));
+        const stats = icon.stats;
+        const marks = performance.getEntriesByName('anima:frame').length;
+        const C = customElements.get('anima-icon') as typeof AnimaIcon;
+        C.warn('old', 'old once');
+        C.warn('old', 'old twice');
+        C.warnings = 'off';
+        C.warn('silent', 'silent');
+        C.warnings = 'always';
+        C.warn('old', 'always');
+        C.warn('old', 'always');
+        icon.stop();
+        for (let i = 0; i < 11; i++) window.dispatchEvent(new Event('test:frame'));
+        return { noMarks, marks, stats, idle: icon.stats };
+      });
+      expect(result.noMarks).toBe(0);
+      expect(result.marks).toBe(2);
+      expect(result.stats).toEqual({ fps: 3, frames: 3, frameMs: 0 });
+      expect(result.idle).toEqual({ fps: 0, frames: 0, frameMs: 0 });
+      expect(messages).toEqual(['old once', 'always', 'always']);
+    });
 
     it('host speed scales frame dt, reflects the attribute, and zero sleeps', async () => {
       await manualClock();

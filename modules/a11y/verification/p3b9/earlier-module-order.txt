@@ -1,0 +1,33 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-06195421
+
+ ❯ |unit| packages/core/test/module-order.test.ts (1 test | 1 failed) 14881ms
+   × composes identical schemas, CLI schemas, loaded corpus models and AniML in 12 arrival orders 14878ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/core/test/module-order.test.ts > composes identical schemas, CLI schemas, loaded corpus models and AniML in 12 arrival orders
+AssertionError: componentpaint,mix,surface,nested,a11y-actions,a11y,lists,host-edit,data-host,host,host-values,derive,convert,data,contour,composite,machine,events,motion,media,input,focus,bind,components,paint,assets: expected '{"schema":{"$schema":"https://json-sc…' to be '{"schema":{"$schema":"https://json-sc…' // Object.is equality
+
+- Expected
++ Received
+
+[Assertion dump omitted: 5566034 characters; source temp file /tmp/p3b9-module-order.txt]
+[Assertion dump omitted: 5566031 characters; source temp file /tmp/p3b9-module-order.txt]
+
+
+ ❯ packages/core/test/module-order.test.ts:42:82
+     40|     }),
+     41|   );
+     42|   for (const [i, order] of orders.entries()) expect(outputs[i], order.…
+       |                                                                                  ^
+     43| }, 30_000);
+     44|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed (1)
+   Start at  11:44:00
+   Duration  15.47s (tests 99%, import 1%)

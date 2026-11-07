@@ -103,22 +103,35 @@ markup with the Rive CLI's local tooling (no account commands, no `.riv` reading
 success against the brief, attempts and validate/render iterations, wall time, and the diagnostics
 and friction hit. A regression against the previous run is a bug fixed before the phase's PR merges.
 
-**Size ceilings** (owner, 2026-11-06; min+gzip; enforced by `tools/size.ts`). Rive's web runtime is
-about 1 MB; Anima stays far below it.
+**Size gates** (owner decision, 2026-11-07; min+gzip; enforced in CI by `tools/size.ts`). They
+replace the single full-featured ceiling (128 KB since P5b, 100 KB before), which bundled the
+in-browser AniML compiler and devtools that no shipped page loads: raising one artificial number
+every phase constrained nothing. The gates measure what users download. Rive's web runtime is about
+1 MB; Anima stays far below it.
 
-| Use case | What loads | Ceiling |
+| Gate | What is measured | Ceiling |
 |---|---|---|
-| An icon on a page | core + web, plus only the modules that icon uses | core + web ≤ 30 KB; each module ≤ 5–8 KB |
-| Full-featured animation | core + web + most modules, SVG renderer | ≤ 128 KB total (raised from 100 KB by the owner, 2026-11-06, at P5b) |
-| Rive-class scenes | adds the canvas/WebGL renderer, rigging, text | ≤ 200–250 KB total |
-| Tools (playground, CLI) | run locally | no limit |
+| core + web | every page pays for it (bell, trash, moon load only this) | **24 KB** (tightened from 30 KB) |
+| each scene | the real bundle of every `examples/*.ani` and benchmark scene, from its `requires` | **≤ 64 KB** |
+| app-UI scene | a fixed reference set in `tools/size.ts` (paint, assets, assetio, events, components, lists, data, bind, derive, motion, machine, input, focus, convert, host, host-values, a11y, a11y-actions, a11y-dom, composite; text and layout are added as they land, text input is heavy) | **≤ 128 KB** |
+| runtime sum | every runtime module in one bundle (sprawl guard; authoring and heavy excluded) | **≤ 160 KB** |
+| authoring add-on | manifest `authoring: true` entries (markup*, devtools, future in-browser compilers and inspectors) on top of core + web; not in page totals | **≤ 16 KB** |
+| heavy / Rive-class | runtime plus heavy modules (canvas, rigging, text input, later GPU) | **≤ 250 KB** |
+| each module | its own budget | **≤ 8 KB** |
+| tools (playground, CLI) | run locally | no limit |
 
-Rules: core + web is the number that matters (every page pays for it; under 30 KB at full parity).
-Pay only for what you use: new features go into on-demand modules, and an over-budget module is
-split before anyone asks to raise it. Over a module's own budget inside the ceilings is fine with a
-reason in LOG; crossing a use-case ceiling is the owner's call — stop and ask. Over ~250 KB total
-is out of scope: heavy code (canvas/WebGL, rigging, text, scripting) loads only when a document
-needs it. Size is not the only cost: compile time and per-frame cost are tracked next to bytes.
+Rules (owner, 2026-11-07):
+1. These ceilings are **final for the in-scope plan through P8**. If a phase would cross one, cut code
+   or move it to a heavy or optional module; don't ask to raise a ceiling mid-phase. Only if neither
+   works does it go to the owner, with numbers.
+2. **Size round before P6:** the runtime sum drops by at least 5 % (about 5 KB) from its value at the
+   end of P3b. Look first at the modules at ≥ 95 % of their budgets and at helpers duplicated across
+   modules; afterwards reset each module's budget to leave about 10 % headroom as a design target,
+   not to fit whatever the code measures.
+3. Every phase report and PR reports **all six gates**, not one total.
+4. Pay only for what you use: new features go into on-demand modules, and an over-budget module is
+   split before anyone asks to raise its budget. Size is not the only cost: compile time and
+   per-frame cost are tracked next to bytes.
 
 **Development process** (owner, 2026-11-07; no format change):
 
@@ -303,44 +316,57 @@ and an oracle test against Rive.
 **Scope and order after P5b** (owner triage, 2026-11-07; rows and reasons in
 `docs/parity/triage-2026-11-07.md`). Anima is a smaller, agent-native Rive for animated web UI in general;
 where the browser already does something well, Anima binds to it instead of reimplementing it.
-Progress is reported against the in-scope rows: **624 of 883 done (71 %)**, next to 624 of 1 238 (50 %)
-for the full matrix. Size estimates are min+gzip against the full-featured ceiling of 128 KB
-(131 072 B; 111 723 B now, so about 18.9 KB of headroom); heavy modules count toward Rive-class
-(250 KB) instead.
+Progress is reported against the in-scope rows: **624 of 886 done (70 %)**, next to 624 of 1 238 (50 %)
+for the full matrix. Size estimates are min+gzip against the gates above (owner, 2026-11-07): the
+app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-class (250 KB).
 
-- [ ] P3b Accessibility and headless agent tools (124 rows). Real ARIA and focus on `<anima-icon>`
-      and its hosts (roles; pressed/checked/disabled/selected states; labels bound to data; focus),
-      not an emulation of Rive's semantics system. Agent tools in the CLI: synthetic pointer/key/
-      wheel/gamepad input, setting and snapshotting bound data, image comparison and pixel probes, a
-      deterministic seed, accessibility-tree capture, schema search, a persistent command session;
-      the P5b benchmark follow-ups (`asset(...)` in bindings, `icon.src` as a property, unanimated
-      values in `sample`); the P5b data/host leftovers. Decide whether switching to reduced motion
-      stops in-progress loops at once (P4b benchmark). **Estimate:** a11y module 3–4 KB in the
-      full-featured page; agent tools are CLI-only (0 KB). → ~113 KB.
-- [ ] P6 Text on the browser (76 rows; the 4 `text.script-*` rows went with scripting). Shaping,
+- [x] P3b Accessibility and headless agent tools (119 rows; design `design/p3b/DESIGN.md`; closure
+      `docs/parity/P3b-closure.md`). 96 rows done (in scope 624 → 720 of 886, 81 %), 23 moved to P3c.
+      Node semantics bound to native browser elements (`a11y`, `a11y-actions`, `a11y-dom`,
+      `markup-a11y`), headless semantics, actions and keys; agent tools (`anima session`, `bench`,
+      `compare`, `doctor`, `schema --search`, `inspect --summary`, `anima.json`, data set/dump/watch/
+      break, `expect`, seed, touch/drag); `data-host`; reduced motion stops running loops at once;
+      `icon.stop()`; `devtools` (authoring). Benchmark: AniML 4/6 → 5/6 after fixes, Rive 5/6; item 1
+      (visible text) an owner-accepted gap until P6. Size gates (owner, 2026-11-07) replaced the
+      full-featured ceiling.
+- [ ] P3c Size round and P3b carry-overs (before P6). Owner rule: the runtime sum drops ≥ 5 % from
+      its end-of-P3b value (109 971 B → ≤ 104 472 B); start with the modules at ≥ 95 % of budget
+      (`a11y`, `a11y-actions`, `bind`, `components`, `focus`, `markup`, `surface`, `data`) and
+      helpers duplicated across modules; then reset budgets to ~10 % headroom. Carry-overs: the 23
+      P3c rows (directional/conditional semantic focus, exact semantic bounds, visibility matrix,
+      dependency-driven semantics, canvas overlay positioning, library probes, bindable artboards,
+      devtools and tooling details, computed local/root coordinates) and the P3b benchmark rerun's
+      remaining friction (`docs/benchmarks/agent-native.md`).
+- [ ] P6 Text on the browser (83 rows: 76, plus 5 text a11y rows from P3b and, by the owner's
+      follow-up of 2026-11-07, text hit testing through the host API and listeners and bidi control
+      only if nearly free; the other `text.script-*` rows went with scripting). Shaping,
       fonts (`FontFace`), bidi, OpenType features and variable axes from the browser (`measureText`,
       SVG text, `Intl.Segmenter`); per-glyph modifiers and ranges kept; DOM-backed text input (a
       native field over the drawn text, caret and selection drawn from the native selection);
       build-time subsetting, Google Fonts import, text to outlines. The design records how the CLI
       renders text without a browser. Separate modules (text, text effects, text input, fonts).
+      **Exit criterion (owner, 2026-11-07):** rerun the P3b settings-card benchmark; its item 1 (visible
+      labels bound to data, an owner-accepted P3b gap) must be met, so the P6 benchmark covers text
+      bound to data.
       **Estimate:** text 5–7 KB, text effects 3–4 KB, fonts 1–2 KB, text input 3–4 KB → 12–17 KB,
       which alone would use most of the remaining headroom (see the risk below). → ~125–130 KB.
-- [ ] P7 Minimal layout and host fit (34 rows): hug content, padding/gaps, min/max, fixed sizes,
+- [ ] P7 Minimal layout and host fit (35 rows, with animated reflow brought back by the owner): hug content, padding/gaps, min/max, fixed sizes,
       row/column stacks with alignment and distribution, nested containers, painted layout boxes,
       layout values bound to data; host `Fit:*`, `Alignment:*` and override size. Design case: a
-      button whose background grows with a label of changing length. **Estimate:** 3–4 KB (host
-      fit/alignment mostly in the existing web element).
+      button whose background grows with a label of changing length and animates as it grows (no
+      snap). **Estimate:** 3–4 KB plus ~1 KB for animated reflow (host fit/alignment mostly in the
+      existing web element).
 - [ ] P8 Rigging (25 rows): bones, constraints, IK, skinning, meshes and vertex weights, as optional
-      **heavy** modules on the canvas backend. **Estimate:** 8–11 KB, counted toward Rive-class
+      **heavy** modules on the canvas backend (owner confirmed 2026-11-07); path measurement stays internal
+      to rigging (follow-path), not a public API. **Estimate:** 8–11 KB, counted toward Rive-class
       (114.5 KB now) rather than the full-featured page.
 - P9 Scripting: **won't do** (a runtime VM is the largest size and security cost; expressions,
   `derive` and the host page's JavaScript cover it). P10 GPU (WebGL/WebGPU backends, multipass effects,
   BC7, worker replay, self-hosted WASM): **maybe later**. Also won't do: visual editor tooling, layout
   beyond the minimal subset, Rive's WASM build variants.
-- **Risk — the 128 KB ceiling:** at the upper estimates, P3b + P6 + P7 reach ~133 KB. Before P6, a
-  size round across the modules (shared helpers duplicated in several modules), and P6 counting text
-  input as heavy (only pages with editable text load it) keep the page near 125 KB. If the P6 design
-  still estimates more than 128 KB, that is the owner's call.
+- **Size round before P6** (owner rule 2): the runtime sum drops ≥ 5 % from its end-of-P3b value; the
+  P6 design keeps the app-UI scene ≤ 128 KB and each scene ≤ 64 KB with text input heavy (it no
+  longer has to fit text into the ~10 KB left under the old single ceiling).
 - Maybe / later: native runtimes, editor round-trip, cloud tooling, low-level GPU, 3D (inventoried,
   not scheduled).
 

@@ -1,0 +1,23 @@
+
+> test:scope
+> node tools/test-scope.ts input --no-browser
+
+Scopes: input
+  unit: modules/input/test/core/conformance.test.ts
+  unit: modules/input/test/core/data-writes.test.ts
+  unit: modules/input/test/core/evidence.test.ts
+  unit: modules/input/test/core/runtime.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  cases: ^conformance > (host-api-coordinate-mapping|host-api-dom-listener-control|host-api-gamepad|host-api-low-level-pointer|host-api-low-level-scroll|host-api-manual-gamepad-batch|host-api-multitouch|host-api-pointer-exit|host-api-scroll-hit-policy|host-api-scroll-latching|input-align-preserve|input-align-snap|input-bounded-hit-tests|input-button-middle|input-button-secondary|input-capture-phase|input-cursor-arrow|input-cursor-hidden|input-cursor-intent|input-cursor-pointer|input-cursor-resize-horizontal|input-cursor-resize-vertical|input-cursor-text|input-disable-listeners|input-focus-machine-integration|input-gamepad-axis|input-gamepad-button|input-gamepad-button-phases|input-gamepad-connected|input-gamepad-disconnected|input-gamepad-host|input-gamepad-index-mapping|input-hit-occlusion-query|input-hit-parent-chain|input-hit-shape-geometry|input-hit-test-host|input-key-down|input-key-filter|input-key-focused-component|input-key-modifiers|input-key-repeat|input-key-up|input-keyboard-bubbling|input-multi-touch|input-multi-trigger-listener|input-opaque-targets|input-pointer-cancel|input-pointer-drag|input-pointer-drag-end|input-pointer-drag-start|input-pointer-enable|input-touch-page-scroll|input-trackpad-scroll|input-wheel-scroll|input-write-key-pressed|input-write-pointer-delta-x|input-write-pointer-delta-y|input-write-pointer-x|input-write-pointer-y|transforms-collapse|transforms-solo)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-14052024
+
+
+ Test Files  9 passed (9)
+      Tests  2484 passed | 390 skipped (2874)
+   Start at  09:39:35
+   Duration  26.57s (tests 67%, import 31%, transform 2%, worker 1%)

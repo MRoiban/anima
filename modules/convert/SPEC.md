@@ -110,3 +110,10 @@ with zero saturation when delta is zero. Hue follows the standard six-sector RGB
 `convert-options` at `/converters/<name>/pattern` with a correction hint. Alpha does not
 affect HSL, and no locale affects component formatting. Native `%r`/`%g`/`%b`/`%a`/`%h`/`%s`/`%l`
 captures are compared exactly in module-owned oracle tests; native docs text is not copied.
+
+### Repeated players
+
+Converter definitions belong to the compiled document, including players whose model is
+cloned for repeated rows. Each row still uses its own player random source and binding-local
+state; sharing definitions does not share interpolation or once/on-change caches. This keeps
+the model/runtime separation described in `docs/research/rive-format-and-graph.md`.

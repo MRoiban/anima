@@ -2349,3 +2349,80 @@ See modules/assets/P5B-10-REPORT.md and verification/p5b10/ for details and full
 - **Parity**: 77 rows done (624 / 1 238); 16 moved to P3b/P10; 19 moved before work began.
 - **Process**: 88 finished-agent worktrees (12 GB) filled the root disk and killed a wave at launch;
   worktrees are now removed after each merge.
+
+### P3b-5 — live motion preferences and host diagnostics (partial integration)
+
+Reduced-motion changes now re-resolve active play states on the next step, complete fades and
+resume frozen loops when removed. Existing motion work/direction endpoints are retained. Source
+clock wrappers preserve the resumed origin. `stop()` holds the current frame using the paused
+scheduler path. Optional, dependency-free devtools adds rolling stats, opt-in performance marks
+and a warning policy hook. Local libraries accept `export` alongside their existing spellings;
+P5b already supplied imported models and local updates. Independent conformance cases cover the
+motion decision; browser-only oracle skip notes explain the lack of a faithful local counterpart.
+See `modules/devtools/REPORT.md` for measurements, verification and remaining integration guards.
+
+### Size gates (owner decision, 2026-11-07)
+
+The owner replaced the single full-featured ceiling (128 KB) with gates on what users download,
+because that total bundled the in-browser compiler and devtools that no shipped page loads. Now
+enforced by `tools/size.ts` (min+gzip): core + web ≤ 24 KB (from 30); each example and benchmark
+scene's real bundle, from its `requires`, ≤ 64 KB; an app-UI reference scene ≤ 128 KB; the sum of
+every runtime module ≤ 160 KB; the authoring add-on (new manifest flag `authoring: true`: markup*,
+devtools) ≤ 16 KB on top of core + web and out of page totals; heavy / Rive-class ≤ 250 KB; each
+module ≤ 8 KB. The ceilings are final through P8; the size round before P6 must cut the runtime
+sum by ≥ 5 % and reset budgets to ~10 % headroom. Values on `p3b` when the gates went in: core+web
+20 585 B, largest of 27 scenes 51 741 B (P5b playlist rerun), app-UI 90 688 B, runtime sum
+109 458 B, authoring 11 950 B, Rive-class 114 940 B.
+
+### [P3b-9] Semantic closure evidence (partial)
+
+Added 35 independent role/state/property/trait/focus conformance probes and native
+action/property captures; the shared report lists 44 closure-ready and 18 open rows,
+all phase statuses still planned. Bound heading levels round-trip in AniML and JSON.
+The action companion filters semantic focus targets and exposes ancestor conditions
+without changing focus core or base web bytes. Exact bounds, repeated/late-compiled
+focus and dependency/range/input gaps remain explicit; see modules/a11y/REPORT.md.
+Size: a11y 2,038→2,045 B, actions826→960; full118,861→119,005; base20,585 unchanged.
+
+### Perf measurement fix (2026-11-07, P3b)
+
+`tools/perf.ts` compiled `tools/perf/bell.animl` with the bare markup compiler, which since P4a
+(784b77cd) rejected the root `<a11y held>` attribute; every recorded bell compile time (P5b: 1.74 ms)
+therefore timed a compile that stopped at its first diagnostic. P3b's a11y markup work made that
+compile succeed, so the bell compile figure jumped to ~2.2 ms: the first valid measurement, not a
+regression (found by an in-process A/B against main, then by bisecting the failing compile). The tool
+now throws if its bell or toolbar workload produces any diagnostic. Frame costs and toolbar compile
+were valid throughout and show no regression in P3b.
+
+## P3b — accessibility on the browser and headless agent tools (2026-11-07)
+
+- **Rows:** 96 of 119 done (full matrix 624 → 720 of 1 238; in scope 624 → 720 of 886, 70 % → 81 %);
+  23 moved to P3c with reasons (`docs/parity/P3b-closure.md`); 5 text a11y rows moved to P6 before work.
+- **Accessibility:** node semantics (`a11y`: roles, labels/hints/values/value text bound to data,
+  states, tree, visibility), interaction (`a11y-actions`: actions, focus policy, diffs), a DOM overlay
+  of native elements (`a11y-dom`: button, checkbox, radio, range, link, headings; ARIA roles for the
+  rest), in-browser AniML forms (`markup-a11y`). Headless `semantics` / `semantic` commands and
+  native-element key behaviour in scripts; 48+ nodes match Rive's headless semantics dump.
+  Splits instead of budget raises: `a11y-actions` out of `a11y` (3 623 B), `markup-a11y` out of the
+  web entry (the paint/bind pattern).
+- **Agent tools (CLI, 0 runtime bytes):** `anima session`, `bench`, `compare`, `doctor`,
+  `schema --search` and lookup, `inspect --summary`, `anima.json` projects, presets, samples,
+  local export, render component/fit/viewport/scale/probe/audio; script `data set/dump/watch/break`,
+  `expect`, `seed` (one seeded source for machine and converter randomness), `touch`, `pointer drag`,
+  `snapshot --all/--semantics`.
+- **Runtime:** `data-host` (color/nested/component handles, batch, listener writes of pointer/key,
+  live data guards, computed geometry, scoped image replacement, `asset()` in bindings, `icon.src`);
+  reduced motion stops in-progress loops at the next step (WCAG 2.2.2); `icon.stop()`; `devtools`
+  (fps, performance marks, warning policy; authoring class).
+- **Size gates (owner decision, 2026-11-07, see above), end of P3b:** core+web 20 622 / 24 576;
+  largest scene 55 313 / 65 536 (29 scenes); app-UI 91 158 / 131 072; runtime sum 109 971 / 163 840
+  (the P3c baseline); authoring 11 949 / 16 384; Rive-class 115 473 / 256 000. Modules at ≥ 95 % of
+  budget: a11y, a11y-actions, bind, components, focus, markup, surface, data.
+- **Perf:** frame costs equal to main (bell 32.6 / 32.6 µs, composite 24.0 / 24.1, toolbar 26.5 / 26.1);
+  toolbar compile 3.9 / 4.0 ms; bell compile 2.2 ms is the first valid figure (see the perf fix entry).
+- **Benchmark (settings card):** AniML 4/6 → 5/6 after P3b-10a/10b; Rive 5/6. Item 1 (visible text
+  from data) is an owner-accepted gap, rerun after P6.
+- **Process:** CI red twice on formatting / a parity reason → Prettier hooks (pre-commit,
+  pre-merge-commit, pre-push) and an AGENTS.md rule; the hooks skip with a warning without
+  `node_modules`. Unverified: a screen reader's spoken slider value (Chromium's CDP tree and
+  Playwright's snapshot do not surface `aria-valuetext`).

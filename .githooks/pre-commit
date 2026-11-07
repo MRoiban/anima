@@ -1,0 +1,13 @@
+#!/bin/sh
+# Prettier check on the files this commit adds or changes (also used as pre-merge-commit).
+# Installed by `npm install` (prepare: git config core.hooksPath .githooks). CI runs the full check.
+if [ ! -x node_modules/.bin/prettier ]; then
+  echo "format hook: node_modules/.bin/prettier not found (run npm install); skipping the local check, CI still runs it" >&2
+  exit 0
+fi
+files=$(git diff --cached --name-only --diff-filter=ACMR)
+[ -z "$files" ] && exit 0
+echo "$files" | xargs node_modules/.bin/prettier --check --ignore-unknown --log-level warn || {
+  echo "pre-commit: formatting issues above; run: npx prettier --write <files>, then git add them" >&2
+  exit 1
+}

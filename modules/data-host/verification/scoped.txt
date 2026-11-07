@@ -1,0 +1,49 @@
+
+> test:scope
+> node tools/test-scope.ts data-host host-edit input assets
+
+Scopes: data-host, host-edit, input, assets
+  unit: modules/assets/test/cli/assets.test.ts
+  unit: modules/assets/test/cli/pipeline.test.ts
+  unit: modules/assets/test/core/assets.test.ts
+  unit: modules/assets/test/core/pipeline.test.ts
+  unit: modules/data-host/test/cli/api.test.ts
+  unit: modules/data-host/test/core/assets.test.ts
+  unit: modules/data-host/test/core/computed.test.ts
+  unit: modules/data-host/test/core/host.test.ts
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host-edit/test/core/components.test.ts
+  unit: modules/host-edit/test/core/conformance.test.ts
+  unit: modules/host-edit/test/core/edit.test.ts
+  unit: modules/host-edit/test/core/oracle.test.ts
+  unit: modules/host-edit/test/core/repeat-contract.test.ts
+  unit: modules/host-edit/test/core/seams.test.ts
+  unit: modules/input/test/core/conformance.test.ts
+  unit: modules/input/test/core/data-writes.test.ts
+  unit: modules/input/test/core/evidence.test.ts
+  unit: modules/input/test/core/runtime.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/assets/test/web/assets.test.ts
+  browser: modules/assets/test/web/pipeline.test.ts
+  browser: modules/data-host/test/web/browser.test.ts
+  browser: modules/host-edit/test/web/browser.test.ts
+  browser: modules/host-edit/test/web/components.test.ts
+  browser: modules/host-edit/test/web/seams.test.ts
+  browser: modules/input/test/web/browser.test.ts
+  browser: modules/input/test/web/integration.test.ts
+  cases: ^conformance > (data-host-asset-literal|data-host-image-binding|host-api-coordinate-mapping|host-api-dom-listener-control|host-api-gamepad|host-api-low-level-pointer|host-api-low-level-scroll|host-api-manual-gamepad-batch|host-api-multitouch|host-api-pointer-exit|host-api-scroll-hit-policy|host-api-scroll-latching|input-align-preserve|input-align-snap|input-bounded-hit-tests|input-button-middle|input-button-secondary|input-capture-phase|input-cursor-arrow|input-cursor-hidden|input-cursor-intent|input-cursor-pointer|input-cursor-resize-horizontal|input-cursor-resize-vertical|input-cursor-text|input-disable-listeners|input-focus-machine-integration|input-gamepad-axis|input-gamepad-button|input-gamepad-button-phases|input-gamepad-connected|input-gamepad-disconnected|input-gamepad-host|input-gamepad-index-mapping|input-hit-occlusion-query|input-hit-parent-chain|input-hit-shape-geometry|input-hit-test-host|input-key-down|input-key-filter|input-key-focused-component|input-key-modifiers|input-key-repeat|input-key-up|input-keyboard-bubbling|input-multi-touch|input-multi-trigger-listener|input-opaque-targets|input-pointer-cancel|input-pointer-drag|input-pointer-drag-end|input-pointer-drag-start|input-pointer-enable|input-touch-page-scroll|input-trackpad-scroll|input-wheel-scroll|input-write-key-pressed|input-write-pointer-delta-x|input-write-pointer-delta-y|input-write-pointer-x|input-write-pointer-y|transforms-collapse|transforms-solo|assets-audio|assets-audio-clip|assets-audio-export-source|assets-audio-import-flac|assets-audio-import-mp3|assets-audio-import-wav|assets-blob|assets-cdn-disable|assets-component-scope|assets-exclude-export|assets-host-decode-audio|assets-image|assets-image-encoding-jpeg|assets-image-encoding-png|assets-image-encoding-webp|assets-image-export-controls|assets-image-filter-bilinear|assets-image-filter-nearest|assets-image-import-jpeg|assets-image-import-jpg|assets-image-import-png|assets-image-import-webp|assets-image-wrap-x-clamp|assets-image-wrap-x-mirror|assets-image-wrap-x-repeat|assets-image-wrap-y-clamp|assets-image-wrap-y-mirror|assets-image-wrap-y-repeat|assets-lottie-import|assets-metadata|assets-replacement-scope-image|assets-svg-import|host-api-asset-cdn-policy|host-api-asset-loader|host-api-asset-metadata)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-14052024
+
+
+ Test Files  35 passed (35)
+      Tests  2815 passed | 353 skipped (3168)
+   Start at  09:32:00
+   Duration  155.38s (tests 89%, import 10%)

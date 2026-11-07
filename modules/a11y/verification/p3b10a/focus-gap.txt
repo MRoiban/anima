@@ -1,0 +1,6 @@
+{"stage":"child","focused":"child","items":[{"id":"parent","bounds":[8,8,24,4]},{"id":"child"},{"id":"sibling"},{"id":"outside"}]}
+{"stage":"parent","focused":"parent","items":[{"id":"parent","bounds":[8,8,24,4]},{"id":"child"},{"id":"sibling"},{"id":"outside"}]}
+{"stage":"first","focused":"child","items":[{"id":"parent","bounds":[8,8,24,4]},{"id":"child"},{"id":"sibling"},{"id":"outside"}]}
+{"stage":"right","focused":"parent","items":[{"id":"parent","bounds":[8,8,24,4]},{"id":"child"},{"id":"sibling"},{"id":"outside"}]}
+{"stage":"outside","focused":"child","items":[{"id":"parent","bounds":[8,8,24,4]},{"id":"child"},{"id":"sibling"},{"id":"outside"}]}
+{"probe":"explicit child bounds","focused":"parent","native":"sibling"}

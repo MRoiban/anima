@@ -1,0 +1,21 @@
+<anima version="0.1" name="convert-repeat" grid="20" requires="components nested lists data bind convert">
+  <component name="row" grid="10" data="Item">
+    <circle id="dot" cx="5" cy="5" r="2" fill="#000"/>
+    <converter name="double" type="calculate" operation="multiply" operand="2"/>
+    <converter name="rng" type="formula" expression="random()" random="always"/>
+    <bind target="dot.x" value="$score" convert="double"/>
+    <bind target="dot.y" value="$score" convert="rng"/>
+  </component>
+
+  <repeat id="rows" list="$items" component="&quot;row&quot;" dx="10"/>
+
+  <model name="Item">
+    <number name="score"/>
+  </model>
+  <model name="Board">
+    <list name="items" of="Item"/>
+  </model>
+  <instance name="main" model="Board" default="true">
+    <set path="items" value="[{&quot;score&quot;:2},{&quot;score&quot;:4}]"/>
+  </instance>
+</anima>

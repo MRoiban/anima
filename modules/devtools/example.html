@@ -1,0 +1,13 @@
+<anima-icon src="capabilities/host-api-fps-counter/example.ani" perf></anima-icon>
+<script type="module">
+  import '@anima-format/web/devtools';
+  const icon = document.querySelector('anima-icon');
+  await icon.ready;
+  console.log(icon.stats); // {fps, frameMs, frames}, over the last second
+  icon.perfMarks = true;
+  const Icon = customElements.get('anima-icon');
+  Icon.warnings = 'once';
+  Icon.warn('legacy-host', 'Use the current host API.');
+  icon.stop();
+  icon.play();
+</script>

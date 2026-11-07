@@ -30,6 +30,8 @@ export class ImageEncoder {
         this.#browser = undefined;
         throw Object.assign(Error('cached Chromium image encoder/decoder is unavailable'), {
           code: 'build-encoder-unavailable',
+          pointer: '',
+          hint: 'install cached Playwright Chromium or set CHROMIUM_PATH to a Chromium executable',
         });
       });
     }

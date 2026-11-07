@@ -31,7 +31,9 @@ import { modules } from './modules.ts';
 import { reached, snapTime, foldTime } from './time.ts';
 import { flatten } from './path.ts';
 import { text } from './diag.ts';
-import { VERBOSE as V } from './flags.ts';
+import { VERBOSE } from './flags.ts';
+import type { RandomSource } from './random.ts';
+import { stampEvent, stampEntryEvent, beginStep, endStep } from './event-capture.ts';
 
 export interface AnimaEvent {
   name: string;
@@ -135,6 +137,9 @@ export const mixValues = (a: Value, b: Value, w: number): Value =>
         : lerpColor(a, b as RGBA, w);
 
 export class Player {
+  /** Installed by random-capable modules; the base runtime does not allocate a source. */
+  declare readonly randomSource: RandomSource;
+  readonly seed?: number;
   readonly model: Model;
   readonly playbackPolicy?: PlaybackPolicy;
   /** Optional module wake callback, installed by a host. */
@@ -159,8 +164,9 @@ export class Player {
   drawRevision = 0;
   /** Renderer cache; step output and dirty-slot reads do not depend on it. */
   declare drawData?: import('./draw.ts').DrawFrame;
-  /** Reduced motion (spec §10): applies to states entered from now on. */
+  /** Reduced motion (spec §10): re-resolves active play states at the next step. */
   reducedMotion = false;
+  #reduced = false;
   /** Total step time. */
   time = 0;
   // pointer
@@ -170,10 +176,11 @@ export class Player {
   #pressMoved = 0;
   #flat = new Map<number, { pts: number[]; closed: boolean }[]>();
 
-  constructor(model: Model, opts: { reducedMotion?: boolean } = {}) {
+  constructor(model: Model, opts: { reducedMotion?: boolean; seed?: number } = {}) {
+    this.seed = opts.seed;
     this.model = model;
     this.drawVersions = model.nodes.map(() => 0);
-    this.reducedMotion = !!opts.reducedMotion;
+    this.#reduced = this.reducedMotion = !!opts.reducedMotion;
     this.addrs = [...model.addrs.keys()];
     const slots = (this.#slots = new Map(this.addrs.map((a, i) => [a, i])));
     this.#rest = this.addrs.map((a) => model.addrs.get(a)!.rest);
@@ -218,7 +225,7 @@ export class Player {
     const inp = this.model.inputs.get(name);
     if (!inp || !types.includes(inp.type))
       throw new Error(
-        V
+        VERBOSE
           ? inp
             ? `anima: input "${name}" is ${inp.type}`
             : `anima: no input "${name}"`
@@ -232,7 +239,7 @@ export class Player {
     const inp = this.#input(name, ['bool', 'number', 'string', 'color']);
     if (inp.readonly)
       throw new Error(
-        V
+        VERBOSE
           ? `anima: input "${name}" is read-only (read-only-path): write its source properties instead`
           : 'anima: ' + name,
       );
@@ -242,7 +249,7 @@ export class Player {
         ? typeof value === 'boolean'
         : typeof value === 'number' && Number.isFinite(value))
     ))
-      throw new Error(V ? `anima: input "${name}" takes a ${inp.type}` : 'anima: ' + name);
+      throw new Error(VERBOSE ? `anima: input "${name}" takes a ${inp.type}` : 'anima: ' + name);
     this.#queue.push(['set', name, value]);
   }
 
@@ -262,7 +269,12 @@ export class Player {
   }
 
   get busy(): boolean {
-    return this.#queue.length > 0 || !!this.playbackPolicy?.busy || !this.#lastSettled;
+    return (
+      this.#reduced !== this.reducedMotion ||
+      this.#queue.length > 0 ||
+      !!this.playbackPolicy?.busy ||
+      !this.#lastSettled
+    );
   }
 
   /** Current state of each layer. */
@@ -516,6 +528,7 @@ export class Player {
 
   step(dt: number, base?: (address: string) => Value | undefined): StepResult {
     if (!(dt >= 0)) throw new Error(text('anima: step needs dt ≥ 0'));
+    if (VERBOSE) beginStep(dt);
     const events = this.#entryEvents;
     this.#entryEvents = [];
     this.time += dt;
@@ -525,6 +538,37 @@ export class Player {
       else this.#action(item, events);
     }
     this.#queue = [];
+    if (this.#reduced !== this.reducedMotion) {
+      this.#reduced = this.reducedMotion;
+      for (const L of this.#layers) {
+        const st = L.m.states[L.state]!;
+        if (this.reducedMotion && L.fade) {
+          L.fade = null;
+          this.model.eventSignal?.(events, 'transition-end', L.m.name, st.name, this);
+        }
+        if (st.play === undefined) continue;
+        const tl = this.model.timelines[st.play]!;
+        if (this.reducedMotion && tl.reduced !== 'play' && L.frozen < 0) {
+          const current = this.#localTime(L)!;
+          const rest: AnimaEvent[] = [];
+          L.frozen = this.playbackPolicy
+            ? this.playbackPolicy.reduce(tl, st.speed, tl.reduced === 'end', L.m.name, rest)
+            : tl.reduced === 'end'
+              ? tl.duration
+              : 0;
+          if (!this.playbackPolicy && tl.reduced === 'end')
+            for (const [t, name] of tl.events) rest.push({ name, layer: L.m.name, time: t });
+          if (L.frozen !== current)
+            events.push(
+              ...rest.filter((e) => (L.frozen >= current ? e.time > current : e.time < current)),
+            );
+        } else if (!this.reducedMotion && L.frozen >= 0 && tl.loop !== 'once') {
+          if (this.playbackPolicy) this.playbackPolicy.resume(L, L.frozen);
+          else L.time = L.frozen / st.speed;
+          L.frozen = -1;
+        }
+      }
+    }
     // 2. Clocks
     const prev = this.#layers.map((L) => L.time);
     for (const L of this.#layers) {
@@ -626,6 +670,7 @@ export class Player {
       (nested?.settled ?? true) &&
       !this.#pending.size &&
       this.#layers.every((L) => this.#atRest(L));
+    if (VERBOSE) endStep();
     return { events, settled: this.#lastSettled };
   }
 
@@ -802,7 +847,14 @@ export class Player {
           }
     });
     found.sort((x, y) => x[0] - y[0]);
-    for (const [, te, name] of found) events.push({ name, layer: L.m.name, time: te });
+    for (const [at, te, name] of found) {
+      const event = { name, layer: L.m.name, time: te };
+      if (VERBOSE) {
+        if (closed) stampEntryEvent(event, (at - b) / st.speed);
+        else stampEvent(event, (at - a) / (b - a));
+      }
+      events.push(event);
+    }
   }
 
   #localTime(L: LayerRun): number | null {

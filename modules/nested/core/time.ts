@@ -61,6 +61,13 @@ export function clock(
           markers,
         );
     },
+    resume(run, time) {
+      state.set(
+        run,
+        source - (old ? (run as { time: number }).time : time / (rates.get(run) ?? 1)),
+      );
+      old?.resume(run, time);
+    },
     reduce(t, speed, end, layer, events) {
       if (old) return old.reduce(t, speed, end, layer, events);
       if (end) crossings(t, 0, t.duration, true, layer, events, 'once');

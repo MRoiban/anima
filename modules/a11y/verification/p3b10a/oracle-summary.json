@@ -1,0 +1,8 @@
+{
+  "command": "node tools/oracle.ts --strict",
+  "exit": 0,
+  "cases": 266,
+  "samples": 475,
+  "all_pass": true,
+  "native_focus": "module-owned focus-policy captures, not added to central metrics"
+}
