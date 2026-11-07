@@ -1,0 +1,9 @@
+{
+  "first_command": "2026-11-07T00:58:38+01:00",
+  "finished": "2026-11-07T01:06:31+01:00",
+  "wall_seconds": 473,
+  "cli_runs": 17,
+  "auxiliary_runs": 17,
+  "errors": 10,
+  "brief_items_met": 6
+}

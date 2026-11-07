@@ -1,0 +1,24 @@
+playlist (grid 40, viewBox 0 0 40 30)
+
+glyphs (bbox: minX minY maxX maxY, grid units; hole hints use bbox containment only)
+
+nodes
+  panel (rect)
+  rows (repeat)
+  count (repeat)
+
+inputs: $main:selected (number), $main:tracks.length (number), $main:tracks.0.uid (number), $main:tracks.0.title (string), $main:tracks.0.duration (number), $main:tracks.0.cover (string), $main:tracks.0.clip (string), $main:tracks.1.uid (number), $main:tracks.1.title (string), $main:tracks.1.duration (number), $main:tracks.1.cover (string), $main:tracks.1.clip (string), $main:tracks.2.uid (number), $main:tracks.2.title (string), $main:tracks.2.duration (number), $main:tracks.2.cover (string), $main:tracks.2.clip (string), $selected (number), $tracks.length (number), $tracks.0.uid (number), $tracks.0.title (string), $tracks.0.duration (number), $tracks.0.cover (string), $tracks.0.clip (string), $tracks.1.uid (number), $tracks.1.title (string), $tracks.1.duration (number), $tracks.1.cover (string), $tracks.1.clip (string), $tracks.2.uid (number), $tracks.2.title (string), $tracks.2.duration (number), $tracks.2.cover (string), $tracks.2.clip (string), $index (number), $main:tracks.0.title.length (number), $main:tracks.1.title.length (number), $main:tracks.2.title.length (number), $tracks.0.title.length (number), $tracks.1.title.length (number), $tracks.2.title.length (number), rows.0.tap (trigger), rows.0.visits (number), rows.1.tap (trigger), rows.1.visits (number), rows.2.tap (trigger), rows.2.visits (number)
+
+timelines
+
+machine
+
+instances
+  rows/0/cover: dawn
+  rows/0/playback: idle
+  rows/1/cover: tide
+  rows/1/playback: idle
+  rows/2/cover: ember
+  rows/2/playback: idle
+
+listeners

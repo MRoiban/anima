@@ -1,12 +1,11 @@
 # Work log
 
 ## Now
-Goal: P5b-10 all six requested fixes implemented and verified; assigned branch only.
-Verified: scope3729 pass/44TODO; owned Chromium+Firefox68/68; registration/schema18/18.
-Checks: strict oracle253/449 exit0 (23 inherited findings/26 samples); all static/generated/size/perf0.
-Bytes: core+web20362; assets1713+assetio659; media2665; events3793; lists4573; data8034; derive2360.
-Next: fresh benchmark rerun by another agent; no phase promotion claimed; report modules/assets/P5B-10-REPORT.md.
-Don't: push/PR/merge, touch benchmark/parity/protected inputs or other owners' runtimes; no limits changed.
+Goal: independent P5b AniML playlist rerun completed; local branch only.
+Verified: six brief items; 17 CLI runs; next-frame host edits20 assertions; browser audio3/3.
+Evidence: docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/REPORT.md and evidence/.
+Next: owner reviews benchmark artifacts; no runtime changes needed by this run.
+Don't: push/PR/merge, read other run sources/native binaries/oracles, or publish.
 
 ## Log
 - 2026-11-06 23:40 [P5b-8]: condensed oldest half per 200-line rule; M0–M5/P1/P3 established spec, runtime, AniML and icons; Glyphy remains draft-only (evidence: prior WORKLOG at 0c5028a; PRs1–6).
@@ -155,3 +154,5 @@ Don't: push/PR/merge, touch benchmark/parity/protected inputs or other owners' r
 - 2026-11-07 00:53 [P5b-10]: final requested scope3729/44TODO + explicit owned browsers68/68 + registration/schema18/18; oracle253/449 exit0 with23 inherited findings/26 samples; all static/generated/size/perf exit0 → report/evidence ready for local commit (evidence: modules/assets/verification/p5b10/checks.json).
 - 2026-11-07 00:53 [P5b-10]: final protected-path audit shows no benchmark/parity/measurement-input/other-owner changes; strengthened root build diagnostic assertion; fresh benchmark and quiet paired performance remain unverified (evidence: git diff --name-only; P5B-10-REPORT.md).
 - 2026-11-07 [claude]: merged P5b-10 (silent audio root cause: browser handler searched nested players but not list-owned players; Web Audio starts observed [0,0.2,0.8] in both engines; component assets embedded; $list.length counts; inherited asset scope; string length; docs/inspect) → full 109,889 B, oracle 0, unit scope 2960 pass. AniML rerun next (after P5b-9 lands, or now: brief doesn't need component paint)
+
+- 2026-11-07 01:06 [AniML test rerun]: built hand-written playlist + original media → 6/6; CLI17, auxiliary17, errors10, exact cover pixels6912, browser native trims3/3; local commit only (evidence: animl-rerun/REPORT.md).

@@ -1,0 +1,93 @@
+{
+  "checks": [
+    {
+      "label": "initial titles",
+      "pass": true
+    },
+    {
+      "label": "click 0 selected",
+      "pass": true
+    },
+    {
+      "label": "click 0 local state",
+      "pass": true
+    },
+    {
+      "label": "click 0 audio request",
+      "pass": true
+    },
+    {
+      "label": "click 1 selected",
+      "pass": true
+    },
+    {
+      "label": "click 1 local state",
+      "pass": true
+    },
+    {
+      "label": "click 1 audio request",
+      "pass": true
+    },
+    {
+      "label": "click 2 selected",
+      "pass": true
+    },
+    {
+      "label": "click 2 local state",
+      "pass": true
+    },
+    {
+      "label": "click 2 audio request",
+      "pass": true
+    },
+    {
+      "label": "title changed alone",
+      "pass": true
+    },
+    {
+      "label": "duration changed",
+      "pass": true
+    },
+    {
+      "label": "6912 cover pixels equal independent nearest expectation",
+      "pass": true
+    },
+    {
+      "label": "browser host assertions",
+      "pass": true
+    },
+    {
+      "label": "default durations",
+      "pass": true
+    },
+    {
+      "label": "sample count radii",
+      "pass": true
+    },
+    {
+      "label": "cover replacement routes correctly",
+      "pass": true
+    },
+    {
+      "label": "clip replacement routes correctly",
+      "pass": true
+    },
+    {
+      "label": "next-frame host checks",
+      "pass": true
+    },
+    {
+      "label": "all three browser clips complete",
+      "pass": true
+    },
+    {
+      "label": "all media embedded",
+      "pass": true
+    },
+    {
+      "label": "authored trims retained",
+      "pass": true
+    }
+  ],
+  "cover_pixels": 6912
+}

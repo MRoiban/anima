@@ -1,0 +1,417 @@
+{
+  "checks": [
+    {
+      "label": "initial dot count",
+      "pass": true
+    },
+    {
+      "label": "Dawn clicked and highlighted",
+      "pass": true
+    },
+    {
+      "label": "append dot count",
+      "pass": true
+    },
+    {
+      "label": "append order",
+      "pass": true
+    },
+    {
+      "label": "new row width",
+      "pass": true
+    },
+    {
+      "label": "insert dot count",
+      "pass": true
+    },
+    {
+      "label": "insert order",
+      "pass": true
+    },
+    {
+      "label": "Tide state survives insert",
+      "pass": true
+    },
+    {
+      "label": "swap dot count",
+      "pass": true
+    },
+    {
+      "label": "swap order",
+      "pass": true
+    },
+    {
+      "label": "Dawn highlight follows swap",
+      "pass": true
+    },
+    {
+      "label": "remove dot count",
+      "pass": true
+    },
+    {
+      "label": "remove order",
+      "pass": true
+    },
+    {
+      "label": "Dawn state survives removal",
+      "pass": true
+    },
+    {
+      "label": "edit fields dot count",
+      "pass": true
+    },
+    {
+      "label": "title width follows title-only edit",
+      "pass": true
+    },
+    {
+      "label": "duration edit",
+      "pass": true
+    },
+    {
+      "label": "audio decoded and started twice",
+      "pass": true
+    },
+    {
+      "label": "different source PCM",
+      "pass": true
+    },
+    {
+      "label": "no browser diagnostics",
+      "pass": true
+    }
+  ],
+  "snapshots": [
+    {
+      "label": "initial",
+      "count": 3,
+      "titles": [
+        "Dawn",
+        "Tide",
+        "Ember"
+      ],
+      "values": {
+        "rows/0/visits": 1,
+        "rows/0/dawn-cover.visible": true,
+        "rows/0/tide-cover.visible": false,
+        "rows/0/ember-cover.visible": false,
+        "rows/0/title.w": 4,
+        "rows/0/duration.w": 9,
+        "rows/0/outline.opacity": 1,
+        "rows/1/visits": 1,
+        "rows/1/dawn-cover.visible": false,
+        "rows/1/tide-cover.visible": true,
+        "rows/1/ember-cover.visible": false,
+        "rows/1/title.w": 4,
+        "rows/1/duration.w": 15,
+        "rows/1/outline.opacity": 0,
+        "rows/2/visits": 0,
+        "rows/2/dawn-cover.visible": false,
+        "rows/2/tide-cover.visible": false,
+        "rows/2/ember-cover.visible": true,
+        "rows/2/title.w": 5,
+        "rows/2/duration.w": 6,
+        "rows/2/outline.opacity": 0,
+        "count/0/disc.r": 0.4,
+        "count/1/disc.r": 0.4,
+        "count/2/disc.r": 0.4
+      },
+      "dots": 3,
+      "selected": 1
+    },
+    {
+      "label": "append",
+      "count": 4,
+      "titles": [
+        "Dawn",
+        "Tide",
+        "Ember",
+        "Glow"
+      ],
+      "values": {
+        "rows/0/visits": 1,
+        "rows/0/dawn-cover.visible": true,
+        "rows/0/tide-cover.visible": false,
+        "rows/0/ember-cover.visible": false,
+        "rows/0/title.w": 4,
+        "rows/0/duration.w": 9,
+        "rows/0/outline.opacity": 1,
+        "rows/1/visits": 1,
+        "rows/1/dawn-cover.visible": false,
+        "rows/1/tide-cover.visible": true,
+        "rows/1/ember-cover.visible": false,
+        "rows/1/title.w": 4,
+        "rows/1/duration.w": 15,
+        "rows/1/outline.opacity": 0,
+        "rows/2/visits": 0,
+        "rows/2/dawn-cover.visible": false,
+        "rows/2/tide-cover.visible": false,
+        "rows/2/ember-cover.visible": true,
+        "rows/2/title.w": 5,
+        "rows/2/duration.w": 6,
+        "rows/2/outline.opacity": 0,
+        "rows/3/visits": 0,
+        "rows/3/dawn-cover.visible": false,
+        "rows/3/tide-cover.visible": false,
+        "rows/3/ember-cover.visible": true,
+        "rows/3/title.w": 4,
+        "rows/3/duration.w": 11,
+        "rows/3/outline.opacity": 0,
+        "count/0/disc.r": 0.4,
+        "count/1/disc.r": 0.4,
+        "count/2/disc.r": 0.4,
+        "count/3/disc.r": 0.4
+      },
+      "dots": 4,
+      "selected": 1
+    },
+    {
+      "label": "insert",
+      "count": 5,
+      "titles": [
+        "Dawn",
+        "Rain",
+        "Tide",
+        "Ember",
+        "Glow"
+      ],
+      "values": {
+        "rows/0/visits": 1,
+        "rows/0/dawn-cover.visible": true,
+        "rows/0/tide-cover.visible": false,
+        "rows/0/ember-cover.visible": false,
+        "rows/0/title.w": 4,
+        "rows/0/duration.w": 9,
+        "rows/0/outline.opacity": 1,
+        "rows/1/visits": 0,
+        "rows/1/dawn-cover.visible": false,
+        "rows/1/tide-cover.visible": true,
+        "rows/1/ember-cover.visible": false,
+        "rows/1/title.w": 4,
+        "rows/1/duration.w": 4,
+        "rows/1/outline.opacity": 0,
+        "rows/2/visits": 1,
+        "rows/2/dawn-cover.visible": false,
+        "rows/2/tide-cover.visible": true,
+        "rows/2/ember-cover.visible": false,
+        "rows/2/title.w": 4,
+        "rows/2/duration.w": 15,
+        "rows/2/outline.opacity": 0,
+        "rows/3/visits": 0,
+        "rows/3/dawn-cover.visible": false,
+        "rows/3/tide-cover.visible": false,
+        "rows/3/ember-cover.visible": true,
+        "rows/3/title.w": 5,
+        "rows/3/duration.w": 6,
+        "rows/3/outline.opacity": 0,
+        "rows/4/visits": 0,
+        "rows/4/dawn-cover.visible": false,
+        "rows/4/tide-cover.visible": false,
+        "rows/4/ember-cover.visible": true,
+        "rows/4/title.w": 4,
+        "rows/4/duration.w": 11,
+        "rows/4/outline.opacity": 0,
+        "count/0/disc.r": 0.4,
+        "count/1/disc.r": 0.4,
+        "count/2/disc.r": 0.4,
+        "count/3/disc.r": 0.4,
+        "count/4/disc.r": 0.4
+      },
+      "dots": 5,
+      "selected": 1
+    },
+    {
+      "label": "swap",
+      "count": 5,
+      "titles": [
+        "Ember",
+        "Rain",
+        "Tide",
+        "Dawn",
+        "Glow"
+      ],
+      "values": {
+        "rows/0/visits": 0,
+        "rows/0/dawn-cover.visible": false,
+        "rows/0/tide-cover.visible": false,
+        "rows/0/ember-cover.visible": true,
+        "rows/0/title.w": 5,
+        "rows/0/duration.w": 6,
+        "rows/0/outline.opacity": 0,
+        "rows/1/visits": 0,
+        "rows/1/dawn-cover.visible": false,
+        "rows/1/tide-cover.visible": true,
+        "rows/1/ember-cover.visible": false,
+        "rows/1/title.w": 4,
+        "rows/1/duration.w": 4,
+        "rows/1/outline.opacity": 0,
+        "rows/2/visits": 1,
+        "rows/2/dawn-cover.visible": false,
+        "rows/2/tide-cover.visible": true,
+        "rows/2/ember-cover.visible": false,
+        "rows/2/title.w": 4,
+        "rows/2/duration.w": 15,
+        "rows/2/outline.opacity": 0,
+        "rows/3/visits": 1,
+        "rows/3/dawn-cover.visible": true,
+        "rows/3/tide-cover.visible": false,
+        "rows/3/ember-cover.visible": false,
+        "rows/3/title.w": 4,
+        "rows/3/duration.w": 9,
+        "rows/3/outline.opacity": 1,
+        "rows/4/visits": 0,
+        "rows/4/dawn-cover.visible": false,
+        "rows/4/tide-cover.visible": false,
+        "rows/4/ember-cover.visible": true,
+        "rows/4/title.w": 4,
+        "rows/4/duration.w": 11,
+        "rows/4/outline.opacity": 0,
+        "count/0/disc.r": 0.4,
+        "count/1/disc.r": 0.4,
+        "count/2/disc.r": 0.4,
+        "count/3/disc.r": 0.4,
+        "count/4/disc.r": 0.4
+      },
+      "dots": 5,
+      "selected": 1
+    },
+    {
+      "label": "remove",
+      "count": 4,
+      "titles": [
+        "Ember",
+        "Tide",
+        "Dawn",
+        "Glow"
+      ],
+      "values": {
+        "rows/0/visits": 0,
+        "rows/0/dawn-cover.visible": false,
+        "rows/0/tide-cover.visible": false,
+        "rows/0/ember-cover.visible": true,
+        "rows/0/title.w": 5,
+        "rows/0/duration.w": 6,
+        "rows/0/outline.opacity": 0,
+        "rows/1/visits": 1,
+        "rows/1/dawn-cover.visible": false,
+        "rows/1/tide-cover.visible": true,
+        "rows/1/ember-cover.visible": false,
+        "rows/1/title.w": 4,
+        "rows/1/duration.w": 15,
+        "rows/1/outline.opacity": 0,
+        "rows/2/visits": 1,
+        "rows/2/dawn-cover.visible": true,
+        "rows/2/tide-cover.visible": false,
+        "rows/2/ember-cover.visible": false,
+        "rows/2/title.w": 4,
+        "rows/2/duration.w": 9,
+        "rows/2/outline.opacity": 1,
+        "rows/3/visits": 0,
+        "rows/3/dawn-cover.visible": false,
+        "rows/3/tide-cover.visible": false,
+        "rows/3/ember-cover.visible": true,
+        "rows/3/title.w": 4,
+        "rows/3/duration.w": 11,
+        "rows/3/outline.opacity": 0,
+        "count/0/disc.r": 0.4,
+        "count/1/disc.r": 0.4,
+        "count/2/disc.r": 0.4,
+        "count/3/disc.r": 0.4
+      },
+      "dots": 4,
+      "selected": 1
+    },
+    {
+      "label": "edit fields",
+      "count": 4,
+      "titles": [
+        "Ash",
+        "Tide",
+        "Dawn",
+        "Glow"
+      ],
+      "values": {
+        "rows/0/visits": 0,
+        "rows/0/dawn-cover.visible": false,
+        "rows/0/tide-cover.visible": false,
+        "rows/0/ember-cover.visible": true,
+        "rows/0/title.w": 3,
+        "rows/0/duration.w": 8,
+        "rows/0/outline.opacity": 0,
+        "rows/1/visits": 1,
+        "rows/1/dawn-cover.visible": false,
+        "rows/1/tide-cover.visible": true,
+        "rows/1/ember-cover.visible": false,
+        "rows/1/title.w": 4,
+        "rows/1/duration.w": 15,
+        "rows/1/outline.opacity": 0,
+        "rows/2/visits": 1,
+        "rows/2/dawn-cover.visible": true,
+        "rows/2/tide-cover.visible": false,
+        "rows/2/ember-cover.visible": false,
+        "rows/2/title.w": 4,
+        "rows/2/duration.w": 9,
+        "rows/2/outline.opacity": 1,
+        "rows/3/visits": 0,
+        "rows/3/dawn-cover.visible": false,
+        "rows/3/tide-cover.visible": false,
+        "rows/3/ember-cover.visible": true,
+        "rows/3/title.w": 4,
+        "rows/3/duration.w": 11,
+        "rows/3/outline.opacity": 0,
+        "count/0/disc.r": 0.4,
+        "count/1/disc.r": 0.4,
+        "count/2/disc.r": 0.4,
+        "count/3/disc.r": 0.4
+      },
+      "dots": 4,
+      "selected": 1
+    }
+  ],
+  "starts": [
+    {
+      "args": [
+        0,
+        0.2,
+        0.8
+      ],
+      "duration": 1.2,
+      "rate": 48000,
+      "sample": 0.006919611245393753
+    },
+    {
+      "args": [
+        0,
+        0.2,
+        0.8
+      ],
+      "duration": 1.2,
+      "rate": 48000,
+      "sample": 0.004609990864992142
+    }
+  ],
+  "ended": [],
+  "events": [
+    {
+      "name": "rows.1.play-tide",
+      "layer": "rows/1/playback",
+      "time": 0,
+      "payload": {
+        "uid": 2
+      },
+      "audio": "tide-clip",
+      "volume": 1
+    },
+    {
+      "name": "rows.0.play-dawn",
+      "layer": "rows/0/playback",
+      "time": 0,
+      "payload": {
+        "uid": 1
+      },
+      "audio": "dawn-clip",
+      "volume": 1
+    }
+  ],
+  "errors": []
+}

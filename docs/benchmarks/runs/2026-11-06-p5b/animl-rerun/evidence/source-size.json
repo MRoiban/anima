@@ -1,0 +1,38 @@
+{
+  "assets.script": {
+    "lines": 9,
+    "characters": 522
+  },
+  "browser-check.js": {
+    "lines": 24,
+    "characters": 2399
+  },
+  "browser-entry.js": {
+    "lines": 25,
+    "characters": 1078
+  },
+  "browser.html": {
+    "lines": 3,
+    "characters": 292
+  },
+  "check.py": {
+    "lines": 11,
+    "characters": 522
+  },
+  "clicks.script": {
+    "lines": 18,
+    "characters": 665
+  },
+  "media.py": {
+    "lines": 10,
+    "characters": 805
+  },
+  "playlist.animl": {
+    "lines": 67,
+    "characters": 4218
+  },
+  "verify.py": {
+    "lines": 57,
+    "characters": 3615
+  }
+}
