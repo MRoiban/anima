@@ -18,10 +18,10 @@
       "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete.",
+      "construct": "modules/a11y/SPEC.md; Ancestor focus",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-focus-policy, a11y-focus-condition; closure.test.ts; native roles focus captures",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
       "phase": "P3b"
     }
   },
@@ -45,10 +45,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Check state: checked",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-state-checked[-mixed] before/after; native actions/properties",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-checked; spec/conformance/a11y-state-checked-mixed",
       "phase": "P3b"
     }
   },
@@ -72,10 +72,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Check state: mixed",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-state-checked[-mixed] before/after; native actions/properties",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-checked; spec/conformance/a11y-state-checked-mixed",
       "phase": "P3b"
     }
   },
@@ -99,10 +99,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Check state: unchecked",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-state-checked[-mixed] before/after; native actions/properties",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-checked; spec/conformance/a11y-state-checked-mixed",
       "phase": "P3b"
     }
   },
@@ -125,10 +125,10 @@
       "rive-runtime/include/rive/animation/focus_action_target.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete.",
+      "construct": "modules/a11y/SPEC.md; Focus a target",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-focus-policy, a11y-focus-condition; closure.test.ts; native roles focus captures",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
       "phase": "P3b"
     }
   },
@@ -151,11 +151,12 @@
       "rive-runtime/include/rive/animation/focus_action_traversal.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete.",
+      "construct": "modules/a11y/SPEC.md; Traverse focus",
       "module": "a11y",
       "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-focus-policy, a11y-focus-condition; closure.test.ts; native roles focus captures",
-      "phase": "P3b"
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
+      "phase": "P3c",
+      "reason": "Sequential/repeat traversal passes, but native right traversal selects the sibling while Anima selects its focusable ancestor; synthesized focus points use transform origins rather than painted bounds (modules/a11y/oracle/focus-policy/README.md)."
     }
   },
   {
@@ -177,11 +178,12 @@
       "rive-runtime/include/rive/animation/transition_focus_condition.hpp:11@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete.",
+      "construct": "modules/a11y/SPEC.md; Focus transition condition",
       "module": "a11y",
       "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-focus-policy, a11y-focus-condition; closure.test.ts; native roles focus captures",
-      "phase": "P3b"
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
+      "phase": "P3c",
+      "reason": "Anima ancestor/repeat conditions pass, but the native ancestor-condition wiring is unverified: both accepted comparator probes leave marker center 90 instead of 70 (modules/a11y/oracle/focus-policy/README.md)."
     }
   },
   {
@@ -203,10 +205,10 @@
       "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete.",
+      "construct": "modules/a11y/SPEC.md; Hidden focus retargeting",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-focus-policy, a11y-focus-condition; closure.test.ts; native roles focus captures",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
       "phase": "P3b"
     }
   },
@@ -229,10 +231,10 @@
       "https://rive.app/docs/editor/accessibility/semantics"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Scene and DOM focus synchronization",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-dom/test/web/overlay.test.ts both engines; inherited mute example; DOM oracle skip",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -252,10 +254,10 @@
       "rive docs semantics"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Headless semantic inspection",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; Filtered semantics item CLI and subtree inspection tests; all semantic snapshots",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md",
       "phase": "P3b"
     }
   },
@@ -356,10 +358,10 @@
       "https://rive.app/docs/editor/accessibility/semantics"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Host semantics policy",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-dom/test/web/overlay.test.ts both engines; inherited mute example; DOM oracle skip",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -384,10 +386,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Heading hierarchy",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-properties-data, a11y-property-heading-level; CLI sample.test.ts; native properties and dynamic heading captures",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-properties-data; spec/conformance/a11y-property-heading-level",
       "phase": "P3b"
     }
   },
@@ -412,10 +414,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Dynamic data paths pass; standalone string input declarations do not exist in the current input grammar.",
+      "construct": "modules/a11y/SPEC.md; Accessible hint",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-properties-data, a11y-property-heading-level; CLI sample.test.ts; native properties and dynamic heading captures",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-properties-data; spec/conformance/a11y-property-heading-level",
       "phase": "P3b"
     }
   },
@@ -440,10 +442,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Dynamic data paths pass; standalone string input declarations do not exist in the current input grammar.",
+      "construct": "modules/a11y/SPEC.md; Dynamic accessible label",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-properties-data, a11y-property-heading-level; CLI sample.test.ts; native properties and dynamic heading captures",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-properties-data; spec/conformance/a11y-property-heading-level",
       "phase": "P3b"
     }
   },
@@ -468,10 +470,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Dynamic data paths pass; standalone string input declarations do not exist in the current input grammar.",
+      "construct": "modules/a11y/SPEC.md; Accessible value",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-properties-data, a11y-property-heading-level; CLI sample.test.ts; native properties and dynamic heading captures",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-properties-data; spec/conformance/a11y-property-heading-level; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -496,10 +498,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic role: alertDialog",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-role-alert-dialog example/conformance pair; oracle/roles",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-alert-dialog; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -552,10 +554,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic role: checkbox",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-role-checkbox example/conformance pair; oracle/roles",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-checkbox; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -580,10 +582,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic role: dialog",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-role-dialog example/conformance pair; oracle/roles",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-dialog; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -608,10 +610,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic role: group",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-role-group example/conformance pair; oracle/roles",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-group; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -664,10 +666,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic role: link",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-role-link example/conformance pair; oracle/roles",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-link; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -692,10 +694,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic role: list",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-role-list example/conformance pair; oracle/roles",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-list; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -720,10 +722,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic role: listItem",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-role-list-item example/conformance pair; oracle/roles",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-list-item; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -748,10 +750,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic role: none",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-role-none example/conformance pair; oracle/roles/properties",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-none; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -776,10 +778,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic role: radioButton",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-role-radio example/conformance pair; oracle/roles",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-radio; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -804,10 +806,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic role: radioGroup",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-role-radio-group example/conformance pair; oracle/roles",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-radio-group; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -832,10 +834,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic role: slider",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-role-slider example/conformance pair; oracle/roles",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-slider; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -888,10 +890,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic role: tab",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-role-tab example/conformance pair; oracle/roles",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-tab; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -916,10 +918,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic role: tabList",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-role-tab-list example/conformance pair; oracle/roles",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-tab-list; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -944,10 +946,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic role: text",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-role-text example/conformance pair; oracle/roles",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-role-text; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -996,10 +998,10 @@
       "https://rive.app/docs/editor/accessibility/semantics"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Tab and radio keyboard handling",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-dom/test/web/overlay.test.ts both engines; inherited mute example; DOM oracle skip",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -1023,10 +1025,10 @@
       "https://rive.app/docs/editor/accessibility/semantics"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Host semantic tree updates",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; closure.test.ts: add/remove/change/reorder; native snapshots (diff API skip)",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md",
       "phase": "P3b"
     }
   },
@@ -1049,11 +1051,12 @@
       "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete.",
+      "construct": "modules/a11y/SPEC.md; Directional focus navigation",
       "module": "a11y",
       "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-focus-policy, a11y-focus-condition; closure.test.ts; native roles focus captures",
-      "phase": "P3b"
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
+      "phase": "P3c",
+      "reason": "Native directional candidate selection differs (sibling versus focusable ancestor), even with matching semantic bounds; synthesized focus points lack painted bounds (modules/a11y/oracle/focus-policy/README.md)."
     }
   },
   {
@@ -1076,10 +1079,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic state: Disabled",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-state-disabled before/after; native actions/properties",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-disabled",
       "phase": "P3b"
     }
   },
@@ -1103,10 +1106,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic state: Expanded",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-state-expanded before/after; native actions/properties",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-expanded",
       "phase": "P3b"
     }
   },
@@ -1130,10 +1133,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete.",
+      "construct": "modules/a11y/SPEC.md; Semantic state: Focused",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-focus-policy, a11y-focus-condition; closure.test.ts; native roles focus captures",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
       "phase": "P3b"
     }
   },
@@ -1157,10 +1160,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic state: Hidden",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-state-hidden before/after; native actions/properties",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-hidden",
       "phase": "P3b"
     }
   },
@@ -1184,10 +1187,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic state: LiveRegion",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-state-live-region before/after; native actions/properties; inherited overlay tests",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-live-region; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -1211,10 +1214,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic state: Modal",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-state-modal before/after; native actions/properties",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-modal",
       "phase": "P3b"
     }
   },
@@ -1294,10 +1297,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic state: ReadOnly",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-state-readonly before/after; native actions/properties",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-readonly",
       "phase": "P3b"
     }
   },
@@ -1321,10 +1324,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic state: Required",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-state-required before/after; native actions/properties",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-required",
       "phase": "P3b"
     }
   },
@@ -1348,10 +1351,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic state: Selected",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-state-selected before/after; native actions/properties",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-selected",
       "phase": "P3b"
     }
   },
@@ -1375,10 +1378,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic state: Toggled",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-state-pressed before/after; native actions/properties",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-state-pressed",
       "phase": "P3b"
     }
   },
@@ -1401,10 +1404,10 @@
       "rive-runtime/include/rive/focus_data.hpp:20@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete.",
+      "construct": "modules/a11y/SPEC.md; Sequential focus navigation",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-focus-policy, a11y-focus-condition; closure.test.ts; native roles focus captures",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
       "phase": "P3b"
     }
   },
@@ -1452,10 +1455,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic trait: Checkable",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-traits-matrix false→true; native 64-node stable trait masks",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
       "phase": "P3b"
     }
   },
@@ -1479,10 +1482,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic trait: Enablable",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-traits-matrix false→true; native 64-node stable trait masks",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
       "phase": "P3b"
     }
   },
@@ -1506,10 +1509,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic trait: Expandable",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-traits-matrix false→true; native 64-node stable trait masks",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
       "phase": "P3b"
     }
   },
@@ -1533,10 +1536,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete.",
+      "construct": "modules/a11y/SPEC.md; Semantic trait: Focusable",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-focus-policy, a11y-focus-condition; closure.test.ts; native roles focus captures",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md",
       "phase": "P3b"
     }
   },
@@ -1560,10 +1563,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic trait: Requirable",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-traits-matrix false→true; native 64-node stable trait masks",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
       "phase": "P3b"
     }
   },
@@ -1587,10 +1590,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic trait: Selectable",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-traits-matrix false→true; native 64-node stable trait masks",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
       "phase": "P3b"
     }
   },
@@ -1614,10 +1617,10 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic trait: Toggleable",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-traits-matrix false→true; native 64-node stable trait masks",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-traits-matrix",
       "phase": "P3b"
     }
   },
@@ -1640,11 +1643,12 @@
       "rive-runtime/include/rive/semantic/semantic_data.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Exact stroke/path extents absent in overlay and CLI; browser stroke measurement differs by engine.",
+      "construct": "modules/a11y/SPEC.md; Semantic bounds",
       "module": "a11y",
       "status": "planned",
-      "test": "modules/a11y/REPORT.md; Existing a11y-tree-bounds; measured Chromium/Firefox API stroke discrepancy",
-      "phase": "P3b"
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-tree-bounds",
+      "phase": "P3c",
+      "reason": "Exact painted path/stroke extents are absent in overlay and CLI; Chromium and Firefox stroke bbox measurements differ (modules/a11y/REPORT.md)."
     }
   },
   {
@@ -1670,11 +1674,12 @@
       "rive-runtime/include/rive/solo.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Hidden/modal and existing collapse probes pass; Solo/native visibility matrix incomplete.",
+      "construct": "modules/a11y/SPEC.md; Semantic subtree visibility",
       "module": "a11y",
       "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-tree-visibility, a11y-state-hidden/modal; native properties",
-      "phase": "P3b"
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-tree-visibility; spec/conformance/a11y-state-hidden",
+      "phase": "P3c",
+      "reason": "Hidden/modal and collapse probes pass; the inactive Solo/native visibility matrix remains incomplete (modules/a11y/REPORT.md)."
     }
   },
   {
@@ -1695,11 +1700,12 @@
       "https://rive.app/docs/editor/accessibility/semantics"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Accessible web overlay",
       "module": "a11y",
       "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-dom/test/web/overlay.test.ts both engines; inherited mute example; DOM oracle skip",
-      "phase": "P3b"
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
+      "phase": "P3c",
+      "reason": "SVG overlay is browser-tested; positioning over canvas output, explicitly required by this row, remains unimplemented and unverified (modules/a11y-dom/REPORT.md)."
     }
   },
   {
@@ -4117,9 +4123,9 @@
       "https://rive.app/docs/runtimes/loading-assets"
     ],
     "anima": {
-      "construct": "P3b-4 implemented: modules/host-edit/SPEC.md scoped replacement IDs; modules/assets/SPEC.md image asset bindings; spec/conformance/data-host-image-binding/case.animl (phase-level promotion pending)",
+      "construct": "P3b-4 implemented: modules/host-edit/SPEC.md scoped replacement IDs; modules/assets/SPEC.md image asset bindings; spec/conformance/data-host-image-binding/case.animl",
       "module": "data-host",
-      "status": "planned",
+      "status": "done",
       "test": "modules/data-host/test/core/assets.test.ts; modules/data-host/test/web/browser.test.ts; spec/conformance/data-host-image-binding; tests/oracle/assets-replacement-scope-image/skip.json",
       "phase": "P3b"
     }
@@ -4345,11 +4351,12 @@
       "rive docs animascript/api/file"
     ],
     "anima": {
-      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl (phase-level promotion pending)",
+      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
       "module": "data-host",
       "status": "planned",
       "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
-      "phase": "P3b"
+      "phase": "P3c",
+      "reason": "Only local component-definition name handles are tested; assignment from another loaded file remains absent. The native skip covers local assignment only (tests/oracle/data-host-artboards/skip.json)."
     }
   },
   {
@@ -4547,8 +4554,9 @@
       "construct": "modules/markup-libraries/SPEC.md",
       "module": "markup-libraries",
       "status": "planned",
-      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-export; tests/oracle/components-library-export",
-      "phase": "P3b"
+      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-export; tests/oracle/components-library-export; tests/oracle/components-library-export/todo.json; modules/devtools/REPORT.md",
+      "phase": "P3c",
+      "reason": "Export/select aliases are tested, but the cited native probe remains TODO with no completed comparison, evidenced skip or numbered finding (tests/oracle/components-library-export/todo.json)."
     }
   },
   {
@@ -4577,8 +4585,9 @@
       "construct": "modules/markup-libraries/SPEC.md",
       "module": "markup-libraries",
       "status": "planned",
-      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-models; tests/oracle/components-library-models",
-      "phase": "P3b"
+      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-models; tests/oracle/components-library-models; tests/oracle/components-library-models/todo.json; modules/devtools/REPORT.md",
+      "phase": "P3c",
+      "reason": "Tests establish shared model definitions, not shared authored instances and enums; the native probe is still TODO with no evidenced skip (modules/markup-libraries/test/markup/extras.test.ts; tests/oracle/components-library-models/todo.json)."
     }
   },
   {
@@ -4600,8 +4609,9 @@
       "construct": "modules/markup-libraries/SPEC.md",
       "module": "markup-libraries",
       "status": "planned",
-      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-update; tests/oracle/components-library-update",
-      "phase": "P3b"
+      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-update; tests/oracle/components-library-update; tests/oracle/components-library-update/todo.json; modules/devtools/REPORT.md",
+      "phase": "P3c",
+      "reason": "Local vendored refresh is tested, but the native probe remains TODO with no completed comparison, evidenced skip or numbered finding (tests/oracle/components-library-update/todo.json)."
     }
   },
   {
@@ -7830,11 +7840,12 @@
       "rive-wasm/js/src/rive.ts:6273@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl (phase-level promotion pending)",
+      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
       "module": "data-host",
       "status": "planned",
       "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
-      "phase": "P3b"
+      "phase": "P3c",
+      "reason": "Component-name assignment is tested, but assignment of an artboard together with associated model data is not established; the skip covers local-definition assignment (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json)."
     }
   },
   {
@@ -7881,9 +7892,9 @@
       "rive-wasm/js/src/rive.ts:6184@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending)",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
       "module": "data-host",
-      "status": "planned",
+      "status": "done",
       "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/oracle/rive/frames/changed.json",
       "phase": "P3b"
     }
@@ -8248,10 +8259,10 @@
       "rive-wasm/js/src/rive.ts:5397@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending)",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
       "module": "data-host",
-      "status": "planned",
-      "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts",
+      "status": "done",
+      "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; tests/oracle/data-host-nested-paths/skip.json",
       "phase": "P3b"
     }
   },
@@ -8432,9 +8443,9 @@
       "rive-runtime/include/rive/viewmodel/viewmodel_instance.hpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending)",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
       "module": "data-host",
-      "status": "planned",
+      "status": "done",
       "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; spec/conformance/data-instance-export; tests/oracle/data-instance-export/skip.json",
       "phase": "P3b"
     }
@@ -15702,9 +15713,9 @@
       "rive-wasm/js/src/rive.ts:5091@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending)",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
       "module": "data-host",
-      "status": "planned",
+      "status": "done",
       "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host/test/core/api.test.ts; tests/oracle/host-api-batched-binding/skip.json",
       "phase": "P3b"
     }
@@ -15758,11 +15769,12 @@
       "rive-wasm/js/src/rive.ts:5264@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl (phase-level promotion pending)",
+      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
       "module": "data-host",
       "status": "planned",
       "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
-      "phase": "P3b"
+      "phase": "P3c",
+      "reason": "Local component-name handles do not establish acquisition of bindable artboard values with associated view-model instances (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json)."
     }
   },
   {
@@ -15863,11 +15875,12 @@
       "rive-wasm/js/src/rive.ts:6273@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl (phase-level promotion pending)",
+      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl",
       "module": "data-host",
       "status": "planned",
       "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
-      "phase": "P3b"
+      "phase": "P3c",
+      "reason": "Local component-name assignment is tested; no bindable artboard instance value is established by the cited tests/skip (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json)."
     }
   },
   {
@@ -15919,9 +15932,9 @@
       "rive-wasm/js/src/rive.ts:6184@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending)",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
       "module": "data-host",
-      "status": "planned",
+      "status": "done",
       "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/oracle/rive/frames/changed.json",
       "phase": "P3b"
     }
@@ -16210,9 +16223,9 @@
       "construct": "Optional @anima-format/web/devtools: deprecation-policy; modules/devtools/SPEC.md",
       "module": "devtools",
       "status": "planned",
-      "test": "packages/web/test/browser.test.ts (Chromium and Firefox); modules/devtools/capabilities/host-api-deprecation-policy/example.animl; tests/oracle/host-api-deprecation-policy/SKIP.md",
-      "phase": "P3b",
-      "reason": "Implemented and browser-tested in P3b-5; parity completion waits for P3b phase registration (current parity tool rejects done rows in P3b)."
+      "test": "packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-deprecation-policy/example.animl; tests/oracle/host-api-deprecation-policy/SKIP.md",
+      "phase": "P3c",
+      "reason": "Warning IDs are accepted, but policy is global once/always/off; suppression of selected IDs is not implemented (modules/devtools/web/index.ts)."
     }
   },
   {
@@ -16986,10 +16999,9 @@
     "anima": {
       "construct": "Optional @anima-format/web/devtools: fps-counter; modules/devtools/SPEC.md",
       "module": "devtools",
-      "status": "planned",
-      "test": "packages/web/test/browser.test.ts (Chromium and Firefox); modules/devtools/capabilities/host-api-fps-counter/example.animl; tests/oracle/host-api-fps-counter/SKIP.md",
-      "phase": "P3b",
-      "reason": "Implemented and browser-tested in P3b-5; parity completion waits for P3b phase registration (current parity tool rejects done rows in P3b)."
+      "status": "done",
+      "test": "packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-fps-counter/example.animl; tests/oracle/host-api-fps-counter/SKIP.md",
+      "phase": "P3b"
     }
   },
   {
@@ -17152,10 +17164,10 @@
       "rive-wasm/js/src/rive.ts:107@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Keyboard focus integration",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-dom/test/web/overlay.test.ts both engines; inherited mute example; DOM oracle skip",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -17441,10 +17453,10 @@
       "rive-wasm/js/src/rive_advanced.mjs.d.ts:1180@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Manual focus traversal",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-dom/test/web/overlay.test.ts both engines; inherited mute example; DOM oracle skip",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -17555,11 +17567,12 @@
       "rive-wasm/js/src/rive_advanced.mjs.d.ts:1329@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: dependency-driven collection and same-signature owner replacement remain",
+      "construct": "modules/a11y/SPEC.md; Semantic diffs and actions",
       "module": "a11y",
       "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-dom/test/web/overlay.test.ts both engines; inherited mute example; DOM oracle skip",
-      "phase": "P3b"
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md",
+      "phase": "P3c",
+      "reason": "Owner replacement routing passes, but collection rebuilds entries/signatures on every read without dependency subscriptions (modules/a11y/REPORT.md)."
     }
   },
   {
@@ -17828,10 +17841,10 @@
       "rive-wasm/js/src/rive.ts:5530@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending)",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API",
       "module": "data-host",
-      "status": "planned",
-      "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts",
+      "status": "done",
+      "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; tests/oracle/data-host-nested-paths/skip.json",
       "phase": "P3b"
     }
   },
@@ -17966,9 +17979,9 @@
       "construct": "Optional @anima-format/web/devtools: performance-marks; modules/devtools/SPEC.md",
       "module": "devtools",
       "status": "planned",
-      "test": "packages/web/test/browser.test.ts (Chromium and Firefox); modules/devtools/capabilities/host-api-performance-marks/example.animl; tests/oracle/host-api-performance-marks/SKIP.md",
-      "phase": "P3b",
-      "reason": "Implemented and browser-tested in P3b-5; parity completion waits for P3b phase registration (current parity tool rejects done rows in P3b)."
+      "test": "packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-performance-marks/example.animl; tests/oracle/host-api-performance-marks/SKIP.md",
+      "phase": "P3c",
+      "reason": "Optional frame marks are tested; initialization timing entries required by this row are absent (modules/devtools/web/index.ts)."
     }
   },
   {
@@ -18342,10 +18355,10 @@
       "rive-wasm/js/src/rive.ts:2658@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Accessible semantic tree",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-dom/test/web/overlay.test.ts both engines; inherited mute example; DOM oracle skip",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md",
       "phase": "P3b"
     }
   },
@@ -18451,10 +18464,9 @@
     "anima": {
       "construct": "AnimaIcon.stop(): pause shared scheduler while retaining frame; play resumes",
       "module": "web",
-      "status": "planned",
-      "test": "packages/web/test/browser.test.ts (Chromium and Firefox); modules/devtools/capabilities/host-api-stop/example.animl; tests/oracle/host-api-stop/SKIP.md",
-      "phase": "P3b",
-      "reason": "Implemented and browser-tested in P3b-5; parity completion waits for P3b phase registration (current parity tool rejects done rows in P3b)."
+      "status": "done",
+      "test": "packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-stop/example.animl; tests/oracle/host-api-stop/SKIP.md; modules/motion/core/api.ts; modules/motion/test/core/host-api-low-level-animation.test.ts",
+      "phase": "P3b"
     }
   },
   {
@@ -20643,10 +20655,10 @@
       "rive-runtime/include/rive/animation/listener_types/listener_input_type_semantic.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Basic steps, semantic clamps and readonly no-ops pass; queued repeated range writes and narrower input-limit no-op reporting remain.",
+      "construct": "modules/a11y/SPEC.md; Semantic decrease",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-action-edges, a11y-actions-range; native before/tap/increase/decrease",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-action-edges; spec/conformance/a11y-actions-range; modules/a11y/test/core/p3b10.test.ts; spec/conformance/a11y-actions-input-limits; spec/conformance/a11y-headless-keys",
       "phase": "P3b"
     },
     "aliases": [
@@ -20680,10 +20692,10 @@
       "rive-runtime/include/rive/animation/listener_types/listener_input_type_semantic.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Basic steps, semantic clamps and readonly no-ops pass; queued repeated range writes and narrower input-limit no-op reporting remain.",
+      "construct": "modules/a11y/SPEC.md; Semantic increase",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-action-edges, a11y-actions-range; native before/tap/increase/decrease",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-action-edges; spec/conformance/a11y-actions-range; modules/a11y/test/core/p3b10.test.ts; spec/conformance/a11y-actions-input-limits; spec/conformance/a11y-headless-keys",
       "phase": "P3b"
     },
     "aliases": [
@@ -20717,10 +20729,10 @@
       "rive-runtime/include/rive/animation/listener_types/listener_input_type_semantic.hpp:15@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Semantic tap",
       "module": "a11y",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-action-edges, a11y-actions-range; native before/tap/increase/decrease",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-action-edges; spec/conformance/a11y-actions-range; modules/a11y/test/core/p3b10.test.ts; spec/conformance/a11y-actions-input-limits; spec/conformance/a11y-headless-keys",
       "phase": "P3b"
     },
     "aliases": [
@@ -21123,9 +21135,9 @@
       "rive-runtime/include/rive/generated/animation/listener_viewmodel_change_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-key-pressed/example.animl (phase-level promotion pending)",
+      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-key-pressed/example.animl",
       "module": "input",
-      "status": "planned",
+      "status": "done",
       "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-key-pressed; tests/oracle/input-write-key-pressed; modules/data-host/test/web/browser.test.ts",
       "phase": "P3b"
     }
@@ -21150,9 +21162,9 @@
       "rive-runtime/include/rive/generated/animation/listener_viewmodel_change_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-delta-x/example.animl (phase-level promotion pending)",
+      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-delta-x/example.animl",
       "module": "input",
-      "status": "planned",
+      "status": "done",
       "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-delta-x; tests/oracle/input-write-pointer-delta-x; modules/data-host/test/web/browser.test.ts",
       "phase": "P3b"
     }
@@ -21177,9 +21189,9 @@
       "rive-runtime/include/rive/generated/animation/listener_viewmodel_change_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-delta-y/example.animl (phase-level promotion pending)",
+      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-delta-y/example.animl",
       "module": "input",
-      "status": "planned",
+      "status": "done",
       "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-delta-y; tests/oracle/input-write-pointer-delta-y; modules/data-host/test/web/browser.test.ts",
       "phase": "P3b"
     }
@@ -21204,9 +21216,9 @@
       "rive-runtime/include/rive/generated/animation/listener_viewmodel_change_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-x/example.animl (phase-level promotion pending)",
+      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-x/example.animl",
       "module": "input",
-      "status": "planned",
+      "status": "done",
       "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-x; tests/oracle/input-write-pointer-x; modules/data-host/test/web/browser.test.ts",
       "phase": "P3b"
     }
@@ -21231,9 +21243,9 @@
       "rive-runtime/include/rive/generated/animation/listener_viewmodel_change_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-y/example.animl (phase-level promotion pending)",
+      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-y/example.animl",
       "module": "input",
-      "status": "planned",
+      "status": "done",
       "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-y; tests/oracle/input-write-pointer-y; modules/data-host/test/web/browser.test.ts",
       "phase": "P3b"
     }
@@ -28233,10 +28245,10 @@
       "rive-runtime/include/rive/generated/animation/transition_property_viewmodel_comparator_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "P3b-4 existing bind/data evaluator verified for two live paths; modules/data-host/SPEC.md; spec/conformance/state-machine-condition-data/case.animl (phase-level promotion pending)",
+      "construct": "P3b-4 existing bind/data evaluator verified for two live paths; modules/data-host/SPEC.md; spec/conformance/state-machine-condition-data/case.animl",
       "module": "data-host",
-      "status": "planned",
-      "test": "modules/data-host/test/core/host.test.ts; spec/conformance/state-machine-condition-data; tests/oracle/data-host-condition-paths (exact native comparator data dumps)",
+      "status": "done",
+      "test": "modules/data-host/test/core/host.test.ts; spec/conformance/state-machine-condition-data; tests/oracle/data-host-condition-paths",
       "phase": "P3b"
     }
   },
@@ -31206,9 +31218,9 @@
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/bench.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
-      "phase": "P3b",
-      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3c",
+      "reason": "Compile/step/draw timing statistics are tested; WASM memory-growth reporting required by the inventory is absent. The native timing skip does not complete that requirement (modules/tooling/oracle/README.md)."
     }
   },
   {
@@ -31351,10 +31363,9 @@
     "anima": {
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
-      "phase": "P3b",
-      "reason": "Pending: replay traps final value changes and reports writer candidates; same-value and transient overwritten writes need runtime instrumentation"
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-data-breakpoints/skip.json",
+      "phase": "P3b"
     }
   },
   {
@@ -31376,10 +31387,9 @@
     "anima": {
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/session.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
-      "phase": "P3b",
-      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3b"
     }
   },
   {
@@ -31917,8 +31927,9 @@
       "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
       "status": "planned",
-      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
-      "phase": "P3b"
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3c",
+      "reason": "Doctor checks Node, browsers, cache and module wiring; authentication, ports, project and device checks from the inventory are absent (packages/cli/src/doctor.ts)."
     }
   },
   {
@@ -32149,8 +32160,8 @@
     "anima": {
       "construct": "new: anima render --scene",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-artboard",
+      "status": "done",
+      "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-headless-artboard",
       "phase": "P3b"
     }
   },
@@ -32173,8 +32184,8 @@
     "anima": {
       "construct": "new: anima render --audio --rate --channels",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-audio",
+      "status": "done",
+      "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts",
       "phase": "P3b"
     }
   },
@@ -32197,10 +32208,9 @@
     "anima": {
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/session.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
-      "phase": "P3b",
-      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3b"
     }
   },
   {
@@ -32222,10 +32232,9 @@
     "anima": {
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
-      "phase": "P3b",
-      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3b"
     }
   },
   {
@@ -32247,10 +32256,9 @@
     "anima": {
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
-      "phase": "P3b",
-      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3b"
     }
   },
   {
@@ -32272,10 +32280,9 @@
     "anima": {
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
-      "phase": "P3b",
-      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3b"
     }
   },
   {
@@ -32297,10 +32304,9 @@
     "anima": {
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
-      "phase": "P3b",
-      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3b"
     }
   },
   {
@@ -32322,8 +32328,8 @@
     "anima": {
       "construct": "new: anima render --fit",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-fit",
+      "status": "done",
+      "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-headless-fit-contain; tests/oracle/tooling-headless-fit-cover; tests/oracle/tooling-headless-fit-fill; tests/oracle/tooling-headless-fit-none",
       "phase": "P3b"
     }
   },
@@ -32346,10 +32352,9 @@
     "anima": {
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
-      "phase": "P3b",
-      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3b"
     }
   },
   {
@@ -32371,10 +32376,9 @@
     "anima": {
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
-      "phase": "P3b",
-      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3b"
     }
   },
   {
@@ -32396,10 +32400,9 @@
     "anima": {
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
-      "phase": "P3b",
-      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3b"
     }
   },
   {
@@ -32421,8 +32424,8 @@
     "anima": {
       "construct": "new: anima render --scale",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-scale",
+      "status": "done",
+      "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-headless-scale",
       "phase": "P3b"
     }
   },
@@ -32467,10 +32470,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; open: Basic steps, semantic clamps and readonly no-ops pass; queued repeated range writes and narrower input-limit no-op reporting remain.",
+      "construct": "modules/a11y/SPEC.md; Accessible action replay",
       "module": "tooling",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; a11y-action-edges, a11y-actions-range; native before/tap/increase/decrease",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-action-edges; spec/conformance/a11y-actions-range; modules/a11y/test/core/p3b10.test.ts; spec/conformance/a11y-actions-input-limits; spec/conformance/a11y-headless-keys",
       "phase": "P3b"
     }
   },
@@ -32491,10 +32494,10 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "[P3b-9] modules/a11y/SPEC.md; closure-ready; phase remains planned",
+      "construct": "modules/a11y/SPEC.md; Accessible tree capture",
       "module": "tooling",
-      "status": "planned",
-      "test": "modules/a11y/REPORT.md; Filtered semantics item CLI and subtree inspection tests; all semantic snapshots",
+      "status": "done",
+      "test": "modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md",
       "phase": "P3b"
     }
   },
@@ -32566,10 +32569,9 @@
     "anima": {
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
-      "phase": "P3b",
-      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3b"
     }
   },
   {
@@ -32591,8 +32593,8 @@
     "anima": {
       "construct": "new: anima render --viewport WIDTHxHEIGHT",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/headless-viewport",
+      "status": "done",
+      "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-headless-viewport",
       "phase": "P3b"
     }
   },
@@ -32616,10 +32618,9 @@
     "anima": {
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
-      "phase": "P3b",
-      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3b"
     }
   },
   {
@@ -32690,8 +32691,8 @@
     "anima": {
       "construct": "new: anima inspect --summary with data wiring diagnostics",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/inspect-summary",
+      "status": "done",
+      "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts",
       "phase": "P3b"
     }
   },
@@ -33134,8 +33135,8 @@
     "anima": {
       "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
+      "status": "done",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -33257,8 +33258,8 @@
     "anima": {
       "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
+      "status": "done",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -33281,8 +33282,8 @@
     "anima": {
       "construct": "new: anima render --probe",
       "module": "tooling",
-      "status": "planned",
-      "test": "cli/pixel-probe",
+      "status": "done",
+      "test": "docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/commands.test.ts; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-pixel-probe",
       "phase": "P3b"
     }
   },
@@ -33330,8 +33331,9 @@
       "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
       "status": "planned",
-      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
-      "phase": "P3b"
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3c",
+      "reason": "Manifest entry/sources/presets/out are supported; excluded sources and build constants required by the inventory are not accepted (packages/cli/src/project.ts)."
     }
   },
   {
@@ -33353,8 +33355,8 @@
     "anima": {
       "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "markup",
-      "status": "planned",
-      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
+      "status": "done",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -33476,8 +33478,9 @@
       "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
       "status": "planned",
-      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
-      "phase": "P3b"
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3c",
+      "reason": "Synchronous image preset substitution is tested; reusable video presets and background render queuing are not delivered (packages/cli/src/project.ts; docs/p3b/CLI.md)."
     }
   },
   {
@@ -33549,8 +33552,8 @@
     "anima": {
       "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
+      "status": "done",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -33573,8 +33576,8 @@
     "anima": {
       "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "markup",
-      "status": "planned",
-      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
+      "status": "done",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -33598,8 +33601,9 @@
       "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
       "status": "planned",
-      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
-      "phase": "P3b"
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3c",
+      "reason": "Type/field lookup and animatable output are tested; inherited-property filtering for animatable, bindable and editor-only entries is not delivered (packages/cli/src/cli.ts; packages/cli/test/commands.test.ts)."
     }
   },
   {
@@ -33623,8 +33627,8 @@
     "anima": {
       "construct": "SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani}",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; oracle skip: docs/p3b/CLI.md",
+      "status": "done",
+      "test": "packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md",
       "phase": "P3b"
     }
   },
@@ -33826,10 +33830,9 @@
     "anima": {
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
-      "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
-      "phase": "P3b",
-      "reason": "Pending: machine and convert use private random streams; seed validates but explicitly rejects random documents under the runtime-size freeze"
+      "status": "done",
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-random-source/skip.json",
+      "phase": "P3b"
     }
   },
   {
@@ -33854,9 +33857,9 @@
       "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
-      "phase": "P3b",
-      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
+      "phase": "P3c",
+      "reason": "Inline expect comparisons and exit failures are tested; grouped cases, expected-error assertions and test-only export exclusion are not delivered (packages/core/src/script.ts; packages/cli/test/agent-tools.test.ts)."
     }
   },
   {
@@ -34116,11 +34119,12 @@
       "rive-runtime/include/rive/generated/node_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "P3b-4 implemented: modules/data-host/SPEC.md player.computed(id), frozen world matrix/geometric bounds/resolved opacity; modules/data-host/core/index.ts (phase-level promotion pending)",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md player.computed(id), frozen world matrix/geometric bounds/resolved opacity; modules/data-host/core/index.ts",
       "module": "data-host",
       "status": "planned",
       "test": "modules/data-host/test/core/computed.test.ts; modules/data-host/test/web/browser.test.ts; tests/oracle/transforms-computed-transform-values/skip.json",
-      "phase": "P3b"
+      "phase": "P3c",
+      "reason": "API returns world matrix, geometric bounds and opacity; separate computed local/root-space coordinates as derived properties required by the inventory are not delivered (modules/data-host/core/index.ts; modules/data-host/SPEC.md)."
     }
   },
   {
