@@ -21,6 +21,7 @@ export default {
       sizeOrder: 4,
       budget: 2048,
       over: 'index',
+      authoring: true,
     },
   ],
   adapters: {

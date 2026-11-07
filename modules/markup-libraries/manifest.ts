@@ -10,6 +10,7 @@ export default {
       sizeOrder: 1,
       budget: 2048,
       over: 'markup',
+      authoring: true,
     },
   ],
   adapters: {

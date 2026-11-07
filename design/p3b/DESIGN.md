@@ -18,7 +18,7 @@ The other 119 rows stay. A coder who finds a row already met by earlier work clo
 
 | Metric | Command | Baseline (main b97a2d5) | Target / guard |
 |---|---|---:|---|
-| full-featured page | `node tools/size.ts` | 111 723 B | ≤ 116 000 B after P3b (the a11y estimate is 3–4 KB); ceiling 131 072 B |
+| size gates (owner, 2026-11-07, replace the full-featured ceiling) | `node tools/size.ts` | full-featured was 111 723 B | all six gates pass: core+web ≤ 24 KB, each scene ≤ 64 KB, app-UI ≤ 128 KB, runtime sum ≤ 160 KB, authoring ≤ 16 KB, Rive-class ≤ 250 KB |
 | core+web | `node tools/size.ts` | 20 362 B | ≤ 20 800 B (only `stop()` and hooks land in web core) |
 | `data` / `bind` / `components` | `node tools/size.ts` | 8 034 / 2 038 / 4 051 B | must not grow: new runtime work goes into new modules |
 | frame and compile cost | `node tools/perf.ts` | bell frame 32.5 µs, toolbar 22.0 µs, bell compile 1.74 ms (P5b minimums) | within noise (≤ 3 %) on pages that do not load `a11y` |

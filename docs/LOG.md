@@ -2360,3 +2360,16 @@ and a warning policy hook. Local libraries accept `export` alongside their exist
 P5b already supplied imported models and local updates. Independent conformance cases cover the
 motion decision; browser-only oracle skip notes explain the lack of a faithful local counterpart.
 See `modules/devtools/REPORT.md` for measurements, verification and remaining integration guards.
+
+### Size gates (owner decision, 2026-11-07)
+
+The owner replaced the single full-featured ceiling (128 KB) with gates on what users download,
+because that total bundled the in-browser compiler and devtools that no shipped page loads. Now
+enforced by `tools/size.ts` (min+gzip): core + web ≤ 24 KB (from 30); each example and benchmark
+scene's real bundle, from its `requires`, ≤ 64 KB; an app-UI reference scene ≤ 128 KB; the sum of
+every runtime module ≤ 160 KB; the authoring add-on (new manifest flag `authoring: true`: markup*,
+devtools) ≤ 16 KB on top of core + web and out of page totals; heavy / Rive-class ≤ 250 KB; each
+module ≤ 8 KB. The ceilings are final through P8; the size round before P6 must cut the runtime
+sum by ≥ 5 % and reset budgets to ~10 % headroom. Values on `p3b` when the gates went in: core+web
+20 585 B, largest of 27 scenes 51 741 B (P5b playlist rerun), app-UI 90 688 B, runtime sum
+109 458 B, authoring 11 950 B, Rive-class 114 940 B.

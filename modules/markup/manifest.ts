@@ -7,6 +7,7 @@ export default {
       buildOrder: 1,
       sizeOrder: 0,
       budget: 8192,
+      authoring: true,
     },
   ],
   adapters: {

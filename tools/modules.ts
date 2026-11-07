@@ -14,6 +14,8 @@ export interface Manifest {
     budget: number;
     over?: string;
     heavy?: boolean;
+    /** Authoring add-on (in-browser compiler, inspectors): measured on top of core+web, not in page totals. */
+    authoring?: boolean;
     sizeOrder?: number;
     buildOrder?: number;
   }[];
@@ -151,7 +153,7 @@ export async function generate(root: string, check = false): Promise<string[]> {
         .slice()
         .sort((a, b) => (a.buildOrder ?? 999) - (b.buildOrder ?? 999))
         .map((e) => e.name),
-    ])};\nexport const webOwners: Record<string, string> = ${JSON.stringify(Object.fromEntries(manifests.flatMap((m) => m.web.map((e) => [e.name, m.name]))))};\nexport const moduleBudgets: { name: string; budget: number; over?: string; heavy?: boolean; sizeOrder?: number; buildOrder?: number }[] = ${JSON.stringify(budgets.sort((a, b) => (a.sizeOrder ?? 999) - (b.sizeOrder ?? 999)))};\nexport const moduleScopes = ${JSON.stringify(Object.fromEntries(manifests.map((m) => [m.name, { tests: m.tests, conformance: m.conformance }])))};\n`,
+    ])};\nexport const webOwners: Record<string, string> = ${JSON.stringify(Object.fromEntries(manifests.flatMap((m) => m.web.map((e) => [e.name, m.name]))))};\nexport const moduleBudgets: { name: string; budget: number; over?: string; heavy?: boolean; authoring?: boolean; sizeOrder?: number; buildOrder?: number }[] = ${JSON.stringify(budgets.sort((a, b) => (a.sizeOrder ?? 999) - (b.sizeOrder ?? 999)))};\nexport const moduleScopes = ${JSON.stringify(Object.fromEntries(manifests.map((m) => [m.name, { tests: m.tests, conformance: m.conformance }])))};\n`,
   );
   // Own the module export set, leaving the base package API under package ownership.
   // Existing generated adapters identify old module exports, including removed modules.

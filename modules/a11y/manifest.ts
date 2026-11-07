@@ -7,7 +7,7 @@ export default {
     core: { entry: 'core/index.ts', export: 'a11y', svg: 'core/svg.ts', svgExport: 'a11ySVG' },
     web: [
       { name: 'a11y', budget: 2048 },
-      { name: 'markup-a11y', budget: 1024, over: 'index' },
+      { name: 'markup-a11y', budget: 1024, over: 'index', authoring: true },
     ],
     adapters: {
       'packages/core/src/modules/a11y/index.ts': 'core/index.ts',
