@@ -1,4 +1,4 @@
 {
   "status": "todo",
-  "reason": "text-font-decoding: runtime browser evidence in modules/fonts/test/web/fonts.test.ts; integrated text rendering and independent native comparison remain for P6 closure"
+  "reason": "P6-8: browser FontFace load is covered; derived-font axes/features API and independent native comparison remain incomplete."
 }

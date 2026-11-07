@@ -1,0 +1,61 @@
+{
+  "anima": "0.1",
+  "name": "text-font-size",
+  "grid": 20,
+  "requires": ["text", "assets", "fonts"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "sizing": "fixed",
+      "width": 4,
+      "height": 4,
+      "lineHeight": 1,
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "ab",
+          "style": "s"
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "grow": {
+      "duration": 1,
+      "tracks": {
+        "label.styles.s.size": [
+          [0, 1],
+          [1, 2]
+        ],
+        "label.runs.0.text": [
+          [0, "ab"],
+          [1, "cd"]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "playing",
+        "states": {
+          "playing": {
+            "play": "grow"
+          }
+        }
+      }
+    }
+  },
+  "assets": {
+    "sans-serif": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  }
+}

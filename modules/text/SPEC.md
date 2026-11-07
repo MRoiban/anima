@@ -112,3 +112,16 @@ and docs/research/rive-web-runtime.md; no external implementation or proprietary
 ## Font resource integration (P6-4)
 
 Browser scenes combining fonts and text import `web/fonts-text` in addition to `web/text` (the former includes `web/fonts`). The optional fonts hook resolves each style with the host controller's cssFont, waits for ready(spec, actualRunText) before any measurement, and includes both model and root font revisions in its layout/readiness keys. While awaiting readiness the text node draws an empty layout; readiness redraws without advancing the player or consuming queued host input, including on paused hosts. Font asset preload remains part of anima:load; CSS-family text readiness may complete immediately after it. The bridge has no text runtime import, and all DOM work stays in fonts/web. Without the bridge, text retains the CSS-family-only measurer.
+
+<!-- // seam(P6-8): record the measured native leading boundary beside the existing measurer contract. -->
+
+### Native comparison boundary (P6-8)
+
+Anima deliberately uses the tool font's lineGap for automatic leading and splits extra leading
+above and below each baseline. Native automatic leading and first-line extra-leading placement
+are not equivalent for the original test font. The Anima policy preserves deterministic OpenType
+metrics and symmetric authored line boxes. Matching explicit 1-em leading is used for completed
+native layout comparisons; default leading, larger leading, font-size fitting, ellipsis and trimming
+remain separately pending geometry comparisons. No raster tolerance certifies those differences.
+See [the measured native probe report](../../tests/oracle/TEXT-PROBES.md). This documents the existing
+Anima contract; it does not change layout output or assert native default identity.

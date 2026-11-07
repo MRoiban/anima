@@ -1,0 +1,36 @@
+{
+  "status": "partial",
+  "rowsClosed": 34,
+  "rowsLeft": 13,
+  "strict": {
+    "cases": 288,
+    "samples": 501,
+    "failed": 0,
+    "retainedFindings": 24
+  },
+  "changed": {
+    "passed": 6308,
+    "testFailed": 5,
+    "setupErrors": 2,
+    "skipped": 40,
+    "todo": 53,
+    "exit": 1,
+    "allFailedFilesPassFinalRetries": true,
+    "fullRerunAfterCanvasHarnessFix": false
+  },
+  "finalFileRetries": {
+    "canvas": 2390,
+    "web": 80,
+    "overlayNested": 54,
+    "moduleOrder": 1,
+    "scaffolder": 4
+  },
+  "ownedBrowserCases": {
+    "Chromium": 12,
+    "Firefox": 12
+  },
+  "independentFontProjections": 8,
+  "focusedSeamsCorpus": 1171,
+  "controlledPerfGuard": "unverified under shared load",
+  "runtimeSourceChanges": false
+}

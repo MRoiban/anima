@@ -1,0 +1,36 @@
+{
+  "anima": "0.1",
+  "name": "text-vertical-trim",
+  "grid": 20,
+  "requires": ["text", "assets", "fonts"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "sizing": "fixed",
+      "verticalTrimTop": "cap",
+      "verticalTrimBottom": "baseline",
+      "width": 4,
+      "height": 4,
+      "lineHeight": 1,
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "abcd",
+          "style": "s"
+        }
+      ]
+    }
+  ],
+  "assets": {
+    "sans-serif": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  }
+}

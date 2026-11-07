@@ -1,0 +1,38 @@
+{
+  "anima": "0.1",
+  "name": "text-style-reference",
+  "grid": 20,
+  "requires": ["text", "assets", "fonts"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "sizing": "fixed",
+      "width": 4,
+      "height": 4,
+      "lineHeight": 1,
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "text": "abcd",
+          "style": "shared"
+        }
+      ]
+    }
+  ],
+  "assets": {
+    "sans-serif": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  },
+  "textStyles": {
+    "shared": {
+      "size": 1
+    }
+  }
+}

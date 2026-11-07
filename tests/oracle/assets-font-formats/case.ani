@@ -1,0 +1,33 @@
+{
+  "anima": "0.1",
+  "name": "assets-font-formats",
+  "grid": 20,
+  "requires": ["text", "assets", "fonts"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "width": 8,
+      "height": 4,
+      "lineHeight": 1,
+      "styles": {
+        "s": {
+          "font": "body",
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "text": "abcd",
+          "style": "s"
+        }
+      ]
+    }
+  ],
+  "assets": {
+    "body": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  }
+}

@@ -1,4 +1,0 @@
-{
-  "status": "todo",
-  "reason": "P6-1: captured native render probe has unresolved baseline/layout/raster differences; raw comparison is in modules/text/verification/native-comparison.json; completed oracle integration pending"
-}

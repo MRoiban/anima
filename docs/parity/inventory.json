@@ -3173,11 +3173,12 @@
       "rive-runtime/include/rive/assets/font_asset.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web; modules/text; generated-font resource projection and browser integration",
       "module": "assets",
-      "status": "planned",
-      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/assets-font; tests/oracle/TEXT-PROBES.md; modules/fonts/test/core/oracle-conformance.test.ts; modules/fonts/test/web",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -3202,9 +3203,10 @@
     "anima": {
       "construct": "new: assets.<name> / build.assets.<name>: named font-formats resource setting",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-font-formats",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/assets-font-formats; tests/oracle/TEXT-PROBES.md; packages/cli/test/font.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: original TTF native decode/draw comparison; own OTF/CFF/WOFF/WOFF2 decode tests. Broader native container coverage unclaimed."
     }
   },
   {
@@ -3227,9 +3229,10 @@
     "anima": {
       "construct": "new: build.assets.<font>.glyphs: \"all\"",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-font-glyphs-all",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/assets-font-glyphs-all; tests/oracle/TEXT-PROBES.md; packages/cli/test/font.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     },
     "aliases": [
       "text.font-full-export"
@@ -3255,9 +3258,10 @@
     "anima": {
       "construct": "new: build.assets.<font>.glyphs: \"custom\"",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-font-glyphs-custom",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/assets-font-glyphs-custom; tests/oracle/TEXT-PROBES.md; packages/cli/test/font.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     },
     "aliases": [
       "text.font-custom-export"
@@ -3283,9 +3287,10 @@
     "anima": {
       "construct": "new: build.assets.<font>.glyphs: \"used\"",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-font-glyphs-used",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/assets-font-glyphs-used; tests/oracle/TEXT-PROBES.md; packages/cli/test/font.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     },
     "aliases": [
       "text.font-used-export"
@@ -3311,9 +3316,10 @@
     "anima": {
       "construct": "new: assets.<name> / build.assets.<name>: named google-font-import resource setting",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-google-font-import",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/assets-google-font-import; tests/oracle/TEXT-PROBES.md; packages/cli/test/font.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     }
   },
   {
@@ -3378,11 +3384,12 @@
       "rive-wasm/js/src/rive.ts:6428@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web; modules/text; generated-font resource projection and browser integration",
       "module": "assets",
-      "status": "planned",
-      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/assets-host-decode-font; tests/oracle/TEXT-PROBES.md; modules/fonts/test/core/oracle-conformance.test.ts; modules/fonts/test/web",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     },
     "aliases": [
       "host-api.decode-font"
@@ -4095,11 +4102,12 @@
       "https://rive.app/docs/runtimes/loading-assets"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web; modules/text; generated-font resource projection and browser integration",
       "module": "assets",
-      "status": "planned",
-      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/assets-replacement-scope-font; tests/oracle/TEXT-PROBES.md; modules/fonts/test/core/oracle-conformance.test.ts; modules/fonts/test/web",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     }
   },
   {
@@ -5443,9 +5451,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/data-bind-text/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/data-bind-text; native oracle pending (tests/oracle/data-bind-text)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/data-bind-text; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     },
     "aliases": [
       "text.binding"
@@ -8008,11 +8017,12 @@
       "rive-wasm/js/src/rive.ts:6254@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web; modules/text; generated-font resource projection and browser integration",
       "module": "data",
-      "status": "planned",
-      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/data-host-font; tests/oracle/TEXT-PROBES.md; modules/fonts/test/core/oracle-conformance.test.ts; modules/fonts/test/web",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     }
   },
   {
@@ -9105,7 +9115,8 @@
       "module": "text",
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/data-property-text-style; native oracle pending (tests/oracle/data-property-text-style)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-8: native typed text-style assignment still needs a faithful comparison."
     }
   },
   {
@@ -15980,11 +15991,12 @@
       "rive-wasm/js/src/rive.ts:6254@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web; modules/text; generated-font resource projection and browser integration",
       "module": "data",
-      "status": "planned",
-      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/host-api-data-font; tests/oracle/TEXT-PROBES.md; modules/fonts/test/core/oracle-conformance.test.ts; modules/fonts/test/web",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     }
   },
   {
@@ -16955,11 +16967,12 @@
       "rive-wasm/js/src/utils/riveFont.ts:23@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web; modules/text; generated-font resource projection and browser integration",
       "module": "text",
-      "status": "planned",
-      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/host-api-font-fallback; tests/oracle/TEXT-PROBES.md; modules/fonts/test/core/oracle-conformance.test.ts; modules/fonts/test/web",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     }
   },
   {
@@ -17860,9 +17873,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/host-api-nested-text-run/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/host-api-nested-text-run; native oracle pending (tests/oracle/host-api-nested-text-run)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/host-api-nested-text-run; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     }
   },
   {
@@ -18507,9 +18521,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/host-api-text-run/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/host-api-text-run; native oracle pending (tests/oracle/host-api-text-run)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/host-api-text-run; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     }
   },
   {
@@ -29423,7 +29438,8 @@
       "module": "text",
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-fit-baseline; native oracle pending (tests/oracle/text-fit-baseline)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-8: fresh current-generated-font explicit-leading capture retains geometry differences; no tolerance assigned. See tests/oracle/TEXT-PROBES.md and text-measurements.json."
     }
   },
   {
@@ -29451,7 +29467,8 @@
       "module": "text",
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-fit-layout-measure; native oracle pending (tests/oracle/text-fit-layout-measure)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-8: fresh current-generated-font explicit-leading capture retains geometry differences; no tolerance assigned. See tests/oracle/TEXT-PROBES.md and text-measurements.json."
     }
   },
   {
@@ -29473,7 +29490,8 @@
       "module": "text",
       "status": "planned",
       "test": "oracle/text-flatten",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-8: native outline-conversion evidence and component/live-text-reference/general-SVG flatten coverage remain incomplete (P6-4 report)."
     }
   },
   {
@@ -29500,11 +29518,12 @@
       "rive-runtime/include/rive/generated/assets/font_asset_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web; modules/text; generated-font resource projection and browser integration",
       "module": "text",
-      "status": "planned",
-      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-font-assets; tests/oracle/TEXT-PROBES.md; modules/fonts/test/core/oracle-conformance.test.ts; modules/fonts/test/web",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -29533,7 +29552,8 @@
       "module": "text",
       "status": "planned",
       "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-8: browser FontFace load is tested; derived-font axes/features API and independent evidence remain incomplete."
     }
   },
   {
@@ -29554,11 +29574,12 @@
       "rive-runtime/include/rive/text_engine.hpp:414@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web; modules/text; generated-font resource projection and browser integration",
       "module": "text",
-      "status": "planned",
-      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-font-fallback; tests/oracle/TEXT-PROBES.md; modules/fonts/test/core/oracle-conformance.test.ts; modules/fonts/test/web",
+      "phase": "P6",
+      "reason": "P6-8: evidenced host/tool-only oracle skip; exact scope and tests in skip.json."
     }
   },
   {
@@ -29587,7 +29608,8 @@
       "module": "text",
       "status": "planned",
       "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-8: original tool reader metrics/coverage/options tested; full integrated introspection and independent native evidence remain incomplete."
     }
   },
   {
@@ -29613,9 +29635,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-font-size/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-font-size; native oracle pending (tests/oracle/text-font-size)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-font-size; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -29643,9 +29666,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-horizontal-alignment/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-horizontal-alignment; native oracle pending (tests/oracle/text-horizontal-alignment)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-horizontal-alignment; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -29997,7 +30021,8 @@
       "module": "text",
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-line-spacing; native oracle pending (tests/oracle/text-line-spacing)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-8: fresh current-generated-font explicit-leading capture retains geometry differences; no tolerance assigned. See tests/oracle/TEXT-PROBES.md and text-measurements.json."
     }
   },
   {
@@ -30237,7 +30262,8 @@
       "module": "text",
       "status": "planned",
       "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-8: CSS helper maps tags, but authored text style registry does not yet accept features; actual feature rendering and native comparison remain incomplete."
     }
   },
   {
@@ -30265,9 +30291,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-origin/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-origin; native oracle pending (tests/oracle/text-origin)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-origin; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30294,9 +30321,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-clipped/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-clipped; native oracle pending (tests/oracle/text-overflow-clipped)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-overflow-clipped; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30325,7 +30353,8 @@
       "module": "text",
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-ellipsis; native oracle pending (tests/oracle/text-overflow-ellipsis)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-8: fresh current-generated-font explicit-leading capture retains geometry differences; no tolerance assigned. See tests/oracle/TEXT-PROBES.md and text-measurements.json."
     }
   },
   {
@@ -30352,9 +30381,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-fit/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-fit; native oracle pending (tests/oracle/text-overflow-fit)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-overflow-fit; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30383,7 +30413,8 @@
       "module": "text",
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-fit-font-size; native oracle pending (tests/oracle/text-overflow-fit-font-size)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-8: fresh current-generated-font explicit-leading capture retains geometry differences; no tolerance assigned. See tests/oracle/TEXT-PROBES.md and text-measurements.json."
     }
   },
   {
@@ -30410,9 +30441,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-hidden/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-hidden; native oracle pending (tests/oracle/text-overflow-hidden)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-overflow-hidden; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30439,9 +30471,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-visible/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-visible; native oracle pending (tests/oracle/text-overflow-visible)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-overflow-visible; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30471,9 +30504,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-paint/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-paint; native oracle pending (tests/oracle/text-paint)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-paint; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30499,9 +30533,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-paragraph-spacing/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-paragraph-spacing; native oracle pending (tests/oracle/text-paragraph-spacing)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-paragraph-spacing; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30679,9 +30714,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-rich-runs/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-rich-runs; native oracle pending (tests/oracle/text-rich-runs)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-rich-runs; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30709,7 +30745,8 @@
       "module": "text",
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-run-list; native oracle pending (tests/oracle/text-run-list)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-8: generated-font layout tested; native literal control is insufficient. textRunListSource exists and needs actual list binding/mutations."
     }
   },
   {
@@ -30849,9 +30886,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-sizing-auto-height/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-sizing-auto-height; native oracle pending (tests/oracle/text-sizing-auto-height)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-sizing-auto-height; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30877,9 +30915,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-sizing-auto-width/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-sizing-auto-width; native oracle pending (tests/oracle/text-sizing-auto-width)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-sizing-auto-width; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30907,9 +30946,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-sizing-fixed/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-sizing-fixed; native oracle pending (tests/oracle/text-sizing-fixed)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-sizing-fixed; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30937,9 +30977,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-style-reference/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-style-reference; native oracle pending (tests/oracle/text-style-reference)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-style-reference; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30965,9 +31006,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-tracking/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-tracking; native oracle pending (tests/oracle/text-tracking)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-tracking; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -30996,7 +31038,8 @@
       "module": "text",
       "status": "planned",
       "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-8: CSS helper maps axes, but authored text style registry does not yet accept axes; actual axis rendering/animation and native comparison remain incomplete."
     }
   },
   {
@@ -31022,9 +31065,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-vertical-alignment/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-vertical-alignment; native oracle pending (tests/oracle/text-vertical-alignment)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-vertical-alignment; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -31053,7 +31097,8 @@
       "module": "text",
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-vertical-trim; native oracle pending (tests/oracle/text-vertical-trim)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-8: fresh current-generated-font explicit-leading capture retains geometry differences; no tolerance assigned. See tests/oracle/TEXT-PROBES.md and text-measurements.json."
     }
   },
   {
@@ -31079,9 +31124,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-word-break/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-word-break; native oracle pending (tests/oracle/text-word-break)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-word-break; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {
@@ -31107,9 +31153,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-wrap/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-wrap; native oracle pending (tests/oracle/text-wrap)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/text-wrap; tests/oracle/TEXT-PROBES.md; modules/text/test/core/conformance.test.ts; modules/text/test/web/text.test.ts",
+      "phase": "P6",
+      "reason": "P6-8: current original-font native comparison passes strict mode; explicit leading. Default leading and other pending geometry differences remain separately documented."
     }
   },
   {

@@ -1,0 +1,1 @@
+22 cases / 26 samples: all over-threshold pixels touch original-font glyph corners

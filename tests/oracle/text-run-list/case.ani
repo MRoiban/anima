@@ -1,0 +1,66 @@
+{
+  "anima": "0.1",
+  "name": "text-run-list",
+  "grid": 20,
+  "requires": ["text", "data", "assets", "fonts"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "runs": "$items",
+      "sizing": "fixed",
+      "textField": "label",
+      "width": 4,
+      "height": 4,
+      "lineHeight": 1,
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      }
+    }
+  ],
+  "assets": {
+    "sans-serif": {
+      "type": "font",
+      "source": "../../../fixtures/fonts/anima-test.ttf"
+    }
+  },
+  "data": {
+    "models": {
+      "Main": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "default": "abcd"
+          },
+          "style": {
+            "type": "text-style",
+            "default": "shared"
+          },
+          "items": {
+            "type": "list",
+            "default": [
+              {
+                "label": "abcd"
+              }
+            ],
+            "of": "Item"
+          }
+        }
+      },
+      "Item": {
+        "properties": {
+          "label": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "textStyles": {
+    "shared": {
+      "size": 1
+    }
+  }
+}

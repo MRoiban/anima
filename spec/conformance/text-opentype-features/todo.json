@@ -1,4 +1,4 @@
 {
   "status": "todo",
-  "reason": "text-opentype-features: runtime browser evidence in modules/fonts/test/web/fonts.test.ts; integrated text rendering and independent native comparison remain for P6 closure"
+  "reason": "P6-8: CSS helper maps tags, but authored text style registry does not accept features; actual feature drawing and independent native evidence remain incomplete."
 }

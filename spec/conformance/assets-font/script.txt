@@ -1,2 +1,5 @@
 advance 0
-snapshot
+snapshot $face
+set $face alternate
+advance 0
+snapshot $face

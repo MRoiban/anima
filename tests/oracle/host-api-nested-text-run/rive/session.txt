@@ -1,0 +1,6 @@
+err text-run: unknown command 'text-run', type ? for the list
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[22:53:15.623] rive  deferred replay: inline
+[22:53:15.629] rive  built (8117 bytes, 6ms, 0 errors, 0 warnings)
+[22:53:15.629] rive  showing Probe [1/1]
+[22:53:15.630] rive  viewport 240x240 @1x

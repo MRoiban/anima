@@ -1,0 +1,47 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-55664599
+
+ ❯ |unit| modules/fonts/test/core/oracle-conformance.test.ts (8 tests | 8 failed) 166ms
+   × generated-font resource conformance: assets-font 84ms
+   × generated-font resource conformance: assets-host-decode-font 10ms
+   × generated-font resource conformance: assets-replacement-scope-font 11ms
+   × generated-font resource conformance: data-host-font 14ms
+   × generated-font resource conformance: host-api-data-font 20ms
+   × generated-font resource conformance: host-api-font-fallback 7ms
+   × generated-font resource conformance: text-font-fallback 6ms
+   × generated-font resource conformance: text-font-assets 7ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/fonts/test/core/oracle-conformance.test.ts > generated-font resource conformance: assets-font
+ FAIL  |unit| modules/fonts/test/core/oracle-conformance.test.ts > generated-font resource conformance: assets-host-decode-font
+ FAIL  |unit| modules/fonts/test/core/oracle-conformance.test.ts > generated-font resource conformance: assets-replacement-scope-font
+ FAIL  |unit| modules/fonts/test/core/oracle-conformance.test.ts > generated-font resource conformance: data-host-font
+ FAIL  |unit| modules/fonts/test/core/oracle-conformance.test.ts > generated-font resource conformance: host-api-data-font
+ FAIL  |unit| modules/fonts/test/core/oracle-conformance.test.ts > generated-font resource conformance: host-api-font-fallback
+ FAIL  |unit| modules/fonts/test/core/oracle-conformance.test.ts > generated-font resource conformance: text-font-fallback
+ FAIL  |unit| modules/fonts/test/core/oracle-conformance.test.ts > generated-font resource conformance: text-font-assets
+Error: no local font registered for $face
+ ❯ fault packages/cli/src/font/binary.ts:5:23
+      3| export const MAX_FONT = 32 * 1024 * 1024;
+      4| export function fault(message: string, code = 'font-invalid'): never {
+      5|   throw Object.assign(new Error(message), {
+       |                       ^
+      6|     code,
+      7|     pointer: '',
+ ❯ ToolMeasurer.resolve packages/cli/src/font/measure.ts:67:12
+ ❯ ToolMeasurer.measure packages/cli/src/font/measure.ts:79:23
+ ❯ measure modules/text/core/measure.ts:44:18
+ ❯ modules/text/core/layout.ts:117:25
+ ❯ build modules/text/core/layout.ts:109:16
+ ❯ layoutText modules/text/core/layout.ts:214:13
+ ❯ resolveText modules/text/core/index.ts:86:61
+ ❯ textLayout modules/text/core/index.ts:46:10
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 failed (8)
+   Start at  22:50:06
+   Duration  6.99s (transform 86%, import 12%, tests 3%)
