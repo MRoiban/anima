@@ -206,8 +206,8 @@ describe('P3b script tools', () => {
       delete (Player.prototype as Player & { semantics?: unknown }).semantics;
     }
   });
-  it('validates seeds without pretending to control private runtime random streams', () => {
-    expect(createScriptSession(model()).seed).toBe(0);
+  it('validates seeds and accepts runtime random documents', () => {
+    expect(createScriptSession(model()).seed).toBeUndefined();
     expect(createScriptSession(model(), { seed: 42 }).seed).toBe(42);
     const randomDoc = {
       ...doc,
@@ -217,7 +217,7 @@ describe('P3b script tools', () => {
     };
     const randomModel = load(randomDoc).model!;
     expect(randomModel).toBeDefined();
-    expect(() => runScript(randomModel, 'seed 3')).toThrow(/not supported/);
+    expect(runScript(randomModel, 'seed 3').diagnostics).toEqual([]);
   });
   it.each([
     'touch down 1 2',

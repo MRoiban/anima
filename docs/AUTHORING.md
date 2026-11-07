@@ -1272,7 +1272,8 @@ prints maximum/mean differences and pixel counts; exit 1 means the tolerance was
 `anima render -s interaction.txt --audio out.wav` mixes audio events offline up to the final
 script time. Use `advance` to include the intended playback duration. It requires cached
 Playwright Chromium (or `CHROMIUM_PATH`); missing browsers produce an actionable diagnostic.
-Local and base64 sources are supported; the offline resolver currently handles root audio assets.
+Local and base64 sources are supported, including inherited or shadowed component/repeat audio
+assets. Events are scheduled at their exact timeline crossing within each step, including loops.
 
 Use `anima schema --search 'stroke width'` for ranked registry and diagnostic matches,
 `anima schema rect.width` for one field, `anima inspect --summary` for a static wiring table,
@@ -1299,10 +1300,10 @@ They use the same public input API as browser hosts. Touch up also delivers leav
 Data debugging uses the public host API: `data set $score 12`, `data set $name "Ada Lovelace"`,
 `advance 0`, `data dump $score $name`. Prefixes filter the dump; omit them for all data.
 `data watch $score $name` puts changed watched values in every later snapshot's `data` object.
-`data break $score == 12` preflights steps and pauses before a matching value change;
-`data break clear` lets the next advance apply it. Break diagnostics include writer candidates;
-same-value or intermediate overwritten writes are not trapped. Preflight is for debugging and
-replays the history on a separate player.
+`data break $score == 12` preflights steps and pauses before a matching write, even if the value
+is unchanged or overwritten later in the step. `data break clear` lets the next advance apply it.
+Diagnostics identify the actual script, listener, action or binding writer. Preflight instruments
+writes while replaying history on a separate player; it adds no bytes to the data/host runtime.
 
 Assertions collect failures while continuing: `expect $score == 12`, `expect knob.x > 0`,
 `expect knob.x ~ 0.5` (absolute error ≤ 1e-6). Operators are `==`, `!=`, `<`, `>`, `~`.
@@ -1319,7 +1320,8 @@ and per-frame step/draw median and p95 in µs, using the renderer-neutral path f
 It excludes browser layout, DOM updates and rasterization. A script can establish the workload
 before measurement; failed assertions prevent a misleading timing report.
 
-`seed 42` and `--seed 42` accept uint32 values, default 0, but the shared seed source is **pending**:
-machine random choices and convert random formulas currently have independent private streams.
-Explicit seeding of a document using either returns a clear script error; no deterministic seed
-control is claimed for those features yet. See spec §11.2 for all commands and limits.
+`seed 42` and `--seed 42` accept uint32 values and control every machine/converter random draw
+through core's shared source, including nested stepping. `new Player(model, { seed: 42 })` selects
+the same stream. Reseeding starts its sequence again without clearing converter once/on-change
+caches. Omit the seed to reproduce the established deterministic defaults exactly (machineSeed or
+0x6d2b79f5 for machines, 1 for converters). See spec §11.2 for all commands.

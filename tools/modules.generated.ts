@@ -681,7 +681,7 @@ export const moduleScopes = {
     conformance: ['drawing-paint-paint-artboard'],
   },
   tooling: {
-    tests: ['packages/cli/test/agent-tools.test.ts'],
-    conformance: ['tooling-input-data'],
+    tests: ['packages/cli/test/agent-tools.test.ts', 'packages/cli/test/tooling-leftovers.test.ts'],
+    conformance: ['tooling-input-data', 'tooling-seed', 'tooling-legacy-random'],
   },
 };

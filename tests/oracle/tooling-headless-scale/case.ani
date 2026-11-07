@@ -1,0 +1,18 @@
+{
+  "anima": "0.1",
+  "name": "tooling-headless-scale",
+  "grid": 240,
+  "nodes": [
+    {
+      "id": "blue",
+      "type": "rect",
+      "x0": 60,
+      "y0": 60,
+      "w": 120,
+      "h": 120,
+      "fill": {
+        "color": "#0000ff"
+      }
+    }
+  ]
+}

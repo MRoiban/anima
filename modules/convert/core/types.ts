@@ -5,6 +5,7 @@ export interface ConverterContext {
   /** Absolute player time in milliseconds. */
   time: number;
   seed?: number;
+  random?: () => number;
   state: Map<unknown, unknown>;
   get?: (path: string) => unknown;
   direction?: 'forward' | 'reverse';

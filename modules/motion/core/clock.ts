@@ -1,3 +1,5 @@
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
+import { stampEvent } from '../../../packages/core/src/event-capture.ts';
 import type { TimelineM } from '../../../packages/core/src/load.ts';
 import type { AnimaEvent } from '../../../packages/core/src/player.ts';
 
@@ -83,5 +85,9 @@ export function crossings(
     }
   }
   found.sort((x, y) => (reverse ? y[0] - x[0] : x[0] - y[0]));
-  for (const [, time, name] of found) out.push({ name, layer, time });
+  for (const [at, time, name] of found) {
+    const event = { name, layer, time };
+    if (V) stampEvent(event, (at - a) / (b - a));
+    out.push(event);
+  }
 }

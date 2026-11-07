@@ -1,0 +1,47 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-96bce90d
+
+ ❯ |unit| packages/cli/test/tooling-leftovers.test.ts (23 tests | 2 failed) 3156ms
+   × reports state-machine action provenance without mutating the live player 15ms
+   × shares seeded draws through component and dynamically created repeat players 11ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/cli/test/tooling-leftovers.test.ts > reports state-machine action provenance without mutating the live player
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ packages/cli/test/tooling-leftovers.test.ts:278:27
+    276|   const engine = createScriptSession(result.model!);
+    277|   const stopped = engine.execute('data break $count\nadvance 1');
+    278|   expect(stopped.stopped).toBe(true);
+       |                           ^
+    279|   expect(stopped.diagnostics[0]?.writer?.[0]).toMatch(
+    280|     /machine action: \/machine\/layers\/main\/states\/active\/enterAct…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |unit| packages/cli/test/tooling-leftovers.test.ts > shares seeded draws through component and dynamically created repeat players
+Error: line 1: runs.get(...) is not a function
+ ❯ Object.execute packages/core/src/script.ts:673:15
+    671|         if (e instanceof Breakpoint) break;
+    672|         if (e instanceof ScriptError) throw e;
+    673|         throw new ScriptError((e as Error).message.replace(/^anima: /,…
+       |               ^
+    674|       }
+    675|     }
+ ❯ runScript packages/core/src/script.ts:700:23
+ ❯ packages/cli/test/tooling-leftovers.test.ts:302:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 21 passed (23)
+   Start at  10:08:36
+   Duration  4.37s (tests 78%, import 11%, transform 10%)

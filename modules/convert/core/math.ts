@@ -1,3 +1,4 @@
+import { RandomSource } from '../../../packages/core/src/random.ts';
 import { expression, evaluate, BindError, registerFunction } from '../../bind/core/expression.ts';
 import type { InputScope } from '../../bind/core/expression.ts';
 import type { ConverterContext } from './types.ts';
@@ -43,27 +44,26 @@ export function registerMathFunctions(register: (name: string, fn: MathFunction)
   for (const [name, fn] of mathFunctions) register(name, fn);
 }
 interface RandomState {
-  seed: number;
   cache: Map<string, { input: unknown; value: number }>;
 }
 const randomKey = {};
+const sources = new WeakMap<object, RandomSource>();
 export function seededRandom(
   ctx: ConverterContext,
   mode = 'always',
   input?: unknown,
   site = '',
 ): number {
-  const storage = ctx.randomState ?? ctx.state;
-  let state = storage.get(randomKey) as RandomState | undefined;
-  if (!state) storage.set(randomKey, (state = { seed: (ctx.seed ?? 1) >>> 0, cache: new Map() }));
   const key = (ctx.key ?? '') + ':' + site;
   let cache = ctx.state.get(randomKey) as RandomState | undefined;
-  if (!cache) ctx.state.set(randomKey, (cache = { seed: 1, cache: new Map() }));
+  if (!cache) ctx.state.set(randomKey, (cache = { cache: new Map() }));
   const previous = cache.cache.get(key);
   if (previous && (mode === 'once' || (mode === 'on-change' && Object.is(previous.input, input))))
     return previous.value;
-  state.seed = (Math.imul(1664525, state.seed) + 1013904223) >>> 0;
-  const value = state.seed / 4294967296;
+  const owner = ctx.randomState ?? ctx.player;
+  let source = sources.get(owner);
+  if (!source) sources.set(owner, (source = new RandomSource()));
+  const value = ctx.random ? ctx.random() : source.next(ctx.seed ?? 1);
   cache.cache.set(key, { input, value });
   return value;
 }

@@ -1,3 +1,10 @@
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
+import {
+  occurrence,
+  capturing,
+  stampEntryEvent,
+  type CapturedEvent,
+} from '../../../packages/core/src/event-capture.ts';
 import { resolveAddress } from '../../../packages/core/src/load.ts';
 import type {
   Model,
@@ -371,6 +378,7 @@ export class MotionRuntime implements PlaybackPolicy {
   ): void {
     // Seeking/holding never synthesizes timeline crossings.
     if (this.clocks.isControlled(run)) return;
+    const before = V ? out.length : 0;
     crossings(
       t,
       this.clocks.raw(run, a),
@@ -381,6 +389,14 @@ export class MotionRuntime implements PlaybackPolicy {
       t.loop,
       source,
     );
+    if (V && capturing) {
+      const span = (b - a) * _speed * (timing.get(t)?.speed ?? 1);
+      const fraction = !span ? 0 : (this.clocks.raw(run, b) - this.clocks.raw(run, a)) / span;
+      for (const e of out.slice(before) as CapturedEvent[]) {
+        e[occurrence] = (e[occurrence] ?? 0) * fraction;
+        if (closed) stampEntryEvent(e, ((e[occurrence] ?? 0) - 1) * (b - a));
+      }
+    }
   }
   gate(t: TransitionM, st: StateM, elapsed: number, run: object): boolean {
     const threshold = exits.get(t);

@@ -1,0 +1,38 @@
+{
+  "observer": "Failure-only execFileSync observer copied nested pending-report.json before scratch cleanup. No limits or behavior changed.",
+  "initialObservedFailure": {
+    "name": "documented oracle skip: tooling-seed",
+    "assertion": "pendingCases.some(v => v.name === c.name) expected false, received true",
+    "source": "tools/oracle.test.ts:23",
+    "note": "Recorded from the first nested report before the next run overwrote that temporary report."
+  },
+  "followupNestedFailures": [
+    {
+      "ancestorTitles": [],
+      "fullName": "Rive oracle: assets-image-import-webp",
+      "status": "failed",
+      "title": "Rive oracle: assets-image-import-webp",
+      "duration": 5093.117668999999,
+      "failureMessages": [
+        "Error: Test timed out in 5000ms.\nIf this is a long-running test, pass a timeout value as the last argument or configure it globally with \"testTimeout\".\n    at task (file:///home/jarvis/.t3/worktrees/anima/t3-96bce90d/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:2700:43)\n    at Object.<anonymous> (file:///home/jarvis/.t3/worktrees/anima/t3-96bce90d/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:2717:16)\n    at Object.<anonymous> (file:///home/jarvis/.t3/worktrees/anima/t3-96bce90d/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:2486:28)\n    at chain (file:///home/jarvis/.t3/worktrees/anima/t3-96bce90d/node_modules/vitest/dist/chunks/run.CjdgFZiW.js:1870:14)\n    at /tmp/anima-scaffold-test-l5jR8r/tools/oracle.test.ts:27:3\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async VitestModuleEvaluator._runInlinedModule (file:///home/jarvis/.t3/worktrees/anima/t3-96bce90d/node_modules/vitest/dist/module-evaluator.js:261:4)\n    at async VitestModuleRunner.directRequest (file:///home/jarvis/.t3/worktrees/anima/t3-96bce90d/node_modules/vite/dist/node/module-runner.js:1262:59)\n    at async VitestModuleRunner.cachedRequest (file:///home/jarvis/.t3/worktrees/anima/t3-96bce90d/node_modules/vite/dist/node/module-runner.js:1169:73)\n    at async VitestModuleRunner.import (file:///home/jarvis/.t3/worktrees/anima/t3-96bce90d/node_modules/vite/dist/node/module-runner.js:1124:10)"
+      ],
+      "meta": {},
+      "tags": [],
+      "benchmarks": []
+    }
+  ],
+  "repairedScaffolder": {
+    "pass": 4,
+    "fail": 0
+  },
+  "webpAlone": {
+    "pass": 1,
+    "fail": 0,
+    "originalTimeoutMs": 5000
+  },
+  "scratchCopyAlone": {
+    "pass": 1,
+    "fail": 0,
+    "originalTimeoutMs": 5000
+  }
+}

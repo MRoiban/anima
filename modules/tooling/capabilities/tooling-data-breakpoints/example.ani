@@ -1,16 +1,75 @@
 {
   "anima": "0.1",
-  "name": "tooling-data-breakpoints",
+  "name": "agent-tools",
   "grid": 20,
+  "requires": ["data", "input"],
   "nodes": [
     {
-      "id": "probe",
+      "id": "dot",
       "type": "circle",
       "center": [10, 10],
-      "r": 1,
+      "r": 3,
       "fill": {
         "color": "#000"
       }
     }
-  ]
+  ],
+  "listeners": [
+    {
+      "on": "down",
+      "target": "dot",
+      "set": {
+        "$count": 5
+      }
+    },
+    {
+      "on": "key-down",
+      "target": "dot",
+      "set": {
+        "$count": 7
+      },
+      "key": "Enter"
+    },
+    {
+      "on": "scroll",
+      "target": "dot",
+      "set": {
+        "$count": 9
+      }
+    },
+    {
+      "on": "gamepad-button",
+      "target": "dot",
+      "set": {
+        "$count": 11
+      },
+      "control": 0
+    }
+  ],
+  "data": {
+    "models": {
+      "State": {
+        "properties": {
+          "count": {
+            "type": "number",
+            "default": 0
+          },
+          "title": {
+            "type": "string",
+            "default": "Hello"
+          },
+          "enabled": {
+            "type": "bool"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "State",
+        "default": true,
+        "values": {}
+      }
+    }
+  }
 }

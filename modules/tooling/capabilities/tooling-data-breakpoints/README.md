@@ -1,6 +1,6 @@
 # Data write breakpoints
 
-Status: partial — parity row remains planned.
+Status: implementation complete; parity remains planned until P3b phase closure.
 
 Tooling-only commands add no JSON/AniML authoring fields; runtime registry spellings are not
 applicable. Both source formats use the same script/API. Contract: spec/SPEC.md §11.2; guide:
@@ -12,4 +12,6 @@ Independent conformance: spec/conformance/tooling-input-data. Native comparisons
 oracle skips (including protocol limits and the reload retention difference):
 modules/tooling/oracle/README.md. Measurements and final verification: modules/tooling/REPORT.md.
 
-Pending: replay traps final value changes and reports writer candidates; same-value and transient overwritten writes need runtime instrumentation.
+Tooling instruments replay writes before mutation, including same-value and overwritten values.
+Script lines, listener/action pointers and actual reverse-binding writes identify provenance.
+No data or host runtime source/hook was added.

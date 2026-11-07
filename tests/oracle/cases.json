@@ -2927,5 +2927,61 @@
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
+  },
+  {
+    "name": "tooling-headless-artboard",
+    "times": [0],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "tooling-headless-fit-contain",
+    "times": [0],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "tooling-headless-fit-cover",
+    "times": [0],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "tooling-headless-fit-fill",
+    "times": [0],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "tooling-headless-fit-none",
+    "times": [0],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "tooling-headless-viewport",
+    "times": [0],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "tooling-headless-scale",
+    "times": [0],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0
+  },
+  {
+    "name": "tooling-pixel-probe",
+    "times": [0],
+    "threshold": 0,
+    "maxDiff": 0,
+    "maxOverPercent": 0
   }
 ]

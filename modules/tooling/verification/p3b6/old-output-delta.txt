@@ -1,0 +1,2 @@
+tests/oracle/radial/anima/0.png {"width":240,"height":240,"differingPixels":2,"pixelsBeyondTolerance":2,"maxChannelDifference":1,"meanChannelDifference":0.000008680555555555556,"pass":false}
+tests/oracle/radial/anima/0-diff.png {"width":240,"height":240,"differingPixels":1,"pixelsBeyondTolerance":1,"maxChannelDifference":1,"meanChannelDifference":0.000013020833333333334,"pass":false}

@@ -5,8 +5,9 @@ export function viewportSVG(
   height: number,
   fit: string,
   scale: number,
+  background?: string,
 ): string {
-  return svg.replace(/<svg\b([^>]*)>/, (_, raw: string) => {
+  const fitted = svg.replace(/<svg\b([^>]*)>/, (_, raw: string) => {
     let attrs = raw.replace(/\s(?:width|height|preserveAspectRatio)="[^"]*"/g, '');
     if (fit === 'none') {
       const box = /viewBox="([^"]+)"/.exec(attrs)?.[1]?.split(/\s+/).map(Number) ?? [
@@ -15,10 +16,18 @@ export function viewportSVG(
         width,
         height,
       ];
-      attrs = attrs.replace(/viewBox="[^"]*"/, `viewBox="${box[0]} ${box[1]} ${width} ${height}"`);
+      attrs = attrs.replace(
+        /viewBox="[^"]*"/,
+        `viewBox="${box[0]! + box[2]! / 2 - width / 2} ${box[1]! + box[3]! / 2 - height / 2} ${width} ${height}"`,
+      );
     }
     return `<svg${attrs} width="${Math.max(1, Math.round(width * scale))}" height="${Math.max(1, Math.round(height * scale))}" preserveAspectRatio="${fit === 'fill' || fit === 'none' ? 'none' : fit === 'cover' ? 'xMidYMid slice' : 'xMidYMid meet'}">`;
   });
+  if (!background) return fitted;
+  // Background belongs to the output viewport, including the letterbox region.
+  const w = Math.max(1, Math.round(width * scale)),
+    h = Math.max(1, Math.round(height * scale));
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><rect width="${w}" height="${h}" fill="${background.replaceAll('&', '&amp;').replaceAll('"', '&quot;')}"/>${fitted}</svg>`;
 }
 export function probePNG(bytes: Buffer, points: string) {
   const image = PNG.sync.read(bytes);
