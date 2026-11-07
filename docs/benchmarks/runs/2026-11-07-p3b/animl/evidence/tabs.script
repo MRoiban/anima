@@ -1,0 +1,17 @@
+advance 0
+focus target generalTab
+snapshot --semantics --all
+key down ArrowRight
+advance 0
+snapshot --semantics --all
+expect $selectedTab == 1
+expect generalPanel.visible == false
+expect soundPanel.visible == true
+key down ArrowLeft
+advance 0
+snapshot --semantics --all
+expect $selectedTab == 0
+pointer click 18 3
+advance 0
+snapshot --semantics --all
+expect $selectedTab == 1

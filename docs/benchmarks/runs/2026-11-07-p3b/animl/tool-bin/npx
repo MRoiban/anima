@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Let the repo hook use the benchmark-local formatter without a root install.
+set -euo pipefail
+HERE="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)"
+while [[ "${1:-}" == --* ]]; do shift; done
+if [[ "${1:-}" != prettier ]]; then
+  echo 'benchmark npx shim supports only prettier' >&2
+  exit 2
+fi
+shift
+exec "$HERE/node_modules/.bin/prettier" "$@"

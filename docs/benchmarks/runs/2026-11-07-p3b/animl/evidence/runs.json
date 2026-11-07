@@ -1,0 +1,113 @@
+[
+  {
+    "name": "validate",
+    "args": [
+      "validate",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/settings.animl",
+      "--format=json"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "build",
+    "args": [
+      "build",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/settings.animl",
+      "-o",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/settings.ani"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "tabs",
+    "args": [
+      "sample",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/settings.animl",
+      "-s",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/evidence/tabs.script"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "slider",
+    "args": [
+      "sample",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/settings.animl",
+      "-s",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/evidence/slider.script"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "switch",
+    "args": [
+      "sample",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/settings.animl",
+      "-s",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/evidence/switch.script"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "checkboxes",
+    "args": [
+      "sample",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/settings.animl",
+      "-s",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/evidence/checkboxes.script"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "host-data",
+    "args": [
+      "sample",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/settings.animl",
+      "-s",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/evidence/host-data.script"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "render-general",
+    "args": [
+      "render",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/settings.animl",
+      "-o",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/evidence/general.png",
+      "--size",
+      "480",
+      "-e",
+      "advance 0"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "render-sound",
+    "args": [
+      "render",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/settings.animl",
+      "-o",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/evidence/sound.png",
+      "--size",
+      "480",
+      "-e",
+      "advance 0; data set $selectedTab 1; advance 0"
+    ],
+    "exit": 0
+  },
+  {
+    "name": "render-all-checked",
+    "args": [
+      "render",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/settings.animl",
+      "-o",
+      "/home/jarvis/.t3/worktrees/anima/t3-cd4af1b7/docs/benchmarks/runs/2026-11-07-p3b/animl/evidence/all-checked.png",
+      "--size",
+      "480",
+      "-e",
+      "advance 0; focus target parent; key down Space; advance 0"
+    ],
+    "exit": 0
+  }
+]

@@ -1,0 +1,43 @@
+advance 0
+focus target parent
+snapshot --semantics --all
+key down Space
+advance 0
+snapshot --semantics --all
+expect $email == true
+expect $push == true
+expect $sms == true
+expect $allChecked == true
+expect mixedBar.visible == false
+key down Space
+advance 0
+snapshot --semantics --all
+expect $email == false
+expect $push == false
+expect $sms == false
+expect $anyChecked == false
+expect mixedBar.visible == false
+focus target emailBox
+snapshot --semantics --all
+key down Space
+snapshot --semantics --all
+expect $email == true
+expect $mixed == true
+expect mixedBar.visible == true
+focus target pushBox
+snapshot --semantics --all
+key down Enter
+snapshot --semantics --all
+expect $push == true
+expect $mixed == true
+focus target smsBox
+snapshot --semantics --all
+key down Space
+snapshot --semantics --all
+expect $sms == true
+expect $allChecked == true
+expect mixedBar.visible == false
+pointer click 5 13
+snapshot --semantics --all
+expect $email == false
+expect $mixed == true

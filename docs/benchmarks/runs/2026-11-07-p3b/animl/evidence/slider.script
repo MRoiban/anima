@@ -1,0 +1,27 @@
+advance 0
+data set $selectedTab 1
+advance 0
+focus target volumeTrack
+snapshot --semantics --all
+key down ArrowUp
+snapshot --semantics --all
+expect $volume == 45
+expect volumeFill.w == 13.5
+key down ArrowDown
+snapshot --semantics --all
+expect $volume == 40
+expect volumeFill.w == 12
+data set $volume 100
+advance 0
+snapshot --semantics --all
+key down ArrowUp
+snapshot --semantics --all
+expect $volume == 100
+expect volumeFill.w == 30
+data set $volume 0
+advance 0
+snapshot --semantics --all
+key down ArrowDown
+snapshot --semantics --all
+expect $volume == 0
+expect volumeFill.w == 0
