@@ -1,0 +1,37 @@
+<Rive version="1" kind="fragment">
+  <Artboard id="0:1" name="Focus policy" width="100" height="40" defaultStateMachineId="0:2" viewModelId="0:40">
+    <FocusData canFocus="false"/>
+    <Node id="0:10" name="parent">
+      <FocusData/>
+      <SemanticData id="0:110" role="group" label="parent"/>
+      <Shape id="0:11" name="child" x="10" y="10">
+        <SemanticData role="button" label="child"><DataBindContext sourcePathIds="0:40-0:42" propertyKey="1004"/></SemanticData>
+        <Rectangle width="4" height="4"/><Fill><SolidColor colorValue="FF111111"/></Fill>
+      </Shape>
+      <Shape id="0:12" name="sibling" x="30" y="10">
+        <SemanticData role="button" label="sibling"/>
+        <Rectangle width="4" height="4"/><Fill><SolidColor colorValue="FF111111"/></Fill>
+      </Shape>
+    </Node>
+    <Shape id="0:13" name="outside" x="50" y="10">
+      <SemanticData role="button" label="outside"/>
+      <Rectangle width="4" height="4"/><Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <Shape id="0:14" name="condition-marker" x="90" y="30"><Rectangle width="2" height="2"/><Fill><SolidColor colorValue="FF111111"/></Fill><SemanticData role="text" label="condition-marker"/></Shape>
+    <LinearAnimation id="0:5" name="Mark" duration="60" fps="60"><KeyedObject objectId="0:14"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="70"/></KeyedProperty></KeyedObject></LinearAnimation>
+    <LinearAnimation id="0:3" name="Idle" duration="60" fps="60"><KeyedObject objectId="0:14"><KeyedProperty property="x"><KeyFrameDouble frame="0" value="90"/></KeyedProperty></KeyedObject></LinearAnimation>
+    <StateMachine id="0:2" name="Keys">
+      <StateMachineListener targetId="0:1"><ListenerInputTypeKeyboard listenerTypeValue="keyboard"><KeyboardInput keyType="p" keyPhase="1" modifiers="0"/></ListenerInputTypeKeyboard><FocusActionTarget targetId="0:10"/></StateMachineListener>
+      <StateMachineListener targetId="0:1"><ListenerInputTypeKeyboard listenerTypeValue="keyboard"><KeyboardInput keyType="c" keyPhase="1" modifiers="0"/></ListenerInputTypeKeyboard><FocusActionTarget targetId="0:11"/></StateMachineListener>
+      <StateMachineListener targetId="0:1"><ListenerInputTypeKeyboard listenerTypeValue="keyboard"><KeyboardInput keyType="t" keyPhase="1" modifiers="0"/></ListenerInputTypeKeyboard><FocusActionTraversal traversalKind="next"/></StateMachineListener>
+      <StateMachineListener targetId="0:1"><ListenerInputTypeKeyboard listenerTypeValue="keyboard"><KeyboardInput keyType="r" keyPhase="1" modifiers="0"/></ListenerInputTypeKeyboard><FocusActionTraversal traversalKind="right"/></StateMachineListener>
+      <StateMachineListener targetId="0:1"><ListenerInputTypeKeyboard listenerTypeValue="keyboard"><KeyboardInput keyType="h" keyPhase="1" modifiers="0"/></ListenerInputTypeKeyboard><ListenerViewModelChange><BindablePropertyBoolean propertyValue="true"><DataBindContext sourcePathIds="0:40-0:42" propertyKey="634" direction="true"/></BindablePropertyBoolean></ListenerViewModelChange></StateMachineListener>
+      <StateMachineLayer><EntryState><StateTransition stateToId="0:4"/></EntryState><AnimationState id="0:4" animationId="0:3"><FocusActionTarget targetId="0:11"/></AnimationState></StateMachineLayer>
+      <StateMachineLayer name="Ancestor condition"><EntryState><StateTransition stateToId="0:6"/></EntryState>
+        <AnimationState id="0:6" animationId="0:3"><StateTransition stateToId="0:7"><TransitionFocusCondition opValue="equal"><TransitionPropertyComponentComparator objectId="0:10" propertyKey="0"/><TransitionValueBooleanComparator value="true"/></TransitionFocusCondition></StateTransition></AnimationState>
+        <AnimationState id="0:7" animationId="0:5"><StateTransition stateToId="0:6"><TransitionFocusCondition opValue="notEqual"><TransitionPropertyComponentComparator objectId="0:10" propertyKey="0"/><TransitionValueBooleanComparator value="true"/></TransitionFocusCondition></StateTransition></AnimationState>
+      </StateMachineLayer>
+    </StateMachine>
+  </Artboard>
+<ViewModel id="0:40" name="State" defaultInstanceId="0:41"><ViewModelPropertyBoolean id="0:42" name="hidden"/><ViewModelInstance id="0:41" name="main" exports="true"><ViewModelInstanceBoolean viewModelPropertyId="0:42" propertyValue="false"/></ViewModelInstance></ViewModel>
+</Rive>

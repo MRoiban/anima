@@ -2816,7 +2816,12 @@ The optional browser-only `devtools` contract is specified in
 
 Node semantics are specified in [modules/a11y/SPEC.md](../modules/a11y/SPEC.md). Interaction,
 diffs and focus policy live in the companion `a11y-actions` (runtime key `a11yactions`); in-browser
-AniML forms in the `markup-a11y` web entry. The optional `a11y-dom` web entry supplies the platform overlay. Root §10 is unchanged.
+AniML forms in the `markup-a11y` web entry. The optional `a11y-dom` web entry supplies the platform overlay,
+including canvas positioning through the optional canvas backend's node-box adapter. Synthesized
+semantic focus targets use world geometry-box centers; directional candidates exclude ancestors
+of the current target. Unchanged semantic reads reuse retained dependencies before collecting the
+scene. Geometry/visibility, binding and owner dependencies govern recollection; paint-only changes and
+unchanged list steps preserve it. See the module contracts and `spec/conformance/a11y-spatial-focus`. Root §10 is unchanged.
 
 <!-- capability: a11y.tree-bounds -->
 ### Semantic bounds
@@ -2848,8 +2853,8 @@ is true for the primary target and focusable semantic ancestors. Documents witho
 node semantics retain exact-target focus conditions. The existing machine guard
 registry and AniML JSON `guard` attribute own both spellings and unknown-target
 validation. See `spec/conformance/a11y-focus-condition` and
-[the node semantics contract](../modules/a11y/SPEC.md). Repeated targets and native
-ancestor-condition comparison remain open in the closure report.
+[the node semantics contract](../modules/a11y/SPEC.md). Repeated targets are covered by the module tests; six native PNG stages independently verify
+ancestor conditions, as recorded in the closure report.
 
 ## data-host
 

@@ -57,7 +57,15 @@ sibling suppresses its siblings. IDs in component instances and repeated rows ar
 dotted. Intended bounds are transformed painted bounds, or an explicit local box.
 The current core keeps explicit bounds or a geometry union; it does not add painted-stroke extents. Static bounds are propagated from visible children in reverse structural order. Explicit semantic bounds override that node's computed box. A node without measurable descendants falls back to its world-space origin as a zero-size box. Nested instances and repeat items are visited at their owning node, before its next authored sibling.
 The tree is cached across unchanged reads and steps; changed semantic inputs,
-geometry or focus invalidate it. Late registration of action/focus peers invalidates a cached static tree. A same-signature owner replacement refreshes action ownership while retaining the immutable tree snapshot. Hosts must treat returned snapshots as read-only. This currently compares resolved signatures after collecting entries, rather than using dependency subscriptions.
+geometry or focus invalidate it. Late registration of action/focus peers invalidates a cached static tree. A same-signature owner replacement refreshes action ownership while retaining the immutable tree snapshot. Hosts must treat returned snapshots as read-only. A retained dependency check covers each visited player's resolved geometry/transform/visibility
+addresses, focus, semantic input/data bindings, focus-enabled inputs, nested owner identity/count,
+list length/item-player identity and module generation. Unchanged reads return before scene
+collection, bounds work or signature construction. Paint/opacity/draw-order addresses do not affect
+the current logical boxes and are excluded from these checks. Unchanged list steps retain the
+cache despite the renderer's revision advancing. A changed dependency recollects; equal resolved
+signatures retain snapshot identity while refreshing owners. These are retained value readers,
+not event subscriptions or a new host notification API. Hosts must treat snapshots as read-only.
+
 
 With `a11y-actions` registered, `semanticDiff(previous,next)` and `player.semanticDiff` return added and removed ids
 in tree order, and `{id,keys}` changes in next-tree order. Children compare immediate
@@ -82,7 +90,15 @@ pointer matrix and scope rules as component instances. To traverse beyond a chil
 row's edge, use `focus edge="parent-scope"` on the repeat, as on component instances.
 Shrinking a repeat retargets before generic focus cleanup. Nested/repeated semantic
 roots are refreshed after each step even when their host has no own semantic node.
-Direct native ancestor-condition coverage remains open.
+Directional traversal uses semantic box centers for synthesized targets without explicit focus
+bounds, and excludes ancestors of the current target from directional candidates. Explicit focus
+bounds and scoped closed-loop behavior retain their existing policy. The native child → right
+sibling → next outside sequence matches; see `spec/conformance/a11y-spatial-focus`.
+Native ancestor-condition coverage matches six PNG marker stages in `oracle/p3c8-condition`: entry,
+parent targeting, sequential and directional movement, departure and hidden-child retargeting. The
+native comparator targets the node, and equal/notEqual choose focused/unfocused; its right-hand
+boolean does not provide inversion. Native semantic bounds can lag animated paint and are retained
+as a numbered finding rather than used as a substitute for the PNG comparison.
 
 ## Headless commands (SPEC §11.2 extension)
 

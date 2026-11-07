@@ -1,0 +1,72 @@
+{
+  "schema": 1,
+  "artboard": "Focus policy",
+  "roots": [
+    {
+      "id": 1,
+      "role": "group",
+      "roleValue": 9,
+      "label": "parent",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 128,
+      "traitFlags": 64,
+      "bounds": { "x": 8, "y": 8, "width": 24, "height": 4 },
+      "children": [
+        {
+          "id": 2,
+          "role": "button",
+          "roleValue": 1,
+          "label": "child",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 128,
+          "traitFlags": 96,
+          "bounds": { "x": 8, "y": 8, "width": 4, "height": 4 },
+          "children": []
+        },
+        {
+          "id": 3,
+          "role": "button",
+          "roleValue": 1,
+          "label": "sibling",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 0,
+          "traitFlags": 96,
+          "bounds": { "x": 28, "y": 8, "width": 4, "height": 4 },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "role": "button",
+      "roleValue": 1,
+      "label": "outside",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 96,
+      "bounds": { "x": 48, "y": 8, "width": 4, "height": 4 },
+      "children": []
+    },
+    {
+      "id": 5,
+      "role": "text",
+      "roleValue": 7,
+      "label": "condition-marker",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": { "x": 69, "y": 29, "width": 2, "height": 2 },
+      "children": []
+    }
+  ]
+}

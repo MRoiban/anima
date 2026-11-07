@@ -31,8 +31,13 @@ subtrees. Opacity does not remove nodes from the accessibility tree.
 Every semantic element is absolutely positioned and transparent. World-grid
 bounds map through the live SVG screen matrix relative to the host, including
 viewBox origin, fit, alignment and resizing. Nested elements offset their bounds
-by the semantic parent's world origin. This module currently uses the SVG mapping;
-canvas-backed positioning is not specified by this ticket.
+by the semantic parent's world origin. For canvas output, the canvas entry exposes an internal `canvasBox(icon, bounds)` adapter to its
+retained renderer's `nodeBox(bounds)`. It maps resolved world node boxes through the current
+viewport and actual canvas client rectangle, removing backing-pixel ratio from CSS coordinates.
+The overlay derives its world-to-host mapping from that adapter; the canvas entry is optional and
+is not imported at runtime by the overlay. Fit, alignment, resize and pixel-ratio handling stay in
+the canvas backend. This maps the current semantic geometry boxes; exact stroke extents remain an
+open part of `a11y.tree-bounds`.
 
 Native click/input/change events invoke semanticAction. Radios use change, so
 activating an already-checked radio does not toggle it off. A range target is reached through

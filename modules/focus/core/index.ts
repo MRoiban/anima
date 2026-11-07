@@ -79,6 +79,10 @@ const scope = (p: Player, i: number): number => {
     if (cfg(p, n)?.scope) return n;
   return -1;
 };
+const contains = (p: Player, ancestor: number, node: number): boolean => {
+  while (node >= 0 && node !== ancestor) node = p.model.nodes[node]!.parent;
+  return node === ancestor;
+};
 const point = (p: Player, i: number): [number, number] => {
   const [x, y, w, h] = cfg(p, i)?.bounds ?? [0, 0, 0, 0];
   return apply(p.world(i), x + w / 2, y + h / 2);
@@ -201,17 +205,7 @@ function install(P: typeof Player, modules: ReadonlyMap<string, Module>) {
     while (!visited.has(s)) {
       visited.add(s);
       const items = all.filter(
-        (n) =>
-          scope(this, n.node) === s ||
-          (visited.size > 1 &&
-            (() => {
-              let i = n.node;
-              while (i >= 0) {
-                if (i === s) return true;
-                i = this.model.nodes[i]!.parent;
-              }
-              return s < 0;
-            })()),
+        (n) => scope(this, n.node) === s || (visited.size > 1 && contains(this, s, n.node)),
       );
       let next: FocusItem | undefined;
       if (sequential) {
@@ -221,6 +215,7 @@ function install(P: typeof Player, modules: ReadonlyMap<string, Module>) {
         const [x, y] = current.point ?? point(this, current.node);
         let best = Infinity;
         for (const n of items) {
+          if (contains(this, n.node, this.model.nodes[current.node]!.parent)) continue;
           const [nx, ny] = n.point ?? point(this, n.node),
             dx = nx - x,
             dy = ny - y;
