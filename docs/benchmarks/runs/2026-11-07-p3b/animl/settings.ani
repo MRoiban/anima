@@ -1,0 +1,636 @@
+{
+  "anima": "0.1",
+  "name": "settings",
+  "grid": 40,
+  "viewBox": [0, 0, 40, 30],
+  "requires": ["data", "bind", "derive", "convert", "a11y", "a11yactions", "focus", "input"],
+  "inputs": {
+    "chooseGeneral": {
+      "type": "trigger"
+    },
+    "chooseSound": {
+      "type": "trigger"
+    },
+    "toggleParent": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "background",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 40,
+      "h": 30,
+      "fill": {
+        "color": "#f0eee6"
+      }
+    },
+    {
+      "id": "tabs",
+      "type": "group",
+      "children": [
+        {
+          "id": "generalTab",
+          "type": "rect",
+          "x0": 2,
+          "y0": 2,
+          "w": 10,
+          "h": 3,
+          "fill": {
+            "color": "#f0eee6"
+          },
+          "stroke": {
+            "color": "#141413",
+            "width": 0.15
+          },
+          "a11y": {
+            "role": "tab",
+            "label": "$generalTitle",
+            "activate": "chooseGeneral",
+            "selected": "$generalSelected"
+          },
+          "focus": {
+            "bounds": [2, 2, 10, 3]
+          }
+        },
+        {
+          "id": "soundTab",
+          "type": "rect",
+          "x0": 14,
+          "y0": 2,
+          "w": 10,
+          "h": 3,
+          "fill": {
+            "color": "#f0eee6"
+          },
+          "stroke": {
+            "color": "#141413",
+            "width": 0.15
+          },
+          "a11y": {
+            "role": "tab",
+            "label": "$soundTitle",
+            "activate": "chooseSound",
+            "selected": "$soundSelected"
+          },
+          "focus": {
+            "bounds": [14, 2, 10, 3]
+          }
+        }
+      ],
+      "a11y": {
+        "role": "tab-list",
+        "label": "Settings"
+      },
+      "focus": {
+        "enabled": false,
+        "scope": true,
+        "edge": "closed-loop"
+      }
+    },
+    {
+      "id": "generalPanel",
+      "type": "group",
+      "children": [
+        {
+          "id": "parent",
+          "type": "rect",
+          "x0": 2,
+          "y0": 8,
+          "w": 2,
+          "h": 2,
+          "fill": {
+            "color": "#f0eee6"
+          },
+          "stroke": {
+            "color": "#141413",
+            "width": 0.15
+          },
+          "a11y": {
+            "role": "checkbox",
+            "label": "$notificationsLabel",
+            "activate": "toggleParent",
+            "checked": "$allChecked",
+            "checkedMixed": "$mixed"
+          },
+          "focus": {
+            "bounds": [2, 8, 2, 2]
+          }
+        },
+        {
+          "id": "emailBox",
+          "type": "rect",
+          "x0": 4,
+          "y0": 12,
+          "w": 2,
+          "h": 2,
+          "fill": {
+            "color": "#f0eee6"
+          },
+          "stroke": {
+            "color": "#141413",
+            "width": 0.15
+          },
+          "a11y": {
+            "role": "checkbox",
+            "label": "$emailLabel",
+            "activate": "$email",
+            "checked": "$email"
+          },
+          "focus": {
+            "bounds": [4, 12, 2, 2]
+          }
+        },
+        {
+          "id": "pushBox",
+          "type": "rect",
+          "x0": 4,
+          "y0": 16,
+          "w": 2,
+          "h": 2,
+          "fill": {
+            "color": "#f0eee6"
+          },
+          "stroke": {
+            "color": "#141413",
+            "width": 0.15
+          },
+          "a11y": {
+            "role": "checkbox",
+            "label": "$pushLabel",
+            "activate": "$push",
+            "checked": "$push"
+          },
+          "focus": {
+            "bounds": [4, 16, 2, 2]
+          }
+        },
+        {
+          "id": "smsBox",
+          "type": "rect",
+          "x0": 4,
+          "y0": 20,
+          "w": 2,
+          "h": 2,
+          "fill": {
+            "color": "#f0eee6"
+          },
+          "stroke": {
+            "color": "#141413",
+            "width": 0.15
+          },
+          "a11y": {
+            "role": "checkbox",
+            "label": "$smsLabel",
+            "activate": "$sms",
+            "checked": "$sms"
+          },
+          "focus": {
+            "bounds": [4, 20, 2, 2]
+          }
+        },
+        {
+          "id": "mixedBar",
+          "type": "path",
+          "d": "M2.4 9L3.6 9",
+          "stroke": {
+            "color": "#141413",
+            "width": 0.25
+          }
+        }
+      ]
+    },
+    {
+      "id": "soundPanel",
+      "type": "group",
+      "children": [
+        {
+          "id": "volumeTrack",
+          "type": "rect",
+          "x0": 2,
+          "y0": 10,
+          "w": 30,
+          "h": 1,
+          "fill": {
+            "color": "#141413"
+          },
+          "a11y": {
+            "role": "slider",
+            "label": "$volumeSpoken",
+            "value": "$volume",
+            "min": 0,
+            "max": 100,
+            "step": 5
+          },
+          "focus": {
+            "bounds": [2, 10, 30, 1]
+          }
+        },
+        {
+          "id": "volumeFill",
+          "type": "rect",
+          "x0": 2,
+          "y0": 10,
+          "w": 12,
+          "h": 1,
+          "fill": {
+            "color": "#d97757"
+          }
+        },
+        {
+          "id": "muteSwitch",
+          "type": "rect",
+          "x0": 2,
+          "y0": 16,
+          "w": 6,
+          "h": 3,
+          "rx": 1.5,
+          "fill": {
+            "color": "#141413"
+          },
+          "a11y": {
+            "role": "switch",
+            "label": "$muteLabel",
+            "activate": "$muted",
+            "checked": "$muted"
+          },
+          "focus": {
+            "bounds": [2, 16, 6, 3]
+          }
+        },
+        {
+          "id": "muteKnob",
+          "type": "circle",
+          "center": [3.5, 17.5],
+          "r": 1.2,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ]
+    },
+    {
+      "id": "label-generalTitle",
+      "type": "path",
+      "d": "M3.180 2.900h0.18v0.18h-0.18ZM3.360 2.900h0.18v0.18h-0.18ZM3.000 3.080h0.18v0.18h-0.18ZM3.000 3.260h0.18v0.18h-0.18ZM3.000 3.440h0.18v0.18h-0.18ZM3.360 3.440h0.18v0.18h-0.18ZM3.000 3.620h0.18v0.18h-0.18ZM3.360 3.620h0.18v0.18h-0.18ZM3.180 3.800h0.18v0.18h-0.18ZM3.360 3.800h0.18v0.18h-0.18ZM3.900 3.260h0.18v0.18h-0.18ZM3.720 3.440h0.18v0.18h-0.18ZM4.080 3.440h0.18v0.18h-0.18ZM3.720 3.620h0.18v0.18h-0.18ZM3.900 3.620h0.18v0.18h-0.18ZM3.900 3.800h0.18v0.18h-0.18ZM4.080 3.800h0.18v0.18h-0.18ZM4.440 3.260h0.18v0.18h-0.18ZM4.620 3.260h0.18v0.18h-0.18ZM4.440 3.440h0.18v0.18h-0.18ZM4.800 3.440h0.18v0.18h-0.18ZM4.440 3.620h0.18v0.18h-0.18ZM4.800 3.620h0.18v0.18h-0.18ZM4.440 3.800h0.18v0.18h-0.18ZM4.800 3.800h0.18v0.18h-0.18ZM5.340 3.260h0.18v0.18h-0.18ZM5.160 3.440h0.18v0.18h-0.18ZM5.520 3.440h0.18v0.18h-0.18ZM5.160 3.620h0.18v0.18h-0.18ZM5.340 3.620h0.18v0.18h-0.18ZM5.340 3.800h0.18v0.18h-0.18ZM5.520 3.800h0.18v0.18h-0.18ZM5.880 3.260h0.18v0.18h-0.18ZM6.240 3.260h0.18v0.18h-0.18ZM5.880 3.440h0.18v0.18h-0.18ZM6.060 3.440h0.18v0.18h-0.18ZM5.880 3.620h0.18v0.18h-0.18ZM5.880 3.800h0.18v0.18h-0.18ZM6.780 3.080h0.18v0.18h-0.18ZM6.960 3.260h0.18v0.18h-0.18ZM6.780 3.440h0.18v0.18h-0.18ZM6.960 3.440h0.18v0.18h-0.18ZM6.600 3.620h0.18v0.18h-0.18ZM6.960 3.620h0.18v0.18h-0.18ZM6.780 3.800h0.18v0.18h-0.18ZM6.960 3.800h0.18v0.18h-0.18ZM7.320 2.900h0.18v0.18h-0.18ZM7.320 3.080h0.18v0.18h-0.18ZM7.320 3.260h0.18v0.18h-0.18ZM7.320 3.440h0.18v0.18h-0.18ZM7.320 3.620h0.18v0.18h-0.18ZM7.500 3.800h0.18v0.18h-0.18ZM7.680 3.800h0.18v0.18h-0.18Z",
+      "fill": {
+        "color": "#141413"
+      }
+    },
+    {
+      "id": "label-soundTitle",
+      "type": "path",
+      "d": "M15.180 2.900h0.18v0.18h-0.18ZM15.360 2.900h0.18v0.18h-0.18ZM15.000 3.080h0.18v0.18h-0.18ZM15.180 3.260h0.18v0.18h-0.18ZM15.360 3.440h0.18v0.18h-0.18ZM15.360 3.620h0.18v0.18h-0.18ZM15.000 3.800h0.18v0.18h-0.18ZM15.180 3.800h0.18v0.18h-0.18ZM15.900 3.260h0.18v0.18h-0.18ZM15.720 3.440h0.18v0.18h-0.18ZM16.080 3.440h0.18v0.18h-0.18ZM15.720 3.620h0.18v0.18h-0.18ZM16.080 3.620h0.18v0.18h-0.18ZM15.900 3.800h0.18v0.18h-0.18ZM16.440 3.260h0.18v0.18h-0.18ZM16.800 3.260h0.18v0.18h-0.18ZM16.440 3.440h0.18v0.18h-0.18ZM16.800 3.440h0.18v0.18h-0.18ZM16.440 3.620h0.18v0.18h-0.18ZM16.800 3.620h0.18v0.18h-0.18ZM16.620 3.800h0.18v0.18h-0.18ZM16.800 3.800h0.18v0.18h-0.18ZM17.160 3.260h0.18v0.18h-0.18ZM17.340 3.260h0.18v0.18h-0.18ZM17.160 3.440h0.18v0.18h-0.18ZM17.520 3.440h0.18v0.18h-0.18ZM17.160 3.620h0.18v0.18h-0.18ZM17.520 3.620h0.18v0.18h-0.18ZM17.160 3.800h0.18v0.18h-0.18ZM17.520 3.800h0.18v0.18h-0.18ZM18.240 2.900h0.18v0.18h-0.18ZM18.240 3.080h0.18v0.18h-0.18ZM18.060 3.260h0.18v0.18h-0.18ZM18.240 3.260h0.18v0.18h-0.18ZM17.880 3.440h0.18v0.18h-0.18ZM18.240 3.440h0.18v0.18h-0.18ZM17.880 3.620h0.18v0.18h-0.18ZM18.240 3.620h0.18v0.18h-0.18ZM18.060 3.800h0.18v0.18h-0.18ZM18.240 3.800h0.18v0.18h-0.18Z",
+      "fill": {
+        "color": "#141413"
+      }
+    },
+    {
+      "id": "label-notificationsLabel",
+      "type": "path",
+      "d": "M5.000 8.600h0.18v0.18h-0.18ZM5.360 8.600h0.18v0.18h-0.18ZM5.000 8.780h0.18v0.18h-0.18ZM5.180 8.780h0.18v0.18h-0.18ZM5.360 8.780h0.18v0.18h-0.18ZM5.000 8.960h0.18v0.18h-0.18ZM5.180 8.960h0.18v0.18h-0.18ZM5.360 8.960h0.18v0.18h-0.18ZM5.000 9.140h0.18v0.18h-0.18ZM5.360 9.140h0.18v0.18h-0.18ZM5.000 9.320h0.18v0.18h-0.18ZM5.360 9.320h0.18v0.18h-0.18ZM5.000 9.500h0.18v0.18h-0.18ZM5.360 9.500h0.18v0.18h-0.18ZM5.900 8.960h0.18v0.18h-0.18ZM5.720 9.140h0.18v0.18h-0.18ZM6.080 9.140h0.18v0.18h-0.18ZM5.720 9.320h0.18v0.18h-0.18ZM6.080 9.320h0.18v0.18h-0.18ZM5.900 9.500h0.18v0.18h-0.18ZM6.620 8.600h0.18v0.18h-0.18ZM6.440 8.780h0.18v0.18h-0.18ZM6.620 8.780h0.18v0.18h-0.18ZM6.620 8.960h0.18v0.18h-0.18ZM6.620 9.140h0.18v0.18h-0.18ZM6.620 9.320h0.18v0.18h-0.18ZM6.800 9.500h0.18v0.18h-0.18ZM7.340 8.600h0.18v0.18h-0.18ZM7.340 8.960h0.18v0.18h-0.18ZM7.340 9.140h0.18v0.18h-0.18ZM7.340 9.320h0.18v0.18h-0.18ZM7.340 9.500h0.18v0.18h-0.18ZM8.060 8.600h0.18v0.18h-0.18ZM8.240 8.600h0.18v0.18h-0.18ZM7.880 8.780h0.18v0.18h-0.18ZM7.880 8.960h0.18v0.18h-0.18ZM8.060 8.960h0.18v0.18h-0.18ZM7.880 9.140h0.18v0.18h-0.18ZM7.880 9.320h0.18v0.18h-0.18ZM7.880 9.500h0.18v0.18h-0.18ZM8.780 8.600h0.18v0.18h-0.18ZM8.780 8.960h0.18v0.18h-0.18ZM8.780 9.140h0.18v0.18h-0.18ZM8.780 9.320h0.18v0.18h-0.18ZM8.780 9.500h0.18v0.18h-0.18ZM9.500 8.960h0.18v0.18h-0.18ZM9.680 8.960h0.18v0.18h-0.18ZM9.320 9.140h0.18v0.18h-0.18ZM9.320 9.320h0.18v0.18h-0.18ZM9.500 9.500h0.18v0.18h-0.18ZM9.680 9.500h0.18v0.18h-0.18ZM10.220 8.780h0.18v0.18h-0.18ZM10.400 8.960h0.18v0.18h-0.18ZM10.220 9.140h0.18v0.18h-0.18ZM10.400 9.140h0.18v0.18h-0.18ZM10.040 9.320h0.18v0.18h-0.18ZM10.400 9.320h0.18v0.18h-0.18ZM10.220 9.500h0.18v0.18h-0.18ZM10.400 9.500h0.18v0.18h-0.18ZM10.940 8.600h0.18v0.18h-0.18ZM10.760 8.780h0.18v0.18h-0.18ZM10.940 8.780h0.18v0.18h-0.18ZM10.940 8.960h0.18v0.18h-0.18ZM10.940 9.140h0.18v0.18h-0.18ZM10.940 9.320h0.18v0.18h-0.18ZM11.120 9.500h0.18v0.18h-0.18ZM11.660 8.600h0.18v0.18h-0.18ZM11.660 8.960h0.18v0.18h-0.18ZM11.660 9.140h0.18v0.18h-0.18ZM11.660 9.320h0.18v0.18h-0.18ZM11.660 9.500h0.18v0.18h-0.18ZM12.380 8.960h0.18v0.18h-0.18ZM12.200 9.140h0.18v0.18h-0.18ZM12.560 9.140h0.18v0.18h-0.18ZM12.200 9.320h0.18v0.18h-0.18ZM12.560 9.320h0.18v0.18h-0.18ZM12.380 9.500h0.18v0.18h-0.18ZM12.920 8.960h0.18v0.18h-0.18ZM13.100 8.960h0.18v0.18h-0.18ZM12.920 9.140h0.18v0.18h-0.18ZM13.280 9.140h0.18v0.18h-0.18ZM12.920 9.320h0.18v0.18h-0.18ZM13.280 9.320h0.18v0.18h-0.18ZM12.920 9.500h0.18v0.18h-0.18ZM13.280 9.500h0.18v0.18h-0.18ZM13.820 8.960h0.18v0.18h-0.18ZM14.000 8.960h0.18v0.18h-0.18ZM13.640 9.140h0.18v0.18h-0.18ZM14.000 9.320h0.18v0.18h-0.18ZM13.640 9.500h0.18v0.18h-0.18ZM13.820 9.500h0.18v0.18h-0.18Z",
+      "fill": {
+        "color": "#141413"
+      }
+    },
+    {
+      "id": "label-emailLabel",
+      "type": "path",
+      "d": "M7.000 12.600h0.18v0.18h-0.18ZM7.180 12.600h0.18v0.18h-0.18ZM7.360 12.600h0.18v0.18h-0.18ZM7.000 12.780h0.18v0.18h-0.18ZM7.000 12.960h0.18v0.18h-0.18ZM7.180 12.960h0.18v0.18h-0.18ZM7.000 13.140h0.18v0.18h-0.18ZM7.000 13.320h0.18v0.18h-0.18ZM7.000 13.500h0.18v0.18h-0.18ZM7.180 13.500h0.18v0.18h-0.18ZM7.360 13.500h0.18v0.18h-0.18ZM7.720 12.960h0.18v0.18h-0.18ZM7.900 12.960h0.18v0.18h-0.18ZM8.260 12.960h0.18v0.18h-0.18ZM8.440 12.960h0.18v0.18h-0.18ZM7.720 13.140h0.18v0.18h-0.18ZM8.080 13.140h0.18v0.18h-0.18ZM8.440 13.140h0.18v0.18h-0.18ZM7.720 13.320h0.18v0.18h-0.18ZM8.080 13.320h0.18v0.18h-0.18ZM8.440 13.320h0.18v0.18h-0.18ZM7.720 13.500h0.18v0.18h-0.18ZM8.080 13.500h0.18v0.18h-0.18ZM8.440 13.500h0.18v0.18h-0.18ZM8.980 12.780h0.18v0.18h-0.18ZM9.160 12.960h0.18v0.18h-0.18ZM8.980 13.140h0.18v0.18h-0.18ZM9.160 13.140h0.18v0.18h-0.18ZM8.800 13.320h0.18v0.18h-0.18ZM9.160 13.320h0.18v0.18h-0.18ZM8.980 13.500h0.18v0.18h-0.18ZM9.160 13.500h0.18v0.18h-0.18ZM9.700 12.600h0.18v0.18h-0.18ZM9.700 12.960h0.18v0.18h-0.18ZM9.700 13.140h0.18v0.18h-0.18ZM9.700 13.320h0.18v0.18h-0.18ZM9.700 13.500h0.18v0.18h-0.18ZM10.240 12.600h0.18v0.18h-0.18ZM10.240 12.780h0.18v0.18h-0.18ZM10.240 12.960h0.18v0.18h-0.18ZM10.240 13.140h0.18v0.18h-0.18ZM10.240 13.320h0.18v0.18h-0.18ZM10.420 13.500h0.18v0.18h-0.18ZM10.600 13.500h0.18v0.18h-0.18Z",
+      "fill": {
+        "color": "#141413"
+      }
+    },
+    {
+      "id": "label-pushLabel",
+      "type": "path",
+      "d": "M7.000 16.600h0.18v0.18h-0.18ZM7.180 16.600h0.18v0.18h-0.18ZM7.000 16.780h0.18v0.18h-0.18ZM7.360 16.780h0.18v0.18h-0.18ZM7.000 16.960h0.18v0.18h-0.18ZM7.180 16.960h0.18v0.18h-0.18ZM7.000 17.140h0.18v0.18h-0.18ZM7.000 17.320h0.18v0.18h-0.18ZM7.000 17.500h0.18v0.18h-0.18ZM7.720 16.960h0.18v0.18h-0.18ZM8.080 16.960h0.18v0.18h-0.18ZM7.720 17.140h0.18v0.18h-0.18ZM8.080 17.140h0.18v0.18h-0.18ZM7.720 17.320h0.18v0.18h-0.18ZM8.080 17.320h0.18v0.18h-0.18ZM7.900 17.500h0.18v0.18h-0.18ZM8.080 17.500h0.18v0.18h-0.18ZM8.620 16.960h0.18v0.18h-0.18ZM8.800 16.960h0.18v0.18h-0.18ZM8.440 17.140h0.18v0.18h-0.18ZM8.800 17.320h0.18v0.18h-0.18ZM8.440 17.500h0.18v0.18h-0.18ZM8.620 17.500h0.18v0.18h-0.18ZM9.160 16.600h0.18v0.18h-0.18ZM9.160 16.780h0.18v0.18h-0.18ZM9.160 16.960h0.18v0.18h-0.18ZM9.340 16.960h0.18v0.18h-0.18ZM9.160 17.140h0.18v0.18h-0.18ZM9.520 17.140h0.18v0.18h-0.18ZM9.160 17.320h0.18v0.18h-0.18ZM9.520 17.320h0.18v0.18h-0.18ZM9.160 17.500h0.18v0.18h-0.18ZM9.520 17.500h0.18v0.18h-0.18Z",
+      "fill": {
+        "color": "#141413"
+      }
+    },
+    {
+      "id": "label-smsLabel",
+      "type": "path",
+      "d": "M7.180 20.600h0.18v0.18h-0.18ZM7.360 20.600h0.18v0.18h-0.18ZM7.000 20.780h0.18v0.18h-0.18ZM7.180 20.960h0.18v0.18h-0.18ZM7.360 21.140h0.18v0.18h-0.18ZM7.360 21.320h0.18v0.18h-0.18ZM7.000 21.500h0.18v0.18h-0.18ZM7.180 21.500h0.18v0.18h-0.18ZM7.720 20.600h0.18v0.18h-0.18ZM8.440 20.600h0.18v0.18h-0.18ZM7.720 20.780h0.18v0.18h-0.18ZM7.900 20.780h0.18v0.18h-0.18ZM8.260 20.780h0.18v0.18h-0.18ZM8.440 20.780h0.18v0.18h-0.18ZM7.720 20.960h0.18v0.18h-0.18ZM8.080 20.960h0.18v0.18h-0.18ZM8.440 20.960h0.18v0.18h-0.18ZM7.720 21.140h0.18v0.18h-0.18ZM8.440 21.140h0.18v0.18h-0.18ZM7.720 21.320h0.18v0.18h-0.18ZM8.440 21.320h0.18v0.18h-0.18ZM7.720 21.500h0.18v0.18h-0.18ZM8.440 21.500h0.18v0.18h-0.18ZM8.980 20.600h0.18v0.18h-0.18ZM9.160 20.600h0.18v0.18h-0.18ZM8.800 20.780h0.18v0.18h-0.18ZM8.980 20.960h0.18v0.18h-0.18ZM9.160 21.140h0.18v0.18h-0.18ZM9.160 21.320h0.18v0.18h-0.18ZM8.800 21.500h0.18v0.18h-0.18ZM8.980 21.500h0.18v0.18h-0.18Z",
+      "fill": {
+        "color": "#141413"
+      }
+    },
+    {
+      "id": "label-muteLabel",
+      "type": "path",
+      "d": "M10.000 16.800h0.18v0.18h-0.18ZM10.720 16.800h0.18v0.18h-0.18ZM10.000 16.980h0.18v0.18h-0.18ZM10.180 16.980h0.18v0.18h-0.18ZM10.540 16.980h0.18v0.18h-0.18ZM10.720 16.980h0.18v0.18h-0.18ZM10.000 17.160h0.18v0.18h-0.18ZM10.360 17.160h0.18v0.18h-0.18ZM10.720 17.160h0.18v0.18h-0.18ZM10.000 17.340h0.18v0.18h-0.18ZM10.720 17.340h0.18v0.18h-0.18ZM10.000 17.520h0.18v0.18h-0.18ZM10.720 17.520h0.18v0.18h-0.18ZM10.000 17.700h0.18v0.18h-0.18ZM10.720 17.700h0.18v0.18h-0.18ZM11.080 17.160h0.18v0.18h-0.18ZM11.440 17.160h0.18v0.18h-0.18ZM11.080 17.340h0.18v0.18h-0.18ZM11.440 17.340h0.18v0.18h-0.18ZM11.080 17.520h0.18v0.18h-0.18ZM11.440 17.520h0.18v0.18h-0.18ZM11.260 17.700h0.18v0.18h-0.18ZM11.440 17.700h0.18v0.18h-0.18ZM11.980 16.800h0.18v0.18h-0.18ZM11.800 16.980h0.18v0.18h-0.18ZM11.980 16.980h0.18v0.18h-0.18ZM11.980 17.160h0.18v0.18h-0.18ZM11.980 17.340h0.18v0.18h-0.18ZM11.980 17.520h0.18v0.18h-0.18ZM12.160 17.700h0.18v0.18h-0.18ZM12.700 17.160h0.18v0.18h-0.18ZM12.520 17.340h0.18v0.18h-0.18ZM12.880 17.340h0.18v0.18h-0.18ZM12.520 17.520h0.18v0.18h-0.18ZM12.700 17.520h0.18v0.18h-0.18ZM12.700 17.700h0.18v0.18h-0.18ZM12.880 17.700h0.18v0.18h-0.18Z",
+      "fill": {
+        "color": "#141413"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "actions": {
+        "initial": "ready",
+        "states": {
+          "ready": {
+            "pose": {},
+            "on": [
+              {
+                "when": "chooseGeneral",
+                "to": "ready",
+                "actions": {
+                  "set": {
+                    "$selectedTab": 0
+                  }
+                }
+              },
+              {
+                "when": "chooseSound",
+                "to": "ready",
+                "actions": {
+                  "set": {
+                    "$selectedTab": 1
+                  }
+                }
+              },
+              {
+                "when": "toggleParent",
+                "to": "ready",
+                "actions": {
+                  "set": {
+                    "$email": "not ($email and $push and $sms)",
+                    "$push": "not ($email and $push and $sms)",
+                    "$sms": "not ($email and $push and $sms)"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "click",
+      "target": "generalTab",
+      "fire": "chooseGeneral"
+    },
+    {
+      "on": "focus",
+      "target": "generalTab",
+      "fire": "chooseGeneral"
+    },
+    {
+      "on": "click",
+      "target": "soundTab",
+      "fire": "chooseSound"
+    },
+    {
+      "on": "focus",
+      "target": "soundTab",
+      "fire": "chooseSound"
+    },
+    {
+      "on": "click",
+      "target": "parent",
+      "fire": "toggleParent"
+    },
+    {
+      "on": "key-down",
+      "target": "parent",
+      "fire": "toggleParent",
+      "key": "Enter"
+    },
+    {
+      "on": "key-down",
+      "target": "parent",
+      "fire": "toggleParent",
+      "key": " "
+    },
+    {
+      "on": "click",
+      "target": "emailBox",
+      "toggle": "$email"
+    },
+    {
+      "on": "key-down",
+      "target": "emailBox",
+      "toggle": "$email",
+      "key": "Enter"
+    },
+    {
+      "on": "key-down",
+      "target": "emailBox",
+      "toggle": "$email",
+      "key": " "
+    },
+    {
+      "on": "click",
+      "target": "pushBox",
+      "toggle": "$push"
+    },
+    {
+      "on": "key-down",
+      "target": "pushBox",
+      "toggle": "$push",
+      "key": "Enter"
+    },
+    {
+      "on": "key-down",
+      "target": "pushBox",
+      "toggle": "$push",
+      "key": " "
+    },
+    {
+      "on": "click",
+      "target": "smsBox",
+      "toggle": "$sms"
+    },
+    {
+      "on": "key-down",
+      "target": "smsBox",
+      "toggle": "$sms",
+      "key": "Enter"
+    },
+    {
+      "on": "key-down",
+      "target": "smsBox",
+      "toggle": "$sms",
+      "key": " "
+    },
+    {
+      "on": "click",
+      "target": "muteSwitch",
+      "toggle": "$muted"
+    },
+    {
+      "on": "key-down",
+      "target": "muteSwitch",
+      "toggle": "$muted",
+      "key": "Enter"
+    },
+    {
+      "on": "key-down",
+      "target": "muteSwitch",
+      "toggle": "$muted",
+      "key": " "
+    },
+    {
+      "on": "key-down|key-repeat",
+      "target": "volumeTrack",
+      "set": {
+        "$volume": "min(100,$volume+5)"
+      },
+      "key": "ArrowRight"
+    },
+    {
+      "on": "key-down|key-repeat",
+      "target": "volumeTrack",
+      "set": {
+        "$volume": "min(100,$volume+5)"
+      },
+      "key": "ArrowUp"
+    },
+    {
+      "on": "key-down|key-repeat",
+      "target": "volumeTrack",
+      "set": {
+        "$volume": "max(0,$volume+-5)"
+      },
+      "key": "ArrowLeft"
+    },
+    {
+      "on": "key-down|key-repeat",
+      "target": "volumeTrack",
+      "set": {
+        "$volume": "max(0,$volume+-5)"
+      },
+      "key": "ArrowDown"
+    }
+  ],
+  "bind": {
+    "generalTab.fill.color": "mix(#f0eee6, #d97757, $generalSelected)",
+    "soundTab.fill.color": "mix(#f0eee6, #d97757, $soundSelected)",
+    "parent.fill.color": "mix(#f0eee6, #141413, $allChecked)",
+    "emailBox.fill.color": "mix(#f0eee6, #141413, $email)",
+    "pushBox.fill.color": "mix(#f0eee6, #141413, $push)",
+    "smsBox.fill.color": "mix(#f0eee6, #141413, $sms)",
+    "generalPanel.visible": "$generalSelected",
+    "soundPanel.visible": "$soundSelected",
+    "mixedBar.visible": "$mixed",
+    "volumeFill.w": "$volume / 100 * 30",
+    "muteKnob.x": "3 * $muted",
+    "label-generalTitle.visible": "$generalTitle == \"General\"",
+    "label-soundTitle.visible": "$soundTitle == \"Sound\"",
+    "label-notificationsLabel.visible": "$notificationsLabel == \"Notifications\" and $generalSelected",
+    "label-emailLabel.visible": "$emailLabel == \"Email\" and $generalSelected",
+    "label-pushLabel.visible": "$pushLabel == \"Push\" and $generalSelected",
+    "label-smsLabel.visible": "$smsLabel == \"SMS\" and $generalSelected",
+    "label-muteLabel.visible": "$muteLabel == \"Mute\" and $soundSelected"
+  },
+  "data": {
+    "models": {
+      "Settings": {
+        "properties": {
+          "volume": {
+            "type": "number",
+            "default": 40,
+            "min": 0,
+            "max": 100
+          },
+          "muted": {
+            "type": "bool",
+            "default": false
+          },
+          "selectedTab": {
+            "type": "number",
+            "default": 0,
+            "min": 0,
+            "max": 1
+          },
+          "email": {
+            "type": "bool",
+            "default": true
+          },
+          "push": {
+            "type": "bool",
+            "default": false
+          },
+          "sms": {
+            "type": "bool",
+            "default": false
+          },
+          "generalTitle": {
+            "type": "string",
+            "default": "General"
+          },
+          "soundTitle": {
+            "type": "string",
+            "default": "Sound"
+          },
+          "notificationsLabel": {
+            "type": "string",
+            "default": "Notifications"
+          },
+          "emailLabel": {
+            "type": "string",
+            "default": "Email"
+          },
+          "pushLabel": {
+            "type": "string",
+            "default": "Push"
+          },
+          "smsLabel": {
+            "type": "string",
+            "default": "SMS"
+          },
+          "muteLabel": {
+            "type": "string",
+            "default": "Mute"
+          },
+          "generalSelected": {
+            "type": "bool",
+            "value": "$selectedTab == 0"
+          },
+          "soundSelected": {
+            "type": "bool",
+            "value": "$selectedTab == 1"
+          },
+          "allChecked": {
+            "type": "bool",
+            "value": "$email and $push and $sms"
+          },
+          "anyChecked": {
+            "type": "bool",
+            "value": "$email or $push or $sms"
+          },
+          "mixed": {
+            "type": "bool",
+            "value": "($email or $push or $sms) and not ($email and $push and $sms)"
+          },
+          "volumeSpoken": {
+            "type": "string",
+            "value": "$volume",
+            "convert": "volumeText"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Settings",
+        "default": true,
+        "exported": true,
+        "values": {}
+      }
+    }
+  },
+  "converters": {
+    "volumeText": {
+      "type": "template",
+      "text": "Volume {0} %"
+    }
+  }
+}

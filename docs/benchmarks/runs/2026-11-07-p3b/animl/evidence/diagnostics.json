@@ -1,0 +1,34 @@
+{
+  "exploratory_validate_sample_build_render_runs": 13,
+  "first_verifier_runs": 4,
+  "final_verifier_runs": 10,
+  "failed_check_runs": 7,
+  "check_diagnostics": {
+    "bad-attribute": 1,
+    "a11y-role-state": 2,
+    "misplaced-element": 6,
+    "data-path": 2,
+    "unknown-input": 2,
+    "script-expect": 1,
+    "script-usage": 1
+  },
+  "other_failures": {
+    "CLI startup ERR_MODULE_NOT_FOUND": 9,
+    "CLI startup Maximum call stack size exceeded": 1,
+    "separate typescript availability probe ERR_MODULE_NOT_FOUND": 1,
+    "no docs topic a11y": 1,
+    "no docs topic a11y-dom": 1,
+    "no schema topic node-a11y": 1,
+    "pre-commit npx missing prettier without YES option": 2
+  },
+  "notes": [
+    "bad-attribute: grid was initially authored as a vector instead of a scalar; viewBox supplies the 40 by 30 rectangle.",
+    "a11y-role-state: checked was initially used on a tab; validation and sample each reported it. The diagnostic correctly listed the allowed states.",
+    "misplaced-element: six bindings were initially inside groups; moved them to document root.",
+    "data-path and unknown-input: subtraction without whitespace parsed $volume-5 as a name; changed to $volume+-5.",
+    "script-expect: a probe expected unhandled ArrowRight to increment the slider; authored key listeners fixed this.",
+    "script-usage: expect volumeFill.width was rejected; expect volumeFill.w works. The same markup spelling works in snapshots.",
+    "Startup failures arose from absent dependency/workspace installation and intermediate mistakes in the local loader/symlink setup. No repository files outside animl were changed.",
+    "npm warned esbuild postinstall was not yet covered by allowScripts. All final CLI build and render commands nevertheless passed."
+  ]
+}

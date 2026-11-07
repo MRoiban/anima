@@ -1,0 +1,21 @@
+advance 0
+data dump
+data set $generalTitle "Basics"
+data set $soundTitle "Audio"
+advance 0
+snapshot --semantics --all
+expect $generalTitle == "Basics"
+expect $soundTitle == "Audio"
+expect label-generalTitle.visible == false
+expect label-soundTitle.visible == false
+data set $volume 65
+data set $muted true
+data set $email false
+data set $push true
+data set $sms true
+data set $selectedTab 1
+advance 0
+data dump
+snapshot --semantics --all
+expect volumeFill.w == 19.5
+expect muteKnob.x == 3
