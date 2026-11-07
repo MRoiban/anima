@@ -1,0 +1,82 @@
+ok advance
+ok pointer
+ok advance
+ok semantics: evidence/13-pointer-sound.tree.json
+ok data-dump: evidence/13-pointer-sound.data.json
+ok data
+ok advance
+ok semantics: evidence/14-max-before.tree.json
+ok data-dump: evidence/14-max-before.data.json
+ok semantic-action
+ok advance
+ok semantics: evidence/15-max-after.tree.json
+ok data-dump: evidence/15-max-after.data.json
+ok data
+ok advance
+ok semantics: evidence/16-min-before.tree.json
+ok data-dump: evidence/16-min-before.data.json
+ok semantic-action
+ok advance
+ok semantics: evidence/17-min-after.tree.json
+ok data-dump: evidence/17-min-after.data.json
+ok pointer
+ok key
+ok advance
+ok semantics: evidence/18-key-volume5.tree.json
+ok data-dump: evidence/18-key-volume5.data.json
+ok key
+ok advance
+ok semantics: evidence/19-key-volume0.tree.json
+ok data-dump: evidence/19-key-volume0.data.json
+ok pointer
+ok advance
+ok semantics: evidence/20-pointer-mute.tree.json
+ok data-dump: evidence/20-pointer-mute.data.json
+ok key
+ok advance
+ok semantics: evidence/21-key-unmute.tree.json
+ok data-dump: evidence/21-key-unmute.data.json
+ok semantic-action
+ok advance
+ok semantics: evidence/22-action-general.tree.json
+ok data-dump: evidence/22-action-general.data.json
+ok pointer
+ok advance
+ok semantics: evidence/23-pointer-push.tree.json
+ok data-dump: evidence/23-pointer-push.data.json
+ok key
+ok advance
+ok semantics: evidence/24-key-push.tree.json
+ok data-dump: evidence/24-key-push.data.json
+ok data
+ok data
+ok data
+ok data
+ok data
+ok data
+ok data
+ok advance
+ok semantics: evidence/25-host-data.tree.json
+ok data-dump: evidence/25-host-data.data.json
+ok screenshot: evidence/25-host-data.png
+ok semantic-action
+ok advance
+ok semantics: evidence/26-host-checkboxes.tree.json
+ok data-dump: evidence/26-host-checkboxes.data.json
+ok semantic-action
+ok advance
+ok semantics: evidence/27-parent-from-mixed.tree.json
+ok data-dump: evidence/27-parent-from-mixed.data.json
+ok semantic-action
+ok advance
+ok semantics: evidence/28-parent-clears.tree.json
+ok data-dump: evidence/28-parent-clears.data.json
+ok semantic-action
+ok advance
+ok semantics: evidence/29-parent-from-none.tree.json
+ok data-dump: evidence/29-parent-from-none.data.json
+ok semantic-action
+ok advance
+ok semantics: evidence/30-child-clears.tree.json
+ok data-dump: evidence/30-child-clears.data.json
+ok quit

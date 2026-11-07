@@ -1,0 +1,36 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[23:43:00.460] rive  deferred replay: inline
+[23:43:00.591] rive  built (16233 bytes, 130ms, 0 errors, 0 warnings)
+[23:43:00.593] rive  showing Settings [1/1]
+[23:43:00.594] rive  viewport 480x360 @1x
+[23:43:00.594] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/01-general.tree.json
+[23:43:00.594] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/01-general.data.json
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[23:43:00.626] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/01-general.png
+[23:43:00.627] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/02-sound.tree.json
+[23:43:00.627] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/02-sound.data.json
+[23:43:00.647] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/02-sound.png
+[23:43:00.648] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/03-volume45.tree.json
+[23:43:00.648] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/03-volume45.data.json
+[23:43:00.649] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/04-volume40.tree.json
+[23:43:00.649] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/04-volume40.data.json
+[23:43:00.649] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/05-muted.tree.json
+[23:43:00.650] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/05-muted.data.json
+[23:43:00.667] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/05-muted.png
+[23:43:00.669] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/06-general-again.tree.json
+[23:43:00.669] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/06-general-again.data.json
+[23:43:00.669] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/07-all-checked.tree.json
+[23:43:00.669] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/07-all-checked.data.json
+[23:43:00.693] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/07-all-checked.png
+[23:43:00.694] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/08-none-checked.tree.json
+[23:43:00.694] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/08-none-checked.data.json
+[23:43:00.695] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/09-email-mixed.tree.json
+[23:43:00.695] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/09-email-mixed.data.json
+[23:43:00.695] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/10-two-mixed.tree.json
+[23:43:00.696] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/10-two-mixed.data.json
+[23:43:00.696] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/11-all-via-children.tree.json
+[23:43:00.696] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/11-all-via-children.data.json
+[23:43:00.697] rive  data: generalTitle = Preferences (mid-run)
+[23:43:00.697] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/12-renamed.tree.json
+[23:43:00.697] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/12-renamed.data.json
+[23:43:00.720] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/12-renamed.png
