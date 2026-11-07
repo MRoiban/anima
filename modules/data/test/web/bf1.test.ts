@@ -160,7 +160,7 @@ for (const [name, engine, cache] of [
         expect(results[0]).toContainEqual(
           expect.objectContaining({
             code: 'ambiguous-component',
-            pointer: '/nodes/0/component',
+            pointer: '/component', // host attribute: the root is chosen at instantiation (BF-3)
           }),
         );
         expect(results.slice(1)).toEqual([[], []]);

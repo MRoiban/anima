@@ -169,8 +169,9 @@ if (!Object.getOwnPropertyDescriptor(Icon.prototype, 'fonts')) {
   Icon.loadAssets = async (icon, model) => {
     const controller = icon.fonts;
     const generation = controller.generation;
-    await previous?.(icon, model);
-    if (icon.fonts !== controller || generation !== controller.generation) return;
+    // Keep the previous loader's per-player initializer (assetio catalogs) whatever the order.
+    const prior = await previous?.(icon, model);
+    if (icon.fonts !== controller || generation !== controller.generation) return prior;
     const root = model;
     const seen = new Set<object>();
     const load = async (model: Player['model']): Promise<void> => {
@@ -200,6 +201,7 @@ if (!Object.getOwnPropertyDescriptor(Icon.prototype, 'fonts')) {
       );
     };
     await load(model);
+    return prior;
   };
   const previousHook = Icon.eventHook;
   Icon.eventHook = (icon, kind, detail) => {

@@ -1,0 +1,105 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-d8e5063b
+
+stdout | modules/host-edit/test/web/bf3.test.ts > Chromium BF-3 > B9 shares compilation for parsed, text, inline and URL documents across roots
+Chromium B9 timing {"bytes":108286,"initial":11,"parsedCompiles":253,"sameModel":false,"independent":true,"textCompiles":11,"inlineCompiles":11,"urlCompiles":0,"firstMs":42.69999980926514,"laterMs":259,"totalMs":301.69999980926514,"instantiateMs":11.26086956521739}
+
+ ❯ |browser| modules/host-edit/test/web/bf3.test.ts (6 tests | 3 failed | 3 skipped) 17570ms
+   ❯ Chromium BF-3 (3)
+     × B9 shares compilation for parsed, text, inline and URL documents across roots 7119ms
+     × B10 selects B from a model loaded as A, resets it, and diagnoses unknown roots 5331ms
+     × B11 commits offscreen data before the visibility callback returns; B12 settles derived guards 5117ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/host-edit/test/web/bf3.test.ts > Chromium BF-3 > B9 shares compilation for parsed, text, inline and URL documents across roots
+AssertionError: expected { bytes: 108286, initial: 11, …(10) } to match object { parsedCompiles: +0, …(5) }
+(6 matching properties omitted from actual)
+
+- Expected
++ Received
+
+  {
+    "independent": true,
+-   "inlineCompiles": 0,
+-   "parsedCompiles": 0,
+-   "sameModel": true,
+-   "textCompiles": 0,
++   "inlineCompiles": 11,
++   "parsedCompiles": 253,
++   "sameModel": false,
++   "textCompiles": 11,
+    "urlCompiles": 0,
+  }
+
+ ❯ modules/host-edit/test/web/bf3.test.ts:168:24
+    166|         expect(result.bytes).toBeGreaterThanOrEqual(100000);
+    167|         expect(result.initial).toBeGreaterThan(0);
+    168|         expect(result).toMatchObject({
+       |                        ^
+    169|           parsedCompiles: 0,
+    170|           sameModel: true,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |browser| modules/host-edit/test/web/bf3.test.ts > Chromium BF-3 > B10 selects B from a model loaded as A, resets it, and diagnoses unknown roots
+Error: page.evaluate: Error: anima: pop
+    at #v (<anonymous>:1:10349)
+    at le.fire (<anonymous>:1:10654)
+    at e.fire (<anonymous>:1:48276)
+    at eval (eval at evaluate (:370:30), <anonymous>:58:7)
+    at UtilityScript.evaluate (<anonymous>:372:16)
+    at UtilityScript.<anonymous> (<anonymous>:1:44)
+ ❯ modules/host-edit/test/web/bf3.test.ts:189:35
+    187|         for (const mod of ['index', 'components', 'data', 'host', 'hos…
+    188|           await add(page, mod);
+    189|         const result = await page.evaluate(() => {
+       |                                   ^
+    190|           const create = (component: string) => {
+    191|             const icon = document.createElement('anima-icon');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  |browser| modules/host-edit/test/web/bf3.test.ts > Chromium BF-3 > B11 commits offscreen data before the visibility callback returns; B12 settles derived guards
+AssertionError: expected { before: [ +0, 'none' ], …(4) } to deeply equal { before: [ +0, 'none' ], …(4) }
+
+- Expected
++ Received
+
+  {
+    "after": [
+-     true,
+-     "on",
+-     "3",
++     false,
++     "none",
++     "1",
+    ],
+    "before": [
+      0,
+      "none",
+    ],
+    "paused": 0,
+-   "resumed": "on",
++   "resumed": "none",
+    "settled": [
+      false,
+      "none",
+    ],
+  }
+
+ ❯ modules/host-edit/test/web/bf3.test.ts:344:24
+    342|           return { before, after, settled, paused, resumed };
+    343|         });
+    344|         expect(result).toEqual({
+       |                        ^
+    345|           before: [0, 'none'],
+    346|           after: [true, 'on', '3'],
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  3 failed | 3 skipped (6)
+   Start at  18:30:59
+   Duration  18.44s (tests 96%, import 4%)

@@ -1,0 +1,23 @@
+{
+  "anima": "0.1",
+  "name": "empty-library",
+  "grid": 20,
+  "requires": ["components"],
+  "nodes": [],
+  "components": {
+    "dot": {
+      "grid": 20,
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [10, 10],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ]
+    }
+  }
+}

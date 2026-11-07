@@ -538,6 +538,7 @@ export class Player {
       else this.#action(item, events);
     }
     this.#queue = [];
+    this.model.prepareInputs?.(this, this.#inputVals, dt);
     if (this.#reduced !== this.reducedMotion) {
       this.#reduced = this.reducedMotion;
       for (const L of this.#layers) {

@@ -182,6 +182,12 @@ export interface Model {
   /** Optional typed guard compilation; installed by data without growing bind. */
   guard?: (term: Extract<Term, { k: 'expr' }>, pointer: string, d: Diags) => boolean | undefined;
 
+  /** Resolve computed inputs after queued writes, before clocks and machine guards. */
+  prepareInputs?: (
+    player: import('./player.ts').Player,
+    scope: Map<string, Value>,
+    dt: number,
+  ) => void;
   /** Optional typed data scope and post-state binding pass. */
   afterStep?: (player: import('./player.ts').Player) => void;
   signal?: (player: import('./player.ts').Player, name: string) => void;
@@ -327,7 +333,12 @@ function parse(doc: unknown, d: Diags): Model | undefined {
   if (Array.isArray(requires))
     requires.forEach((f, i) => {
       if (typeof f === 'string' && !FEATURES.includes(f))
-        d.err('unknown-feature', '/requires/' + i, V && `this runtime does not support "${f}"`);
+        d.err(
+          'unknown-feature',
+          '/requires/' + i,
+          V && `this runtime does not support "${f}"`,
+          V && `import '@anima-format/web/${f}' before loading this document`,
+        );
     });
   if (d.failed) return;
   try {

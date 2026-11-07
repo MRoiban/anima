@@ -1,0 +1,3 @@
+{"time":0,"values":{"$kit:status":0,"$kit:hasStatus":false,"dot.r":1},"states":{"status":"none"},"events":[],"settled":true}
+{"time":0,"values":{"$kit:status":2,"$kit:hasStatus":true,"dot.r":3},"states":{"status":"on"},"events":[],"settled":true}
+{"time":0,"values":{"$kit:status":0,"$kit:hasStatus":false,"dot.r":1},"states":{"status":"none"},"events":[],"settled":true}

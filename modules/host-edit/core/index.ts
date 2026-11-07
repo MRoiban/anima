@@ -1,4 +1,6 @@
 import type { Module, ModuleRegistry } from '../../../packages/core/src/modules.ts';
+import type { Model } from '../../../packages/core/src/load.ts';
+import type { ComponentModule } from '../../components/core/index.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
 import { formatHex, type RGBA } from '../../../packages/core/src/color.ts';
 import type { DataModule } from '../../data/core/index.ts';
@@ -276,16 +278,46 @@ declare module '../../host/core/api.ts' {
     setGlobal(name: string, instance: DataInstance): void;
   }
 }
+const roots = new WeakMap<Model, Map<string, Model>>();
+let compiling: Map<string, Model> | undefined;
 export const hostEdit: Module & {
+  roots: typeof roots;
   resourceType?: (player: Player, name: string) => string | undefined;
   replaceImage?: ImageReplacement;
   compile?: ModuleRegistry['load'];
 } = {
+  roots,
   name: 'hostedit',
   after,
   entries: [],
   init(registry, shared: ModuleRegistry) {
     hostEdit.compile = shared.load;
+    const components = registry.get('components') as ComponentModule | undefined;
+    if (components) {
+      const fork = components.forkModel;
+      components.forkModel = (source, target) => {
+        fork(source, target);
+        const family = roots.get(source);
+        if (family) roots.set(target, family);
+      };
+      const previous = components.loadComponent;
+      components.loadComponent = (parent, name, doc, inherit, run, itemModel) => {
+        const outer = compiling;
+        const family = (compiling ??= roots.get(parent) ?? new Map());
+        roots.set(parent, family);
+        try {
+          const result = previous ? previous(parent, name, doc, inherit, run, itemModel) : run(doc);
+          if (result.model) {
+            family.set(name, result.model);
+            roots.set(result.model, family);
+            result.model.doc.name = name;
+          }
+          return result;
+        } finally {
+          compiling = outer;
+        }
+      };
+    }
     if (!registry.has('host')) return hostEdit;
     const get = Object.getOwnPropertyDescriptor(shared.Player.prototype, 'data')!.get!;
     const data = registry.get('data') as DataModule;

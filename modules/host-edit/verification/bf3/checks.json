@@ -1,0 +1,35 @@
+{
+  "changed": {
+    "command": "VITEST_MAX_WORKERS=2 npm run test:scope -- changed",
+    "exitCode": 0,
+    "passed": 8175,
+    "skipped": 1,
+    "todo": 40,
+    "filesPassed": 253,
+    "filesSkipped": 13,
+    "durationSeconds": 708.31,
+    "engines": ["chromium", "firefox"]
+  },
+  "typecheck": 0,
+  "eslint": 0,
+  "prettier": 0,
+  "moduleWiring": 0,
+  "animlArtifacts": {
+    "exitCode": 0,
+    "sources": 546
+  },
+  "webArtifacts": {
+    "exitCode": 0,
+    "entries": 41
+  },
+  "size": 0,
+  "strictOracle": {
+    "exitCode": 0,
+    "cases": 266,
+    "samples": 475,
+    "retainedFindings": 24
+  },
+  "perf": 0,
+  "earlierParentExit": 143,
+  "earlierParentCause": "unverified; full assertion summary passed; standalone command retry exits 0"
+}

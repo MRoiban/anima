@@ -32,8 +32,8 @@ describe('authored AniML corpus', () => {
     // [P3b-10b] Converter definitions survive repeat model clones.
     // [P3b-10a] spoken slider values, native headless keys and narrower input limits.
     // [P3c-8] Painted-center spatial focus and ancestor exclusion.
-    // [BF-2] Manual tab activation keys. [BF-1] Inherited library data and qualified/legacy component lookup. [P6-3] Generated font asset declaration. [BF-4] Additional roles, radio keys and repeated data writes.
-    expect(cases).toHaveLength(500);
+    // [BF-2] Manual tab activation keys. [BF-1] Inherited library data and qualified/legacy component lookup. [P6-3] Generated font asset declaration. [BF-4] Additional roles, radio keys and repeated data writes. [BF-3] Empty component library and settled derived guard.
+    expect(cases).toHaveLength(502);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);

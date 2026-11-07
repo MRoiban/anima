@@ -69,11 +69,21 @@ function schedule(icon: AnimaIcon, on: boolean): void {
 let seen: IntersectionObserver | undefined;
 const motionQuery = () => matchMedia('(prefers-reduced-motion: reduce)');
 
+// Successful documents only. Objects are weakly held; text uses a 16-entry LRU.
+let objects = new WeakMap<object, ReturnType<typeof load>>();
+const sources = new Map<string, ReturnType<typeof load>>();
+const authored = new Map<string, Promise<{ doc?: object; diagnostics: SourceDiagnostic[] }>>();
 let ids = 0;
 
 export class AnimaIcon extends HTMLElement {
   /** Instantiate a compiled model without reparsing or recompiling it. */
   loadModel(model: Model): void {
+    const selected = AnimaIcon.selectModel?.(this, model);
+    if (selected && !selected.model) {
+      this.#fail(selected.diagnostics);
+      return;
+    }
+    model = selected?.model ?? model;
     this.#retry = undefined;
     ++this.#generation;
     this.#destroyed = false;
@@ -86,10 +96,12 @@ export class AnimaIcon extends HTMLElement {
     AnimaIcon.eventHook?.(this, 'cleanup', null);
     this.player = undefined;
     const generation = this.#generation;
-    const finish = () => {
+    const finish = (prepare?: (player: Player) => boolean) => {
       if (generation !== this.#generation) return;
       this.player = new Player(model);
       const player = this.player;
+      this.#prepare = prepare || undefined;
+      this.#resources(player);
       player.onChange = () => {
         if (this.player === player) this.#wake();
       };
@@ -114,6 +126,9 @@ export class AnimaIcon extends HTMLElement {
   static registration = 0;
   static refresh(): void {
     this.registration++;
+    objects = new WeakMap();
+    sources.clear();
+    authored.clear();
     queueMicrotask(() => dispatchEvent(new Event('anima:register')));
   }
   static markupHooks: Record<string, object> = {};
@@ -131,11 +146,16 @@ export class AnimaIcon extends HTMLElement {
   static registry = { DOC: DOC as ObjShape, FILL: FILL as ObjShape, STROKE: STROKE as ObjShape };
   /** Installed by the composite SVG backend; 0.1 scenes keep authored DOM order. */
   declare static orderSVG?: (frame: DrawFrame, elements: [El, Element, Attrs][]) => void;
+  declare static selectModel?: (icon: AnimaIcon, model: Model) => ReturnType<typeof load>;
   declare static sourceLoader?: (icon: AnimaIcon, url: string) => Promise<string | Model>;
-  declare static loadAssets?: (icon: AnimaIcon, model: Model) => Promise<void>;
+  declare static loadAssets?: (
+    icon: AnimaIcon,
+    model: Model,
+  ) => Promise<undefined | ((player: Player) => boolean)>;
   declare static eventHook?: (icon: AnimaIcon, kind: string, detail: unknown) => void;
   static renderers: Record<string, (icon: AnimaIcon) => IconRenderer> = {};
   #renderer?: IconRenderer;
+  #prepare?: (player: Player) => boolean;
   static observedAttributes = [
     'src',
     'motion',
@@ -312,7 +332,23 @@ export class AnimaIcon extends HTMLElement {
     const registration = AnimaIcon.registration;
     if (markup && AnimaIcon.compilerAsync) {
       const generation = this.#generation;
-      const result = await AnimaIcon.compilerAsync(source, file);
+      const key = JSON.stringify([file, source]);
+      let pending = authored.get(key);
+      if (!pending) {
+        pending = AnimaIcon.compilerAsync(source, file);
+        authored.set(key, pending);
+        if (authored.size > 16) authored.delete(authored.keys().next().value!);
+        pending.then(
+          (r) => {
+            if (!r.doc) authored.delete(key);
+          },
+          () => authored.delete(key),
+        );
+      } else {
+        authored.delete(key);
+        authored.set(key, pending);
+      }
+      const result = await pending;
       if (generation !== this.#generation || this.#destroyed) return;
       if (result.doc) this.load(result.doc);
       else if (registration !== AnimaIcon.registration) return this.#source(source, markup, file);
@@ -329,6 +365,29 @@ export class AnimaIcon extends HTMLElement {
     this.#retry = () => {
       this.load(doc, markup);
     };
+    const compiled = AnimaIcon.compile(doc, markup);
+    const selected = compiled.model && AnimaIcon.selectModel?.(this, compiled.model);
+    const model = selected ? selected.model : compiled.model;
+    const diagnostics = [...compiled.diagnostics, ...(selected?.diagnostics ?? [])];
+    if (!model) {
+      this.#fail(diagnostics);
+      return diagnostics;
+    }
+    this.loadModel(model);
+    return diagnostics;
+  }
+
+  /** Shared successful compilation; callers treat parsed documents as immutable. */
+  static compile(doc: string | object, markup = false): ReturnType<typeof load> {
+    const key = typeof doc === 'string' ? (markup ? 'm' : 'j') + doc : undefined;
+    const cached = key === undefined ? objects.get(doc as object) : sources.get(key);
+    if (cached) {
+      if (key !== undefined) {
+        sources.delete(key);
+        sources.set(key, cached);
+      }
+      return cached;
+    }
     const compiled =
       markup && typeof doc === 'string'
         ? (AnimaIcon.compiler?.(doc) ?? {
@@ -342,16 +401,18 @@ export class AnimaIcon extends HTMLElement {
             ],
           })
         : undefined;
-    const { model, diagnostics } =
+    const result =
       compiled && !compiled.doc
         ? { model: undefined, diagnostics: compiled.diagnostics }
         : load(compiled?.doc ?? doc);
-    if (!model) {
-      this.#fail(diagnostics);
-      return diagnostics;
+    if (result.model) {
+      if (key === undefined) objects.set(doc as object, result);
+      else {
+        sources.set(key, result);
+        if (sources.size > 16) sources.delete(sources.keys().next().value!);
+      }
     }
-    this.loadModel(model);
-    return diagnostics;
+    return result;
   }
 
   /** Nonnegative playback rate. Invalid attribute values use 1. */
@@ -413,7 +474,7 @@ export class AnimaIcon extends HTMLElement {
   }
 
   reset(): void {
-    if (this.player) this.load(this.player.model.doc);
+    if (this.player) this.loadModel(this.player.model);
   }
 
   destroy(): void {
@@ -424,6 +485,7 @@ export class AnimaIcon extends HTMLElement {
     this.#listeners?.abort();
     this.#listeners = undefined;
     this.player = undefined;
+    this.#prepare = undefined;
     this.#renderer?.destroy();
     this.#renderer = undefined;
     this.#svg = undefined;
@@ -581,7 +643,23 @@ export class AnimaIcon extends HTMLElement {
     AnimaIcon.orderSVG?.(drawFrame(this.player!), this.#els);
   }
 
+  #resources(p: Player): boolean {
+    if (!this.#prepare) return false;
+    let changed = this.#prepare(p);
+    const nested = (p.nested as { players?: Map<string, Player> } | undefined)?.players;
+    const lists = AnimaIcon.modules.get('lists') as
+      typeof import('../../../modules/lists/core/index.ts').lists | undefined;
+    for (const child of [
+      ...(nested?.values() ?? []),
+      ...(lists?.listState(p)?.runs.flatMap((r) => r.items.map((i) => i.player)) ?? []),
+    ])
+      changed = this.#resources(child) || changed;
+    if (changed) p.drawVersions.fill(++p.drawRevision);
+    return changed;
+  }
+
   #draw(all = false): void {
+    this.#resources(this.player!);
     const f = drawFrame(this.player!);
     if (this.#renderer) {
       this.#renderer.draw(f, all);
@@ -676,8 +754,11 @@ export class AnimaIcon extends HTMLElement {
   #visible(on: boolean): void {
     this.#onScreen = on;
     if (this.#destroyed) return;
-    if (on && this.player?.busy) this.#wake();
-    else if (!on) schedule(this, false);
+    if (on && this.player?.busy && !this.hasAttribute('paused') && !document.hidden) {
+      this.#last = -1;
+      this.#step(0);
+      if (this.player?.busy) this.#wake();
+    } else if (!on) schedule(this, false);
   }
 
   #motion = (): void => {

@@ -35,7 +35,11 @@ export function checkDoc(value: unknown, d: Diags): boolean {
   const before = d.list.length;
   const required = (value as { requires?: unknown })?.requires;
   d.features = Array.isArray(required) ? required : [];
-  check(value, DOC, '', d, 0);
+  // Component libraries may omit a drawing at the document root.
+  const shape = d.features.includes('components')
+    ? { ...DOC, p: { ...(DOC as ObjShape).p, nodes: { ...(DOC as ObjShape).p.nodes, min: 0 } } }
+    : DOC;
+  check(value, shape as ObjShape, '', d, 0);
   return d.list.length === before;
 }
 
