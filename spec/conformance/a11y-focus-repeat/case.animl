@@ -1,0 +1,14 @@
+<anima version="0.1" name="focus-repeat" grid="20" requires="a11y focus data components lists">
+  <model name="M">
+    <number name="n" default="2"/>
+  </model>
+  <instance name="main" model="M" default="true"/>
+  <component name="row" grid="20">
+    <group id="item">
+      <a11y role="button" bounds="1 2 3 4"/>
+    </group>
+  </component>
+  <repeat id="rows" count="$n" component="row" dx="5">
+    <focus enabled="false" edge="parent-scope"/>
+  </repeat>
+</anima>

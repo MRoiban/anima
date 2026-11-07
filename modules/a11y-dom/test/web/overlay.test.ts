@@ -307,7 +307,7 @@ for (const [name, engine, executablePath] of [
         window.original = window.overlayIcon.shadowRoot!.querySelector('[data-semantic="mute"]');
         window.overlayTree[0]!.bounds = [8, 8, 3, 4];
         const slider = window.overlayTree[0]!.children[1]!;
-        slider.value = 'Loud';
+        slider.valueText = 'Loud';
         slider.states = { disabled: true, readonly: true, required: true, live: 'assertive' };
         window.overlayIcon.player!.step(0);
       });
@@ -330,6 +330,7 @@ for (const [name, engine, executablePath] of [
         window.overlayTree = structuredClone(window.overlayTree);
         const slider = window.overlayTree[0]!.children[1]!;
         slider.value = 40;
+        delete slider.valueText;
         slider.states = {};
         window.overlayIcon.player!.step(0);
       });
@@ -489,6 +490,30 @@ for (const [name, engine, executablePath] of [
         expect(await page.evaluate(() => window.overlayIcon.get('on'))).toBe(true);
       }
       expect(errors).toEqual([]);
+    });
+    it('[P3b-10a] exposes numeric slider value and independent spoken value text', async () => {
+      expect(
+        await page.evaluate((d) => window.overlayIcon.load(d), {
+          ...doc,
+          nodes: [
+            node('speech', {
+              role: 'slider',
+              label: 'Volume',
+              value: 'level',
+              valueText: 'Volume 40 %',
+              step: 5,
+            }),
+          ],
+        }),
+      ).toEqual([]);
+      expect(await target('speech').inputValue()).toBe('40');
+      expect(await target('speech').getAttribute('aria-valuetext')).toBe('Volume 40 %');
+      // Playwright's native-range AX projection reports its number, even with valuetext.
+      expect(await page.locator('anima-icon').ariaSnapshot()).toContain('slider "Volume": "40"');
+      expect(await page.evaluate(() => window.overlayIcon.semantics[0])).toMatchObject({
+        value: 40,
+        valueText: 'Volume 40 %',
+      });
     });
     it('native controls and an actual accessibility tree', async () => {
       expect(await target('mute').getAttribute('type')).toBe('checkbox');

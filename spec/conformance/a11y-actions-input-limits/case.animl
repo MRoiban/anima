@@ -1,0 +1,6 @@
+<anima version="0.1" name="actions-input-limits" grid="20" requires="a11y focus">
+  <number name="amount" default="40" min="20" max="50"/>
+  <group id="slider">
+    <a11y role="slider" value="amount" step="5" bounds="1 2 3 4"/>
+  </group>
+</anima>

@@ -1,0 +1,16 @@
+<anima version="0.1" name="focus-ancestor-policy" grid="100" requires="a11y focus">
+  <bool name="hideChild"/>
+  <group id="parent">
+    <focus bounds="8 8 24 4"/>
+    <a11y role="group" label="parent"/>
+    <rect id="child" x0="8" y0="8" width="4" height="4" fill="#111">
+      <a11y role="button" label="child" hidden="hideChild"/>
+    </rect>
+    <rect id="sibling" x0="28" y0="8" width="4" height="4" fill="#111">
+      <a11y role="button" label="sibling"/>
+    </rect>
+  </group>
+  <rect id="outside" x0="48" y0="8" width="4" height="4" fill="#111">
+    <a11y role="button" label="outside"/>
+  </rect>
+</anima>

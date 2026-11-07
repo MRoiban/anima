@@ -28,7 +28,7 @@ export function validate(model: Model, d: Diags) {
         const input = typeof v === 'string' && model.inputs.get(v);
         const numeric = k === 'level' || (k === 'value' && c.role === 'slider');
         const binding = states.includes(k) || k === 'checkedMixed' || k === 'activate' || numeric;
-        const text = ['label', 'hint', 'value'].includes(k);
+        const text = 'label hint value valueText'.split(' ').includes(k);
         if (typeof v === 'string' && (binding || (text && (v.startsWith('$') || input)))) {
           if (v.startsWith('$') && !model.doc.requires?.includes('data'))
             err(
@@ -82,18 +82,20 @@ export function validate(model: Model, d: Diags) {
                 ].join(', '),
           );
       }
-      for (const [key, role] of [
+      for (const [keys, role] of [
+        ['valueText min max step', 'slider'],
         ['level', 'heading'],
         ['href', 'link'],
         ['checkedMixed', 'checkbox'],
       ] as const)
-        if (c[key] !== undefined && c.role !== role)
-          err(
-            'bad-value',
-            key,
-            key + ' requires ' + role,
-            'use role "' + role + '" or omit ' + key,
-          );
+        for (const key of keys.split(' '))
+          if (c[key as keyof A11yConfig] !== undefined && c.role !== role)
+            err(
+              'bad-value',
+              key,
+              key + ' requires ' + role,
+              'use role "' + role + '" or omit ' + key,
+            );
       if (c.role === 'slider' && !c.value)
         err(
           'bad-value',
@@ -103,9 +105,6 @@ export function validate(model: Model, d: Diags) {
         );
       if ((c.min ?? 0) >= (c.max ?? 100))
         err('bad-value', 'min', 'min must be less than max', 'set min below max');
-      for (const key of ['min', 'max', 'step'])
-        if (c[key as keyof A11yConfig] !== undefined && c.role !== 'slider')
-          err('bad-value', key, key + ' requires slider', 'use role "slider" or omit ' + key);
     });
   visit(model.doc.nodes, '/nodes');
 }

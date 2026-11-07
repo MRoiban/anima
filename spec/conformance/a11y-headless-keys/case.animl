@@ -1,0 +1,34 @@
+<anima version="0.1" name="headless-keys" grid="20" requires="a11y focus">
+  <bool name="buttonOn"/>
+  <bool name="switchOn"/>
+  <bool name="checkboxOn"/>
+  <bool name="radioOn"/>
+  <bool name="linkOn"/>
+  <group id="button">
+    <a11y role="button" activate="buttonOn" pressed="buttonOn" bounds="1 2 3 4"/>
+  </group>
+  <group id="switch">
+    <a11y role="switch" activate="switchOn" checked="switchOn" bounds="1 2 3 4"/>
+  </group>
+  <group id="checkbox">
+    <a11y role="checkbox" activate="checkboxOn" checked="checkboxOn" bounds="1 2 3 4"/>
+  </group>
+  <group id="radio">
+    <a11y role="radio" activate="radioOn" checked="radioOn" bounds="1 2 3 4"/>
+  </group>
+  <group id="link">
+    <a11y role="link" activate="linkOn" href="/help" bounds="1 2 3 4"/>
+  </group>
+  <group id="tabs">
+    <a11y role="tab-list" bounds="1 2 3 4"/>
+    <group id="t1">
+      <a11y role="tab" bounds="1 2 3 4"/>
+    </group>
+    <group id="skip">
+      <a11y role="tab" disabled="true" bounds="1 2 3 4"/>
+    </group>
+    <group id="t2">
+      <a11y role="tab" bounds="1 2 3 4"/>
+    </group>
+  </group>
+</anima>

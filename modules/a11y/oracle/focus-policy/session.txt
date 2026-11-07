@@ -1,0 +1,31 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[12:36:50.659] rive  deferred replay: inline
+[12:36:50.687] rive  built (821 bytes, 28ms, 0 errors, 0 warnings)
+[12:36:50.688] rive  showing Focus policy [1/1]
+[12:36:50.688] rive  viewport 100x40 @1x
+ok advance
+[12:36:50.689] rive  wrote frames/child.json
+ok semantics: frames/child.json
+ok key
+ok advance
+[12:36:50.689] rive  wrote frames/parent.json
+ok semantics: frames/parent.json
+ok key
+ok advance
+[12:36:50.689] rive  wrote frames/first.json
+ok semantics: frames/first.json
+ok key
+ok advance
+[12:36:50.689] rive  wrote frames/right.json
+ok semantics: frames/right.json
+ok key
+ok advance
+[12:36:50.689] rive  wrote frames/outside.json
+ok semantics: frames/outside.json
+ok key
+ok advance
+ok key
+ok advance
+[12:36:50.690] rive  wrote frames/hidden.json
+ok semantics: frames/hidden.json
+ok quit

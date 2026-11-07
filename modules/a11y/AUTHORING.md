@@ -15,7 +15,10 @@ see REPORT.md. The fixed budgets pass after the bounded fixes.
 
 Use `anima validate`, `anima schema circle.a11y`, and
 `anima sample file.animl --semantics -e 'semantic mute tap\nsnapshot'`.
-For a slider bind value to a number input and set min/max/step. Bind text or states
+For a slider bind value to a number input or data path and set min/max/step.
+Use value-text for independent spoken text, either a literal or a string data path.
+See examples/slider-value-text.animl for `$volume` plus a derived `$volumeText`
+that speaks "Volume 40 %". Anima has no standalone string inputs. Bind text or states
 to `$path` only when data is declared and loaded. Semantic tap toggles a bound
 checked/pressed/selected bool unless activate explicitly names a bool or trigger.
 Traits follow from role/states; do not write trait bits. Root `<a11y>` is unchanged.
@@ -38,3 +41,10 @@ use explicit bounds for paths/strokes until their exact extents are implemented.
 `semantics mute` prints only that subtree. `snapshot --semantics $path` combines
 semantic inspection with a filtered values snapshot. Omitted bool states are false
 for platform consumers; traits are derived and are never authored or serialized.
+
+With logical focus on a semantic control, headless keys use its native behavior:
+`semantic volume focus`, `key down ArrowRight`, `key up ArrowRight`. Space needs
+a down/up pair; button/switch/link Enter activates on down. Tab-list arrows/Home/End
+rove enabled tabs. Numeric range actions compose before a step and respect both
+semantic and input/data limits. Repeated targets use `rows.0.item`; author
+`<focus edge="parent-scope"/>` on the repeat to leave a row at its child edge.

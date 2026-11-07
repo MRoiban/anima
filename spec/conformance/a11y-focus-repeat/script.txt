@@ -1,0 +1,10 @@
+advance 0
+snapshot --semantics
+semantic rows.0.item focus
+snapshot --semantics
+key down Tab
+key up Tab
+snapshot --semantics
+set $n 1
+advance 0
+snapshot --semantics

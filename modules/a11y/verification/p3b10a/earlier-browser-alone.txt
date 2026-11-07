@@ -1,0 +1,7 @@
+ FAIL  |browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Chromium > [P3b-10a] exposes numeric slider value and independent spoken value text
+AssertionError: expected '- group:\n  - slider "Volume": "40"' to contain 'Volume 40 %'
+ FAIL  |browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Firefox > [P3b-10a] exposes numeric slider value and independent spoken value text
+AssertionError: expected '- group:\n  - slider "Volume": "40"' to contain 'Volume 40 %'
+ Test Files  1 failed | 1 passed (2)
+      Tests  2 failed | 48 passed (50)
+   Duration  33.86s (tests 98%, import 2%)

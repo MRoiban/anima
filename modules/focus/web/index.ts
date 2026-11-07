@@ -112,7 +112,7 @@ function attach(icon: AnimaIcon) {
     queueMicrotask(() => {
       if (!icon.matches(':focus-within') && icon.player?.model.doc.requires?.includes('focus')) {
         icon.player.focusClear();
-        if (!icon.player.model.nodes.some((n) => n.raw.focus?.tabStops)) icon.tabIndex = 0;
+        if (!icon.player.focusItems(true).some((n) => n.config.tabStops)) icon.tabIndex = 0;
       }
     }),
   );
