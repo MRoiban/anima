@@ -1,10 +1,10 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive for animated web UI. Order: P3c (size round + 23 carry-overs) → P6 text → P7 minimal layout → P8 rigging.
-State: P3b merged (PR #19, 38dd757). Branch p3c, design/p3c/DESIGN.md. Runtime sum 109,971 → target ≤ 104,472 B; other gates must not grow.
-Next: running P3c-6 (visual guards), P3c-8 (7 a11y rows, +350 B allowance), P3c-9 (artboards, computed, devtools; +200 B) → merge → closure → benchmark? (no new brief; rerun settings card optional) → LOG/PLAN → PR (six gates).
-Don't: push to main; modify oracle findings or benchmark records; raise ceilings; change behaviour in size cuts; leave merged worktrees; --no-verify.
+Goal: smaller, agent-native Rive for animated web UI. Order: P3c (PR) → P6 text → P7 minimal layout (+ bindable artboards) → P8 rigging.
+State: P3c complete on branch p3c: runtime sum 104,285 (−5.17 %); 18 carry-overs done (in scope 738/886, 83 %); benchmark AniML 5/6. Gates: core+web 20,622/24,576; scene 52,122/65,536; app-UI 85,154/131,072; sum 104,285/163,840; authoring 14,544/16,384; Rive 109,904/256,000.
+Next: P3c PR → green CI → merge; then P6 design (text on browser primitives; CLI text rendering choice; app-UI ≤ 128 KB, scenes ≤ 64 KB, text input heavy; settings-card rerun is an exit criterion).
+Don't: push to main; modify oracle findings or benchmark records; raise ceilings; leave merged worktrees; --no-verify.
 
 ## Log
 - 2026-11-06 23:40 [P5b-8]: condensed oldest half per 200-line rule; M0–M5/P1/P3 established spec, runtime, AniML and icons; Glyphy remains draft-only (evidence: prior WORKLOG at 0c5028a; PRs1–6).
@@ -351,3 +351,4 @@ Don't: push to main; modify oracle findings or benchmark records; raise ceilings
 - 2026-11-07 [claude]: merged P3c-8 (6/7 a11y rows closure-ready; tree-bounds open): runtime sum 104,285 (−5.17 %, target met with carry-overs); app-UI 85,154; scopes 5,050 pass chromium; final budget reset for 9 modules (+devtools 448)
 - 2026-11-07 [claude]: perf A/B p3c vs main 38dd757 (taskset, mins): bell frame 29.4/30.5 µs, bell compile 1.64/1.63 ms, composite 20.0/20.4, toolbar frame 22.7/22.4, toolbar compile 3.09/3.07 ms → no regression; launched P3c-10 closure + AniML regression rerun (settings card, runs/2026-11-07-p3c)
 - 2026-11-07 15:57 [P3c-10]: audited19rows →18done, tree-bounds→P6; full720→738/1238, scope720→738/886(83%); replaced3missing library todo citations with existing skips; initial scope could not start without Vitest, npm ci restored dependencies → tools432pass/20TODO, parity generation/check and format pass (evidence: docs/parity/P3c-closure.md).
+- 2026-11-07 [claude]: merged P3c-10 closure (18 done; tree-bounds → P6) and AniML regression rerun 5/6 (re-checked: slider 40→45→40→45 %); LOG P3c entry, PLAN P3c [x], benchmark recorded

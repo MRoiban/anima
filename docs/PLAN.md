@@ -329,14 +329,13 @@ app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-cl
       `icon.stop()`; `devtools` (authoring). Benchmark: AniML 4/6 → 5/6 after fixes, Rive 5/6; item 1
       (visible text) an owner-accepted gap until P6. Size gates (owner, 2026-11-07) replaced the
       full-featured ceiling.
-- [ ] P3c Size round and P3b carry-overs (before P6). Owner rule: the runtime sum drops ≥ 5 % from
-      its end-of-P3b value (109 971 B → ≤ 104 472 B); start with the modules at ≥ 95 % of budget
-      (`a11y`, `a11y-actions`, `bind`, `components`, `focus`, `markup`, `surface`, `data`) and
-      helpers duplicated across modules; then reset budgets to ~10 % headroom. Carry-overs: the 23
-      P3c rows (directional/conditional semantic focus, exact semantic bounds, visibility matrix,
-      dependency-driven semantics, canvas overlay positioning, library probes, bindable artboards,
-      devtools and tooling details, computed local/root coordinates) and the P3b benchmark rerun's
-      remaining friction (`docs/benchmarks/agent-native.md`).
+- [x] P3c Size round and P3b carry-overs (design `design/p3c/DESIGN.md`, survey
+      `design/p3c/SIZE-SURVEY.md`, closure `docs/parity/P3c-closure.md`). Runtime sum 109 971 →
+      104 285 B (−5.17 %, owner target ≤ 104 472 B met with the carry-overs included): AniML authoring
+      hooks moved into the authoring class (`markup-hooks`, −4 470 B), production diagnostic prose
+      guarded in events/data/machine, visual modules, converters and bind (−1 630 B). Budgets reset to
+      ~10 % headroom. 18 carry-overs done (in scope 720 → 738 of 886, 83 %); `a11y.tree-bounds` → P6,
+      four bindable-artboard rows → P7. Benchmark regression rerun: AniML 5/6 (item 1 owner-accepted).
 - [ ] P6 Text on the browser (83 rows: 76, plus 5 text a11y rows from P3b and, by the owner's
       follow-up of 2026-11-07, text hit testing through the host API and listeners and bidi control
       only if nearly free; the other `text.script-*` rows went with scripting). Shaping,
