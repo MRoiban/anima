@@ -1,10 +1,8 @@
 import { focus, type FocusAPI } from '../core/index.ts';
-import { focusMarkup } from '../markup/index.ts';
 import '../../../packages/web/src/index.ts';
 import type { AnimaIcon } from '../../../packages/web/src/index.ts';
 const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
 Icon.registerModule(focus);
-Icon.registerMarkup('paint', focusMarkup);
 Icon.prototype.focusNext = function () {
   return this.player?.focusTraverse('next') ?? false;
 };

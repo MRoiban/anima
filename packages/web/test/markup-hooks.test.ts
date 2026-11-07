@@ -21,7 +21,16 @@ beforeAll(async () => {
   ];
   await Promise.all(
     entries.map(async (entry) => {
-      bundles.set(entry, await bundle(resolve('packages/web/src/' + entry + '.ts')));
+      bundles.set(
+        entry,
+        await bundle(
+          resolve(
+            entry === 'markup-libraries'
+              ? 'modules/markup/test/web/fixtures/libraries.ts'
+              : 'packages/web/src/' + (entry === 'markup' ? 'markup-hooks' : entry) + '.ts',
+          ),
+        ),
+      );
     }),
   );
 }, 30000);

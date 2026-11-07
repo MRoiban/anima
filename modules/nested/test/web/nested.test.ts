@@ -20,7 +20,12 @@ for (const [name, engine, cache] of [
     beforeAll(async () => {
       await Promise.all(
         ['index', 'components', 'data', 'bind', 'nested', 'canvas', 'markup'].map(async (entry) =>
-          bundles.set(entry, await bundle(resolve('packages/web/src/' + entry + '.ts'))),
+          bundles.set(
+            entry,
+            await bundle(
+              resolve('packages/web/src/' + (entry === 'markup' ? 'markup-hooks' : entry) + '.ts'),
+            ),
+          ),
         ),
       );
       const executablePath = [resolve(homedir(), cache), engine.executablePath()].find(existsSync);

@@ -1,0 +1,4 @@
+scratch: /tmp/p3c4/scaffold-debug-WWWChs
+JSON report written to /tmp/p3c4/scaffold-debug-WWWChs/pending-report.json
+
+summary {"passed":904,"failed":0,"todo":30}

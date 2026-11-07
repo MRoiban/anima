@@ -1,0 +1,160 @@
+{
+  "source": "Vitest persisted scope-browser results after owned scope exit 0",
+  "files": {
+    "packages/playground/test/browser.test.ts": {
+      "failed": false,
+      "duration": 58566.66012,
+      "lastRun": 1794056899430
+    },
+    "packages/web/test/browser.test.ts": {
+      "failed": false,
+      "duration": 188356.261128,
+      "lastRun": 1794056899430
+    },
+    "packages/web/test/markup-hooks.test.ts": {
+      "failed": false,
+      "duration": 66280.524197,
+      "lastRun": 1794056899430
+    },
+    "modules/a11y-dom/test/web/overlay.test.ts": {
+      "failed": false,
+      "duration": 69269.28544899999,
+      "lastRun": 1794056899430
+    },
+    "modules/assets/test/web/assets.test.ts": {
+      "failed": false,
+      "duration": 9538.278214,
+      "lastRun": 1794056899430
+    },
+    "modules/assets/test/web/pipeline.test.ts": {
+      "failed": false,
+      "duration": 31366.4969,
+      "lastRun": 1794056899430
+    },
+    "modules/bind/test/web/bind.test.ts": {
+      "failed": false,
+      "duration": 5950.146873,
+      "lastRun": 1794056899430
+    },
+    "modules/canvas/test/web/canvas.test.ts": {
+      "failed": false,
+      "duration": 668075.740593,
+      "lastRun": 1794056899430
+    },
+    "modules/canvas/test/web/native-paint.test.ts": {
+      "failed": false,
+      "duration": 21487.624807,
+      "lastRun": 1794056899430
+    },
+    "modules/componentpaint/test/web/sources.test.ts": {
+      "failed": false,
+      "duration": 10484.911868000001,
+      "lastRun": 1794056899430
+    },
+    "modules/components/test/web/components.test.ts": {
+      "failed": false,
+      "duration": 8426.818712,
+      "lastRun": 1794056899430
+    },
+    "modules/composite/test/web/paint-composite.test.ts": {
+      "failed": false,
+      "duration": 40379.988852,
+      "lastRun": 1794056899430
+    },
+    "modules/convert/test/web/convert.test.ts": {
+      "failed": false,
+      "duration": 16675.492836,
+      "lastRun": 1794056899430
+    },
+    "modules/data/test/web/browser.test.ts": {
+      "failed": false,
+      "duration": 18657.229637,
+      "lastRun": 1794056899430
+    },
+    "modules/data-host/test/web/browser.test.ts": {
+      "failed": false,
+      "duration": 19502.809549,
+      "lastRun": 1794056899430
+    },
+    "modules/derive/test/web/browser.test.ts": {
+      "failed": false,
+      "duration": 16921.792548999998,
+      "lastRun": 1794056899430
+    },
+    "modules/events/test/web/events.browser.test.ts": {
+      "failed": false,
+      "duration": 46064.400195999995,
+      "lastRun": 1794056899430
+    },
+    "modules/focus/test/web/focus.test.ts": {
+      "failed": false,
+      "duration": 19557.713696000003,
+      "lastRun": 1794056899430
+    },
+    "modules/host/test/web/browser.test.ts": {
+      "failed": false,
+      "duration": 21483.767776,
+      "lastRun": 1794056899430
+    },
+    "modules/host-edit/test/web/browser.test.ts": {
+      "failed": false,
+      "duration": 13603.174293,
+      "lastRun": 1794056899430
+    },
+    "modules/host-edit/test/web/components.test.ts": {
+      "failed": false,
+      "duration": 11264.308155,
+      "lastRun": 1794056899430
+    },
+    "modules/host-edit/test/web/seams.test.ts": {
+      "failed": false,
+      "duration": 8842.169794,
+      "lastRun": 1794056899430
+    },
+    "modules/input/test/web/browser.test.ts": {
+      "failed": false,
+      "duration": 33721.582791,
+      "lastRun": 1794056899430
+    },
+    "modules/input/test/web/integration.test.ts": {
+      "failed": false,
+      "duration": 35856.429674000006,
+      "lastRun": 1794056899430
+    },
+    "modules/lists/test/web/lists.test.ts": {
+      "failed": false,
+      "duration": 24624.184158,
+      "lastRun": 1794056899430
+    },
+    "modules/machine/test/web/browser.test.ts": {
+      "failed": false,
+      "duration": 29068.039855,
+      "lastRun": 1794056899430
+    },
+    "modules/markup/test/web/authoring.test.ts": {
+      "failed": false,
+      "duration": 38028.521368,
+      "lastRun": 1794056899430
+    },
+    "modules/motion/test/web/browser.test.ts": {
+      "failed": false,
+      "duration": 36634.550201,
+      "lastRun": 1794056899430
+    },
+    "modules/nested/test/web/nested.test.ts": {
+      "failed": false,
+      "duration": 21177.682175,
+      "lastRun": 1794056899430
+    },
+    "modules/paint/test/web/paint-geometry.test.ts": {
+      "failed": false,
+      "duration": 8272.946187,
+      "lastRun": 1794056899430
+    },
+    "modules/surface/test/web/surface.test.ts": {
+      "failed": false,
+      "duration": 11823.359929999999,
+      "lastRun": 1794056899430
+    }
+  }
+}

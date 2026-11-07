@@ -186,16 +186,20 @@ HTML parses `<path/>` and friends as HTML, so markup in a page is wrapped in a s
 
 - **Build time (recommended).** `anima build page.html` compiles every such script inside an
   `<anima-icon>` into `<script type="application/vnd.anima+json">` with the compiled document.
-- **Runtime.** The optional module `@anima-format/web/markup` teaches `<anima-icon>` to compile
-  markup in the browser. It has its own size budget and is not part of the core + web budget; a
-  page that ships compiled `.ani` never loads it. Library/template support additionally requires
+- **Runtime.** The optional authoring entry `@anima-format/web/markup-hooks` teaches
+  `<anima-icon>` to compile markup for the runtime modules a page loads. It includes the lean
+  `@anima-format/web/markup` compiler; that lean entry remains available for base-format AniML
+  and explicit hook imports. The compiler and hooks have separate authoring budgets and are
+  not part of the core + web budget; a page that ships compiled `.ani` never loads them.
+  Library/template support additionally requires
   `@anima-format/web/markup-libraries` (which also loads markup support). Without it,
   `<import>`, `<template>` and `<apply>` report `markup-libraries-unavailable`, with a hint to load
   that entry or run `anima build`. The default tooling compiler entry always registers this layer;
   the lean `@anima-format/markup/browser` entry uses it only when registered.
-- Module compilation is optional too. `@anima-format/web/components` registers the component
-  compiler hook, and `@anima-format/web/bind` registers the binding hook. Load each alongside
-  `@anima-format/web/markup`, in either order. Inline and fetched sources also recover when a module arrives after the icon is connected. Without its hook,
+- Module compilation is optional too. Runtime entries such as `@anima-format/web/components`
+  and `@anima-format/web/bind` register runtime features only. Load
+  `@anima-format/web/markup-hooks` alongside them, in either order; the authoring entry installs
+  the compiler hooks synchronously for existing and subsequently loaded runtime modules. Inline and fetched sources also recover when a module arrives after the icon is connected. Without its hook,
   `<component>` / `<instance>` report `markup-components-unavailable` and `<bind>` reports
   `markup-bind-unavailable`; each diagnostic includes the source position, JSON pointer and
   a message/hint naming the entry to load (or `anima build`). The registration-only entries
@@ -203,13 +207,13 @@ HTML parses `<path/>` and friends as HTML, so markup in a page is wrapped in a s
   separately; they do not install their runtime modules or the compiler.
 - Registry-derived forms (including `<asset>` and ordinary module node attributes) remain in
   markup. Structural paint handling (gradient children, masks, clips, multiple paints and dash
-  lengths) is registered by `@anima-format/web/paint`, or separately by
-  `@anima-format/web/markup-paint`. A composite-only page using structural children must load
+  lengths) is registered by `@anima-format/web/markup-hooks` when the paint runtime is loaded,
+  or separately by `@anima-format/web/markup-paint`. A composite-only page using structural children must load
   `markup-paint` alongside `composite` and `markup`; without it those children report
   `markup-paint-unavailable`, naming `markup-paint` in the message and hint. These hooks are
   shared through the registered element class, including across separately emitted bundles.
-  `surface` also loads `markup-surface` (the structural routing hook), including image paints,
-  slices and feathering. Tooling's main entry registers all modules and hooks; the lean browser
+  For `surface` image paints, slices and feathering, load `markup-hooks` alongside the
+  runtime entry, or load `markup-surface` alongside the lean compiler. Tooling's main entry registers all modules and hooks; the lean browser
   entry imports neither `core/all` nor the tooling entry. CLI and playground compilation are unchanged.
 - Failed source loads retain their source and retry when compiler hooks or runtime modules register.
   The initial attempt still reports diagnostics through `anima:error` and rejects its `ready` promise;

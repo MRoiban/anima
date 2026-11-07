@@ -168,10 +168,15 @@ load only explicit imports. See MODULES §3.1 for the Canvas2D seam and change-t
 
 Module registration and the retained renderer are shared through the active `AnimaIcon` class,
 so separately emitted base, paint and markup bundles use the same runtime. The browser markup
-compiler copies the registered entries and the live DOC/fill/stroke shape refinements from module initialization before compiling; its registry-derived forms remain in markup (8 KB incremental budget). Component and binding
-compilation hooks register through their runtime entries; structural paint handling registers
-through paint or the registration-only markup-paint entry (also used by composite-only markup). Tooling's `core/all` registration is
-folded out of terse browser builds. Both optional bundle import orders are browser-tested.
+compiler copies the registered entries and the live DOC/fill/stroke shape refinements from module
+initialization before compiling; its registry-derived forms remain in the lean `markup` authoring
+entry (8 KB incremental budget). Runtime entries register runtime features only. Browser AniML
+pages import `@anima-format/web/markup-hooks`, a separately budgeted authoring entry that includes
+`markup` and installs compiler hooks synchronously for existing and subsequently loaded runtime
+modules. The registration-only `markup-<name>` entries remain available with the lean compiler;
+composite-only structural markup uses `markup-paint`. Library/template expansion additionally
+uses `markup-libraries`. Tooling's `core/all` registration is folded out of terse browser builds.
+Both optional bundle import orders are browser-tested.
 
 
 ## Testing scopes
