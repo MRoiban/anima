@@ -1,0 +1,12 @@
+advance 0
+snapshot top.fill.color control/face.fill.color control/digit/segment.fill.color
+set $theme:ink #ff0000
+advance 0
+snapshot top.fill.color control/face.fill.color control/digit/segment.fill.color
+pointer click 1 1
+advance 0
+snapshot top.fill.color control/face.fill.color control/digit/segment.fill.color
+pointer click 5 5
+snapshot top.fill.color control/face.fill.color control/digit/segment.fill.color
+advance 0
+snapshot top.fill.color control/face.fill.color control/digit/segment.fill.color

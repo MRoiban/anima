@@ -2469,3 +2469,20 @@ explicit author dimensions (core+web +13 B). Small scenes also retain the two
 unreproduced report details: trigger buttons already activate without focus, and
 normal opacity already hides range paint. See
 [BF-2 report](../modules/a11y-dom/BF2-REPORT.md) for evidence, limits and gate values.
+## BF-1 — nested data and library component lookup (2026-11-07)
+
+- B1 reproduced with a two-level library scene: inherited non-global theme instances were cloned.
+  Context-free components now share live named instances and recursively rebind descendants;
+  explicit child contexts and independent root players retain their storage contracts. The marker
+  lives on the compiled model so separately emitted components/data bundles agree; lists retains
+  ownership of its descendant context traversal.
+- B4's hex-string failure did not reproduce: `#rgb`, `#rrggbb`, `#rrggbbaa` already normalize on the
+  next step and malformed values already throw `data-type`. Fractional RGBA channels were accepted
+  and could format incorrectly; the byte-channel validator now rejects them.
+- B5 imported component keys preserve unique originals and qualify collisions with the full import
+  alias chain. Metadata retains qualified aliases; core references, host property writes, web root
+  selection and CLI rendering share the lookup, including legacy generated suffixes. Ambiguous
+  originals receive a diagnostic and verbose qualified alternatives. Local exact keys retain priority.
+- Small scenes, core and Chromium/Firefox tests, two conformance cases, AniML/SPEC/AUTHORING and the
+  regenerated schema/library scenes accompany the fix. Detailed verification, six gates and module
+  deltas are recorded in `modules/data/BF-1-REPORT.md`. Local commit only; no publication or PR.

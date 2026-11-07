@@ -52,7 +52,8 @@ export function expand(
   opts: CompileOptions,
   diagnostics: MarkupDiagnostic[],
 ): void {
-  const resources: Element[] = [];
+  const resources: Definition[] = [];
+  const componentNames: Record<string, string> = {};
   const active = new Set<string>([opts.file ?? '']);
   const root = xml.root!;
   const names = new Set<string>();
@@ -96,7 +97,8 @@ export function expand(
       ? new Map([...scope].filter(([key]) => selected.includes(key.split(' ')[1]!)))
       : scope;
   };
-  const scopeFor = (el: Element, file: string | undefined, imported = false): Scope => {
+  const scopeFor = (el: Element, file: string | undefined, prefix = ''): Scope => {
+    const imported = !!prefix;
     const scope: Scope = new Map();
     const aliases = new Set<string>();
     for (const c of el.children) {
@@ -145,14 +147,22 @@ export function expand(
             c.at,
           );
         active.add(path);
-        const exports = scopeFor(parsed.doc.root, path, true);
+        const exports = scopeFor(parsed.doc.root, path, prefix + alias + ':');
         active.delete(path);
         for (const [key, value] of select(exports, c, 'select'))
           scope.set(key.replace(' ', ` ${alias}:`), value);
       } else if (declarations.includes(c.name) && (c.name !== 'instance' || attr(c, 'model'))) {
         const name = attr(c, 'name');
         const key = `${c.name} ${name}`;
-        if (!(['model', 'enum'].includes(c.name) ? /^[a-zA-Z][\w-]*$/ : NAME).test(name))
+        if (
+          !(
+            ['model', 'enum'].includes(c.name)
+              ? /^[a-zA-Z][\w-]*$/
+              : c.name === 'component'
+                ? /^[a-z][\w-]*(?::[a-z][\w-]*)*$/
+                : NAME
+          ).test(name)
+        )
           error('bad-attribute', c.at, VERBOSE ? 'declaration needs a valid name' : '');
         if (scope.has(key)) error('duplicate-name', c.at, VERBOSE ? `duplicate name ${name}` : '');
         let output = name;
@@ -161,24 +171,21 @@ export function expand(
             output = `import-${++serial}-${name}`;
           } while (names.has(output));
           names.add(output);
+          if (c.name === 'component') output = prefix + name;
         }
-        scope.set(key, { el: c, scope, name: output });
+        const d = { el: c, scope, name: output };
+        scope.set(key, d);
+        if (imported && c.name !== 'template') {
+          resources.push(d);
+        }
       } else if (imported)
         error('misplaced-element', c.at, VERBOSE ? `<${c.name}> is not allowed in a library` : '');
     }
-    if (imported)
-      for (const d of scope.values()) {
-        if (d.scope === scope && d.el.name !== 'template') {
-          const copy = clone(d.el, {}, scope, []) as Element;
-          copy.attrs.find((a) => a.name === 'name')!.value = d.name;
-          resources.push(copy);
-        }
-      }
     return imported ? select(scope, el, 'exports') : scope;
   };
-  const reference = (value: string, kind: string, scope: Scope, at: Pos): string => {
+  const reference = (value: string, kind: string, scope: Scope, at: Pos, quote = false): string => {
     const d = scope.get(`${kind} ${value}`);
-    if (d) return d.name;
+    if (d) return quote ? JSON.stringify(d.name) : d.name;
     if (/^[a-z][\w-]*:/.test(value))
       error('unknown-name', at, VERBOSE ? `unknown ${kind} ${value}` : '');
     return value;
@@ -247,7 +254,14 @@ export function expand(
                 : ['ease', 'curve'].includes(a.name)
                   ? 'ease'
                   : '';
-      if (kind) a.value = reference(a.value, kind, scope, a.valueAt);
+      if (kind)
+        a.value = reference(
+          a.value,
+          kind,
+          scope,
+          a.valueAt,
+          c.name === 'repeat' && kind === 'component',
+        );
       a.value = a.value.replace(
         /\$([\w:-]+):/g,
         (_, name: string) => '$' + reference(name, 'instance', scope, a.valueAt) + ':',
@@ -332,7 +346,46 @@ export function expand(
     });
   annotate(root, opts.file, xml);
   const scope = scopeFor(root, opts.file);
-  root.children = [...resources, ...children(root.children, {}, scope, [])];
+  // Finalize component names after seeing every import and local declaration.
+  const definitions = [...resources, ...scope.values()];
+  for (const d of resources.filter((d) => d.el.name === 'component')) {
+    const original = attr(d.el, 'name');
+    const qualified = d.name;
+    d.name = definitions.every(
+      (v) => v === d || v.el.name !== 'component' || attr(v.el, 'name') !== original,
+    )
+      ? original
+      : qualified;
+    componentNames[qualified] = d.name;
+  }
+  const copies = resources.map((d) => {
+    const copy = clone(d.el, {}, d.scope, []) as Element;
+    copy.attrs.find((a) => a.name === 'name')!.value = d.name;
+    return copy;
+  });
+  root.children = [...copies, ...children(root.children, {}, scope, [])];
+  if (Object.keys(componentNames).length) {
+    let meta = root.children.find((c): c is Element => c.kind === 'element' && c.name === 'meta');
+    if (!meta) {
+      meta = { ...root, name: 'meta', attrs: [], children: [] };
+      root.children.push(meta);
+    }
+    let value: Record<string, unknown> = {};
+    try {
+      value = JSON.parse(
+        meta.children
+          .filter((c) => c.kind === 'text')
+          .map((c) => c.value)
+          .join(''),
+      );
+      if (!value || typeof value !== 'object' || Array.isArray(value)) throw Error();
+    } catch {
+      if (meta.children.length) error('bad-attribute', meta.at, 'invalid JSON metadata');
+    }
+    const text = JSON.stringify({ ...value, componentNames });
+    meta.children = meta.children.filter((c) => c.kind !== 'text');
+    meta.children.push({ kind: 'text', value: text, raw: escapeText(text), at: meta.at });
+  }
 }
 
 function relatedLocations(at: Pos): ReturnType<typeof location>[] {

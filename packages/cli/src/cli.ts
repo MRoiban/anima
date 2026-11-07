@@ -4,6 +4,7 @@ import { outlineSVG } from './font/svg.ts';
 import { browserTextPNG, embedFontCSS } from './font/browser.ts';
 import { importFont, googleFonts } from './font/import.ts';
 import { flattenText } from './font/flatten.ts';
+import { componentNames } from '../../../modules/components/core/names.ts';
 import { createScriptSession } from '../../core/src/script.ts';
 import { resolve, basename } from 'node:path';
 import { findProject, projectSource, substituteConstants } from './project.ts';
@@ -917,17 +918,21 @@ async function render(
   let { model } = loaded(f, io, json);
   if (!model) return 1;
   if (o.component) {
-    const definition = model.doc.components?.[String(o.component)];
+    const names = componentNames(model.doc, String(o.component));
+    if (names.length > 1) throw new Usage('ambiguous-component: use ' + names.join(' or '));
+    const name = names[0];
+    const definition = name && model.doc.components?.[name];
     if (!definition) throw new Usage('unknown component ' + o.component);
     const doc = model.doc;
     const selected = load({
       anima: '0.1',
       requires: doc.requires,
       components: doc.components,
+      ...(doc.meta ? { meta: doc.meta } : {}),
       ...(doc.data ? { data: doc.data } : {}),
       ...(doc.assets ? { assets: doc.assets } : {}),
       ...(doc.converters ? { converters: doc.converters } : {}),
-      name: String(o.component),
+      name: name!.replaceAll(':', '-'),
       ...definition,
       ...(typeof definition.data === 'string'
         ? { data: { ...doc.data, model: definition.data } }

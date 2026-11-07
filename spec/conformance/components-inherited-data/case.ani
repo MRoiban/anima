@@ -1,0 +1,109 @@
+{
+  "anima": "0.1",
+  "name": "nested-theme",
+  "grid": 10,
+  "requires": ["components", "nested", "data", "bind", "host"],
+  "meta": {
+    "componentNames": {
+      "ui:digit": "digit",
+      "ui:control": "control"
+    }
+  },
+  "nodes": [
+    {
+      "id": "top",
+      "type": "circle",
+      "center": [1, 1],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    },
+    {
+      "id": "control",
+      "type": "instance",
+      "component": "control"
+    }
+  ],
+  "listeners": [
+    {
+      "on": "click",
+      "target": "top",
+      "set": {
+        "$theme:ink": "#00ff00"
+      }
+    }
+  ],
+  "components": {
+    "digit": {
+      "grid": 10,
+      "nodes": [
+        {
+          "id": "segment",
+          "type": "circle",
+          "center": [5, 5],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "listeners": [
+        {
+          "on": "click",
+          "target": "segment",
+          "set": {
+            "$theme:ink": "#abcdef"
+          }
+        }
+      ],
+      "bind": {
+        "segment.fill.color": "$theme:ink"
+      }
+    },
+    "control": {
+      "grid": 10,
+      "nodes": [
+        {
+          "id": "face",
+          "type": "circle",
+          "center": [3, 3],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          }
+        },
+        {
+          "id": "digit",
+          "type": "instance",
+          "component": "digit"
+        }
+      ],
+      "bind": {
+        "face.fill.color": "$theme:ink"
+      }
+    }
+  },
+  "bind": {
+    "top.fill.color": "$theme:ink"
+  },
+  "data": {
+    "models": {
+      "import-1-Theme": {
+        "properties": {
+          "ink": {
+            "type": "color",
+            "default": "#123456"
+          }
+        }
+      }
+    },
+    "instances": {
+      "theme": {
+        "model": "import-1-Theme",
+        "default": true,
+        "values": {}
+      }
+    }
+  }
+}

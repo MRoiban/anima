@@ -646,7 +646,8 @@ export class Compiler {
       }
     } else {
       this.copy(el, a, o, p, ['name', 'xmlns']);
-      if (a.has('name') && el.name !== 'anima') this.read(a.get('name')!, 'name', p);
+      if (a.has('name') && el.name !== 'anima' && el.name !== 'component')
+        this.read(a.get('name')!, 'name', p);
       if (el.name === 'anima' || el.name === 'component') {
         if (el.name === 'anima' && a.has('name'))
           this.put(o, 'name', a.get('name')!.value, p, a.get('name')!.valueAt);

@@ -1,3 +1,5 @@
+import { componentNames } from './names.ts';
+export { componentNames } from './names.ts';
 import { nodePointer } from './node-pointer.ts';
 import { formatHex } from '../../../packages/core/src/color.ts';
 import type { EventModule, EventKinds } from './events.ts';
@@ -11,6 +13,11 @@ import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import { apply, invert, mul, type Mat } from '../../../packages/core/src/geom.ts';
 import { drawFrame, drawTree, type DrawNode } from '../../../packages/core/src/draw.ts';
 
+declare module '../../../packages/core/src/load.ts' {
+  interface Model {
+    inheritedData?: boolean;
+  }
+}
 interface Instance {
   node: number;
   model: Model;
@@ -64,18 +71,13 @@ function create(
     ['enter', 'leave', 'down', 'up', 'click', 'move'].map((name) => [name, undefined]),
   ),
 ): ComponentModule {
-  const name = (
-    runtime.nodeShape('group').p.id as Extract<
-      import('../../../packages/core/src/registry.ts').Shape,
-      { k: 'str' }
-    >
-  ).re!;
   return {
     eventKinds,
     placements,
     forkModel(source, target) {
       const i = info.get(source);
       if (i) info.set(target, i);
+      target.inheritedData = source.inheritedData;
     },
     name: 'components',
     after,
@@ -108,17 +110,23 @@ function create(
     entries: [
       {
         target: 'document',
-        shapes: { components: { k: 'map', key: name, of: { k: 'any', format: runtime.DOC } } },
+        shapes: {
+          components: {
+            k: 'map',
+            key: /^[a-z][a-zA-Z0-9-]*(?::[a-z][a-zA-Z0-9-]*)*$/,
+            of: { k: 'any', format: runtime.DOC },
+          },
+        },
       },
       {
         target: 'instance',
         node: {},
         shapes: {
-          component: { k: 'str', re: name },
+          component: { k: 'str', re: /^[a-z][a-zA-Z0-9-]*(?::[a-z][a-zA-Z0-9-]*)*$/ },
           inputs: {
             k: 'map',
             element: 'instance-inputs',
-            key: name,
+            key: (runtime.nodeShape('group').p.id as Extract<Shape, { k: 'str' }>).re!,
             of: { k: 'alt', of: [{ k: 'num' }, { k: 'bool' }, { k: 'str' }] },
           },
           speed: { k: 'num', min: 0 },
@@ -173,6 +181,17 @@ function create(
               : 'check the component declaration and its input types'),
         );
       const component = (name: string, pointer: string, itemModel?: string): Model | undefined => {
+        const matches = componentNames({ ...model.doc, components: ctx.definitions }, name);
+        if (matches.length > 1) {
+          diag.err(
+            'ambiguous-component',
+            pointer,
+            V && `ambiguous component "${name}"`,
+            V && `use ${matches.join(' or ')}`,
+          );
+          return;
+        }
+        name = matches[0] ?? name;
         if (ctx.stack.has(name)) {
           err('component-cycle', pointer, 'recursive component reference');
           return;
@@ -218,6 +237,7 @@ function create(
           name: 'component',
           requires: ctx.requires,
           components: ctx.definitions,
+          ...(model.doc.meta ? { meta: model.doc.meta } : {}),
           ...def,
           ...(ctx.data || def.data
             ? {
@@ -233,6 +253,7 @@ function create(
           ? hook(model, name, document, !def.data, runtime.load, itemModel)
           : runtime.load(document);
         ctx.stack.delete(name);
+        if (result.model && !def.data) result.model.inheritedData = true;
         for (const d of result.diagnostics)
           diag.list.push({
             ...d,
@@ -613,6 +634,10 @@ function nest(parent: Player, data: Info, Child: typeof Player): Nested {
             }
         }
       }
+      // Descendants run after parent bindings; shared data writes need another parent sample.
+      for (const [name, value] of scope)
+        if (name.startsWith('$') && JSON.stringify(value) !== JSON.stringify(parent.get(name)))
+          settled = false;
       return { events, settled };
     },
   };

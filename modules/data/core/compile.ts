@@ -380,10 +380,20 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
       b = dataState(child);
     if (!a || !b) return;
     for (const [key, inst] of Object.entries(b.compiled.document.instances ?? {}))
-      if (defs[inst.model]?.global && a.instances[key]) b.instances[key] = a.instances[key]!;
+      if ((child.model.inheritedData || defs[inst.model]?.global) && a.instances[key])
+        b.instances[key] = a.instances[key]!;
     if (node.raw.data) {
       const source = a.instances[String(node.raw.data).replace(/^\$/, '').replace(/:$/, '')];
       if (source) b.instances[b.compiled.defaultName] = source;
+    }
+    // Lists already walks descendants after installing its item/default context.
+    if (model.doc.requires.includes('lists')) return;
+    // Children are constructed bottom-up; refresh descendants after rebinding this child.
+    const nested = child.nested as
+      { players?: Map<string, import('../../../packages/core/src/player.ts').Player> } | undefined;
+    for (const [id, grandchild] of nested?.players ?? []) {
+      const placement = child.model.nodes.find((n) => n.id === id);
+      if (placement) child.model.bindData?.(child, grandchild, placement);
     }
   };
 }

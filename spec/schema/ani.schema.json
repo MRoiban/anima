@@ -1405,7 +1405,7 @@
         }
       },
       "propertyNames": {
-        "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+        "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*(?::[a-z][a-zA-Z0-9-]*)*$"
       },
       "additionalProperties": {},
       "feature": "components"
@@ -11308,7 +11308,7 @@
             },
             "component": {
               "type": "string",
-              "pattern": "^(?:[a-z][a-zA-Z0-9-]*|\\$[\\w:.-]+)$",
+              "pattern": "^(?:[a-z][a-zA-Z0-9-]*(?::[a-z][a-zA-Z0-9-]*)*|\\$[\\w:.-]+)$",
               "feature": "components"
             },
             "inputs": {

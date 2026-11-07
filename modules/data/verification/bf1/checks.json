@@ -1,0 +1,51 @@
+{
+  "changed": {
+    "command": "VITEST_MAX_WORKERS=1 npm run test:scope -- changed",
+    "exit": 0,
+    "passed": 8157,
+    "todo": 40,
+    "filesPassed": 251,
+    "filesSkipped": 13
+  },
+  "typecheck": {
+    "command": "npm run typecheck; final affected markup and test typechecks",
+    "exit": 0
+  },
+  "lint": {
+    "command": "changed-source ESLint plus final touched markup/test checks",
+    "exit": 0
+  },
+  "wiring": {
+    "command": "node tools/modules.ts --check",
+    "exit": 0,
+    "stale": 0
+  },
+  "animl": {
+    "command": "node tools/build-animl.ts --check",
+    "exit": 0,
+    "files": 545
+  },
+  "browserArtifacts": {
+    "command": "node tools/build-web.ts",
+    "exit": 0,
+    "entries": 41
+  },
+  "size": {
+    "command": "node tools/size.ts",
+    "exit": 0,
+    "gatesPassed": 6,
+    "budgetsChanged": false
+  },
+  "oracle": {
+    "command": "node tools/oracle.ts --strict",
+    "exit": 0,
+    "cases": 266,
+    "samples": 475,
+    "retainedFindings": 24
+  },
+  "perf": {
+    "command": "node tools/perf.ts",
+    "exit": 0,
+    "comparativeNonRegression": "unverified under concurrent machine load"
+  }
+}

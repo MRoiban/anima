@@ -1,0 +1,13 @@
+<library name="theme" export="Theme control digit">
+  <model name="Theme"><color name="ink" default="#123456"/></model>
+  <component name="digit" grid="10">
+    <circle id="segment" cx="5" cy="5" r="1" fill="#000"/>
+    <bind target="segment.fill" value="$theme:ink"/>
+    <listener on="click" target="segment" set="$theme:ink=#abcdef"/>
+  </component>
+  <component name="control" grid="10">
+    <circle id="face" cx="3" cy="3" r="1" fill="#000"/>
+    <bind target="face.fill" value="$theme:ink"/>
+    <instance id="digit" component="digit"/>
+  </component>
+</library>

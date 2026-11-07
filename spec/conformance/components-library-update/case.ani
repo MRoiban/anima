@@ -3,15 +3,20 @@
   "name": "components-library-update",
   "grid": 20,
   "requires": ["components", "data", "bind"],
+  "meta": {
+    "componentNames": {
+      "cards:row": "row"
+    }
+  },
   "nodes": [
     {
       "id": "badge",
       "type": "instance",
-      "component": "import-2-row"
+      "component": "row"
     }
   ],
   "components": {
-    "import-2-row": {
+    "row": {
       "grid": 10,
       "nodes": [
         {

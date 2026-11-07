@@ -86,8 +86,13 @@ Initial compound values use JSON in `value`; enum member lists use whitespace, o
 for root enum display labels. Optional root `data='{"preview":"main","model":"Player"}'`
 retains metadata while child declarations populate models/instances. Node placements use
 `data="main"`; components declare `data="Player"` as their public model. Each child has local
-storage unless explicitly bound to a parent instance. Global-model named instances share their
-storage through the component tree. Each root player remains independent.
+storage when it declares its own `data` model, unless explicitly bound to a parent instance.
+A component without a `data` declaration shares the inherited document's live named instances,
+including non-global models, recursively through context-free descendants. Host writes (batched or
+unbatched) and document actions use that same storage. Descendants are rebound after their parent,
+so initialization order cannot leave a grandchild attached to a detached copy. A descendant write
+after an ancestor has sampled keeps it unsettled; the ancestor resamples on the next step. Global-model named
+instances also share through explicit child contexts. Each root player remains independent.
 
 Bindings retain the old string form and add `{value,mode?,prefer?,convert?,options?}`.
 Modes are `to-target` (default), `to-source`, `two-way`, `once`. Reverse modes require a direct
