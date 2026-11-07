@@ -2383,3 +2383,13 @@ The action companion filters semantic focus targets and exposes ancestor conditi
 without changing focus core or base web bytes. Exact bounds, repeated/late-compiled
 focus and dependency/range/input gaps remain explicit; see modules/a11y/REPORT.md.
 Size: a11y 2,038→2,045 B, actions826→960; full118,861→119,005; base20,585 unchanged.
+
+### Perf measurement fix (2026-11-07, P3b)
+
+`tools/perf.ts` compiled `tools/perf/bell.animl` with the bare markup compiler, which since P4a
+(784b77cd) rejected the root `<a11y held>` attribute; every recorded bell compile time (P5b: 1.74 ms)
+therefore timed a compile that stopped at its first diagnostic. P3b's a11y markup work made that
+compile succeed, so the bell compile figure jumped to ~2.2 ms: the first valid measurement, not a
+regression (found by an in-process A/B against main, then by bisecting the failing compile). The tool
+now throws if its bell or toolbar workload produces any diagnostic. Frame costs and toolbar compile
+were valid throughout and show no regression in P3b.

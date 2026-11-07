@@ -21,6 +21,14 @@ const time = (f: () => void) => {
   return performance.now() - t;
 };
 
+// The workload must compile cleanly, or the timing measures an early exit (it did from P4a until P3b:
+// the bare compiler rejected the root <a11y held>, so recorded bell compile times stopped at the first
+// diagnostic). Fail instead of reporting such a number.
+const check = compile(bell, options);
+if (check.diagnostics.length || !check.text)
+  throw new Error(
+    `perf workload tools/perf/bell.animl does not compile: ${check.diagnostics.map((d) => d.code).join(', ')}`,
+  );
 for (let i = 0; i < 50; i++) compile(bell, options); // warm up
 const one = median(Array.from({ length: 200 }, () => time(() => compile(bell, options))));
 const sweep = median(
@@ -66,6 +74,11 @@ const toolbarFrame = frameCost('examples/toolbar.ani', (p, i) => {
 console.log(`frame: toolbar ${toolbarFrame.toFixed(1)} µs (step + draw, 4 instances)`);
 const toolbar = readFileSync(new URL('../examples/toolbar.animl', import.meta.url), 'utf8');
 const toolbarOptions = { ...options, file: 'examples/toolbar.animl' };
+const toolbarCheck = compile(toolbar, toolbarOptions);
+if (toolbarCheck.diagnostics.length || !toolbarCheck.text)
+  throw new Error(
+    `perf workload examples/toolbar.animl does not compile: ${toolbarCheck.diagnostics.map((d) => d.code).join(', ')}`,
+  );
 for (let i = 0; i < 50; i++) compile(toolbar, toolbarOptions);
 const toolbarCompile = median(
   Array.from({ length: 200 }, () =>
