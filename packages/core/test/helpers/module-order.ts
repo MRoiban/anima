@@ -9,6 +9,15 @@ for (const name of order) {
   const exported = await import(`../../../../modules/${name}/${manifest.core.entry}`);
   registerModule(exported[manifest.core.export] as Module);
 }
+// seam(P6-6): field scripts request semantic bounds before tooling registration.
+// The original fixture font keeps that layout deterministic without importing core/all.
+const { registerTextMeasurer } = await import('../../../../modules/text/core/measure.ts');
+const { ToolMeasurer } = await import('../../../cli/src/font/measure.ts');
+const { Font } = await import('../../../cli/src/font/reader.ts');
+const { testFont } = await import('../../../../tools/test-font.ts');
+const measurer = new ToolMeasurer();
+measurer.register('sans-serif', new Font(testFont()));
+registerTextMeasurer(measurer);
 // Schema and models captured before tooling's all-module import can mask missing registration.
 const schema = jsonSchema();
 const files = globSync([

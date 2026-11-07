@@ -1,0 +1,1 @@
+{"time":0,"values":{"$query":"aXd"},"states":{},"events":[{"name":"committed","layer":null,"time":0},{"name":"committed","layer":null,"time":0}],"settled":true,"semantics":[{"id":"q","role":"text-field","label":"Search","states":{"readonly":false,"multiline":false,"obscured":false,"focused":true},"bounds":[2,3,10,4],"actions":["focus"],"children":[],"value":"aXd"}]}

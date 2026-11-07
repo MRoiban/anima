@@ -1229,7 +1229,7 @@
           },
           "on": {
             "type": "string",
-            "pattern": "(?:(?:(?:^(?:focus|blur|enter|leave|down|up|click|move|[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)+)$)|(?:^(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected)(?:\\|(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected))*$)|^event:[a-z][a-zA-Z0-9-]*$))|^change:\\$[\\w:.-]+$"
+            "pattern": "(?:(?:(?:(?:^(?:focus|blur|enter|leave|down|up|click|move|[a-z][a-zA-Z0-9-]*(?:\\.[a-z][a-zA-Z0-9-]*)+)$)|(?:^(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected)(?:\\|(?:enter|leave|move|down|up|click|cancel|drag-start|drag|drag-end|key-down|key-repeat|key-up|scroll|gamepad-axis|gamepad-button|gamepad-connected|gamepad-disconnected))*$)|^event:[a-z][a-zA-Z0-9-]*$))|^change:\\$[\\w:.-]+$)|^text$"
           },
           "target": {
             "type": "string",
@@ -25296,6 +25296,57 @@
             "knockout": {
               "type": "number",
               "minimum": 0
+            },
+            "textInput": {
+              "type": "object",
+              "properties": {
+                "$comment": {
+                  "type": "string"
+                },
+                "editable": {
+                  "type": "boolean"
+                },
+                "multiline": {
+                  "type": "boolean"
+                },
+                "obscured": {
+                  "type": "boolean"
+                },
+                "placeholder": {
+                  "type": "string"
+                },
+                "selectOnFocus": {
+                  "type": "boolean"
+                },
+                "maxLength": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "maxLines": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "writeText": {
+                  "type": "string"
+                },
+                "label": {
+                  "type": "string"
+                },
+                "caretColor": {
+                  "type": "string",
+                  "pattern": "^(?:#[\\da-fA-F]{3}(?:[\\da-fA-F]{3})?|#[\\da-fA-F]{4}(?:[\\da-fA-F]{4})?|currentColor)$"
+                },
+                "selectionColor": {
+                  "type": "string",
+                  "pattern": "^(?:#[\\da-fA-F]{3}(?:[\\da-fA-F]{3})?|#[\\da-fA-F]{4}(?:[\\da-fA-F]{4})?|currentColor)$"
+                },
+                "selectionRadius": {
+                  "type": "number",
+                  "minimum": 0
+                }
+              },
+              "additionalProperties": false,
+              "feature": "textinput"
             },
             "focus": {
               "type": "object",

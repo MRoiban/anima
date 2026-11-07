@@ -33,3 +33,7 @@ import './paint-sampling.ts';
 import './surface.ts';
 import './text.ts';
 import './text-host.ts';
+import './text-input.ts';
+import './text-input-canvas.ts';
+import './text-input-clipboard.ts';
+import './text-input-svg.ts';

@@ -1,0 +1,26 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-0ee9ff41
+
+ ❯ |browser| modules/canvas/test/web/canvas.test.ts (0 test)
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts [ modules/canvas/test/web/canvas.test.ts ]
+Error: line 1: no local font registered for body
+ ❯ Object.execute packages/core/src/script.ts:751:15
+    749|         if (e instanceof Breakpoint) break;
+    750|         if (e instanceof ScriptError) throw e;
+    751|         throw new ScriptError((e as Error).message.replace(/^anima: /,…
+       |               ^
+    752|       }
+    753|     }
+ ❯ runScript packages/core/src/script.ts:787:26
+ ❯ modules/canvas/test/web/canvas.test.ts:49:25
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  no tests
+   Start at  22:16:45
+   Duration  4.61s (worker 96%, environment 4%)

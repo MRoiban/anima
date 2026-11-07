@@ -16,7 +16,9 @@ describe('one registry, two spellings', () => {
     for (const t of NODE_TYPES) {
       const covered = new Set(nodeAttrs(t).map((a) => a.path[0]));
       for (const k of Object.keys(nodeShape(t).p))
-        if (!STRUCTURAL_NODE_KEYS.includes(k)) expect(covered.has(k), `${t}.${k}`).toBe(true);
+        // seam(P6-6): structural fields may belong to a single node type (text-input).
+        if (!STRUCTURAL_NODE_KEYS.includes(k) && !nodeShape(t).p[k]?.element)
+          expect(covered.has(k), `${t}.${k}`).toBe(true);
       const names = nodeAttrs(t).map((a) => a.attr);
       expect(new Set(names).size, `${t}: duplicate attribute names`).toBe(names.length);
     }

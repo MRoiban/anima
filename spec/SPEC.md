@@ -3088,3 +3088,110 @@ drawing and named host run access. Its normative fields, defaults, validation, m
 contract, fit/overflow algorithms and verification limits are specified in
 [modules/text/SPEC.md](../modules/text/SPEC.md). Registry entries derive JSON Schema, CLI schema
 and AniML spellings from the same vocabulary. P6 parity remains planned pending native evidence.
+
+## textinput
+
+The heavy DOM-backed field feature is specified in [text input](../modules/text-input/SPEC.md).
+Its browser entry is `text-input`; its registry feature is `textinput` (module feature names cannot contain hyphens).
+Fields extend fixed text nodes. Registry descriptors define both spellings; no base compiler branch is added.
+
+
+<!-- capability: text.input-text -->
+### Independent field text drawable
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-editable -->
+### Editable text fields
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-cursor -->
+### Styled input caret
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-selection -->
+### Styled input selection
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-selection-rounding -->
+### Rounded selection geometry
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-focus-selection -->
+### Select all on focus
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-ime -->
+### IME and dead-key text entry
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-clipboard -->
+### Text clipboard integration
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-limits -->
+### Text input limits
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-multiline -->
+### Multiline text input
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-obscured -->
+### Obscured text input
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: text.input-placeholder -->
+### Text input placeholder
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: host-api.text-input -->
+### Text and IME bridge
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: host-api.clipboard-text -->
+### Text selection for clipboard
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: input.text-listener -->
+### Text input listeners
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: input.write-text -->
+### Store text
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: a11y.role-text-field -->
+### Semantic role: textField
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: a11y.state-multiline -->
+### Semantic state: Multiline
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: a11y.state-obscured -->
+### Semantic state: Obscured
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.
+
+<!-- capability: a11y.text-proxy -->
+### Accessible text proxy
+
+See [the normative field contract](../modules/text-input/SPEC.md) for both spellings, selection, commits, native semantics, diagnostics and tooling. Tests live in `modules/text-input/test/`; native-reference closure remains planned.

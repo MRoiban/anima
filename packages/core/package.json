@@ -6,6 +6,7 @@
   "description": "Anima core: load, validate and play .ani documents. Pure, deterministic, no DOM.",
   "exports": {
     ".": "./src/index.ts",
+    "./textinput": "./src/modules/textinput/index.ts",
     "./all": "./src/all.ts",
     "./components": "./src/modules/components/index.ts",
     "./components-svg": "./src/modules/components/svg.ts",
@@ -40,7 +41,8 @@
     "./mix": "./src/modules/mix/index.ts",
     "./componentpaint": "./src/modules/componentpaint/index.ts",
     "./text": "./src/modules/text/index.ts",
-    "./text-host": "./src/modules/text/host.ts"
+    "./text-host": "./src/modules/text/host.ts",
+    "./text-input": "./src/modules/text-input/index.ts"
   },
   "files": [
     "src"

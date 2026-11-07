@@ -1,0 +1,3 @@
+focus target q
+compose "é"
+snapshot --semantics $query

@@ -1,0 +1,49 @@
+<anima version="0.1" name="search-card" grid="20" requires="text textinput a11y focus data bind derive convert input">
+  <model name="Item">
+    <string name="label"/>
+  </model>
+  <model name="Search">
+    <string name="query"/>
+    <list name="items" of="Item"/>
+    <number name="show0" value="$query == &quot;&quot; or $query == $items.0.label"/>
+    <number name="show1" value="$query == &quot;&quot; or $query == $items.1.label"/>
+    <number name="show2" value="$query == &quot;&quot; or $query == $items.2.label"/>
+    <number name="show3" value="$query == &quot;&quot; or $query == $items.3.label"/>
+    <number name="show4" value="$query == &quot;&quot; or $query == $items.4.label"/>
+    <number name="count" value="$show0 + $show1 + $show2 + $show3 + $show4"/>
+    <string name="summary" value="$count" convert="results"/>
+  </model>
+  <instance name="main" model="Search" default="true">
+    <set path="items"
+        value="[{&quot;label&quot;:&quot;Apple&quot;},{&quot;label&quot;:&quot;Pear&quot;},{&quot;label&quot;:&quot;Plum&quot;},{&quot;label&quot;:&quot;Peach&quot;},{&quot;label&quot;:&quot;Orange&quot;}]"/>
+  </instance>
+  <converter name="results" type="template" text="{0} results"/>
+  <text-style id="body" size="1"/>
+  <text id="search" sizing="fixed" width="18" height="2" x="1" y="1">
+    <run text="" style="body"/>
+    <text-input placeholder="Exact label…" write-text="$query" label="Search fruit" selection-radius="0.1"/>
+  </text>
+  <text id="item0" x="1" y="4">
+    <run text="$items.0.label" style="body"/>
+  </text>
+  <bind target="item0.collapsed" value="$show0 == 0"/>
+  <text id="item1" x="1" y="6">
+    <run text="$items.1.label" style="body"/>
+  </text>
+  <bind target="item1.collapsed" value="$show1 == 0"/>
+  <text id="item2" x="1" y="8">
+    <run text="$items.2.label" style="body"/>
+  </text>
+  <bind target="item2.collapsed" value="$show2 == 0"/>
+  <text id="item3" x="1" y="10">
+    <run text="$items.3.label" style="body"/>
+  </text>
+  <bind target="item3.collapsed" value="$show3 == 0"/>
+  <text id="item4" x="1" y="12">
+    <run text="$items.4.label" style="body"/>
+  </text>
+  <bind target="item4.collapsed" value="$show4 == 0"/>
+  <text id="count" x="1" y="16">
+    <run text="$summary" style="body"/>
+  </text>
+</anima>

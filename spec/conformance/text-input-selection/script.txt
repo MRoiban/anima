@@ -1,0 +1,5 @@
+focus target q
+type "abcd"
+select 1 3
+compose "X"
+snapshot --semantics $query

@@ -8,6 +8,7 @@
     ".": "./src/index.ts",
     "./module-hooks": "./src/module-hooks.ts",
     "./browser": "./src/browser.ts",
+    "./textinput": "./src/textinput.ts",
     "./components": "./src/components.ts",
     "./bind": "./src/bind.ts",
     "./focus": "./src/focus.ts",
@@ -26,7 +27,8 @@
     "./a11y": "./src/a11y.ts",
     "./nested": "./src/nested.ts",
     "./mix": "./src/mix.ts",
-    "./text": "./src/text.ts"
+    "./text": "./src/text.ts",
+    "./text-input": "./src/text-input.ts"
   },
   "files": [
     "src"

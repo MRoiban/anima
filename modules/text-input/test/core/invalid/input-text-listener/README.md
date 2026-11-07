@@ -1,0 +1,1 @@
+Invalid field configurations are created from the minimal fixture in modules/text-input/test/core/field.test.ts: missing peers, invalid runs, empty/non-fixed boxes, duplicate semantics, invalid writable targets, limits and multiline password rejection. Every semantic diagnostic asserts code, JSON pointer, message and hint.
