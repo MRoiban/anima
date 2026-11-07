@@ -1,0 +1,2 @@
+npx tsc -p packages/markup && npx tsc -p packages/markup/test && npx eslint modules/components/markup/index.ts
+exit: 0

@@ -318,3 +318,47 @@ it('ignores data property comments while indexing runtime models', () => {
   p.data.bind('main');
   expect(p.data.number('$score').value).toBe(4);
 });
+
+it('[BF-1] component handles accept qualified and legacy library names and diagnose ambiguity', () => {
+  const definition = { grid: 10, nodes: [{ id: 'dot', type: 'circle', center: [1, 1], r: 1 }] };
+  for (const components of [
+    { switch: definition },
+    { 'ui:switch': definition, 'other:switch': definition },
+  ]) {
+    const p = player({
+      anima: '0.1',
+      name: 'lookup',
+      grid: 10,
+      requires: ['components', 'data'],
+      components,
+      meta: {
+        componentNames: {
+          'ui:switch': Object.hasOwn(components, 'switch') ? 'switch' : 'ui:switch',
+        },
+      },
+      data: {
+        models: { Root: { properties: { card: { type: 'component' } } } },
+        instances: { main: { model: 'Root', default: true } },
+      },
+      nodes: [{ id: 'root', type: 'group', children: [] }],
+    });
+    p.data.bind('main');
+    p.data.component('card').set('ui:switch');
+    p.step(0);
+    expect(p.data.component('card').value).toBe(
+      Object.hasOwn(components, 'switch') ? 'switch' : 'ui:switch',
+    );
+    if (Object.hasOwn(components, 'switch')) {
+      p.data.component('card').set('import-99-switch');
+      p.step(0);
+      expect(p.data.component('card').value).toBe('switch');
+    } else
+      expect(() => p.data.component('card').set('switch')).toThrow(
+        expect.objectContaining({
+          code: 'ambiguous-component',
+          pointer: '/data/$card',
+          hint: expect.stringContaining('ui:switch'),
+        }),
+      );
+  }
+});

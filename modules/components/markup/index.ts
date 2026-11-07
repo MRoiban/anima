@@ -10,7 +10,7 @@ export const componentMarkup = {
       return { attrs: { name: 'name', value: 'string' }, required: ['name', 'value'] };
     if (el.name === 'component')
       return {
-        attrs: { name: 'name', grid: 'number', viewBox: 4, outputs: 'json' },
+        attrs: { name: 'string', grid: 'number', viewBox: 4, outputs: 'json' },
         required: ['name', 'grid'],
         children: [...anima.children!.filter((n) => n !== 'component' && n !== 'meta'), 'output'],
       };
@@ -81,6 +81,8 @@ export const componentMarkup = {
         o.component = Object.fromEntries(value.split(/\s+/).map((v) => v.split(':')));
     }
     if (el.name === 'instance') {
+      // Component references are identifiers even when their shape allows qualified names.
+      o.component = (o.component as string | undefined)?.trim();
       const time = a.get('time');
       if (time) {
         let value = time.value;

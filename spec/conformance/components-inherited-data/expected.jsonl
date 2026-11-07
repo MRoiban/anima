@@ -1,0 +1,5 @@
+{"time":0,"values":{"top.fill.color":"#123456","control/face.fill.color":"#123456","control/digit/segment.fill.color":"#123456"},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"top.fill.color":"#ff0000","control/face.fill.color":"#ff0000","control/digit/segment.fill.color":"#ff0000"},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"top.fill.color":"#00ff00","control/face.fill.color":"#00ff00","control/digit/segment.fill.color":"#00ff00"},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"top.fill.color":"#00ff00","control/face.fill.color":"#00ff00","control/digit/segment.fill.color":"#abcdef"},"states":{},"events":[],"settled":false}
+{"time":0,"values":{"top.fill.color":"#abcdef","control/face.fill.color":"#abcdef","control/digit/segment.fill.color":"#abcdef"},"states":{},"events":[],"settled":true}

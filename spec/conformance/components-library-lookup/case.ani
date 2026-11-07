@@ -1,0 +1,39 @@
+{
+  "anima": "0.1",
+  "name": "library-lookup",
+  "grid": 10,
+  "requires": ["components"],
+  "meta": {
+    "componentNames": {
+      "ui:switch": "switch"
+    }
+  },
+  "nodes": [
+    {
+      "id": "qualified",
+      "type": "instance",
+      "component": "ui:switch"
+    },
+    {
+      "id": "legacy",
+      "type": "instance",
+      "component": "import-4-switch"
+    }
+  ],
+  "components": {
+    "switch": {
+      "grid": 10,
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [5, 5],
+          "r": 1,
+          "fill": {
+            "color": "#123456"
+          }
+        }
+      ]
+    }
+  }
+}

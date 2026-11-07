@@ -294,7 +294,21 @@ as a standalone animation. Components require the components module; model defin
 that lexical scope. References to colours, glyphs, eases and templates use `ui:name`; nested
 imports may be addressed as `ui:other:name`. Definitions inside a library use its own local names.
 Imported colour and glyph names become collision-free generated `.ani` names; eases inline as
-usual. Libraries must not declare arbitrary document elements outside templates. Imports and
+usual. An imported component keeps its original name if that name is unique among all compiled
+components (including private dependencies and local declarations). Colliding imported components
+use `<alias>:<name>`; nested imports use the full alias chain, e.g. `ui:basic:switch`. A local
+declaration retains its key and owns that exact bare name. Import order and unrelated declarations
+do not change these component keys. Library-internal references are rewritten in their lexical
+scope; an unambiguous imported original name also works in the consumer.
+
+Compilation records qualified lookup aliases in `meta.componentNames` (preserving other metadata).
+`<anima-icon component="switch">`, qualified `component="ui:switch"`, CLI `--component`, core
+component references and host component-valued writes share this lookup scheme. Qualified names
+always select their import; an original name with several imported matches reports
+`ambiguous-component`, with qualified alternatives in verbose diagnostics. Existing generated
+`import-<number>-<name>` keys still resolve; after recompilation their suffix resolves when unique
+and receives the ambiguity diagnostic otherwise. Component keys and literal references permit
+colon-separated name segments; node IDs and input names retain their existing syntax. Libraries must not declare arbitrary document elements outside templates. Imports and
 local declarations are visible regardless of source order.
 
 `export="row Score"` on the library restricts public names; `export="row"` on an import selects
@@ -325,7 +339,7 @@ directory), and the optional browser markup-libraries module fetches URLs relati
 Additional error codes: `unknown-import` (missing resolver or unreadable file), `bad-import`
 (non-library root), `import-cycle`, `unknown-name`, `missing-parameter`, `unknown-parameter`
 (an undeclared placeholder or extra application attribute), `unused-parameter`,
-`template-recursion`, and `components-unavailable`. Existing syntax, duplicate-name and placement
+`template-recursion`, `ambiguous-component`, and `components-unavailable`. Existing syntax, duplicate-name and placement
 codes also apply. Diagnostics retain imported `file`, `line`, `column` positions; `related` is an
 array of `{file?, line, column}` use/import positions. The CLI displays both origins and related
 positions. The source map retains the imported file for loader diagnostics too.

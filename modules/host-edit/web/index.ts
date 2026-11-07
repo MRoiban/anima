@@ -1,3 +1,4 @@
+import { componentNames } from '../../components/core/names.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
 import type { AnimaIcon as IconType } from '../../../packages/web/src/index.ts';
 import { hostEdit, queueEdit } from '../core/index.ts';
@@ -151,7 +152,12 @@ Icon.prototype.load = function (source, markup = false) {
   return load.call(this, selectRoot(doc, component));
 };
 function selectRoot(doc: Record<string, unknown>, component: string): object {
-  const definition = (doc.components as Record<string, object> | undefined)?.[component];
+  const matches = componentNames(doc, component);
+  const name = matches.length === 1 ? matches[0]! : component;
+  const definition =
+    matches.length === 1
+      ? (doc.components as Record<string, object> | undefined)?.[name]
+      : undefined;
   if (!definition) {
     // Use the normal loader/diagnostic path, including its lifecycle and error event.
     return {
@@ -162,9 +168,10 @@ function selectRoot(doc: Record<string, unknown>, component: string): object {
   }
   return {
     anima: '0.1',
-    name: component,
+    name: name.replaceAll(':', '-'),
     requires: doc.requires,
     components: doc.components,
+    ...(doc.meta ? { meta: doc.meta } : {}),
     ...(doc.data ? { data: doc.data } : {}),
     ...(doc.assets ? { assets: doc.assets } : {}),
     ...(doc.converters ? { converters: doc.converters } : {}),

@@ -1203,6 +1203,13 @@ map holds named nested documents: `grid`, optional `viewBox`, `inputs`, `nodes`,
 `requires` list. References to components resolve in the enclosing document's component map,
 including from other definitions; all definitions, even unused ones, are validated. Each placement
 owns a separate player; compiled definitions and static geometry may be shared.
+Component definition keys and literal references allow colon-separated name segments. Compiled
+library documents retain their stable lookup aliases in `meta.componentNames`, a map from qualified
+import name to definition key. Exact keys take precedence; an original name resolves when unique.
+Ambiguous original names report `ambiguous-component` at the reference, with qualified alternatives
+in the verbose hint. Legacy generated keys remain valid; a missing `import-<number>-<name>` lookup
+resolves by its original suffix when unique and reports the same ambiguity otherwise. See
+[the AniML naming scheme](ANIML.md#11-libraries-and-templates-build-time).
 
 An instance node has `{id, type: "instance", component, inputs?, speed?, paused?}` and the ordinary
 node transform, opacity and visibility properties. `component` names a definition. `inputs` maps its
@@ -2623,7 +2630,13 @@ JSON/AniML spellings, ordering, bounds, identity, limits and diagnostics are def
 
 <!-- capability: components.inherited-context -->
 ### Inherited data context
-A component with no `data` declaration sees its parent's context when lists is declared.
+A component with no `data` declaration shares the inherited document's live named data instances,
+recursively, including non-global models. This applies to host writes inside/outside `batch` and to
+document writes. An explicit child `data` model keeps local storage unless bound; global models
+retain their sharing contract. Each root player is independent. Descendant steps follow ancestor bindings; a shared data write
+during a descendant step keeps the ancestor unsettled so its bindings resample on the next step.
+With lists, a context-free
+component additionally sees its actual parent's default/item context.
 
 <!-- capability: data.binding-relative -->
 ### Relative bindings
@@ -2738,7 +2751,9 @@ emulation. Authentication is explicitly not applicable because Anima has no acco
 
 `anima render` selects a component with `--component name`, using the same inherited assets,
 data, converters and component declarations as the web component root selector. Scripts address
-the selected root's own inputs and nodes. Unknown names are usage errors.
+the selected root's own inputs and nodes. The selector accepts the same original, qualified and
+legacy component names as the web host. Ambiguous names are usage errors listing qualified
+alternatives; unknown names are usage errors.
 `--viewport WxH` sets positive integer output dimensions (default `--size` square).
 `--fit contain` (default) centres a uniform fit, `cover` centres and crops, `fill` stretches,
 and `none` centres the authored view box with one output pixel per view-box unit.

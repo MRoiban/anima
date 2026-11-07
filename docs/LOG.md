@@ -2454,3 +2454,21 @@ were valid throughout and show no regression in P3b.
 - **Decisions logged as "owner may revisit":** the authoring add-on may grow (cap 15 360 B) when
   authoring code leaves runtime bundles; `paint-sampling` and `devtools` budgets re-measured; the
   four cross-document artboard rows deferred to P7; Rive not rerun when only Anima changed.
+
+## BF-1 — nested data and library component lookup (2026-11-07)
+
+- B1 reproduced with a two-level library scene: inherited non-global theme instances were cloned.
+  Context-free components now share live named instances and recursively rebind descendants;
+  explicit child contexts and independent root players retain their storage contracts. The marker
+  lives on the compiled model so separately emitted components/data bundles agree; lists retains
+  ownership of its descendant context traversal.
+- B4's hex-string failure did not reproduce: `#rgb`, `#rrggbb`, `#rrggbbaa` already normalize on the
+  next step and malformed values already throw `data-type`. Fractional RGBA channels were accepted
+  and could format incorrectly; the byte-channel validator now rejects them.
+- B5 imported component keys preserve unique originals and qualify collisions with the full import
+  alias chain. Metadata retains qualified aliases; core references, host property writes, web root
+  selection and CLI rendering share the lookup, including legacy generated suffixes. Ambiguous
+  originals receive a diagnostic and verbose qualified alternatives. Local exact keys retain priority.
+- Small scenes, core and Chromium/Firefox tests, two conformance cases, AniML/SPEC/AUTHORING and the
+  regenerated schema/library scenes accompany the fix. Detailed verification, six gates and module
+  deltas are recorded in `modules/data/BF-1-REPORT.md`. Local commit only; no publication or PR.

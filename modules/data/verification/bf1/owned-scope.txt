@@ -1,0 +1,70 @@
+
+> test:scope
+> node tools/test-scope.ts data host host-edit components nested markup-libraries --no-browser
+
+Scopes: data, host, host-edit, components, nested, markup-libraries
+  unit: modules/components/test/cli/components.test.ts
+  unit: modules/components/test/core/components.test.ts
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/data/test/cli/extras.test.ts
+  unit: modules/data/test/core/bf1.test.ts
+  unit: modules/data/test/core/components.test.ts
+  unit: modules/data/test/core/conformance.test.ts
+  unit: modules/data/test/core/data-bind-converter-options.test.ts
+  unit: modules/data/test/core/data-bind-keyframes.test.ts
+  unit: modules/data/test/core/data-bind-layout.test.ts
+  unit: modules/data/test/core/data-bind-script-inputs.test.ts
+  unit: modules/data/test/core/data-bind-text.test.ts
+  unit: modules/data/test/core/data-binding-relative.test.ts
+  unit: modules/data/test/core/data-editor-preview-instance.test.ts
+  unit: modules/data/test/core/data-instance-export.test.ts
+  unit: modules/data/test/core/data-property-artboard.test.ts
+  unit: modules/data/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/data/test/core/data-property-text-style.test.ts
+  unit: modules/data/test/core/data-script-model-api.test.ts
+  unit: modules/data/test/core/data-scripted-converter.test.ts
+  unit: modules/data/test/core/diagnostics.test.ts
+  unit: modules/data/test/core/extras.test.ts
+  unit: modules/data/test/core/input.test.ts
+  unit: modules/data/test/core/oracle.test.ts
+  unit: modules/data/test/core/runtime.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host-edit/test/core/components.test.ts
+  unit: modules/host-edit/test/core/conformance.test.ts
+  unit: modules/host-edit/test/core/edit.test.ts
+  unit: modules/host-edit/test/core/oracle.test.ts
+  unit: modules/host-edit/test/core/repeat-contract.test.ts
+  unit: modules/host-edit/test/core/seams.test.ts
+  unit: modules/host/test/cli/host.test.ts
+  unit: modules/host/test/core/api.test.ts
+  unit: modules/host/test/core/conformance.test.ts
+  unit: modules/host/test/core/errors.test.ts
+  unit: modules/host/test/core/oracle.test.ts
+  unit: modules/host/test/core/standalone.test.ts
+  unit: modules/markup-libraries/test/cli/library.test.ts
+  unit: modules/markup-libraries/test/markup/bf1-names.test.ts
+  unit: modules/markup-libraries/test/markup/extras.test.ts
+  unit: modules/markup-libraries/test/markup/reuse.test.ts
+  unit: modules/nested/test/cli/nested.test.ts
+  unit: modules/nested/test/core/draw-lifecycle.test.ts
+  unit: modules/nested/test/core/nested.test.ts
+  unit: modules/nested/test/core/p5b8-oracle.test.ts
+  unit: modules/nested/test/core/state-machine-literal-artboard.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  cases: ^conformance > (data-bind-conditions|data-bind-converter-options|data-bind-instance-values|data-bind-keyframes|data-bind-keyframes-blend|data-bind-layout|data-bind-script-inputs|data-bind-text|data-binding-absolute|data-binding-once|data-binding-relative|data-binding-to-source|data-binding-two-way-prefer-source|data-binding-two-way-prefer-target|data-component-public-data|data-custom-property-boolean|data-custom-property-color|data-custom-property-enum|data-custom-property-number|data-custom-property-string|data-custom-property-trigger|data-default-instance|data-editor-preview-instance|data-enum-members|data-global-model|data-instance-export|data-list-items|data-model-definition|data-named-instances|data-operation-operand-view-model|data-property-artboard|data-property-asset-blob|data-property-asset-font|data-property-asset-image|data-property-boolean|data-property-color|data-property-enum-custom|data-property-enum-system|data-property-list|data-property-number|data-property-string|data-property-symbol-list-index|data-property-text-style|data-property-trigger|data-property-view-model|data-script-model-api|data-scripted-converter|data-state-action-trigger|data-system-enum-horizontal-text-align|data-system-enum-layout-alignment|data-system-enum-layout-direction|data-system-enum-layout-display|data-system-enum-layout-flex-direction|data-system-enum-layout-position|data-system-enum-layout-position-units|data-system-enum-layout-scale-type|data-system-enum-layout-wrap|data-system-enum-scroll-direction|data-system-enum-semantic-check-state|data-system-enum-text-box|data-system-enum-text-overflow|data-system-enum-text-trim-bottom|data-system-enum-text-trim-top|data-system-enum-vertical-text-align|data-system-enum-word-wrap|drawing-paint-gradient-channel-binding|input-data-listener|input-write-data-constant|input-write-data-copy|input-write-focused|input-write-gamepad-axis|input-write-gamepad-button-pressed|input-write-gamepad-button-value|input-write-gamepad-changed-value|assets-replacement-scope-image|components-basic|components-events|components-explicit-context|components-inherited-context|components-inherited-data|components-inputs-bound|components-leaf-fit|components-library-export|components-library-models|components-library-update|components-list|components-list-map|components-list-size-override|components-nested|components-nested-quantize|components-nested-remap|components-output-repeat|components-quantize-boundary|components-stateful-output|state-machine-literal-artboard)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-fa1d886f
+
+
+ Test Files  44 passed | 12 skipped (56)
+      Tests  3014 passed | 414 skipped | 12 todo (3440)
+   Start at  17:02:58
+   Duration  70.58s (tests 51%, import 38%, transform 10%, worker 1%)

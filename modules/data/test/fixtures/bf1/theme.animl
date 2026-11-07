@@ -1,0 +1,8 @@
+<anima version="0.1" name="nested-theme" grid="10" requires="components nested data bind host">
+  <import src="theme-library.animl" as="ui"/>
+  <instance name="theme" model="ui:Theme" default="true"/>
+  <circle id="top" cx="1" cy="1" r="1" fill="#000"/>
+  <bind target="top.fill" value="$theme:ink"/>
+  <instance id="control" component="ui:control"/>
+  <listener on="click" target="top" set="$theme:ink=#00ff00"/>
+</anima>

@@ -1130,6 +1130,30 @@ helpers apply first; use separate steps when the order matters.
 With components imported, `icon.instance('badge').data` addresses the existing child's models.
 `<anima-icon component="badge" src="icons.ani">` selects a component as root. Set the component
 attribute before loading; change it and reload to select another component.
+Imported components keep their original key when unique: a library `switch` can be selected with
+`component="switch"`. The import alias is always accepted (`component="ui:switch"` for `as="ui"`).
+On a clash, imported keys are `ui:switch`, `other:switch`; nested imports use the full alias chain.
+Local declarations retain their exact keys. Ambiguous bare names report `ambiguous-component`;
+use a qualified name from the diagnostic hint (hints are present in verbose/tooling builds).
+CLI `--component`, core component references and `data.component(path).set(name)` use the same lookup.
+The core components entry exports `componentNames(doc, name)`, returning matching definition keys
+(one on success, several on ambiguity, none if unknown). Compiled aliases live in
+`meta.componentNames`, survive JSON/decompile round trips and preserve other metadata.
+Old generated keys still work; after rebuilding, `import-4-switch` resolves by its unique `switch`
+suffix or reports qualified alternatives if ambiguous.
+
+Components without their own `data` declaration share the document's live named instances through
+every nesting level. Theme colours therefore reach nested digits without a `global` model flag.
+An explicitly declared child model remains local unless bound to a parent instance; separate root
+icons keep separate data. Colour handles accept `#rgb`, `#rrggbb`, `#rrggbbaa` or RGBA arrays and throw
+`DataError` (`data-type`, data path and hint) for invalid values. RGBA channels must be integers
+in [0,255]. Writes commit on the next step;
+`batch` groups scheduling and notifications and does not synchronously render:
+
+```js
+icon.data.batch(() => icon.data.color('$theme:ink').set('#abcdef'));
+// The next scheduled frame updates top-level and inherited nested bindings.
+```
 
 For images, point the property at a declared image asset first, then:
 

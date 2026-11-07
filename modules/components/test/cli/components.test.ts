@@ -35,3 +35,24 @@ describe('component tooling', () => {
     expect(snapshots[1].values).toMatchObject({ 'a/count': 5, 'b/dot.r': 8 });
   });
 });
+
+it('[BF-1] renders unique, qualified and legacy component roots', async () => {
+  const { mkdtempSync, readFileSync, rmSync } = await import('node:fs');
+  const { tmpdir } = await import('node:os');
+  const { join } = await import('node:path');
+  const dir = mkdtempSync(join(tmpdir(), 'bf1-render-'));
+  const file = new URL(
+    '../../../../spec/conformance/components-inherited-data/case.ani',
+    import.meta.url,
+  ).pathname;
+  try {
+    for (const name of ['control', 'ui:control', 'import-99-control']) {
+      const target = join(dir, name.replaceAll(':', '-') + '.svg');
+      const r = await cli('render', file, '--component', name, '-o', target);
+      expect(r.code, r.err).toBe(0);
+      expect(readFileSync(target, 'utf8')).toContain('#123456');
+    }
+  } finally {
+    rmSync(dir, { recursive: true, force: true });
+  }
+});
