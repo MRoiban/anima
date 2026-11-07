@@ -3,7 +3,7 @@
 ## Now
 Goal: smaller, agent-native Rive for animated web UI. Order P3b (a11y + agent tools) → P6 text → P7 minimal layout → P8 rigging.
 State: triage merged (PR #18, b97a2d5). Branch p3b: design/p3b/DESIGN.md decided; 5 text a11y rows moved to P6 (119 P3b rows). In scope 624/883 (71 %). full 111,723/131,072 B; core+web 20,362.
-Next: wave 1 (5 Sol agents: a11y core, script/session, CLI commands, data-host, reduced motion+stop+devtools+libraries) → wave 2 web overlay, benchmark, closure.
+Next: wave 1 running (P3b-1 a11y core, P3b-2 script/session, P3b-3 CLI commands, P3b-4 data-host, P3b-5 reduced motion+stop+devtools+libraries; Sol, from 98c17e2) → merge one by one → wave 2 web overlay, benchmark, closure.
 Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests; grow data/bind/components; leave merged worktrees behind.
 
 ## Log
@@ -172,3 +172,4 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-07 [claude]: merged P5b-11 parity (624/1238, 77 done, 16 moved; audit: 0 done rows citing TODO/pending). LOG P5b entry + PLAN closed
 - 2026-11-07 [claude]: PR #17 (P5b) green → merged (33e8d21). Applied owner scope triage on scope-triage: 164 won't-do, 25 maybe-later, 1 moved P7→P3b, kept P3b 124 / P6 76 / P7 34 / P8 25; in-scope 624/883 (71 %); MATRIX shows in-scope progress; parity test policy now accepts owner-triage won't-do; scaffolder test row frame-grid → tooling.seed; PLAN phase list + size estimates
 - 2026-11-07 [claude]: PR #18 merged (b97a2d5). P3b design written (design/p3b/DESIGN.md); 5 text a11y rows → P6; wave 1 launch (evidence: node tools/parity.ts)
+- 2026-11-07 [claude]: wave 1 launched: 5 Sol agents (P3b-1..5) in worktrees from p3b 98c17e2 (evidence: delegate_task ids in thread)
