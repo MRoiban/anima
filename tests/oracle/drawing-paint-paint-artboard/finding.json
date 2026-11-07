@@ -1,0 +1,11 @@
+{
+  "status": "finding",
+  "reason": "Unadjusted native capture at the central 240x240 size: max delta 55; 960/960/1920 channels above 16 at 0/0.5/1 s (1.67%/1.67%/3.33%). Edge columns are identical in both (83|84 and 203|204 at 0 s; 11|12, 35|36, 131|132, 155|156 at 1 s): geometry, tile origin and the component clock match. Rive spreads each tile edge over one extra pixel because it renders the component to a texture and samples it; Anima's pattern edges are crisp. A Rive control with imageSamplerFilter=2 (nearest) is worse (max 97; 1440/1440/2400 channels), consistent with a half-pixel texel offset in Rive's render-to-texture step. Cause measured, not fully isolated. The module oracle at Rive's native 20x20 size passes max 1 (modules/componentpaint/oracle). No tolerance changed.",
+  "case": {
+    "name": "drawing-paint-paint-artboard",
+    "times": [0, 0.5, 1],
+    "threshold": 16,
+    "maxDiff": 2,
+    "maxOverPercent": 0
+  }
+}

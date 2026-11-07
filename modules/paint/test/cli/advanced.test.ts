@@ -9,8 +9,8 @@ async function cli(args: string[]) {
 }
 it('validates all new paint, contour and mix probes in both authoring spellings', async () => {
   const files = globSync('spec/conformance/drawing-paint-*/case.{ani,animl}');
-  // Existing seventeen probes plus four image fit/wrap probes, both spellings.
-  expect(files).toHaveLength(42);
+  // Existing twenty-one probes plus live component paint, both spellings.
+  expect(files).toHaveLength(44);
   for (const file of files) {
     const r = await cli(['validate', file]);
     expect(r.code, file + ': ' + r.err).toBe(0);

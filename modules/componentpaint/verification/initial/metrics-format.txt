@@ -1,0 +1,4 @@
+Checking formatting...
+[warn] modules/canvas/test/web/artifacts/Chromium-metrics.json
+[warn] modules/canvas/test/web/artifacts/Firefox-metrics.json
+[warn] Code style issues found in 2 files. Run Prettier with --write to fix.

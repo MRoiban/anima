@@ -1,0 +1,72 @@
+{
+  "anima": "0.1",
+  "name": "live-component-paint",
+  "grid": 20,
+  "requires": ["components", "paint", "componentpaint"],
+  "nodes": [
+    {
+      "id": "tile",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 20,
+      "h": 20,
+      "fill": {
+        "paint": "component:row"
+      }
+    }
+  ],
+  "components": {
+    "row": {
+      "grid": 10,
+      "viewBox": [-5, -5, 10, 10],
+      "nodes": [
+        {
+          "id": "background",
+          "type": "rect",
+          "x0": -5,
+          "y0": -5,
+          "w": 10,
+          "h": 10,
+          "fill": {
+            "color": "#204080"
+          }
+        },
+        {
+          "id": "bar",
+          "type": "rect",
+          "x0": -5,
+          "y0": -5,
+          "w": 2,
+          "h": 10,
+          "fill": {
+            "color": "#e08020"
+          }
+        }
+      ],
+      "timelines": {
+        "move": {
+          "duration": 1,
+          "tracks": {
+            "bar.x": [
+              [0, 0],
+              [1, 6]
+            ]
+          }
+        }
+      },
+      "machine": {
+        "layers": {
+          "main": {
+            "initial": "move",
+            "states": {
+              "move": {
+                "play": "move"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

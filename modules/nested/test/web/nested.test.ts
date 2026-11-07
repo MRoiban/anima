@@ -1,4 +1,5 @@
 import { existsSync, readFileSync } from 'node:fs';
+import { PNG } from 'pngjs';
 import { homedir } from 'node:os';
 import { resolve } from 'node:path';
 import { chromium, firefox, type Browser } from 'playwright-core';
@@ -210,6 +211,64 @@ for (const [name, engine, cache] of [
             (document.querySelector('anima-icon') as AnimaIcon).player!.get('clocked.outputs.done'),
           ),
         ).toBe(true);
+      } finally {
+        await page.close();
+      }
+    });
+    it('keeps the authored blue foreground after dynamic slot reuse in SVG and canvas', async () => {
+      const page = await browser.newPage();
+      try {
+        await page.setContent(
+          '<anima-icon paused style="display:block;width:200px;height:200px"></anima-icon>',
+        );
+        for (const n of ['index', 'components', 'data', 'bind', 'nested', 'canvas'])
+          await page.addScriptTag({ type: 'module', content: bundles.get(n)! });
+        await page.waitForFunction(
+          () =>
+            ['components', 'data', 'bind', 'nested'].every((n) =>
+              (customElements.get('anima-icon') as typeof AnimaIcon)?.modules.has(n),
+            ),
+          {},
+          { polling: 10 },
+        );
+        const doc = JSON.parse(
+          readFileSync('spec/conformance/data-property-artboard/case.ani', 'utf8'),
+        );
+        const nodes = [
+          { id: 'red', type: 'rect', x0: 0, y0: 0, w: 10, h: 10, fill: { color: '#ff0000' } },
+          { id: 'blue', type: 'rect', x0: 0, y0: 0, w: 10, h: 10, fill: { color: '#0000ff' } },
+        ];
+        for (const name of ['row', 'box']) {
+          doc.components[name].nodes = structuredClone(nodes);
+          delete doc.components[name].bind;
+        }
+        await page.evaluate((doc) => {
+          const icon = document.querySelector('anima-icon') as AnimaIcon;
+          const ds = icon.load(doc);
+          if (ds.length) throw Error(JSON.stringify(ds));
+        }, doc);
+        for (const backend of ['svg', 'canvas']) {
+          await page.evaluate(
+            (backend) =>
+              (document.querySelector('anima-icon') as AnimaIcon).setAttribute('renderer', backend),
+            backend,
+          );
+          for (const selected of ['row', 'box', 'row']) {
+            await page.evaluate((name) => {
+              const icon = document.querySelector('anima-icon') as AnimaIcon;
+              icon.player!.set('$card', name);
+              icon.player!.step(0);
+              icon.invalidate();
+            }, selected);
+            const image = PNG.sync.read(
+              await page.locator('anima-icon').locator(backend).first().screenshot(),
+            );
+            expect(
+              [...image.data.subarray((5 * image.width + 5) * 4, (5 * image.width + 5) * 4 + 4)],
+              backend + ':' + selected,
+            ).toEqual([0, 0, 255, 255]);
+          }
+        }
       } finally {
         await page.close();
       }

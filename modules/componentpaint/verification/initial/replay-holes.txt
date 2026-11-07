@@ -1,0 +1,51 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-879d301f
+
+ ❯ |browser| modules/canvas/test/web/canvas.test.ts (2242 tests | 4 failed | 2238 skipped) 8959ms
+   ❯ Chromium canvas (1121)
+     × spec/conformance/components-leaf-fit/case.ani#0 32ms
+     × spec/conformance/components-leaf-fit/case.ani#1 8ms
+   ❯ Firefox canvas (1121)
+     × spec/conformance/components-leaf-fit/case.ani#0 26ms
+     × spec/conformance/components-leaf-fit/case.ani#1 10ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 4 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/components-leaf-fit/case.ani#0
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/components-leaf-fit/case.ani#1
+Error: page.evaluate: Error: {"holes":[[1,{"node":1,"kind":"group","id":"badge","parent":0,"children":[2]}],[2,{"node":2,"kind":"circle","parent":1,"children":[],"id":"badge/dot"}]],"length":5,"model":1}
+    at Object.mount (<anonymous>:1:321656)
+ ❯ modules/canvas/test/web/canvas.test.ts:285:24
+    283|           const diagnostics: unknown[] = [];
+    284|           for (const backend of ['svg', 'canvas']) {
+    285|             await page.evaluate(
+       |                        ^
+    286|               async ({ doc, backend, script }) => window.canvasTest.mo…
+    287|               { ...c, backend },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯
+
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Firefox canvas > spec/conformance/components-leaf-fit/case.ani#0
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Firefox canvas > spec/conformance/components-leaf-fit/case.ani#1
+Error: page.evaluate: {"holes":[[1,{"node":1,"kind":"group","id":"badge","parent":0,"children":[2]}],[2,{"node":2,"kind":"circle","parent":1,"children":[],"id":"badge/dot"}]],"length":5,"model":1}
+mount@https://canvas.test/ line 7 > injectedScript:1:321656
+async*@debugger eval code line 370 > eval:1:55
+evaluate@debugger eval code:372:16
+@debugger eval code:1:44
+@debugger eval code:1:62
+
+ ❯ modules/canvas/test/web/canvas.test.ts:285:24
+    283|           const diagnostics: unknown[] = [];
+    284|           for (const backend of ['svg', 'canvas']) {
+    285|             await page.evaluate(
+       |                        ^
+    286|               async ({ doc, backend, script }) => window.canvasTest.mo…
+    287|               { ...c, backend },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  4 failed | 2238 skipped (2242)
+   Start at  00:16:39
+   Duration  10.12s (tests 90%, import 9%, transform 1%)

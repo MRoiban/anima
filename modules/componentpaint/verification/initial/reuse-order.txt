@@ -1,0 +1,36 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-879d301f
+
+ ❯ |unit| modules/nested/test/core/draw-lifecycle.test.ts (7 tests | 1 failed) 80ms
+   ❯ nested draw allocation lifecycle (7)
+     × preserves child-authored paint order when slot reuse reverses the allocated indices 11ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/nested/test/core/draw-lifecycle.test.ts > nested draw allocation lifecycle > preserves child-authored paint order when slot reuse reverses the allocated indices
+AssertionError: expected [ 'badge/blue', 'badge/red' ] to deeply equal [ 'badge/red', 'badge/blue' ]
+
+- Expected
++ Received
+
+  [
+-   "badge/red",
+    "badge/blue",
++   "badge/red",
+  ]
+
+ ❯ modules/nested/test/core/draw-lifecycle.test.ts:89:91
+     87|       const f = dense(p),
+     88|         group = f.tree.nodes[0]!.children[0]!;
+     89|       expect(drawOrder(f, f.tree.nodes[group]!.children).map((i) => f.…
+       |                                                                                           ^
+     90|         'badge/red',
+     91|         'badge/blue',
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 6 passed (7)
+   Start at  00:53:49
+   Duration  579ms (import 40%, transform 40%, tests 19%, worker 1%)

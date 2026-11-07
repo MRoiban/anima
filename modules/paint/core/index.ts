@@ -109,7 +109,7 @@ const base: Module = {
             V && 'add surface to requires',
           );
         if (p.type === undefined) {
-          if (p.color === undefined)
+          if (p.color === undefined && p.paint === undefined)
             d.err(
               'missing-key',
               base,

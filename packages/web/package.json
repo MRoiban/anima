@@ -37,7 +37,8 @@
     "./nested": "./src/nested.ts",
     "./surface": "./src/surface.ts",
     "./markup-surface": "./src/markup-surface.ts",
-    "./mix": "./src/mix.ts"
+    "./mix": "./src/mix.ts",
+    "./componentpaint": "./src/componentpaint.ts"
   },
   "files": [
     "src"

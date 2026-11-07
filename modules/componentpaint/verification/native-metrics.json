@@ -1,0 +1,23 @@
+[
+  {
+    "name": "initial",
+    "time": 0,
+    "maxDiff": 1,
+    "channelsOver16": 0,
+    "pixels": 400
+  },
+  {
+    "name": "half",
+    "time": 0.5,
+    "maxDiff": 1,
+    "channelsOver16": 0,
+    "pixels": 400
+  },
+  {
+    "name": "end",
+    "time": 1,
+    "maxDiff": 1,
+    "channelsOver16": 0,
+    "pixels": 400
+  }
+]

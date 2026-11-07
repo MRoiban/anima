@@ -47,6 +47,16 @@ export const paintMarkup = {
     return s.split(/\s*,\s*|\s+/).map((x) => (x.endsWith('%') ? x : compiler.num(x)));
   },
   hasPaint(compiler: Compiler, el: Element, paint: string): boolean {
+    // A registered source attribute can supply a fill without a flat colour attribute.
+    if (
+      compiler
+        .nodeAttrs(el.name as import('@anima-format/core').NodeType)
+        .some(
+          (a) =>
+            a.path[0] === paint && a.path[1] === 'paint' && el.attrs.some((v) => v.name === a.attr),
+        )
+    )
+      return true;
     return el.children.some(
       (c) =>
         c.kind === 'element' &&

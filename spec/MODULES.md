@@ -198,6 +198,16 @@ siblings with the specified stroke expansion. Blend/mask groups preserve that is
 Unchanged node records retain object identity. `changed` describes that revision's potentially
 changed entries (static dependency lists include spatial source/ancestor changes); a consumer remembers
 `revision` and ignores a repeated revision. It does not drain `Player.takeDirty()`.
+Both arrays are dense and have equal length when `drawFrame` returns: each allocated tree index
+has a complete frame record, including detached slots. Dynamic producers initialize new slots
+as hidden identity groups and retire slots by hiding their frame record, never by deleting it.
+Retired slots may be reused only after detaching obsolete parent/resource references. A new Player
+constructed from a player-owned model starts from the document's original tree, not another
+player's allocated slots. Backends may index every allocated slot; SVG traverses only attached
+roots/children and canvas computes matrices for the entire dense frame. Neither backend should
+paper over an incomplete producer with a missing-node fallback. Remapping a child frame preserves
+its sibling ranks; absent child ranks use the child document indices, not recycled destination
+indices (which can run in the opposite order).
 `DrawNode` supplies local affine `transform`, opacity, visibility, geometry and ordered paints.
 Compositing adds world matrices, source indices, mask mode/sourceDraws, clip rule, blend and a
 resolved sibling `DrawFrame.order` rank table; absent ranks mean authored order. A backend draws source subtrees
@@ -360,3 +370,19 @@ a literal or `(player) => Value`. Core passes the owner to `sampleTrack(track,ti
 custom `track.sample(time,player)`. Motion's independent TimelineInstances pass their owner too.
 Custom samplers must resolve dynamic endpoints per sample; shared TrackM objects stay immutable.
 Motion owns path validation, markup and live channel diagnostics. Core/web add only these hooks.
+
+### Optional paint frame sources
+
+`componentpaint` contributes `DrawPaint.component`, a resolved independent `DrawFrame`, plus a
+`componentpaint` resource carrying its tree and sibling ranks. Core draw data carries no DOM or rendering callbacks.
+The shape's JSON `fill.paint` is AniML `paint`; the paint module's registered-source attribute
+check allows it to supply a fill without a flat color. Paint validation delegates this field to
+its owning module. Both renderer backends consume the same source frame.
+
+The canvas module exposes an optional `CanvasSourceHost.canvasSources` hook array on the active
+`AnimaIcon` constructor. A hook receives a DrawPaint, the target context, and a function that
+rasterizes any resolved DrawFrame into a requested offscreen width/height. Returning undefined
+delegates; a CanvasPattern supplies the style. Recursive offscreen draws save/restore frame,
+viewport, world matrices, mask-source visibility, diagnostic source and surface dimensions. Hooks never advance
+players. Source backend limitations identify the consuming paint field. Async images use the owning renderer's existing ready/invalidation lifecycle. This seam
+adds bytes only to canvas and optional source modules, not core+web.

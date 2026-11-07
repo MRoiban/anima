@@ -10,6 +10,9 @@ import {
 } from '../../../packages/core/src/draw.ts';
 import { mul, invert, type Mat } from '../../../packages/core/src/geom.ts';
 export const dynamicTrees = new WeakSet<DrawTree>();
+// A Player may be constructed from another player's model (script replay/host replacement).
+// Never inherit that player's allocated slots without their matching frame records.
+const origins = new WeakMap<DrawTree, { tree: DrawTree; afterStep: Model['afterStep'] }>();
 export function fit(node: NodeM, child: Model): Mat {
   const raw = node.raw;
   if (!raw.size) return [1, 0, 0, 1, 0, 0];
@@ -44,14 +47,15 @@ export function fit(node: NodeM, child: Model): Mat {
 }
 export function dynamic(p: Player, components: ComponentModule, data?: DataModule) {
   const model = p.model,
-    tree = drawTree(model);
+    origin = origins.get(drawTree(model)),
+    tree = origin?.tree ?? drawTree(model);
   const draw = {
     ...tree,
     nodes: tree.nodes.map((n) => ({ ...n, children: [...n.children] })),
     roots: [...tree.roots],
     resources: [...tree.resources],
   };
-  const previous = model.afterStep;
+  const previous = origin ? origin.afterStep : model.afterStep;
   const clone = {
     ...model,
     draw,
@@ -65,6 +69,7 @@ export function dynamic(p: Player, components: ComponentModule, data?: DataModul
   const c = data?.compiled.get(model);
   if (c) data!.compiled.set(clone, c);
   dynamicTrees.add(draw);
+  origins.set(draw, { tree, afterStep: previous });
   drawings.set(p, { mappings: new Map(), free: [], resources: [...draw.resources] });
 }
 function fitLists(p: Player, frame: DrawFrame) {
@@ -112,6 +117,11 @@ export function render(p: Player, frame: import('../../../packages/core/src/draw
     return;
   }
   const tree = frame.tree;
+  const retire = (node: number) => {
+    tree.nodes[node] = { node, kind: 'group', parent: -1, children: [] };
+    frame.nodes[node] = { transform: [1, 0, 0, 1, 0, 0], opacity: 1, visible: false, paints: [] };
+    return node;
+  };
   const entries: { player: Player; parent: number; id: string; index?: number }[] = [];
   const players = (p.nested as { players?: Map<string, Player> } | undefined)?.players;
   for (const [id, child] of players ?? [])
@@ -125,7 +135,7 @@ export function render(p: Player, frame: import('../../../packages/core/src/draw
     if (!active.has(player)) {
       drawing.free.push(m.group, ...m.nodes);
       for (const n of [m.group, ...m.nodes]) {
-        frame.nodes[n]!.visible = false;
+        retire(n);
         frame.changed.push(n);
       }
       drawing.mappings.delete(player);
@@ -137,7 +147,7 @@ export function render(p: Player, frame: import('../../../packages/core/src/draw
       e.children = [];
     }
   tree.resources = [...drawing.resources];
-  const allocate = () => drawing.free.pop() ?? tree.nodes.length++;
+  const allocate = () => retire(drawing.free.pop() ?? tree.nodes.length);
   for (const entry of entries) {
     const child = drawFrame(entry.player);
     let mapping = drawing.mappings.get(entry.player);
@@ -181,7 +191,7 @@ export function render(p: Player, frame: import('../../../packages/core/src/draw
         clip: source.clip ? { ...source.clip, source: shift(source.clip.source) } : undefined,
       };
       frame.changed.push(shift(i));
-      if (child.order) (frame.order ??= [])[shift(i)] = child.order[i]!;
+      (frame.order ??= [])[shift(i)] = child.order?.[i] ?? i;
     });
     for (const r of child.tree.resources)
       tree.resources.push({

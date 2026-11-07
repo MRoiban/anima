@@ -3,6 +3,7 @@ import './assetio.ts';
 import './assets.ts';
 import './bind.ts';
 import './canvas.ts';
+import './componentpaint.ts';
 import './components.ts';
 import './composite.ts';
 import './contour.ts';
