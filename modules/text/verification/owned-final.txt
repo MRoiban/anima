@@ -1,0 +1,25 @@
+
+> test:scope
+> node tools/test-scope.ts text conformance oracle --no-browser
+
+Scopes: text, conformance, oracle
+  unit: modules/text/test/cli/text.test.ts
+  unit: modules/text/test/core/conformance.test.ts
+  unit: modules/text/test/core/diagnostics.test.ts
+  unit: modules/text/test/core/layout.test.ts
+  unit: modules/text/test/core/measure.test.ts
+  unit: modules/text/test/markup/authoring.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-657cf026
+
+
+ Test Files  12 passed (12)
+      Tests  3783 passed | 52 todo (3835)
+   Start at  19:21:24
+   Duration  63.41s (tests 85%, import 12%, transform 3%)

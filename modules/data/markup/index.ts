@@ -20,9 +20,11 @@ const propertyNames = [
   'model-ref',
   'asset-ref',
   'component',
+  'text-style',
 ];
 export const dataMarkup = {
   form(el: Element, base: Form): Form {
+    if (el.name === 'text-style' && el.attrs.some((a) => a.name === 'id')) return base;
     if (
       el.name === 'listener' &&
       el.attrs.some((a) => a.name === 'write' && a.value.startsWith('$'))
@@ -73,7 +75,11 @@ export const dataMarkup = {
       };
     if (el.name === 'set')
       return { attrs: { path: 'string', value: 'string' }, required: ['path', 'value'] };
-    if (['string', 'enum', 'list', 'model-ref', 'asset-ref', 'component'].includes(el.name))
+    if (
+      ['string', 'enum', 'list', 'model-ref', 'asset-ref', 'component', 'text-style'].includes(
+        el.name,
+      )
+    )
       return {
         attrs: {
           name: 'string',

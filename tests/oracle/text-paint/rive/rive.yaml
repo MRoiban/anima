@@ -1,0 +1,3 @@
+name: oracle-text-paint
+logs:
+  file: build/runtime.log

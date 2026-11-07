@@ -27,6 +27,25 @@ const attrs = (e: Element) => Object.fromEntries(e.attrs.map((a) => [a.name, a.v
 const scalar = (s: string): unknown =>
   s.startsWith('"') || s === 'true' || s === 'false' || /^-?\d/.test(s) ? JSON.parse(s) : s;
 const vector = (s: string) => s.split(/\s+/).map(Number);
+const recoverStyle = (e: Element): Obj => {
+  const o: Obj = {};
+  for (const [k, v] of Object.entries(attrs(e))) {
+    if (k === 'id') continue;
+    o[k === 'line-height' ? 'lineHeight' : k] = [
+      'size',
+      'weight',
+      'tracking',
+      'line-height',
+    ].includes(k)
+      ? Number(v)
+      : ['fill', 'stroke'].includes(k)
+        ? v.startsWith('{')
+          ? JSON.parse(v)
+          : { color: v }
+        : v;
+  }
+  return o;
+};
 
 // Independent structural reader for emitted markup: compare every value, not just snapshots.
 function recover(root: Element): Obj {
@@ -110,6 +129,11 @@ function recover(root: Element): Obj {
               : v.startsWith('{"') || v.startsWith('[')
                 ? JSON.parse(v)
                 : scalar(v);
+    }
+    for (const child of elements(e)) {
+      if (child.name === 'style')
+        ((o.styles ??= {}) as Obj)[attrs(child).id!] = recoverStyle(child);
+      if (child.name === 'run') ((o.runs ??= []) as Obj[]).push(attrs(child));
     }
     for (const g of elements(e).filter((c) =>
       ['linearGradient', 'radialGradient', 'angularGradient'].includes(c.name),
@@ -212,6 +236,10 @@ function recover(root: Element): Obj {
   if (d.machineSeed !== undefined) d.machineSeed = Number(d.machineSeed);
   if (d.viewBox) d.viewBox = vector(d.viewBox as string);
   if (typeof d.data === 'string' && d.data.startsWith('{')) d.data = JSON.parse(d.data);
+  if (d['text-styles']) {
+    d.textStyles = JSON.parse(String(d['text-styles']));
+    delete d['text-styles'];
+  }
   if (d.requires) d.requires = (d.requires as string).split(' ');
   const insert = (key: string, name: string, v: unknown) => (((d[key] ??= {}) as Obj)[name] = v);
   for (const el of elements(root)) {
@@ -237,6 +265,8 @@ function recover(root: Element): Obj {
                   : value;
       }
       insert('converters', name, converter);
+    } else if (el.name === 'text-style') {
+      ((d.textStyles ??= {}) as Obj)[a.id!] = recoverStyle(el);
     } else if (el.name === 'model') {
       const data = (d.data ??= {}) as Obj,
         models = (data.models ??= {}) as Obj,
@@ -531,6 +561,9 @@ function check(source: string | object) {
       'asset-ref',
       'string',
       'set',
+      'style',
+      'run',
+      'text-style',
     ]).toContain(e.name);
     if (e.name !== 'pose')
       for (const a of e.attrs) {

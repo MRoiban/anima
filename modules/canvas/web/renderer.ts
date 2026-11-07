@@ -367,6 +367,12 @@ export class CanvasRenderer implements IconRenderer {
       out.setTransform(...mul(this.#viewport, world));
     }
     const content = (target: Ctx, basis: Mat) => {
+      if (
+        (this.#icon.constructor as CanvasSourceHost).canvasShapes?.some((hook) =>
+          hook(target, n, (p) => (p.type ? this.#gradient(target, p) : this.#color(p.color))),
+        )
+      )
+        return;
       if (n.geometry) this.#shape(target, i, basis);
       else this.#list(target, e.children, basis, source);
     };

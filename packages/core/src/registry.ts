@@ -155,6 +155,9 @@ export type ObjShape = Extract<Shape, { k: 'obj' }>;
 
 /** Structural markup supplied by modules; field names still come from shapes. */
 export interface ElementForm {
+  /** A keyed root resource authored as a child element. */
+  root?: string;
+  mapKey?: string;
   shape: ObjShape;
   values?: Record<string, string>;
   target?: {
@@ -162,6 +165,7 @@ export interface ElementForm {
     default: string;
     choices: string[];
     array?: boolean;
+    mapKey?: string;
     wrapper?: string;
     /** Object path below the selected target (for example fill.feather). */
     path?: string[];

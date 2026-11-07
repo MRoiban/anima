@@ -1,0 +1,1 @@
+wrote /tmp/p6-1/tool-render.svg

@@ -51,6 +51,7 @@ const APP_UI = [
   'a11y-dom',
   'composite',
   'fonts',
+  'text',
 ];
 
 import { moduleBudgets as MODULES, webOwners } from './modules.generated.ts';

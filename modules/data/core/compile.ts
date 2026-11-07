@@ -40,6 +40,15 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
       const at = ptr(ptr('/data/models', key) + '/properties', key2);
       if (!name.test(key2))
         error(dataCodes['property'], at, V && 'property names must be identifiers');
+      if (p.type === 'text-style' && !model.doc.requires?.includes('text'))
+        error(
+          'undeclared-feature',
+          at + '/type',
+          V && 'text-style requires text',
+          V && 'add text to requires',
+        );
+      if (p.type === 'text-style')
+        p.values = Object.keys(model.doc.textStyles ?? {}).filter((n) => n !== '$comment');
       if (p.type === 'component')
         p.values = Object.keys(model.doc.components ?? {}).filter((n) => n !== '$comment');
       if (p.type === 'enum') {

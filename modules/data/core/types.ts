@@ -10,7 +10,8 @@ export type PropertyType =
   | 'list'
   | 'model-ref'
   | 'asset-ref'
-  | 'component';
+  | 'component'
+  | 'text-style';
 export interface Property {
   type: PropertyType;
   default?: unknown;
@@ -82,7 +83,10 @@ export function registerConverter(name: string, run: Converter): void {
   converters.set(name, run);
 }
 export function scalarType(p: Property): InputM['type'] {
-  return p.type === 'enum' || p.type === 'asset-ref' || p.type === 'component'
+  return p.type === 'enum' ||
+    p.type === 'asset-ref' ||
+    p.type === 'component' ||
+    p.type === 'text-style'
     ? 'string'
     : p.type === 'list' || p.type === 'model-ref'
       ? 'number'

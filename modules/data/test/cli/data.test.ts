@@ -35,6 +35,7 @@ it('exposes all model property types and binding modes through JSON Schema', asy
     'model-ref',
     'asset-ref',
     'component',
+    'text-style',
   ]);
   expect(JSON.stringify(schema.properties.bind)).toContain('two-way');
 });

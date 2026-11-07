@@ -1,0 +1,3 @@
+name: oracle-text-overflow-clipped
+logs:
+  file: build/runtime.log

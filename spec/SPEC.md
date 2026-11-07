@@ -3080,3 +3080,11 @@ the selected resource id. Text styles must resolve that id through the owning co
 resource replacement changes all uses in its resource scope; data-property assignment changes only
 consumers of the assigned property. Bound text rendering and complete font-metric parity require
 the text module; the fonts module alone does not add text nodes.
+
+## text
+
+The optional `text` module adds styled, data-bound text nodes, measured layout, SVG/canvas
+drawing and named host run access. Its normative fields, defaults, validation, measurement
+contract, fit/overflow algorithms and verification limits are specified in
+[modules/text/SPEC.md](../modules/text/SPEC.md). Registry entries derive JSON Schema, CLI schema
+and AniML spellings from the same vocabulary. P6 parity remains planned pending native evidence.

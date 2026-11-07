@@ -1,0 +1,28 @@
+{
+  "anima": "0.1",
+  "name": "text-word-break",
+  "grid": 20,
+  "requires": ["text"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "sizing": "fixed",
+      "wordBreak": "break-all",
+      "width": 2,
+      "height": 4,
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "abcd",
+          "style": "s"
+        }
+      ]
+    }
+  ]
+}

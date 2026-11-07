@@ -1,0 +1,28 @@
+{
+  "anima": "0.1",
+  "name": "text-tracking",
+  "grid": 20,
+  "requires": ["text"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "sizing": "fixed",
+      "width": 4,
+      "height": 4,
+      "styles": {
+        "s": {
+          "size": 1,
+          "tracking": 0.5
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "abcd",
+          "style": "s"
+        }
+      ]
+    }
+  ]
+}

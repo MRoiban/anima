@@ -349,6 +349,11 @@ describe('AniML compiler', () => {
         '<anima><image wrap="repeat" wrap-x="mirror" wrap-y="clamp"/><rect mix="{&quot;mode&quot;:&quot;normal&quot;}" fill-blend-amount="0.5" stroke-blend-amount="0.5"/></anima>',
       ).doc.root!,
     );
+    collectPaint(
+      parseXml(
+        '<anima><text runs="$items" styles="{}" sizing="fixed" width="4" height="4" align="left" valign="top" overflow="visible" wrap="true" word-break="normal" origin="baseline" line-height="1" paragraph-spacing="0" vertical-trim-top="cap" vertical-trim-bottom="baseline" fit-from-baseline="false" fit-font-size-resizes-box="false" text-field="label" style-field="style"/></anima>',
+      ).doc.root!,
+    );
     const attrs = new Set(
       [...elements, ...paintElements].flatMap((e) => e.attrs.map((a) => a.name)),
     );

@@ -1,4 +1,4 @@
 {
   "status": "todo",
-  "reason": "Text consumers are P6; no text-run target exists on this branch."
+  "reason": "P6-1: generated-font conformance exists; independent native data/host interaction capture and completed oracle integration pending"
 }

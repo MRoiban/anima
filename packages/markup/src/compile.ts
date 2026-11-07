@@ -20,6 +20,7 @@ import {
 import { libraryCompiler, location } from './library-hooks.ts';
 import {
   moduleCompiler,
+  textCompiler,
   componentCompiler,
   bindCompiler,
   motionCompiler,
@@ -37,6 +38,7 @@ import { parseXml, type Attr, type Element, type Pos, type XmlDocument } from '.
 type Json = Record<string, unknown>;
 export type Kind =
   | 'json'
+  | 'mixed'
   | 'string'
   | 'name'
   | 'number'
@@ -264,6 +266,7 @@ export class Compiler {
     return dataCompiler.form?.(el, converted ?? { attrs: {} }) ?? converted;
   }
   private kind(s: Shape): Kind {
+    if (s.k === 'alt' && s.of.some((s) => s.k === 'str')) return 'mixed';
     if (s.k === 'obj' || s.k === 'map' || s.k === 'any' || s.k === 'alt') return 'json';
     if (s.k === 'num') return 'number';
     if (s.k === 'bool') return 'boolean';
@@ -306,7 +309,12 @@ export class Compiler {
   }
   children(el: Element, p: string): Element[] {
     const out: Element[] = [];
-    const allowed = this.form(el).children ?? [];
+    const allowed = [
+      ...(this.form(el).children ?? []),
+      ...(el.name === 'anima'
+        ? Object.keys(this.elements).filter((k) => this.elements[k]!.root)
+        : []),
+    ];
     for (const c of el.children) {
       if (c.kind === 'text' && c.value.trim() && !['track', 'meta'].includes(el.name))
         this.error(
@@ -325,7 +333,13 @@ export class Compiler {
             ? 'components'
             : c.name === 'bind' && !bindCompiler.build
               ? 'bind'
-              : !moduleCompiler.node && ELEMENTS[c.name]?.target
+              : !moduleCompiler.node &&
+                  ELEMENTS[c.name]?.target &&
+                  !(
+                    textCompiler.node &&
+                    (ELEMENTS[c.name]!.target!.mapKey ||
+                      (ELEMENTS[c.name]!.target!.array && !ELEMENTS[c.name]!.target!.wrapper))
+                  )
                 ? 'paint'
                 : undefined;
         if (feature) {
@@ -529,6 +543,12 @@ export class Compiler {
           return this.ease(s);
         case 'condition':
           return this.condition(s);
+        case 'mixed':
+          try {
+            return JSON.parse(s);
+          } catch {
+            return a.value;
+          }
         case 'string':
           return a.value;
       }
@@ -580,7 +600,8 @@ export class Compiler {
     if (!['track', 'event', 'color', 'ease'].includes(el.name)) this.comment(el, o, p);
     if (NODES.includes(el.name)) {
       this.copyNode(el, a, o, p);
-      moduleCompiler.node?.(this, el, children, o, p);
+      const rest = textCompiler.node?.(this, el, children, o, p) ?? children;
+      moduleCompiler.node?.(this, el, rest, o, p);
       componentCompiler.node?.(this, el, a, o, p);
       motionCompiler.node?.(this, el, children, o, p);
       dataCompiler.node?.(el, o);
@@ -728,6 +749,7 @@ export class Compiler {
       motionCompiler.rootChild?.(this, c, o, p)
     )
       return;
+    if (textCompiler.rootChild?.(this, c, o, p)) return;
     if (c.name === 'ease') {
       this.attrs(c, p);
       this.children(c, p);

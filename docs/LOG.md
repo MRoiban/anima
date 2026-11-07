@@ -2553,3 +2553,16 @@ TODOs across Chromium and Firefox, exit 0. Strict oracle: 266 cases / 475 sample
 wiring, generated browser artifacts, formatting and all six size gates pass. Core+web 21,077 →
 21,136 B (+59 B, within the 60 B task limit). Perf samples under shared load do not establish
 non-regression. Branch-only delivery; no push or PR. See [BF-5 report](../modules/a11y-dom/BF5-REPORT.md).
+
+## P6-1 — text implementation checkpoint (2026-11-07)
+
+Added optional text layout/rendering, registered authoring, browser measurement, data binding and
+named/nested host access. Integrated the unchanged P6-2 tool reader and original generated font:
+owned scope 3,783 pass/52 TODO, font26 pass, Chromium/Firefox text8 pass. Text 6,079/6,144 B;
+text-host367 B and markup-text529 B are separate entries; core+web byte-identical20,622 B and all six
+gates pass. Twenty-five native render probes retain unresolved raw differences; no parity row is
+closed. Broader optional-bundle byte identity, fonts consumer integration and controlled perf remain
+open. Final changed-scope evidence and deviations are in modules/text/REPORT.md.
+
+Final clean changed scope: 8,396 pass/65 TODO, both canvas engines. Fixed an orderSVG accessor
+cycle found by the full run; opposite backend import orders now have explicit regression tests.

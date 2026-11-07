@@ -1,0 +1,84 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-657cf026
+
+ ❯ |unit| tools/new-capability.test.ts (4 tests | 2 failed) 119208ms
+   × plans without writing, is idempotent, and generates a registered, typechecked module 96153ms
+   × rejects invalid requests without writes and notes unsupported oracle counterparts 19532ms
+ ❯ |unit| packages/cli/test/authoring.test.ts (57 tests | 2 failed) 124268ms
+   ❯ authoring guide executable examples (36)
+     × xml block 4 compiles with validate 5677ms
+     × exposes the forgotten pivot through inspect and rendered geometry 5850ms
+ ❯ |unit| packages/core/test/module-order.test.ts (1 test | 1 failed) 30048ms
+   × composes identical schemas, CLI schemas, loaded corpus models and AniML in 12 arrival orders 30039ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| tools/new-capability.test.ts > plans without writing, is idempotent, and generates a registered, typechecked module
+Error: Command failed: /home/jarvis/.nvm/versions/node/v24.22.0/bin/node /home/jarvis/.t3/worktrees/anima/t3-657cf026/node_modules/vitest/vitest.mjs run --config vitest.scope.config.ts --reporter=json --outputFile=pending-report.json
+ ❯ tools/new-capability.test.ts:93:5
+     91|       { cwd: root, stdio: 'inherit' },
+     92|     );
+     93|     execFileSync(
+       |     ^
+     94|       process.execPath,
+     95|       [
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  |unit| tools/new-capability.test.ts > rejects invalid requests without writes and notes unsupported oracle counterparts
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tools/new-capability.test.ts:154:1
+    152| }, 60000);
+    153|
+    154| it('rejects invalid requests without writes and notes unsupported orac…
+       | ^
+    155|   const root = scratch();
+    156|   try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  |unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > xml block 4 compiles with validate
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/cli/test/authoring.test.ts:50:60
+     48|   });
+     49|
+     50|   it.each(xml.map((block, index) => ({ ...block, index })))(
+       |                                                            ^
+     51|     'xml block $index compiles with validate',
+     52|     ({ source, marker, index }) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  |unit| packages/cli/test/authoring.test.ts > authoring guide executable examples > exposes the forgotten pivot through inspect and rendered geometry
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/cli/test/authoring.test.ts:91:3
+     89|   );
+     90|
+     91|   it('exposes the forgotten pivot through inspect and rendered geometr…
+       |   ^
+     92|     const example = xml.find((b) => b.source.includes('name="pivot"'));
+     93|     expect(example).toBeDefined();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  |unit| packages/core/test/module-order.test.ts > composes identical schemas, CLI schemas, loaded corpus models and AniML in 12 arrival orders
+Error: Test timed out in 30000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/core/test/module-order.test.ts:11:1
+      9|     ? xs.flatMap((x, i) => permutations(xs.filter((_, j) => i !== j)).…
+     10|     : [[]];
+     11| it('composes identical schemas, CLI schemas, loaded corpus models and …
+       | ^
+     12|   // Every permutation of components/paint/assets, before and after th…
+     13|   // This includes surface-before-paint, wildcard-before-node, and com…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  3 failed | 1 passed (4)
+      Tests  5 failed | 76 passed (81)
+   Start at  17:22:58
+   Duration  287.87s (tests 98%, transform 2%, import 1%)

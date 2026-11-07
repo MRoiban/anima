@@ -31,6 +31,7 @@ interface HandleValues {
   audio: string;
   blob: string;
   component: string;
+  'text-style': string;
   list: unknown[];
   'model-ref': Record<string, unknown>;
   trigger: undefined;
@@ -450,6 +451,9 @@ export class HostData {
   }
   image(path: string): DataHandle<string> {
     return this.#handle(path, 'image');
+  }
+  textStyle(path: string): DataHandle<string> {
+    return this.#handle(path, 'text-style');
   }
   component(path: string): DataHandle<string> {
     return this.#handle(path, 'component');

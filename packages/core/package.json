@@ -38,7 +38,9 @@
     "./surface": "./src/modules/surface/index.ts",
     "./surface-svg": "./src/modules/surface/svg.ts",
     "./mix": "./src/modules/mix/index.ts",
-    "./componentpaint": "./src/modules/componentpaint/index.ts"
+    "./componentpaint": "./src/modules/componentpaint/index.ts",
+    "./text": "./src/modules/text/index.ts",
+    "./text-host": "./src/modules/text/host.ts"
   },
   "files": [
     "src"

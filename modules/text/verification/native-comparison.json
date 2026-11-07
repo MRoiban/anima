@@ -1,0 +1,206 @@
+{
+  "command": "anima render <case.animl> --font sans-serif=fixtures/fonts/anima-test.ttf --background #ffffff --size 240",
+  "note": "Raw comparisons only; no accepted limits, finding overrides or completed oracle manifest entries.",
+  "cases": [
+    {
+      "name": "text-fit-baseline",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 123,
+      "overPercent": 0.21354166666666666
+    },
+    {
+      "name": "text-fit-layout-measure",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 257,
+      "overPercent": 0.4461805555555556
+    },
+    {
+      "name": "text-font-size",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 128,
+      "over": 50,
+      "overPercent": 0.08680555555555555
+    },
+    {
+      "name": "text-horizontal-alignment",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 128,
+      "over": 48,
+      "overPercent": 0.08333333333333333
+    },
+    {
+      "name": "text-line-spacing",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 291,
+      "overPercent": 0.5052083333333334
+    },
+    {
+      "name": "text-origin",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 1,
+      "over": 0,
+      "overPercent": 0
+    },
+    {
+      "name": "text-overflow-clipped",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 128,
+      "over": 156,
+      "overPercent": 0.2708333333333333
+    },
+    {
+      "name": "text-overflow-ellipsis",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 182,
+      "overPercent": 0.3159722222222222
+    },
+    {
+      "name": "text-overflow-fit",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 128,
+      "over": 84,
+      "overPercent": 0.14583333333333334
+    },
+    {
+      "name": "text-overflow-fit-font-size",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 257,
+      "overPercent": 0.4461805555555556
+    },
+    {
+      "name": "text-overflow-hidden",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 166,
+      "overPercent": 0.2881944444444444
+    },
+    {
+      "name": "text-overflow-visible",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 128,
+      "over": 180,
+      "overPercent": 0.3125
+    },
+    {
+      "name": "text-paint",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 128,
+      "over": 90,
+      "overPercent": 0.15625
+    },
+    {
+      "name": "text-paragraph-spacing",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 122,
+      "overPercent": 0.21180555555555555
+    },
+    {
+      "name": "text-rich-runs",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 191,
+      "over": 140,
+      "overPercent": 0.24305555555555555
+    },
+    {
+      "name": "text-run-list",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 128,
+      "over": 90,
+      "overPercent": 0.15625
+    },
+    {
+      "name": "text-sizing-auto-height",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 106,
+      "overPercent": 0.1840277777777778
+    },
+    {
+      "name": "text-sizing-auto-width",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 128,
+      "over": 90,
+      "overPercent": 0.15625
+    },
+    {
+      "name": "text-sizing-fixed",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 128,
+      "over": 90,
+      "overPercent": 0.15625
+    },
+    {
+      "name": "text-style-reference",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 128,
+      "over": 90,
+      "overPercent": 0.15625
+    },
+    {
+      "name": "text-tracking",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 128,
+      "over": 90,
+      "overPercent": 0.15625
+    },
+    {
+      "name": "text-vertical-alignment",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 32,
+      "over": 8,
+      "overPercent": 0.013888888888888888
+    },
+    {
+      "name": "text-vertical-trim",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 128,
+      "over": 94,
+      "overPercent": 0.16319444444444445
+    },
+    {
+      "name": "text-word-break",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 106,
+      "overPercent": 0.1840277777777778
+    },
+    {
+      "name": "text-wrap",
+      "code": 0,
+      "threshold": 16,
+      "maxDiff": 255,
+      "over": 106,
+      "overPercent": 0.1840277777777778
+    }
+  ]
+}

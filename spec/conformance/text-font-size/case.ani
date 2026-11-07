@@ -1,0 +1,59 @@
+{
+  "anima": "0.1",
+  "name": "text-font-size",
+  "grid": 20,
+  "requires": ["text"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "sizing": "fixed",
+      "width": 4,
+      "height": 4,
+      "styles": {
+        "s": {}
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "ab"
+        }
+      ]
+    }
+  ],
+  "timelines": {
+    "grow": {
+      "duration": 1,
+      "tracks": {
+        "label.styles.s.weight": [
+          [0, 400],
+          [1, 2000]
+        ],
+        "label.styles.s.size": [
+          [0, 1],
+          [1, 2]
+        ],
+        "label.runs.0.style": [
+          [0, ""],
+          [1, "s"]
+        ],
+        "label.runs.0.text": [
+          [0, "ab"],
+          [1, "cd"]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "playing",
+        "states": {
+          "playing": {
+            "play": "grow"
+          }
+        }
+      }
+    }
+  }
+}

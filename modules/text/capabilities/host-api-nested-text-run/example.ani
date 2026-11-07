@@ -1,0 +1,44 @@
+{
+  "anima": "0.1",
+  "name": "host-api-nested-text-run",
+  "grid": 20,
+  "requires": ["text", "components"],
+  "nodes": [
+    {
+      "id": "a",
+      "type": "instance",
+      "component": "chip"
+    },
+    {
+      "id": "b",
+      "type": "instance",
+      "component": "chip"
+    }
+  ],
+  "components": {
+    "chip": {
+      "grid": 20,
+      "nodes": [
+        {
+          "id": "label",
+          "type": "text",
+          "sizing": "fixed",
+          "width": 4,
+          "height": 4,
+          "styles": {
+            "s": {
+              "size": 1
+            }
+          },
+          "runs": [
+            {
+              "id": "first",
+              "text": "abcd",
+              "style": "s"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

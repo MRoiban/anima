@@ -1,0 +1,6 @@
+<anima version="0.1" name="text-sizing-auto-height" grid="20" requires="text">
+  <text id="label" sizing="auto-height" word-break="break-all" width="2" height="4">
+    <style id="s" size="1"/>
+    <run id="first" text="abcd" style="s"/>
+  </text>
+</anima>

@@ -20,6 +20,7 @@ import type { Player } from './player.ts';
 
 export interface El {
   tag: string;
+  text?: string;
   /**
    * node: a `<g>` carrying one document node's transform, opacity and visibility · shape: the node's
    * untransformed painted element inside it · wrap: earlier siblings under a knockout's mask ·
@@ -235,6 +236,7 @@ export function toSVG(
       .filter(([, v]) => v !== null)
       .map(([k, v]) => ` ${k}="${esc(v!)}"`)
       .join('');
+    if (el.text !== undefined) return `<${el.tag}${at}>${esc(el.text)}</${el.tag}>`;
     return el.kids.length
       ? `<${el.tag}${at}>${ordered(el.kids).map(ser).join('')}</${el.tag}>`
       : `<${el.tag}${at}/>`;

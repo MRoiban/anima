@@ -1,1 +1,1 @@
-TODO: independently author a Rive scene and capture reference PNGs; do not read/convert .riv files.
+Independent native data/host interaction evidence is still pending. Generated-font tool layout is covered in modules/text/test/core/conformance.test.ts. No native fidelity claim is made.

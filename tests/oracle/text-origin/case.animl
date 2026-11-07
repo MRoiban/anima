@@ -1,0 +1,6 @@
+<anima version="0.1" name="text-origin" grid="20" requires="text">
+  <text id="label" x="2" y="4" sizing="fixed" origin="baseline" width="4" height="4">
+    <style id="s" size="1"/>
+    <run id="first" text="abcd" style="s"/>
+  </text>
+</anima>

@@ -1,0 +1,6 @@
+<anima version="0.1" name="host-api-nested-text-run" grid="20" requires="text">
+  <text id="label" sizing="fixed" width="4" height="4">
+    <style id="s" size="1"/>
+    <run id="first" text="abcd" style="s"/>
+  </text>
+</anima>

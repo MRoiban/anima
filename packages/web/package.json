@@ -46,7 +46,10 @@
     "./surface": "./src/surface.ts",
     "./markup-surface": "./src/markup-surface.ts",
     "./mix": "./src/mix.ts",
-    "./componentpaint": "./src/componentpaint.ts"
+    "./componentpaint": "./src/componentpaint.ts",
+    "./text": "./src/text.ts",
+    "./text-host": "./src/text-host.ts",
+    "./markup-text": "./src/markup-text.ts"
   },
   "files": [
     "src"

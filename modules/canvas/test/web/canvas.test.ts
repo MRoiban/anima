@@ -8,6 +8,16 @@ import { bundle } from '../../../../tools/browser-build.ts';
 import '@anima-format/core/all';
 import { load, drawFrame, runScript, Player, toSVG } from '@anima-format/core';
 import type {} from './harness.ts';
+import { registerTextMeasurer } from '../../../text/core/measure.ts';
+import { ToolMeasurer } from '../../../../packages/cli/src/font/measure.ts';
+import { Font } from '../../../../packages/cli/src/font/reader.ts';
+import { testFont } from '../../../../tools/test-font.ts';
+
+// Corpus enumeration draws before filtering geometry; text needs deterministic tool metrics.
+// The text module's browser suite owns generated-font text rendering comparisons.
+const textMeasurer = new ToolMeasurer();
+textMeasurer.register('sans-serif', new Font(testFont()));
+registerTextMeasurer(textMeasurer);
 
 // Fixed feature tolerances, declared before measurements; see README. Never widen on failure.
 const limit = (doc: object) => {
