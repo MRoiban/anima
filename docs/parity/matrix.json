@@ -608,10 +608,10 @@
   "id": "a11y.tree-bounds",
   "category": "a11y",
   "capability": "Semantic bounds",
-  "construct": "new: nodes[].a11y / player semantics API: tree-bounds; bounds in grid units",
+  "construct": "modules/a11y/SPEC.md; nodes[].a11y.bounds (JSON / AniML); partial painted group bounds",
   "module": "a11y",
   "status": "planned",
-  "test": "oracle/a11y-tree-bounds",
+  "test": "modules/a11y/test/core/a11y-tree-bounds.test.ts; spec/conformance/a11y-tree-bounds; native oracle and path/stroke extents pending (modules/a11y/REPORT.md)",
   "phase": "P3b"
  },
  {

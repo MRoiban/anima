@@ -1,0 +1,16 @@
+<anima version="0.1" name="action-edges" grid="20" requires="a11y data">
+  <model name="M">
+    <bool name="on"/>
+    <list name="items" of="M"/>
+  </model>
+  <instance name="main" model="M" default="true"/>
+  <group id="flag">
+    <a11y role="checkbox" checked="$on" readonly="true"/>
+  </group>
+  <group id="size">
+    <a11y role="slider" value="$items.length"/>
+  </group>
+  <group id="edit">
+    <a11y role="checkbox" checked="$on"/>
+  </group>
+</anima>

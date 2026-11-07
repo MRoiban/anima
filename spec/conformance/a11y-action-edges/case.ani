@@ -1,0 +1,58 @@
+{
+  "anima": "0.1",
+  "name": "action-edges",
+  "grid": 20,
+  "requires": ["a11y", "data"],
+  "nodes": [
+    {
+      "id": "flag",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "checkbox",
+        "checked": "$on",
+        "readonly": true
+      }
+    },
+    {
+      "id": "size",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "slider",
+        "value": "$items.length"
+      }
+    },
+    {
+      "id": "edit",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "checkbox",
+        "checked": "$on"
+      }
+    }
+  ],
+  "data": {
+    "models": {
+      "M": {
+        "properties": {
+          "on": {
+            "type": "bool"
+          },
+          "items": {
+            "type": "list",
+            "of": "M"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "M",
+        "default": true,
+        "values": {}
+      }
+    }
+  }
+}

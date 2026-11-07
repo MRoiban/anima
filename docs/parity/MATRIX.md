@@ -366,7 +366,7 @@ scope by the owner's triage of 2026-11-07).
 | `a11y.trait-requirable` | Semantic trait: Requirable | new: nodes[].a11y.isRequirable: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-trait-requirable |
 | `a11y.trait-selectable` | Semantic trait: Selectable | new: nodes[].a11y.isSelectable: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-trait-selectable |
 | `a11y.trait-toggleable` | Semantic trait: Toggleable | new: nodes[].a11y.isToggleable: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-trait-toggleable |
-| `a11y.tree-bounds` | Semantic bounds | new: nodes[].a11y / player semantics API: tree-bounds; bounds in grid units | a11y | planned | oracle/a11y-tree-bounds |
+| `a11y.tree-bounds` | Semantic bounds | modules/a11y/SPEC.md; nodes[].a11y.bounds (JSON / AniML); partial painted group bounds | a11y | planned | modules/a11y/test/core/a11y-tree-bounds.test.ts; spec/conformance/a11y-tree-bounds; native oracle and path/stroke extents pending (modules/a11y/REPORT.md) |
 | `a11y.tree-visibility` | Semantic subtree visibility | new: nodes[].a11y / player semantics API: tree-visibility; bounds in grid units | a11y | planned | oracle/a11y-tree-visibility |
 | `a11y.web-overlay` | Accessible web overlay | new: nodes[].a11y / player semantics API: web-overlay; bounds in grid units | a11y | planned | oracle/a11y-web-overlay |
 

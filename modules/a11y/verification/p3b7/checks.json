@@ -1,0 +1,82 @@
+{
+  "requestedScope": {
+    "exitCode": 0,
+    "passed": 1847,
+    "failed": 0,
+    "todo": 33,
+    "filesPassed": 12,
+    "filesSkipped": 1,
+    "workers": 2
+  },
+  "changed": {
+    "exitCode": 0,
+    "passed": 7530,
+    "failed": 0,
+    "todo": 45,
+    "filesPassed": 230,
+    "filesSkipped": 13,
+    "durationSeconds": 1300.78,
+    "workers": 1
+  },
+  "markup": {
+    "exitCode": 0,
+    "passed": 2463,
+    "failed": 0,
+    "filesPassed": 15,
+    "workers": 2
+  },
+  "isolatedBrowserRechecks": {
+    "exitCode": 0,
+    "passed": 24,
+    "failed": 0,
+    "filtered": 96,
+    "filesPassed": 3,
+    "workers": 1
+  },
+  "strictOracle": {
+    "exitCode": 0,
+    "cases": 253,
+    "samples": 449,
+    "failedCompletedSamples": 0
+  },
+  "size": {
+    "exitCode": 0,
+    "a11y": 2038,
+    "a11yActions": 826,
+    "markupA11y": 971,
+    "full": 115229,
+    "coreWeb": 20561
+  },
+  "perf": {
+    "exitCode": 0,
+    "quietPairedNonRegression": "unverified"
+  },
+  "typecheck": {
+    "exitCode": 0,
+    "projects": 9,
+    "amendedMarkupReader": 0
+  },
+  "lint": {
+    "exitCode": 0
+  },
+  "format": {
+    "exitCode": 0
+  },
+  "wiring": {
+    "exitCode": 0
+  },
+  "parityViews": {
+    "exitCode": 0
+  },
+  "animlArtifacts": {
+    "exitCode": 0,
+    "sources": 488
+  },
+  "browserArtifacts": {
+    "exitCode": 0,
+    "entries": 38
+  },
+  "closedRows": [],
+  "parityStatusChanges": [],
+  "interruptedFirstChangedRun": "stale cache assertions, isolated asset/hooks timeouts and three reproduced independent-reader omissions; superseded by final green run"
+}

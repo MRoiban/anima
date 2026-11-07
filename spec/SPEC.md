@@ -2743,3 +2743,13 @@ The optional browser-only `devtools` contract is specified in
 Node semantics are specified in [modules/a11y/SPEC.md](../modules/a11y/SPEC.md). Interaction,
 diffs and focus policy live in the companion `a11y-actions` (runtime key `a11yactions`); in-browser
 AniML forms in the `markup-a11y` web entry. The web overlay is P3b wave 2. Root §10 is unchanged.
+
+
+<!-- capability: a11y.tree-bounds -->
+### Semantic bounds
+
+`nodes[].a11y.bounds` (AniML `bounds`) is a local `[x,y,w,h]` box with nonnegative width and height,
+transformed to world-grid coordinates. Without it, visible child boxes are unioned
+for unpainted groups; an empty node reports its transformed origin as a point.
+The bounded implementation and explicit path/stroke limitations are specified in
+[modules/a11y/SPEC.md](../modules/a11y/SPEC.md). This row remains planned.

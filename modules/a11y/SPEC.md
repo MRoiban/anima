@@ -1,10 +1,9 @@
 # Node accessibility (P3b draft; partial implementation)
 
-This chapter specifies the P3b design contract. Implementation is blocked on size:
-after the P3b-1b split its registration entry adds 3,002 B versus the 2,048 B core limit.
-The companion `a11y-actions` adds 828 B over `a11y` (1,024 B limit).
-The implementation below is a prototype, not a completed capability. Root document
-`a11y` in SPEC §10 retains its existing shape, validation and behavior.
+This chapter specifies the P3b design contract. The bounded implementation is partial:
+`a11y` measures 2,038 / 2,048 B, `a11y-actions` 826 / 1,024 B and
+`markup-a11y` 971 / 1,024 B. Root document `a11y` in SPEC §10 retains its
+existing shape, validation and behavior. See REPORT.md for remaining gaps.
 
 ## Authoring
 
@@ -53,18 +52,19 @@ readonly, modal, focused, live (`polite`/`assertive`). No DOM objects are expose
 role none. Hidden/invisible subtrees are excluded, opacity does not hide. A modal
 sibling suppresses its siblings. IDs in component instances and repeated rows are
 dotted. Intended bounds are transformed painted bounds, or an explicit local box.
+Static bounds are propagated from visible children in reverse structural order. Explicit semantic bounds override that node's computed box. A node without measurable descendants falls back to its world-space origin as a zero-size box. Nested instances and repeat items are visited at their owning node, before its next authored sibling.
 The tree is cached across unchanged reads and steps; changed semantic inputs,
-geometry or focus invalidate it. Hosts must treat returned snapshots as read-only.
+geometry or focus invalidate it. Late registration of the action companion invalidates a cached static tree. Hosts must treat returned snapshots as read-only. This currently compares resolved signatures after collecting entries, rather than using dependency subscriptions.
 
 With `a11y-actions` registered, `semanticDiff(previous,next)` and `player.semanticDiff` return added and removed ids
 in tree order, and `{id,keys}` changes in next-tree order. Children compare immediate
 child ids; a descendant's state change does not also mark its ancestors changed.
 
 With `a11y-actions` registered, `semanticAction(id,action)` rejects missing ids or unavailable actions with false.
-Tap fires activate or toggles its bool; absent activate it toggles the first bound
+Tap fires activate or queues a bool toggle; repeated taps before a step compose in queue order; absent activate it toggles the first bound
 checked/pressed/selected field. Increase/decrease add/subtract step and clamp value
 to min/max. Writes are queued for the next step. Disabled controls expose no actions;
-readonly controls do not accept edits. Focus delegates to the optional focus module.
+readonly controls expose no edit actions, including when the binding names a read-only data input such as list length. They may still expose focus. Focus delegates to the optional focus module.
 Focusable ancestors report focused; hidden focus retargets toward a focusable ancestor,
 then the next focusable node in tree order, then clears. Focus/traversal stays in focus.
 
@@ -79,19 +79,40 @@ then the next focusable node in tree order, then clears. Focus/traversal stays i
 `anima sample --semantics` requests semantic snapshots. The script integration is
 one dispatch plus an import; the command implementation is tooling only.
 
-## Evidence and remaining gaps
+## Traits, defaults and remaining gaps
 
-No parity row is closed. Pending conformance/oracle probes retain `todo.json` and
-never count as passing. Native CLI 1.9.1 supports `--semantics` and
-`--semantic-action`; logical comparisons therefore require real captures, not skip
-notes claiming the CLI cannot inspect semantics. Captures were not completed before
-the budget stop.
+Traits are descriptive consequences of the role and authored states, not fields in
+`SemanticNode`. A checkbox/switch/radio is checkable; button `pressed` makes it
+toggleable; tab and `selected` make it selectable. An authored `expanded`, `required`
+or `disabled` state indicates the corresponding expandable, requirable or enablable
+trait even when false. Focusability follows eligible focus items when the optional
+focus module is registered; actions synthesizes focus for button, checkbox, switch,
+radio, slider, tab, link and list-item. There are no authored trait flags.
 
-Known unverified/incomplete areas: transparent modal scopes, focus conditions on
-ancestors, repeated-row focus items, inactive Solo visibility, painted group bounds
-and stroke/path extrema, data bindings, role/trait defaults, cache invalidation under
-nested structural changes, and CLI flags combined with filtered snapshots. The
-wave-2 overlay is not implemented. The shared shape is a draft until these are resolved.
+Omitted bool states remain absent in the serialized tree; platform consumers treat
+them as false. `live` defaults to off (absent from the tree). Slider defaults are
+0, 100 and 1, exposed while enabled; a disabled slider retains the prototype's
+omission of that metadata. An omitted activation binding does not make a static
+literal checked/pressed/selected state writable. Explicit activate takes precedence
+and may name a trigger or writable bool. Numeric input/data constraints still apply
+after the semantic range clamp. These rules do not infer text labels or add fields
+to the shared tree contract.
+
+No parity row is closed. Completed independent conformance probes cover simple
+painted group bounds, dotted component/repeat ordering through shrink/hide, and
+read-only semantic/data action descriptions and dispatch. The native roles probe
+compares 16 roles, labels, simple bounds and seven state projections across three
+focus snapshots. It does not establish semantic action availability, exact path
+bounds or all focus policies. Pending oracle markers stay pending.
+
+Remaining work: exact path/stroke bounds and curve extrema; painted-group bounds
+independent of child semantic overrides; nested/repeated focus ordering and dotted
+targets; semantic hidden/disabled/modal restrictions in traversal; ancestor machine
+conditions; dependency-driven collection and identical-signature owner replacement;
+late focus registration on already compiled models; Solo visibility; complete
+role/trait/default evidence; native tap/increase/decrease and remaining state/focus
+captures. Filtered `semantics <id>` works and is tested. The DOM overlay is owned
+by P3b-8 and is outside this implementation.
 
 Design follows `design/p3b/DESIGN.md` §3.1–3.3. Research context:
 `docs/research/rive-format-and-graph.md` (registry discipline),
@@ -128,9 +149,9 @@ flatten helper; actions reuse core's clamp. Headless commands remain tooling-onl
 are imported by neither browser entry. The companion's 1,024 B budget is incremental
 over its imported base entry, as with other layered module entries.
 
-This split implements the platform separation described in
+This split follows the platform separation described in
 `docs/research/rive-web-runtime.md` and the shared-registry discipline described in
 `docs/research/rive-format-and-graph.md`; no external algorithm is ported. No public
-capability is closed by the split. See REPORT.md for the failed fixed budget and
-unchanged remaining gaps. Completion, including dependency-aware invalidation and
-late-registration coverage, requires further work after the budget decision.
+capability is closed by the split. See REPORT.md for the 2,104 B centered-stroke
+probe that exceeded the fixed budget and was reverted. Completion requires further
+budget/ownership work by the orchestrator; no additional runtime module was added.

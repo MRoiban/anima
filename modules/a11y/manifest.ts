@@ -5,7 +5,10 @@ export default {
     name: 'a11y',
     after: [],
     core: { entry: 'core/index.ts', export: 'a11y', svg: 'core/svg.ts', svgExport: 'a11ySVG' },
-    web: [{ name: 'a11y', budget: 2048 }, { name: 'markup-a11y', budget: 1024, over: 'index' }],
+    web: [
+      { name: 'a11y', budget: 2048 },
+      { name: 'markup-a11y', budget: 1024, over: 'index' },
+    ],
     adapters: {
       'packages/core/src/modules/a11y/index.ts': 'core/index.ts',
       'packages/core/src/modules/a11y/svg.ts': 'core/svg.ts',
@@ -24,7 +27,7 @@ export default {
       'packages/markup/test/corpus.test.ts',
       'packages/markup/test/names.test.ts',
     ],
-    conformance: ['a11y-tree-visibility'],
+    conformance: ['a11y-tree-visibility', 'a11y-tree-bounds', 'a11y-action-edges'],
     docs: ['spec/SPEC.md', 'modules/a11y/SPEC.md', 'modules/a11y/AUTHORING.md'],
   },
   after,

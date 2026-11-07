@@ -145,6 +145,17 @@ function recover(root: Element): Obj {
         }
         o.focus = focus;
       }
+      if (child.name === 'a11y') {
+        const semantics = base(child);
+        for (const [key, value] of Object.entries(a))
+          semantics[key === 'checked-mixed' ? 'checkedMixed' : key] =
+            key === 'bounds'
+              ? vector(value)
+              : ['role', 'label', 'hint', 'value', 'href', 'activate', 'live'].includes(key)
+                ? value
+                : scalar(value);
+        o.a11y = semantics;
+      }
       if (child.name === 'channel')
         ((o.channels ??= {}) as Obj)[a.name!] = { type: a.type, value: scalar(a.value!) };
       if (child.name === 'mask')

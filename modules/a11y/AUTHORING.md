@@ -1,7 +1,8 @@
-# Node semantics (prototype)
+# Node semantics (partial P3b implementation)
 
-P3b-1b remains blocked on the 2 KB base-module budget after splitting actions. This example describes the intended authoring
-contract and currently supported basic headless path; it is not a parity completion.
+Static labels, explicit boxes, simple painted groups, state bindings and queued actions
+are available. Exact path/stroke bounds and several focus policies remain unfinished;
+see REPORT.md. The fixed budgets pass after the bounded fixes.
 
 ```xml
 <anima version="0.1" name="mute" grid="20" requires="a11y focus">
@@ -28,3 +29,12 @@ plus the optional focus module when needed. The runtime key for the companion is
 `a11yactions`. The CLI registers both automatically. Core hosts import `a11y` and
 `a11yActions` from their respective entries and register both. `semanticDiff` is now
 exported by `@anima-format/core/a11y-actions`.
+
+Read-only semantic controls and bindings to read-only data (for example list length)
+expose focus when eligible, but no edit actions. Multiple taps before a step queue
+multiple toggles. A group without explicit bounds unions its visible child boxes;
+use explicit bounds for paths/strokes until their exact extents are implemented.
+
+`semantics mute` prints only that subtree. `snapshot --semantics $path` combines
+semantic inspection with a filtered values snapshot. Omitted bool states are false
+for platform consumers; traits are derived and are never authored or serialized.

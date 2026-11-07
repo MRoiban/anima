@@ -1,0 +1,7 @@
+{
+  "command": "node tools/oracle.ts --strict",
+  "exitCode": 0,
+  "cases": 253,
+  "samples": 449,
+  "failedSamples": 0
+}

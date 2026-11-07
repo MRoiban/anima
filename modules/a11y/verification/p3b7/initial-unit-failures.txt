@@ -1,0 +1,147 @@
+
+> test:scope
+> node tools/test-scope.ts a11y a11y-actions --no-browser
+
+Scopes: a11y, a11y-actions
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-bounds.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/edges.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  cases: ^conformance > (a11y-tree-bounds|a11y-tree-visibility)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-bee1cda3
+
+file:///home/jarvis/.t3/worktrees/anima/t3-bee1cda3/[eval1]:2
+    import { register, load, Player } from '@anima-format/core';
+             ^^^^^^^^
+SyntaxError: The requested module '@anima-format/core' does not provide an export named 'register'
+    at #asyncInstantiate (node:internal/modules/esm/module_job:455:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:553:5)
+    at async node:internal/modules/esm/loader:223:26
+    at async ModuleLoader.executeModuleJob (node:internal/modules/esm/loader:220:20)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.0
+ ❯ |scope-unit| modules/a11y/test/core/edges.test.ts (4 tests | 3 failed) 762ms
+   × refreshes a cached static tree when the actions module registers late 618ms
+   × does not advertise edits for readonly data or a readonly semantic control 94ms
+   × interleaves transparent nested instances and repeated rows with authored siblings 28ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| modules/a11y/test/core/edges.test.ts > refreshes a cached static tree when the actions module registers late
+Error: Command failed: /home/jarvis/.nvm/versions/node/v24.22.0/bin/node --input-type=module -e
+    import { register, load, Player } from '@anima-format/core';
+    import { a11y } from './modules/a11y/core/index.ts';
+    import { a11yActions } from './modules/a11y-actions/core/index.ts';
+    register(a11y);
+    const { model } = load({ anima:'0.1', name:'late', grid:20, requires:['a11y'],
+      inputs:{ on:{type:'bool'} }, nodes:[{id:'c',type:'group',a11y:{role:'checkbox',checked:'on'}}] });
+    const p = new Player(model), old = p.semantics();
+    register(a11yActions);
+    console.log(JSON.stringify([old[0].actions,p.semantics()[0].actions,p.semantics() !== old]));
+
+file:///home/jarvis/.t3/worktrees/anima/t3-bee1cda3/[eval1]:2
+    import { register, load, Player } from '@anima-format/core';
+             ^^^^^^^^
+SyntaxError: The requested module '@anima-format/core' does not provide an export named 'register'
+    at #asyncInstantiate (node:internal/modules/esm/module_job:455:21)
+    at async ModuleJob.run (node:internal/modules/esm/module_job:553:5)
+    at async node:internal/modules/esm/loader:223:26
+    at async ModuleLoader.executeModuleJob (node:internal/modules/esm/loader:220:20)
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.22.0
+
+ ❯ modules/a11y/test/core/edges.test.ts:15:18
+     13| }
+     14| it('refreshes a cached static tree when the actions module registers l…
+     15|   const output = execFileSync(
+       |                  ^
+     16|     process.execPath,
+     17|     [
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |scope-unit| modules/a11y/test/core/edges.test.ts > does not advertise edits for readonly data or a readonly semantic control
+AssertionError: expected [ [ 'focus' ], [ 'focus' ], …(1) ] to deeply equal [ [], [], [] ]
+
+- Expected
++ Received
+
+  [
+-   [],
+-   [],
+-   [],
++   [
++     "focus",
++   ],
++   [
++     "focus",
++   ],
++   [
++     "focus",
++   ],
+  ]
+
+ ❯ modules/a11y/test/core/edges.test.ts:46:47
+     44|   // Derived read-only inputs use the same InputM flag as list metadat…
+     45|   p.model.inputs.get('$count')!.readonly = true;
+     46|   expect(p.semantics().map((n) => n.actions)).toEqual([[], [], []]);
+       |                                               ^
+     47|   expect(p.semanticAction('count', 'increase')).toBe(false);
+     48|   expect(p.semanticAction('flag', 'tap')).toBe(false);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+ FAIL  |scope-unit| modules/a11y/test/core/edges.test.ts > interleaves transparent nested instances and repeated rows with authored siblings
+AssertionError: expected [ …(2) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "unknown-element",
++     "column": 5,
++     "file": undefined,
++     "hint": "did you mean \"ease\"?",
++     "line": 5,
++     "message": "unknown element <use>",
++     "pointer": "",
++     "severity": "error",
++   },
++   {
++     "code": "unknown-element",
++     "column": 41,
++     "file": undefined,
++     "hint": "did you mean \"ease\"?",
++     "line": 4,
++     "message": "unknown element <use>",
++     "pointer": "/components/wrapper",
++     "severity": "error",
++   },
++ ]
+
+ ❯ player modules/a11y/test/core/edges.test.ts:9:68
+      7| function player(source: string) {
+      8|   const result = compile(source);
+      9|   expect(result.diagnostics.filter((d) => d.severity === 'error')).toE…
+       |                                                                    ^
+     10|   const loaded = load(result.doc!);
+     11|   expect(loaded.diagnostics.filter((d) => d.severity === 'error')).toE…
+ ❯ modules/a11y/test/core/edges.test.ts:66:5
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯
+
+
+ Test Files  1 failed | 5 passed | 3 skipped (9)
+      Tests  3 failed | 977 passed | 450 skipped | 2 todo (1432)
+   Start at  10:17:45
+   Duration  13.86s (transform 54%, import 24%, tests 22%, worker 1%)

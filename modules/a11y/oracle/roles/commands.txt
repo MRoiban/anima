@@ -1,0 +1,9 @@
+advance 0
+semantics frames/before.json
+key t:down
+advance 0
+semantics frames/focused.json
+key tab:down
+advance 0
+semantics frames/next.json
+quit

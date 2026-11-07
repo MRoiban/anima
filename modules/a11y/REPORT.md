@@ -1,291 +1,222 @@
-# P3b-1b split checkpoint — budget blocked
+# P3b-7 current implementation report
 
-Status: **blocked** on the explicit size stop. Branch `t3/a11y-actions-size-split`.
-Prototype merged with `git merge --no-ff t3/p3b-a11y-module` (merge `1bfca8e`).
-The prior P3b-1 report below is historical. No parity statuses changed, no rows are
-closed, and no new oracle captures or completed conformance probes are claimed.
+Status: **partial — stopped at the fixed runtime budget guard**. Branch
+`t3/complete-a11y-core`. No rows are closed; all parity statuses remain unchanged.
+The shared `SemanticNode` types and `test/fixtures/tree.json` are unchanged.
 
-## Split delivered
+## Bounded changes
 
-- `a11y`: registry, load validation, tree/state/visibility/modal/bounds prototype,
-  and semantics cache. `a11y-actions`: descriptions/dispatch, diffs, synthesized focus,
-  ancestor states and retarget prototype, ordered after `a11y`.
-- Shared registry-owned cache seam supports separate bundle identity; one flatten
-  helper, core clamp and existing matrix/path helpers are reused. Repository search
-  found no existing exported painted/group/path-extrema bounds helper to reuse.
-  Bounds completion was deferred after the failed size round.
-- Headless commands stay tooling-only; no browser entry imports commands.ts.
-- Scaffold dry and real invocations both rejected `--module a11y-actions` under the
-  existing hyphen restriction (evidence in verification/p3b1b/scaffold*.txt). Module
-  files were added manually and all adapters/tables/exports regenerated.
-- Public module/folder `a11y-actions` uses the runtime key `a11yactions`, as existing
-  hyphenated modules do, avoiding any further base-runtime name-rule growth.
+- Visit nested component players and repeat items at their owning node, preserving
+  authored forest/sibling order and dotted ids. Shrink/hide invalidates the tree.
+- Union child world-space boxes for unpainted groups; preserve explicit overrides;
+  use a world-origin point for an empty node. These are simple geometry bounds,
+  not complete painted bounds for paths, strokes or semantic child overrides.
+- Invalidate a cached static tree when `a11y-actions` first registers. Existing
+  signatures reuse snapshots across unchanged reads/steps and unrelated changes.
+- Suppress editing actions for semantic readonly and read-only input/data bindings
+  (including list length). Keep eligible focus actions. Queue bool toggles, so
+  two taps before one step toggle twice. Explicit activation still takes precedence.
+- Gate computed diagnostic hints with `VERBOSE`; diagnostic codes/pointers and
+  verbose tooling messages remain unchanged. No module dependencies were added.
 
-## Size guard (min+gzip B)
+## Measured stop and ownership
 
-| Entry | Before split | After split | Fixed guard |
+| Size (min+gzip B) | Before | Kept | Guard |
 |---|---:|---:|---:|
-| a11y | 3,623 | 3,002 | 2,048 — **FAIL (+954)** |
-| a11y-actions | absent | 828 over a11y | 1,024 — pass |
-| core+web | 20,369 | 20,369 | 20,369 — pass |
-| data (untouched) | 8,032 | 8,032 | must not grow — pass |
-| bind (untouched) | 2,038 | 2,038 | must not grow — pass |
-| components (untouched) | 4,047 | 4,047 | must not grow — pass |
-| full-featured | 114,392 | 114,584 | 131,072 — pass |
+| a11y | 1,983 | 2,038 | 2,048 |
+| a11y-actions (over a11y) | 836 | 826 | 1,024 |
+| markup-a11y | 971 | 971 | 1,024 |
+| markup (test-only edits) | 8,008 | 8,008 | 8,192 |
+| focus (source untouched) | 3,925 | 3,925 | 4,096 |
+| core+web | 20,561 | 20,561 | 20,561 |
+| data (source untouched) | 8,025 | 8,025 | must not grow |
+| bind (source untouched) | 2,034 | 2,034 | must not grow |
+| components (source untouched) | 4,053 | 4,053 | must not grow |
+| full-featured | 115,192 | 115,229 | 131,072 |
+| all renderer classes | 120,697 | 120,735 | 256,000 |
 
-The companion imports a11y, so its manifest measures the incremental dependency
-layer with `over: 'a11y'`, as paint-sampling/paint and host/host-values do. The base
-still fails even with this accounting. No budget, measurement tool, protected input,
-finding, benchmark record or parity status was changed. The split adds 192 B to the
-full-featured total; it is an ownership seam, not a claimed net byte reduction.
+Measured rounds: baseline 1,983/836; ordering + late-registration + hint gating
+1,961/839; action edges 1,961/820; simple group union 2,038/826. Adding just basic
+centered-stroke padding to the latter measured **2,104/826**: base exceeded its
+fixed budget by **56 B**. This probe did not yet handle exact cubic extrema,
+miter joins or fixed strokes. It was reverted; no further behavior expansion was
+made. No budgets/tools/measurement inputs/benchmark records/findings were changed,
+and no third runtime module was added. Current base headroom is 10 B.
 
-## Verification
+The canonical ticket listed components at 4,051 B, but this untouched checkout
+measured 4,053 B both before and after. The absolute 4,051 B guard is already
+exceeded by 2 B at HEAD; this change introduces no additional growth. The data and
+bind starting measurements also differ slightly from the canonical numbers.
 
-Final focused scope: 966 pass, 445 skipped/filtered, 1 TODO, zero failures.
-Static-only load smoke check passes; action/diff methods are absent as intended.
-Typecheck (all nine projects), targeted ESLint/Prettier, generated wiring, schema,
-480 active AniML builds and 36 browser entries pass. Strict oracle exits 0:
-253 cases / 449 samples, zero failing completed samples; 24 existing finding /
-intentional-difference records retained. No new native comparison is claimed.
-`node tools/size.ts` exits 1 solely for a11y (3,002 > 2,048 B); other gates pass.
-The first split measured 2,993 B, but review caught slider metadata being exposed
-while disabled. Restoring prototype behavior produced the final 3,002 B result.
-Separate-bundle browser registration and late-registration invalidation remain
-unverified; shared registry ownership is implemented but not a completion claim.
+There is no exported runtime painted/path-extrema bounds helper. The private
+`packages/cli/src/glyphs.ts` helper is tooling code; importing it would cross the
+pure runtime/tooling seam. A shared extraction would require orchestrator ownership
+and a fresh size round. This work reused `drawFrame`, `world`, `visible`, matrix
+helpers, parse/flatten, `clamp` and the existing tree/cache registry seam.
 
-`node tools/perf.ts` exits 0: bell compile 7.32 ms, 9,040 prefixes 2,119 ms,
-bell frame 136.1 µs, composite 86.3 µs, toolbar frame 105.4 µs, toolbar compile
-12.51 ms. Shared load remained elevated (~16–31 during checks); these are not quiet
-paired measurements. The ≤3% regression target remains **unverified**.
+## Evidence and verification
 
-First broad changed scope: 7,390 pass / 3 fail / 45 TODO, 223 files pass /
-2 fail / 13 skipped, in 599.06 seconds. A genuine third failure was the companion
-reading the a11y seam before the base arrived. Init now defers until that peer is
-registered, retaining arbitrary registration order. This adds 7 B to the companion
-(821 → 828 B). The first order recheck timed out at the unchanged 30-second limit
-under concurrent checks and load ~23. With those checks finished, the isolated
-order test passes all 12 permutations in 21.04 seconds (1 test / 1 file). This
-subsequent timeout is classified as contention-only on that evidence; the initial
-TypeError was real and fixed.
+- `test/core/semantics.test.ts`: unchanged shared fixture, cached reads, checkbox/
+  slider actions, basic ancestor retarget, diffs, root semantics and filtered
+  `semantics mute` inspection.
+- `test/core/edges.test.ts`: late companion registration after a cached static
+  read (isolated process), real read-only list-length data binding, semantic
+  readonly, two queued data taps, nested/repeated ordering and count shrink.
+- `test/core/a11y-tree-bounds.test.ts`: independently calculated translated group
+  union/override/empty point, negative box diagnostics in JSON and AniML.
+- `spec/conformance/a11y-tree-bounds`: independent numeric bounds expectations.
+- `spec/conformance/a11y-tree-visibility`: ordered nested/repeat ids before and
+  after shrink/hide, observed through `snapshot --semantics`.
+- `spec/conformance/a11y-action-edges`: readonly descriptions/actions, data edits
+  and rejected readonly dispatch, observed through semantic snapshots.
+- `examples/painted-groups.animl` + `.ani`, existing contract example, capability
+  bounds example pair; registry spellings remain in `core/registry.ts`.
+- `oracle/roles/` + `test/core/oracle.test.ts`: authored native RML and raw
+  captures, 16 roles × 3 snapshots = **48 projected nodes**, exact roles/labels/
+  bounds and seven state projections (bounds maximum difference 0). Initial
+  state-entry focus on button, idempotent target, then next to checkbox. State
+  projections include mixed, toggled/pressed, selected, expanded and readonly.
+  This is module-owned because the frozen central oracle has no semantic-tree
+  comparison adapter. Native dumps have no action list; no native tap/increase/
+  decrease equivalence is claimed. No existing finding was edited.
 
-Final frozen-source changed scope passes: **7,393 pass / 0 fail / 45 TODO**,
-225 files pass / 13 skipped, in 524.66 seconds. This resolves all three first-run
-failures. No first-run failure is waived; no failing test or expectation was removed.
+Frozen-source verification:
 
-Two standalone-demo assertions initially ran before browser artifacts were ready. After rebuilding,
-both Chromium/Firefox tests pass alone (2 pass / 72 filtered); these are artifact
-ordering failures, not classified as load-only. No timeout or expectation changed.
-Initial focused a11y/a11y-actions scope: 966 pass, 445 skipped/filtered, 1 existing
-TODO, zero failures. Core tsc and targeted ESLint pass. The scope tool rejects
-`--maxWorkers=2`; verification uses supported Vitest `VITEST_MAX_WORKERS=2` without
-changing configuration, timeouts or tests.
+| Command | Result |
+|---|---|
+| `VITEST_MAX_WORKERS=2 npm run test:scope -- a11y a11y-actions focus conformance oracle` | 1,847 pass / 0 fail / 33 TODO; 12 files pass / 1 skip; both focus browser engines |
+| `VITEST_MAX_WORKERS=1 npm run test:scope -- changed` | **7,530 pass / 0 fail / 45 TODO**; 230 files pass / 13 skip; 1,300.78 s |
+| `VITEST_MAX_WORKERS=2 npm run test:scope -- markup --no-browser` | 2,463 pass / 0 fail; 15 files |
+| isolated browser rechecks, one worker | 24 pass / 0 fail / 96 filtered; 3 files |
+| `node tools/oracle.ts --strict` | exit 0; existing 253 cases / 449 samples / 0 failed completed samples; findings retained |
+| `node tools/size.ts` | exit 0; every tool-enforced budget passes; canonical components discrepancy documented above |
+| `node tools/perf.ts` | exit 0; shared-load measurements only |
+| `npm run typecheck` + final `tsc -p packages/markup/test` | exit 0; all nine projects, followed by the amended independent-reader check |
+| targeted ESLint / Prettier | exit 0 |
+| `node tools/modules.ts --check` / `node tools/parity.ts --check` | exit 0; no stale wiring/views |
+| AniML / browser artifact `--check` | exit 0 after explicit rebuild; 488 AniML sources / 38 browser entries |
 
-## Closure evidence and remaining rows
+Evidence: `verification/p3b7/`. No failing test/expectation was removed and no
+limit changed. The 45 TODOs remain pending; no row is promoted because a scope passes.
 
-**No row is closure-ready:** the required size gate fails. Every row listed in the
-historical report stays planned and open. Prototype-only evidence remains
-`test/core/semantics.test.ts` (tree contract/actions/diffs/focus),
-`test/core/diagnostics.test.ts`, `test/cli/sample.test.ts`, and the AniML/ANI contract
-example. It does not meet the complete capability definition of done.
+## Per-row closure evidence
 
-Unchanged pending work: group painted bounds and path/stroke extrema, nested/repeated
-order and dotted focus, transparent modal scope, semantic traversal restrictions,
-ancestor machine conditions, read-dependency and structural invalidation, read-only
-data action edges, complete traits/defaults/Solo, filtered snapshots, and all required
-independent conformance and logical-tree native captures. Late registration after a
-cached static read also needs coverage before declaring the seam complete. The
-native CLI was not invoked during this checkpoint; its headless capability remains
-as documented by P3b-1, not a reason to skip logical-tree oracles.
+Each entry below remains **open/planned**. Evidence is scoped, not a completion
+claim. The complete definition of done (including independent conformance/native
+coverage) is not yet satisfied for any newly touched row.
 
-All DOM rows remain wave 2 as requested, including live-region/low-level semantics
-DOM integration. Stop reason is the user-requested post-split guard, before feature
-expansion; no enlarged or third module was introduced.
+| Row | Current evidence | Remaining reason |
+|---|---|---|
+| `a11y.ancestor-focus` | `test/core/semantics.test.ts`; existing focus unit tests; `oracle/roles` target/next projection | Dotted repeat focus, traversal restrictions, ancestor conditions and full native focus policies pending. |
+| `a11y.check-checked` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts`; `oracle/roles` matching checked/mixed/toggled/selected/expanded states | Complete before/after state-action conformance/native captures pending. |
+| `a11y.check-mixed` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts`; `oracle/roles` matching checked/mixed/toggled/selected/expanded states | Complete before/after state-action conformance/native captures pending. |
+| `a11y.check-unchecked` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts`; `oracle/roles` matching checked/mixed/toggled/selected/expanded states | Complete before/after state-action conformance/native captures pending. |
+| `a11y.focus-action-target` | `test/core/semantics.test.ts`; existing focus unit tests; `oracle/roles` target/next projection | Dotted repeat focus, traversal restrictions, ancestor conditions and full native focus policies pending. |
+| `a11y.focus-action-traversal` | `test/core/semantics.test.ts`; existing focus unit tests; `oracle/roles` target/next projection | Dotted repeat focus, traversal restrictions, ancestor conditions and full native focus policies pending. |
+| `a11y.focus-condition` | `test/core/semantics.test.ts`; existing focus unit tests; `oracle/roles` target/next projection | Dotted repeat focus, traversal restrictions, ancestor conditions and full native focus policies pending. |
+| `a11y.focus-retarget` | `test/core/semantics.test.ts`; existing focus unit tests; `oracle/roles` target/next projection | Dotted repeat focus, traversal restrictions, ancestor conditions and full native focus policies pending. |
+| `a11y.headless-inspection` | `semantics.test.ts`; `test/cli/sample.test.ts`; semantic conformance snapshots | Complete filtered-output conformance and native command/action coverage pending. |
+| `a11y.property-heading-level` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts` | Complete dynamic-property/heading conformance and native captures pending. |
+| `a11y.property-hint` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts` | Complete dynamic-property/heading conformance and native captures pending. |
+| `a11y.property-label` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts` | Complete dynamic-property/heading conformance and native captures pending. |
+| `a11y.property-value` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts` | Complete dynamic-property/heading conformance and native captures pending. |
+| `a11y.role-alert-dialog` | Registry/diagnostics; `test/core/oracle.test.ts`, `oracle/roles` for the 16 captured roles | Role-specific conformance/actions/defaults incomplete; none/heading native probes pending. |
+| `a11y.role-checkbox` | Registry/diagnostics; `test/core/oracle.test.ts`, `oracle/roles` for the 16 captured roles | Role-specific conformance/actions/defaults incomplete; none/heading native probes pending. |
+| `a11y.role-dialog` | Registry/diagnostics; `test/core/oracle.test.ts`, `oracle/roles` for the 16 captured roles | Role-specific conformance/actions/defaults incomplete; none/heading native probes pending. |
+| `a11y.role-group` | Registry/diagnostics; `test/core/oracle.test.ts`, `oracle/roles` for the 16 captured roles | Role-specific conformance/actions/defaults incomplete; none/heading native probes pending. |
+| `a11y.role-link` | Registry/diagnostics; `test/core/oracle.test.ts`, `oracle/roles` for the 16 captured roles | Role-specific conformance/actions/defaults incomplete; none/heading native probes pending. |
+| `a11y.role-list` | Registry/diagnostics; `test/core/oracle.test.ts`, `oracle/roles` for the 16 captured roles | Role-specific conformance/actions/defaults incomplete; none/heading native probes pending. |
+| `a11y.role-list-item` | Registry/diagnostics; `test/core/oracle.test.ts`, `oracle/roles` for the 16 captured roles | Role-specific conformance/actions/defaults incomplete; none/heading native probes pending. |
+| `a11y.role-none` | Registry/diagnostics; `test/core/oracle.test.ts`, `oracle/roles` for the 16 captured roles | Role-specific conformance/actions/defaults incomplete; none/heading native probes pending. |
+| `a11y.role-radio-button` | Registry/diagnostics; `test/core/oracle.test.ts`, `oracle/roles` for the 16 captured roles | Role-specific conformance/actions/defaults incomplete; none/heading native probes pending. |
+| `a11y.role-radio-group` | Registry/diagnostics; `test/core/oracle.test.ts`, `oracle/roles` for the 16 captured roles | Role-specific conformance/actions/defaults incomplete; none/heading native probes pending. |
+| `a11y.role-slider` | Registry/diagnostics; `test/core/oracle.test.ts`, `oracle/roles` for the 16 captured roles | Role-specific conformance/actions/defaults incomplete; none/heading native probes pending. |
+| `a11y.role-tab` | Registry/diagnostics; `test/core/oracle.test.ts`, `oracle/roles` for the 16 captured roles | Role-specific conformance/actions/defaults incomplete; none/heading native probes pending. |
+| `a11y.role-tab-list` | Registry/diagnostics; `test/core/oracle.test.ts`, `oracle/roles` for the 16 captured roles | Role-specific conformance/actions/defaults incomplete; none/heading native probes pending. |
+| `a11y.role-text` | Registry/diagnostics; `test/core/oracle.test.ts`, `oracle/roles` for the 16 captured roles | Role-specific conformance/actions/defaults incomplete; none/heading native probes pending. |
+| `a11y.semantic-diffs` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts` | Structural/reorder and native diff evidence pending. |
+| `a11y.spatial-focus` | `test/core/semantics.test.ts`; existing focus unit tests; `oracle/roles` target/next projection | Dotted repeat focus, traversal restrictions, ancestor conditions and full native focus policies pending. |
+| `a11y.state-disabled` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts` | Dedicated conformance/default/native coverage pending. |
+| `a11y.state-expanded` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts`; `oracle/roles` matching checked/mixed/toggled/selected/expanded states | Complete before/after state-action conformance/native captures pending. |
+| `a11y.state-focused` | `test/core/semantics.test.ts`; existing focus unit tests; `oracle/roles` target/next projection | Dotted repeat focus, traversal restrictions, ancestor conditions and full native focus policies pending. |
+| `a11y.state-hidden` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts` | Dedicated conformance/default/native coverage pending. |
+| `a11y.state-live-region` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts` | Core native/conformance evidence incomplete; DOM half belongs to P3b-8. |
+| `a11y.state-modal` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts` | Dedicated conformance/default/native coverage pending. |
+| `a11y.state-read-only` | `semantics.test.ts`, `edges.test.ts`; conformance `a11y-action-edges` | Native tap/range actions; repeated range writes and narrower-clamp no-op reporting pending. |
+| `a11y.state-required` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts` | Dedicated conformance/default/native coverage pending. |
+| `a11y.state-selected` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts`; `oracle/roles` matching checked/mixed/toggled/selected/expanded states | Complete before/after state-action conformance/native captures pending. |
+| `a11y.state-toggled` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts`; `oracle/roles` matching checked/mixed/toggled/selected/expanded states | Complete before/after state-action conformance/native captures pending. |
+| `a11y.tab-focus` | `test/core/semantics.test.ts`; existing focus unit tests; `oracle/roles` target/next projection | Dotted repeat focus, traversal restrictions, ancestor conditions and full native focus policies pending. |
+| `a11y.trait-checkable` | `SPEC.md` traits/defaults; fixture; native role/state projection | Complete role/trait/default/action matrix and independent conformance pending. |
+| `a11y.trait-enablable` | `SPEC.md` traits/defaults; fixture; native role/state projection | Complete role/trait/default/action matrix and independent conformance pending. |
+| `a11y.trait-expandable` | `SPEC.md` traits/defaults; fixture; native role/state projection | Complete role/trait/default/action matrix and independent conformance pending. |
+| `a11y.trait-focusable` | `test/core/semantics.test.ts`; existing focus unit tests; `oracle/roles` target/next projection | Dotted repeat focus, traversal restrictions, ancestor conditions and full native focus policies pending. |
+| `a11y.trait-requirable` | `SPEC.md` traits/defaults; fixture; native role/state projection | Complete role/trait/default/action matrix and independent conformance pending. |
+| `a11y.trait-selectable` | `SPEC.md` traits/defaults; fixture; native role/state projection | Complete role/trait/default/action matrix and independent conformance pending. |
+| `a11y.trait-toggleable` | `SPEC.md` traits/defaults; fixture; native role/state projection | Complete role/trait/default/action matrix and independent conformance pending. |
+| `a11y.tree-bounds` | `a11y-tree-bounds.test.ts`; conformance `a11y-tree-bounds`; paired example | Exact path/stroke/native bounds pending; centered-stroke probe exceeds budget. |
+| `a11y.tree-visibility` | `edges.test.ts`; conformance `a11y-tree-visibility` | Solo/native visibility and full semantic traversal/modal evidence pending. |
+| `host-api.low-level-semantics` | `test/core/semantics.test.ts`; registry and `diagnostics.test.ts` | Core native/conformance evidence incomplete; DOM half belongs to P3b-8. |
+| `input.semantic-decrease` | `semantics.test.ts`, `edges.test.ts`; conformance `a11y-action-edges` | Native tap/range actions; repeated range writes and narrower-clamp no-op reporting pending. |
+| `input.semantic-increase` | `semantics.test.ts`, `edges.test.ts`; conformance `a11y-action-edges` | Native tap/range actions; repeated range writes and narrower-clamp no-op reporting pending. |
+| `input.semantic-tap` | `semantics.test.ts`, `edges.test.ts`; conformance `a11y-action-edges` | Native tap/range actions; repeated range writes and narrower-clamp no-op reporting pending. |
+| `tooling.headless-semantic-actions` | `semantics.test.ts`, `edges.test.ts`; conformance `a11y-action-edges` | Native tap/range actions; repeated range writes and narrower-clamp no-op reporting pending. |
+| `tooling.headless-semantics` | `semantics.test.ts`; `test/cli/sample.test.ts`; semantic conformance snapshots | Complete filtered-output conformance and native command/action coverage pending. |
 
----
+## Remaining implementation and deviations
 
-# P3b-1 partial checkpoint — blocked by the 2 KB budget
+- Exact curve/stroke bounds; painted group unions independent of child semantic
+  overrides; clipping/paint extents and Solo visibility remain partial.
+- Nested/repeated dotted focus and traversal ordering, semantic disabled/hidden/modal
+  traversal restrictions, transparent modal scope evidence, focus retarget edge cases,
+  ancestor machine focus conditions and structural diffs need completion.
+- Collection still computes entries/geometry/signatures on reads; dependency-driven
+  invalidation is not implemented. A replacement owner with identical resolved
+  signature may retain old action entries. Late first action registration is fixed;
+  late focus registration on an already compiled model remains open.
+- Bool taps compose correctly; multiple queued range increments still read the same
+  committed value, and a narrower input clamp may make a reported edit a no-op.
+- Native actions and the remaining state/focus/property cases are not complete.
+  `tests/oracle/a11y-tree-bounds/todo.json` stays pending. No skip claims that the
+  local CLI cannot dump semantics.
+- P3b-8 owns overlay/policy/focus-sync/roving/host DOM rows and DOM halves of live
+  region and low-level semantics. This ticket did not touch `a11y-dom` or focus core.
+- Shared corpus census changed 440→443 solely for the three active conformance
+  probes. Its independent decompile reader now decodes node semantic children;
+  those test-only changes are necessary to validate the new corpus documents. Adapters/tables were regenerated; no generated file was hand-edited.
+- Design not completed because the user required a stop at the measured fixed
+  budget. The core/action seam remains as decided. Research rationale remains
+  `docs/research/rive-format-and-graph.md` (registry ownership),
+  `rive-animation-and-state.md` (queued actions), and `rive-web-runtime.md`
+  (core semantics versus platform overlay). No external algorithm was ported.
 
-Status: partial. Do not merge as a completed capability. Branch `t3/p3b-a11y-module`.
-No parity statuses changed. No push or PR was made.
+## Failures and limits
 
-## Delivered prototype
+The initial size run failed because dependencies were absent; `npm ci` restored
+local tooling. First new unit tests had three authoring/expectation mistakes
+(`register` versus `registerModule`, `<use>` versus `<instance>`, and omitted eligible
+focus actions on readonly controls); all are corrected, and the rerun passed.
+The first native attempt had no state machine and used unsupported command-file
+`focus`; the second had inert keys without initial focus. An explicit entry-state
+focus target and typed key listeners fixed the capture. Earlier failed sessions are
+saved in verification, never counted as passing. The audit helper initially hit
+Node's default stdout buffer while reading the inventory; a 4 MiB buffer fixed
+the read-only audit. Native reference JSON whitespace was formatted without
+changing values; no existing references or findings changed.
 
-Registry-driven node authoring, authoring validation, a pure semantic-tree/diff/action
-prototype, exported TypeScript types, a checked JSON tree fixture, queued headless
-actions, semantic inspection, and `sample --semantics`. Root document semantics retain
-their schema, parser and canonical spelling. The web entry only registers the module
-and structural markup; no overlay exists. Runtime remains dependency-free.
+`node tools/perf.ts` exits 0: bell compile 6.53 ms, prefix sweep 1,740 ms;
+bell/composite/toolbar frames 102.8/70.3/80.3 µs; toolbar compile 11.08 ms.
+These are shared-load measurements, not paired quiet evidence for the ≤3% target.
+Pages without a11y have unchanged runtime sources and the same core+web bytes;
+strict performance non-regression remains unverified. No push/PR/publication.
 
-See `SPEC.md` for the draft contract and explicit implementation gaps. Test coverage
-is limited to basic checkbox/slider/group semantics, explicit bounds, focus/ancestor
-retargeting, headless inspection, diagnostics and unchanged root parsing.
 
-## Stop condition
-
-The first registration bundle measured 3,624 B incremental versus 2,048 B allowed.
-Implementation expansion stopped immediately at that guard. The later size command
-reports 3,623 B. No budget was changed and no artificial measurement entry was used
-for the final result. No runtime optimization/split was attempted after the stop.
-A separate budgeted implementation split needs design work; this prototype does not
-satisfy the capability definition of done.
-
-## Measurements (min+gzip B)
-
-| Entry | Recorded before | After |
-|---|---:|---:|
-| core+web | 20,362 | 20,369 (+7 B) |
-| a11y registration (core + markup registration stub) | absent | 3,623 / 2,048 FAIL |
-| markup | 7,949 | 8,015 |
-| markup-paint | 390 | 389 |
-| paint | 4,632 | 4,627 |
-| focus (source unchanged) | 3,877 | 3,916 |
-| data (source unchanged) | 8,039 | 8,032 |
-| bind (source unchanged) | 2,038 | 2,038 |
-| components (source unchanged) | 4,054 | 4,047 |
-| full-featured | 111,725 | 114,392 |
-
-The supplied canonical baseline is full 111,723, data 8,034 and components 4,051.
-The recorded starting measurement completed during the initial module-name seam
-edit; its small differences from that frozen baseline are not a claimed module-size
-regression. All final protected deltas also meet the canonical numbers. The core
-name-rule seam costs +7 B relative to the supplied base, within the +40 B allowance.
-The full use-case ceiling passes; the a11y module budget fails.
-
-`node tools/perf.ts` completed both times. Starting: bell frame103.6µs,
-composite69.4µs, toolbar79.6µs, bell compile6.38ms, toolbar11.63ms.
-After: bell227.1µs, composite97.1µs, toolbar186.8µs, bell compile28.96ms,
-toolbar16.90ms. These runs are not controlled or equivalent-load measurements;
-`/proc/loadavg` reached 76.67 during shared-agent testing. The ≤3% no-regression
-requirement is UNVERIFIED. No work was done in the base step/draw hot path.
-
-## Verification
-
-- `npm run test:scope -- a11y --no-browser`: 963 pass, 445 filtered/skipped,
-  1 TODO; 0 failures (before the added CLI test and final example formatting).
-- First focused run: 946 pass / 4 failures / 55 TODO. Root canonical attribute
-  ordering, the explicit registry field list, and a mistaken test use of
-  decompile's string return were corrected; unused scaffold noise was removed.
-- `node tools/modules.ts --check`: pass, 0 stale.
-- `npm run gen`: generated the schema.
-- `node tools/build-animl.ts`: built 480 sources; pending probes remain pending.
-- `node tools/build-web.ts`: pass; generated browser artifacts rebuilt.
-- Targeted ESLint and Prettier: pass; no limits relaxed.
-- `node tools/size.ts`: FAIL, one module budget (a11y3623 >2048); every other
-  module and use-case ceiling passes.
-- `node tools/oracle.ts --strict`: exit0; existing253 cases /449 samples,
-  0 failing completed samples. Existing23 findings plus one intentional difference
-  remain separate. No comparison or finding record was edited.
-- Final `npm run typecheck`: pass across all nine projects.
-- Final `npm run test:scope -- a11y markup --no-browser`: 2,445 pass,
-  445 filtered/skipped, 1 TODO; 0 failures, including the new CLI test and corrected
-  root-held ordering assertion.
-- Full `changed` scope results are recorded in the final note below.
-
-## Deviations and remaining work
-
-`a11y` was rejected by both the runtime and scaffolder's letters-only name rule.
-The rule now permits digits after an initial lowercase letter. New shared-module
-name support is the only base-runtime seam. The generic structural markup reader
-now decodes bool-or-input unions, and the compiler preserves the existing root
-`a11y` form explicitly when compiling `/a11y`; its node form comes from the registry. Layout ordering merges the root attribute
-order into that shared form so the existing held attribute remains recognized.
-One dispatch plus an import hooks the tooling-only command handler into script.ts;
-CLI edits are limited to its sample path, flag declaration and usage.
-
-No focus-module source edits were made. Reusable focus evidence: `modules/focus/test/core/focus.test.ts`,
-`modules/focus/test/web/focus.test.ts`, and
-`spec/conformance/input-focus-{target,next,previous,left,right,up,down}`.
-Those rows are not newly closed: the earlier focus oracle notes say the CLI was
-unavailable, whereas this checkout can dump semantics; logical focus captures have
-not been renewed. Ancestor machine conditions and repeat focus are also incomplete. Native CLI `--help`, `docs semantics`, and `schema --search Semantic --json`
-confirm headless tree/action support; a skip claiming no headless support would be
-false. No native captures or new completed oracle cases were made before the stop.
-The one pending oracle/conformance scaffold stays marked TODO. No Rive documentation
-text, binary, generated build folder, watermark material, or source code was committed.
-
-Unfinished behavior: group painted bounds and path/stroke extrema, nested/repeated
-ordering and focus, transparent modal scopes, semantic restrictions in traversal,
-ancestor focus conditions, robust read-dependency invalidation, read-only data/action
-edge cases, trait/default completeness, Solo state, and filtered semantic snapshots.
-Conformance snapshots and independent logical-tree oracles are still required.
-
-All wave-2 rows remain untouched: a11y.web-overlay, a11y.overlay-policy,
-a11y.focus-sync, a11y.roving-focus; host-api.semantic-overlay,
-host-api.keyboard-focus, host-api.low-level-focus. Live announcements and the full
-host-api.low-level-semantics row also need wave-2 integration.
-
-## Rows left (none closed)
-
-Each row below remains planned because the module budget and complete evidence gate
-are unmet, even where its prototype or P4d counterpart exists:
-
-- `a11y.ancestor-focus`
-- `a11y.check-checked`
-- `a11y.check-mixed`
-- `a11y.check-unchecked`
-- `a11y.focus-action-target`
-- `a11y.focus-action-traversal`
-- `a11y.focus-condition`
-- `a11y.focus-retarget`
-- `a11y.headless-inspection`
-- `a11y.property-heading-level`
-- `a11y.property-hint`
-- `a11y.property-label`
-- `a11y.property-value`
-- `a11y.role-alert-dialog`
-- `a11y.role-checkbox`
-- `a11y.role-dialog`
-- `a11y.role-group`
-- `a11y.role-link`
-- `a11y.role-list`
-- `a11y.role-list-item`
-- `a11y.role-none`
-- `a11y.role-radio-button`
-- `a11y.role-radio-group`
-- `a11y.role-slider`
-- `a11y.role-tab`
-- `a11y.role-tab-list`
-- `a11y.role-text`
-- `a11y.semantic-diffs`
-- `a11y.spatial-focus`
-- `a11y.state-disabled`
-- `a11y.state-expanded`
-- `a11y.state-focused`
-- `a11y.state-hidden`
-- `a11y.state-live-region`
-- `a11y.state-modal`
-- `a11y.state-read-only`
-- `a11y.state-required`
-- `a11y.state-selected`
-- `a11y.state-toggled`
-- `a11y.tab-focus`
-- `a11y.trait-checkable`
-- `a11y.trait-enablable`
-- `a11y.trait-expandable`
-- `a11y.trait-focusable`
-- `a11y.trait-requirable`
-- `a11y.trait-selectable`
-- `a11y.trait-toggleable`
-- `a11y.tree-bounds`
-- `a11y.tree-visibility`
-- `host-api.low-level-semantics`
-- `input.semantic-decrease`
-- `input.semantic-increase`
-- `input.semantic-tap`
-- `tooling.headless-semantic-actions`
-- `tooling.headless-semantics`
-
-## Final verification note
-
-Final focused a11y + markup scope: 2,445 passed, 445 skipped/filtered, one TODO,
-zero failures. All project typechecks pass. The bell's unchanged root a11y round-trip
-was independently checked in `verification/root-roundtrip.txt`; the earlier missing
-root-held attribute-order expectation is fixed. Final wiring and AniML artifact
-checks pass. Lint/format pass. Final size: a11y3,623/2,048 FAIL, base20,369, full114,392;
-all other size budgets/ceilings pass. `npm run test:scope -- changed` exits1: 6,176 passed, 44 failed, 1,152
-skipped, 45 TODO; 204 files pass,20 fail,13 skip. The run includes the root-held
-assertion fixed afterward and verified by the final focused scope. Remaining failures
-include browser/hook timeouts, prefix/module-order/raster/authoring timeouts, a failed
-scaffolder test subprocess, and cleanup errors after timed-out setup. High shared
-load was observed, but causes are not proven for every failure; these failures remain
-unresolved, not waived. No full rerun was made after the small root layout fix.
+The first broad changed run was interrupted after finding two stale browser-cache
+assertions, one 5-second asset timeout, a 30-second markup-hook startup timeout,
+and three genuine independent-reader omissions. The artifacts were explicitly
+rebuilt (a `--check` prints “Built” but does not replace stale existing files), and
+the reader now decodes semantic children. The complete markup scope then passed
+2,463/2,463 tests; isolated browser rechecks passed 24/24 (96 filtered), including
+the unchanged asset test and all markup-hook cases. The timeout classification is
+supported by these isolated passes; no limits were raised. The fresh one-worker
+changed scope passed 7,530 tests with 45 pending TODOs and zero failures. First-run failure logs are retained.
