@@ -1,0 +1,7 @@
+<anima version="0.1" name="text-paragraph-spacing" grid="20" requires="text">
+  <text id="label" sizing="fixed" width="4" height="4" paragraph-spacing="1">
+    <style id="s" size="1"/>
+    <run id="first" text="ab
+cd" style="s"/>
+  </text>
+</anima>

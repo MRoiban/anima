@@ -1,0 +1,5 @@
+# text-rich-runs
+
+Implementation: modules/text/core/registry.ts and modules/text/SPEC.md.
+Evidence: spec/conformance/text-rich-runs/layout.expected.json, modules/text/test/core/conformance.test.ts.
+Generated-font tool layout is covered. Native comparison/integration remains open; this row is not closure-ready.

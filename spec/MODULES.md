@@ -386,3 +386,21 @@ delegates; a CanvasPattern supplies the style. Recursive offscreen draws save/re
 viewport, world matrices, mask-source visibility, diagnostic source and surface dimensions. Hooks never advance
 players. Source backend limitations identify the consuming paint field. Async images use the owning renderer's existing ready/invalidation lifecycle. This seam
 adds bytes only to canvas and optional source modules, not core+web.
+
+### Keyed resources and text backend seams (P6-1)
+
+Structural `ElementForm` descriptors may declare `root` (the document map key) and `mapKey` (the
+child attribute used as its resource name). A node target may likewise declare `mapKey`; the name
+is removed from the stored map value. An array target without a `wrapper` stores the child object
+directly. Text's dedicated authoring hook consumes these forms; its manifest generates the compiler
+slot and browser hook registration. Structural field names still derive from registry shapes.
+
+Static SVG `El.text` carries escaped character content. The optional text web entry installs its
+own DOM subtree updater through `orderSVG`, keeping the base browser renderer byte-identical.
+Canvas's optional `canvasShapes` hooks receive the transformed context, draw node and the existing
+brush resolver; returning true consumes the drawable. A hook restores any context changes it makes.
+These seams carry no font measurement or layout implementation into core + web.
+
+Chained `orderSVG` wrappers use configurable descriptors and retain the previous callback, as in
+the lists, component-paint and text entries. Direct assignment can invoke an existing backend
+setter and introduce a callback cycle. Browser integration tests cover both import orders.

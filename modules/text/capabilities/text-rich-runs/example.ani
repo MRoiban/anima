@@ -1,0 +1,34 @@
+{
+  "anima": "0.1",
+  "name": "text-rich-runs",
+  "grid": 20,
+  "requires": ["text"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "sizing": "fixed",
+      "width": 6,
+      "height": 4,
+      "styles": {
+        "s": {
+          "size": 1
+        },
+        "big": {
+          "size": 2
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "ab",
+          "style": "s"
+        },
+        {
+          "text": "cd",
+          "style": "big"
+        }
+      ]
+    }
+  ]
+}

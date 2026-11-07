@@ -2454,3 +2454,16 @@ were valid throughout and show no regression in P3b.
 - **Decisions logged as "owner may revisit":** the authoring add-on may grow (cap 15 360 B) when
   authoring code leaves runtime bundles; `paint-sampling` and `devtools` budgets re-measured; the
   four cross-document artboard rows deferred to P7; Rive not rerun when only Anima changed.
+
+## P6-1 — text implementation checkpoint (2026-11-07)
+
+Added optional text layout/rendering, registered authoring, browser measurement, data binding and
+named/nested host access. Integrated the unchanged P6-2 tool reader and original generated font:
+owned scope 3,783 pass/52 TODO, font26 pass, Chromium/Firefox text8 pass. Text 6,079/6,144 B;
+text-host367 B and markup-text529 B are separate entries; core+web byte-identical20,622 B and all six
+gates pass. Twenty-five native render probes retain unresolved raw differences; no parity row is
+closed. Broader optional-bundle byte identity, fonts consumer integration and controlled perf remain
+open. Final changed-scope evidence and deviations are in modules/text/REPORT.md.
+
+Final clean changed scope: 8,396 pass/65 TODO, both canvas engines. Fixed an orderSVG accessor
+cycle found by the full run; opposite backend import orders now have explicit regression tests.

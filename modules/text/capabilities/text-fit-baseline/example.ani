@@ -1,0 +1,30 @@
+{
+  "anima": "0.1",
+  "name": "text-fit-baseline",
+  "grid": 20,
+  "requires": ["text"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "sizing": "fixed",
+      "overflow": "fit-font-size",
+      "verticalTrimTop": "cap",
+      "fitFromBaseline": true,
+      "width": 4,
+      "height": 0.2,
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "abcd",
+          "style": "s"
+        }
+      ]
+    }
+  ]
+}

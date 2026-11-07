@@ -41,6 +41,9 @@ export const webEntries = [
   'nested',
   'mix',
   'componentpaint',
+  'text',
+  'text-host',
+  'markup-text',
 ];
 export const webOwners: Record<string, string> = {
   assetio: 'assetio',
@@ -83,6 +86,9 @@ export const webOwners: Record<string, string> = {
   'markup-surface': 'surface',
   mix: 'mix',
   componentpaint: 'componentpaint',
+  text: 'text',
+  'text-host': 'text',
+  'markup-text': 'text',
 };
 export const moduleBudgets: {
   name: string;
@@ -161,6 +167,9 @@ export const moduleBudgets: {
   { name: 'nested', budget: 5056 },
   { name: 'mix', budget: 1856 },
   { name: 'componentpaint', budget: 2176 },
+  { name: 'text', budget: 6144 },
+  { name: 'text-host', budget: 1024, over: 'index' },
+  { name: 'markup-text', budget: 1024, over: 'markup', authoring: true },
 ];
 export const moduleScopes = {
   assetio: { tests: ['modules/assets/test/**/*.test.ts'], conformance: [] },
@@ -758,6 +767,46 @@ export const moduleScopes = {
       'packages/markup/test/names.test.ts',
     ],
     conformance: ['drawing-paint-paint-artboard'],
+  },
+  text: {
+    tests: [
+      'modules/text/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+      'packages/markup/test/compile.test.ts',
+      'packages/markup/test/decompile.test.ts',
+    ],
+    conformance: [
+      'text-wrap',
+      'data-bind-text',
+      'data-property-text-style',
+      'host-api-nested-text-run',
+      'host-api-text-run',
+      'text-fit-baseline',
+      'text-fit-layout-measure',
+      'text-font-size',
+      'text-horizontal-alignment',
+      'text-line-spacing',
+      'text-origin',
+      'text-overflow-clipped',
+      'text-overflow-ellipsis',
+      'text-overflow-fit',
+      'text-overflow-fit-font-size',
+      'text-overflow-hidden',
+      'text-overflow-visible',
+      'text-paint',
+      'text-paragraph-spacing',
+      'text-rich-runs',
+      'text-run-list',
+      'text-sizing-auto-height',
+      'text-sizing-auto-width',
+      'text-sizing-fixed',
+      'text-style-reference',
+      'text-tracking',
+      'text-vertical-alignment',
+      'text-vertical-trim',
+      'text-word-break',
+    ],
   },
   tooling: {
     tests: [

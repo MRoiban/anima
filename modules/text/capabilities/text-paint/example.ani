@@ -1,0 +1,30 @@
+{
+  "anima": "0.1",
+  "name": "text-paint",
+  "grid": 20,
+  "requires": ["text", "paint"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "sizing": "fixed",
+      "width": 4,
+      "height": 4,
+      "styles": {
+        "s": {
+          "size": 1,
+          "fill": {
+            "color": "#f00"
+          }
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "abcd",
+          "style": "s"
+        }
+      ]
+    }
+  ]
+}

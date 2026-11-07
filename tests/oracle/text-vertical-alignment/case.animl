@@ -1,0 +1,6 @@
+<anima version="0.1" name="text-vertical-alignment" grid="20" requires="text">
+  <text id="label" sizing="fixed" valign="middle" width="4" height="4">
+    <style id="s" size="1"/>
+    <run id="first" text="abcd" style="s"/>
+  </text>
+</anima>

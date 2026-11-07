@@ -1,0 +1,32 @@
+{
+  "anima": "0.1",
+  "name": "text-origin",
+  "grid": 20,
+  "requires": ["text"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "sizing": "fixed",
+      "valign": "middle",
+      "overflow": "fit",
+      "wrap": false,
+      "origin": "baseline",
+      "verticalTrimTop": "cap",
+      "width": 1.2,
+      "height": 4,
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "abcd",
+          "style": "s"
+        }
+      ]
+    }
+  ]
+}

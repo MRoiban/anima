@@ -58,6 +58,15 @@ export function decompile(doc: string | object): string {
     const el = element(n.type as string, n, ['id']);
     el.children.push(...(motionCompiler.channels?.(n) ?? []));
     for (const a of nodeAttrs(n.type as NodeType)) {
+      if (
+        typeof n[a.path[0]!] === 'object' &&
+        Object.values(ELEMENTS).some(
+          (f) =>
+            f.target?.default === a.path[0] &&
+            (f.target.mapKey || (f.target.array && !f.target.wrapper)),
+        )
+      )
+        continue;
       let v: unknown = n;
       for (const key of a.path) v = obj(v)[key];
       if (a.index !== undefined && v !== undefined) v = (v as unknown[])[a.index];
@@ -79,19 +88,29 @@ export function decompile(doc: string | object): string {
         else
           child.attrs.push([
             markupName(s, k),
-            s.k === 'alt' && !(s.of.some((v) => v.k === 'bool') && s.of.some((v) => v.k === 'str'))
-              ? JSON.stringify(data[k])
-              : value(data[k]),
+            ['fill', 'stroke'].includes(k) &&
+            s.k === 'obj' &&
+            Object.keys(obj(data[k])).length === 1
+              ? value(obj(data[k]).color)
+              : s.k === 'alt' &&
+                  !(s.of.some((v) => v.k === 'bool') && s.of.some((v) => v.k === 'str'))
+                ? JSON.stringify(data[k])
+                : value(data[k]),
           ]);
       }
       return child;
     };
     const arrays = new Set<string>();
-    for (const [name, form] of Object.entries(ELEMENTS)) {
+    const rank = (form: (typeof ELEMENTS)[string]) =>
+      form.target && (form.target.mapKey || (form.target.array && !form.target.wrapper))
+        ? Object.keys(n).indexOf(form.target.default)
+        : -1;
+    for (const [name, form] of Object.entries(ELEMENTS).sort((a, b) => rank(a[1]) - rank(b[1]))) {
       if (!form.target) continue;
       for (const key of form.target.choices) {
         if (n[key] === undefined) continue;
         if (form.target.array) {
+          if (!Array.isArray(n[key])) continue;
           if (arrays.has(key)) continue;
           arrays.add(key);
           for (const entry of n[key] as Obj[])
@@ -99,7 +118,13 @@ export function decompile(doc: string | object): string {
               if (!childForm.target?.array || !childForm.target.choices.includes(key)) continue;
               const data = entry[childForm.target.wrapper!];
               if (data) el.children.push(structural(childName, obj(data)));
+              else if (!childForm.target.wrapper) el.children.push(structural(childName, entry));
             }
+          continue;
+        }
+        if (form.target.mapKey) {
+          for (const [id, style] of entries(n[key]))
+            el.children.push(structural(name, { ...obj(style), [form.target.mapKey]: id }));
           continue;
         }
         const target = (form.target.path ?? []).reduce<unknown>((v, part) => obj(v)[part], n[key]);
@@ -123,7 +148,7 @@ export function decompile(doc: string | object): string {
     [['version', value(d.anima)], ...(dataCompiler.rootAttrs?.(d) ?? [])],
   );
   for (const f of elementFields('anima'))
-    if (d[f.key] !== undefined)
+    if (d[f.key] !== undefined && !Object.values(ELEMENTS).some((form) => form.root === f.key))
       root.attrs.push([
         f.attr,
         ['obj', 'map', 'arr', 'alt'].includes(f.shape.k)
@@ -204,6 +229,18 @@ export function decompile(doc: string | object): string {
       return el;
     }),
   );
+  for (const [name, form] of Object.entries(ELEMENTS))
+    if (form.root && form.mapKey)
+      groups.push(
+        entries(d[form.root]).map(([id, style]) => {
+          const o = { ...obj(style), [form.mapKey!]: id };
+          return element(
+            name,
+            o,
+            Object.keys(o).map((k) => k),
+          );
+        }),
+      );
   groups.push(((d.nodes ?? []) as Obj[]).map(node));
   groups.push(
     entries(d.timelines).map(([name, v]) => {
@@ -215,11 +252,7 @@ export function decompile(doc: string | object): string {
           text: (keys as unknown[][])
             .map((k) =>
               k
-                .map((v, i) =>
-                  i === 1 && (target.endsWith('.d') || target.includes('.channels.'))
-                    ? JSON.stringify(v)
-                    : value(v),
-                )
+                .map((v, i) => (i === 1 && typeof v === 'string' ? JSON.stringify(v) : value(v)))
                 .join(' '),
             )
             .join('\n'),
@@ -249,7 +282,7 @@ export function decompile(doc: string | object): string {
               [],
               entries(s.pose).map(([k, v]) => [
                 address(k),
-                k.includes('.channels.') && typeof v === 'string' ? JSON.stringify(v) : value(v),
+                typeof v === 'string' && !k.endsWith('.d') ? JSON.stringify(v) : value(v),
               ]),
             ),
           );

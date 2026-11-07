@@ -1,0 +1,6 @@
+<anima version="0.1" name="text-fit-baseline" grid="20" requires="text">
+  <text id="label" sizing="fixed" overflow="fit-font-size" fit-from-baseline="true" width="4" height="0.2">
+    <style id="s" size="1"/>
+    <run id="first" text="abcd" style="s"/>
+  </text>
+</anima>

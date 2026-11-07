@@ -2947,3 +2947,11 @@ The independent implementation follows the [OpenType specification](https://lear
 and [WOFF2 specification §5](https://www.w3.org/TR/WOFF2/#compressed-data-format), not another reader's
 source code. `docs/research/rive-format-and-graph.md` §1's bounded-reader pitfall informs the
 allocation limits; `docs/research/glyphy-compat.md` §1's grid-unit convention informs the tool boundary.
+
+## text
+
+The optional `text` module adds styled, data-bound text nodes, measured layout, SVG/canvas
+drawing and named host run access. Its normative fields, defaults, validation, measurement
+contract, fit/overflow algorithms and verification limits are specified in
+[modules/text/SPEC.md](../modules/text/SPEC.md). Registry entries derive JSON Schema, CLI schema
+and AniML spellings from the same vocabulary. P6 parity remains planned pending native evidence.

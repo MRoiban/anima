@@ -1,0 +1,3 @@
+name: oracle-text-font-size
+logs:
+  file: build/runtime.log

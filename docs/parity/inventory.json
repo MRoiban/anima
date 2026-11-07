@@ -5441,10 +5441,10 @@
       "rive-runtime/include/rive/generated/data_bind/data_bind_context_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "TODO: modules/data/capabilities/data-bind-text/registry.ts; spec/SPEC.md (Bind text runs); modules/data/capabilities/data-bind-text/example.animl",
-      "module": "data",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/data-bind-text/example.animl",
+      "module": "text",
       "status": "planned",
-      "test": "TODO: modules/data/test/core/data-bind-text.test.ts; spec/conformance/data-bind-text; tests/oracle/data-bind-text",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/data-bind-text; native oracle pending (tests/oracle/data-bind-text)",
       "phase": "P6"
     },
     "aliases": [
@@ -9101,10 +9101,10 @@
       "rive schema ViewModelInstanceTextStyle --all --json"
     ],
     "anima": {
-      "construct": "TODO: modules/data/capabilities/data-property-text-style/registry.ts; spec/SPEC.md (Text style property); modules/data/capabilities/data-property-text-style/example.animl",
-      "module": "data",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/data-property-text-style/example.animl",
+      "module": "text",
       "status": "planned",
-      "test": "TODO: modules/data/test/core/data-property-text-style.test.ts; spec/conformance/data-property-text-style; tests/oracle/data-property-text-style",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/data-property-text-style; native oracle pending (tests/oracle/data-property-text-style)",
       "phase": "P6"
     }
   },
@@ -17858,10 +17858,10 @@
       "rive-wasm/js/src/rive.ts:4607@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: path-based text value access",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/host-api-nested-text-run/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "browser/nested-text-run",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/host-api-nested-text-run; native oracle pending (tests/oracle/host-api-nested-text-run)",
       "phase": "P6"
     }
   },
@@ -18505,10 +18505,10 @@
       "rive-wasm/js/src/rive.ts:4086@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: named text run access",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/host-api-text-run/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "browser/text-run",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/host-api-text-run; native oracle pending (tests/oracle/host-api-text-run)",
       "phase": "P6"
     }
   },
@@ -29419,10 +29419,10 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: baseline-aware fitting with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-fit-baseline/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-fit-baseline",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-fit-baseline; native oracle pending (tests/oracle/text-fit-baseline)",
       "phase": "P6"
     }
   },
@@ -29447,10 +29447,10 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: fitted text layout measurement with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-fit-layout-measure/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-fit-layout-measure",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-fit-layout-measure; native oracle pending (tests/oracle/text-fit-layout-measure)",
       "phase": "P6"
     }
   },
@@ -29611,10 +29611,10 @@
       "rive-runtime/include/rive/generated/text/text_style_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: font sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-font-size/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-font-size",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-font-size; native oracle pending (tests/oracle/text-font-size)",
       "phase": "P6"
     }
   },
@@ -29641,10 +29641,10 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: horizontal text alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-horizontal-alignment/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-horizontal-alignment",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-horizontal-alignment; native oracle pending (tests/oracle/text-horizontal-alignment)",
       "phase": "P6"
     }
   },
@@ -29993,10 +29993,10 @@
       "rive-runtime/include/rive/generated/text/text_style_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: line spacing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-line-spacing/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-line-spacing",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-line-spacing; native oracle pending (tests/oracle/text-line-spacing)",
       "phase": "P6"
     }
   },
@@ -30263,10 +30263,10 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: text origin and baseline with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-origin/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-origin",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-origin; native oracle pending (tests/oracle/text-origin)",
       "phase": "P6"
     }
   },
@@ -30292,10 +30292,10 @@
       "https://rive.app/docs/editor/text/text-overview"
     ],
     "anima": {
-      "construct": "new: text overflow: clipped with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-clipped/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-overflow-clipped",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-clipped; native oracle pending (tests/oracle/text-overflow-clipped)",
       "phase": "P6"
     }
   },
@@ -30321,10 +30321,10 @@
       "https://rive.app/docs/editor/text/text-overview"
     ],
     "anima": {
-      "construct": "new: text overflow: ellipsis with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-ellipsis/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-overflow-ellipsis",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-ellipsis; native oracle pending (tests/oracle/text-overflow-ellipsis)",
       "phase": "P6"
     }
   },
@@ -30350,10 +30350,10 @@
       "https://rive.app/docs/editor/text/text-overview"
     ],
     "anima": {
-      "construct": "new: text overflow: fit with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-fit/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-overflow-fit",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-fit; native oracle pending (tests/oracle/text-overflow-fit)",
       "phase": "P6"
     }
   },
@@ -30379,10 +30379,10 @@
       "https://rive.app/docs/editor/text/text-overview"
     ],
     "anima": {
-      "construct": "new: text overflow: fit-font-size with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-fit-font-size/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-overflow-fit-font-size",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-fit-font-size; native oracle pending (tests/oracle/text-overflow-fit-font-size)",
       "phase": "P6"
     }
   },
@@ -30408,10 +30408,10 @@
       "https://rive.app/docs/editor/text/text-overview"
     ],
     "anima": {
-      "construct": "new: text overflow: hidden with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-hidden/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-overflow-hidden",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-hidden; native oracle pending (tests/oracle/text-overflow-hidden)",
       "phase": "P6"
     }
   },
@@ -30437,10 +30437,10 @@
       "https://rive.app/docs/editor/text/text-overview"
     ],
     "anima": {
-      "construct": "new: text overflow: visible with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-overflow-visible/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-overflow-visible",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-visible; native oracle pending (tests/oracle/text-overflow-visible)",
       "phase": "P6"
     }
   },
@@ -30469,10 +30469,10 @@
       "rive-runtime/include/rive/generated/shapes/paint/stroke_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: glyph fill and stroke with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-paint/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-paint",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-paint; native oracle pending (tests/oracle/text-paint)",
       "phase": "P6"
     }
   },
@@ -30497,10 +30497,10 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: paragraph spacing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-paragraph-spacing/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-paragraph-spacing",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-paragraph-spacing; native oracle pending (tests/oracle/text-paragraph-spacing)",
       "phase": "P6"
     }
   },
@@ -30677,10 +30677,10 @@
       "rive-runtime/include/rive/generated/text/text_value_run_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: rich text runs with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-rich-runs/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-rich-runs",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-rich-runs; native oracle pending (tests/oracle/text-rich-runs)",
       "phase": "P6"
     }
   },
@@ -30705,10 +30705,10 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: data-driven run lists with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-run-list/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-run-list",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-run-list; native oracle pending (tests/oracle/text-run-list)",
       "phase": "P6"
     }
   },
@@ -30847,10 +30847,10 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: width-constrained text with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-sizing-auto-height/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-sizing-auto-height",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-sizing-auto-height; native oracle pending (tests/oracle/text-sizing-auto-height)",
       "phase": "P6"
     }
   },
@@ -30875,10 +30875,10 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: content-sized text with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-sizing-auto-width/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-sizing-auto-width",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-sizing-auto-width; native oracle pending (tests/oracle/text-sizing-auto-width)",
       "phase": "P6"
     }
   },
@@ -30905,10 +30905,10 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: fixed text box with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-sizing-fixed/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-sizing-fixed",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-sizing-fixed; native oracle pending (tests/oracle/text-sizing-fixed)",
       "phase": "P6"
     }
   },
@@ -30935,10 +30935,10 @@
       "rive schema ViewModelInstanceTextStyle --all --json (CLI 1.9.0)"
     ],
     "anima": {
-      "construct": "new: reusable global text styles with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-style-reference/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-style-reference",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-style-reference; native oracle pending (tests/oracle/text-style-reference)",
       "phase": "P6"
     }
   },
@@ -30963,10 +30963,10 @@
       "rive-runtime/include/rive/generated/text/text_style_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: letter spacing with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-tracking/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-tracking",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-tracking; native oracle pending (tests/oracle/text-tracking)",
       "phase": "P6"
     }
   },
@@ -31020,10 +31020,10 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: vertical text alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-vertical-alignment/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-vertical-alignment",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-vertical-alignment; native oracle pending (tests/oracle/text-vertical-alignment)",
       "phase": "P6"
     }
   },
@@ -31049,10 +31049,10 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: metric-based vertical trimming with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-vertical-trim/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-vertical-trim",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-vertical-trim; native oracle pending (tests/oracle/text-vertical-trim)",
       "phase": "P6"
     }
   },
@@ -31077,10 +31077,10 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: word breaking with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-word-break/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-word-break",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-word-break; native oracle pending (tests/oracle/text-word-break)",
       "phase": "P6"
     }
   },
@@ -31105,10 +31105,10 @@
       "rive-runtime/include/rive/generated/text/text_base.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: line wrapping with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-wrap/example.animl",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-wrap",
+      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-wrap; native oracle pending (tests/oracle/text-wrap)",
       "phase": "P6"
     }
   },

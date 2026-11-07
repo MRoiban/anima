@@ -1,0 +1,905 @@
+
+> test:scope
+> node tools/test-scope.ts text conformance oracle --no-browser
+
+Scopes: text, conformance, oracle
+  unit: modules/text/test/cli/text.test.ts
+  unit: modules/text/test/core/conformance.test.ts
+  unit: modules/text/test/core/diagnostics.test.ts
+  unit: modules/text/test/core/layout.test.ts
+  unit: modules/text/test/markup/authoring.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-657cf026
+
+ ❯ |scope-unit| modules/text/test/markup/authoring.test.ts (5 tests | 2 failed) 143ms
+   × replaces named component runs without changing the sibling or source model 22ms
+   × animates style size and run strings through ordinary slots 20ms
+ ❯ |scope-unit| packages/markup/test/corpus.test.ts (1125 tests | 30 failed) 2155ms
+   ❯ authored AniML corpus (1125)
+     × includes the bell example and all conformance sources 45ms
+     × spec/conformance/data-bind-text/case.animl is canonically formatted 5ms
+     × spec/conformance/data-property-text-style/case.animl is canonically formatted 2ms
+     × spec/conformance/host-api-nested-text-run/case.animl is canonically formatted 1ms
+     × spec/conformance/host-api-text-run/case.animl is canonically formatted 1ms
+     × spec/conformance/text-fit-baseline/case.animl is canonically formatted 2ms
+     × spec/conformance/text-fit-layout-measure/case.animl is canonically formatted 2ms
+     × spec/conformance/text-font-size/case.animl is canonically formatted 2ms
+     × spec/conformance/text-horizontal-alignment/case.animl is canonically formatted 2ms
+     × spec/conformance/text-line-spacing/case.animl is canonically formatted 2ms
+     × spec/conformance/text-origin/case.animl is canonically formatted 1ms
+     × spec/conformance/text-overflow-clipped/case.animl is canonically formatted 2ms
+     × spec/conformance/text-overflow-ellipsis/case.animl is canonically formatted 1ms
+     × spec/conformance/text-overflow-fit-font-size/case.animl is canonically formatted 1ms
+     × spec/conformance/text-overflow-fit/case.animl is canonically formatted 1ms
+     × spec/conformance/text-overflow-hidden/case.animl is canonically formatted 1ms
+     × spec/conformance/text-overflow-visible/case.animl is canonically formatted 1ms
+     × spec/conformance/text-paint/case.animl is canonically formatted 1ms
+     × spec/conformance/text-paragraph-spacing/case.animl is canonically formatted 1ms
+     × spec/conformance/text-rich-runs/case.animl is canonically formatted 1ms
+     × spec/conformance/text-run-list/case.animl is canonically formatted 1ms
+     × spec/conformance/text-sizing-auto-height/case.animl is canonically formatted 1ms
+     × spec/conformance/text-sizing-auto-width/case.animl is canonically formatted 1ms
+     × spec/conformance/text-sizing-fixed/case.animl is canonically formatted 1ms
+     × spec/conformance/text-style-reference/case.animl is canonically formatted 1ms
+     × spec/conformance/text-tracking/case.animl is canonically formatted 1ms
+     × spec/conformance/text-vertical-alignment/case.animl is canonically formatted 1ms
+     × spec/conformance/text-vertical-trim/case.animl is canonically formatted 1ms
+     × spec/conformance/text-word-break/case.animl is canonically formatted 1ms
+     × spec/conformance/text-wrap/case.animl is canonically formatted 2ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 32 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > includes the bell example and all conformance sources
+AssertionError: expected [ …(522) ] to have a length of 493 but got 522
+
+- Expected
++ Received
+
+- 493
++ 522
+
+ ❯ packages/markup/test/corpus.test.ts:35:19
+     33|     // [P3b-10a] spoken slider values, native headless keys and narrow…
+     34|     // [P3c-8] Painted-center spatial focus and ancestor exclusion.
+     35|     expect(cases).toHaveLength(493);
+       |                   ^
+     36|     for (const file of cases) expect(files).toContain(file.replace(/\.…
+     37|     const drawCases = globSync('spec/draw-conformance/*/case.ani', { c…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/data-bind-text/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="data-bind-…' to be '<anima version="0.1" name="data-bind-…' // Object.is equality
+
+- Expected
++ Received
+
+- <anima version="0.1" name="data-bind-text" grid="20" requires="text data" data="{&quot;models&quot;: {&quot;Main&quot;: {&quot;properties&quot;: {&quot;label&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;abcd&quot;}, &quot;style&quot;: {&quot;type&quot;: &quot;text-style&quot;, &quot;default&quot;: &quot;shared&quot;}, &quot;items&quot;: {&quot;type&quot;: &quot;list&quot;, &quot;of&quot;: &quot;Item&quot;, &quot;default&quot;: [{&quot;label&quot;: &quot;abcd&quot;}]}}}, &quot;Item&quot;: {&quot;properties&quot;: {&quot;label&quot;: {&quot;type&quot;: &quot;string&quot;}}}}}">
++ <anima version="0.1" name="data-bind-text" grid="20" requires="text data"
++     data="{&quot;models&quot;: {&quot;Main&quot;: {&quot;properties&quot;: {&quot;label&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;abcd&quot;}, &quot;style&quot;: {&quot;type&quot;: &quot;text-style&quot;, &quot;default&quot;: &quot;shared&quot;}, &quot;items&quot;: {&quot;type&quot;: &quot;list&quot;, &quot;of&quot;: &quot;Item&quot;, &quot;default&quot;: [{&quot;label&quot;: &quot;abcd&quot;}]}}}, &quot;Item&quot;: {&quot;properties&quot;: {&quot;label&quot;: {&quot;type&quot;: &quot;string&quot;}}}}}">
+- <text-style id="shared" size="1"/>
++   <text-style id="shared" size="1"/>
+- <text id="label" sizing="fixed" width="4" height="4"><style id="s" size="1"/><run text="$label" style="s"/></text>
++   <text id="label" sizing="fixed" width="4" height="4">
++     <style id="s" size="1"/>
++     <run text="$label" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/data-property-text-style/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="data-prope…' to be '<anima version="0.1" name="data-prope…' // Object.is equality
+
+- Expected
++ Received
+
+- <anima version="0.1" name="data-property-text-style" grid="20" requires="text data" data="{&quot;models&quot;: {&quot;Main&quot;: {&quot;properties&quot;: {&quot;label&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;abcd&quot;}, &quot;style&quot;: {&quot;type&quot;: &quot;text-style&quot;, &quot;default&quot;: &quot;shared&quot;}, &quot;items&quot;: {&quot;type&quot;: &quot;list&quot;, &quot;of&quot;: &quot;Item&quot;, &quot;default&quot;: [{&quot;label&quot;: &quot;abcd&quot;}]}}}, &quot;Item&quot;: {&quot;properties&quot;: {&quot;label&quot;: {&quot;type&quot;: &quot;string&quot;}}}}}">
++ <anima version="0.1" name="data-property-text-style" grid="20" requires="text data"
++     data="{&quot;models&quot;: {&quot;Main&quot;: {&quot;properties&quot;: {&quot;label&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;abcd&quot;}, &quot;style&quot;: {&quot;type&quot;: &quot;text-style&quot;, &quot;default&quot;: &quot;shared&quot;}, &quot;items&quot;: {&quot;type&quot;: &quot;list&quot;, &quot;of&quot;: &quot;Item&quot;, &quot;default&quot;: [{&quot;label&quot;: &quot;abcd&quot;}]}}}, &quot;Item&quot;: {&quot;properties&quot;: {&quot;label&quot;: {&quot;type&quot;: &quot;string&quot;}}}}}">
+- <text-style id="shared" size="1"/>
++   <text-style id="shared" size="1"/>
+- <text id="label" sizing="fixed" width="4" height="4"><style id="s" size="1"/><run text="abcd" style="$style"/></text>
++   <text id="label" sizing="fixed" width="4" height="4">
++     <style id="s" size="1"/>
++     <run text="abcd" style="$style"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/host-api-nested-text-run/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="host-api-n…' to be '<anima version="0.1" name="host-api-n…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="host-api-nested-text-run" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4"><style id="s" size="1"/><run id="first" style="s" text="abcd"/></text>
++   <text id="label" sizing="fixed" width="4" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="abcd" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/host-api-text-run/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="host-api-t…' to be '<anima version="0.1" name="host-api-t…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="host-api-text-run" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4"><style id="s" size="1"/><run id="first" style="s" text="abcd"/></text>
++   <text id="label" sizing="fixed" width="4" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="abcd" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-fit-baseline/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-fit-b…' to be '<anima version="0.1" name="text-fit-b…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-fit-baseline" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="0.2" overflow="fit-font-size" fit-from-baseline="true"><style id="s" size="1"/><run id="first" style="s" text="abcd"/></text>
++   <text id="label" sizing="fixed" overflow="fit-font-size" fit-from-baseline="true" width="4" height="0.2">
++     <style id="s" size="1"/>
++     <run id="first" text="abcd" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-fit-layout-measure/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-fit-l…' to be '<anima version="0.1" name="text-fit-l…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-fit-layout-measure" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4" overflow="fit-font-size" wrap="false" fit-font-size-resizes-box="true"><style id="s" size="1"/><run id="first" style="s" text="abcdefgh"/></text>
++   <text id="label" sizing="fixed" overflow="fit-font-size" wrap="false" fit-font-size-resizes-box="true" width="4" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="abcdefgh" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-font-size/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-font-…' to be '<anima version="0.1" name="text-font-…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-font-size" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4"><style id="s" size="2"/><run id="first" style="s" text="ab"/></text>
++   <text id="label" sizing="fixed" width="4" height="4">
++     <style id="s" size="2"/>
++     <run id="first" text="ab" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-horizontal-alignment/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-horiz…' to be '<anima version="0.1" name="text-horiz…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-horizontal-alignment" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4" align="center"><style id="s" size="1"/><run id="first" style="s" text="ab"/></text>
++   <text id="label" sizing="fixed" align="center" width="4" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="ab" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-line-spacing/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-line-…' to be '<anima version="0.1" name="text-line-…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-line-spacing" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4" line-height="2"><style id="s" size="1"/><run id="first" style="s" text="abcd"/></text>
++   <text id="label" sizing="fixed" width="4" height="4" line-height="2">
++     <style id="s" size="1"/>
++     <run id="first" text="abcd" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-origin/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-origi…' to be '<anima version="0.1" name="text-origi…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-origin" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4" origin="baseline"><style id="s" size="1"/><run id="first" style="s" text="abcd"/></text>
++   <text id="label" sizing="fixed" origin="baseline" width="4" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="abcd" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-overflow-clipped/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-overf…' to be '<anima version="0.1" name="text-overf…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-overflow-clipped" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4" overflow="clipped" wrap="false"><style id="s" size="1"/><run id="first" style="s" text="abcdefgh"/></text>
++   <text id="label" sizing="fixed" overflow="clipped" wrap="false" width="4" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="abcdefgh" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-overflow-ellipsis/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-overf…' to be '<anima version="0.1" name="text-overf…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-overflow-ellipsis" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4" overflow="ellipsis" wrap="false"><style id="s" size="1"/><run id="first" style="s" text="abcdefgh"/></text>
++   <text id="label" sizing="fixed" overflow="ellipsis" wrap="false" width="4" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="abcdefgh" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-overflow-fit-font-size/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-overf…' to be '<anima version="0.1" name="text-overf…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-overflow-fit-font-size" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4" overflow="fit-font-size" wrap="false"><style id="s" size="1"/><run id="first" style="s" text="abcdefgh"/></text>
++   <text id="label" sizing="fixed" overflow="fit-font-size" wrap="false" width="4" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="abcdefgh" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-overflow-fit/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-overf…' to be '<anima version="0.1" name="text-overf…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-overflow-fit" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4" overflow="fit" wrap="false"><style id="s" size="1"/><run id="first" style="s" text="abcdefgh"/></text>
++   <text id="label" sizing="fixed" overflow="fit" wrap="false" width="4" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="abcdefgh" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-overflow-hidden/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-overf…' to be '<anima version="0.1" name="text-overf…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-overflow-hidden" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="1" overflow="hidden" wrap="false"><style id="s" size="1"/><run id="first" style="s" text="abcd&#10;efgh"/></text>
++   <text id="label" sizing="fixed" overflow="hidden" wrap="false" width="4" height="1">
++     <style id="s" size="1"/>
++     <run id="first" text="abcd
++ efgh" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-overflow-visible/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-overf…' to be '<anima version="0.1" name="text-overf…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-overflow-visible" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4" overflow="visible" wrap="false"><style id="s" size="1"/><run id="first" style="s" text="abcdefgh"/></text>
++   <text id="label" sizing="fixed" overflow="visible" wrap="false" width="4" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="abcdefgh" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-paint/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-paint…' to be '<anima version="0.1" name="text-paint…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-paint" grid="20" requires="text paint">
+-
+- <text id="label" sizing="fixed" width="4" height="4"><style id="s" size="1" fill="#f00"/><run id="first" style="s" text="abcd"/></text>
++   <text id="label" sizing="fixed" width="4" height="4">
++     <style id="s" size="1" fill="#f00"/>
++     <run id="first" text="abcd" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-paragraph-spacing/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-parag…' to be '<anima version="0.1" name="text-parag…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-paragraph-spacing" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4" paragraph-spacing="1"><style id="s" size="1"/><run id="first" style="s" text="ab&#10;cd"/></text>
++   <text id="label" sizing="fixed" width="4" height="4" paragraph-spacing="1">
++     <style id="s" size="1"/>
++     <run id="first" text="ab
++ cd" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-rich-runs/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-rich-…' to be '<anima version="0.1" name="text-rich-…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-rich-runs" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="6" height="4"><style id="s" size="1"/><style id="big" size="2"/><run id="first" style="s" text="ab"/><run style="big" text="cd"/></text>
++   <text id="label" sizing="fixed" width="6" height="4">
++     <style id="s" size="1"/>
++     <style id="big" size="2"/>
++     <run id="first" text="ab" style="s"/>
++     <run text="cd" style="big"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-run-list/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-run-l…' to be '<anima version="0.1" name="text-run-l…' // Object.is equality
+
+- Expected
++ Received
+
+- <anima version="0.1" name="text-run-list" grid="20" requires="text data" data="{&quot;models&quot;: {&quot;Main&quot;: {&quot;properties&quot;: {&quot;label&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;abcd&quot;}, &quot;style&quot;: {&quot;type&quot;: &quot;text-style&quot;, &quot;default&quot;: &quot;shared&quot;}, &quot;items&quot;: {&quot;type&quot;: &quot;list&quot;, &quot;of&quot;: &quot;Item&quot;, &quot;default&quot;: [{&quot;label&quot;: &quot;abcd&quot;}]}}}, &quot;Item&quot;: {&quot;properties&quot;: {&quot;label&quot;: {&quot;type&quot;: &quot;string&quot;}}}}}">
++ <anima version="0.1" name="text-run-list" grid="20" requires="text data"
++     data="{&quot;models&quot;: {&quot;Main&quot;: {&quot;properties&quot;: {&quot;label&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;abcd&quot;}, &quot;style&quot;: {&quot;type&quot;: &quot;text-style&quot;, &quot;default&quot;: &quot;shared&quot;}, &quot;items&quot;: {&quot;type&quot;: &quot;list&quot;, &quot;of&quot;: &quot;Item&quot;, &quot;default&quot;: [{&quot;label&quot;: &quot;abcd&quot;}]}}}, &quot;Item&quot;: {&quot;properties&quot;: {&quot;label&quot;: {&quot;type&quot;: &quot;string&quot;}}}}}">
+- <text-style id="shared" size="1"/>
++   <text-style id="shared" size="1"/>
+- <text id="label" sizing="fixed" width="4" height="4" runs="$items" text-field="label"><style id="s" size="1"/></text>
++   <text id="label" runs="$items" sizing="fixed" text-field="label" width="4" height="4">
++     <style id="s" size="1"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-sizing-auto-height/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-sizin…' to be '<anima version="0.1" name="text-sizin…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-sizing-auto-height" grid="20" requires="text">
+-
+- <text id="label" sizing="auto-height" width="2" height="4" word-break="break-all"><style id="s" size="1"/><run id="first" style="s" text="abcd"/></text>
++   <text id="label" sizing="auto-height" word-break="break-all" width="2" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="abcd" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-sizing-auto-width/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-sizin…' to be '<anima version="0.1" name="text-sizin…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-sizing-auto-width" grid="20" requires="text">
+-
+- <text id="label" sizing="auto-width" width="2" height="4"><style id="s" size="1"/><run id="first" style="s" text="abcd"/></text>
++   <text id="label" sizing="auto-width" width="2" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="abcd" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-sizing-fixed/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-sizin…' to be '<anima version="0.1" name="text-sizin…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-sizing-fixed" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4"><style id="s" size="1"/><run id="first" style="s" text="abcd"/></text>
++   <text id="label" sizing="fixed" width="4" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="abcd" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-style-reference/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-style…' to be '<anima version="0.1" name="text-style…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-style-reference" grid="20" requires="text">
+- <text-style id="shared" size="1"/>
++   <text-style id="shared" size="1"/>
+- <text id="label" sizing="fixed" width="4" height="4"><style id="s" size="1"/><run text="abcd" style="shared"/></text>
++   <text id="label" sizing="fixed" width="4" height="4">
++     <style id="s" size="1"/>
++     <run text="abcd" style="shared"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-tracking/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-track…' to be '<anima version="0.1" name="text-track…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-tracking" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4"><style id="s" size="1" tracking="0.5"/><run id="first" style="s" text="abcd"/></text>
++   <text id="label" sizing="fixed" width="4" height="4">
++     <style id="s" size="1" tracking="0.5"/>
++     <run id="first" text="abcd" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-vertical-alignment/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-verti…' to be '<anima version="0.1" name="text-verti…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-vertical-alignment" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4" valign="middle"><style id="s" size="1"/><run id="first" style="s" text="abcd"/></text>
++   <text id="label" sizing="fixed" valign="middle" width="4" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="abcd" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-vertical-trim/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-verti…' to be '<anima version="0.1" name="text-verti…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-vertical-trim" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="4" height="4" vertical-trim-top="cap" vertical-trim-bottom="baseline"><style id="s" size="1"/><run id="first" style="s" text="abcd"/></text>
++   <text id="label" sizing="fixed" vertical-trim-top="cap" vertical-trim-bottom="baseline" width="4" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="abcd" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-word-break/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-word-…' to be '<anima version="0.1" name="text-word-…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-word-break" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="2" height="4" word-break="break-all"><style id="s" size="1"/><run id="first" style="s" text="abcd"/></text>
++   <text id="label" sizing="fixed" word-break="break-all" width="2" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="abcd" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/text-wrap/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="text-wrap"…' to be '<anima version="0.1" name="text-wrap"…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="text-wrap" grid="20" requires="text">
+-
+- <text id="label" sizing="fixed" width="2" height="4" word-break="break-all"><style id="s" size="1"/><run id="first" style="s" text="abcd"/></text>
++   <text id="label" sizing="fixed" word-break="break-all" width="2" height="4">
++     <style id="s" size="1"/>
++     <run id="first" text="abcd" style="s"/>
++   </text>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:56:25
+     54|     const result = formatMarkup(source);
+     55|     expect(result.diagnostics).toEqual([]);
+     56|     expect(result.text).toBe(source);
+       |                         ^
+     57|   });
+     58| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/32]⎯
+
+ FAIL  |scope-unit| modules/text/test/markup/authoring.test.ts > replaces named component runs without changing the sibling or source model
+AssertionError: expected [ { code: 'bad-name', …(4) }, …(2) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "bad-name",
++     "hint": "names match ^[a-z][a-zA-Z0-9-]*$",
++     "message": "\"Child\" is not a valid name",
++     "pointer": "/components/Child",
++     "severity": "error",
++   },
++   {
++     "code": "bad-value",
++     "message": "\"Child\" does not match ^(?:[a-z][a-zA-Z0-9-]*|\\$[\\w:.-]+)$",
++     "pointer": "/nodes/0/component",
++     "severity": "error",
++   },
++   {
++     "code": "bad-value",
++     "message": "\"Child\" does not match ^(?:[a-z][a-zA-Z0-9-]*|\\$[\\w:.-]+)$",
++     "pointer": "/nodes/1/component",
++     "severity": "error",
++   },
++ ]
+
+ ❯ modules/text/test/markup/authoring.test.ts:103:25
+    101|     ],
+    102|   });
+    103|   expect(r.diagnostics).toEqual([]);
+       |                         ^
+    104|   const p = new Player(r.model!);
+    105|   expect(textRun(p, 'a/label', 'value')).toBe('before');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/32]⎯
+
+ FAIL  |scope-unit| modules/text/test/markup/authoring.test.ts > animates style size and run strings through ordinary slots
+TypeError: Cannot read properties of null (reading '0')
+ ❯ segments modules/paint/core/geometry.ts:107:74
+    105|         lc === 'a' && (k === 3 || k === 4)
+    106|           ? d[i]!
+    107|           : /^[-+]?(?:\d+\.?\d*|\.\d+)(?:[eE][-+]?\d+)?/.exec(d.slice(…
+       |                                                                          ^
+    108|       values.push(+token);
+    109|       i += token.length;
+ ❯ Object.interpolate modules/paint/core/geometry.ts:162:16
+ ❯ packages/core/src/player.ts:132:43
+ ❯ mixValues packages/core/src/player.ts:132:30
+ ❯ sampleTrack packages/core/src/player.ts:127:10
+ ❯ packages/core/src/player.ts:200:31
+ ❯ Player.#write packages/core/src/player.ts:875:44
+ ❯ new Player packages/core/src/player.ts:218:40
+ ❯ modules/text/test/markup/authoring.test.ts:141:13
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/32]⎯
+
+
+ Test Files  2 failed | 7 passed (9)
+      Tests  32 failed | 2108 passed | 52 todo (2192)
+   Start at  16:45:05
+   Duration  17.95s (tests 70%, transform 19%, import 10%)

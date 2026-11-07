@@ -1,0 +1,63 @@
+{
+  "anima": "0.1",
+  "name": "data-property-text-style",
+  "grid": 20,
+  "requires": ["text", "data"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "sizing": "fixed",
+      "width": 4,
+      "height": 4,
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "text": "abcd",
+          "style": "$style"
+        }
+      ]
+    }
+  ],
+  "data": {
+    "models": {
+      "Main": {
+        "properties": {
+          "label": {
+            "type": "string",
+            "default": "abcd"
+          },
+          "style": {
+            "type": "text-style",
+            "default": "shared"
+          },
+          "items": {
+            "type": "list",
+            "default": [
+              {
+                "label": "abcd"
+              }
+            ],
+            "of": "Item"
+          }
+        }
+      },
+      "Item": {
+        "properties": {
+          "label": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "textStyles": {
+    "shared": {
+      "size": 1
+    }
+  }
+}

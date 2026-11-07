@@ -1,0 +1,8 @@
+<anima version="0.1" name="text-rich-runs" grid="20" requires="text">
+  <text id="label" sizing="fixed" width="6" height="4">
+    <style id="s" size="1"/>
+    <style id="big" size="2"/>
+    <run id="first" text="ab" style="s"/>
+    <run text="cd" style="big"/>
+  </text>
+</anima>
