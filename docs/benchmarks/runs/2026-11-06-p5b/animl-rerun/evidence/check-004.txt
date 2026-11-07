@@ -1,0 +1,1 @@
+script line 2: "count/2/disc.r" is not an animated address or a bool/number input

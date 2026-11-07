@@ -1,0 +1,91 @@
+{
+  "starts": [
+    {
+      "args": [
+        0,
+        0.2,
+        0.8
+      ],
+      "duration": 1.2,
+      "rate": 48000,
+      "sample": 0.006919611245393753
+    },
+    {
+      "args": [
+        0,
+        0.2,
+        0.8
+      ],
+      "duration": 1.2,
+      "rate": 48000,
+      "sample": 0.004609990864992142
+    },
+    {
+      "args": [
+        0,
+        0.2,
+        0.8
+      ],
+      "duration": 1.2,
+      "rate": 48000,
+      "sample": 0.009230133146047592
+    }
+  ],
+  "ended": [
+    [
+      0,
+      0.2,
+      0.8
+    ],
+    [
+      0,
+      0.2,
+      0.8
+    ],
+    [
+      0,
+      0.2,
+      0.8
+    ]
+  ],
+  "errors": [],
+  "events": [
+    {
+      "name": "rows.1.play-tide",
+      "layer": "rows/1/playback",
+      "time": 0,
+      "payload": {
+        "uid": 2
+      },
+      "audio": "tide-clip",
+      "volume": 1
+    },
+    {
+      "name": "rows.0.play-dawn",
+      "layer": "rows/0/playback",
+      "time": 0,
+      "payload": {
+        "uid": 1
+      },
+      "audio": "dawn-clip",
+      "volume": 1
+    },
+    {
+      "name": "rows.0.play-ember",
+      "layer": "rows/0/playback",
+      "time": 0,
+      "payload": {
+        "uid": 3
+      },
+      "audio": "ember-clip",
+      "volume": 1
+    }
+  ],
+  "checks": {
+    "threeStarts": true,
+    "threeEnded": true,
+    "threeDistinctPCM": true,
+    "exactTrims": true,
+    "noErrors": true
+  }
+}

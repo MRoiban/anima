@@ -1,0 +1,17 @@
+{"n": 1, "args": ["validate", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.animl"], "exit": 1, "time": 1794009613.9157698}
+{"n": 2, "args": ["validate", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.animl"], "exit": 0, "time": 1794009628.615228}
+{"n": 3, "args": ["inspect", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.animl"], "exit": 0, "time": 1794009629.415939}
+{"n": 4, "args": ["sample", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.animl", "-s", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/clicks.script"], "exit": 1, "time": 1794009644.318444}
+{"n": 5, "args": ["build", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.animl", "--embed", "-o", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.ani"], "exit": 0, "time": 1794009645.0243864}
+{"n": 6, "args": ["render", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.animl", "-o", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/evidence/initial.png", "--size", "480"], "exit": 0, "time": 1794009645.8499613}
+{"n": 7, "args": ["sample", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.animl", "-e", "advance 0; snapshot"], "exit": 0, "time": 1794009653.699229}
+{"n": 8, "args": ["sample", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.animl", "-s", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/clicks.script"], "exit": 0, "time": 1794009654.3861976}
+{"n": 9, "args": ["validate", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.animl"], "exit": 0, "time": 1794009787.3170004}
+{"n": 10, "args": ["build", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.animl", "--embed", "-o", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.ani"], "exit": 0, "time": 1794009788.6476185}
+{"n": 11, "args": ["sample", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.ani", "-s", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/clicks.script"], "exit": 0, "time": 1794009789.9146278}
+{"n": 12, "args": ["render", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.ani", "-o", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/evidence/highlight.png", "--size", "480", "-e", "advance 0; pointer click 3 9; advance 0"], "exit": 0, "time": 1794009802.3439121}
+{"n": 13, "args": ["render", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.ani", "-o", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/evidence/edited.png", "--size", "480", "-s", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/clicks.script"], "exit": 0, "time": 1794009803.6398313}
+{"n": 14, "args": ["sample", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.ani", "-e", "advance 0; snapshot $tracks.length count/0/disc.r count/1/disc.r count/2/disc.r rows/0/dawn-cover.visible rows/1/tide-cover.visible rows/2/ember-cover.visible"], "exit": 0, "time": 1794009804.8393445}
+{"n": 15, "args": ["sample", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.ani", "-s", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/assets.script"], "exit": 0, "time": 1794009847.550997}
+{"n": 16, "args": ["validate", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.ani"], "exit": 0, "time": 1794009848.8072877}
+{"n": 17, "args": ["inspect", "docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.ani"], "exit": 0, "time": 1794009849.9367523}

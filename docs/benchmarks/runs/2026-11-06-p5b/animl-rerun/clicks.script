@@ -1,0 +1,18 @@
+advance 0
+snapshot $tracks.length $tracks.0.title $tracks.1.title $tracks.2.title $tracks.0.cover $tracks.1.clip rows/0/title.w rows/1/duration.w rows/2/title.w
+pointer click 3 3
+advance 0
+snapshot $selected rows/0/outline.opacity rows/1/outline.opacity rows/0/visits
+advance 0
+pointer click 3 9
+advance 0
+snapshot $selected rows/0/outline.opacity rows/1/outline.opacity rows/1/visits
+advance 0
+pointer click 3 15
+advance 0
+snapshot $selected rows/1/outline.opacity rows/2/outline.opacity rows/2/visits
+advance 0
+set $tracks.0.title "First light"
+set $tracks.0.duration 120
+advance 0
+snapshot $tracks.0.title $tracks.0.title.length rows/0/title.w rows/0/duration.w
