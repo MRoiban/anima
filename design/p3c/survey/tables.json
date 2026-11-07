@@ -1,0 +1,777 @@
+{
+  "base": 109971,
+  "results": [
+    {
+      "module": "paint",
+      "entryBase": 25257,
+      "probes": [
+        {
+          "f": "modules/paint/core/geometry.ts",
+          "start": 4106,
+          "end": 6735,
+          "name": "geometry",
+          "line": 117,
+          "length": 2629,
+          "replacement": "{}",
+          "bytes": 24153,
+          "saving": 1104
+        },
+        {
+          "f": "modules/paint/core/index.ts",
+          "start": 2051,
+          "end": 3218,
+          "name": "entries",
+          "line": 50,
+          "length": 1167,
+          "replacement": "[]",
+          "bytes": 25025,
+          "saving": 232
+        }
+      ]
+    },
+    {
+      "module": "composite",
+      "entryBase": 24507,
+      "probes": [
+        {
+          "f": "modules/composite/core/index.ts",
+          "start": 1463,
+          "end": 9943,
+          "name": "composite",
+          "line": 36,
+          "length": 8480,
+          "replacement": "{}",
+          "bytes": 22719,
+          "saving": 1788
+        },
+        {
+          "f": "modules/composite/core/index.ts",
+          "start": 7340,
+          "end": 9940,
+          "name": "draw",
+          "line": 195,
+          "length": 2600,
+          "replacement": "{}",
+          "bytes": 24041,
+          "saving": 466
+        }
+      ]
+    },
+    {
+      "module": "bind",
+      "entryBase": 22658,
+      "probes": [
+        {
+          "f": "modules/bind/core/index.ts",
+          "start": 754,
+          "end": 5628,
+          "name": "bind",
+          "line": 22,
+          "length": 4874,
+          "replacement": "{}",
+          "bytes": 20752,
+          "saving": 1906
+        },
+        {
+          "f": "modules/bind/manifest.ts",
+          "start": 1078,
+          "end": 1440,
+          "name": "tests",
+          "line": 44,
+          "length": 362,
+          "replacement": "[]",
+          "bytes": 22658,
+          "saving": 0
+        }
+      ]
+    },
+    {
+      "module": "assets",
+      "entryBase": 23068,
+      "probes": [
+        {
+          "f": "modules/assets/core/index.ts",
+          "start": 2443,
+          "end": 9294,
+          "name": "assets",
+          "line": 77,
+          "length": 6851,
+          "replacement": "{}",
+          "bytes": 21680,
+          "saving": 1388
+        },
+        {
+          "f": "modules/assets/probes/native-capabilities.ts",
+          "start": 2514,
+          "end": 4145,
+          "name": "result",
+          "line": 65,
+          "length": 1631,
+          "replacement": "{}",
+          "bytes": 23068,
+          "saving": 0
+        }
+      ]
+    },
+    {
+      "module": "surface",
+      "entryBase": 28639,
+      "probes": [
+        {
+          "f": "modules/surface/core/index.ts",
+          "start": 2695,
+          "end": 12334,
+          "name": "surface",
+          "line": 77,
+          "length": 9639,
+          "replacement": "{}",
+          "bytes": 27124,
+          "saving": 1515
+        },
+        {
+          "f": "modules/surface/core/index.ts",
+          "start": 8477,
+          "end": 12331,
+          "name": "draw",
+          "line": 238,
+          "length": 3854,
+          "replacement": "{}",
+          "bytes": 27976,
+          "saving": 663
+        }
+      ]
+    },
+    {
+      "module": "components",
+      "entryBase": 24671,
+      "probes": [
+        {
+          "f": "modules/components/core/index.ts",
+          "start": 15986,
+          "end": 18136,
+          "name": "draw",
+          "line": 414,
+          "length": 2150,
+          "replacement": "{}",
+          "bytes": 24324,
+          "saving": 347
+        },
+        {
+          "f": "modules/components/core/index.ts",
+          "start": 3889,
+          "end": 4490,
+          "name": "entries",
+          "line": 107,
+          "length": 601,
+          "replacement": "[]",
+          "bytes": 24569,
+          "saving": 102
+        }
+      ]
+    },
+    {
+      "module": "assetio",
+      "entryBase": 21280,
+      "probes": []
+    },
+    {
+      "module": "canvas",
+      "entryBase": 25874,
+      "probes": [
+        {
+          "f": "modules/canvas/web/renderer.ts",
+          "start": 13522,
+          "end": 13709,
+          "name": "map",
+          "line": 380,
+          "length": 187,
+          "replacement": "[]",
+          "bytes": 25844,
+          "saving": 30
+        },
+        {
+          "f": "modules/canvas/web/renderer.ts",
+          "start": 6037,
+          "end": 6219,
+          "name": "detail",
+          "line": 167,
+          "length": 182,
+          "replacement": "[]",
+          "bytes": 25847,
+          "saving": 27
+        }
+      ]
+    },
+    {
+      "module": "focus",
+      "entryBase": 24697,
+      "probes": [
+        {
+          "f": "modules/focus/core/index.ts",
+          "start": 10639,
+          "end": 13490,
+          "name": "focus",
+          "line": 299,
+          "length": 2851,
+          "replacement": "{}",
+          "bytes": 22568,
+          "saving": 2129
+        },
+        {
+          "f": "modules/focus/core/index.ts",
+          "start": 11362,
+          "end": 12078,
+          "name": "entries",
+          "line": 326,
+          "length": 716,
+          "replacement": "[]",
+          "bytes": 24576,
+          "saving": 121
+        }
+      ]
+    },
+    {
+      "module": "input",
+      "entryBase": 27066,
+      "probes": [
+        {
+          "f": "modules/input/core/index.ts",
+          "start": 757,
+          "end": 6170,
+          "name": "input",
+          "line": 13,
+          "length": 5413,
+          "replacement": "{}",
+          "bytes": 22274,
+          "saving": 4792
+        },
+        {
+          "f": "modules/input/manifest.ts",
+          "start": 1052,
+          "end": 2995,
+          "name": "conformance",
+          "line": 27,
+          "length": 1943,
+          "replacement": "[]",
+          "bytes": 27066,
+          "saving": 0
+        }
+      ]
+    },
+    {
+      "module": "media",
+      "entryBase": 23366,
+      "probes": [
+        {
+          "f": "modules/media/web/index.ts",
+          "start": 1678,
+          "end": 2001,
+          "name": "diagnostics",
+          "line": 41,
+          "length": 323,
+          "replacement": "[]",
+          "bytes": 23326,
+          "saving": 40
+        }
+      ]
+    },
+    {
+      "module": "motion",
+      "entryBase": 27267,
+      "probes": [
+        {
+          "f": "modules/motion/core/index.ts",
+          "start": 2019,
+          "end": 14619,
+          "name": "motion",
+          "line": 42,
+          "length": 12600,
+          "replacement": "{}",
+          "bytes": 21544,
+          "saving": 5723
+        },
+        {
+          "f": "modules/motion/core/api.ts",
+          "start": 14596,
+          "end": 17380,
+          "name": "methods",
+          "line": 455,
+          "length": 2784,
+          "replacement": "{}",
+          "bytes": 26617,
+          "saving": 650
+        }
+      ]
+    },
+    {
+      "module": "events",
+      "entryBase": 24411,
+      "probes": [
+        {
+          "f": "modules/events/core/index.ts",
+          "start": 1723,
+          "end": 11913,
+          "name": "events",
+          "line": 55,
+          "length": 10190,
+          "replacement": "{}",
+          "bytes": 22603,
+          "saving": 1808
+        },
+        {
+          "f": "modules/events/manifest.ts",
+          "start": 1260,
+          "end": 2296,
+          "name": "conformance",
+          "line": 34,
+          "length": 1036,
+          "replacement": "[]",
+          "bytes": 24411,
+          "saving": 0
+        }
+      ]
+    },
+    {
+      "module": "machine",
+      "entryBase": 26915,
+      "probes": [
+        {
+          "f": "modules/machine/core/index.ts",
+          "start": 1326,
+          "end": 15290,
+          "name": "machine",
+          "line": 32,
+          "length": 13964,
+          "replacement": "{}",
+          "bytes": 20627,
+          "saving": 6288
+        },
+        {
+          "f": "modules/machine/core/registry.ts",
+          "start": 890,
+          "end": 2396,
+          "name": "entries",
+          "line": 35,
+          "length": 1506,
+          "replacement": "[]",
+          "bytes": 26474,
+          "saving": 441
+        }
+      ]
+    },
+    {
+      "module": "paint-sampling",
+      "entryBase": 26196,
+      "probes": [
+        {
+          "f": "modules/paint/core/geometry.ts",
+          "start": 4106,
+          "end": 6735,
+          "name": "geometry",
+          "line": 117,
+          "length": 2629,
+          "replacement": "{}",
+          "bytes": 25068,
+          "saving": 1128
+        },
+        {
+          "f": "modules/paint/core/index.ts",
+          "start": 2051,
+          "end": 3218,
+          "name": "entries",
+          "line": 50,
+          "length": 1167,
+          "replacement": "[]",
+          "bytes": 25964,
+          "saving": 232
+        }
+      ]
+    },
+    {
+      "module": "contour",
+      "entryBase": 24360,
+      "probes": [
+        {
+          "f": "modules/contour/core/effects.ts",
+          "start": 5845,
+          "end": 9382,
+          "name": "effects",
+          "line": 177,
+          "length": 3537,
+          "replacement": "{}",
+          "bytes": 23275,
+          "saving": 1085
+        },
+        {
+          "f": "modules/contour/core/index.ts",
+          "start": 4194,
+          "end": 7201,
+          "name": "contour",
+          "line": 109,
+          "length": 3007,
+          "replacement": "{}",
+          "bytes": 21085,
+          "saving": 3275
+        }
+      ]
+    },
+    {
+      "module": "data",
+      "entryBase": 28605,
+      "probes": [
+        {
+          "f": "modules/data/core/index.ts",
+          "start": 1757,
+          "end": 10715,
+          "name": "data",
+          "line": 35,
+          "length": 8958,
+          "replacement": "{}",
+          "bytes": 22160,
+          "saving": 6445
+        },
+        {
+          "f": "modules/data/manifest.ts",
+          "start": 1012,
+          "end": 3633,
+          "name": "conformance",
+          "line": 31,
+          "length": 2621,
+          "replacement": "[]",
+          "bytes": 28605,
+          "saving": 0
+        }
+      ]
+    },
+    {
+      "module": "convert",
+      "entryBase": 27404,
+      "probes": [
+        {
+          "f": "modules/convert/core/converters.ts",
+          "start": 2764,
+          "end": 12137,
+          "name": "implementations",
+          "line": 76,
+          "length": 9373,
+          "replacement": "{}",
+          "bytes": 24803,
+          "saving": 2601
+        },
+        {
+          "f": "modules/convert/core/index.ts",
+          "start": 5412,
+          "end": 8639,
+          "name": "convert",
+          "line": 141,
+          "length": 3227,
+          "replacement": "{}",
+          "bytes": 25606,
+          "saving": 1798
+        }
+      ]
+    },
+    {
+      "module": "derive",
+      "entryBase": 23005,
+      "probes": [
+        {
+          "f": "modules/derive/core/index.ts",
+          "start": 794,
+          "end": 2472,
+          "name": "derive",
+          "line": 14,
+          "length": 1678,
+          "replacement": "{}",
+          "bytes": 20604,
+          "saving": 2401
+        },
+        {
+          "f": "modules/derive/core/index.ts",
+          "start": 1462,
+          "end": 2383,
+          "name": "entries",
+          "line": 33,
+          "length": 921,
+          "replacement": "[]",
+          "bytes": 22905,
+          "saving": 100
+        }
+      ]
+    },
+    {
+      "module": "host-values",
+      "entryBase": 21833,
+      "probes": [
+        {
+          "f": "modules/host-values/core/index.ts",
+          "start": 6616,
+          "end": 7026,
+          "name": "data",
+          "line": 167,
+          "length": 410,
+          "replacement": "{}",
+          "bytes": 21778,
+          "saving": 55
+        },
+        {
+          "f": "modules/host-values/core/index.ts",
+          "start": 6732,
+          "end": 7017,
+          "name": "instances",
+          "line": 171,
+          "length": 285,
+          "replacement": "{}",
+          "bytes": 21796,
+          "saving": 37
+        }
+      ]
+    },
+    {
+      "module": "host",
+      "entryBase": 25403,
+      "probes": [
+        {
+          "f": "modules/host/core/index.ts",
+          "start": 454,
+          "end": 1130,
+          "name": "host",
+          "line": 9,
+          "length": 676,
+          "replacement": "{}",
+          "bytes": 22128,
+          "saving": 3275
+        },
+        {
+          "f": "modules/host/core/api.ts",
+          "start": 13035,
+          "end": 13276,
+          "name": "watch",
+          "line": 344,
+          "length": 241,
+          "replacement": "{}",
+          "bytes": 25364,
+          "saving": 39
+        }
+      ]
+    },
+    {
+      "module": "data-host",
+      "entryBase": 21525,
+      "probes": [
+        {
+          "f": "modules/data-host/core/index.ts",
+          "start": 4097,
+          "end": 5401,
+          "name": "dataHost",
+          "line": 110,
+          "length": 1304,
+          "replacement": "{}",
+          "bytes": 20559,
+          "saving": 966
+        }
+      ]
+    },
+    {
+      "module": "host-edit",
+      "entryBase": 24285,
+      "probes": [
+        {
+          "f": "modules/host-edit/core/index.ts",
+          "start": 11699,
+          "end": 12475,
+          "name": "hostEdit",
+          "line": 283,
+          "length": 776,
+          "replacement": "{}",
+          "bytes": 22534,
+          "saving": 1751
+        },
+        {
+          "f": "modules/host-edit/core/index.ts",
+          "start": 8027,
+          "end": 8428,
+          "name": "nested",
+          "line": 190,
+          "length": 401,
+          "replacement": "{}",
+          "bytes": 24172,
+          "saving": 113
+        }
+      ]
+    },
+    {
+      "module": "lists",
+      "entryBase": 25209,
+      "probes": [
+        {
+          "f": "modules/lists/core/index.ts",
+          "start": 15496,
+          "end": 20627,
+          "name": "extension",
+          "line": 444,
+          "length": 5131,
+          "replacement": "{}",
+          "bytes": 24038,
+          "saving": 1171
+        },
+        {
+          "f": "modules/lists/build-evidence.ts",
+          "start": 2127,
+          "end": 5096,
+          "name": "cases",
+          "line": 55,
+          "length": 2969,
+          "replacement": "[]",
+          "bytes": 25209,
+          "saving": 0
+        }
+      ]
+    },
+    {
+      "module": "a11y",
+      "entryBase": 22669,
+      "probes": [
+        {
+          "f": "modules/a11y/core/registry.ts",
+          "start": 564,
+          "end": 1254,
+          "name": "shape",
+          "line": 11,
+          "length": 690,
+          "replacement": "{}",
+          "bytes": 22465,
+          "saving": 204
+        },
+        {
+          "f": "modules/a11y/core/registry.ts",
+          "start": 619,
+          "end": 1251,
+          "name": "p",
+          "line": 15,
+          "length": 632,
+          "replacement": "{}",
+          "bytes": 22486,
+          "saving": 183
+        }
+      ]
+    },
+    {
+      "module": "a11y-actions",
+      "entryBase": 23690,
+      "probes": [
+        {
+          "f": "modules/a11y-actions/core/index.ts",
+          "start": 780,
+          "end": 5913,
+          "name": "a11yActions",
+          "line": 15,
+          "length": 5133,
+          "replacement": "{}",
+          "bytes": 22674,
+          "saving": 1016
+        },
+        {
+          "f": "modules/a11y-actions/core/index.ts",
+          "start": 5216,
+          "end": 5422,
+          "name": "set",
+          "line": 123,
+          "length": 206,
+          "replacement": "[]",
+          "bytes": 23673,
+          "saving": 17
+        }
+      ]
+    },
+    {
+      "module": "a11y-dom",
+      "entryBase": 25589,
+      "probes": []
+    },
+    {
+      "module": "nested",
+      "entryBase": 25157,
+      "probes": [
+        {
+          "f": "modules/nested/core/index.ts",
+          "start": 1230,
+          "end": 14666,
+          "name": "nested",
+          "line": 20,
+          "length": 13436,
+          "replacement": "{}",
+          "bytes": 21121,
+          "saving": 4036
+        },
+        {
+          "f": "modules/nested/build-oracle.ts",
+          "start": 1029,
+          "end": 3251,
+          "name": "cases",
+          "line": 20,
+          "length": 2222,
+          "replacement": "[]",
+          "bytes": 25157,
+          "saving": 0
+        }
+      ]
+    },
+    {
+      "module": "mix",
+      "entryBase": 22302,
+      "probes": [
+        {
+          "f": "modules/mix/core/index.ts",
+          "start": 516,
+          "end": 3588,
+          "name": "mix",
+          "line": 10,
+          "length": 3072,
+          "replacement": "{}",
+          "bytes": 21661,
+          "saving": 641
+        },
+        {
+          "f": "modules/mix/core/index.ts",
+          "start": 1807,
+          "end": 3585,
+          "name": "draw",
+          "line": 53,
+          "length": 1778,
+          "replacement": "{}",
+          "bytes": 22025,
+          "saving": 277
+        }
+      ]
+    },
+    {
+      "module": "componentpaint",
+      "entryBase": 22596,
+      "probes": [
+        {
+          "f": "modules/componentpaint/core/index.ts",
+          "start": 1112,
+          "end": 10339,
+          "name": "componentpaint",
+          "line": 23,
+          "length": 9227,
+          "replacement": "{}",
+          "bytes": 21324,
+          "saving": 1272
+        },
+        {
+          "f": "modules/componentpaint/core/index.ts",
+          "start": 8348,
+          "end": 9327,
+          "name": "extension",
+          "line": 198,
+          "length": 979,
+          "replacement": "{}",
+          "bytes": 22393,
+          "saving": 203
+        }
+      ]
+    }
+  ]
+}

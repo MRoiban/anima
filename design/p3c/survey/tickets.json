@@ -1,0 +1,60 @@
+{
+  "base": 109971,
+  "results": [
+    {
+      "owner": "T1",
+      "files": [
+        "modules/bind/core/index.ts",
+        "modules/convert/core/converters.ts",
+        "modules/convert/core/index.ts",
+        "modules/convert/core/types.ts"
+      ],
+      "bytes": 109572,
+      "saving": 399
+    },
+    {
+      "owner": "T2",
+      "files": [
+        "modules/data-host/core/index.ts",
+        "modules/data/core/bindings.ts",
+        "modules/data/core/compile.ts",
+        "modules/derive/core/index.ts",
+        "modules/events/core/index.ts",
+        "modules/input/core/index.ts",
+        "modules/machine/core/index.ts",
+        "modules/motion/core/index.ts"
+      ],
+      "bytes": 109393,
+      "saving": 578
+    },
+    {
+      "owner": "T3",
+      "files": [
+        "modules/componentpaint/core/index.ts",
+        "modules/composite/core/index.ts",
+        "modules/contour/core/effects.ts",
+        "modules/contour/core/index.ts",
+        "modules/mix/core/index.ts",
+        "modules/paint/core/index.ts",
+        "modules/surface/core/index.ts"
+      ],
+      "bytes": 109410,
+      "saving": 561
+    },
+    {
+      "owner": "T4",
+      "files": [
+        "modules/components/core/index.ts",
+        "modules/lists/core/context.ts",
+        "modules/lists/core/index.ts",
+        "modules/nested/core/index.ts"
+      ],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "owner": "combined",
+      "bytes": 108403
+    }
+  ]
+}

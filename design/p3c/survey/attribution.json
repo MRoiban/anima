@@ -1,0 +1,1318 @@
+{
+  "base": 109971,
+  "results": [
+    {
+      "module": "paint",
+      "entryBase": 25257,
+      "probes": [
+        {
+          "f": "modules/paint/core/index.ts",
+          "start": 3243,
+          "end": 6957,
+          "name": "load",
+          "line": 91,
+          "length": 3714,
+          "replacement": "{}",
+          "bytes": 24671,
+          "saving": 586
+        },
+        {
+          "f": "modules/paint/core/sampling.ts",
+          "start": 1671,
+          "end": 5312,
+          "name": "attrs",
+          "line": 50,
+          "length": 3641,
+          "replacement": "{}",
+          "bytes": 25257,
+          "saving": 0
+        },
+        {
+          "f": "modules/paint/probes/angular.ts",
+          "start": 335,
+          "end": 3158,
+          "name": "measureAngular",
+          "line": 6,
+          "length": 2823,
+          "replacement": "{}",
+          "bytes": 25257,
+          "saving": 0
+        },
+        {
+          "f": "modules/paint/probes/raster.ts",
+          "start": 533,
+          "end": 2915,
+          "name": "measureRaster",
+          "line": 10,
+          "length": 2382,
+          "replacement": "{}",
+          "bytes": 25257,
+          "saving": 0
+        }
+      ]
+    },
+    {
+      "module": "composite",
+      "entryBase": 24507,
+      "probes": [
+        {
+          "f": "modules/composite/core/svg.ts",
+          "start": 4693,
+          "end": 9955,
+          "name": "attrs",
+          "line": 129,
+          "length": 5262,
+          "replacement": "{}",
+          "bytes": 23462,
+          "saving": 1045
+        },
+        {
+          "f": "modules/composite/core/index.ts",
+          "start": 1685,
+          "end": 6342,
+          "name": "load",
+          "line": 45,
+          "length": 4657,
+          "replacement": "{}",
+          "bytes": 23800,
+          "saving": 707
+        },
+        {
+          "f": "modules/composite/core/svg.ts",
+          "start": 773,
+          "end": 4654,
+          "name": "tree",
+          "line": 23,
+          "length": 3881,
+          "replacement": "{}",
+          "bytes": 23918,
+          "saving": 589
+        },
+        {
+          "f": "modules/composite/core/index.ts",
+          "start": 7357,
+          "end": 8794,
+          "name": "tree",
+          "line": 196,
+          "length": 1437,
+          "replacement": "{}",
+          "bytes": 24277,
+          "saving": 230
+        }
+      ]
+    },
+    {
+      "module": "bind",
+      "entryBase": 22658,
+      "probes": [
+        {
+          "f": "modules/bind/core/expression.ts",
+          "start": 1326,
+          "end": 7404,
+          "name": "expression",
+          "line": 37,
+          "length": 6078,
+          "replacement": "{}",
+          "bytes": 21631,
+          "saving": 1027
+        },
+        {
+          "f": "modules/bind/core/index.ts",
+          "start": 2638,
+          "end": 5625,
+          "name": "load",
+          "line": 78,
+          "length": 2987,
+          "replacement": "{}",
+          "bytes": 22250,
+          "saving": 408
+        },
+        {
+          "f": "modules/bind/core/index.ts",
+          "start": 991,
+          "end": 2245,
+          "name": "expression",
+          "line": 31,
+          "length": 1254,
+          "replacement": "{}",
+          "bytes": 22513,
+          "saving": 145
+        }
+      ]
+    },
+    {
+      "module": "assets",
+      "entryBase": 23068,
+      "probes": [
+        {
+          "f": "modules/assets/core/index.ts",
+          "start": 5198,
+          "end": 8428,
+          "name": "load",
+          "line": 156,
+          "length": 3230,
+          "replacement": "{}",
+          "bytes": 22632,
+          "saving": 436
+        },
+        {
+          "f": "modules/assets/core/svg.ts",
+          "start": 590,
+          "end": 2084,
+          "name": "attrs",
+          "line": 17,
+          "length": 1494,
+          "replacement": "{}",
+          "bytes": 22799,
+          "saving": 269
+        },
+        {
+          "f": "modules/assets/probes/fractional-clamp.ts",
+          "start": 3411,
+          "end": 4505,
+          "name": "geometrySVG",
+          "line": 64,
+          "length": 1094,
+          "replacement": "{}",
+          "bytes": 23068,
+          "saving": 0
+        },
+        {
+          "f": "modules/assets/core/index.ts",
+          "start": 2507,
+          "end": 3416,
+          "name": "init",
+          "line": 81,
+          "length": 909,
+          "replacement": "{}",
+          "bytes": 22946,
+          "saving": 122
+        }
+      ]
+    },
+    {
+      "module": "surface",
+      "entryBase": 28639,
+      "probes": [
+        {
+          "f": "modules/surface/core/svg.ts",
+          "start": 3308,
+          "end": 9047,
+          "name": "attrs",
+          "line": 93,
+          "length": 5739,
+          "replacement": "{}",
+          "bytes": 27513,
+          "saving": 1126
+        },
+        {
+          "f": "modules/surface/core/index.ts",
+          "start": 3092,
+          "end": 7618,
+          "name": "load",
+          "line": 89,
+          "length": 4526,
+          "replacement": "{}",
+          "bytes": 28233,
+          "saving": 406
+        },
+        {
+          "f": "modules/surface/core/index.ts",
+          "start": 9663,
+          "end": 12326,
+          "name": "frame",
+          "line": 271,
+          "length": 2663,
+          "replacement": "{}",
+          "bytes": 28073,
+          "saving": 566
+        },
+        {
+          "f": "modules/surface/core/svg.ts",
+          "start": 840,
+          "end": 3270,
+          "name": "tree",
+          "line": 24,
+          "length": 2430,
+          "replacement": "{}",
+          "bytes": 28213,
+          "saving": 426
+        }
+      ]
+    },
+    {
+      "module": "components",
+      "entryBase": 24671,
+      "probes": [
+        {
+          "f": "modules/components/core/index.ts",
+          "start": 2656,
+          "end": 18144,
+          "name": "create",
+          "line": 60,
+          "length": 15488,
+          "replacement": "{}",
+          "bytes": 21466,
+          "saving": 3205
+        },
+        {
+          "f": "modules/components/core/index.ts",
+          "start": 18846,
+          "end": 23904,
+          "name": "nest",
+          "line": 491,
+          "length": 5058,
+          "replacement": "{}",
+          "bytes": 23803,
+          "saving": 868
+        },
+        {
+          "f": "modules/components/core/index.ts",
+          "start": 18372,
+          "end": 18696,
+          "name": "nodePointer",
+          "line": 476,
+          "length": 324,
+          "replacement": "{}",
+          "bytes": 24610,
+          "saving": 61
+        }
+      ]
+    },
+    {
+      "module": "assetio",
+      "entryBase": 21280,
+      "probes": [
+        {
+          "f": "modules/assetio/web/index.ts",
+          "start": 1378,
+          "end": 3700,
+          "name": "callback",
+          "line": 30,
+          "length": 2322,
+          "replacement": "{}",
+          "bytes": 20892,
+          "saving": 388
+        },
+        {
+          "f": "modules/assetio/web/index.ts",
+          "start": 711,
+          "end": 1335,
+          "name": "callback",
+          "line": 16,
+          "length": 624,
+          "replacement": "{}",
+          "bytes": 21121,
+          "saving": 159
+        }
+      ]
+    },
+    {
+      "module": "canvas",
+      "entryBase": 25874,
+      "probes": [
+        {
+          "f": "modules/canvas/web/renderer.ts",
+          "start": 16693,
+          "end": 24094,
+          "name": "#shape",
+          "line": 468,
+          "length": 7401,
+          "replacement": "{}",
+          "bytes": 24830,
+          "saving": 1044
+        },
+        {
+          "f": "modules/canvas/web/renderer.ts",
+          "start": 26079,
+          "end": 31341,
+          "name": "#paint",
+          "line": 696,
+          "length": 5262,
+          "replacement": "{}",
+          "bytes": 25021,
+          "saving": 853
+        },
+        {
+          "f": "modules/canvas/web/renderer.ts",
+          "start": 11543,
+          "end": 15374,
+          "name": "#node",
+          "line": 333,
+          "length": 3831,
+          "replacement": "{}",
+          "bytes": 25306,
+          "saving": 568
+        },
+        {
+          "f": "modules/canvas/web/renderer.ts",
+          "start": 3498,
+          "end": 5361,
+          "name": "layout",
+          "line": 93,
+          "length": 1863,
+          "replacement": "{}",
+          "bytes": 25547,
+          "saving": 327
+        }
+      ]
+    },
+    {
+      "module": "focus",
+      "entryBase": 24697,
+      "probes": [
+        {
+          "f": "modules/focus/core/index.ts",
+          "start": 3075,
+          "end": 10609,
+          "name": "install",
+          "line": 86,
+          "length": 7534,
+          "replacement": "{}",
+          "bytes": 23170,
+          "saving": 1527
+        },
+        {
+          "f": "modules/focus/web/index.ts",
+          "start": 651,
+          "end": 5036,
+          "name": "attach",
+          "line": 15,
+          "length": 4385,
+          "replacement": "{}",
+          "bytes": 23899,
+          "saving": 798
+        },
+        {
+          "f": "modules/focus/core/index.ts",
+          "start": 12114,
+          "end": 13487,
+          "name": "load",
+          "line": 354,
+          "length": 1373,
+          "replacement": "{}",
+          "bytes": 24476,
+          "saving": 221
+        },
+        {
+          "f": "modules/focus/core/index.ts",
+          "start": 10941,
+          "end": 12090,
+          "name": "init",
+          "line": 314,
+          "length": 1149,
+          "replacement": "{}",
+          "bytes": 23011,
+          "saving": 1686
+        }
+      ]
+    },
+    {
+      "module": "input",
+      "entryBase": 27066,
+      "probes": [
+        {
+          "f": "modules/input/core/runtime.ts",
+          "start": 7884,
+          "end": 11846,
+          "name": "pointer",
+          "line": 205,
+          "length": 3962,
+          "replacement": "{}",
+          "bytes": 26425,
+          "saving": 641
+        },
+        {
+          "f": "modules/input/core/index.ts",
+          "start": 2378,
+          "end": 6167,
+          "name": "load",
+          "line": 69,
+          "length": 3789,
+          "replacement": "{}",
+          "bytes": 26620,
+          "saving": 446
+        },
+        {
+          "f": "modules/input/web/index.ts",
+          "start": 2497,
+          "end": 5355,
+          "name": "attach",
+          "line": 77,
+          "length": 2858,
+          "replacement": "{}",
+          "bytes": 26487,
+          "saving": 579
+        },
+        {
+          "f": "modules/input/core/commands.ts",
+          "start": 634,
+          "end": 3244,
+          "name": "inputCommand",
+          "line": 10,
+          "length": 2610,
+          "replacement": "{}",
+          "bytes": 27066,
+          "saving": 0
+        }
+      ]
+    },
+    {
+      "module": "media",
+      "entryBase": 23366,
+      "probes": [
+        {
+          "f": "modules/media/web/index.ts",
+          "start": 504,
+          "end": 2184,
+          "name": "callback",
+          "line": 13,
+          "length": 1680,
+          "replacement": "{}",
+          "bytes": 23101,
+          "saving": 265
+        }
+      ]
+    },
+    {
+      "module": "motion",
+      "entryBase": 27267,
+      "probes": [
+        {
+          "f": "modules/motion/core/index.ts",
+          "start": 7348,
+          "end": 14616,
+          "name": "load",
+          "line": 198,
+          "length": 7268,
+          "replacement": "{}",
+          "bytes": 24999,
+          "saving": 2268
+        },
+        {
+          "f": "modules/motion/core/api.ts",
+          "start": 14381,
+          "end": 17660,
+          "name": "install",
+          "line": 441,
+          "length": 3279,
+          "replacement": "{}",
+          "bytes": 26546,
+          "saving": 721
+        },
+        {
+          "f": "modules/motion/core/index.ts",
+          "start": 5051,
+          "end": 7324,
+          "name": "track",
+          "line": 132,
+          "length": 2273,
+          "replacement": "{}",
+          "bytes": 26867,
+          "saving": 400
+        },
+        {
+          "f": "modules/motion/core/clock.ts",
+          "start": 1970,
+          "end": 3312,
+          "name": "crossings",
+          "line": 49,
+          "length": 1342,
+          "replacement": "{}",
+          "bytes": 27010,
+          "saving": 257
+        }
+      ]
+    },
+    {
+      "module": "events",
+      "entryBase": 24411,
+      "probes": [
+        {
+          "f": "modules/events/core/index.ts",
+          "start": 3465,
+          "end": 11910,
+          "name": "load",
+          "line": 114,
+          "length": 8445,
+          "replacement": "{}",
+          "bytes": 23032,
+          "saving": 1379
+        },
+        {
+          "f": "modules/events/web/index.ts",
+          "start": 3214,
+          "end": 6718,
+          "name": "sound",
+          "line": 84,
+          "length": 3504,
+          "replacement": "{}",
+          "bytes": 23703,
+          "saving": 708
+        },
+        {
+          "f": "modules/events/core/index.ts",
+          "start": 1750,
+          "end": 2548,
+          "name": "init",
+          "line": 56,
+          "length": 798,
+          "replacement": "{}",
+          "bytes": 24269,
+          "saving": 142
+        },
+        {
+          "f": "modules/events/web/index.ts",
+          "start": 7381,
+          "end": 8152,
+          "name": "callback",
+          "line": 202,
+          "length": 771,
+          "replacement": "{}",
+          "bytes": 23539,
+          "saving": 872
+        }
+      ]
+    },
+    {
+      "module": "machine",
+      "entryBase": 26915,
+      "probes": [
+        {
+          "f": "modules/machine/core/index.ts",
+          "start": 1593,
+          "end": 15287,
+          "name": "load",
+          "line": 42,
+          "length": 13694,
+          "replacement": "{}",
+          "bytes": 21431,
+          "saving": 5484
+        },
+        {
+          "f": "modules/machine/core/runtime.ts",
+          "start": 4019,
+          "end": 6849,
+          "name": "enter",
+          "line": 113,
+          "length": 2830,
+          "replacement": "{}",
+          "bytes": 26487,
+          "saving": 428
+        },
+        {
+          "f": "modules/machine/core/runtime.ts",
+          "start": 13592,
+          "end": 15064,
+          "name": "blended",
+          "line": 381,
+          "length": 1472,
+          "replacement": "{}",
+          "bytes": 26607,
+          "saving": 308
+        },
+        {
+          "f": "modules/machine/core/runtime.ts",
+          "start": 8881,
+          "end": 10268,
+          "name": "gate",
+          "line": 263,
+          "length": 1387,
+          "replacement": "{}",
+          "bytes": 26735,
+          "saving": 180
+        }
+      ]
+    },
+    {
+      "module": "paint-sampling",
+      "entryBase": 26196,
+      "probes": [
+        {
+          "f": "modules/paint/core/index.ts",
+          "start": 3243,
+          "end": 6957,
+          "name": "load",
+          "line": 91,
+          "length": 3714,
+          "replacement": "{}",
+          "bytes": 25590,
+          "saving": 606
+        },
+        {
+          "f": "modules/paint/core/sampling.ts",
+          "start": 1671,
+          "end": 5312,
+          "name": "attrs",
+          "line": 50,
+          "length": 3641,
+          "replacement": "{}",
+          "bytes": 25436,
+          "saving": 760
+        },
+        {
+          "f": "modules/paint/probes/angular.ts",
+          "start": 335,
+          "end": 3158,
+          "name": "measureAngular",
+          "line": 6,
+          "length": 2823,
+          "replacement": "{}",
+          "bytes": 26196,
+          "saving": 0
+        },
+        {
+          "f": "modules/paint/probes/raster.ts",
+          "start": 533,
+          "end": 2915,
+          "name": "measureRaster",
+          "line": 10,
+          "length": 2382,
+          "replacement": "{}",
+          "bytes": 26196,
+          "saving": 0
+        }
+      ]
+    },
+    {
+      "module": "contour",
+      "entryBase": 24360,
+      "probes": [
+        {
+          "f": "modules/contour/core/index.ts",
+          "start": 1348,
+          "end": 4162,
+          "name": "compileVertices",
+          "line": 35,
+          "length": 2814,
+          "replacement": "{}",
+          "bytes": 23792,
+          "saving": 568
+        },
+        {
+          "f": "modules/contour/core/effects.ts",
+          "start": 6218,
+          "end": 8705,
+          "name": "load",
+          "line": 192,
+          "length": 2487,
+          "replacement": "{}",
+          "bytes": 23914,
+          "saving": 446
+        },
+        {
+          "f": "modules/contour/core/effects.ts",
+          "start": 3216,
+          "end": 5211,
+          "name": "applyEffects",
+          "line": 103,
+          "length": 1995,
+          "replacement": "{}",
+          "bytes": 23927,
+          "saving": 433
+        },
+        {
+          "f": "modules/contour/core/winding.ts",
+          "start": 536,
+          "end": 2252,
+          "name": "clockwisePath",
+          "line": 8,
+          "length": 1716,
+          "replacement": "{}",
+          "bytes": 24021,
+          "saving": 339
+        }
+      ]
+    },
+    {
+      "module": "data",
+      "entryBase": 28605,
+      "probes": [
+        {
+          "f": "modules/data/core/compile.ts",
+          "start": 801,
+          "end": 15045,
+          "name": "prepare",
+          "line": 13,
+          "length": 14244,
+          "replacement": "{}",
+          "bytes": 25687,
+          "saving": 2918
+        },
+        {
+          "f": "modules/data/core/bindings.ts",
+          "start": 1069,
+          "end": 8436,
+          "name": "bindings",
+          "line": 20,
+          "length": 7367,
+          "replacement": "{}",
+          "bytes": 27419,
+          "saving": 1186
+        },
+        {
+          "f": "modules/data/core/index.ts",
+          "start": 6291,
+          "end": 10712,
+          "name": "load",
+          "line": 168,
+          "length": 4421,
+          "replacement": "{}",
+          "bytes": 26800,
+          "saving": 1805
+        },
+        {
+          "f": "modules/data/core/index.ts",
+          "start": 1991,
+          "end": 4360,
+          "name": "init",
+          "line": 47,
+          "length": 2369,
+          "replacement": "{}",
+          "bytes": 28236,
+          "saving": 369
+        }
+      ]
+    },
+    {
+      "module": "convert",
+      "entryBase": 27404,
+      "probes": [
+        {
+          "f": "modules/convert/core/index.ts",
+          "start": 6427,
+          "end": 8636,
+          "name": "load",
+          "line": 176,
+          "length": 2209,
+          "replacement": "{}",
+          "bytes": 26733,
+          "saving": 671
+        },
+        {
+          "f": "modules/convert/core/index.ts",
+          "start": 994,
+          "end": 3137,
+          "name": "createConverterRunner",
+          "line": 22,
+          "length": 2143,
+          "replacement": "{}",
+          "bytes": 27092,
+          "saving": 312
+        },
+        {
+          "f": "modules/convert/core/integration.ts",
+          "start": 772,
+          "end": 2836,
+          "name": "integration",
+          "line": 13,
+          "length": 2064,
+          "replacement": "{}",
+          "bytes": 27086,
+          "saving": 318
+        },
+        {
+          "f": "modules/convert/core/converters.ts",
+          "start": 3878,
+          "end": 5495,
+          "name": "'color-format'",
+          "line": 107,
+          "length": 1617,
+          "replacement": "{}",
+          "bytes": 27060,
+          "saving": 344
+        }
+      ]
+    },
+    {
+      "module": "derive",
+      "entryBase": 23005,
+      "probes": [
+        {
+          "f": "modules/derive/core/index.ts",
+          "start": 2605,
+          "end": 16460,
+          "name": "prepare",
+          "line": 73,
+          "length": 13855,
+          "replacement": "{}",
+          "bytes": 20809,
+          "saving": 2196
+        },
+        {
+          "f": "modules/derive/core/index.ts",
+          "start": 863,
+          "end": 2469,
+          "name": "init",
+          "line": 18,
+          "length": 1606,
+          "replacement": "{}",
+          "bytes": 20644,
+          "saving": 2361
+        }
+      ]
+    },
+    {
+      "module": "host-values",
+      "entryBase": 21833,
+      "probes": [
+        {
+          "f": "modules/host-values/core/index.ts",
+          "start": 5195,
+          "end": 7983,
+          "name": "validate",
+          "line": 131,
+          "length": 2788,
+          "replacement": "{}",
+          "bytes": 21447,
+          "saving": 386
+        },
+        {
+          "f": "modules/host-values/core/index.ts",
+          "start": 3559,
+          "end": 5064,
+          "name": "values",
+          "line": 85,
+          "length": 1505,
+          "replacement": "{}",
+          "bytes": 21554,
+          "saving": 279
+        },
+        {
+          "f": "modules/host-values/core/index.ts",
+          "start": 2006,
+          "end": 3079,
+          "name": "children",
+          "line": 46,
+          "length": 1073,
+          "replacement": "{}",
+          "bytes": 21702,
+          "saving": 131
+        }
+      ]
+    },
+    {
+      "module": "host",
+      "entryBase": 25403,
+      "probes": [
+        {
+          "f": "modules/host/core/api.ts",
+          "start": 8188,
+          "end": 10114,
+          "name": "#address",
+          "line": 237,
+          "length": 1926,
+          "replacement": "{}",
+          "bytes": 25015,
+          "saving": 388
+        },
+        {
+          "f": "modules/host/core/api.ts",
+          "start": 20125,
+          "end": 21689,
+          "name": "rebindInstance",
+          "line": 529,
+          "length": 1564,
+          "replacement": "{}",
+          "bytes": 25196,
+          "saving": 207
+        },
+        {
+          "f": "modules/host/core/api.ts",
+          "start": 18726,
+          "end": 19970,
+          "name": "bind",
+          "line": 492,
+          "length": 1244,
+          "replacement": "{}",
+          "bytes": 25244,
+          "saving": 159
+        },
+        {
+          "f": "modules/host/core/api.ts",
+          "start": 13448,
+          "end": 14658,
+          "name": "#set",
+          "line": 358,
+          "length": 1210,
+          "replacement": "{}",
+          "bytes": 25025,
+          "saving": 378
+        }
+      ]
+    },
+    {
+      "module": "data-host",
+      "entryBase": 21525,
+      "probes": [
+        {
+          "f": "modules/data-host/core/index.ts",
+          "start": 667,
+          "end": 3945,
+          "name": "computed",
+          "line": 13,
+          "length": 3278,
+          "replacement": "{}",
+          "bytes": 20863,
+          "saving": 662
+        },
+        {
+          "f": "modules/data-host/core/index.ts",
+          "start": 4315,
+          "end": 5398,
+          "name": "resolve",
+          "line": 120,
+          "length": 1083,
+          "replacement": "{}",
+          "bytes": 21388,
+          "saving": 137
+        }
+      ]
+    },
+    {
+      "module": "host-edit",
+      "entryBase": 24285,
+      "probes": [
+        {
+          "f": "modules/host-edit/core/index.ts",
+          "start": 2030,
+          "end": 11129,
+          "name": "extend",
+          "line": 48,
+          "length": 9099,
+          "replacement": "{}",
+          "bytes": 22722,
+          "saving": 1563
+        },
+        {
+          "f": "modules/host-edit/web/index.ts",
+          "start": 1069,
+          "end": 4262,
+          "name": "callback",
+          "line": 21,
+          "length": 3193,
+          "replacement": "{}",
+          "bytes": 23642,
+          "saving": 643
+        },
+        {
+          "f": "modules/host-edit/web/index.ts",
+          "start": 8018,
+          "end": 9276,
+          "name": "callback",
+          "line": 191,
+          "length": 1258,
+          "replacement": "{}",
+          "bytes": 24081,
+          "saving": 204
+        },
+        {
+          "f": "modules/host-edit/web/index.ts",
+          "start": 6544,
+          "end": 7394,
+          "name": "selectRoot",
+          "line": 153,
+          "length": 850,
+          "replacement": "{}",
+          "bytes": 24143,
+          "saving": 142
+        }
+      ]
+    },
+    {
+      "module": "lists",
+      "entryBase": 25209,
+      "probes": [
+        {
+          "f": "modules/lists/core/index.ts",
+          "start": 7169,
+          "end": 13385,
+          "name": "resolve",
+          "line": 192,
+          "length": 6216,
+          "replacement": "{}",
+          "bytes": 23006,
+          "saving": 2203
+        },
+        {
+          "f": "modules/lists/core/index.ts",
+          "start": 14842,
+          "end": 20711,
+          "name": "extend",
+          "line": 418,
+          "length": 5869,
+          "replacement": "{}",
+          "bytes": 24018,
+          "saving": 1191
+        },
+        {
+          "f": "modules/lists/core/index.ts",
+          "start": 3423,
+          "end": 6982,
+          "name": "render",
+          "line": 99,
+          "length": 3559,
+          "replacement": "{}",
+          "bytes": 24604,
+          "saving": 605
+        },
+        {
+          "f": "modules/lists/core/context.ts",
+          "start": 818,
+          "end": 3391,
+          "name": "install",
+          "line": 14,
+          "length": 2573,
+          "replacement": "{}",
+          "bytes": 24577,
+          "saving": 632
+        }
+      ]
+    },
+    {
+      "module": "a11y",
+      "entryBase": 22669,
+      "probes": [
+        {
+          "f": "modules/a11y/core/runtime.ts",
+          "start": 1442,
+          "end": 6912,
+          "name": "install",
+          "line": 40,
+          "length": 5470,
+          "replacement": "{}",
+          "bytes": 21704,
+          "saving": 965
+        },
+        {
+          "f": "modules/a11y/core/commands.ts",
+          "start": 523,
+          "end": 4704,
+          "name": "semanticCommand",
+          "line": 7,
+          "length": 4181,
+          "replacement": "{}",
+          "bytes": 22669,
+          "saving": 0
+        },
+        {
+          "f": "modules/a11y/core/validate.ts",
+          "start": 646,
+          "end": 4242,
+          "name": "validate",
+          "line": 15,
+          "length": 3596,
+          "replacement": "{}",
+          "bytes": 22201,
+          "saving": 468
+        }
+      ]
+    },
+    {
+      "module": "a11y-actions",
+      "entryBase": 23690,
+      "probes": [
+        {
+          "f": "modules/a11y-actions/core/index.ts",
+          "start": 853,
+          "end": 5580,
+          "name": "init",
+          "line": 19,
+          "length": 4727,
+          "replacement": "{}",
+          "bytes": 22790,
+          "saving": 900
+        },
+        {
+          "f": "modules/a11y-actions/core/diff.ts",
+          "start": 294,
+          "end": 1008,
+          "name": "semanticDiff",
+          "line": 4,
+          "length": 714,
+          "replacement": "{}",
+          "bytes": 23546,
+          "saving": 144
+        },
+        {
+          "f": "modules/a11y-actions/core/index.ts",
+          "start": 5599,
+          "end": 5910,
+          "name": "resolve",
+          "line": 139,
+          "length": 311,
+          "replacement": "{}",
+          "bytes": 23605,
+          "saving": 85
+        }
+      ]
+    },
+    {
+      "module": "a11y-dom",
+      "entryBase": 25589,
+      "probes": [
+        {
+          "f": "modules/a11y-dom/web/index.ts",
+          "start": 1116,
+          "end": 10609,
+          "name": "attach",
+          "line": 30,
+          "length": 9493,
+          "replacement": "{}",
+          "bytes": 23909,
+          "saving": 1680
+        }
+      ]
+    },
+    {
+      "module": "nested",
+      "entryBase": 25157,
+      "probes": [
+        {
+          "f": "modules/nested/core/index.ts",
+          "start": 1311,
+          "end": 14663,
+          "name": "init",
+          "line": 25,
+          "length": 13352,
+          "replacement": "{}",
+          "bytes": 21381,
+          "saving": 3776
+        },
+        {
+          "f": "modules/nested/core/render.ts",
+          "start": 4073,
+          "end": 7645,
+          "name": "render",
+          "line": 113,
+          "length": 3572,
+          "replacement": "{}",
+          "bytes": 24370,
+          "saving": 787
+        },
+        {
+          "f": "modules/nested/core/time.ts",
+          "start": 625,
+          "end": 3878,
+          "name": "clock",
+          "line": 7,
+          "length": 3253,
+          "replacement": "{}",
+          "bytes": 24331,
+          "saving": 826
+        },
+        {
+          "f": "modules/nested/web/index.ts",
+          "start": 994,
+          "end": 3293,
+          "name": "order",
+          "line": 18,
+          "length": 2299,
+          "replacement": "{}",
+          "bytes": 24734,
+          "saving": 423
+        }
+      ]
+    },
+    {
+      "module": "mix",
+      "entryBase": 22302,
+      "probes": [
+        {
+          "f": "modules/mix/core/svg.ts",
+          "start": 714,
+          "end": 3274,
+          "name": "tree",
+          "line": 20,
+          "length": 2560,
+          "replacement": "{}",
+          "bytes": 21845,
+          "saving": 457
+        },
+        {
+          "f": "modules/mix/core/svg.ts",
+          "start": 3321,
+          "end": 5714,
+          "name": "attrs",
+          "line": 85,
+          "length": 2393,
+          "replacement": "{}",
+          "bytes": 21764,
+          "saving": 538
+        },
+        {
+          "f": "modules/mix/core/index.ts",
+          "start": 2631,
+          "end": 3580,
+          "name": "frame",
+          "line": 74,
+          "length": 949,
+          "replacement": "{}",
+          "bytes": 22151,
+          "saving": 151
+        },
+        {
+          "f": "modules/mix/core/index.ts",
+          "start": 1831,
+          "end": 2607,
+          "name": "tree",
+          "line": 54,
+          "length": 776,
+          "replacement": "{}",
+          "bytes": 22210,
+          "saving": 92
+        }
+      ]
+    },
+    {
+      "module": "componentpaint",
+      "entryBase": 22596,
+      "probes": [
+        {
+          "f": "modules/componentpaint/core/index.ts",
+          "start": 1186,
+          "end": 9387,
+          "name": "init",
+          "line": 27,
+          "length": 8201,
+          "replacement": "{}",
+          "bytes": 21537,
+          "saving": 1059
+        },
+        {
+          "f": "modules/componentpaint/core/svg.ts",
+          "start": 372,
+          "end": 1862,
+          "name": "tree",
+          "line": 7,
+          "length": 1490,
+          "replacement": "{}",
+          "bytes": 22335,
+          "saving": 261
+        },
+        {
+          "f": "modules/componentpaint/core/svg.ts",
+          "start": 1905,
+          "end": 2845,
+          "name": "attrs",
+          "line": 47,
+          "length": 940,
+          "replacement": "{}",
+          "bytes": 22408,
+          "saving": 188
+        },
+        {
+          "f": "modules/componentpaint/core/index.ts",
+          "start": 9732,
+          "end": 10331,
+          "name": "end",
+          "line": 234,
+          "length": 599,
+          "replacement": "{}",
+          "bytes": 22524,
+          "saving": 72
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,212 @@
+{
+  "base": 109971,
+  "results": [
+    {
+      "shape": "{ k: 'num', min: 0 }",
+      "occurrences": [
+        "modules/a11y/core/registry.ts",
+        "modules/a11y/core/registry.ts",
+        "modules/assets/core/index.ts",
+        "modules/assets/core/index.ts",
+        "modules/components/core/index.ts",
+        "modules/contour/core/effects.ts",
+        "modules/contour/core/index.ts",
+        "modules/convert/core/registry.ts",
+        "modules/focus/core/index.ts",
+        "modules/focus/core/index.ts",
+        "modules/lists/capabilities/components-list/registry.ts",
+        "modules/lists/capabilities/components-list/registry.ts",
+        "modules/machine/core/registry.ts",
+        "modules/machine/core/registry.ts",
+        "modules/motion/core/registry.ts",
+        "modules/nested/capabilities/components-nested-remap/registry.ts",
+        "modules/nested/capabilities/components-nested-remap/registry.ts",
+        "modules/nested/capabilities/components-nested-remap/registry.ts"
+      ],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "shape": "{ k: 'str' }",
+      "occurrences": [
+        "modules/a11y/core/registry.ts",
+        "modules/assets/core/index.ts",
+        "modules/bind/capabilities/data-bind-listener-actions/registry.ts",
+        "modules/bind/core/index.ts",
+        "modules/bind/core/index.ts",
+        "modules/bind/core/index.ts",
+        "modules/components/core/index.ts",
+        "modules/contour/core/effects.ts",
+        "modules/convert/core/registry.ts",
+        "modules/data/core/index.ts",
+        "modules/data/core/registry.ts",
+        "modules/events/core/index.ts",
+        "modules/events/core/index.ts",
+        "modules/lists/capabilities/components-list/registry.ts",
+        "modules/lists/capabilities/components-list/registry.ts",
+        "modules/machine/core/registry.ts",
+        "modules/motion/capabilities/data-bind-keyframes/registry.ts",
+        "modules/motion/core/registry.ts",
+        "modules/motion/core/registry.ts",
+        "modules/motion/core/registry.ts",
+        "modules/motion/core/registry.ts",
+        "modules/motion/core/registry.ts",
+        "modules/nested/capabilities/components-nested-remap/registry.ts",
+        "modules/nested/capabilities/components-nested-remap/registry.ts",
+        "modules/nested/capabilities/components-nested-remap/registry.ts",
+        "modules/surface/core/index.ts",
+        "modules/surface/core/index.ts"
+      ],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "shape": "{ k: 'bool' }",
+      "occurrences": [
+        "modules/a11y/core/registry.ts",
+        "modules/assets/core/index.ts",
+        "modules/bind/capabilities/data-bind-listener-actions/registry.ts",
+        "modules/components/core/index.ts",
+        "modules/components/core/index.ts",
+        "modules/composite/core/index.ts",
+        "modules/contour/core/index.ts",
+        "modules/convert/core/registry.ts",
+        "modules/data/core/registry.ts",
+        "modules/focus/core/index.ts",
+        "modules/focus/core/index.ts",
+        "modules/focus/core/index.ts",
+        "modules/input/core/registry.ts",
+        "modules/input/core/registry.ts",
+        "modules/input/core/registry.ts",
+        "modules/input/core/registry.ts",
+        "modules/input/core/registry.ts",
+        "modules/input/core/registry.ts",
+        "modules/machine/core/registry.ts",
+        "modules/motion/core/registry.ts",
+        "modules/motion/core/registry.ts",
+        "modules/surface/core/index.ts"
+      ],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "shape": "{\n        k: 'tup',\n        min: 2,\n        of: [\n          { k: 'num', min: 0 },\n          { k: 'num', min: 0 },\n        ],\n      }",
+      "occurrences": [
+        "modules/lists/capabilities/components-list/registry.ts",
+        "modules/nested/capabilities/components-nested-remap/registry.ts"
+      ],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "shape": "{ k: 'num', min: 0, max: 1 }",
+      "occurrences": [
+        "modules/assets/core/index.ts",
+        "modules/contour/core/effects.ts",
+        "modules/contour/core/effects.ts",
+        "modules/events/core/index.ts",
+        "modules/events/core/index.ts",
+        "modules/events/core/index.ts",
+        "modules/machine/core/registry.ts",
+        "modules/mix/core/index.ts",
+        "modules/motion/core/registry.ts"
+      ],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "shape": "{\n      k: 'tup',\n      min: 4,\n      of: [{ k: 'num' }, { k: 'num' }, { k: 'num', min: 0 }, { k: 'num', min: 0 }],\n    }",
+      "occurrences": ["modules/a11y/core/registry.ts", "modules/focus/core/index.ts"],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "shape": "{ k: 'num' }",
+      "occurrences": [
+        "modules/a11y/core/registry.ts",
+        "modules/a11y/core/registry.ts",
+        "modules/a11y/core/registry.ts",
+        "modules/a11y/core/registry.ts",
+        "modules/assets/core/index.ts",
+        "modules/assets/core/index.ts",
+        "modules/bind/capabilities/data-bind-listener-actions/registry.ts",
+        "modules/components/core/index.ts",
+        "modules/contour/core/effects.ts",
+        "modules/contour/core/index.ts",
+        "modules/convert/core/registry.ts",
+        "modules/data/core/registry.ts",
+        "modules/focus/core/index.ts",
+        "modules/focus/core/index.ts",
+        "modules/focus/core/index.ts",
+        "modules/lists/capabilities/components-list/registry.ts",
+        "modules/lists/capabilities/components-list/registry.ts",
+        "modules/machine/core/registry.ts",
+        "modules/motion/capabilities/data-bind-keyframes/registry.ts",
+        "modules/motion/core/registry.ts"
+      ],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "shape": "{ k: 'num', gt: 0 }",
+      "occurrences": [
+        "modules/a11y/core/registry.ts",
+        "modules/assets/core/index.ts",
+        "modules/assets/core/index.ts",
+        "modules/assets/core/index.ts",
+        "modules/assets/core/index.ts",
+        "modules/assets/core/index.ts",
+        "modules/motion/core/registry.ts",
+        "modules/nested/capabilities/components-nested-remap/registry.ts",
+        "modules/surface/core/index.ts",
+        "modules/surface/core/index.ts"
+      ],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "shape": "{ k: 'alt', of: [{ k: 'num' }, { k: 'bool' }, { k: 'str' }] }",
+      "occurrences": [
+        "modules/bind/capabilities/data-bind-listener-actions/registry.ts",
+        "modules/components/core/index.ts"
+      ],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "shape": "{ k: 'any' }",
+      "occurrences": [
+        "modules/assets/core/index.ts",
+        "modules/convert/core/registry.ts",
+        "modules/convert/core/registry.ts",
+        "modules/data/core/index.ts",
+        "modules/data/core/registry.ts",
+        "modules/events/core/index.ts",
+        "modules/motion/capabilities/data-bind-keyframes/registry.ts",
+        "modules/motion/core/registry.ts"
+      ],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "shape": "{ k: 'num', min: 0, int: true }",
+      "occurrences": ["modules/assets/core/index.ts", "modules/machine/core/registry.ts"],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "shape": "{ k: 'map', of: { k: 'str' } }",
+      "occurrences": [
+        "modules/bind/core/index.ts",
+        "modules/lists/capabilities/components-list/registry.ts"
+      ],
+      "bytes": 109971,
+      "saving": 0
+    },
+    {
+      "name": "combined",
+      "count": 12,
+      "bytes": 109971
+    }
+  ]
+}
