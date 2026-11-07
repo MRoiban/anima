@@ -1,0 +1,9 @@
+First command: read SEARCH-BRIEF.md, 2026-11-07 22:44:41 UTC (clock captured immediately afterward).
+Initial anima --help exited 2: Anima CLI dependencies are missing; run npm ci at the repo root.
+npm ci ran once and succeeded: 153 packages added. npm reported 10 moderate vulnerabilities and one install-scripts warning for esbuild; no remediation attempted.
+Subsequent --help succeeded.
+Format discovery used only CLI --help, docs and schema. Topics: authoring, --list, text, text-effects, textinput, text-input, derive, data-view-models-paths-and-converters, bind, convert, a11y, fonts. Schema queries: search 'text input wave ellipsis', anima, rect, text.
+No repository implementation, spec files, examples, tests, design notes or other benchmark runs were read.
+commands.jsonl records all scene validate/build/render/sample/session invocations, including unsuccessful attempts and repeated proofs. The earlier CLI help failure is recorded here separately.
+The failed session also produced one host-helper AssertionError wrapping its script-usage diagnostic. That exploratory version of prove.mjs was replaced by the replay harness; session-failed.json preserves the response.
+An SVG inspection initially searched for node IDs and found none; exported SVG does not retain these IDs. Text-content assertions instead inspect the generated text elements.

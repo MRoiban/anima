@@ -1,0 +1,366 @@
+{
+  "anima": "0.1",
+  "name": "search-card",
+  "grid": 40,
+  "viewBox": [0, 0, 40, 30],
+  "requires": ["text", "texteffects", "textinput", "focus", "a11y", "input", "data", "bind", "derive", "convert"],
+  "nodes": [
+    {
+      "id": "panel",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 40,
+      "h": 30,
+      "fill": {
+        "color": "#f0eee6"
+      }
+    },
+    {
+      "id": "title",
+      "type": "text",
+      "x": 2,
+      "y": 2,
+      "runs": [
+        {
+          "text": "Find a setting",
+          "style": "heading"
+        }
+      ],
+      "effects": [
+        {
+          "start": 0,
+          "end": 20,
+          "units": "glyphs",
+          "falloff": 3,
+          "y": 1,
+          "opacity": 0
+        }
+      ]
+    },
+    {
+      "id": "fieldBox",
+      "type": "rect",
+      "x0": 2,
+      "y0": 6,
+      "w": 36,
+      "h": 4,
+      "rx": 0.7,
+      "stroke": {
+        "color": "#141413",
+        "width": 0.12
+      }
+    },
+    {
+      "id": "search",
+      "type": "text",
+      "x": 2.8,
+      "y": 7.1,
+      "sizing": "fixed",
+      "wrap": false,
+      "width": 34.4,
+      "height": 2.5,
+      "runs": [
+        {
+          "text": "",
+          "style": "body"
+        }
+      ],
+      "textInput": {
+        "writeText": "$query",
+        "label": "Search",
+        "caretColor": "#d97757",
+        "selectionColor": "#d9775755"
+      }
+    },
+    {
+      "id": "placeholder",
+      "type": "text",
+      "x": 2.8,
+      "y": 7.1,
+      "pointerEnabled": false,
+      "runs": [
+        {
+          "text": "Search",
+          "style": "muted"
+        }
+      ],
+      "a11y": {
+        "role": "none"
+      }
+    },
+    {
+      "id": "row0",
+      "type": "text",
+      "x": 2,
+      "y": 12,
+      "sizing": "fixed",
+      "overflow": "ellipsis",
+      "wrap": false,
+      "width": 14,
+      "height": 2.5,
+      "runs": [
+        {
+          "text": "$label0",
+          "style": "body"
+        }
+      ],
+      "a11y": {
+        "role": "text",
+        "label": "$label0"
+      }
+    },
+    {
+      "id": "row1",
+      "type": "text",
+      "x": 2,
+      "y": 15,
+      "sizing": "fixed",
+      "overflow": "ellipsis",
+      "wrap": false,
+      "width": 14,
+      "height": 2.5,
+      "runs": [
+        {
+          "text": "$label1",
+          "style": "body"
+        }
+      ],
+      "a11y": {
+        "role": "text",
+        "label": "$label1"
+      }
+    },
+    {
+      "id": "row2",
+      "type": "text",
+      "x": 2,
+      "y": 18,
+      "sizing": "fixed",
+      "overflow": "ellipsis",
+      "wrap": false,
+      "width": 14,
+      "height": 2.5,
+      "runs": [
+        {
+          "text": "$label2",
+          "style": "body"
+        }
+      ],
+      "a11y": {
+        "role": "text",
+        "label": "$label2"
+      }
+    },
+    {
+      "id": "row3",
+      "type": "text",
+      "x": 2,
+      "y": 21,
+      "sizing": "fixed",
+      "overflow": "ellipsis",
+      "wrap": false,
+      "width": 14,
+      "height": 2.5,
+      "runs": [
+        {
+          "text": "$label3",
+          "style": "body"
+        }
+      ],
+      "a11y": {
+        "role": "text",
+        "label": "$label3"
+      }
+    },
+    {
+      "id": "row4",
+      "type": "text",
+      "x": 2,
+      "y": 24,
+      "sizing": "fixed",
+      "overflow": "ellipsis",
+      "wrap": false,
+      "width": 14,
+      "height": 2.5,
+      "runs": [
+        {
+          "text": "$label4",
+          "style": "body"
+        }
+      ],
+      "a11y": {
+        "role": "text",
+        "label": "$label4"
+      }
+    },
+    {
+      "id": "countLine",
+      "type": "text",
+      "x": 2,
+      "y": 27,
+      "runs": [
+        {
+          "text": "$countText",
+          "style": "body"
+        }
+      ],
+      "a11y": {
+        "role": "status",
+        "label": "$countText"
+      }
+    }
+  ],
+  "timelines": {
+    "wave": {
+      "duration": 1.1,
+      "reducedMotion": "end",
+      "tracks": {
+        "title.effects.0.start": [
+          [0, 0],
+          [1.1, 17]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "intro": {
+        "initial": "enter",
+        "states": {
+          "enter": {
+            "play": "wave"
+          }
+        }
+      }
+    }
+  },
+  "bind": {
+    "placeholder.visible": "$query == \"\"",
+    "row0.collapsed": "not $shown0",
+    "row1.collapsed": "not $shown1",
+    "row2.collapsed": "not $shown2",
+    "row3.collapsed": "not $shown3",
+    "row4.collapsed": "not $shown4"
+  },
+  "data": {
+    "models": {
+      "Search": {
+        "properties": {
+          "query": {
+            "type": "string"
+          },
+          "label0": {
+            "type": "string",
+            "default": "Notifications"
+          },
+          "shown0": {
+            "type": "bool",
+            "default": true
+          },
+          "n0": {
+            "type": "number",
+            "value": "$shown0"
+          },
+          "label1": {
+            "type": "string",
+            "default": "Network and connectivity preferences"
+          },
+          "shown1": {
+            "type": "bool",
+            "default": true
+          },
+          "n1": {
+            "type": "number",
+            "value": "$shown1"
+          },
+          "label2": {
+            "type": "string",
+            "default": "Sound"
+          },
+          "shown2": {
+            "type": "bool",
+            "default": true
+          },
+          "n2": {
+            "type": "number",
+            "value": "$shown2"
+          },
+          "label3": {
+            "type": "string",
+            "default": "Display brightness and colour"
+          },
+          "shown3": {
+            "type": "bool",
+            "default": true
+          },
+          "n3": {
+            "type": "number",
+            "value": "$shown3"
+          },
+          "label4": {
+            "type": "string",
+            "default": "Privacy"
+          },
+          "shown4": {
+            "type": "bool",
+            "default": true
+          },
+          "n4": {
+            "type": "number",
+            "value": "$shown4"
+          },
+          "count": {
+            "type": "number",
+            "value": "$n0 + $n1 + $n2 + $n3 + $n4"
+          },
+          "countText": {
+            "type": "string",
+            "value": "$count",
+            "convert": "resultCount"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Search",
+        "default": true,
+        "exported": true,
+        "values": {}
+      }
+    }
+  },
+  "converters": {
+    "resultCount": {
+      "type": "template",
+      "text": "{0} results"
+    }
+  },
+  "textStyles": {
+    "body": {
+      "font": "sans-serif",
+      "size": 1.8,
+      "lineHeight": 1,
+      "fill": {
+        "color": "#141413"
+      }
+    },
+    "muted": {
+      "font": "sans-serif",
+      "size": 1.8,
+      "lineHeight": 1,
+      "fill": {
+        "color": "#777670"
+      }
+    },
+    "heading": {
+      "font": "sans-serif",
+      "size": 2.5,
+      "lineHeight": 1,
+      "fill": {
+        "color": "#141413"
+      }
+    }
+  }
+}

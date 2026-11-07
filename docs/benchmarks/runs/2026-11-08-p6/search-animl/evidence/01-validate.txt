@@ -1,0 +1,1 @@
+{"file":"docs/benchmarks/runs/2026-11-08-p6/search-animl/search.animl","ok":false,"diagnostics":[{"code":"bad-name","severity":"error","pointer":"/name","message":"\"Find a setting\" is not a valid name","hint":"names match ^[a-z0-9]+(-[a-z0-9]+)*$","line":1,"column":28,"file":"docs/benchmarks/runs/2026-11-08-p6/search-animl/search.animl"}]}
