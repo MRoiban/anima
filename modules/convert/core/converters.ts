@@ -1,3 +1,4 @@
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import { parseEase } from '../../../packages/core/src/ease.ts';
 import { parseHex, lerpColor } from '../../../packages/core/src/color.ts';
 import { formula, seededRandom, mathFunctions } from './math.ts';
@@ -22,12 +23,12 @@ function pair(o: ConverterOptions, key: string, fallback: number[]): number[] {
     v.length !== 2 ||
     v.some((n) => typeof n !== 'number' || !Number.isFinite(n))
   )
-    bad('expected two finite numbers', key);
+    bad(V ? 'expected two finite numbers' : '', key);
   return v as number[];
 }
 function integer(o: ConverterOptions, key: string, fallback: number, max = 10000): number {
   const n = opt(o, key, fallback);
-  if (!Number.isInteger(n) || n < 0 || n > max) bad(`expected integer 0..${max}`, key);
+  if (!Number.isInteger(n) || n < 0 || n > max) bad(V ? `expected integer 0..${max}` : '', key);
   return n;
 }
 function format(value: ConverterValue, o: ConverterOptions): string {
@@ -48,17 +49,17 @@ function color(value: ConverterValue): import('../../../packages/core/src/color.
         : undefined;
   return (
     (c as import('../../../packages/core/src/color.ts').RGBA) ??
-    mismatch('hex colour or RGBA tuple')
+    mismatch(V ? 'hex colour or RGBA tuple' : '')
   );
 }
 const eases = new Map<string, (t: number) => number>();
 function ease(o: ConverterOptions, t: number): number {
   const name = o.ease ?? 'linear';
-  if (typeof name !== 'string') bad('expected easing string', 'ease');
+  if (typeof name !== 'string') bad(V ? 'expected easing string' : '', 'ease');
   let fn = eases.get(name as string);
   if (!fn) {
     const parsed = parseEase(name as string);
-    if (typeof parsed === 'string') bad(parsed, 'ease');
+    if (typeof parsed === 'string') bad(V ? parsed : '', 'ease');
     fn = parsed as (t: number) => number;
     if (eases.size > 256) eases.clear();
     eases.set(name as string, fn);
@@ -77,7 +78,7 @@ const implementations: Record<string, Converter> = {
   range: (v, o) => {
     const [a, b] = pair(o, 'from', [0, 1]) as [number, number],
       [c, d] = pair(o, 'to', [0, 1]) as [number, number];
-    if (a === b) bad('source range must have nonzero width', 'from');
+    if (a === b) bad(V ? 'source range must have nonzero width' : '', 'from');
     let t = (numeric(v) - a) / (b - a);
     if (o.modulo) t = ((t % 1) + 1) % 1;
     if (o.clamp) t = Math.max(0, Math.min(1, t));
@@ -95,10 +96,10 @@ const implementations: Record<string, Converter> = {
           : Math.round(n)) / f
     );
   },
-  negate: (v) => (typeof v === 'boolean' ? !v : mismatch('boolean')),
+  negate: (v) => (typeof v === 'boolean' ? !v : mismatch(V ? 'boolean' : '')),
   'to-number': (v) => {
     if (typeof v !== 'string' && typeof v !== 'boolean' && typeof v !== 'number')
-      mismatch('number, boolean or numeric string');
+      mismatch(V ? 'number, boolean or numeric string' : '');
     const n = Number(v);
     return Number.isFinite(n) ? n : 0;
   },
@@ -107,7 +108,7 @@ const implementations: Record<string, Converter> = {
   'color-format': (v, o) => {
     const c = color(v).map(Math.round);
     if (o.pattern !== undefined) {
-      if (typeof o.pattern !== 'string') bad('pattern must be a string', 'pattern');
+      if (typeof o.pattern !== 'string') bad(V ? 'pattern must be a string' : '', 'pattern');
       const [r, g, b, a] = c as [number, number, number, number];
       const [x, y, z] = [r / 255, g / 255, b / 255];
       const hi = Math.max(x, y, z),
@@ -138,7 +139,7 @@ const implementations: Record<string, Converter> = {
             .join(''),
       };
       return (o.pattern as string).replace(/\{([^{}]*)\}/g, (_token, name: string) => {
-        if (!Object.hasOwn(markers, name)) bad('unknown colour marker ' + name, 'pattern');
+        if (!Object.hasOwn(markers, name)) bad(V ? 'unknown colour marker ' + name : '', 'pattern');
         return String(markers[name]);
       });
     }
@@ -156,7 +157,8 @@ const implementations: Record<string, Converter> = {
     const text = string(v),
       length = integer(o, 'length', 0),
       fill = o.fill ?? ' ';
-    if (typeof fill !== 'string' || !fill.length) bad('fill must be a nonempty string', 'fill');
+    if (typeof fill !== 'string' || !fill.length)
+      bad(V ? 'fill must be a nonempty string' : '', 'fill');
     return choice(o, 'side', ['start', 'end'], 'start') === 'start'
       ? text.padStart(length, fill as string)
       : text.padEnd(length, fill as string);
@@ -173,13 +175,13 @@ const implementations: Record<string, Converter> = {
           : t.trim();
   },
   template: (v, o) => {
-    if (typeof o.text !== 'string') bad('text is required', 'text');
+    if (typeof o.text !== 'string') bad(V ? 'text is required' : '', 'text');
     const open = o.open ?? '{',
       close = o.close ?? '}';
     if (typeof open !== 'string' || typeof close !== 'string' || !open || !close)
-      bad('delimiters must be nonempty strings');
+      bad(V ? 'delimiters must be nonempty strings' : '');
     const args = (o.args ?? (Array.isArray(v) ? v : [v])) as Record<string, ConverterValue>;
-    if (!args || typeof args !== 'object') bad('args must be an array or object', 'args');
+    if (!args || typeof args !== 'object') bad(V ? 'args must be an array or object' : '', 'args');
     let position = 0;
     let result = '',
       rest = o.text as string;
@@ -195,15 +197,15 @@ const implementations: Record<string, Converter> = {
       }
       const token = rest.slice(0, j),
         match = /^([\w-]*)(?::(\d+))?(?::(\d+))?$/.exec(token);
-      if (!match) bad('expected positional argument, optionally :decimals', 'text');
+      if (!match) bad(V ? 'expected positional argument, optionally :decimals' : '', 'text');
       const arg = args[match![1] || String(position++)];
-      if (arg === undefined) mismatch('template argument');
+      if (arg === undefined) mismatch(V ? 'template argument' : '');
       const replacement =
         match![2] === undefined
           ? String(arg)
           : format(arg!, { decimals: Number(match![2]), grouping: o.grouping });
       const width = Number(match![3] ?? 0);
-      if (width > 10000) bad('template width exceeds 10000', 'text');
+      if (width > 10000) bad(V ? 'template width exceeds 10000' : '', 'text');
       result += replacement.padStart(width, ' ');
       rest = rest.slice(j + (close as string).length);
     }
@@ -211,14 +213,14 @@ const implementations: Record<string, Converter> = {
   },
   'remove-zeros': (v) => string(v).replace(/(\.\d*?[1-9])0+(?=$|[^\d])|\.0+(?=$|[^\d])/g, '$1'),
   'enum-to-index': (v, o) => {
-    if (!Array.isArray(o.values)) bad('values array is required', 'values');
+    if (!Array.isArray(o.values)) bad(V ? 'values array is required' : '', 'values');
     const index = (o.values as unknown[]).indexOf(v);
-    return index < 0 ? mismatch('declared enum value') : index;
+    return index < 0 ? mismatch(V ? 'declared enum value' : '') : index;
   },
-  'list-length': (v) => (Array.isArray(v) ? v.length : mismatch('list')),
+  'list-length': (v) => (Array.isArray(v) ? v.length : mismatch(V ? 'list' : '')),
   'number-to-list': (v, o) => {
     const n = numeric(v);
-    if (!Number.isInteger(n) || n < 0 || n > 10000) mismatch('list length 0..10000');
+    if (!Number.isInteger(n) || n < 0 || n > 10000) mismatch(V ? 'list length 0..10000' : '');
     return Array.from({ length: n }, (_, i) =>
       o.item === undefined ? i : (o.item as ConverterValue),
     );
@@ -228,11 +230,11 @@ const implementations: Record<string, Converter> = {
     ctx.direction === 'reverse' ? (numeric(v) * 180) / Math.PI : (numeric(v) * Math.PI) / 180,
   normalize: (v, o, ctx) => {
     const [a, b] = pair(o, 'from', [0, 1]) as [number, number];
-    if (a === b) bad('source range must have nonzero width', 'from');
+    if (a === b) bad(V ? 'source range must have nonzero width' : '', 'from');
     return ctx.direction === 'reverse' ? a + numeric(v) * (b - a) : (numeric(v) - a) / (b - a);
   },
   formula: (v, o, ctx) => {
-    if (typeof o.expression !== 'string') bad('expression is required', 'expression');
+    if (typeof o.expression !== 'string') bad(V ? 'expression is required' : '', 'expression');
     const mode = choice(o, 'random', ['always', 'once', 'on-change'], 'always');
     const scope = new Map(ctx.values);
     for (const path of (o.expression as string).match(
@@ -265,12 +267,12 @@ const implementations: Record<string, Converter> = {
     if (operation === 'random')
       return seededRandom(ctx, choice(o, 'random', ['always', 'once', 'on-change'], 'always'), v);
     const fn = mathFunctions.get(String(operation));
-    if (!fn) bad('unknown calculation', 'operation');
+    if (!fn) bad(V ? 'unknown calculation' : '', 'operation');
     return fn!.evaluate(n, ...(fn!.arity === 2 ? [operand] : []));
   },
   interpolate: (v, o, ctx) => {
     const duration = opt(o, 'duration', 0);
-    if (duration < 0) bad('duration must be nonnegative', 'duration');
+    if (duration < 0) bad(V ? 'duration must be nonnegative' : '', 'duration');
     ease(o, 0);
     const target = typeof v === 'number' ? numeric(v) : [...color(v)];
     let states = ctx.state.get(interpolation) as Map<string, Interpolation> | undefined;
@@ -292,7 +294,7 @@ const implementations: Record<string, Converter> = {
     } else if (!equal(target, s.target)) {
       const from = sample(s);
       if ((typeof from === 'number') !== (typeof target === 'number'))
-        mismatch('same interpolation type');
+        mismatch(V ? 'same interpolation type' : '');
       s.from = from;
       s.target = target;
       s.start = ctx.time;
@@ -310,7 +312,11 @@ export function convertValue(
 ): ConverterValue {
   const fn = converterRegistry.get(type);
   if (!fn)
-    throw new ConverterError('convert-unknown-type', `unknown converter type ${type}`, 'type');
+    throw new ConverterError(
+      'convert-unknown-type',
+      V ? `unknown converter type ${type}` : '',
+      'type',
+    );
   const result = fn!(value, options, ctx);
   return typeof result === 'number' && !Number.isFinite(result) ? 0 : result;
 }
