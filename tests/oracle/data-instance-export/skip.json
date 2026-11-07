@@ -1,0 +1,9 @@
+{
+  "status": "skip",
+  "reason": "Native headless commands expose bound data but do not enumerate all authored exported instances. The host discovery method has no faithful command counterpart; authored metadata already has independent conformance.",
+  "tests": [
+    "spec/conformance/data-instance-export",
+    "modules/data-host/test/core/host.test.ts",
+    "modules/data-host/test/web/browser.test.ts"
+  ]
+}

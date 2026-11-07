@@ -1,0 +1,82 @@
+{
+  "anima": "0.1",
+  "name": "nested-host",
+  "grid": 20,
+  "requires": ["data", "bind", "datahost"],
+  "nodes": [
+    {
+      "id": "parent",
+      "type": "group",
+      "x": 2,
+      "y": 3,
+      "opacity": 0.5,
+      "children": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [10, 10],
+          "r": 3,
+          "fill": {
+            "color": "#123456"
+          }
+        }
+      ]
+    }
+  ],
+  "bind": {
+    "dot.r": "$a",
+    "dot.fill.color": "$team.lead.tint"
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "team": {
+            "type": "model-ref",
+            "model": "Team"
+          },
+          "a": {
+            "type": "number",
+            "default": 3
+          },
+          "b": {
+            "type": "number",
+            "default": 4
+          }
+        }
+      },
+      "Team": {
+        "properties": {
+          "lead": {
+            "type": "model-ref",
+            "model": "Person"
+          }
+        }
+      },
+      "Person": {
+        "properties": {
+          "name": {
+            "type": "string",
+            "default": "Ada"
+          },
+          "tint": {
+            "type": "color",
+            "default": "#123456"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Root",
+        "default": true,
+        "exported": true,
+        "values": {}
+      },
+      "private": {
+        "model": "Root",
+        "values": {}
+      }
+    }
+  }
+}

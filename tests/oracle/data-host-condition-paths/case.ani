@@ -1,0 +1,58 @@
+{
+  "anima": "0.1",
+  "name": "data-host-condition-paths",
+  "grid": 20,
+  "requires": ["data", "bind"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "status": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {
+              "dot.r": 1
+            },
+            "on": [
+              {
+                "when": "$value > $limit",
+                "to": "done"
+              }
+            ]
+          },
+          "done": {
+            "pose": {
+              "dot.r": 9
+            }
+          }
+        }
+      }
+    }
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "number",
+            "default": 4
+          },
+          "limit": {
+            "type": "number",
+            "default": 5
+          }
+        }
+      }
+    }
+  }
+}

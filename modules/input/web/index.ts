@@ -195,7 +195,14 @@ function poll(): void {
   if (polling.size) frame = requestAnimationFrame(poll);
 }
 const load = Icon.prototype.load,
+  loadModel = Icon.prototype.loadModel,
   destroy = Icon.prototype.destroy;
+Icon.prototype.loadModel = function (...args: Parameters<AnimaIcon['loadModel']>) {
+  attached.get(this)?.abort();
+  attached.delete(this);
+  loadModel.apply(this, args);
+  attach(this);
+};
 Icon.prototype.load = function (...args: Parameters<AnimaIcon['load']>) {
   attached.get(this)?.abort();
   attached.delete(this);

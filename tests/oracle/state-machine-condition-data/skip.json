@@ -1,0 +1,13 @@
+{
+  "status": "skip",
+  "reason": "Retired one-path/literal-only scaffold. The stronger two-live-path condition-data counterpart is completed in the canonical data-host-condition-paths oracle (two exact native observations); retaining a duplicate pending marker would misstate that evidence.",
+  "tests": [
+    "tests/oracle/data-host-condition-paths",
+    "spec/conformance/state-machine-condition-data",
+    "modules/data-host/test/core/host.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/data-host-condition-paths/rive/frames/0.json",
+    "tests/oracle/data-host-condition-paths/rive/frames/1.json"
+  ]
+}

@@ -7,9 +7,11 @@ import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import { extendListener, nodeShapes, soloShape } from './registry.ts';
 import { install, configurations } from './runtime.ts';
 import { events, fields, type InputListener } from './types.ts';
+import { listenerValue } from './values.ts';
 export * from './runtime.ts';
 export * from './types.ts';
-export const input: Module = {
+export const input: Module & { listenerValue: typeof listenerValue } = {
+  listenerValue,
   name: 'input',
   after,
   draw: {
@@ -56,8 +58,13 @@ export const input: Module = {
 
   resolve(model) {
     if (!model.doc.requires?.includes('input')) return;
-    for (const r of model.doc.listeners ?? [])
+    for (const r of model.doc.listeners ?? []) {
+      if (typeof r.write === 'string') {
+        r.write = { [r.value ?? '']: r.write };
+        delete r.value;
+      }
       if (r.write && !['set', 'fire', 'toggle', 'emit'].some((key) => key in r)) r.set = {};
+    }
   },
   load(model, raw, diag) {
     const enabled = raw.requires?.includes('input');
@@ -117,11 +124,11 @@ export const input: Module = {
             'input-write',
             p + '/write/' + field,
             'unknown event value',
-            'use x, y, dx, dy, startX, startY, pointerId, button, deltaX, deltaY, value, pressed, index or control',
+            'use a documented input event field (pointer coordinates need number; key-pressed needs string)',
           );
         const input = model.inputs.get(name),
-          type = field === 'pressed' ? 'bool' : 'number';
-        if (!input || input.type !== type)
+          type = field === 'key-pressed' ? 'string' : field === 'pressed' ? 'bool' : 'number';
+        if (!input || input.type !== type || input.readonly)
           error(
             'input-write',
             p + '/write/' + field,

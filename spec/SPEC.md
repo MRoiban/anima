@@ -2035,6 +2035,11 @@ oracle captures remain pending where marked; this is not a claim that the whole 
 <!-- capability: transforms.collapse -->
 <!-- capability: transforms.solo -->
 
+
+
+
+
+
 ## events
 
 Declare `requires: ["events"]` and import the optional events runtime. The module adds
@@ -2372,6 +2377,16 @@ Import the host entry alongside `data`; it adds no document fields or AniML spel
 typed handles, reflection, instances, binding, batched writes, change subscriptions delivered after
 the step that made the change, and the web `auto-bind` attribute.
 
+
+<!-- capability: assets.replacement-scope-image -->
+### Image replacement scope
+
+Host `image(path).set(URL | Blob)` decodes a player-local replacement and queues only that
+property's resource ID; image `asset` bindings follow it at the next step. Shared compiled
+components, other data properties and authored resources retain their identities. Static nodes
+without asset bindings keep legacy per-player resource replacement. See
+[host editing](../modules/host-edit/SPEC.md) and [data-host](../modules/data-host/SPEC.md).
+
 ## host-edit
 
 Optional page-data editing is specified in [modules/host-edit/SPEC.md](../modules/host-edit/SPEC.md).
@@ -2588,3 +2603,28 @@ per parent step and honors reduced motion. Flat color/type/ordered-paint conflic
 components and recursive sources are errors. An ordinary stroke remains independent.
 The normative lifetime, sampling, diagnostic and backend contract is
 [modules/componentpaint/README.md](../modules/componentpaint/README.md).
+
+## data-host
+
+<!-- capability: transforms.computed-transform-values -->
+<!-- capability: data.host-nested-paths -->
+<!-- capability: host-api.nested-models -->
+The optional `data-host` entry adds read-only computed geometry; the host API also resolves
+nested paths through `at(path)` and discovers authored exports with `exportedInstances()`.
+Host components, colors and batching use the existing data vocabulary in both syntaxes.
+Bindings can use validated `asset("name")` literals with the `datahost` feature.
+The normative contract is [modules/data-host/SPEC.md](../modules/data-host/SPEC.md).
+
+<!-- capability: input.write-key-pressed -->
+<!-- capability: input.write-pointer-x -->
+<!-- capability: input.write-pointer-y -->
+<!-- capability: input.write-pointer-delta-x -->
+<!-- capability: input.write-pointer-delta-y -->
+With `input data`, JSON `write: "$x", value: "pointer-x"` is AniML
+`write="$x" value="pointer-x"`. A write map also accepts these source names as keys.
+Coordinates are grid units; deltas are from the preceding event for the same pointer, initially
+zero. `key-pressed` stores the triggering `KeyboardEvent.key` name (a string), on any selected
+key phase. Missing event fields leave data unchanged. Wrong/read-only destination types or
+unknown sources report `input-write` at `/listeners/<i>/write/<source>` with a type hint.
+Both data properties and ordinary inputs of the matching type are writable. See
+[input](../modules/input/SPEC.md) and its independent conformance/oracle probes.

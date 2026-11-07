@@ -1,0 +1,32 @@
+
+> test:scope
+> node tools/test-scope.ts data-host host-edit
+
+Scopes: data-host, host-edit
+  unit: modules/data-host/test/cli/api.test.ts
+  unit: modules/data-host/test/core/assets.test.ts
+  unit: modules/data-host/test/core/computed.test.ts
+  unit: modules/data-host/test/core/host.test.ts
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host-edit/test/core/components.test.ts
+  unit: modules/host-edit/test/core/conformance.test.ts
+  unit: modules/host-edit/test/core/edit.test.ts
+  unit: modules/host-edit/test/core/oracle.test.ts
+  unit: modules/host-edit/test/core/repeat-contract.test.ts
+  unit: modules/host-edit/test/core/seams.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/data-host/test/web/browser.test.ts
+  browser: modules/host-edit/test/web/browser.test.ts
+  browser: modules/host-edit/test/web/components.test.ts
+  browser: modules/host-edit/test/web/seams.test.ts
+  cases: ^conformance > (data-host-asset-literal|data-host-image-binding)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-14052024
+
+
+ Test Files  18 passed (18)
+      Tests  1032 passed | 449 skipped (1481)
+   Start at  10:16:19
+   Duration  78.73s (tests 80%, import 18%, transform 1%)

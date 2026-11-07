@@ -1,0 +1,39 @@
+{
+  "anima": "0.1",
+  "name": "data-host-asset-literal",
+  "grid": 20,
+  "requires": ["data", "bind", "datahost", "assets"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 2,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "bind": {
+    "dot.r": "$picture == \"photo\""
+  },
+  "assets": {
+    "photo": {
+      "type": "blob",
+      "source": "data:application/octet-stream,hello"
+    }
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "picture": {
+            "type": "asset-ref",
+            "default": "photo",
+            "assetType": "blob"
+          }
+        }
+      }
+    }
+  }
+}

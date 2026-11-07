@@ -1,0 +1,26 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-14052024
+
+ ❯ |unit| tools/new-capability.test.ts (4 tests | 1 failed | 3 skipped) 85702ms
+   × plans without writing, is idempotent, and generates a registered, typechecked module 85698ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| tools/new-capability.test.ts > plans without writing, is idempotent, and generates a registered, typechecked module
+Error: Test timed out in 60000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tools/new-capability.test.ts:38:1
+     36| }
+     37|
+     38| it('plans without writing, is idempotent, and generates a registered, …
+       | ^
+     39|   const root = scratch();
+     40|   const id = 'tooling.seed';
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 3 skipped (4)
+   Start at  10:29:37
+   Duration  88.31s (tests 98%, transform 1%, import 1%)

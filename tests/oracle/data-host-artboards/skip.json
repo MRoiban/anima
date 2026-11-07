@@ -1,0 +1,9 @@
+{
+  "status": "skip",
+  "reason": "CLI 1.9.1 cannot assign component-valued model properties by host command (recorded no-property errors). Existing independent native initial nested selection is compared; local-definition host assignment is covered in both browsers.",
+  "tests": [
+    "modules/host-edit/test/core/components.test.ts",
+    "modules/host-edit/test/web/components.test.ts",
+    "modules/host-edit/oracle/p5b8-component/session.txt"
+  ]
+}

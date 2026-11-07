@@ -1,0 +1,7 @@
+<anima version="0.1" name="input-write-pointer-delta-y" grid="20" requires="data input">
+  <model name="Root">
+    <number name="n"/>
+  </model>
+  <rect id="target" x0="0" y0="0" width="20" height="20" fill="#4263eb"/>
+  <listener on="move" value="pointer-delta-y" write="$n"/>
+</anima>

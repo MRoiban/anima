@@ -29,6 +29,7 @@ import { convert } from '../../../modules/convert/core/index.ts';
 import { derive } from '../../../modules/derive/core/index.ts';
 import { hostValues } from '../../../modules/host-values/core/index.ts';
 import { host } from '../../../modules/host/core/index.ts';
+import { dataHost } from '../../../modules/data-host/core/index.ts';
 import { hostEdit } from '../../../modules/host-edit/core/index.ts';
 import { lists } from '../../../modules/lists/core/index.ts';
 import { listsSVG } from '../../../modules/lists/core/svg.ts';
@@ -68,6 +69,7 @@ if (VERBOSE) {
   registerModule(derive);
   registerModule(hostValues);
   registerModule(host);
+  registerModule(dataHost);
   registerModule(hostEdit);
   registerModule(lists);
   registerSVGBackend('lists', listsSVG);

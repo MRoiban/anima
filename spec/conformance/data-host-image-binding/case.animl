@@ -1,0 +1,14 @@
+<anima version="0.1" name="data-host-image-binding" grid="20" requires="data bind assets paint">
+  <asset name="photo" type="image"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAG0lEQVR4AWP8r8HwnwEPYGIgAJgYCAAmBgIAABjwAi5tDXySAAAAAElFTkSuQmCC"/>
+  <asset name="other" type="image"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAG0lEQVR4AWP8r8HwnwEPYGIgAJgYCAAmBgIAABjwAi5tDXySAAAAAElFTkSuQmCC"/>
+  <model name="Root">
+    <asset-ref name="one" default="photo" type="image"/>
+    <asset-ref name="two" default="photo" type="image"/>
+  </model>
+  <image id="one" asset="photo" x0="0" y0="0" width="10" height="10"/>
+  <image id="two" asset="photo" x0="10" y0="0" width="10" height="10"/>
+  <bind target="one.asset" value="$one"/>
+  <bind target="two.asset" value="$two"/>
+</anima>

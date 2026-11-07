@@ -1,0 +1,39 @@
+{
+  "anima": "0.1",
+  "name": "input-write-pointer-delta-x",
+  "grid": 20,
+  "requires": ["data", "input"],
+  "nodes": [
+    {
+      "id": "target",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 20,
+      "h": 20,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "listeners": [
+    {
+      "on": "move",
+      "set": {},
+      "write": {
+        "pointer-delta-x": "$n"
+      }
+    }
+  ],
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "n": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
+}

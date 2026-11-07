@@ -1,0 +1,110 @@
+[
+  {
+    "id": "assets.replacement-scope-image",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/data-host/test/core/assets.test.ts; modules/data-host/test/web/browser.test.ts; spec/conformance/data-host-image-binding; tests/oracle/assets-replacement-scope-image/skip.json"
+  },
+  {
+    "id": "components.host-artboard-reference",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json"
+  },
+  {
+    "id": "data.host-artboard",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json"
+  },
+  {
+    "id": "data.host-color",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/oracle/rive/frames/changed.json"
+  },
+  {
+    "id": "data.host-nested-paths",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts"
+  },
+  {
+    "id": "data.instance-export",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; spec/conformance/data-instance-export; tests/oracle/data-instance-export/skip.json"
+  },
+  {
+    "id": "host-api.batched-binding",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host/test/core/api.test.ts; tests/oracle/host-api-batched-binding/skip.json"
+  },
+  {
+    "id": "host-api.bindable-artboards",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json"
+  },
+  {
+    "id": "host-api.data-artboard",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json"
+  },
+  {
+    "id": "host-api.data-color",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/oracle/rive/frames/changed.json"
+  },
+  {
+    "id": "host-api.nested-models",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts"
+  },
+  {
+    "id": "input.write-key-pressed",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-key-pressed; tests/oracle/input-write-key-pressed; modules/data-host/test/web/browser.test.ts"
+  },
+  {
+    "id": "input.write-pointer-delta-x",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-delta-x; tests/oracle/input-write-pointer-delta-x; modules/data-host/test/web/browser.test.ts"
+  },
+  {
+    "id": "input.write-pointer-delta-y",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-delta-y; tests/oracle/input-write-pointer-delta-y; modules/data-host/test/web/browser.test.ts"
+  },
+  {
+    "id": "input.write-pointer-x",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-x; tests/oracle/input-write-pointer-x; modules/data-host/test/web/browser.test.ts"
+  },
+  {
+    "id": "input.write-pointer-y",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-y; tests/oracle/input-write-pointer-y; modules/data-host/test/web/browser.test.ts"
+  },
+  {
+    "id": "state-machine.condition-data",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/data-host/test/core/host.test.ts; spec/conformance/state-machine-condition-data; tests/oracle/data-host-condition-paths (exact native comparator data dumps)"
+  },
+  {
+    "id": "transforms.computed-transform-values",
+    "inventoryStatus": "planned",
+    "implementation": "verified; pending phase promotion",
+    "tests": "modules/data-host/test/core/computed.test.ts; modules/data-host/test/web/browser.test.ts; tests/oracle/transforms-computed-transform-values/skip.json"
+  }
+]

@@ -1352,19 +1352,30 @@
             ],
             "feature": "input"
           },
+          "value": {
+            "type": "string",
+            "feature": "data"
+          },
           "write": {
-            "type": "object",
-            "properties": {
-              "$comment": {
+            "anyOf": [
+              {
                 "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "$comment": {
+                    "type": "string"
+                  }
+                },
+                "propertyNames": {
+                  "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
+                },
+                "additionalProperties": {
+                  "type": "string"
+                }
               }
-            },
-            "propertyNames": {
-              "pattern": "^\\$comment$|^[a-z][a-zA-Z0-9-]*$"
-            },
-            "additionalProperties": {
-              "type": "string"
-            },
+            ],
             "feature": "input"
           },
           "align": {
@@ -1376,10 +1387,6 @@
             "feature": "input"
           },
           "copy": {
-            "type": "string",
-            "feature": "data"
-          },
-          "value": {
             "type": "string",
             "feature": "data"
           }

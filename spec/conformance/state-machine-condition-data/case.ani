@@ -25,7 +25,7 @@
             },
             "on": [
               {
-                "when": "$value > 3",
+                "when": "$value > $limit",
                 "to": "done"
               }
             ]
@@ -46,6 +46,10 @@
           "value": {
             "type": "number",
             "default": 0
+          },
+          "limit": {
+            "type": "number",
+            "default": 3
           }
         }
       }

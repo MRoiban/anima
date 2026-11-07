@@ -32,6 +32,7 @@
     "./derive": "./src/derive.ts",
     "./host-values": "./src/host-values.ts",
     "./host": "./src/host.ts",
+    "./data-host": "./src/data-host.ts",
     "./host-edit": "./src/host-edit.ts",
     "./lists": "./src/lists.ts",
     "./nested": "./src/nested.ts",

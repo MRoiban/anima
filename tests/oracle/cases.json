@@ -2927,5 +2927,93 @@
     "threshold": 16,
     "maxDiff": 2,
     "maxOverPercent": 0
+  },
+  {
+    "name": "input-write-pointer-x",
+    "times": [0, 1, 2, 3],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "scripts": {
+      "0": "advance 0",
+      "1": "pointer move 10 11\nadvance 0",
+      "2": "pointer move 10 11\npointer move 12 8\nadvance 0",
+      "3": "pointer move 10 11\npointer move 12 8\npointer move 11 9\nadvance 0"
+    },
+    "values": {
+      "address": "$n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-write-pointer-y",
+    "times": [0, 1, 2, 3],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "scripts": {
+      "0": "advance 0",
+      "1": "pointer move 10 11\nadvance 0",
+      "2": "pointer move 10 11\npointer move 12 8\nadvance 0",
+      "3": "pointer move 10 11\npointer move 12 8\npointer move 11 9\nadvance 0"
+    },
+    "values": {
+      "address": "$n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-write-pointer-delta-x",
+    "times": [0, 1, 2, 3],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "scripts": {
+      "0": "advance 0",
+      "1": "pointer move 10 11\nadvance 0",
+      "2": "pointer move 10 11\npointer move 12 8\nadvance 0",
+      "3": "pointer move 10 11\npointer move 12 8\npointer move 11 9\nadvance 0"
+    },
+    "values": {
+      "address": "$n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "input-write-pointer-delta-y",
+    "times": [0, 1, 2, 3],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "scripts": {
+      "0": "advance 0",
+      "1": "pointer move 10 11\nadvance 0",
+      "2": "pointer move 10 11\npointer move 12 8\nadvance 0",
+      "3": "pointer move 10 11\npointer move 12 8\npointer move 11 9\nadvance 0"
+    },
+    "values": {
+      "address": "$n",
+      "path": "n",
+      "tolerance": 0
+    }
+  },
+  {
+    "name": "data-host-condition-paths",
+    "times": [0, 1],
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "maxDiff": 0,
+    "scripts": {
+      "0": "advance 0",
+      "1": "set $value 6\nadvance 0"
+    },
+    "values": {
+      "address": "dot.r",
+      "path": "observed",
+      "tolerance": 0
+    }
   }
 ]

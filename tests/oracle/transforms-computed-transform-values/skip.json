@@ -1,0 +1,8 @@
+{
+  "status": "skip",
+  "reason": "The headless runner exposes images and data dumps, not an equivalent read-only matrix/bounds/opacity JavaScript snapshot. Independent analytic geometry tests cover this host-only result.",
+  "tests": [
+    "modules/data-host/test/core/computed.test.ts",
+    "modules/data-host/test/web/browser.test.ts"
+  ]
+}

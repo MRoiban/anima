@@ -1,0 +1,5 @@
+<anima version="0.1" name="input-write-key-pressed" grid="20" requires="data input">
+  <model name="Root"><string name="n"/></model>
+  <rect id="target" x0="0" y0="0" width="20" height="20" fill="#4263eb"/>
+  <listener on="key-down" write="$n" value="key-pressed"/>
+</anima>
