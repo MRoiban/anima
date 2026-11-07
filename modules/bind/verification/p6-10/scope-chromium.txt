@@ -1,0 +1,27 @@
+
+> test:scope
+> node tools/test-scope.ts bind conformance --browser=chromium
+
+Scopes: bind, conformance
+  unit: modules/bind/test/core/bind.test.ts
+  unit: modules/bind/test/core/comparisons.test.ts
+  unit: modules/bind/test/core/data-bind-listener-actions.test.ts
+  unit: modules/bind/test/core/strings.test.ts
+  unit: modules/components/test/markup/components.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/bind/test/web/bind.test.ts
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-26e42c54
+
+
+ Test Files  13 passed (13)
+      Tests  3740 passed | 1 skipped | 15 todo (3756)
+   Start at  00:03:10
+   Duration  19.34s (tests 65%, import 20%, transform 14%)

@@ -1,0 +1,19 @@
+<anima version="0.1" name="string-filter" grid="20" requires="data bind derive">
+  <model name="Search">
+    <string name="query"/>
+    <string name="label0" default="Sound"/>
+    <string name="label1" default="Motion"/>
+    <string name="label2" default="Other options"/>
+    <number name="count" value="$shown0 + $shown1 + $shown2"/>
+    <bool name="shown0" value="contains(lower($label0), lower($query))"/>
+    <bool name="shown1" value="contains(lower($label1), lower($query))"/>
+    <bool name="shown2" value="contains(lower($label2), lower($query))"/>
+  </model>
+  <instance name="main" model="Search" default="true"/>
+  <circle id="row0" cx="4" cy="10" r="1" fill="#000"/>
+  <circle id="row1" cx="10" cy="10" r="1" fill="#000"/>
+  <circle id="row2" cx="16" cy="10" r="1" fill="#000"/>
+  <bind target="row0.visible" value="$shown0"/>
+  <bind target="row1.visible" value="$shown1"/>
+  <bind target="row2.visible" value="$shown2"/>
+</anima>

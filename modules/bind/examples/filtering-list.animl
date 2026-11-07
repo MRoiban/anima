@@ -1,0 +1,29 @@
+<anima version="0.1" name="filtering-list" grid="20" requires="text textinput a11y focus data bind derive convert">
+  <model name="Search">
+    <string name="query"/>
+    <string name="label0" default="Sound"/>
+    <string name="label1" default="Motion"/>
+    <bool name="shown0" value="contains(lower($label0), lower($query))"/>
+    <bool name="shown1" value="contains(lower($label1), lower($query))"/>
+    <number name="count" value="$shown0 + $shown1"/>
+    <string name="summary" value="$count" convert="results"/>
+  </model>
+  <instance name="main" model="Search" default="true"/>
+  <converter name="results" type="template" text="{0} results"/>
+  <text-style id="body" size="1"/>
+  <text id="search" sizing="fixed" width="18" height="2" x="1" y="1">
+    <run text="" style="body"/>
+    <text-input placeholder="Filter labels" write-text="$query" label="Search labels"/>
+  </text>
+  <text id="row0" x="1" y="5">
+    <run text="$label0" style="body"/>
+  </text>
+  <text id="row1" x="1" y="8">
+    <run text="$label1" style="body"/>
+  </text>
+  <text id="total" x="1" y="12">
+    <run text="$summary" style="body"/>
+  </text>
+  <bind target="row0.visible" value="$shown0"/>
+  <bind target="row1.visible" value="$shown1"/>
+</anima>

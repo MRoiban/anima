@@ -1,0 +1,17 @@
+advance 0
+snapshot $query $shown0 $shown1 $shown2 $count row0.visible row1.visible row2.visible
+set $query "o"
+advance 0
+snapshot $query $shown0 $shown1 $shown2 $count row0.visible row1.visible row2.visible
+set $query "SO"
+advance 0
+snapshot $query $shown0 $shown1 $shown2 $count row0.visible row1.visible row2.visible
+set $label1 "Soften"
+advance 0
+snapshot $query $shown0 $shown1 $shown2 $count row0.visible row1.visible row2.visible
+set $query "missing"
+advance 0
+snapshot $query $shown0 $shown1 $shown2 $count row0.visible row1.visible row2.visible
+set $query ""
+advance 0
+snapshot $query $shown0 $shown1 $shown2 $count row0.visible row1.visible row2.visible
