@@ -1,0 +1,9 @@
+<anima version="0.1" name="host-api-fps-counter" grid="20">
+  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+  <timeline name="pulse" duration="1" loop="loop">
+    <track target="probe.x">0 0; 0.5 4; 1 0</track>
+  </timeline>
+  <layer name="pulse" initial="run">
+    <state name="run" play="pulse"/>
+  </layer>
+</anima>

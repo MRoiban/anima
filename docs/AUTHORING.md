@@ -1244,3 +1244,7 @@ Use the same name to retain the current child, `''` to hide it, or another decla
 that component with default state. The handle uses the ordinary shared host write queue and
 subscriptions; another root icon keeps its own selection. `icon.instance('badge')` addresses the
 selected nested player. It is distinct from the component-valued data handle.
+
+Host playback: `icon.stop()` holds the current frame and stops its clock; `icon.play()`
+resumes. Import `@anima-format/web/devtools` for `icon.stats`, the `perf` attribute or
+`icon.perfMarks`, and `AnimaIcon.warnings` (see `modules/devtools/SPEC.md`).

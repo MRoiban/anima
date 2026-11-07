@@ -1,0 +1,27 @@
+<anima version="0.1" name="reduce-work" grid="20" requires="motion">
+  <circle id="a" cx="10" cy="10" r="1" fill="#000"/>
+
+  <timeline name="t" duration="1" loop="loop" work="0.2 0.8">
+    <track target="a.x">
+      0  0
+      1  10
+    </track>
+    <event at="0.3" name="early"/>
+    <event at="0.6" name="late"/>
+  </timeline>
+  <timeline name="reverse" duration="1" work="0.2 0.8">
+    <track target="a.y">
+      0  0
+      1  10
+    </track>
+    <event at="0.3" name="earlyR"/>
+    <event at="0.6" name="lateR"/>
+  </timeline>
+
+  <layer name="l" initial="run">
+    <state name="run" play="t"/>
+  </layer>
+  <layer name="reverse" initial="run">
+    <state name="run" play="reverse" speed="-8"/>
+  </layer>
+</anima>

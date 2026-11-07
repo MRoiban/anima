@@ -372,21 +372,21 @@ scope by the owner's triage of 2026-11-07).
 
 ### Host runtime API
 
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `host-api.batched-binding` | Batch binding updates | new: data binding transaction | data | planned | browser/batched-binding |
-| `host-api.bindable-artboards` | Bindable component instances | modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending | components | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md |
-| `host-api.data-artboard` | View model artboard | modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending | data | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md |
-| `host-api.data-color` | View model color | new: typed data.color(path) | data | planned | browser/data-color |
-| `host-api.deprecation-policy` | Deprecation warning controls | new: coded API deprecation diagnostics | tooling | planned | browser/deprecation-policy |
-| `host-api.fps-counter` | FPS monitoring | new: inspector performance counters | tooling | planned | browser/fps-counter |
-| `host-api.keyboard-focus` | Keyboard focus integration | new: focus tree and host focus policy | a11y | planned | browser/keyboard-focus |
-| `host-api.low-level-focus` | Manual focus traversal | new: focus tree handle | a11y | planned | browser/low-level-focus |
-| `host-api.low-level-semantics` | Semantic diffs and actions | new: semantic tree adapter API | a11y | planned | browser/low-level-semantics |
-| `host-api.nested-models` | Nested view model paths | new: typed property paths | data | planned | browser/nested-models |
-| `host-api.performance-marks` | Performance marks | new: opt-in performance marks | tooling | planned | browser/performance-marks |
-| `host-api.semantic-overlay` | Accessible semantic tree | new: nested semantic nodes mapped to SVG/DOM | a11y | planned | browser/semantic-overlay |
-| `host-api.stop` | Stop selected playback | new: <anima-icon>.stop(name) | web | planned | browser/stop |
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `host-api.batched-binding` | Batch binding updates | new: data binding transaction | data | planned | browser/batched-binding |  |
+| `host-api.bindable-artboards` | Bindable component instances | modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending | components | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md |  |
+| `host-api.data-artboard` | View model artboard | modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending | data | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md |  |
+| `host-api.data-color` | View model color | new: typed data.color(path) | data | planned | browser/data-color |  |
+| `host-api.deprecation-policy` | Deprecation warning controls | Optional @anima-format/web/devtools: deprecation-policy; modules/devtools/SPEC.md | devtools | planned | packages/web/test/browser.test.ts (Chromium and Firefox); modules/devtools/capabilities/host-api-deprecation-policy/example.animl; tests/oracle/host-api-deprecation-policy/SKIP.md | Implemented and browser-tested in P3b-5; parity completion waits for P3b phase registration (current parity tool rejects done rows in P3b). |
+| `host-api.fps-counter` | FPS monitoring | Optional @anima-format/web/devtools: fps-counter; modules/devtools/SPEC.md | devtools | planned | packages/web/test/browser.test.ts (Chromium and Firefox); modules/devtools/capabilities/host-api-fps-counter/example.animl; tests/oracle/host-api-fps-counter/SKIP.md | Implemented and browser-tested in P3b-5; parity completion waits for P3b phase registration (current parity tool rejects done rows in P3b). |
+| `host-api.keyboard-focus` | Keyboard focus integration | new: focus tree and host focus policy | a11y | planned | browser/keyboard-focus |  |
+| `host-api.low-level-focus` | Manual focus traversal | new: focus tree handle | a11y | planned | browser/low-level-focus |  |
+| `host-api.low-level-semantics` | Semantic diffs and actions | new: semantic tree adapter API | a11y | planned | browser/low-level-semantics |  |
+| `host-api.nested-models` | Nested view model paths | new: typed property paths | data | planned | browser/nested-models |  |
+| `host-api.performance-marks` | Performance marks | Optional @anima-format/web/devtools: performance-marks; modules/devtools/SPEC.md | devtools | planned | packages/web/test/browser.test.ts (Chromium and Firefox); modules/devtools/capabilities/host-api-performance-marks/example.animl; tests/oracle/host-api-performance-marks/SKIP.md | Implemented and browser-tested in P3b-5; parity completion waits for P3b phase registration (current parity tool rejects done rows in P3b). |
+| `host-api.semantic-overlay` | Accessible semantic tree | new: nested semantic nodes mapped to SVG/DOM | a11y | planned | browser/semantic-overlay |  |
+| `host-api.stop` | Stop selected playback | AnimaIcon.stop(): pause shared scheduler while retaining frame; play resumes | web | planned | packages/web/test/browser.test.ts (Chromium and Firefox); modules/devtools/capabilities/host-api-stop/example.animl; tests/oracle/host-api-stop/SKIP.md | Implemented and browser-tested in P3b-5; parity completion waits for P3b phase registration (current parity tool rejects done rows in P3b). |
 
 ### Tooling
 

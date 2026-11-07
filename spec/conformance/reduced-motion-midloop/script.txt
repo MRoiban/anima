@@ -1,0 +1,11 @@
+set go true
+advance 0.25
+snapshot
+motion reduce
+advance 0
+snapshot
+advance 0.25
+snapshot
+motion full
+advance 0.25
+snapshot

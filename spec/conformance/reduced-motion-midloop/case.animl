@@ -1,0 +1,45 @@
+<anima version="0.1" name="reduced-motion-midloop" grid="20" requires="machine">
+  <bool name="go"/>
+  <circle id="a" cx="10" cy="10" r="1" fill="#000"/>
+  <timeline name="p0" duration="1" loop="loop" reducedMotion="end">
+    <track target="a.x">0 0; 1 10</track>
+    <event at="0.5" name="mid"/>
+    <event at="1" name="end"/>
+  </timeline>
+  <layer name="p0" initial="run">
+    <state name="run" play="p0"/>
+  </layer>
+  <timeline name="p1" duration="1" loop="loop" reducedMotion="skip">
+    <track target="a.y">0 0; 1 10</track>
+    <event at="0.5" name="mid"/>
+    <event at="1" name="end"/>
+  </timeline>
+  <layer name="p1" initial="run">
+    <state name="run" play="p1"/>
+  </layer>
+  <timeline name="p2" duration="1" loop="loop" reducedMotion="play">
+    <track target="a.rotate">0 0; 1 10</track>
+    <event at="0.5" name="mid"/>
+    <event at="1" name="end"/>
+  </timeline>
+  <layer name="p2" initial="run">
+    <state name="run" play="p2"/>
+  </layer>
+  <timeline name="p3" duration="1" loop="once" reducedMotion="end">
+    <track target="a.scale">0 0; 1 10</track>
+    <event at="0.5" name="mid"/>
+    <event at="1" name="end"/>
+  </timeline>
+  <layer name="p3" initial="run">
+    <state name="run" play="p3"/>
+  </layer>
+  <layer name="fade" initial="idle">
+    <state name="idle">
+      <pose a.opacity="0"/>
+      <on when="go" to="on" blend="1" endActions="{&quot;emit&quot;:&quot;faded&quot;}"/>
+    </state>
+    <state name="on">
+      <pose a.opacity="1"/>
+    </state>
+  </layer>
+</anima>

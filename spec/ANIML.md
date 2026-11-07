@@ -293,8 +293,9 @@ Imported colour and glyph names become collision-free generated `.ani` names; ea
 usual. Libraries must not declare arbitrary document elements outside templates. Imports and
 local declarations are visible regardless of source order.
 
-`exports="row Score"` on the library restricts public names; `select="row"` on an import selects
-public declarations. Omitted selection exports/imports all public declarations. Private dependencies
+`export="row Score"` on the library restricts public names; `export="row"` on an import selects
+public declarations. The earlier root `exports` and import `select` spellings remain aliases;
+a nonempty `export` takes precedence. Omitted selection exports/imports all public declarations. Private dependencies
 stay in lexical scope. Imported model references (`data`, `model`, `of`) are renamed consistently.
 An import's optional `source="../shared/ui.animl"` records a local vendoring origin; compilation
 still reads `src` only. `anima library update file.animl [--check]` refreshes existing vendored files

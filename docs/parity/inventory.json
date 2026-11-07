@@ -16207,11 +16207,12 @@
       "rive-wasm/js/src/rive.ts:2422@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: coded API deprecation diagnostics",
-      "module": "tooling",
+      "construct": "Optional @anima-format/web/devtools: deprecation-policy; modules/devtools/SPEC.md",
+      "module": "devtools",
       "status": "planned",
-      "test": "browser/deprecation-policy",
-      "phase": "P3b"
+      "test": "packages/web/test/browser.test.ts (Chromium and Firefox); modules/devtools/capabilities/host-api-deprecation-policy/example.animl; tests/oracle/host-api-deprecation-policy/SKIP.md",
+      "phase": "P3b",
+      "reason": "Implemented and browser-tested in P3b-5; parity completion waits for P3b phase registration (current parity tool rejects done rows in P3b)."
     }
   },
   {
@@ -16983,11 +16984,12 @@
       "rive-wasm/js/src/rive.ts:4880@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: inspector performance counters",
-      "module": "tooling",
+      "construct": "Optional @anima-format/web/devtools: fps-counter; modules/devtools/SPEC.md",
+      "module": "devtools",
       "status": "planned",
-      "test": "browser/fps-counter",
-      "phase": "P3b"
+      "test": "packages/web/test/browser.test.ts (Chromium and Firefox); modules/devtools/capabilities/host-api-fps-counter/example.animl; tests/oracle/host-api-fps-counter/SKIP.md",
+      "phase": "P3b",
+      "reason": "Implemented and browser-tested in P3b-5; parity completion waits for P3b phase registration (current parity tool rejects done rows in P3b)."
     }
   },
   {
@@ -17961,11 +17963,12 @@
       "rive-wasm/js/src/rive.ts:1687@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: opt-in performance marks",
-      "module": "tooling",
+      "construct": "Optional @anima-format/web/devtools: performance-marks; modules/devtools/SPEC.md",
+      "module": "devtools",
       "status": "planned",
-      "test": "browser/performance-marks",
-      "phase": "P3b"
+      "test": "packages/web/test/browser.test.ts (Chromium and Firefox); modules/devtools/capabilities/host-api-performance-marks/example.animl; tests/oracle/host-api-performance-marks/SKIP.md",
+      "phase": "P3b",
+      "reason": "Implemented and browser-tested in P3b-5; parity completion waits for P3b phase registration (current parity tool rejects done rows in P3b)."
     }
   },
   {
@@ -18446,11 +18449,12 @@
       "rive-wasm/js/src/rive.ts:4219@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: <anima-icon>.stop(name)",
+      "construct": "AnimaIcon.stop(): pause shared scheduler while retaining frame; play resumes",
       "module": "web",
       "status": "planned",
-      "test": "browser/stop",
-      "phase": "P3b"
+      "test": "packages/web/test/browser.test.ts (Chromium and Firefox); modules/devtools/capabilities/host-api-stop/example.animl; tests/oracle/host-api-stop/SKIP.md",
+      "phase": "P3b",
+      "reason": "Implemented and browser-tested in P3b-5; parity completion waits for P3b phase registration (current parity tool rejects done rows in P3b)."
     }
   },
   {

@@ -367,6 +367,10 @@ export class AnimaIcon extends HTMLElement {
     this.setAttribute('paused', '');
   }
 
+  stop(): void {
+    this.setAttribute('paused', '');
+  }
+
   play(): void {
     if (this.hasAttribute('paused')) this.removeAttribute('paused');
     else if (this.player?.busy) this.#wake();

@@ -402,6 +402,14 @@ writes to an unknown input or with the wrong type are rejected by the API, never
   `d`, reporting all its events at once; `skip` freezes it at local time 0 and reports none; `play`
   plays normally. A frozen `once` timeline counts as finished (so `@end` holds at once) and a frozen
   timeline of any loop mode counts as at rest. Every crossfade takes 0 s. The web runtime follows
+  Switching reduced motion on re-resolves all active play states at the next step: `end`
+  freezes at `d`, reporting only events in (current local time, `d`] once (the rest of the
+  current cycle for loops); `skip` freezes at 0 without events; `play` is unchanged.
+  Motion work ranges and reverse playback use the same start/finish endpoint as state entry.
+  In-progress crossfades complete immediately. Switching off resumes frozen loops from
+  their frozen local time; frozen `once` states stay finished. This implements the stop
+  request behind WCAG 2.2.2 even when the preference changes mid-animation (see
+  `docs/research/rive-web-runtime.md`, recommendation 7). The web runtime follows
   `prefers-reduced-motion` unless the element sets `motion="full"` (or `motion="reduce"` to force it).
 
 ## 11. Conformance
@@ -431,7 +439,7 @@ in [the input contract](../modules/input/SPEC.md#diagnostics-and-script-integrat
 | `focus target <id>` / `focus clear` | Change logical focus, then step(0); requires focus. |
 | `focus traverse <direction>` | Traverse next/previous/left/right/up/down, then step(0). |
 | `key down\|up <key> [shift]` | Deliver a deterministic focus key, then step(0); input module integration extends this dispatch. |
-| `motion reduce\|full` | Turn reduced motion on or off for states entered from now on. |
+| `motion reduce\|full` | Turn reduced motion on or off at the next step, including active states. |
 | `snapshot [address …]` | Print one JSON line (below), optionally limited to animated addresses and bool/number input names. An input is reported under its input name. |
 
 A snapshot line is `{"time": t, "values": {address: value}, "states": {layer: state},
@@ -2588,3 +2596,16 @@ per parent step and honors reduced motion. Flat color/type/ordered-paint conflic
 components and recursive sources are errors. An ordinary stroke remains independent.
 The normative lifetime, sampling, diagnostic and backend contract is
 [modules/componentpaint/README.md](../modules/componentpaint/README.md).
+
+### Browser host stop and diagnostics
+
+<!-- capability: host-api.stop -->
+`icon.stop()` pauses playback and the shared clock, preserving the current frame.
+`icon.play()` resumes from that frame without accounting for stopped wall time.
+This host-only operation adds no JSON/AniML grammar, loader diagnostics or CLI operation.
+
+<!-- capability: host-api.fps-counter -->
+<!-- capability: host-api.performance-marks -->
+<!-- capability: host-api.deprecation-policy -->
+The optional browser-only `devtools` contract is specified in
+[modules/devtools/SPEC.md](../modules/devtools/SPEC.md). It adds no document grammar.
