@@ -135,8 +135,12 @@ export function lint(rows: Row[]): string[] {
     if (!phases.has(r.anima.phase)) out.push(`${r.id}: unknown phase ${r.anima.phase}`);
     if ((r.anima.status === 'maybe-later') !== (r.anima.phase === 'later'))
       out.push(`${r.id}: maybe-later rows (only) go in phase "later"`);
-    if ((r.anima.status === 'done') !== FINISHED.includes(r.anima.phase))
-      out.push(`${r.id}: done rows (only) belong to a finished phase (${FINISHED.join(', ')})`);
+    // seam(P6-8): wave tickets close individual P6 rows before phase/benchmark completion.
+    if (
+      (r.anima.status === 'done') !== FINISHED.includes(r.anima.phase) &&
+      !(r.anima.phase === 'P6' && r.anima.status === 'done')
+    )
+      out.push(`${r.id}: finished phases require done; incremental done rows are allowed in P6`);
   }
   return out;
 }

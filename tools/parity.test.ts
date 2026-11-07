@@ -10,6 +10,21 @@ describe('docs/parity', () => {
     expect(rows.length).toBeGreaterThan(1000);
   });
 
+  // seam(P6-8): retain finished-phase validation while accepting individual P6 closure.
+  it('permits incremental P6 completion without declaring the whole phase finished', () => {
+    const row = structuredClone(rows.find((row) => row.id === 'text.wrap')!);
+    row.anima.phase = 'P6';
+    row.anima.status = 'done';
+    expect(lint([row])).toEqual([]);
+    row.anima.status = 'planned';
+    expect(lint([row])).toEqual([]);
+    row.anima.phase = 'P0';
+    expect(lint([row])).not.toEqual([]);
+    row.anima.status = 'done';
+    row.anima.phase = 'P7';
+    expect(lint([row])).not.toEqual([]);
+  });
+
   it('the generated views are current (run node tools/parity.ts)', () => {
     for (const [name, text] of Object.entries(outputs(rows)))
       expect(readFileSync(new URL(`../docs/parity/${name}`, import.meta.url), 'utf8'), name).toBe(

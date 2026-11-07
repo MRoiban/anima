@@ -1,1 +1,5 @@
-# TODO: inputs, step boundaries and snapshots
+advance 0
+snapshot $face
+set $face alternate
+advance 0
+snapshot $face

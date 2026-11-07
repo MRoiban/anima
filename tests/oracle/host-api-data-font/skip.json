@@ -1,0 +1,19 @@
+{
+  "status": "skip",
+  "reason": "The permitted native headless command route has no browser typed handle accepting FontFace objects; the retained native font-property assignment is rejected. The Anima typed handle is covered by generated-font rendering, queued writes, invalid-value diagnostics, and independent resource-id snapshots.",
+  "tests": [
+    "modules/fonts/test/web/fonts.test.ts",
+    "modules/fonts/test/web/text-integration.test.ts",
+    "modules/fonts/test/web/nested-text.test.ts",
+    "modules/fonts/test/core/host-errors.test.ts",
+    "modules/fonts/test/core/oracle-conformance.test.ts"
+  ],
+  "captureEvidence": [
+    "modules/data/oracle/assets/rive/scene.rml",
+    "modules/data/oracle/assets/rive/commands.txt",
+    "modules/data/oracle/assets/rive/session.txt",
+    "modules/data/oracle/assets/rive/frames/initial.json",
+    "tests/oracle/assets-font/rive/session.txt",
+    "tests/oracle/TEXT-PROBES.md"
+  ]
+}

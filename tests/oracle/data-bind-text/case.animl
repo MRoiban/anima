@@ -1,8 +1,8 @@
-<anima version="0.1" name="data-bind-text" grid="20" requires="text data"
-    data="{&quot;models&quot;: {&quot;Main&quot;: {&quot;properties&quot;: {&quot;label&quot;: {&quot;type&quot;: &quot;string&quot;, &quot;default&quot;: &quot;abcd&quot;}, &quot;style&quot;: {&quot;type&quot;: &quot;text-style&quot;, &quot;default&quot;: &quot;shared&quot;}, &quot;items&quot;: {&quot;type&quot;: &quot;list&quot;, &quot;of&quot;: &quot;Item&quot;, &quot;default&quot;: [{&quot;label&quot;: &quot;abcd&quot;}]}}}, &quot;Item&quot;: {&quot;properties&quot;: {&quot;label&quot;: {&quot;type&quot;: &quot;string&quot;}}}}}">
-  <text-style id="shared" size="1"/>
-  <text id="label" sizing="fixed" width="4" height="4">
-    <style id="s" size="1"/>
+<anima version="0.1" name="data-bind-text" grid="20" requires="text data assets fonts">
+  <asset name="body" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+  <model name="Main"><string name="label" default="abcd"/></model>
+  <text id="label" width="8" height="4" line-height="1">
+    <style id="s" font="body" size="1"/>
     <run text="$label" style="s"/>
   </text>
 </anima>

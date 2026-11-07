@@ -1,6 +1,7 @@
-<anima version="0.1" name="text-style-reference" grid="20" requires="text">
+<anima version="0.1" name="text-style-reference" grid="20" requires="text assets fonts">
+  <asset name="sans-serif" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
   <text-style id="shared" size="1"/>
-  <text id="label" sizing="fixed" width="4" height="4">
+  <text id="label" sizing="fixed" width="4" height="4" line-height="1">
     <style id="s" size="1"/>
     <run text="abcd" style="shared"/>
   </text>

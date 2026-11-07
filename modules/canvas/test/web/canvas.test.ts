@@ -12,6 +12,7 @@ import { registerTextMeasurer } from '../../../text/core/measure.ts';
 import { ToolMeasurer } from '../../../../packages/cli/src/font/measure.ts';
 import { Font } from '../../../../packages/cli/src/font/reader.ts';
 import { testFont } from '../../../../tools/test-font.ts';
+import { documentFonts } from '../../../../packages/cli/src/font/document.ts';
 
 // Corpus enumeration draws before filtering geometry; text needs deterministic tool metrics.
 // The text module's browser suite owns generated-font text rendering comparisons.
@@ -36,6 +37,17 @@ for (const file of globSync([
 ])) {
   if (existsSync(resolve(dirname(file), 'todo.json'))) continue;
   const doc = JSON.parse(readFileSync(file, 'utf8'));
+  // seam(P6-8): corpus text can now bind actual font assets, not only sans-serif.
+  if (doc.requires?.includes('text')) {
+    const fonts = documentFonts(doc, file);
+    expect(
+      fonts.diagnostics.filter((d) => d.severity === 'error'),
+      file,
+    ).toEqual([]);
+    if (!fonts.measurer.fonts.has('sans-serif'))
+      fonts.measurer.register('sans-serif', new Font(testFont()));
+    registerTextMeasurer(fonts.measurer);
+  }
   const model = load(doc).model;
   if (!model) throw Error('invalid visual corpus ' + file);
   const scriptFile = resolve(dirname(file), 'script.txt');

@@ -1,5 +1,6 @@
-<anima version="0.1" name="text-tracking" grid="20" requires="text">
-  <text id="label" sizing="fixed" width="4" height="4">
+<anima version="0.1" name="text-tracking" grid="20" requires="text assets fonts">
+  <asset name="sans-serif" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+  <text id="label" sizing="fixed" width="4" height="4" line-height="1">
     <style id="s" size="1" tracking="0.5"/>
     <run id="first" text="abcd" style="s"/>
   </text>
