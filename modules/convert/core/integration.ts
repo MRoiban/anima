@@ -24,7 +24,7 @@ export function integration(
       let state = states.get(key);
       if (!state) states.set(key, (state = new Map()));
       // A random stream is per player, while caches/interpolation use the binding-local state.
-      return runs.get(p.model)!(name, value as ConverterValue, {
+      return runs.get(p.model.doc)!(name, value as ConverterValue, {
         player: p,
         time: p.time * 1000,
         direction: ctx.direction,
@@ -41,7 +41,7 @@ export function integration(
     if (!model.doc.requires?.includes('convert')) return;
     const defs = (model.doc.converters ?? {}) as Definitions;
     try {
-      runs.set(model, create(defs));
+      runs.set(model.doc, create(defs));
     } catch {
       return;
     } // load reports precise diagnostics

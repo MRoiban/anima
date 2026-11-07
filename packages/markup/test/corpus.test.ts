@@ -29,7 +29,8 @@ describe('authored AniML corpus', () => {
     // probes + 2 benchmark-fix probes + 1 live component paint + 3 P3b-5 reduced-motion + 1 tooling input/data + 5 listener writes + 1 asset literal + 1 image binding.
     // P3b-6: 2 shared-source seed probes. P3b-7: simple semantic bounds, semantic ordering and action edges.
     // [P3b-9] 35 independent semantic role/state/property/trait/action probes.
-    expect(cases).toHaveLength(487);
+    // [P3b-10b] Converter definitions survive repeat model clones.
+    expect(cases).toHaveLength(488);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);

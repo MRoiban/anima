@@ -441,6 +441,8 @@ One command per line; `#` starts a comment. The same language drives `anima samp
 | `focus target <id>` / `focus clear` | Change logical focus, then step(0); requires focus. |
 | `focus traverse <direction>` | Traverse next/previous/left/right/up/down, then step(0). |
 | `key down\|up <key> [shift]` | Deliver a deterministic focus key, then step(0); input module integration extends this dispatch. |
+| `semantics [id]` | Print the semantic tree or subtree as one JSON line; requires a11y. |
+| `semantic <id> tap\|increase\|decrease\|focus` | Perform an advertised semantic action, then step(0); requires a11y-actions. |
 | `motion reduce\|full` | Turn reduced motion on or off at the next step, including active states. |
 | `touch down\|move\|up <id> <x> <y>` | Input-module pointer API with an integer id ≥ 0, in grid units; `up` also leaves. Each delivery is followed by `step(0)`. |
 | `pointer drag <x0> <y0> <x1> <y1> [in <n>]` | Move/down at start, `n` equally spaced moves, up at end; each delivery steps at 0. Default `n=1`. |
@@ -462,7 +464,12 @@ One command per line; `#` starts a comment. The same language drives `anima samp
 and `machine <name> play|pause|stop|mix|fire|set [value …]` retain the motion module's control API.
 JSON quoted strings can contain spaces and `#`; unquoted hex colors are values rather than comments.
 Data commands require data in the document and the host module loaded; scripts without data commands
-do not access host data. Commands add no authoring fields or registry spellings.
+do not access host data. Commands add no authoring fields or registry spellings. Both `expect` and selected
+`snapshot` addresses resolve AniML property spellings (for example `volumeFill.width` →
+`volumeFill.w`) through the registry, including slash-scoped nested addresses. Exact inputs
+and JSON addresses take precedence over aliases. The CLI groups unknown `$path-number`
+diagnostics at the same pointer into one `data-path` diagnostic with a spaced subtraction
+hint; declared hyphenated paths retain their meaning.
 
 `anima sample` prints outputs in script order, emits assertion/breakpoint diagnostics on stderr,
 and returns 1 for those diagnostics, 2 for invalid arguments/script commands. Other script syntax
