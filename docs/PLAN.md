@@ -316,7 +316,7 @@ and an oracle test against Rive.
 **Scope and order after P5b** (owner triage, 2026-11-07; rows and reasons in
 `docs/parity/triage-2026-11-07.md`). Anima is a smaller, agent-native Rive for animated web UI in general;
 where the browser already does something well, Anima binds to it instead of reimplementing it.
-Progress is reported against the in-scope rows: **624 of 886 done (70 %)**, next to 624 of 1 238 (50 %)
+Progress is reported against the in-scope rows: **738 of 886 done (83 %)**, next to 738 of 1 238 (60 %)
 for the full matrix. Size estimates are min+gzip against the gates above (owner, 2026-11-07): the
 app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-class (250 KB).
 

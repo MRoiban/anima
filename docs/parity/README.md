@@ -45,15 +45,15 @@ say so and a `NOTICE` file will carry the attribution.
 
 ## What 0.1 already covers
 
-720 of 1 238 capabilities (58 %) are done (111 in 0.1, AniML in P1, 15 in P3, 46 in P4a, 61 in P5: components, bindings, assets, images, n-slice, feathering, 3 in Pc: the canvas backend, 22 in P4b: motion, 33 in P4d: events, 95 in P4c: interaction, 160 in P4e: data, 77 in P5b: lists, assets, host editing, 96 in P3b: accessibility and agent tools), concentrated where icons live: transforms (15/17), animation
-(33/40), state machines (60/61), drawing and paint (110/125), input (88/93), host API (82/125),
+738 of 1 238 capabilities (60 %) are done (111 in 0.1, AniML in P1, 15 in P3, 46 in P4a, 61 in P5: components, bindings, assets, images, n-slice, feathering, 3 in Pc: the canvas backend, 22 in P4b: motion, 33 in P4d: events, 95 in P4c: interaction, 160 in P4e: data, 77 in P5b: lists, assets, host editing, 96 in P3b: accessibility and agent tools, 18 in P3c: carry-overs), concentrated where icons live: transforms (16/17), animation
+(33/40), state machines (60/61), drawing and paint (110/125), input (88/93), host API (85/125),
 and data binding (160/169). `MATRIX.md` has the per-category table.
 
 **Scope (owner triage, 2026-11-07).** Anima is a smaller, agent-native Rive for animated web UI in
 general, and it runs only in web pages: where the browser already does something well (ARIA and
 focus, text shaping and fonts, text editing, page layout), Anima binds to it instead of
 reimplementing it. Progress is reported against the in-scope rows — every row except maybe-later and
-won't-do: **720 of 886 in-scope capabilities are done (81 %)**, next to 720 of 1 238 (58 %) for the
+won't-do: **738 of 886 in-scope capabilities are done (83 %)**, next to 738 of 1 238 (60 %) for the
 full matrix. Out of scope: scripting (P9), visual editor tooling, layout beyond a minimal subset and
 Rive's WASM build variants (won't do, with reasons); GPU backends and effects (P10) are maybe later.
 Remaining in-scope work: P3c size round and P3b carry-overs (before P6), P6 text, P7 minimal layout and

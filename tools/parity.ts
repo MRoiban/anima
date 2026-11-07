@@ -98,6 +98,7 @@ export const FINISHED = [
   'P2',
   'P3',
   'P3b',
+  'P3c',
   'P4a',
   'P4b',
   'P4c',
