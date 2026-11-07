@@ -2,6 +2,7 @@ import { formatHex } from './color.ts';
 // The command language of `anima sample` and the conformance suite (spec §11.2). Tooling only.
 
 import { COMMON, OWN, PAINT, markupName } from './registry.ts';
+import { semanticCommand } from '../../../modules/a11y/core/commands.ts';
 import { inputCommand } from '../../../modules/input/core/commands.ts';
 import type { TimelineInstance } from '../../../modules/motion/core/api.ts';
 import { modules } from './modules.ts';
@@ -284,6 +285,7 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
             return v;
           }
         };
+        if (cmd !== 'snapshot' && semanticCommand(p, cmd!, args, output, step, () => ({}) as Snapshot)) continue;
         switch (cmd) {
           case 'seed': {
             if (

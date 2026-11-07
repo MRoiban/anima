@@ -1,0 +1,24 @@
+P3b-1b checks (final source unless noted)
+PASS npm ci
+PASS node tools/modules.ts --check (0 stale)
+PASS npm run typecheck (9 projects)
+PASS targeted ESLint
+PASS targeted Prettier
+PASS npm run gen (schema unchanged)
+PASS node tools/build-animl.ts (480 active sources)
+PASS node tools/build-web.ts (36 entries)
+PASS node tools/build-web.ts --check (before metadata-preservation correction; final artifacts then rebuilt)
+FAIL node tools/size.ts (exit 1, a11y 3002/2048; all other gates pass)
+PASS node tools/oracle.ts --strict (253 cases /449 samples; 0 failing completed samples, 24 retained findings/differences)
+PASS node tools/perf.ts (exit 0; performance non-regression UNVERIFIED under shared load)
+PASS VITEST_MAX_WORKERS=2 npm run test:scope -- a11y a11y-actions --no-browser (966 pass,445 filtered,1 TODO)
+PASS static-only smoke (no semanticAction/semanticDiff installation)
+PASS isolated two-engine standalone-demo tests after artifact rebuild (2 pass,72 filtered)
+REJECTED scope runner --maxWorkers=2; used VITEST_MAX_WORKERS=2 instead
+REJECTED capability scaffold dry and normal --module a11y-actions (hyphen grammar); manually created module and regenerated wiring
+PASS protected tracked-path audit (no protected changes after prototype merge)
+PASS isolated module-order recheck after concurrent checks (all 12 orders, 1 test,21.04s)
+PASS VITEST_MAX_WORKERS=2 npm run test:scope -- changed (7393 pass,0 fail,45 TODO;225 files pass,13 skipped)
+HISTORICAL first broad run (7390 pass,3 fail,45 TODO): two missing-cache assertions fixed by artifact generation; one genuine early-peer init crash fixed
+HISTORICAL concurrent module-order recheck timed out at30s; passes alone21.04s and in final broad scope
+FINAL size companion828/1024 over a11y; full114584; core+web20369/data8032/bind2038/components4047 unchanged

@@ -50,6 +50,7 @@ function baseAttrOrder(name: string): string[] {
   const form = ELEMENTS[name];
   if (form)
     return [
+      ...(ATTR_ORDER[name] ?? []),
       ...(form.target ? [form.target.attribute] : []),
       ...Object.entries(form.shape.p)
         .filter(([, s]) => !(s.k === 'arr' && s.of.element) && !(s.k === 'obj' && s.element))

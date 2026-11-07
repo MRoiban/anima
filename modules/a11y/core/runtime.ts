@@ -1,0 +1,181 @@
+import type { Player } from '../../../packages/core/src/player.ts';
+import type { Module } from '../../../packages/core/src/modules.ts';
+import { drawFrame } from '../../../packages/core/src/draw.ts';
+import { apply, mul, IDENTITY, type Mat } from '../../../packages/core/src/geom.ts';
+import { parsePath, flatten } from '../../../packages/core/src/path.ts';
+import type { A11yConfig, SemanticNode } from './types.ts';
+import { states } from './registry.ts';
+import { flat } from './tree.ts';
+export interface Entry {
+  p: Player;
+  i: number;
+  id: string;
+  parent: string;
+  matrix: Mat;
+  config?: A11yConfig;
+  data: Record<string, unknown>;
+  visible: boolean;
+  bounds: SemanticNode['bounds'];
+}
+export interface Cache {
+  signature: string;
+  tree: SemanticNode[];
+  entries: Entry[];
+}
+const caches = new WeakMap<Player, Cache>();
+const installed = new WeakSet<object>();
+const resolve = (p: Player, value: unknown) =>
+  typeof value === 'string' ? (p.get(value) ?? value) : value;
+/** Shared through the active registry, including separately bundled action entries. */
+export const runtime: {
+  caches: typeof caches;
+  flat: typeof flat;
+  resolve: typeof resolve;
+  update?: (p: Player, cache: Cache, previous?: Cache) => boolean;
+} = { caches, flat, resolve };
+function box(points: [number, number][]): SemanticNode['bounds'] {
+  const xs = points.map((p) => p[0]),
+    ys = points.map((p) => p[1]);
+  const x = Math.min(...xs),
+    y = Math.min(...ys);
+  return [x, y, Math.max(...xs) - x, Math.max(...ys) - y];
+}
+export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) {
+  if (installed.has(P.prototype)) return;
+  installed.add(P.prototype);
+  P.prototype.semantics = function () {
+    const entries: Entry[] = [];
+    const collect = (p: Player, prefix = '', parent = '', matrix = IDENTITY, visible = true) => {
+      const frame = drawFrame(p);
+      p.model.nodes.forEach((n, i) => {
+        const c = n.raw.a11y as A11yConfig | undefined;
+        const m = mul(matrix, p.world(i)),
+          g = frame.nodes[i]?.geometry;
+        let points: [number, number][] = [];
+        let bounds = c?.bounds;
+        if (!bounds && g) {
+          if (g.d)
+            points = flatten(parsePath(g.d)).flatMap((poly) =>
+              poly.pts
+                .filter((_, i) => i % 2 === 0)
+                .map((x, i) => [x, poly.pts[i * 2 + 1]!] as [number, number]),
+            );
+          else if (g.r !== undefined) bounds = [g.cx! - g.r, g.cy! - g.r, g.r * 2, g.r * 2];
+          else if (g.width !== undefined) bounds = [g.x ?? 0, g.y ?? 0, g.width, g.height ?? 0];
+        }
+        if (bounds) {
+          const [x, y, w, h] = bounds;
+          points = [
+            [x, y],
+            [x + w, y],
+            [x, y + h],
+            [x + w, y + h],
+          ];
+        }
+        const data = Object.fromEntries(
+          Object.entries(c ?? {}).map(([k, v]) => [
+            k,
+            ['role', 'live', 'href', 'activate'].includes(k) ? v : resolve(p, v),
+          ]),
+        );
+        entries.push({
+          p,
+          i,
+          id: prefix + n.id,
+          parent: n.parent < 0 ? parent : prefix + p.model.nodes[n.parent]!.id,
+          matrix: m,
+          config: c,
+          data,
+          visible: visible && p.visible(i) && !data.hidden,
+          bounds: box(
+            (points.length ? points : [[0, 0] as [number, number]]).map((pt) => apply(m, ...pt)),
+          ),
+        });
+      });
+      for (const [id, child] of (p.nested as { players?: Map<string, Player> } | undefined)
+        ?.players ?? []) {
+        const entry = entries.find((e) => e.id === prefix + id)!;
+        collect(child, prefix + id + '.', entry.id, entry.matrix, entry.visible);
+      }
+      const lists = modules.get('lists') as
+        typeof import('../../lists/core/index.ts').lists | undefined;
+      for (const run of lists?.listState(p)?.runs ?? [])
+        for (const item of run.items) {
+          const entry = entries.find((e) => e.p === p && e.i === run.spec.node)!;
+          const raw = p.model.nodes[run.spec.node]!.raw;
+          collect(
+            item.player,
+            entry.id + '.' + item.index + '.',
+            entry.id,
+            mul(entry.matrix, [1, 0, 0, 1, (raw.dx ?? 0) * item.index, (raw.dy ?? 0) * item.index]),
+            entry.visible,
+          );
+        }
+    };
+    collect(this);
+    const signature = JSON.stringify([
+      this.focused,
+      entries.map((e) => [e.id, e.parent, e.data, e.visible, e.bounds, e.p.focused]),
+    ]);
+    const old = caches.get(this);
+    if (old?.signature === signature) return old.tree;
+    const nodes = new Map<string, SemanticNode>();
+    const tree: SemanticNode[] = [];
+    const excluded = new Set<string>();
+    // Parents precede descendants, including nested players.
+    for (const e of entries) {
+      if (!e.visible || excluded.has(e.parent)) {
+        excluded.add(e.id);
+        continue;
+      }
+      if (!e.config || e.config.role === 'none') continue;
+      const c = e.config,
+        d = e.data;
+      const n: SemanticNode = {
+        id: e.id,
+        role: c.role,
+        states: {},
+        bounds: e.bounds,
+        actions: [],
+        children: [],
+      };
+      for (const key of ['label', 'hint', 'value', 'level', 'href'] as const)
+        if (d[key] !== undefined) Object.assign(n, { [key]: d[key] });
+      for (const key of states)
+        if (key !== 'hidden' && d[key] !== undefined) Object.assign(n.states, { [key]: d[key] });
+      if (d.checkedMixed) n.states.checked = 'mixed';
+      if (c.live && c.live !== 'off') n.states.live = c.live;
+      if (!d.disabled && c.role === 'slider') {
+        n.min = c.min ?? 0;
+        n.max = c.max ?? 100;
+        n.step = c.step ?? 1;
+      }
+      let parent = entries.find((entry) => entry.id === e.parent);
+      while (parent && !nodes.has(parent.id))
+        parent = entries.find((entry) => entry.id === parent!.parent);
+      (parent ? nodes.get(parent.id)!.children : tree).push(n);
+      nodes.set(e.id, n);
+    }
+    const prune = (list: SemanticNode[]) => {
+      const modal = list.find((n) => n.states.modal);
+      if (modal) list.splice(0, list.length, modal);
+      list.forEach((n) => prune(n.children));
+    };
+    prune(tree);
+    const cache = { signature, tree, entries };
+    caches.set(this, cache);
+    if (runtime.update?.(this, cache, old)) {
+      caches.delete(this);
+      return this.semantics();
+    }
+    return tree;
+  };
+}
+export function prepare(model: import('../../../packages/core/src/load.ts').Model) {
+  if (!model.nodes.some((n) => n.raw.a11y)) return;
+  const previous = model.afterStep;
+  model.afterStep = (p) => {
+    previous?.(p);
+    p.semantics();
+  };
+}

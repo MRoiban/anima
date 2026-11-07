@@ -1,0 +1,6 @@
+[
+  {"id":"settings","role":"group","label":"Settings","states":{},"bounds":[0,0,20,20],"actions":[],"children":[
+    {"id":"mute","role":"checkbox","label":"Mute","states":{"checked":"mixed","focused":false},"bounds":[1,2,3,4],"actions":["tap","focus"],"children":[]},
+    {"id":"volume","role":"slider","label":"Volume","value":40,"states":{"focused":false},"min":0,"max":100,"step":5,"bounds":[5,6,7,8],"actions":["increase","decrease","focus"],"children":[]}
+  ]}
+]

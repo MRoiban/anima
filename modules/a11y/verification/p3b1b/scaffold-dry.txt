@@ -1,0 +1,1 @@
+Module name must start with a lower-case letter and contain only lower-case letters or digits

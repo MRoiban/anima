@@ -1,0 +1,4 @@
+node tools/oracle.ts --strict: exit 0
+253 completed cases, 449 samples, 0 completed failures.
+23 existing findings and 1 existing intentional difference retained.
+No new completed semantic oracle: native CLI supports --semantics and --semantic-action; captures not completed before budget stop.

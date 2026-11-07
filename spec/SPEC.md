@@ -2737,3 +2737,9 @@ This host-only operation adds no JSON/AniML grammar, loader diagnostics or CLI o
 <!-- capability: host-api.deprecation-policy -->
 The optional browser-only `devtools` contract is specified in
 [modules/devtools/SPEC.md](../modules/devtools/SPEC.md). It adds no document grammar.
+
+## a11y
+
+Node semantics are specified in [modules/a11y/SPEC.md](../modules/a11y/SPEC.md). Interaction,
+diffs and focus policy live in the companion `a11y-actions` (runtime key `a11yactions`); in-browser
+AniML forms in the `markup-a11y` web entry. The web overlay is P3b wave 2. Root §10 is unchanged.
