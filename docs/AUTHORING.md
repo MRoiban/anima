@@ -1348,3 +1348,33 @@ through core's shared source, including nested stepping. `new Player(model, { se
 the same stream. Reseeding starts its sequence again without clearing converter once/on-change
 caches. Omit the seed to reproduce the established deterministic defaults exactly (machineSeed or
 0x6d2b79f5 for machines, 1 for converters). See spec §11.2 for all commands.
+
+
+## Project tooling recipes
+
+Use `anima docs authoring <section-slug>` to read one contents entry, or `anima docs spec --list`
+to find a normative chapter. `anima schema circle --animatable --bindable --inherited` shows shared
+addressable properties. `--editor-only` reports not applicable.
+
+An `anima.json` can keep tests out of production imports and substitute build-time attributes:
+
+```json
+{
+  "entry": "main.animl",
+  "sources": ["ui.animl", "ui.test.animl"],
+  "exclude": ["**/*.test.animl"],
+  "constants": { "radius": 8 },
+  "presets": { "preview": { "frames": 30, "fps": 30, "size": 160 } }
+}
+```
+
+Write `r="{{radius}}"` in an AniML attribute; constants also work in imported libraries.
+`anima render --preset preview -o preview.png` writes numbered PNG frames;
+`-o preview.webm` records video through cached Chromium. Repeat `--preset` to run a sequential queue;
+outputs gain each preset's name. Encoder failure includes a PNG fallback hint.
+
+Scripts can bracket named cases with `group name` and `end`, compare with `expect`, and put
+`expect-error script-target` before a deliberate bad target. A hidden/absent semantic target or
+unknown input reports a code, line pointer and hint. `anima doctor --format=json` checks the local
+project, port, browser/device support and tools. `anima bench --frames 600` reports compile/step/draw
+cost and observed JS heap growth, including bytes per frame (GC can make it negative).

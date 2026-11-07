@@ -26,6 +26,7 @@ export function bench(
   }
   const step: number[] = [],
     draw: number[] = [];
+  const heapBefore = process.memoryUsage().heapUsed;
   for (let i = 0; i < frames; i++) {
     const t0 = performance.now();
     player.step(1 / 60);
@@ -35,7 +36,15 @@ export function bench(
     step.push((t1 - t0) * 1000);
     draw.push((t2 - t1) * 1000);
   }
+  const heapAfter = process.memoryUsage().heapUsed;
   return {
+    memory: {
+      kind: 'js-heap',
+      beforeBytes: heapBefore,
+      afterBytes: heapAfter,
+      growthBytes: heapAfter - heapBefore,
+      bytesPerFrame: (heapAfter - heapBefore) / frames,
+    },
     frames,
     compileMs,
     unit: 'µs',

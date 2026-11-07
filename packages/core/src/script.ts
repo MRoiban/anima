@@ -24,12 +24,17 @@ export interface Snapshot {
 }
 
 export class ScriptError extends Error {
-  readonly code = 'script-usage';
+  readonly code: string;
   readonly pointer: string;
-  readonly hint = 'check the command syntax in spec §11.2';
+  readonly hint: string;
   readonly line: number;
-  constructor(message: string, line: number) {
+  constructor(message: string, line: number, code = 'script-usage') {
     super(`line ${line}: ${message}`);
+    this.code = code;
+    this.hint =
+      code === 'script-target'
+        ? 'inspect declared inputs or run semantics before targeting a node; hidden nodes cannot receive semantic actions'
+        : 'check the command syntax in spec §11.2';
     this.line = line;
     this.pointer = `/script/${line - 1}`;
   }
@@ -73,6 +78,16 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
   let lastWriter = writer;
   let seed = opts.seed;
   let replaying = false;
+  const groups: string[] = [];
+  let expectedError: string | undefined;
+  const targetError = (message: string) => {
+    throw new ScriptError(message, line, 'script-target');
+  };
+  const requireInput = (name: string) => {
+    // get resolves component-scoped inputs as well as root inputs.
+    if (!model.inputs.has(name) && p.get(name) === undefined)
+      targetError('no input "' + name + '"; inspect inputs before targeting them');
+  };
   const act = (op: Operation) => {
     op(p, instances);
     journal.push({ op, writer });
@@ -313,6 +328,9 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
           throw new ScriptError(`${what} must be a number`, line);
         return n;
       };
+      const expected = cmd === 'expect-error' ? undefined : expectedError;
+      if (cmd !== 'expect-error') expectedError = undefined;
+      const diagnosticStart = diagnostics.length;
       try {
         writer = `script line ${line}: ${raw.trim()}`;
         const literal = (v: string | undefined) => {
@@ -323,360 +341,411 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
             return v;
           }
         };
-        if (
+        if (cmd === 'semantic' && args.length === 2) {
+          const find = (
+            nodes: import('../../../modules/a11y/core/types.ts').SemanticNode[],
+          ): boolean => nodes.some((n) => n.id === args[0] || find(n.children));
+          if (!find(p.semantics?.() ?? []))
+            targetError(
+              'hidden or absent semantic node "' +
+                args[0] +
+                '"; inspect semantics before targeting it',
+            );
+        }
+        const handled =
           cmd !== 'snapshot' &&
-          semanticCommand(p, cmd!, args, output, step, () => ({}) as Snapshot)
-        )
-          continue;
-        switch (cmd) {
-          case 'seed': {
-            if (
-              args.length !== 1 ||
-              !Number.isInteger(num(args[0], 'seed')) ||
-              Number(args[0]) < 0 ||
-              Number(args[0]) > 0xffffffff
-            )
-              throw new ScriptError('seed must be a uint32 integer', line);
-            seed = Number(args[0]);
-            const nextSeed = seed;
-            act((player) => player.randomSource.reset(nextSeed));
-            break;
-          }
-          case 'data': {
-            const [op, path] = args;
-            if (op === 'set' && args.length === 3 && path?.startsWith('$')) {
-              const value = literal(args[2]);
-              act((player) => {
-                writeData(player, path, value);
-              });
-            } else if (op === 'dump') {
-              const prefixes = args.slice(1);
-              const values = Object.fromEntries(
-                Object.entries(dataValues()).filter(
-                  ([key]) => !prefixes.length || prefixes.some((prefix) => key.startsWith(prefix)),
-                ),
-              );
-              output.push({ data: values });
-            } else if (op === 'watch' && args.length > 1) {
-              for (const path of args.slice(1)) {
-                if (!path.startsWith('$')) throw new ScriptError('data watch needs $paths', line);
-                watched.set(path, JSON.stringify(data().get(dataPath(path))));
-              }
-            } else if (op === 'break' && path === 'clear' && args.length === 2) breaks.clear();
-            else if (
-              op === 'break' &&
-              path?.startsWith('$') &&
-              (args.length === 2 || (args.length === 4 && args[2] === '=='))
-            ) {
-              data().get(dataPath(path));
-              breaks.set(path, args.length === 4 ? { value: literal(args[3]) } : {});
-            } else
-              throw new ScriptError(
-                'use data set <$path> <value> | dump [prefix…] | watch <$path…> | break <$path> [== value] | break clear',
-                line,
-              );
-            break;
-          }
-          case 'expect': {
-            if (args.length !== 3 || !['==', '!=', '<', '>', '~'].includes(args[1]!))
-              throw new ScriptError('use expect <address|$path|input> ==|!=|<|>|~ <value>', line);
-            const actual = read(args[0]!);
-            if (actual === undefined)
-              throw new ScriptError(`unknown assertion address "${args[0]}"`, line);
-            const expected = literal(args[2]),
-              op = args[1];
-            const same = JSON.stringify(actual) === JSON.stringify(expected);
-            const pass =
-              op === '=='
-                ? same
-                : op === '!='
-                  ? !same
-                  : typeof actual === 'number' &&
-                    typeof expected === 'number' &&
-                    (op === '<'
-                      ? actual < expected
-                      : op === '>'
-                        ? actual > expected
-                        : Math.abs(actual - expected) <= 1e-6);
-            if (!pass)
-              diagnostics.push({
-                code: 'script-expect',
-                pointer: `/script/${line - 1}`,
-                message: `${args[0]} ${op} ${args[2]} failed (actual ${JSON.stringify(actual)})`,
-                hint: 'check the expected value or advance queued writes before asserting',
-              });
-            break;
-          }
-          case 'touch': {
-            if (args.length !== 4 || !['down', 'move', 'up'].includes(args[0]!))
-              throw new ScriptError('use touch down|move|up <id> <x> <y>', line);
-            const id = num(args[1], 'pointer id'),
-              x = num(args[2], 'x'),
-              y = num(args[3], 'y');
-            if (!Number.isInteger(id) || id < 0)
-              throw new ScriptError('pointer id must be a nonnegative integer', line);
-            act((player) => {
-              player.input().pointer(args[0] as 'down' | 'move' | 'up', x, y, { id });
-            });
-            step(0);
-            if (args[0] === 'up') {
-              act((player) => {
-                player.input().pointer('leave', 0, 0, { id });
-              });
-              step(0);
+          semanticCommand(p, cmd!, args, output, step, () => ({}) as Snapshot);
+        if (!handled)
+          switch (cmd) {
+            case 'group':
+              if (args.length !== 1) throw new ScriptError('use group <name>', line);
+              groups.push(args[0]!);
+              break;
+            case 'end':
+              if (args.length || !groups.length)
+                throw new ScriptError('end requires an open group', line);
+              groups.pop();
+              break;
+            case 'expect-error':
+              if (args.length !== 1 || expectedError)
+                throw new ScriptError('use expect-error <code> before one command', line);
+              expectedError = args[0];
+              break;
+            case 'seed': {
+              if (
+                args.length !== 1 ||
+                !Number.isInteger(num(args[0], 'seed')) ||
+                Number(args[0]) < 0 ||
+                Number(args[0]) > 0xffffffff
+              )
+                throw new ScriptError('seed must be a uint32 integer', line);
+              seed = Number(args[0]);
+              const nextSeed = seed;
+              act((player) => player.randomSource.reset(nextSeed));
+              break;
             }
-            break;
-          }
-          case 'advance': {
-            const t = num(args[0], 'advance time');
-            if (t < 0) throw new ScriptError('advance time must be ≥ 0', line);
-            let n = 1;
-            if (!args.length) throw new ScriptError('advance needs seconds', line);
-            if (args.length > 1) {
-              if (args[1] !== 'in' || args.length !== 3)
-                throw new ScriptError('use "advance <seconds> [in <n>]"', line);
-              n = num(args[2], 'step count');
-              if (!Number.isInteger(n) || n < 1)
-                throw new ScriptError('step count must be a whole number ≥ 1', line);
-            }
-            for (let k = 0; k < n; k++) step(t / n);
-            break;
-          }
-          case 'set': {
-            if (args.length !== 2) throw new ScriptError('use "set <input> <value>"', line);
-            const type = model.inputs.get(args[0]!)?.type;
-            const v =
-              args[0]!.startsWith('$') && (type === 'string' || type === 'color')
-                ? args[1]!.startsWith('"')
-                  ? JSON.parse(args[1]!)
-                  : args[1]!
-                : args[1] === 'true'
-                  ? true
-                  : args[1] === 'false'
-                    ? false
-                    : num(args[1], 'value');
-            act((player) => {
-              player.set(args[0]!, v);
-            });
-            break;
-          }
-          case 'fire':
-          case 'toggle':
-            if (args.length !== 1) throw new ScriptError(`use "${cmd} <input>"`, line);
-            act((player) => {
-              if (cmd === 'fire') player.fire(args[0]!);
-              else player.toggle(args[0]!);
-            });
-            break;
-          case 'pointer': {
-            const kind = args[0];
-            if (kind === 'drag') {
-              if (args.length !== 5 && !(args.length === 7 && args[5] === 'in'))
-                throw new ScriptError('use pointer drag <x0> <y0> <x1> <y1> [in <n>]', line);
-              const x0 = num(args[1], 'x0'),
-                y0 = num(args[2], 'y0'),
-                x1 = num(args[3], 'x1'),
-                y1 = num(args[4], 'y1');
-              const n = args[6] === undefined ? 1 : num(args[6], 'step count');
-              if (!Number.isInteger(n) || n < 1)
-                throw new ScriptError('step count must be a whole number ≥ 1', line);
-              act((player) => {
-                player.pointer('move', x0, y0);
-              });
-              step(0);
-              act((player) => {
-                player.pointer('down', x0, y0);
-              });
-              step(0);
-              for (let i = 1; i <= n; i++) {
+            case 'data': {
+              const [op, path] = args;
+              if (op === 'set' && args.length === 3 && path?.startsWith('$')) {
+                const value = literal(args[2]);
                 act((player) => {
-                  player.pointer('move', x0 + ((x1 - x0) * i) / n, y0 + ((y1 - y0) * i) / n);
+                  writeData(player, path, value);
+                });
+              } else if (op === 'dump') {
+                const prefixes = args.slice(1);
+                const values = Object.fromEntries(
+                  Object.entries(dataValues()).filter(
+                    ([key]) =>
+                      !prefixes.length || prefixes.some((prefix) => key.startsWith(prefix)),
+                  ),
+                );
+                output.push({ data: values });
+              } else if (op === 'watch' && args.length > 1) {
+                for (const path of args.slice(1)) {
+                  if (!path.startsWith('$')) throw new ScriptError('data watch needs $paths', line);
+                  watched.set(path, JSON.stringify(data().get(dataPath(path))));
+                }
+              } else if (op === 'break' && path === 'clear' && args.length === 2) breaks.clear();
+              else if (
+                op === 'break' &&
+                path?.startsWith('$') &&
+                (args.length === 2 || (args.length === 4 && args[2] === '=='))
+              ) {
+                data().get(dataPath(path));
+                breaks.set(path, args.length === 4 ? { value: literal(args[3]) } : {});
+              } else
+                throw new ScriptError(
+                  'use data set <$path> <value> | dump [prefix…] | watch <$path…> | break <$path> [== value] | break clear',
+                  line,
+                );
+              break;
+            }
+            case 'expect': {
+              if (args.length !== 3 || !['==', '!=', '<', '>', '~'].includes(args[1]!))
+                throw new ScriptError('use expect <address|$path|input> ==|!=|<|>|~ <value>', line);
+              const actual = read(args[0]!);
+              if (actual === undefined)
+                throw new ScriptError(`unknown assertion address "${args[0]}"`, line);
+              const expected = literal(args[2]),
+                op = args[1];
+              const same = JSON.stringify(actual) === JSON.stringify(expected);
+              const pass =
+                op === '=='
+                  ? same
+                  : op === '!='
+                    ? !same
+                    : typeof actual === 'number' &&
+                      typeof expected === 'number' &&
+                      (op === '<'
+                        ? actual < expected
+                        : op === '>'
+                          ? actual > expected
+                          : Math.abs(actual - expected) <= 1e-6);
+              if (!pass)
+                diagnostics.push({
+                  code: 'script-expect',
+                  pointer: `/script/${line - 1}`,
+                  message: `${groups.length ? '[' + groups.join('/') + '] ' : ''}${args[0]} ${op} ${args[2]} failed (actual ${JSON.stringify(actual)})`,
+                  hint: 'check the expected value or advance queued writes before asserting',
+                });
+              break;
+            }
+            case 'touch': {
+              if (args.length !== 4 || !['down', 'move', 'up'].includes(args[0]!))
+                throw new ScriptError('use touch down|move|up <id> <x> <y>', line);
+              const id = num(args[1], 'pointer id'),
+                x = num(args[2], 'x'),
+                y = num(args[3], 'y');
+              if (!Number.isInteger(id) || id < 0)
+                throw new ScriptError('pointer id must be a nonnegative integer', line);
+              act((player) => {
+                player.input().pointer(args[0] as 'down' | 'move' | 'up', x, y, { id });
+              });
+              step(0);
+              if (args[0] === 'up') {
+                act((player) => {
+                  player.input().pointer('leave', 0, 0, { id });
                 });
                 step(0);
               }
-              act((player) => {
-                player.pointer('up', x1, y1);
-              });
-              step(0);
               break;
             }
-            if (kind === 'leave' && args.length === 1) {
-              act((player) => {
-                player.pointer('leave');
-              });
-              step(0);
+            case 'advance': {
+              const t = num(args[0], 'advance time');
+              if (t < 0) throw new ScriptError('advance time must be ≥ 0', line);
+              let n = 1;
+              if (!args.length) throw new ScriptError('advance needs seconds', line);
+              if (args.length > 1) {
+                if (args[1] !== 'in' || args.length !== 3)
+                  throw new ScriptError('use "advance <seconds> [in <n>]"', line);
+                n = num(args[2], 'step count');
+                if (!Number.isInteger(n) || n < 1)
+                  throw new ScriptError('step count must be a whole number ≥ 1', line);
+              }
+              for (let k = 0; k < n; k++) step(t / n);
               break;
             }
-            if (!['move', 'down', 'up', 'click'].includes(kind!) || args.length !== 3)
-              throw new ScriptError(
-                'use "pointer move|down|up|click <x> <y>" or "pointer leave"',
-                line,
-              );
-            const x = num(args[1], 'x');
-            const y = num(args[2], 'y');
-            for (const k of kind === 'click'
-              ? (['move', 'down', 'up'] as const)
-              : [kind as 'move' | 'down' | 'up']) {
+            case 'set': {
+              if (args.length !== 2) throw new ScriptError('use "set <input> <value>"', line);
+              requireInput(args[0]!);
+              const type = model.inputs.get(args[0]!)?.type;
+              const v =
+                args[0]!.startsWith('$') && (type === 'string' || type === 'color')
+                  ? args[1]!.startsWith('"')
+                    ? JSON.parse(args[1]!)
+                    : args[1]!
+                  : args[1] === 'true'
+                    ? true
+                    : args[1] === 'false'
+                      ? false
+                      : num(args[1], 'value');
               act((player) => {
-                player.pointer(k, x, y);
+                player.set(args[0]!, v);
               });
-              step(0);
-            }
-            break;
-          }
-          case 'focus': {
-            act((player) => {
-              if (args[0] === 'clear' && args.length === 1) player.focusClear();
-              else if (args[0] === 'target' && args.length === 2) player.focusTarget(args[1]!);
-              else if (args[0] === 'traverse' && args.length === 2)
-                player.focusTraverse(
-                  args[1] as import('../../../modules/focus/core/index.ts').Direction,
-                );
-              else
-                throw new ScriptError('use "focus clear|target <id>|traverse <direction>"', line);
-            });
-            step(0);
-            break;
-          }
-          case 'key': {
-            if (model.doc.requires?.includes('input')) {
-              act((player) => {
-                inputCommand(player, 'key', args);
-              });
-              step(0);
               break;
             }
-            if (
-              !['down', 'up'].includes(args[0]!) ||
-              args.length < 2 ||
-              args.length > 3 ||
-              (args.length === 3 && args[2] !== 'shift')
-            )
-              throw new ScriptError('use "key down|up <key> [shift]"', line);
-            act((player) => {
-              player.focusKey(args[1]!, args[0] === 'down', args[2] === 'shift');
-            });
-            step(0);
-            break;
-          }
-          case 'instance': {
-            if (args.length < 2 || args.length > 3)
-              throw new ScriptError('use "instance <id> <timeline> [mix]"', line);
-            act((player, handles) => {
-              handles.set(
-                args[0]!,
-                player.createTimeline(args[1]!, {
-                  name: args[0]!,
-                  mix: args[2] === undefined ? 1 : num(args[2], 'mix'),
-                }),
-              );
-            });
-            break;
-          }
-          case 'timeline': {
-            const name = args[0]!,
-              op = args[1];
-            act((player, handles) => {
-              const t = handles.get(name) ?? player.timeline(name);
-              if (op === 'play' || op === 'pause' || op === 'stop') t[op]();
-              else if (op === 'seek' || op === 'scrub') t[op](num(args[2], op));
-              else if (op === 'speed' || op === 'mix') t[op] = num(args[2], op);
-              else if (op === 'loop' && ['once', 'loop', 'pingpong', 'authored'].includes(args[2]!))
-                t.loop = args[2] === 'authored' ? null : (args[2] as TimelineInstance['loop']);
-              else
+            case 'fire':
+            case 'toggle':
+              if (args.length !== 1) throw new ScriptError(`use "${cmd} <input>"`, line);
+              requireInput(args[0]!);
+              act((player) => {
+                if (cmd === 'fire') player.fire(args[0]!);
+                else player.toggle(args[0]!);
+              });
+              break;
+            case 'pointer': {
+              const kind = args[0];
+              if (kind === 'drag') {
+                if (args.length !== 5 && !(args.length === 7 && args[5] === 'in'))
+                  throw new ScriptError('use pointer drag <x0> <y0> <x1> <y1> [in <n>]', line);
+                const x0 = num(args[1], 'x0'),
+                  y0 = num(args[2], 'y0'),
+                  x1 = num(args[3], 'x1'),
+                  y1 = num(args[4], 'y1');
+                const n = args[6] === undefined ? 1 : num(args[6], 'step count');
+                if (!Number.isInteger(n) || n < 1)
+                  throw new ScriptError('step count must be a whole number ≥ 1', line);
+                act((player) => {
+                  player.pointer('move', x0, y0);
+                });
+                step(0);
+                act((player) => {
+                  player.pointer('down', x0, y0);
+                });
+                step(0);
+                for (let i = 1; i <= n; i++) {
+                  act((player) => {
+                    player.pointer('move', x0 + ((x1 - x0) * i) / n, y0 + ((y1 - y0) * i) / n);
+                  });
+                  step(0);
+                }
+                act((player) => {
+                  player.pointer('up', x1, y1);
+                });
+                step(0);
+                break;
+              }
+              if (kind === 'leave' && args.length === 1) {
+                act((player) => {
+                  player.pointer('leave');
+                });
+                step(0);
+                break;
+              }
+              if (!['move', 'down', 'up', 'click'].includes(kind!) || args.length !== 3)
                 throw new ScriptError(
-                  'use "timeline <name> play|pause|stop|seek|scrub|speed|mix|loop [value]"',
+                  'use "pointer move|down|up|click <x> <y>" or "pointer leave"',
                   line,
                 );
-            });
-            break;
-          }
-          case 'machine': {
-            act((player) => {
-              const m = player.machine(args[0]!),
+              const x = num(args[1], 'x');
+              const y = num(args[2], 'y');
+              for (const k of kind === 'click'
+                ? (['move', 'down', 'up'] as const)
+                : [kind as 'move' | 'down' | 'up']) {
+                act((player) => {
+                  player.pointer(k, x, y);
+                });
+                step(0);
+              }
+              break;
+            }
+            case 'focus': {
+              act((player) => {
+                if (args[0] === 'clear' && args.length === 1) player.focusClear();
+                else if (args[0] === 'target' && args.length === 2) player.focusTarget(args[1]!);
+                else if (args[0] === 'traverse' && args.length === 2)
+                  player.focusTraverse(
+                    args[1] as import('../../../modules/focus/core/index.ts').Direction,
+                  );
+                else
+                  throw new ScriptError('use "focus clear|target <id>|traverse <direction>"', line);
+              });
+              step(0);
+              break;
+            }
+            case 'key': {
+              if (model.doc.requires?.includes('input')) {
+                act((player) => {
+                  inputCommand(player, 'key', args);
+                });
+                step(0);
+                break;
+              }
+              if (
+                !['down', 'up'].includes(args[0]!) ||
+                args.length < 2 ||
+                args.length > 3 ||
+                (args.length === 3 && args[2] !== 'shift')
+              )
+                throw new ScriptError('use "key down|up <key> [shift]"', line);
+              act((player) => {
+                player.focusKey(args[1]!, args[0] === 'down', args[2] === 'shift');
+              });
+              step(0);
+              break;
+            }
+            case 'instance': {
+              if (args.length < 2 || args.length > 3)
+                throw new ScriptError('use "instance <id> <timeline> [mix]"', line);
+              act((player, handles) => {
+                handles.set(
+                  args[0]!,
+                  player.createTimeline(args[1]!, {
+                    name: args[0]!,
+                    mix: args[2] === undefined ? 1 : num(args[2], 'mix'),
+                  }),
+                );
+              });
+              break;
+            }
+            case 'timeline': {
+              const name = args[0]!,
                 op = args[1];
-              if (op === 'play' || op === 'pause' || op === 'stop') m[op]();
-              else if (op === 'mix') m.mix = num(args[2], 'mix');
-              else if (op === 'fire') m.fire(args[2]!);
-              else if (op === 'set')
-                m.set(
-                  args[2]!,
-                  args[3] === 'true' ? true : args[3] === 'false' ? false : num(args[3], 'value'),
-                );
-              else
-                throw new ScriptError(
-                  'use "machine <name> play|pause|stop|mix|fire|set [value …]"',
-                  line,
-                );
-            });
-            break;
-          }
-          case 'motion':
-            if (args[0] !== 'reduce' && args[0] !== 'full')
-              throw new ScriptError('use "motion reduce|full"', line);
-            act((player) => {
-              player.reducedMotion = args[0] === 'reduce';
-            });
-            break;
-          case 'snapshot': {
-            const all = opts.all || args.includes('--all');
-            const semantics = opts.semantics || args.includes('--semantics');
-            const addresses = args.filter((arg) => arg !== '--all' && arg !== '--semantics');
-            let values = all ? allValues() : p.values();
-            if (addresses.length) {
-              const pick: typeof values = {};
-              // Prefer exact input/JSON addresses. Resolve AniML aliases from the same registry
-              // as the compiler, including slash-scoped component snapshot addresses.
-              for (const a of addresses) {
-                const canonical = canonicalAddress(a);
-                const v = read(canonical);
-                if (v === undefined)
+              act((player, handles) => {
+                const t = handles.get(name) ?? player.timeline(name);
+                if (op === 'play' || op === 'pause' || op === 'stop') t[op]();
+                else if (op === 'seek' || op === 'scrub') t[op](num(args[2], op));
+                else if (op === 'speed' || op === 'mix') t[op] = num(args[2], op);
+                else if (
+                  op === 'loop' &&
+                  ['once', 'loop', 'pingpong', 'authored'].includes(args[2]!)
+                )
+                  t.loop = args[2] === 'authored' ? null : (args[2] as TimelineInstance['loop']);
+                else
                   throw new ScriptError(
-                    `"${a}" is not an animated address or a bool/number input`,
+                    'use "timeline <name> play|pause|stop|seek|scrub|speed|mix|loop [value]"',
                     line,
                   );
-                pick[canonical] = Array.isArray(v)
-                  ? formatHex(v as [number, number, number, number])
-                  : (v as number | boolean | string);
-              }
-              values = pick;
-            }
-            const snapshot: Snapshot = {
-              time: p.time,
-              values,
-              states: p.states(),
-              events,
-              settled,
-            };
-            if (watched.size) {
-              snapshot.data = {};
-              for (const path of changedData) snapshot.data[path] = data().get(dataPath(path));
-              changedData.clear();
-            }
-            if (semantics) {
-              const semanticPlayer = p as Player & { semantics?: () => unknown };
-              if (!semanticPlayer.semantics)
-                throw new ScriptError('semantics module is not loaded', line);
-              snapshot.semantics = semanticPlayer.semantics();
-            }
-            out.push(snapshot);
-            output.push(snapshot);
-            events = [];
-            break;
-          }
-          default:
-            if (
-              ['contact', 'scroll', 'gamepads', 'pointer-enable', 'scroll-cancel'].includes(cmd!)
-            ) {
-              act((player) => {
-                inputCommand(player, cmd!, args);
               });
-              step(0);
               break;
             }
-            throw new ScriptError(`unknown command "${cmd}"`, line);
+            case 'machine': {
+              act((player) => {
+                const m = player.machine(args[0]!),
+                  op = args[1];
+                if (op === 'play' || op === 'pause' || op === 'stop') m[op]();
+                else if (op === 'mix') m.mix = num(args[2], 'mix');
+                else if (op === 'fire') m.fire(args[2]!);
+                else if (op === 'set')
+                  m.set(
+                    args[2]!,
+                    args[3] === 'true' ? true : args[3] === 'false' ? false : num(args[3], 'value'),
+                  );
+                else
+                  throw new ScriptError(
+                    'use "machine <name> play|pause|stop|mix|fire|set [value …]"',
+                    line,
+                  );
+              });
+              break;
+            }
+            case 'motion':
+              if (args[0] !== 'reduce' && args[0] !== 'full')
+                throw new ScriptError('use "motion reduce|full"', line);
+              act((player) => {
+                player.reducedMotion = args[0] === 'reduce';
+              });
+              break;
+            case 'snapshot': {
+              const all = opts.all || args.includes('--all');
+              const semantics = opts.semantics || args.includes('--semantics');
+              const addresses = args.filter((arg) => arg !== '--all' && arg !== '--semantics');
+              let values = all ? allValues() : p.values();
+              if (addresses.length) {
+                const pick: typeof values = {};
+                // Prefer exact input/JSON addresses. Resolve AniML aliases from the same registry
+                // as the compiler, including slash-scoped component snapshot addresses.
+                for (const a of addresses) {
+                  const canonical = canonicalAddress(a);
+                  const v = read(canonical);
+                  if (v === undefined)
+                    throw new ScriptError(
+                      `"${a}" is not an animated address or a bool/number input`,
+                      line,
+                    );
+                  pick[canonical] = Array.isArray(v)
+                    ? formatHex(v as [number, number, number, number])
+                    : (v as number | boolean | string);
+                }
+                values = pick;
+              }
+              const snapshot: Snapshot = {
+                time: p.time,
+                values,
+                states: p.states(),
+                events,
+                settled,
+              };
+              if (watched.size) {
+                snapshot.data = {};
+                for (const path of changedData) snapshot.data[path] = data().get(dataPath(path));
+                changedData.clear();
+              }
+              if (semantics) {
+                const semanticPlayer = p as Player & { semantics?: () => unknown };
+                if (!semanticPlayer.semantics)
+                  throw new ScriptError('semantics module is not loaded', line);
+                snapshot.semantics = semanticPlayer.semantics();
+              }
+              out.push(snapshot);
+              output.push(snapshot);
+              events = [];
+              break;
+            }
+            default:
+              if (
+                ['contact', 'scroll', 'gamepads', 'pointer-enable', 'scroll-cancel'].includes(cmd!)
+              ) {
+                act((player) => {
+                  inputCommand(player, cmd!, args);
+                });
+                step(0);
+                break;
+              }
+              throw new ScriptError(`unknown command "${cmd}"`, line);
+          }
+        if (expected) {
+          const emitted = diagnostics.splice(diagnosticStart);
+          if (!emitted.some((d) => d.code === expected))
+            diagnostics.push({
+              code: 'script-expect-error',
+              pointer: `/script/${line - 1}`,
+              message: 'expected error ' + expected + ' in ' + groups.join('/'),
+              hint: 'follow expect-error with a command producing that code',
+            });
         }
       } catch (e) {
+        const error = e as Error & { code?: string };
+        if (expected) {
+          if ((error.code ?? 'script-usage') !== expected)
+            diagnostics.push({
+              code: 'script-expect-error',
+              pointer: `/script/${line - 1}`,
+              message: 'expected ' + expected + ', received ' + (error.code ?? 'script-usage'),
+              hint: 'check the expected diagnostic code',
+            });
+          continue;
+        }
         if (e instanceof Breakpoint) break;
         if (e instanceof ScriptError) throw e;
         throw new ScriptError((e as Error).message.replace(/^anima: /, ''), line);
@@ -697,6 +766,15 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
     player: p,
     execute,
     dataValues,
+    finish() {
+      if (groups.length) throw new ScriptError('unclosed group ' + groups.join('/'), line);
+      if (expectedError)
+        throw new ScriptError(
+          'expect-error needs a following command',
+          line,
+          'script-expect-error',
+        );
+    },
     get seed() {
       return seed;
     },
@@ -706,7 +784,9 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
 /** Run a script against a fresh player; assertion failures accumulate without aborting. */
 export function runScript(model: Model, text: string, opts: ScriptOptions = {}) {
   const session = createScriptSession(model, opts);
-  return { ...session.execute(text), player: session.player };
+  const result = session.execute(text);
+  session.finish();
+  return { ...result, player: session.player };
 }
 
 /** JSON strings/arrays/objects stay together; #hex is a value, # otherwise begins a comment. */

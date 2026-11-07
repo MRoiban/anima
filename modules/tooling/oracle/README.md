@@ -38,3 +38,16 @@ compared by the `P3b native observations` tests in `packages/cli/test/agent-tool
   protocol has no stop-before-write breakpoint/provenance output. Central skip note records this
   limit; same-value/transient, script/listener/action/binding writes and live-state preservation
   are independently tested in `packages/cli/test/tooling-leftovers.test.ts`.
+
+## P3c-2 carry-over decisions
+
+The six tooling rows use CLI contract tests in `packages/cli/test/p3c-tooling.test.ts`.
+Benchmark memory reports JS heap samples, not a native/WASM quantity (see the host/native boundary
+in `docs/research/rive-web-runtime.md`). Project globs/constants, schema filters, section paging,
+doctor's loopback port and emulated-device checks, expected-error groups, PNG naming and sequential
+render queues are authoring contracts without a faithful native numerical screenshot counterpart.
+They are skipped for native comparison, rather than counted as matching native output.
+WebM is validated through real Chromium MediaRecorder and its EBML container header; encoded bytes
+and wall-clock timestamps are intentionally not golden images. Missing Chromium is independently
+tested to return `build-encoder-unavailable`, with no partial output file. No new native commands,
+source code, binaries, benchmark records or oracle measurement inputs were needed or changed.
