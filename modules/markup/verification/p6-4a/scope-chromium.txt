@@ -1,0 +1,71 @@
+
+> test:scope
+> node tools/test-scope.ts markup conformance web markup-animation --browser=chromium
+
+Scopes: markup, conformance, web, markup-animation
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/convert/test/markup/convert.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: modules/markup-animation/test/markup/positions.test.ts
+  unit: modules/markup-libraries/test/markup/bf1-names.test.ts
+  unit: modules/markup-libraries/test/markup/extras.test.ts
+  unit: modules/markup-libraries/test/markup/reuse.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: modules/surface/test/markup/surface.test.ts
+  unit: modules/text/test/markup/authoring.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: packages/markup/test/xml.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/bf4.test.ts
+  browser: modules/a11y-dom/test/web/downstream.test.ts
+  browser: modules/a11y-dom/test/web/overlay.test.ts
+  browser: modules/assets/test/web/assets.test.ts
+  browser: modules/assets/test/web/pipeline.test.ts
+  browser: modules/bind/test/web/bind.test.ts
+  browser: modules/canvas/test/web/canvas.test.ts
+  browser: modules/canvas/test/web/native-paint.test.ts
+  browser: modules/componentpaint/test/web/sources.test.ts
+  browser: modules/components/test/web/components.test.ts
+  browser: modules/composite/test/web/paint-composite.test.ts
+  browser: modules/convert/test/web/convert.test.ts
+  browser: modules/data-host/test/web/browser.test.ts
+  browser: modules/data/test/web/bf1.test.ts
+  browser: modules/data/test/web/browser.test.ts
+  browser: modules/derive/test/web/browser.test.ts
+  browser: modules/events/test/web/events.browser.test.ts
+  browser: modules/focus/test/web/focus.test.ts
+  browser: modules/fonts/test/web/fonts.test.ts
+  browser: modules/host-edit/test/web/bf3.test.ts
+  browser: modules/host-edit/test/web/browser.test.ts
+  browser: modules/host-edit/test/web/components.test.ts
+  browser: modules/host-edit/test/web/seams.test.ts
+  browser: modules/host/test/web/browser.test.ts
+  browser: modules/input/test/web/bf4-writes.test.ts
+  browser: modules/input/test/web/browser.test.ts
+  browser: modules/input/test/web/integration.test.ts
+  browser: modules/lists/test/web/lists.test.ts
+  browser: modules/machine/test/web/browser.test.ts
+  browser: modules/markup-animation/test/web/animation.test.ts
+  browser: modules/markup/test/web/authoring.test.ts
+  browser: modules/motion/test/web/browser.test.ts
+  browser: modules/nested/test/web/nested.test.ts
+  browser: modules/paint/test/web/paint-geometry.test.ts
+  browser: modules/surface/test/web/surface.test.ts
+  browser: modules/text/test/web/text.test.ts
+  browser: packages/web/test/browser.test.ts
+  browser: packages/web/test/markup-hooks.test.ts
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-7a9b831b
+
+
+ Test Files  57 passed (57)
+      Tests  4963 passed | 1479 skipped | 16 todo (6458)
+   Start at  21:51:22
+   Duration  358.68s (tests 89%, import 10%, transform 1%)

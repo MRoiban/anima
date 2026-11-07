@@ -19,6 +19,7 @@ export const webEntries = [
   'focus',
   'input',
   'markup-hooks',
+  'markup-animation',
   'media',
   'motion',
   'events',
@@ -59,6 +60,7 @@ export const webOwners: Record<string, string> = {
   input: 'input',
   markup: 'markup',
   'markup-hooks': 'markup',
+  'markup-animation': 'markup-animation',
   'markup-libraries': 'markup-libraries',
   media: 'media',
   motion: 'motion',
@@ -147,6 +149,7 @@ export const moduleBudgets: {
   { name: 'focus', budget: 3456 },
   { name: 'input', budget: 7104 },
   { name: 'markup-hooks', over: 'markup', budget: 4544, authoring: true },
+  { name: 'markup-animation', over: 'markup', budget: 1536, authoring: true },
   { name: 'media', budget: 3072 },
   { name: 'motion', budget: 6528 },
   { name: 'events', budget: 3264 },
@@ -363,6 +366,18 @@ export const moduleScopes = {
   },
   markup: {
     tests: ['packages/web/test/markup-hooks.test.ts', 'modules/markup/test/**/*.test.ts'],
+    conformance: [],
+  },
+  'markup-animation': {
+    tests: [
+      'packages/markup/test/**/*.test.ts',
+      'modules/markup-animation/test/**/*.test.ts',
+      'packages/web/test/markup-hooks.test.ts',
+    ],
+    conformance: [],
+  },
+  'markup-hooks': {
+    tests: ['packages/markup/test/**/*.test.ts', 'packages/web/test/markup-hooks.test.ts'],
     conformance: [],
   },
   'markup-libraries': {

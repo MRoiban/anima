@@ -1,0 +1,18 @@
+[
+  {
+    "label": "baseline",
+    "exit": 0,
+    "wall": 5.146,
+    "user": 9.6,
+    "system": 0.37,
+    "output": ""
+  },
+  {
+    "label": "current",
+    "exit": 0,
+    "wall": 4.443,
+    "user": 8.168,
+    "system": 0.355,
+    "output": ""
+  }
+]

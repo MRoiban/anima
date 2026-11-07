@@ -324,8 +324,13 @@ is synchronous in either order, including modules loaded later. Existing browser
 can replace their `@anima-format/web/markup` import with this one. The standalone browser file is
 `anima-markup-hooks.js`.
 
-The lean `@anima-format/web/markup` entry remains available for base-format AniML and explicit
-`markup-<name>` hook imports. Library/template expansion still uses the optional
+The lean `@anima-format/web/markup` entry remains available for static AniML and explicit
+`markup-<name>` hook imports. When using that lean entry, add
+`@anima-format/web/markup-animation` for track text, named eases, transition conditions or listener
+`set` assignments. It includes the lean compiler and works before or after it; its standalone file
+is `anima-markup-animation.js`. Missing animation syntax reports `markup-animation-unavailable`
+with a pointer and source position. Loading the entry later retries failed retained sources.
+`markup-hooks` already includes animation support, so pages using it need no extra import. Library/template expansion still uses the optional
 `@anima-format/web/markup-libraries` entry alongside the authoring import. Without a compiler,
 an icon holding AniML reports a `markup-unavailable` error. Pages that ship built `.ani` never
 need authoring imports.

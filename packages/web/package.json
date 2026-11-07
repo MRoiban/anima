@@ -18,6 +18,7 @@
     "./input": "./src/input.ts",
     "./markup": "./src/markup.ts",
     "./markup-hooks": "./src/markup-hooks.ts",
+    "./markup-animation": "./src/markup-animation.ts",
     "./markup-libraries": "./src/markup-libraries.ts",
     "./media": "./src/media.ts",
     "./motion": "./src/motion.ts",

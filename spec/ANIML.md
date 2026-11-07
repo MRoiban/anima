@@ -188,8 +188,14 @@ HTML parses `<path/>` and friends as HTML, so markup in a page is wrapped in a s
   `<anima-icon>` into `<script type="application/vnd.anima+json">` with the compiled document.
 - **Runtime.** The optional authoring entry `@anima-format/web/markup-hooks` teaches
   `<anima-icon>` to compile markup for the runtime modules a page loads. It includes the lean
-  `@anima-format/web/markup` compiler; that lean entry remains available for base-format AniML
-  and explicit hook imports. The compiler and hooks have separate authoring budgets and are
+  `@anima-format/web/markup` compiler; that lean entry remains available for static AniML
+  and explicit hook imports. Animation authoring (track text, named eases, transition conditions
+  and listener `set` assignments) lives in `@anima-format/web/markup-animation`, which also loads
+  the lean compiler. `markup-hooks` includes this entry; its existing import remains sufficient.
+  A page using only the lean compiler adds `markup-animation` when it needs that syntax; otherwise
+  it reports `markup-animation-unavailable` with the source position, JSON pointer and a message/hint
+  naming the entry or `anima build`. Loading it later retries retained failed sources.
+  The default tooling compiler installs it automatically. The compiler and hooks have separate authoring budgets and are
   not part of the core + web budget; a page that ships compiled `.ani` never loads them.
   Library/template support additionally requires
   `@anima-format/web/markup-libraries` (which also loads markup support). Without it,
