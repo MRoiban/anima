@@ -336,6 +336,21 @@ app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-cl
       guarded in events/data/machine, visual modules, converters and bind (−1 630 B). Budgets reset to
       ~10 % headroom. 18 carry-overs done (in scope 720 → 738 of 886, 83 %); `a11y.tree-bounds` → P6,
       four bindable-artboard rows → P7. Benchmark regression rerun: AniML 5/6 (item 1 owner-accepted).
+- [ ] **Downstream bug reports (2026-11-07, "Anima Controls" kit, `anima-kit` f1373fd; owner OK).**
+      Triage: fixed on `p6` in two bugfix tickets parallel to P6 (BF-1, BF-2), each confirmed first
+      with a small scene and then covered by a regression test; none blocks P6.
+      - [ ] B1 (high, BF-1) data-bound values (theme colour) don't reach nested component instances.
+      - [ ] B2 (high, BF-2) with `focus` loaded one ArrowRight moves two tabs (two handlers); without
+            `focus`, Enter on an overlay button that fires a trigger does nothing.
+      - [ ] B3 (medium, BF-2) tab overlay elements take focus but Space/Enter don't select the tab.
+      - [ ] B4 (low–medium, BF-1) `data.color(path).set("#rrggbb")` is silently ignored: accept hex
+            strings (and diagnose other bad values).
+      - [ ] B5 (feature, BF-1) imported library components get generated names (`import-4-switch`):
+            keep the original name when it doesn't clash, add a documented lookup, document the scheme.
+      - [ ] B6 (high, BF-2) the a11y overlay blocks pointer input (hover, press, drag) to the drawing.
+      - [ ] B7 (low, BF-2) native slider thumbs on the overlay scale with the drawing (oversized).
+      - [ ] B8 (medium, BF-2) the host element needs a square box: size it to the component's viewBox
+            aspect ratio (nearly free in the web element; P7 keeps fit/alignment).
 - [ ] P6 Text on the browser (83 rows: 76, plus 5 text a11y rows from P3b and, by the owner's
       follow-up of 2026-11-07, text hit testing through the host API and listeners and bidi control
       only if nearly free; the other `text.script-*` rows went with scripting). Shaping,
