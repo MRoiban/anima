@@ -45,9 +45,9 @@ say so and a `NOTICE` file will carry the attribution.
 
 ## What 0.1 already covers
 
-547 of 1 238 capabilities (44 %) are done (111 in 0.1, AniML in P1, 15 in P3, 46 in P4a, 61 in P5: components, bindings, assets, images, n-slice, feathering, 3 in Pc: the canvas backend, 22 in P4b: motion, 33 in P4d: events, 95 in P4c: interaction, 160 in P4e: data), concentrated where icons live: transforms (15/17), animation
-(33/40), state machines (52/61), drawing and paint (105/125), input (80/93), host API (62/125),
-and data binding (141/169). Text, layout and scripting remain for later phases. `MATRIX.md` has the per-category table.
+624 of 1 238 capabilities (50 %) are done (111 in 0.1, AniML in P1, 15 in P3, 46 in P4a, 61 in P5: components, bindings, assets, images, n-slice, feathering, 3 in Pc: the canvas backend, 22 in P4b: motion, 33 in P4d: events, 95 in P4c: interaction, 160 in P4e: data, 77 in P5b: lists, assets, host editing), concentrated where icons live: transforms (15/17), animation
+(33/40), state machines (59/61), drawing and paint (110/125), input (80/93), host API (74/125),
+and data binding (157/169). Text, layout and scripting remain for later phases. `MATRIX.md` has the per-category table.
 
 ## Module split and size budgets
 
