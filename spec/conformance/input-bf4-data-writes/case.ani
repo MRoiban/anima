@@ -1,0 +1,216 @@
+{
+  "anima": "0.1",
+  "name": "bf4-writes",
+  "grid": 80,
+  "viewBox": [0, 0, 80, 20],
+  "requires": ["data", "bind", "input", "components", "lists", "focus"],
+  "nodes": [
+    {
+      "id": "pad",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 20,
+      "h": 20,
+      "fill": {
+        "color": "#123456"
+      },
+      "focus": {}
+    },
+    {
+      "id": "outer",
+      "type": "instance",
+      "x": 20,
+      "component": "wrap",
+      "data": "$child"
+    },
+    {
+      "id": "rows",
+      "type": "repeat",
+      "x": 40,
+      "list": "$rows",
+      "component": "row",
+      "dx": 20
+    }
+  ],
+  "listeners": [
+    {
+      "on": "move",
+      "target": "pad",
+      "set": {},
+      "write": {
+        "pointer-x": "$x",
+        "pointer-y": "$y",
+        "pointer-delta-x": "$dx",
+        "pointer-delta-y": "$dy"
+      }
+    },
+    {
+      "on": "click",
+      "target": "pad",
+      "set": {
+        "$n": 7
+      }
+    },
+    {
+      "on": "up",
+      "target": "pad",
+      "copy": "$n -> $copy"
+    },
+    {
+      "on": "key-down",
+      "target": "pad",
+      "set": {},
+      "write": {
+        "key-pressed": "$key"
+      }
+    }
+  ],
+  "components": {
+    "row": {
+      "grid": 20,
+      "nodes": [
+        {
+          "id": "pad",
+          "type": "rect",
+          "x0": 0,
+          "y0": 0,
+          "w": 20,
+          "h": 20,
+          "fill": {
+            "color": "#123456"
+          },
+          "focus": {}
+        }
+      ],
+      "listeners": [
+        {
+          "on": "move",
+          "target": "pad",
+          "set": {},
+          "write": {
+            "pointer-x": "$x",
+            "pointer-y": "$y",
+            "pointer-delta-x": "$dx",
+            "pointer-delta-y": "$dy"
+          }
+        },
+        {
+          "on": "click",
+          "target": "pad",
+          "set": {
+            "$n": 7
+          }
+        },
+        {
+          "on": "up",
+          "target": "pad",
+          "copy": "$n -> $copy"
+        },
+        {
+          "on": "key-down",
+          "target": "pad",
+          "set": {},
+          "write": {
+            "key-pressed": "$key"
+          }
+        }
+      ],
+      "data": "Row"
+    },
+    "wrap": {
+      "grid": 20,
+      "nodes": [
+        {
+          "id": "inner",
+          "type": "instance",
+          "component": "row",
+          "data": "$leaf"
+        }
+      ],
+      "data": "Branch"
+    }
+  },
+  "data": {
+    "models": {
+      "Row": {
+        "properties": {
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "dx": {
+            "type": "number"
+          },
+          "dy": {
+            "type": "number"
+          },
+          "n": {
+            "type": "number"
+          },
+          "copy": {
+            "type": "number"
+          },
+          "key": {
+            "type": "string"
+          }
+        }
+      },
+      "Root": {
+        "properties": {
+          "x": {
+            "type": "number"
+          },
+          "y": {
+            "type": "number"
+          },
+          "dx": {
+            "type": "number"
+          },
+          "dy": {
+            "type": "number"
+          },
+          "n": {
+            "type": "number"
+          },
+          "copy": {
+            "type": "number"
+          },
+          "key": {
+            "type": "string"
+          },
+          "child": {
+            "type": "model-ref",
+            "model": "Branch"
+          },
+          "rows": {
+            "type": "list",
+            "of": "Row"
+          }
+        }
+      },
+      "Branch": {
+        "properties": {
+          "leaf": {
+            "type": "model-ref",
+            "model": "Row"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Root",
+        "default": true,
+        "values": {
+          "rows": [
+            {},
+            {}
+          ]
+        }
+      }
+    }
+  }
+}

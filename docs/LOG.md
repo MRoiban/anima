@@ -2469,3 +2469,14 @@ explicit author dimensions (core+web +13 B). Small scenes also retain the two
 unreproduced report details: trigger buttons already activate without focus, and
 normal opacity already hides range paint. See
 [BF-2 report](../modules/a11y-dom/BF2-REPORT.md) for evidence, limits and gate values.
+
+
+## BF-4 — downstream corners, semantics and data writes (2026-11-07, partial)
+
+Rect corner arcs now use the decided circular cubic construction; radio groups reuse roving focus.
+Progressbar/meter/status and controls are documented Anima extensions within the existing budgets.
+No-focus semantic triggers now wake queued work; interpolation gets a tested geometry recipe.
+Input configuration survives lists' Model clones, and repeated pointer/key writes reach data paths.
+B16 remains blocked on protected base-host guards; two expected-failure repros remain per engine.
+The strict rect-corners oracle now fails against its frozen reference; no measurement input or
+threshold changed. See [BF-4 report](../modules/a11y-dom/BF4-REPORT.md) for evidence and all six gates.

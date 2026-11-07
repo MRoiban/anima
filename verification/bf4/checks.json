@@ -1,0 +1,83 @@
+{
+  "status": "partial",
+  "branch": "t3/fix-downstream-runtime-bugs",
+  "base": "1d0b8d80",
+  "changed": {
+    "command": "VITEST_MAX_WORKERS=2 npm run test:scope -- changed",
+    "exit": 1,
+    "passed": 8192,
+    "failed": 4,
+    "expectedFail": 4,
+    "skipped": 1,
+    "todo": 40,
+    "file": "changed-bounded.txt"
+  },
+  "recoveries": {
+    "firefoxWriteTest": {
+      "passed": 2,
+      "exit": 0,
+      "file": "writes-both-final.txt"
+    },
+    "moduleOrder": {
+      "passed": 1,
+      "exit": 0,
+      "seconds": 27.09,
+      "file": "module-order-retry.txt"
+    }
+  },
+  "distinctVerified": 8194,
+  "remainingFailedChecks": ["rect-corners oracle", "scaffolder nested rect-corners oracle"],
+  "unresolvedExpectedFailures": {
+    "bug": "B16",
+    "count": 4
+  },
+  "focusedUnit": {
+    "exit": 0,
+    "passed": 49,
+    "file": "unit-frozen.txt"
+  },
+  "newConformance": {
+    "exit": 0,
+    "passed": 3,
+    "file": "conformance-focused.txt"
+  },
+  "newBrowser": {
+    "passed": 10,
+    "expectedFail": 4,
+    "engines": ["Chromium", "Firefox"]
+  },
+  "oracle": {
+    "command": "node tools/oracle.ts --strict",
+    "exit": 1,
+    "cases": 266,
+    "samples": 475,
+    "passingCases": 265,
+    "passingSamples": 474,
+    "changed": ["rect-corners"],
+    "file": "oracle.txt"
+  },
+  "scaffolderDiagnosis": {
+    "passed": 908,
+    "failed": 1,
+    "todo": 30,
+    "failure": "rect-corners oracle",
+    "file": "scaffolder-diagnosis.json"
+  },
+  "static": {
+    "typecheck": 0,
+    "lint": 0,
+    "newTestLint": 0,
+    "modulesCheck": 0,
+    "parityCheck": 0,
+    "animlCheck": 0,
+    "webBuild": 0,
+    "size": 0,
+    "perf": 0,
+    "prettier": 0
+  },
+  "notes": [
+    "Unbounded changed run deliberately stopped under resource pressure; no green exit claimed.",
+    "Firefox fractional CSS coordinate assertion corrected without relaxing precision; no runtime change.",
+    "No protected file, benchmark record, measurement input/threshold/budget or oracle finding changed."
+  ]
+}

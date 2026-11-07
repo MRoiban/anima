@@ -1,0 +1,37 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e5c97d14
+
+ ❯ |browser| modules/input/test/web/bf4-writes.test.ts (2 tests | 1 failed | 1 skipped) 27750ms
+   ❯ [BF-4 writes] downstream Chromium (1)
+     × B19: real pointer and key writes reach plain, nested and repeated data 3080ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/input/test/web/bf4-writes.test.ts > [BF-4 writes] downstream Chromium > B19: real pointer and key writes reach plain, nested and repeated data
+AssertionError: expected +0 to be 8 // Object.is equality
+
+- Expected
++ Received
+
+- 8
++ 0
+
+ ❯ modules/input/test/web/bf4-writes.test.ts:82:57
+     80|         await page.mouse.move(box.x + (offset + 5) * 10, box.y + 50);
+     81|         await page.mouse.move(box.x + (offset + 8) * 10, box.y + 70);
+     82|         await expect.poll(() => read('$' + path + 'x')).toBe(8);
+       |                                                         ^
+     83|         expect(await read('$' + path + 'y')).toBe(7);
+     84|         expect(await read('$' + path + 'dx')).toBe(3);
+
+Caused by: Error: Matcher did not succeed in time.
+ ❯ modules/input/test/web/bf4-writes.test.ts:82:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 skipped (2)
+   Start at  18:32:47
+   Duration  30.10s (tests 94%, import 6%, transform 1%)
+

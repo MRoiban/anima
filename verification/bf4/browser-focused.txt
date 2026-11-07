@@ -1,0 +1,61 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e5c97d14
+
+ ❯ |browser| modules/a11y-dom/test/web/bf4.test.ts (8 tests | 2 failed | 4 skipped) 20825ms
+   ❯ [BF-4] downstream Chromium (4)
+     × B15: radio group has one entry, arrow selects and Tab leaves; focus=false 295ms
+     × B15: radio group has one entry, arrow selects and Tab leaves; focus=true 229ms
+ ❯ |browser| modules/input/test/web/bf4-writes.test.ts (2 tests | 1 failed | 1 skipped) 20651ms
+   ❯ [BF-4 writes] downstream Chromium (1)
+     × B19: real pointer and key writes reach plain, nested and repeated data 1402ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 3 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Chromium > B15: radio group has one entry, arrow selects and Tab leaves; focus=false
+ FAIL  |browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Chromium > B15: radio group has one entry, arrow selects and Tab leaves; focus=true
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ modules/a11y-dom/test/web/bf4.test.ts:137:38
+    135|         await page.keyboard.press('ArrowRight');
+    136|         expect(await active()).toBe('tab1');
+    137|         expect(await value('pick1')).toBe(true);
+       |                                      ^
+    138|         expect(await value('pick0')).toBe(false);
+    139|         await page.keyboard.press('Tab');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+ FAIL  |browser| modules/input/test/web/bf4-writes.test.ts > [BF-4 writes] downstream Chromium > B19: real pointer and key writes reach plain, nested and repeated data
+AssertionError: expected +0 to be 8 // Object.is equality
+
+- Expected
++ Received
+
+- 8
++ 0
+
+ ❯ modules/input/test/web/bf4-writes.test.ts:82:57
+     80|         await page.mouse.move(box.x + (offset + 5) * 10, box.y + 50);
+     81|         await page.mouse.move(box.x + (offset + 8) * 10, box.y + 70);
+     82|         await expect.poll(() => read('$' + path + 'x')).toBe(8);
+       |                                                         ^
+     83|         expect(await read('$' + path + 'y')).toBe(7);
+     84|         expect(await read('$' + path + 'dx')).toBe(3);
+
+Caused by: Error: Matcher did not succeed in time.
+ ❯ modules/input/test/web/bf4-writes.test.ts:82:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+
+ Test Files  2 failed (2)
+      Tests  3 failed | 2 expected fail | 5 skipped (10)
+   Start at  18:33:38
+   Duration  25.71s (tests 86%, import 13%, transform 1%)
+

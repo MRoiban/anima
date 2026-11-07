@@ -1,0 +1,4 @@
+{"time":0,"values":{"$x":8,"$y":7,"$dx":3,"$dy":2,"$n":7,"$copy":7,"$key":"Escape"},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"$child.leaf.x":8,"$child.leaf.y":7,"$child.leaf.dx":3,"$child.leaf.dy":2,"$child.leaf.n":7,"$child.leaf.copy":7,"$child.leaf.key":"Escape"},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"$rows.0.x":8,"$rows.0.y":7,"$rows.0.dx":3,"$rows.0.dy":2,"$rows.0.n":7,"$rows.0.copy":7,"$rows.0.key":"Escape"},"states":{},"events":[],"settled":true}
+{"time":0,"values":{"$rows.1.x":8,"$rows.1.y":7,"$rows.1.dx":3,"$rows.1.dy":2,"$rows.1.n":7,"$rows.1.copy":7,"$rows.1.key":"Escape"},"states":{},"events":[],"settled":true}

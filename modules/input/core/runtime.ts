@@ -1,6 +1,6 @@
 import type { ListenerM, Model } from '../../../packages/core/src/load.ts';
 import type { Player, PointerKind } from '../../../packages/core/src/player.ts';
-import { apply, invert } from '../../../packages/core/src/geom.ts';
+import { apply, invert, mul } from '../../../packages/core/src/geom.ts';
 import type {
   Cursor,
   Data,
@@ -11,7 +11,8 @@ import type {
   PointerOptions,
   ScrollOptions,
 } from './types.ts';
-export const configurations = new WeakMap<Model, InputListener[]>();
+export const configurations = new WeakMap<Model['inputs'], InputListener[]>();
+let peers: ReadonlyMap<string, import('../../../packages/core/src/modules.ts').Module>;
 const controllers = new WeakMap<Player, InputController>();
 const installed = new WeakSet<typeof Player>();
 interface Delivery {
@@ -50,7 +51,7 @@ export class InputController {
     this.player = player;
   }
   get listeners(): InputListener[] {
-    return configurations.get(this.player.model) ?? [];
+    return configurations.get(this.player.model.inputs) ?? [];
   }
   private eligible(node: number): boolean {
     const p = this.player;
@@ -179,9 +180,39 @@ export class InputController {
     }
     return { handled: claimed, consumed: false };
   }
+  private children() {
+    const p = this.player;
+    const nested = (p.nested as { players?: Map<string, Player> } | undefined)?.players;
+    const children = [...(nested ?? [])].map(([id, player]) => ({
+      id,
+      player,
+      node: p.model.ids.get(id)!,
+      matrix: p.world(p.model.ids.get(id)!),
+    }));
+    const lists = peers?.get('lists') as
+      typeof import('../../lists/core/index.ts').lists | undefined;
+    for (const run of lists?.listState(p)?.runs ?? []) {
+      const raw = p.model.nodes[run.spec.node]!.raw;
+      for (const item of run.items)
+        children.push({
+          id: p.model.nodes[run.spec.node]!.id + '.' + item.index,
+          player: item.player,
+          node: run.spec.node,
+          matrix: mul(p.world(run.spec.node), [
+            1,
+            0,
+            0,
+            1,
+            (raw.dx ?? 0) * item.index,
+            (raw.dy ?? 0) * item.index,
+          ]),
+        });
+    }
+    return children;
+  }
   private route(kind: PointerEventKind, x: number, y: number, opts: PointerOptions): boolean {
-    const children = (this.player.nested as { players?: Map<string, Player> } | undefined)?.players;
-    if (!children) {
+    const children = this.children();
+    if (!children.length) {
       if ((opts.id ?? 0) === 0 && (opts.button ?? 0) === 0)
         this.player.nested?.pointer(kind === 'cancel' ? 'leave' : kind, x, y);
       return false;
@@ -189,13 +220,12 @@ export class InputController {
     let claimed = false;
     const front = this.targets(x, y);
     const blockers = [...front].filter((n) => n >= 0 && this.player.model.nodes[n]!.raw.opaque);
-    for (const [name, child] of children) {
-      const node = this.player.model.ids.get(name)!;
-      const inv = invert(this.player.world(node));
+    for (const { node, player: child, matrix } of children) {
+      const inv = invert(matrix);
       const valid =
         inv && this.eligible(node) && !blockers.some((n) => n > node && !this.ancestor(n, node));
       const [lx, ly] = inv ? apply(inv, x, y) : [0, 0];
-      if (configurations.has(child.model))
+      if (configurations.has(child.model.inputs))
         claimed = child.input().pointer(valid ? kind : 'cancel', lx, ly, opts) || claimed;
       else if ((opts.id ?? 0) === 0 && (opts.button ?? 0) === 0)
         child.pointer(valid && kind !== 'cancel' ? kind : 'leave', lx, ly);
@@ -348,9 +378,9 @@ export class InputController {
   private dispatchKey(kind: 'down' | 'up', key: string, opts: KeyOptions): Delivery {
     const p = this.player,
       name = opts.target ?? this.keyTarget ?? p.focused ?? undefined;
-    const dot = name?.indexOf('.') ?? -1;
-    const local = dot < 0 ? name : name!.slice(0, dot);
-    const target = local === undefined ? -1 : p.model.ids.get(local);
+    const nested = name && this.children().find((c) => name.startsWith(c.id + '.'));
+    const dot = nested ? nested.id.length : -1;
+    const target = nested ? nested.node : name === undefined ? -1 : p.model.ids.get(name);
     if (target === undefined) throw Error('anima: unknown key target');
     const targets = new Set<number>([-1]);
     for (let n = target; n >= 0; n = p.model.nodes[n]!.parent) targets.add(n);
@@ -366,11 +396,9 @@ export class InputController {
     if (capture.consumed) return capture;
     let childResult: Delivery = { handled: false, consumed: false };
     if (dot >= 0 && p.visible(target)) {
-      const child = (p.nested as { players?: Map<string, Player> } | undefined)?.players?.get(
-        local!,
-      );
+      const child = nested && nested.player;
       if (!child) throw Error('anima: unknown key target');
-      if (configurations.has(child.model))
+      if (configurations.has(child.model.inputs))
         childResult = child
           .input()
           .dispatchKey(kind, key, { ...opts, target: name!.slice(dot + 1) });
@@ -494,7 +522,8 @@ declare module '../../../packages/core/src/player.ts' {
     input(): InputController;
   }
 }
-export function install(Class: typeof Player): void {
+export function install(Class: typeof Player, modules: typeof peers): void {
+  peers = modules;
   if (installed.has(Class)) return;
   installed.add(Class);
   const pointer = Class.prototype.pointer,
@@ -503,14 +532,14 @@ export function install(Class: typeof Player): void {
   Object.defineProperty(Class.prototype, 'input', {
     configurable: true,
     value: function (this: Player) {
-      if (!configurations.has(this.model)) throw Error('anima: document requires input');
+      if (!configurations.has(this.model.inputs)) throw Error('anima: document requires input');
       let c = controllers.get(this);
       if (!c) controllers.set(this, (c = new InputController(this)));
       return c;
     },
   });
   Class.prototype.pointer = function (this: Player, kind: PointerKind, x = 0, y = 0) {
-    if (configurations.has(this.model)) this.input().pointer(kind, x, y);
+    if (configurations.has(this.model.inputs)) this.input().pointer(kind, x, y);
     else pointer.call(this, kind, x, y);
   };
   Class.prototype.hits = function (
@@ -519,7 +548,7 @@ export function install(Class: typeof Player): void {
     x: number,
     y: number,
   ): boolean {
-    if (configurations.has(this.model) && listener.target >= 0) {
+    if (configurations.has(this.model.inputs) && listener.target >= 0) {
       if (!this.visible(listener.target)) return false;
       const node = this.model.nodes[listener.target]!;
       if (node.type === 'group')
@@ -528,7 +557,7 @@ export function install(Class: typeof Player): void {
     return hits.call(this, listener, x, y);
   };
   Class.prototype.visible = function (this: Player, node: number): boolean {
-    if (configurations.has(this.model))
+    if (configurations.has(this.model.inputs))
       for (let n = node; n >= 0; n = this.model.nodes[n]!.parent) {
         if (this.prop(n, 'collapsed') === true) return false;
         const parent = this.model.nodes[n]!.parent;

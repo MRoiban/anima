@@ -367,17 +367,20 @@ app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-cl
       - [ ] B12 (BF-3) on a settled host a data write updates a derived bool but the guarded layer
             changes state only on the next write (one-step lag).
       - [ ] B13 (BF-3) `unknown-feature at /requires/N` doesn't name the module to import.
-      - [ ] B14 (BF-4) `rect corners` draws quadratic corners, not circular arcs (≠ `rx`, CSS).
-      - [ ] B15 (BF-4) every radio overlay is a tab stop; a radio group must be one tab stop with
+      - [x] B14 (BF-4) `rect corners` draws quadratic corners, not circular arcs (≠ `rx`, CSS).
+      - [x] B15 (BF-4) every radio overlay is a tab stop; a radio group must be one tab stop with
             roving arrows (APG).
       - [ ] B16 (BF-4) host/overlay stops key and pointer events from bubbling to page listeners.
-      - [ ] B17 (BF-4) role vocabulary lacks progressbar, meter, status and a controls relation
+            Confirmed; blocked on protected base-host routing guards. Two retained expected-failure repros.
+      - [x] B17 (BF-4) role vocabulary lacks progressbar, meter, status and a controls relation
             (dialog modal and expanded exist: check discoverability).
-      - [ ] B18 (BF-4, docs) animating a bound value with easing: the interpolate converter
+      - [x] B18 (BF-4, docs) animating a bound value with easing: the interpolate converter
             (`data.interpolate-number`) exists but the kit didn't find it; recipe in the authoring
             guide and `anima docs`, verified on a geometry bind.
-      - [ ] B19 (BF-4) "write into data paths is broken": no details in the report; reproduce
+      - [x] B19 (BF-4) "write into data paths is broken": no details in the report; reproduce
             listener/`input.write-*` writes into data paths, or report not reproduced.
+      BF-4 implementation/report: `modules/a11y-dom/BF4-REPORT.md`; B14 follows circular-corner
+      decision but strict oracle rect-corners fails against its frozen reference (owner resolution needed).
 - [ ] P6 Text on the browser (83 rows: 76, plus 5 text a11y rows from P3b and, by the owner's
       follow-up of 2026-11-07, text hit testing through the host API and listeners and bidi control
       only if nearly free; the other `text.script-*` rows went with scripting). Shaping,

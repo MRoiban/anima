@@ -1,0 +1,22 @@
+<anima version="0.1" name="bf4-roles" grid="40" requires="a11y">
+  <number name="amount" default="40"/>
+
+  <group id="progress">
+    <a11y role="progressbar" label="Loading" value="amount" min="0" max="80"/>
+  </group>
+  <group id="pending">
+    <a11y role="progressbar" label="Waiting"/>
+  </group>
+  <group id="meter">
+    <a11y role="meter" label="Capacity" value="amount" min="0" max="80"/>
+  </group>
+  <group id="status">
+    <a11y role="status" label="Ready"/>
+  </group>
+  <group id="opener">
+    <a11y role="button" label="Details" controls="panel" expanded="true"/>
+  </group>
+  <group id="panel">
+    <a11y role="dialog" label="Details" modal="false"/>
+  </group>
+</anima>

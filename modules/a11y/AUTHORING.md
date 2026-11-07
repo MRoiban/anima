@@ -77,3 +77,31 @@ handle its focus event to set the selection, so keyboard focus and selection agr
 Check with `semantic one focus`, `key down ArrowRight`, `expect second == true`.
 Apply the same selection writes to your panel visibility bindings. Keep disabled tabs out of the
 selection; arrow navigation skips them. Explicit focus listeners also cover pointer/host focus.
+
+## Progress, status and controlled dialogs
+
+These are **node** semantics (`<a11y>` inside a node), not the smaller root accessibility block.
+`anima schema a11y` lists every node role and state. `modal` (dialog/alert-dialog) and
+`expanded` (button/link/group/list-item) are existing bool literal/input/data-path fields;
+the downstream kit's claim that expanded/modal are unavailable was a discoverability gap.
+
+```xml
+<anima version="0.1" name="progress" grid="40" requires="a11y">
+  <number name="amount" default="40"/>
+  <bool name="open"/><bool name="closed" default="true"/>
+  <group id="loading"><a11y role="progressbar" label="Loading" value="amount" min="0" max="100"/></group>
+  <group id="waiting"><a11y role="progressbar" label="Waiting"/></group>
+  <group id="capacity"><a11y role="meter" label="Capacity" value="amount"/></group>
+  <group id="message"><a11y role="status" label="Ready"/></group>
+  <group id="opener"><a11y role="button" label="Details" expanded="open" activate="open" controls="panel"/></group>
+  <group id="panel"><a11y role="dialog" label="Details" modal="open" hidden="closed"/></group>
+</anima>
+```
+
+Omit progressbar `value` for indeterminate progress; meter requires a number binding.
+Status announces label changes politely. `controls` names another semantic node in the same
+component and becomes `aria-controls`; it does not open, focus or reveal that node.
+Use a separate bool input/data property for `hidden` (state fields accept bindings, not expressions).
+Modal dialogs suppress semantic siblings while active; manage entry/return focus explicitly.
+CLI `semantics` and `snapshot --semantics` expose these roles and relations, and
+`anima sample file.animl --semantics` includes them without a browser.

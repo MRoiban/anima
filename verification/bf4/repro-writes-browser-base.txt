@@ -1,0 +1,36 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e5c97d14
+
+stderr | modules/input/test/web/bf4-writes.test.ts > [BF-4 writes] downstream Chromium > B19: real pointer and key writes reach plain, nested and repeated data
+anima: document requires input
+
+stderr | modules/input/test/web/bf4-writes.test.ts > [BF-4 writes] downstream Chromium > B19: real pointer and key writes reach plain, nested and repeated data
+anima: document requires input
+
+ ❯ |browser| modules/input/test/web/bf4-writes.test.ts (2 tests | 1 failed | 1 skipped) 12613ms
+   ❯ [BF-4 writes] downstream Chromium (1)
+     × B19: real pointer and key writes reach plain, nested and repeated data 1430ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/input/test/web/bf4-writes.test.ts > [BF-4 writes] downstream Chromium > B19: real pointer and key writes reach plain, nested and repeated data
+AssertionError: expected +0 to be close to 8, received difference is 8, but expected 0.000005
+ ❯ modules/input/test/web/bf4-writes.test.ts:94:76
+     92|         await move(offset + 5, 5);
+     93|         await move(offset + 8, 7);
+     94|         await expect.poll(() => read('$' + path + 'x'), { message: pat…
+       |                                                                            ^
+     95|         expect(await read('$' + path + 'y')).toBeCloseTo(7, 5);
+     96|         expect(await read('$' + path + 'dx')).toBeCloseTo(3, 5);
+
+Caused by: Error: Matcher did not succeed in time.
+ ❯ modules/input/test/web/bf4-writes.test.ts:94:9
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 skipped (2)
+   Start at  18:41:22
+   Duration  13.89s (tests 92%, import 7%, transform 1%)
+

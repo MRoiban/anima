@@ -832,7 +832,12 @@ required geometry uses missing-key. New types without paint use undeclared-featu
 
 Rect corners is a four-item nonnegative array [tl,tr,br,bl], AniML corners="1 1 0 0".
 Each value is animatable as tile.corners.0 through .3 (indices without leading zeros).
-The rectangle uses the cutback/quadratic construction above and renders as a path.
+The rectangle renders as a path with circular quarter arcs approximated by cubic Béziers,
+using k = 4(√2−1)/3 ≈ 0.5522847498. Each radius is independently clamped to half
+the adjacent width/height; unequal clamped axes produce quarter ellipses. At each corner,
+the two controls move k of the distance from each edge endpoint toward the corner vertex.
+Polygon/star rounding keeps the quadratic construction above. This is an independent
+standard circle approximation; no external runtime algorithm is ported.
 Corners takes precedence over rx; rx remains unchanged without corners. An absent
 corners array cannot be animated. Invalid addresses use unknown-address; invalid array
 length or negative entries use bad-value at the array or offending item.
@@ -2825,6 +2830,14 @@ The optional browser-only `devtools` contract is specified in
 [modules/devtools/SPEC.md](../modules/devtools/SPEC.md). It adds no document grammar.
 
 ## a11y
+
+Node `a11y` supports `progressbar`, `meter`, `status`, and a local semantic-node
+`controls` relation (Anima extensions without inventory rows). Progressbar/meter use
+numeric bound `value`, min/max (defaults 0/100); omit progressbar value for indeterminate
+progress. Status defaults to polite live announcements. `controls` maps to `aria-controls`.
+Dialog `modal` and button/link/group/list-item `expanded` already accept bool literals,
+inputs or data paths. `anima docs a11y` includes recipes; `anima schema a11y`
+shows the complete registry vocabulary. These are node fields, separate from root §10 a11y.
 
 Node semantics are specified in [modules/a11y/SPEC.md](../modules/a11y/SPEC.md). Interaction,
 diffs and focus policy live in the companion `a11y-actions` (runtime key `a11yactions`); in-browser

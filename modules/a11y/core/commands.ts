@@ -12,7 +12,7 @@ export function semanticCommand(
   step: (dt: number) => void,
   snapshot: () => Snapshot,
 ): boolean {
-  // Native overlay key events stop before the icon's generic key listeners.
+  // Semantic controls own native keys; the host leaves them out of generic routing.
   // Mirror that routing in tooling, without adding a browser runtime key policy.
   if (command === 'key' && p.focused && p.model.doc.requires?.includes('a11y')) {
     const tree = p.semantics?.() ?? [];
@@ -32,7 +32,8 @@ export function semanticCommand(
     const down = args[0] !== 'up';
     const arrow = ['ArrowRight', 'ArrowUp', 'ArrowLeft', 'ArrowDown'].indexOf(key!);
     const tabs = nodes.find(
-      (n) => n.role === 'tab-list' && n.children.some((c) => c.id === node.id),
+      (n) =>
+        ['tab-list', 'radio-group'].includes(n.role) && n.children.some((c) => c.id === node.id),
     );
     if (node.role === 'slider' && (arrow >= 0 || key === 'Home' || key === 'End')) {
       if (down && arrow >= 0) p.semanticAction(node.id, arrow < 2 ? 'increase' : 'decrease');
@@ -55,7 +56,11 @@ export function semanticCommand(
             : key === 'End'
               ? enabled.at(-1)
               : enabled[(at + (arrow < 2 ? 1 : -1) + enabled.length) % enabled.length];
-        if (target) p.semanticAction(target.id, 'focus');
+        if (target) {
+          p.semanticAction(target.id, 'focus');
+          if (tabs.role === 'radio-group' && target.states.checked !== true)
+            p.semanticAction(target.id, 'tap');
+        }
       }
     } else if (
       ['button', 'switch', 'tab', 'checkbox', 'radio', 'link'].includes(node.role) &&

@@ -1,0 +1,7 @@
+advance 0
+semantic r0 focus
+key down ArrowRight
+expect pick1 == true
+key down ArrowLeft
+expect pick0 == true
+snapshot pick0 pick1

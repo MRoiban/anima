@@ -3311,7 +3311,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -3339,6 +3342,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -5215,7 +5221,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -5243,6 +5252,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -7122,7 +7134,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -7150,6 +7165,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -9056,7 +9074,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -9084,6 +9105,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -10973,7 +10997,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -11001,6 +11028,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -11625,7 +11655,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -11653,6 +11686,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -12380,7 +12416,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -12408,6 +12447,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -14155,7 +14197,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -14183,6 +14228,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -16076,7 +16124,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -16104,6 +16155,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -17998,7 +18052,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -18026,6 +18083,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -19910,7 +19970,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -19938,6 +20001,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -21164,7 +21230,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -21192,6 +21261,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {
@@ -22461,7 +22533,10 @@
                     "heading",
                     "text",
                     "img",
-                    "none"
+                    "none",
+                    "progressbar",
+                    "meter",
+                    "status"
                   ]
                 },
                 "label": {
@@ -22489,6 +22564,9 @@
                   ]
                 },
                 "href": {
+                  "type": "string"
+                },
+                "controls": {
                   "type": "string"
                 },
                 "activate": {

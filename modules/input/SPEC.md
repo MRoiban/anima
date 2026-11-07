@@ -376,3 +376,15 @@ flag (`pressed` already supplies that). Targets must be writable number/string i
 paths. Wrong types, read-only targets and unknown sources are `input-write`, with a JSON pointer,
 message and hint. Writes follow the existing next-step FIFO. Native headless pointer captures
 match exactly; key-name payload has an evidenced CLI synthesis limit (oracle skip).
+
+## Repeated-player input configuration (BF-4)
+
+Input listener configuration follows the compiled input-table identity, retained when lists
+creates a renderer-local Model clone. Each player still owns its controller, contacts and queued
+writes. Pointer and keyboard routing include live repeated items as well as component instances;
+repeat spacing participates in the pointer matrix, and `rows.index.child` names the key target.
+Missing/removed rows are not retained input targets. This restores ordinary listener set/copy and
+`write` data paths in scenes using lists, without changing data storage or scoping rules.
+The regression fixture uses explicit data contexts through two component levels; implicit context
+propagation is owned by BF-1. The model/runtime separation follows the graph research in
+`docs/research/rive-format-and-graph.md`; no external runtime algorithm is ported.

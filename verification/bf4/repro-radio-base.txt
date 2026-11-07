@@ -1,0 +1,33 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e5c97d14
+
+ ❯ |browser| modules/a11y-dom/test/web/bf4.test.ts (8 tests | 2 failed | 6 skipped) 4550ms
+   ❯ [BF-4] downstream Chromium (4)
+     × B15: radio group has one entry, arrow selects and Tab leaves; focus=false 153ms
+     × B15: radio group has one entry, arrow selects and Tab leaves; focus=true 131ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Chromium > B15: radio group has one entry, arrow selects and Tab leaves; focus=false
+ FAIL  |browser| modules/a11y-dom/test/web/bf4.test.ts > [BF-4] downstream Chromium > B15: radio group has one entry, arrow selects and Tab leaves; focus=true
+AssertionError: expected '0' to be '-1' // Object.is equality
+
+Expected: "-1"
+Received: "0"
+
+ ❯ modules/a11y-dom/test/web/bf4.test.ts:131:63
+    129|         await load(doc);
+    130|         expect(await target('tab0').getAttribute('tabindex')).toBe('0'…
+    131|         expect(await target('tab1').getAttribute('tabindex')).toBe('-1…
+       |                                                               ^
+    132|         await page.locator('#before').focus();
+    133|         await page.keyboard.press('Tab');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 6 skipped (8)
+   Start at  18:28:38
+   Duration  5.15s (tests 90%, import 8%, transform 1%)
+

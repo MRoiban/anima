@@ -1,0 +1,6 @@
+{
+  "cases": 266,
+  "samples": 475,
+  "failed": ["rect-corners"],
+  "changed": ["rect-corners"]
+}

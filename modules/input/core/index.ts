@@ -38,7 +38,7 @@ export const input: Module & { listenerValue: typeof listenerValue } = {
     { target: 'group', shapes: { solo: soloShape }, props: { solo: { type: 'number', def: -1 } } },
   ],
   init(_modules, shared) {
-    install(shared.Player);
+    install(shared.Player, _modules);
     registerEventKinds(_modules, 'input', events);
     const listeners = (shared.DOC as ObjShape).p.listeners as Extract<Shape, { k: 'arr' }>;
     return {
@@ -142,7 +142,7 @@ export const input: Module & { listenerValue: typeof listenerValue } = {
       result.push({ ...r, on, action, target: action.target, order: i, depth });
     }
     if (enabled) {
-      configurations.set(model, result);
+      configurations.set(model.inputs, result);
       const written = new Set(result.flatMap((l) => Object.values(l.write ?? {})));
       for (let i = diag.list.length - 1; i >= 0; i--)
         if (

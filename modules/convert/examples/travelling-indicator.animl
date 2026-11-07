@@ -1,0 +1,8 @@
+<anima version="0.1" name="travelling-indicator" grid="120" requires="data bind convert">
+  <model name="Position">
+    <number name="x"/>
+  </model>
+  <converter name="travel" type="interpolate" ease="cubic(0.42, 0, 1, 1)" duration="200"/>
+  <circle id="indicator" cx="10" cy="10" r="3" fill="#4263eb"/>
+  <bind target="indicator.x" value="$x" convert="travel"/>
+</anima>

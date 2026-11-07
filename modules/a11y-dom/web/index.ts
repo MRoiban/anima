@@ -21,6 +21,7 @@ Icon.prototype.semanticAction = function (id, action) {
   if (changed) {
     this.player!.step(0);
     this.invalidate();
+    if (!this.hasAttribute('paused')) this.play();
   }
   return changed;
 };
@@ -43,6 +44,7 @@ function attach(icon: AnimaIcon) {
   style.textContent =
     'input{appearance:none;background:none}input::-webkit-slider-thumb{appearance:none;width:0;height:0}input::-moz-range-thumb,input::-moz-range-track{width:0;height:0;border:0;background:none}';
   icon.shadowRoot!.append(style, box);
+  // B16 remains blocked on the base host's duplicate input/activation guard.
   for (const event of ['keydown', 'keyup', 'pointerdown', 'pointerup', 'pointermove'])
     box.addEventListener(event, (e) => e.stopPropagation());
   const layout = () => {
@@ -98,6 +100,7 @@ function attach(icon: AnimaIcon) {
             old?.replaceWith(el);
             targets.set(n.id, el);
             el.dataset.semantic = n.id;
+            el.id = 'semantic-' + n.id;
             el.addEventListener('focus', () => icon.semanticAction(n.id, 'focus'));
             el.addEventListener(
               n.role === 'slider' ? 'input' : n.role === 'radio' ? 'change' : 'click',
@@ -134,6 +137,11 @@ function attach(icon: AnimaIcon) {
           for (const [key, value] of Object.entries({
             label: n.label,
             description: n.hint,
+            controls: n.controls === undefined ? undefined : 'semantic-' + n.controls,
+            valuemin: n.min,
+            valuemax: n.max,
+            valuenow: n.value === undefined || typeof n.value !== 'number' ? undefined : n.value,
+            valuetext: n.valueText,
             ...n.states,
           })) {
             if (key === 'focused') continue;
@@ -162,8 +170,6 @@ function attach(icon: AnimaIcon) {
             input.indeterminate = n.states.checked === 'mixed';
             for (const key of ['min', 'max', 'step'] as const) input[key] = String(n[key] ?? '');
             if (typeof n.value === 'number') input.value = String(n.value);
-            if (n.valueText !== undefined) el.setAttribute('aria-valuetext', n.valueText);
-            else el.removeAttribute('aria-valuetext');
           }
           if (tag === 'a') (el as HTMLAnchorElement).href = n.href ?? '';
           input.disabled = !!n.states.disabled;
@@ -180,11 +186,15 @@ function attach(icon: AnimaIcon) {
         if (!el) continue;
         if (parent.children[i] !== el) parent.insertBefore(el, parent.children[i] ?? null);
         walk(n.children, el, n.bounds, n.role === 'radio-group' ? n.id : group, moved.has(n.id));
-        if (n.role === 'tab-list') {
-          const tabs = ([...el.children] as HTMLElement[]).filter((t) => t.ariaDisabled !== 'true');
+        if (['tab-list', 'radio-group'].includes(n.role)) {
+          const radio = n.role === 'radio-group';
+          const tabs = ([...el.children] as HTMLElement[]).filter(
+            (t) =>
+              t.getAttribute('role') === (radio ? 'radio' : 'tab') && t.ariaDisabled !== 'true',
+          );
           const active =
             tabs.find((t) => t === icon.shadowRoot!.activeElement) ??
-            tabs.find((t) => t.getAttribute('aria-selected') === 'true') ??
+            tabs.find((t) => t.getAttribute(radio ? 'aria-checked' : 'aria-selected') === 'true') ??
             tabs[0];
           for (const t of tabs) {
             const index = t === active ? 0 : -1;
@@ -212,6 +222,8 @@ function attach(icon: AnimaIcon) {
                   : enabled[(at + (reverse ? -1 : 1) + enabled.length) % enabled.length];
             if (target) {
               target.focus();
+              if (radio && target.getAttribute('aria-checked') !== 'true')
+                icon.semanticAction(target.dataset.semantic!, 'tap');
               update();
             }
           };

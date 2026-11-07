@@ -1,0 +1,40 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e5c97d14
+
+ ❯ |unit| modules/a11y/test/core/bf4.test.ts (7 tests | 1 failed) 223ms
+   × B17: controls relations follow component placement ids without leaking across instances 28ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/a11y/test/core/bf4.test.ts > B17: controls relations follow component placement ids without leaking across instances
+AssertionError: expected [ { code: 'unused-input', …(3) } ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "unused-input",
++     "message": "nothing reads or writes \"amount\"",
++     "pointer": "/inputs/amount",
++     "severity": "warning",
++   },
++ ]
+
+ ❯ modules/a11y/test/core/bf4.test.ts:83:25
+     81|     components: { panelSet: { grid: 40, inputs: rolesDoc.inputs, nodes…
+     82|   });
+     83|   expect(r.diagnostics).toEqual([]);
+       |                         ^
+     84|   const p = new Player(r.model!);
+     85|   p.step(0);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 4 passed (5)
+      Tests  1 failed | 48 passed (49)
+   Start at  18:42:24
+   Duration  3.62s (transform 54%, import 35%, tests 10%, worker 1%)
+

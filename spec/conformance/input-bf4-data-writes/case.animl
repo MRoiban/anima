@@ -1,0 +1,54 @@
+<anima version="0.1" name="bf4-writes" grid="80" viewBox="0 0 80 20" requires="data bind input components lists focus">
+  <component name="row" grid="20" data="Row">
+    <rect id="pad" x0="0" y0="0" width="20" height="20" fill="#123456">
+      <focus/>
+    </rect>
+    <listener on="move" target="pad"
+        write="{&quot;pointer-x&quot;:&quot;$x&quot;,&quot;pointer-y&quot;:&quot;$y&quot;,&quot;pointer-delta-x&quot;:&quot;$dx&quot;,&quot;pointer-delta-y&quot;:&quot;$dy&quot;}"/>
+    <listener on="click" target="pad" set="$n=7"/>
+    <listener on="up" target="pad" copy="$n -> $copy"/>
+    <listener on="key-down" target="pad" write="{&quot;key-pressed&quot;:&quot;$key&quot;}"/>
+  </component>
+  <component name="wrap" grid="20" data="Branch">
+    <instance id="inner" component="row" data="$leaf"/>
+  </component>
+
+  <rect id="pad" x0="0" y0="0" width="20" height="20" fill="#123456">
+    <focus/>
+  </rect>
+  <instance id="outer" component="wrap" data="$child" x="20"/>
+  <repeat id="rows" list="$rows" component="&quot;row&quot;" dx="20" x="40"/>
+
+  <model name="Row">
+    <number name="x"/>
+    <number name="y"/>
+    <number name="dx"/>
+    <number name="dy"/>
+    <number name="n"/>
+    <number name="copy"/>
+    <string name="key"/>
+  </model>
+  <model name="Root">
+    <number name="x"/>
+    <number name="y"/>
+    <number name="dx"/>
+    <number name="dy"/>
+    <number name="n"/>
+    <number name="copy"/>
+    <string name="key"/>
+    <model-ref name="child" model="Branch"/>
+    <list name="rows" of="Row"/>
+  </model>
+  <model name="Branch">
+    <model-ref name="leaf" model="Row"/>
+  </model>
+  <instance name="main" model="Root" default="true">
+    <set path="rows" value="[{},{}]"/>
+  </instance>
+
+  <listener on="move" target="pad"
+      write="{&quot;pointer-x&quot;:&quot;$x&quot;,&quot;pointer-y&quot;:&quot;$y&quot;,&quot;pointer-delta-x&quot;:&quot;$dx&quot;,&quot;pointer-delta-y&quot;:&quot;$dy&quot;}"/>
+  <listener on="click" target="pad" set="$n=7"/>
+  <listener on="up" target="pad" copy="$n -> $copy"/>
+  <listener on="key-down" target="pad" write="{&quot;key-pressed&quot;:&quot;$key&quot;}"/>
+</anima>

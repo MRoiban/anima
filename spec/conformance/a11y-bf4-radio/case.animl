@@ -1,0 +1,34 @@
+<anima version="0.1" name="bf4-radio" grid="40" requires="a11y focus bind">
+  <bool name="pick0"/>
+  <bool name="pick1"/>
+  <trigger name="go0"/>
+  <trigger name="go1"/>
+
+  <group id="radios">
+    <a11y role="radio-group"/>
+    <circle id="r0" cx="5" cy="5" r="4" fill="#000">
+      <a11y role="radio" label="0" activate="go0" checked="pick0"/>
+    </circle>
+    <circle id="r1" cx="15" cy="5" r="4" fill="#000">
+      <a11y role="radio" label="1" activate="go1" checked="pick1"/>
+    </circle>
+  </group>
+
+  <layer name="selection" initial="none">
+    <state name="none">
+      <pose/>
+      <on when="go0" to="s0"/>
+      <on when="go1" to="s1"/>
+    </state>
+    <state name="s0" entry="{&quot;set&quot;:{&quot;pick0&quot;:true,&quot;pick1&quot;:false}}">
+      <pose/>
+      <on when="go0" to="s0"/>
+      <on when="go1" to="s1"/>
+    </state>
+    <state name="s1" entry="{&quot;set&quot;:{&quot;pick0&quot;:false,&quot;pick1&quot;:true}}">
+      <pose/>
+      <on when="go0" to="s0"/>
+      <on when="go1" to="s1"/>
+    </state>
+  </layer>
+</anima>

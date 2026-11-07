@@ -1,0 +1,192 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e5c97d14
+
+ ❯ |unit| modules/a11y/test/core/bf4.test.ts (5 tests | 5 failed) 55ms
+   × B17: progress, indeterminate progress, meter, status, controls and existing dialog metadata survive both spellings and headless commands 42ms
+   × B17: diagnoses invalid role metadata {"role":"meter"} with a field pointer and hint 4ms
+   × B17: diagnoses invalid role metadata {"role":"progressbar","value":"missing"} with a field pointer and hint 2ms
+   × B17: diagnoses invalid role metadata {"role":"progressbar","value":"on"} with a field pointer and hint 2ms
+   × B17: diagnoses invalid role metadata {"role":"button","controls":"missing"} with a field pointer and hint 2ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/a11y/test/core/bf4.test.ts > B17: progress, indeterminate progress, meter, status, controls and existing dialog metadata survive both spellings and headless commands
+AssertionError: expected [ { code: 'bad-value', …(3) }, …(4) ] to deeply equal []
+
+- Expected
++ Received
+
+- []
++ [
++   {
++     "code": "bad-value",
++     "message": "\"progressbar\" is not one of button, checkbox, switch, radio, radio-group, slider, tab, tab-list, link, list, list-item, group, dialog, alert-dialog, heading, text, img, none",
++     "pointer": "/nodes/0/a11y/role",
++     "severity": "error",
++   },
++   {
++     "code": "bad-value",
++     "message": "\"progressbar\" is not one of button, checkbox, switch, radio, radio-group, slider, tab, tab-list, link, list, list-item, group, dialog, alert-dialog, heading, text, img, none",
++     "pointer": "/nodes/1/a11y/role",
++     "severity": "error",
++   },
++   {
++     "code": "bad-value",
++     "message": "\"meter\" is not one of button, checkbox, switch, radio, radio-group, slider, tab, tab-list, link, list, list-item, group, dialog, alert-dialog, heading, text, img, none",
++     "pointer": "/nodes/2/a11y/role",
++     "severity": "error",
++   },
++   {
++     "code": "bad-value",
++     "message": "\"status\" is not one of button, checkbox, switch, radio, radio-group, slider, tab, tab-list, link, list, list-item, group, dialog, alert-dialog, heading, text, img, none",
++     "pointer": "/nodes/3/a11y/role",
++     "severity": "error",
++   },
++   {
++     "code": "unknown-key",
++     "message": "unknown key \"controls\"",
++     "pointer": "/nodes/4/a11y/controls",
++     "severity": "error",
++   },
++ ]
+
+ ❯ modules/a11y/test/core/bf4.test.ts:19:46
+     17| it('B17: progress, indeterminate progress, meter, status, controls and…
+     18|   for (const doc of [rolesDoc, compile(decompile(rolesDoc)).doc!]) {
+     19|     const r=load(doc); expect(r.diagnostics).toEqual([]);
+       |                                              ^
+     20|     const p=new Player(r.model!); p.step(0);
+     21|     expect(p.semantics()).toMatchObject([
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  |unit| modules/a11y/test/core/bf4.test.ts > B17: diagnoses invalid role metadata {"role":"meter"} with a field pointer and hint
+AssertionError: expected [ { code: 'bad-value', …(3) } ] to deep equally contain ObjectContaining{…}
+
+- Expected:
+ObjectContaining {
+  "code": "bad-value",
+  "hint": Any<String>,
+  "message": Any<String>,
+  "pointer": "/nodes/0/a11y/value",
+}
+
++ Received:
+[
+  {
+    "code": "bad-value",
+    "message": "\"meter\" is not one of button, checkbox, switch, radio, radio-group, slider, tab, tab-list, link, list, list-item, group, dialog, alert-dialog, heading, text, img, none",
+    "pointer": "/nodes/0/a11y/role",
+    "severity": "error",
+  },
+]
+
+ ❯ modules/a11y/test/core/bf4.test.ts:41:25
+     39| ])('B17: diagnoses invalid role metadata %j with a field pointer and h…
+     40|   const r=load({...rolesDoc,inputs:{on:{type:'bool'}},nodes:[{id:'bad'…
+     41|   expect(r.diagnostics).toContainEqual(expect.objectContaining({code,p…
+       |                         ^
+     42| });
+     43|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  |unit| modules/a11y/test/core/bf4.test.ts > B17: diagnoses invalid role metadata {"role":"progressbar","value":"missing"} with a field pointer and hint
+AssertionError: expected [ { code: 'bad-value', …(3) } ] to deep equally contain ObjectContaining{…}
+
+- Expected:
+ObjectContaining {
+  "code": "unknown-input",
+  "hint": Any<String>,
+  "message": Any<String>,
+  "pointer": "/nodes/0/a11y/value",
+}
+
++ Received:
+[
+  {
+    "code": "bad-value",
+    "message": "\"progressbar\" is not one of button, checkbox, switch, radio, radio-group, slider, tab, tab-list, link, list, list-item, group, dialog, alert-dialog, heading, text, img, none",
+    "pointer": "/nodes/0/a11y/role",
+    "severity": "error",
+  },
+]
+
+ ❯ modules/a11y/test/core/bf4.test.ts:41:25
+     39| ])('B17: diagnoses invalid role metadata %j with a field pointer and h…
+     40|   const r=load({...rolesDoc,inputs:{on:{type:'bool'}},nodes:[{id:'bad'…
+     41|   expect(r.diagnostics).toContainEqual(expect.objectContaining({code,p…
+       |                         ^
+     42| });
+     43|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  |unit| modules/a11y/test/core/bf4.test.ts > B17: diagnoses invalid role metadata {"role":"progressbar","value":"on"} with a field pointer and hint
+AssertionError: expected [ { code: 'bad-value', …(3) } ] to deep equally contain ObjectContaining{…}
+
+- Expected:
+ObjectContaining {
+  "code": "input-type",
+  "hint": Any<String>,
+  "message": Any<String>,
+  "pointer": "/nodes/0/a11y/value",
+}
+
++ Received:
+[
+  {
+    "code": "bad-value",
+    "message": "\"progressbar\" is not one of button, checkbox, switch, radio, radio-group, slider, tab, tab-list, link, list, list-item, group, dialog, alert-dialog, heading, text, img, none",
+    "pointer": "/nodes/0/a11y/role",
+    "severity": "error",
+  },
+]
+
+ ❯ modules/a11y/test/core/bf4.test.ts:41:25
+     39| ])('B17: diagnoses invalid role metadata %j with a field pointer and h…
+     40|   const r=load({...rolesDoc,inputs:{on:{type:'bool'}},nodes:[{id:'bad'…
+     41|   expect(r.diagnostics).toContainEqual(expect.objectContaining({code,p…
+       |                         ^
+     42| });
+     43|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  |unit| modules/a11y/test/core/bf4.test.ts > B17: diagnoses invalid role metadata {"role":"button","controls":"missing"} with a field pointer and hint
+AssertionError: expected [ { code: 'unknown-key', …(3) } ] to deep equally contain ObjectContaining{…}
+
+- Expected:
+ObjectContaining {
+  "code": "bad-value",
+  "hint": Any<String>,
+  "message": Any<String>,
+  "pointer": "/nodes/0/a11y/controls",
+}
+
++ Received:
+[
+  {
+    "code": "unknown-key",
+    "message": "unknown key \"controls\"",
+    "pointer": "/nodes/0/a11y/controls",
+    "severity": "error",
+  },
+]
+
+ ❯ modules/a11y/test/core/bf4.test.ts:41:25
+     39| ])('B17: diagnoses invalid role metadata %j with a field pointer and h…
+     40|   const r=load({...rolesDoc,inputs:{on:{type:'bool'}},nodes:[{id:'bad'…
+     41|   expect(r.diagnostics).toContainEqual(expect.objectContaining({code,p…
+       |                         ^
+     42| });
+     43|
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  5 failed (5)
+   Start at  18:25:51
+   Duration  1.21s (transform 47%, import 46%, tests 6%, worker 1%)
+

@@ -86,7 +86,10 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
         }
         const data: Record<string, unknown> = { ...c };
         for (const k in data)
-          if (typeof data[k] === 'string' && !['role', 'live', 'href', 'activate'].includes(k))
+          if (
+            typeof data[k] === 'string' &&
+            !['role', 'live', 'href', 'activate', 'controls'].includes(k)
+          )
             data[k] = track(() => p.get(c![k as keyof A11yConfig] as string)) ?? data[k];
         if (n.raw.focus?.enabledInput)
           data.focusEnabled = track(() => p.get(n.raw.focus!.enabledInput!));
@@ -181,15 +184,17 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
       };
       for (const key of 'label hint value valueText level href'.split(' '))
         if (d[key] !== undefined) (n as unknown as Record<string, unknown>)[key] = d[key];
+      if (c.controls) n.controls = e.id.slice(0, -e.p.model.nodes[e.i]!.id.length) + c.controls;
+      if (c.role === 'status') n.states.live = 'polite';
       for (const key of states)
         if (key !== 'hidden' && d[key] !== undefined)
           (n.states as Record<string, unknown>)[key] = d[key];
       if (d.checkedMixed) n.states.checked = 'mixed';
       if (c.live && c.live !== 'off') n.states.live = c.live;
-      if (!d.disabled && c.role === 'slider') {
+      if ((!d.disabled && c.role === 'slider') || ['progressbar', 'meter'].includes(c.role)) {
         n.min = c.min ?? 0;
         n.max = c.max ?? 100;
-        n.step = c.step ?? 1;
+        if (c.role === 'slider') n.step = c.step ?? 1;
       }
       let parent = owners.get(e.parent);
       while (parent && !nodes.has(parent.id)) parent = owners.get(parent.parent);
