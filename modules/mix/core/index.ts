@@ -1,3 +1,4 @@
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 // Blend refinements contribute renderer-neutral compositing data.
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Shape } from '../../../packages/core/src/registry.ts';
@@ -45,8 +46,8 @@ export const mix: Module = {
         d.err(
           'paint-conflict',
           pointer + '/mix',
-          'mix replaces node blend',
-          'choose one node compositing declaration',
+          V && 'mix replaces node blend',
+          V && 'choose one node compositing declaration',
         );
     });
   },

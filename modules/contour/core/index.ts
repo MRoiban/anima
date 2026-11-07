@@ -1,3 +1,4 @@
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 // Authoring geometry compiled once to ordinary SVG path data. No renderer state.
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Shape } from '../../../packages/core/src/registry.ts';
@@ -147,15 +148,15 @@ export const contour: Module = {
             d.err(
               'bad-value',
               `${pointer}/vertices/${j}/${key}`,
-              `${key} does not belong to ${v.kind} vertices`,
-              `use ${permitted.join(', ') || 'only point and kind'}`,
+              V && `${key} does not belong to ${v.kind} vertices`,
+              V && `use ${permitted.join(', ') || 'only point and kind'}`,
             );
         if (v.kind === 'asymmetric' && !v.outgoing?.some(Boolean) && v.incoming?.some(Boolean))
           d.err(
             'bad-value',
             `${pointer}/vertices/${j}/outgoing`,
-            'asymmetric incoming length needs an outgoing direction',
-            'supply a nonzero outgoing handle',
+            V && 'asymmetric incoming length needs an outgoing direction',
+            V && 'supply a nonzero outgoing handle',
           );
       });
       compiled.set(n.raw, compileVertices(n.raw.vertices, n.raw.closed, n.raw.geometryOrigin));

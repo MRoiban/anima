@@ -62,8 +62,8 @@ export const composite: Module = {
       const error = (
         code: string,
         key: string,
-        message: string,
-        hint = 'choose a valid sibling source',
+        message: string | false,
+        hint: string | false = V && 'choose a valid sibling source',
       ) => d.err(code, path + '/' + key, V && message, V && hint);
       for (const key of ['mask', 'clip', 'drawOrder']) {
         const r = n.raw[key];
@@ -73,7 +73,7 @@ export const composite: Module = {
           error(
             'unknown-source',
             key + (key === 'drawOrder' ? '/target' : '/source'),
-            'unknown source node',
+            V && 'unknown source node',
           );
           continue;
         }
@@ -81,16 +81,16 @@ export const composite: Module = {
           error(
             'reference-cycle',
             key,
-            'mask subtree reference cycle',
-            'remove the cyclic reference',
+            V && 'mask subtree reference cycle',
+            V && 'remove the cyclic reference',
           );
-        if (s === i) error('self-reference', key, 'a node cannot reference itself');
+        if (s === i) error('self-reference', key, V && 'a node cannot reference itself');
         if (key === 'clip' && !shapes.PAINTED.includes(m.nodes[s]!.type))
           error(
             'clip-source-not-painted',
             key + '/source',
-            'clip source must have an outline',
-            'choose a painted node',
+            V && 'clip source must have an outline',
+            V && 'choose a painted node',
           );
         if (
           key === 'drawOrder' &&
@@ -100,15 +100,20 @@ export const composite: Module = {
           error(
             'bad-draw-target',
             key,
-            'draw target must be a sibling without knockout',
-            'use ordinary sibling nodes',
+            V && 'draw target must be a sibling without knockout',
+            V && 'use ordinary sibling nodes',
           );
         const seen = new Set([i]);
         let at: number | undefined = s;
         while (at !== undefined) {
           if (seen.has(at)) {
             if (s !== i)
-              error('reference-cycle', key, 'reference cycle', 'remove the cyclic reference');
+              error(
+                'reference-cycle',
+                key,
+                V && 'reference cycle',
+                V && 'remove the cyclic reference',
+              );
             break;
           }
           seen.add(at);
@@ -120,8 +125,8 @@ export const composite: Module = {
         error(
           'paint-conflict',
           'paints',
-          'paints replaces fill and stroke',
-          'remove single fill and stroke',
+          V && 'paints replaces fill and stroke',
+          V && 'remove single fill and stroke',
         );
       n.raw.paints?.forEach((entry: Record<string, unknown>, j: number) => {
         const kind = entry.fill ? 'fill' : 'stroke';
@@ -146,23 +151,23 @@ export const composite: Module = {
               error(
                 'bad-color',
                 `paints/${j}/${kind}/color`,
-                'unknown paint colour',
-                'use a hex colour or declared slot',
+                V && 'unknown paint colour',
+                V && 'use a hex colour or declared slot',
               );
           if (kind === 'stroke' && raw.position && raw.position !== 'center')
             error(
               'bad-value',
               `paints/${j}/stroke/position`,
-              'multiple paints currently use centered strokes',
-              'use stroke.position on a single stroke',
+              V && 'multiple paints currently use centered strokes',
+              V && 'use stroke.position on a single stroke',
             );
         }
         if (Object.keys(entry).filter((k) => k !== '$comment').length !== 1)
           error(
             'paint-conflict',
             `paints/${j}`,
-            'one fill or stroke per paint',
-            'split paints into separate entries',
+            V && 'one fill or stroke per paint',
+            V && 'split paints into separate entries',
           );
       });
     });
