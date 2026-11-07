@@ -1,0 +1,2 @@
+key down Enter - dot
+snapshot $count

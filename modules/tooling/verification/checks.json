@@ -1,0 +1,55 @@
+{
+  "status": "partial",
+  "rowsClosed": [],
+  "rowsReadyForPhaseClosure": 13,
+  "incomplete": ["tooling.seed", "tooling.data-breakpoints"],
+  "focused": {
+    "passed": 50,
+    "failed": 0,
+    "skipped": 444
+  },
+  "markupConformance": {
+    "passed": 2915,
+    "failed": 0,
+    "todo": 7
+  },
+  "changedNoBrowser": {
+    "passed": 4741,
+    "failed": 2,
+    "todo": 42
+  },
+  "isolatedScaffolder": {
+    "passed": 4,
+    "failed": 0,
+    "observer": "failure-only; verification/failure-observer.mjs"
+  },
+  "oracle": {
+    "cases": 253,
+    "frames": 449,
+    "failedPassingCaseFrames": 0,
+    "exit": 0
+  },
+  "static": {
+    "typecheck": 0,
+    "eslint": 0,
+    "prettier": 0,
+    "modules": 0,
+    "parity": 0,
+    "animl": 0,
+    "web": 0,
+    "size": 0,
+    "perf": 0
+  },
+  "sizes": {
+    "coreWeb": [20362, 20362],
+    "data": [8034, 8034],
+    "bind": [2038, 2038],
+    "components": [4051, 4051],
+    "input": [6172, 6173],
+    "motion": [6614, 6615],
+    "markupComponents": [763, 764],
+    "fullFeatured": [111723, 111723],
+    "toolingBrowserBytes": [0, 0]
+  },
+  "browser": "interrupted; unverified"
+}

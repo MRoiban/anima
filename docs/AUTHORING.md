@@ -1244,3 +1244,44 @@ Use the same name to retain the current child, `''` to hide it, or another decla
 that component with default state. The handle uses the ordinary shared host write queue and
 subscriptions; another root icon keeps its own selection. `icon.instance('badge')` addresses the
 selected nested player. It is distinct from the component-valued data handle.
+
+
+## Agent tools
+
+`anima sample board.animl -e 'advance 0; snapshot --all'` includes static values as well as
+animated properties. Add `--semantics` to each snapshot (or the CLI invocation) to get the semantic
+tree; the a11y module must be loaded. Selected addresses accept JSON and AniML property spellings.
+
+For ordered synthetic input, use `pointer click 10 10`, `pointer drag 2 2 10 10 in 4`,
+`touch down 1 10 10` / `touch move 1 12 10` / `touch up 1 12 10`. Different touch ids coexist.
+The existing input commands also support `scroll 10 10 0 24`, `key down Enter - button` and
+`gamepads [{"index":0,"connected":true,"axes":[0.5],"buttons":[{"value":1,"pressed":true}]}]`.
+They use the same public input API as browser hosts. Touch up also delivers leave.
+
+Data debugging uses the public host API: `data set $score 12`, `data set $name "Ada Lovelace"`,
+`advance 0`, `data dump $score $name`. Prefixes filter the dump; omit them for all data.
+`data watch $score $name` puts changed watched values in every later snapshot's `data` object.
+`data break $score == 12` preflights steps and pauses before a matching value change;
+`data break clear` lets the next advance apply it. Break diagnostics include writer candidates;
+same-value or intermediate overwritten writes are not trapped. Preflight is for debugging and
+replays the history on a separate player.
+
+Assertions collect failures while continuing: `expect $score == 12`, `expect knob.x > 0`,
+`expect knob.x ~ 0.5` (absolute error ≤ 1e-6). Operators are `==`, `!=`, `<`, `>`, `~`.
+A failed assertion makes sample exit 1; a malformed command exits 2. Values are read after the
+last applied step, so advance after queued data/input edits before asserting them.
+
+`anima session board.animl` reads one script command per stdin line, or `{"cmd":"snapshot --all"}`,
+and replies with one JSON line per request. It retains time, input, timeline handles, watches and
+breakpoints. `reload` validates the file again and restores compatible data, reporting any skipped
+paths; failed reload leaves the current player usable. `quit` closes the session.
+
+`anima bench board.animl -s exercise.txt --frames 600 --format=json` reports compile time in ms
+and per-frame step/draw median and p95 in µs, using the renderer-neutral path from `tools/perf.ts`.
+It excludes browser layout, DOM updates and rasterization. A script can establish the workload
+before measurement; failed assertions prevent a misleading timing report.
+
+`seed 42` and `--seed 42` accept uint32 values, default 0, but the shared seed source is **pending**:
+machine random choices and convert random formulas currently have independent private streams.
+Explicit seeding of a document using either returns a clear script error; no deterministic seed
+control is claimed for those features yet. See spec §11.2 for all commands and limits.

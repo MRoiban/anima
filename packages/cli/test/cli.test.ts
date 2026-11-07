@@ -114,8 +114,8 @@ describe('anima sample', () => {
     );
     expect(JSON.parse(r.out).values['swing.rotate']).toBeCloseTo(17.1887, 3);
     const bad = await cli('sample', BELL, '-e', 'fire rnig');
-    expect(bad.code).toBe(1);
-    expect(bad.err).toMatch(/line 1: no input "rnig"/);
+    expect(bad.code).toBe(2);
+    expect(JSON.parse(bad.err).message).toMatch(/line 1: no input "rnig"/);
   });
 });
 

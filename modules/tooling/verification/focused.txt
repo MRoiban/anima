@@ -1,0 +1,16 @@
+
+> test:scope
+> node tools/test-scope.ts tooling
+
+Scopes: tooling
+  unit: packages/cli/test/agent-tools.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  cases: ^conformance > (tooling-input-data)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-240c21f4
+
+
+ Test Files  2 passed (2)
+      Tests  50 passed | 444 skipped (494)
+   Start at  09:31:39
+   Duration  3.62s (import 48%, transform 31%, tests 20%, worker 1%)

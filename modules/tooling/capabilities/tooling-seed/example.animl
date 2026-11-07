@@ -1,0 +1,13 @@
+<anima version="0.1" name="agent-tools" grid="20" requires="data input">
+  <model name="State">
+    <number name="count" default="0"/>
+    <string name="title" default="Hello"/>
+    <bool name="enabled"/>
+  </model>
+  <instance name="main" model="State" default="true"/>
+  <circle id="dot" cx="10" cy="10" r="3" fill="#000"/>
+  <listener on="down" target="dot" set="$count=5"/>
+  <listener on="key-down" target="dot" set="$count=7" key="Enter"/>
+  <listener on="scroll" target="dot" set="$count=9"/>
+  <listener on="gamepad-button" target="dot" set="$count=11" control="0"/>
+</anima>

@@ -1,0 +1,27 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[09:10:54.990] rive  deferred replay: inline
+[09:10:55.022] rive  built (137 bytes, 32ms, 0 errors, 0 warnings)
+[09:10:55.025] rive  showing Tooling [1/1]
+[09:10:55.025] rive  viewport 20x20 @1x
+ok advance
+[09:10:55.025] rive  wrote initial.json
+ok data-dump: initial.json
+[09:10:55.025] rive  data: count = 3 (mid-run)
+ok data
+ok advance
+[09:10:55.026] rive  wrote set.json
+ok data-dump: set.json
+[09:10:55.036] rive  built (137 bytes, 10ms, 0 errors, 0 warnings)
+[09:10:55.040] rive  showing Tooling [1/1]
+[09:10:55.041] rive  viewport 20x20 @1x
+ok reload
+[09:10:55.041] rive  wrote reloaded.json
+ok data-dump: reloaded.json
+err data-dump-filter: unknown command 'data-dump-filter', type ? for the list
+[09:10:55.041] rive  wrote filtered.json
+ok data-dump: filtered.json
+err data-dump-every: unknown command 'data-dump-every', type ? for the list
+ok advance
+[09:10:55.041] rive  wrote stream.json
+ok data-dump: stream.json
+ok quit

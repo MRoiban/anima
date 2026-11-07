@@ -1,0 +1,4 @@
+{"ok":true,"snapshots":[],"output":[],"diagnostics":[],"stopped":false}
+{"ok":true,"snapshots":[],"output":[],"diagnostics":[],"stopped":false}
+{"ok":true,"snapshots":[{"time":0,"values":{"$count":8},"states":{},"events":[],"settled":true}],"output":[{"time":0,"values":{"$count":8},"states":{},"events":[],"settled":true}],"diagnostics":[],"stopped":false}
+{"ok":true,"quit":true}

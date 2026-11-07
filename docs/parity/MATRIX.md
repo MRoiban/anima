@@ -390,42 +390,42 @@ scope by the owner's triage of 2026-11-07).
 
 ### Tooling
 
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `tooling.benchmark` | Headless benchmark | new: anima bench | tooling | planned | cli/benchmark |
-| `tooling.data-breakpoints` | Data write breakpoints | new: inspector break-on-change | tooling | planned | cli/data-breakpoints |
-| `tooling.data-debugger` | Live data inspection and editing | new: playground data inspector | tooling | planned | cli/data-debugger |
-| `tooling.environment-doctor` | Environment diagnostics | new: anima doctor | tooling | planned | cli/environment-doctor |
-| `tooling.headless-artboard` | Capture artboard choice | new: anima render --scene | tooling | planned | cli/headless-artboard |
-| `tooling.headless-audio` | Offline audio rendering | new: anima render --audio --rate --channels | tooling | planned | cli/headless-audio |
-| `tooling.headless-command-session` | Persistent headless command session | new: anima session --commands with reload and captures | tooling | planned | cli/headless-command-session |
-| `tooling.headless-data` | Set bound data | new: sample data path=value | tooling | planned | cli/headless-data |
-| `tooling.headless-data-dump` | Bound data snapshots | new: anima sample --data | tooling | planned | cli/headless-data-dump |
-| `tooling.headless-data-filter` | Filtered data snapshots | new: anima sample --filter | tooling | planned | cli/headless-data-filter |
-| `tooling.headless-data-stream` | Data change recording | new: anima sample --data-every | tooling | planned | cli/headless-data-stream |
-| `tooling.headless-fit` | Capture fit choice | new: anima render --fit | tooling | planned | cli/headless-fit |
-| `tooling.headless-gamepad` | Synthetic gamepad | new: sample gamepad commands | tooling | planned | cli/headless-gamepad |
-| `tooling.headless-key` | Synthetic keyboard | new: sample key commands | tooling | planned | cli/headless-key |
-| `tooling.headless-pointer` | Synthetic pointer gestures | new: sample compound pointer gestures including drag | tooling | planned | cli/headless-pointer |
-| `tooling.headless-scale` | Capture downscaling | new: anima render --scale | tooling | planned | cli/headless-scale |
-| `tooling.headless-semantic-actions` | Accessible action replay | new: sample semantic-action command | tooling | planned | cli/headless-semantic-actions |
-| `tooling.headless-semantics` | Accessible tree capture | new: anima inspect --semantics | tooling | planned | cli/headless-semantics |
-| `tooling.headless-touch` | Synthetic multitouch | new: sample touch commands with pointer IDs | tooling | planned | cli/headless-touch |
-| `tooling.headless-viewport` | Capture viewport override | new: anima render --viewport WIDTHxHEIGHT | tooling | planned | cli/headless-viewport |
-| `tooling.headless-wheel` | Synthetic wheel and trackpad | new: sample wheel/trackpad commands | tooling | planned | cli/headless-wheel |
-| `tooling.inspect-summary` | Wiring diagnostics summary | new: anima inspect --summary with data wiring diagnostics | tooling | planned | cli/inspect-summary |
-| `tooling.multi-file-project` | Multi-file source project | new: anima project with explicit imports | tooling | planned | cli/multi-file-project |
-| `tooling.pixel-compare` | Image comparison | new: anima render --compare reference.png | tooling | planned | cli/pixel-compare |
-| `tooling.pixel-probe` | Pixel color probes | new: anima render --probe | tooling | planned | cli/pixel-probe |
-| `tooling.project-configuration` | Project configuration | new: anima project configuration | tooling | planned | cli/project-configuration |
-| `tooling.publish-local` | Runtime export | new: anima build self-contained web distributable | markup | planned | cli/publish-local |
-| `tooling.render-presets` | Render presets and queue | new: Render presets and queue | tooling | planned | cli/render-presets |
-| `tooling.sample-projects` | Runnable samples | new: anima examples copy | tooling | planned | cli/sample-projects |
-| `tooling.scaffold` | Project scaffolding | new: anima init with AniML, manifest and agent instructions | markup | planned | cli/scaffold |
-| `tooling.schema-lookup` | Schema property lookup | new: anima schema with inherited/animatable/bindable filters | tooling | planned | cli/schema-lookup |
-| `tooling.schema-search` | Schema search and discovery | new: anima schema --search --json | tooling | planned | cli/schema-search |
-| `tooling.seed` | Deterministic random seed | new: explicit script seed in sample scripts | tooling | planned | cli/seed |
-| `tooling.test-assertions` | Script assertions | new: tooling-only script test protocol | tooling | planned | cli/test-assertions |
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `tooling.benchmark` | Headless benchmark | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/bench.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md | Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b. |
+| `tooling.data-breakpoints` | Data write breakpoints | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md | Pending: replay traps final value changes and reports writer candidates; same-value and transient overwritten writes need runtime instrumentation |
+| `tooling.data-debugger` | Live data inspection and editing | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/session.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md | Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b. |
+| `tooling.environment-doctor` | Environment diagnostics | new: anima doctor | tooling | planned | cli/environment-doctor |  |
+| `tooling.headless-artboard` | Capture artboard choice | new: anima render --scene | tooling | planned | cli/headless-artboard |  |
+| `tooling.headless-audio` | Offline audio rendering | new: anima render --audio --rate --channels | tooling | planned | cli/headless-audio |  |
+| `tooling.headless-command-session` | Persistent headless command session | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/session.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md | Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b. |
+| `tooling.headless-data` | Set bound data | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md | Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b. |
+| `tooling.headless-data-dump` | Bound data snapshots | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md | Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b. |
+| `tooling.headless-data-filter` | Filtered data snapshots | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md | Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b. |
+| `tooling.headless-data-stream` | Data change recording | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md | Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b. |
+| `tooling.headless-fit` | Capture fit choice | new: anima render --fit | tooling | planned | cli/headless-fit |  |
+| `tooling.headless-gamepad` | Synthetic gamepad | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md | Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b. |
+| `tooling.headless-key` | Synthetic keyboard | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md | Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b. |
+| `tooling.headless-pointer` | Synthetic pointer gestures | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md | Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b. |
+| `tooling.headless-scale` | Capture downscaling | new: anima render --scale | tooling | planned | cli/headless-scale |  |
+| `tooling.headless-semantic-actions` | Accessible action replay | new: sample semantic-action command | tooling | planned | cli/headless-semantic-actions |  |
+| `tooling.headless-semantics` | Accessible tree capture | new: anima inspect --semantics | tooling | planned | cli/headless-semantics |  |
+| `tooling.headless-touch` | Synthetic multitouch | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md | Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b. |
+| `tooling.headless-viewport` | Capture viewport override | new: anima render --viewport WIDTHxHEIGHT | tooling | planned | cli/headless-viewport |  |
+| `tooling.headless-wheel` | Synthetic wheel and trackpad | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md | Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b. |
+| `tooling.inspect-summary` | Wiring diagnostics summary | new: anima inspect --summary with data wiring diagnostics | tooling | planned | cli/inspect-summary |  |
+| `tooling.multi-file-project` | Multi-file source project | new: anima project with explicit imports | tooling | planned | cli/multi-file-project |  |
+| `tooling.pixel-compare` | Image comparison | new: anima render --compare reference.png | tooling | planned | cli/pixel-compare |  |
+| `tooling.pixel-probe` | Pixel color probes | new: anima render --probe | tooling | planned | cli/pixel-probe |  |
+| `tooling.project-configuration` | Project configuration | new: anima project configuration | tooling | planned | cli/project-configuration |  |
+| `tooling.publish-local` | Runtime export | new: anima build self-contained web distributable | markup | planned | cli/publish-local |  |
+| `tooling.render-presets` | Render presets and queue | new: Render presets and queue | tooling | planned | cli/render-presets |  |
+| `tooling.sample-projects` | Runnable samples | new: anima examples copy | tooling | planned | cli/sample-projects |  |
+| `tooling.scaffold` | Project scaffolding | new: anima init with AniML, manifest and agent instructions | markup | planned | cli/scaffold |  |
+| `tooling.schema-lookup` | Schema property lookup | new: anima schema with inherited/animatable/bindable filters | tooling | planned | cli/schema-lookup |  |
+| `tooling.schema-search` | Schema search and discovery | new: anima schema --search --json | tooling | planned | cli/schema-search |  |
+| `tooling.seed` | Deterministic random seed | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md | Pending: machine and convert use private random streams; seed validates but explicitly rejects random documents under the runtime-size freeze |
+| `tooling.test-assertions` | Script assertions | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md | Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b. |
 
 ## P4a — Done: paint and composite on the module system and the draw layer <a id="p4a"></a>
 

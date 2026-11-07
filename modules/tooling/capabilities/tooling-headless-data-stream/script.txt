@@ -1,0 +1,5 @@
+data watch $count
+data set $count 3
+advance 0
+snapshot $count
+snapshot $count
