@@ -1,0 +1,4 @@
+advance 0
+snapshot --semantics
+semantic control tap
+snapshot --semantics

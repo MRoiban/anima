@@ -1,0 +1,98 @@
+{
+  "schema": 1,
+  "artboard": "Properties",
+  "roots": [
+    {
+      "id": 1,
+      "role": "button",
+      "roleValue": 1,
+      "label": "control",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 128,
+      "traitFlags": 96,
+      "bounds": { "x": 8, "y": 8, "width": 4, "height": 4 },
+      "children": []
+    },
+    {
+      "id": 2,
+      "role": "text",
+      "roleValue": 7,
+      "label": "After",
+      "value": "Changed",
+      "hint": "More",
+      "headingLevel": 0,
+      "stateFlags": 512,
+      "traitFlags": 0,
+      "bounds": { "x": 8, "y": 18, "width": 4, "height": 4 },
+      "children": []
+    },
+    {
+      "id": 3,
+      "role": "checkbox",
+      "roleValue": 3,
+      "label": "check",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 1064,
+      "traitFlags": 116,
+      "bounds": { "x": 8, "y": 28, "width": 4, "height": 4 },
+      "children": []
+    },
+    {
+      "id": 4,
+      "role": "text",
+      "roleValue": 7,
+      "label": "heading",
+      "value": "",
+      "hint": "",
+      "headingLevel": 2,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": { "x": 8, "y": 38, "width": 4, "height": 4 },
+      "children": []
+    },
+    {
+      "id": 5,
+      "role": "none",
+      "roleValue": 0,
+      "label": "",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": { "x": 8, "y": 48, "width": 4, "height": 4 },
+      "children": [
+        {
+          "id": 6,
+          "role": "text",
+          "roleValue": 7,
+          "label": "lifted",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 0,
+          "traitFlags": 0,
+          "bounds": { "x": 8, "y": 48, "width": 4, "height": 4 },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "role": "dialog",
+      "roleValue": 14,
+      "label": "modal",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 2048,
+      "traitFlags": 0,
+      "bounds": { "x": 8, "y": 68, "width": 4, "height": 4 },
+      "children": []
+    }
+  ]
+}

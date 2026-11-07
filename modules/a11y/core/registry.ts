@@ -17,7 +17,7 @@ export const shape: ObjShape = {
     label: str,
     hint: str,
     value: str,
-    level: { k: 'num', int: true, min: 1, max: 6 },
+    level: { k: 'alt', of: [{ k: 'num', int: true, min: 1, max: 6 }, str] },
     href: str,
     activate: str,
     ...Object.fromEntries(states.map((k) => [k, bool])),

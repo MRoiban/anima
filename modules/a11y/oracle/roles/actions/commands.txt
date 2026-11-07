@@ -1,0 +1,15 @@
+advance 0
+semantics frames/before.json
+semantic-action tap@button
+advance 0
+advance 0
+semantics frames/tap.json
+semantic-action increase@slider
+advance 0
+advance 0
+semantics frames/increase.json
+semantic-action decrease@slider
+advance 0
+advance 0
+semantics frames/decrease.json
+quit

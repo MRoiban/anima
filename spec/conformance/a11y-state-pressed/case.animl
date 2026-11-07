@@ -1,0 +1,9 @@
+<anima version="0.1" name="state-pressed" grid="20" requires="a11y focus">
+  <bool name="flag"/>
+  <group id="control">
+    <a11y role="button" activate="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="item">
+    <a11y role="button" pressed="flag" bounds="1 2 3 4"/>
+  </group>
+</anima>

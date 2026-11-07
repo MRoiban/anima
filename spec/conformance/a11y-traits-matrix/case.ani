@@ -1,0 +1,218 @@
+{
+  "anima": "0.1",
+  "name": "traits-matrix",
+  "grid": 20,
+  "requires": ["a11y", "focus"],
+  "inputs": {
+    "flag": {
+      "type": "bool"
+    },
+    "amount": {
+      "type": "number"
+    }
+  },
+  "nodes": [
+    {
+      "id": "control",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "button",
+        "activate": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "checkbox-checked",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "checkbox",
+        "checked": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "switch-checked",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "switch",
+        "checked": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "radio-checked",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "radio",
+        "checked": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "button-pressed",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "button",
+        "pressed": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "tab-selected",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "tab",
+        "selected": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "list-item-selected",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "list-item",
+        "selected": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "radio-selected",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "radio",
+        "selected": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "button-expanded",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "button",
+        "expanded": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "link-expanded",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "link",
+        "expanded": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "group-expanded",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "group",
+        "expanded": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "list-item-expanded",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "list-item",
+        "expanded": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "checkbox-required",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "checkbox",
+        "required": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "switch-required",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "switch",
+        "required": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "radio-required",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "radio",
+        "required": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "radio-group-required",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "radio-group",
+        "required": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "slider-required",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "slider",
+        "value": "amount",
+        "required": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "checkbox-readonly",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "checkbox",
+        "readonly": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "switch-readonly",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "switch",
+        "readonly": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "slider-readonly",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "slider",
+        "value": "amount",
+        "readonly": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    }
+  ]
+}

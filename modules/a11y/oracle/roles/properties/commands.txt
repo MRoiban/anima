@@ -1,0 +1,7 @@
+advance 0
+semantics frames/before.json
+semantic-action tap@control
+advance 0
+advance 0
+semantics frames/after.json
+quit

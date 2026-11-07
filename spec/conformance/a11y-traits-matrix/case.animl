@@ -1,0 +1,64 @@
+<anima version="0.1" name="traits-matrix" grid="20" requires="a11y focus">
+  <bool name="flag"/>
+  <number name="amount"/>
+  <group id="control">
+    <a11y role="button" activate="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="checkbox-checked">
+    <a11y role="checkbox" checked="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="switch-checked">
+    <a11y role="switch" checked="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="radio-checked">
+    <a11y role="radio" checked="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="button-pressed">
+    <a11y role="button" pressed="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="tab-selected">
+    <a11y role="tab" selected="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="list-item-selected">
+    <a11y role="list-item" selected="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="radio-selected">
+    <a11y role="radio" selected="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="button-expanded">
+    <a11y role="button" expanded="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="link-expanded">
+    <a11y role="link" expanded="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="group-expanded">
+    <a11y role="group" expanded="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="list-item-expanded">
+    <a11y role="list-item" expanded="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="checkbox-required">
+    <a11y role="checkbox" required="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="switch-required">
+    <a11y role="switch" required="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="radio-required">
+    <a11y role="radio" required="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="radio-group-required">
+    <a11y role="radio-group" required="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="slider-required">
+    <a11y role="slider" value="amount" required="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="checkbox-readonly">
+    <a11y role="checkbox" readonly="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="switch-readonly">
+    <a11y role="switch" readonly="flag" bounds="1 2 3 4"/>
+  </group>
+  <group id="slider-readonly">
+    <a11y role="slider" value="amount" readonly="flag" bounds="1 2 3 4"/>
+  </group>
+</anima>

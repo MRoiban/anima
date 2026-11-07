@@ -1,0 +1,5 @@
+queued range: expected50 actual 45
+narrow range: expectedFalse actual true
+narrow range committed 40
+repeat focus: {"semantics":[["rows.0.item",["focus"]],["rows.1.item",["focus"]]],"items":[],"accepted":false}
+late focus after compilation: {"same":true,"actions":[],"items":[]}

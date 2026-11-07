@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "artboard": "Heading",
+  "roots": [
+    {
+      "id": 1,
+      "role": "button",
+      "roleValue": 1,
+      "label": "control",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 128,
+      "traitFlags": 96,
+      "bounds": { "x": 8, "y": 8, "width": 4, "height": 4 },
+      "children": []
+    },
+    {
+      "id": 2,
+      "role": "text",
+      "roleValue": 7,
+      "label": "heading",
+      "value": "",
+      "hint": "",
+      "headingLevel": 4,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": { "x": 8, "y": 18, "width": 4, "height": 4 },
+      "children": []
+    }
+  ]
+}

@@ -76,7 +76,13 @@ export function decompile(doc: string | object): string {
           child.children.push(...(data[k] as Obj[]).map((v) => structural(s.of.element!, v)));
         else if (s.k === 'obj' && s.element)
           child.children.push(structural(s.element, obj(data[k])));
-        else child.attrs.push([markupName(s, k), value(data[k])]);
+        else
+          child.attrs.push([
+            markupName(s, k),
+            s.k === 'alt' && !(s.of.some((v) => v.k === 'bool') && s.of.some((v) => v.k === 'str'))
+              ? JSON.stringify(data[k])
+              : value(data[k]),
+          ]);
       }
       return child;
     };

@@ -1,0 +1,17 @@
+<anima version="0.1" name="focus-condition" grid="20" requires="a11y focus input machine">
+  <group id="parent">
+    <focus/>
+    <a11y role="group" bounds="1 2 3 4"/>
+    <group id="child">
+      <a11y role="button" bounds="1 2 3 4"/>
+    </group>
+  </group>
+  <layer name="l" initial="idle">
+    <state name="idle">
+      <on when="@after(0)" to="focused" guard="{&quot;left&quot;:{&quot;focus&quot;:&quot;parent&quot;},&quot;right&quot;:true,&quot;op&quot;:&quot;==&quot;}"/>
+    </state>
+    <state name="focused">
+      <on when="@after(0)" to="idle" guard="{&quot;left&quot;:{&quot;focus&quot;:&quot;parent&quot;},&quot;right&quot;:false,&quot;op&quot;:&quot;==&quot;}"/>
+    </state>
+  </layer>
+</anima>

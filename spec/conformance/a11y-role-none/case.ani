@@ -1,0 +1,27 @@
+{
+  "anima": "0.1",
+  "name": "role-none",
+  "grid": 20,
+  "requires": ["a11y", "focus"],
+  "nodes": [
+    {
+      "id": "wrapper",
+      "type": "group",
+      "children": [
+        {
+          "id": "item",
+          "type": "group",
+          "children": [],
+          "a11y": {
+            "role": "text",
+            "label": "Lifted",
+            "bounds": [1, 2, 3, 4]
+          }
+        }
+      ],
+      "a11y": {
+        "role": "none"
+      }
+    }
+  ]
+}

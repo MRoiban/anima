@@ -1,0 +1,49 @@
+{
+  "anima": "0.1",
+  "name": "state-live-region",
+  "grid": 20,
+  "requires": ["a11y", "data"],
+  "nodes": [
+    {
+      "id": "polite",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "text",
+        "label": "$title",
+        "live": "polite",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "assertive",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "text",
+        "label": "$title",
+        "live": "assertive",
+        "bounds": [1, 2, 3, 4]
+      }
+    }
+  ],
+  "data": {
+    "models": {
+      "M": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "default": "Before"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "M",
+        "default": true,
+        "values": {}
+      }
+    }
+  }
+}

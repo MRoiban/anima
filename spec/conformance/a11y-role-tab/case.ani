@@ -1,0 +1,18 @@
+{
+  "anima": "0.1",
+  "name": "role-tab",
+  "grid": 20,
+  "requires": ["a11y", "focus"],
+  "nodes": [
+    {
+      "id": "item",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "tab",
+        "label": "Example",
+        "bounds": [1, 2, 3, 4]
+      }
+    }
+  ]
+}

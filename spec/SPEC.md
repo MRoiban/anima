@@ -2772,6 +2772,30 @@ for unpainted groups; an empty node reports its transformed origin as a point.
 The bounded implementation and explicit path/stroke limitations are specified in
 [modules/a11y/SPEC.md](../modules/a11y/SPEC.md). This row remains planned.
 
+
+<!-- capability: a11y.property-heading-level -->
+### Heading hierarchy
+
+[P3b-9] A node with `a11y.role: "heading"` accepts `level` as an integer 1–6 or a
+number input/data path. AniML uses `<a11y role="heading" level="2"/>`; a bound
+level uses a JSON string attribute, for example `level="&quot;depth&quot;"`.
+Bound values must remain integers 1–6. Unknown names report `unknown-input`,
+wrong types `input-type`, and invalid literal levels `bad-value`, at that field's
+JSON pointer. See [the node semantics contract](../modules/a11y/SPEC.md), its
+`a11y-property-heading-level` conformance case and paired capability example.
+
+
+<!-- capability: a11y.focus-condition -->
+### Focus transition condition
+
+[P3b-9] With `a11y-actions` and `focus`, a machine guard operand `{ "focus": "id" }`
+is true for the primary target and focusable semantic ancestors. Documents without
+node semantics retain exact-target focus conditions. The existing machine guard
+registry and AniML JSON `guard` attribute own both spellings and unknown-target
+validation. See `spec/conformance/a11y-focus-condition` and
+[the node semantics contract](../modules/a11y/SPEC.md). Repeated targets and native
+ancestor-condition comparison remain open in the closure report.
+
 ## data-host
 
 <!-- capability: transforms.computed-transform-values -->

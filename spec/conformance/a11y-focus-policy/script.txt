@@ -1,0 +1,10 @@
+advance 0
+snapshot --semantics
+semantic child focus
+snapshot --semantics
+set hide true
+advance 0
+snapshot --semantics
+focus traverse next
+advance 0
+snapshot --semantics

@@ -146,7 +146,7 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
         excluded.add(e.id);
         continue;
       }
-      if (!e.config || e.config.role === 'none') continue;
+      if (!e.config || e.data.role === 'none') continue;
       const c = e.config,
         d = e.data;
       const n: SemanticNode = {

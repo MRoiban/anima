@@ -1,0 +1,26 @@
+
+> test:scope
+> node tools/test-scope.ts a11y --no-browser
+
+Scopes: a11y
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-bounds.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/closure.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/edges.test.ts
+  unit: modules/a11y/test/core/oracle-actions.test.ts
+  unit: modules/a11y/test/core/oracle.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  cases: ^conformance > (a11y-action-edges|a11y-actions-range|a11y-focus-condition|a11y-focus-policy|a11y-properties-data|a11y-property-heading-level|a11y-role-alert-dialog|a11y-role-button|a11y-role-checkbox|a11y-role-dialog|a11y-role-group|a11y-role-heading|a11y-role-img|a11y-role-link|a11y-role-list|a11y-role-list-item|a11y-role-none|a11y-role-radio|a11y-role-radio-group|a11y-role-slider|a11y-role-switch|a11y-role-tab|a11y-role-tab-list|a11y-role-text|a11y-state-checked|a11y-state-checked-mixed|a11y-state-disabled|a11y-state-expanded|a11y-state-hidden|a11y-state-live-region|a11y-state-modal|a11y-state-pressed|a11y-state-readonly|a11y-state-required|a11y-state-selected|a11y-traits-matrix|a11y-tree-bounds|a11y-tree-visibility)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-06195421
+
+
+ Test Files  11 passed | 1 skipped (12)
+      Tests  1127 passed | 455 skipped | 1 todo (1583)
+   Start at  11:41:05
+   Duration  9.17s (import 47%, tests 40%, transform 12%, worker 1%)

@@ -1,0 +1,54 @@
+{
+  "anima": "0.1",
+  "name": "properties-data",
+  "grid": 20,
+  "requires": ["a11y", "focus", "data"],
+  "nodes": [
+    {
+      "id": "item",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "heading",
+        "label": "$title",
+        "hint": "$help",
+        "value": "$text",
+        "level": "$depth",
+        "bounds": [1, 2, 3, 4]
+      }
+    }
+  ],
+  "data": {
+    "models": {
+      "M": {
+        "properties": {
+          "title": {
+            "type": "string",
+            "default": "Before"
+          },
+          "help": {
+            "type": "string",
+            "default": "Help"
+          },
+          "text": {
+            "type": "string",
+            "default": "Value"
+          },
+          "depth": {
+            "type": "number",
+            "default": 2,
+            "min": 1,
+            "max": 6
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "M",
+        "default": true,
+        "values": {}
+      }
+    }
+  }
+}

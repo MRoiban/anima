@@ -1,0 +1,969 @@
+
+> test:scope
+> node tools/test-scope.ts a11y --no-browser
+
+Scopes: a11y
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-bounds.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/edges.test.ts
+  unit: modules/a11y/test/core/oracle-actions.test.ts
+  unit: modules/a11y/test/core/oracle.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  cases: ^conformance > (a11y-action-edges|a11y-tree-bounds|a11y-tree-visibility)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-06195421
+
+ ❯ |scope-unit| packages/markup/test/corpus.test.ts (1039 tests | 32 failed) 2521ms
+   ❯ authored AniML corpus (1039)
+     × includes the bell example and all conformance sources 64ms
+     × spec/conformance/a11y-actions-range/case.animl is canonically formatted 17ms
+     × spec/conformance/a11y-properties-data/case.animl is canonically formatted 4ms
+     × spec/conformance/a11y-role-alert-dialog/case.animl is canonically formatted 2ms
+     × spec/conformance/a11y-role-button/case.animl is canonically formatted 2ms
+     × spec/conformance/a11y-role-checkbox/case.animl is canonically formatted 7ms
+     × spec/conformance/a11y-role-dialog/case.animl is canonically formatted 5ms
+     × spec/conformance/a11y-role-group/case.animl is canonically formatted 2ms
+     × spec/conformance/a11y-role-heading/case.animl is canonically formatted 2ms
+     × spec/conformance/a11y-role-img/case.animl is canonically formatted 2ms
+     × spec/conformance/a11y-role-link/case.animl is canonically formatted 2ms
+     × spec/conformance/a11y-role-list-item/case.animl is canonically formatted 1ms
+     × spec/conformance/a11y-role-list/case.animl is canonically formatted 5ms
+     × spec/conformance/a11y-role-none/case.animl is canonically formatted 2ms
+     × spec/conformance/a11y-role-radio-group/case.animl is canonically formatted 4ms
+     × spec/conformance/a11y-role-radio/case.animl is canonically formatted 1ms
+     × spec/conformance/a11y-role-slider/case.animl is canonically formatted 3ms
+     × spec/conformance/a11y-role-switch/case.animl is canonically formatted 1ms
+     × spec/conformance/a11y-role-tab-list/case.animl is canonically formatted 1ms
+     × spec/conformance/a11y-role-tab/case.animl is canonically formatted 1ms
+     × spec/conformance/a11y-role-text/case.animl is canonically formatted 1ms
+     × spec/conformance/a11y-state-checked-mixed/case.animl is canonically formatted 2ms
+     × spec/conformance/a11y-state-checked/case.animl is canonically formatted 3ms
+     × spec/conformance/a11y-state-disabled/case.animl is canonically formatted 2ms
+     × spec/conformance/a11y-state-expanded/case.animl is canonically formatted 2ms
+     × spec/conformance/a11y-state-hidden/case.animl is canonically formatted 3ms
+     × spec/conformance/a11y-state-modal/case.animl is canonically formatted 2ms
+     × spec/conformance/a11y-state-pressed/case.animl is canonically formatted 1ms
+     × spec/conformance/a11y-state-readonly/case.animl is canonically formatted 2ms
+     × spec/conformance/a11y-state-required/case.animl is canonically formatted 2ms
+     × spec/conformance/a11y-state-selected/case.animl is canonically formatted 2ms
+     × spec/conformance/a11y-traits-matrix/case.animl is canonically formatted 40ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 32 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > includes the bell example and all conformance sources
+AssertionError: expected [ …(481) ] to have a length of 450 but got 481
+
+- Expected
++ Received
+
+- 450
++ 481
+
+ ❯ packages/markup/test/corpus.test.ts:31:19
+     29|     // probes + 2 benchmark-fix probes + 1 live component paint + 3 P3…
+     30|     // P3b-7: simple semantic bounds, semantic ordering and action edg…
+     31|     expect(cases).toHaveLength(450);
+       |                   ^
+     32|     for (const file of cases) expect(files).toContain(file.replace(/\.…
+     33|     const drawCases = globSync('spec/draw-conformance/*/case.ani', { c…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-actions-range/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="actions-ra…' to be '<anima version="0.1" name="actions-ra…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="actions-range" grid="20" requires="a11y focus">
+- <number name="amount" default="99"/>
++   <number name="amount" default="99"/>
+- <group id="item"><a11y role="slider" bounds="1 2 3 4" value="amount" step="5"/></group>
++   <group id="item">
++     <a11y role="slider" value="amount" step="5" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-properties-data/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="properties…' to be '<anima version="0.1" name="properties…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="properties-data" grid="20" requires="a11y focus data">
+- <model name="M"><string name="title" default="Before"/><string name="help" default="Help"/><string name="text" default="Value"/><number name="depth" default="2" min="1" max="6"/></model><instance name="main" model="M" default="true"/>
++   <model name="M">
++     <string name="title" default="Before"/>
++     <string name="help" default="Help"/>
++     <string name="text" default="Value"/>
++     <number name="depth" default="2" min="1" max="6"/>
++   </model>
++   <instance name="main" model="M" default="true"/>
+- <group id="item"><a11y role="heading" bounds="1 2 3 4" label="$title" hint="$help" value="$text" level="&quot;$depth&quot;"/></group>
++   <group id="item">
++     <a11y role="heading" label="$title" hint="$help" value="$text" level="&quot;$depth&quot;" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-alert-dialog/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-alert…' to be '<anima version="0.1" name="role-alert…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-alert-dialog" grid="20" requires="a11y focus">
+-
+- <group id="item"><a11y role="alert-dialog" bounds="1 2 3 4" label="Example"/></group>
++   <group id="item">
++     <a11y role="alert-dialog" label="Example" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-button/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-butto…' to be '<anima version="0.1" name="role-butto…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-button" grid="20" requires="a11y focus">
+-
+- <group id="item"><a11y role="button" bounds="1 2 3 4" label="Example"/></group>
++   <group id="item">
++     <a11y role="button" label="Example" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-checkbox/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-check…' to be '<anima version="0.1" name="role-check…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-checkbox" grid="20" requires="a11y focus">
+-
+- <group id="item"><a11y role="checkbox" bounds="1 2 3 4" label="Example"/></group>
++   <group id="item">
++     <a11y role="checkbox" label="Example" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-dialog/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-dialo…' to be '<anima version="0.1" name="role-dialo…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-dialog" grid="20" requires="a11y focus">
+-
+- <group id="item"><a11y role="dialog" bounds="1 2 3 4" label="Example"/></group>
++   <group id="item">
++     <a11y role="dialog" label="Example" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-group/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-group…' to be '<anima version="0.1" name="role-group…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-group" grid="20" requires="a11y focus">
+-
+- <group id="item"><a11y role="group" bounds="1 2 3 4" label="Example"/></group>
++   <group id="item">
++     <a11y role="group" label="Example" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-heading/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-headi…' to be '<anima version="0.1" name="role-headi…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-heading" grid="20" requires="a11y focus">
+-
+- <group id="item"><a11y role="heading" bounds="1 2 3 4" label="Example" level="2"/></group>
++   <group id="item">
++     <a11y role="heading" label="Example" level="2" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-img/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-img" …' to be '<anima version="0.1" name="role-img" …' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-img" grid="20" requires="a11y focus">
+-
+- <group id="item"><a11y role="img" bounds="1 2 3 4" label="Example"/></group>
++   <group id="item">
++     <a11y role="img" label="Example" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-link/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-link"…' to be '<anima version="0.1" name="role-link"…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-link" grid="20" requires="a11y focus">
+-
+- <group id="item"><a11y role="link" bounds="1 2 3 4" label="Example" href="/help"/></group>
++   <group id="item">
++     <a11y role="link" label="Example" href="/help" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-list-item/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-list-…' to be '<anima version="0.1" name="role-list-…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-list-item" grid="20" requires="a11y focus">
+-
+- <group id="item"><a11y role="list-item" bounds="1 2 3 4" label="Example"/></group>
++   <group id="item">
++     <a11y role="list-item" label="Example" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-list/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-list"…' to be '<anima version="0.1" name="role-list"…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-list" grid="20" requires="a11y focus">
+-
+- <group id="item"><a11y role="list" bounds="1 2 3 4" label="Example"/></group>
++   <group id="item">
++     <a11y role="list" label="Example" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-none/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-none"…' to be '<anima version="0.1" name="role-none"…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-none" grid="20" requires="a11y focus">
+-
+- <group id="wrapper"><a11y role="none"/><group id="item"><a11y role="text" bounds="1 2 3 4" label="Lifted"/></group></group>
++   <group id="wrapper">
++     <a11y role="none"/>
++     <group id="item">
++       <a11y role="text" label="Lifted" bounds="1 2 3 4"/>
++     </group>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-radio-group/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-radio…' to be '<anima version="0.1" name="role-radio…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-radio-group" grid="20" requires="a11y focus">
+-
+- <group id="item"><a11y role="radio-group" bounds="1 2 3 4" label="Example"/></group>
++   <group id="item">
++     <a11y role="radio-group" label="Example" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-radio/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-radio…' to be '<anima version="0.1" name="role-radio…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-radio" grid="20" requires="a11y focus">
+-
+- <group id="item"><a11y role="radio" bounds="1 2 3 4" label="Example"/></group>
++   <group id="item">
++     <a11y role="radio" label="Example" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-slider/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-slide…' to be '<anima version="0.1" name="role-slide…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-slider" grid="20" requires="a11y focus">
+- <number name="amount"/>
++   <number name="amount"/>
+- <group id="item"><a11y role="slider" bounds="1 2 3 4" label="Example" value="amount"/></group>
++   <group id="item">
++     <a11y role="slider" label="Example" value="amount" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-switch/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-switc…' to be '<anima version="0.1" name="role-switc…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-switch" grid="20" requires="a11y focus">
+-
+- <group id="item"><a11y role="switch" bounds="1 2 3 4" label="Example"/></group>
++   <group id="item">
++     <a11y role="switch" label="Example" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-tab-list/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-tab-l…' to be '<anima version="0.1" name="role-tab-l…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-tab-list" grid="20" requires="a11y focus">
+-
+- <group id="item"><a11y role="tab-list" bounds="1 2 3 4" label="Example"/></group>
++   <group id="item">
++     <a11y role="tab-list" label="Example" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-tab/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-tab" …' to be '<anima version="0.1" name="role-tab" …' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-tab" grid="20" requires="a11y focus">
+-
+- <group id="item"><a11y role="tab" bounds="1 2 3 4" label="Example"/></group>
++   <group id="item">
++     <a11y role="tab" label="Example" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-role-text/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="role-text"…' to be '<anima version="0.1" name="role-text"…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="role-text" grid="20" requires="a11y focus">
+-
+- <group id="item"><a11y role="text" bounds="1 2 3 4" label="Example"/></group>
++   <group id="item">
++     <a11y role="text" label="Example" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-state-checked-mixed/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="state-chec…' to be '<anima version="0.1" name="state-chec…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="state-checked-mixed" grid="20" requires="a11y focus">
+- <bool name="flag"/>
++   <bool name="flag"/>
+- <group id="control"><a11y role="button" bounds="1 2 3 4" activate="flag"/></group><group id="item"><a11y role="checkbox" bounds="1 2 3 4" checked-mixed="flag"/></group>
++   <group id="control">
++     <a11y role="button" activate="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="item">
++     <a11y role="checkbox" checked-mixed="flag" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-state-checked/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="state-chec…' to be '<anima version="0.1" name="state-chec…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="state-checked" grid="20" requires="a11y focus">
+- <bool name="flag"/>
++   <bool name="flag"/>
+- <group id="control"><a11y role="button" bounds="1 2 3 4" activate="flag"/></group><group id="item"><a11y role="checkbox" bounds="1 2 3 4" checked="flag"/></group>
++   <group id="control">
++     <a11y role="button" activate="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="item">
++     <a11y role="checkbox" checked="flag" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-state-disabled/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="state-disa…' to be '<anima version="0.1" name="state-disa…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="state-disabled" grid="20" requires="a11y focus">
+- <bool name="flag"/>
++   <bool name="flag"/>
+- <group id="control"><a11y role="button" bounds="1 2 3 4" activate="flag"/></group><group id="item"><a11y role="button" bounds="1 2 3 4" disabled="flag"/></group>
++   <group id="control">
++     <a11y role="button" activate="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="item">
++     <a11y role="button" disabled="flag" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-state-expanded/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="state-expa…' to be '<anima version="0.1" name="state-expa…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="state-expanded" grid="20" requires="a11y focus">
+- <bool name="flag"/>
++   <bool name="flag"/>
+- <group id="control"><a11y role="button" bounds="1 2 3 4" activate="flag"/></group><group id="item"><a11y role="group" bounds="1 2 3 4" expanded="flag"/></group>
++   <group id="control">
++     <a11y role="button" activate="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="item">
++     <a11y role="group" expanded="flag" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-state-hidden/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="state-hidd…' to be '<anima version="0.1" name="state-hidd…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="state-hidden" grid="20" requires="a11y focus">
+- <bool name="flag"/>
++   <bool name="flag"/>
+- <group id="control"><a11y role="button" bounds="1 2 3 4" activate="flag"/></group><group id="item"><a11y role="text" bounds="1 2 3 4" hidden="flag"/></group>
++   <group id="control">
++     <a11y role="button" activate="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="item">
++     <a11y role="text" hidden="flag" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-state-modal/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="state-moda…' to be '<anima version="0.1" name="state-moda…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="state-modal" grid="20" requires="a11y focus">
+- <bool name="flag"/>
++   <bool name="flag"/>
+- <group id="control"><a11y role="button" bounds="1 2 3 4" activate="flag"/></group><group id="item"><a11y role="dialog" bounds="1 2 3 4" modal="flag"/></group>
++   <group id="control">
++     <a11y role="button" activate="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="item">
++     <a11y role="dialog" modal="flag" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-state-pressed/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="state-pres…' to be '<anima version="0.1" name="state-pres…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="state-pressed" grid="20" requires="a11y focus">
+- <bool name="flag"/>
++   <bool name="flag"/>
+- <group id="control"><a11y role="button" bounds="1 2 3 4" activate="flag"/></group><group id="item"><a11y role="button" bounds="1 2 3 4" pressed="flag"/></group>
++   <group id="control">
++     <a11y role="button" activate="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="item">
++     <a11y role="button" pressed="flag" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-state-readonly/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="state-read…' to be '<anima version="0.1" name="state-read…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="state-readonly" grid="20" requires="a11y focus">
+- <bool name="flag"/><number name="amount"/>
++   <bool name="flag"/>
++   <number name="amount"/>
+- <group id="control"><a11y role="button" bounds="1 2 3 4" activate="flag"/></group><group id="item"><a11y role="slider" bounds="1 2 3 4" readonly="flag" value="amount"/></group>
++   <group id="control">
++     <a11y role="button" activate="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="item">
++     <a11y role="slider" value="amount" readonly="flag" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-state-required/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="state-requ…' to be '<anima version="0.1" name="state-requ…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="state-required" grid="20" requires="a11y focus">
+- <bool name="flag"/><number name="amount"/>
++   <bool name="flag"/>
++   <number name="amount"/>
+- <group id="control"><a11y role="button" bounds="1 2 3 4" activate="flag"/></group><group id="item"><a11y role="slider" bounds="1 2 3 4" required="flag" value="amount"/></group>
++   <group id="control">
++     <a11y role="button" activate="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="item">
++     <a11y role="slider" value="amount" required="flag" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-state-selected/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="state-sele…' to be '<anima version="0.1" name="state-sele…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="state-selected" grid="20" requires="a11y focus">
+- <bool name="flag"/>
++   <bool name="flag"/>
+- <group id="control"><a11y role="button" bounds="1 2 3 4" activate="flag"/></group><group id="item"><a11y role="tab" bounds="1 2 3 4" selected="flag"/></group>
++   <group id="control">
++     <a11y role="button" activate="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="item">
++     <a11y role="tab" selected="flag" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/32]⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/a11y-traits-matrix/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="traits-mat…' to be '<anima version="0.1" name="traits-mat…' // Object.is equality
+
+- Expected
++ Received
+
+  <anima version="0.1" name="traits-matrix" grid="20" requires="a11y focus">
+- <bool name="flag"/><number name="amount"/>
++   <bool name="flag"/>
++   <number name="amount"/>
+- <group id="control"><a11y role="button" bounds="1 2 3 4" activate="flag"/></group><group id="checkbox-checked"><a11y role="checkbox" bounds="1 2 3 4" checked="flag"/></group><group id="switch-checked"><a11y role="switch" bounds="1 2 3 4" checked="flag"/></group><group id="radio-checked"><a11y role="radio" bounds="1 2 3 4" checked="flag"/></group><group id="button-pressed"><a11y role="button" bounds="1 2 3 4" pressed="flag"/></group><group id="tab-selected"><a11y role="tab" bounds="1 2 3 4" selected="flag"/></group><group id="list-item-selected"><a11y role="list-item" bounds="1 2 3 4" selected="flag"/></group><group id="radio-selected"><a11y role="radio" bounds="1 2 3 4" selected="flag"/></group><group id="button-expanded"><a11y role="button" bounds="1 2 3 4" expanded="flag"/></group><group id="link-expanded"><a11y role="link" bounds="1 2 3 4" expanded="flag"/></group><group id="group-expanded"><a11y role="group" bounds="1 2 3 4" expanded="flag"/></group><group id="list-item-expanded"><a11y role="list-item" bounds="1 2 3 4" expanded="flag"/></group><group id="checkbox-required"><a11y role="checkbox" bounds="1 2 3 4" required="flag"/></group><group id="switch-required"><a11y role="switch" bounds="1 2 3 4" required="flag"/></group><group id="radio-required"><a11y role="radio" bounds="1 2 3 4" required="flag"/></group><group id="radio-group-required"><a11y role="radio-group" bounds="1 2 3 4" required="flag"/></group><group id="slider-required"><a11y role="slider" bounds="1 2 3 4" required="flag" value="amount"/></group><group id="checkbox-readonly"><a11y role="checkbox" bounds="1 2 3 4" readonly="flag"/></group><group id="switch-readonly"><a11y role="switch" bounds="1 2 3 4" readonly="flag"/></group><group id="slider-readonly"><a11y role="slider" bounds="1 2 3 4" readonly="flag" value="amount"/></group>
++   <group id="control">
++     <a11y role="button" activate="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="checkbox-checked">
++     <a11y role="checkbox" checked="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="switch-checked">
++     <a11y role="switch" checked="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="radio-checked">
++     <a11y role="radio" checked="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="button-pressed">
++     <a11y role="button" pressed="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="tab-selected">
++     <a11y role="tab" selected="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="list-item-selected">
++     <a11y role="list-item" selected="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="radio-selected">
++     <a11y role="radio" selected="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="button-expanded">
++     <a11y role="button" expanded="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="link-expanded">
++     <a11y role="link" expanded="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="group-expanded">
++     <a11y role="group" expanded="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="list-item-expanded">
++     <a11y role="list-item" expanded="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="checkbox-required">
++     <a11y role="checkbox" required="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="switch-required">
++     <a11y role="switch" required="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="radio-required">
++     <a11y role="radio" required="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="radio-group-required">
++     <a11y role="radio-group" required="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="slider-required">
++     <a11y role="slider" value="amount" required="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="checkbox-readonly">
++     <a11y role="checkbox" readonly="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="switch-readonly">
++     <a11y role="switch" readonly="flag" bounds="1 2 3 4"/>
++   </group>
++   <group id="slider-readonly">
++     <a11y role="slider" value="amount" readonly="flag" bounds="1 2 3 4"/>
++   </group>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:52:25
+     50|     const result = formatMarkup(source);
+     51|     expect(result.diagnostics).toEqual([]);
+     52|     expect(result.text).toBe(source);
+       |                         ^
+     53|   });
+     54| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/32]⎯
+
+
+ Test Files  1 failed | 9 passed | 1 skipped (11)
+      Tests  32 failed | 1043 passed | 486 skipped | 1 todo (1562)
+   Start at  11:23:56
+   Duration  7.73s (import 42%, tests 37%, transform 20%, worker 1%)

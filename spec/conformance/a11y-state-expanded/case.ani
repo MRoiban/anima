@@ -1,0 +1,33 @@
+{
+  "anima": "0.1",
+  "name": "state-expanded",
+  "grid": 20,
+  "requires": ["a11y", "focus"],
+  "inputs": {
+    "flag": {
+      "type": "bool"
+    }
+  },
+  "nodes": [
+    {
+      "id": "control",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "button",
+        "activate": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    },
+    {
+      "id": "item",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "group",
+        "expanded": "flag",
+        "bounds": [1, 2, 3, 4]
+      }
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+<anima version="0.1" name="native-actions" grid="240" requires="a11y focus">
+  <bool name="flag"/>
+  <number name="amount" default="40"/>
+  <rect id="button" x0="-2" y0="-2" width="4" height="4" x="20" y="10" fill="#111111">
+    <a11y role="button" label="button" pressed="flag"/>
+  </rect>
+  <rect id="checkbox" x0="-2" y0="-2" width="4" height="4" x="20" y="22" fill="#111111">
+    <a11y role="checkbox" label="checkbox" checked="flag"/>
+  </rect>
+  <rect id="switch" x0="-2" y0="-2" width="4" height="4" x="20" y="34" fill="#111111">
+    <a11y role="switch" label="switch" checked="flag"/>
+  </rect>
+  <rect id="radio" x0="-2" y0="-2" width="4" height="4" x="20" y="46" fill="#111111">
+    <a11y role="radio" label="radio" checked="flag"/>
+  </rect>
+  <rect id="radio-group" x0="-2" y0="-2" width="4" height="4" x="20" y="58" fill="#111111">
+    <a11y role="radio-group" label="radio-group" disabled="flag"/>
+  </rect>
+  <rect id="slider" x0="-2" y0="-2" width="4" height="4" x="20" y="70" fill="#111111">
+    <a11y role="slider" label="slider" value="amount" step="5"/>
+  </rect>
+  <rect id="tab" x0="-2" y0="-2" width="4" height="4" x="20" y="82" fill="#111111">
+    <a11y role="tab" label="tab" selected="flag"/>
+  </rect>
+  <rect id="tab-list" x0="-2" y0="-2" width="4" height="4" x="20" y="94" fill="#111111">
+    <a11y role="tab-list" label="tab-list"/>
+  </rect>
+  <rect id="link" x0="-2" y0="-2" width="4" height="4" x="20" y="106" fill="#111111">
+    <a11y role="link" label="link"/>
+  </rect>
+  <rect id="list" x0="-2" y0="-2" width="4" height="4" x="20" y="118" fill="#111111">
+    <a11y role="list" label="list"/>
+  </rect>
+  <rect id="list-item" x0="-2" y0="-2" width="4" height="4" x="20" y="130" fill="#111111">
+    <a11y role="list-item" label="list-item"/>
+  </rect>
+  <rect id="group" x0="-2" y0="-2" width="4" height="4" x="20" y="142" fill="#111111">
+    <a11y role="group" label="group" expanded="flag"/>
+  </rect>
+  <rect id="dialog" x0="-2" y0="-2" width="4" height="4" x="20" y="154" fill="#111111">
+    <a11y role="dialog" label="dialog"/>
+  </rect>
+  <rect id="alert-dialog" x0="-2" y0="-2" width="4" height="4" x="20" y="166" fill="#111111">
+    <a11y role="alert-dialog" label="alert-dialog"/>
+  </rect>
+  <rect id="text" x0="-2" y0="-2" width="4" height="4" x="20" y="178" fill="#111111">
+    <a11y role="text" label="text"/>
+  </rect>
+  <rect id="img" x0="-2" y0="-2" width="4" height="4" x="20" y="190" fill="#111111">
+    <a11y role="img" label="img"/>
+  </rect>
+</anima>

@@ -37,7 +37,7 @@ export interface A11yConfig {
   label?: string;
   hint?: string;
   value?: string;
-  level?: number;
+  level?: number | string;
   href?: string;
   checked?: boolean | string;
   checkedMixed?: boolean | string;

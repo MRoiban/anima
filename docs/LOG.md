@@ -2360,3 +2360,13 @@ and a warning policy hook. Local libraries accept `export` alongside their exist
 P5b already supplied imported models and local updates. Independent conformance cases cover the
 motion decision; browser-only oracle skip notes explain the lack of a faithful local counterpart.
 See `modules/devtools/REPORT.md` for measurements, verification and remaining integration guards.
+
+### [P3b-9] Semantic closure evidence (partial)
+
+Added 35 independent role/state/property/trait/focus conformance probes and native
+action/property captures; the shared report lists 44 closure-ready and 18 open rows,
+all phase statuses still planned. Bound heading levels round-trip in AniML and JSON.
+The action companion filters semantic focus targets and exposes ancestor conditions
+without changing focus core or base web bytes. Exact bounds, repeated/late-compiled
+focus and dependency/range/input gaps remain explicit; see modules/a11y/REPORT.md.
+Size: a11y 2,038→2,045 B, actions826→960; full118,861→119,005; base20,585 unchanged.
