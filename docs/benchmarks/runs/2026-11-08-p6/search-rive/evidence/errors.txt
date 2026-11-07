@@ -1,0 +1,14 @@
+Observed errors and failed checks, including resolved attempts
+
+- docs luau/api/view-models: no topic "luau/api/view-models" (1).
+- schema TextInputStyle: unknown type "TextInputStyle" (1).
+- schema --search placeholder: no type or property matching "placeholder" (1).
+- docs luau/api/input: no topic "luau/api/input" (1).
+- docs --search text@ / key text / --text: no topic mentions each query (3 lookup misses, not build errors).
+- inspect-01.json: bind-target-missing-property (1). Used 38 for SolidColor.colorValue; schema says 37. Fixed before inspect-02.json.
+- capture-02.txt: could not write relative capture paths (17 failed commands: 7 screenshots, 5 semantics, 5 data-dumps). Each failure has both a diagnostic log line and an err response; those describe the same failure, not two. Ran from the project folder subsequently.
+- capture-03.txt / attempt-03/: typing check failed (1 functional failure across the o/so stages): key o dispatches keyboardEvent, not textEvent; query stayed empty. Printable-key handling added; Backspace/Escape changed from guessed browser codes 8/27 to schema codes 259/256. Subsequent captures prove this fixed.
+- Captures 02–06 each reported "no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA" (5 renderer fallback notices, not failed renders).
+- Verify runs: 2, both 0 errors / 0 warnings. Inspect runs: 2; first had the one binding problem above, second problems=[]. Capture process runs: 6, including run 01 that only requested help/quit. Total verify+inspect+capture invocations: 10.
+- Assertion-script runs: 2, all passed (first capture 04 summary was an ad hoc readback, not an assertion suite). No build/compiler errors, script errors, or other observed command errors.
+- Formatting: npm warned that prettier@3.9.10 would be installed (2 observed warnings); explicit formatting/check succeeded. Both commit attempts warned local node_modules/.bin/prettier was missing and skipped its check; no hook was bypassed.

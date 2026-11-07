@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "artboard": "Search card",
+  "roots": [
+    {
+      "id": 1,
+      "role": "text",
+      "roleValue": 7,
+      "label": "Find a setting",
+      "value": "",
+      "hint": "",
+      "headingLevel": 1,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": { "x": 24, "y": 24, "width": 432, "height": 38 },
+      "children": []
+    },
+    {
+      "id": 3,
+      "role": "text",
+      "roleValue": 7,
+      "label": "Notifications",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": { "x": 24, "y": 144, "width": 168, "height": 30 },
+      "children": []
+    },
+    {
+      "id": 4,
+      "role": "text",
+      "roleValue": 7,
+      "label": "Network and connectivity preferences",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": { "x": 24, "y": 180, "width": 168, "height": 30 },
+      "children": []
+    },
+    {
+      "id": 5,
+      "role": "text",
+      "roleValue": 7,
+      "label": "Sound",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": { "x": 24, "y": 216, "width": 168, "height": 30 },
+      "children": []
+    },
+    {
+      "id": 6,
+      "role": "text",
+      "roleValue": 7,
+      "label": "Display brightness and colour",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": { "x": 24, "y": 252, "width": 168, "height": 30 },
+      "children": []
+    },
+    {
+      "id": 8,
+      "role": "text",
+      "roleValue": 7,
+      "label": "4 results",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": { "x": 24, "y": 324, "width": 432, "height": 30 },
+      "children": []
+    },
+    {
+      "id": 2,
+      "role": "textField",
+      "roleValue": 6,
+      "label": "Search",
+      "value": "o",
+      "hint": "Type to filter; Backspace deletes; Escape clears.",
+      "headingLevel": 0,
+      "stateFlags": 128,
+      "traitFlags": 96,
+      "bounds": null,
+      "children": []
+    }
+  ]
+}

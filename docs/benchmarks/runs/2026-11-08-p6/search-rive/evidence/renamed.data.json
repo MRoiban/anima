@@ -1,0 +1,153 @@
+{
+  "schema": 1,
+  "artboard": "Search card",
+  "stateMachine": "Search",
+  "viewModel": {
+    "name": "Default",
+    "viewModel": "SearchData",
+    "properties": [
+      {
+        "name": "query",
+        "path": "query",
+        "type": "string",
+        "value": "",
+        "changed": true
+      },
+      {
+        "name": "count",
+        "path": "count",
+        "type": "number",
+        "value": 5,
+        "changed": true
+      },
+      {
+        "name": "countText",
+        "path": "countText",
+        "type": "string",
+        "value": "5 results",
+        "changed": true
+      },
+      {
+        "name": "fieldText",
+        "path": "fieldText",
+        "type": "string",
+        "value": "Search",
+        "changed": true
+      },
+      {
+        "name": "fieldColor",
+        "path": "fieldColor",
+        "type": "color",
+        "value": "FF787873",
+        "changed": true
+      },
+      {
+        "name": "label1",
+        "path": "label1",
+        "type": "string",
+        "value": "Notifications",
+        "changed": false
+      },
+      {
+        "name": "opacity1",
+        "path": "opacity1",
+        "type": "number",
+        "value": 1,
+        "changed": true
+      },
+      {
+        "name": "hidden1",
+        "path": "hidden1",
+        "type": "boolean",
+        "value": false,
+        "changed": true
+      },
+      {
+        "name": "label2",
+        "path": "label2",
+        "type": "string",
+        "value": "Network and connectivity preferences",
+        "changed": false
+      },
+      {
+        "name": "opacity2",
+        "path": "opacity2",
+        "type": "number",
+        "value": 1,
+        "changed": true
+      },
+      {
+        "name": "hidden2",
+        "path": "hidden2",
+        "type": "boolean",
+        "value": false,
+        "changed": true
+      },
+      {
+        "name": "label3",
+        "path": "label3",
+        "type": "string",
+        "value": "Audio settings",
+        "changed": true
+      },
+      {
+        "name": "opacity3",
+        "path": "opacity3",
+        "type": "number",
+        "value": 1,
+        "changed": false
+      },
+      {
+        "name": "hidden3",
+        "path": "hidden3",
+        "type": "boolean",
+        "value": false,
+        "changed": false
+      },
+      {
+        "name": "label4",
+        "path": "label4",
+        "type": "string",
+        "value": "Display brightness and colour",
+        "changed": false
+      },
+      {
+        "name": "opacity4",
+        "path": "opacity4",
+        "type": "number",
+        "value": 1,
+        "changed": true
+      },
+      {
+        "name": "hidden4",
+        "path": "hidden4",
+        "type": "boolean",
+        "value": false,
+        "changed": true
+      },
+      {
+        "name": "label5",
+        "path": "label5",
+        "type": "string",
+        "value": "Privacy",
+        "changed": false
+      },
+      {
+        "name": "opacity5",
+        "path": "opacity5",
+        "type": "number",
+        "value": 1,
+        "changed": true
+      },
+      {
+        "name": "hidden5",
+        "path": "hidden5",
+        "type": "boolean",
+        "value": false,
+        "changed": true
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}

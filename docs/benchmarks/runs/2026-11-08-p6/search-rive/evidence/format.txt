@@ -1,0 +1,31 @@
+npm warn exec The following package was not found and will be installed: prettier@3.9.10
+README.md 68ms (unchanged)
+rive.yaml 17ms (unchanged)
+evidence/before.data.json 34ms (unchanged)
+evidence/before.tree.json 11ms
+evidence/clear.data.json 6ms (unchanged)
+evidence/clear.tree.json 6ms
+evidence/host-query.data.json 5ms (unchanged)
+evidence/host-query.tree.json 3ms
+evidence/inspect-01.json 64ms
+evidence/inspect-02.json 57ms
+evidence/literal.data.json 5ms (unchanged)
+evidence/literal.tree.json 2ms
+evidence/o.data.json 3ms (unchanged)
+evidence/o.tree.json 3ms
+evidence/renamed.data.json 3ms (unchanged)
+evidence/renamed.tree.json 4ms
+evidence/so.data.json 5ms (unchanged)
+evidence/so.tree.json 3ms
+evidence/uppercase.data.json 4ms (unchanged)
+evidence/uppercase.tree.json 4ms
+evidence/attempt-03/before.data.json 4ms (unchanged)
+evidence/attempt-03/before.tree.json 3ms
+evidence/attempt-03/clear.data.json 3ms (unchanged)
+evidence/attempt-03/clear.tree.json 3ms
+evidence/attempt-03/o.data.json 4ms (unchanged)
+evidence/attempt-03/o.tree.json 4ms
+evidence/attempt-03/renamed.data.json 3ms (unchanged)
+evidence/attempt-03/renamed.tree.json 4ms
+evidence/attempt-03/so.data.json 3ms (unchanged)
+evidence/attempt-03/so.tree.json 3ms
