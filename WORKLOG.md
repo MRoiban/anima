@@ -3,7 +3,7 @@
 ## Now
 Goal: smaller, agent-native Rive for animated web UI. Order: P3c (size round + 23 carry-overs) → P6 text → P7 minimal layout → P8 rigging.
 State: P3b merged (PR #19, 38dd757). Branch p3c, design/p3c/DESIGN.md. Runtime sum 109,971 → target ≤ 104,472 B; other gates must not grow.
-Next: wave 1 = size survey (scout), tooling carry-overs + benchmark friction (0 runtime B), library rows; then size cuts by module group; then runtime carry-overs; budgets reset ~10 %.
+Next: running P3c-2 (tooling carry-overs), P3c-4 authoring seam (−4,461), P3c-5/6/7 diagnostic guards (−578/−561/−447) → merge one by one, measure union → runtime carry-overs → budgets reset ~10 %.
 Don't: push to main; modify oracle findings or benchmark records; raise ceilings; change behaviour in size cuts; leave merged worktrees; --no-verify.
 
 ## Log
@@ -271,3 +271,4 @@ Don't: push to main; modify oracle findings or benchmark records; raise ceilings
 - 2026-11-07 [claude]: P3c-3 merge broke 2 corpus tests (library file under modules/*/examples is treated as a scene) → moved to examples/lib/shared.animl; corpus 1,065 + conformance/markup-libraries 525 pass
 - 2026-11-07 13:57 [P3c-1]: measured baseline109971; runtime-only guard+helper scratch trial saves1624 (108347), all6gates/29scene non-growth pass; hook relocation saves4461 but authoring+2373 and2module budgets fail; 5% not established; discarded alias/broad-scope/relocation-snapshot trials documented; shipped sources unchanged (evidence: design/p3c/SIZE-SURVEY.md, survey/*gates*.txt).
 - 2026-11-07 [claude]: merged P3c-1 survey: 1,624 B eligible cuts + 4,461 B hook relocation (authoring +2,373). Decided, owner may revisit: relocate hooks to authoring (authoring ≤ 15,360 B), split markup ≤ 8 KB; launch P3c-4..7
+- 2026-11-07 [claude]: launched P3c-4 (hooks → authoring, ≤15,360 B), P3c-5/6/7 (diagnostic guards, disjoint files per survey tickets.json)
