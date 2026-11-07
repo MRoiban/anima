@@ -1,0 +1,8 @@
+data set $count 3
+advance 0
+snapshot dot.r $count
+touch down 1 10 10
+touch down 2 10 10
+touch up 1 10 10
+touch up 2 10 10
+snapshot dot.r $count

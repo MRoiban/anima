@@ -36,6 +36,8 @@ import {
 import { formatAni as format } from '@anima-format/core';
 import { compile, decompile, formatMarkup, type MarkupDiagnostic } from '@anima-format/markup';
 import { nodeAttrs } from '../../markup/src/names.ts';
+import { session } from './session.ts';
+import { bench } from './bench.ts';
 import { startPlayground } from './playground.ts';
 import { inspectGlyph } from './glyphs.ts';
 import { embedAssets, imageDimensions } from './assets.ts';
@@ -54,6 +56,7 @@ export interface IO {
   err(s: string): void;
   /** Exact stdout bytes for compiled artifacts (out is line-oriented). */
   write?(s: string): void;
+  input?: AsyncIterable<string>;
 }
 
 class Usage extends Error {}
@@ -65,8 +68,10 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
   anima playground [file.animl] [--port 4519]  local live editor (built-in bell is read-only)
   anima validate <file>                 all diagnostics, with JSON pointers, lines and hints
   anima inspect <file>                  nodes, glyph subpaths and bounds, timelines, state graph
-  anima sample <file> [-s script | -e "cmds"] [--reduced-motion]
+  anima sample <file> [-s script | -e "cmds"] [--reduced-motion] [--all] [--semantics] [--seed N]
                                         run a script (spec §11.2), print snapshots as JSON lines
+  anima session <file>                 persistent JSON-line script session (reload, quit)
+  anima bench <file> [-s script] [--frames N] [--format=json]  compile and frame costs
   anima render <file> -o out.svg|png [--at t] [-s script | -e "cmds"] [--size px]
                [--sheet N [--over seconds]] [--dark] [--color slot=#hex] [--current #hex]
                [--background #hex]       draw a frame or a labelled contact sheet
@@ -119,6 +124,10 @@ export async function run(argv: string[], io: IO): Promise<number> {
         script: { type: 'string', short: 's' },
         eval: { type: 'string', short: 'e' },
         'reduced-motion': { type: 'boolean' },
+        all: { type: 'boolean' },
+        semantics: { type: 'boolean' },
+        seed: { type: 'string' },
+        frames: { type: 'string' },
         out: { type: 'string', short: 'o' },
         at: { type: 'string' },
         size: { type: 'string' },
@@ -226,9 +235,34 @@ export async function run(argv: string[], io: IO): Promise<number> {
         const { model } = loaded(file(rest), io, json);
         if (!model) return 1;
         const script = scriptText(o.script, o.eval) ?? 'snapshot';
-        const { snapshots } = runScript(model, script, { reducedMotion: o['reduced-motion'] });
-        for (const s of snapshots) io.out(JSON.stringify(s));
-        return 0;
+        const result = runScript(model, script, scriptOptions(o));
+        for (const item of result.output) io.out(JSON.stringify(item));
+        for (const d of result.diagnostics) io.err(JSON.stringify(d));
+        return result.diagnostics.length ? 1 : 0;
+      }
+      case 'session': {
+        const f = file(rest);
+        if (rest.length !== 1) throw new Usage('session takes one file');
+        return await session(() => check(f).model, io, scriptOptions(o));
+      }
+      case 'bench': {
+        const f = file(rest);
+        const frames = o.frames === undefined ? 600 : Number(o.frames);
+        if (rest.length !== 1 || !Number.isInteger(frames) || frames < 1 || frames > 1000000)
+          throw new Usage('bench --frames needs an integer from 1 to 1000000 and one file');
+        const result = bench(
+          () => loaded(f, io, json).model,
+          scriptText(o.script, o.eval) ?? '',
+          frames,
+          scriptOptions(o),
+        );
+        if (!result) return 1;
+        if (json || 'diagnostics' in result) io.out(JSON.stringify(result));
+        else
+          io.out(
+            `compile ${result.compileMs.toFixed(3)} ms; ${result.frames} frames; step median ${result.step.median.toFixed(3)} µs p95 ${result.step.p95.toFixed(3)} µs; draw median ${result.draw.median.toFixed(3)} µs p95 ${result.draw.p95.toFixed(3)} µs`,
+          );
+        return 'diagnostics' in result ? 1 : 0;
       }
       case 'render': {
         const preset = o.preset ? findProject()?.presets?.[o.preset] : undefined;
@@ -356,8 +390,10 @@ export async function run(argv: string[], io: IO): Promise<number> {
       return 2;
     }
     if (e instanceof ScriptError) {
-      io.err(`script ${e.message}`);
-      return 1;
+      io.err(
+        JSON.stringify({ code: e.code, pointer: e.pointer, message: e.message, hint: e.hint }),
+      );
+      return 2;
     }
     const error = e as Error & { code?: string; pointer?: string; hint?: string };
     if (error.code) {
@@ -382,6 +418,13 @@ function file(rest: string[]): string {
   if (!f) throw new Usage('missing <file>');
   if (!existsSync(f)) throw new Usage(`no such file: ${f}`);
   return f;
+}
+
+function scriptOptions(o: Record<string, unknown>) {
+  const seed = o.seed === undefined ? undefined : Number(o.seed);
+  if (seed !== undefined && (!Number.isInteger(seed) || seed < 0 || seed > 0xffffffff))
+    throw new Usage('--seed needs a uint32 integer');
+  return { reducedMotion: !!o['reduced-motion'], all: !!o.all, semantics: !!o.semantics, seed };
 }
 
 function scriptText(file?: string, inline?: string): string | undefined {

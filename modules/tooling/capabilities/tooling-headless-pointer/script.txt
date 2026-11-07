@@ -1,0 +1,2 @@
+pointer drag 10 10 11 10 in 3
+snapshot $count

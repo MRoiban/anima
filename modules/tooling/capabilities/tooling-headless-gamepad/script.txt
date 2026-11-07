@@ -1,0 +1,2 @@
+gamepads [{"index":0,"connected":true,"buttons":[{"value":1,"pressed":true}]}]
+snapshot $count

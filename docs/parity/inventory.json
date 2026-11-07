@@ -31203,11 +31203,12 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: anima bench",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/bench.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/benchmark",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
+      "phase": "P3b",
+      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
     }
   },
   {
@@ -31348,11 +31349,12 @@
       "rive docs debugging"
     ],
     "anima": {
-      "construct": "new: inspector break-on-change",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/data-breakpoints",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
+      "phase": "P3b",
+      "reason": "Pending: replay traps final value changes and reports writer candidates; same-value and transient overwritten writes need runtime instrumentation"
     }
   },
   {
@@ -31372,11 +31374,12 @@
       "rive docs debugging"
     ],
     "anima": {
-      "construct": "new: playground data inspector",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/session.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/data-debugger",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
+      "phase": "P3b",
+      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
     }
   },
   {
@@ -32192,11 +32195,12 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: anima session --commands with reload and captures",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/session.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/headless-command-session",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
+      "phase": "P3b",
+      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
     }
   },
   {
@@ -32216,11 +32220,12 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: sample data path=value",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/headless-data",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
+      "phase": "P3b",
+      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
     }
   },
   {
@@ -32240,11 +32245,12 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: anima sample --data",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/headless-data-dump",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
+      "phase": "P3b",
+      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
     }
   },
   {
@@ -32264,11 +32270,12 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: anima sample --filter",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/headless-data-filter",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
+      "phase": "P3b",
+      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
     }
   },
   {
@@ -32288,11 +32295,12 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: anima sample --data-every",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/headless-data-stream",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
+      "phase": "P3b",
+      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
     }
   },
   {
@@ -32336,11 +32344,12 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: sample gamepad commands",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/headless-gamepad",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
+      "phase": "P3b",
+      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
     }
   },
   {
@@ -32360,11 +32369,12 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: sample key commands",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/headless-key",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
+      "phase": "P3b",
+      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
     }
   },
   {
@@ -32384,11 +32394,12 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: sample compound pointer gestures including drag",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/headless-pointer",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
+      "phase": "P3b",
+      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
     }
   },
   {
@@ -32553,11 +32564,12 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: sample touch commands with pointer IDs",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/headless-touch",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
+      "phase": "P3b",
+      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
     }
   },
   {
@@ -32602,11 +32614,12 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: sample wheel/trackpad commands",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/headless-wheel",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
+      "phase": "P3b",
+      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
     }
   },
   {
@@ -33811,11 +33824,12 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "new: explicit script seed in sample scripts",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/seed",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
+      "phase": "P3b",
+      "reason": "Pending: machine and convert use private random streams; seed validates but explicitly rejects random documents under the runtime-size freeze"
     }
   },
   {
@@ -33837,11 +33851,12 @@
       "rive docs animascript/api/test"
     ],
     "anima": {
-      "construct": "new: tooling-only script test protocol",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "planned",
-      "test": "cli/test-assertions",
-      "phase": "P3b"
+      "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md",
+      "phase": "P3b",
+      "reason": "Implemented and verified by P3b-2; completion evidence is ready, but the parity generator permits done rows only in finished phases. Close with P3b."
     }
   },
   {

@@ -1,0 +1,3 @@
+expect dot.r == 3
+expect $count == 0
+snapshot dot.r $count

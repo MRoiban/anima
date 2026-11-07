@@ -425,8 +425,6 @@ whole suite in CI. Numbers are compared at 1e-6, everything else exactly.
 ### 11.2 Script language
 
 One command per line; `#` starts a comment. The same language drives `anima sample`.
-The input extension command handler and its pending shared-dispatch integration are specified
-in [the input contract](../modules/input/SPEC.md#diagnostics-and-script-integration).
 
 | Command | Does |
 |---|---|
@@ -440,7 +438,52 @@ in [the input contract](../modules/input/SPEC.md#diagnostics-and-script-integrat
 | `focus traverse <direction>` | Traverse next/previous/left/right/up/down, then step(0). |
 | `key down\|up <key> [shift]` | Deliver a deterministic focus key, then step(0); input module integration extends this dispatch. |
 | `motion reduce\|full` | Turn reduced motion on or off at the next step, including active states. |
-| `snapshot [address …]` | Print one JSON line (below), optionally limited to animated addresses and bool/number input names. An input is reported under its input name. |
+| `touch down\|move\|up <id> <x> <y>` | Input-module pointer API with an integer id ≥ 0, in grid units; `up` also leaves. Each delivery is followed by `step(0)`. |
+| `pointer drag <x0> <y0> <x1> <y1> [in <n>]` | Move/down at start, `n` equally spaced moves, up at end; each delivery steps at 0. Default `n=1`. |
+| `contact move\|down\|up <id> <x> <y> [button]` | Input-module pointer, preserving pointer ids. `contact leave\|cancel <id>` ends a contact. |
+| `key down\|up\|repeat <key\|Space> [shift+control+alt+meta\|-] [target]` | Extended key API when input is required; otherwise the focus-only spelling above. |
+| `scroll <x> <y> <dx> <dy> [start\|move\|end\|cancel] [seconds]` | Input-module scroll API in grid units, followed by `step(0)`. |
+| `gamepads <JSON-array>` | Poll the input-module gamepad API, then `step(0)`; records have index, connected, optional mapping, axes and buttons. |
+| `pointer-enable <id> <true\|false>` / `scroll-cancel` | Enable a pointer or cancel scroll latching, then `step(0)`. |
+| `data set <$path> <value>` | Queue a typed public host-data handle write; applies on the next step. JSON strings, bools, numbers, colors and lists are accepted according to the property type. |
+| `data dump [prefix …]` | Print `{data: {path: value}}` as one JSON line. No prefixes selects all; multiple prefixes form a union. Includes named instance paths and default scalar aliases. |
+| `data watch <$path …>` | Remember current values. Each later snapshot carries a `data` object of watched values changed since the previous snapshot (or watch registration). |
+| `data break <$path> [== value]` | Preflight each next step by replay on an isolated player. If the final value would change (and optionally equals the condition), stop before applying the step live, report `script-breakpoint`, before/after values and writer candidates. |
+| `data break clear` | Clear all breakpoints; a session can then advance the pending step. |
+| `expect <address\|$path\|input> ==\|!=\|<\|>\|~ <value>` | Compare applied values; `~` is absolute numeric error ≤ 1e-6. Failure emits `script-expect` with pointer and hint; execution continues. |
+| `seed <n>` | Parse a uint32 seed (default 0). **Incomplete:** machine/convert private random streams cannot yet be seeded through tooling; explicit seed on a random document is a script error. Their existing runtime defaults remain unchanged. |
+| `snapshot [--all] [--semantics] [address …]` | Print one JSON line. `--all` adds unanimated animatable properties and persistent inputs. `--semantics` appends `player.semantics()` or errors clearly if unavailable. Explicit addresses accept static properties too. |
+
+`instance <id> <timeline> [mix]`, `timeline <name> play|pause|stop|seek|scrub|speed|mix|loop [value]`
+and `machine <name> play|pause|stop|mix|fire|set [value …]` retain the motion module's control API.
+JSON quoted strings can contain spaces and `#`; unquoted hex colors are values rather than comments.
+Data commands require data in the document and the host module loaded; scripts without data commands
+do not access host data. Commands add no authoring fields or registry spellings.
+
+`anima sample` prints outputs in script order, emits assertion/breakpoint diagnostics on stderr,
+and returns 1 for those diagnostics, 2 for invalid arguments/script commands. Other script syntax
+errors carry `script-usage`, `/script/<zero-based-line>`, a message and hint.
+
+`anima session <file>` keeps the interpreter alive. Each stdin line is one command or a JSON
+object with a string `cmd`; each receives exactly one JSON reply containing `ok`, outputs,
+snapshots and diagnostics. A bad request does not end the process. `quit` replies then exits;
+`reload` reads and validates the source again, resets time/inputs/control state, restores compatible
+data values through public handles and steps at 0. Its reply lists restored/skipped paths; failed
+reload retains the old interpreter. Breakpoints pause the current command, and the next request
+may inspect/edit data or clear them. Preflight replays all prior operations, so its cost grows with
+history and includes the next step. Writer reporting lists matching timeline/binding sources or
+the last script operation, rather than claiming runtime write instrumentation. Same-value and
+transient overwritten writes are not trapped; the stronger write-breakpoint parity row stays open.
+
+`anima bench <file> [-s script] [--frames N] [--format=json]` measures source compilation/loading
+once, then renderer-neutral `Player.step(1/60)` and `drawFrame` separately for N frames (default
+600, integer 1–1,000,000). It warms 50 frames on a separate player. Output includes `compileMs`,
+frame count and step/draw median and p95 in microseconds, using sorted samples at indices
+floor(N×0.5) and floor(N×0.95), capped at N−1. Script setup, filesystem I/O except source loading,
+DOM and raster/GPU work are not frame costs. This follows the measurement boundary in
+`tools/perf.ts`; see also `docs/research/rive-web-runtime.md` on native/GPU versus host overhead.
+Both session and bench accept `--seed`, `--all`, `--semantics` and `--reduced-motion`; seed has
+the current limitation above. These are local tooling commands, with no shipped runtime additions.
 
 A snapshot line is `{"time": t, "values": {address: value}, "states": {layer: state},
 "events": [...], "settled": bool}`: `time` is the total step time so far, `values` holds every
@@ -453,7 +496,7 @@ selected. Selected addresses accept both JSON paths and AniML property spellings
 `ring.stroke.trimEnd` and `ring.trimEnd`). Snapshot keys always use JSON paths, for both
 selected and complete snapshots, including slash-scoped component addresses. Exact input
 names and JSON paths take precedence over aliases. An unknown address or input is a script error. With no arguments, `snapshot`
-continues to include only animated addresses, never inputs.
+continues to include only animated addresses, never inputs (unless `--all` is set).
 
 ### 11.3 Diagnostic codes
 

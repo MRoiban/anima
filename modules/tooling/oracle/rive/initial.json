@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "artboard": "Tooling",
+  "stateMachine": "main",
+  "viewModel": {
+    "name": "Default",
+    "viewModel": "State",
+    "properties": [
+      {
+        "name": "count",
+        "path": "count",
+        "type": "number",
+        "value": 0,
+        "changed": false
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}
