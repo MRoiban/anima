@@ -19,6 +19,7 @@ export interface Entry {
 }
 export interface Cache {
   signature: string;
+  valid: () => boolean;
   tree: SemanticNode[];
   entries: Entry[];
 }
@@ -40,8 +41,22 @@ function box(points: [number, number][]): SemanticNode['bounds'] {
 export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) {
   if ('semantics' in (P.prototype as object)) return;
   P.prototype.semantics = function () {
+    const old = caches.get(this);
+    if (old?.valid()) return old.tree;
+    const checks: (() => boolean)[] = [];
+    const track = <T>(read: () => T): T => {
+      const value = read();
+      checks.push(() => read() === value);
+      return value;
+    };
+    track(() => runtime.version);
     const entries: Entry[] = [];
     const collect = (p: Player, prefix = '', parent = '', matrix = IDENTITY, visible = true) => {
+      for (const [address, { key }] of p.model.addrs)
+        if (!/^(opacity|fill|stroke|paints|drawOrder)/.test(key)) track(() => p.value(address));
+      track(() => p.focused);
+      const children = (p.nested as { players?: Map<string, Player> } | undefined)?.players;
+      track(() => children?.size);
       const frame = drawFrame(p);
       p.model.nodes.forEach((n, i) => {
         const c = n.raw.a11y as A11yConfig | undefined;
@@ -72,7 +87,9 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
         const data: Record<string, unknown> = { ...c };
         for (const k in data)
           if (typeof data[k] === 'string' && !['role', 'live', 'href', 'activate'].includes(k))
-            data[k] = p.get(data[k]) ?? data[k];
+            data[k] = track(() => p.get(c![k as keyof A11yConfig] as string)) ?? data[k];
+        if (n.raw.focus?.enabledInput)
+          data.focusEnabled = track(() => p.get(n.raw.focus!.enabledInput!));
         const entry: Entry = {
           p,
           i,
@@ -85,14 +102,19 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
           bounds: points.length ? box(points.map((pt) => apply(m, ...pt))) : undefined,
         };
         entries.push(entry);
-        for (const [id, child] of (p.nested as { players?: Map<string, Player> } | undefined)
-          ?.players ?? []) {
-          if (id === n.id) collect(child, prefix + id + '.', entry.id, entry.matrix, entry.visible);
+        for (const [id, child] of children ?? []) {
+          if (id === n.id) {
+            track(() => children!.get(id));
+            collect(child, prefix + id + '.', entry.id, entry.matrix, entry.visible);
+          }
         }
         const lists = modules.get('lists') as
           typeof import('../../lists/core/index.ts').lists | undefined;
-        for (const run of (lists?.listState(p)?.runs ?? []).filter((r) => r.spec.node === i))
+        for (const run of (lists?.listState(p)?.runs ?? []).filter((r) => r.spec.node === i)) {
+          track(() => run.items.length);
           for (const item of run.items) {
+            const index = item.index;
+            track(() => run.items[index]?.player);
             const raw = p.model.nodes[run.spec.node]!.raw;
             collect(
               item.player,
@@ -109,6 +131,7 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
               entry.visible,
             );
           }
+        }
       });
     };
     collect(this);
@@ -128,12 +151,12 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
     }
     const signature = JSON.stringify([
       runtime.version,
-      this.focused,
       entries.map((e) => [e.id, e.parent, e.data, e.visible, e.bounds, e.p.focused]),
     ]);
-    const old = caches.get(this);
+    const valid = () => checks.every((check) => check());
     if (old?.signature === signature) {
       old.entries = entries;
+      old.valid = valid;
       return old.tree;
     }
     const nodes = new Map<string, SemanticNode>();
@@ -179,7 +202,7 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
       list.forEach((n) => prune(n.children));
     };
     prune(tree);
-    const cache = { signature, tree, entries };
+    const cache = { signature, tree, entries, valid };
     caches.set(this, cache);
     if (runtime.update?.(this, cache, old)) {
       caches.delete(this);

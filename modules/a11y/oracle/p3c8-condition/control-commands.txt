@@ -1,0 +1,21 @@
+advance 1s
+semantics frames/child.json
+screenshot frames/child.png
+key p:down
+advance 1s
+semantics frames/parent.json
+key t:down
+advance 1s
+semantics frames/first.json
+key r:down
+advance 1s
+semantics frames/right.json
+key t:down
+advance 1s
+semantics frames/outside.json
+key c:down
+advance 1s
+key h:down
+advance 1s
+semantics frames/hidden.json
+quit

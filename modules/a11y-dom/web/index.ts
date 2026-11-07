@@ -1,5 +1,6 @@
 import '../../a11y-actions/web/index.ts';
 import type { SemanticNode, SemanticAction } from '../../a11y/core/types.ts';
+import type {} from '../../canvas/web/index.ts';
 import type { AnimaIcon } from '../../../packages/web/src/index.ts';
 const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
 const trees = new WeakMap<AnimaIcon, SemanticNode[]>();
@@ -42,7 +43,10 @@ function attach(icon: AnimaIcon) {
   for (const event of ['keydown', 'keyup', 'pointerdown', 'pointerup', 'pointermove'])
     box.addEventListener(event, (e) => e.stopPropagation());
   const layout = () => {
-    const m = icon.shadowRoot!.querySelector('svg')?.getScreenCTM(),
+    const c = Icon.canvasBox?.(icon, [0, 0, 1, 1]);
+    const m = c
+        ? new DOMMatrix([c.width, 0, 0, c.height, c.x, c.y])
+        : icon.shadowRoot!.querySelector('svg')?.getScreenCTM(),
       r = icon.getBoundingClientRect();
     if (m) {
       const next = `matrix(${m.a},${m.b},${m.c},${m.d},${m.e - r.x},${m.f - r.y})`;

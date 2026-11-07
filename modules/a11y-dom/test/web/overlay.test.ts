@@ -67,10 +67,16 @@ for (const [name, engine, executablePath] of [
   ['Firefox', firefox, resolve(homedir(), '.cache/ms-playwright/firefox-1555/firefox/firefox')],
 ] as const)
   describe.skipIf(!existsSync(executablePath))(`overlay ${name}`, () => {
-    let browser: Browser, page: Page, base: string, overlay: string, focus: string, actions: string;
+    let browser: Browser,
+      page: Page,
+      base: string,
+      overlay: string,
+      focus: string,
+      actions: string,
+      canvas: string;
     beforeAll(async () => {
-      [base, overlay, focus, actions] = await Promise.all(
-        ['index', 'a11y-dom', 'focus', 'a11y-actions'].map((n) =>
+      [base, overlay, focus, actions, canvas] = await Promise.all(
+        ['index', 'a11y-dom', 'focus', 'a11y-actions', 'canvas'].map((n) =>
           bundle(new URL(`packages/web/src/${n}.ts`, root).pathname),
         ),
       );
@@ -227,6 +233,54 @@ for (const [name, engine, executablePath] of [
       await target('range').focus();
       await page.keyboard.press('ArrowRight');
       expect(await target('range').inputValue()).toBe('40');
+    });
+    it('[P3c-8] maps canvas node boxes under fit, resize and pixel ratio with native actions', async () => {
+      await page.addScriptTag({ type: 'module', content: canvas });
+      await page.waitForFunction(
+        () => !!(customElements.get('anima-icon') as typeof AnimaIcon).renderers.canvas,
+      );
+      expect(
+        await page.evaluate((d) => {
+          window.overlayIcon.setAttribute('renderer', 'canvas');
+          window.overlayIcon.setAttribute('pixel-ratio', '2');
+          return window.overlayIcon.load(d);
+        }, doc),
+      ).toEqual([]);
+      expect(await page.locator('anima-icon canvas').count()).toBe(1);
+      expect(await page.locator('anima-icon svg').count()).toBe(0);
+      for (const [fit, x, y, w, h] of [
+        ['fill', 10, 10, 30, 20],
+        ['contain', 55, 10, 15, 20],
+        ['cover', 10, -30, 30, 40],
+        ['none', 91, 42, 3, 4],
+      ] as const) {
+        await page.evaluate((f) => {
+          window.overlayIcon.style.width = '200px';
+          window.overlayIcon.style.height = '100px';
+          window.overlayIcon.setAttribute('fit', f);
+        }, fit);
+        await expect
+          .poll(async () => Math.round((await target('mute').boundingBox())!.width))
+          .toBe(w);
+        const host = (await page.locator('anima-icon').boundingBox())!,
+          r = (await target('mute').boundingBox())!;
+        expect([r.x - host.x, r.y - host.y, r.width, r.height].map(Math.round), fit).toEqual([
+          x,
+          y,
+          w,
+          h,
+        ]);
+      }
+      await target('mute').focus();
+      await page.keyboard.press('Space');
+      expect(await page.evaluate(() => window.overlayIcon.get('on'))).toBe(true);
+      await page.evaluate(() => {
+        window.overlayIcon.set('hide', true);
+        window.overlayIcon.player!.step(0);
+      });
+      expect(await target('mute').count()).toBe(0);
+      await page.evaluate(() => window.overlayIcon.destroy());
+      expect(await target('volume').count()).toBe(0);
     });
     it('positions nested bounds using the live SVG viewBox mapping', async () => {
       await page.evaluate(() => {
