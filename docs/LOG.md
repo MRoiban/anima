@@ -2503,3 +2503,15 @@ measurement caches. Earlier concurrent failures and corrected typed-error/test-r
 are recorded in WORKLOG and the module report. Native/text row closure and controlled perf A/B stay open.
 Final catalog-preservation rerun: 8,111 pass/63TODO plus four Firefox startup/import timeouts;
 those exact four pass isolated at unchanged limits. Decoded image metadata survives font assignment.
+
+
+
+## BF-4 — downstream corners, semantics and data writes (2026-11-07, partial)
+
+Rect corner arcs now use the decided circular cubic construction; radio groups reuse roving focus.
+Progressbar/meter/status and controls are documented Anima extensions within the existing budgets.
+No-focus semantic triggers now wake queued work; interpolation gets a tested geometry recipe.
+Input configuration survives lists' Model clones, and repeated pointer/key writes reach data paths.
+B16 remains blocked on protected base-host guards; two expected-failure repros remain per engine.
+The strict rect-corners oracle now fails against its frozen reference; no measurement input or
+threshold changed. See [BF-4 report](../modules/a11y-dom/BF4-REPORT.md) for evidence and all six gates.

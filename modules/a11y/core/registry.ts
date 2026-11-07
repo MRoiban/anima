@@ -3,7 +3,7 @@ import type { ModuleEntry } from '../../../packages/core/src/modules.ts';
 export const states =
   'checked pressed selected expanded disabled hidden required readonly modal'.split(' ');
 export const roles =
-  'button checkbox switch radio radio-group slider tab tab-list link list list-item group dialog alert-dialog heading text img none'.split(
+  'button checkbox switch radio radio-group slider tab tab-list link list list-item group dialog alert-dialog heading text img none progressbar meter status'.split(
     ' ',
   );
 const str: Shape = { k: 'str' };
@@ -20,6 +20,7 @@ export const shape: ObjShape = {
     valueText: { ...str, markup: 'value-text' },
     level: { k: 'alt', of: [{ k: 'num', int: true, min: 1, max: 6 }, str] },
     href: str,
+    controls: str,
     activate: str,
     ...Object.fromEntries(states.map((k) => [k, bool])),
     checkedMixed: { ...bool, markup: 'checked-mixed' },

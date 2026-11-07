@@ -59,8 +59,8 @@ for (const e of entries) {
 
 type Point = [number, number];
 const pt = (p: Point) => p.map(fmt).join(' ');
-/** Cut back at most half each adjacent edge, then round with a quadratic through the vertex. */
-function outline(points: Point[], radii: number[]): string {
+/** Half-edge cutbacks; rects use quarter-ellipse cubics, other polygons use quadratics. */
+function outline(points: Point[], radii: number[], circular = false): string {
   const parts = points.map((v, i) => {
     const prev = points[(i + points.length - 1) % points.length]!;
     const next = points[(i + 1) % points.length]!;
@@ -72,7 +72,21 @@ function outline(points: Point[], radii: number[]): string {
     return { v, a: cut(prev), b: cut(next) };
   });
   return (
-    parts.map((q, i) => (i ? 'L' : 'M') + pt(q.a) + 'Q' + pt(q.v) + ' ' + pt(q.b)).join('') + 'Z'
+    parts
+      .map(
+        (q, i) =>
+          (i ? 'L' : 'M') +
+          pt(q.a) +
+          (circular
+            ? 'C' +
+              pt(q.a.map((v, j) => v + (q.v[j]! - v) * 0.5522847498307936) as Point) +
+              ' ' +
+              pt(q.b.map((v, j) => v + (q.v[j]! - v) * 0.5522847498307936) as Point)
+            : 'Q' + pt(q.v)) +
+          ' ' +
+          pt(q.b),
+      )
+      .join('') + 'Z'
   );
 }
 
@@ -245,6 +259,7 @@ function sampledPath(p: Player, i: number): string | undefined {
         [x, y + h],
       ],
       [0, 1, 2, 3].map((j) => v('corners.' + j)),
+      true,
     );
   }
   return a.d;

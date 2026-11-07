@@ -25,6 +25,7 @@ export default {
       'packages/markup/test/decompile.test.ts',
     ],
     conformance: [
+      'input-bf4-data-writes',
       'input-focus-machine-integration',
       'input-key-focused-component',
       'host-api-coordinate-mapping',

@@ -1,0 +1,92 @@
+
+> test:scope
+> node tools/test-scope.ts paint a11y a11y-dom focus input convert --browser=chromium
+
+Scopes: paint, a11y, a11y-dom, focus, input, convert
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-bounds.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/bf4.test.ts
+  unit: modules/a11y/test/core/closure.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/edges.test.ts
+  unit: modules/a11y/test/core/focus-native-policy.test.ts
+  unit: modules/a11y/test/core/oracle-actions.test.ts
+  unit: modules/a11y/test/core/oracle.test.ts
+  unit: modules/a11y/test/core/p3b10.test.ts
+  unit: modules/a11y/test/core/p3c8.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: modules/a11y/test/core/visibility-native.test.ts
+  unit: modules/convert/test/cli/convert.test.ts
+  unit: modules/convert/test/core/color-pattern.test.ts
+  unit: modules/convert/test/core/convert.test.ts
+  unit: modules/convert/test/core/data-converter-color-formatting.test.ts
+  unit: modules/convert/test/core/data-converter-trigger.test.ts
+  unit: modules/convert/test/core/integration.test.ts
+  unit: modules/convert/test/core/oracle.test.ts
+  unit: modules/convert/test/core/p5b-oracle.test.ts
+  unit: modules/convert/test/markup/convert.test.ts
+  unit: modules/focus/test/core/focus.test.ts
+  unit: modules/input/test/core/bf4-writes.test.ts
+  unit: modules/input/test/core/conformance.test.ts
+  unit: modules/input/test/core/data-writes.test.ts
+  unit: modules/input/test/core/evidence.test.ts
+  unit: modules/input/test/core/runtime.test.ts
+  unit: modules/paint/test/cli/advanced.test.ts
+  unit: modules/paint/test/cli/paint-geometry.test.ts
+  unit: modules/paint/test/core/advanced.test.ts
+  unit: modules/paint/test/core/paint-geometry.test.ts
+  unit: modules/paint/test/core/paint.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/a11y-dom/test/web/bf4.test.ts
+  browser: modules/a11y-dom/test/web/downstream.test.ts
+  browser: modules/a11y-dom/test/web/overlay.test.ts
+  browser: modules/convert/test/web/convert.test.ts
+  browser: modules/focus/test/web/focus.test.ts
+  browser: modules/input/test/web/browser.test.ts
+  browser: modules/input/test/web/integration.test.ts
+  browser: modules/paint/test/web/paint-geometry.test.ts
+  cases: ^conformance > (drawing-paint-gradient-angular|drawing-paint-gradient-transform|drawing-paint-image-fit-resize|drawing-paint-image-wrap-clamp|drawing-paint-image-wrap-mirror|drawing-paint-image-wrap-repeat|paint-dash|paint-gradient|paint-morph|paint-pose-morph|paint-shape-corners|paint-shape-ellipse|paint-shape-fixed|paint-shape-polygon|paint-shape-star|paint-shape-triangle|a11y-action-edges|a11y-actions-input-limits|a11y-actions-range|a11y-focus-condition|a11y-focus-policy|a11y-focus-repeat|a11y-headless-keys|a11y-manual-tabs|a11y-properties-data|a11y-property-heading-level|a11y-role-alert-dialog|a11y-role-button|a11y-role-checkbox|a11y-role-dialog|a11y-role-group|a11y-role-heading|a11y-role-img|a11y-role-link|a11y-role-list|a11y-role-list-item|a11y-role-none|a11y-role-radio|a11y-role-radio-group|a11y-role-slider|a11y-role-switch|a11y-role-tab|a11y-role-tab-list|a11y-role-text|a11y-slider-value-text|a11y-spatial-focus|a11y-state-checked|a11y-state-checked-mixed|a11y-state-disabled|a11y-state-expanded|a11y-state-hidden|a11y-state-live-region|a11y-state-modal|a11y-state-pressed|a11y-state-readonly|a11y-state-required|a11y-state-selected|a11y-traits-matrix|a11y-tree-bounds|a11y-tree-visibility|input-focus-clear|input-focus-down|input-focus-edge-closed-loop|input-focus-edge-parent-scope|input-focus-edge-stop|input-focus-enabled|input-focus-left|input-focus-next|input-focus-pointer|input-focus-previous|input-focus-right|input-focus-target|input-focus-target-components|input-focus-traverse|input-focus-up|input-listen-blur|input-listen-focus|host-api-coordinate-mapping|host-api-dom-listener-control|host-api-gamepad|host-api-low-level-pointer|host-api-low-level-scroll|host-api-manual-gamepad-batch|host-api-multitouch|host-api-pointer-exit|host-api-scroll-hit-policy|host-api-scroll-latching|input-align-preserve|input-align-snap|input-bounded-hit-tests|input-button-middle|input-button-secondary|input-capture-phase|input-cursor-arrow|input-cursor-hidden|input-cursor-intent|input-cursor-pointer|input-cursor-resize-horizontal|input-cursor-resize-vertical|input-cursor-text|input-disable-listeners|input-focus-machine-integration|input-gamepad-axis|input-gamepad-button|input-gamepad-button-phases|input-gamepad-connected|input-gamepad-disconnected|input-gamepad-host|input-gamepad-index-mapping|input-hit-occlusion-query|input-hit-parent-chain|input-hit-shape-geometry|input-hit-test-host|input-key-down|input-key-filter|input-key-focused-component|input-key-modifiers|input-key-repeat|input-key-up|input-keyboard-bubbling|input-multi-touch|input-multi-trigger-listener|input-opaque-targets|input-pointer-cancel|input-pointer-drag|input-pointer-drag-end|input-pointer-drag-start|input-pointer-enable|input-touch-page-scroll|input-trackpad-scroll|input-wheel-scroll|input-write-key-pressed|input-write-pointer-delta-x|input-write-pointer-delta-y|input-write-pointer-x|input-write-pointer-y|transforms-collapse|transforms-solo|convert-interpolate-two-way|convert-model-operand|convert-repeat|convert-system-reverse|data-calculate-acosine|data-calculate-asine|data-calculate-atangent|data-calculate-atangent2|data-calculate-ceil|data-calculate-cosine|data-calculate-exp|data-calculate-floor|data-calculate-log|data-calculate-modulo|data-calculate-power|data-calculate-round|data-calculate-sine|data-calculate-squareroot|data-calculate-tangent|data-converter-boolean-negate|data-converter-color-formatting|data-converter-enum-to-uint|data-converter-group|data-converter-list-to-length|data-converter-number-formatting|data-converter-number-to-list|data-converter-range-mapper|data-converter-rounder|data-converter-string-remove-zeros|data-converter-string-template|data-converter-system-degs-to-rads|data-converter-system-normalizer|data-converter-template-delimiters|data-converter-template-number-formatting|data-converter-to-number|data-converter-to-string|data-converter-trigger|data-formula-function-acosine|data-formula-function-asine|data-formula-function-atangent|data-formula-function-atangent2|data-formula-function-ceil|data-formula-function-cosine|data-formula-function-exp|data-formula-function-floor|data-formula-function-log|data-formula-function-pow|data-formula-function-random|data-formula-function-round|data-formula-function-sine|data-formula-function-sqrt|data-formula-function-tangent|data-formula-operator-modulo|data-formula-random-always|data-formula-random-once|data-formula-random-source-change|data-interpolate-color|data-interpolate-number|data-operation-operand-view-model|data-pad-end|data-pad-start|data-range-modulo|data-range-reverse|data-scripted-converter|data-template-argument-number|data-template-argument-string|data-trim-all|data-trim-end|data-trim-none|data-trim-start)$
+  browser filter: chromium
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e5c97d14
+
+ ❯ |scope-browser| modules/a11y-dom/test/web/overlay.test.ts (42 tests | 1 failed | 21 skipped) 28846ms
+   ❯ overlay Chromium (21)
+     × handles dispatched semantic clicks without duplicate host/root activation 444ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/a11y-dom/test/web/overlay.test.ts > overlay Chromium > handles dispatched semantic clicks without duplicate host/root activation
+AssertionError: expected true to be false // Object.is equality
+
+- Expected
++ Received
+
+- false
++ true
+
+ ❯ modules/a11y-dom/test/web/overlay.test.ts:355:71
+    353|       await target('toggle').focus();
+    354|       await page.keyboard.press('Enter');
+    355|       expect(await page.evaluate(() => window.overlayIcon.get('on'))).…
+       |                                                                       ^
+    356|     });
+    357|     it('applies state removal, nested offset changes and string values…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 49 passed | 1 skipped (51)
+      Tests  1 failed | 3390 passed | 1 expected fail | 373 skipped | 1 todo (3766)
+   Start at  18:31:52
+   Duration  37.11s (tests 76%, import 15%, transform 9%)
+

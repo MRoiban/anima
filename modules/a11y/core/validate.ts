@@ -14,7 +14,7 @@ export const allowed: Record<string, string> = {
 };
 export function validate(model: Model, d: Diags) {
   const visit = (
-    nodes: { a11y?: A11yConfig; children?: { a11y?: A11yConfig }[] }[],
+    nodes: { id?: string; a11y?: A11yConfig; children?: { id?: string; a11y?: A11yConfig }[] }[],
     base: string,
   ) =>
     nodes.forEach((n, i) => {
@@ -26,7 +26,8 @@ export function validate(model: Model, d: Diags) {
         d.err(code, p + '/a11y/' + key, V && message, V && hint);
       for (const [k, v] of Object.entries(c)) {
         const input = typeof v === 'string' && model.inputs.get(v);
-        const numeric = k === 'level' || (k === 'value' && c.role === 'slider');
+        const numeric =
+          k === 'level' || (k === 'value' && ['slider', 'progressbar', 'meter'].includes(c.role));
         const binding = states.includes(k) || k === 'checkedMixed' || k === 'activate' || numeric;
         const text = 'label hint value valueText'.split(' ').includes(k);
         if (typeof v === 'string' && (binding || (text && (v.startsWith('$') || input)))) {
@@ -83,25 +84,37 @@ export function validate(model: Model, d: Diags) {
           );
       }
       for (const [keys, role] of [
-        ['valueText min max step', 'slider'],
+        ['valueText min max', 'slider progressbar meter'],
+        ['step', 'slider'],
         ['level', 'heading'],
         ['href', 'link'],
         ['checkedMixed', 'checkbox'],
       ] as const)
         for (const key of keys.split(' '))
-          if (c[key as keyof A11yConfig] !== undefined && c.role !== role)
+          if (c[key as keyof A11yConfig] !== undefined && !role.split(' ').includes(c.role))
             err(
               'bad-value',
               key,
               key + ' requires ' + role,
               'use role "' + role + '" or omit ' + key,
             );
-      if (c.role === 'slider' && !c.value)
+      if (['slider', 'meter'].includes(c.role) && !c.value)
+        err('bad-value', 'value', 'role needs a bound number', 'name a number input or data path');
+      if (
+        c.controls !== undefined &&
+        !model.nodes.some(
+          (node) =>
+            node.id !== n.id &&
+            node.id === c.controls &&
+            node.raw.a11y &&
+            node.raw.a11y.role !== 'none',
+        )
+      )
         err(
           'bad-value',
-          'value',
-          'slider needs a bound number',
-          'name a number input or data path',
+          'controls',
+          'controls needs a semantic node id',
+          'name a node with a non-none a11y role in this component',
         );
       if ((c.min ?? 0) >= (c.max ?? 100))
         err('bad-value', 'min', 'min must be less than max', 'set min below max');

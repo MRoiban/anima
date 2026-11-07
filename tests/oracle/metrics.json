@@ -133,8 +133,8 @@
       {
         "time": 0,
         "maxDiff": 70,
-        "over": 44,
-        "overPercent": 0.0763888888888889,
+        "over": 69,
+        "overPercent": 0.11979166666666667,
         "pass": true
       }
     ]

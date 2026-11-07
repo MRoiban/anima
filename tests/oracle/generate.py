@@ -26,8 +26,9 @@ def point(x,y,ident=''):
 def path(points,closed=True):
     return f'<PointsPath isClosed="{str(closed).lower()}">'+''.join(point(*p) for p in points)+'</PointsPath>'
 
-def rounded(points,radii):
-    # Quadratic cutbacks from the public Anima spec, encoded as exact cubic handles.
+def rounded(points,radii,k=2/3):
+    # Cutbacks from the public Anima spec, encoded as cubic handles: k=2/3 is the exact quadratic
+    # (polygons); rect corners are circular arcs, k=4(sqrt2-1)/3 (BF-4, B14).
     entries=[]
     for i,p in enumerate(points):
         prev,nxt=points[i-1],points[(i+1)%len(points)]
@@ -35,8 +36,8 @@ def rounded(points,radii):
             d=math.dist(p,q); t=min(radii[i],d/2)/d
             return (p[0]+(q[0]-p[0])*t,p[1]+(q[1]-p[1])*t)
         a,b=cut(prev),cut(nxt)
-        entries.extend([(a,None,(a[0]+2/3*(p[0]-a[0]),a[1]+2/3*(p[1]-a[1]))),
-                        (b,(b[0]+2/3*(p[0]-b[0]),b[1]+2/3*(p[1]-b[1])),None)])
+        entries.extend([(a,None,(a[0]+k*(p[0]-a[0]),a[1]+k*(p[1]-a[1]))),
+                        (b,(b[0]+k*(p[0]-b[0]),b[1]+k*(p[1]-b[1])),None)])
     out=[]
     for p,hin,hout in entries:
         def handle(h):
@@ -84,7 +85,7 @@ cases.append(save('ellipse','<ellipse id="a" cx="10" cy="10" rx="7" ry="4" fill=
 pts=[(10+7*math.sin(i*2*math.pi/5),10-7*math.cos(i*2*math.pi/5)) for i in range(5)]
 cases.append(save('polygon-rounded','<polygon id="a" cx="10" cy="10" sides="5" radius="7" cornerRadius="1" fill="#4263eb"/>',shape(rounded(pts,[1]*5))))
 cases.append(save('star','<star id="a" cx="10" cy="10" points="5" radius="7" innerRadius="3.5" fill="#4263eb"/>',shape('<Star x="120" y="120" width="168" height="168" points="5" innerRadius="0.5"/>')))
-cases.append(save('rect-corners','<rect id="a" x0="3" y0="3" width="14" height="14" corners="1 2 3 0" fill="#4263eb"/>',shape(rounded([(3,3),(17,3),(17,17),(3,17)],[1,2,3,0]))))
+cases.append(save('rect-corners','<rect id="a" x0="3" y0="3" width="14" height="14" corners="1 2 3 0" fill="#4263eb"/>',shape(rounded([(3,3),(17,3),(17,17),(3,17)],[1,2,3,0],4*(math.sqrt(2)-1)/3))))
 geom='<PointsPath isClosed="true">'+point(3,4)+point(17,4)+point(10,16,'id="0:20"')+'</PointsPath>'
 cases.append(save('path-morph','<path id="a" d="M3 4L17 4L10 16Z" fill="#4263eb"/>',shape(geom),'<track target="a.d">0 "M3 4L17 4L10 16Z"; 1 "M3 4L17 4L16 16Z"</track>',animation('0:20','x',120,192)))
 for mode in ['multiply','screen']:

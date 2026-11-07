@@ -17,6 +17,8 @@ entry, neither the semantic DOM nor its observers and step wrapper are installed
 | radio-group | div role radiogroup |
 | slider | input type range with min/max/step and numeric value; valueText sets aria-valuetext independently of numeric value |
 | link | a with href |
+| progressbar, meter | div with matching role and aria-valuemin/max/now/text; missing progressbar value omits aria-valuenow |
+| status | div role status; aria-live polite by default |
 | heading | h1–h6 according to level (default 1) |
 | tab-list, list, list-item | div role tablist, list, listitem |
 | group, dialog, alert-dialog, text, img | div role group, dialog, alertdialog, text, img |
@@ -61,14 +63,15 @@ by adding a node `focus` listener that fires the same selection trigger as
 a shared selected-index data value and derive each tab's `selected` state; arrow
 roving and selection remain independent.
 
-Only tab-list supplies keyboard roving: arrows move between enabled direct children,
+Tab-list and radio-group supply keyboard roving: arrows move between enabled direct children,
 wrapping at the edge, Home/End choose the first/last. Current DOM focus takes
-precedence over selection for the one tab stop; otherwise the selected, then first
-child is used. When focus is loaded, its item ordering participates; focusing the chosen tab
+precedence over selection for the one tab stop; otherwise the selected tab or checked radio, then first enabled
+child is used. Radio arrows select through semanticAction; tabs retain manual activation. When focus is loaded, its item ordering participates; focusing the chosen tab
 synchronizes logical focus directly without a second traversal. The host input
 capture handler leaves semantic keys to these native controls, so each key has
 one routing owner. Tab navigation is
-left to the browser.
+left to the browser. Controls relations use unique semantic ids within the host shadow root,
+matching the prefixed ids in the shared tree; hidden target nodes remain absent.
 
 ## Updates and focus
 
@@ -91,7 +94,8 @@ refresh its target map through the internal anima:overlay event.
 
 - `icon.semantics`: read-only getter returning a detached SemanticNode forest.
 - `icon.semanticAction(id, action)`: returns the core action result; accepted actions
-  step(0) and repaint. Unknown ids/unavailable actions return false.
+  step(0) and repaint. Unless explicitly paused, an accepted action also wakes the host
+  so queued machine entry actions and ongoing animation can finish without the focus module. Unknown ids/unavailable actions return false.
 - `anima:semantics`: CustomEvent whose detail is the actual SemanticDiff, emitted
   after a changed tree is applied, including while the overlay is disabled.
 - `a11y="off"`: removes semantic elements. Logical APIs/events continue. Removing

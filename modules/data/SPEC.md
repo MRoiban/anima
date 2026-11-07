@@ -183,3 +183,24 @@ endpoint ordinates sample data. Lists and component properties are not numeric k
 Key elements use `t`, `value`, optional `ease`. A track cannot mix elements and text (`bad-keyframe`
 with a hint); missing/unknown attributes retain structural diagnostics. Canonical decompilation
 may emit quoted paths in text; both forms round-trip to the same tuples.
+
+
+### Animate a bound position
+
+Use the existing `interpolate` converter for a travelling indicator; its `duration` is
+milliseconds and `ease` uses the timeline easing grammar:
+
+```xml
+<anima version="0.1" name="travelling-indicator" grid="120" requires="data bind convert">
+  <model name="Position"><number name="x"/></model>
+  <converter name="travel" type="interpolate" duration="200" ease="cubic(0.42, 0, 1, 1)"/>
+  <circle id="indicator" cx="10" cy="10" r="3" fill="#4263eb"/>
+  <bind target="indicator.x" value="$x" convert="travel"/>
+</anima>
+```
+
+Sample the initial state (`advance 0`), then `set $x 100`, `advance 0`, and
+`advance 0.1`: x is about 31.5357. Another 0.1 seconds reaches 100. In a browser,
+set the typed number/path and let the player's ordinary frame loop advance the converter.
+Retargeting begins at the current sample; no page-side interpolation is needed. The first
+binding evaluation initializes immediately. Timelines use seconds; converter duration uses ms.

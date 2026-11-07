@@ -215,3 +215,23 @@ it('retains loaded-player dispatch and settlement after registry recomposition',
   expect(p.value('dot.x')).toBe(5);
   expect(p.step(0.05).settled).toBe(true);
 });
+
+it('B18: a travelling indicator eases a bound x over 200ms and retargets from its sample', () => {
+  const p = player(
+    base(
+      { travel: { type: 'interpolate', duration: 200, ease: 'cubic(0.42, 0, 1, 1)' } },
+      { 'dot.x': { value: '$x', convert: 'travel' } },
+    ),
+  );
+  p.step(0);
+  p.set('$x', 100);
+  p.step(0);
+  p.step(0.1);
+  expect(p.value('dot.x')).toBeCloseTo(31.5357, 3);
+  p.set('$x', 0);
+  p.step(0);
+  expect(p.value('dot.x')).toBeCloseTo(31.5357, 3);
+  p.step(0.2);
+  expect(p.value('dot.x')).toBe(0);
+  expect(p.step(0).settled).toBe(true);
+});

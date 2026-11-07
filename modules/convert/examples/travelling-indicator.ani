@@ -1,0 +1,41 @@
+{
+  "anima": "0.1",
+  "name": "travelling-indicator",
+  "grid": 120,
+  "requires": ["data", "bind", "convert"],
+  "nodes": [
+    {
+      "id": "indicator",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 3,
+      "fill": {
+        "color": "#4263eb"
+      }
+    }
+  ],
+  "bind": {
+    "indicator.x": {
+      "value": "$x",
+      "convert": "travel"
+    }
+  },
+  "data": {
+    "models": {
+      "Position": {
+        "properties": {
+          "x": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  },
+  "converters": {
+    "travel": {
+      "type": "interpolate",
+      "ease": "cubic(0.42, 0, 1, 1)",
+      "duration": 200
+    }
+  }
+}
