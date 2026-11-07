@@ -1299,8 +1299,13 @@ Selected snapshot and expect addresses accept JSON and AniML property spellings,
 `volumeFill.w` and `volumeFill.width`; exact input/JSON addresses take precedence over aliases.
 Data names may contain hyphens: write `$volume - 5` with spaces for subtraction.
 
-<!-- P3b-10a integration TODO: document value-text and headless semantic key behavior after
-     their names and contract are committed to design/p3b/DESIGN.md and modules/a11y/SPEC.md. -->
+A slider's spoken value can differ from its number: `<a11y role="slider" value="$volume"
+value-text="$volumeText" min="0" max="100" step="5"/>` (`.ani` `valueText`), with `$volumeText` a
+derived string such as "Volume 40 %"; see `anima docs a11y`. In scripts, keys delivered to the
+logically focused semantic control act as its native browser element would: slider
+ArrowRight/ArrowUp increase and ArrowLeft/ArrowDown decrease (Home/End reach the ends), Space and
+Enter activate buttons, switches, checkboxes, radios and links, and arrows rove a tab list
+(`semantic volume focus`, then `key down ArrowRight` / `key up ArrowRight`).
 
 For ordered synthetic input, use `pointer click 10 10`, `pointer drag 2 2 10 10 in 4`,
 `touch down 1 10 10` / `touch move 1 12 10` / `touch up 1 12 10`. Different touch ids coexist.
