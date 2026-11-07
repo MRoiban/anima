@@ -1,0 +1,4 @@
+screenshot frames/initial.png
+pointer drag@25,41>52,41:4
+advance 0s
+screenshot frames/0.png

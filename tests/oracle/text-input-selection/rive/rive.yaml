@@ -1,0 +1,3 @@
+name: oracle-text-input-selection
+logs:
+  file: build/runtime.log

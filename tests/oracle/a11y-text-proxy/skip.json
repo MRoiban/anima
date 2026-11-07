@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "The DOM field is the semantic element and the drawing proxy is hidden, including across renderer replacement and destroy. The local headless CLI has neither browser DOM proxies nor an accessibility tree that could prove duplicate suppression. Both-engine tests query a unique textbox, native semanticElement routing, remounting and cleanup.",
+  "tests": [
+    "modules/text-input/test/web/field.browser.test.ts",
+    "modules/text-input/test/core/field.test.ts",
+    "spec/conformance/a11y-text-proxy/script.txt"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-input-ime/rive/scene.rml",
+    "tests/oracle/text-input-ime/rive/commands.txt",
+    "tests/oracle/text-input-ime/rive/session.txt"
+  ]
+}

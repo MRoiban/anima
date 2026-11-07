@@ -12085,5 +12085,89 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "text-input-text",
+    "threshold": 16,
+    "maxOverPercent": 0.017361111111111112,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-input-editable",
+    "threshold": 16,
+    "maxOverPercent": 0.027777777777777776,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 8,
+        "overPercent": 0.013888888888888888,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 32,
+        "over": 5,
+        "overPercent": 0.008680555555555556,
+        "pass": true
+      },
+      {
+        "time": 2,
+        "maxDiff": 32,
+        "over": 14,
+        "overPercent": 0.024305555555555556,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-input-multiline",
+    "threshold": 16,
+    "maxOverPercent": 0.010416666666666666,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 4,
+        "overPercent": 0.006944444444444444,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-input-obscured",
+    "threshold": 16,
+    "maxOverPercent": 0.013888888888888888,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 6,
+        "overPercent": 0.010416666666666666,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "text-line-spacing",
+    "threshold": 16,
+    "maxOverPercent": 0.010416666666666666,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 32,
+        "over": 4,
+        "overPercent": 0.006944444444444444,
+        "pass": true
+      }
+    ]
   }
 ]

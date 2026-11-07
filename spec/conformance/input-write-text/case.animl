@@ -1,13 +1,27 @@
-<anima version="0.1" name="input-write-text" grid="20" requires="text textinput a11y focus data assets fonts">
+<anima version="0.1" name="input-write-text" grid="20" requires="text textinput a11y focus data assets fonts bind derive">
   <asset name="sans-serif" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
   <text-style id="s" font="sans-serif" size="1"/>
   <model name="Search">
     <string name="query" default=""/>
+    <number name="count" value="$query.length"/>
+    <bool name="hasQuery" value="$count > 0"/>
   </model>
   <instance name="main" model="Search" default="true"/>
   <text id="q" sizing="fixed" width="10" height="4" x="2" y="3">
     <run text="" style="s"/>
     <text-input write-text="$query" label="Search"/>
   </text>
+  <circle id="result" cx="15" cy="5" r="1" fill="#000"/>
+  <bind target="result.opacity" value="$count > 0"/>
+  <layer name="filter" initial="empty">
+    <state name="empty">
+      <pose result.r="1"/>
+      <on when="$hasQuery == true" to="matched"/>
+    </state>
+    <state name="matched">
+      <pose result.r="3"/>
+      <on when="$hasQuery == false" to="empty"/>
+    </state>
+  </layer>
   <listener on="text" target="q" emit="committed"/>
 </anima>

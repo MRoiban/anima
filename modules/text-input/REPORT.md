@@ -1,5 +1,7 @@
 # P6-6 implementation handoff
 
+P6-9b follow-up: [current closure report](../../tests/oracle/P6-9b-REPORT.md). This document records the original P6-6 delivery.
+
 Status: partial; all 20 parity rows remain planned. Branch: `t3/implement-p6-6-ticket`.
 The final commit is identified in the agent handoff. No push or PR.
 

@@ -64,7 +64,11 @@ export class ToolMeasurer implements TextMeasurer {
             Math.abs(b.weight - spec.weight),
         )[0]!.font;
     }
-    return fault('no local font registered for ' + spec.family, 'font-missing');
+    throw Object.assign(new Error('no local font registered for ' + spec.family), {
+      code: 'font-missing',
+      pointer: '',
+      hint: 'register a local font with --font Name=path (requested family: ' + spec.family + ')',
+    });
   }
   axes(spec: FontSpec, font = this.resolve(spec)): Record<string, number> {
     return {

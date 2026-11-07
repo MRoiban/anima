@@ -1,0 +1,5 @@
+screenshot frames/0.png
+text XYZ
+compose XYZ
+clipboard
+semantics frames/semantics.json

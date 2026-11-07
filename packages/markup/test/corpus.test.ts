@@ -39,7 +39,8 @@ describe('authored AniML corpus', () => {
     // seam(P6-6): 14 independent text-field commit/semantic probes.
     // seam(P6-9a): fitted-background metric regression.
     // seam(P6-10): string filtering conformance with same-step visibility/count.
-    expect(cases).toHaveLength(571);
+    // seam(P6-9b): two standalone field drawings and four DOM bridge state projections.
+    expect(cases).toHaveLength(577);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);

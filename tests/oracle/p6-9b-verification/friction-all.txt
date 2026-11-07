@@ -1,0 +1,32 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-a72c88f9
+
+ ❯ |unit| packages/cli/test/p6-9b.test.ts (6 tests | 1 failed) 2081ms
+   × session installs explicit fonts at startup and reloads changed document font assets 60ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/cli/test/p6-9b.test.ts > session installs explicit fonts at startup and reloads changed document font assets
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ packages/cli/test/p6-9b.test.ts:134:40
+    132|     expect(err).toEqual([]);
+    133|     const replies = out.map((s) => JSON.parse(s));
+    134|     expect(replies.every((r) => r.ok)).toBe(true);
+       |                                        ^
+    135|     expect([
+    136|       replies[0].output[0][0].label,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 5 passed (6)
+   Start at  23:58:16
+   Duration  3.68s (tests 61%, transform 22%, import 17%)

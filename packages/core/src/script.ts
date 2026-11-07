@@ -735,7 +735,7 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
             });
         }
       } catch (e) {
-        const error = e as Error & { code?: string };
+        const error = e as Error & { code?: string; hint?: string };
         if (expected) {
           if ((error.code ?? 'script-usage') !== expected)
             diagnostics.push({
@@ -748,7 +748,10 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
         }
         if (e instanceof Breakpoint) break;
         if (e instanceof ScriptError) throw e;
-        throw new ScriptError((e as Error).message.replace(/^anima: /, ''), line);
+        // seam(P6-9b): preserve structured layout/font diagnostics through script sampling.
+        const failure = new ScriptError(error.message.replace(/^anima: /, ''), line, error.code);
+        if (error.hint) Object.assign(failure, { hint: error.hint });
+        throw failure;
       }
     }
     return {

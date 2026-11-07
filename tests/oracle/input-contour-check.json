@@ -1,0 +1,44 @@
+[
+  {
+    "name": "text-input-text",
+    "time": 0,
+    "over": 8,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-input-editable",
+    "time": 0,
+    "over": 8,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-input-editable",
+    "time": 1,
+    "over": 5,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-input-editable",
+    "time": 2,
+    "over": 14,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-input-multiline",
+    "time": 0,
+    "over": 4,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-input-obscured",
+    "time": 0,
+    "over": 6,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-line-spacing",
+    "time": 0,
+    "over": 4,
+    "nonCorner": 0
+  }
+]

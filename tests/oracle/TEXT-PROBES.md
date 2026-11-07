@@ -1,5 +1,9 @@
 # P6-8 original-font native text probes
 
+P6-9b follow-up: [current closure report](P6-9b-REPORT.md). The measurements below record
+the P6-8 probes. P6-9b completes the explicit-leading mapping and field cases; its actual
+run-list attempt supersedes the literal-only control, which is retained separately.
+
 All references use our deterministic `fixtures/fonts/anima-test.ttf`, including U+2026 added
 by P6-4. Its SHA-256 and raw measurements are in `text-measurements.json`. No external font,
 proprietary document read/conversion, source implementation or CLI documentation text was used.

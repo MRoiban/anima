@@ -1,4 +1,0 @@
-{
-  "status": "todo",
-  "reason": "geometry is independently asserted in core tests; standalone draw-conformance vectors remain outstanding"
-}

@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "The permitted local headless CLI rejects text and compose delivery, so it cannot write a view model through a committed-text listener without substituting a direct data write. Anima conformance compares typed, cleared and host writes against source, derived count, bound opacity and a guard in the first step; both-engine typing tests check data and filtering.",
+  "tests": [
+    "modules/text-input/test/web/field.browser.test.ts",
+    "modules/text-input/test/core/field.test.ts",
+    "spec/conformance/input-write-text/script.txt"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-input-ime/rive/scene.rml",
+    "tests/oracle/text-input-ime/rive/commands.txt",
+    "tests/oracle/text-input-ime/rive/session.txt"
+  ]
+}

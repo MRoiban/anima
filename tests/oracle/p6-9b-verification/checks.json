@@ -1,0 +1,159 @@
+{
+  "status": "partial",
+  "branch": "t3/implement-p6-9b",
+  "base": "77a13f4b",
+  "closed": [
+    "a11y.role-text-field",
+    "a11y.state-multiline",
+    "a11y.state-obscured",
+    "a11y.text-proxy",
+    "host-api.clipboard-text",
+    "host-api.text-input",
+    "input.text-listener",
+    "input.write-text",
+    "text.input-clipboard",
+    "text.input-editable",
+    "text.input-ime",
+    "text.input-multiline",
+    "text.input-obscured",
+    "text.input-text",
+    "text.line-spacing"
+  ],
+  "left": {
+    "data.property-text-style": "P6-9b: Native typed style property and styleId binding authored. Native dump labels the property artboard and rejects both id/name writes as no property at this path; a native mutation comparison remains missing.",
+    "text.fit-baseline": "P6-9b: Retained native font-size-fit geometry differs; algorithm correspondence remains unresolved, no passing tolerance.",
+    "text.fit-layout-measure": "P6-9b: Retained native font-size-fit and reported-box geometry differs; no passing tolerance.",
+    "text.flatten": "P6-9b: Component-definition traversal, general SVG/clip preservation, live text-only reference policy and independent native outline-conversion evidence remain missing.",
+    "text.font-decoding": "P6-9b: Browser FontFace decoding works; derived-font axes/features/glyph-path API and independent native evidence remain missing.",
+    "text.font-metrics": "P6-9b: Tool reader metrics and browser measurement work; complete integrated runtime metrics/coverage/options introspection and independent evidence remain missing.",
+    "text.input-cursor": "P6-9b: Native caret stays 1 px despite the authored scaleX=0.72, versus Anima steady 0.06 grid units (0.72 px); measured channel delta63 at20pixels. Standalone Anima draw conformance passes; no passing native budget.",
+    "text.input-focus-selection": "P6-9b: Native selectAllOnFocus is captured, but selection geometry differs (max76/45pixels over16); browser/headless focus selection passes. No passing native budget.",
+    "text.input-limits": "P6-9b: Anima uses HTML UTF-16 maxlength and explicit LF line limits; native schema uses code points and wrapped lines. Wrapped-line limiting/native edit comparison remains missing; programmatic bypass is tested.",
+    "text.input-placeholder": "P6-9b: Placeholder text is implemented; distinct configurable placeholder color and a faithful native placeholder comparison remain missing.",
+    "text.input-selection": "P6-9b: Native selection rounding differs and arbitrary selected-text paint/drawable references are not exposed. Native raw capture retained without a passing budget.",
+    "text.input-selection-rounding": "P6-9b: Authored native radii0 and2.4 retain the same captured rounding; Anima SVG rx differs (max76/41pixels over16). Standalone Anima rounding vectors pass, but native correspondence is unresolved.",
+    "text.opentype-features": "P6-9b: Authored text style registry still rejects features; real substitution rendering/animation and native comparison remain missing.",
+    "text.overflow-ellipsis": "P6-9b: Retained native truncation selection/placement differs even with U+2026; no passing tolerance.",
+    "text.overflow-fit-font-size": "P6-9b: Retained native fitted font size differs; no passing tolerance.",
+    "text.run-list": "P6-9b: Native actual list with textContent/textStyle symbols is authored; items[0]/label mutations appear in the data dump but the captured text stays blank. DataBindPath/runtime mapping remains unresolved; literal control preserved separately.",
+    "text.variable-axes": "P6-9b: Authored text style registry still rejects axes; independent authored axis rendering/binding/animation and native comparison remain missing.",
+    "text.vertical-trim": "P6-9b: Retained native trim flags257 still yield displaced geometry; no passing tolerance."
+  },
+  "benchmarkFindings": {
+    "1": "fixed: cache replacement invalidates drawing",
+    "2": "fixed: help/docs list every font-consuming command",
+    "3": "fixed: font-missing code, pointer and hint retained",
+    "4": "fixed: shared font preflight including async session/reload, inspect and bench",
+    "5": "verified: no code change, field commit derives/binds/guards settle on first step"
+  },
+  "verification": {
+    "chromiumScope": {
+      "pass": 3632,
+      "fail": 0,
+      "filtered": 545,
+      "files": 61
+    },
+    "firefoxBrowsers": {
+      "pass": 18,
+      "fail": 0,
+      "oppositeEngineFiltered": 18,
+      "files": 7
+    },
+    "strictOracle": {
+      "exit": 0,
+      "cases": 293,
+      "samples": 508,
+      "retainedFindings": 24
+    },
+    "newCornerCheck": {
+      "cases": 5,
+      "samples": 7,
+      "nonCornerDifferences": 0
+    },
+    "initialChanged": {
+      "exit": 1,
+      "pass": 9088,
+      "failedTests": 13,
+      "failedHooks": 1,
+      "skipped": 2,
+      "todo": 73,
+      "failedFiles": 9
+    },
+    "failedFileRetries": {
+      "pipelinePass": 22,
+      "otherBrowsersPass": 86,
+      "hostEditPass": 4,
+      "unitPass": 22,
+      "limitsChanged": false
+    },
+    "finalChanged": {
+      "status": "pass",
+      "exit": 0,
+      "workers": 2,
+      "pass": 9103,
+      "failedTests": 0,
+      "failedHooks": 0,
+      "todo": 73,
+      "passedFiles": 290,
+      "skippedFiles": 13,
+      "seconds": 657.64,
+      "browsers": ["Chromium", "Firefox"]
+    },
+    "typecheck": 0,
+    "lint": 0,
+    "wiring": 0,
+    "schema": 0,
+    "parity": 0,
+    "animlArtifacts": 0,
+    "webArtifacts": 0,
+    "format": 0,
+    "sizes": 0,
+    "perf": {
+      "exit": 0,
+      "controlledThreePercentGuard": "unverified: shared-host timings"
+    }
+  },
+  "gates": {
+    "core+web": [21136, 21136, 24576],
+    "largest scene": [53780, 53780, 65536],
+    "app-UI": [98604, 98596, 131072],
+    "runtime sum": [118830, 118824, 163840],
+    "authoring": [14649, 14649, 16384],
+    "Rive-class": [128449, 128445, 256000]
+  },
+  "entries": {
+    "text": [6142, 6136, 6144],
+    "text-host": [355, 355, 1024],
+    "markup-text": [530, 530, 1024],
+    "text-effects": [3359, 3358, 4096],
+    "text-input": [3789, 3789, 4096],
+    "text-input-svg": [356, 356, 512],
+    "text-input-clipboard": [118, 118, 512],
+    "text-input-canvas": [92, 92, 256],
+    "markup-text-input": [-45, -45, 192],
+    "fonts": [1807, 1807, 2048],
+    "fonts-text": [532, 532, 768]
+  },
+  "seams": [
+    "modules/text/core/index.ts",
+    "modules/text/SPEC.md",
+    "modules/text/test/web/shorthand.test.ts",
+    "packages/core/src/script.ts",
+    "packages/cli/test/p6-9b.test.ts",
+    "packages/markup/test/corpus.test.ts",
+    "generated docs/parity views",
+    "WORKLOG.md append-only"
+  ],
+  "designDeviations": [
+    "15/33 rows closed; remaining gaps explicit",
+    "native explicit leading uses documented half-extra-leading translation",
+    "finding 5 already settles in one step; conformance extended instead of adding another step"
+  ],
+  "unverified": [
+    "real OS IME sessions",
+    "system clipboard grants",
+    "mobile keyboards",
+    "screen-reader announcements",
+    "controlled <=3% performance guard"
+  ]
+}

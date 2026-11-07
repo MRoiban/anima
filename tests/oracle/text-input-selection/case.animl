@@ -1,4 +1,8 @@
-<!-- TODO: text.input-selection; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="text-input-selection" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="text-input-selection" grid="20" requires="text textinput a11y focus assets fonts">
+  <asset name="sans-serif" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+  <text id="field" sizing="fixed" width="10" height="4" line-height="1" x="2" y="3">
+    <style id="s" size="1"/>
+    <run text="abcd" style="s"/>
+    <text-input label="Field" caret-color="#ff0000" selection-color="#b3d4fc" selection-radius="0.0"/>
+  </text>
 </anima>

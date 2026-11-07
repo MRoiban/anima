@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "Anima uses a password input and omits its plaintext semantic value and clipboard selection. A native headless capture cannot prove the browser password element privacy contract. Both-engine tests check input type, redacted semantic value, blocked copy and empty selected-text/cut helpers.",
+  "tests": [
+    "modules/text-input/test/web/field.browser.test.ts",
+    "modules/text-input/test/core/field.test.ts",
+    "spec/conformance/a11y-state-obscured/script.txt"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-input-ime/rive/scene.rml",
+    "tests/oracle/text-input-ime/rive/commands.txt",
+    "tests/oracle/text-input-ime/rive/session.txt"
+  ]
+}

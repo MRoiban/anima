@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "artboard": "Probe",
+  "stateMachine": "main",
+  "viewModel": {
+    "name": "main",
+    "viewModel": "Main",
+    "properties": [
+      {
+        "name": "items",
+        "path": "items",
+        "type": "list",
+        "size": 1,
+        "items": [
+          {
+            "name": "first",
+            "viewModel": "Item",
+            "properties": [
+              {
+                "name": "label",
+                "path": "items[0]/label",
+                "type": "string",
+                "value": "abcdefgh",
+                "changed": true
+              },
+              {
+                "name": "style",
+                "path": "items[0]/style",
+                "type": "artboard",
+                "artboard": "",
+                "changed": false
+              }
+            ]
+          }
+        ],
+        "changed": false
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}
