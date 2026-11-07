@@ -25,8 +25,8 @@ const err = (
   d: Diags,
   code: string,
   p: string,
-  message: string,
-  hint = 'check the machine field and its referenced input, state or timeline',
+  message: string | false,
+  hint: string | false = 'check the machine field and its referenced input, state or timeline',
 ) => d.err(code, p, V && message, V && hint);
 let compileValue = inputExpression;
 export const machine: Module = {
@@ -44,8 +44,8 @@ export const machine: Module = {
     const used = new Set<string>();
     const input = (name: string, type: string, p: string) => {
       const i = model.inputs.get(name);
-      if (!i) err(d, 'unknown-input', p, `unknown machine input ${name}`);
-      else if (i.type !== type) err(d, 'input-type', p, `expected ${type} input`);
+      if (!i) err(d, 'unknown-input', p, V && `unknown machine input ${name}`);
+      else if (i.type !== type) err(d, 'input-type', p, V && `expected ${type} input`);
       used.add(name);
       return i;
     };
@@ -82,8 +82,8 @@ export const machine: Module = {
           d,
           'undeclared-feature',
           p,
-          'machine data sources use bind until P4e',
-          'add "bind" to requires',
+          V && 'machine data sources use bind until P4e',
+          V && 'add "bind" to requires',
         );
       try {
         const e = expression(src.bind, new Map([...model.inputs].map(([n, i]) => [n, i.type])));
@@ -93,19 +93,20 @@ export const machine: Module = {
         return (p) => Number(evaluate(e, new Map([...e.inputs].map((n) => [n, p.get(n)!]))));
       } catch (e) {
         if (!(e instanceof BindError)) throw e;
-        err(d, e.code, p + '/bind', e.message, 'use a numeric input expression');
+        err(d, e.code, p + '/bind', e.message, V && 'use a numeric input expression');
         return () => 0;
       }
     };
     const timeline = (name: string, p: string) => {
       const index = model.timelines.findIndex((t) => t.name === name);
-      if (index < 0) err(d, 'unknown-timeline', p, `unknown blend timeline ${name}`);
+      if (index < 0) err(d, 'unknown-timeline', p, V && `unknown blend timeline ${name}`);
       return index;
     };
     for (const layer of model.layers) {
+      const rawStates = raw.machine.layers[layer.name].states;
       const any: StateM[] = [];
       for (const state of layer.states) {
-        const r = raw.machine.layers[layer.name].states[state.name] as StateOptions;
+        const r = rawStates[state.name] as StateOptions;
         const p = ptr(ptr('/machine/layers', layer.name) + '/states', state.name);
         const info = {
           ...r,
@@ -117,8 +118,8 @@ export const machine: Module = {
             d,
             'machine-state',
             p + '/reset',
-            'reset false is not a supported suspension policy',
-            'omit reset or use reset: true',
+            V && 'reset false is not a supported suspension policy',
+            V && 'omit reset or use reset: true',
           );
         actions(r.enterActions, p + '/enterActions');
         actions(r.exitActions, p + '/exitActions');
@@ -127,30 +128,30 @@ export const machine: Module = {
             d,
             'machine-state',
             p + '/kind',
-            'special states require an empty pose',
-            'use pose: {} and omit play/mix',
+            V && 'special states require an empty pose',
+            V && 'use pose: {} and omit play/mix',
           );
         if (r.kind === 'any') {
           any.push(state);
           if (layer.states[layer.initial] === state)
-            err(d, 'machine-state', p + '/kind', 'any state cannot be initial');
+            err(d, 'machine-state', p + '/kind', V && 'any state cannot be initial');
         }
         if (r.kind === 'exit' && state.on.length)
           err(
             d,
             'machine-state',
             p + '/on',
-            'terminal state has no outgoing transitions',
-            'remove its on list',
+            V && 'terminal state has no outgoing transitions',
+            V && 'remove its on list',
           );
-        const clock = raw.machine.layers[layer.name].states[state.name];
+        const clock = rawStates[state.name];
         if (r.mix && (clock.hold || clock.time !== undefined))
           err(
             d,
             'machine-clock',
             p + '/mix',
-            'blend children need autonomous clocks',
-            'omit hold/time on a blend state',
+            V && 'blend children need autonomous clocks',
+            V && 'omit hold/time on a blend state',
           );
         if (
           r.kind === 'random' &&
@@ -160,8 +161,8 @@ export const machine: Module = {
             d,
             'machine-state',
             p + '/on',
-            'random weight sum must be finite',
-            'reduce the random weights',
+            V && 'random weight sum must be finite',
+            V && 'reduce the random weights',
           );
         if (r.mix) {
           if (state.play === undefined)
@@ -169,8 +170,8 @@ export const machine: Module = {
               d,
               'machine-blend',
               p + '/mix',
-              'a blend needs play as its exit clock',
-              'set play to the selected child animation',
+              V && 'a blend needs play as its exit clock',
+              V && 'set play to the selected child animation',
             );
           const children = r.mix.children.map((c, i) => ({
             timeline: timeline(c.play, `${p}/mix/children/${i}/play`),
@@ -189,8 +190,8 @@ export const machine: Module = {
               d,
               'machine-blend',
               p + '/mix',
-              '1d needs an axis and strictly increasing thresholds',
-              'supply axis and a unique increasing at for every child',
+              V && '1d needs an axis and strictly increasing thresholds',
+              V && 'supply axis and a unique increasing at for every child',
             );
           if (
             r.mix.exit !== undefined &&
@@ -200,22 +201,22 @@ export const machine: Module = {
               d,
               'machine-blend',
               p + '/mix/exit',
-              'exit child must exist and match play',
-              'choose the index whose play matches the state play',
+              V && 'exit child must exist and match play',
+              V && 'choose the index whose play matches the state play',
             );
           if (!children.some((c) => c.timeline === state.play))
-            err(d, 'machine-blend', p + '/play', 'exit clock must be a blend child');
+            err(d, 'machine-blend', p + '/play', V && 'exit clock must be a blend child');
           for (const c of children)
             for (const tr of model.timelines[c.timeline]?.tracks ?? [])
               if (!state.writes.includes(tr.addr)) state.writes.push(tr.addr);
         }
         for (const [i, t] of state.on.entries()) {
-          const tr = raw.machine.layers[layer.name].states[state.name].on[i] as TransitionOptions;
+          const tr = rawStates[state.name].on[i] as TransitionOptions;
           const tp = p + '/on/' + i;
           transitions.set(t, tr);
           const synced =
             tr.continue &&
-            Object.values(raw.machine.layers[layer.name].states).some((s) =>
+            Object.values(rawStates).some((s) =>
               (s as { on?: { to: string; sync?: boolean }[] }).on?.some(
                 (edge) => edge.to === state.name && edge.sync,
               ),
@@ -225,19 +226,19 @@ export const machine: Module = {
               d,
               'machine-clock',
               tp + '/continue',
-              'continued outgoing playback needs an autonomous, unsynchronized source',
-              'omit continue or hold/time/sync',
+              V && 'continued outgoing playback needs an autonomous, unsynchronized source',
+              V && 'omit continue or hold/time/sync',
             );
           if (
-            raw.machine.layers[layer.name].states[state.name].on[i].sync &&
-            raw.machine.layers[layer.name].states[layer.states[t.to]!.name].mix
+            (tr as TransitionOptions & { sync?: boolean }).sync &&
+            rawStates[layer.states[t.to]!.name].mix
           )
             err(
               d,
               'machine-clock',
               tp + '/sync',
-              'blend child clocks cannot inherit a synchronized primary clock',
-              'omit sync when entering a blend',
+              V && 'blend child clocks cannot inherit a synchronized primary clock',
+              V && 'omit sync when entering a blend',
             );
           if (
             ((tr.exitRatio ?? 0) > 0 || (tr.blendRatio ?? 0) > 0) &&
@@ -248,19 +249,16 @@ export const machine: Module = {
               d,
               'machine-clock',
               tp,
-              'a positive relative time needs nonzero playback speed',
-              'use an explicit duration or a nonzero speed',
+              V && 'a positive relative time needs nonzero playback speed',
+              V && 'use an explicit duration or a nonzero speed',
             );
 
           actions(tr.actions, tp + '/actions');
           // Machine owns queued transition actions; core's bind-only form is immediate.
           t.actions = undefined;
           actions(tr.endActions, tp + '/endActions');
-          if (
-            states.get(layer.states[t.to]!)?.kind === 'any' ||
-            raw.machine.layers[layer.name].states[layer.states[t.to]!.name].kind === 'any'
-          )
-            err(d, 'machine-state', tp + '/to', 'any state is not a transition destination');
+          if (rawStates[layer.states[t.to]!.name].kind === 'any')
+            err(d, 'machine-state', tp + '/to', V && 'any state is not a transition destination');
           if (tr.change)
             input(
               tr.change.input,
@@ -274,7 +272,12 @@ export const machine: Module = {
           for (const [key, operand] of Object.entries(tr.guard ?? {}))
             if (typeof operand === 'object' && operand !== null) {
               if (Object.keys(operand).filter((x) => x !== '$comment').length !== 1)
-                err(d, 'machine-guard', tp + '/guard/' + key, 'choose exactly one operand source');
+                err(
+                  d,
+                  'machine-guard',
+                  tp + '/guard/' + key,
+                  V && 'choose exactly one operand source',
+                );
               if ('component' in operand) {
                 const n = String(operand.component),
                   inp = model.inputs.get(n);
@@ -283,12 +286,17 @@ export const machine: Module = {
                     d,
                     'machine-guard',
                     tp + '/guard/' + key + '/component',
-                    'expected a numeric or boolean component input',
+                    V && 'expected a numeric or boolean component input',
                   );
                 used.add(n);
               }
               if ('focus' in operand && !model.ids.has(String(operand.focus)))
-                err(d, 'unknown-target', tp + '/guard/' + key + '/focus', 'unknown focus node');
+                err(
+                  d,
+                  'unknown-target',
+                  tp + '/guard/' + key + '/focus',
+                  V && 'unknown focus node',
+                );
             }
           if (tr.guard) {
             const type = (o: typeof tr.guard.left) =>
@@ -309,19 +317,19 @@ export const machine: Module = {
                 d,
                 'machine-guard',
                 tp + '/guard',
-                'guard operand types or operator do not match',
+                V && 'guard operand types or operator do not match',
               );
           }
           if (
             (tr.exitRatio !== undefined || tr.blendRatio !== undefined) &&
             state.play === undefined
           )
-            err(d, 'machine-clock', tp, 'relative times need a play state');
+            err(d, 'machine-clock', tp, V && 'relative times need a play state');
           if (
             tr.blendRatio !== undefined &&
-            raw.machine.layers[layer.name].states[state.name].on[i].blend !== undefined
+            (tr as TransitionOptions & { blend?: number }).blend !== undefined
           )
-            err(d, 'machine-clock', tp + '/blendRatio', 'blend and blendRatio are exclusive');
+            err(d, 'machine-clock', tp + '/blendRatio', V && 'blend and blendRatio are exclusive');
         }
       }
       // Any transitions have priority, but cannot re-enter their own target indefinitely.

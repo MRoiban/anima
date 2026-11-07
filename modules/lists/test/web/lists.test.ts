@@ -70,7 +70,9 @@ for (const [name, engine, paths] of [
             for (const mod of ['index', ...mods])
               await page.addScriptTag({
                 type: 'module',
-                content: await bundle(resolve('packages/web/src/' + mod + '.ts')),
+                content: await bundle(
+                  resolve('packages/web/src/' + (mod === 'markup' ? 'markup-hooks' : mod) + '.ts'),
+                ),
               });
             await page.waitForFunction(() => {
               const Icon = customElements.get('anima-icon') as typeof AnimaIcon;

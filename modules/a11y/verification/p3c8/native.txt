@@ -1,0 +1,93 @@
+[
+  {
+    "name": "child",
+    "pixels": [
+      69,
+      70
+    ],
+    "semanticBounds": {
+      "x": 69,
+      "y": 29,
+      "width": 2,
+      "height": 2
+    }
+  },
+  {
+    "name": "parent",
+    "pixels": [
+      69,
+      70
+    ],
+    "semanticBounds": {
+      "x": 69,
+      "y": 29,
+      "width": 2,
+      "height": 2
+    }
+  },
+  {
+    "name": "first",
+    "pixels": [
+      69,
+      70
+    ],
+    "semanticBounds": {
+      "x": 69,
+      "y": 29,
+      "width": 2,
+      "height": 2
+    }
+  },
+  {
+    "name": "right",
+    "pixels": [
+      69,
+      70
+    ],
+    "semanticBounds": {
+      "x": 69,
+      "y": 29,
+      "width": 2,
+      "height": 2
+    }
+  },
+  {
+    "name": "outside",
+    "pixels": [
+      89,
+      90
+    ],
+    "semanticBounds": {
+      "x": 69,
+      "y": 29,
+      "width": 2,
+      "height": 2
+    }
+  },
+  {
+    "name": "hidden",
+    "pixels": [
+      69,
+      70
+    ],
+    "semanticBounds": {
+      "x": 69,
+      "y": 29,
+      "width": 2,
+      "height": 2
+    }
+  },
+  {
+    "name": "control",
+    "pixels": [
+      69,
+      70
+    ],
+    "semanticBounds": {
+      "x": 89,
+      "y": 29,
+      "width": 2,
+      "height": 2
+    }
+  }
+]

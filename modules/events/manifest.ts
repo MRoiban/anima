@@ -5,7 +5,7 @@ export default {
     name: 'events',
     after: [],
     core: { entry: 'core/index.ts', export: 'events', svg: 'core/svg.ts', svgExport: 'eventsSVG' },
-    web: [{ name: 'events', budget: 4096 }],
+    web: [{ name: 'events', budget: 3264 }],
     adapters: {
       'packages/core/src/modules/events/index.ts': 'core/index.ts',
       'packages/core/src/modules/events/svg.ts': 'core/svg.ts',

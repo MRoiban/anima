@@ -1,0 +1,9 @@
+advance 0
+semantic child focus
+snapshot --semantics
+focus traverse right
+advance 0
+snapshot --semantics
+focus traverse next
+advance 0
+snapshot --semantics

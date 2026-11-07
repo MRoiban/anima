@@ -30,6 +30,16 @@ export function importPath(path: string, file = ''): string {
   return (joined.startsWith('/') ? '/' : '') + parts.join('/');
 }
 
+const declarations = [
+  'template',
+  'color',
+  'glyph',
+  'ease',
+  'component',
+  'model',
+  'enum',
+  'instance',
+];
 type Scope = Map<string, Definition>;
 interface Definition {
   el: Element;
@@ -77,6 +87,15 @@ export function expand(
       else mark(c.at);
     }
   };
+  const select = (scope: Scope, el: Element, alias: string): Scope => {
+    const selected = (attr(el, 'export') || attr(el, alias)).split(/\s+/).filter(Boolean);
+    for (const name of selected)
+      if (![...scope.keys()].some((key) => key.split(' ')[1] === name))
+        error('unknown-name', el.at, VERBOSE ? `unknown library export ${name}` : '');
+    return selected.length
+      ? new Map([...scope].filter(([key]) => selected.includes(key.split(' ')[1]!)))
+      : scope;
+  };
   const scopeFor = (el: Element, file: string | undefined, imported = false): Scope => {
     const scope: Scope = new Map();
     const aliases = new Set<string>();
@@ -99,8 +118,7 @@ export function expand(
         }
         let source: string;
         try {
-          if (!opts.resolve) throw Error();
-          source = opts.resolve(path);
+          source = opts.resolve!(path);
         } catch {
           error('unknown-import', c.at, VERBOSE ? `cannot read import ${path}` : '');
           continue;
@@ -129,22 +147,12 @@ export function expand(
         active.add(path);
         const exports = scopeFor(parsed.doc.root, path, true);
         active.delete(path);
-        const selected = (attr(c, 'export') || attr(c, 'select')).split(/\s+/).filter(Boolean);
-        for (const name of selected)
-          if (![...exports.keys()].some((k) => k.split(' ')[1] === name))
-            error('unknown-name', c.at, VERBOSE ? `unknown library export ${name}` : '');
-        for (const [key, value] of exports) {
-          const [kind, local] = key.split(' ');
-          if (selected.length && !selected.includes(local!)) continue;
-          const name = `${kind} ${alias}:${local}`;
-          if (scope.has(name))
-            error('duplicate-name', c.at, VERBOSE ? `duplicate imported name ${name}` : '');
-          else scope.set(name, value);
-        }
-      } else if (['template', 'color', 'glyph', 'ease', 'component', 'model'].includes(c.name)) {
+        for (const [key, value] of select(exports, c, 'select'))
+          scope.set(key.replace(' ', ` ${alias}:`), value);
+      } else if (declarations.includes(c.name) && (c.name !== 'instance' || attr(c, 'model'))) {
         const name = attr(c, 'name');
         const key = `${c.name} ${name}`;
-        if (!(c.name === 'model' ? /^[a-zA-Z][\w-]*$/ : NAME).test(name))
+        if (!(['model', 'enum'].includes(c.name) ? /^[a-zA-Z][\w-]*$/ : NAME).test(name))
           error('bad-attribute', c.at, VERBOSE ? 'declaration needs a valid name' : '');
         if (scope.has(key)) error('duplicate-name', c.at, VERBOSE ? `duplicate name ${name}` : '');
         let output = name;
@@ -160,31 +168,18 @@ export function expand(
     }
     if (imported)
       for (const d of scope.values()) {
-        if (
-          d.scope === scope &&
-          ['color', 'glyph', 'ease', 'component', 'model'].includes(d.el.name)
-        ) {
-          const copy = clone(d.el, {}, scope, []);
-          if (copy.kind === 'element') {
-            copy.attrs.find((a) => a.name === 'name')!.value = d.name;
-            resources.push(copy);
-          }
+        if (d.scope === scope && d.el.name !== 'template') {
+          const copy = clone(d.el, {}, scope, []) as Element;
+          copy.attrs.find((a) => a.name === 'name')!.value = d.name;
+          resources.push(copy);
         }
       }
-    const selected = imported
-      ? (attr(el, 'export') || attr(el, 'exports')).split(/\s+/).filter(Boolean)
-      : [];
-    for (const name of selected)
-      if (![...scope.keys()].some((k) => k.split(' ')[1] === name))
-        error('unknown-name', el.at, VERBOSE ? `unknown library export ${name}` : '');
-    return selected.length
-      ? new Map([...scope].filter(([key]) => selected.includes(key.split(' ')[1]!)))
-      : scope;
+    return imported ? select(scope, el, 'exports') : scope;
   };
   const reference = (value: string, kind: string, scope: Scope, at: Pos): string => {
     const d = scope.get(`${kind} ${value}`);
-    if (d && d.el.name === kind) return d.name;
-    if (value.includes(':') && /^[a-z][\w-]*:/.test(value))
+    if (d) return d.name;
+    if (/^[a-z][\w-]*:/.test(value))
       error('unknown-name', at, VERBOSE ? `unknown ${kind} ${value}` : '');
     return value;
   };
@@ -245,14 +240,18 @@ export function expand(
           ? 'component'
           : ['model', 'of'].includes(a.name) || (c.name === 'component' && a.name === 'data')
             ? 'model'
-            : a.name === 'glyph'
-              ? 'glyph'
+            : ['enum', 'glyph'].includes(a.name)
+              ? a.name
               : ['fill', 'stroke', 'stop-color', 'value'].includes(a.name)
                 ? 'color'
                 : ['ease', 'curve'].includes(a.name)
                   ? 'ease'
                   : '';
       if (kind) a.value = reference(a.value, kind, scope, a.valueAt);
+      a.value = a.value.replace(
+        /\$([\w:-]+):/g,
+        (_, name: string) => '$' + reference(name, 'instance', scope, a.valueAt) + ':',
+      );
       if (out.name === 'pose') a.value = reference(a.value, 'color', scope, a.valueAt);
     }
     if (c.name === 'component' && attr(c, 'grid'))

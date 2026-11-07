@@ -1,0 +1,15 @@
+<anima version="0.1" name="spatial-focus" grid="60" requires="a11y focus">
+  <group id="parent">
+    <focus/>
+    <a11y role="group"/>
+    <rect id="child" x0="8" y0="8" width="4" height="4" fill="#000">
+      <a11y role="button"/>
+    </rect>
+    <rect id="sibling" x0="28" y0="8" width="4" height="4" fill="#000">
+      <a11y role="button"/>
+    </rect>
+  </group>
+  <rect id="outside" x0="48" y0="8" width="4" height="4" fill="#000">
+    <a11y role="button"/>
+  </rect>
+</anima>

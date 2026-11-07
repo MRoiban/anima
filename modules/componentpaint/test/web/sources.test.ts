@@ -29,7 +29,12 @@ for (const [name, engine, cache] of [
           'bind',
           'data',
           'markup',
-        ].map(async (n) => bundles.set(n, await bundle(resolve(`packages/web/src/${n}.ts`)))),
+        ].map(async (n) =>
+          bundles.set(
+            n,
+            await bundle(resolve(`packages/web/src/${n === 'markup' ? 'markup-hooks' : n}.ts`)),
+          ),
+        ),
       );
       const executablePath = [resolve(homedir(), cache), engine.executablePath()].find(existsSync);
       if (!executablePath) throw Error('browser absent');

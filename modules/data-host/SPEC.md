@@ -5,7 +5,14 @@
 Host model access requires `host` and `data`; image binding literals additionally require `assets`
 and `bind`. Geometry inspection is pure, does not step the player, and works without data models.
 
-`player.computed(id)` returns a detached, recursively frozen snapshot `{world, bounds, opacity}`.
+`player.computed(id)` returns a detached, recursively frozen snapshot `{local, root, world, bounds, opacity}`.
+`local` and `root` each expose `{x, y, rotation, scaleX, scaleY}` from the resolved
+node-to-parent and node-to-root affine matrices respectively. Position is the transformed origin
+(including pivot translation), rotation is degrees in [-180, 180], scaleX is the nonnegative first
+column length and scaleY is determinant / scaleX (preserving reflection). If scaleX is zero,
+scaleY is the second column length; atan2 defines rotation, including the all-zero matrix.
+Under skew these are the rotation/scale part of a QR decomposition; they do not encode shear.
+Root space is this Player’s document space, excluding host CSS and any embedding component fit.
 `world` is the six-number node-to-root affine matrix. `opacity` multiplies the resolved node and
 ancestor opacities. `bounds` is a root-space geometric axis-aligned box including descendants;
 it excludes strokes, clips, masks, visibility, effects and layout. Circles are analytic, rectangles

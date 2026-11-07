@@ -1,0 +1,26 @@
+advance 0
+snapshot --semantics $volume $muted $selectedTab $email $push $sms $generalTitle $soundTitle $volumeText generalPanel.visible soundPanel.visible generalShape.fill soundShape.fill volumeFill.width muteKnob.x notificationsFill.visible mixedBar.visible emailFill.visible pushFill.visible smsFill.visible
+semantic general focus
+snapshot --semantics $volume $muted $selectedTab $email $push $sms $generalTitle $soundTitle $volumeText generalPanel.visible soundPanel.visible generalShape.fill soundShape.fill volumeFill.width muteKnob.x notificationsFill.visible mixedBar.visible emailFill.visible pushFill.visible smsFill.visible
+key down ArrowRight
+key up ArrowRight
+advance 0
+expect $selectedTab == 1
+expect soundPanel.visible == true
+snapshot --semantics $volume $muted $selectedTab $email $push $sms $generalTitle $soundTitle $volumeText generalPanel.visible soundPanel.visible generalShape.fill soundShape.fill volumeFill.width muteKnob.x notificationsFill.visible mixedBar.visible emailFill.visible pushFill.visible smsFill.visible
+key down ArrowLeft
+key up ArrowLeft
+advance 0
+expect $selectedTab == 0
+snapshot --semantics $volume $muted $selectedTab $email $push $sms $generalTitle $soundTitle $volumeText generalPanel.visible soundPanel.visible generalShape.fill soundShape.fill volumeFill.width muteKnob.x notificationsFill.visible mixedBar.visible emailFill.visible pushFill.visible smsFill.visible
+semantic sound tap
+expect $selectedTab == 1
+snapshot --semantics $volume $muted $selectedTab $email $push $sms $generalTitle $soundTitle $volumeText generalPanel.visible soundPanel.visible generalShape.fill soundShape.fill volumeFill.width muteKnob.x notificationsFill.visible mixedBar.visible emailFill.visible pushFill.visible smsFill.visible
+pointer click 5 3
+advance 0
+expect $selectedTab == 0
+snapshot --semantics $volume $muted $selectedTab $email $push $sms $generalTitle $soundTitle $volumeText generalPanel.visible soundPanel.visible generalShape.fill soundShape.fill volumeFill.width muteKnob.x notificationsFill.visible mixedBar.visible emailFill.visible pushFill.visible smsFill.visible
+pointer click 17 3
+advance 0
+expect $selectedTab == 1
+snapshot --semantics $volume $muted $selectedTab $email $push $sms $generalTitle $soundTitle $volumeText generalPanel.visible soundPanel.visible generalShape.fill soundShape.fill volumeFill.width muteKnob.x notificationsFill.visible mixedBar.visible emailFill.visible pushFill.visible smsFill.visible

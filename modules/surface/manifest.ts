@@ -19,7 +19,7 @@ export default {
       name: 'markup-surface',
       buildOrder: 12,
       sizeOrder: 4,
-      budget: 2048,
+      budget: 448,
       over: 'index',
       authoring: true,
     },

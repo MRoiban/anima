@@ -1,4 +1,5 @@
-<anima version="0.1" name="components-library-models" grid="20" requires="components data bind">
-  <import src="../../../examples/lib/cards.animl" as="cards" select="row"/>
-  <instance id="badge" component="cards:row"/>
+<anima version="0.1" name="components-library-models" grid="20" requires="data bind">
+  <import src="../../../examples/lib/shared.animl" as="shared"/>
+  <circle id="dot" cx="5" cy="5" r="1" fill="#000"/>
+  <bind target="dot.r" value="$shared:main:score"/>
 </anima>

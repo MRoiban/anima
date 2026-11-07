@@ -33,7 +33,7 @@ export async function compileLibrariesAsync(
   return compile(source, {
     ...opts,
     resolve: (path) => {
-      if (!cache.has(path)) throw Error('unreadable import');
+      if (!cache.has(path)) throw Error();
       return cache.get(path)!;
     },
   });

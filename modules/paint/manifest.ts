@@ -9,18 +9,18 @@ export default {
     svgExport: 'paintSVG',
   },
   web: [
-    { name: 'paint-sampling', budget: 1024, over: 'paint' },
+    { name: 'paint-sampling', budget: 1216, over: 'paint' },
     {
       name: 'paint',
       buildOrder: 3,
       sizeOrder: 6,
-      budget: 5120,
+      budget: 4416,
     },
     {
       name: 'markup-paint',
       buildOrder: 10,
       sizeOrder: 3,
-      budget: 2048,
+      budget: 448,
       over: 'index',
       authoring: true,
     },

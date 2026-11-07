@@ -1,0 +1,48 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e6ded439
+
+ ❯ |browser| modules/markup/test/web/authoring.test.ts (8 tests | 8 failed) 72411ms
+   ❯ Chromium authoring entry registration (4)
+     × authoring-first: runtime-only registration; synchronous hooks and identical AniML documents 3235ms
+     × authoring-last: runtime-only registration; synchronous hooks and identical AniML documents 4199ms
+     × reversed: runtime-only registration; synchronous hooks and identical AniML documents 1780ms
+     × reversed-authoring-first: runtime-only registration; synchronous hooks and identical AniML documents 2244ms
+   ❯ Firefox authoring entry registration (4)
+     × authoring-first: runtime-only registration; synchronous hooks and identical AniML documents 13139ms
+     × authoring-last: runtime-only registration; synchronous hooks and identical AniML documents 15027ms
+     × reversed: runtime-only registration; synchronous hooks and identical AniML documents 16417ms
+     × reversed-authoring-first: runtime-only registration; synchronous hooks and identical AniML documents 15079ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 8 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/markup/test/web/authoring.test.ts > Chromium authoring entry registration > authoring-first: runtime-only registration; synchronous hooks and identical AniML documents
+ FAIL  |browser| modules/markup/test/web/authoring.test.ts > Chromium authoring entry registration > authoring-last: runtime-only registration; synchronous hooks and identical AniML documents
+ FAIL  |browser| modules/markup/test/web/authoring.test.ts > Chromium authoring entry registration > reversed: runtime-only registration; synchronous hooks and identical AniML documents
+ FAIL  |browser| modules/markup/test/web/authoring.test.ts > Chromium authoring entry registration > reversed-authoring-first: runtime-only registration; synchronous hooks and identical AniML documents
+ FAIL  |browser| modules/markup/test/web/authoring.test.ts > Firefox authoring entry registration > authoring-first: runtime-only registration; synchronous hooks and identical AniML documents
+ FAIL  |browser| modules/markup/test/web/authoring.test.ts > Firefox authoring entry registration > authoring-last: runtime-only registration; synchronous hooks and identical AniML documents
+ FAIL  |browser| modules/markup/test/web/authoring.test.ts > Firefox authoring entry registration > reversed: runtime-only registration; synchronous hooks and identical AniML documents
+ FAIL  |browser| modules/markup/test/web/authoring.test.ts > Firefox authoring entry registration > reversed-authoring-first: runtime-only registration; synchronous hooks and identical AniML documents
+AssertionError: expected undefined to be 3 // Object.is equality
+
+- Expected:
+3
+
++ Received:
+undefined
+
+ ❯ modules/markup/test/web/authoring.test.ts:139:33
+    137|           expect(result.asyncResults).toEqual(result.sync);
+    138|           expect(result.diagnostics).toEqual([]);
+    139|           expect(result.radius).toBe(3);
+       |                                 ^
+    140|         } finally {
+    141|           await browser.close();
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯
+
+
+ Test Files  1 failed | 1 passed (2)
+      Tests  8 failed | 18 passed (26)
+   Start at  14:05:07
+   Duration  148.81s (tests 97%, import 3%)

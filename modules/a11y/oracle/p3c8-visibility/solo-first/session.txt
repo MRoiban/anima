@@ -1,0 +1,9 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[15:10:49.378] rive  deferred replay: inline
+[15:10:49.387] rive  built (608 bytes, 8ms, 0 errors, 0 warnings)
+[15:10:49.387] rive  showing Visibility [1/1]
+[15:10:49.388] rive  viewport 100x40 @1x
+ok advance
+[15:10:49.388] rive  wrote frames/tree.json
+ok semantics: frames/tree.json
+ok quit

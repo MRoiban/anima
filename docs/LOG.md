@@ -2426,3 +2426,31 @@ were valid throughout and show no regression in P3b.
   pre-merge-commit, pre-push) and an AGENTS.md rule; the hooks skip with a warning without
   `node_modules`. Unverified: a screen reader's spoken slider value (Chromium's CDP tree and
   Playwright's snapshot do not surface `aria-valuetext`).
+
+## P3c — size round and P3b carry-overs (2026-11-07)
+
+- **Size round (owner rule: runtime sum −5 % from the end of P3b):** 109 971 → **104 285 B**
+  (−5.17 %) with every carry-over included. A measurement-only survey (`design/p3c/SIZE-SURVEY.md`)
+  found 1 624 B of behaviour-preserving cuts and one architectural lead; the cuts landed as
+  production-only diagnostic prose guards (events/data/machine −578, visual modules −589,
+  converters/bind/node pointers −463), and the AniML authoring hooks that runtime entries imported
+  moved into a new authoring entry `markup-hooks` (−4 470 B runtime; browser authors import
+  `@anima-format/web/markup-hooks`). Shared-helper extraction and shape factories measured ~0 B
+  (the bundler already dedupes) and were not done.
+- **Gates, end of P3c:** core+web 20 622 / 24 576; largest scene 52 122 / 65 536 (29 scenes); app-UI
+  85 154 / 131 072; runtime sum 104 285 / 163 840; authoring 14 544 / 16 384 (cap 15 360 by
+  decision); Rive-class 109 904 / 256 000. Budgets reset to ⌈measured × 1.10 / 64⌉ × 64, capped at
+  8 KB; `markup` (8 007) and `surface` (7 809) sit near the cap and split before growing.
+- **Carry-overs:** 18 of 23 done (in scope 720 → 738 of 886, 83 %): tooling (heap growth in `bench`,
+  `doctor` ports/project/browsers, `anima.json` `exclude`/`constants`, frame-sequence and WebM
+  presets, schema filters, test groups and `expect-error`), library instances/enums with evidenced
+  skips (Rive's library commands are banned), devtools warning suppression by id and initialization
+  marks, computed local/root coordinates, directional/spatial focus matching Rive, focus conditions,
+  the visibility matrix, dependency-driven semantics, the overlay over canvas output, and the P3b
+  benchmark friction. Moved: `a11y.tree-bounds` → P6; four bindable-artboard rows → P7.
+- **Perf vs main (taskset, minimums):** bell frame 29.4 / 30.5 µs, bell compile 1.64 / 1.63 ms,
+  composite 20.0 / 20.4 µs, toolbar frame 22.7 / 22.4 µs, toolbar compile 3.09 / 3.07 ms.
+- **Benchmark:** settings-card regression rerun AniML 5/6 (item 1 owner-accepted until P6).
+- **Decisions logged as "owner may revisit":** the authoring add-on may grow (cap 15 360 B) when
+  authoring code leaves runtime bundles; `paint-sampling` and `devtools` budgets re-measured; the
+  four cross-document artboard rows deferred to P7; Rive not rerun when only Anima changed.

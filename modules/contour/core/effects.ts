@@ -1,3 +1,4 @@
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 // Effect stacks operate on local geometry, independently of either renderer.
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Shape } from '../../../packages/core/src/registry.ts';
@@ -196,16 +197,16 @@ export const effects: Module = {
         d.err(
           'bad-value',
           pointer + '/dash',
-          'dash effect needs a positive pattern length',
-          'include at least one positive dash length',
+          V && 'dash effect needs a positive pattern length',
+          V && 'include at least one positive dash length',
         );
       for (const k of e.type === 'trim' ? ['dash'] : ['start', 'end', 'mode'])
         if (k in e)
           d.err(
             'bad-value',
             pointer + '/' + k,
-            `${k} does not belong to ${e.type} effects`,
-            'remove this field',
+            V && `${k} does not belong to ${e.type} effects`,
+            V && 'remove this field',
           );
     };
     for (const [id, stack] of Object.entries(shared ?? {}))
@@ -231,8 +232,8 @@ export const effects: Module = {
           d.err(
             'paint-conflict',
             base + '/effects',
-            'use either trim or an effect stack',
-            'put the trim into effects',
+            V && 'use either trim or an effect stack',
+            V && 'put the trim into effects',
           );
         if (
           (raw.effects || raw.trim) &&
@@ -241,8 +242,8 @@ export const effects: Module = {
           d.err(
             'paint-conflict',
             base,
-            'effect stacks cannot combine with legacy dash or trim',
-            'move all stroke effects into the ordered stack',
+            V && 'effect stacks cannot combine with legacy dash or trim',
+            V && 'move all stroke effects into the ordered stack',
           );
         raw.effects?.forEach((e: Effect | string, j: number) => {
           if (typeof e === 'string') {
@@ -250,8 +251,8 @@ export const effects: Module = {
               d.err(
                 'unknown-source',
                 `${base}/effects/${j}`,
-                'unknown shared effect stack',
-                'declare it in document.effects',
+                V && 'unknown shared effect stack',
+                V && 'declare it in document.effects',
               );
           } else validate(e, `${base}/effects/${j}`);
         });

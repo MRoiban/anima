@@ -1,0 +1,19 @@
+
+> lint
+> eslint .
+
+
+/home/jarvis/.t3/worktrees/anima/t3-e6ded439/design/p3c/survey/measure.ts
+   34:5   error  The value assigned to 'stdout' is not used in subsequent statements  no-useless-assignment
+   42:15  error  Unexpected any. Specify a different type                             @typescript-eslint/no-explicit-any
+   60:16  error  Unexpected any. Specify a different type                             @typescript-eslint/no-explicit-any
+  179:11  error  'changed' is never reassigned. Use 'const' instead                   prefer-const
+  266:11  error  'common' is never reassigned. Use 'const' instead                    prefer-const
+  300:36  error  Unexpected any. Specify a different type                             @typescript-eslint/no-explicit-any
+  332:28  error  Unexpected any. Specify a different type                             @typescript-eslint/no-explicit-any
+  333:39  error  Unexpected any. Specify a different type                             @typescript-eslint/no-explicit-any
+  374:21  error  Unexpected any. Specify a different type                             @typescript-eslint/no-explicit-any
+  408:23  error  Unexpected any. Specify a different type                             @typescript-eslint/no-explicit-any
+
+✖ 10 problems (10 errors, 0 warnings)
+  2 errors and 0 warnings potentially fixable with the `--fix` option.

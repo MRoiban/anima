@@ -21,16 +21,16 @@ export * from './math.ts';
 export type Definitions = Record<string, ConverterDefinition | ConverterGroup>;
 export function createConverterRunner(definitions: Definitions) {
   const visit = (name: string, path: string[] = []): void => {
-    if (path.length > 64) bad('converter chain nesting exceeds 64', 'chain');
+    if (path.length > 64) bad(V ? 'converter chain nesting exceeds 64' : '', 'chain');
     if (path.includes(name))
       throw new ConverterError(
         'convert-cycle',
-        `converter cycle: ${[...path, name].join(' -> ')}`,
+        V ? `converter cycle: ${[...path, name].join(' -> ')}` : '',
         'chain',
       );
     const d = definitions[name];
     if (name === '$comment' || !Object.hasOwn(definitions, name))
-      throw new ConverterError('convert-reference', `unknown converter ${name}`, 'chain');
+      throw new ConverterError('convert-reference', V ? `unknown converter ${name}` : '', 'chain');
     if ('chain' in d)
       for (const child of (d as ConverterGroup).chain) visit(child, [...path, name]);
   };
@@ -46,7 +46,7 @@ export function createConverterRunner(definitions: Definitions) {
     const run = (name: string, value: ConverterValue, path: string): ConverterValue => {
       const d = definitions[name];
       if (name === '$comment' || !Object.hasOwn(definitions, name))
-        throw new ConverterError('convert-reference', `unknown converter ${name}`);
+        throw new ConverterError('convert-reference', V ? `unknown converter ${name}` : '');
       if ('chain' in d)
         return (d as ConverterGroup).chain.reduce(
           (v, child, i) => run(child, v, path + '/' + i),
@@ -101,14 +101,18 @@ export function validateDefinition(
   d: ConverterDefinition,
   types?: ReadonlyMap<string, string>,
 ): void {
-  if (typeof d.type !== 'string') bad('converter type is required', 'type');
+  if (typeof d.type !== 'string') bad(V ? 'converter type is required' : '', 'type');
   if (!converterRegistry.has(d.type))
-    throw new ConverterError('convert-unknown-type', `unknown converter type ${d.type}`, 'type');
+    throw new ConverterError(
+      'convert-unknown-type',
+      V ? `unknown converter type ${d.type}` : '',
+      'type',
+    );
   for (const key of Object.keys(d))
     if (!['type', '$comment', ...(allowed[d.type] ?? [])].includes(key))
-      bad(`option ${key} does not apply to ${d.type}`, key);
+      bad(V ? `option ${key} does not apply to ${d.type}` : '', key);
   if (d.type === 'formula') {
-    if (typeof d.expression !== 'string') bad('expression is required', 'expression');
+    if (typeof d.expression !== 'string') bad(V ? 'expression is required' : '', 'expression');
     formula(d.expression as string, types && new Map([...types, ['value', 'number']]));
   }
   // Probe options using valid representative inputs; runtime input mismatches are separate.
@@ -216,12 +220,13 @@ export const convert: Module & {
         )
           throw new ConverterError(
             'convert-type',
-            'operand must name a numeric data path',
+            V ? 'operand must name a numeric data path' : '',
             'operand',
           );
         if ('chain' in d) {
           for (const key of Object.keys(d))
-            if (key !== 'chain' && key !== '$comment') bad('groups accept only chain', key);
+            if (key !== 'chain' && key !== '$comment')
+              bad(V ? 'groups accept only chain' : '', key);
         } else
           validateDefinition(
             d as ConverterDefinition,

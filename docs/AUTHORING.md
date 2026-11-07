@@ -316,8 +316,19 @@ Run `anima build page.html -o page.built.html`. It replaces AniML scripts inside
 `<anima-icon>` with compiled `application/vnd.anima+json` scripts. Load the regular
 `@anima-format/web` runtime on that page.
 To compile markup in the browser instead (prototypes, playgrounds), also import
-`@anima-format/web/markup` (about 6 KB more). Without it, an icon holding AniML reports a
-`markup-unavailable` error. Pages that ship built `.ani` never need it.
+`@anima-format/web/markup-hooks`. This single authoring import includes the lean `markup`
+compiler and every compiler hook needed by the runtime modules you load (paint, surface,
+components, bind, convert, events, focus, motion and data). Runtime entries register runtime
+features only. Import the authoring entry before or after the runtime entries; hook registration
+is synchronous in either order, including modules loaded later. Existing browser authoring pages
+can replace their `@anima-format/web/markup` import with this one. The standalone browser file is
+`anima-markup-hooks.js`.
+
+The lean `@anima-format/web/markup` entry remains available for base-format AniML and explicit
+`markup-<name>` hook imports. Library/template expansion still uses the optional
+`@anima-format/web/markup-libraries` entry alongside the authoring import. Without a compiler,
+an icon holding AniML reports a `markup-unavailable` error. Pages that ship built `.ani` never
+need authoring imports.
 
 ## Hand-written ani
 
@@ -1348,3 +1359,33 @@ through core's shared source, including nested stepping. `new Player(model, { se
 the same stream. Reseeding starts its sequence again without clearing converter once/on-change
 caches. Omit the seed to reproduce the established deterministic defaults exactly (machineSeed or
 0x6d2b79f5 for machines, 1 for converters). See spec §11.2 for all commands.
+
+
+## Project tooling recipes
+
+Use `anima docs authoring <section-slug>` to read one contents entry, or `anima docs spec --list`
+to find a normative chapter. `anima schema circle --animatable --bindable --inherited` shows shared
+addressable properties. `--editor-only` reports not applicable.
+
+An `anima.json` can keep tests out of production imports and substitute build-time attributes:
+
+```json
+{
+  "entry": "main.animl",
+  "sources": ["ui.animl", "ui.test.animl"],
+  "exclude": ["**/*.test.animl"],
+  "constants": { "radius": 8 },
+  "presets": { "preview": { "frames": 30, "fps": 30, "size": 160 } }
+}
+```
+
+Write `r="{{radius}}"` in an AniML attribute; constants also work in imported libraries.
+`anima render --preset preview -o preview.png` writes numbered PNG frames;
+`-o preview.webm` records video through cached Chromium. Repeat `--preset` to run a sequential queue;
+outputs gain each preset's name. Encoder failure includes a PNG fallback hint.
+
+Scripts can bracket named cases with `group name` and `end`, compare with `expect`, and put
+`expect-error script-target` before a deliberate bad target. A hidden/absent semantic target or
+unknown input reports a code, line pointer and hint. `anima doctor --format=json` checks the local
+project, port, browser/device support and tools. `anima bench --frames 600` reports compile/step/draw
+cost and observed JS heap growth, including bytes per frame (GC can make it negative).

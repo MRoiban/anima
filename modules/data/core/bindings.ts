@@ -38,8 +38,8 @@ export function bindings(
   const error = (
     code: string,
     p: string,
-    m: string,
-    h = 'use a writable data path and a target with the same type',
+    m: string | false,
+    h: string | false = 'use a writable data path and a target with the same type',
   ) => d.err(code, p, V && m, V && h);
   for (const [target, raw] of Object.entries(model.doc.bind ?? {})) {
     if (
@@ -62,16 +62,16 @@ export function bindings(
       error(
         dataCodes['binding'],
         at + '/mode',
-        'trigger destinations are forward-only',
-        'use to-target or once',
+        V && 'trigger destinations are forward-only',
+        V && 'use to-target or once',
       );
     const source = c?.refs.has(spec.value) ? spec.value : undefined;
     if (mode === 'to-source' || mode === 'two-way') {
       if (!source || c?.refs.get(source)?.readonly)
-        error(dataCodes['readonly'], at, 'reverse binding needs a writable data path');
+        error(dataCodes['readonly'], at, V && 'reverse binding needs a writable data path');
     }
     if (spec.prefer && mode !== 'two-way')
-      error(dataCodes['binding'], at + '/prefer', 'prefer is only valid for two-way bindings');
+      error(dataCodes['binding'], at + '/prefer', V && 'prefer is only valid for two-way bindings');
     let read: Link['read'];
     try {
       const whole = /^\$[\w:.-]+$/.test(spec.value) && !source;
@@ -96,13 +96,13 @@ export function bindings(
         model.inputs.get(source)?.type !== a.prop.type &&
         !(a.prop.type === 'number' && model.inputs.get(source)?.type === 'bool')
       )
-        error(dataCodes['type'], at, 'binding type does not match target');
+        error(dataCodes['type'], at, V && 'binding type does not match target');
       if (spec.convert && !converters.has(spec.convert))
         error(
           dataCodes['converter'],
           at + '/convert',
-          'unknown converter ' + spec.convert,
-          'register the named converter before loading the document',
+          V && 'unknown converter ' + spec.convert,
+          V && 'register the named converter before loading the document',
         );
       if (!trigger) model.addrs.set(target, a);
       links.push({ target, spec, read, source });
@@ -113,9 +113,8 @@ export function bindings(
         at,
         e.message,
         e.code === 'bind-syntax'
-          ? V
-            ? `unsupported token ${JSON.stringify(spec.value.slice((e as BindError).at).match(/^\S+/)?.[0] ?? 'end of expression')}; use values, arithmetic, comparisons, and/or/not or registered calls`
-            : ''
+          ? V &&
+              `unsupported token ${JSON.stringify(spec.value.slice((e as BindError).at).match(/^\S+/)?.[0] ?? 'end of expression')}; use values, arithmetic, comparisons, and/or/not or registered calls`
           : undefined,
       );
     }

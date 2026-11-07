@@ -4,7 +4,7 @@ export default {
     name: 'lists',
     after: [],
     core: { entry: 'core/index.ts', export: 'lists', svg: 'core/svg.ts', svgExport: 'listsSVG' },
-    web: [{ name: 'lists', budget: 6144 }],
+    web: [{ name: 'lists', budget: 5120 }],
     adapters: {
       'packages/core/src/modules/lists/index.ts': 'core/index.ts',
       'packages/core/src/modules/lists/svg.ts': 'core/svg.ts',

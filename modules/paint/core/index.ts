@@ -27,11 +27,11 @@ const shapes: Record<string, Shape> = {
   stops: { k: 'arr', of: { ...stop, element: 'stop' }, min: 2 },
 };
 for (const s of Object.values(shapes)) s.element = 'gradient';
-const gradientForm = (type: string, fields: string[]) => ({
+const gradientForm = (type: string, fields: string[], required = fields) => ({
   shape: {
     k: 'obj' as const,
     p: Object.fromEntries([...fields, 'stops', 'gradientTransform'].map((k) => [k, shapes[k]!])),
-    req: [...fields, 'stops'],
+    req: [...required, 'stops'],
   },
   values: { type },
   target: { attribute: 'paint', default: 'fill', choices: ['fill', 'stroke'] },
@@ -56,19 +56,7 @@ const base: Module = {
       elements: {
         angularGradient: gradientForm('angular', ['x1', 'y1', 'x2', 'y2']),
         linearGradient: gradientForm('linear', ['x1', 'y1', 'x2', 'y2']),
-        radialGradient: {
-          ...gradientForm('radial', ['cx', 'cy', 'r', 'fx', 'fy']),
-          shape: {
-            k: 'obj',
-            p: Object.fromEntries(
-              ['cx', 'cy', 'r', 'fx', 'fy', 'stops', 'gradientTransform'].map((k) => [
-                k,
-                shapes[k]!,
-              ]),
-            ),
-            req: ['cx', 'cy', 'r', 'stops'],
-          },
-        },
+        radialGradient: gradientForm('radial', ['cx', 'cy', 'r', 'fx', 'fy'], ['cx', 'cy', 'r']),
         stop: { shape: stop },
       },
     },
@@ -99,8 +87,8 @@ const base: Module = {
         const p = n.raw[key];
         if (!p) continue;
         const base = pointers[i] + '/' + key;
-        const bad = (field: string, message: string, hint?: string) =>
-          d.err('bad-value', base + (field ? '/' + field : ''), V && message, V && hint);
+        const bad = (field: string, message: string | false, hint?: string | false) =>
+          d.err('bad-value', base + (field ? '/' + field : ''), message, hint);
         if (p.type === 'image' && !model.doc.requires?.includes('surface'))
           d.err(
             'undeclared-feature',
@@ -118,22 +106,26 @@ const base: Module = {
             );
           for (const k of [...coords, 'stops', 'gradientTransform'])
             if (k in p)
-              bad(k, 'gradient fields need a gradient type', 'add type: linear or radial');
+              bad(
+                k,
+                V && 'gradient fields need a gradient type',
+                V && 'add type: linear or radial',
+              );
         } else if (p.type !== 'image') {
           if (p.color !== undefined)
-            bad('color', 'a gradient cannot also have a flat color', 'remove color');
+            bad('color', V && 'a gradient cannot also have a flat color', V && 'remove color');
           const fields = p.type !== 'radial' ? ['x1', 'y1', 'x2', 'y2'] : ['cx', 'cy', 'r'];
           for (const k of [...fields, 'stops'])
             if (!(k in p)) d.err('missing-key', base, V && `gradient needs ${k}`, V && `add ${k}`);
           for (const k of coords)
             if (k in p && !fields.includes(k) && !(p.type === 'radial' && ['fx', 'fy'].includes(k)))
-              bad(k, `not a ${p.type} gradient coordinate`);
+              bad(k, V && `not a ${p.type} gradient coordinate`);
           p.stops?.forEach((s: { position: number; color: string }, j: number) => {
             if (j && s.position < p.stops[j - 1].position)
               bad(
                 `stops/${j}/position`,
-                'stop positions must be nondecreasing',
-                'order stops by position',
+                V && 'stop positions must be nondecreasing',
+                V && 'order stops by position',
               );
             if (
               !parseHex(s.color) &&
@@ -160,18 +152,18 @@ const base: Module = {
         )
           bad(
             'gradientTransform',
-            'gradient transform must be invertible',
-            'use a nonsingular affine matrix',
+            V && 'gradient transform must be invertible',
+            V && 'use a nonsingular affine matrix',
           );
         if (p.dash) {
           if (p.dash.some((x: unknown) => typeof x !== typeof p.dash[0]))
             bad(
               'dash',
-              'dash lengths must use one unit',
-              'use all grid lengths or all percentages',
+              V && 'dash lengths must use one unit',
+              V && 'use all grid lengths or all percentages',
             );
           if (p.dash.every((x: string | number) => parseFloat(String(x)) === 0))
-            bad('dash', 'dash pattern cannot be all zero', 'include a positive length');
+            bad('dash', V && 'dash pattern cannot be all zero', V && 'include a positive length');
         }
       }
     });

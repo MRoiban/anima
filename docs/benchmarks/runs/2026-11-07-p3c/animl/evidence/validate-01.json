@@ -1,0 +1,1 @@
+{"file":"docs/benchmarks/runs/2026-11-07-p3c/animl/settings.animl","ok":false,"diagnostics":[{"code":"bad-attribute","severity":"error","pointer":"/grid","message":"expected a finite JSON number","line":1,"column":49,"file":"docs/benchmarks/runs/2026-11-07-p3c/animl/settings.animl"}]}

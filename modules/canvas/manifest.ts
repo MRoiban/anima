@@ -2,7 +2,7 @@ export const after: string[] = [];
 export default {
   name: 'canvas',
   after,
-  web: [{ name: 'canvas', budget: 8192, heavy: true }],
+  web: [{ name: 'canvas', budget: 5888, heavy: true }],
   adapters: { 'packages/web/src/canvas.ts': 'web/index.ts' },
   exports: { 'web:./canvas': 'packages/web/src/canvas.ts' },
   tests: ['modules/canvas/test/**/*.test.ts', 'packages/markup/test/corpus.test.ts'],

@@ -1,7 +1,7 @@
 # Page authors: data
 
 Load `anima-icon.js`, `anima-data.js` and `anima-host.js` as module scripts, plus
-`anima-markup.js` when using inline AniML. Data and host can arrive in either order.
+`anima-markup-hooks.js` when using inline AniML. Data and host can arrive in either order.
 Add `auto-bind` to select the default model instance, or call `icon.data.bind('main')`.
 Wait for `anima:load` before accessing data. A retained API/handle belongs to that load;
 reacquire it after reload. Destroying an icon stops its scheduler.

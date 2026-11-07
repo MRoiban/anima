@@ -1,0 +1,18 @@
+
+> test:scope
+> node tools/test-scope.ts tooling --no-browser
+
+Scopes: tooling
+  unit: packages/cli/test/agent-tools.test.ts
+  unit: packages/cli/test/p3c-tooling.test.ts
+  unit: packages/cli/test/tooling-leftovers.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  cases: ^conformance > (tooling-input-data|tooling-legacy-random|tooling-seed)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-d536c733
+
+
+ Test Files  4 passed (4)
+      Tests  92 passed | 497 skipped (589)
+   Start at  13:46:10
+   Duration  5.52s (tests 69%, import 23%, transform 7%, worker 1%)

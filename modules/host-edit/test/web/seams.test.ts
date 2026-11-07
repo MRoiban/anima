@@ -43,7 +43,9 @@ for (const [name, engine, executablePath] of [
         ])
           await page.addScriptTag({
             type: 'module',
-            content: await cachedBundle(resolve('packages/web/src/' + entry + '.ts')),
+            content: await cachedBundle(
+              resolve('packages/web/src/' + (entry === 'markup' ? 'markup-hooks' : entry) + '.ts'),
+            ),
           });
         await page.waitForFunction(
           () => (customElements.get('anima-icon') as typeof AnimaIcon).modules.has('lists'),

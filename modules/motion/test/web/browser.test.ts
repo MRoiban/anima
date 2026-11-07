@@ -55,7 +55,9 @@ for (const [name, engine, executablePath] of [
     beforeAll(async () => {
       [base, motion, markup, bind] = await Promise.all(
         ['index', 'motion', 'markup', 'bind'].map((n) =>
-          bundle(new URL(`packages/web/src/${n}.ts`, root).pathname),
+          bundle(
+            new URL(`packages/web/src/${n === 'markup' ? 'markup-hooks' : n}.ts`, root).pathname,
+          ),
         ),
       );
       browser = await engine.launch({

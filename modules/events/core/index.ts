@@ -118,8 +118,8 @@ export const events: Module = {
           d.err(
             'undeclared-feature',
             '/listeners/' + i + '/on',
-            'event listeners require events',
-            'add events to requires',
+            V && 'event listeners require events',
+            V && 'add events to requires',
           );
       return;
     }
@@ -128,25 +128,29 @@ export const events: Module = {
     ) as Record<string, EventDefinition>;
     const expressions = new Map<object, InputEvaluator>();
     for (const [name, def] of Object.entries(defs)) {
-      if (name === '$comment') continue;
       const p = ptr('/eventDefs', name);
       if (def.target && !def.url)
-        d.err('event-url', p + '/target', 'target requires a URL', 'add url or remove target');
+        d.err(
+          'event-url',
+          p + '/target',
+          V && 'target requires a URL',
+          V && 'add url or remove target',
+        );
       if (def.url) {
         if (/^[^/?#]*:/.test(def.url) && !/^https?:\/\//i.test(def.url))
           d.err(
             'event-url',
             p + '/url',
-            'event URL must resolve to HTTP(S)',
-            'use an http(s) URL or relative path',
+            V && 'event URL must resolve to HTTP(S)',
+            V && 'use an http(s) URL or relative path',
           );
       }
       if (def.audio && raw.assets?.[def.audio]?.type !== 'audio')
         d.err(
           'event-audio',
           p + '/audio',
-          'unknown audio asset',
-          'declare an audio asset with this name',
+          V && 'unknown audio asset',
+          V && 'declare an audio asset with this name',
         );
       for (const [key, f] of Object.entries(def.payload ?? {}).filter(([k]) => k !== '$comment')) {
         const fp = ptr(p + '/payload', key);
@@ -171,8 +175,8 @@ export const events: Module = {
           d.err(
             'event-payload',
             fp,
-            'payload needs exactly one correctly typed value or input',
-            'provide value or input matching type',
+            V && 'payload needs exactly one correctly typed value or input',
+            V && 'provide value or input matching type',
           );
         if (f.address !== undefined) {
           const addr = resolve(f.address, model.nodes, model.ids);
@@ -180,8 +184,8 @@ export const events: Module = {
             d.err(
               'event-address',
               fp + '/address',
-              'payload address is missing or has a different type',
-              'reference a tracked property matching type',
+              V && 'payload address is missing or has a different type',
+              V && 'reference a tracked property matching type',
             );
           else model.addrs.set(f.address, addr);
         }
@@ -189,8 +193,8 @@ export const events: Module = {
           d.err(
             'event-input',
             fp + '/input',
-            'payload input is missing or has a different type',
-            'reference a bool or number input matching type',
+            V && 'payload input is missing or has a different type',
+            V && 'reference a bool or number input matching type',
           );
       }
     }
@@ -213,8 +217,8 @@ export const events: Module = {
         d.err(
           'event-audio',
           ptr('/audioVolumes', name),
-          'unknown audio asset',
-          'declare an audio asset with this name',
+          V && 'unknown audio asset',
+          V && 'declare an audio asset with this name',
         );
     const actions = new WeakMap<
       import('../../../packages/core/src/load.ts').TransitionM,
@@ -255,8 +259,8 @@ export const events: Module = {
         d.err(
           'unknown-event',
           '/listeners/' + i + '/on',
-          'unknown event listener name',
-          'reference an emitted event name',
+          V && 'unknown event listener name',
+          V && 'reference an emitted event name',
         );
     model.eventSignal = (out, kind, layer, state, player, transition) => {
       out.push({ name: '@' + kind, layer, time: 0, payload: { state } });

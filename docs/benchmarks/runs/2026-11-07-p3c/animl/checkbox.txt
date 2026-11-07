@@ -1,0 +1,36 @@
+advance 0
+snapshot --semantics $volume $muted $selectedTab $email $push $sms $generalTitle $soundTitle $volumeText generalPanel.visible soundPanel.visible generalShape.fill soundShape.fill volumeFill.width muteKnob.x notificationsFill.visible mixedBar.visible emailFill.visible pushFill.visible smsFill.visible
+semantic notifications tap
+expect $email == true
+expect $push == true
+expect $sms == true
+snapshot --semantics $volume $muted $selectedTab $email $push $sms $generalTitle $soundTitle $volumeText generalPanel.visible soundPanel.visible generalShape.fill soundShape.fill volumeFill.width muteKnob.x notificationsFill.visible mixedBar.visible emailFill.visible pushFill.visible smsFill.visible
+semantic notifications focus
+key down Space
+key up Space
+advance 0
+expect $email == false
+expect $push == false
+expect $sms == false
+snapshot --semantics $volume $muted $selectedTab $email $push $sms $generalTitle $soundTitle $volumeText generalPanel.visible soundPanel.visible generalShape.fill soundShape.fill volumeFill.width muteKnob.x notificationsFill.visible mixedBar.visible emailFill.visible pushFill.visible smsFill.visible
+semantic notifications tap
+expect $email == true
+expect $push == true
+expect $sms == true
+snapshot --semantics $volume $muted $selectedTab $email $push $sms $generalTitle $soundTitle $volumeText generalPanel.visible soundPanel.visible generalShape.fill soundShape.fill volumeFill.width muteKnob.x notificationsFill.visible mixedBar.visible emailFill.visible pushFill.visible smsFill.visible
+semantic email focus
+key down Space
+key up Space
+advance 0
+expect $email == false
+snapshot --semantics $volume $muted $selectedTab $email $push $sms $generalTitle $soundTitle $volumeText generalPanel.visible soundPanel.visible generalShape.fill soundShape.fill volumeFill.width muteKnob.x notificationsFill.visible mixedBar.visible emailFill.visible pushFill.visible smsFill.visible
+semantic push tap
+expect $push == false
+snapshot --semantics $volume $muted $selectedTab $email $push $sms $generalTitle $soundTitle $volumeText generalPanel.visible soundPanel.visible generalShape.fill soundShape.fill volumeFill.width muteKnob.x notificationsFill.visible mixedBar.visible emailFill.visible pushFill.visible smsFill.visible
+semantic sms tap
+expect $sms == false
+snapshot --semantics $volume $muted $selectedTab $email $push $sms $generalTitle $soundTitle $volumeText generalPanel.visible soundPanel.visible generalShape.fill soundShape.fill volumeFill.width muteKnob.x notificationsFill.visible mixedBar.visible emailFill.visible pushFill.visible smsFill.visible
+pointer click 5 13
+advance 0
+expect $email == true
+snapshot --semantics $volume $muted $selectedTab $email $push $sms $generalTitle $soundTitle $volumeText generalPanel.visible soundPanel.visible generalShape.fill soundShape.fill volumeFill.width muteKnob.x notificationsFill.visible mixedBar.visible emailFill.visible pushFill.visible smsFill.visible

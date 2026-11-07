@@ -8,7 +8,7 @@ export default {
       name: 'markup-libraries',
       buildOrder: 2,
       sizeOrder: 1,
-      budget: 2048,
+      budget: 2176,
       over: 'markup',
       authoring: true,
     },

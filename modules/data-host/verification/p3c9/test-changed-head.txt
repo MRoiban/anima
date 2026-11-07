@@ -1,0 +1,24 @@
+
+> test:scope
+> node tools/test-scope.ts changed --base=HEAD
+
+Scopes: data-host, devtools
+  unit: modules/data-host/test/cli/api.test.ts
+  unit: modules/data-host/test/core/assets.test.ts
+  unit: modules/data-host/test/core/computed.test.ts
+  unit: modules/data-host/test/core/host.test.ts
+  unit: modules/devtools/test/core/policy.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/data-host/test/web/browser.test.ts
+  browser: packages/web/test/browser.test.ts
+  cases: ^conformance > (data-host-asset-literal|data-host-image-binding)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-a95304f0
+
+
+ Test Files  10 passed (10)
+      Tests  1171 passed | 498 skipped (1669)
+   Start at  15:11:44
+   Duration  92.12s (tests 96%, import 4%, transform 1%)

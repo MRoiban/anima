@@ -69,6 +69,18 @@ export const a11yActions: Module = {
           const cache = caches.get(this);
           return items
             .call(this, all)
+            .map((n) => {
+              const bounds = cache?.entries.find((e) => e.id === n.id)?.bounds;
+              return bounds && !n.config.bounds
+                ? {
+                    ...n,
+                    point: [bounds[0] + bounds[2] / 2, bounds[1] + bounds[3] / 2] as [
+                      number,
+                      number,
+                    ],
+                  }
+                : n;
+            })
             .filter(
               (n) =>
                 all ||

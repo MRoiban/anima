@@ -1,6 +1,6 @@
 import { createScriptSession } from '../../core/src/script.ts';
 import { resolve, basename } from 'node:path';
-import { findProject, projectSource } from './project.ts';
+import { findProject, projectSource, substituteConstants } from './project.ts';
 import { doctor } from './doctor.ts';
 import { comparePNG } from './compare-png.ts';
 import { mixAudio } from './audio.ts';
@@ -83,9 +83,10 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
   anima compare a.png b.png [--tolerance 0..255] [-o diff.png]  compare output RGBA pixels
   anima doctor                          check Node, browsers, cache and module wiring
   anima render [file] [--component name] [--fit contain|cover|fill|none] [--viewport WxH]
-               [--scale k] [--probe 'x,y;x,y'] [--preset name] [--audio out.wav]
+               [--frames N] [--fps N] [--scale k] [--probe 'x,y;x,y'] [--preset name] [--audio out.wav]
   anima inspect [file] --summary         wiring diagnostics table
   anima schema --search <words> | <type>.<field>
+               [--animatable] [--bindable] [--inherited] [--editor-only]
   anima new <directory> --sample bell|moon|progress
   anima build [file] --out-dir <directory>  local HTML and runtime export
   anima fmt <file> [--write | --check]  canonical formatting
@@ -97,7 +98,7 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
   anima decompile <file.ani> [-o out.animl]    write canonical AniML
   anima schema [type | fill | stroke | a11y | timeline | layer | state | pose | transition | listener | input] [--json-schema]
                                         registry fields, types and markup/.ani spellings
-  anima docs [authoring | spec | markup | <section>] [--list]
+  anima docs [authoring | spec | markup | <section>] [section-slug] [--list]
                                         the authoring guide and the spec
 
 Script commands: semantics [id]; semantic <id> tap|increase|decrease|focus; snapshot --semantics.
@@ -116,7 +117,12 @@ export async function run(argv: string[], io: IO): Promise<number> {
         viewport: { type: 'string' },
         scale: { type: 'string' },
         probe: { type: 'string' },
-        preset: { type: 'string' },
+        preset: { type: 'string', multiple: true },
+        fps: { type: 'string' },
+        animatable: { type: 'boolean' },
+        bindable: { type: 'boolean' },
+        inherited: { type: 'boolean' },
+        'editor-only': { type: 'boolean' },
         audio: { type: 'string' },
         search: { type: 'string' },
         summary: { type: 'boolean' },
@@ -263,15 +269,32 @@ export async function run(argv: string[], io: IO): Promise<number> {
         if (json || 'diagnostics' in result) io.out(JSON.stringify(result));
         else
           io.out(
-            `compile ${result.compileMs.toFixed(3)} ms; ${result.frames} frames; step median ${result.step.median.toFixed(3)} µs p95 ${result.step.p95.toFixed(3)} µs; draw median ${result.draw.median.toFixed(3)} µs p95 ${result.draw.p95.toFixed(3)} µs`,
+            `compile ${result.compileMs.toFixed(3)} ms; ${result.frames} frames; step median ${result.step.median.toFixed(3)} µs p95 ${result.step.p95.toFixed(3)} µs; draw median ${result.draw.median.toFixed(3)} µs p95 ${result.draw.p95.toFixed(3)} µs; JS heap growth ${result.memory.growthBytes} B (${result.memory.bytesPerFrame.toFixed(2)} B/frame)`,
           );
         return 'diagnostics' in result ? 1 : 0;
       }
       case 'render': {
-        const preset = o.preset ? findProject()?.presets?.[o.preset] : undefined;
-        if (o.preset && !preset) throw new Usage('unknown render preset ' + o.preset);
+        const names = o.preset ?? [];
+        const presets = names.map((name) => {
+          const preset = findProject()?.presets?.[name];
+          if (!preset) throw new Usage('unknown render preset ' + name);
+          return preset;
+        });
         const explicit = Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined));
-        return await render(file(rest), { ...preset, ...explicit }, json, io);
+        for (let i = 0; i < Math.max(1, presets.length); i++) {
+          const output =
+            presets.length > 1 && o.out
+              ? o.out.replace(/(\.[^.]+)$/, '-' + names[i] + '$1')
+              : o.out;
+          const result = await render(
+            file(rest),
+            { ...presets[i], ...explicit, out: output },
+            json,
+            io,
+          );
+          if (result) return result;
+        }
+        return 0;
       }
       case 'build': {
         const dir = o['out-dir'] ?? (!o.out ? findProject()?.out : undefined);
@@ -379,11 +402,13 @@ export async function run(argv: string[], io: IO): Promise<number> {
       case 'new':
         return o.sample ? sampleProject(rest, o, json, io) : scaffold(rest, o, json, io);
       case 'schema':
+        if (o.animatable || o.bindable || o.inherited || o['editor-only'])
+          return filteredSchema(rest[0], o, json, io);
         return o.search
           ? schemaSearch(o.search, json, io)
           : schema(rest[0], !!o['json-schema'], json, io);
       case 'docs':
-        return docs(rest[0], !!o.list, json, io);
+        return docs(rest[0], !!o.list, json, io, rest[1]);
       default:
         throw new Usage(`unknown command "${cmd}"`);
     }
@@ -471,9 +496,12 @@ function subtractionHints<T extends Diagnostic>(diagnostics: T[]): T[] {
 }
 
 function check(f: string): { model?: Model; diagnostics: Located[]; text: string } {
-  const text = f.endsWith('.animl') ? projectSource(f) : readFileSync(f, 'utf8');
+  const text = projectSource(f);
   if (f.endsWith('.animl')) {
-    const c = compile(text, { file: f, resolve: (path) => readFileSync(path, 'utf8') });
+    const c = compile(text, {
+      file: f,
+      resolve: (path) => substituteConstants(readFileSync(path, 'utf8'), findProject()?.constants),
+    });
     const diagnostics = subtractionHints(c.diagnostics);
     if (c.doc) {
       for (const d of glyphDiagnostics(c.doc)) {
@@ -797,8 +825,8 @@ async function render(
 ): Promise<number> {
   const out = o.out as string | undefined;
   const compare = o.compare as string | undefined;
-  if ((!compare && !out && !o.probe && !o.audio) || (out && !/\.(svg|png)$/.test(out)))
-    throw new Usage('render needs -o <file>.svg or <file>.png');
+  if ((!compare && !out && !o.probe && !o.audio) || (out && !/\.(svg|png|webm)$/.test(out)))
+    throw new Usage('render needs -o <file>.svg|png|webm');
   let { model } = loaded(f, io, json);
   if (!model) return 1;
   if (o.component) {
@@ -901,6 +929,52 @@ async function render(
         `${metrics.pass ? 'PASS' : 'FAIL'}: ${metrics.differingPixels} differing pixels, max channel difference ${metrics.maxChannelDifference}; ${metrics.pixelsBeyondTolerance} pixels beyond tolerance ${tolerance}${out ? `; wrote ${out}` : ''}`,
       );
     return metrics.pass ? 0 : 1;
+  }
+  if (o.frames !== undefined || out?.endsWith('.webm')) {
+    const n = Number(o.frames ?? 60),
+      fps = Number(o.fps ?? 60);
+    if (
+      !Number.isInteger(n) ||
+      n < 1 ||
+      n > 10000 ||
+      !Number.isFinite(fps) ||
+      fps <= 0 ||
+      fps > 240 ||
+      o.sheet ||
+      compare ||
+      !out
+    )
+      throw new Usage(
+        'sequences need --frames 1..10000, --fps (0,240], -o file.png|file.webm; no sheet or compare',
+      );
+    if (!/\.(png|webm)$/.test(out)) throw new Usage('sequences output PNG or WebM');
+    const images: Buffer[] = [];
+    const wrote: string[] = [];
+    for (let i = 0; i < n; i++) {
+      if (i) session.execute('advance ' + 1 / fps);
+      const svg = viewportSVG(
+        frameSVG(player, look, size),
+        width!,
+        height!,
+        fit,
+        scale,
+        look.background,
+      );
+      const png = toPNG(svg);
+      if (out.endsWith('.webm')) images.push(png);
+      else {
+        const path = out.replace(/\.png$/, '-' + String(i).padStart(4, '0') + '.png');
+        writeFileSync(path, png);
+        wrote.push(path);
+      }
+    }
+    if (out.endsWith('.webm')) {
+      const { encodeVideo } = await import('./video.ts');
+      writeFileSync(out, await encodeVideo(images, fps));
+      wrote.push(out);
+    }
+    io.out(json ? JSON.stringify({ wrote, frames: n, fps }) : 'wrote ' + wrote.join(', '));
+    return 0;
   }
   let svg: string;
   if (o.sheet) {
@@ -1219,7 +1293,13 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
   return 0;
 }
 
-function docs(topic: string | undefined, list: boolean, json: boolean, io: IO): number {
+function docs(
+  topic: string | undefined,
+  list: boolean,
+  json: boolean,
+  io: IO,
+  section?: string,
+): number {
   const read = (p: string) => readFileSync(new URL(p, ROOT), 'utf8');
   const guide = read('docs/AUTHORING.md');
   const sections = [...guide.matchAll(/^## (.+)$/gm)].map((m) => ({
@@ -1249,6 +1329,30 @@ function docs(topic: string | undefined, list: boolean, json: boolean, io: IO): 
       )
       .filter(([, files]) => files.length),
   );
+  if ((topic === 'spec' && (list || section)) || (topic === 'authoring' && section)) {
+    const source = topic === 'spec' ? spec : guide;
+    const entries = [...source.matchAll(/^#{2,3} (.+)$/gm)].map((m) => ({
+      title: m[1]!,
+      slug: m[1]!
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-|-$/g, ''),
+      at: m.index!,
+    }));
+    if (list)
+      return (
+        io.out(
+          json
+            ? JSON.stringify(entries.map(({ title, slug }) => ({ title, slug })))
+            : entries.map((e) => e.slug + '\t' + e.title).join('\n'),
+        ),
+        0
+      );
+    const i = entries.findIndex((e) => e.slug === section);
+    if (i < 0) throw new Usage('unknown docs section ' + section);
+    const text = source.slice(entries[i]!.at, entries[i + 1]?.at ?? source.length).trim();
+    return (io.out(json ? JSON.stringify({ topic, section, text }) : text), 0);
+  }
   if (list) {
     const topics = [
       ...new Set([
@@ -1263,7 +1367,13 @@ function docs(topic: string | undefined, list: boolean, json: boolean, io: IO): 
     return (io.out(json ? JSON.stringify(topics) : topics.join('\n')), 0);
   }
   let text: string;
-  if (!topic || topic === 'authoring') text = guide;
+  if (!topic || topic === 'authoring')
+    text =
+      guide.split('\n')[0] +
+      '\n\nContents (anima docs authoring <section>):\n' +
+      sections.map((s) => '- ' + s.slug + ': ' + s.title).join('\n') +
+      '\n\n' +
+      guide;
   else if (topic === 'spec') text = spec;
   else if (topic === 'markup') text = read('spec/ANIML.md');
   else if (moduleDocs.has(topic) || moduleTopics.some((m) => m[1] === topic)) {
@@ -1309,7 +1419,7 @@ async function build(
       map: sourceMap,
     } = compile(source, {
       file: f,
-      resolve: (path) => readFileSync(path, 'utf8'),
+      resolve: (path) => substituteConstants(readFileSync(path, 'utf8'), findProject()?.constants),
     }));
   else throw new Usage('build needs a .animl or .html file');
   if (text !== undefined) {
@@ -1505,5 +1615,78 @@ async function exportProject(file: string, dir: string, json: boolean, io: IO): 
   );
   if (json) io.out(JSON.stringify({ wrote: dir, files: [name, 'anima.js', 'index.html'] }));
   else io.out('wrote ' + dir);
+  return 0;
+}
+
+function filteredSchema(
+  topic: string | undefined,
+  options: Record<string, unknown>,
+  json: boolean,
+  io: IO,
+): number {
+  if (options['editor-only']) {
+    const result = { applicable: false, reason: 'Anima has no editor-only entries', fields: [] };
+    io.out(json ? JSON.stringify(result) : result.reason);
+    return 0;
+  }
+  const lines: string[] = [];
+  schema(topic, false, true, { out: (s) => lines.push(s), err: (s) => io.err(s) });
+  type Row = {
+    ani: string;
+    name?: string;
+    animatable: boolean;
+    bindable: boolean;
+    inherited: boolean;
+    type: string;
+  };
+  const data = JSON.parse(lines[0]!);
+  const nodeRows = (
+    t: (typeof NODE_TYPES)[number],
+    info: { fields: { ani: string; type: string }[] },
+  ) =>
+    info.fields.map((f) => {
+      const prop = COMMON[f.ani] ?? OWN[t][f.ani];
+      return {
+        ...f,
+        animatable: !!prop,
+        bindable: !!prop,
+        inherited: Object.hasOwn(COMMON, f.ani),
+      };
+    });
+  let rows: Row[];
+  if (!topic)
+    rows = data.nodeTypes.flatMap(
+      (info: { type: (typeof NODE_TYPES)[number]; fields: { ani: string; type: string }[] }) =>
+        nodeRows(info.type, info).map((f) => ({ ...f, ani: info.type + '.' + f.ani })),
+    );
+  else if (NODE_TYPES.includes(topic as never)) rows = nodeRows(topic as never, data);
+  else {
+    const [type, key] = topic.split('.');
+    if (key && NODE_TYPES.includes(type as never))
+      rows = nodeRows(type as never, { fields: [data] });
+    else
+      rows = (data.fields ?? []).map((f: Row) => ({
+        ...f,
+        animatable: !!PAINT[topic as 'fill']?.[f.ani],
+        bindable: !!PAINT[topic as 'fill']?.[f.ani],
+        inherited: false,
+      }));
+  }
+  const fields = rows.filter(
+    (f) =>
+      (!options.animatable || f.animatable) &&
+      (!options.bindable || f.bindable) &&
+      (!options.inherited || f.inherited),
+  );
+  io.out(
+    json
+      ? JSON.stringify({ topic, fields })
+      : fields
+          .map(
+            (f) =>
+              `${f.ani}: ${f.type}; animatable=${f.animatable} bindable=${f.bindable} inherited=${f.inherited}`,
+          )
+          .join('\n'),
+  );
   return 0;
 }

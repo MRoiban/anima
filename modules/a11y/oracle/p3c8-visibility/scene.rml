@@ -1,0 +1,16 @@
+<Rive version="1" kind="fragment">
+  <Artboard id="0:1" name="Visibility" width="100" height="40" defaultStateMachineId="0:2">
+    <Shape name="visible" x="10" y="10"><Rectangle width="4" height="4"/><Fill><SolidColor colorValue="FF111111"/></Fill><SemanticData role="text" label="visible"/></Shape>
+    <Shape name="transparent" x="20" y="10" opacity="0"><Rectangle width="4" height="4"/><Fill><SolidColor colorValue="FF111111"/></Fill><SemanticData role="text" label="transparent"/></Shape>
+    <Node name="hidden-group"><SemanticData role="group" label="hidden-group" isHidden="true"/>
+      <Shape x="30" y="10"><Rectangle width="4" height="4"/><Fill><SolidColor colorValue="FF111111"/></Fill><SemanticData role="text" label="hidden-child"/></Shape>
+    </Node>
+    <Shape name="hidden-drawable" x="40" y="10" drawableFlags="1"><Rectangle width="4" height="4"/><Fill><SolidColor colorValue="FF111111"/></Fill><SemanticData role="text" label="hidden-drawable"/></Shape>
+    <Solo name="choice" activeComponentId="0:21"><SemanticData role="group" label="choice"/>
+      <Shape id="0:20" name="inactive" x="50" y="10"><Rectangle width="4" height="4"/><Fill><SolidColor colorValue="FF111111"/></Fill><SemanticData role="text" label="inactive"/></Shape>
+      <Shape id="0:21" name="active" x="60" y="10"><Rectangle width="4" height="4"/><Fill><SolidColor colorValue="FF111111"/></Fill><SemanticData role="text" label="active"/></Shape>
+    </Solo>
+    <LinearAnimation id="0:3" name="Idle" duration="60" fps="60"/>
+    <StateMachine id="0:2" name="Idle"><StateMachineLayer><EntryState><StateTransition stateToId="0:4"/></EntryState><AnimationState id="0:4" animationId="0:3"/></StateMachineLayer></StateMachine>
+  </Artboard>
+</Rive>

@@ -5,7 +5,7 @@ export default {
     name: 'input',
     after: [],
     core: { entry: 'core/index.ts', export: 'input', svg: 'core/svg.ts', svgExport: 'inputSVG' },
-    web: [{ name: 'input', budget: 8192 }],
+    web: [{ name: 'input', budget: 7104 }],
     adapters: {
       'packages/core/src/modules/input/index.ts': 'core/index.ts',
       'packages/core/src/modules/input/svg.ts': 'core/svg.ts',

@@ -13,7 +13,7 @@ export default {
       name: 'assets',
       buildOrder: 7,
       sizeOrder: 9,
-      budget: 2048,
+      budget: 1984,
       over: 'assetio',
     },
   ],

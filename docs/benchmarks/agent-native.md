@@ -50,6 +50,7 @@ friction point that blocks an item — is a bug, fixed before the phase's PR mer
 | 2026-11-07 | P3b | [settings card](runs/2026-11-07-p3b/BRIEF.md) | AniML | 4/6 | 27 | ~10 min | 123-line scene (17.3 k chars; 278 lines of generator/verifier) | item 1 not met: no text until P6, so labels are vector glyphs and renaming a tab changes only its accessible name; item 3 not met: no value text separate from the numeric value, so "Volume 40 %" is the label. Friction: `docs a11y` / `docs --list` lack node accessibility, `schema a11y` shows only the root roles, the `semantic` action command is undiscoverable, focused-slider arrow keys do nothing headlessly, `expect` rejects AniML spellings (`volumeFill.width`), `$volume-5` parses as one path, the pre-commit hook fails without local node_modules. Orchestrator re-check: `validate` ok, the tabs evidence reproduces byte for byte |
 | 2026-11-07 | P3b | settings card | Rive markup | 5/6 | 15 | ~10.5 min | 924 lines (46.7 k chars, incl. two logic scripts and verifier) | item 3 partial: the semantic tree has no numeric min/max/step (range stated in the hint); spoken value "Volume 40 %" → "45 %" checked. Text runs bound to data with a downloaded open font; focus on click needed explicit listeners. Orchestrator re-check: slider and checkbox captures match the report |
 | 2026-11-07 | P3b (rerun after P3b-10a/10b) | settings card | AniML | 5/6 | 16 | ~6 min | 129-line scene (29.9 k chars; 507 lines / 55.7 k chars with generator, verifier and six input scripts) | item 1 not met — owner-accepted gap (no text until P6; accessible names follow the data, drawn labels do not). Items 2–6 met with headless semantic trees and synthetic keys/actions; spoken value via `value-text`. Friction: tab-list arrows rove focus but don't select (needed explicit focus listeners; no recipe in the docs); acting on a hidden control silently does nothing; `docs authoring` too long for one output; `docs spec --list` repeats the topic list; stale "pending" notes in the convert and a11y guides. Orchestrator re-check: `validate` ok; slider spoken values 40→45→50→45→40→100 % reproduce |
+| 2026-11-07 | P3c (regression rerun after the size round) | settings card | AniML | 5/6 | 17 | ~6 min | 129-line scene (9.9 k chars; 233 lines / 22.8 k chars of generator, verifier and input scripts) | item 1 not met — owner-accepted gap (no text until P6). Items 2–6 met; no regression from the size cuts or the `markup-hooks` authoring import. Friction: `grid="40 30"` gets `bad-attribute` without a hint to use `viewBox` for a rectangular scene; `schema text` answers with a generic usage message; `docs authoring`/`docs markup` still long for one tool response; the a11y guide still says a bounds row "remains planned" next to implemented text. Rive not rerun (its tooling is unchanged since P3b: 5/6). Orchestrator re-check: `validate` ok; spoken slider values 40→45→40→45 % reproduce |
 
 ### P4a findings → actions
 
@@ -137,3 +138,13 @@ Gate: AniML 4/6 is below Rive (5/6). Both misses are bugs except the one that ne
   when an action targets a hidden or absent semantic node; `docs authoring` paging or a table of
   contents; `docs spec --list` listing spec sections; remove stale "pending" notes from the convert
   and a11y guides.
+
+### P3c findings → actions
+
+- **Regression rerun: AniML 5/6**, unchanged from the P3b rerun; the size round and the
+  `markup-hooks` import did not make the format harder to learn.
+- For P6 (docs, 0 bytes): a `grid` hint pointing to `viewBox` for rectangular scenes; `schema text`
+  naming the P6 text work instead of a generic usage message; shorter default `docs` output (the
+  table of contents first); remove the a11y guide's "remains planned" line for bounds or state what
+  remains precisely.
+

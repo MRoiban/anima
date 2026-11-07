@@ -4,7 +4,7 @@ export default {
     name: 'data',
     after: [],
     core: { entry: 'core/index.ts', export: 'data' },
-    web: [{ name: 'data', budget: 8192 }],
+    web: [{ name: 'data', budget: 7040 }],
     adapters: {
       'packages/core/src/modules/data/index.ts': 'core/index.ts',
       'packages/markup/src/data.ts': 'markup/index.ts',

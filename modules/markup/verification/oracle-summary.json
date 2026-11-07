@@ -1,0 +1,8 @@
+{
+  "command": "node tools/oracle.ts --strict",
+  "exitCode": 0,
+  "cases": 266,
+  "samples": 475,
+  "allCompletedSamplesPass": true,
+  "retainedFindings": 24
+}

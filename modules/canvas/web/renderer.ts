@@ -152,6 +152,19 @@ export class CanvasRenderer implements IconRenderer {
       ((y - b.y) * this.canvas.height) / b.height,
     ).matrixTransform(matrix(this.#viewport).inverse());
   }
+  /** Map a resolved world node box through this backend's current viewport. */
+  nodeBox([x, y, w, h]: [number, number, number, number]): DOMRect {
+    const r = this.canvas.getBoundingClientRect(),
+      m = this.#viewport,
+      sx = r.width / this.canvas.width,
+      sy = r.height / this.canvas.height;
+    return new DOMRect(
+      r.x + (m[0] * x + m[4]) * sx,
+      r.y + (m[3] * y + m[5]) * sy,
+      w * m[0] * sx,
+      h * m[3] * sy,
+    );
+  }
   #diagnostic(
     feature: string,
     pointer: string,

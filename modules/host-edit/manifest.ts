@@ -3,7 +3,7 @@ export default {
   name: 'host-edit',
   after,
   core: { entry: 'core/index.ts', export: 'hostEdit' },
-  web: [{ name: 'host-edit', budget: 4096 }],
+  web: [{ name: 'host-edit', budget: 4032 }],
   adapters: {
     'packages/core/src/modules/host-edit/index.ts': 'core/index.ts',
     'packages/web/src/host-edit.ts': 'web/index.ts',

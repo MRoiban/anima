@@ -21,8 +21,8 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
   const error = (
     code: string,
     p: string,
-    message: string,
-    hint = 'check the data model, instance and property declaration',
+    message: string | false,
+    hint: string | false = 'check the data model, instance and property declaration',
   ) => d.err(code, p, V && message, V && hint);
   const defs = document.models;
   const ownEntries = <T>(o: Record<string, T> | undefined) =>
@@ -31,14 +31,15 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
   for (const [key, values] of ownEntries(document.enums)) {
     const keys = values.map((v) => (typeof v === 'string' ? v : v.key));
     if (keys.some((k) => !name.test(k)) || new Set(keys).size !== keys.length)
-      error(dataCodes['enum'], ptr('/data/enums', key), 'enum keys must be unique names');
+      error(dataCodes['enum'], ptr('/data/enums', key), V && 'enum keys must be unique names');
   }
   for (const [key, def] of ownEntries(defs)) {
     if (!name.test(key))
-      error(dataCodes['model'], ptr('/data/models', key), 'model names must be identifiers');
+      error(dataCodes['model'], ptr('/data/models', key), V && 'model names must be identifiers');
     for (const [key2, p] of ownEntries(def.properties)) {
       const at = ptr(ptr('/data/models', key) + '/properties', key2);
-      if (!name.test(key2)) error(dataCodes['property'], at, 'property names must be identifiers');
+      if (!name.test(key2))
+        error(dataCodes['property'], at, V && 'property names must be identifiers');
       if (p.type === 'component')
         p.values = Object.keys(model.doc.components ?? {}).filter((n) => n !== '$comment');
       if (p.type === 'enum') {
@@ -48,7 +49,7 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
             ? document.enums?.[p.enum]?.map((v) => (typeof v === 'string' ? v : v.key))
             : p.values;
         if (!values?.length || new Set(values).size !== values.length)
-          error(dataCodes['enum'], at, 'enum needs unique members or a declared system enum');
+          error(dataCodes['enum'], at, V && 'enum needs unique members or a declared system enum');
         p.values = [...(values ?? [])];
       }
       if (
@@ -56,14 +57,18 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
         (p.max !== undefined && p.type !== 'number') ||
         (p.min ?? -Infinity) > (p.max ?? Infinity)
       )
-        error(dataCodes['property'], at, 'number limits must be ordered and numeric');
+        error(dataCodes['property'], at, V && 'number limits must be ordered and numeric');
       if (
         (p.type === 'model-ref' && !Object.hasOwn(defs, p.model ?? '')) ||
         (p.type === 'list' && p.of && !Object.hasOwn(defs, p.of))
       )
-        error(dataCodes['model'], at, 'unknown referenced model');
+        error(dataCodes['model'], at, V && 'unknown referenced model');
       if (p.type === 'asset-ref' && !p.assetType)
-        error(dataCodes['property'], at, 'asset-ref needs assetType image, audio, font or blob');
+        error(
+          dataCodes['property'],
+          at,
+          V && 'asset-ref needs assetType image, audio, font or blob',
+        );
     }
   }
   let expanded = 0;
@@ -73,12 +78,12 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
   const namedInstance = (key: string, at: string): Record<string, unknown> => {
     if (named.has(key)) return named.get(key)!;
     if (resolving.has(key)) {
-      error(dataCodes['cycle'], at, 'cyclic instance reference');
+      error(dataCodes['cycle'], at, V && 'cyclic instance reference');
       return {};
     }
     const instance = document.instances?.[key];
     if (!instance) {
-      error(dataCodes['instance'], at, 'unknown instance ' + key);
+      error(dataCodes['instance'], at, V && 'unknown instance ' + key);
       return {};
     }
     resolving.add(key);
@@ -95,18 +100,18 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
   ): Record<string, unknown> => {
     const def = Object.hasOwn(defs, modelName) ? defs[modelName] : undefined;
     if (!def) {
-      error(dataCodes['model'], at, 'unknown model ' + modelName);
+      error(dataCodes['model'], at, V && 'unknown model ' + modelName);
       return {};
     }
     if (stack.length >= 32 || ++expanded > 4096) {
-      error('limit-exceeded', at, 'data expansion exceeds 32 levels or 4096 objects');
+      error('limit-exceeded', at, V && 'data expansion exceeds 32 levels or 4096 objects');
       return {};
     }
     const out: Record<string, unknown> = {};
     modelOf.set(out, modelName);
     for (const k of Object.keys(overrides))
       if (!def.properties[k] && k !== '$comment')
-        error(dataCodes['path'], ptr(at, k), 'unknown property ' + k);
+        error(dataCodes['path'], ptr(at, k), V && 'unknown property ' + k);
     for (const [k, p] of ownEntries(def.properties)) {
       const loc = ptr(at, k);
       let value = Object.hasOwn(overrides, k) ? overrides[k] : p.default;
@@ -115,8 +120,8 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
           error(
             dataCodes['type'],
             loc,
-            'triggers have no stored value',
-            'use fire with the trigger path',
+            V && 'triggers have no stored value',
+            V && 'use fire with the trigger path',
           );
         continue;
       }
@@ -129,13 +134,13 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
           if (typeof v === 'string') {
             const instance = document.instances?.[v];
             if (!instance) {
-              error(dataCodes['instance'], point, 'unknown instance ' + v);
+              error(dataCodes['instance'], point, V && 'unknown instance ' + v);
               return {};
             }
             if (of && instance.model !== of)
-              error(dataCodes['type'], point, 'instance model does not match reference');
+              error(dataCodes['type'], point, V && 'instance model does not match reference');
             if (stack.includes('@' + v)) {
-              error(dataCodes['cycle'], point, 'cyclic instance reference');
+              error(dataCodes['cycle'], point, V && 'cyclic instance reference');
               return {};
             }
             return namedInstance(v, point);
@@ -144,7 +149,7 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
             const o = v as { model?: string; instance?: string; values?: Record<string, unknown> };
             if (o.instance) return item(o.instance, of, point);
             if (o.model && of && o.model !== of)
-              error(dataCodes['type'], point, 'item model does not match list of');
+              error(dataCodes['type'], point, V && 'item model does not match list of');
             return build(o.model ?? of ?? '', o.values ?? (v as Record<string, unknown>), point, [
               ...stack,
               modelName,
@@ -154,8 +159,8 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
             error(
               dataCodes['cycle'],
               point,
-              'recursive default model reference',
-              'provide an acyclic explicit instance graph',
+              V && 'recursive default model reference',
+              V && 'provide an acyclic explicit instance graph',
             );
             return {};
           }
@@ -163,7 +168,7 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
         };
         if (p.type === 'list') {
           if (value !== undefined && !Array.isArray(value))
-            error(dataCodes['type'], loc, 'list values must be arrays');
+            error(dataCodes['type'], loc, V && 'list values must be arrays');
           out[k] = (Array.isArray(value) ? value : []).map((v, i) => item(v, p.of, loc + '/' + i));
         } else out[k] = item(value, p.model, loc);
         continue;
@@ -183,15 +188,15 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
         error(
           'unknown-component',
           loc,
-          'component property names an unknown component',
-          'use a declared component name or empty string',
+          V && 'component property names an unknown component',
+          V && 'use a declared component name or empty string',
         );
       if (!accepts(p, value))
         error(
           dataCodes['type'],
           loc,
-          'value does not match ' + p.type,
-          'use a value with the declared property type',
+          V && 'value does not match ' + p.type,
+          V && 'use a value with the declared property type',
         );
       else {
         if (
@@ -199,7 +204,7 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
           p.value === undefined &&
           (Number(value) < (p.min ?? -Infinity) || Number(value) > (p.max ?? Infinity))
         )
-          error(dataCodes['type'], loc, 'initial value lies outside number limits');
+          error(dataCodes['type'], loc, V && 'initial value lies outside number limits');
         if (
           p.type === 'asset-ref' &&
           value &&
@@ -210,8 +215,8 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
             Object.hasOwn(overrides, k)
               ? loc
               : ptr(ptr('/data/models', modelName) + '/properties', k) + '/default',
-            'asset reference kind does not match',
-            'declare an asset of the requested kind',
+            V && 'asset reference kind does not match',
+            V && 'declare an asset of the requested kind',
           );
         out[k] = normalize(p, value);
       }
@@ -225,7 +230,7 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
       error(
         dataCodes['instance'],
         ptr('/data/instances', key),
-        'instance names must be identifiers',
+        V && 'instance names must be identifiers',
       );
     defaults[key] = namedInstance(key, ptr('/data/instances', key) + '/values');
     if (instance.default) {
@@ -233,13 +238,14 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
         error(
           dataCodes['instance'],
           ptr('/data/instances', key) + '/default',
-          'only one default instance is allowed',
+          V && 'only one default instance is allowed',
         );
       chosen = key;
     }
   }
   const target = document.model;
-  if (target && !defs[target]) error(dataCodes['model'], '/data/model', 'unknown default model');
+  if (target && !defs[target])
+    error(dataCodes['model'], '/data/model', V && 'unknown default model');
   if (target)
     chosen =
       ownEntries(document.instances).find(([, v]) => v.model === target && v.default)?.[0] ??
@@ -250,26 +256,30 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
     chosen = 'default';
     const modelName = target ?? Object.keys(defs).find((k) => k !== '$comment');
     if (!modelName) {
-      error(dataCodes['model'], '/data/models', 'at least one model is required');
+      error(dataCodes['model'], '/data/models', V && 'at least one model is required');
       return;
     }
     (document.instances ??= {})[chosen] = { model: modelName };
     defaults[chosen] = build(modelName, {}, '/data/models/' + modelName + '/properties');
   }
   if (document.preview && !defaults[document.preview])
-    error(dataCodes['instance'], '/data/preview', 'unknown preview instance');
+    error(dataCodes['instance'], '/data/preview', V && 'unknown preview instance');
   for (const [i, n] of model.nodes.entries())
     if (n.raw.data && !model.doc.requires.includes('lists')) {
       const key = String(n.raw.data).replace(/^\$/, '').replace(/:$/, '');
       const inst = document.instances?.[key];
       if (!inst)
-        error(dataCodes['instance'], '/nodes/' + i + '/data', 'unknown component data instance');
+        error(
+          dataCodes['instance'],
+          '/nodes/' + i + '/data',
+          V && 'unknown component data instance',
+        );
       const publicModel = model.doc.components?.[n.raw.component]?.data;
       if (inst && typeof publicModel === 'string' && publicModel !== inst.model)
         error(
           dataCodes['type'],
           '/nodes/' + i + '/data',
-          'component public data model does not match',
+          V && 'component public data model does not match',
         );
     }
   const c: Compiled = { document, defaults, defaultName: chosen, refs: new Map(), model, modelOf };
@@ -346,8 +356,8 @@ export function prepare(model: Model, d: Diags, context?: DataModule['prepareCon
             error(
               dataCodes['path'],
               at,
-              'unknown data path ' + path,
-              'use a declared property, named instance or valid list index',
+              V && 'unknown data path ' + path,
+              V && 'use a declared property, named instance or valid list index',
             );
         }
       }

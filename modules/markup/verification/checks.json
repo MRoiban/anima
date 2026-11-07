@@ -1,0 +1,63 @@
+{
+  "ownedScope": {
+    "exitCode": 0,
+    "passed": 6349,
+    "skippedOrFiltered": 251,
+    "todo": 12,
+    "browserFiles": 31
+  },
+  "changedScope": {
+    "exitCode": 1,
+    "passed": 8049,
+    "failedTests": 3,
+    "failedSuiteHooks": 1,
+    "skipped": 4,
+    "todo": 40,
+    "note": "All affected files pass standalone at unchanged time limits; original nested child failure detail unavailable."
+  },
+  "standalone": {
+    "authoringBrowsers": 8,
+    "existingHookBrowsers": 18,
+    "registrationOrders": {
+      "tests": 1,
+      "orders": 12
+    },
+    "scaffolder": 4,
+    "dataHostBrowsers": 8,
+    "nestedScaffoldProbe": {
+      "passed": 904,
+      "todo": 30
+    }
+  },
+  "static": {
+    "typecheck": 0,
+    "changedTypeScriptLint": 0,
+    "moduleWiring": 0,
+    "browserArtifacts": 0,
+    "schemaGeneration": 0,
+    "repositoryLint": {
+      "exitCode": 1,
+      "preexistingSurveyErrors": 10
+    }
+  },
+  "size": {
+    "exitCode": 1,
+    "runtimeBefore": 109971,
+    "runtimeAfter": 105501,
+    "authoringBefore": 11944,
+    "authoringAfter": 14440,
+    "all29ScenesNonGrowing": true,
+    "knownFailure": "paint-sampling1083/1024, baseline paint shrink; budget unchanged"
+  },
+  "oracle": {
+    "exitCode": 0,
+    "cases": 266,
+    "samples": 475,
+    "retainedFindings": 24
+  },
+  "perf": {
+    "beforeExitCode": 0,
+    "afterExitCode": 0,
+    "withinThreePercent": "unverified under shared CPU load"
+  }
+}

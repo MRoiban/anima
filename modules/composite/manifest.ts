@@ -13,7 +13,7 @@ export default {
       name: 'composite',
       buildOrder: 4,
       sizeOrder: 7,
-      budget: 4096,
+      budget: 4160,
     },
   ],
   adapters: {

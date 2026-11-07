@@ -9,14 +9,17 @@ export default {
       budget: 8192,
       authoring: true,
     },
+    { name: 'markup-hooks', over: 'markup', budget: 4544, authoring: true },
   ],
   adapters: {
     'packages/web/src/markup.ts': 'web/index.ts',
+    'packages/web/src/markup-hooks.ts': 'web/hooks.ts',
   },
   exports: {
     'web:./markup': 'packages/web/src/markup.ts',
+    'web:./markup-hooks': 'packages/web/src/markup-hooks.ts',
   },
-  tests: ['packages/web/test/markup-hooks.test.ts'],
+  tests: ['packages/web/test/markup-hooks.test.ts', 'modules/markup/test/**/*.test.ts'],
   conformance: [],
   docs: ['spec/ANIML.md'],
 };

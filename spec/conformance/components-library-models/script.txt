@@ -1,2 +1,2 @@
 advance 0
-snapshot badge/dot.r
+snapshot dot.r

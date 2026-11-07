@@ -16,26 +16,26 @@ scope by the owner's triage of 2026-11-07).
 | Category | Total | done | spec'd | planned | deferred | maybe-later | wont-do |
 |---|---:|---:|---:|---:|---:|---:|---:|
 | Drawing and paint | 125 | 110 |  |  |  | 1 | 14 |
-| Transforms and draw order | 17 | 15 |  | 1 |  |  | 1 |
+| Transforms and draw order | 17 | 16 |  |  |  |  | 1 |
 | Animation | 40 | 33 |  | 3 |  |  | 4 |
 | State machines | 61 | 60 |  |  |  |  | 1 |
 | Listeners and input | 93 | 88 |  | 2 |  |  | 3 |
 | Data: view models, binding, converters | 169 | 160 |  | 5 |  |  | 4 |
 | Events | 18 | 17 |  |  |  |  | 1 |
-| Components | 30 | 23 |  | 4 |  |  | 3 |
+| Components | 30 | 26 |  | 1 |  |  | 3 |
 | Text | 61 |  |  | 59 |  |  | 2 |
 | Layout | 49 |  |  | 16 |  |  | 33 |
 | Rigging | 23 |  |  | 22 |  | 1 |  |
 | Scripting | 96 |  |  |  |  | 25 | 71 |
 | GPU | 35 |  |  |  |  | 35 |  |
 | Assets | 50 | 36 |  | 8 |  | 5 | 1 |
-| Accessibility | 63 | 52 |  | 11 |  |  |  |
-| Host runtime API | 125 | 82 |  | 29 |  | 11 | 3 |
+| Accessibility | 63 | 57 |  | 6 |  |  |  |
+| Host runtime API | 125 | 85 |  | 26 |  | 11 | 3 |
 | Platforms | 64 | 2 |  |  |  | 59 | 3 |
-| Tooling | 119 | 42 |  | 6 |  | 51 | 20 |
-| **Total** | **1238** | **720** | **0** | **166** | **0** | **188** | **164** |
+| Tooling | 119 | 48 |  |  |  | 51 | 20 |
+| **Total** | **1238** | **738** | **0** | **148** | **0** | **188** | **164** |
 
-**Progress:** 720 of 886 in-scope capabilities done (81 %); 720 of 1238 in the full matrix (58 %).
+**Progress:** 738 of 886 in-scope capabilities done (83 %); 738 of 1238 in the full matrix (60 %).
 
 | Phase | Rows |
 |---|---:|
@@ -44,7 +44,7 @@ scope by the owner's triage of 2026-11-07).
 | [P2](#p2) — Done: M5, Glyphy export, more glyphs, the head-to-head test | 0 |
 | [P3](#p3) — Done: the playground/inspector and the web host API | 15 |
 | [P3b](#p3b) — Done: the a11y module, authoring/drawing tools and headless CLI extras | 96 |
-| [P3c](#p3c) — Size round (≥ 5 % off the runtime sum) and P3b carry-overs | 23 |
+| [P3c](#p3c) — Size round (≥ 5 % off the runtime sum) and P3b carry-overs | 18 |
 | [P4a](#p4a) — Done: paint and composite on the module system and the draw layer | 46 |
 | [P4b](#p4b) — Done: motion — eases, typed tracks, timeline control, mixing, host timeline API | 22 |
 | [P4c](#p4c) — Done: interaction — machine (blends, actions, on-change), input (pointer, keys, gamepad, scroll, drag), focus | 95 |
@@ -54,8 +54,8 @@ scope by the owner's triage of 2026-11-07).
 | [P5](#p5) — Done: components, bindings, assets, images, n-slice and feathering | 61 |
 | [P5b](#p5b) — Done: lists, assets, host editing, typed data guards, live keyframes and component controls | 77 |
 | [Pc](#pc) — Done: the canvas backend (minimal), brought forward from P10 | 3 |
-| [P6](#p6) — Text, on the browser (shaping, FontFace, DOM-backed input) | 83 |
-| [P7](#p7) — Minimal layout (hug, padding, min/max, fixed, row/column stacks) and host fit | 35 |
+| [P6](#p6) — Text, on the browser (shaping, FontFace, DOM-backed input) | 84 |
+| [P7](#p7) — Minimal layout (hug, padding, min/max, fixed, row/column stacks) and host fit | 39 |
 | [P8](#p8) — Rigging | 25 |
 | [P9](#p9) — Scripting — won't do (owner triage, 2026-11-07) | 0 |
 | [P10](#p10) — GPU effects and WebGL/WebGPU — maybe later (owner triage, 2026-11-07) | 0 |
@@ -399,56 +399,46 @@ scope by the owner's triage of 2026-11-07).
 
 ### Transforms and draw order
 
-| Id | Capability | Anima construct | Module | Status | Test | Reason |
-|---|---|---|---|---|---|---|
-| `transforms.computed-transform-values` | Read computed geometry | P3b-4 implemented: modules/data-host/SPEC.md player.computed(id), frozen world matrix/geometric bounds/resolved opacity; modules/data-host/core/index.ts | data-host | planned | modules/data-host/test/core/computed.test.ts; modules/data-host/test/web/browser.test.ts; tests/oracle/transforms-computed-transform-values/skip.json | API returns world matrix, geometric bounds and opacity; separate computed local/root-space coordinates as derived properties required by the inventory are not delivered (modules/data-host/core/index.ts; modules/data-host/SPEC.md). |
-
-### Data: view models, binding, converters
-
-| Id | Capability | Anima construct | Module | Status | Test | Reason |
-|---|---|---|---|---|---|---|
-| `data.host-artboard` | Set model artboard | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Component-name assignment is tested, but assignment of an artboard together with associated model data is not established; the skip covers local-definition assignment (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json). |
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `transforms.computed-transform-values` | Read computed geometry | P3b-4 implemented: modules/data-host/SPEC.md player.computed(id), frozen world matrix/geometric bounds/resolved opacity; modules/data-host/core/index.ts | data-host | done | modules/data-host/P3c-9-REPORT.md; modules/data-host/SPEC.md; modules/data-host/core/index.ts; modules/data-host/test/core/computed.test.ts; modules/data-host/test/web/browser.test.ts; tests/oracle/transforms-computed-transform-values/skip.json |
 
 ### Components
 
-| Id | Capability | Anima construct | Module | Status | Test | Reason |
-|---|---|---|---|---|---|---|
-| `components.host-artboard-reference` | Host bindable artboard | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Only local component-definition name handles are tested; assignment from another loaded file remains absent. The native skip covers local assignment only (tests/oracle/data-host-artboards/skip.json). |
-| `components.library-export` | Library export selection | modules/markup-libraries/SPEC.md | markup-libraries | planned | modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-export; tests/oracle/components-library-export; tests/oracle/components-library-export/todo.json; modules/devtools/REPORT.md | Export/select aliases are tested, but the cited native probe remains TODO with no completed comparison, evidenced skip or numbered finding (tests/oracle/components-library-export/todo.json). |
-| `components.library-models` | Library data definitions | modules/markup-libraries/SPEC.md | markup-libraries | planned | modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-models; tests/oracle/components-library-models; tests/oracle/components-library-models/todo.json; modules/devtools/REPORT.md | Tests establish shared model definitions, not shared authored instances and enums; the native probe is still TODO with no evidenced skip (modules/markup-libraries/test/markup/extras.test.ts; tests/oracle/components-library-models/todo.json). |
-| `components.library-update` | Update library dependency | modules/markup-libraries/SPEC.md | markup-libraries | planned | modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-update; tests/oracle/components-library-update; tests/oracle/components-library-update/todo.json; modules/devtools/REPORT.md | Local vendored refresh is tested, but the native probe remains TODO with no completed comparison, evidenced skip or numbered finding (tests/oracle/components-library-update/todo.json). |
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `components.library-export` | Library export selection | modules/markup-libraries/SPEC.md | markup-libraries | done | modules/markup-libraries/REPORT.md; modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-export; tests/oracle/components-library-export/skip.json |
+| `components.library-models` | Library data definitions | modules/markup-libraries/SPEC.md | markup-libraries | done | modules/markup-libraries/REPORT.md; modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-models; tests/oracle/components-library-models/skip.json |
+| `components.library-update` | Update library dependency | modules/markup-libraries/SPEC.md | markup-libraries | done | modules/markup-libraries/REPORT.md; modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-update; tests/oracle/components-library-update/skip.json |
 
 ### Accessibility
 
-| Id | Capability | Anima construct | Module | Status | Test | Reason |
-|---|---|---|---|---|---|---|
-| `a11y.focus-action-traversal` | Traverse focus | modules/a11y/SPEC.md; Traverse focus | a11y | planned | modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md | Sequential/repeat traversal passes, but native right traversal selects the sibling while Anima selects its focusable ancestor; synthesized focus points use transform origins rather than painted bounds (modules/a11y/oracle/focus-policy/README.md). |
-| `a11y.focus-condition` | Focus transition condition | modules/a11y/SPEC.md; Focus transition condition | a11y | planned | modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md | Anima ancestor/repeat conditions pass, but the native ancestor-condition wiring is unverified: both accepted comparator probes leave marker center 90 instead of 70 (modules/a11y/oracle/focus-policy/README.md). |
-| `a11y.spatial-focus` | Directional focus navigation | modules/a11y/SPEC.md; Directional focus navigation | a11y | planned | modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-focus-policy; spec/conformance/a11y-focus-condition; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/focus-policy/README.md | Native directional candidate selection differs (sibling versus focusable ancestor), even with matching semantic bounds; synthesized focus points lack painted bounds (modules/a11y/oracle/focus-policy/README.md). |
-| `a11y.tree-bounds` | Semantic bounds | modules/a11y/SPEC.md; Semantic bounds | a11y | planned | modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-tree-bounds | Exact painted path/stroke extents are absent in overlay and CLI; Chromium and Firefox stroke bbox measurements differ (modules/a11y/REPORT.md). |
-| `a11y.tree-visibility` | Semantic subtree visibility | modules/a11y/SPEC.md; Semantic subtree visibility | a11y | planned | modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; spec/conformance/a11y-tree-visibility; spec/conformance/a11y-state-hidden | Hidden/modal and collapse probes pass; the inactive Solo/native visibility matrix remains incomplete (modules/a11y/REPORT.md). |
-| `a11y.web-overlay` | Accessible web overlay | modules/a11y/SPEC.md; Accessible web overlay | a11y | planned | modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md | SVG overlay is browser-tested; positioning over canvas output, explicitly required by this row, remains unimplemented and unverified (modules/a11y-dom/REPORT.md). |
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `a11y.focus-action-traversal` | Traverse focus | modules/a11y/SPEC.md; Traverse focus | a11y | done | modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/focus-policy/frames/right.json; modules/a11y/oracle/focus-policy/frames/outside.json; spec/conformance/a11y-spatial-focus; spec/conformance/a11y-focus-policy |
+| `a11y.focus-condition` | Focus transition condition | modules/a11y/SPEC.md; Focus transition condition | a11y | done | modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/p3c8-condition/README.md; modules/a11y/oracle/p3c8-condition/verify.ts; modules/a11y/oracle/p3c8-condition/frames; spec/conformance/a11y-focus-condition |
+| `a11y.spatial-focus` | Directional focus navigation | modules/a11y/SPEC.md; Directional focus navigation | a11y | done | modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/focus-policy/frames/right.json; modules/a11y/oracle/focus-policy/frames/outside.json; spec/conformance/a11y-spatial-focus; spec/conformance/a11y-focus-policy |
+| `a11y.tree-visibility` | Semantic subtree visibility | modules/a11y/SPEC.md; Semantic subtree visibility | a11y | done | modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/test/core/visibility-native.test.ts; modules/a11y/oracle/p3c8-visibility/frames/tree.json; modules/a11y/oracle/p3c8-visibility/solo-first/frames/tree.json; spec/conformance/a11y-tree-visibility; spec/conformance/a11y-state-hidden |
+| `a11y.web-overlay` | Accessible web overlay | modules/a11y/SPEC.md; Accessible web overlay | a11y | done | modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y-dom/test/web/overlay.test.ts; modules/a11y-dom/oracle/SKIP.md; modules/canvas/web/index.ts |
 
 ### Host runtime API
 
-| Id | Capability | Anima construct | Module | Status | Test | Reason |
-|---|---|---|---|---|---|---|
-| `host-api.bindable-artboards` | Bindable component instances | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Local component-name handles do not establish acquisition of bindable artboard values with associated view-model instances (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json). |
-| `host-api.data-artboard` | View model artboard | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Local component-name assignment is tested; no bindable artboard instance value is established by the cited tests/skip (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json). |
-| `host-api.deprecation-policy` | Deprecation warning controls | Optional @anima-format/web/devtools: deprecation-policy; modules/devtools/SPEC.md | devtools | planned | packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-deprecation-policy/example.animl; tests/oracle/host-api-deprecation-policy/SKIP.md | Warning IDs are accepted, but policy is global once/always/off; suppression of selected IDs is not implemented (modules/devtools/web/index.ts). |
-| `host-api.low-level-semantics` | Semantic diffs and actions | modules/a11y/SPEC.md; Semantic diffs and actions | a11y | planned | modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md | Owner replacement routing passes, but collection rebuilds entries/signatures on every read without dependency subscriptions (modules/a11y/REPORT.md). |
-| `host-api.performance-marks` | Performance marks | Optional @anima-format/web/devtools: performance-marks; modules/devtools/SPEC.md | devtools | planned | packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-performance-marks/example.animl; tests/oracle/host-api-performance-marks/SKIP.md | Optional frame marks are tested; initialization timing entries required by this row are absent (modules/devtools/web/index.ts). |
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `host-api.deprecation-policy` | Deprecation warning controls | Optional @anima-format/web/devtools: deprecation-policy; modules/devtools/SPEC.md | devtools | done | modules/devtools/SPEC.md; modules/devtools/web/index.ts; packages/web/test/browser.test.ts; tests/oracle/host-api-deprecation-policy/SKIP.md; modules/data-host/P3c-9-REPORT.md; modules/devtools/test/core/policy.test.ts |
+| `host-api.low-level-semantics` | Semantic diffs and actions | modules/a11y/SPEC.md; Semantic diffs and actions | a11y | done | modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/test/core/edges.test.ts; modules/a11y/test/core/focus-native-policy.test.ts; modules/a11y/oracle/roles/P3B9.md |
+| `host-api.performance-marks` | Performance marks | Optional @anima-format/web/devtools: performance-marks; modules/devtools/SPEC.md | devtools | done | modules/devtools/SPEC.md; modules/devtools/web/index.ts; packages/web/test/browser.test.ts; tests/oracle/host-api-performance-marks/SKIP.md |
 
 ### Tooling
 
-| Id | Capability | Anima construct | Module | Status | Test | Reason |
-|---|---|---|---|---|---|---|
-| `tooling.benchmark` | Headless benchmark | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/bench.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md | Compile/step/draw timing statistics are tested; WASM memory-growth reporting required by the inventory is absent. The native timing skip does not complete that requirement (modules/tooling/oracle/README.md). |
-| `tooling.environment-doctor` | Environment diagnostics | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | tooling | planned | packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md | Doctor checks Node, browsers, cache and module wiring; authentication, ports, project and device checks from the inventory are absent (packages/cli/src/doctor.ts). |
-| `tooling.project-configuration` | Project configuration | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | tooling | planned | packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md | Manifest entry/sources/presets/out are supported; excluded sources and build constants required by the inventory are not accepted (packages/cli/src/project.ts). |
-| `tooling.render-presets` | Render presets and queue | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | tooling | planned | packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md | Synchronous image preset substitution is tested; reusable video presets and background render queuing are not delivered (packages/cli/src/project.ts; docs/p3b/CLI.md). |
-| `tooling.schema-lookup` | Schema property lookup | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | tooling | planned | packages/cli/test/commands.test.ts; packages/cli/test/cli.test.ts; docs/p3b/CLI.md; modules/tooling/REPORT.md | Type/field lookup and animatable output are tested; inherited-property filtering for animatable, bindable and editor-only entries is not delivered (packages/cli/src/cli.ts; packages/cli/test/commands.test.ts). |
-| `tooling.test-assertions` | Script assertions | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts | tooling | planned | packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md | Inline expect comparisons and exit failures are tested; grouped cases, expected-error assertions and test-only export exclusion are not delivered (packages/core/src/script.ts; packages/cli/test/agent-tools.test.ts). |
+| Id | Capability | Anima construct | Module | Status | Test |
+|---|---|---|---|---|---|
+| `tooling.benchmark` | Headless benchmark | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/bench.ts | tooling | done | modules/tooling/P3C-2-REPORT.md; packages/cli/test/p3c-tooling.test.ts; packages/cli/test/agent-tools.test.ts; packages/cli/test/commands.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md |
+| `tooling.environment-doctor` | Environment diagnostics | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | tooling | done | modules/tooling/P3C-2-REPORT.md; packages/cli/test/p3c-tooling.test.ts; packages/cli/test/agent-tools.test.ts; packages/cli/test/commands.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md |
+| `tooling.project-configuration` | Project configuration | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | tooling | done | modules/tooling/P3C-2-REPORT.md; packages/cli/test/p3c-tooling.test.ts; packages/cli/test/agent-tools.test.ts; packages/cli/test/commands.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md |
+| `tooling.render-presets` | Render presets and queue | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | tooling | done | modules/tooling/P3C-2-REPORT.md; packages/cli/test/p3c-tooling.test.ts; packages/cli/test/agent-tools.test.ts; packages/cli/test/commands.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md |
+| `tooling.schema-lookup` | Schema property lookup | SPEC: CLI projects and capture (tooling); docs/p3b/CLI.md; examples/{bell,moon,progress}.{animl,ani} | tooling | done | modules/tooling/P3C-2-REPORT.md; packages/cli/test/p3c-tooling.test.ts; packages/cli/test/agent-tools.test.ts; packages/cli/test/commands.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md |
+| `tooling.test-assertions` | Script assertions | spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts | tooling | done | modules/tooling/P3C-2-REPORT.md; packages/cli/test/p3c-tooling.test.ts; packages/cli/test/agent-tools.test.ts; packages/cli/test/commands.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md |
 
 ## P4a — Done: paint and composite on the module system and the draw layer <a id="p4a"></a>
 
@@ -1233,6 +1223,7 @@ scope by the owner's triage of 2026-11-07).
 | `a11y.state-multiline` | Semantic state: Multiline | new: nodes[].a11y.isMultiline: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-state-multiline | P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to |
 | `a11y.state-obscured` | Semantic state: Obscured | new: nodes[].a11y.isObscured: typed literal or {from: "model.property"} | a11y | planned | oracle/a11y-state-obscured | P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to |
 | `a11y.text-proxy` | Accessible text proxy | new: nodes[].a11y / player semantics API: text-proxy; bounds in grid units | a11y | planned | oracle/a11y-text-proxy | P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to |
+| `a11y.tree-bounds` | Semantic bounds | modules/a11y/SPEC.md; Semantic bounds | a11y | planned | modules/a11y/P3C8-REPORT.md; modules/a11y/P3C8-FINDINGS.md; modules/a11y/test/core/p3c8.test.ts; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; spec/conformance/a11y-tree-bounds | Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): exact painted path/stroke extents in the CLI and the overlay's SVG measurement seam remain; P6's text accessibility rows need the same exact-extent work (modules/a11y/P3C8-REPORT.md). |
 
 ### Host runtime API
 
@@ -1249,9 +1240,16 @@ scope by the owner's triage of 2026-11-07).
 
 ### Data: view models, binding, converters
 
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `data.bind-layout` | Bind layout parameters | TODO: modules/data/capabilities/data-bind-layout/registry.ts; spec/SPEC.md (Bind layout parameters); modules/data/capabilities/data-bind-layout/example.animl | data | planned | TODO: modules/data/test/core/data-bind-layout.test.ts; spec/conformance/data-bind-layout; tests/oracle/data-bind-layout |
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `data.bind-layout` | Bind layout parameters | TODO: modules/data/capabilities/data-bind-layout/registry.ts; spec/SPEC.md (Bind layout parameters); modules/data/capabilities/data-bind-layout/example.animl | data | planned | TODO: modules/data/test/core/data-bind-layout.test.ts; spec/conformance/data-bind-layout; tests/oracle/data-bind-layout |  |
+| `data.host-artboard` | Set model artboard | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing. |
+
+### Components
+
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `components.host-artboard-reference` | Host bindable artboard | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing. |
 
 ### Layout
 
@@ -1276,26 +1274,28 @@ scope by the owner's triage of 2026-11-07).
 
 ### Host runtime API
 
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `host-api.align-bottom-center` | Alignment: BottomCenter | new: <anima-icon align="BottomCenter"> | layout | planned | browser/align-bottom-center |
-| `host-api.align-bottom-left` | Alignment: BottomLeft | new: <anima-icon align="BottomLeft"> | layout | planned | browser/align-bottom-left |
-| `host-api.align-bottom-right` | Alignment: BottomRight | new: <anima-icon align="BottomRight"> | layout | planned | browser/align-bottom-right |
-| `host-api.align-center` | Alignment: Center | new: <anima-icon align="Center"> | layout | planned | browser/align-center |
-| `host-api.align-center-left` | Alignment: CenterLeft | new: <anima-icon align="CenterLeft"> | layout | planned | browser/align-center-left |
-| `host-api.align-center-right` | Alignment: CenterRight | new: <anima-icon align="CenterRight"> | layout | planned | browser/align-center-right |
-| `host-api.align-top-center` | Alignment: TopCenter | new: <anima-icon align="TopCenter"> | layout | planned | browser/align-top-center |
-| `host-api.align-top-left` | Alignment: TopLeft | new: <anima-icon align="TopLeft"> | layout | planned | browser/align-top-left |
-| `host-api.align-top-right` | Alignment: TopRight | new: <anima-icon align="TopRight"> | layout | planned | browser/align-top-right |
-| `host-api.artboard-size` | Override artboard size | new: scene width/height overrides | layout | planned | browser/artboard-size |
-| `host-api.fit-contain` | Fit: Contain | new: <anima-icon fit="contain"> | layout | planned | browser/fit-contain |
-| `host-api.fit-cover` | Fit: Cover | new: <anima-icon fit="cover"> | layout | planned | browser/fit-cover |
-| `host-api.fit-fill` | Fit: Fill | new: <anima-icon fit="fill"> | layout | planned | browser/fit-fill |
-| `host-api.fit-fit-height` | Fit: Fit height | new: <anima-icon fit="fit-height"> | layout | planned | browser/fit-fit-height |
-| `host-api.fit-fit-width` | Fit: Fit width | new: <anima-icon fit="fit-width"> | layout | planned | browser/fit-fit-width |
-| `host-api.fit-layout` | Fit: Responsive layout fit | new: <anima-icon fit="layout"> | layout | planned | browser/fit-layout |
-| `host-api.fit-none` | Fit: Unscaled | new: <anima-icon fit="none"> | layout | planned | browser/fit-none |
-| `host-api.fit-scale-down` | Fit: Scale down | new: <anima-icon fit="scale-down"> | layout | planned | browser/fit-scale-down |
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `host-api.align-bottom-center` | Alignment: BottomCenter | new: <anima-icon align="BottomCenter"> | layout | planned | browser/align-bottom-center |  |
+| `host-api.align-bottom-left` | Alignment: BottomLeft | new: <anima-icon align="BottomLeft"> | layout | planned | browser/align-bottom-left |  |
+| `host-api.align-bottom-right` | Alignment: BottomRight | new: <anima-icon align="BottomRight"> | layout | planned | browser/align-bottom-right |  |
+| `host-api.align-center` | Alignment: Center | new: <anima-icon align="Center"> | layout | planned | browser/align-center |  |
+| `host-api.align-center-left` | Alignment: CenterLeft | new: <anima-icon align="CenterLeft"> | layout | planned | browser/align-center-left |  |
+| `host-api.align-center-right` | Alignment: CenterRight | new: <anima-icon align="CenterRight"> | layout | planned | browser/align-center-right |  |
+| `host-api.align-top-center` | Alignment: TopCenter | new: <anima-icon align="TopCenter"> | layout | planned | browser/align-top-center |  |
+| `host-api.align-top-left` | Alignment: TopLeft | new: <anima-icon align="TopLeft"> | layout | planned | browser/align-top-left |  |
+| `host-api.align-top-right` | Alignment: TopRight | new: <anima-icon align="TopRight"> | layout | planned | browser/align-top-right |  |
+| `host-api.artboard-size` | Override artboard size | new: scene width/height overrides | layout | planned | browser/artboard-size |  |
+| `host-api.bindable-artboards` | Bindable component instances | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing. |
+| `host-api.data-artboard` | View model artboard | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing. |
+| `host-api.fit-contain` | Fit: Contain | new: <anima-icon fit="contain"> | layout | planned | browser/fit-contain |  |
+| `host-api.fit-cover` | Fit: Cover | new: <anima-icon fit="cover"> | layout | planned | browser/fit-cover |  |
+| `host-api.fit-fill` | Fit: Fill | new: <anima-icon fit="fill"> | layout | planned | browser/fit-fill |  |
+| `host-api.fit-fit-height` | Fit: Fit height | new: <anima-icon fit="fit-height"> | layout | planned | browser/fit-fit-height |  |
+| `host-api.fit-fit-width` | Fit: Fit width | new: <anima-icon fit="fit-width"> | layout | planned | browser/fit-fit-width |  |
+| `host-api.fit-layout` | Fit: Responsive layout fit | new: <anima-icon fit="layout"> | layout | planned | browser/fit-layout |  |
+| `host-api.fit-none` | Fit: Unscaled | new: <anima-icon fit="none"> | layout | planned | browser/fit-none |  |
+| `host-api.fit-scale-down` | Fit: Scale down | new: <anima-icon fit="scale-down"> | layout | planned | browser/fit-scale-down |  |
 
 ## P8 — Rigging <a id="p8"></a>
 

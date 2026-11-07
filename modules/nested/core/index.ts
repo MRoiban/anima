@@ -1,3 +1,4 @@
+import { nodePointer as pointer } from '../../components/core/node-pointer.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Model, NodeM, InputEvaluator } from '../../../packages/core/src/load.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
@@ -356,14 +357,6 @@ export const nested: Module & { dynamicTrees: typeof dynamicTrees } = {
 };
 export function error(d: Diags, code: string, at: string, message: string, hint: string) {
   d.err(code, at, V && message, V && hint);
-}
-function pointer(m: Model, i: number): string {
-  const n = m.nodes[i]!,
-    siblings =
-      n.parent < 0
-        ? m.nodes.filter((n) => n.parent < 0)
-        : m.nodes[n.parent]!.children.map((i) => m.nodes[i]!);
-  return (n.parent < 0 ? '/nodes' : pointer(m, n.parent) + '/children') + '/' + siblings.indexOf(n);
 }
 
 function readonly(name: string) {

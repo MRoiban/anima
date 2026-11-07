@@ -1,3 +1,4 @@
+import { nodePointer as pointer } from '../../components/core/node-pointer.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Model } from '../../../packages/core/src/load.ts';
 import type { Player, PlayerExtension } from '../../../packages/core/src/player.ts';
@@ -405,14 +406,7 @@ function property(data: DataModule, model: Model, path: string) {
   }
   return prop;
 }
-function pointer(m: Model, i: number): string {
-  const n = m.nodes[i]!;
-  const siblings =
-    n.parent < 0
-      ? m.nodes.filter((n) => n.parent < 0)
-      : m.nodes[n.parent]!.children.map((i) => m.nodes[i]!);
-  return (n.parent < 0 ? '/nodes' : pointer(m, n.parent) + '/children') + '/' + siblings.indexOf(n);
-}
+
 let depth = 0,
   expanded = 0;
 function extend(

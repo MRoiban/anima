@@ -17,7 +17,7 @@ export default {
       name: 'markup-bind',
       buildOrder: 9,
       sizeOrder: 5,
-      budget: 2048,
+      budget: 192,
       over: 'index',
       authoring: true,
     },

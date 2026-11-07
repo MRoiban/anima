@@ -1,3 +1,8 @@
+# [P3c-8] Current carry-over result
+
+Six of seven rows closure-ready; exact painted bounds remain open. All statuses stay planned. See [P3C8-REPORT.md](P3C8-REPORT.md) for the current seven-row table, measurements,
+checks and numbered findings. The P3b material below is historical for those seven rows.
+
 # [P3b-10a] Current accessibility closure report
 
 Status: **partial**. Parity statuses stay **planned**; the final phase promotion

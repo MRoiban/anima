@@ -1,0 +1,3 @@
+diagnostics []
+semantics command [{"id":"line","role":"img","states":{},"bounds":[10,10,10,0],"actions":[],"children":[]}]
+independent exact butt-stroke bounds: [10,8,10,4]

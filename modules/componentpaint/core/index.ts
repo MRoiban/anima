@@ -47,30 +47,30 @@ export const componentpaint: Module = {
               );
           if (n.raw.fill?.paint === undefined) return;
           const at = paths[i] + '/fill/paint';
-          const error = (code: string, message: string, hint: string) =>
+          const error = (code: string, message: string | false, hint: string | false) =>
             d.err(code, at, V && message, V && hint);
           const match = name.exec(n.raw.fill?.paint);
           if (!match) {
             error(
               'component-paint',
-              'paint must name a component source',
-              'use paint="component:row"',
+              V && 'paint must name a component source',
+              V && 'use paint="component:row"',
             );
             return;
           }
           if (!model.doc.requires.includes('components') || !model.doc.requires.includes('paint')) {
             error(
               'undeclared-feature',
-              'component paint needs components and paint',
-              'add components and paint to requires',
+              V && 'component paint needs components and paint',
+              V && 'add components and paint to requires',
             );
             return;
           }
           if (n.raw.fill.color !== undefined || n.raw.fill.type !== undefined || n.raw.paints) {
             error(
               'component-paint',
-              'component paint cannot also supply color, type or ordered paints',
-              'remove color/type/paints; an ordinary stroke may remain',
+              V && 'component paint cannot also supply color, type or ordered paints',
+              V && 'remove color/type/paints; an ordinary stroke may remain',
             );
             return;
           }
@@ -78,16 +78,16 @@ export const componentpaint: Module = {
           if (!definition || match[1] === '$comment') {
             error(
               'unknown-component',
-              'unknown paint component',
-              'declare the named component in components',
+              V && 'unknown paint component',
+              V && 'declare the named component in components',
             );
             return;
           }
           if (stack.has(definition) || stack.size >= 16) {
             error(
               'component-cycle',
-              'component paint source is cyclic or exceeds depth 16',
-              'remove recursive sources or reduce nesting',
+              V && 'component paint source is cyclic or exceeds depth 16',
+              V && 'remove recursive sources or reduce nesting',
             );
             return;
           }

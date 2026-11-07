@@ -1,3 +1,4 @@
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
 import { drawFrame } from '../../../packages/core/src/draw.ts';
@@ -5,10 +6,30 @@ import { apply, mul, type Mat } from '../../../packages/core/src/geom.ts';
 import { parsePath } from '../../../packages/core/src/path.ts';
 import { fail } from '../../host/core/errors.ts';
 import { after } from '../manifest.ts';
+export interface Coordinates {
+  readonly x: number;
+  readonly y: number;
+  readonly rotation: number;
+  readonly scaleX: number;
+  readonly scaleY: number;
+}
 export interface Computed {
+  readonly local: Coordinates;
+  readonly root: Coordinates;
   readonly world: readonly number[];
   readonly bounds: Readonly<{ x: number; y: number; width: number; height: number }>;
   readonly opacity: number;
+}
+function coordinates(m: readonly number[]): Coordinates {
+  const [a, b, c, d, x, y] = m as Mat;
+  const scaleX = Math.hypot(a, b);
+  return Object.freeze({
+    x,
+    y,
+    rotation: (Math.atan2(b, a) * 180) / Math.PI,
+    scaleX,
+    scaleY: scaleX ? (a * d - b * c) / scaleX : Math.hypot(c, d),
+  });
 }
 function computed(player: Player, id: string): Computed {
   const index = player.model.ids.get(id);
@@ -93,6 +114,8 @@ function computed(player: Player, id: string): Computed {
   for (let i = index!; i >= 0; i = player.model.nodes[i]!.parent)
     opacity *= player.num(i, 'opacity', 1);
   return Object.freeze({
+    local: coordinates(player.local(index!)),
+    root: coordinates(world),
     world: Object.freeze([...world]),
     bounds: Object.freeze(
       left === Infinity
@@ -136,8 +159,8 @@ export const dataHost: Module = {
             diag.err(
               'unknown-asset',
               '/bind/' + target.replace(/~/g, '~0').replace(/\//g, '~1'),
-              'unknown binding asset',
-              'declare the asset in this document',
+              V && 'unknown binding asset',
+              V && 'declare the asset in this document',
             );
           return name;
         },

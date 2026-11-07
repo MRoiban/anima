@@ -1,0 +1,25 @@
+{
+  "base": 109971,
+  "results": [
+    {
+      "name": "node-pointers",
+      "bytes": 109923,
+      "saving": 48
+    },
+    {
+      "name": "svg-clones",
+      "bytes": 109961,
+      "saving": 10
+    },
+    {
+      "name": "draw-node-resource-remap",
+      "bytes": 109988,
+      "saving": -17
+    },
+    {
+      "name": "all-duplicates",
+      "bytes": 109965,
+      "saving": 6
+    }
+  ]
+}

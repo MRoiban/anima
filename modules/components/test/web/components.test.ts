@@ -43,7 +43,9 @@ for (const [name, engine, paths] of [
         for (const entry of ['index', 'components', 'bind', 'markup'])
           await page.addScriptTag({
             type: 'module',
-            content: await bundle(resolve('packages/web/src/' + entry + '.ts')),
+            content: await bundle(
+              resolve('packages/web/src/' + (entry === 'markup' ? 'markup-hooks' : entry) + '.ts'),
+            ),
           });
         await page.evaluate(
           async (doc) => {
