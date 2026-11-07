@@ -61,7 +61,8 @@ export const PHASES: [string, string][] = [
   ['P1', 'Done: AniML, the authoring markup'],
   ['P2', 'Done: M5, Glyphy export, more glyphs, the head-to-head test'],
   ['P3', 'Done: the playground/inspector and the web host API'],
-  ['P3b', 'The rest of P3: the a11y module, authoring/drawing tools, headless CLI extras'],
+  ['P3b', 'Done: the a11y module, authoring/drawing tools and headless CLI extras'],
+  ['P3c', 'Size round (≥ 5 % off the runtime sum) and P3b carry-overs'],
   ['P4a', 'Done: paint and composite on the module system and the draw layer'],
   ['P4b', 'Done: motion — eases, typed tracks, timeline control, mixing, host timeline API'],
   [
@@ -96,6 +97,7 @@ export const FINISHED = [
   'P1',
   'P2',
   'P3',
+  'P3b',
   'P4a',
   'P4b',
   'P4c',
