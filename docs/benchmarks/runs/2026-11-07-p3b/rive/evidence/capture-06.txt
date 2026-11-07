@@ -1,0 +1,114 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[11:22:26.717] rive  deferred replay: inline
+[11:22:26.824] rive  built (496435 bytes, 106ms, 0 errors, 0 warnings)
+[11:22:26.827] rive  showing Settings [1/1]
+[11:22:26.828] rive  viewport 480x360 @1x
+ok advance
+[11:22:26.828] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/40-key-base.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/40-key-base.tree.json
+[11:22:26.828] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/40-key-base.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/40-key-base.data.json
+[11:22:26.828] rive  data: selectedTab = Sound (mid-run)
+ok data
+ok advance
+[11:22:26.829] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/41-host-selected-tab.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/41-host-selected-tab.tree.json
+[11:22:26.829] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/41-host-selected-tab.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/41-host-selected-tab.data.json
+ok pointer
+ok advance
+[11:22:26.829] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/42-slider-focus.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/42-slider-focus.tree.json
+[11:22:26.830] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/42-slider-focus.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/42-slider-focus.data.json
+ok key
+ok advance
+[11:22:26.830] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/43-slider-key-right.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/43-slider-key-right.tree.json
+[11:22:26.830] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/43-slider-key-right.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/43-slider-key-right.data.json
+ok key
+ok advance
+[11:22:26.831] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/44-slider-key-left.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/44-slider-key-left.tree.json
+[11:22:26.831] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/44-slider-key-left.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/44-slider-key-left.data.json
+ok pointer
+ok advance
+[11:22:26.831] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/45-mute-key-focus.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/45-mute-key-focus.tree.json
+[11:22:26.831] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/45-mute-key-focus.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/45-mute-key-focus.data.json
+ok key
+ok advance
+[11:22:26.832] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/46-mute-key-space.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/46-mute-key-space.tree.json
+[11:22:26.832] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/46-mute-key-space.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/46-mute-key-space.data.json
+[11:22:26.832] rive  data: selectedTab = General (mid-run)
+ok data
+ok advance
+[11:22:26.832] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/47-host-general.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/47-host-general.tree.json
+[11:22:26.832] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/47-host-general.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/47-host-general.data.json
+[11:22:26.832] rive  data: email = false (mid-run)
+ok data
+ok advance
+[11:22:26.833] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/48-host-email-false.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/48-host-email-false.tree.json
+[11:22:26.833] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/48-host-email-false.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/48-host-email-false.data.json
+[11:22:26.833] rive  data: push = true (mid-run)
+ok data
+ok advance
+[11:22:26.833] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/49-host-push-true.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/49-host-push-true.tree.json
+[11:22:26.833] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/49-host-push-true.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/49-host-push-true.data.json
+[11:22:26.834] rive  data: sms = true (mid-run)
+ok data
+ok advance
+[11:22:26.834] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/50-host-sms-true.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/50-host-sms-true.tree.json
+[11:22:26.834] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/50-host-sms-true.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/50-host-sms-true.data.json
+ok pointer
+ok advance
+[11:22:26.834] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/51-parent-focus-click.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/51-parent-focus-click.tree.json
+[11:22:26.834] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/51-parent-focus-click.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/51-parent-focus-click.data.json
+ok key
+ok advance
+[11:22:26.835] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/52-parent-key-space.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/52-parent-key-space.tree.json
+[11:22:26.835] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/52-parent-key-space.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/52-parent-key-space.data.json
+ok pointer
+ok advance
+[11:22:26.835] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/53-child-focus-click.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/53-child-focus-click.tree.json
+[11:22:26.835] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/53-child-focus-click.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/53-child-focus-click.data.json
+ok key
+ok advance
+[11:22:26.835] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/54-child-key-space.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/54-child-key-space.tree.json
+[11:22:26.836] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/54-child-key-space.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/54-child-key-space.data.json
+[11:22:26.836] rive  data: volume = 150 (mid-run)
+ok data
+ok advance
+[11:22:26.836] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/55-host-volume-too-high.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/55-host-volume-too-high.tree.json
+[11:22:26.836] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/55-host-volume-too-high.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/55-host-volume-too-high.data.json
+[11:22:26.836] rive  data: volume = -10 (mid-run)
+ok data
+ok advance
+[11:22:26.836] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/56-host-volume-too-low.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/56-host-volume-too-low.tree.json
+[11:22:26.837] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/56-host-volume-too-low.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/56-host-volume-too-low.data.json
+ok quit

@@ -1,0 +1,131 @@
+PASS default volume
+PASS default muted
+PASS default selectedTab
+PASS default email
+PASS default push
+PASS default sms
+PASS tab list role
+PASS 00-initial selected tab
+PASS 00-initial inactive panel absent
+PASS 01-arrow-sound selected tab
+PASS 01-arrow-sound inactive panel absent
+PASS 06-arrow-general selected tab
+PASS 06-arrow-general inactive panel absent
+PASS 02-slider-increase volume data
+PASS 02-slider-increase spoken value
+PASS 02-slider-increase slider role
+PASS 03-slider-decrease volume data
+PASS 03-slider-decrease spoken value
+PASS 03-slider-decrease slider role
+PASS 25-increase-clamped volume data
+PASS 25-increase-clamped spoken value
+PASS 25-increase-clamped slider role
+PASS 27-decrease-clamped volume data
+PASS 27-decrease-clamped spoken value
+PASS 27-decrease-clamped slider role
+PASS 43-slider-key-right volume data
+PASS 43-slider-key-right spoken value
+PASS 43-slider-key-right slider role
+PASS 44-slider-key-left volume data
+PASS 44-slider-key-left spoken value
+PASS 44-slider-key-left slider role
+PASS 04-mute-on mute data
+PASS 04-mute-on toggle semantics
+PASS 04-mute-on knob binding source
+PASS 05-mute-off mute data
+PASS 05-mute-off toggle semantics
+PASS 05-mute-off knob binding source
+PASS 45-mute-key-focus mute data
+PASS 45-mute-key-focus toggle semantics
+PASS 45-mute-key-focus knob binding source
+PASS 46-mute-key-space mute data
+PASS 46-mute-key-space toggle semantics
+PASS 46-mute-key-space knob binding source
+PASS 00-initial parent data
+PASS 00-initial tri-state semantics
+PASS 00-initial child email
+PASS 00-initial child push
+PASS 00-initial child sms
+PASS 07-parent-all parent data
+PASS 07-parent-all tri-state semantics
+PASS 07-parent-all child email
+PASS 07-parent-all child push
+PASS 07-parent-all child sms
+PASS 08-parent-none parent data
+PASS 08-parent-none tri-state semantics
+PASS 08-parent-none child email
+PASS 08-parent-none child push
+PASS 08-parent-none child sms
+PASS 09-email-on parent data
+PASS 09-email-on tri-state semantics
+PASS 09-email-on child email
+PASS 09-email-on child push
+PASS 09-email-on child sms
+PASS 10-push-on parent data
+PASS 10-push-on tri-state semantics
+PASS 10-push-on child email
+PASS 10-push-on child push
+PASS 10-push-on child sms
+PASS 11-sms-on parent data
+PASS 11-sms-on tri-state semantics
+PASS 11-sms-on child email
+PASS 11-sms-on child push
+PASS 11-sms-on child sms
+PASS 12-email-off parent data
+PASS 12-email-off tri-state semantics
+PASS 12-email-off child email
+PASS 12-email-off child push
+PASS 12-email-off child sms
+PASS 33-parent-from-mixed parent data
+PASS 33-parent-from-mixed tri-state semantics
+PASS 33-parent-from-mixed child email
+PASS 33-parent-from-mixed child push
+PASS 33-parent-from-mixed child sms
+PASS 34-parent-clear parent data
+PASS 34-parent-clear tri-state semantics
+PASS 34-parent-clear child email
+PASS 34-parent-clear child push
+PASS 34-parent-clear child sms
+PASS 35-parent-from-none parent data
+PASS 35-parent-from-none tri-state semantics
+PASS 35-parent-from-none child email
+PASS 35-parent-from-none child push
+PASS 35-parent-from-none child sms
+PASS 51-parent-focus-click parent data
+PASS 51-parent-focus-click tri-state semantics
+PASS 51-parent-focus-click child email
+PASS 51-parent-focus-click child push
+PASS 51-parent-focus-click child sms
+PASS 52-parent-key-space parent data
+PASS 52-parent-key-space tri-state semantics
+PASS 52-parent-key-space child email
+PASS 52-parent-key-space child push
+PASS 52-parent-key-space child sms
+PASS 53-child-focus-click parent data
+PASS 53-child-focus-click tri-state semantics
+PASS 53-child-focus-click child email
+PASS 53-child-focus-click child push
+PASS 53-child-focus-click child sms
+PASS 54-child-key-space parent data
+PASS 54-child-key-space tri-state semantics
+PASS 54-child-key-space child email
+PASS 54-child-key-space child push
+PASS 54-child-key-space child sms
+PASS host-written sound title
+PASS host-written general title
+PASS action addresses renamed tab
+PASS pointer selects Sound
+PASS semantic selects General
+PASS semantic selects Sound
+PASS host selects tab
+PASS host volume upper clamp
+PASS host volume lower clamp
+PASS capture-04.txt no command/build errors
+PASS capture-05.txt no command/build errors
+PASS capture-06.txt no command/build errors
+PASS capture-03.txt no command/build errors
+PASS capture-07.txt no command/build errors
+PASS capture-08.txt no command/build errors
+PASS capture-02.txt no command/build errors
+PASS capture-01.txt no command/build errors
+130 assertions passed

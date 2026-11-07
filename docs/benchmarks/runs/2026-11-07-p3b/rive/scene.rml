@@ -1,0 +1,534 @@
+<Rive version="1" kind="fragment">
+  <Artboard id="0:1" width="480" height="360" name="Settings" viewModelId="0:90" viewModelInstanceId="0:91" defaultStateMachineId="0:2" styleId="0:3">
+    <LayoutComponentStyle id="0:3" />
+    <ScriptedDrawable name="Derived settings" scriptAssetId="0:81" />
+    <Node name="Tabs">
+      <SemanticData role="tabList" label="">
+        <DataBindContext sourcePathIds="0:90-0:126" propertyKey="983" />
+      </SemanticData>
+      <Shape x="24" y="24" name="Box" id="0:10">
+        <SemanticData role="tab" label="">
+          <DataBindContext sourcePathIds="0:90-0:106" propertyKey="983" />
+          <DataBindContext sourcePathIds="0:90-0:115" propertyKey="997" />
+        </SemanticData>
+        <FocusData />
+        <Text x="60" y="18" originY="0.5" originX="0.5" name="generalTitle label">
+          <TextStylePaint id="0:201" fontAssetId="0:80" fontSize="16" name="Body">
+            <Fill>
+              <SolidColor colorValue="141413" />
+            </Fill>
+          </TextStylePaint>
+          <TextValueRun styleId="0:201" text="">
+            <DataBindContext sourcePathIds="0:90-0:106" propertyKey="268" />
+          </TextValueRun>
+        </Text>
+        <Shape x="0" y="0" name="Box">
+          <DataBindContext sourcePathIds="0:90-0:124" propertyKey="18" />
+          <Rectangle width="120" height="36" originX="0" originY="0" cornerRadiusTL="0" />
+          <Fill>
+            <SolidColor colorValue="d97757" />
+          </Fill>
+        </Shape>
+        <Rectangle width="120" height="36" originX="0" originY="0" cornerRadiusTL="0" />
+        <Stroke thickness="2">
+          <SolidColor colorValue="141413" />
+        </Stroke>
+      </Shape>
+      <Shape x="168" y="24" name="Box" id="0:11">
+        <SemanticData role="tab" label="">
+          <DataBindContext sourcePathIds="0:90-0:107" propertyKey="983" />
+          <DataBindContext sourcePathIds="0:90-0:116" propertyKey="997" />
+        </SemanticData>
+        <FocusData />
+        <Text x="60" y="18" originY="0.5" originX="0.5" name="soundTitle label">
+          <TextStylePaint id="0:202" fontAssetId="0:80" fontSize="16" name="Body">
+            <Fill>
+              <SolidColor colorValue="141413" />
+            </Fill>
+          </TextStylePaint>
+          <TextValueRun styleId="0:202" text="">
+            <DataBindContext sourcePathIds="0:90-0:107" propertyKey="268" />
+          </TextValueRun>
+        </Text>
+        <Shape x="0" y="0" name="Box">
+          <DataBindContext sourcePathIds="0:90-0:125" propertyKey="18" />
+          <Rectangle width="120" height="36" originX="0" originY="0" cornerRadiusTL="0" />
+          <Fill>
+            <SolidColor colorValue="d97757" />
+          </Fill>
+        </Shape>
+        <Rectangle width="120" height="36" originX="0" originY="0" cornerRadiusTL="0" />
+        <Stroke thickness="2">
+          <SolidColor colorValue="141413" />
+        </Stroke>
+      </Shape>
+    </Node>
+    <Solo id="0:20" activeComponentId="0:21" name="Panels">
+      <Node id="0:21" name="General panel">
+        <SemanticData role="group" label="">
+          <DataBindContext sourcePathIds="0:90-0:127" propertyKey="983" />
+        </SemanticData>
+        <Shape x="24" y="96" name="Box" id="0:30">
+          <SemanticData role="checkbox" label="">
+            <DataBindContext sourcePathIds="0:90-0:108" propertyKey="983" />
+            <DataBindContext sourcePathIds="0:90-0:117" propertyKey="998" />
+          </SemanticData>
+          <FocusData />
+          <Text x="36" y="12" originY="0.5" originX="0" name="notificationsTitle label">
+            <TextStylePaint id="0:203" fontAssetId="0:80" fontSize="16" name="Body">
+              <Fill>
+                <SolidColor colorValue="141413" />
+              </Fill>
+            </TextStylePaint>
+            <TextValueRun styleId="0:203" text="">
+              <DataBindContext sourcePathIds="0:90-0:108" propertyKey="268" />
+            </TextValueRun>
+          </Text>
+          <Shape x="4" y="10" name="Box">
+            <DataBindContext sourcePathIds="0:90-0:119" propertyKey="18" />
+            <Rectangle width="16" height="4" originX="0" originY="0" cornerRadiusTL="0" />
+            <Fill>
+              <SolidColor colorValue="141413" />
+            </Fill>
+          </Shape>
+          <Shape x="0" y="0" name="Box">
+            <DataBindContext sourcePathIds="0:90-0:118" propertyKey="18" />
+            <Rectangle width="24" height="24" originX="0" originY="0" cornerRadiusTL="0" />
+            <Fill>
+              <SolidColor colorValue="141413" />
+            </Fill>
+          </Shape>
+          <Rectangle width="24" height="24" originX="0" originY="0" cornerRadiusTL="0" />
+          <Stroke thickness="2">
+            <SolidColor colorValue="141413" />
+          </Stroke>
+        </Shape>
+        <Shape x="48" y="144" name="Box" id="0:31">
+          <SemanticData role="checkbox" label="">
+            <DataBindContext sourcePathIds="0:90-0:109" propertyKey="983" />
+            <DataBindContext sourcePathIds="0:90-0:121" propertyKey="998" />
+          </SemanticData>
+          <FocusData />
+          <Text x="36" y="12" originY="0.5" originX="0" name="emailTitle label">
+            <TextStylePaint id="0:204" fontAssetId="0:80" fontSize="16" name="Body">
+              <Fill>
+                <SolidColor colorValue="141413" />
+              </Fill>
+            </TextStylePaint>
+            <TextValueRun styleId="0:204" text="">
+              <DataBindContext sourcePathIds="0:90-0:109" propertyKey="268" />
+            </TextValueRun>
+          </Text>
+          <Shape x="0" y="0" name="Box">
+            <DataBindContext sourcePathIds="0:90-0:121" propertyKey="18" />
+            <Rectangle width="24" height="24" originX="0" originY="0" cornerRadiusTL="0" />
+            <Fill>
+              <SolidColor colorValue="141413" />
+            </Fill>
+          </Shape>
+          <Rectangle width="24" height="24" originX="0" originY="0" cornerRadiusTL="0" />
+          <Stroke thickness="2">
+            <SolidColor colorValue="141413" />
+          </Stroke>
+        </Shape>
+        <Shape x="48" y="192" name="Box" id="0:32">
+          <SemanticData role="checkbox" label="">
+            <DataBindContext sourcePathIds="0:90-0:110" propertyKey="983" />
+            <DataBindContext sourcePathIds="0:90-0:122" propertyKey="998" />
+          </SemanticData>
+          <FocusData />
+          <Text x="36" y="12" originY="0.5" originX="0" name="pushTitle label">
+            <TextStylePaint id="0:205" fontAssetId="0:80" fontSize="16" name="Body">
+              <Fill>
+                <SolidColor colorValue="141413" />
+              </Fill>
+            </TextStylePaint>
+            <TextValueRun styleId="0:205" text="">
+              <DataBindContext sourcePathIds="0:90-0:110" propertyKey="268" />
+            </TextValueRun>
+          </Text>
+          <Shape x="0" y="0" name="Box">
+            <DataBindContext sourcePathIds="0:90-0:122" propertyKey="18" />
+            <Rectangle width="24" height="24" originX="0" originY="0" cornerRadiusTL="0" />
+            <Fill>
+              <SolidColor colorValue="141413" />
+            </Fill>
+          </Shape>
+          <Rectangle width="24" height="24" originX="0" originY="0" cornerRadiusTL="0" />
+          <Stroke thickness="2">
+            <SolidColor colorValue="141413" />
+          </Stroke>
+        </Shape>
+        <Shape x="48" y="240" name="Box" id="0:33">
+          <SemanticData role="checkbox" label="">
+            <DataBindContext sourcePathIds="0:90-0:111" propertyKey="983" />
+            <DataBindContext sourcePathIds="0:90-0:123" propertyKey="998" />
+          </SemanticData>
+          <FocusData />
+          <Text x="36" y="12" originY="0.5" originX="0" name="smsTitle label">
+            <TextStylePaint id="0:206" fontAssetId="0:80" fontSize="16" name="Body">
+              <Fill>
+                <SolidColor colorValue="141413" />
+              </Fill>
+            </TextStylePaint>
+            <TextValueRun styleId="0:206" text="">
+              <DataBindContext sourcePathIds="0:90-0:111" propertyKey="268" />
+            </TextValueRun>
+          </Text>
+          <Shape x="0" y="0" name="Box">
+            <DataBindContext sourcePathIds="0:90-0:123" propertyKey="18" />
+            <Rectangle width="24" height="24" originX="0" originY="0" cornerRadiusTL="0" />
+            <Fill>
+              <SolidColor colorValue="141413" />
+            </Fill>
+          </Shape>
+          <Rectangle width="24" height="24" originX="0" originY="0" cornerRadiusTL="0" />
+          <Stroke thickness="2">
+            <SolidColor colorValue="141413" />
+          </Stroke>
+        </Shape>
+      </Node>
+      <Node id="0:22" name="Sound panel">
+        <SemanticData role="group" label="">
+          <DataBindContext sourcePathIds="0:90-0:128" propertyKey="983" />
+        </SemanticData>
+        <Node name="Knob placement" x="24" y="192">
+          <Shape x="18" y="18" name="Knob">
+            <DataBindContext sourcePathIds="0:90-0:120" propertyKey="13" />
+            <Ellipse width="28.8" height="28.8" />
+            <Fill>
+              <SolidColor colorValue="d97757" />
+            </Fill>
+          </Shape>
+        </Node>
+        <Shape x="24" y="120" name="Box">
+          <Rectangle width="144" height="12" originX="0" originY="0" cornerRadiusTL="0">
+            <DataBindContext sourcePathIds="0:90-0:100" propertyKey="20" converterId="0:83" />
+          </Rectangle>
+          <Fill>
+            <SolidColor colorValue="d97757" />
+          </Fill>
+        </Shape>
+        <Shape x="24" y="120" name="Box" id="0:40">
+          <SemanticData role="slider" label="" hint="Range 0 to 100; step 5. Use arrow keys.">
+            <DataBindContext sourcePathIds="0:90-0:112" propertyKey="983" />
+            <DataBindContext sourcePathIds="0:90-0:114" propertyKey="984" />
+          </SemanticData>
+          <FocusData />
+          <Text x="0" y="-18" originY="0.5" originX="0" name="volumeSpoken label">
+            <TextStylePaint id="0:207" fontAssetId="0:80" fontSize="16" name="Body">
+              <Fill>
+                <SolidColor colorValue="141413" />
+              </Fill>
+            </TextStylePaint>
+            <TextValueRun styleId="0:207" text="">
+              <DataBindContext sourcePathIds="0:90-0:114" propertyKey="268" />
+            </TextValueRun>
+          </Text>
+          <Rectangle width="360" height="12" originX="0" originY="0" cornerRadiusTL="0" />
+          <Fill>
+            <SolidColor colorValue="141413" />
+          </Fill>
+        </Shape>
+        <Shape x="24" y="192" name="Box" id="0:41">
+          <SemanticData role="switchControl" label="">
+            <DataBindContext sourcePathIds="0:90-0:113" propertyKey="983" />
+            <DataBindContext sourcePathIds="0:90-0:101" propertyKey="1000" />
+          </SemanticData>
+          <FocusData />
+          <Text x="84" y="18" originY="0.5" originX="0" name="muteTitle label">
+            <TextStylePaint id="0:208" fontAssetId="0:80" fontSize="16" name="Body">
+              <Fill>
+                <SolidColor colorValue="141413" />
+              </Fill>
+            </TextStylePaint>
+            <TextValueRun styleId="0:208" text="">
+              <DataBindContext sourcePathIds="0:90-0:113" propertyKey="268" />
+            </TextValueRun>
+          </Text>
+          <Rectangle width="72" height="36" originX="0" originY="0" cornerRadiusTL="18" />
+          <Fill>
+            <SolidColor colorValue="141413" />
+          </Fill>
+        </Shape>
+      </Node>
+    </Solo>
+    <Shape x="0" y="0" name="Box">
+      <Rectangle width="480" height="360" originX="0" originY="0" cornerRadiusTL="0" />
+      <Fill>
+        <SolidColor colorValue="f0eee6" />
+      </Fill>
+    </Shape>
+    <StateMachine id="0:2" name="Settings interactions">
+      <StateMachineListener targetId="0:10" name="general">
+        <ListenerInputType listenerTypeValue="click" />
+        <ListenerInputTypeSemantic listenerTypeValue="semanticAction">
+          <SemanticInput actionType="tap" />
+        </ListenerInputTypeSemantic>
+        <ListenerInputTypeKeyboard listenerTypeValue="keyboard">
+          <KeyboardInput keyType="space" keyPhase="1" />
+          <KeyboardInput keyType="enter" keyPhase="1" />
+        </ListenerInputTypeKeyboard>
+        <ScriptedListenerAction scriptAssetId="0:82">
+          <ScriptInputString name="action" propertyValue="general" />
+        </ScriptedListenerAction>
+      </StateMachineListener>
+      <StateMachineListener targetId="0:10" name="sound">
+        <ListenerInputTypeKeyboard listenerTypeValue="keyboard">
+          <KeyboardInput keyType="right" keyPhase="1" />
+        </ListenerInputTypeKeyboard>
+        <ScriptedListenerAction scriptAssetId="0:82">
+          <ScriptInputString name="action" propertyValue="sound" />
+        </ScriptedListenerAction>
+        <FocusActionTarget targetId="0:11" />
+      </StateMachineListener>
+      <StateMachineListener targetId="0:11" name="sound">
+        <ListenerInputType listenerTypeValue="click" />
+        <ListenerInputTypeSemantic listenerTypeValue="semanticAction">
+          <SemanticInput actionType="tap" />
+        </ListenerInputTypeSemantic>
+        <ListenerInputTypeKeyboard listenerTypeValue="keyboard">
+          <KeyboardInput keyType="space" keyPhase="1" />
+          <KeyboardInput keyType="enter" keyPhase="1" />
+        </ListenerInputTypeKeyboard>
+        <ScriptedListenerAction scriptAssetId="0:82">
+          <ScriptInputString name="action" propertyValue="sound" />
+        </ScriptedListenerAction>
+      </StateMachineListener>
+      <StateMachineListener targetId="0:11" name="general">
+        <ListenerInputTypeKeyboard listenerTypeValue="keyboard">
+          <KeyboardInput keyType="left" keyPhase="1" />
+        </ListenerInputTypeKeyboard>
+        <ScriptedListenerAction scriptAssetId="0:82">
+          <ScriptInputString name="action" propertyValue="general" />
+        </ScriptedListenerAction>
+        <FocusActionTarget targetId="0:10" />
+      </StateMachineListener>
+      <StateMachineListener targetId="0:30" name="parent">
+        <ListenerInputType listenerTypeValue="click" />
+        <ListenerInputTypeSemantic listenerTypeValue="semanticAction">
+          <SemanticInput actionType="tap" />
+        </ListenerInputTypeSemantic>
+        <ListenerInputTypeKeyboard listenerTypeValue="keyboard">
+          <KeyboardInput keyType="space" keyPhase="1" />
+          <KeyboardInput keyType="enter" keyPhase="1" />
+        </ListenerInputTypeKeyboard>
+        <ScriptedListenerAction scriptAssetId="0:82">
+          <ScriptInputString name="action" propertyValue="parent" />
+        </ScriptedListenerAction>
+      </StateMachineListener>
+      <StateMachineListener targetId="0:31" name="email">
+        <ListenerInputType listenerTypeValue="click" />
+        <ListenerInputTypeSemantic listenerTypeValue="semanticAction">
+          <SemanticInput actionType="tap" />
+        </ListenerInputTypeSemantic>
+        <ListenerInputTypeKeyboard listenerTypeValue="keyboard">
+          <KeyboardInput keyType="space" keyPhase="1" />
+          <KeyboardInput keyType="enter" keyPhase="1" />
+        </ListenerInputTypeKeyboard>
+        <ScriptedListenerAction scriptAssetId="0:82">
+          <ScriptInputString name="action" propertyValue="email" />
+        </ScriptedListenerAction>
+      </StateMachineListener>
+      <StateMachineListener targetId="0:32" name="push">
+        <ListenerInputType listenerTypeValue="click" />
+        <ListenerInputTypeSemantic listenerTypeValue="semanticAction">
+          <SemanticInput actionType="tap" />
+        </ListenerInputTypeSemantic>
+        <ListenerInputTypeKeyboard listenerTypeValue="keyboard">
+          <KeyboardInput keyType="space" keyPhase="1" />
+          <KeyboardInput keyType="enter" keyPhase="1" />
+        </ListenerInputTypeKeyboard>
+        <ScriptedListenerAction scriptAssetId="0:82">
+          <ScriptInputString name="action" propertyValue="push" />
+        </ScriptedListenerAction>
+      </StateMachineListener>
+      <StateMachineListener targetId="0:33" name="sms">
+        <ListenerInputType listenerTypeValue="click" />
+        <ListenerInputTypeSemantic listenerTypeValue="semanticAction">
+          <SemanticInput actionType="tap" />
+        </ListenerInputTypeSemantic>
+        <ListenerInputTypeKeyboard listenerTypeValue="keyboard">
+          <KeyboardInput keyType="space" keyPhase="1" />
+          <KeyboardInput keyType="enter" keyPhase="1" />
+        </ListenerInputTypeKeyboard>
+        <ScriptedListenerAction scriptAssetId="0:82">
+          <ScriptInputString name="action" propertyValue="sms" />
+        </ScriptedListenerAction>
+      </StateMachineListener>
+      <StateMachineListener targetId="0:40" name="increase">
+        <ListenerInputTypeSemantic listenerTypeValue="semanticAction">
+          <SemanticInput actionType="increase" />
+        </ListenerInputTypeSemantic>
+        <ListenerInputTypeKeyboard listenerTypeValue="keyboard">
+          <KeyboardInput keyType="right" keyPhase="1" />
+          <KeyboardInput keyType="up" keyPhase="1" />
+        </ListenerInputTypeKeyboard>
+        <ScriptedListenerAction scriptAssetId="0:82">
+          <ScriptInputString name="action" propertyValue="increase" />
+        </ScriptedListenerAction>
+      </StateMachineListener>
+      <StateMachineListener targetId="0:40" name="decrease">
+        <ListenerInputTypeSemantic listenerTypeValue="semanticAction">
+          <SemanticInput actionType="decrease" />
+        </ListenerInputTypeSemantic>
+        <ListenerInputTypeKeyboard listenerTypeValue="keyboard">
+          <KeyboardInput keyType="left" keyPhase="1" />
+          <KeyboardInput keyType="down" keyPhase="1" />
+        </ListenerInputTypeKeyboard>
+        <ScriptedListenerAction scriptAssetId="0:82">
+          <ScriptInputString name="action" propertyValue="decrease" />
+        </ScriptedListenerAction>
+      </StateMachineListener>
+      <StateMachineListener targetId="0:41" name="mute">
+        <ListenerInputType listenerTypeValue="click" />
+        <ListenerInputTypeSemantic listenerTypeValue="semanticAction">
+          <SemanticInput actionType="tap" />
+        </ListenerInputTypeSemantic>
+        <ListenerInputTypeKeyboard listenerTypeValue="keyboard">
+          <KeyboardInput keyType="space" keyPhase="1" />
+          <KeyboardInput keyType="enter" keyPhase="1" />
+        </ListenerInputTypeKeyboard>
+        <ScriptedListenerAction scriptAssetId="0:82">
+          <ScriptInputString name="action" propertyValue="mute" />
+        </ScriptedListenerAction>
+      </StateMachineListener>
+      <StateMachineLayer name="Panels">
+        <AnyState x="0" y="-100" />
+        <ExitState x="400" y="-100" />
+        <EntryState x="0" y="0">
+          <StateTransition stateToId="0:50" />
+        </EntryState>
+        <AnimationState id="0:50" x="200" y="0" animationId="0:60">
+          <FocusActionTarget targetId="0:10" />
+          <StateTransition stateToId="0:51">
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyString>
+                  <DataBindContext sourcePathIds="0:90-0:102" propertyKey="635" />
+                </BindablePropertyString>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueStringComparator value="Sound" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+        <AnimationState id="0:51" x="400" y="0" animationId="0:61">
+          <StateTransition stateToId="0:50">
+            <TransitionViewModelCondition opValue="equal">
+              <TransitionPropertyViewModelComparator>
+                <BindablePropertyString>
+                  <DataBindContext sourcePathIds="0:90-0:102" propertyKey="635" />
+                </BindablePropertyString>
+              </TransitionPropertyViewModelComparator>
+              <TransitionValueStringComparator value="General" />
+            </TransitionViewModelCondition>
+          </StateTransition>
+        </AnimationState>
+      </StateMachineLayer>
+      <StateMachineListenerSingle targetId="0:10" listenerTypeValue="click" name="Pointer focus 0:10">
+        <FocusActionTarget targetId="0:10" />
+      </StateMachineListenerSingle>
+      <StateMachineListenerSingle targetId="0:11" listenerTypeValue="click" name="Pointer focus 0:11">
+        <FocusActionTarget targetId="0:11" />
+      </StateMachineListenerSingle>
+      <StateMachineListenerSingle targetId="0:30" listenerTypeValue="click" name="Pointer focus 0:30">
+        <FocusActionTarget targetId="0:30" />
+      </StateMachineListenerSingle>
+      <StateMachineListenerSingle targetId="0:31" listenerTypeValue="click" name="Pointer focus 0:31">
+        <FocusActionTarget targetId="0:31" />
+      </StateMachineListenerSingle>
+      <StateMachineListenerSingle targetId="0:32" listenerTypeValue="click" name="Pointer focus 0:32">
+        <FocusActionTarget targetId="0:32" />
+      </StateMachineListenerSingle>
+      <StateMachineListenerSingle targetId="0:33" listenerTypeValue="click" name="Pointer focus 0:33">
+        <FocusActionTarget targetId="0:33" />
+      </StateMachineListenerSingle>
+      <StateMachineListenerSingle targetId="0:40" listenerTypeValue="click" name="Pointer focus 0:40">
+        <FocusActionTarget targetId="0:40" />
+      </StateMachineListenerSingle>
+      <StateMachineListenerSingle targetId="0:41" listenerTypeValue="click" name="Pointer focus 0:41">
+        <FocusActionTarget targetId="0:41" />
+      </StateMachineListenerSingle>
+    </StateMachine>
+    <LinearAnimation id="0:60" name="General" duration="1">
+      <KeyedObject objectId="0:20">
+        <KeyedProperty propertyKey="296">
+          <KeyFrameId frame="0" value="0:21" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+    <LinearAnimation id="0:61" name="Sound" duration="1">
+      <KeyedObject objectId="0:20">
+        <KeyedProperty propertyKey="296">
+          <KeyFrameId frame="0" value="0:22" />
+        </KeyedProperty>
+      </KeyedObject>
+    </LinearAnimation>
+  </Artboard>
+  <FontAsset id="0:80" name="Roboto" file="Roboto.ttf" />
+  <ScriptAsset id="0:81" name="derived" file="derived.luau" />
+  <ScriptAsset id="0:82" name="action" file="action.luau" />
+  <DataConverterRangeMapper id="0:83" name="Volume pixels" minInput="0" maxInput="100" minOutput="0" maxOutput="360" clampLower="true" clampUpper="true" />
+  <ViewModel id="0:90" name="Settings" defaultInstanceId="0:91">
+    <ViewModelPropertyString name="soundPanelTitle" id="0:128" />
+    <ViewModelPropertyString name="generalPanelTitle" id="0:127" />
+    <ViewModelPropertyString name="tabsTitle" id="0:126" />
+    <ViewModelPropertyNumber id="0:100" name="volume" />
+    <ViewModelPropertyBoolean id="0:101" name="muted" />
+    <ViewModelPropertyString id="0:102" name="selectedTab" />
+    <ViewModelPropertyBoolean id="0:103" name="email" />
+    <ViewModelPropertyBoolean id="0:104" name="push" />
+    <ViewModelPropertyBoolean id="0:105" name="sms" />
+    <ViewModelPropertyString id="0:106" name="generalTitle" />
+    <ViewModelPropertyString id="0:107" name="soundTitle" />
+    <ViewModelPropertyString id="0:108" name="notificationsTitle" />
+    <ViewModelPropertyString id="0:109" name="emailTitle" />
+    <ViewModelPropertyString id="0:110" name="pushTitle" />
+    <ViewModelPropertyString id="0:111" name="smsTitle" />
+    <ViewModelPropertyString id="0:112" name="volumeTitle" />
+    <ViewModelPropertyString id="0:113" name="muteTitle" />
+    <ViewModelPropertyString id="0:114" name="volumeSpoken" />
+    <ViewModelPropertyBoolean id="0:115" name="generalSelected" />
+    <ViewModelPropertyBoolean id="0:116" name="soundSelected" />
+    <ViewModelPropertyNumber id="0:117" name="parentState" />
+    <ViewModelPropertyNumber id="0:118" name="parentFull" />
+    <ViewModelPropertyNumber id="0:119" name="parentMixed" />
+    <ViewModelPropertyNumber id="0:120" name="knobX" />
+    <ViewModelPropertyNumber id="0:121" name="emailState" />
+    <ViewModelPropertyNumber id="0:122" name="pushState" />
+    <ViewModelPropertyNumber id="0:123" name="smsState" />
+    <ViewModelPropertyNumber name="generalOpacity" id="0:124" />
+    <ViewModelPropertyNumber name="soundOpacity" id="0:125" />
+    <ViewModelInstance id="0:91" name="Default" exports="true">
+      <ViewModelInstanceNumber viewModelPropertyId="0:100" propertyValue="40" />
+      <ViewModelInstanceBoolean viewModelPropertyId="0:101" propertyValue="false" />
+      <ViewModelInstanceString viewModelPropertyId="0:102" propertyValue="General" />
+      <ViewModelInstanceBoolean viewModelPropertyId="0:103" propertyValue="true" />
+      <ViewModelInstanceBoolean viewModelPropertyId="0:104" propertyValue="false" />
+      <ViewModelInstanceBoolean viewModelPropertyId="0:105" propertyValue="false" />
+      <ViewModelInstanceString viewModelPropertyId="0:106" propertyValue="General" />
+      <ViewModelInstanceString viewModelPropertyId="0:107" propertyValue="Sound" />
+      <ViewModelInstanceString viewModelPropertyId="0:108" propertyValue="Notifications" />
+      <ViewModelInstanceString viewModelPropertyId="0:109" propertyValue="Email" />
+      <ViewModelInstanceString viewModelPropertyId="0:110" propertyValue="Push" />
+      <ViewModelInstanceString viewModelPropertyId="0:111" propertyValue="SMS" />
+      <ViewModelInstanceString viewModelPropertyId="0:112" propertyValue="Volume" />
+      <ViewModelInstanceString viewModelPropertyId="0:113" propertyValue="Mute" />
+      <ViewModelInstanceString viewModelPropertyId="0:114" propertyValue="Volume 40 %" />
+      <ViewModelInstanceBoolean viewModelPropertyId="0:115" propertyValue="true" />
+      <ViewModelInstanceBoolean viewModelPropertyId="0:116" propertyValue="false" />
+      <ViewModelInstanceNumber viewModelPropertyId="0:117" propertyValue="2" />
+      <ViewModelInstanceNumber viewModelPropertyId="0:118" propertyValue="0" />
+      <ViewModelInstanceNumber viewModelPropertyId="0:119" propertyValue="1" />
+      <ViewModelInstanceNumber viewModelPropertyId="0:120" propertyValue="42" />
+      <ViewModelInstanceNumber viewModelPropertyId="0:121" propertyValue="1" />
+      <ViewModelInstanceNumber viewModelPropertyId="0:122" propertyValue="0" />
+      <ViewModelInstanceNumber viewModelPropertyId="0:123" propertyValue="0" />
+      <ViewModelInstanceNumber viewModelPropertyId="0:124" propertyValue="1" />
+      <ViewModelInstanceNumber viewModelPropertyId="0:125" propertyValue="0" />
+      <ViewModelInstanceString viewModelPropertyId="0:126" propertyValue="Settings tabs" />
+      <ViewModelInstanceString viewModelPropertyId="0:127" propertyValue="General settings" />
+      <ViewModelInstanceString viewModelPropertyId="0:128" propertyValue="Sound settings" />
+    </ViewModelInstance>
+  </ViewModel>
+</Rive>

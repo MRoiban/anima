@@ -1,0 +1,110 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[11:21:26.025] rive  deferred replay: inline
+[11:21:26.091] rive  built (496149 bytes, 65ms, 0 errors, 0 warnings)
+[11:21:26.093] rive  showing Settings [1/1]
+[11:21:26.093] rive  viewport 480x360 @1x
+ok advance
+[11:21:26.093] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/00-initial.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/00-initial.tree.json
+[11:21:26.093] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/00-initial.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/00-initial.data.json
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[11:21:26.111] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/00-initial.png
+ok screenshot: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/00-initial.png
+ok key
+ok advance
+[11:21:26.112] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/01-arrow-sound.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/01-arrow-sound.tree.json
+[11:21:26.112] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/01-arrow-sound.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/01-arrow-sound.data.json
+[11:21:26.125] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/01-arrow-sound.png
+ok screenshot: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/01-arrow-sound.png
+ok semantic-action
+ok advance
+[11:21:26.126] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/02-slider-increase.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/02-slider-increase.tree.json
+[11:21:26.126] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/02-slider-increase.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/02-slider-increase.data.json
+[11:21:26.140] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/02-slider-increase.png
+ok screenshot: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/02-slider-increase.png
+ok semantic-action
+ok advance
+[11:21:26.141] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/03-slider-decrease.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/03-slider-decrease.tree.json
+[11:21:26.141] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/03-slider-decrease.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/03-slider-decrease.data.json
+[11:21:26.154] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/03-slider-decrease.png
+ok screenshot: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/03-slider-decrease.png
+ok semantic-action
+ok advance
+[11:21:26.155] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/04-mute-on.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/04-mute-on.tree.json
+[11:21:26.155] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/04-mute-on.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/04-mute-on.data.json
+[11:21:26.167] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/04-mute-on.png
+ok screenshot: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/04-mute-on.png
+ok semantic-action
+ok advance
+[11:21:26.168] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/05-mute-off.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/05-mute-off.tree.json
+[11:21:26.168] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/05-mute-off.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/05-mute-off.data.json
+[11:21:26.182] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/05-mute-off.png
+ok screenshot: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/05-mute-off.png
+ok key
+ok advance
+[11:21:26.182] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/06-arrow-general.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/06-arrow-general.tree.json
+[11:21:26.183] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/06-arrow-general.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/06-arrow-general.data.json
+[11:21:26.196] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/06-arrow-general.png
+ok screenshot: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/06-arrow-general.png
+ok semantic-action
+ok advance
+[11:21:26.196] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/07-parent-all.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/07-parent-all.tree.json
+[11:21:26.196] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/07-parent-all.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/07-parent-all.data.json
+[11:21:26.210] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/07-parent-all.png
+ok screenshot: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/07-parent-all.png
+ok semantic-action
+ok advance
+[11:21:26.212] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/08-parent-none.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/08-parent-none.tree.json
+[11:21:26.212] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/08-parent-none.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/08-parent-none.data.json
+[11:21:26.229] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/08-parent-none.png
+ok screenshot: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/08-parent-none.png
+ok semantic-action
+ok advance
+[11:21:26.231] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/09-email-on.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/09-email-on.tree.json
+[11:21:26.231] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/09-email-on.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/09-email-on.data.json
+[11:21:26.247] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/09-email-on.png
+ok screenshot: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/09-email-on.png
+ok semantic-action
+ok advance
+[11:21:26.248] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/10-push-on.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/10-push-on.tree.json
+[11:21:26.248] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/10-push-on.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/10-push-on.data.json
+[11:21:26.261] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/10-push-on.png
+ok screenshot: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/10-push-on.png
+ok semantic-action
+ok advance
+[11:21:26.261] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/11-sms-on.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/11-sms-on.tree.json
+[11:21:26.262] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/11-sms-on.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/11-sms-on.data.json
+[11:21:26.277] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/11-sms-on.png
+ok screenshot: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/11-sms-on.png
+ok semantic-action
+ok advance
+[11:21:26.278] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/12-email-off.tree.json
+ok semantics: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/12-email-off.tree.json
+[11:21:26.278] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/12-email-off.data.json
+ok data-dump: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/12-email-off.data.json
+[11:21:26.292] rive  wrote docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/12-email-off.png
+ok screenshot: docs/benchmarks/runs/2026-11-07-p3b/rive/evidence/12-email-off.png
+ok quit

@@ -1,0 +1,5 @@
+name: settings-card
+main: Settings
+logs:
+  file: build/rive.log
+  problems: build/problems.log
