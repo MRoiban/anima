@@ -1,0 +1,51 @@
+{
+  warnings: [
+    {
+      code: 'font-load',
+      severity: 'warning',
+      pointer: '/assets/bad/source',
+      message: 'cannot load font bad',
+      hint: 'check the font bytes, source and asset policy; CSS fallback is used'
+    },
+    {
+      code: 'font-load',
+      severity: 'warning',
+      pointer: '/assets/broken/source',
+      message: 'cannot load font broken',
+      hint: 'check the font bytes, source and asset policy; CSS fallback is used'
+    }
+  ]
+}
+{
+  error: [
+    {
+      code: 'unknown-feature',
+      severity: 'error',
+      pointer: '/requires/1',
+      message: 'unknown-feature'
+    }
+  ],
+  modules: [ 'assets' ]
+}
+{
+  error: [
+    {
+      code: 'unknown-feature',
+      severity: 'error',
+      pointer: '/requires/1',
+      message: 'unknown-feature'
+    }
+  ],
+  modules: [ 'assets' ]
+}
+{
+  error: [
+    {
+      code: 'unknown-feature',
+      severity: 'error',
+      pointer: '/requires/1',
+      message: 'unknown-feature'
+    }
+  ],
+  modules: [ 'assets' ]
+}

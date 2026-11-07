@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "text-font-metrics: runtime browser evidence in modules/fonts/test/web/fonts.test.ts; integrated text rendering and independent native comparison remain for P6 closure"
+}

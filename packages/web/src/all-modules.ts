@@ -17,6 +17,7 @@ import './derive.ts';
 import './devtools.ts';
 import './events.ts';
 import './focus.ts';
+import './fonts.ts';
 import './host.ts';
 import './host-edit.ts';
 import './host-values.ts';

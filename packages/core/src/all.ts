@@ -31,6 +31,8 @@ import { hostValues } from '../../../modules/host-values/core/index.ts';
 import { host } from '../../../modules/host/core/index.ts';
 import { dataHost } from '../../../modules/data-host/core/index.ts';
 import { hostEdit } from '../../../modules/host-edit/core/index.ts';
+import { fonts } from '../../../modules/fonts/core/index.ts';
+import { fontsSVG } from '../../../modules/fonts/core/svg.ts';
 import { lists } from '../../../modules/lists/core/index.ts';
 import { listsSVG } from '../../../modules/lists/core/svg.ts';
 import { a11y } from '../../../modules/a11y/core/index.ts';
@@ -74,6 +76,8 @@ if (VERBOSE) {
   registerModule(host);
   registerModule(dataHost);
   registerModule(hostEdit);
+  registerModule(fonts);
+  registerSVGBackend('fonts', fontsSVG);
   registerModule(lists);
   registerSVGBackend('lists', listsSVG);
   registerModule(a11y);

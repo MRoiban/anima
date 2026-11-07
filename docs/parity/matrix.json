@@ -1143,10 +1143,10 @@
   "id": "assets.font",
   "category": "assets",
   "capability": "Font asset",
-  "construct": "new: assets.<name> / build.assets.<name>: named font resource setting",
+  "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
   "module": "assets",
   "status": "planned",
-  "test": "oracle/assets-font",
+  "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
   "phase": "P6"
  },
  {
@@ -1213,10 +1213,10 @@
   "id": "assets.host-decode-font",
   "category": "assets",
   "capability": "Host decode font",
-  "construct": "new: player asset loader API with explicit source resolution: host-decode-font",
+  "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
   "module": "assets",
   "status": "planned",
-  "test": "oracle/assets-host-decode-font",
+  "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
   "phase": "P6"
  },
  {
@@ -1478,10 +1478,10 @@
   "id": "assets.replacement-scope-font",
   "category": "assets",
   "capability": "Font replacement scope",
-  "construct": "new: assets.<name> / build.assets.<name>: named replacement-scope-font resource setting",
+  "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
   "module": "assets",
   "status": "planned",
-  "test": "oracle/assets-replacement-scope-font",
+  "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
   "phase": "P6"
  },
  {
@@ -2826,10 +2826,10 @@
   "id": "data.host-font",
   "category": "data",
   "capability": "Set model font",
-  "construct": "new: player.data API for set model font",
+  "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-host-font",
+  "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
   "phase": "P6"
  },
  {
@@ -5661,10 +5661,10 @@
   "id": "host-api.data-font",
   "category": "host-api",
   "capability": "View model font",
-  "construct": "new: typed data.font(path)",
+  "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
   "module": "data",
   "status": "planned",
-  "test": "browser/data-font",
+  "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
   "phase": "P6"
  },
  {
@@ -5991,10 +5991,10 @@
   "id": "host-api.font-fallback",
   "category": "host-api",
   "capability": "Host fallback fonts",
-  "construct": "new: font fallback resolver",
+  "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
   "module": "text",
   "status": "planned",
-  "test": "browser/font-fallback",
+  "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
   "phase": "P6"
  },
  {
@@ -10742,40 +10742,40 @@
   "id": "text.font-assets",
   "category": "text",
   "capability": "Font asset selection",
-  "construct": "new: font asset selection with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
   "module": "text",
   "status": "planned",
-  "test": "oracle/text-font-assets",
+  "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
   "phase": "P6"
  },
  {
   "id": "text.font-decoding",
   "category": "text",
   "capability": "Runtime font decoding",
-  "construct": "new: runtime font decoding with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
   "module": "text",
   "status": "planned",
-  "test": "oracle/text-font-decoding",
+  "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
   "phase": "P6"
  },
  {
   "id": "text.font-fallback",
   "category": "text",
   "capability": "Host font fallback",
-  "construct": "new: host font fallback through a separate optional module; seconds, degrees and grid units at the format boundary",
+  "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
   "module": "text",
   "status": "planned",
-  "test": "oracle/text-font-fallback",
+  "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
   "phase": "P6"
  },
  {
   "id": "text.font-metrics",
   "category": "text",
   "capability": "Font metrics and coverage",
-  "construct": "new: font metrics and coverage with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
   "module": "text",
   "status": "planned",
-  "test": "oracle/text-font-metrics",
+  "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
   "phase": "P6"
  },
  {
@@ -11002,10 +11002,10 @@
   "id": "text.opentype-features",
   "category": "text",
   "capability": "OpenType features",
-  "construct": "new: opentype features with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
   "module": "text",
   "status": "planned",
-  "test": "oracle/text-opentype-features",
+  "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
   "phase": "P6"
  },
  {
@@ -11266,10 +11266,10 @@
   "id": "text.variable-axes",
   "category": "text",
   "capability": "Variable font axes",
-  "construct": "new: variable font axes with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+  "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
   "module": "text",
   "status": "planned",
-  "test": "oracle/text-variable-axes",
+  "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
   "phase": "P6"
  },
  {

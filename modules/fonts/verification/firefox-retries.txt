@@ -1,0 +1,103 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-3d05508b
+
+ ❯ |scope-browser| modules/componentpaint/test/web/sources.test.ts (12 tests | 4 failed | 6 skipped) 35417ms
+   ❯ Firefox optional component paint (6)
+     × isolates live sources and replays across separate bundles: index,components,paint,canvas,componentpaint 5022ms
+     × isolates live sources and replays across separate bundles: index,componentpaint,canvas,paint,components 5007ms
+     × rebuilds a dynamic source tree without advancing playback when switching renderers 5012ms
+     × reports source backend limits at each consuming paint pointer 5017ms
+ ❯ |scope-browser| modules/motion/test/web/browser.test.ts (20 tests | 2 failed | 10 skipped) 53728ms
+   ❯ motion host in Firefox (10)
+     × exposes metadata, time, mix, typed nodes and independent animation advance/apply 10243ms
+     × recovers a connected document when motion registers late 9188ms
+ ❯ |scope-browser| modules/nested/test/web/nested.test.ts (10 tests | 1 failed | 5 skipped) 20885ms
+   ❯ Firefox nested components (5)
+     × swaps live SVG/canvas instances with separate bundles: index,components,data,bind,nested 5038ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 7 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint > isolates live sources and replays across separate bundles: index,components,paint,canvas,componentpaint
+ FAIL  |scope-browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint > isolates live sources and replays across separate bundles: index,componentpaint,canvas,paint,components
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/componentpaint/test/web/sources.test.ts:50:7
+     48|       ['index', 'componentpaint', 'canvas', 'paint', 'components'],
+     49|     ])
+     50|       it(
+       |       ^
+     51|         'isolates live sources and replays across separate bundles: ' …
+     52|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/7]⎯
+
+ FAIL  |scope-browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint > rebuilds a dynamic source tree without advancing playback when switching renderers
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/componentpaint/test/web/sources.test.ts:120:5
+    118|         },
+    119|       );
+    120|     it('rebuilds a dynamic source tree without advancing playback when…
+       |     ^
+    121|       const page = await browser.newPage();
+    122|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/7]⎯
+
+ FAIL  |scope-browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint > reports source backend limits at each consuming paint pointer
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/componentpaint/test/web/sources.test.ts:207:5
+    205|       }
+    206|     });
+    207|     it('reports source backend limits at each consuming paint pointer'…
+       |     ^
+    208|       const page = await browser.newPage();
+    209|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/7]⎯
+
+ FAIL  |scope-browser| modules/motion/test/web/browser.test.ts > motion host in Firefox > exposes metadata, time, mix, typed nodes and independent animation advance/apply
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/motion/test/web/browser.test.ts:72:5
+     70|       await browser?.close();
+     71|     });
+     72|     beforeEach(async () => {
+       |     ^
+     73|       page = await browser.newPage();
+     74|       await page.setContent(
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/7]⎯
+
+ FAIL  |scope-browser| modules/motion/test/web/browser.test.ts > motion host in Firefox > recovers a connected document when motion registers late
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/motion/test/web/browser.test.ts:280:5
+    278|     });
+    279|
+    280|     it('recovers a connected document when motion registers late', asy…
+       |     ^
+    281|       const other = await browser.newPage();
+    282|       try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/7]⎯
+
+ FAIL  |scope-browser| modules/nested/test/web/nested.test.ts > Firefox nested components > swaps live SVG/canvas instances with separate bundles: index,components,data,bind,nested
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/nested/test/web/nested.test.ts:42:7
+     40|       ['index', 'nested', 'data', 'bind', 'components'],
+     41|     ])
+     42|       it('swaps live SVG/canvas instances with separate bundles: ' + o…
+       |       ^
+     43|         const page = await browser.newPage();
+     44|         try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/7]⎯
+
+
+ Test Files  3 failed | 1 passed (4)
+      Tests  7 failed | 22 passed | 29 skipped (58)
+   Start at  17:00:55
+   Duration  160.44s (tests 94%, import 5%)
