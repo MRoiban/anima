@@ -1,0 +1,137 @@
+[
+  {
+    "id": "tabs",
+    "role": "tab-list",
+    "states": {},
+    "bounds": [
+      2,
+      2,
+      22,
+      3
+    ],
+    "actions": [],
+    "children": [
+      {
+        "id": "general",
+        "role": "tab",
+        "states": {
+          "selected": true,
+          "focused": false
+        },
+        "bounds": [
+          2,
+          2,
+          10,
+          3
+        ],
+        "actions": [
+          "tap",
+          "focus"
+        ],
+        "children": [],
+        "label": "General"
+      },
+      {
+        "id": "sound",
+        "role": "tab",
+        "states": {
+          "selected": false,
+          "focused": false
+        },
+        "bounds": [
+          14,
+          2,
+          10,
+          3
+        ],
+        "actions": [
+          "tap",
+          "focus"
+        ],
+        "children": [],
+        "label": "Sound"
+      }
+    ],
+    "label": "Settings"
+  },
+  {
+    "id": "notifications",
+    "role": "checkbox",
+    "states": {
+      "checked": "mixed",
+      "focused": false
+    },
+    "bounds": [
+      2,
+      8,
+      2,
+      2
+    ],
+    "actions": [
+      "tap",
+      "focus"
+    ],
+    "children": [],
+    "label": "Notifications"
+  },
+  {
+    "id": "email",
+    "role": "checkbox",
+    "states": {
+      "checked": true,
+      "focused": false
+    },
+    "bounds": [
+      4,
+      12,
+      2,
+      2
+    ],
+    "actions": [
+      "tap",
+      "focus"
+    ],
+    "children": [],
+    "label": "Email"
+  },
+  {
+    "id": "push",
+    "role": "checkbox",
+    "states": {
+      "checked": false,
+      "focused": false
+    },
+    "bounds": [
+      4,
+      16,
+      2,
+      2
+    ],
+    "actions": [
+      "tap",
+      "focus"
+    ],
+    "children": [],
+    "label": "Push"
+  },
+  {
+    "id": "sms",
+    "role": "checkbox",
+    "states": {
+      "checked": false,
+      "focused": false
+    },
+    "bounds": [
+      4,
+      20,
+      2,
+      2
+    ],
+    "actions": [
+      "tap",
+      "focus"
+    ],
+    "children": [],
+    "label": "SMS"
+  }
+]

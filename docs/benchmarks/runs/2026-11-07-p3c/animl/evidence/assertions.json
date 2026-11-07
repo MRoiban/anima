@@ -1,0 +1,4 @@
+{
+  "ok": true,
+  "checks": "CLI expect assertions plus independent semantic-tree assertions for all recorded interactions; mutable accessible titles; slider spoken values and clamps; panel membership; tri-state aggregation."
+}
