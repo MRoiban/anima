@@ -5,6 +5,12 @@ import type { AnimaIcon } from '../../../packages/web/src/index.ts';
 const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
 Icon.registerModule(focus);
 Icon.registerMarkup('paint', focusMarkup);
+Icon.prototype.focusNext = function () {
+  return this.player?.focusTraverse('next') ?? false;
+};
+Icon.prototype.focusPrevious = function () {
+  return this.player?.focusTraverse('previous') ?? false;
+};
 const attached = new WeakMap<AnimaIcon, () => void>();
 function attach(icon: AnimaIcon) {
   attached.get(icon)?.();
@@ -25,22 +31,34 @@ function attach(icon: AnimaIcon) {
     player = icon.player;
     if (!player?.model.doc.requires?.includes('focus')) return;
     const p = player,
-      inner = p.focusItems(true).some((n) => n.config.tabStops);
-    const items = p.focusItems(true);
+      items = p.focusItems(true),
+      inner = items.some((n) => n.config.tabStops);
     if (!items.length) return;
     box = document.createElement('span');
     box.style.cssText = 'position:absolute;inset:0;pointer-events:none';
     const targets = new Map<string, HTMLElement>();
     for (const item of items) {
-      const el = document.createElement('span');
-      el.tabIndex = inner ? 0 : -1;
-      el.setAttribute('role', 'button');
-      el.setAttribute('aria-label', item.config.label ?? item.id);
+      const semantic = Icon.semanticElement?.(icon, item.id);
+      const owner = item.owner ?? p;
+      if (
+        semantic === null &&
+        owner.model.nodes[owner.model.ids.get(item.local ?? item.id)!]?.raw.a11y
+      )
+        continue;
+      const el = semantic ?? document.createElement('span');
+      if (!semantic || !inner) el.tabIndex = inner ? 0 : -1;
+      if (!semantic) {
+        el.setAttribute('role', 'button');
+        el.setAttribute('aria-label', item.config.label ?? item.id);
+        el.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden';
+        box.append(el);
+      }
       el.dataset.focus = item.id;
-      el.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden';
-      el.addEventListener('focus', () => p.focusTarget(item.id), { signal: abort.signal });
+      if (!semantic)
+        el.onfocus = () => {
+          p.focusTarget(item.id);
+        };
       targets.set(item.id, el);
-      box.append(el);
     }
     icon.shadowRoot!.append(box);
     if (!p.model.doc.a11y) {
@@ -55,8 +73,10 @@ function attach(icon: AnimaIcon) {
       refresh?.();
       const eligible = new Set(p.focusItems().map((n) => n.id));
       for (const [id, el] of targets) {
-        el.hidden = !eligible.has(id);
-        el.tabIndex = eligible.has(id) && (inner || p.focused === id) ? 0 : -1;
+        const hidden = !eligible.has(id),
+          tab = !hidden && (inner || p.focused === id) ? 0 : -1;
+        if (el.hidden !== hidden) el.hidden = hidden;
+        if (!(inner && el.dataset.semantic) && el.tabIndex !== tab) el.tabIndex = tab;
       }
     };
     p.onFocusRefresh();
@@ -71,8 +91,10 @@ function attach(icon: AnimaIcon) {
         (icon.shadowRoot.activeElement as HTMLElement).blur();
       }
     };
+    if (p.focused) p.onFocusChange(p.focused);
   };
   listen('anima:load', build);
+  listen('anima:overlay', build);
   listen('pointerdown', (event) => {
     if (icon.player?.focused) event.preventDefault();
   });
@@ -82,7 +104,7 @@ function attach(icon: AnimaIcon) {
       const id = p.focused ?? p.focusItems()[0]?.id;
       if (id) {
         if (!p.focusTarget(id))
-          (box?.querySelector(`[data-focus="${id}"]`) as HTMLElement)?.focus();
+          (icon.shadowRoot?.querySelector(`[data-focus="${id}"]`) as HTMLElement)?.focus();
       }
     }
   });
@@ -127,3 +149,10 @@ Icon.prototype.destroy = function () {
   destroy.call(this);
 };
 for (const icon of document.querySelectorAll<AnimaIcon>('anima-icon')) attach(icon);
+
+declare module '../../../packages/web/src/index.ts' {
+  interface AnimaIcon {
+    focusNext(): boolean;
+    focusPrevious(): boolean;
+  }
+}

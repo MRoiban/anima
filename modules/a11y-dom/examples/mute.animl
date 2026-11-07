@@ -1,0 +1,6 @@
+<anima version="0.1" name="mute" grid="20" requires="a11y focus">
+  <bool name="muted"/>
+  <circle id="mute" cx="10" cy="10" r="8" fill="#000">
+    <a11y role="checkbox" label="Mute" checked="muted" bounds="2 2 16 16"/>
+  </circle>
+</anima>

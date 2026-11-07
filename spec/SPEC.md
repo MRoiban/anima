@@ -388,6 +388,10 @@ writes to an unknown input or with the wrong type are rejected by the API, never
 
 ## 10. Accessibility and motion
 
+The optional browser semantic overlay, native controls, focus synchronization and
+host tree/diff API are specified in [a11y-dom/SPEC.md](../modules/a11y-dom/SPEC.md).
+It consumes node accessibility; root document `a11y` below is unchanged.
+
 `"a11y": { "role": "button" | "switch" | "img", "label": "…", "activate": "<trigger or bool>", "pressed": "<bool>", "held": "<bool>" }`
 
 - `button`/`switch`: the element is focusable and exposes the role and `label`. **Enter** activates

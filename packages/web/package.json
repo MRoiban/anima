@@ -39,6 +39,7 @@
     "./a11y": "./src/a11y.ts",
     "./markup-a11y": "./src/markup-a11y.ts",
     "./a11y-actions": "./src/a11y-actions.ts",
+    "./a11y-dom": "./src/a11y-dom.ts",
     "./nested": "./src/nested.ts",
     "./surface": "./src/surface.ts",
     "./markup-surface": "./src/markup-surface.ts",
