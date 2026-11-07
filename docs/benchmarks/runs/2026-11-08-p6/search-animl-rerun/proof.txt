@@ -1,0 +1,39 @@
+advance 0
+data watch $query $label0 $label1 $label2 $label3 $label4 $count $summary $shown0 $shown1 $shown2 $shown3 $shown4
+snapshot --all --semantics
+focus target search
+type "o"
+advance 0
+expect $query == "o"
+expect $count == 4
+snapshot --all --semantics
+select 0 1
+type "so"
+advance 0
+expect $query == "so"
+expect $count == 1
+snapshot --all --semantics
+select 0 2
+type ""
+advance 0
+expect $query == ""
+expect $count == 5
+snapshot --all --semantics
+data set $label2 "Audio"
+advance 0
+expect $label2 == "Audio"
+expect $count == 5
+snapshot --all --semantics
+type "SO"
+advance 0
+expect $count == 0
+snapshot --all --semantics
+select 0 2
+type "AU"
+advance 0
+expect $count == 1
+snapshot --all --semantics
+select 0 2
+type ""
+advance 1.2
+snapshot --all --semantics

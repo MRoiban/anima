@@ -1,0 +1,5 @@
+First command: 2026-11-07T23:51:59Z (date -u, then cat SEARCH-BRIEF.md).
+The first anima --help exited 2: Anima CLI dependencies are missing; run npm ci at the repo root.
+Ran npm ci once: exit 0, added 153 packages, audited 159; npm reported 10 moderate vulnerabilities and an esbuild install-script warning. No audit fix was run.
+All subsequent CLI invocations and their exit codes/output are in commands.log.
+Format learning used only anima --help, docs, schema and diagnostics. No repository implementation/spec/example/test/other-run files were read. The benchmark brief was read first; its isolation rule superseded the general AGENTS reading sequence.
