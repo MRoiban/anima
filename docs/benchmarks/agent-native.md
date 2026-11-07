@@ -47,6 +47,8 @@ friction point that blocks an item — is a bug, fixed before the phase's PR mer
 | 2026-11-06 | P5b | [playlist](runs/2026-11-06-p5b/BRIEF.md) | AniML | 5/6 | 38 | 10 min 9 s | 95-line scene (300 lines / 21.1 k chars with media generator and checks) | item 4 partial: clicks request clips, but audio from repeated rows is silent in the browser; `build --embed` skipped component-local assets; `$tracks.length` rejected as a repeat count; inherited data contexts forced asset catalogs in every component (12 `data-asset`); doc contradictions — fixes in P5b-10, AniML rerun after it |
 | 2026-11-06 | P5b | playlist | Rive markup | 5/6 (agent: 6/6) | 31 | 7 min 46 s | 386 lines (30.9 k chars, incl. generator) | item 4 approximated: the audio clip lookup never resolved (no diagnostic), so trims were pre-cut into separate WAVs by the generator; host list edits through a command adapter (CLI has no list mutation); colours dithered ±1 |
 | 2026-11-06 | P5b (rerun after P5b-10) | playlist | AniML | 6/6 | 34 | 7 min 53 s | 67-line scene (224 lines / 14.1 k chars with media generator and checks) | repeated-row clips start and finish with exact trims in the browser; list edits keep row state; friction: `asset(...)` works in guards but not bindings, `icon.src` as a JS property loads nothing (attribute works), unanimated values absent from `sample` snapshots |
+| 2026-11-07 | P3b | [settings card](runs/2026-11-07-p3b/BRIEF.md) | AniML | 4/6 | 27 | ~10 min | 123-line scene (17.3 k chars; 278 lines of generator/verifier) | item 1 not met: no text until P6, so labels are vector glyphs and renaming a tab changes only its accessible name; item 3 not met: no value text separate from the numeric value, so "Volume 40 %" is the label. Friction: `docs a11y` / `docs --list` lack node accessibility, `schema a11y` shows only the root roles, the `semantic` action command is undiscoverable, focused-slider arrow keys do nothing headlessly, `expect` rejects AniML spellings (`volumeFill.width`), `$volume-5` parses as one path, the pre-commit hook fails without local node_modules. Orchestrator re-check: `validate` ok, the tabs evidence reproduces byte for byte |
+| 2026-11-07 | P3b | settings card | Rive markup | 5/6 | 15 | ~10.5 min | 924 lines (46.7 k chars, incl. two logic scripts and verifier) | item 3 partial: the semantic tree has no numeric min/max/step (range stated in the hint); spoken value "Volume 40 %" → "45 %" checked. Text runs bound to data with a downloaded open font; focus on click needed explicit listeners. Orchestrator re-check: slider and checkbox captures match the report |
 
 ### P4a findings → actions
 
@@ -111,3 +113,18 @@ friction point that blocks an item — is a bug, fixed before the phase's PR mer
   like the attribute or say why not; `sample` should report unanimated values; Rive's audio clip
   lookup failed silently for its agent (not ours to fix).
 
+### P3b findings → actions
+
+Gate: AniML 4/6 is below Rive (5/6). Both misses are bugs except the one that needs text:
+- **Item 1 (visible labels from data)** needs text, which is P6 by the owner's plan; recorded as a
+  known in-scope gap, not fixed in P3b. The settings card is rerun after P6.
+- **Item 3 (spoken value)**: add a slider value text separate from the numeric value (P3b-10), then
+  rerun AniML before the PR merges.
+- **Discoverability** (P3b-10): `docs a11y` / `docs a11y-dom` topics and `docs --list`; `schema a11y`
+  covering node semantics; `semantic <id> tap|increase|decrease|focus` in `--help` and the guide.
+- **Headless keys** (P3b-10): keys on a focused semantic node act as the native element would
+  (slider arrows step, Space/Enter activate, arrows rove a tab list), so scripts match the browser.
+- **Scripts** (P3b-10): `expect` accepts the same AniML spellings as `snapshot`; a hyphen after a
+  data path (`$volume-5`) gets a hint to write `$volume - 5`.
+- **Hook**: the pre-commit hook skipped neither gracefully nor clearly without `node_modules`; it
+  now warns and skips (CI still checks formatting).
