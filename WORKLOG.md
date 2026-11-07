@@ -3,7 +3,7 @@
 ## Now
 Goal: smaller, agent-native Rive for animated web UI. Order P3b (a11y + agent tools) → P6 text → P7 minimal layout → P8 rigging.
 State: triage merged (PR #18, b97a2d5). Branch p3b: design/p3b/DESIGN.md decided; 5 text a11y rows moved to P6 (119 P3b rows). In scope 624/883 (71 %). full 111,723/131,072 B; core+web 20,362.
-Next: running P3b-10a (a11y: value-text, headless keys, 18 open rows) + P3b-10b (docs/schema/help, expect spellings, hyphen hint, repeated-converter bug) → AniML benchmark rerun → closure → PR (six gates).
+Next: running AniML benchmark rerun (target ≥5/6, item 1 owner-accepted gap) + P3b-11 parity closure (unmet rows → P3c size round + carry-overs) → perf A/B vs main → LOG/PLAN → PR with six gates.
 Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests; grow data/bind/components; leave merged worktrees behind.
 
 ## Log
@@ -253,3 +253,4 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-07 12:52 [P3b-10a]: native hidden projection matches15 nodes/30 focus booleans → 56ready/6open with unchanged planned statuses; broad8019pass/43TODO green before final nested Tab + unrelated-key fixes, final owned1247pass both engines; sizea11y2047/actions1021/dom1899/focus4075, sixgates20622/51822/91156/109966/11949/115467 pass; final changed running, no protected source/input edits (evidence: modules/a11y/REPORT.md; verification/p3b10a).
 - 2026-11-07 12:56 [P3b-10a]: frozen changed8020pass/43TODO (242files+13skip), focused1247pass both engines, strict266cases/475samples exit0; type/lint/format/wiring/generated/size/perf commands pass, timing comparison and speech/benchmark rerun unverified; 56ready/6open, 1238statuses unchanged, no protected inputs/dependencies/binaries/publication → branch-only commit prepared (evidence: modules/a11y/verification/p3b10a/checks.json).
 - 2026-11-07 [claude]: merged P3b-10a (valueText, headless semantic keys, range edges, repeat/late focus): 56 a11y rows closure-ready, 6 open; scopes 3,628 pass chromium; gates app-UI 91,158, sum 109,971; AX check: Chromium CDP and Playwright ariaSnapshot do not surface aria-valuetext (range reports '40', div slider '') → spoken value in a screen reader unverified
+- 2026-11-07 [claude]: launched AniML rerun (animl-rerun/) and P3b-11 parity closure; AUTHORING value-text/keys TODO filled
