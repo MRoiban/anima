@@ -1,0 +1,40 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-fbf935b6
+
+ ❯ |unit| tools/new-capability.test.ts (4 tests | 2 failed) 119808ms
+   × plans without writing, is idempotent, and generates a registered, typechecked module 104408ms
+   × rejects invalid requests without writes and notes unsupported oracle counterparts 12723ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| tools/new-capability.test.ts > plans without writing, is idempotent, and generates a registered, typechecked module
+Error: Test timed out in 60000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tools/new-capability.test.ts:38:1
+     36| }
+     37|
+     38| it('plans without writing, is idempotent, and generates a registered, …
+       | ^
+     39|   const root = scratch();
+     40|   // A row that stays planned until P8 (it was tooling.seed until P3b …
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯
+
+ FAIL  |unit| tools/new-capability.test.ts > rejects invalid requests without writes and notes unsupported oracle counterparts
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ tools/new-capability.test.ts:154:1
+    152| }, 60000);
+    153|
+    154| it('rejects invalid requests without writes and notes unsupported orac…
+       | ^
+    155|   const root = scratch();
+    156|   try {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 2 passed (4)
+   Start at  22:05:36
+   Duration  123.62s (tests 97%, transform 2%, import 1%)

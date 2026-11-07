@@ -1,0 +1,3 @@
+name: oracle-text-modifier-follow-path
+logs:
+  file: build/runtime.log

@@ -3088,3 +3088,31 @@ drawing and named host run access. Its normative fields, defaults, validation, m
 contract, fit/overflow algorithms and verification limits are specified in
 [modules/text/SPEC.md](../modules/text/SPEC.md). Registry entries derive JSON Schema, CLI schema
 and AniML spellings from the same vocabulary. P6 parity remains planned pending native evidence.
+
+## text-effects
+
+<!-- capability: text.background -->
+<!-- capability: text.modifier-follow-path -->
+<!-- capability: text.modifier-opacity -->
+<!-- capability: text.modifier-origin -->
+<!-- capability: text.modifier-rotation -->
+<!-- capability: text.modifier-scale -->
+<!-- capability: text.modifier-translation -->
+<!-- capability: text.modifier-variation -->
+<!-- capability: text.range-combine -->
+<!-- capability: text.range-easing -->
+<!-- capability: text.range-falloff -->
+<!-- capability: text.range-run -->
+<!-- capability: text.range-units -->
+<!-- capability: text.script-direction -->
+
+The optional `texteffects` feature (`web/text-effects`) adds logical per-cluster translation,
+rotation, scaling, opacity, origins and font-axis effects; scoped glyph/word/line ranges with
+falloff, easing and combination; path positions/tangents; and run backgrounds. The text node's
+JSON `effects` array is AniML `text-effects` or structural `<text-effect>` children, with nested
+`<text-range>` children. `direction` maps whole runs to native SVG/canvas bidi.
+
+[modules/text-effects/SPEC.md](../modules/text-effects/SPEC.md) defines defaults, precise range
+weights and matrix composition, animation addresses, validation, backend limits and evidence.
+The registry drives schema, CLI and both syntax spellings. Thirteen raw native captures are retained; accepted
+comparisons remain unresolved and these rows remain planned. Bidi's measured addition is 150 B min+gzip (owner guard: <=150 B).

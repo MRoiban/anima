@@ -33,7 +33,14 @@ export async function scaffold(root: string, id: string, moduleName?: string): P
   if (row.anima.status === 'done')
     throw Error(`${id}: already done; refusing to replace completion evidence`);
   const name = moduleName ?? row.anima.module;
-  if (!/^[a-z][a-z0-9]*$/.test(name))
+  // seam(P6-5): allow existing hyphenated module folders without generating invalid identifiers.
+  if (
+    !/^[a-z][a-z0-9]*$/.test(name) &&
+    !(
+      /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/.test(name) &&
+      existsSync(resolve(root, `modules/${name}/manifest.ts`))
+    )
+  )
     throw Error(
       'Module name must start with a lower-case letter and contain only lower-case letters or digits',
     );

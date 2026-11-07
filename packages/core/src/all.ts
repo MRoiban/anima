@@ -48,6 +48,8 @@ import { componentpaint } from '../../../modules/componentpaint/core/index.ts';
 import { componentpaintSVG } from '../../../modules/componentpaint/core/svg.ts';
 import { text } from '../../../modules/text/core/index.ts';
 import { textSVG } from '../../../modules/text/core/svg.ts';
+import { textEffects } from '../../../modules/text-effects/core/index.ts';
+import { textEffectsSVG } from '../../../modules/text-effects/core/svg.ts';
 if (VERBOSE) {
   registerModule(components);
   registerSVGBackend('components', componentsSVG);
@@ -95,4 +97,6 @@ if (VERBOSE) {
   registerSVGBackend('componentpaint', componentpaintSVG);
   registerModule(text);
   registerSVGBackend('text', textSVG);
+  registerModule(textEffects);
+  registerSVGBackend('text-effects', textEffectsSVG);
 }

@@ -130,7 +130,23 @@ function recover(root: Element): Obj {
                 ? JSON.parse(v)
                 : scalar(v);
     }
+    // seam(P6-5): independent recovery of structural effects and ranges.
+    const recoverEffect = (el: Element): Obj => {
+      const effect: Obj = {};
+      for (const [key, value] of Object.entries(attrs(el))) {
+        const jsonKey = key.replace(/-([a-z])/g, (_m, c: string) => c.toUpperCase());
+        effect[jsonKey] = ['units', 'ease', 'combine', 'run', 'follow-path'].includes(key)
+          ? value
+          : value.startsWith('{')
+            ? JSON.parse(value)
+            : Number(value);
+      }
+      const ranges = elements(el).filter((c) => c.name === 'text-range');
+      if (ranges.length) effect.ranges = ranges.map(recoverEffect);
+      return effect;
+    };
     for (const child of elements(e)) {
+      if (child.name === 'text-effect') ((o.effects ??= []) as Obj[]).push(recoverEffect(child));
       if (child.name === 'style')
         ((o.styles ??= {}) as Obj)[attrs(child).id!] = recoverStyle(child);
       if (child.name === 'run') ((o.runs ??= []) as Obj[]).push(attrs(child));
@@ -564,6 +580,9 @@ function check(source: string | object) {
       'style',
       'run',
       'text-style',
+      // seam(P6-5): registry-defined structural text modifiers.
+      'text-effect',
+      'text-range',
     ]).toContain(e.name);
     if (e.name !== 'pose')
       for (const a of e.attrs) {

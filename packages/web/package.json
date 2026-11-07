@@ -49,7 +49,10 @@
     "./componentpaint": "./src/componentpaint.ts",
     "./text": "./src/text.ts",
     "./text-host": "./src/text-host.ts",
-    "./markup-text": "./src/markup-text.ts"
+    "./markup-text": "./src/markup-text.ts",
+    "./text-effects": "./src/text-effects.ts",
+    "./texteffects": "./src/texteffects.ts",
+    "./markup-text-effects": "./src/markup-text-effects.ts"
   },
   "files": [
     "src"

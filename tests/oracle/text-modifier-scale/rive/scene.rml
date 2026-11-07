@@ -1,0 +1,8 @@
+<Rive version="1" kind="fragment">
+<FontAsset id="0:20" name="Original" file="../../../../fixtures/fonts/anima-test.ttf"/>
+<Artboard id="0:1" name="Probe" width="240" height="240" styleId="0:2"><LayoutComponentStyle id="0:2"/><Fill><SolidColor colorValue="FFFFFFFF"/></Fill>
+<Text id="0:3" name="Label" sizingValue="autoWidth" fitFromBaseline="false" fitFontSizeResizesBox="false" highlightTextRuns="false">
+<TextStylePaint id="0:4" fontSize="12" fontAssetId="0:20"><Fill><SolidColor colorValue="FF000000"/></Fill></TextStylePaint>
+<TextStylePaint id="0:7" fontSize="12" fontAssetId="0:20"><Fill><SolidColor colorValue="FF000000"/></Fill></TextStylePaint>
+<TextValueRun id="0:5" styleId="0:4" text="ab "/><TextValueRun id="0:6" styleId="0:7" text="cd"/>
+<TextModifierGroup modifyScale="true" scaleX="2" scaleY="3"><TextModifierRange typeValue="unitIndex" unitsValue="characters" modifyFrom="0" modifyTo="5" strength="1" clamp="true" falloffFrom="0" falloffTo="5" /></TextModifierGroup></Text></Artboard></Rive>

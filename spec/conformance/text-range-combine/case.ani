@@ -1,0 +1,47 @@
+{
+  "anima": "0.1",
+  "name": "text-range-combine",
+  "grid": 20,
+  "requires": ["text", "texteffects"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "ab ",
+          "style": "s"
+        },
+        {
+          "id": "last",
+          "text": "cd",
+          "style": "s"
+        }
+      ],
+      "effects": [
+        {
+          "end": 4,
+          "opacity": 0,
+          "ranges": [
+            {
+              "start": 1,
+              "end": 3,
+              "combine": "intersect"
+            },
+            {
+              "start": 2,
+              "end": 3,
+              "combine": "subtract"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

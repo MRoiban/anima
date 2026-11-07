@@ -1,0 +1,15 @@
+<anima version="0.1" name="title-wave" grid="20" requires="text texteffects">
+  <text id="title" x="1" y="4">
+    <style id="h" size="2" fill="#141413"/>
+    <run id="heading" text="Search card" style="h"/>
+    <text-effect end="2" units="words" y="2" opacity="0">
+      <text-range start="0" units="glyphs" falloff="3" combine="intersect"/>
+    </text-effect>
+  </text>
+  <timeline name="entrance" duration="1.2">
+    <track target="title.effects.0.ranges.0.start">0 0; 1.2 14</track>
+  </timeline>
+  <layer name="entrance" initial="wave">
+    <state name="wave" play="entrance"/>
+  </layer>
+</anima>

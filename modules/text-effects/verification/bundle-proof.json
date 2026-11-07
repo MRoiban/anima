@@ -1,0 +1,17 @@
+{
+  "packages/web/src/index.ts": {
+    "unchanged": true,
+    "hash": "38d09fa51dd82685fb9bea2b7ed011d7981725d027dd954a7f673f98770caef6",
+    "bytes": 21136
+  },
+  "packages/web/src/text.ts": {
+    "unchanged": true,
+    "hash": "f985a2968813b2a97faf96d05b42216e57c91f6c4cfc6bc9b555c751593d8a2a",
+    "bytes": 27189
+  },
+  "packages/web/src/text-effects.ts": {
+    "unchanged": true,
+    "hash": "5b770ba8854499a6fb76c4ce4a01cca64283e03920afaba9522d811feb368913",
+    "bytes": 30550
+  }
+}

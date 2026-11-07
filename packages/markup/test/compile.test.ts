@@ -351,7 +351,8 @@ describe('AniML compiler', () => {
     );
     collectPaint(
       parseXml(
-        '<anima><text runs="$items" styles="{}" sizing="fixed" width="4" height="4" align="left" valign="top" overflow="visible" wrap="true" word-break="normal" origin="baseline" line-height="1" paragraph-spacing="0" vertical-trim-top="cap" vertical-trim-bottom="baseline" fit-from-baseline="false" fit-font-size-resizes-box="false" text-field="label" style-field="style"/></anima>',
+        // seam(P6-5): new node attribute spellings remain in the exhaustive coverage check.
+        '<anima><text background="{}" text-effects="[]" direction="ltr" runs="$items" styles="{}" sizing="fixed" width="4" height="4" align="left" valign="top" overflow="visible" wrap="true" word-break="normal" origin="baseline" line-height="1" paragraph-spacing="0" vertical-trim-top="cap" vertical-trim-bottom="baseline" fit-from-baseline="false" fit-font-size-resizes-box="false" text-field="label" style-field="style"/></anima>',
       ).doc.root!,
     );
     const attrs = new Set(

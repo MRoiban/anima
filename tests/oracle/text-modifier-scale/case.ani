@@ -1,0 +1,35 @@
+{
+  "anima": "0.1",
+  "name": "text-modifier-scale",
+  "grid": 20,
+  "requires": ["text", "texteffects"],
+  "nodes": [
+    {
+      "id": "label",
+      "type": "text",
+      "styles": {
+        "s": {
+          "size": 1
+        }
+      },
+      "runs": [
+        {
+          "id": "first",
+          "text": "ab ",
+          "style": "s"
+        },
+        {
+          "id": "last",
+          "text": "cd",
+          "style": "s"
+        }
+      ],
+      "effects": [
+        {
+          "scaleX": 2,
+          "scaleY": 3
+        }
+      ]
+    }
+  ]
+}

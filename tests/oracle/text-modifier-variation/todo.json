@@ -1,0 +1,4 @@
+{
+  "status": "todo",
+  "reason": "P6-5 implementation and numeric/browser probes delivered; native reference captured but raw layout/pivot/falloff differences and accepted oracle manifest remain unresolved. Canvas2D supports wght only; arbitrary axes remain incomplete."
+}
