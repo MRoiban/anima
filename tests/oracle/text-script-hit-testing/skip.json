@@ -1,0 +1,10 @@
+{
+  "status": "skip",
+  "reason": "Only the host/listener portion is in P6; the scripting VM portion is won't-do. Native local headless commands expose no grapheme hit/caret/selection query without that VM, so there is no faithful query oracle. Independent metric conformance and real pointer/host tests verify the retained API in both engines.",
+  "tests": [
+    "modules/a11y/test/core/text-hit.test.ts",
+    "modules/a11y-dom/test/web/text-hit.test.ts",
+    "spec/conformance/text-script-hit-testing"
+  ],
+  "captureEvidence": ["tests/oracle/text-script-hit-testing/SKIP.md"]
+}

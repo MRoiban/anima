@@ -63,6 +63,7 @@ for (const [name, engine, executablePath] of [
                 {
                   id: 'label',
                   type: 'text',
+                  direction: 'rtl',
                   styles: { s: { font: 'Anima Test', size: 2, fill: { color: '#000' } } },
                   runs: [{ id: 'first', text: 'AV', style: 's' }],
                   background: { first: '#ff0000' },
@@ -138,6 +139,9 @@ for (const [name, engine, executablePath] of [
             data.runs = [{ text: 'אב ab' }];
             Icon.canvasShapes![0]!(ctx, shape, (p) => String(p.color ?? '#000'));
             const dirRestored = canvas.dir === '';
+            const svgDirection = icon
+              .shadowRoot!.querySelector('g[direction]')
+              ?.getAttribute('direction');
             const originalAgain = ctx.fillText;
             let nativeDirection = '';
             ctx.fillText = (text, x, y) => {
@@ -145,13 +149,22 @@ for (const [name, engine, executablePath] of [
               originalAgain(text, x, y);
             };
             Icon.canvasShapes![0]!(ctx, shape, (p) => String(p.color ?? '#000'));
+            const auto = nativeDirection;
+            const forcedDirections: string[] = [];
+            for (const direction of ['ltr', 'rtl']) {
+              data.direction = direction;
+              Icon.canvasShapes![0]!(ctx, shape, (p) => String(p.color ?? '#000'));
+              forcedDirections.push(nativeDirection);
+            }
             return {
+              forcedDirections,
+              svgDirection,
               svgBefore,
               records: records.slice(0, 2),
               after,
               backgrounds,
               pixels,
-              auto: nativeDirection,
+              auto,
               dirRestored,
             };
           });
@@ -159,6 +172,8 @@ for (const [name, engine, executablePath] of [
           expect(result.backgrounds).toBe('#ff0000');
           expect(result.pixels).toBeGreaterThan(0);
           expect(result.auto).toBe('rtl');
+          expect(result.forcedDirections).toEqual(['ltr', 'rtl']);
+          expect(result.svgDirection).toBe('rtl');
           expect(result.dirRestored).toBe(true);
           result.svgBefore.forEach((s, i) => {
             const c = result.records[i]!;

@@ -5,4 +5,5 @@ Implementation: `modules/text-effects/core/registry.ts`, `modules/text-effects/S
 Independent fixed-measurer numeric expectations: `spec/conformance/text-range-combine/effects.expected.json`.
 Diagnostics, both spellings and CLI schema/render checks: module test suites.
 
-Not closure-ready: native reference differences/accepted oracle registration remain unresolved. Row remains planned.
+P6-9a accepts the original-font native comparison. See `tests/oracle/TEXT-EFFECTS-PROBES.md`
+for mappings and measured AA-only limits. The row is done.

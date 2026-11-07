@@ -1,5 +1,8 @@
 # P6-5 implementation report
 
+P6-9a closure follow-up: [current report](../../tests/oracle/P6-9a-REPORT.md). This document
+records the earlier implementation delivery.
+
 Status: **partial**. Branch `t3/implement-p6-5`, based on `777c0a5d`. Final head is in the handoff
 (`git log -1`). Local commit only: no push, PR, package publication or merge from p6.
 

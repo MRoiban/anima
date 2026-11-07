@@ -1,0 +1,16 @@
+{
+  "base": "e2442114",
+  "fontSHA256": "6eb4d6184c84a56e0b7384c6841ea5dd048b924394922c78fab6ea33aeef55d2",
+  "before": {
+    "name": "text-background-fit",
+    "maxDiff": 255,
+    "over": 65,
+    "overPercent": 0.11284722222222222
+  },
+  "after": {
+    "name": "text-background-fit",
+    "maxDiff": 32,
+    "over": 2,
+    "overPercent": 0.003472222222222222
+  }
+}

@@ -5,4 +5,5 @@ Implementation: `modules/text-effects/core/registry.ts`, `modules/text-effects/S
 Independent fixed-measurer numeric expectations: `spec/conformance/text-modifier-variation/effects.expected.json`.
 Diagnostics, both spellings and CLI schema/render checks: module test suites.
 
-Not closure-ready: native reference differences/accepted oracle registration remain unresolved. Row remains planned.
+P6-9a accepts the original-font wght control, but the full row remains planned: arbitrary-axis
+Canvas drawing is missing. See `tests/oracle/TEXT-EFFECTS-PROBES.md`.

@@ -1,0 +1,67 @@
+{
+  "note": "Standalone exact 12-order output audit; not a passing 30s test.",
+  "seconds": 74.97995169000001,
+  "same": true,
+  "outputs": [
+    {
+      "order": 0,
+      "sha256": "89b2c9ea4a8fd75cdeeb4fbe95aa8c2129b9e9e099649888bf8fb53a7de7a64f",
+      "bytes": 6557213
+    },
+    {
+      "order": 1,
+      "sha256": "89b2c9ea4a8fd75cdeeb4fbe95aa8c2129b9e9e099649888bf8fb53a7de7a64f",
+      "bytes": 6557213
+    },
+    {
+      "order": 2,
+      "sha256": "89b2c9ea4a8fd75cdeeb4fbe95aa8c2129b9e9e099649888bf8fb53a7de7a64f",
+      "bytes": 6557213
+    },
+    {
+      "order": 3,
+      "sha256": "89b2c9ea4a8fd75cdeeb4fbe95aa8c2129b9e9e099649888bf8fb53a7de7a64f",
+      "bytes": 6557213
+    },
+    {
+      "order": 4,
+      "sha256": "89b2c9ea4a8fd75cdeeb4fbe95aa8c2129b9e9e099649888bf8fb53a7de7a64f",
+      "bytes": 6557213
+    },
+    {
+      "order": 5,
+      "sha256": "89b2c9ea4a8fd75cdeeb4fbe95aa8c2129b9e9e099649888bf8fb53a7de7a64f",
+      "bytes": 6557213
+    },
+    {
+      "order": 6,
+      "sha256": "89b2c9ea4a8fd75cdeeb4fbe95aa8c2129b9e9e099649888bf8fb53a7de7a64f",
+      "bytes": 6557213
+    },
+    {
+      "order": 7,
+      "sha256": "89b2c9ea4a8fd75cdeeb4fbe95aa8c2129b9e9e099649888bf8fb53a7de7a64f",
+      "bytes": 6557213
+    },
+    {
+      "order": 8,
+      "sha256": "89b2c9ea4a8fd75cdeeb4fbe95aa8c2129b9e9e099649888bf8fb53a7de7a64f",
+      "bytes": 6557213
+    },
+    {
+      "order": 9,
+      "sha256": "89b2c9ea4a8fd75cdeeb4fbe95aa8c2129b9e9e099649888bf8fb53a7de7a64f",
+      "bytes": 6557213
+    },
+    {
+      "order": 10,
+      "sha256": "89b2c9ea4a8fd75cdeeb4fbe95aa8c2129b9e9e099649888bf8fb53a7de7a64f",
+      "bytes": 6557213
+    },
+    {
+      "order": 11,
+      "sha256": "89b2c9ea4a8fd75cdeeb4fbe95aa8c2129b9e9e099649888bf8fb53a7de7a64f",
+      "bytes": 6557213
+    }
+  ]
+}

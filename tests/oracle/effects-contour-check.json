@@ -1,0 +1,86 @@
+[
+  {
+    "name": "text-modifier-translation",
+    "over": 4,
+    "overlappingEdges": 0,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-modifier-rotation",
+    "over": 0,
+    "overlappingEdges": 0,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-modifier-scale",
+    "over": 18,
+    "overlappingEdges": 6,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-modifier-opacity",
+    "over": 0,
+    "overlappingEdges": 0,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-modifier-origin",
+    "over": 4,
+    "overlappingEdges": 0,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-modifier-variation",
+    "over": 8,
+    "overlappingEdges": 0,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-modifier-follow-path",
+    "over": 0,
+    "overlappingEdges": 0,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-range-units",
+    "over": 2,
+    "overlappingEdges": 0,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-range-falloff",
+    "over": 2,
+    "overlappingEdges": 0,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-range-easing",
+    "over": 4,
+    "overlappingEdges": 0,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-range-combine",
+    "over": 2,
+    "overlappingEdges": 0,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-range-run",
+    "over": 2,
+    "overlappingEdges": 0,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-background",
+    "over": 4,
+    "overlappingEdges": 0,
+    "nonCorner": 0
+  },
+  {
+    "name": "text-background-fit",
+    "over": 2,
+    "overlappingEdges": 0,
+    "nonCorner": 0
+  }
+]

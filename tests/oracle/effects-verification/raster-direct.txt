@@ -1,0 +1,1 @@
+9 raster records match exactly, all non-edge differences zero; standalone output check, not a passing 5s test.

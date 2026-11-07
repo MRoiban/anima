@@ -208,9 +208,9 @@ export function applyEffects(
         }
         backgrounds.push({
           x,
-          y: c.y - line.ascent,
+          y: c.y - line.ascent * data.layout.scale,
           width: end - x,
-          height: line.ascent + line.descent,
+          height: (line.ascent + line.descent) * data.layout.scale,
           color,
           radius: typeof style === 'object' ? style.radius : undefined,
         });

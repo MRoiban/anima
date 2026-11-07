@@ -3230,5 +3230,103 @@
     "threshold": 16,
     "maxDiff": 36,
     "maxOverPercent": 0.017361
+  },
+  {
+    "name": "text-modifier-translation",
+    "times": [0],
+    "threshold": 16,
+    "maxOverPercent": 0.010416666666666666,
+    "maxDiff": 36
+  },
+  {
+    "name": "text-modifier-rotation",
+    "times": [0],
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "maxDiff": 20
+  },
+  {
+    "name": "text-modifier-scale",
+    "times": [0],
+    "threshold": 16,
+    "maxOverPercent": 0.034722222222222224,
+    "maxDiff": 67
+  },
+  {
+    "name": "text-modifier-opacity",
+    "times": [0],
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "maxDiff": 12
+  },
+  {
+    "name": "text-modifier-origin",
+    "times": [0],
+    "threshold": 16,
+    "maxOverPercent": 0.010416666666666666,
+    "maxDiff": 36
+  },
+  {
+    "name": "text-modifier-variation",
+    "times": [0],
+    "threshold": 16,
+    "maxOverPercent": 0.017361111111111112,
+    "maxDiff": 36
+  },
+  {
+    "name": "text-modifier-follow-path",
+    "times": [0],
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "maxDiff": 2
+  },
+  {
+    "name": "text-range-units",
+    "times": [0],
+    "threshold": 16,
+    "maxOverPercent": 0.006944444444444444,
+    "maxDiff": 36
+  },
+  {
+    "name": "text-range-falloff",
+    "times": [0],
+    "threshold": 16,
+    "maxOverPercent": 0.006944444444444444,
+    "maxDiff": 36
+  },
+  {
+    "name": "text-range-easing",
+    "times": [0],
+    "threshold": 16,
+    "maxOverPercent": 0.010416666666666666,
+    "maxDiff": 36
+  },
+  {
+    "name": "text-range-combine",
+    "times": [0],
+    "threshold": 16,
+    "maxOverPercent": 0.006944444444444444,
+    "maxDiff": 36
+  },
+  {
+    "name": "text-range-run",
+    "times": [0],
+    "threshold": 16,
+    "maxOverPercent": 0.006944444444444444,
+    "maxDiff": 36
+  },
+  {
+    "name": "text-background",
+    "times": [0],
+    "threshold": 16,
+    "maxOverPercent": 0.010416666666666666,
+    "maxDiff": 36
+  },
+  {
+    "name": "text-background-fit",
+    "times": [0],
+    "threshold": 16,
+    "maxOverPercent": 0.006944444444444444,
+    "maxDiff": 36
   }
 ]

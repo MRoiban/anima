@@ -65,8 +65,8 @@ This is an internal sampler, not a new public path API. Approximation is explici
 native glyph shaping/path-fitting equivalence claim.
 
 Backgrounds are one rectangle per contiguous run fragment on each line: x/width bound the union of all cluster advance intervals,
-including reversed positions under negative tracking, y is baseline minus line ascent, height is line ascent
-plus descent. They draw behind all glyphs, before effects, and respect the same overflow clip. Radius (default 0)
+including reversed positions under negative tracking, y is baseline minus scaled line ascent, height is the sum of line ascent
+and descent multiplied by the uniform layout fit scale. They draw behind all glyphs, before effects, and respect the same overflow clip. Radius (default 0)
 is nonnegative, clamped by each backend to half the rectangle width/height.
 A run without an id may be addressed by its decimal run index. Empty runs draw no rectangle.
 Effects do not change wrapping, clipping, layout extents or hit/selection geometry.
@@ -107,12 +107,27 @@ hint use a core easing; `text-effect-path` at .../followPath, hint use SVG path 
 run ids use `text-effect-run`. They carry messages, hints and tests. Dynamic run lists resolve run ids at draw time, so unmatched ids
 select nothing. Missing feature declarations use `undeclared-feature`.
 
-Fourteen capability probes plus a negative-tracking conformance probe have independently authored numerical drawing
+Fourteen capability probes, a negative-tracking probe and a fitted-background conformance probe have independently authored numerical drawing
 expectations; browser tests cover both import orders, retained animation, matching SVG/canvas
-matrices, alpha and native auto direction. Thirteen independently authored native references are captured using the generated font. Raw
-baseline/pivot/falloff differences remain unresolved and no accepted oracle manifest was added.
-The native authoring schema has no direction override; its skip rationale awaits review. All
-fourteen rows remain planned. There is no conversion of third-party binary files.
+matrices, alpha and native auto/forced direction. P6-9a accepts fourteen original-font native controls (including fitted backgrounds);
+[the closure evidence](../../tests/oracle/TEXT-EFFECTS-PROBES.md) records the exact mappings and
+per-case antialiasing allowances. These controls use explicit 1-em leading; they do not establish
+native automatic-leading equivalence (see text's spec). Native modifiers use a horizontal
+half-advance origin offset and subtract their authored origin offsets; Anima deliberately keeps
+its baseline-left, additive grid-unit origin contract. Native follow-path targets are in scene space;
+Anima paths remain text-local. The paired sources express the same resulting geometry without
+changing either runtime. Follow-path curves retain the documented chord approximation; arbitrary
+native shaping/path fitting is not claimed.
+
+Direction has no faithful native authored counterpart: the local Text schema has no direction
+override. The P6 host/browser override remains specified and independently tested; native derived
+scripting direction queries remain won't-do with the scripting VM. The native screenshot probe is
+explicitly skipped rather than treating Latin text as proof of an override.
+
+The generated-font wght modifier comparison passes, but `text.modifier-variation` remains planned:
+Canvas cannot draw arbitrary axes under this implementation. All other twelve effects/range/background
+rows and the browser-direction row have completed native comparisons or the evidenced skip above.
+There is no conversion of third-party binary files.
 
 The design follows the renderer ownership advice in `docs/research/rive-web-runtime.md` and the
 pure rest-based evaluation/typed-track lessons in `docs/research/rive-animation-and-state.md`.
