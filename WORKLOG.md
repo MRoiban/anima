@@ -3,7 +3,7 @@
 ## Now
 Goal: smaller, agent-native Rive for animated web UI. Order P3b (a11y + agent tools) → P6 text → P7 minimal layout → P8 rigging.
 State: triage merged (PR #18, b97a2d5). Branch p3b: design/p3b/DESIGN.md decided; 5 text a11y rows moved to P6 (119 P3b rows). In scope 624/883 (71 %). full 111,723/131,072 B; core+web 20,362.
-Next: running P3b-4 data-host, P3b-6 tooling leftovers, P3b-7 a11y core completion, P3b-8 a11y-dom overlay → merge → benchmark (fresh agents) → closure → PR. full 115,192 B (estimate after P3b ~118 KB: flag to owner).
+Next: running P3b-6 tooling leftovers, P3b-9 a11y evidence+gaps (bounds via browser/tooling), benchmark AniML+Rive (settings card) → verify claims → closure → PR. full 118,861 B; owner size message pending.
 Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests; grow data/bind/components; leave merged worktrees behind.
 
 ## Log
@@ -226,3 +226,4 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-07 10:40 [P3b-7]: first changed run exposed stale browser cache, asset/hooks timeouts and independent reader omitting a11y children → explicit artifacts + reader fix; isolated browser24/24 and markup2463/2463 pass unchanged limits; interrupted pre-fix run, fresh changed at1 worker running (evidence: verification/p3b7/{changed-interrupted,browser-recheck,markup,independent-reader-failures}.txt).
 - 2026-11-07 11:02 [P3b-7]: frozen changed7530/0fail/45TODO (230 files), requested scope1847/33TODO, markup2463, isolated browsers24 all pass; wiring/type/lint/format/artifacts/size/strict oracle green → branch-only partial commit, 0 rows closed; exact bounds/focus/cache/native-action work left at fixed guard (evidence: modules/a11y/REPORT.md; verification/p3b7/checks.json).
 - 2026-11-07 [claude]: merged P3b-7 (a11y 2,038/2,048, a11y-actions 826); native semantic comparison 48 nodes exact; full 118,861; a11y…conformance chromium 3,022 pass; remaining a11y gaps per modules/a11y/REPORT.md
+- 2026-11-07 [claude]: CI fix pushed (path-measure reason wording; policy test); launched benchmark P3b (AniML + Rive, Sol high, 45 min) and P3b-9 (a11y evidence; exact bounds bind to browser getBBox / CLI tooling; focus gaps in a11y-actions or focus-spatial split)
