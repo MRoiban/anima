@@ -9,8 +9,10 @@ registry spellings, validation diagnostics, CLI switches or Player.step changes 
 - `icon.perfMarks = true` or the host `perf` attribute records `anima:frame:start` and
   `anima:frame` measures around frame execution. The temporary mark is cleared after measuring.
   Measures remain available to PerformanceObserver/the performance timeline for the host to clear.
-- `AnimaIcon.warnings = 'once' | 'always' | 'off'`, default `once`, controls the
-  `AnimaIcon.warn(code, message)` policy hook. Once means one warning per code per page.
+- `AnimaIcon.warnings = 'once' | 'always' | 'off' | { off: readonly string[] }`, default `once`, controls the
+  `AnimaIcon.warn(code, message)` policy hook. Once means one warning per code per page. An object suppresses only its listed stable IDs;
+  other IDs are emitted on every call. Suppressed calls do not consume the once history.
+  Changing policy preserves that history.
   There are currently no shipped runtime deprecation/console warnings to redirect; loader
   diagnostics and errors are unchanged. Future deprecations must use this hook.
 

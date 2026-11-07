@@ -1,0 +1,47 @@
+{
+  "base": "f6f28753",
+  "ticket": "P3c-9",
+  "status": "partial",
+  "closureReady": ["transforms.computed-transform-values", "host-api.deprecation-policy"],
+  "open": [
+    "components.host-artboard-reference",
+    "data.host-artboard",
+    "host-api.bindable-artboards",
+    "host-api.data-artboard",
+    "host-api.performance-marks"
+  ],
+  "commands": {
+    "npm ci": 0,
+    "node tools/modules.ts --check": 0,
+    "npm run typecheck": 0,
+    "changed TypeScript ESLint": 0,
+    "changed TypeScript Prettier": 0,
+    "node tools/build-web.ts": 0,
+    "node tools/size.ts": 0,
+    "node tools/oracle.ts --strict": 0,
+    "node tools/perf.ts": 0,
+    "npm run test:scope -- changed": {
+      "exit": 1,
+      "passed": 8069,
+      "failed": 2,
+      "todo": 40
+    },
+    "isolated demo": {
+      "exit": 0,
+      "passed": 2
+    },
+    "scope selection and relocated policy": {
+      "exit": 0,
+      "passed": 8
+    },
+    "npm run test:scope -- changed --base=HEAD": {
+      "exit": 0,
+      "passed": 1171,
+      "skipped": 498
+    }
+  },
+  "performanceWithin3Percent": "unverified; loaded after measurement slower",
+  "runtimeDelta": 98,
+  "authoringDelta": 17,
+  "runtimeTargetExcess": 67
+}

@@ -116,7 +116,11 @@ for (const [name, engine, cache] of [
               notifications: 1,
               color: [171, 205, 239, 255],
               exports: [{ name: 'main', model: 'Root' }],
-              computed: { opacity: 1 },
+              computed: {
+                opacity: 1,
+                local: { x: 0, y: 0, rotation: 0, scaleX: 1, scaleY: 1 },
+                root: { x: 0, y: 0, rotation: 0, scaleX: 1, scaleY: 1 },
+              },
             });
           } finally {
             await page.close();

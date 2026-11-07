@@ -39,7 +39,12 @@ Icon.prototype.frame = function (now) {
 Icon.warnings = 'once';
 const warned = new Set<string>();
 Icon.warn = (code, message) => {
-  if (Icon.warnings === 'off' || (Icon.warnings === 'once' && warned.has(code))) return;
+  if (
+    Icon.warnings === 'off' ||
+    (typeof Icon.warnings === 'object' && Icon.warnings.off.includes(code)) ||
+    (Icon.warnings === 'once' && warned.has(code))
+  )
+    return;
   warned.add(code);
   console.warn(message);
 };
@@ -47,7 +52,7 @@ declare module '../../../packages/web/src/index.ts' {
   // Ambient merging adds optional static types without adding bytes to the base runtime.
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace AnimaIcon {
-    let warnings: 'once' | 'always' | 'off';
+    let warnings: 'once' | 'always' | 'off' | { off: readonly string[] };
     function warn(code: string, message: string): void;
   }
   interface AnimaIcon {
