@@ -4459,7 +4459,7 @@
   "status": "wont-do",
   "test": "conformance/path-measure",
   "phase": "—",
-  "reason": "Won't do as a public API (owner, 2026-11-07 triage follow-up): path measurement stays internal to P8 rigging, where follow-path may use it."
+  "reason": "Won't do as a public API (owner triage follow-up, 2026-11-07): path measurement stays internal to P8 rigging, where follow-path may use it."
  },
  {
   "id": "drawing-paint.polygon",
