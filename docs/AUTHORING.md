@@ -316,8 +316,19 @@ Run `anima build page.html -o page.built.html`. It replaces AniML scripts inside
 `<anima-icon>` with compiled `application/vnd.anima+json` scripts. Load the regular
 `@anima-format/web` runtime on that page.
 To compile markup in the browser instead (prototypes, playgrounds), also import
-`@anima-format/web/markup` (about 6 KB more). Without it, an icon holding AniML reports a
-`markup-unavailable` error. Pages that ship built `.ani` never need it.
+`@anima-format/web/markup-hooks`. This single authoring import includes the lean `markup`
+compiler and every compiler hook needed by the runtime modules you load (paint, surface,
+components, bind, convert, events, focus, motion and data). Runtime entries register runtime
+features only. Import the authoring entry before or after the runtime entries; hook registration
+is synchronous in either order, including modules loaded later. Existing browser authoring pages
+can replace their `@anima-format/web/markup` import with this one. The standalone browser file is
+`anima-markup-hooks.js`.
+
+The lean `@anima-format/web/markup` entry remains available for base-format AniML and explicit
+`markup-<name>` hook imports. Library/template expansion still uses the optional
+`@anima-format/web/markup-libraries` entry alongside the authoring import. Without a compiler,
+an icon holding AniML reports a `markup-unavailable` error. Pages that ship built `.ani` never
+need authoring imports.
 
 ## Hand-written ani
 

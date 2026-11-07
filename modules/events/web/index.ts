@@ -1,4 +1,3 @@
-import { eventsMarkup } from '../markup/index.ts';
 import { events } from '../core/index.ts';
 import type { AnimaEvent } from '../../../packages/core/src/player.ts';
 import '../../../packages/web/src/index.ts';
@@ -18,7 +17,6 @@ declare module '../../../packages/web/src/index.ts' {
 }
 const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
 Icon.registerModule(events);
-Icon.registerMarkup('events', eventsMarkup);
 const subscriptions = new WeakMap<AnimaIcon, Map<string, Set<Callback>>>();
 const volumes = new WeakMap<AnimaIcon, number>();
 const failedLoads = new WeakSet<AnimaIcon>();

@@ -50,7 +50,7 @@ for (const [name, engine, paths] of [
         bundle(resolve('packages/web/src/index.ts')),
         bundle(resolve('packages/web/src/paint.ts')),
         bundle(resolve('packages/web/src/composite.ts')),
-        bundle(resolve('packages/web/src/markup.ts')),
+        bundle(resolve('packages/web/src/markup-hooks.ts')),
       ]);
     }, 30000);
     afterAll(async () => {

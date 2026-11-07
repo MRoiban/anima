@@ -100,7 +100,7 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
     beforeAll(async () => {
       [js, markupJs, paintJs, leanMarkupJs, devtoolsJs] = await Promise.all([
         bundle(resolve('packages/web/src/index.ts')),
-        bundle(resolve('packages/web/src/markup-libraries.ts')),
+        bundle(resolve('modules/markup/test/web/fixtures/libraries.ts')),
         bundle(resolve('packages/web/src/paint.ts')),
         bundle(resolve('packages/web/src/markup.ts')),
         bundle(resolve('packages/web/src/devtools.ts')),

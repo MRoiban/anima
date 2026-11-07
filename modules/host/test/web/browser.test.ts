@@ -74,7 +74,9 @@ for (const [name, engine, paths] of [
                 );
               await page.addScriptTag({
                 type: 'module',
-                content: await bundle(resolve('packages/web/src/' + mod + '.ts')),
+                content: await bundle(
+                  resolve('packages/web/src/' + (mod === 'markup' ? 'markup-hooks' : mod) + '.ts'),
+                ),
               });
             }
             await page.waitForFunction(() => {

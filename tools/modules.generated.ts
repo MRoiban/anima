@@ -18,6 +18,7 @@ export const webEntries = [
   'devtools',
   'focus',
   'input',
+  'markup-hooks',
   'media',
   'motion',
   'events',
@@ -53,6 +54,7 @@ export const webOwners: Record<string, string> = {
   focus: 'focus',
   input: 'input',
   markup: 'markup',
+  'markup-hooks': 'markup',
   'markup-libraries': 'markup-libraries',
   media: 'media',
   motion: 'motion',
@@ -143,6 +145,7 @@ export const moduleBudgets: {
   { name: 'devtools', budget: 1024, authoring: true },
   { name: 'focus', budget: 4096 },
   { name: 'input', budget: 8192 },
+  { name: 'markup-hooks', over: 'markup', budget: 4544, authoring: true },
   { name: 'media', budget: 3072 },
   { name: 'motion', budget: 8192 },
   { name: 'events', budget: 4096 },
@@ -349,7 +352,10 @@ export const moduleScopes = {
       'input-write-pointer-delta-y',
     ],
   },
-  markup: { tests: ['packages/web/test/markup-hooks.test.ts'], conformance: [] },
+  markup: {
+    tests: ['packages/web/test/markup-hooks.test.ts', 'modules/markup/test/**/*.test.ts'],
+    conformance: [],
+  },
   'markup-libraries': {
     tests: ['modules/markup-libraries/test/**/*.test.ts'],
     conformance: [

@@ -1,0 +1,25 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e6ded439
+
+ ❯ |browser| modules/markup/test/web/authoring.test.ts (8 tests | 8 skipped) 31929ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/markup/test/web/authoring.test.ts [ modules/markup/test/web/authoring.test.ts ]
+Error: Hook timed out in 30000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/markup/test/web/authoring.test.ts:44:1
+     42| </anima>`;
+     43|
+     44| beforeAll(async () => {
+       | ^
+     45|   await Promise.all(
+     46|     entries.map(async (entry) => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  8 skipped (8)
+   Start at  14:07:05
+   Duration  52.55s (tests 89%, import 10%, transform 1%)
