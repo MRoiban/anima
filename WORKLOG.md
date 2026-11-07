@@ -1,147 +1,18 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive for animated web UI. Order: P3c (size round + 23 carry-overs) → P6 text → P7 minimal layout → P8 rigging.
-State: P3b merged (PR #19, 38dd757). Branch p3c, design/p3c/DESIGN.md. Runtime sum 109,971 → target ≤ 104,472 B; other gates must not grow.
-Next: wave 1 = size survey (scout), tooling carry-overs + benchmark friction (0 runtime B), library rows; then size cuts by module group; then runtime carry-overs; budgets reset ~10 %.
-Don't: push to main; modify oracle findings or benchmark records; raise ceilings; change behaviour in size cuts; leave merged worktrees; --no-verify.
+Goal: P3c-7 complete: converter/bind production diagnostic guards + shared component/list/nested node pointers.
+Verified: runtime109971→109508B (-463); all6gates/29scenes nongrowing; oracle266/475 exact; type/lint/format/wiring pass.
+Tests: changed8045pass/40TODO/3load failures; affected files5/5 pass alone with original limits and inherited worker bound.
+Next: parent integration; commit on t3/trim-converter-bind-diagnostics only. Perf ran with no observed regression; ≤3% noise claim unverified under shared load.
+Don't: push; change behavior/public runtime errors/expectations/budgets/measurement tools; option-table trial rejected (+8B union).
 
 ## Log
-- 2026-11-06 23:40 [P5b-8]: condensed oldest half per 200-line rule; M0–M5/P1/P3 established spec, runtime, AniML and icons; Glyphy remains draft-only (evidence: prior WORKLOG at 0c5028a; PRs1–6).
-- 2026-11-06 23:40 [P5b-8]: historical P4a/P4b paint/composite/motion merged; independent conformance/oracles and six benchmark prompts established; frame/time rules retained (evidence: dbbbfed, aa7dc76, afc413d, a02c0be).
-- 2026-11-06 23:40 [P5b-8]: historical P4c/P4d input/focus/machine/events merged; capture and preserve-offset intentional differences retained; PR15 merged (evidence: 49d418c and prior WORKLOG).
-- 2026-11-06 23:40 [P5b-8]: historical P4e data/convert/host/derive integrated with dependency-free storage and shared evaluators; native trigger-source difference retained; protected measurements unchanged (evidence: 85409b0, modules/derive/REPORT.md, modules/data/verification/).
-- 2026-11-06 23:40 [P5b-8]: historical P4e-8 final scope3365/43TODO, strict216/410 exit0; data7420, derive2117, full93573; later entries retained below (evidence: prior WORKLOG, modules/derive/verification/).
-
-
-- 2026-11-06 12:12 [codex-test]: P4e AniML rerun 6/6; 39 CLI checks, 126 final asserted snapshots, 3 inspected PNGs → local deliverable complete (evidence: animl-rerun/REPORT.md, evidence/checks.jsonl); misleading readonly sample diagnostic retained.
-- 2026-11-06 [claude]: AniML rerun 6/6 merged; fixed read-only write message (core+web +2 B); LOG P4e entry written → opening PR
-- 2026-11-06 [claude]: PR #16 CI failed: machine browser test timed out (30 s) in Chromium — same test as the earlier local timeout. Cause: rAF stubbed, second waitForFunction used default raf polling → never re-checks → hang when module registration lands after the first check. Fix: { polling: 10 }; 3/3 local runs pass (limit unchanged)
-- 2026-11-06 [claude]: PR #16 green → merged (912b6c7). Owner updated Rive CLI to 1.9.1; `update` now allowed (memory rive-cli-rules). P5b design written; 19 rows moved (fonts→P6, GPU formats→P10, layout→P7, scripting→P9, PSD→later): 93 P5b rows
-- 2026-11-06 [claude]: launched P5b wave 1 (Sol): P5b-1 lists (xhigh), P5b-2 host-edit (xhigh), P5b-3 assets/sampling/import (xhigh), P4e follow-up derive + bind-comparison Rive captures (high)
-- 2026-11-06 17:50 [claude]: wave 1 died at launch: root disk full (21 MB free, 88 agent worktrees = 12 GB) → T3 SQLITE_FULL; 0 commits on all 4 branches. Removed 86 clean worktrees (branches kept) → 13 GB free; kept 2 dirty ones (saved in refs/wip). Relaunching wave 1
-
-- 2026-11-06 16:50 [codex-test]: read contracts/history/oracle implementation; Rive schema/docs succeed on 1.9.1; node_modules absent → npm ci started; comparisons will probe transition comparators (unverified).
-
-- 2026-11-06 16:59 [codex-test]: fresh Rive 1.9.1 captures → 9 exact cases/75 snapshots/186 typed values; read-only parity skip preserves native accepted write1 vs Anima0; strict oracle225 cases/419 samples exit0, inherited216 metrics and18 findings unchanged; scope2446 pass/367 filtered/15 TODO.
-
-- 2026-11-06 17:01 [codex-test]: final evidence/docs/tests ready → Prettier/ESLint/typecheck green; generator capture/regeneration exit0; initial three formatting warnings and bare-tsc no-config failure resolved; no runtime/tool/threshold/status edits or native binaries; local commit next.
-
-- 2026-11-06 17:03 [codex-test]: staging audit caught trailing blank lines in9 native logs/1 AniML source → normalized final newlines in driver/fixtures; no observed values changed; ownership/native-binary/baseline-integrity audits pass.
-- 2026-11-06 [claude]: merged P4e follow-up (9 verified derive/bind-logic cases, 186 checks; read-only write = evidenced skip, recorded as intentional difference in derive SPEC); oracle strict 0 (225 cases)
-- 2026-11-06 17:10 [host-edit]: npm ci restored tools; all 27 scaffold dry/run pairs reject host-edit name (lowercase-only validator); manual module + generated wiring, initial size/typecheck pass (evidence: modules/host-edit/verification/scaffold.txt; /tmp/host-edit-size-initial.txt).
-
-- 2026-11-06 18:09 [host-edit]: focused 23/23 pass incl. 4 Chromium/Firefox load-order cases; native 14/14 exact; strict oracle/perf/typecheck/ESLint exit 0. Earlier browser failures: missing child asset declaration, about:blank base URL, one cold-build timeout; causes fixed without changing limits. Broader scope running (evidence: /tmp/host-edit-tests5.txt; modules/host-edit/verification/).
-
-- 2026-11-06 18:31 [host-edit]: broad scope 4936 pass/43 TODO at one worker; shared modelTypes initialized before host construction, helper inserts publish item types; invalid steps preserve queued writes → follow-up 2766 pass/43 TODO incl. Chromium+Firefox; final artifacts/size/full-scope rerun pending (evidence: verification/tests.txt, metadata.txt).
-
-- 2026-11-06 18:48 [host-edit]: final source → 4938 pass/43 TODO, strict oracle 216/410 with 18 retained findings, all budgets/static/artifacts/perf green; raw ignored canvas metrics preserved then cleaned for formatter; older half of work log condensed per rule (evidence: modules/host-edit/verification/).
-- 2026-11-06 18:48 [host-edit]: recorded dead ends: scaffold/runtime hyphen rejection (temporary key hostedit), native positional command-file error corrected to --commands=, namespace lint failure replaced by typed constructor export; no limits, inputs or parity statuses changed (evidence: REPORT.md, scaffold.txt, native session.txt).
-- 2026-11-06 18:53 [host-edit]: fresh declared-image native capture: scalar write after switching accepted; both image writes rejected at path; refreshed evidence → 23/23 module unit/CLI/oracle tests pass, formatter green (evidence: native session.txt, verification/native-followup.txt).
-- 2026-11-06 [claude]: merged P5b-2 host-edit (3143/4096; full-featured 95,965 B, P5b used +2.4 of 6 KB). 7 rows blocked → wave 2: host rebindInstance + enqueue hooks (host full → split host first), component property type (data extras), source-loader/model cache hook (web). CLI docs topics now accept hyphens
-- 2026-11-06 18:00 [sol-lists]: read P5b contracts and module seams; initial scaffold failed missing prettier → npm ci restored tooling; scaffolding eight rows with unchanged statuses (evidence: tools/new-capability.ts).
-- 2026-11-06 18:20 [sol-lists]: static repeat pool abandoned (nested geometry multiplication) → per-player dynamic draw trees, stable player/DOM identity and slot reuse implemented; 21 core tests pass incl. nested repeats, early scoped writes and limits; Chromium registration orders pass (evidence: /tmp/lists-core5.log, /tmp/lists-dynamic-browser3.log).
-- 2026-11-06 18:20 [sol-lists]: native list/context/count dumps captured; size override root click at 25,5 writes clicked 0→1 outside original width 10 → faithful bounds counterpart; CLI syntax retries recorded (commands requires =path, advance requires s suffix, pointer uses click@x,y); no binary artifacts retained (evidence: modules/lists/oracle/*/session.txt).
-- 2026-11-06 18:31 [sol-lists]: requested broad scope → 2964 pass/37 existing TODO; native eight-row oracle comparisons all exact (maxDiff 0), prior findings untouched; added separate-bundle gradient/clip regression checks after review exposed private-backend reuse and missing dynamic-group world matrix (evidence: /tmp/lists-scope-final.log, /tmp/lists-oracle2.log; final rerun pending).
-- 2026-11-06 18:48 [sol-lists]: added shared-context mixed-model lookup and explicit queued-trigger/machine-state retention; 395 core+conformance tests pass/12 existing TODO, including count 2→3→1 retaining selected state. Final formatting check found generator re-expanded oracle case arrays; fixing generator formatting, not measurement values (evidence: /tmp/lists-state-tests.log).
-- 2026-11-06 18:57 [sol-lists]: frozen-source scope → 2971 pass/37 existing TODO incl. both engines; native oracle 224 cases/418 samples exit 0; eight additions exact, 216 old records and 1238 statuses unchanged; size lists 4501, core+web 20109, full 98059 (+4484, P5b allowance left1660); static/artifact checks green (evidence: modules/lists/verification/).
-- 2026-11-06 18:59 [sol-lists]: final source/evidence frozen; inherited count contexts share live parent data, queued-trigger machine state survives count growth/shrink; final perf exits 0 (bell31.9µs, toolbar24.2µs), comparative non-regression unverified; report and verification prepared for branch-only commit (evidence: modules/lists/REPORT.md).
-- 2026-11-06 [claude]: merged P5b-1 lists (4501/6144, 8/8 rows) → full-featured 100,510 / 102,400 B (P5b +6,935, over my 6 KB plan; 1,890 B to owner ceiling; assets still to land) — flag to owner. Seam tests 3042 pass incl. browsers, oracle 0. TODO wave 2: contract test host-edit list edits × lists identity
-- 2026-11-06 [claude]: owner decision (asked): raise the full-featured ceiling → 128 KB in tools/size.ts and PLAN (100,510 B at lists+host-edit)
-- 2026-11-06 16:50 [assets]: read task/design/spec/architecture and baseline history; scaffold failed because node_modules absent → npm ci in progress (unverified).
-
-- 2026-11-06 17:11 [assets]: scaffolded all 37 rows, implemented metadata/policy/media, clip events, sampling and build/import; pipeline unit tests 13/13 pass. Initial failures: absent dependencies, compound metadata parsing, resvg WebP decoder, importer basename; fixed. Browser wrap and surface 8291/8192 still under investigation (unverified).
-
-- 2026-11-06 17:38 [assets]: native 13 captures → 8 exact (max 0), bilinear finding max27/1017 pixels>16, clamp findings max255/10800 or54000, SVG bilinear repeat max188/36852 now declined. CLI maps pixelated→optimizeSpeed for resvg. Static+scope final checks next; prior concurrent module-order/encoder runs timed out unchanged (unverified under load).
-
-- 2026-11-06 18:33 [assets]: final requested scope 5385 pass/52 TODO in473.99s; added exact-boundary bilinear seam checks pass2/2 unchanged bound2; native JPEG/JPG max40 all57600 pixels differ, PNG0/WebP1/importSVG1/Lottie0. Existing216 native entries and18 findings unchanged; cap examples37/37 compiled (evidence: modules/assets/verification, REPORT.md).
-
-- 2026-11-06 18:50 [assets]: genuine WAV host decoding passes both engines (800 samples/8 kHz/0.1s and PCM0,-1), all8 asset browser tests pass; WAV conformance completed, FLAC/MP3 remain pending. Rive capture initially needed project cwd for screenshot paths; rerun succeeded. Final full-scope rerun next (evidence: /tmp/p5b-browser-host-final.log).
-
-- 2026-11-06 19:03 [assets]: final scope → 5385 pass/52 TODO in465.00s, both engines; original216 oracle entries/18 findings and1238 parity statuses unchanged. Preparing final static checks and branch-only commit (evidence: modules/assets/verification/scope.txt).
-
-- 2026-11-06 19:13 [assets]: full requested scope green5385/52TODO; final CLI-only SVG colour/unit/warning hardening and case-insensitive excluded data URI pass11 CLI tests (evidence: modules/assets/verification/cli.txt). Runtime bytes/perf unchanged; static recheck and commit next.
-
-- 2026-11-06 19:20 [assets]: typecheck/eslint/prettier/modules/AniML/web/parity all exit0; final CLI+markup2409/2409 pass. Baseline216 oracle entries/18 findings and1238 parity statuses unchanged; clamp spec retains required edge extension, current gap labelled (evidence: modules/assets/verification/).
-
-- 2026-11-06 19:24 [assets]: committed P5b-3 partial implementation on t3/implement-assets-capabilities; 698 owned/generated/evidence files, clean staged whitespace; no push/PR/merge (evidence: git commit; modules/assets/REPORT.md).
-- 2026-11-06 [claude]: merged P5b-3 assets (partial: 12 native-passing rows, 6 findings, 19 pending; assets 2001/2048, media 2317/3072, paint 4557, paint-sampling 548/1024, markup 7913/8192) → full-featured 102,269 / 131,072 B. Seams: corpus count 373/399 → 408; assets browser pipeline test launched a browser per test (1–2 s inside 5 s) → one browser per engine in beforeAll, fresh context per test (Firefox 0.3–0.8 s). JPEG CLI test 185 ms idle; failed only when unit+browser ran together (CI runs them sequentially)
-- 2026-11-06 [claude]: wave 1 merged (lists, host-edit, assets, derive captures); p5b pushed for CI. Launched wave 2: P5b-4, P5b-5, P5b-6, P5b-7 (Sol xhigh)
-- 2026-11-06 [claude]: owner approved scope triage of 524 planned rows (web UI generally; bind to browser; won't do P9/editor tools/most of P7; maybe-later P10; in-scope progress metric) → queued after P5b merges, separate docs/plan change
-- 2026-11-06 22:20 [claude]: p5b CI red after wave 1 (my miss: core scope not run). Fixes: module-order helper used folder name as export (host-edit → hostEdit) → reads manifest; per-order 4.5 s vs main 2.5 s → cause: encode.ts imported playwright at module load → lazy import (now 2.4–2.7 vs main 2.8–3.0 s); 12 sequential orders at the 30 s limit even on main (33 s locally) → run 2 at a time (limit unchanged); derive test used modelTypes as 'no wrapper' witness but lists made data own modelTypes → assert the scope factory instead. Local load ~19 (agents) → CI judges
-
-- 2026-11-06 18:00 [codex/P5b-5]: read design/contracts; missing prettier blocked scaffolder → npm ci restored tooling; all eleven dry/run pairs exit0, instance-export existing scaffold preserved.
-
-- 2026-11-06 21:54 [codex/P5b-5]: implemented 10 data extras vectors and native guard/format/trigger probes; focused suites pass; initial scope 4199 pass/17 fail/63 TODO → own corpus/reader fixes applied, baseline derive/host-edit loader and load timeouts under investigation (evidence: /tmp/p5b-scope.log, /tmp/p5b-decompile2.log).
-
-- 2026-11-06 22:03 [codex/P5b-5]: finalized 10 conformance cases/30 exact native observations; scope4218 pass/2 failures reproduced at a5fa00a/63 TODO, final data2369 pass; strict245/441 exit0; static/artifact/size pass (core+web20147, bind2048, data7908, convert6569); keyframes/canonical oracle/export counterpart/perf gate pending (evidence: modules/data/verification/p5b5/summary.json).
-- 2026-11-06 22:03 [codex/P5b-5]: standalone perf slower frames under concurrent load; paired A/B bell112.81→111.70, composite71.83→74.28, toolbar79.08→76.27 µs, compile7.37→7.14 ms → no quiet no-regression claim; verification-script ESLint globals fixed with explicit Node imports, lint passes (evidence: verification/p5b5/perf-*.txt, eslint.txt).
-- 2026-11-06 [claude]: merged P5b-5 data extras (10 rows; bind-keyframes pending: player-aware sampling; core+web 20,147 +38, data 7908, convert 6569, bind 2048)
-
-- 2026-11-06 21:43 [host-seams]: read contracts/history; npm ci restored dependencies; split value construction and added shared queue/projection → initial 51 host unit tests pass (evidence: /tmp/p5b-host1.txt); new globals/cache unverified.
-
-- 2026-11-06 21:55 [host-seams]: shared FIFO/globals/repeat/cache contracts → focused70 pass incl both engines; repeated named globals needed slot-based rebinding (fixed; core60 pass). Explicit loadModel hook; source/decoder failure entries evict; full scope running (unverified).
-
-- 2026-11-06 22:12 [host-seams]: final size exit0 (host3424/4096, values1154/2048, edit3409/4096, core+web20150 +41, full103330 +1061); oracle strict exit0 (245/441, 24 findings/27 samples), typecheck/ESLint/modules pass; broad rerun pending after stale demo rebuild; formatting raw-output cleanup pending (evidence: modules/host-edit/verification/p5b4/).
-
-- 2026-11-06 22:15 [host-seams]: frozen-source requested scope5579 pass/59 TODO (541.77s, both engines); static/artifact/size/oracle checks exit0; raw Canvas metrics preserved unchanged at /tmp/anima-p5b4-raw-artifacts/ and ignored outputs cleaned for Prettier → report/evidence ready for branch-only commit (evidence: modules/host-edit/P5B-4-REPORT.md, verification/p5b4/checks.json).
-- 2026-11-06 [claude]: merged P5b-4 host seams (host 3424 over host-values 1154; host-edit 3409; core+web +41 for the loader hook; contract test lists × host-edit in both engines)
-
-- 2026-11-06 20:00 [components]: read P5b-6 contracts and seams; npm ci restores absent dependencies; extra runtime will use optional modules to protect current budgets (unverified).
-
-- 2026-11-06 21:00 [components]: implemented optional nested clocks/fit/outputs/dynamic selection, local library models/export selection/update; 914 focused tests pass, 8 independent conformance probes compile; initial full scope exposed stale census and new fixture/schema vocabulary, corrected by extending coverage (evidence: /tmp/p5b6-nested7.log).
-- 2026-11-06 21:00 [components]: native remap capture required linear interpolation plus positive flush deltas; 6→3→9→3 now observed. Native quantize .12+.13 gives x1→2 vs cumulative clock x1→3, finding retained; component paint blocked by private Canvas dispatch/offscreen seam, typed component guard left to other owner (unverified final checks).
-
-- 2026-11-06 21:16 [components]: isolated browser markup replay needed nested init retained; output changes now keep parent awake for next binding pass. Scoped 950 pass, Chromium four probes pass; native captures 4 exact cases/8 snapshots plus quantization finding1; inherited oracle records and1238 statuses unchanged (evidence: /tmp/p5b6-unit11.log, /tmp/p5b6-browser6.log, /tmp/p5b6-audit.py).
-
-- 2026-11-06 21:26 [components]: nonboundary native quantization .12+.14 matches x1→3; prior per-delta explanation was unsupported, corrected to precision-boundary inference while preserving original .25 delta1. Extra module-order test exposed inherited host-edit export-name harness bug; helper now reads manifest.core.export (evidence: oracle/quantize-nonboundary, /tmp/p5b6-module-order.log).
-
-- 2026-11-06 21:30 [components]: broad scope3367 pass/53TODO; later-choice alias ranges/fields now covered; added secondary-choice event bubbling conformance and cross-choice collision rejection. All byte budgets pass: components4026, nested4353, data7574, core+web20109, full106188. Extra module-order harness now compares all12 signatures but exceeds unchanged30s under concurrent load (44.3s); quiet recheck pending (evidence: /tmp/p5b6-scope-final3.log, /tmp/p5b6-size-last.log).
-
-- 2026-11-06 21:52 [components]: all scalar output types (including color) now use value equality for wakeups; repeat-created players receive output getters/values and readonly aliases without lists edits. Added independent repeat-output click/binding vector, corpus417; nested932 pass. Quiet12-order registration check passes23.8s at unchanged30s; full3371 pass before final output follow-up (evidence: /tmp/p5b6-repeat.log, /tmp/p5b6-module-order-quiet.log, verification/scope.txt).
-
-- 2026-11-06 22:11 [components]: frozen source3379 pass/53TODO incl. both engines; static/artifacts/size/perf/strict oracle all exit0; core+web20109, components4055, nested4409, data7574, full106275. Four rows native verified, quantization finding1 retained, three library-native/two hook blockers pending; all245 baseline cases/24 findings/1238 statuses unchanged (evidence: modules/nested/REPORT.md, verification/checks.txt, audit.txt).
-- 2026-11-06 22:14 [components]: final prettier/audit green; staged whitespace check found trailing blank lines in raw test logs, removed only trailing whitespace → numbers retained; local commit prepared (evidence: git diff --cached --check).
-- 2026-11-06 [claude]: CI green on 1726099. Merged P5b-6 components extras (8/10: remap, leaf-fit, outputs, component-valued data, quantize (native delta 1 finding), library export/models/update; blocked: component paint needs canvas source hook, component() literal needs typed-function hook) → nested 4409/5120, components 4055/4096, data 8024/8192, full 108,053 B. Corpus count 427
-- 2026-11-06 [claude]: launched P5b-8 (non-canvas seams) and the Rive side of the P5b playlist benchmark (brief 71281ab)
-- 2026-11-06 [claude]: merged Rive P5b playlist run: agent 6/6 → orchestrator 5/6 strict (item 4: AudioAssetClip lookup failed, trims pre-cut into separate WAVs by the generator); 7 min 46 s, 31 runs, 386 lines incl. generator
-
-- 2026-11-06 [assets-p5b7]: read work log/history/design/report/contracts; clamp margins are transparent in both renderers; npm ci restoring absent dependencies (unverified).
-
-- 2026-11-06 [assets-p5b7]: nearest clamp native probes now max0/over0; inspected-native geometry controls max0 for all three retained findings; ideal bilinear/native max2, native JPEG texels through Anima max1 (evidence: probes/sampling-controls.json).
-- 2026-11-06 [assets-p5b7]: genuine FLAC/MP3 conformance sources and native decode/trigger captures added; all19 pending oracle rows now precise skips with captured CLI limits; command browser reuse test15/15 CLI pass (evidence: /tmp/p5b7-cli5.txt, native-capabilities.json).
-- 2026-11-06 [assets-p5b7]: development failures: SVG crop CSS inherited full-size viewport, fixed inline sizing; Chromium FLAC positive PCM uses32767 denominator, exact per-engine expectation; stdin-file help rejected, replaced commands file; browser suite timeouts under simultaneous checks, investigating without raising limits (unverified).
-
-- 2026-11-06 [assets-p5b7]: strict oracle248/444 exit0, all245 old completed records unchanged; unit scope3285/25TODO exit0; static typecheck/ESLint/modules/AniML/web pass, Prettier caught regenerated summary JSON (fixed generator formatting). Perf under load16: bell104.9µs; no comparative regression claim (evidence: /tmp/p5b7-*final.txt).
-- 2026-11-06 [assets-p5b7]: fractional clamp probe exposed SVG/Canvas slice AA and SVG CSS viewport sizing; Canvas now sums isolated slice coverage, assets viewport gets inline authored dimensions. SVG pattern-of-pattern experiment regressed mirror28/32px and was reverted; source-edited full scope failed syntax during Firefox setup +5 stale-bundle timeouts (4406pass/1059skipped/25TODO). Rebuilding frozen artifacts and memoizing test bundle promises before final verification (unverified).
-
-- 2026-11-06 22:55 [assets-p5b7]: final review fixed texel/layout count confusion using private decoded-pixel metadata; viewport style seam moved to paint to preserve assets2028/2048, media2342, paint4598, sampler926, canvas5005, events3703; CLI/core45 pass and browser16 pass incl override in both engines/backends (evidence: /tmp/p5b7-pixel-*.txt).
-- 2026-11-06 22:55 [assets-p5b7]: fractional SVG probe max164/956px>16; independent inspected+authored native UV controls max0, no differences outside slice-coverage lines; retained as an additional measured raster finding, no threshold changes (evidence: fractional-clamp/measurements.json).
-- 2026-11-06 22:55 [assets-p5b7]: source-frozen scope5472 pass/25TODO/1 pivot timeout5643ms; isolated authoring51/51 pass; typecheck/ESLint/Prettier/modules/AniML/web all0 after pixel fix; final scope runs alone to avoid our earlier parallel-build contention (unverified).
-- 2026-11-06 23:48 [assets-p5b7]: resource-identity WeakMap prevents stale texel counts after replacement; separate assets/media orders pass both engines; Blob build preserves arbitrary bytes/MIME and omits audio duration; final targeted47unit/20browser pass (evidence: modules/assets/verification/p5b7/targeted-*.txt).
-- 2026-11-06 23:48 [assets-p5b7]: final static typecheck/ESLint/Prettier/modules/AniML451/web30 all0; sizes assets2031,media2346,paint4598,sampling926,canvas5005,events3703; strict248cases/444samples0; old245 cases/metrics and18 findings unchanged (evidence: verification/p5b7/results.json).
-- 2026-11-06 23:48 [assets-p5b7]: latest full5479pass/25TODO/1Chromium resolver timeout5003ms; final CLI199pass/1authoring pivot timeout5104ms; earlier full5474 green and isolated authoring51/51, pipeline20/20; recurring timeout cause unverified, no limits changed (evidence: verification/p5b7/*failed.txt).
-- 2026-11-06 23:48 [assets-p5b7]: all19 pending rows have evidenced skips, genuine FLAC/MP3 conformance complete; bilinear/native-data0, JPEG/JPG/native-texels1; fractionalSVG164/956over retained with two independent native-data controls0; report preserves inherited omitted-wrap compatibility gap for parent decision (evidence: modules/assets/REPORT.md).
-- 2026-11-07 [claude]: merged P5b-7 assets completion (clamp max 0; FLAC/MP3; 19 evidenced skips; encoder per-command browser kept lazy). Decided: no wrap control = pre-P5b fitted footprint (spec). assets 2043/2048 (5 B left). Found seam: nested (P5b-6) draw-tree holes break canvas harness on 5 component cases × 2 engines (TypeError reading transform) — fix after P5b-8 (owns nested) with component paint
-
-- 2026-11-06 23:00 [P5b-8]: read required contracts/history; dependencies absent → npm ci; seams mapped to core/nested/motion/host (implementation unverified).
-
-- 2026-11-06 23:33 [P5b-8]: core/motion/nested hooks and queued component handle implemented; 2492 focused tests pass; host Chromium46 pass after validation-shell scope fix; native guards2 and keyframes3 exact; quantize boundary/rate probes retain delta1 and implicate native precision (evidence: /tmp/p5b8-scope-dev4.txt, /tmp/p5b8-host-browser2.txt, modules/*/oracle/p5b8*).
-
-- 2026-11-06 23:37 [P5b-8]: added four independent conformance cases (431-case census), CLI checks, scalar/reference/integer key coverage and both-bundle browser contracts; focused motion/nested2469 pass. Fixed test setup to pulse the trigger at dt0 before measuring a fade; no boundary/limit changes. Native host writes remain command-rejected; all10 host-edit scaffold dry/run attempts reject its pre-existing hyphenated name (evidence: /tmp/p5b8-scope-dev6.txt, modules/host-edit/verification/p5b8/scaffold.txt).
-
-- 2026-11-06 23:42 [P5b-8]: first broad scope4463 pass/2fail/66TODO → added global invalid-code census fixtures and made new guide XML a complete document; found final-key ease normalization gap in new element spelling → unified existing text/element normalization before final freeze (unverified). Broad scope lists browser files but skips them with undefined project testNamePattern; will run every owned browser file explicitly (evidence: verification/p5b8/scope.txt).
-
-- 2026-11-06 23:52 [P5b-8]: frozen-source scope4471/66TODO + explicit9-file browsers52/52; strict oracle250/446 exit0 and25/28 findings retained; all byte/static/artifact checks pass. Core+web20362 (+174), full108896 (+843), data8015/bind2038/components4051; report and branch-only commit prepared (evidence: modules/nested/verification/p5b8/).
-
-- 2026-11-06 23:53 [P5b-8]: final audit1238 statuses/protected tracked inputs unchanged;66 native readbacks contain no binary/scaffold docs; normalized only log EOF whitespace; all requested commands and explicit browser project exit0 → staging local commit (evidence: verification/p5b8/audit.txt).
-- 2026-11-07 [claude]: merged P5b-8 (component() guard literal via typed-function hook, player-local data keyframes, queued component handles; quantize delta 1 explained by native precision, recorded) → core+web 20,362 (+174), full 109,305 B. Next: P5b-9 canvas seam (nested draw-tree holes) + component paint
-- 2026-11-07 [claude]: launched P5b-9 (canvas seam + component paint) and the AniML side of the P5b playlist benchmark
-
-- 2026-11-07 00:24 [AniML benchmark]: first command00:15:25+01; built playlist, original media, CLI samples/renders; host edits and81 assertions/6912 pixels pass → browser audio starts absent (unverified playback); CLI script cannot set lists, nested assets not embedded by build (evidence: animl/evidence/).
-
-- 2026-11-07 00:25 [AniML benchmark]: completed 604s run;24 CLI+14 auxiliary checks,24 check errors+3 startup/docs errors;5/6 strict, root audio0.2/0.8 succeeds while repeats silent → sources/media/built ANI/samples/renders/report ready for local commit (evidence: animl/REPORT.md, evidence/metrics.json).
-- 2026-11-07 [claude]: AniML P5b playlist 5/6 (item 4: repeated-row audio silent in browser) — regression vs P4e rerun 6/6 → P5b-10 fixes: repeated-instance audio, build --embed for component assets, $list.length as repeat count, inherited asset scope + pointers, docs contradictions/missing page, inspect slot noise
+- 2026-11-07 13:24 [P3c-7]: condensed oldest half per 200-line rule; M0–M5/P1/P3 and P4a/P4b established format, runtime, AniML, paint/composite/motion and oracle baselines; Glyphy draft-only (evidence: 9b69eea6:WORKLOG.md; PRs1–6).
+- 2026-11-07 13:24 [P3c-7]: historical P4c/P4d input/focus/machine/events merged with capture/preserve-offset differences retained; P4e dependency-free data/convert/host/derive integrated; AniML rerun6/6; rAF browser-polling fix merged (evidence: 49d418c,85409b0,912b6c7; prior log at9b69eea6).
+- 2026-11-07 13:24 [P3c-7]: historical P5b lists retained identity/state with8 exact native rows; host-edit shared-context/FIFO follow-ups passed4938/43TODO; scaffold hyphens, disk exhaustion and cold-build timeouts recorded (evidence: modules/{lists,host-edit}/REPORT.md; prior log at9b69eea6).
+- 2026-11-07 13:24 [P3c-7]: historical assets completed FLAC/MP3 and19 evidenced skips; bilinear/JPEG/fractional-clamp findings and recurring load timeouts retained; omitted wrap uses pre-P5b fitted footprint (evidence: modules/assets/REPORT.md, verification/p5b7; prior log at9b69eea6).
+- 2026-11-07 13:24 [P3c-7]: historical P5b component extras/keyframes/queued handles passed4471/66TODO plus52 browsers; native quantize delta1 retained; playlist benchmark5/6 exposed repeated-row audio/embed/count/docs gaps for P5b-10 (evidence: modules/nested/verification/p5b8; prior log at9b69eea6).
 
 - 2026-11-07 00:45 [P5b-10]: read required contracts/benchmark/evidence/history; identified repeat audio ownership and root-only build traversal; npm ci started (unverified).
 
@@ -271,3 +142,15 @@ Don't: push to main; modify oracle findings or benchmark records; raise ceilings
 - 2026-11-07 [claude]: P3c-3 merge broke 2 corpus tests (library file under modules/*/examples is treated as a scene) → moved to examples/lib/shared.animl; corpus 1,065 + conformance/markup-libraries 525 pass
 - 2026-11-07 13:57 [P3c-1]: measured baseline109971; runtime-only guard+helper scratch trial saves1624 (108347), all6gates/29scene non-growth pass; hook relocation saves4461 but authoring+2373 and2module budgets fail; 5% not established; discarded alias/broad-scope/relocation-snapshot trials documented; shipped sources unchanged (evidence: design/p3c/SIZE-SURVEY.md, survey/*gates*.txt).
 - 2026-11-07 [claude]: merged P3c-1 survey: 1,624 B eligible cuts + 4,461 B hook relocation (authoring +2,373). Decided, owner may revisit: relocate hooks to authoring (authoring ≤ 15,360 B), split markup ≤ 8 KB; launch P3c-4..7
+
+- 2026-11-07 13:02 [P3c-7]: npm ci restored missing esbuild; overlapping baseline/source edits invalidated first size run; isolated HEAD archive with local workspace aliases created for rerun; guards + pointer candidate pending measurement (unverified; evidence: /tmp/p3c7-*).
+
+- 2026-11-07 13:09 [P3c-7]: frozen guards+pointer candidate saves463B (109971→109508), all6gates/29scenes non-growth; verbose3480 option comparisons +5000 pointer comparisons exact; scope3172pass/3browser timeouts+2hook timeouts; isolated lists4/4 and nested Chromium5/5 pass, Firefox rerun pending; strict oracle/wiring/core type/lint pass (evidence: /tmp/p3c7-{baseline,guards-pointer,scope,browser-retest,oracle}.txt).
+
+- 2026-11-07 13:16 [P3c-7]: option-list split trial preserves3480 verbose outcomes but grows runtime109508→109516, largest54880→54883/app90722→90732/Rive115022→115030; rejected, restoration queued after active changed run; oracle266/475 exact, generated browser40entries rebuilt; perf load-sensitive (unverified ≤3%; evidence: /tmp/p3c7-{options-size,options-check-second,changed,oracle-final,perf-before-final,perf-after-final}.txt).
+
+- 2026-11-07 13:18 [P3c-7]: stopped obsolete option-trial changed run (no result claimed); restored byte-identical463B candidate and started fresh browser build/changed + size/perf checks; option trial rejected (evidence: /tmp/p3c7-{changed-retained,size-final,web-retained}.txt; unverified final).
+
+- 2026-11-07 13:38 [P3c-7]: final size confirms6gates20622/54880/90722/109508/11944/115022 and29nongrowing scenes; changed8045pass/40TODO/3failures (scaffolder nested command,5s rejection and30s module-order); isolated4pass/1nested-command failure omitted inherited worker bound; bounded snapshot reproduction904pass/30TODO/0fail, bounded outer retry pending (evidence: /tmp/p3c7-{size-final,changed-retained,timeouts-alone,scaffold-debug,timeouts-alone-bounded}.txt; unverified final retries).
+
+- 2026-11-07 13:39 [P3c-7]: retained source complete; bounded isolated5/5 clears changed3failures; oracle266/475,3480verbose diagnostic+5000pointer comparisons, type/lint/format/wiring/ownership audits pass; module bind2036→2004/convert6782→6366/components4049→4044/lists4587→4623/nested4535→4582; gates20622→20622/55313→54880/91158→90722/109971→109508/11944→11944/115473→115022,29scenes nongrowing; perf bell compile12.37→8.17ms/frame144.4→132.3µs, toolbar14.37→12.65ms/frame116.1→96.6µs (≤3% noise claim unverified under shared load); local commit ready, no push (evidence: /tmp/p3c7-{size-final,changed-retained,timeouts-alone-bounded,oracle-retained,perf-before-final,perf-final}.txt).

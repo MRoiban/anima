@@ -1,3 +1,4 @@
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 export type ConverterValue = number | boolean | string | null | readonly ConverterValue[];
 export interface ConverterContext {
   /** Stable identity owned by the player; never shared between players. */
@@ -38,18 +39,20 @@ export class ConverterError extends Error {
   }
 }
 export const bad = (message: string, option = ''): never => {
-  throw new ConverterError('convert-options', message, option);
+  throw new ConverterError('convert-options', V ? message : '', option);
 };
 export const mismatch = (expected: string): never => {
-  throw new ConverterError('convert-type', `expected ${expected}`);
+  throw new ConverterError('convert-type', V ? `expected ${expected}` : '');
 };
 export const numeric = (value: ConverterValue): number =>
-  typeof value === 'number' && Number.isFinite(value) ? value : mismatch('finite number');
+  typeof value === 'number' && Number.isFinite(value) ? value : mismatch(V ? 'finite number' : '');
 export const string = (value: ConverterValue): string =>
-  typeof value === 'string' ? value : mismatch('string');
+  typeof value === 'string' ? value : mismatch(V ? 'string' : '');
 export function numberOption(o: ConverterOptions, key: string, fallback: number): number {
   const v = o[key] ?? fallback;
-  return typeof v === 'number' && Number.isFinite(v) ? v : bad('expected finite number', key);
+  return typeof v === 'number' && Number.isFinite(v)
+    ? v
+    : bad(V ? 'expected finite number' : '', key);
 }
 export function choice(
   o: ConverterOptions,
@@ -60,5 +63,5 @@ export function choice(
   const v = o[key] ?? fallback;
   return typeof v === 'string' && choices.includes(v)
     ? v
-    : bad(`expected ${choices.join('|')}`, key);
+    : bad(V ? `expected ${choices.join('|')}` : '', key);
 }

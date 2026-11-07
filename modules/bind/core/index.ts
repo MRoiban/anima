@@ -32,7 +32,7 @@ export const bind: Module & {
     try {
       const e = expression(source, types);
       if (e.type !== expected && !(expected === 'number' && e.type === 'bool'))
-        throw new BindError('bind-type', e.at, `expected ${expected}, got ${e.type}`);
+        throw new BindError('bind-type', e.at, V ? `expected ${expected}, got ${e.type}` : '');
       for (const name of e.inputs) {
         read?.(name);
         const i = diag.list.findIndex(
@@ -115,7 +115,8 @@ export const bind: Module & {
     for (const [address, source] of bindings) {
       const pointer = ptr('/bind', address);
       try {
-        if (cyclic(address)) throw new BindError('bind-cycle', 0, 'cyclic binding reference');
+        if (cyclic(address))
+          throw new BindError('bind-cycle', 0, V ? 'cyclic binding reference' : '');
         const addr = resolve(address, model.nodes, model.ids);
         if (Array.isArray(addr)) {
           diag.err(
