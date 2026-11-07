@@ -285,7 +285,11 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
             return v;
           }
         };
-        if (cmd !== 'snapshot' && semanticCommand(p, cmd!, args, output, step, () => ({}) as Snapshot)) continue;
+        if (
+          cmd !== 'snapshot' &&
+          semanticCommand(p, cmd!, args, output, step, () => ({}) as Snapshot)
+        )
+          continue;
         switch (cmd) {
           case 'seed': {
             if (

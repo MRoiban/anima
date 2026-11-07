@@ -193,7 +193,10 @@ describe('P3b script tools', () => {
     expect(result.snapshots[0]!.values['rows/1/dot.fill.color']).toBe('#000000');
   });
   it('plumbs optional semantic trees and diagnoses an absent module', () => {
-    expect(() => runScript(model(), 'snapshot --semantics')).toThrow(/semantics module/);
+    // The a11y module may already be registered in this process: save and restore its method.
+    const original = Object.getOwnPropertyDescriptor(Player.prototype, 'semantics');
+    if (!original)
+      expect(() => runScript(model(), 'snapshot --semantics')).toThrow(/semantics module/);
     Object.defineProperty(Player.prototype, 'semantics', {
       configurable: true,
       value: () => [{ id: 'dot' }],
@@ -203,7 +206,8 @@ describe('P3b script tools', () => {
         { id: 'dot' },
       ]);
     } finally {
-      delete (Player.prototype as Player & { semantics?: unknown }).semantics;
+      if (original) Object.defineProperty(Player.prototype, 'semantics', original);
+      else delete (Player.prototype as unknown as { semantics?: unknown }).semantics;
     }
   });
   it('validates seeds without pretending to control private runtime random streams', () => {
@@ -257,7 +261,8 @@ describe('P3b CLI tools', () => {
     expect(result.err).toHaveLength(2);
     expect((await cli(['sample', file, '-e', 'touch bad'])).code).toBe(2);
     expect((await cli(['sample', file, '--all', '--seed', '3'])).code).toBe(0);
-    expect((await cli(['sample', file, '--semantics'])).code).toBe(2);
+    // The CLI registers a11y since P3b-1, so --semantics now succeeds.
+    expect((await cli(['sample', file, '--semantics'])).code).toBe(0);
     expect((await cli(['sample', file, '--seed', 'NaN'])).code).toBe(2);
   });
   it('answers one JSON line per session command, survives errors, reloads data, quits', async () => {

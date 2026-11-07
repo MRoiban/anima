@@ -96,7 +96,7 @@ describe('semantic tree contract', () => {
     expect(
       (r.snapshots[0] as unknown as { semantics: SemanticNode[] }).semantics[0]!.children[1]!.value,
     ).toBe(45);
-    expect((r.snapshots[1] as unknown as SemanticNode).id).toBe('mute');
+    expect((r.output[1] as SemanticNode).id).toBe('mute');
   });
   it('keeps the root a11y parser and schema intact', () => {
     const p = player(
