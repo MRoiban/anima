@@ -334,7 +334,7 @@
       "status": "planned",
       "test": "oracle/a11y-inferred-text",
       "phase": "P6",
-      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
+      "reason": "P3b design \u00a70: text and text input render from P6; its DOM-backed input field is the element these map to"
     }
   },
   {
@@ -979,7 +979,7 @@
       "status": "planned",
       "test": "oracle/a11y-role-text-field",
       "phase": "P6",
-      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
+      "reason": "P3b design \u00a70: text and text input render from P6; its DOM-backed input field is the element these map to"
     }
   },
   {
@@ -1246,7 +1246,7 @@
       "status": "planned",
       "test": "oracle/a11y-state-multiline",
       "phase": "P6",
-      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
+      "reason": "P3b design \u00a70: text and text input render from P6; its DOM-backed input field is the element these map to"
     }
   },
   {
@@ -1274,7 +1274,7 @@
       "status": "planned",
       "test": "oracle/a11y-state-obscured",
       "phase": "P6",
-      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
+      "reason": "P3b design \u00a70: text and text input render from P6; its DOM-backed input field is the element these map to"
     }
   },
   {
@@ -1432,7 +1432,7 @@
       "status": "planned",
       "test": "oracle/a11y-text-proxy",
       "phase": "P6",
-      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
+      "reason": "P3b design \u00a70: text and text input render from P6; its DOM-backed input field is the element these map to"
     }
   },
   {
@@ -1712,7 +1712,7 @@
     "id": "animation.cubic-ease",
     "category": "animation",
     "capability": "Cubic timing easing",
-    "what": "Shape segment timing with a normalized cubic Bézier curve.",
+    "what": "Shape segment timing with a normalized cubic B\u00e9zier curve.",
     "rive": {
       "types": [
         "CubicEaseInterpolator"
@@ -1742,7 +1742,7 @@
     "id": "animation.cubic-value",
     "category": "animation",
     "capability": "Cubic value curves",
-    "what": "Place Bézier control values in property units so a segment can move even between equal endpoint values.",
+    "what": "Place B\u00e9zier control values in property units so a segment can move even between equal endpoint values.",
     "rive": {
       "types": [
         "CubicValueInterpolator"
@@ -1907,7 +1907,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "conformance/frame-grid",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -1915,7 +1915,7 @@
     "id": "animation.graph-editor",
     "category": "animation",
     "capability": "Value graph editing",
-    "what": "Edit key values and their Bézier handles through a graph authoring interface.",
+    "what": "Edit key values and their B\u00e9zier handles through a graph authoring interface.",
     "rive": {
       "types": [
         "LinearAnimation"
@@ -1936,7 +1936,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/graph-editor",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -2752,7 +2752,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/script-interpolator",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -2780,7 +2780,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/script-seek-normalized",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -4081,7 +4081,7 @@
       "status": "maybe-later",
       "test": "oracle/assets-psd-layers",
       "phase": "later",
-      "reason": "Binary PSD parsing for raster layers; little value for icon authoring (P5b design §0)."
+      "reason": "Binary PSD parsing for raster layers; little value for icon authoring (P5b design \u00a70)."
     }
   },
   {
@@ -4153,7 +4153,7 @@
       "module": "assets",
       "status": "wont-do",
       "test": "oracle/assets-script-blob",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -4355,8 +4355,8 @@
       "module": "data-host",
       "status": "planned",
       "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
-      "phase": "P3c",
-      "reason": "Only local component-definition name handles are tested; assignment from another loaded file remains absent. The native skip covers local assignment only (tests/oracle/data-host-artboards/skip.json)."
+      "phase": "P7",
+      "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing."
     }
   },
   {
@@ -4447,7 +4447,7 @@
       "module": "components",
       "status": "wont-do",
       "test": "oracle/components-layout-size",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -4665,7 +4665,7 @@
       "module": "components",
       "status": "wont-do",
       "test": "oracle/components-list-layout-inheritance",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -5045,7 +5045,7 @@
       "module": "components",
       "status": "wont-do",
       "test": "oracle/components-script-instance",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -5415,7 +5415,7 @@
       "module": "data",
       "status": "wont-do",
       "test": "TODO: modules/data/test/core/data-bind-script-inputs.test.ts; spec/conformance/data-bind-script-inputs; tests/oracle/data-bind-script-inputs",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -7039,7 +7039,7 @@
       "module": "data",
       "status": "wont-do",
       "test": "TODO: modules/data/test/core/data-editor-preview-instance.test.ts; spec/conformance/data-editor-preview-instance; tests/oracle/data-editor-preview-instance",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -7844,8 +7844,8 @@
       "module": "data-host",
       "status": "planned",
       "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
-      "phase": "P3c",
-      "reason": "Component-name assignment is tested, but assignment of an artboard together with associated model data is not established; the skip covers local-definition assignment (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json)."
+      "phase": "P7",
+      "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing."
     }
   },
   {
@@ -9317,7 +9317,7 @@
       "module": "data",
       "status": "wont-do",
       "test": "TODO: modules/data/test/core/data-script-model-api.test.ts; spec/conformance/data-script-model-api; tests/oracle/data-script-model-api",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -9327,7 +9327,7 @@
     "anima": {
       "status": "wont-do",
       "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
-      "phase": "—",
+      "phase": "\u2014",
       "module": "data",
       "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
@@ -10701,7 +10701,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/brush-flatten",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -10729,7 +10729,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/brush-pressure",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -10758,7 +10758,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/brush-smoothing",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -10786,7 +10786,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/brush-speed",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -10813,7 +10813,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "conformance/brush-tips",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -11323,7 +11323,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/freehand-brush",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -11351,7 +11351,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/freehand-eraser",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -11380,7 +11380,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/freehand-pencil",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -12739,7 +12739,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/path-measure",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do as a public API (owner triage follow-up, 2026-11-07): path measurement stays internal to P8 rigging, where follow-path may use it."
     },
     "aliases": [
@@ -12854,7 +12854,7 @@
       "rive-runtime/include/rive/generated/shapes/rectangle_base.hpp:21@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "rect corners [tl,tr,br,bl], animated corners.0–3",
+      "construct": "rect corners [tl,tr,br,bl], animated corners.0\u20133",
       "module": "paint",
       "status": "done",
       "test": "spec/conformance/paint-shape-corners; modules/paint/test/web/paint-geometry.test.ts; tests/oracle/rect-corners",
@@ -12943,7 +12943,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/script-path-api",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -12971,7 +12971,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/script-render-paint",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -13001,7 +13001,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/scripted-path-effects",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -13024,7 +13024,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/shape-builder-subtract",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -13047,7 +13047,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "oracle/shape-builder-union",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -13989,7 +13989,7 @@
       "module": "events",
       "status": "wont-do",
       "test": "modules/events/test/core/events.test.ts; modules/events/test/web/events.browser.test.ts; spec/conformance/events-payload-number; oracle skipped (tests/oracle/events-script-event-context/skip.json)",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -15773,8 +15773,8 @@
       "module": "data-host",
       "status": "planned",
       "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
-      "phase": "P3c",
-      "reason": "Local component-name handles do not establish acquisition of bindable artboard values with associated view-model instances (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json)."
+      "phase": "P7",
+      "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing."
     }
   },
   {
@@ -15879,8 +15879,8 @@
       "module": "data-host",
       "status": "planned",
       "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
-      "phase": "P3c",
-      "reason": "Local component-name assignment is tested; no bindable artboard instance value is established by the cited tests/skip (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json)."
+      "phase": "P7",
+      "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing."
     }
   },
   {
@@ -17199,7 +17199,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "browser/layout-bounds",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -17228,7 +17228,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "browser/layout-scale",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -18219,7 +18219,7 @@
       "rive-wasm/js/src/rive.ts:4342@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "Canvas backing store = rounded CSS viewport × DPR; ResizeObserver without stepping (SPEC canvas)",
+      "construct": "Canvas backing store = rounded CSS viewport \u00d7 DPR; ResizeObserver without stepping (SPEC canvas)",
       "module": "canvas",
       "status": "done",
       "test": "modules/canvas/test/web/canvas.test.ts; spec/conformance/host-api-resize-backing-surface; tests/oracle/host-api-resize-backing-surface/rive/README.md (host oracle skip)",
@@ -18663,7 +18663,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "browser/wasm-parallelism",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -19848,7 +19848,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/input-hit-claims",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -20600,7 +20600,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/input-script-action",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -20624,7 +20624,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/input-scroll-script",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -21334,7 +21334,7 @@
       "status": "planned",
       "test": "oracle/layout-animated-reflow",
       "phase": "P7",
-      "reason": "Owner, 2026-11-07 (triage follow-up): brought back for P7 — in the growing-button case the background animates as the label grows instead of snapping; counted in P7's size estimate."
+      "reason": "Owner, 2026-11-07 (triage follow-up): brought back for P7 \u2014 in the growing-button case the background animates as the label grows instead of snapping; counted in P7's size estimate."
     }
   },
   {
@@ -21360,7 +21360,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-artboard-alignment",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21390,7 +21390,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-aspect-ratio",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21422,7 +21422,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-borders",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21455,7 +21455,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-clip",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21519,7 +21519,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-corners",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21548,7 +21548,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-edge-pinning",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21643,7 +21643,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-flex-align-content",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21701,7 +21701,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-flex-basis",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21760,7 +21760,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-flex-grow-shrink",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21817,7 +21817,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-grid",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21847,7 +21847,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-grid-list",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21877,7 +21877,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-grid-minmax",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21909,7 +21909,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-grid-placement",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -21940,7 +21940,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-grid-tracks",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22028,7 +22028,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-layout-transforms",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22063,7 +22063,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-n-slicing",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22090,7 +22090,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-nested-artboards",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22187,7 +22187,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-positioning",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22218,7 +22218,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-axis",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22248,7 +22248,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-bar",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22284,7 +22284,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-binding",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22317,7 +22317,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-clamped",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22352,7 +22352,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-elastic",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22381,7 +22381,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-infinite",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22413,7 +22413,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-input",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22442,7 +22442,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-snap",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22472,7 +22472,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-scroll-virtualize",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22554,7 +22554,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-slice-component",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22580,7 +22580,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-slice-vector",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22647,7 +22647,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-stack",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22679,7 +22679,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-units",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22736,7 +22736,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-wrap",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -22765,7 +22765,7 @@
       "module": "layout",
       "status": "wont-do",
       "test": "oracle/layout-writing-direction",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): beyond the minimal layout subset; page CSS covers it."
     }
   },
@@ -23996,7 +23996,7 @@
       "module": "web",
       "status": "wont-do",
       "test": "platform/threaded-wasm",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): Rive WASM/package build variant; Anima has no WASM runtime and optional modules replace build variants."
     }
   },
@@ -24191,7 +24191,7 @@
       "module": "web",
       "status": "wont-do",
       "test": "platform/web-canvas-lite",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): Rive WASM/package build variant; Anima has no WASM runtime and optional modules replace build variants."
     }
   },
@@ -24216,7 +24216,7 @@
       "module": "web",
       "status": "wont-do",
       "test": "platform/web-canvas-single",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): Rive WASM/package build variant; Anima has no WASM runtime and optional modules replace build variants."
     }
   },
@@ -25088,7 +25088,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-advance",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25118,7 +25118,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-animation-control",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25144,7 +25144,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-arguments",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25174,7 +25174,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-artboard-instance",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25200,7 +25200,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-artboard-path",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25227,7 +25227,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-async",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25309,7 +25309,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-audio-playback",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25363,7 +25363,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-boxing",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25388,7 +25388,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-byte-buffers",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25414,7 +25414,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-capture-settling",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25444,7 +25444,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-clocks",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25473,7 +25473,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-color-utils",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25500,7 +25500,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-condition",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25530,7 +25530,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-context-assets",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25559,7 +25559,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-context-data",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25586,7 +25586,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-converter",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25616,7 +25616,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-converter-values",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25653,7 +25653,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-data-properties",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25680,7 +25680,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-debugging",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25706,7 +25706,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-dispose",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25735,7 +25735,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-draw-visitor",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25762,7 +25762,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-drawable",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25787,7 +25787,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-dynamic-values",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25890,7 +25890,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-execution-budget",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25916,7 +25916,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-feature-detection",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25943,7 +25943,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-file-decode",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -25973,7 +25973,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-formatting",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26001,7 +26001,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-forward-input",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26029,7 +26029,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-gamepad-hooks",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26055,7 +26055,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-gesture-claim",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26083,7 +26083,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-gradients",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26110,7 +26110,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-image-decode",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26136,7 +26136,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-init",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26163,7 +26163,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-interpolator",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26189,7 +26189,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-interpolator-values",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26215,7 +26215,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-invalidate",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26269,7 +26269,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-json",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26295,7 +26295,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-keyboard-hook",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26376,7 +26376,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-layout-measure",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26402,7 +26402,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-layout-resize",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26428,7 +26428,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-list-mutations",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26456,7 +26456,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-listener",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26484,7 +26484,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-luau",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26510,7 +26510,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-matrix-2d",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26565,7 +26565,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-model-create",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26592,7 +26592,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-modulated-draw",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26618,7 +26618,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-module-imports",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26753,7 +26753,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-path-construction",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26780,7 +26780,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-path-effect",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26808,7 +26808,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-patterns",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26837,7 +26837,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-pointer-hooks",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26889,7 +26889,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-property-observers",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26915,7 +26915,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-randomness",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26941,7 +26941,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-renderer-clip",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -26967,7 +26967,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-renderer-images",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27046,7 +27046,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-renderer-path",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27074,7 +27074,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-renderer-state",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27100,7 +27100,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-reverse-converter",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27179,7 +27179,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-sandbox",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27209,7 +27209,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-scene-query",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27237,7 +27237,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-scene-transforms",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27275,7 +27275,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-script-inputs",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27301,7 +27301,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-script-paint",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27327,7 +27327,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-scroll-hook",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27429,7 +27429,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-sleep",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27480,7 +27480,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-text-hook",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27509,7 +27509,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-transition",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27539,7 +27539,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-unit-tests",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27565,7 +27565,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/scripting-update",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27590,7 +27590,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-utf8-byte-strings",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -27616,7 +27616,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "oracle/script-vectors",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -28334,7 +28334,7 @@
       "module": "script",
       "status": "wont-do",
       "test": "conformance/condition-script",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -28926,7 +28926,7 @@
       "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "every 0.1 crossfade freezes its source (spec §7); a source that keeps playing during the crossfade is the missing variant",
+      "construct": "every 0.1 crossfade freezes its source (spec \u00a77); a source that keeps playing during the crossfade is the missing variant",
       "module": "core",
       "status": "done",
       "test": "conformance/pause-on-exit",
@@ -30775,7 +30775,7 @@
       "module": "text",
       "status": "wont-do",
       "test": "oracle/text-script-glyphs",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -30804,7 +30804,7 @@
       "status": "planned",
       "test": "oracle/text-script-hit-testing",
       "phase": "P6",
-      "reason": "Owner, 2026-11-07 (triage follow-up): brought back for P6 through the host API and listeners (position → text index, caret/selection geometry), not a script VM."
+      "reason": "Owner, 2026-11-07 (triage follow-up): brought back for P6 through the host API and listeners (position \u2192 text index, caret/selection geometry), not a script VM."
     }
   },
   {
@@ -30832,7 +30832,7 @@
       "module": "text",
       "status": "wont-do",
       "test": "oracle/text-script-shaping",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -31215,7 +31215,7 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/bench.ts",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/bench.ts",
       "module": "tooling",
       "status": "planned",
       "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
@@ -31243,7 +31243,7 @@
       "status": "wont-do",
       "test": "cli/binary-rive-io",
       "reason": "The guardrails prohibit reading, writing or converting .riv files.",
-      "phase": "—"
+      "phase": "\u2014"
     }
   },
   {
@@ -31361,7 +31361,7 @@
       "rive docs debugging"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "done",
       "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-data-breakpoints/skip.json",
@@ -31385,7 +31385,7 @@
       "rive docs debugging"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/session.ts",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/session.ts",
       "module": "tooling",
       "status": "done",
       "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
@@ -31413,7 +31413,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/debug-rebuild",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -31603,7 +31603,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/editor-hierarchy",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -31811,7 +31811,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/editor-property-inspector",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -31857,7 +31857,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/editor-svg-import",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -31880,7 +31880,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/editor-timeline",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -32019,7 +32019,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/export-png-sequence",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -32064,7 +32064,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/export-svg-sequence",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -32112,7 +32112,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/failed-script-fixtures",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -32206,7 +32206,7 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/session.ts",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/session.ts",
       "module": "tooling",
       "status": "done",
       "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
@@ -32230,7 +32230,7 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "done",
       "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
@@ -32254,7 +32254,7 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "done",
       "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
@@ -32278,7 +32278,7 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "done",
       "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
@@ -32302,7 +32302,7 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "done",
       "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
@@ -32350,7 +32350,7 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "done",
       "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
@@ -32374,7 +32374,7 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "done",
       "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
@@ -32398,7 +32398,7 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "done",
       "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
@@ -32522,7 +32522,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/headless-settle-jobs",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): Anima has no worker jobs to settle; the player's settled state already reports idle."
     }
   },
@@ -32567,7 +32567,7 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "done",
       "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
@@ -32616,7 +32616,7 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "done",
       "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
@@ -32668,7 +32668,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/inspect-editor-properties",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },
@@ -33304,7 +33304,7 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "playground: pause/play, ¼× speed, scrubbing, inputs, reset",
+      "construct": "playground: pause/play, \u00bc\u00d7 speed, scrubbing, inputs, reset",
       "module": "tooling",
       "status": "done",
       "test": "packages/playground/test (unit, server, Chromium + Firefox)",
@@ -33530,7 +33530,7 @@
       "status": "wont-do",
       "test": "cli/rive-account-operations",
       "reason": "Rive account features are explicitly outside the permitted scope; generic hosting remains a separate maybe-later option.",
-      "phase": "—"
+      "phase": "\u2014"
     }
   },
   {
@@ -33654,7 +33654,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/script-build-constants",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -33679,7 +33679,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/script-debugger",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -33705,7 +33705,7 @@
       "status": "wont-do",
       "test": "cli/script-memory-bounds",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it.",
-      "phase": "—"
+      "phase": "\u2014"
     }
   },
   {
@@ -33729,7 +33729,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/script-network-permission",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -33755,7 +33755,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/script-release-build",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -33780,7 +33780,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/script-test-runner",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -33807,7 +33807,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "cli/script-thread-controls",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): a runtime script VM is the largest size and security cost; expressions, derive and the host page's JavaScript cover it."
     }
   },
@@ -33828,7 +33828,7 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "done",
       "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md; packages/cli/test/tooling-leftovers.test.ts; tests/oracle/tooling-random-source/skip.json",
@@ -33854,7 +33854,7 @@
       "rive docs animascript/api/test"
     ],
     "anima": {
-      "construct": "spec/SPEC.md §11.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
+      "construct": "spec/SPEC.md \u00a711.2; packages/core/src/script.ts; packages/cli/src/cli.ts",
       "module": "tooling",
       "status": "planned",
       "test": "packages/cli/test/agent-tools.test.ts; spec/conformance/tooling-input-data; modules/tooling/oracle/README.md; docs/p3b/CLI.md; modules/tooling/REPORT.md",
@@ -33933,7 +33933,7 @@
       "status": "wont-do",
       "test": "cli/watermark-content",
       "reason": "Watermark content and Rive account enforcement conflict with the project guardrails.",
-      "phase": "—"
+      "phase": "\u2014"
     }
   },
   {
@@ -34240,7 +34240,7 @@
       "module": "tooling",
       "status": "wont-do",
       "test": "conformance/freeze-transform",
-      "phase": "—",
+      "phase": "\u2014",
       "reason": "Won't do (owner triage, 2026-11-07): visual editor tooling; agents author markup and the playground is enough."
     }
   },

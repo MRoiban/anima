@@ -19,6 +19,16 @@ Object.defineProperty(Icon.prototype, 'stats', {
     };
   },
 });
+// Initialization timing: `anima:load` is when the element connected (or when devtools registered,
+// for icons connected earlier); `anima:first-frame` measures from it to the first marked frame.
+const t0 = performance.now();
+const born = new WeakMap<AnimaIcon, number>();
+const seen = new WeakSet<AnimaIcon>();
+const connected = Icon.prototype.connectedCallback;
+Icon.prototype.connectedCallback = function () {
+  born.set(this, performance.now());
+  connected.call(this);
+};
 const frame = Icon.prototype.frame;
 Icon.prototype.frame = function (now) {
   const start = performance.now();
@@ -30,6 +40,12 @@ Icon.prototype.frame = function (now) {
     if (mark) {
       performance.measure('anima:frame', { start: mark.startTime, end: performance.now() });
       performance.clearMarks('anima:frame:start');
+      if (!seen.has(this)) {
+        seen.add(this);
+        const start = born.get(this) ?? t0;
+        performance.mark('anima:load', { startTime: start });
+        performance.measure('anima:first-frame', { start, end: performance.now() });
+      }
     }
     const list = read(this);
     list.push([performance.now(), performance.now() - start]);

@@ -135,7 +135,7 @@ export const moduleBudgets: {
   { name: 'components', buildOrder: 5, sizeOrder: 11, budget: 3456 },
   { name: 'assetio', budget: 768 },
   { name: 'canvas', budget: 5824, heavy: true },
-  { name: 'devtools', budget: 320, authoring: true },
+  { name: 'devtools', budget: 448, authoring: true },
   { name: 'focus', budget: 3392 },
   { name: 'input', budget: 7104 },
   { name: 'markup-hooks', over: 'markup', budget: 4544, authoring: true },

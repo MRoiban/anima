@@ -44,7 +44,7 @@ scope by the owner's triage of 2026-11-07).
 | [P2](#p2) — Done: M5, Glyphy export, more glyphs, the head-to-head test | 0 |
 | [P3](#p3) — Done: the playground/inspector and the web host API | 15 |
 | [P3b](#p3b) — Done: the a11y module, authoring/drawing tools and headless CLI extras | 96 |
-| [P3c](#p3c) — Size round (≥ 5 % off the runtime sum) and P3b carry-overs | 23 |
+| [P3c](#p3c) — Size round (≥ 5 % off the runtime sum) and P3b carry-overs | 19 |
 | [P4a](#p4a) — Done: paint and composite on the module system and the draw layer | 46 |
 | [P4b](#p4b) — Done: motion — eases, typed tracks, timeline control, mixing, host timeline API | 22 |
 | [P4c](#p4c) — Done: interaction — machine (blends, actions, on-change), input (pointer, keys, gamepad, scroll, drag), focus | 95 |
@@ -55,7 +55,7 @@ scope by the owner's triage of 2026-11-07).
 | [P5b](#p5b) — Done: lists, assets, host editing, typed data guards, live keyframes and component controls | 77 |
 | [Pc](#pc) — Done: the canvas backend (minimal), brought forward from P10 | 3 |
 | [P6](#p6) — Text, on the browser (shaping, FontFace, DOM-backed input) | 83 |
-| [P7](#p7) — Minimal layout (hug, padding, min/max, fixed, row/column stacks) and host fit | 35 |
+| [P7](#p7) — Minimal layout (hug, padding, min/max, fixed, row/column stacks) and host fit | 39 |
 | [P8](#p8) — Rigging | 25 |
 | [P9](#p9) — Scripting — won't do (owner triage, 2026-11-07) | 0 |
 | [P10](#p10) — GPU effects and WebGL/WebGPU — maybe later (owner triage, 2026-11-07) | 0 |
@@ -403,17 +403,10 @@ scope by the owner's triage of 2026-11-07).
 |---|---|---|---|---|---|---|
 | `transforms.computed-transform-values` | Read computed geometry | P3b-4 implemented: modules/data-host/SPEC.md player.computed(id), frozen world matrix/geometric bounds/resolved opacity; modules/data-host/core/index.ts | data-host | planned | modules/data-host/test/core/computed.test.ts; modules/data-host/test/web/browser.test.ts; tests/oracle/transforms-computed-transform-values/skip.json | API returns world matrix, geometric bounds and opacity; separate computed local/root-space coordinates as derived properties required by the inventory are not delivered (modules/data-host/core/index.ts; modules/data-host/SPEC.md). |
 
-### Data: view models, binding, converters
-
-| Id | Capability | Anima construct | Module | Status | Test | Reason |
-|---|---|---|---|---|---|---|
-| `data.host-artboard` | Set model artboard | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Component-name assignment is tested, but assignment of an artboard together with associated model data is not established; the skip covers local-definition assignment (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json). |
-
 ### Components
 
 | Id | Capability | Anima construct | Module | Status | Test | Reason |
 |---|---|---|---|---|---|---|
-| `components.host-artboard-reference` | Host bindable artboard | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Only local component-definition name handles are tested; assignment from another loaded file remains absent. The native skip covers local assignment only (tests/oracle/data-host-artboards/skip.json). |
 | `components.library-export` | Library export selection | modules/markup-libraries/SPEC.md | markup-libraries | planned | modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-export; tests/oracle/components-library-export; tests/oracle/components-library-export/todo.json; modules/devtools/REPORT.md | Export/select aliases are tested, but the cited native probe remains TODO with no completed comparison, evidenced skip or numbered finding (tests/oracle/components-library-export/todo.json). |
 | `components.library-models` | Library data definitions | modules/markup-libraries/SPEC.md | markup-libraries | planned | modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-models; tests/oracle/components-library-models; tests/oracle/components-library-models/todo.json; modules/devtools/REPORT.md | Tests establish shared model definitions, not shared authored instances and enums; the native probe is still TODO with no evidenced skip (modules/markup-libraries/test/markup/extras.test.ts; tests/oracle/components-library-models/todo.json). |
 | `components.library-update` | Update library dependency | modules/markup-libraries/SPEC.md | markup-libraries | planned | modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-update; tests/oracle/components-library-update; tests/oracle/components-library-update/todo.json; modules/devtools/REPORT.md | Local vendored refresh is tested, but the native probe remains TODO with no completed comparison, evidenced skip or numbered finding (tests/oracle/components-library-update/todo.json). |
@@ -433,8 +426,6 @@ scope by the owner's triage of 2026-11-07).
 
 | Id | Capability | Anima construct | Module | Status | Test | Reason |
 |---|---|---|---|---|---|---|
-| `host-api.bindable-artboards` | Bindable component instances | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Local component-name handles do not establish acquisition of bindable artboard values with associated view-model instances (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json). |
-| `host-api.data-artboard` | View model artboard | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Local component-name assignment is tested; no bindable artboard instance value is established by the cited tests/skip (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json). |
 | `host-api.deprecation-policy` | Deprecation warning controls | Optional @anima-format/web/devtools: deprecation-policy; modules/devtools/SPEC.md | devtools | planned | packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-deprecation-policy/example.animl; tests/oracle/host-api-deprecation-policy/SKIP.md | Warning IDs are accepted, but policy is global once/always/off; suppression of selected IDs is not implemented (modules/devtools/web/index.ts). |
 | `host-api.low-level-semantics` | Semantic diffs and actions | modules/a11y/SPEC.md; Semantic diffs and actions | a11y | planned | modules/a11y/REPORT.md; modules/a11y/test/core/closure.test.ts; modules/a11y/test/core/semantics.test.ts; modules/a11y/test/core/oracle-actions.test.ts; modules/a11y/oracle/SKIP-P3B9.md; modules/a11y/oracle/roles/P3B9.md | Owner replacement routing passes, but collection rebuilds entries/signatures on every read without dependency subscriptions (modules/a11y/REPORT.md). |
 | `host-api.performance-marks` | Performance marks | Optional @anima-format/web/devtools: performance-marks; modules/devtools/SPEC.md | devtools | planned | packages/web/test/browser.test.ts; modules/devtools/capabilities/host-api-performance-marks/example.animl; tests/oracle/host-api-performance-marks/SKIP.md | Optional frame marks are tested; initialization timing entries required by this row are absent (modules/devtools/web/index.ts). |
@@ -1249,9 +1240,16 @@ scope by the owner's triage of 2026-11-07).
 
 ### Data: view models, binding, converters
 
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `data.bind-layout` | Bind layout parameters | TODO: modules/data/capabilities/data-bind-layout/registry.ts; spec/SPEC.md (Bind layout parameters); modules/data/capabilities/data-bind-layout/example.animl | data | planned | TODO: modules/data/test/core/data-bind-layout.test.ts; spec/conformance/data-bind-layout; tests/oracle/data-bind-layout |
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `data.bind-layout` | Bind layout parameters | TODO: modules/data/capabilities/data-bind-layout/registry.ts; spec/SPEC.md (Bind layout parameters); modules/data/capabilities/data-bind-layout/example.animl | data | planned | TODO: modules/data/test/core/data-bind-layout.test.ts; spec/conformance/data-bind-layout; tests/oracle/data-bind-layout |  |
+| `data.host-artboard` | Set model artboard | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing. |
+
+### Components
+
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `components.host-artboard-reference` | Host bindable artboard | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing. |
 
 ### Layout
 
@@ -1276,26 +1274,28 @@ scope by the owner's triage of 2026-11-07).
 
 ### Host runtime API
 
-| Id | Capability | Anima construct | Module | Status | Test |
-|---|---|---|---|---|---|
-| `host-api.align-bottom-center` | Alignment: BottomCenter | new: <anima-icon align="BottomCenter"> | layout | planned | browser/align-bottom-center |
-| `host-api.align-bottom-left` | Alignment: BottomLeft | new: <anima-icon align="BottomLeft"> | layout | planned | browser/align-bottom-left |
-| `host-api.align-bottom-right` | Alignment: BottomRight | new: <anima-icon align="BottomRight"> | layout | planned | browser/align-bottom-right |
-| `host-api.align-center` | Alignment: Center | new: <anima-icon align="Center"> | layout | planned | browser/align-center |
-| `host-api.align-center-left` | Alignment: CenterLeft | new: <anima-icon align="CenterLeft"> | layout | planned | browser/align-center-left |
-| `host-api.align-center-right` | Alignment: CenterRight | new: <anima-icon align="CenterRight"> | layout | planned | browser/align-center-right |
-| `host-api.align-top-center` | Alignment: TopCenter | new: <anima-icon align="TopCenter"> | layout | planned | browser/align-top-center |
-| `host-api.align-top-left` | Alignment: TopLeft | new: <anima-icon align="TopLeft"> | layout | planned | browser/align-top-left |
-| `host-api.align-top-right` | Alignment: TopRight | new: <anima-icon align="TopRight"> | layout | planned | browser/align-top-right |
-| `host-api.artboard-size` | Override artboard size | new: scene width/height overrides | layout | planned | browser/artboard-size |
-| `host-api.fit-contain` | Fit: Contain | new: <anima-icon fit="contain"> | layout | planned | browser/fit-contain |
-| `host-api.fit-cover` | Fit: Cover | new: <anima-icon fit="cover"> | layout | planned | browser/fit-cover |
-| `host-api.fit-fill` | Fit: Fill | new: <anima-icon fit="fill"> | layout | planned | browser/fit-fill |
-| `host-api.fit-fit-height` | Fit: Fit height | new: <anima-icon fit="fit-height"> | layout | planned | browser/fit-fit-height |
-| `host-api.fit-fit-width` | Fit: Fit width | new: <anima-icon fit="fit-width"> | layout | planned | browser/fit-fit-width |
-| `host-api.fit-layout` | Fit: Responsive layout fit | new: <anima-icon fit="layout"> | layout | planned | browser/fit-layout |
-| `host-api.fit-none` | Fit: Unscaled | new: <anima-icon fit="none"> | layout | planned | browser/fit-none |
-| `host-api.fit-scale-down` | Fit: Scale down | new: <anima-icon fit="scale-down"> | layout | planned | browser/fit-scale-down |
+| Id | Capability | Anima construct | Module | Status | Test | Reason |
+|---|---|---|---|---|---|---|
+| `host-api.align-bottom-center` | Alignment: BottomCenter | new: <anima-icon align="BottomCenter"> | layout | planned | browser/align-bottom-center |  |
+| `host-api.align-bottom-left` | Alignment: BottomLeft | new: <anima-icon align="BottomLeft"> | layout | planned | browser/align-bottom-left |  |
+| `host-api.align-bottom-right` | Alignment: BottomRight | new: <anima-icon align="BottomRight"> | layout | planned | browser/align-bottom-right |  |
+| `host-api.align-center` | Alignment: Center | new: <anima-icon align="Center"> | layout | planned | browser/align-center |  |
+| `host-api.align-center-left` | Alignment: CenterLeft | new: <anima-icon align="CenterLeft"> | layout | planned | browser/align-center-left |  |
+| `host-api.align-center-right` | Alignment: CenterRight | new: <anima-icon align="CenterRight"> | layout | planned | browser/align-center-right |  |
+| `host-api.align-top-center` | Alignment: TopCenter | new: <anima-icon align="TopCenter"> | layout | planned | browser/align-top-center |  |
+| `host-api.align-top-left` | Alignment: TopLeft | new: <anima-icon align="TopLeft"> | layout | planned | browser/align-top-left |  |
+| `host-api.align-top-right` | Alignment: TopRight | new: <anima-icon align="TopRight"> | layout | planned | browser/align-top-right |  |
+| `host-api.artboard-size` | Override artboard size | new: scene width/height overrides | layout | planned | browser/artboard-size |  |
+| `host-api.bindable-artboards` | Bindable component instances | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing. |
+| `host-api.data-artboard` | View model artboard | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json | Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing. |
+| `host-api.fit-contain` | Fit: Contain | new: <anima-icon fit="contain"> | layout | planned | browser/fit-contain |  |
+| `host-api.fit-cover` | Fit: Cover | new: <anima-icon fit="cover"> | layout | planned | browser/fit-cover |  |
+| `host-api.fit-fill` | Fit: Fill | new: <anima-icon fit="fill"> | layout | planned | browser/fit-fill |  |
+| `host-api.fit-fit-height` | Fit: Fit height | new: <anima-icon fit="fit-height"> | layout | planned | browser/fit-fit-height |  |
+| `host-api.fit-fit-width` | Fit: Fit width | new: <anima-icon fit="fit-width"> | layout | planned | browser/fit-fit-width |  |
+| `host-api.fit-layout` | Fit: Responsive layout fit | new: <anima-icon fit="layout"> | layout | planned | browser/fit-layout |  |
+| `host-api.fit-none` | Fit: Unscaled | new: <anima-icon fit="none"> | layout | planned | browser/fit-none |  |
+| `host-api.fit-scale-down` | Fit: Scale down | new: <anima-icon fit="scale-down"> | layout | planned | browser/fit-scale-down |  |
 
 ## P8 — Rigging <a id="p8"></a>
 

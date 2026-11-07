@@ -553,6 +553,8 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
         window.dispatchEvent(new Event('test:frame'));
         const stats = icon.stats;
         const marks = performance.getEntriesByName('anima:frame').length;
+        const load = performance.getEntriesByName('anima:load').length;
+        const first = performance.getEntriesByName('anima:first-frame').length;
         const C = customElements.get('anima-icon') as typeof AnimaIcon;
         C.warn('old', 'old once');
         C.warn('old', 'old twice');
@@ -563,10 +565,13 @@ function suite(name: string, type: BrowserType, executablePath: string | undefin
         C.warn('old', 'always');
         icon.stop();
         for (let i = 0; i < 11; i++) window.dispatchEvent(new Event('test:frame'));
-        return { noMarks, marks, stats, idle: icon.stats };
+        return { noMarks, marks, load, first, stats, idle: icon.stats };
       });
       expect(result.noMarks).toBe(0);
       expect(result.marks).toBe(2);
+      // Initialization timing is recorded once, at the first marked frame.
+      expect(result.load).toBe(1);
+      expect(result.first).toBe(1);
       expect(result.stats).toEqual({ fps: 3, frames: 3, frameMs: 0 });
       expect(result.idle).toEqual({ fps: 0, frames: 0, frameMs: 0 });
       expect(messages).toEqual(['old once', 'always', 'always']);

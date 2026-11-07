@@ -8,6 +8,9 @@ registry spellings, validation diagnostics, CLI switches or Player.step changes 
   time (step and draw), or zero with no samples. Paused/settled idle time contributes no frames.
 - `icon.perfMarks = true` or the host `perf` attribute records `anima:frame:start` and
   `anima:frame` measures around frame execution. The temporary mark is cleared after measuring.
+- Initialization timing (same opt-in): at an icon's first marked frame, a mark `anima:load` at the
+  time the element connected (or when devtools registered, for icons connected before it) and a
+  measure `anima:first-frame` from that mark to the end of the frame; recorded once per icon.
   Measures remain available to PerformanceObserver/the performance timeline for the host to clear.
 - `AnimaIcon.warnings = 'once' | 'always' | 'off' | { off: readonly string[] }`, default `once`, controls the
   `AnimaIcon.warn(code, message)` policy hook. Once means one warning per code per page. An object suppresses only its listed stable IDs;

@@ -1568,8 +1568,8 @@
   "module": "data-host",
   "status": "planned",
   "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
-  "phase": "P3c",
-  "reason": "Only local component-definition name handles are tested; assignment from another loaded file remains absent. The native skip covers local assignment only (tests/oracle/data-host-artboards/skip.json)."
+  "phase": "P7",
+  "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing."
  },
  {
   "id": "components.host-nested-inputs",
@@ -2767,8 +2767,8 @@
   "module": "data-host",
   "status": "planned",
   "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
-  "phase": "P3c",
-  "reason": "Component-name assignment is tested, but assignment of an artboard together with associated model data is not established; the skip covers local-definition assignment (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json)."
+  "phase": "P7",
+  "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing."
  },
  {
   "id": "data.host-bind-instance",
@@ -5591,8 +5591,8 @@
   "module": "data-host",
   "status": "planned",
   "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
-  "phase": "P3c",
-  "reason": "Local component-name handles do not establish acquisition of bindable artboard values with associated view-model instances (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json)."
+  "phase": "P7",
+  "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing."
  },
  {
   "id": "host-api.cleanup",
@@ -5632,8 +5632,8 @@
   "module": "data-host",
   "status": "planned",
   "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
-  "phase": "P3c",
-  "reason": "Local component-name assignment is tested; no bindable artboard instance value is established by the cited tests/skip (modules/host-edit/test/core/components.test.ts; tests/oracle/data-host-artboards/skip.json)."
+  "phase": "P7",
+  "reason": "Moved from P3c (orchestrator, 2026-11-07; decided, owner may revisit): component handles across loaded documents with their own data instances need source-document ownership, per-target identity, data binding, reload/destroy and rendering-isolation design (modules/data-host/P3c-9-REPORT.md), and P3c's runtime-sum target left ~170 B; P7's host-fit work owns embedded component sizing."
  },
  {
   "id": "host-api.data-boolean",
