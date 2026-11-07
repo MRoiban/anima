@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "artboard": "Input",
+  "stateMachine": "input",
+  "viewModel": {
+    "name": "Default",
+    "viewModel": "Model",
+    "properties": [
+      {
+        "name": "n",
+        "path": "n",
+        "type": "number",
+        "value": 11,
+        "changed": true
+      }
+    ]
+  },
+  "globals": [],
+  "nested": []
+}

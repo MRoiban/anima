@@ -14,20 +14,28 @@ Icon.eventHook = (icon, kind, detail) => {
   priorHook?.(icon, kind, detail);
 };
 const versions = new WeakMap<Player, Map<string, number>>();
+const replacementIds = new WeakMap<Player, Map<string, { id: string; source: string }>>();
+hostEdit.resourceType = (player, name) =>
+  (Icon.modules.get('assets') as typeof assets | undefined)?.resolvedAssets.get(player)?.[name]
+    ?.type;
 hostEdit.replaceImage = async (api, path, value) => {
   const icon = owners.get(api.player);
+  const root = icon?.player;
+  const target = api.canonical(path);
   const id = api.image(path).value;
   const assetsModule = Icon.modules.get('assets') as typeof assets | undefined;
-  const records = assetsModule?.resolvedAssets.get(api.player.model);
+  const records =
+    assetsModule?.resolvedAssets.get(api.player) ??
+    assetsModule?.resolvedAssets.get(api.player.model);
   const record = records?.[id];
-  if (!icon || !record || record.type !== 'image')
+  if (!icon || !root || !record || record.type !== 'image')
     fail('asset', path, 'image property must point at a loaded image asset');
   if (!(value instanceof Blob) && typeof value !== 'string')
     fail('type', path, 'image replacement must be an asset name, URL or Blob');
   let pending = versions.get(api.player);
   if (!pending) versions.set(api.player, (pending = new Map()));
-  const revision = (pending.get(id) ?? 0) + 1;
-  pending.set(id, revision);
+  const revision = (pending.get(target) ?? 0) + 1;
+  pending.set(target, revision);
   try {
     const source =
       value instanceof Blob
@@ -48,13 +56,30 @@ hostEdit.replaceImage = async (api, path, value) => {
     image.src = source;
     await image.decode();
     queueEdit(api, () => {
-      if (pending!.get(id) !== revision || icon.player !== api.player) return;
-      records![id] = {
+      if (pending!.get(target) !== revision || icon.player !== root) return;
+      const local = { ...(assetsModule!.resolvedAssets.get(api.player) ?? records) };
+      assetsModule!.resolvedAssets.set(api.player, local);
+      let ids = replacementIds.get(api.player);
+      if (!ids) replacementIds.set(api.player, (ids = new Map()));
+      const replacement = {
+        id: '@' + target + ':' + revision,
+        source: ids.get(target)?.source ?? id,
+      };
+      ids.set(target, replacement);
+      local[replacement.id] = {
         ...record,
         source,
         width: image.naturalWidth,
         height: image.naturalHeight,
       } as Asset;
+      const match = /^\$([^:]+):(.+)$/.exec(target)!;
+      const keys = match[2]!.split('.');
+      let values = api.record(match[1]!)!.values;
+      for (const key of keys.slice(0, -1)) values = values[key] as Record<string, unknown>;
+      values[keys.at(-1)!] = replacement.id;
+      // Legacy static consumers have no binding to follow the addressed data property.
+      if (!api.player.addrs.some((address) => address.endsWith('.asset')))
+        local[replacement.source] = local[replacement.id]!;
       for (let i = 0; i < api.player.model.nodes.length; i++)
         api.player.drawVersions[i] = ++api.player.drawRevision;
     });

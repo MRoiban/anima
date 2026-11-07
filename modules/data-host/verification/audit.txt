@@ -1,0 +1,6 @@
+18/1238 parity records changed; all remain planned under the phase invariant.
+253 original oracle manifest entries unchanged; five additions.
+253 original oracle metric records unchanged; five generated additions.
+No protected finding/benchmark records, script.ts, cli.ts, bind/components runtime or measurement tooling changed.
+No staged .riv, .wasm, .so, .exe or native build artifacts.
+PNG fixture decoded independently with PNG.sync.read: 8x4.

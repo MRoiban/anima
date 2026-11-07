@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "CLI 1.9.1 key synthesis delivers the event (constant-string control writes sentinel) but keyPressed leaves the string empty for F13 and printable a. The headless command cannot faithfully supply the key-name payload observed by browser KeyboardEvent.key; native raw/control captures preserve this observation, not a runtime-equivalence claim.",
+  "tests": [
+    "modules/input/test/core/data-writes.test.ts",
+    "spec/conformance/input-write-key-pressed",
+    "modules/data-host/test/web/browser.test.ts"
+  ],
+  "captureEvidence": [
+    "tests/oracle/input-write-key-pressed/rive/frames/1.json",
+    "tests/oracle/input-write-key-pressed/rive/control/frames/1.json",
+    "tests/oracle/input-write-key-pressed/rive/printable/frames/1.json"
+  ]
+}

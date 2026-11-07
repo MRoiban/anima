@@ -214,6 +214,13 @@ export class AnimaIcon extends HTMLElement {
       this.addEventListener(type, fn as EventListener, { signal: this.#listeners.signal });
   }
 
+  set src(value: string) {
+    this.setAttribute('src', value);
+  }
+  get src(): string | null {
+    return this.getAttribute('src');
+  }
+
   connectedCallback(): void {
     if (this.#destroyed) return;
     this.#listen();

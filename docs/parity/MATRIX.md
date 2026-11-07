@@ -267,13 +267,13 @@ scope by the owner's triage of 2026-11-07).
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `transforms.computed-transform-values` | Read computed geometry | new: computed geometry read-only property paths | data | planned | conformance/computed-transform-values |
+| `transforms.computed-transform-values` | Read computed geometry | P3b-4 implemented: modules/data-host/SPEC.md player.computed(id), frozen world matrix/geometric bounds/resolved opacity; modules/data-host/core/index.ts (phase-level promotion pending) | data-host | planned | modules/data-host/test/core/computed.test.ts; modules/data-host/test/web/browser.test.ts; tests/oracle/transforms-computed-transform-values/skip.json |
 
 ### State machines
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `state-machine.condition-data` | Live data comparisons | modules/machine/capabilities/state-machine-condition-data/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5) | data | planned | spec/conformance/state-machine-condition-data; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending) |
+| `state-machine.condition-data` | Live data comparisons | P3b-4 existing bind/data evaluator verified for two live paths; modules/data-host/SPEC.md; spec/conformance/state-machine-condition-data/case.animl (phase-level promotion pending) | data-host | planned | modules/data-host/test/core/host.test.ts; spec/conformance/state-machine-condition-data; tests/oracle/data-host-condition-paths (exact native comparator data dumps) |
 
 ### Listeners and input
 
@@ -282,26 +282,26 @@ scope by the owner's triage of 2026-11-07).
 | `input.semantic-decrease` | Semantic decrease | new: listener.semantic: decrease | a11y | planned | conformance/input-semantic-decrease |
 | `input.semantic-increase` | Semantic increase | new: listener.semantic: increase | a11y | planned | conformance/input-semantic-increase |
 | `input.semantic-tap` | Semantic tap | new: listener.semantic: tap | a11y | planned | conformance/input-semantic-tap |
-| `input.write-key-pressed` | Store key-pressed | new: listener value source: key-pressed | data | planned | conformance/input-write-key-pressed |
-| `input.write-pointer-delta-x` | Store pointer-delta-x | new: listener value source: pointer-delta-x | data | planned | conformance/input-write-pointer-delta-x |
-| `input.write-pointer-delta-y` | Store pointer-delta-y | new: listener value source: pointer-delta-y | data | planned | conformance/input-write-pointer-delta-y |
-| `input.write-pointer-x` | Store pointer-x | new: listener value source: pointer-x | data | planned | conformance/input-write-pointer-x |
-| `input.write-pointer-y` | Store pointer-y | new: listener value source: pointer-y | data | planned | conformance/input-write-pointer-y |
+| `input.write-key-pressed` | Store key-pressed | P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-key-pressed/example.animl (phase-level promotion pending) | input | planned | modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-key-pressed; tests/oracle/input-write-key-pressed; modules/data-host/test/web/browser.test.ts |
+| `input.write-pointer-delta-x` | Store pointer-delta-x | P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-delta-x/example.animl (phase-level promotion pending) | input | planned | modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-delta-x; tests/oracle/input-write-pointer-delta-x; modules/data-host/test/web/browser.test.ts |
+| `input.write-pointer-delta-y` | Store pointer-delta-y | P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-delta-y/example.animl (phase-level promotion pending) | input | planned | modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-delta-y; tests/oracle/input-write-pointer-delta-y; modules/data-host/test/web/browser.test.ts |
+| `input.write-pointer-x` | Store pointer-x | P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-x/example.animl (phase-level promotion pending) | input | planned | modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-x; tests/oracle/input-write-pointer-x; modules/data-host/test/web/browser.test.ts |
+| `input.write-pointer-y` | Store pointer-y | P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-y/example.animl (phase-level promotion pending) | input | planned | modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-y; tests/oracle/input-write-pointer-y; modules/data-host/test/web/browser.test.ts |
 
 ### Data: view models, binding, converters
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `data.host-artboard` | Set model artboard | modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending | data | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md |
-| `data.host-color` | Color host access | new: player.data API for color host access | data | planned | oracle/data-host-color |
-| `data.host-nested-paths` | Typed nested paths | new: player.data API for typed nested paths | data | planned | oracle/data-host-nested-paths |
-| `data.instance-export` | Exported instances | modules/data/capabilities/data-instance-export/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5) | data | planned | spec/conformance/data-instance-export; modules/data/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending) |
+| `data.host-artboard` | Set model artboard | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl (phase-level promotion pending) | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json |
+| `data.host-color` | Color host access | P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending) | data-host | planned | modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/oracle/rive/frames/changed.json |
+| `data.host-nested-paths` | Typed nested paths | P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending) | data-host | planned | modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts |
+| `data.instance-export` | Exported instances | P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending) | data-host | planned | modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; spec/conformance/data-instance-export; tests/oracle/data-instance-export/skip.json |
 
 ### Components
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `components.host-artboard-reference` | Host bindable artboard | modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending | components | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md |
+| `components.host-artboard-reference` | Host bindable artboard | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl (phase-level promotion pending) | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json |
 | `components.library-export` | Library export selection | modules/markup-libraries/SPEC.md | markup-libraries | planned | modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-export; tests/oracle/components-library-export |
 | `components.library-models` | Library data definitions | modules/markup-libraries/SPEC.md | markup-libraries | planned | modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-models; tests/oracle/components-library-models |
 | `components.library-update` | Update library dependency | modules/markup-libraries/SPEC.md | markup-libraries | planned | modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-update; tests/oracle/components-library-update |
@@ -310,7 +310,7 @@ scope by the owner's triage of 2026-11-07).
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `assets.replacement-scope-image` | Image replacement scope | SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md | assets | planned | modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-replacement-scope-image; native oracle pending (modules/assets/REPORT.md) |
+| `assets.replacement-scope-image` | Image replacement scope | P3b-4 implemented: modules/host-edit/SPEC.md scoped replacement IDs; modules/assets/SPEC.md image asset bindings; spec/conformance/data-host-image-binding/case.animl (phase-level promotion pending) | data-host | planned | modules/data-host/test/core/assets.test.ts; modules/data-host/test/web/browser.test.ts; spec/conformance/data-host-image-binding; tests/oracle/assets-replacement-scope-image/skip.json |
 
 ### Accessibility
 
@@ -374,16 +374,16 @@ scope by the owner's triage of 2026-11-07).
 
 | Id | Capability | Anima construct | Module | Status | Test | Reason |
 |---|---|---|---|---|---|---|
-| `host-api.batched-binding` | Batch binding updates | new: data binding transaction | data | planned | browser/batched-binding |  |
-| `host-api.bindable-artboards` | Bindable component instances | modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending | components | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md |  |
-| `host-api.data-artboard` | View model artboard | modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending | data | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md |  |
-| `host-api.data-color` | View model color | new: typed data.color(path) | data | planned | browser/data-color |  |
+| `host-api.batched-binding` | Batch binding updates | P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending) | data-host | planned | modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host/test/core/api.test.ts; tests/oracle/host-api-batched-binding/skip.json |  |
+| `host-api.bindable-artboards` | Bindable component instances | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl (phase-level promotion pending) | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json |  |
+| `host-api.data-artboard` | View model artboard | P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl (phase-level promotion pending) | data-host | planned | modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json |  |
+| `host-api.data-color` | View model color | P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending) | data-host | planned | modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/oracle/rive/frames/changed.json |  |
 | `host-api.deprecation-policy` | Deprecation warning controls | Optional @anima-format/web/devtools: deprecation-policy; modules/devtools/SPEC.md | devtools | planned | packages/web/test/browser.test.ts (Chromium and Firefox); modules/devtools/capabilities/host-api-deprecation-policy/example.animl; tests/oracle/host-api-deprecation-policy/SKIP.md | Implemented and browser-tested in P3b-5; parity completion waits for P3b phase registration (current parity tool rejects done rows in P3b). |
 | `host-api.fps-counter` | FPS monitoring | Optional @anima-format/web/devtools: fps-counter; modules/devtools/SPEC.md | devtools | planned | packages/web/test/browser.test.ts (Chromium and Firefox); modules/devtools/capabilities/host-api-fps-counter/example.animl; tests/oracle/host-api-fps-counter/SKIP.md | Implemented and browser-tested in P3b-5; parity completion waits for P3b phase registration (current parity tool rejects done rows in P3b). |
 | `host-api.keyboard-focus` | Keyboard focus integration | new: focus tree and host focus policy | a11y | planned | browser/keyboard-focus |  |
 | `host-api.low-level-focus` | Manual focus traversal | new: focus tree handle | a11y | planned | browser/low-level-focus |  |
 | `host-api.low-level-semantics` | Semantic diffs and actions | new: semantic tree adapter API | a11y | planned | browser/low-level-semantics |  |
-| `host-api.nested-models` | Nested view model paths | new: typed property paths | data | planned | browser/nested-models |  |
+| `host-api.nested-models` | Nested view model paths | P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending) | data-host | planned | modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts |  |
 | `host-api.performance-marks` | Performance marks | Optional @anima-format/web/devtools: performance-marks; modules/devtools/SPEC.md | devtools | planned | packages/web/test/browser.test.ts (Chromium and Firefox); modules/devtools/capabilities/host-api-performance-marks/example.animl; tests/oracle/host-api-performance-marks/SKIP.md | Implemented and browser-tested in P3b-5; parity completion waits for P3b phase registration (current parity tool rejects done rows in P3b). |
 | `host-api.semantic-overlay` | Accessible semantic tree | new: nested semantic nodes mapped to SVG/DOM | a11y | planned | browser/semantic-overlay |  |
 | `host-api.stop` | Stop selected playback | AnimaIcon.stop(): pause shared scheduler while retaining frame; play resumes | web | planned | packages/web/test/browser.test.ts (Chromium and Firefox); modules/devtools/capabilities/host-api-stop/example.animl; tests/oracle/host-api-stop/SKIP.md | Implemented and browser-tested in P3b-5; parity completion waits for P3b phase registration (current parity tool rejects done rows in P3b). |

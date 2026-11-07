@@ -1,0 +1,11 @@
+advance 0
+advance 0
+advance 0
+data-dump frames/0.json
+key a:down
+advance 0
+data-dump frames/1.json
+key a:up
+advance 0
+data-dump frames/2.json
+quit

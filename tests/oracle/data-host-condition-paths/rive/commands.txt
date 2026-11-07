@@ -1,0 +1,7 @@
+advance 0
+advance 0
+data-dump frames/0.json
+data score=6
+advance 0
+data-dump frames/1.json
+quit

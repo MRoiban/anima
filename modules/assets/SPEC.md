@@ -13,3 +13,11 @@ without a faithful form report unsupported-render as specified in the normative 
 Evidence and native limitations are in REPORT.md and probes/row-dispositions.json. A native
 skip describes a missing observation route; it is not evidence of native equality. Historical
 failure measurements and all oracle limits remain unchanged.
+
+## Data image resource selection
+
+An image's discrete string `asset` slot can be bound to an image data property with `data bind`.
+The JSON field and AniML name are both `asset`; `<bind target="pic.asset" value="$picture"/>`
+uses the same slot as a JSON binding object. Rendering resolves a player-local replacement
+catalog before model resources. An unavailable or non-image runtime ID uses the authored image
+as a deterministic fallback; authored unknown/non-image assets retain their existing diagnostics.

@@ -13,6 +13,6 @@ export default {
     'web:./host': 'packages/web/src/host.ts',
   },
   tests: ['modules/host/test/**/*.test.ts'],
-  conformance: [],
+  conformance: ['assets-replacement-scope-image'],
   docs: ['modules/host/SPEC.md', 'modules/host/AUTHORING.md'],
 };

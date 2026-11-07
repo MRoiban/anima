@@ -363,3 +363,16 @@ Executable evidence: `spec/conformance/transforms-collapse` plus the row-indexed
 
 Render one selected direct child while collapsing the others. The corresponding contract above defines the Anima API and limitations.
 Executable evidence: `spec/conformance/transforms-solo` plus the row-indexed API/browser tests.
+
+## Data event writes (P3b)
+
+`write="$path" value="pointer-x|pointer-y|pointer-delta-x|pointer-delta-y|key-pressed"`
+uses one selected source (the bars here denote alternatives, not a literal value). JSON uses
+`write: "$path", value: "pointer-x"`. The existing map form also accepts all five source keys.
+The pointer values use root grid coordinates before optional drag alignment; deltas compare the
+previous event of the same pointer and are zero initially or on cancellation. `key-pressed` is
+the key name string, including on a selected repeat/up event. It does not mean a boolean pressed
+flag (`pressed` already supplies that). Targets must be writable number/string inputs or data
+paths. Wrong types, read-only targets and unknown sources are `input-write`, with a JSON pointer,
+message and hint. Writes follow the existing next-step FIFO. Native headless pointer captures
+match exactly; key-name payload has an evidenced CLI synthesis limit (oracle skip).

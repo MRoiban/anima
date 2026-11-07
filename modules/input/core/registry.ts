@@ -13,11 +13,18 @@ export const listenerFields: Record<string, Shape> = {
   control: num(0),
   mapping: str(['standard', 'raw']),
   phase: str(['press', 'release', 'both']),
+  value: str(),
   write: {
-    k: 'map',
-    of: str(),
-    key: /^[a-z][a-zA-Z0-9-]*$/,
-    description: `Map event field → declared input name (not an expression). Available event fields: ${fields.map((f) => f + (f === 'pressed' ? ' (bool)' : ' (number)')).join(', ')}. Missing fields leave inputs unchanged. x/y use target parent coordinates; align="preserve" retains the grab offset. Example: write='{"x":"dragX"}'.`,
+    k: 'alt',
+    description: `Map event field → declared input name (not an expression). Available event fields: ${fields.map((f) => f + (f === 'key-pressed' ? ' (string)' : f === 'pressed' ? ' (bool)' : ' (number)')).join(', ')}. Missing fields leave inputs unchanged. x/y use target parent coordinates; align="preserve" retains the grab offset. Example: write='{"x":"dragX"}'.`,
+    of: [
+      str(),
+      {
+        k: 'map',
+        of: str(),
+        key: /^[a-z][a-zA-Z0-9-]*$/,
+      },
+    ],
   },
   align: str(['preserve', 'snap']),
 };

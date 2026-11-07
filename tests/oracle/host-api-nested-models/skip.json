@@ -1,0 +1,8 @@
+{
+  "status": "skip",
+  "reason": "Nested JavaScript handle selection is a host contract; the headless runner exposes slash data commands but not typed JavaScript handles or their rebinding lifetime.",
+  "tests": [
+    "modules/data-host/test/core/host.test.ts",
+    "modules/data-host/test/web/browser.test.ts"
+  ]
+}

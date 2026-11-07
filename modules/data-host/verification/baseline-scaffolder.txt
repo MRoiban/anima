@@ -1,0 +1,8 @@
+
+ RUN  v5.1.0 /tmp/anima-p3b4-baseline-0nzp6t4c
+
+
+ Test Files  1 passed (1)
+      Tests  1 passed | 3 skipped (4)
+   Start at  10:33:49
+   Duration  44.19s (tests 94%, transform 5%, import 1%)

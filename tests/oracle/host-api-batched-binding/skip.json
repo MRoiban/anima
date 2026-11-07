@@ -1,0 +1,9 @@
+{
+  "status": "skip",
+  "reason": "The command runner does not expose JavaScript host transactions, wake callbacks or complete-step subscriptions. Deterministic host batching is tested through both browser engines and pure core host tests.",
+  "tests": [
+    "modules/host/test/core/api.test.ts",
+    "modules/data-host/test/core/host.test.ts",
+    "modules/data-host/test/web/browser.test.ts"
+  ]
+}

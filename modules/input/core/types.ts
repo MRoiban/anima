@@ -87,5 +87,10 @@ export const fields = [
   'control',
   'deltaX',
   'deltaY',
+  'pointer-x',
+  'pointer-y',
+  'pointer-delta-x',
+  'pointer-delta-y',
+  'key-pressed',
 ] as const;
-export type Data = Partial<Record<(typeof fields)[number], number | boolean>>;
+export type Data = Partial<Record<(typeof fields)[number], number | boolean | string>>;

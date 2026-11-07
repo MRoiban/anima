@@ -1,0 +1,8 @@
+{
+  "status": "skip",
+  "reason": "Typed JavaScript handle selection/rebinding has no headless host API counterpart. Native nested values are independently observed by the existing host-edit captures; this probe tests handle typing and queued writes.",
+  "tests": [
+    "modules/data-host/test/core/host.test.ts",
+    "modules/data-host/test/web/browser.test.ts"
+  ]
+}

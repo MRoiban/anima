@@ -215,6 +215,10 @@ export class InputController {
       const data = {
         x: c.x,
         y: c.y,
+        'pointer-x': c.x,
+        'pointer-y': c.y,
+        'pointer-delta-x': 0,
+        'pointer-delta-y': 0,
         pointerId: id,
         button: c.button,
         dx: c.x - c.startX,
@@ -250,6 +254,10 @@ export class InputController {
       data: Data = {
         x,
         y,
+        'pointer-x': x,
+        'pointer-y': y,
+        'pointer-delta-x': x - c.x,
+        'pointer-delta-y': y - c.y,
         dx: x - c.startX,
         dy: y - c.startY,
         startX: c.startX,
@@ -350,7 +358,7 @@ export class InputController {
       .filter((k) => opts[k as keyof KeyOptions])
       .join('+');
     const on = 'key-' + (kind === 'down' && opts.repeat ? 'repeat' : kind),
-      data = { pressed: kind === 'down' };
+      data = { pressed: kind === 'down', 'key-pressed': key };
     const match = (l: InputListener) =>
       (!l.key || l.key === '*' || l.key === key) &&
       (l.modifiers === undefined || l.modifiers === modifiers);

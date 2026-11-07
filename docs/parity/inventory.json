@@ -4117,10 +4117,10 @@
       "https://rive.app/docs/runtimes/loading-assets"
     ],
     "anima": {
-      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
-      "module": "assets",
+      "construct": "P3b-4 implemented: modules/host-edit/SPEC.md scoped replacement IDs; modules/assets/SPEC.md image asset bindings; spec/conformance/data-host-image-binding/case.animl (phase-level promotion pending)",
+      "module": "data-host",
       "status": "planned",
-      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-replacement-scope-image; native oracle pending (modules/assets/REPORT.md)",
+      "test": "modules/data-host/test/core/assets.test.ts; modules/data-host/test/web/browser.test.ts; spec/conformance/data-host-image-binding; tests/oracle/assets-replacement-scope-image/skip.json",
       "phase": "P3b"
     }
   },
@@ -4345,10 +4345,10 @@
       "rive docs animascript/api/file"
     ],
     "anima": {
-      "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
-      "module": "components",
+      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl (phase-level promotion pending)",
+      "module": "data-host",
       "status": "planned",
-      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
+      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
       "phase": "P3b"
     }
   },
@@ -7830,10 +7830,10 @@
       "rive-wasm/js/src/rive.ts:6273@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
-      "module": "data",
+      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl (phase-level promotion pending)",
+      "module": "data-host",
       "status": "planned",
-      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
+      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
       "phase": "P3b"
     }
   },
@@ -7881,10 +7881,10 @@
       "rive-wasm/js/src/rive.ts:6184@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: player.data API for color host access",
-      "module": "data",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending)",
+      "module": "data-host",
       "status": "planned",
-      "test": "oracle/data-host-color",
+      "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/oracle/rive/frames/changed.json",
       "phase": "P3b"
     }
   },
@@ -8248,10 +8248,10 @@
       "rive-wasm/js/src/rive.ts:5397@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: player.data API for typed nested paths",
-      "module": "data",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending)",
+      "module": "data-host",
       "status": "planned",
-      "test": "oracle/data-host-nested-paths",
+      "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts",
       "phase": "P3b"
     }
   },
@@ -8432,10 +8432,10 @@
       "rive-runtime/include/rive/viewmodel/viewmodel_instance.hpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "modules/data/capabilities/data-instance-export/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
-      "module": "data",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending)",
+      "module": "data-host",
       "status": "planned",
-      "test": "spec/conformance/data-instance-export; modules/data/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
+      "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; spec/conformance/data-instance-export; tests/oracle/data-instance-export/skip.json",
       "phase": "P3b"
     }
   },
@@ -15702,10 +15702,10 @@
       "rive-wasm/js/src/rive.ts:5091@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: data binding transaction",
-      "module": "data",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending)",
+      "module": "data-host",
       "status": "planned",
-      "test": "browser/batched-binding",
+      "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host/test/core/api.test.ts; tests/oracle/host-api-batched-binding/skip.json",
       "phase": "P3b"
     }
   },
@@ -15758,10 +15758,10 @@
       "rive-wasm/js/src/rive.ts:5264@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
-      "module": "components",
+      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl (phase-level promotion pending)",
+      "module": "data-host",
       "status": "planned",
-      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
+      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
       "phase": "P3b"
     }
   },
@@ -15863,10 +15863,10 @@
       "rive-wasm/js/src/rive.ts:6273@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
-      "module": "data",
+      "construct": "P3b-4 existing implementation verified: modules/host-edit/SPEC.md component(path).set(local definition name); modules/nested/examples/component-guard.animl (phase-level promotion pending)",
+      "module": "data-host",
       "status": "planned",
-      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
+      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; tests/oracle/data-host-artboards/skip.json",
       "phase": "P3b"
     }
   },
@@ -15919,10 +15919,10 @@
       "rive-wasm/js/src/rive.ts:6184@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: typed data.color(path)",
-      "module": "data",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending)",
+      "module": "data-host",
       "status": "planned",
-      "test": "browser/data-color",
+      "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/oracle/rive/frames/changed.json",
       "phase": "P3b"
     }
   },
@@ -17828,10 +17828,10 @@
       "rive-wasm/js/src/rive.ts:5530@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: typed property paths",
-      "module": "data",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md; modules/data-host/examples/nested.animl; host/host-edit typed data API (phase-level inventory promotion pending)",
+      "module": "data-host",
       "status": "planned",
-      "test": "browser/nested-models",
+      "test": "modules/data-host/test/core/host.test.ts; modules/data-host/test/web/browser.test.ts; modules/data-host/test/cli/api.test.ts",
       "phase": "P3b"
     }
   },
@@ -21123,10 +21123,10 @@
       "rive-runtime/include/rive/generated/animation/listener_viewmodel_change_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: listener value source: key-pressed",
-      "module": "data",
+      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-key-pressed/example.animl (phase-level promotion pending)",
+      "module": "input",
       "status": "planned",
-      "test": "conformance/input-write-key-pressed",
+      "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-key-pressed; tests/oracle/input-write-key-pressed; modules/data-host/test/web/browser.test.ts",
       "phase": "P3b"
     }
   },
@@ -21150,10 +21150,10 @@
       "rive-runtime/include/rive/generated/animation/listener_viewmodel_change_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: listener value source: pointer-delta-x",
-      "module": "data",
+      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-delta-x/example.animl (phase-level promotion pending)",
+      "module": "input",
       "status": "planned",
-      "test": "conformance/input-write-pointer-delta-x",
+      "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-delta-x; tests/oracle/input-write-pointer-delta-x; modules/data-host/test/web/browser.test.ts",
       "phase": "P3b"
     }
   },
@@ -21177,10 +21177,10 @@
       "rive-runtime/include/rive/generated/animation/listener_viewmodel_change_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: listener value source: pointer-delta-y",
-      "module": "data",
+      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-delta-y/example.animl (phase-level promotion pending)",
+      "module": "input",
       "status": "planned",
-      "test": "conformance/input-write-pointer-delta-y",
+      "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-delta-y; tests/oracle/input-write-pointer-delta-y; modules/data-host/test/web/browser.test.ts",
       "phase": "P3b"
     }
   },
@@ -21204,10 +21204,10 @@
       "rive-runtime/include/rive/generated/animation/listener_viewmodel_change_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: listener value source: pointer-x",
-      "module": "data",
+      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-x/example.animl (phase-level promotion pending)",
+      "module": "input",
       "status": "planned",
-      "test": "conformance/input-write-pointer-x",
+      "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-x; tests/oracle/input-write-pointer-x; modules/data-host/test/web/browser.test.ts",
       "phase": "P3b"
     }
   },
@@ -21231,10 +21231,10 @@
       "rive-runtime/include/rive/generated/animation/listener_viewmodel_change_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: listener value source: pointer-y",
-      "module": "data",
+      "construct": "P3b-4 implemented: modules/input/SPEC.md data event writes; modules/input/core/registry.ts write/value in JSON and AniML; modules/input/capabilities/input-write-pointer-y/example.animl (phase-level promotion pending)",
+      "module": "input",
       "status": "planned",
-      "test": "conformance/input-write-pointer-y",
+      "test": "modules/input/test/core/data-writes.test.ts; spec/conformance/input-write-pointer-y; tests/oracle/input-write-pointer-y; modules/data-host/test/web/browser.test.ts",
       "phase": "P3b"
     }
   },
@@ -28233,10 +28233,10 @@
       "rive-runtime/include/rive/generated/animation/transition_property_viewmodel_comparator_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "modules/machine/capabilities/state-machine-condition-data/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
-      "module": "data",
+      "construct": "P3b-4 existing bind/data evaluator verified for two live paths; modules/data-host/SPEC.md; spec/conformance/state-machine-condition-data/case.animl (phase-level promotion pending)",
+      "module": "data-host",
       "status": "planned",
-      "test": "spec/conformance/state-machine-condition-data; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
+      "test": "modules/data-host/test/core/host.test.ts; spec/conformance/state-machine-condition-data; tests/oracle/data-host-condition-paths (exact native comparator data dumps)",
       "phase": "P3b"
     }
   },
@@ -34116,10 +34116,10 @@
       "rive-runtime/include/rive/generated/node_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: computed geometry read-only property paths",
-      "module": "data",
+      "construct": "P3b-4 implemented: modules/data-host/SPEC.md player.computed(id), frozen world matrix/geometric bounds/resolved opacity; modules/data-host/core/index.ts (phase-level promotion pending)",
+      "module": "data-host",
       "status": "planned",
-      "test": "conformance/computed-transform-values",
+      "test": "modules/data-host/test/core/computed.test.ts; modules/data-host/test/web/browser.test.ts; tests/oracle/transforms-computed-transform-values/skip.json",
       "phase": "P3b"
     }
   },

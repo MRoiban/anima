@@ -125,10 +125,17 @@ export const assets: Module & { resolvedAssets: typeof resolvedAssets } = {
         align: { k: 'str', of: aligns },
         sampling: { k: 'str', of: ['bilinear', 'nearest'] },
       },
-      props: { width: { type: 'number', min: 0 }, height: { type: 'number', min: 0 } },
+      props: {
+        width: { type: 'number', min: 0 },
+        height: { type: 'number', min: 0 },
+      },
       required: ['id', 'type', 'asset', 'x0', 'y0', 'width', 'height'],
     },
   ],
+  model(node, key) {
+    if (String(node.type) === 'image' && key === 'asset')
+      return { prop: { type: 'string', feature: 'assets', discrete: true }, rest: node.raw.asset };
+  },
   prepare(model) {
     if (model.doc.requires?.includes('assets')) model.doc.assets ??= {};
   },
@@ -243,7 +250,9 @@ export const assets: Module & { resolvedAssets: typeof resolvedAssets } = {
       const n = p.model.nodes[i]!;
       if (String(n.type) !== 'image') return;
       const r = n.raw,
-        a: Asset = (resolvedAssets.get(p.model) ?? p.model.doc.assets)[r.asset];
+        id = String(p.prop(i, 'asset') ?? r.asset),
+        catalog = resolvedAssets.get(p) ?? resolvedAssets.get(p.model) ?? p.model.doc.assets,
+        a: Asset = catalog[id]?.type === 'image' ? catalog[id] : catalog[r.asset];
       data.geometry = {
         kind: 'image',
         x: r.x0,
@@ -251,7 +260,7 @@ export const assets: Module & { resolvedAssets: typeof resolvedAssets } = {
         width: p.num(i, 'width', r.width),
         height: p.num(i, 'height', r.height),
         image: {
-          asset: r.asset,
+          asset: id,
           source: a.source,
           width: a.width,
           height: a.height,
