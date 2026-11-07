@@ -1,0 +1,2 @@
+[11:19:59.335] error   scene.rml:42:1  [rml] Roboto: file "Roboto.ttf" is missing or empty
+[11:19:59.335] rive  build failed (0 bytes, 131ms, 1 errors, 0 warnings)

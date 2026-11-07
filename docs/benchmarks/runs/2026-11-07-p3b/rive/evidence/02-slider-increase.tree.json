@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "artboard": "Settings",
+  "roots": [
+    {
+      "id": 1,
+      "role": "tabList",
+      "roleValue": 13,
+      "label": "Settings tabs",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": { "x": 24, "y": 24, "width": 264, "height": 36 },
+      "children": [
+        {
+          "id": 2,
+          "role": "tab",
+          "roleValue": 12,
+          "label": "General",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 0,
+          "traitFlags": 98,
+          "bounds": { "x": 24, "y": 24, "width": 120, "height": 36 },
+          "children": []
+        },
+        {
+          "id": 3,
+          "role": "tab",
+          "roleValue": 12,
+          "label": "Sound",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 2,
+          "traitFlags": 98,
+          "bounds": { "x": 168, "y": 24, "width": 120, "height": 36 },
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "role": "group",
+      "roleValue": 9,
+      "label": "Sound settings",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": { "x": 24, "y": 92.625, "width": 360, "height": 135.375 },
+      "children": [
+        {
+          "id": 10,
+          "role": "slider",
+          "roleValue": 5,
+          "label": "Volume",
+          "value": "Volume 45 %",
+          "hint": "Range 0 to 100; step 5. Use arrow keys.",
+          "headingLevel": 0,
+          "stateFlags": 0,
+          "traitFlags": 96,
+          "bounds": { "x": 24, "y": 120, "width": 360, "height": 12 },
+          "children": []
+        },
+        {
+          "id": 11,
+          "role": "switchControl",
+          "roleValue": 4,
+          "label": "Mute",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 0,
+          "traitFlags": 104,
+          "bounds": { "x": 24, "y": 192, "width": 72, "height": 36 },
+          "children": []
+        }
+      ]
+    }
+  ]
+}
