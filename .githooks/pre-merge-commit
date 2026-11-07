@@ -1,0 +1,9 @@
+#!/bin/sh
+# Prettier check on the files this commit adds or changes (also used as pre-merge-commit).
+# Installed by `npm install` (prepare: git config core.hooksPath .githooks). CI runs the full check.
+files=$(git diff --cached --name-only --diff-filter=ACMR)
+[ -z "$files" ] && exit 0
+echo "$files" | xargs npx --no-install prettier --check --ignore-unknown --log-level warn || {
+  echo "pre-commit: formatting issues above; run: npx prettier --write <files>, then git add them" >&2
+  exit 1
+}

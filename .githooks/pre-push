@@ -1,0 +1,10 @@
+#!/bin/sh
+# Prettier check on every file the pushed branch changes relative to origin/main (backstop for
+# commits made with --no-verify or before the hooks were installed).
+base=$(git merge-base HEAD origin/main 2>/dev/null) || exit 0
+files=$(git diff --name-only --diff-filter=ACMR "$base" HEAD)
+[ -z "$files" ] && exit 0
+echo "$files" | xargs npx --no-install prettier --check --ignore-unknown --log-level warn || {
+  echo "pre-push: formatting issues above; run: npx prettier --write <files> and commit" >&2
+  exit 1
+}
