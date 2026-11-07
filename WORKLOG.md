@@ -156,3 +156,4 @@ Don't: push/PR/merge, read other run sources/native binaries/oracles, or publish
 - 2026-11-07 [claude]: merged P5b-10 (silent audio root cause: browser handler searched nested players but not list-owned players; Web Audio starts observed [0,0.2,0.8] in both engines; component assets embedded; $list.length counts; inherited asset scope; string length; docs/inspect) → full 109,889 B, oracle 0, unit scope 2960 pass. AniML rerun next (after P5b-9 lands, or now: brief doesn't need component paint)
 
 - 2026-11-07 01:06 [AniML test rerun]: built hand-written playlist + original media → 6/6; CLI17, auxiliary17, errors10, exact cover pixels6912, browser native trims3/3; local commit only (evidence: animl-rerun/REPORT.md).
+- 2026-11-07 [claude]: AniML P5b rerun 6/6 (67-line scene, 7 min 53 s). Follow-ups (not blocking): asset() in bindings, icon.src property doesn't load (attribute does), static values missing from sample snapshots
