@@ -3,7 +3,7 @@
 ## Now
 Goal: smaller, agent-native Rive for animated web UI. Order P3b (a11y + agent tools) → P6 text → P7 minimal layout → P8 rigging.
 State: triage merged (PR #18, b97a2d5). Branch p3b: design/p3b/DESIGN.md decided; 5 text a11y rows moved to P6 (119 P3b rows). In scope 624/883 (71 %). full 111,723/131,072 B; core+web 20,362.
-Next: running P3b-6 tooling leftovers, P3b-9 a11y evidence+gaps, benchmark AniML+Rive → verify claims → closure → PR (report all six size gates). Size gates (owner 2026-11-07) in tools/size.ts: core+web 20,585/24,576; largest scene 51,741/65,536; app-UI 90,688/131,072; runtime sum 109,458/163,840; authoring 11,950/16,384; Rive-class 114,940/256,000.
+Next: running P3b-10a (a11y: value-text, headless keys, 18 open rows) + P3b-10b (docs/schema/help, expect spellings, hyphen hint, repeated-converter bug) → AniML benchmark rerun → closure → PR (six gates).
 Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests; grow data/bind/components; leave merged worktrees behind.
 
 ## Log
@@ -242,3 +242,4 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-07 11:52 [P3b-9]: fixed heading union serialization and late wrapper installation → markup2677pass, all12 module arrival orders pass; final sizebase20585/a11y2045/actions960/full119005, strict258cases467samples exit0; native heading2→4 captured, known queued/narrow/repeat/late-focus gaps reproduced → final changed run active (evidence: modules/a11y/verification/p3b9; /tmp/p3b9-changed-final.txt).
 - 2026-11-07 11:54 [P3b-9]: final changed7918pass/0fail/43TODO, requested2038pass/31TODO, heading1128pass/1TODO; fullstatic/wiring/size/strict-oracle green → branch-only partial handoff,44closure-ready/18open/0status promotions, original 5 genuine failures fixed (evidence: modules/a11y/verification/p3b9/checks.json; modules/a11y/REPORT.md).
 - 2026-11-07 11:55 [P3b-9]: setup restored missing dependencies with npm ci; rejected2050B cache-refresh probe reverted; final branch audit confirms1238 unchanged statuses,62row table/18open,0 protected files changed; parity3/3 and final generated/browser checks pass → commit prepared (evidence: verification/p3b9; git diff --cached --check).
+- 2026-11-07 [claude]: merged P3b-9 (44 a11y rows closure-ready, 18 open); scopes 3,572 pass chromium; gates app-UI 91,061, sum 109,872; launched P3b-10a/10b; decided: string semantics bind to data paths (no string inputs), overlay bounds = getBoundingClientRect + half stroke, CLI exact extents
