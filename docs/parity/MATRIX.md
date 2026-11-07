@@ -1134,7 +1134,7 @@ scope by the owner's triage of 2026-11-07).
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
 | `data.bind-text` | Bind text runs | TODO: modules/data/capabilities/data-bind-text/registry.ts; spec/SPEC.md (Bind text runs); modules/data/capabilities/data-bind-text/example.animl | data | planned | TODO: modules/data/test/core/data-bind-text.test.ts; spec/conformance/data-bind-text; tests/oracle/data-bind-text |
-| `data.host-font` | Set model font | new: player.data API for set model font | data | planned | oracle/data-host-font |
+| `data.host-font` | Set model font | spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending | data | planned | modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits) |
 | `data.property-text-style` | Text style property | TODO: modules/data/capabilities/data-property-text-style/registry.ts; spec/SPEC.md (Text style property); modules/data/capabilities/data-property-text-style/example.animl | data | planned | TODO: modules/data/test/core/data-property-text-style.test.ts; spec/conformance/data-property-text-style; tests/oracle/data-property-text-style |
 
 ### Text
@@ -1145,10 +1145,10 @@ scope by the owner's triage of 2026-11-07).
 | `text.fit-baseline` | Baseline-aware fitting | new: baseline-aware fitting with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-fit-baseline |  |
 | `text.fit-layout-measure` | Fitted text layout measurement | new: fitted text layout measurement with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-fit-layout-measure |  |
 | `text.flatten` | Text outline conversion | new: text outline conversion through a separate optional module; seconds, degrees and grid units at the format boundary | text | planned | oracle/text-flatten |  |
-| `text.font-assets` | Font asset selection | new: font asset selection with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-font-assets |  |
-| `text.font-decoding` | Runtime font decoding | new: runtime font decoding with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-font-decoding |  |
-| `text.font-fallback` | Host font fallback | new: host font fallback through a separate optional module; seconds, degrees and grid units at the format boundary | text | planned | oracle/text-font-fallback |  |
-| `text.font-metrics` | Font metrics and coverage | new: font metrics and coverage with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-font-metrics |  |
+| `text.font-assets` | Font asset selection | spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending | text | planned | modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits) |  |
+| `text.font-decoding` | Runtime font decoding | spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending | text | planned | modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits) |  |
+| `text.font-fallback` | Host font fallback | spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending | text | planned | modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits) |  |
+| `text.font-metrics` | Font metrics and coverage | spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending | text | planned | modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits) |  |
 | `text.font-size` | Font sizing | new: font sizing with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-font-size |  |
 | `text.horizontal-alignment` | Horizontal text alignment | new: horizontal text alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-horizontal-alignment |  |
 | `text.input-clipboard` | Text clipboard integration | new: text clipboard integration through a separate optional module; seconds, degrees and grid units at the format boundary | text | planned | oracle/text-input-clipboard |  |
@@ -1171,7 +1171,7 @@ scope by the owner's triage of 2026-11-07).
 | `text.modifier-scale` | Per-glyph scaling | new: per-glyph scaling with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-scale |  |
 | `text.modifier-translation` | Per-glyph translation | new: per-glyph translation with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-translation |  |
 | `text.modifier-variation` | Per-glyph variable axes | new: per-glyph variable axes with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-modifier-variation |  |
-| `text.opentype-features` | OpenType features | new: opentype features with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-opentype-features |  |
+| `text.opentype-features` | OpenType features | spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending | text | planned | modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits) |  |
 | `text.origin` | Text origin and baseline | new: text origin and baseline with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-origin |  |
 | `text.overflow-clipped` | Text overflow: clipped | new: text overflow: clipped with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-overflow-clipped |  |
 | `text.overflow-ellipsis` | Text overflow: ellipsis | new: text overflow: ellipsis with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-overflow-ellipsis |  |
@@ -1195,7 +1195,7 @@ scope by the owner's triage of 2026-11-07).
 | `text.sizing-fixed` | Fixed text box | new: fixed text box with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-sizing-fixed |  |
 | `text.style-reference` | Reusable global text styles | new: reusable global text styles with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-style-reference |  |
 | `text.tracking` | Letter spacing | new: letter spacing with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-tracking |  |
-| `text.variable-axes` | Variable font axes | new: variable font axes with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-variable-axes |  |
+| `text.variable-axes` | Variable font axes | spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending | text | planned | modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits) |  |
 | `text.vertical-alignment` | Vertical text alignment | new: vertical text alignment with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-vertical-alignment |  |
 | `text.vertical-trim` | Metric-based vertical trimming | new: metric-based vertical trimming with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-vertical-trim |  |
 | `text.word-break` | Word breaking | new: word breaking with readable named properties; lengths in grid units, time in seconds and angles in degrees | text | planned | oracle/text-word-break |  |
@@ -1205,14 +1205,14 @@ scope by the owner's triage of 2026-11-07).
 
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
-| `assets.font` | Font asset | new: assets.<name> / build.assets.<name>: named font resource setting | assets | planned | oracle/assets-font |
+| `assets.font` | Font asset | spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending | assets | planned | modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits) |
 | `assets.font-formats` | Font source formats | new: assets.<name> / build.assets.<name>: named font-formats resource setting | assets | planned | oracle/assets-font-formats |
 | `assets.font-glyphs-all` | Font glyph coverage: all | new: build.assets.<font>.glyphs: "all" | assets | planned | oracle/assets-font-glyphs-all |
 | `assets.font-glyphs-custom` | Font glyph coverage: custom | new: build.assets.<font>.glyphs: "custom" | assets | planned | oracle/assets-font-glyphs-custom |
 | `assets.font-glyphs-used` | Font glyph coverage: used | new: build.assets.<font>.glyphs: "used" | assets | planned | oracle/assets-font-glyphs-used |
 | `assets.google-font-import` | Google Fonts import | new: assets.<name> / build.assets.<name>: named google-font-import resource setting | assets | planned | oracle/assets-google-font-import |
-| `assets.host-decode-font` | Host decode font | new: player asset loader API with explicit source resolution: host-decode-font | assets | planned | oracle/assets-host-decode-font |
-| `assets.replacement-scope-font` | Font replacement scope | new: assets.<name> / build.assets.<name>: named replacement-scope-font resource setting | assets | planned | oracle/assets-replacement-scope-font |
+| `assets.host-decode-font` | Host decode font | spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending | assets | planned | modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits) |
+| `assets.replacement-scope-font` | Font replacement scope | spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending | assets | planned | modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits) |
 
 ### Accessibility
 
@@ -1230,8 +1230,8 @@ scope by the owner's triage of 2026-11-07).
 | Id | Capability | Anima construct | Module | Status | Test |
 |---|---|---|---|---|---|
 | `host-api.clipboard-text` | Text selection for clipboard | new: Text selection for clipboard | text | planned | browser/clipboard-text |
-| `host-api.data-font` | View model font | new: typed data.font(path) | data | planned | browser/data-font |
-| `host-api.font-fallback` | Host fallback fonts | new: font fallback resolver | text | planned | browser/font-fallback |
+| `host-api.data-font` | View model font | spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending | data | planned | modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits) |
+| `host-api.font-fallback` | Host fallback fonts | spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending | text | planned | modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits) |
 | `host-api.nested-text-run` | Nested text run access | new: path-based text value access | text | planned | browser/nested-text-run |
 | `host-api.text-input` | Text and IME bridge | new: DOM-backed text input bridge | text | planned | browser/text-input |
 | `host-api.text-run` | Text run access | new: named text run access | text | planned | browser/text-run |

@@ -21,6 +21,7 @@
     "./contour": "./src/contour.ts",
     "./data": "./src/data.ts",
     "./convert": "./src/convert.ts",
+    "./fonts": "./src/fonts.ts",
     "./lists": "./src/lists.ts",
     "./a11y": "./src/a11y.ts",
     "./nested": "./src/nested.ts",

@@ -3173,10 +3173,10 @@
       "rive-runtime/include/rive/assets/font_asset.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named font resource setting",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-font",
+      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P6"
     }
   },
@@ -3378,10 +3378,10 @@
       "rive-wasm/js/src/rive.ts:6428@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: player asset loader API with explicit source resolution: host-decode-font",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-host-decode-font",
+      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P6"
     },
     "aliases": [
@@ -4095,10 +4095,10 @@
       "https://rive.app/docs/runtimes/loading-assets"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named replacement-scope-font resource setting",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-replacement-scope-font",
+      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P6"
     }
   },
@@ -8008,10 +8008,10 @@
       "rive-wasm/js/src/rive.ts:6254@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: player.data API for set model font",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
       "module": "data",
       "status": "planned",
-      "test": "oracle/data-host-font",
+      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P6"
     }
   },
@@ -15980,10 +15980,10 @@
       "rive-wasm/js/src/rive.ts:6254@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: typed data.font(path)",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
       "module": "data",
       "status": "planned",
-      "test": "browser/data-font",
+      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P6"
     }
   },
@@ -16955,10 +16955,10 @@
       "rive-wasm/js/src/utils/riveFont.ts:23@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: font fallback resolver",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
       "module": "text",
       "status": "planned",
-      "test": "browser/font-fallback",
+      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P6"
     }
   },
@@ -29500,10 +29500,10 @@
       "rive-runtime/include/rive/generated/assets/font_asset_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: font asset selection with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-font-assets",
+      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P6"
     }
   },
@@ -29529,10 +29529,10 @@
       "rive docs luau/api/text (CLI 1.9.0; counterpart API)"
     ],
     "anima": {
-      "construct": "new: runtime font decoding with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-font-decoding",
+      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P6"
     }
   },
@@ -29554,10 +29554,10 @@
       "rive-runtime/include/rive/text_engine.hpp:414@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: host font fallback through a separate optional module; seconds, degrees and grid units at the format boundary",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-font-fallback",
+      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P6"
     }
   },
@@ -29583,10 +29583,10 @@
       "rive docs animascript/api/text (CLI 1.9.0)"
     ],
     "anima": {
-      "construct": "new: font metrics and coverage with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-font-metrics",
+      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P6"
     }
   },
@@ -30233,10 +30233,10 @@
       "rive-runtime/include/rive/generated/text/text_style_feature_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: opentype features with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-opentype-features",
+      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P6"
     }
   },
@@ -30992,10 +30992,10 @@
       "rive-runtime/include/rive/generated/text/text_style_axis_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: variable font axes with readable named properties; lengths in grid units, time in seconds and angles in degrees",
+      "construct": "spec/SPEC.md §fonts; modules/fonts/web/index.ts (runtime); text integration pending",
       "module": "text",
       "status": "planned",
-      "test": "oracle/text-variable-axes",
+      "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P6"
     }
   },

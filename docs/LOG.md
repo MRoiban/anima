@@ -2486,3 +2486,20 @@ normal opacity already hides range paint. See
 - Small scenes, core and Chromium/Firefox tests, two conformance cases, AniML/SPEC/AUTHORING and the
   regenerated schema/library scenes accompany the fix. Detailed verification, six gates and module
   deltas are recorded in `modules/data/BF-1-REPORT.md`. Local commit only; no publication or PR.
+
+## P6-3 — optional browser fonts (2026-11-07, P6 still open)
+
+Added scoped FontFace decoding/registration, CSS FontSpec projection, readiness, host fallback and
+queued decoded-font data assignment. Original in-memory test fonts cover browser metrics and
+replacement isolation. A font-only host-edit cache bypass preserves per-icon registration when
+compiled models are reused. No core/web baseline changes, third-party font files or package
+runtime dependencies. Full text rendering, variable-font/substitution evidence, native references
+and controlled perf closure remain with P6; see modules/fonts/REPORT.md. No parity status changed.
+
+P6-3 validation: focused1,090 pass (10 Chromium/Firefox cases); pre-catalog changed8,115 pass/63TODO;
+all six size gates pass, fonts1,789/2,048 B. Assetio's +16 B loader composition preserves fonts-first
+entry order. Host fallback survives pre-load configuration and reloads; font revision invalidates
+measurement caches. Earlier concurrent failures and corrected typed-error/test-registration bugs
+are recorded in WORKLOG and the module report. Native/text row closure and controlled perf A/B stay open.
+Final catalog-preservation rerun: 8,111 pass/63TODO plus four Firefox startup/import timeouts;
+those exact four pass isolated at unchanged limits. Decoded image metadata survives font assignment.

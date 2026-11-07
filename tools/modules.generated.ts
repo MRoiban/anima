@@ -33,6 +33,7 @@ export const webEntries = [
   'host',
   'data-host',
   'host-edit',
+  'fonts',
   'lists',
   'a11y',
   'markup-a11y',
@@ -73,6 +74,7 @@ export const webOwners: Record<string, string> = {
   host: 'host',
   'data-host': 'data-host',
   'host-edit': 'host-edit',
+  fonts: 'fonts',
   lists: 'lists',
   a11y: 'a11y',
   'markup-a11y': 'a11y',
@@ -153,6 +155,7 @@ export const moduleBudgets: {
   { name: 'host', budget: 3968, over: 'host-values' },
   { name: 'data-host', budget: 1088 },
   { name: 'host-edit', budget: 4032 },
+  { name: 'fonts', budget: 2048 },
   { name: 'lists', budget: 5120 },
   { name: 'a11y', budget: 2496 },
   { name: 'markup-a11y', budget: 1088, over: 'index', authoring: true },
@@ -163,7 +166,10 @@ export const moduleBudgets: {
   { name: 'componentpaint', budget: 2176 },
 ];
 export const moduleScopes = {
-  assetio: { tests: ['modules/assets/test/**/*.test.ts'], conformance: [] },
+  assetio: {
+    tests: ['modules/assets/test/**/*.test.ts', 'modules/fonts/test/web/fonts.test.ts'],
+    conformance: [],
+  },
   canvas: {
     tests: ['modules/canvas/test/**/*.test.ts', 'packages/markup/test/corpus.test.ts'],
     conformance: [
@@ -674,6 +680,27 @@ export const moduleScopes = {
     conformance: ['data-host', 'transforms-computed-transform-values'],
   },
   'host-edit': { tests: ['modules/host-edit/test/**/*.test.ts'], conformance: [] },
+  fonts: {
+    tests: [
+      'modules/fonts/test/**/*.test.ts',
+      'packages/markup/test/corpus.test.ts',
+      'packages/markup/test/names.test.ts',
+    ],
+    conformance: [
+      'assets-font',
+      'assets-host-decode-font',
+      'assets-replacement-scope-font',
+      'data-host-font',
+      'host-api-data-font',
+      'host-api-font-fallback',
+      'text-font-fallback',
+      'text-font-assets',
+      'text-font-decoding',
+      'text-variable-axes',
+      'text-opentype-features',
+      'text-font-metrics',
+    ],
+  },
   lists: {
     tests: [
       'modules/lists/test/**/*.test.ts',

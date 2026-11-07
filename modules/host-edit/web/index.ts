@@ -239,6 +239,8 @@ function prepareAssets(): void {
   if (Icon.loadAssets === installed) return;
   const loadAssets = Icon.loadAssets;
   installed = Icon.loadAssets = async (icon, model) => {
+    // FontFace registration and private family aliases belong to each icon scope.
+    if (model.doc.requires?.includes('fonts')) return loadAssets?.(icon, model);
     const assetsModule = Icon.modules.get('assets') as typeof assets | undefined;
     const base = origins.get(model);
     if (!base || !assetsModule || !loadAssets) return loadAssets?.(icon, model);

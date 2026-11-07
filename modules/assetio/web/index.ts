@@ -27,7 +27,10 @@ Icon.prototype.resolveAsset = async function (name, info) {
     throw new Error('asset policy rejects source; use a resolver or assetPolicy=any');
   return url.href;
 };
+// Preserve optional loaders (fonts) when this entry arrives after them.
+const previousLoader = Icon.loadAssets;
 Icon.loadAssets = async (icon, model) => {
+  await previousLoader?.(icon, model);
   const seen = new Set<object>();
   const load = async (model: NonNullable<AnimaIcon['player']>['model']): Promise<void> => {
     if (seen.has(model)) return;
