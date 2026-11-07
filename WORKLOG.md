@@ -1,10 +1,10 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive for animated web UI. Order: P3c (size round + 23 carry-overs) → P6 text → P7 minimal layout → P8 rigging.
-State: P3b merged (PR #19, 38dd757). Branch p3c, design/p3c/DESIGN.md. Runtime sum 109,971 → target ≤ 104,472 B; other gates must not grow.
-Next: wave 1 = size survey (scout), tooling carry-overs + benchmark friction (0 runtime B), library rows; then size cuts by module group; then runtime carry-overs; budgets reset ~10 %.
-Don't: push to main; modify oracle findings or benchmark records; raise ceilings; change behaviour in size cuts; leave merged worktrees; --no-verify.
+Goal: P3c-5 — shrink events/data/machine diagnostics; target ≥578 B runtime reduction, no gate growth.
+State: runtime109971→109393 (−578 B), all6 gates/29scenes non-growing; strict266/475 and static checks pass; changed failures pass alone.
+Next: hand back branch-only commit; no push. Perf non-regression remains unverified under concurrent host load.
+Don't: push; edit other ticket files/measurement tools/budgets/expectations; change behaviour or public thrown-error text.
 
 ## Log
 - 2026-11-06 23:40 [P5b-8]: condensed oldest half per 200-line rule; M0–M5/P1/P3 established spec, runtime, AniML and icons; Glyphy remains draft-only (evidence: prior WORKLOG at 0c5028a; PRs1–6).
@@ -271,3 +271,15 @@ Don't: push to main; modify oracle findings or benchmark records; raise ceilings
 - 2026-11-07 [claude]: P3c-3 merge broke 2 corpus tests (library file under modules/*/examples is treated as a scene) → moved to examples/lib/shared.animl; corpus 1,065 + conformance/markup-libraries 525 pass
 - 2026-11-07 13:57 [P3c-1]: measured baseline109971; runtime-only guard+helper scratch trial saves1624 (108347), all6gates/29scene non-growth pass; hook relocation saves4461 but authoring+2373 and2module budgets fail; 5% not established; discarded alias/broad-scope/relocation-snapshot trials documented; shipped sources unchanged (evidence: design/p3c/SIZE-SURVEY.md, survey/*gates*.txt).
 - 2026-11-07 [claude]: merged P3c-1 survey: 1,624 B eligible cuts + 4,461 B hook relocation (authoring +2,373). Decided, owner may revisit: relocate hooks to authoring (authoring ≤ 15,360 B), split markup ≤ 8 KB; launch P3c-4..7
+
+- 2026-11-07 14:01 [P3c-5]: npm ci restored missing esbuild; first size run overlapped exploratory edits and is discarded; restarted frozen HEAD baseline; initial scope rejected datahost spelling, corrected to data-host (evidence: /tmp/p3c5-install.txt, /tmp/p3c5-size-baseline.txt, /tmp/p3c5-scope.txt; measurements unverified).
+
+- 2026-11-07 14:11 [P3c-5]: frozen baseline109971 → guard109410 (−561 B), all6 gates non-growing; input/derive zero-benefit files omitted; core typecheck/lint/wiring and strict oracle pass; scoped unit/conformance pass; cold browser hooks timeout under load38, retry after standard web build (evidence: /tmp/p3c5-size-{baseline,guards}.txt, /tmp/p3c5-unit.txt, /tmp/p3c5-oracle.txt).
+
+- 2026-11-07 14:17 [P3c-5]: rejected second full candidate109416 vs guard109410; measured union variants109415→109408→109393; final omits motion (union unchanged109393), input and derive; machine reuses authored state/transition tables and removes duplicate any-kind lookup without moving validation, following ordering cautions in docs/research/rive-animation-and-state.md; failed cold/browser and obsolete-source runs stopped, frozen validation restarted (evidence: /tmp/p3c5-union-*.txt; final checks unverified).
+
+- 2026-11-07 14:21 [P3c-5]: final size exit0: core20622→20622, largest55313→55174, app91158→90563, runtime109971→109393, authoring11944→11944, heavy115473→114914; all29scenes non-growing; events3789→3554/machine6293→6061/data7983→7839/data-host903→885; frozen strict266cases/475samples exit0 retaining23findings, tsc/eslint/format/wiring pass; changed still running (evidence: /tmp/p3c5-size-final.txt, /tmp/p3c5-oracle-frozen.txt; tests/perf unverified).
+
+- 2026-11-07 14:34 [P3c-5]: required changed8045pass/40TODO with3failures in2unitfiles (scaffold nested command, scaffold5s timeout, module-order30s timeout); both-browser suites pass; isolated scaffold4/4pass in38.22s unchanged; isolated module-order next; perf baseline bell43.1µs/toolbar31.3µs/compile2.22ms,6.27ms → frozen134.9µs/97.6µs/7.72ms,12.28ms under load≈42, non-regression unverified (evidence: /tmp/p3c5-changed-final.txt, /tmp/p3c5-scaffold-alone.txt, /tmp/p3c5-perf-{before,frozen}.txt).
+
+- 2026-11-07 14:35 [P3c-5]: isolated module-order1/1pass27.92s at unchanged30s limit; all3 broad failures now pass alone (scaffold4/4, order1/1); size578B target met, frozen checks complete, performance comparison unverified under load; preparing local-only commit of5owned source files plus WORKLOG (evidence: /tmp/p3c5-order-alone.txt, /tmp/p3c5-scaffold-alone.txt, /tmp/p3c5-size-final.txt).

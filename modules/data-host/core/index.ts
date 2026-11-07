@@ -1,3 +1,4 @@
+import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
 import { drawFrame } from '../../../packages/core/src/draw.ts';
@@ -136,8 +137,8 @@ export const dataHost: Module = {
             diag.err(
               'unknown-asset',
               '/bind/' + target.replace(/~/g, '~0').replace(/\//g, '~1'),
-              'unknown binding asset',
-              'declare the asset in this document',
+              V && 'unknown binding asset',
+              V && 'declare the asset in this document',
             );
           return name;
         },
