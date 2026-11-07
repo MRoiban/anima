@@ -1023,9 +1023,11 @@ These are clock expressions evaluated before sampling, rather than property bind
 
 ### Expressions and types
 
-Sources are declared number or bool input names, finite JSON number literals, hex colours
+Sources are declared scalar input names (including `$` data paths when `data` is declared),
+finite JSON number literals, hex colours
 (`#rgb`, `#rrggbb`, `#rrggbbaa`), parentheses, unary `+`/`-`, binary `+ - * /`, and the functions
-`min(a,b)`, `max(a,b)`, `clamp(x,lo,hi)`, `mix(a,b,t)`, `floor(x)`, `mod(a,b)`. Double-quoted strings, typed comparisons and `and or not` use the grammar above.
+`min(a,b)`, `max(a,b)`, `clamp(x,lo,hi)`, `mix(a,b,t)`, `floor(x)`, `mod(a,b)`,
+`contains(text,part)`, `lower(text)`. Double-quoted strings, typed comparisons and `and or not` use the grammar above.
 No scene property reads, boolean literals, assignments or arbitrary calls are allowed. Identifiers use
 the input-name grammar; a hyphen is part of a name, so write `level - other` for subtraction
 between inputs. Multiplication/division precede addition/subtraction; binary operators associate
@@ -1042,6 +1044,18 @@ channel interpolation (including alpha, rounding and channel clamping); weights 
 (including division by zero) resolve to zero when consumed by another operation or the target,
 before property clamping. Trigger inputs cannot
 be values. Evaluators accept a scope map of named inputs, reusable for component input bindings.
+
+`contains(text, part)` requires two strings and returns bool: true exactly when `part` is a
+contiguous substring of `text` (case-sensitive ECMAScript `String.prototype.includes`, UTF-16
+code units). An empty `part` returns true, including for empty `text`.
+`lower(text)` requires one string and returns a string using Unicode default case conversion
+(ECMAScript `String.prototype.toLowerCase`, locale-independent). It does not normalize Unicode,
+trim whitespace or perform full case folding: for example, `lower("İ")` is `"i\u0307"`, and
+`lower("ẞ")` is `"ß"`, not `"ss"`. Use `contains(lower($label), lower($query))` for
+case-insensitive filtering. No number/bool/color-to-string coercion occurs. Both calls work in
+bindings, set actions, derive expressions and scalar guards through the same typed parser.
+A standalone bool call in a guard uses the existing parenthesized scalar form, e.g.
+`(contains(lower($label), lower($query)))`.
 
 ### Validation
 

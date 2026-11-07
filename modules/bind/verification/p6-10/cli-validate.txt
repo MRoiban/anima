@@ -1,0 +1,1 @@
+modules/bind/examples/filtering-list.animl: ok

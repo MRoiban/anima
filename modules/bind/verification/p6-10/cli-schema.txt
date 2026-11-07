@@ -1,0 +1,3 @@
+bind (markup ↔ .ani: type)
+  target ↔ target: string (required) [bind]
+  value ↔ value: string (required) [bind]

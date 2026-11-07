@@ -108,7 +108,12 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
         const fn = functions.get(word);
         const arity =
           fn?.arity ??
-          ({ min: 2, max: 2, clamp: 3, mix: 3, floor: 1, mod: 2 } as Record<string, number>)[word];
+          (
+            { min: 2, max: 2, clamp: 3, mix: 3, floor: 1, mod: 2, contains: 2, lower: 1 } as Record<
+              string,
+              number
+            >
+          )[word];
         if (fn?.run.enabled?.() === false) fail();
         if (arity === undefined) fail(undefined, V && 'unknown function', start);
         next();
@@ -121,27 +126,40 @@ export function expression(source: string, types: ReadonlyMap<string, string>): 
         if (args.length !== arity) fail(undefined, V && 'wrong argument count', start);
         const [a, b, c] = args as [Expression, Expression, Expression];
         const color = word === 'mix' && a.type === 'color' && b.type === 'color';
-        (color ? [c] : args).forEach(numeric);
-        left = node(color ? 'color' : 'number', start, (s) => {
-          if (color)
-            return lerpColor(
-              a.evaluate(s) as import('../../../packages/core/src/color.ts').RGBA,
-              b.evaluate(s) as import('../../../packages/core/src/color.ts').RGBA,
-              +evaluate(c, s),
-            );
-          if (fn) return fn.run(...args.map((a) => +evaluate(a, s)));
-          const x = +evaluate(a, s);
-          if (word === 'floor') return Math.floor(x);
-          const y = +evaluate(b, s);
-          if (word === 'mod') return x - y * Math.floor(x / y);
-          return word === 'min'
-            ? Math.min(x, y)
-            : word === 'max'
-              ? Math.max(x, y)
-              : word === 'clamp'
-                ? Math.min(Math.max(x, y), +evaluate(c, s))
-                : x + (y - x) * +evaluate(c, s);
+        const string = word === 'contains' || word === 'lower';
+        (color ? [c] : args).forEach((e) => {
+          if (string) {
+            if (e.type !== 'string') fail('bind-type', V && 'expected string', e.at);
+          } else numeric(e);
         });
+        left = node(
+          string ? (word === 'lower' ? 'string' : 'bool') : color ? 'color' : 'number',
+          start,
+          (s) => {
+            if (string) {
+              const text = a.evaluate(s) as string;
+              return word === 'lower' ? text.toLowerCase() : text.includes(b.evaluate(s) as string);
+            }
+            if (color)
+              return lerpColor(
+                a.evaluate(s) as import('../../../packages/core/src/color.ts').RGBA,
+                b.evaluate(s) as import('../../../packages/core/src/color.ts').RGBA,
+                +evaluate(c, s),
+              );
+            if (fn) return fn.run(...args.map((a) => +evaluate(a, s)));
+            const x = +evaluate(a, s);
+            if (word === 'floor') return Math.floor(x);
+            const y = +evaluate(b, s);
+            if (word === 'mod') return x - y * Math.floor(x / y);
+            return word === 'min'
+              ? Math.min(x, y)
+              : word === 'max'
+                ? Math.max(x, y)
+                : word === 'clamp'
+                  ? Math.min(Math.max(x, y), +evaluate(c, s))
+                  : x + (y - x) * +evaluate(c, s);
+          },
+        );
       } else {
         const type = types.get(word);
         if (!type) fail('unknown-input', V && `unknown input ${word}`, start);

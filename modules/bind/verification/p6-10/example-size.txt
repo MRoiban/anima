@@ -1,0 +1,1 @@
+{"scene":"modules/bind/examples/filtering-list.ani","entries":["index","text","text-input","text-input-svg","text-input-clipboard","text-input-canvas","a11y","focus","data","bind","derive","convert"],"bytes":51090,"ceiling":65536,"pass":true}

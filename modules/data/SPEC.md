@@ -204,3 +204,13 @@ Sample the initial state (`advance 0`), then `set $x 100`, `advance 0`, and
 set the typed number/path and let the player's ordinary frame loop advance the converter.
 Retargeting begins at the current sample; no page-side interpolation is needed. The first
 binding evaluation initializes immediately. Timelines use seconds; converter duration uses ms.
+
+<!-- seam(P6-10): data docs point to the shared string-filter recipe. -->
+### Filtering a list by typed text
+
+A field's `write-text="$query"` writes a string. With `bind` and `derive`, compute each bool
+`shownN` as `contains(lower($labelN), lower($query))`, bind the corresponding row's `visible`
+to `$shownN`, and compute number `$count` as `$shown0 + $shown1` (bools become 0/1).
+An empty query shows all rows. Query writes update visibility and count in the same step.
+The full recipe and example are in `anima docs bind` and
+[Filtering a list by typed text](../../docs/AUTHORING.md#filtering-a-list-by-typed-text).
