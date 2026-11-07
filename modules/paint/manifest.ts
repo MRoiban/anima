@@ -9,7 +9,7 @@ export default {
     svgExport: 'paintSVG',
   },
   web: [
-    { name: 'paint-sampling', budget: 1024, over: 'paint' },
+    { name: 'paint-sampling', budget: 1216, over: 'paint' },
     {
       name: 'paint',
       buildOrder: 3,

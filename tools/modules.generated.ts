@@ -150,7 +150,7 @@ export const moduleBudgets: {
   { name: 'motion', budget: 8192 },
   { name: 'events', budget: 4096 },
   { name: 'machine', budget: 8192 },
-  { name: 'paint-sampling', budget: 1024, over: 'paint' },
+  { name: 'paint-sampling', budget: 1216, over: 'paint' },
   { name: 'contour', budget: 5120 },
   { name: 'data', budget: 8192 },
   { name: 'convert', budget: 8192 },

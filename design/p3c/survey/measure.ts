@@ -1,3 +1,4 @@
+/* eslint-disable -- one-off P3c-1 survey script (measurement scratch, not shipped or imported). */
 // Measurement-only probes. Run from repo root: node design/p3c/survey/measure.ts <mode>.
 // Scratch copy must be a clean git archive of HEAD with node_modules symlinked.
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
