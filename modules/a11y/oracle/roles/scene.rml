@@ -1,0 +1,91 @@
+<Rive version="1" kind="fragment">
+  <Artboard id="0:1" name="Roles" width="240" height="240" defaultStateMachineId="0:2">
+    <FocusData canFocus="false"/>
+    <Shape id="0:20" name="button" x="20" y="10">
+      <SemanticData role="button" label="button" isToggleable="true" isToggled="true"/>
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <Shape id="0:21" name="checkbox" x="20" y="22">
+      <SemanticData role="checkbox" label="checkbox" isChecked="mixed" isReadOnly="true"/>
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <Shape id="0:22" name="switch" x="20" y="34">
+      <SemanticData role="switchControl" label="switch" isToggled="true"/>
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <Shape id="0:23" name="radio" x="20" y="46">
+      <SemanticData role="radioButton" label="radio" isChecked="checked"/>
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <Shape id="0:24" name="radio-group" x="20" y="58">
+      <SemanticData role="radioGroup" label="radio-group" />
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <Shape id="0:25" name="slider" x="20" y="70">
+      <SemanticData role="slider" label="slider" />
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <Shape id="0:26" name="tab" x="20" y="82">
+      <SemanticData role="tab" label="tab" isSelected="true"/>
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <Shape id="0:27" name="tab-list" x="20" y="94">
+      <SemanticData role="tabList" label="tab-list" />
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <Shape id="0:28" name="link" x="20" y="106">
+      <SemanticData role="link" label="link" />
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <Shape id="0:29" name="list" x="20" y="118">
+      <SemanticData role="list" label="list" />
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <Shape id="0:30" name="list-item" x="20" y="130">
+      <SemanticData role="listItem" label="list-item" />
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <Shape id="0:31" name="group" x="20" y="142">
+      <SemanticData role="group" label="group" isExpandable="true" isExpanded="true"/>
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <Shape id="0:32" name="dialog" x="20" y="154">
+      <SemanticData role="dialog" label="dialog" />
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <Shape id="0:33" name="alert-dialog" x="20" y="166">
+      <SemanticData role="alertDialog" label="alert-dialog" />
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <Shape id="0:34" name="text" x="20" y="178">
+      <SemanticData role="text" label="text" />
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <Shape id="0:35" name="img" x="20" y="190">
+      <SemanticData role="image" label="img" />
+      <Rectangle width="4" height="4"/>
+      <Fill><SolidColor colorValue="FF111111"/></Fill>
+    </Shape>
+    <LinearAnimation id="0:3" name="Idle" duration="60" fps="60"/>
+    <StateMachine id="0:2" name="Keys">
+      <StateMachineListener targetId="0:1"><ListenerInputTypeKeyboard listenerTypeValue="keyboard"><KeyboardInput keyType="t" keyPhase="1" modifiers="0"/></ListenerInputTypeKeyboard><FocusActionTarget targetId="0:20"/></StateMachineListener>
+      <StateMachineListener targetId="0:1"><ListenerInputTypeKeyboard listenerTypeValue="keyboard"><KeyboardInput keyType="tab" keyPhase="1" modifiers="0"/></ListenerInputTypeKeyboard><FocusActionTraversal traversalKind="next"/></StateMachineListener>
+      <StateMachineLayer><EntryState><StateTransition stateToId="0:4"/></EntryState><AnimationState id="0:4" animationId="0:3"><FocusActionTarget targetId="0:20"/></AnimationState></StateMachineLayer>
+    </StateMachine>
+  </Artboard>
+</Rive>

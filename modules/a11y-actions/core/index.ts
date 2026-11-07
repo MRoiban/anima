@@ -1,6 +1,8 @@
 import type { Module } from '../../../packages/core/src/modules.ts';
 import { clamp } from '../../../packages/core/src/geom.ts';
 import type { A11yConfig } from '../../a11y/core/types.ts';
+const tapKey = (c: A11yConfig) =>
+  c.activate ?? [c.checked, c.pressed, c.selected].find((v) => typeof v === 'string');
 import type { a11y } from '../../a11y/core/index.ts';
 import { after } from '../manifest.ts';
 import { semanticDiff } from './diff.ts';
@@ -15,7 +17,7 @@ export const a11yActions: Module = {
     const base = modules.get('a11y') as typeof a11y | undefined;
     if (!base) return a11yActions;
     const runtime = base.runtime;
-    const { caches, flat, resolve } = runtime;
+    const { caches, flat } = runtime;
     runtime.update = (p, cache, old) => {
       const { entries, tree } = cache;
       for (const n of flat(tree)) {
@@ -23,15 +25,11 @@ export const a11yActions: Module = {
           c = e.config!,
           d = e.data;
         if (!d.disabled) {
-          if (
-            c.activate ||
-            ['checked', 'pressed', 'selected'].some(
-              (k) => typeof c[k as keyof A11yConfig] === 'string',
-            )
-          )
-            n.actions.push('tap');
-          if (c.role === 'slider') {
-            if (!d.readonly) n.actions.push('increase', 'decrease');
+          const writable = (key: unknown) =>
+            typeof key === 'string' && !e.p.model.inputs.get(key)?.readonly;
+          if (!d.readonly) {
+            if (writable(tapKey(c))) n.actions.push('tap');
+            if (c.role === 'slider' && writable(c.value)) n.actions.push('increase', 'decrease');
           }
           if (e.p.focusItems?.().some((f) => f.id === e.p.model.nodes[e.i]!.id))
             n.actions.push('focus');
@@ -70,12 +68,10 @@ export const a11yActions: Module = {
         const e = caches.get(this)!.entries.find((e) => e.id === id)!;
         const c = e.config!;
         if (action === 'tap') {
-          if (c.readonly && resolve(e.p, c.readonly)) return false;
-          const key =
-            c.activate ?? [c.checked, c.pressed, c.selected].find((v) => typeof v === 'string');
+          const key = tapKey(c);
           if (typeof key !== 'string') return false;
           if (e.p.model.inputs.get(key)?.type === 'trigger') e.p.fire(key);
-          else e.p.set(key, !e.p.get(key));
+          else e.p.toggle(key);
         } else {
           const value = clamp(
             Number(node.value) + (action === 'increase' ? 1 : -1) * node.step!,

@@ -22,7 +22,7 @@ export function validate(model: Model, d: Diags) {
       if (n.children) visit(n.children, p + '/children');
       const c = n.a11y as A11yConfig | undefined;
       if (!c) return;
-      const err = (code: string, key: string, message: string, hint: string) =>
+      const err = (code: string, key: string, message: string | false, hint: string | false) =>
         d.err(code, p + '/a11y/' + key, V && message, V && hint);
       for (const [k, v] of Object.entries(c)) {
         const input = typeof v === 'string' && model.inputs.get(v);
@@ -57,14 +57,15 @@ export function validate(model: Model, d: Diags) {
               'input-type',
               k,
               'semantic input has the wrong type',
-              'use ' +
-                (k === 'activate'
-                  ? 'bool or trigger'
-                  : binding
-                    ? k === 'value'
-                      ? 'number'
-                      : 'bool'
-                    : 'string'),
+              V &&
+                'use ' +
+                  (k === 'activate'
+                    ? 'bool or trigger'
+                    : binding
+                      ? k === 'value'
+                        ? 'number'
+                        : 'bool'
+                      : 'string'),
             );
           const warning = d.list.findIndex(
             (e) => e.code === 'unused-input' && e.pointer === '/inputs/' + v,
@@ -76,11 +77,12 @@ export function validate(model: Model, d: Diags) {
             'a11y-role-state',
             k,
             'state is not supported by this role',
-            'allowed states: ' +
-              [
-                ...states.filter((s) => !allowed[s] || allowed[s]!.split(' ').includes(c.role)),
-                ...(c.role === 'checkbox' ? ['checkedMixed'] : []),
-              ].join(', '),
+            V &&
+              'allowed states: ' +
+                [
+                  ...states.filter((s) => !allowed[s] || allowed[s]!.split(' ').includes(c.role)),
+                  ...(c.role === 'checkbox' ? ['checkedMixed'] : []),
+                ].join(', '),
           );
       }
       for (const [key, role] of [

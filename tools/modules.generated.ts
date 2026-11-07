@@ -666,7 +666,7 @@ export const moduleScopes = {
       'packages/markup/test/corpus.test.ts',
       'packages/markup/test/names.test.ts',
     ],
-    conformance: ['a11y-tree-visibility'],
+    conformance: ['a11y-tree-visibility', 'a11y-tree-bounds', 'a11y-action-edges'],
   },
   'a11y-actions': {
     tests: ['modules/a11y/test/**/*.test.ts', 'modules/a11y-actions/test/**/*.test.ts'],

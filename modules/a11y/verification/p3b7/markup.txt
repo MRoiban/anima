@@ -1,0 +1,28 @@
+
+> test:scope
+> node tools/test-scope.ts markup --no-browser
+
+Scopes: markup
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/convert/test/markup/convert.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: modules/markup-libraries/test/markup/extras.test.ts
+  unit: modules/markup-libraries/test/markup/reuse.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: modules/surface/test/markup/surface.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: packages/markup/test/xml.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-bee1cda3
+
+
+ Test Files  15 passed (15)
+      Tests  2463 passed (2463)
+   Start at  10:39:13
+   Duration  14.43s (tests 72%, import 22%, transform 5%, worker 1%)

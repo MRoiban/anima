@@ -15,7 +15,7 @@ export interface Entry {
   config?: A11yConfig;
   data: Record<string, unknown>;
   visible: boolean;
-  bounds: SemanticNode['bounds'];
+  bounds?: SemanticNode['bounds'];
 }
 export interface Cache {
   signature: string;
@@ -78,7 +78,7 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
             ['role', 'live', 'href', 'activate'].includes(k) ? v : resolve(p, v),
           ]),
         );
-        entries.push({
+        const entry: Entry = {
           p,
           i,
           id: prefix + n.id,
@@ -87,33 +87,51 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
           config: c,
           data,
           visible: visible && p.visible(i) && !data.hidden,
-          bounds: box(
-            (points.length ? points : [[0, 0] as [number, number]]).map((pt) => apply(m, ...pt)),
-          ),
-        });
-      });
-      for (const [id, child] of (p.nested as { players?: Map<string, Player> } | undefined)
-        ?.players ?? []) {
-        const entry = entries.find((e) => e.id === prefix + id)!;
-        collect(child, prefix + id + '.', entry.id, entry.matrix, entry.visible);
-      }
-      const lists = modules.get('lists') as
-        typeof import('../../lists/core/index.ts').lists | undefined;
-      for (const run of lists?.listState(p)?.runs ?? [])
-        for (const item of run.items) {
-          const entry = entries.find((e) => e.p === p && e.i === run.spec.node)!;
-          const raw = p.model.nodes[run.spec.node]!.raw;
-          collect(
-            item.player,
-            entry.id + '.' + item.index + '.',
-            entry.id,
-            mul(entry.matrix, [1, 0, 0, 1, (raw.dx ?? 0) * item.index, (raw.dy ?? 0) * item.index]),
-            entry.visible,
-          );
+          bounds: points.length ? box(points.map((pt) => apply(m, ...pt))) : undefined,
+        };
+        entries.push(entry);
+        for (const [id, child] of (p.nested as { players?: Map<string, Player> } | undefined)
+          ?.players ?? []) {
+          if (id === n.id) collect(child, prefix + id + '.', entry.id, entry.matrix, entry.visible);
         }
+        const lists = modules.get('lists') as
+          typeof import('../../lists/core/index.ts').lists | undefined;
+        for (const run of (lists?.listState(p)?.runs ?? []).filter((r) => r.spec.node === i))
+          for (const item of run.items) {
+            const raw = p.model.nodes[run.spec.node]!.raw;
+            collect(
+              item.player,
+              entry.id + '.' + item.index + '.',
+              entry.id,
+              mul(entry.matrix, [
+                1,
+                0,
+                0,
+                1,
+                (raw.dx ?? 0) * item.index,
+                (raw.dy ?? 0) * item.index,
+              ]),
+              entry.visible,
+            );
+          }
+      });
     };
     collect(this);
+    for (const e of [...entries].reverse()) {
+      if (e.bounds) continue;
+      const points = entries
+        .filter((c) => c.parent === e.id && c.visible && c.bounds)
+        .flatMap((c): [number, number][] => {
+          const [x, y, w, h] = c.bounds!;
+          return [
+            [x, y],
+            [x + w, y + h],
+          ];
+        });
+      if (points.length) e.bounds = box(points);
+    }
     const signature = JSON.stringify([
+      !!runtime.update,
       this.focused,
       entries.map((e) => [e.id, e.parent, e.data, e.visible, e.bounds, e.p.focused]),
     ]);
@@ -135,7 +153,7 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
         id: e.id,
         role: c.role,
         states: {},
-        bounds: e.bounds,
+        bounds: e.bounds ?? [...apply(e.matrix, 0, 0), 0, 0],
         actions: [],
         children: [],
       };

@@ -1,0 +1,17 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[10:22:55.840] rive  deferred replay: inline
+[10:22:55.857] rive  built (1266 bytes, 16ms, 0 errors, 0 warnings)
+[10:22:55.857] rive  showing Roles [1/1]
+[10:22:55.857] rive  viewport 240x240 @1x
+ok advance
+[10:22:55.857] rive  semantics: nothing loaded, or no state machine
+err semantics: could not write frames/before.json
+err focus: unknown command 'focus', type ? for the list
+ok advance
+[10:22:55.857] rive  semantics: nothing loaded, or no state machine
+err semantics: could not write frames/focused.json
+err focus: unknown command 'focus', type ? for the list
+ok advance
+[10:22:55.857] rive  semantics: nothing loaded, or no state machine
+err semantics: could not write frames/next.json
+ok quit
