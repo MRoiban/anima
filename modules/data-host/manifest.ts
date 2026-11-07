@@ -3,7 +3,7 @@ export default {
   name: 'data-host',
   after,
   core: { entry: 'core/index.ts', export: 'dataHost' },
-  web: [{ name: 'data-host', budget: 1024 }],
+  web: [{ name: 'data-host', budget: 1088 }],
   adapters: {
     'packages/core/src/modules/data-host/index.ts': 'core/index.ts',
     'packages/web/src/data-host.ts': 'web/index.ts',

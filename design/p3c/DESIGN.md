@@ -74,3 +74,7 @@ data, machine, converter and bind guards). Budgets went down where modules were 
 2 048 → 2 304). Two entries are capped by the ceiling with less than 10 % headroom: `markup` (authoring,
 8 007 / 8 192) and `surface` (7 821 / 8 192); either must split before it grows. P3c-6's modules
 (paint, composite, surface, mix, componentpaint, contour) only shrink, so their reset values stand.
+
+Final reset after the carry-overs (same rule): `a11y` 2 496, `a11y-actions` 1 216, `a11y-dom` 2 176,
+`canvas` 5 888, `composite` 4 160, `contour` 3 840, `data-host` 1 088, `focus` 3 456, `paint` 4 416,
+`devtools` 448.

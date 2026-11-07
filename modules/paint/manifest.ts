@@ -14,7 +14,7 @@ export default {
       name: 'paint',
       buildOrder: 3,
       sizeOrder: 6,
-      budget: 4672,
+      budget: 4416,
     },
     {
       name: 'markup-paint',
