@@ -2588,3 +2588,88 @@ per parent step and honors reduced motion. Flat color/type/ordered-paint conflic
 components and recursive sources are errors. An ordinary stroke remains independent.
 The normative lifetime, sampling, diagnostic and backend contract is
 [modules/componentpaint/README.md](../modules/componentpaint/README.md).
+
+## CLI projects and capture (tooling)
+
+These operations are authoring tools, not runtime features: they do not alter `Player.step` or
+require a feature declaration, registry field or conformance vector.
+
+The CLI discovers `anima.json` from its working directory upward, taking the nearest file.
+Supported keys are `entry` (default input path), `sources` (array of AniML library paths),
+`presets` (map of render-option objects), and `out` (default local export directory). Paths are
+relative to that configuration file. Unknown keys and malformed values fail with
+`project-configuration`, a JSON pointer and a repair hint. Commands needing an input use `entry`
+when no positional file is supplied. Explicit files take precedence. Configuration discovery is
+based on the working directory, not the input file's directory.
+
+`sources` requires an AniML entry. Each source is an ordinary named `<library>` imported before
+compilation, with its declared name as namespace. For example a library named `ui` exposes
+`ui:button`. Existing import resolution, export selection, duplicate-name and cycle diagnostics
+apply. Sources are not concatenated into a second format. Imported asset origins remain subject
+to the existing compiler/build asset rules. A project file has no representation in `.ani`;
+the generated `.ani` schema describes runtime documents only.
+
+Render presets accept `component`, `fit`, `viewport`, `scale`, `size`, `at`, `dark`, `color`,
+`current`, `background`, `sheet`, `over`, and `reduced-motion`. Numeric options may be numbers or
+strings, boolean options must be booleans, and `color` is an array of `slot=value` strings.
+`--preset name` supplies defaults; explicit flags override them. Presets cannot redirect files
+or execute scripts.
+
+`anima render` selects a component with `--component name`, using the same inherited assets,
+data, converters and component declarations as the web component root selector. Scripts address
+the selected root's own inputs and nodes. Unknown names are usage errors.
+`--viewport WxH` sets positive integer output dimensions (default `--size` square).
+`--fit contain` (default) centres a uniform fit, `cover` centres and crops, `fill` stretches,
+and `none` keeps one output pixel per view-box unit, anchored at the view-box origin.
+`--scale k` accepts finite `0 < k ≤ 1`, rounds each output dimension to the nearest integer,
+with a minimum of one pixel. Fit is computed before downscaling. These options apply to single
+frames; contact sheets reject viewport, fit and scale overrides.
+
+`--probe 'x,y;x,y'` reports `{x,y,rgba:[r,g,b,a]}` for each point as one JSON object containing
+`probes`. Coordinates are zero-based integer **output pixels after viewport and scale**, with
+origin at the top left; channels are 0–255 including alpha. Out-of-bounds or malformed points
+are usage errors. Probes can be requested without an output file.
+
+`--audio out.wav` mixes script audio events at their delivery step timestamps, with clip start/end and per-event
+and document volume into stereo, 48 kHz signed 16-bit PCM using Chromium's `OfflineAudioContext`.
+The output duration is the player's final time, at least one sample; clips are truncated there.
+Audio sources must be local or base64 data URIs. Currently this offline resolver supports root
+assets; scoped component/repeat assets are not supported and unresolved assets fail explicitly.
+The Chromium launch is lazy and always closed, including failures. Missing/unlaunchable Chromium
+reports `build-encoder-unavailable` with a browser installation hint. It is not silently replaced
+by a muted WAV.
+
+`anima compare a.png b.png [--tolerance 0..255] [-o diff.png]` compares decoded RGBA without
+resizing. Different dimensions fail. JSON reports `maxChannelDifference`,
+`meanChannelDifference` (absolute differences averaged over all four channels of all pixels),
+`differingPixels` (any channel differs), `pixelsBeyondTolerance` (any channel exceeds tolerance)
+and `pass`. The diff is opaque grayscale with the largest channel delta per pixel. Exit 1 means
+comparison failure; invalid tolerance, argument count or output extension is exit 2.
+
+`anima schema --search words` searches registered node types, structural topics and fields
+(including both spellings), and the diagnostic table in this spec. Each query term scores 100
+for an exact name, 10 for a name substring, or 1 for a description substring. Scores add; zero
+scores are omitted. Results sort by descending score then ascending name (code-point order).
+`anima schema type.field` returns the matching registry field by JSON or markup spelling.
+
+`anima inspect --summary` returns a wiring table (JSON: `{wiring:[…]}`) of unbound inputs,
+unused component/model/property declarations, listener targets and unreachable states. Each
+finding has code, pointer, message and hint. This is a conservative static aid: dynamic host writes
+and imported/dynamically selected components may require human interpretation. Invalid documents
+still report normal loader diagnostics rather than a partially linked graph.
+
+`anima doctor` checks Node ≥24, cached Chromium/Firefox executables, cache write permission and,
+inside a repository containing `tools/modules.ts` and `spec/MODULES.md`, generated module
+wiring with `node tools/modules.ts --check`. It exits 1 if any check fails and supplies repair hints.
+It does not install browsers or rewrite wiring.
+
+`anima new directory --sample bell|moon|progress` creates a fresh project directory containing
+`main.animl`, supporting local libraries, `anima.json` and agent instructions. An existing directory
+is never overwritten. Existing `new --glyph`/`--glyphy` single-document scaffolding is unchanged.
+`anima build [file] --out-dir directory` (or project `out`) exports canonical `.ani`, embedded local
+assets, `anima.js` and an `index.html` with inline document JSON. It performs no upload or package
+publication. HTML script text escapes `<` to preserve the raw-text boundary.
+
+The renderer uses SVG viewports and the existing rasterizer; browser services supply audio.
+This retains the browser-host split discussed in `docs/research/rive-web-runtime.md` without
+copying runtime code or adopting a binary/native publishing path.

@@ -1,9 +1,16 @@
+import { resolve, basename } from 'node:path';
+import { findProject, projectSource } from './project.ts';
+import { doctor } from './doctor.ts';
+import { comparePNG } from './compare-png.ts';
+import { mixAudio } from './audio.ts';
+import { viewportSVG, probePNG } from './render-options.ts';
+import { wiringSummary } from './inspect-summary.ts';
 import { listState } from '../../../modules/lists/core/index.ts';
 import '@anima-format/core/all';
 // The `anima` command line (ARCHITECTURE §cli). Every command takes --format=json; exit codes are
 // 0 ok, 1 diagnostics or a failed check, 2 usage.
 
-import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { mkdirSync, cpSync, existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { parseArgs } from 'node:util';
 import {
   Player,
@@ -67,6 +74,14 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
                [--size px] [--tolerance 0..255] [-o diff.png]
                                         compare RGBA pixels (default 256px, black currentColor,
                                         transparent background); exit 1 beyond tolerance (default 0)
+  anima compare a.png b.png [--tolerance 0..255] [-o diff.png]  compare output RGBA pixels
+  anima doctor                          check Node, browsers, cache and module wiring
+  anima render [file] [--component name] [--fit contain|cover|fill|none] [--viewport WxH]
+               [--scale k] [--probe 'x,y;x,y'] [--preset name] [--audio out.wav]
+  anima inspect [file] --summary         wiring diagnostics table
+  anima schema --search <words> | <type>.<field>
+  anima new <directory> --sample bell|moon|progress
+  anima build [file] --out-dir <directory>  local HTML and runtime export
   anima fmt <file> [--write | --check]  canonical formatting
   anima new <name> --glyph <file.svg> | --glyphy <project-dir> [-o out.animl] [--ani] [--force]
                                         scaffold AniML whose rest frame is the glyph (--ani for JSON)
@@ -88,6 +103,17 @@ export async function run(argv: string[], io: IO): Promise<number> {
       args: argv,
       allowPositionals: true,
       options: {
+        component: { type: 'string' },
+        fit: { type: 'string' },
+        viewport: { type: 'string' },
+        scale: { type: 'string' },
+        probe: { type: 'string' },
+        preset: { type: 'string' },
+        audio: { type: 'string' },
+        search: { type: 'string' },
+        summary: { type: 'boolean' },
+        sample: { type: 'string' },
+        'out-dir': { type: 'string' },
         port: { type: 'string' },
         format: { type: 'string', default: 'text' },
         script: { type: 'string', short: 's' },
@@ -128,21 +154,48 @@ export async function run(argv: string[], io: IO): Promise<number> {
   const emit = (v: unknown) => io.out(JSON.stringify(v, null, json ? undefined : 2));
   try {
     switch (cmd) {
+      case 'doctor': {
+        const result = await doctor();
+        if (json) emit(result);
+        else
+          for (const c of result.checks)
+            io.out(
+              `${c.pass ? 'PASS' : 'FAIL'} ${c.name}: ${c.message}${c.pass ? '' : '; hint: ' + c.hint}`,
+            );
+        return result.ok ? 0 : 1;
+      }
+      case 'compare': {
+        if (rest.length !== 2 || !rest.every((p) => p.endsWith('.png')))
+          throw new Usage('compare needs two PNG files');
+        const tolerance = Number(o.tolerance ?? 0);
+        if (!Number.isInteger(tolerance) || tolerance < 0 || tolerance > 255)
+          throw new Usage('--tolerance must be an integer from 0 to 255');
+        if (o.out && !o.out.endsWith('.png')) throw new Usage('compare output must be .png');
+        const { diff, ...metrics } = comparePNG(
+          readFileSync(rest[0]!),
+          readFileSync(rest[1]!),
+          tolerance,
+          !!o.out,
+        );
+        if (o.out) writeFileSync(o.out, diff!);
+        emit({ ...metrics, tolerance, ...(o.out ? { wrote: o.out } : {}) });
+        return metrics.pass ? 0 : 1;
+      }
       case 'playground': {
         if (rest.length > 1) throw new Usage('playground takes at most one .animl file');
         const port = o.port === undefined ? 4519 : Number(o.port);
         if (!Number.isInteger(port) || port < 0 || port > 65535)
           throw new Usage('--port takes an integer from 0 to 65535');
-        const host = await startPlayground({ file: rest[0], port });
+        const host = await startPlayground({ file: rest[0] ?? findProject()?.entry, port });
         if (json) emit({ url: host.url, writable: !!rest[0] });
         else io.out(`Anima Playground: ${host.url}${rest[0] ? '' : ' (example is read-only)'}`);
         return 0;
       }
       case 'library': {
-        if (rest[0] !== 'update' || rest.length !== 2)
+        if (rest[0] !== 'update' || rest.length > 2)
           throw new Usage('library update needs an AniML file');
         try {
-          const updates = updateLibraries(rest[1]!, !!o.check);
+          const updates = updateLibraries(file(rest.slice(1)), !!o.check);
           if (json) emit({ updates });
           else
             for (const u of updates)
@@ -168,7 +221,7 @@ export async function run(argv: string[], io: IO): Promise<number> {
       case 'validate':
         return validate(file(rest), json, io);
       case 'inspect':
-        return inspect(file(rest), json, io);
+        return inspect(file(rest), json, io, !!o.summary);
       case 'sample': {
         const { model } = loaded(file(rest), io, json);
         if (!model) return 1;
@@ -177,10 +230,17 @@ export async function run(argv: string[], io: IO): Promise<number> {
         for (const s of snapshots) io.out(JSON.stringify(s));
         return 0;
       }
-      case 'render':
-        return await render(file(rest), o, json, io);
-      case 'build':
+      case 'render': {
+        const preset = o.preset ? findProject()?.presets?.[o.preset] : undefined;
+        if (o.preset && !preset) throw new Usage('unknown render preset ' + o.preset);
+        const explicit = Object.fromEntries(Object.entries(o).filter(([, v]) => v !== undefined));
+        return await render(file(rest), { ...preset, ...explicit }, json, io);
+      }
+      case 'build': {
+        const dir = o['out-dir'] ?? (!o.out ? findProject()?.out : undefined);
+        if (dir) return await exportProject(file(rest), dir, json, io);
         return await build(file(rest), o.out, json, io, o.embed);
+      }
       case 'import': {
         const f = file(rest);
         const name =
@@ -280,9 +340,11 @@ export async function run(argv: string[], io: IO): Promise<number> {
         return 0;
       }
       case 'new':
-        return scaffold(rest, o, json, io);
+        return o.sample ? sampleProject(rest, o, json, io) : scaffold(rest, o, json, io);
       case 'schema':
-        return schema(rest[0], !!o['json-schema'], json, io);
+        return o.search
+          ? schemaSearch(o.search, json, io)
+          : schema(rest[0], !!o['json-schema'], json, io);
       case 'docs':
         return docs(rest[0], !!o.list, json, io);
       default:
@@ -297,13 +359,26 @@ export async function run(argv: string[], io: IO): Promise<number> {
       io.err(`script ${e.message}`);
       return 1;
     }
-    io.err((e as Error).message);
+    const error = e as Error & { code?: string; pointer?: string; hint?: string };
+    if (error.code) {
+      const diagnostic = {
+        code: error.code,
+        pointer: error.pointer ?? '',
+        message: error.message,
+        hint: error.hint ?? 'check local files and browser installation',
+      };
+      if (json) emit({ diagnostics: [diagnostic] });
+      else
+        io.err(
+          `${diagnostic.code} ${diagnostic.pointer}: ${diagnostic.message}; hint: ${diagnostic.hint}`,
+        );
+    } else io.err(error.message);
     return 1;
   }
 }
 
 function file(rest: string[]): string {
-  const f = rest[0];
+  const f = rest[0] ?? findProject()?.entry;
   if (!f) throw new Usage('missing <file>');
   if (!existsSync(f)) throw new Usage(`no such file: ${f}`);
   return f;
@@ -323,7 +398,7 @@ interface Located extends Diagnostic {
 
 /** Load with the CLI-only checks (duplicate keys, glyph hashes) and source positions. */
 function check(f: string): { model?: Model; diagnostics: Located[]; text: string } {
-  const text = readFileSync(f, 'utf8');
+  const text = f.endsWith('.animl') ? projectSource(f) : readFileSync(f, 'utf8');
   if (f.endsWith('.animl')) {
     const c = compile(text, { file: f, resolve: (path) => readFileSync(path, 'utf8') });
     const diagnostics = [...c.diagnostics];
@@ -430,9 +505,21 @@ function validate(f: string, json: boolean, io: IO): number {
 
 // ---------------------------------------------------------------- inspect
 
-function inspect(f: string, json: boolean, io: IO): number {
+function inspect(f: string, json: boolean, io: IO, summaryOnly = false): number {
   const { model, diagnostics } = loaded(f, io, json);
   if (!model) return 1;
+  if (summaryOnly) {
+    const wiring = wiringSummary(model, diagnostics);
+    if (json) io.out(JSON.stringify({ wiring }));
+    else
+      io.out(
+        [
+          'code\tpointer\tmessage\thint',
+          ...wiring.map((d) => `${d.code}\t${d.pointer}\t${d.message}\t${d.hint}`),
+        ].join('\n'),
+      );
+    return 0;
+  }
   const m = model;
   const doc = m.doc;
   const node = (i: number): object => {
@@ -637,10 +724,33 @@ async function render(
 ): Promise<number> {
   const out = o.out as string | undefined;
   const compare = o.compare as string | undefined;
-  if ((!compare && !out) || (out && !/\.(svg|png)$/.test(out)))
+  if ((!compare && !out && !o.probe && !o.audio) || (out && !/\.(svg|png)$/.test(out)))
     throw new Usage('render needs -o <file>.svg or <file>.png');
-  const { model } = loaded(f, io, json);
+  let { model } = loaded(f, io, json);
   if (!model) return 1;
+  if (o.component) {
+    const definition = model.doc.components?.[String(o.component)];
+    if (!definition) throw new Usage('unknown component ' + o.component);
+    const doc = model.doc;
+    const selected = load({
+      anima: '0.1',
+      requires: doc.requires,
+      components: doc.components,
+      ...(doc.data ? { data: doc.data } : {}),
+      ...(doc.assets ? { assets: doc.assets } : {}),
+      ...(doc.converters ? { converters: doc.converters } : {}),
+      name: String(o.component),
+      ...definition,
+      ...(typeof definition.data === 'string'
+        ? { data: { ...doc.data, model: definition.data } }
+        : {}),
+    });
+    if (!selected.model) {
+      report(f, selected.diagnostics, io);
+      return 1;
+    }
+    model = selected.model;
+  }
   try {
     embedAssets(model.doc, f, true);
     await imageDimensions(model.doc);
@@ -675,10 +785,34 @@ async function render(
   const tolerance = o.tolerance === undefined ? 0 : Number(o.tolerance);
   if (!Number.isInteger(tolerance) || tolerance < 0 || tolerance > 255)
     throw new Usage('--tolerance must be an integer from 0 to 255');
+  const fit = String(o.fit ?? 'contain');
+  if (!['contain', 'cover', 'fill', 'none'].includes(fit))
+    throw new Usage('--fit takes contain|cover|fill|none');
+  if (o.viewport && !/^[1-9]\d*x[1-9]\d*$/.test(String(o.viewport)))
+    throw new Usage('--viewport takes WxH positive integers');
+  const [width, height] = o.viewport ? String(o.viewport).split('x').map(Number) : [size, size];
+  const scale = Number(o.scale ?? 1);
+  if (!Number.isFinite(scale) || scale <= 0 || scale > 1)
+    throw new Usage('--scale takes a number in (0,1]');
+  if (o.sheet && (o.viewport || o.scale || o.fit))
+    throw new Usage('viewport, scale and fit require a single frame');
+  if (o.at !== undefined && (!Number.isFinite(Number(o.at)) || Number(o.at) < 0))
+    throw new Usage('--at takes nonnegative seconds');
   const script = scriptText(o.script as string, o.eval as string) ?? '';
-  const { player } = runScript(model, script, { reducedMotion: !!o['reduced-motion'] });
-  player.step(0); // apply inputs the script queued, so frame 0 shows them
-  if (o.at) player.step(Number(o.at));
+  const { player, snapshots } = runScript(
+    model,
+    o.audio
+      ? script
+          .split('\n')
+          .flatMap((line) => [line, 'snapshot'])
+          .join('\n') + '\nsnapshot'
+      : script,
+    {
+      reducedMotion: !!o['reduced-motion'],
+    },
+  );
+  const queuedEvents = player.step(0).events; // apply inputs the script queued, so frame 0 shows them
+  const finalEvents = o.at ? player.step(Number(o.at)).events : [];
   if (compare) {
     if (o.sheet || (out && !out.endsWith('.png')))
       throw new Usage('--compare takes a single frame and optional -o diff.png');
@@ -728,9 +862,37 @@ async function render(
     }
     svg = sheetSVG(frames, look, size >= 240 ? 160 : size);
   } else svg = frameSVG(player, look, size);
-  writeFileSync(out!, out!.endsWith('.png') ? toPNG(svg) : svg);
+  if (!o.sheet) svg = viewportSVG(svg, width!, height!, fit, scale);
+  const png = out?.endsWith('.png') || o.probe ? toPNG(svg) : undefined;
+  let probes;
+  if (o.probe) {
+    try {
+      probes = probePNG(png!, String(o.probe));
+    } catch (e) {
+      throw new Usage((e as Error).message);
+    }
+  }
+  if (o.audio)
+    writeFileSync(
+      String(o.audio),
+      await mixAudio(
+        model,
+        [
+          ...snapshots.flatMap((s) => s.events.map((e) => ({ ...e, time: s.time }))),
+          ...queuedEvents.map((e) => ({ ...e, time: player.time - (o.at ? Number(o.at) : 0) })),
+          ...finalEvents.map((e) => ({ ...e, time: player.time })),
+        ],
+        player.time,
+        f,
+      ),
+    );
+  if (out) writeFileSync(out, out.endsWith('.png') ? png! : svg);
+  if (o.probe) {
+    io.out(JSON.stringify({ wrote: out, time: player.time, probes }));
+    return 0;
+  }
   if (json) io.out(JSON.stringify({ wrote: out, time: player.time, states: player.states() }));
-  else io.out(`wrote ${out}`);
+  else io.out(`wrote ${out ?? o.audio}`);
   return 0;
 }
 
@@ -779,6 +941,19 @@ function scaffold(rest: string[], o: Record<string, unknown>, json: boolean, io:
 
 function schema(topic: string | undefined, full: boolean, json: boolean, io: IO): number {
   if (full) return (io.out(JSON.stringify(jsonSchema(), null, 2)), 0);
+  if (topic?.includes('.')) {
+    const [type, ...path] = topic.split('.');
+    const lines: string[] = [];
+    schema(type, false, true, { out: (s) => lines.push(s), err: (s) => io.err(s) });
+    const data = JSON.parse(lines[0]!);
+    const key = path.join('.');
+    const field = data.fields?.find(
+      (f: { ani: string; markup: string }) => f.ani === key || f.markup === key,
+    );
+    if (!field) throw new Usage('unknown schema field ' + topic);
+    io.out(JSON.stringify({ topic, ...field }));
+    return 0;
+  }
   const props = (
     rec: Record<
       string,
@@ -1039,7 +1214,7 @@ async function build(
   io: IO,
   embed = false,
 ): Promise<number> {
-  const source = readFileSync(f, 'utf8');
+  const source = f.endsWith('.animl') ? projectSource(f) : readFileSync(f, 'utf8');
   let text: string | undefined;
   let diagnostics: MarkupDiagnostic[];
   let sourceMap: import('@anima-format/markup').CompileResult['map'] | undefined;
@@ -1102,5 +1277,150 @@ async function build(
   if (out) writeFileSync(out, text);
   else if (io.write) io.write(text);
   else io.out(text);
+  return 0;
+}
+
+function schemaSearch(words: string, json: boolean, io: IO): number {
+  if (!words.trim()) throw new Usage('--search needs at least one word');
+  const topics = [
+    ...new Set([
+      ...NODE_TYPES,
+      ...Object.keys(ELEMENTS),
+      'fill',
+      'stroke',
+      'anima',
+      'a11y',
+      'timeline',
+      'layer',
+      'state',
+      'transition',
+      'listener',
+      'input',
+    ]),
+  ];
+  const entries: { name: string; description: string; kind: string }[] = [];
+  for (const topic of topics) {
+    const lines: string[] = [];
+    try {
+      schema(topic, false, true, { out: (s) => lines.push(s), err: () => {} });
+    } catch {
+      continue;
+    }
+    const data = JSON.parse(lines[0]!);
+    entries.push({ name: topic, description: 'registry type ' + topic, kind: 'type' });
+    for (const f of data.fields ?? []) {
+      if (f.markup !== f.ani)
+        entries.push({
+          name: topic + '.' + f.markup,
+          description: [f.description, f.type, f.ani].filter(Boolean).join(' '),
+          kind: 'field',
+        });
+      entries.push({
+        name: topic + '.' + f.ani,
+        description: [f.description, f.type, f.markup].filter(Boolean).join(' '),
+        kind: 'field',
+      });
+    }
+  }
+  const spec = readFileSync(new URL('spec/SPEC.md', ROOT), 'utf8');
+  for (const match of spec.matchAll(/^\| `([^`]+)` \| (?:error|warning) \| (.+) \|$/gm))
+    entries.push({ name: match[1]!, description: match[2]!, kind: 'diagnostic' });
+  const terms = words.toLowerCase().trim().split(/\s+/);
+  const results = entries
+    .map((e) => ({
+      ...e,
+      score: terms.reduce(
+        (s, t) =>
+          s +
+          (e.name.toLowerCase() === t
+            ? 100
+            : e.name.toLowerCase().includes(t)
+              ? 10
+              : e.description.toLowerCase().includes(t)
+                ? 1
+                : 0),
+        0,
+      ),
+    }))
+    .filter((e) => e.score > 0)
+    .sort((a, b) => b.score - a.score || (a.name < b.name ? -1 : a.name > b.name ? 1 : 0));
+  if (json) io.out(JSON.stringify({ results }));
+  else io.out(results.map((e) => `${e.name}\t${e.kind}\t${e.description}`).join('\n'));
+  return 0;
+}
+
+function sampleProject(rest: string[], o: Record<string, unknown>, json: boolean, io: IO): number {
+  const sample = String(o.sample),
+    target = (o.out as string | undefined) ?? rest[0];
+  if (!['bell', 'moon', 'progress'].includes(sample))
+    throw new Usage('--sample takes bell|moon|progress');
+  if (!target) throw new Usage('new --sample needs a destination directory');
+  if (existsSync(target)) {
+    io.err('sample destination already exists; choose a new directory');
+    return 1;
+  }
+  mkdirSync(target, { recursive: true });
+  cpSync(new URL(`examples/${sample}.animl`, ROOT), resolve(target, 'main.animl'));
+  cpSync(new URL('examples/lib', ROOT), resolve(target, 'lib'), { recursive: true });
+  writeFileSync(
+    resolve(target, 'anima.json'),
+    JSON.stringify(
+      { entry: 'main.animl', out: 'dist', presets: { preview: { size: 240 } } },
+      null,
+      2,
+    ) + '\n',
+  );
+  writeFileSync(
+    resolve(target, 'AGENTS.md'),
+    '# Animation project\n\nRun `anima validate`, `anima render --preset preview -o preview.png`, and `anima build`.\nEdit main.animl; anima.json defines project defaults.\n',
+  );
+  if (json) io.out(JSON.stringify({ wrote: target, sample }));
+  else io.out(`created ${target}`);
+  return 0;
+}
+
+async function exportProject(file: string, dir: string, json: boolean, io: IO): Promise<number> {
+  const checked = loaded(file, io, json);
+  if (!checked.model) return 1;
+  let doc = structuredClone(checked.model.doc);
+  if (file.endsWith('.animl')) {
+    let compiled = '';
+    const result = await build(
+      file,
+      undefined,
+      false,
+      {
+        out: (s) => {
+          compiled += s;
+        },
+        write: (s) => {
+          compiled += s;
+        },
+        err: (s) => io.err(s),
+      },
+      true,
+    );
+    if (result) return result;
+    doc = JSON.parse(compiled);
+  } else embedAssets(doc, file);
+  const { build: bundleRuntime } = await import('esbuild');
+  const runtime = await bundleRuntime({
+    entryPoints: [new URL('../../web/src/all-modules.ts', import.meta.url).pathname],
+    bundle: true,
+    format: 'esm',
+    target: 'es2022',
+    write: false,
+    minify: true,
+  });
+  mkdirSync(dir, { recursive: true });
+  const name = basename(file).replace(/\.(animl|ani)$/, '') + '.ani';
+  writeFileSync(resolve(dir, name), format(doc));
+  writeFileSync(resolve(dir, 'anima.js'), runtime.outputFiles[0]!.text);
+  writeFileSync(
+    resolve(dir, 'index.html'),
+    `<!doctype html>\n<html lang="en"><meta charset="utf-8"><title>Anima export</title><script type="module" src="./anima.js"></script><anima-icon style="width:240px;height:240px"><script type="application/vnd.anima+json">${format(doc).replaceAll('<', '\\u003c')}</script></anima-icon></html>\n`,
+  );
+  if (json) io.out(JSON.stringify({ wrote: dir, files: [name, 'anima.js', 'index.html'] }));
+  else io.out('wrote ' + dir);
   return 0;
 }
