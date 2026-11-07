@@ -108,6 +108,7 @@ describe('one registry, two spellings', () => {
       'drawOrder',
       'paints',
       'properties',
+      'a11y',
       'slice',
       'mix',
     ]);

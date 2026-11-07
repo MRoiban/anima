@@ -1,0 +1,34 @@
+
+> test:scope
+> node tools/test-scope.ts a11y markup --no-browser
+
+Scopes: a11y, markup
+  unit: modules/a11y/test/cli/sample.test.ts
+  unit: modules/a11y/test/core/a11y-tree-visibility.test.ts
+  unit: modules/a11y/test/core/diagnostics.test.ts
+  unit: modules/a11y/test/core/semantics.test.ts
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/convert/test/markup/convert.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: modules/markup-libraries/test/markup/extras.test.ts
+  unit: modules/markup-libraries/test/markup/reuse.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: modules/surface/test/markup/surface.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: packages/markup/test/xml.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  cases: ^conformance > (a11y-tree-visibility)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-e0394d9c
+
+
+ Test Files  18 passed | 2 skipped (20)
+      Tests  2445 passed | 445 skipped | 1 todo (2891)
+   Start at  09:13:25
+   Duration  26.43s (tests 38%, transform 35%, import 26%, worker 1%)

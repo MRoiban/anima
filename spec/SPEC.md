@@ -2673,3 +2673,9 @@ publication. HTML script text escapes `<` to preserve the raw-text boundary.
 The renderer uses SVG viewports and the existing rasterizer; browser services supply audio.
 This retains the browser-host split discussed in `docs/research/rive-web-runtime.md` without
 copying runtime code or adopting a binary/native publishing path.
+
+## a11y
+
+Node semantics are specified in [modules/a11y/SPEC.md](../modules/a11y/SPEC.md).
+P3b-1 is a partial implementation, blocked on its 2,048 B core budget. No parity
+completion is claimed; the web overlay remains wave 2. Root §10 is unchanged.

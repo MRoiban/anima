@@ -22,6 +22,7 @@
     "./data": "./src/data.ts",
     "./convert": "./src/convert.ts",
     "./lists": "./src/lists.ts",
+    "./a11y": "./src/a11y.ts",
     "./nested": "./src/nested.ts",
     "./mix": "./src/mix.ts"
   },

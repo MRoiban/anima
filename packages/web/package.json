@@ -34,6 +34,7 @@
     "./host": "./src/host.ts",
     "./host-edit": "./src/host-edit.ts",
     "./lists": "./src/lists.ts",
+    "./a11y": "./src/a11y.ts",
     "./nested": "./src/nested.ts",
     "./surface": "./src/surface.ts",
     "./markup-surface": "./src/markup-surface.ts",
