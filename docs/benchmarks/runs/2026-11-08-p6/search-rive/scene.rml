@@ -1,0 +1,93 @@
+<Rive version="1" kind="fragment">
+<Artboard id="0:1" name="Search card" width="480" height="360" styleId="0:2" defaultStateMachineId="0:7" viewModelId="0:100" viewModelInstanceId="0:101">
+<LayoutComponentStyle id="0:2"/>
+<Fill><SolidColor colorValue="FFF0EEE6"/></Fill>
+<Text id="0:10" name="Title" x="24" y="24" width="432" height="38" sizingValue="fixed" wrapValue="noWrap" overflowValue="ellipsis" originValue="top">
+<TextStylePaint id="0:11" fontAssetId="0:90" fontSize="30"><Fill><SolidColor colorValue="FF141413"></SolidColor></Fill></TextStylePaint>
+<TextValueRun styleId="0:11" text="Find a setting"></TextValueRun>
+<SemanticData role="text" label="Find a setting" headingLevel="1"/>
+<TextModifierGroup modifyTranslation="true" modifyOpacity="true" invertOpacity="true" y="12" opacity="0" name="Wave in">
+<TextModifierRange id="0:15" modifyFrom="-0.2" falloffFrom="0" falloffTo="2" modifyTo="2" clamp="true"/>
+</TextModifierGroup></Text>
+<Text id="0:20" name="Query" x="36" y="84" width="408" height="30" sizingValue="fixed" wrapValue="noWrap" overflowValue="ellipsis" originValue="top">
+<TextStylePaint id="0:21" fontAssetId="0:90" fontSize="21.6"><Fill><SolidColor colorValue="FF141413"><DataBindContext sourcePathIds="0:100-0:115" propertyKey="37"/></SolidColor></Fill></TextStylePaint>
+<TextValueRun styleId="0:21" text="Search"><DataBindContext sourcePathIds="0:100-0:114" propertyKey="268"/></TextValueRun></Text>
+<Shape x="24" y="72" name="Search outline"><Rectangle width="432" height="48" originX="0" originY="0" cornerRadiusTL="8" cornerRadiusTR="8" cornerRadiusBL="8" cornerRadiusBR="8"/><Stroke thickness="1.5"><SolidColor colorValue="FF141413"/></Stroke></Shape>
+<LayoutComponent name="Input bounds" width="432" height="48" styleId="0:31">
+<LayoutComponentStyle id="0:31" positionTypeValue="absolute" positionLeft="24" positionTop="72" positionLeftUnitsValue="points" positionTopUnitsValue="points"/>
+<ScriptedLayout scriptAssetId="0:91" name="Search controller">
+<FocusData/>
+<SemanticData role="textField" label="Search" hint="Type to filter; Backspace deletes; Escape clears."><DataBindContext sourcePathIds="0:100-0:110" propertyKey="984"/></SemanticData>
+</ScriptedLayout></LayoutComponent>
+<Text id="0:210" name="Row 1" x="24" y="144" width="168" height="30" sizingValue="fixed" wrapValue="noWrap" overflowValue="ellipsis" originValue="top">
+<TextStylePaint id="0:211" fontAssetId="0:90" fontSize="21.6"><Fill><SolidColor colorValue="FF141413"></SolidColor></Fill></TextStylePaint>
+<TextValueRun styleId="0:211" text="Notifications"><DataBindContext sourcePathIds="0:100-0:121" propertyKey="268"/></TextValueRun><SemanticData role="text" label="Notifications"><DataBindContext sourcePathIds="0:100-0:121" propertyKey="983"/><DataBindContext sourcePathIds="0:100-0:141" propertyKey="1004"/></SemanticData><DataBindContext sourcePathIds="0:100-0:131" propertyKey="18"/></Text>
+<Text id="0:220" name="Row 2" x="24" y="180" width="168" height="30" sizingValue="fixed" wrapValue="noWrap" overflowValue="ellipsis" originValue="top">
+<TextStylePaint id="0:221" fontAssetId="0:90" fontSize="21.6"><Fill><SolidColor colorValue="FF141413"></SolidColor></Fill></TextStylePaint>
+<TextValueRun styleId="0:221" text="Network and connectivity preferences"><DataBindContext sourcePathIds="0:100-0:122" propertyKey="268"/></TextValueRun><SemanticData role="text" label="Network and connectivity preferences"><DataBindContext sourcePathIds="0:100-0:122" propertyKey="983"/><DataBindContext sourcePathIds="0:100-0:142" propertyKey="1004"/></SemanticData><DataBindContext sourcePathIds="0:100-0:132" propertyKey="18"/></Text>
+<Text id="0:230" name="Row 3" x="24" y="216" width="168" height="30" sizingValue="fixed" wrapValue="noWrap" overflowValue="ellipsis" originValue="top">
+<TextStylePaint id="0:231" fontAssetId="0:90" fontSize="21.6"><Fill><SolidColor colorValue="FF141413"></SolidColor></Fill></TextStylePaint>
+<TextValueRun styleId="0:231" text="Sound"><DataBindContext sourcePathIds="0:100-0:123" propertyKey="268"/></TextValueRun><SemanticData role="text" label="Sound"><DataBindContext sourcePathIds="0:100-0:123" propertyKey="983"/><DataBindContext sourcePathIds="0:100-0:143" propertyKey="1004"/></SemanticData><DataBindContext sourcePathIds="0:100-0:133" propertyKey="18"/></Text>
+<Text id="0:240" name="Row 4" x="24" y="252" width="168" height="30" sizingValue="fixed" wrapValue="noWrap" overflowValue="ellipsis" originValue="top">
+<TextStylePaint id="0:241" fontAssetId="0:90" fontSize="21.6"><Fill><SolidColor colorValue="FF141413"></SolidColor></Fill></TextStylePaint>
+<TextValueRun styleId="0:241" text="Display brightness and colour"><DataBindContext sourcePathIds="0:100-0:124" propertyKey="268"/></TextValueRun><SemanticData role="text" label="Display brightness and colour"><DataBindContext sourcePathIds="0:100-0:124" propertyKey="983"/><DataBindContext sourcePathIds="0:100-0:144" propertyKey="1004"/></SemanticData><DataBindContext sourcePathIds="0:100-0:134" propertyKey="18"/></Text>
+<Text id="0:250" name="Row 5" x="24" y="288" width="168" height="30" sizingValue="fixed" wrapValue="noWrap" overflowValue="ellipsis" originValue="top">
+<TextStylePaint id="0:251" fontAssetId="0:90" fontSize="21.6"><Fill><SolidColor colorValue="FF141413"></SolidColor></Fill></TextStylePaint>
+<TextValueRun styleId="0:251" text="Privacy"><DataBindContext sourcePathIds="0:100-0:125" propertyKey="268"/></TextValueRun><SemanticData role="text" label="Privacy"><DataBindContext sourcePathIds="0:100-0:125" propertyKey="983"/><DataBindContext sourcePathIds="0:100-0:145" propertyKey="1004"/></SemanticData><DataBindContext sourcePathIds="0:100-0:135" propertyKey="18"/></Text>
+<Text id="0:40" name="Count" x="24" y="324" width="432" height="30" sizingValue="fixed" wrapValue="noWrap" overflowValue="ellipsis" originValue="top">
+<TextStylePaint id="0:41" fontAssetId="0:90" fontSize="21.6"><Fill><SolidColor colorValue="FF141413"></SolidColor></Fill></TextStylePaint>
+<TextValueRun styleId="0:41" text="5 results"><DataBindContext sourcePathIds="0:100-0:113" propertyKey="268"/></TextValueRun><SemanticData role="text"><DataBindContext sourcePathIds="0:100-0:113" propertyKey="983"/></SemanticData></Text>
+<StateMachine id="0:7" name="Search">
+<StateMachineLayer><AnyState x="0" y="-100"/><ExitState x="300" y="-100"/>
+<EntryState x="0" y="0"><StateTransition stateToId="0:8"/></EntryState>
+<AnimationState id="0:8" x="200" y="0" animationId="0:9"/></StateMachineLayer></StateMachine>
+<LinearAnimation id="0:9" name="Title arrival" fps="60" duration="66">
+<KeyedObject objectId="0:15">
+<KeyedProperty property="modifyFrom"><KeyFrameDouble value="-0.2" frame="0" interpolationType="linear"/><KeyFrameDouble value="1" frame="66" interpolationType="linear"/></KeyedProperty>
+<KeyedProperty property="falloffFrom"><KeyFrameDouble value="0" frame="0" interpolationType="linear"/><KeyFrameDouble value="1.2" frame="66" interpolationType="linear"/></KeyedProperty>
+</KeyedObject></LinearAnimation></Artboard>
+<FontAsset id="0:90" name="Anima Test" file="anima-test.ttf"/>
+<ScriptAsset id="0:91" name="Controller" file="controller.luau"/>
+<ViewModel id="0:100" name="SearchData" defaultInstanceId="0:101">
+<ViewModelPropertyString id="0:110" name="query"/>
+<ViewModelPropertyNumber id="0:112" name="count"/>
+<ViewModelPropertyString id="0:113" name="countText"/>
+<ViewModelPropertyString id="0:114" name="fieldText"/>
+<ViewModelPropertyColor id="0:115" name="fieldColor"/>
+<ViewModelPropertyString id="0:121" name="label1"/>
+<ViewModelPropertyNumber id="0:131" name="opacity1"/>
+<ViewModelPropertyBoolean id="0:141" name="hidden1"/>
+<ViewModelPropertyString id="0:122" name="label2"/>
+<ViewModelPropertyNumber id="0:132" name="opacity2"/>
+<ViewModelPropertyBoolean id="0:142" name="hidden2"/>
+<ViewModelPropertyString id="0:123" name="label3"/>
+<ViewModelPropertyNumber id="0:133" name="opacity3"/>
+<ViewModelPropertyBoolean id="0:143" name="hidden3"/>
+<ViewModelPropertyString id="0:124" name="label4"/>
+<ViewModelPropertyNumber id="0:134" name="opacity4"/>
+<ViewModelPropertyBoolean id="0:144" name="hidden4"/>
+<ViewModelPropertyString id="0:125" name="label5"/>
+<ViewModelPropertyNumber id="0:135" name="opacity5"/>
+<ViewModelPropertyBoolean id="0:145" name="hidden5"/>
+<ViewModelInstance id="0:101" name="Default" exports="true">
+<ViewModelInstanceString viewModelPropertyId="0:110" propertyValue=""/>
+<ViewModelInstanceNumber viewModelPropertyId="0:112" propertyValue="5"/>
+<ViewModelInstanceString viewModelPropertyId="0:113" propertyValue="5 results"/>
+<ViewModelInstanceString viewModelPropertyId="0:114" propertyValue="Search"/>
+<ViewModelInstanceColor viewModelPropertyId="0:115" propertyValue="FF787873"/>
+<ViewModelInstanceString viewModelPropertyId="0:121" propertyValue="Notifications"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:131" propertyValue="1"/>
+<ViewModelInstanceBoolean viewModelPropertyId="0:141" propertyValue="false"/>
+<ViewModelInstanceString viewModelPropertyId="0:122" propertyValue="Network and connectivity preferences"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:132" propertyValue="1"/>
+<ViewModelInstanceBoolean viewModelPropertyId="0:142" propertyValue="false"/>
+<ViewModelInstanceString viewModelPropertyId="0:123" propertyValue="Sound"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:133" propertyValue="1"/>
+<ViewModelInstanceBoolean viewModelPropertyId="0:143" propertyValue="false"/>
+<ViewModelInstanceString viewModelPropertyId="0:124" propertyValue="Display brightness and colour"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:134" propertyValue="1"/>
+<ViewModelInstanceBoolean viewModelPropertyId="0:144" propertyValue="false"/>
+<ViewModelInstanceString viewModelPropertyId="0:125" propertyValue="Privacy"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:135" propertyValue="1"/>
+<ViewModelInstanceBoolean viewModelPropertyId="0:145" propertyValue="false"/>
+</ViewModelInstance></ViewModel></Rive>

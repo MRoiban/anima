@@ -1,0 +1,81 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[23:49:19.075] rive  deferred replay: inline
+[23:49:19.121] rive  built (13088 bytes, 45ms, 0 errors, 0 warnings)
+[23:49:19.122] rive  showing Search card [1/1]
+[23:49:19.123] rive  viewport 480x360 @1x
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[23:49:19.150] rive  wrote evidence/title-000.png
+ok screenshot: evidence/title-000.png
+ok advance
+[23:49:19.168] rive  wrote evidence/title-250.png
+ok screenshot: evidence/title-250.png
+ok advance
+[23:49:19.182] rive  wrote evidence/title-500.png
+ok screenshot: evidence/title-500.png
+ok advance
+[23:49:19.199] rive  wrote evidence/title-1100.png
+ok screenshot: evidence/title-1100.png
+[23:49:19.199] rive  wrote evidence/before.tree.json
+ok semantics: evidence/before.tree.json
+[23:49:19.199] rive  wrote evidence/before.data.json
+ok data-dump: evidence/before.data.json
+ok key
+ok advance
+[23:49:19.200] rive  wrote evidence/o.tree.json
+ok semantics: evidence/o.tree.json
+[23:49:19.200] rive  wrote evidence/o.data.json
+ok data-dump: evidence/o.data.json
+[23:49:19.212] rive  wrote evidence/o.png
+ok screenshot: evidence/o.png
+ok key
+ok key
+ok key
+ok advance
+[23:49:19.214] rive  wrote evidence/so.tree.json
+ok semantics: evidence/so.tree.json
+[23:49:19.214] rive  wrote evidence/so.data.json
+ok data-dump: evidence/so.data.json
+[23:49:19.226] rive  wrote evidence/so.png
+ok screenshot: evidence/so.png
+ok key
+ok key
+ok advance
+[23:49:19.228] rive  wrote evidence/clear.tree.json
+ok semantics: evidence/clear.tree.json
+[23:49:19.228] rive  wrote evidence/clear.data.json
+ok data-dump: evidence/clear.data.json
+[23:49:19.228] rive  data: label3 = Audio settings (mid-run)
+ok data
+ok advance
+[23:49:19.228] rive  wrote evidence/renamed.tree.json
+ok semantics: evidence/renamed.tree.json
+[23:49:19.228] rive  wrote evidence/renamed.data.json
+ok data-dump: evidence/renamed.data.json
+[23:49:19.241] rive  wrote evidence/renamed.png
+ok screenshot: evidence/renamed.png
+[23:49:19.241] rive  data: label3 = Sound (mid-run)
+ok data
+ok key
+ok key
+ok advance
+[23:49:19.242] rive  wrote evidence/uppercase.tree.json
+ok semantics: evidence/uppercase.tree.json
+[23:49:19.242] rive  wrote evidence/uppercase.data.json
+ok data-dump: evidence/uppercase.data.json
+[23:49:19.242] rive  data: query = privacy (mid-run)
+ok data
+ok advance
+[23:49:19.242] rive  wrote evidence/host-query.tree.json
+ok semantics: evidence/host-query.tree.json
+[23:49:19.243] rive  wrote evidence/host-query.data.json
+ok data-dump: evidence/host-query.data.json
+[23:49:19.255] rive  wrote evidence/host-query.png
+ok screenshot: evidence/host-query.png
+[23:49:19.255] rive  data: query = . (mid-run)
+ok data
+ok advance
+[23:49:19.256] rive  wrote evidence/literal.tree.json
+ok semantics: evidence/literal.tree.json
+[23:49:19.256] rive  wrote evidence/literal.data.json
+ok data-dump: evidence/literal.data.json
+ok quit
