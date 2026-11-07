@@ -1,16 +1,17 @@
 // Browser authoring add-on. The lean compiler remains independently loadable.
 import './index.ts';
+// seam(P6-4a): keep the complete authoring import installing base animation syntax.
+import '../../markup-animation/web/index.ts';
 import { paintMarkup, structuralMarkup } from '../../paint/markup/index.ts';
 import { componentMarkup } from '../../components/markup/index.ts';
 import { bindMarkup } from '../../bind/markup/index.ts';
-import { converterCompiler } from '../../convert/markup/index.ts';
-import { eventsMarkup } from '../../events/markup/index.ts';
-import { motionMarkup } from '../../motion/markup/index.ts';
-import { dataMarkup } from '../../data/markup/index.ts';
+import { converterCompiler } from '../../markup-hooks/markup/convert.ts';
+import { eventsMarkup } from '../../markup-hooks/markup/events.ts';
+import { motionMarkup } from '../../markup-hooks/markup/motion.ts';
+import { dataMarkup } from '../../markup-hooks/markup/data.ts';
 import type { AnimaIcon } from '../../../packages/web/src/index.ts';
 
 const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
-const { form, binding, rootChild, node } = dataMarkup;
 // Match the former runtime registrations. Focus uses the complete structural engine;
 // apply it after paint, regardless of the order in which runtime bundles arrive.
 const hooks: [string, string, object][] = [
@@ -19,7 +20,7 @@ const hooks: [string, string, object][] = [
   ['convert', 'convert', converterCompiler],
   ['events', 'events', eventsMarkup],
   ['motion', 'motion', motionMarkup],
-  ['data', 'data', { form, binding, rootChild, node }],
+  ['data', 'data', dataMarkup],
   ['paint', 'paint', paintMarkup],
   ['focus', 'paint', structuralMarkup],
 ];

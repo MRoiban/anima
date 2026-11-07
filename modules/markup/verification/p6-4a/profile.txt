@@ -1,0 +1,27 @@
+baseline 29313
+[
+  [ 'packages/markup/src/compile.ts', 17434 ],
+  [ 'modules/data/markup/index.ts', 5547 ],
+  [ 'modules/paint/markup/index.ts', 3240 ],
+  [ 'modules/motion/markup/index.ts', 2477 ],
+  [ 'packages/markup/src/xml.ts', 2367 ],
+  [ 'modules/components/markup/index.ts', 2366 ],
+  [ 'modules/events/markup/index.ts', 1879 ],
+  [ 'modules/convert/markup/index.ts', 1155 ],
+  [ 'packages/markup/src/names.ts', 1007 ],
+  [ 'modules/text/markup/index.ts', 688 ],
+  [ 'packages/markup/src/fields.ts', 520 ],
+  [ 'modules/markup/web/index.ts', 520 ],
+  [ 'modules/bind/markup/index.ts', 340 ],
+  [ 'packages/markup/src/module-hooks.ts', 336 ],
+  [ 'packages/markup/src/async.ts', 93 ],
+  [ 'modules/markup-libraries/markup/hooks.ts', 70 ],
+  [ 'packages/markup/src/library-hooks.ts', 0 ],
+  [ 'packages/markup/src/components.ts', 0 ],
+  [ 'packages/markup/src/browser.ts', 0 ],
+  [ 'packages/web/src/markup.ts', 0 ]
+]
+frames 28908
+eases 29012
+values 28550
+build 27896

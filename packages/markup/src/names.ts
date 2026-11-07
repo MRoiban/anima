@@ -15,7 +15,7 @@ import {
 } from '@anima-format/core';
 
 /** Where a node attribute lives in `.ani`: a key path, and for `cx`/`cy` an index into `center`. */
-export interface NodeAttr {
+export interface NodeField {
   /** AniML attribute name. */
   attr: string;
   /** `.ani` key path on the node: `['x']`, `['fill', 'color']`, `['center']`. */
@@ -24,6 +24,9 @@ export interface NodeAttr {
   index?: number;
   /** The registry shape of the `.ani` value. */
   shape: Shape;
+}
+
+export interface NodeAttr extends NodeField {
   /** Animatable, so usable in `<track target>` and `<pose>`. */
   animatable: boolean;
 }
@@ -31,10 +34,9 @@ export interface NodeAttr {
 const TRANSFORM = 'pivot x y rotate scale scaleX scaleY opacity visible'.split(' ');
 
 /** The attributes a node element takes, in canonical order (after `id`). */
-export function nodeAttrs(type: NodeType): NodeAttr[] {
-  const out: NodeAttr[] = [];
+export function nodeFields(type: NodeType): NodeField[] {
+  const out: NodeField[] = [];
   const ns = nodeShape(type);
-  const animatable = (k: string) => k in COMMON || k in OWN[type];
   for (const key of new Set([
     ...Object.keys(STATIC[type]).filter((k) => k !== 'children'),
     ...Object.keys(OWN[type]),
@@ -46,10 +48,8 @@ export function nodeAttrs(type: NodeType): NodeAttr[] {
     const parts = name.split(' ');
     // A vector key spelled as several attributes (center → cx cy).
     if (parts.length > 1)
-      parts.forEach((attr, index) =>
-        out!.push({ attr, path: [key], index, shape, animatable: false }),
-      );
-    else out.push({ attr: name, path: [key], shape, animatable: animatable(key) });
+      parts.forEach((attr, index) => out!.push({ attr, path: [key], index, shape }));
+    else out.push({ attr: name, path: [key], shape });
   }
   if (PAINTED.includes(type)) {
     for (const paint of ['fill', 'stroke']) {
@@ -61,13 +61,24 @@ export function nodeAttrs(type: NodeType): NodeAttr[] {
           attr: markupName(shape, field),
           path: [paint, field],
           shape,
-          animatable: field in PAINT[paint as 'fill' | 'stroke'],
         });
       }
     }
-    out.push({ attr: 'knockout', path: ['knockout'], shape: ns.p.knockout!, animatable: false });
+    out.push({ attr: 'knockout', path: ['knockout'], shape: ns.p.knockout! });
   }
   return out;
+}
+
+/** Full authoring descriptors; the compiler needs only the field paths and shapes. */
+export function nodeAttrs(type: NodeType): NodeAttr[] {
+  return nodeFields(type).map((a) => ({
+    ...a,
+    animatable:
+      a.index === undefined &&
+      (a.path.length === 2
+        ? a.path[1]! in PAINT[a.path[0] as 'fill' | 'stroke']
+        : a.path[0]! in COMMON || a.path[0]! in OWN[type]),
+  }));
 }
 
 /** Keys of a node object that `nodeAttrs` does not cover (handled structurally). */
@@ -90,7 +101,7 @@ export const NODE_ELEMENTS: readonly string[] = NODE_TYPES;
 export function aniAddress(
   address: string,
   typeOf: (id: string) => NodeType | undefined,
-  attributes = nodeAttrs,
+  attributes = nodeFields,
 ): string | undefined {
   const dot = address.indexOf('.');
   if (dot < 0) return undefined;

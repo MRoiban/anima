@@ -1,0 +1,26 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-7a9b831b
+
+ ❯ |browser| packages/web/test/browser.test.ts (80 tests | 1 failed | 78 skipped) 7973ms
+   ❯ <anima-icon> in Chromium (40)
+     × registers libraries across separate bundles (libraries-first) 684ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| packages/web/test/browser.test.ts > <anima-icon> in Chromium > registers libraries across separate bundles (libraries-first)
+Error: page.evaluate: Array(25)
+ ❯ packages/web/test/browser.test.ts:390:32
+    388|           );
+    389|         }
+    390|         const doc = await page.evaluate(async (source) => {
+       |                                ^
+    391|           const icon = document.createElement('anima-icon');
+    392|           const script = document.createElement('script');
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 1 passed | 78 skipped (80)
+   Start at  21:42:07
+   Duration  13.01s (tests 64%, import 21%, transform 15%)

@@ -1,0 +1,151 @@
+{
+  "status": "partial: size/corpus/browser guard met; three checkout tooling timeouts unresolved",
+  "base": "777c0a5d",
+  "commands": [
+    {
+      "command": "npm run test:scope -- markup conformance web markup-animation --browser=chromium",
+      "env": {
+        "VITEST_MAX_WORKERS": "2"
+      },
+      "exit": 0,
+      "passed": 4963,
+      "todo": 16,
+      "filtered": 1479,
+      "filesPassed": 57
+    },
+    {
+      "command": "npm run test:scope -- changed",
+      "env": {
+        "VITEST_MAX_WORKERS": "2"
+      },
+      "exit": 1,
+      "passed": 8657,
+      "failed": 5,
+      "todo": 88,
+      "filesPassed": 270,
+      "filesFailed": 4,
+      "filesSkipped": 13,
+      "engines": ["Chromium", "Firefox"]
+    },
+    {
+      "command": "npx vitest run --project browser modules/markup-animation/test/web/animation.test.ts packages/web/test/browser.test.ts -t \"optional animation authoring|registers libraries across separate bundles\" --maxWorkers=1",
+      "exit": 0,
+      "passed": 12,
+      "filtered": 76,
+      "engines": ["Chromium", "Firefox"]
+    },
+    {
+      "command": "npx vitest run --project browser modules/host-edit/test/web/components.test.ts --maxWorkers=1",
+      "exit": 0,
+      "passed": 4,
+      "engines": ["Chromium", "Firefox"],
+      "limitsChanged": false
+    },
+    {
+      "command": "npx vitest run --project unit modules/assets/test/cli/pipeline.test.ts --maxWorkers=1",
+      "exit": 0,
+      "passed": 19,
+      "limitsChanged": false
+    },
+    {
+      "command": "npx vitest run --project unit tools/new-capability.test.ts packages/core/test/module-order.test.ts --maxWorkers=1",
+      "env": {
+        "VITEST_MAX_WORKERS": "1"
+      },
+      "exit": 1,
+      "passed": 2,
+      "failed": 3,
+      "limitsChanged": false
+    },
+    {
+      "command": "same two tooling files on untouched HEAD archive",
+      "exit": 1,
+      "passed": 4,
+      "failed": 1,
+      "failure": "module-order timeout",
+      "limitsChanged": false
+    },
+    {
+      "command": "same two tooling files on exact current source copy on tmpfs",
+      "exit": 1,
+      "passed": 3,
+      "failed": 2,
+      "failures": ["60s scaffolder timeout", "30s module-order timeout"],
+      "limitsChanged": false
+    },
+    {
+      "command": "npm run typecheck",
+      "exit": 0
+    },
+    {
+      "command": "npx tsc -p packages/web/test (exact final test source)",
+      "exit": 0
+    },
+    {
+      "command": "npx eslint (changed source)",
+      "exit": 0
+    },
+    {
+      "command": "node tools/modules.ts --check",
+      "exit": 0,
+      "stale": 0
+    },
+    {
+      "command": "node tools/build-web.ts",
+      "exit": 0,
+      "entries": 46
+    },
+    {
+      "command": "node tools/build-animl.ts --check",
+      "exit": 0,
+      "files": 591
+    },
+    {
+      "command": "node tools/size.ts",
+      "exit": 0,
+      "allExistingBudgetsUnchanged": true,
+      "allRuntimeEntrySizesUnchanged": true
+    },
+    {
+      "command": "node tools/oracle.ts --strict",
+      "exit": 0,
+      "cases": 266,
+      "samples": 475,
+      "strictFailures": 0,
+      "existingFindingsUnchanged": true
+    },
+    {
+      "command": "node tools/perf.ts",
+      "exit": 0,
+      "controlledComparisonVerified": false
+    },
+    {
+      "command": "npx prettier --check (all changed files, --ignore-unknown)",
+      "exit": 0
+    }
+  ],
+  "rowsClosed": [],
+  "gates": {
+    "coreWeb": [21136, 21136],
+    "largestScene": [53201, 53201],
+    "appUI": [94068, 94068],
+    "runtimeSum": [113443, 113443],
+    "authoring": [15226, 14648],
+    "heavy": [119089, 119089]
+  },
+  "entries": {
+    "markup": [8177, 7272],
+    "markup-hooks": [4145, 4488],
+    "markup-animation": [0, 911],
+    "markup-convert": [622, 535],
+    "markup-libraries": [2150, 2173],
+    "markup-text": [529, 530]
+  },
+  "baseBundleSha256": "38d09fa51dd82685fb9bea2b7ed011d7981725d027dd954a7f673f98770caef6",
+  "unresolved": [
+    "Checkout scaffolder 60s timeout",
+    "Checkout scaffolder 5s timeout",
+    "Checkout module-order 30s timeout (also on baseline)",
+    "Controlled performance comparison not verified"
+  ]
+}
