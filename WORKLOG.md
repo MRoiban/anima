@@ -3,7 +3,7 @@
 ## Now
 Goal: smaller, agent-native Rive for animated web UI. Order P3b (a11y + agent tools) → P6 text → P7 minimal layout → P8 rigging.
 State: triage merged (PR #18, b97a2d5). Branch p3b: design/p3b/DESIGN.md decided; 5 text a11y rows moved to P6 (119 P3b rows). In scope 624/883 (71 %). full 111,723/131,072 B; core+web 20,362.
-Next: wave 1 running (P3b-1 a11y core, P3b-2 script/session, P3b-3 CLI commands, P3b-4 data-host, P3b-5 reduced motion+stop+devtools+libraries; Sol, from 98c17e2) → merge one by one → wave 2 web overlay, benchmark, closure.
+Next: running P3b-4 data-host, P3b-6 tooling leftovers, P3b-7 a11y core completion, P3b-8 a11y-dom overlay → merge → benchmark (fresh agents) → closure → PR. full 115,192 B (estimate after P3b ~118 KB: flag to owner).
 Don't: push to main; modify oracle findings or benchmark records; loosen budgets/tests; grow data/bind/components; leave merged worktrees behind.
 
 ## Log
@@ -201,3 +201,4 @@ Don't: push to main; modify oracle findings or benchmark records; loosen budgets
 - 2026-11-07 09:57 [P3b-1b]: final changed7393pass/0fail/45TODO (225files+13skip), all first-run failures resolved; focused966/1TODO, typecheck/lint/format/wiring/generated pass; strict253/449 exit0, perf exit0 but ≤3% unverified; a11y3002/2048 FAIL/actions828/1024/full114584 → budget-blocked partial, 0 rows closed, branch-only commit (evidence: modules/a11y/REPORT.md; verification/p3b1b/).
 - 2026-11-07 [claude]: a11y markup hooks moved to a markup-a11y web entry (paint/bind pattern): a11y 3,002 → 1,975/2,048, markup-a11y 967/1,024, a11y-actions 837/1,024; full 114,572; a11y+a11y-actions+focus scopes 1,005 pass chromium
 - 2026-11-07 [claude]: merged P3b-1/1b (a11y prototype + a11y-actions + markup-a11y) into p3b; resolved script.ts (one semanticCommand dispatch), cli.ts (P3b-2 side), 2 tests updated for registered a11y; sizes a11y 1,983/2,048, markup-a11y 971/1,024, a11y-actions 836/1,024, core+web 20,561
+- 2026-11-07 [claude]: wave 2 launched: P3b-7 (a11y core completion + logical-tree oracles), P3b-8 (a11y-dom overlay, 2,048 over a11y-actions, aim ≤1,500); design §2 table updated

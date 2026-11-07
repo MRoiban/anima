@@ -33,6 +33,8 @@ Agents run these commands but never change them, their inputs or their threshold
 |---|---|---:|
 | `a11y` (new; core + markup + web) | node semantics, validation, the semantic tree (core); the DOM overlay (web) | core 2 048 B, web 2 048 B |
 | `a11y-actions` (new, after `a11y`) | `semanticAction`, focus retarget, ancestor focus, `semanticDiff` (split 2026-11-07: P3b-1's single core measured 3 623 B) | 1 024 B |
+| `markup-a11y` (web entry of `a11y`) | in-browser AniML structural forms for `<a11y>` (split as `markup-paint`, 2026-11-07) | 1 024 B |
+| `a11y-dom` (new; web only, over `a11y-actions`) | the DOM overlay of §3.4 (replaces the planned `a11y` web budget) | 2 048 B |
 | `devtools` (new; web only) | fps counter, performance marks, deprecation-warning policy | 1 024 B |
 | `data-host` (new; split from `data`/`host-edit` as needed) | P3b data and host leftovers (§6) | 2 048 B |
 | CLI (`packages/cli`, `packages/core/src/script.ts`) | agent tools (§5) | no limit (tools) |
