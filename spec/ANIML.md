@@ -283,7 +283,7 @@ is reserved for registry routing and normally omitted.
 ## 11. Libraries and templates (build time)
 
 A reusable file has root `<library name="ui">`, with `color`, `glyph`, `ease`, `template`,
-`component`, `model` and `import` children. A library is consumed by an import rather than compiled
+`component`, `model`, authored data `instance`, `enum` and `import` children. A library is consumed by an import rather than compiled
 as a standalone animation. Components require the components module; model definitions require data.
 
 `<import src="lib/ui.animl" as="ui"/>` at document or library level brings its exported names into

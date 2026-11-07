@@ -16,7 +16,18 @@ Imported model names are made collision-free and references in `data`, `model` a
 are rewritten in the library's lexical scope. Model property types/defaults retain the data contract.
 Library components using those models are self-contained after compilation. A `<component>` inside
 a model is a component-valued property, distinguished from a definition by the absence of `grid`.
-Root library instances/enums and cloud dependency management are not added by this change.
+Libraries also ship root `<enum name="Mood" values="calm busy"/>` declarations and authored
+`<instance name="main" model="Person"><set path="score" value="7"/></instance>` data.
+These compile to ordinary JSON `data.enums` and `data.instances` alongside `data.models`.
+Names are collision-free per import, including repeated imports of the same file. The `enum`
+attribute and named-instance expressions (`$ui:main:score`) resolve in lexical scope; enum member
+keys and instance property values remain unchanged. Export selection applies to all three data
+kinds. Private dependencies are compiled but cannot be addressed through the public alias.
+Default-instance flags retain the data contract (at most one default per document); importing
+two defaults is an error, not an implicit choice. Both AniML declarations and expanded JSON use
+the existing data diagnostics for invalid members, models and values. Library declaration and
+alias failures use `bad-attribute`, `duplicate-name` and `unknown-name`.
+Cloud dependency management is outside the local authoring contract.
 
 For vendoring, an import can retain its local origin:
 `<import src="vendor/cards.animl" source="../shared/cards.animl" as="ui"/>`.
@@ -29,5 +40,6 @@ pointer, message and hint. No network access is attempted. `--check` reports sta
 without writing; a current tree exits 0. JSON output lists source, destination and change state.
 
 The lexical expansion choice follows [graph research](../../docs/research/rive-format-and-graph.md)
-§6. Native library-service workflows are outside the authorized local CLI command set; they have
-not been executed or represented as successful parity evidence.
+§6. Native library probes require account-touching library commands banned by the project.
+Each library oracle therefore records an evidenced skip linked to DESIGN §3; no native
+equivalence is claimed.

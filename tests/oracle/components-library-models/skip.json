@@ -1,0 +1,10 @@
+{
+  "status": "skip",
+  "reason": "Native library probes require the Rive CLI library commands, which touch the owner's account and are banned for this project. No authorized offline counterpart exists; no native probe was run or native equivalence claimed.",
+  "tests": [
+    "modules/markup-libraries/test/markup/extras.test.ts",
+    "modules/markup-libraries/test/cli/library.test.ts",
+    "spec/conformance/components-library-models"
+  ],
+  "captureEvidence": ["design/p3c/DESIGN.md", "modules/markup-libraries/SPEC.md"]
+}

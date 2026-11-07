@@ -1,0 +1,18 @@
+
+> test:scope
+> node tools/test-scope.ts changed
+
+Scopes: markup-libraries, conformance, oracle
+  unit: modules/markup-libraries/test/cli/library.test.ts
+  unit: modules/markup-libraries/test/markup/extras.test.ts
+  unit: modules/markup-libraries/test/markup/reuse.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-eb194051
+
+
+ Test Files  5 passed (5)
+      Tests  936 passed | 27 todo (963)
+   Start at  13:51:42
+   Duration  10.31s (tests 83%, import 12%, transform 5%)
