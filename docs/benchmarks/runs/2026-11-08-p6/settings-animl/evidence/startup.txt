@@ -1,0 +1,5 @@
+First command: cat docs/benchmarks/runs/2026-11-08-p6/SETTINGS-BRIEF.md
+Start clock (UTC, immediately after first command): 2026-11-07 22:39:12
+Initial anima --help exited 2: Anima CLI dependencies are missing; run npm ci at the repo root.
+Ran npm ci once: installed 153 packages; 10 moderate vulnerability notices, no installation errors.
+All subsequent counted CLI runs and their outputs are recorded in runs.jsonl.

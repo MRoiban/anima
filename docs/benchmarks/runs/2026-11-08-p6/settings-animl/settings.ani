@@ -1,0 +1,625 @@
+{
+  "anima": "0.1",
+  "name": "settings",
+  "grid": 40,
+  "viewBox": [0, 0, 40, 30],
+  "requires": ["data", "bind", "derive", "convert", "text", "a11y", "a11yactions", "focus", "input"],
+  "inputs": {
+    "selectGeneral": {
+      "type": "trigger"
+    },
+    "selectSound": {
+      "type": "trigger"
+    },
+    "toggleParent": {
+      "type": "trigger"
+    }
+  },
+  "nodes": [
+    {
+      "id": "panel",
+      "type": "rect",
+      "x0": 0,
+      "y0": 0,
+      "w": 40,
+      "h": 30,
+      "fill": {
+        "color": "#f0eee6"
+      }
+    },
+    {
+      "id": "tabs",
+      "type": "group",
+      "children": [
+        {
+          "id": "generalTab",
+          "type": "group",
+          "children": [
+            {
+              "id": "generalShape",
+              "type": "rect",
+              "x0": 2,
+              "y0": 2,
+              "w": 10,
+              "h": 3,
+              "fill": {
+                "color": "#d97757"
+              },
+              "stroke": {
+                "color": "#141413",
+                "width": 0.1
+              }
+            },
+            {
+              "id": "generalLabel",
+              "type": "text",
+              "x": 3,
+              "y": 2.8,
+              "runs": [
+                {
+                  "text": "$generalTitle",
+                  "style": "label"
+                }
+              ]
+            }
+          ],
+          "a11y": {
+            "role": "tab",
+            "label": "$generalTitle",
+            "controls": "generalPanel",
+            "activate": "selectGeneral",
+            "selected": "$generalSelected",
+            "bounds": [2, 2, 10, 3]
+          }
+        },
+        {
+          "id": "soundTab",
+          "type": "group",
+          "children": [
+            {
+              "id": "soundShape",
+              "type": "rect",
+              "x0": 14,
+              "y0": 2,
+              "w": 10,
+              "h": 3,
+              "fill": {
+                "color": "#f0eee6"
+              },
+              "stroke": {
+                "color": "#141413",
+                "width": 0.1
+              }
+            },
+            {
+              "id": "soundLabel",
+              "type": "text",
+              "x": 15,
+              "y": 2.8,
+              "runs": [
+                {
+                  "text": "$soundTitle",
+                  "style": "label"
+                }
+              ]
+            }
+          ],
+          "a11y": {
+            "role": "tab",
+            "label": "$soundTitle",
+            "controls": "soundPanel",
+            "activate": "selectSound",
+            "selected": "$soundSelected",
+            "bounds": [14, 2, 10, 3]
+          }
+        }
+      ],
+      "a11y": {
+        "role": "tab-list",
+        "label": "$settingsTitle"
+      }
+    },
+    {
+      "id": "generalPanel",
+      "type": "group",
+      "children": [
+        {
+          "id": "notifications",
+          "type": "group",
+          "children": [
+            {
+              "id": "parentBox",
+              "type": "rect",
+              "x0": 2,
+              "y0": 8,
+              "w": 2,
+              "h": 2,
+              "fill": {
+                "color": "#f0eee6"
+              },
+              "stroke": {
+                "color": "#141413",
+                "width": 0.15
+              }
+            },
+            {
+              "id": "parentBar",
+              "type": "rect",
+              "x0": 2.35,
+              "y0": 8.85,
+              "w": 1.3,
+              "h": 0.3,
+              "fill": {
+                "color": "#141413"
+              }
+            }
+          ],
+          "a11y": {
+            "role": "checkbox",
+            "label": "$notificationsTitle",
+            "activate": "toggleParent",
+            "checked": "$allChecked",
+            "checkedMixed": "$mixed",
+            "bounds": [2, 8, 2, 2]
+          }
+        },
+        {
+          "id": "notificationsLabel",
+          "type": "text",
+          "x": 5,
+          "y": 8.2,
+          "runs": [
+            {
+              "text": "$notificationsTitle",
+              "style": "label"
+            }
+          ]
+        },
+        {
+          "id": "emailBox",
+          "type": "rect",
+          "x0": 4,
+          "y0": 12,
+          "w": 2,
+          "h": 2,
+          "fill": {
+            "color": "#141413"
+          },
+          "stroke": {
+            "color": "#141413",
+            "width": 0.15
+          },
+          "a11y": {
+            "role": "checkbox",
+            "label": "$emailTitle",
+            "checked": "$email",
+            "bounds": [4, 12, 2, 2]
+          }
+        },
+        {
+          "id": "emailLabel",
+          "type": "text",
+          "x": 7,
+          "y": 12.2,
+          "runs": [
+            {
+              "text": "$emailTitle",
+              "style": "label"
+            }
+          ]
+        },
+        {
+          "id": "pushBox",
+          "type": "rect",
+          "x0": 4,
+          "y0": 16,
+          "w": 2,
+          "h": 2,
+          "fill": {
+            "color": "#f0eee6"
+          },
+          "stroke": {
+            "color": "#141413",
+            "width": 0.15
+          },
+          "a11y": {
+            "role": "checkbox",
+            "label": "$pushTitle",
+            "checked": "$push",
+            "bounds": [4, 16, 2, 2]
+          }
+        },
+        {
+          "id": "pushLabel",
+          "type": "text",
+          "x": 7,
+          "y": 16.2,
+          "runs": [
+            {
+              "text": "$pushTitle",
+              "style": "label"
+            }
+          ]
+        },
+        {
+          "id": "smsBox",
+          "type": "rect",
+          "x0": 4,
+          "y0": 20,
+          "w": 2,
+          "h": 2,
+          "fill": {
+            "color": "#f0eee6"
+          },
+          "stroke": {
+            "color": "#141413",
+            "width": 0.15
+          },
+          "a11y": {
+            "role": "checkbox",
+            "label": "$smsTitle",
+            "checked": "$sms",
+            "bounds": [4, 20, 2, 2]
+          }
+        },
+        {
+          "id": "smsLabel",
+          "type": "text",
+          "x": 7,
+          "y": 20.2,
+          "runs": [
+            {
+              "text": "$smsTitle",
+              "style": "label"
+            }
+          ]
+        }
+      ],
+      "a11y": {
+        "role": "group",
+        "label": "$generalTitle"
+      }
+    },
+    {
+      "id": "soundPanel",
+      "type": "group",
+      "children": [
+        {
+          "id": "volume",
+          "type": "group",
+          "children": [
+            {
+              "id": "volumeTrack",
+              "type": "rect",
+              "x0": 2,
+              "y0": 10,
+              "w": 30,
+              "h": 1,
+              "fill": {
+                "color": "#141413"
+              }
+            },
+            {
+              "id": "volumeFill",
+              "type": "rect",
+              "x0": 2,
+              "y0": 10,
+              "w": 12,
+              "h": 1,
+              "fill": {
+                "color": "#d97757"
+              }
+            }
+          ],
+          "a11y": {
+            "role": "slider",
+            "label": "$volumeTitle",
+            "value": "$volume",
+            "valueText": "$volumeText",
+            "min": 0,
+            "max": 100,
+            "step": 5,
+            "bounds": [2, 10, 30, 1]
+          }
+        },
+        {
+          "id": "volumeLabel",
+          "type": "text",
+          "x": 2,
+          "y": 7.5,
+          "runs": [
+            {
+              "text": "$volumeText",
+              "style": "label"
+            }
+          ]
+        },
+        {
+          "id": "mute",
+          "type": "group",
+          "children": [
+            {
+              "id": "muteTrack",
+              "type": "rect",
+              "x0": 2,
+              "y0": 16,
+              "w": 6,
+              "h": 3,
+              "rx": 1.5,
+              "fill": {
+                "color": "#141413"
+              }
+            },
+            {
+              "id": "muteKnob",
+              "type": "circle",
+              "center": [3.5, 17.5],
+              "r": 1.2,
+              "fill": {
+                "color": "#f0eee6"
+              }
+            }
+          ],
+          "a11y": {
+            "role": "switch",
+            "label": "$muteTitle",
+            "checked": "$muted",
+            "bounds": [2, 16, 6, 3]
+          }
+        },
+        {
+          "id": "muteLabel",
+          "type": "text",
+          "x": 9,
+          "y": 16.8,
+          "runs": [
+            {
+              "text": "$muteTitle",
+              "style": "label"
+            }
+          ]
+        }
+      ],
+      "a11y": {
+        "role": "group",
+        "label": "$soundTitle"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "actions": {
+        "initial": "ready",
+        "states": {
+          "ready": {
+            "pose": {},
+            "on": [
+              {
+                "when": "selectGeneral",
+                "to": "ready",
+                "actions": {
+                  "set": {
+                    "$selectedTab": "\"General\""
+                  }
+                }
+              },
+              {
+                "when": "selectSound",
+                "to": "ready",
+                "actions": {
+                  "set": {
+                    "$selectedTab": "\"Sound\""
+                  }
+                }
+              },
+              {
+                "when": "toggleParent",
+                "to": "ready",
+                "actions": {
+                  "set": {
+                    "$email": "not ($email and $push and $sms)",
+                    "$push": "not ($email and $push and $sms)",
+                    "$sms": "not ($email and $push and $sms)"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "listeners": [
+    {
+      "on": "focus",
+      "target": "generalTab",
+      "set": {
+        "$selectedTab": "\"General\""
+      }
+    },
+    {
+      "on": "focus",
+      "target": "soundTab",
+      "set": {
+        "$selectedTab": "\"Sound\""
+      }
+    },
+    {
+      "on": "click",
+      "target": "generalTab",
+      "set": {
+        "$selectedTab": "\"General\""
+      }
+    },
+    {
+      "on": "click",
+      "target": "soundTab",
+      "set": {
+        "$selectedTab": "\"Sound\""
+      }
+    },
+    {
+      "on": "click",
+      "target": "notifications",
+      "fire": "toggleParent"
+    },
+    {
+      "on": "click",
+      "target": "emailBox",
+      "toggle": "$email"
+    },
+    {
+      "on": "click",
+      "target": "pushBox",
+      "toggle": "$push"
+    },
+    {
+      "on": "click",
+      "target": "smsBox",
+      "toggle": "$sms"
+    },
+    {
+      "on": "click",
+      "target": "mute",
+      "toggle": "$muted"
+    }
+  ],
+  "bind": {
+    "generalLabel.runs.0.text": "$generalTitle",
+    "soundLabel.runs.0.text": "$soundTitle",
+    "notificationsLabel.runs.0.text": "$notificationsTitle",
+    "emailLabel.runs.0.text": "$emailTitle",
+    "pushLabel.runs.0.text": "$pushTitle",
+    "smsLabel.runs.0.text": "$smsTitle",
+    "volumeLabel.runs.0.text": "$volumeText",
+    "muteLabel.runs.0.text": "$muteTitle",
+    "generalShape.fill.color": "mix(#f0eee6, #d97757, $generalSelected)",
+    "soundShape.fill.color": "mix(#f0eee6, #d97757, $soundSelected)",
+    "generalPanel.visible": "$generalSelected",
+    "soundPanel.visible": "$soundSelected",
+    "parentBox.fill.color": "mix(#f0eee6, #141413, $allChecked)",
+    "parentBar.visible": "$mixed",
+    "emailBox.fill.color": "mix(#f0eee6, #141413, $email)",
+    "pushBox.fill.color": "mix(#f0eee6, #141413, $push)",
+    "smsBox.fill.color": "mix(#f0eee6, #141413, $sms)",
+    "volumeFill.w": "$volume / 100 * 30",
+    "muteKnob.x": "$muted * 3",
+    "muteTrack.fill.color": "mix(#141413, #d97757, $muted)"
+  },
+  "data": {
+    "models": {
+      "Settings": {
+        "properties": {
+          "volume": {
+            "type": "number",
+            "default": 40,
+            "min": 0,
+            "max": 100
+          },
+          "muted": {
+            "type": "bool"
+          },
+          "selectedTab": {
+            "type": "enum",
+            "default": "General",
+            "values": ["General", "Sound"]
+          },
+          "email": {
+            "type": "bool",
+            "default": true
+          },
+          "push": {
+            "type": "bool"
+          },
+          "sms": {
+            "type": "bool"
+          },
+          "generalTitle": {
+            "type": "string",
+            "default": "General"
+          },
+          "soundTitle": {
+            "type": "string",
+            "default": "Sound"
+          },
+          "notificationsTitle": {
+            "type": "string",
+            "default": "Notifications"
+          },
+          "emailTitle": {
+            "type": "string",
+            "default": "Email"
+          },
+          "pushTitle": {
+            "type": "string",
+            "default": "Push"
+          },
+          "smsTitle": {
+            "type": "string",
+            "default": "SMS"
+          },
+          "volumeTitle": {
+            "type": "string",
+            "default": "Volume"
+          },
+          "muteTitle": {
+            "type": "string",
+            "default": "Mute"
+          },
+          "settingsTitle": {
+            "type": "string",
+            "default": "Settings"
+          },
+          "generalSelected": {
+            "type": "bool",
+            "value": "$selectedTab == \"General\""
+          },
+          "soundSelected": {
+            "type": "bool",
+            "value": "$selectedTab == \"Sound\""
+          },
+          "allChecked": {
+            "type": "bool",
+            "value": "$email and $push and $sms"
+          },
+          "mixed": {
+            "type": "bool",
+            "value": "($email or $push or $sms) and not ($email and $push and $sms)"
+          },
+          "volumeText": {
+            "type": "string",
+            "value": "$volume",
+            "convert": "volumeLabel"
+          }
+        }
+      }
+    },
+    "instances": {
+      "settings": {
+        "model": "Settings",
+        "default": true,
+        "exported": true,
+        "values": {}
+      }
+    }
+  },
+  "converters": {
+    "volumeLabel": {
+      "type": "template",
+      "text": "{title} {amount} %",
+      "args": {
+        "title": "$volumeTitle",
+        "amount": "$volume"
+      }
+    }
+  },
+  "textStyles": {
+    "label": {
+      "font": "AnimaTest",
+      "size": 1.3,
+      "fill": {
+        "color": "#141413"
+      }
+    }
+  }
+}

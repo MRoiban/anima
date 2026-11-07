@@ -1,0 +1,107 @@
+## bind
+
+Bind expressions include numeric comparisons `< <= > >=`, typed equality `== !=`, and boolean
+`and or not`. Ordering requires number operands; equality requires identical operand types.
+Logical operands must be bool. Precedence from low to high is or, and, not, comparison,
+addition/subtraction, multiplication/division, unary signs. Evaluation short-circuits logical
+operators and produces bool, coercible to 0/1 for number destinations. These rules apply to
+bindings, set actions and derive expressions. Guard scalar expressions use the same parser when
+bind is declared; trigger and clock guard terms retain their specialized semantics.
+
+The optional `bind` module requires `requires: ["bind"]`. At document level,
+`bind: { "ring.stroke.trimEnd": "progress" }` maps animatable addresses to expressions.
+Property bindings evaluate after all state layers resolve and before property clamping (§7),
+so a binding overrides a pose, timeline or crossfade on the same address. Resolved bound
+addresses appear in `Player.values()`, `anima sample` snapshots, dirty slots and `anima inspect`
+(the `bound` list). Inputs still apply in queued arrival order. A settled binding sleeps until
+an input write wakes the player; its value changes on the next step, including `step(0)`.
+
+A motion play state may also use `time: "expression"`; see **Declarative timeline control**.
+These are clock expressions evaluated before sampling, rather than property bindings.
+
+### Expressions and types
+
+Sources are declared number or bool input names, finite JSON number literals, hex colours
+(`#rgb`, `#rrggbb`, `#rrggbbaa`), parentheses, unary `+`/`-`, binary `+ - * /`, and the functions
+`min(a,b)`, `max(a,b)`, `clamp(x,lo,hi)`, `mix(a,b,t)`, `floor(x)`, `mod(a,b)`. Double-quoted strings, typed comparisons and `and or not` use the grammar above.
+No scene property reads, boolean literals, assignments or arbitrary calls are allowed. Identifiers use
+the input-name grammar; a hyphen is part of a name, so write `level - other` for subtraction
+between inputs. Multiplication/division precede addition/subtraction; binary operators associate
+left; unary signs have highest precedence. Whitespace is insignificant between tokens.
+
+A bare bool input retains its bool type for boolean targets. Numeric operations and number
+targets convert bools to 0/1. Numbers do not implicitly become bools. `min`, `max`, `clamp` and
+numeric `mix` return numbers; `mix` also accepts two hex colours and a numeric/bool weight,
+returning a colour. Mixing a number and colour is invalid. Colour interpolation is §5 sRGB
+channel interpolation (including alpha, rounding and channel clamping); weights may extrapolate.
+`floor(x)` returns the greatest integer ≤ x. `mod(a,b)` is `a - b*floor(a/b)`
+(the result has the divisor's sign; a zero divisor resolves to zero). Numeric `mix` is
+`a + (b-a)*t`; `clamp` is `min(max(x,lo),hi)`. Non-finite arithmetic results
+(including division by zero) resolve to zero when consumed by another operation or the target,
+before property clamping. Trigger inputs cannot
+be values. Evaluators accept a scope map of named inputs, reusable for component input bindings.
+
+### Validation
+
+`bind-type` rejects incompatible operands or target types; `unknown-input` rejects unknown names.
+`bind-syntax` rejects malformed expressions, unknown calls, wrong arity or limits (512 tokens,
+64 nested expressions). Diagnostics point to `/bind/<escaped-address>`, include the 1-based
+character offset in the expression message, and give a corrective hint. Parser nodes/errors
+retain zero-based UTF-16 offsets. `bind-cycle` rejects attempted cyclic property references,
+including self references. Valid expressions read only inputs and cannot form property cycles;
+acyclic property references are also rejected. Targets use the ordinary `unknown-address`,
+`not-animatable` and `undeclared-feature` diagnostics. The old object-valued `from/map` form is
+not supported. `anima schema bind` describes both spellings from the registry.
+
+The grammar and evaluator are independently written. Strict unknown-name checks and a single
+post-state pass follow the lessons about silent unresolved bindings and feedback loops in
+[animation/state research](../docs/research/rive-animation-and-state.md) §C. No Rive source,
+documentation text or binary format was used.
+
+<!-- capability: data.bind-listener-actions -->
+### Input expressions in actions
+
+Declare `bind`. Every action set (listener, bind machine block, or machine-module action group)
+uses this single expression/type/snapshot contract. Listener `set` values may be expression strings, e.g.
+`{"set":{"count":"count+1","previous":"count"}}`. Numeric/bool JSON literals keep their
+0.1 meaning and type checks; a string is always an expression, never an implicit literal.
+Number targets accept numeric or bool expressions (bool becomes 0/1); bool targets require bool
+expressions. Colour expressions remain valid for colour properties and typed event fields;
+there are no colour inputs, so setting a bool/number input to a colour is `bind-type`.
+Unknown inputs are `unknown-input`; assigning a trigger is `input-type` (use `fire` instead).
+Trigger reads and incompatible result types are `bind-type`; parser/arity errors are
+`bind-syntax`. Diagnostics point to the set value, condition, or event field, with an expression
+character offset where applicable and a hint. No property reads or assignments are added to the
+expression language. No runtime dependencies or evaluator copies are introduced: the optional
+bind module supplies a compile hook to core, returning pure input-scope closures. Merely importing
+bind does not enable expressions in a document without `requires: ["bind"]`.
+
+A listener is queued intact. When its action runs at §7.1, evaluate every set expression against
+one input snapshot **before any write in that action**, then apply `fire`, all sets (clamping each
+number result to its target min/max), `toggle`, and `emit`. Non-finite arithmetic becomes zero
+before clamping. Separate actions run sequentially and see prior writes, including host writes
+queued before them. Queuing two increments before one step increments twice.
+
+The existing core machine also accepts state `entry` and `exit` blocks and transition `actions`
+blocks. Each is an object with the same optional `fire`, `set`, `toggle`, `emit` keys as listeners;
+State `entry`/`exit` blocks require bind even if their values are literals. Transition `actions`
+requires either bind or machine; without machine it follows the immediate order below, while
+with machine it follows that chapter's queued order. Bind blocks target local input names; scoped child writes remain a listener/host feature.
+On initial construction, run each
+initial state's entry in layer order before its entry emit and timeline events. On a transition,
+run source exit then transition actions before the existing state-end/transition-start signals;
+run target entry after the immediate transition-end signal (if any), before target emit and entry
+timeline events. Each block is a separate snapshot action; writes are immediate and visible to
+subsequent blocks, transitions in the chain, and later layers. Exit runs on reentry too; blend
+completion does not rerun actions. Existing chain limits and trigger consumption apply. Pending
+triggers fired from entry actions are checked during the next step; triggers fired in a step
+remain subject to that step's ordinary consumption/expiry rule.
+
+AniML listeners use `set="count=count+1 previous=count"`; spaces and commas within expressions
+are allowed. Whitespace followed by an input name and `=` begins the next assignment. Machine
+blocks are JSON attributes, e.g. `<state name="idle" entry='{"set":{"count":0}}'>` and
+`<on when="tap" to="playing" actions='{"set":{"count":"count+1"}}'/>`.
+Arithmetic conditions use `when="count > 0 and mod(count, 5) == 0"`. `anima schema listener`,
+`state`, `transition` and `--json-schema` expose these forms. Input-only scopes avoid the
+feedback loops described in [animation/state research](../docs/research/rive-animation-and-state.md)
+§C; snapshot action maps avoid depending on JSON member order.

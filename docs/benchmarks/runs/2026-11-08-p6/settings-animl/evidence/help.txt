@@ -1,0 +1,43 @@
+anima — check, see and scaffold .animl and .ani animations
+
+  anima playground [file.animl] [--port 4519]  local live editor (built-in bell is read-only)
+  anima import-font <font> -o local.ttf [--chars "ABC"]  store/subset a font
+  anima import-font --google "Family:wght@400;600" -o local.ttf  fetch at build time
+  anima flatten <file> [--node id] [-o out.ani] [--font name=path]  text to outlines
+  anima validate <file>                 all diagnostics, with JSON pointers, lines and hints
+  anima inspect <file>                  nodes, glyph subpaths and bounds, timelines, state graph
+  anima sample <file> [-s script | -e "cmds"] [--reduced-motion] [--all] [--semantics] [--seed N]
+                                        run a script (spec §11.2), print snapshots as JSON lines
+  anima session <file>                 persistent JSON-line script session (reload, quit)
+  anima bench <file> [-s script] [--frames N] [--format=json]  compile and frame costs
+  anima render <file> -o out.svg|png [--at t] [-s script | -e "cmds"] [--size px]
+               [--sheet N [--over seconds]] [--dark] [--color slot=#hex] [--current #hex]
+               [--background #hex] [--font name=path] [--browser-text] draw a frame or a labelled contact sheet
+  anima render <file> --compare glyph.svg [--at t] [-s script | -e "cmds"]
+               [--size px] [--tolerance 0..255] [-o diff.png]
+                                        compare RGBA pixels (default 256px, black currentColor,
+                                        transparent background); exit 1 beyond tolerance (default 0)
+  anima compare a.png b.png [--tolerance 0..255] [-o diff.png]  compare output RGBA pixels
+  anima doctor                          check Node, browsers, cache and module wiring
+  anima render [file] [--component name] [--fit contain|cover|fill|none] [--viewport WxH]
+               [--frames N] [--fps N] [--scale k] [--probe 'x,y;x,y'] [--preset name] [--audio out.wav]
+  anima inspect [file] --summary         wiring diagnostics table
+  anima schema --search <words> | <type>.<field>
+               [--animatable] [--bindable] [--inherited] [--editor-only]
+  anima new <directory> --sample bell|moon|progress
+  anima build [file] --out-dir <directory>  local HTML and runtime export
+  anima fmt <file> [--write | --check]  canonical formatting
+  anima new <name> --glyph <file.svg> | --glyphy <project-dir> [-o out.animl] [--ani] [--force]
+                                        scaffold AniML whose rest frame is the glyph (--ani for JSON)
+  anima build <file.animl|page.html> [-o out] [--embed]  compile AniML to canonical .ani or inline JSON
+  anima import <file.svg|file.json> [-o out.animl]  import supported SVG or Lottie features
+  anima library update <file.animl> [--check]  refresh vendored imports from local source paths
+  anima decompile <file.ani> [-o out.animl]    write canonical AniML
+  anima schema [type | fill | stroke | a11y | timeline | layer | state | pose | transition | listener | input] [--json-schema]
+                                        registry fields, types and markup/.ani spellings
+  anima docs [authoring | spec | markup | <section>] [section-slug] [--list]
+                                        the authoring guide and the spec
+
+Script commands: semantics [id]; semantic <id> tap|increase|decrease|focus; snapshot --semantics.
+
+Authoring commands accept .animl and .ani. Every command takes --format=json. Exit codes: 0 ok, 1 diagnostics, 2 usage.

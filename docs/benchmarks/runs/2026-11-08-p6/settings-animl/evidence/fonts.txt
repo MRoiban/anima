@@ -1,0 +1,77 @@
+## fonts
+
+<!-- capability: assets.font -->
+<!-- capability: assets.host-decode-font -->
+<!-- capability: assets.replacement-scope-font -->
+<!-- capability: data.host-font -->
+<!-- capability: host-api.data-font -->
+<!-- capability: host-api.font-fallback -->
+<!-- capability: text.font-fallback -->
+<!-- capability: text.font-assets -->
+<!-- capability: text.font-decoding -->
+<!-- capability: text.variable-axes -->
+<!-- capability: text.opentype-features -->
+<!-- capability: text.font-metrics -->
+
+Optional runtime feature `fonts` uses the assets feature's existing `type: "font"` records.
+JSON `{assets: {body: {type: "font", source: "body.woff2"}}}` is AniML
+`<asset name="body" type="font" src="body.woff2"/>`; declare `requires="assets fonts"`.
+No new asset fields or deterministic player channels are added. Core accepts font resources without
+a browser; decoding is a web concern. This keeps the optional asset boundary described in
+`docs/research/rive-web-runtime.md` without adopting its shaping engine or resource format.
+
+### Resources, decoding and readiness
+
+The `@anima-format/web/fonts` entry loads font assets before `anima:load` and the first render.
+Fonts and asset I/O preserve each other's preload hooks in either entry order.
+Sources pass through `icon.resolveAsset`, including its local/any policy and host resolver.
+URLs and resolver-returned Blobs are read as bytes, decoded using `FontFace.load`, added to
+`document.fonts`, then awaited with `document.fonts.load`. Unsupported or corrupt fonts and
+policy failures emit `anima:warning` with a diagnostic array: code `font-load`, severity `warning`,
+JSON pointer `/assets/<escaped-name>/source`, message and recovery hint. The scene continues with
+CSS fallback. A failed replacement preserves the previous face. Browser decoding does not change
+`Player.step` values, timing or events; headless tools do not decode fonts through this module.
+
+`await icon.fonts.decode(bytesOrURL, descriptors?)` returns a loaded FontFace. URLs obey the asset
+policy; direct bytes are explicit host input. `await icon.fonts.set(name, faceOrBytesOrURL,
+descriptors?)` replaces the named family for every consumer in that icon scope. Byte and URL
+sources receive private family names, preventing cross-icon collisions. The latest replacement
+wins; cleanup invalidates pending work. Faces stay retained until scope cleanup. Faces already in
+`document.fonts` before adoption are never deleted by cleanup. Shared adopted faces use reference
+counts. Child component catalogs use `icon.fonts.forModel(model)` to distinguish same-named assets.
+Reload/dispose clears owned resources; imported pages without `requires: ["fonts"]` do not decode
+font assets.
+
+### CSS, fallback and metrics
+
+`cssFont(spec)` accepts the structural FontSpec contract and returns CSS properties `font`,
+`fontFamily`, `fontSize`, `fontWeight`, `fontStyle`, `letterSpacing`, `fontVariationSettings`, and
+`fontFeatureSettings`. The `font` property is the canvas/FontFaceSet shorthand. `axes` and `features`
+become quoted OpenType tags followed by numeric values; absent maps become `normal`.
+For live asset aliases and host fallback, browser consumers MUST use
+`icon.fonts.cssFont(spec)` (or `icon.fonts.forModel(model).cssFont(spec)` for children). Apply the
+individual CSS properties to SVG text; canvas consumers apply `font` and the supported individual
+properties. The text module owns field validation, layout, animation, measurement and backend
+application. A controller does not synthesize axis or feature introspection from font bytes.
+
+`await icon.fonts.ready(spec, text?)` awaits the used CSS font selection before measuring the actual
+run text. `await icon.fonts.add(face, {weight}?)` adds a host fallback face and optional weight;
+faces sharing a family remain eligible for browser weight selection. Families are appended in
+insertion order after the authored CSS family list. Host fallback configuration survives source
+reloads (including configuration before the first load); `icon.fonts.clear()` forgets it. Cleanup
+releases owned document font registrations; the next CSS/readiness use restores configured faces.
+`icon.fonts.revision` increases on font changes and cleanup. Text measurement/layout caches must
+invalidate on that revision even when a replacement preserves its CSS family name. Glyph coverage and fallback selection are
+browser behavior. Metrics come from the text module's browser measurer after readiness; no guessed
+metrics, coverage table, cap-height/x-height parser or outline extractor is supplied by `fonts`.
+
+### Data assignment and replacement scope
+
+With the optional data and host modules, `await icon.data.font(path).set(face)` accepts a decoded
+FontFace. It allocates a player-local font resource id and queues the typed asset-reference write
+through the existing host API. Other data properties and other icons keep their previous resources.
+String assignment retains the existing typed font-asset validation. The public handle value remains
+the selected resource id. Text styles must resolve that id through the owning controller. Named
+resource replacement changes all uses in its resource scope; data-property assignment changes only
+consumers of the assigned property. Bound text rendering and complete font-metric parity require
+the text module; the fonts module alone does not add text nodes.
