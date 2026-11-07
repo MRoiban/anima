@@ -1,0 +1,20 @@
+advance 0.000001s
+advance 0.000001s
+screenshot frames/initial.png
+data-dump frames/initial.json
+data t=0.25
+advance 0.000001s
+advance 0.000001s
+screenshot frames/quarter.png
+data-dump frames/quarter.json
+data t=0.75
+advance 0.000001s
+advance 0.000001s
+screenshot frames/three-quarter.png
+data-dump frames/three-quarter.json
+data t=0.25
+advance 0.000001s
+advance 0.000001s
+screenshot frames/back.png
+data-dump frames/back.json
+quit

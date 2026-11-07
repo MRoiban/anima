@@ -33,3 +33,13 @@ literal-default baseline.
 Data expressions call the active bind parser; the data bundle no longer embeds a duplicate parser.
 Direct scalar/opaque `$` path reads remain available without that parser. Arithmetic, comparison and
 logical expressions need the bind bundle; unavailable expression parsing is a load diagnostic.
+
+P5b context seam: `DataModule.prepareContext(model, diagnostics)` runs after local refs are
+flattened and before authored paths are scanned. Lists supplies synthetic read-only index and
+ancestor refs. The callback belongs to the active composed module, including separate browser
+bundles. Data scopes clone model identity metadata along with values into `modelTypes`.
+Components exposes `ComponentModule.placements`, `componentKey`, `placementContext` and `loadComponent` to compile
+inherited templates under their actual parent context without importing lists into components.
+
+Lists forks each player's model draw cache; components `forkModel` copies compiled instance metadata,
+and `externalDrawing` delegates drawing only for lists documents. Pure compiled nodes stay shared.

@@ -1,0 +1,65 @@
+{
+  "anima": "0.1",
+  "name": "components-nested-remap",
+  "grid": 20,
+  "requires": ["components", "nested", "bind", "data"],
+  "nodes": [
+    {
+      "id": "badge",
+      "type": "instance",
+      "component": "row",
+      "time": "$t"
+    }
+  ],
+  "components": {
+    "row": {
+      "grid": 10,
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [5, 5],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "timelines": {
+        "go": {
+          "duration": 1,
+          "tracks": {
+            "dot.x": [
+              [0, 0],
+              [1, 12]
+            ]
+          }
+        }
+      },
+      "machine": {
+        "layers": {
+          "main": {
+            "initial": "go",
+            "states": {
+              "go": {
+                "play": "go"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "data": {
+    "models": {
+      "Clock": {
+        "properties": {
+          "t": {
+            "type": "number",
+            "default": 0.5
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+# Evidence of the explicit titleChars approximation: title-only edits do not resize.
+advance 0
+set $tracks.0.title "LongerTitle"
+advance 0
+snapshot $tracks.0.title $tracks.0.titleChars rows/0/titleBar.w

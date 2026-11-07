@@ -1,0 +1,11 @@
+Traceback (most recent call last):
+  File "/home/jarvis/.t3/worktrees/anima/t3-d90c2c27/docs/benchmarks/runs/2026-11-06-p5b/rive/generate.py", line 88, in <module>
+    validate()
+    ~~~~~~~~^^
+  File "/home/jarvis/.t3/worktrees/anima/t3-d90c2c27/docs/benchmarks/runs/2026-11-06-p5b/rive/generate.py", line 69, in validate
+    check(all(frame[y+4][x]==color for x in range(96,96+width)), name+' bar interior')
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jarvis/.t3/worktrees/anima/t3-d90c2c27/docs/benchmarks/runs/2026-11-06-p5b/rive/generate.py", line 13, in check
+    assert condition, message
+           ^^^^^^^^^
+AssertionError: initial bar interior

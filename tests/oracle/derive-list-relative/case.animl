@@ -1,0 +1,29 @@
+<anima version="0.1" name="derived-scoreboard" grid="20" requires="data bind derive convert">
+  <model name="Player">
+    <string name="name"/>
+    <number name="score" min="0" max="2000"/>
+    <number name="bounded" min="10" max="20" value="$score / 100"/>
+    <number name="leading" value="$score >= 1000"/>
+    <string name="label" value="$score" convert="points"/>
+    <bool name="milestone" value="$score >= 1500"/>
+  </model>
+  <model name="Board">
+    <list name="players" of="Player"/>
+  </model>
+  <instance name="main" model="Board" default="true">
+    <set path="players"
+        value="[{&quot;name&quot;:&quot;Ada&quot;,&quot;score&quot;:1250},{&quot;name&quot;:&quot;Lin&quot;,&quot;score&quot;:980},{&quot;name&quot;:&quot;Sam&quot;,&quot;score&quot;:40}]"/>
+  </instance>
+  <converter name="grouped" type="number-format" decimals="0" grouping="true"/>
+  <converter name="suffix" type="template" text="{0} pts"/>
+  <converter-group name="points" chain="grouped suffix"/>
+  <circle id="a" cx="4" cy="10" r="1" fill="#000" data-label=""/>
+  <circle id="b" cx="10" cy="10" r="1" fill="#000" data-label=""/>
+  <circle id="c" cx="16" cy="10" r="1" fill="#000" data-label=""/>
+  <bind target="a.properties.label" value="$players.0.label"/>
+  <bind target="b.properties.label" value="$players.1.label"/>
+  <bind target="c.properties.label" value="$players.2.label"/>
+  <bind target="a.x" value="$players.0.score >= $players.1.score and $players.0.score >= $players.2.score"/>
+  <bind target="b.x" value="$players.1.score > $players.0.score and $players.1.score >= $players.2.score"/>
+  <bind target="c.x" value="$players.2.score > $players.0.score and $players.2.score > $players.1.score"/>
+</anima>

@@ -1,0 +1,5 @@
+advance 0
+snapshot $title.length $label.length $chars rows/0/dot.r rows/1/dot.r
+set $title "LongerTitle"
+advance 0
+snapshot $title.length $label.length $chars chars/10/dot.r

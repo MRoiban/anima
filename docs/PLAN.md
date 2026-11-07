@@ -109,7 +109,7 @@ about 1 MB; Anima stays far below it.
 | Use case | What loads | Ceiling |
 |---|---|---|
 | An icon on a page | core + web, plus only the modules that icon uses | core + web ≤ 30 KB; each module ≤ 5–8 KB |
-| Full-featured animation | core + web + most modules, SVG renderer | ≤ 100 KB total |
+| Full-featured animation | core + web + most modules, SVG renderer | ≤ 128 KB total (raised from 100 KB by the owner, 2026-11-06, at P5b) |
 | Rive-class scenes | adds the canvas/WebGL renderer, rigging, text | ≤ 200–250 KB total |
 | Tools (playground, CLI) | run locally | no limit |
 
@@ -206,8 +206,18 @@ and an oracle test against Rive.
         diagnostics (including registry-derived reserved input names), four conformance cases,
         Chromium/Firefox runtime and playground tests; optional component/bind/paint markup hooks
         restore the unchanged size gates. `npm run check`: 966 tests pass; markup 8010/8192 B.
-- [ ] P5b The rest of P5: asset pipelines (encodings, imports), library detach/update, lists,
-      script instances (72 rows).
+- [x] P5b The rest of P5: lists, data contexts, host data editing, assets (LOG "P5b — lists, assets,
+      host editing"; design `design/p5b/DESIGN.md`).
+  - [x] New modules `lists`, `host-edit`, `host-values` (split from `host`), `media`, `assetio` (split
+        from `assets`), `nested`, `componentpaint`; image sampling in `paint`/`canvas`; build-time
+        sniffing, encoding, SVG and Lottie import; typed guard literals and functions, colour
+        patterns, trigger destinations, data keyframes; shared host write queue and document cache.
+  - [x] Parity 77 rows done (624 / 1 238); 16 moved to P3b (15) and P10 (1); 19 moved before work
+        began (fonts → P6, GPU formats → P10, layout sizing → P7, script instances → P9, PSD → later).
+  - [x] Benchmark (playlist): AniML 5/6 → **6/6** after P5b-10; Rive 5/6 strict.
+  - Owner raised the full-featured ceiling to 128 KB during P5b (page now 109.1 KB). `data`
+    (8 034 / 8 192), `components` (4 051 / 4 096) and `bind` (2 038 / 2 048) must split before their
+    next change.
 - [x] Pc **Canvas backend, minimal** — brought forward from P10 (owner, 2026-11-06): the draw layer
       rendered to Canvas2D as `@anima-format/web/canvas`; runs every conformance case with a pixel
       comparison against the SVG backend; SVG stays the default for icons. Must exist before P8.

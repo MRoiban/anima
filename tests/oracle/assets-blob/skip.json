@@ -1,0 +1,9 @@
+{
+  "status": "skip",
+  "reason": "BlobAsset exists, but permitted headless commands expose data/semantics/pixels and no host asset byte getter or JavaScript ArrayBuffer. A script-side blob reader is a different API; native JS host-byte/cache lifetime parity cannot be observed.",
+  "tests": ["modules/assets/test/cli/pipeline.test.ts", "modules/assets/test/web/pipeline.test.ts"],
+  "captureEvidence": [
+    "modules/assets/probes/native-capabilities.json",
+    "modules/assets/probes/native-capabilities.ts"
+  ]
+}

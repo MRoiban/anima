@@ -14,6 +14,7 @@
     "./assets-svg": "./src/modules/assets/svg.ts",
     "./focus": "./src/modules/focus/index.ts",
     "./input": "./src/modules/input/index.ts",
+    "./media": "./src/modules/media/index.ts",
     "./motion": "./src/modules/motion/index.ts",
     "./events": "./src/modules/events/index.ts",
     "./machine": "./src/modules/machine/index.ts",
@@ -25,10 +26,15 @@
     "./data": "./src/modules/data/index.ts",
     "./convert": "./src/modules/convert/index.ts",
     "./derive": "./src/modules/derive/index.ts",
+    "./host-values": "./src/modules/host-values/index.ts",
     "./host": "./src/modules/host/index.ts",
+    "./host-edit": "./src/modules/host-edit/index.ts",
+    "./lists": "./src/modules/lists/index.ts",
+    "./nested": "./src/modules/nested/index.ts",
     "./surface": "./src/modules/surface/index.ts",
     "./surface-svg": "./src/modules/surface/svg.ts",
-    "./mix": "./src/modules/mix/index.ts"
+    "./mix": "./src/modules/mix/index.ts",
+    "./componentpaint": "./src/modules/componentpaint/index.ts"
   },
   "files": [
     "src"

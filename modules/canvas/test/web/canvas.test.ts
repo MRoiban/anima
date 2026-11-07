@@ -47,6 +47,85 @@ for (const file of globSync([
     });
   }
 }
+// Live-source regressions use the same fixed feature classifier and pixel limits as the corpus.
+for (const variant of [
+  'gradient',
+  'nested',
+  'opacity',
+  'clip',
+  'paint-in-paint',
+  'two-owners',
+  'source-order',
+  'hidden',
+]) {
+  const doc = {
+    anima: '0.1',
+    name: 'component-source-' + variant,
+    grid: 20,
+    requires: ['components', 'paint', 'componentpaint', 'nested', 'composite'],
+    components: {
+      row: {
+        grid: 10,
+        nodes: [
+          { id: 'tile', type: 'rect', x0: 0, y0: 0, w: 10, h: 10, fill: { color: '#204080' } },
+        ],
+      },
+      leaf: {
+        grid: 10,
+        nodes: [
+          { id: 'leaf', type: 'rect', x0: 0, y0: 0, w: 10, h: 10, fill: { color: '#e08020' } },
+        ],
+      },
+    },
+    nodes: [
+      { id: 'target', type: 'rect', x0: 0, y0: 0, w: 20, h: 20, fill: { paint: 'component:row' } },
+    ],
+  } as import('../../../../packages/core/src/load.ts').Model['doc'];
+  const row = doc.components.row.nodes[0];
+  if (variant === 'gradient')
+    row.fill = {
+      type: 'linear',
+      x1: 0,
+      y1: 0,
+      x2: 10,
+      y2: 0,
+      stops: [
+        { position: 0, color: '#204080' },
+        { position: 1, color: '#e08020' },
+      ],
+    };
+  if (variant === 'nested')
+    doc.components.row.nodes = [{ id: 'child', type: 'instance', component: 'leaf' }];
+  if (variant === 'opacity') row.opacity = 0.5;
+  if (variant === 'clip') {
+    row.clip = { source: 'clip' };
+    doc.components.row.nodes.push({ id: 'clip', type: 'rect', x0: 2, y0: 2, w: 6, h: 6 });
+  }
+  if (variant === 'paint-in-paint') row.fill = { paint: 'component:leaf' };
+  if (variant === 'hidden') doc.nodes[0].fill.visible = false;
+  if (variant === 'source-order') {
+    row.drawOrder = { target: 'front', position: 'after' };
+    doc.components.row.nodes.push({
+      id: 'front',
+      type: 'rect',
+      x0: 0,
+      y0: 0,
+      w: 10,
+      h: 10,
+      fill: { color: '#e08020' },
+    });
+  }
+  if (variant === 'two-owners') {
+    doc.nodes[0].w = 10;
+    doc.nodes.push({ ...doc.nodes[0], id: 'second', x: 10 });
+  }
+  cases.push({
+    name: 'component-paint/' + variant,
+    doc,
+    script: 'advance 0.5',
+    svgUnsupported: false,
+  });
+}
 // Regression corpus: per-paint blending must see the same backdrop through transforms,
 // while authored opacity/masks continue to isolate it. Same fixed comparison classifier.
 const blendDoc = JSON.parse(

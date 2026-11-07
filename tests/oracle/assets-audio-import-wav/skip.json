@@ -1,0 +1,16 @@
+{
+  "status": "skip",
+  "reason": "Genuine 800-frame PCM WAV builds with zero native errors and sound pulse: triggered; no native waveform capture in permitted commands. Both-browser sample-exact host decoding is independent Anima evidence, not native PCM parity.",
+  "tests": [
+    "modules/assets/test/cli/pipeline.test.ts",
+    "modules/assets/test/web/pipeline.test.ts",
+    "modules/events/test/web/events.browser.test.ts"
+  ],
+  "captureEvidence": [
+    "modules/assets/probes/native-capabilities.json",
+    "modules/assets/probes/native-capabilities.ts",
+    "modules/assets/probes/audio/native-wav/session.txt",
+    "modules/assets/probes/audio/native-flac/session.txt",
+    "modules/assets/probes/audio/native-mp3/session.txt"
+  ]
+}

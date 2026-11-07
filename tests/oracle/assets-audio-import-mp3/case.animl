@@ -1,0 +1,17 @@
+<anima version="0.1" name="assets-audio-import-mp3" grid="24" requires="assets paint events">
+  <asset name="photo" type="image"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAG0lEQVR4AWP8r8HwnwEPYGIgAJgYCAAmBgIAABjwAi5tDXySAAAAAElFTkSuQmCC"
+      width="8" height="4"/>
+  <asset name="tone" type="audio"
+      src="data:audio/mpeg;base64,/+NIxAAwvA6ke09YAwXYJBIP379+/f3velHjx48iUpeG/fv37+Pd48YFYhiGKhJhHwAAAKAbhCFAyPHjJHhv379/e9zQ0NB2GhoaHGXLx3jvNzc3fXL3vv9jDQ0OM31JuSx3m///8ksPYCAEgIhMZ/RocTNzc3fbHv2MZXs////9jGPe973pm5uTDQ0NDQ0+n3ve95uO8PA7CYz/6///z73ve97GV///wxjGG5ubm5ubm47x3jsHYOwdmxjGPe83JY7x3jvHeOgmHJTN3h4AAHcrCQAL+2SAiN+FQMYJBBg8NAwE1bMqrWK9vAtiYABZeYwCBJ6UzMt3nrYFAhfUwMBQQnf/ywmf/yxFwM9AMBQAh8JDiDEWBh2+DMF8DAAX/+NIxFA/w8KmWZyoBgMKA8DBgPC6QYmHcQ4MvE0bmqKGiboM7O6Is4ckQqF/Q/YLCgMAggBYDgYSDoGJkD/wiT/+ESeAMzQbHRCpDiDEWMS6XVPBgu/+DFx/9SReMSKkBIcLmEBhNoNugSDIGhgCAcBf/heAMIH/4RCQMQEDLRbAwKIgMUiQDD4eAWAoGCAKBgIAikhKRJDqD4gblA3lAwEBwMGBMAkJAYdEhf3/1aK0Tx4+aHnQ+7sfNjUECEAAWggIAcBihbsv21EwYJTDgHEIkMHCmtutWBoDEgG00wCDTMw1MKogyklzQBF3NU10MCaaJisrmWeCARsYeIpkIhmQhvNSrOofeLIiEgQLHOR4WoYlMhlUGGDBOYDCA0Ah/+NIxGRNY3p6OZzgAAAGtaq1ebjSmDJMpRYrw2YDCA8AgsA1MoPpYjFcf////tyt24u+6w7rpzmBQeYLJcBOjIVVlbXNC4GBgHFgCYFE3/+tfWy3cN7A8KAZIB2GcQJKIxYww4FQcTBMwACVMn7VtfanhmtnyVX8cf3////vPtPG7b/uXI0vy8YhEwZcS1GOESlNRpT6xBAUnKnoYfIT0LT/////9a3crdASQMXCoxIGhIIGDAQYGACvEUF0RSG3LnyyYGAbfmGQyYXB5ZGGoJYbTTMZ1vm9SrGadqlgKkxBTUUzLjEwMKqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq/+NIxAAAAANIAcAAAExBTUUzLjEwMKqqqqqqqqqqqqqqTEFNRTMuMTAwqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq"
+      duration="0.288" start="0.01" end="0.09"/>
+  <image id="photo" asset="photo" x0="0" y0="0" width="4" height="4"/>
+  <event-def name="ping" audio="tone"/>
+  <timeline name="resize" duration="1">
+    <track target="photo.width">0 4; 1 8</track>
+    <event at="0.5" name="ping"/>
+  </timeline>
+  <layer name="main" initial="active">
+    <state name="active" play="resize"/>
+  </layer>
+</anima>

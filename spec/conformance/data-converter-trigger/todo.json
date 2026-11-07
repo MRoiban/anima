@@ -1,4 +1,0 @@
-{
-  "status": "todo",
-  "reason": "Boolean/integer conversion is implemented; delivering an incremented trigger signal counter is not. Data bindings target animatable scalar node properties, while custom triggers are deliberately non-animatable; registerConverter alone exposes no trigger destination/write hook. Needs a binding destination seam."
-}

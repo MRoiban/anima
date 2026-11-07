@@ -1,0 +1,19 @@
+<anima version="0.1" name="state-machine-literal-artboard" grid="20" requires="data components nested">
+  <model name="Card">
+    <component name="card" default="row"/>
+  </model>
+  <component name="row" grid="10">
+    <circle id="dot" cx="5" cy="5" r="2" fill="#000"/>
+  </component>
+  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+  <layer name="main" initial="idle">
+    <state name="idle">
+      <pose probe.r="1"/>
+      <on when="$card == component(&quot;row&quot;)" to="match"/>
+    </state>
+    <state name="match">
+      <pose probe.r="9"/>
+      <on when="$card != component(&quot;row&quot;)" to="idle"/>
+    </state>
+  </layer>
+</anima>

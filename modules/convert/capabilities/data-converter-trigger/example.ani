@@ -1,0 +1,78 @@
+{
+  "anima": "0.1",
+  "name": "data-converter-trigger",
+  "grid": 20,
+  "requires": ["data", "bind", "convert"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "machine": {
+    "layers": {
+      "status": {
+        "initial": "idle",
+        "states": {
+          "idle": {
+            "pose": {
+              "dot.r": 1
+            },
+            "on": [
+              {
+                "when": "$pulse",
+                "to": "first"
+              }
+            ]
+          },
+          "first": {
+            "pose": {
+              "dot.r": 9
+            },
+            "on": [
+              {
+                "when": "$pulse",
+                "to": "second"
+              }
+            ]
+          },
+          "second": {
+            "pose": {
+              "dot.r": 18
+            }
+          }
+        }
+      }
+    }
+  },
+  "bind": {
+    "$pulse": {
+      "value": "$value",
+      "convert": "pulse"
+    }
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "number"
+          },
+          "pulse": {
+            "type": "trigger"
+          }
+        }
+      }
+    }
+  },
+  "converters": {
+    "pulse": {
+      "type": "trigger"
+    }
+  }
+}

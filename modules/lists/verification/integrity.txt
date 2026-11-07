@@ -1,0 +1,7 @@
+1238 parity statuses unchanged.
+216 existing completed oracle metric records byte-value identical after JSON decoding.
+8 new oracle cases; maxDiff 0, overPercent 0 in all.
+Measurement tools and existing inputs unchanged.
+Perf baseline was HEAD 02d29cd; temporary source restoration was undone byte-for-byte in finally. Tools/perf.ts and its fixtures were untouched.
+No push, PR, merge, native binaries or copied native documentation.
+Existing oracle manifest bytes preserved up to the appended eight entries.

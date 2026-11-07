@@ -1,0 +1,8 @@
+{
+  "command": "~/.rive/bin/rive schema ViewModelInstance --all",
+  "cliVersion": "1.9.1",
+  "type": "ViewModelInstance",
+  "typeKey": 437,
+  "exportFlag": { "name": "exports", "key": 740, "type": "bool", "default": false },
+  "limit": "Headless commands expose bound instance data; they do not enumerate runtime-visible authored instances. Export discovery comparison remains pending."
+}

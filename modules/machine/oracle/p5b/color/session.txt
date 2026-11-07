@@ -1,0 +1,17 @@
+ok advance
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/color/initial.json
+ok data
+ok advance
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/color/changed.json
+ok advance
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/color/held.json
+ok quit
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[21:49:13.367] rive  deferred replay: inline
+[21:49:13.377] rive  built (287 bytes, 9ms, 0 errors, 0 warnings)
+[21:49:13.377] rive  showing Probe [1/1]
+[21:49:13.378] rive  viewport 20x20 @1x
+[21:49:13.378] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/color/initial.json
+[21:49:13.378] rive  data: value = FFD97757 (mid-run)
+[21:49:13.378] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/color/changed.json
+[21:49:13.378] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/color/held.json

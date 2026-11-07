@@ -1,0 +1,29 @@
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl: 14 errors
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:15:31 error data-asset asset reference kind does not match
+  hint: declare an asset of the requested kind
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:15:31 error data-asset asset reference kind does not match
+  hint: declare an asset of the requested kind
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:15:31 error data-asset asset reference kind does not match
+  hint: declare an asset of the requested kind
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:35:30 error data-asset asset reference kind does not match
+  hint: declare an asset of the requested kind
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:74:52 error bad-condition "after 0": cannot read "after 0"
+  hint: terms: name, !name, name OP number, @end, @after(s), joined with &&
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:75:52 error bad-condition "after 0": cannot read "after 0"
+  hint: terms: name, !name, name OP number, @end, @after(s), joined with &&
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:76:54 error bad-condition "after 0": cannot read "after 0"
+  hint: terms: name, !name, name OP number, @end, @after(s), joined with &&
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:77:52 error bad-condition "after 0": cannot read "after 0"
+  hint: terms: name, !name, name OP number, @end, @after(s), joined with &&
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:80:3 error data-asset asset reference kind does not match
+  hint: declare an asset of the requested kind
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:80:3 error data-asset asset reference kind does not match
+  hint: declare an asset of the requested kind
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:80:3 error data-asset asset reference kind does not match
+  hint: declare an asset of the requested kind
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:80:3 error data-asset asset reference kind does not match
+  hint: declare an asset of the requested kind
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:84:47 error list-map component map has no entry for Track
+  hint: add the list model to the component map
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:85:28 error list-source repeat source has the wrong type
+  hint: use a list, or a number with count

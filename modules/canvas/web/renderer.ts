@@ -1,4 +1,5 @@
 // Canvas2D consumes only the resolved draw frame. No second player or SVG rasterization.
+import type { CanvasSourceHost } from './sources.ts';
 import type { AnimaIcon, IconRenderer } from '../../../packages/web/src/index.ts';
 import type { DrawColor, DrawFrame, DrawPaint, Geometry, Mat } from '@anima-format/core';
 import { drawOrder, geometryLength, IDENTITY, mul, invert } from '@anima-format/core';
@@ -18,12 +19,15 @@ export class CanvasRenderer implements IconRenderer {
   readonly canvas = document.createElement('canvas');
   #icon: AnimaIcon;
   #frame?: DrawFrame;
+  #sourcePointer?: string;
+  #target = this.canvas;
   #revision = -1;
   #viewport: Mat = [...IDENTITY];
   #world: Mat[] = [];
   #hidden = new Set<number>();
   #reported = new Set<string>();
   #images = new Map<string, HTMLImageElement>();
+  #tiles = new Map<string, HTMLCanvasElement>();
   #pending = new Set<Promise<void>>();
   #paths = new Map<Geometry, Path2D>();
   #resize = new ResizeObserver(() => this.layout());
@@ -63,6 +67,7 @@ export class CanvasRenderer implements IconRenderer {
     this.disconnect();
     this.#pool = [];
     this.#images.clear();
+    this.#tiles.clear();
     this.#paths.clear();
     this.#frame = undefined;
     this.canvas.width = this.canvas.height = 1;
@@ -153,13 +158,20 @@ export class CanvasRenderer implements IconRenderer {
     code = 'unsupported-render',
     hint = 'use the SVG renderer or remove this feature',
   ): void {
+    pointer = this.#sourcePointer ?? pointer;
     const key = feature + pointer;
     if (this.#reported.has(key)) return;
     this.#reported.add(key);
     this.#icon.dispatchEvent(
       new CustomEvent('anima:error', {
         detail: [
-          { code, severity: 'error', pointer, message: `Canvas2D cannot render ${feature}`, hint },
+          {
+            code,
+            severity: 'error',
+            pointer,
+            message: `Canvas2D cannot render ${feature}`,
+            hint,
+          },
         ],
       }),
     );
@@ -176,9 +188,9 @@ export class CanvasRenderer implements IconRenderer {
   #surface(): HTMLCanvasElement {
     const index = this.#used++;
     const c = (this.#pool[index] ??= document.createElement('canvas'));
-    if (c.width !== this.canvas.width || c.height !== this.canvas.height) {
-      c.width = this.canvas.width;
-      c.height = this.canvas.height;
+    if (c.width !== this.#target.width || c.height !== this.#target.height) {
+      c.width = this.#target.width;
+      c.height = this.#target.height;
     } else context(c).reset();
     return c;
   }
@@ -235,6 +247,15 @@ export class CanvasRenderer implements IconRenderer {
     this.#used = 0;
     this.#style = getComputedStyle(this.#icon);
     this.#paths.clear();
+    this.#prepare(f);
+    const ctx = context(this.canvas);
+    ctx.resetTransform();
+    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    ctx.setTransform(...this.#viewport);
+    this.#list(ctx, f.tree.roots, IDENTITY);
+    this.draws++;
+  }
+  #prepare(f: DrawFrame): void {
     this.#world = [];
     const world = (i: number): Mat =>
       (this.#world[i] ??= mul(
@@ -245,13 +266,35 @@ export class CanvasRenderer implements IconRenderer {
     this.#hidden = new Set(
       f.nodes.flatMap((n) => (n.mask?.sourceDraws === false ? [n.mask.source] : [])),
     );
-    const ctx = context(this.canvas);
-    ctx.resetTransform();
-    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    ctx.setTransform(...this.#viewport);
-    this.#list(ctx, f.tree.roots, IDENTITY);
-    this.draws++;
   }
+  #source = (f: DrawFrame, width: number, height: number, pointer: string): HTMLCanvasElement => {
+    const saved = [
+      this.#frame,
+      this.#viewport,
+      this.#world,
+      this.#hidden,
+      this.#target,
+      this.#sourcePointer,
+    ] as const;
+    const tile = document.createElement('canvas');
+    tile.width = width;
+    tile.height = height;
+    const [x, y, w, h] = f.viewBox;
+    this.#sourcePointer ??= pointer;
+    this.#frame = f;
+    this.#target = tile;
+    this.#viewport = [width / w, 0, 0, height / h, (-x * width) / w, (-y * height) / h];
+    try {
+      this.#prepare(f);
+      const ctx = context(tile);
+      ctx.setTransform(...this.#viewport);
+      this.#list(ctx, f.tree.roots, IDENTITY);
+      return tile;
+    } finally {
+      [this.#frame, this.#viewport, this.#world, this.#hidden, this.#target, this.#sourcePointer] =
+        saved;
+    }
+  };
   #list(ctx: Ctx, list: number[], parent: Mat, source = false): void {
     const order = drawOrder(this.#frame!, list);
     // Knockouts affect only the preceding siblings, never the parent's backdrop.
@@ -434,6 +477,7 @@ export class CanvasRenderer implements IconRenderer {
         h = g.height!,
         iw = r.width ?? image.naturalWidth,
         ih = r.height ?? image.naturalHeight;
+      if (!w || !h) return;
       const sx = w / iw,
         sy = h / ih;
       const scale =
@@ -448,15 +492,94 @@ export class CanvasRenderer implements IconRenderer {
                 : r.fit === 'fit-height'
                   ? sy
                   : Math.min(sx, sy);
-      const dw = r.fit === 'fill' ? w : iw * scale,
-        dh = r.fit === 'fill' ? h : ih * scale;
+      const dw = r.fit === 'fill' || r.fit === 'resize' ? w : iw * scale,
+        dh = r.fit === 'fill' || r.fit === 'resize' ? h : ih * scale;
       const factor = (lo: string, hi: string) =>
         r.align.includes(lo) ? 0 : r.align.includes(hi) ? 1 : 0.5;
       ctx.save();
       ctx.imageSmoothingEnabled = r.sampling !== 'nearest';
       const x = g.x! + (w - dw) * factor('left', 'right'),
         y = g.y! + (h - dh) * factor('top', 'bottom');
-      if (r.sampling === 'nearest') {
+      if (this.#frame!.tree.nodes[i]!.imageWrap) {
+        ctx.beginPath();
+        ctx.rect(g.x!, g.y!, w, h);
+        ctx.clip();
+        const axes = (
+          mode: string | undefined,
+          pos: number,
+          size: number,
+          lo: number,
+          box: number,
+        ) =>
+          mode === 'clamp'
+            ? [
+                [-1, lo, Math.max(0, pos - lo)],
+                [0, pos, size],
+                [1, pos + size, Math.max(0, lo + box - pos - size)],
+              ]
+            : [[0, lo, box]];
+        const layer =
+          (r.wrapX === 'clamp' && dw < w) || (r.wrapY === 'clamp' && dh < h)
+            ? this.#surface()
+            : undefined;
+        const out = layer ? context(layer) : ctx;
+        if (layer) {
+          out.setTransform(ctx.getTransform());
+          // Sum adjacent slice coverage once. Source-over would leave seams
+          // at fractional slice boundaries, including translucent edge texels.
+          out.globalCompositeOperation = 'lighter';
+          out.imageSmoothingEnabled = ctx.imageSmoothingEnabled;
+        }
+        const nw = image.naturalWidth,
+          nh = image.naturalHeight;
+        for (const [cx, dx, cw] of axes(r.wrapX, x, dw, g.x!, w))
+          for (const [cy, dy, ch] of axes(r.wrapY, y, dh, g.y!, h)) {
+            if (!cw || !ch) continue;
+            const mx = !cx && r.wrapX === 'mirror',
+              my = !cy && r.wrapY === 'mirror';
+            const px = !cx && r.wrapX === 'clamp' ? 1 : 0,
+              py = !cy && r.wrapY === 'clamp' ? 1 : 0;
+            const tw = cx ? 1 : nw * (mx ? 2 : 1),
+              th = cy ? 1 : nh * (my ? 2 : 1);
+            const key = JSON.stringify([r.source, cx, cy, mx, my, px, py]);
+            let tile = this.#tiles.get(key);
+            if (!tile) {
+              tile = document.createElement('canvas');
+              tile.width = tw + 2 * px;
+              tile.height = th + 2 * py;
+              const tc = context(tile);
+              // Isolate exact texels before filtering. Padding prevents periodic
+              // interpolation from leaking the opposite edge onto a clamped axis.
+              tc.imageSmoothingEnabled = false;
+              const slices = (edge: number, mirror: boolean, pad: number, size: number) => {
+                if (edge) return [[edge < 0 ? 0 : size - 1, 1, 0, 1]];
+                const list = [[0, size, pad, size]];
+                if (mirror) list.push([0, size, pad + size * 2, -size]);
+                if (pad) list.push([0, 1, 0, 1], [size - 1, 1, pad + size, 1]);
+                return list;
+              };
+              for (const [sx, sw, dx, dw] of slices(cx!, mx, px, nw))
+                for (const [sy, sh, dy, dh] of slices(cy!, my, py, nh)) {
+                  tc.save();
+                  tc.translate(dx!, dy!);
+                  tc.scale(Math.sign(dw!), Math.sign(dh!));
+                  tc.drawImage(image, sx!, sy!, sw!, sh!, 0, 0, Math.abs(dw!), Math.abs(dh!));
+                  tc.restore();
+                }
+              this.#tiles.set(key, tile);
+            }
+            const pattern = out.createPattern(tile, 'repeat')!;
+            pattern.setTransform(
+              new DOMMatrix([dw / nw, 0, 0, dh / nh, x - (px * dw) / nw, y - (py * dh) / nh]),
+            );
+            out.fillStyle = pattern;
+            out.fillRect(dx!, dy!, cw!, ch!);
+          }
+        if (layer) {
+          ctx.resetTransform();
+          ctx.drawImage(layer, 0, 0);
+        }
+      } else if (r.sampling === 'nearest') {
         // Nearest drawImage snaps its outer edges. Extend the border texels into
         // the one-device-pixel AA fringe, then let a geometric clip own coverage.
         // Unlike a repeating shader, this clamps colours at fractional boundaries.
@@ -644,6 +767,27 @@ export class CanvasRenderer implements IconRenderer {
           .scale((r.scaleX * r.width) / tile.width, (r.scaleY * r.height) / tile.height),
       );
       style = pattern;
+    }
+    for (const hook of (this.#icon.constructor as CanvasSourceHost).canvasSources ?? []) {
+      const source = hook(p, ctx, (frame, width, height) =>
+        this.#source(
+          frame,
+          width,
+          height,
+          (this.#frame!.tree.nodes[i]!.pointer ?? '/nodes/' + i) +
+            '/' +
+            (p.key ?? p.kind) +
+            '/paint',
+        ),
+      );
+      if (source) {
+        style = source;
+        break;
+      }
+    }
+    if (!p.color && !p.type && !p.image && typeof style === 'string') {
+      this.#unsupported('unregistered paint source', i, 'fill/paint');
+      return;
     }
     ctx.fillStyle = style;
     ctx.strokeStyle = style;

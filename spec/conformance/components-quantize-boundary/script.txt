@@ -1,0 +1,12 @@
+set $t 0.249999998
+advance 0
+snapshot badge/dot.x
+set $t 0.2499999995
+advance 0
+snapshot badge/dot.x
+set $t 0.25
+advance 0
+snapshot badge/dot.x
+set $t 0.249999998
+advance 0
+snapshot badge/dot.x

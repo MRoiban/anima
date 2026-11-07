@@ -1,0 +1,42 @@
+
+> test:scope
+> node tools/test-scope.ts data --no-browser
+
+Scopes: data
+  unit: modules/data/test/cli/data.test.ts
+  unit: modules/data/test/cli/extras.test.ts
+  unit: modules/data/test/core/components.test.ts
+  unit: modules/data/test/core/conformance.test.ts
+  unit: modules/data/test/core/data-bind-converter-options.test.ts
+  unit: modules/data/test/core/data-bind-keyframes.test.ts
+  unit: modules/data/test/core/data-bind-layout.test.ts
+  unit: modules/data/test/core/data-bind-script-inputs.test.ts
+  unit: modules/data/test/core/data-bind-text.test.ts
+  unit: modules/data/test/core/data-binding-relative.test.ts
+  unit: modules/data/test/core/data-editor-preview-instance.test.ts
+  unit: modules/data/test/core/data-instance-export.test.ts
+  unit: modules/data/test/core/data-property-artboard.test.ts
+  unit: modules/data/test/core/data-property-symbol-list-index.test.ts
+  unit: modules/data/test/core/data-property-text-style.test.ts
+  unit: modules/data/test/core/data-script-model-api.test.ts
+  unit: modules/data/test/core/data-scripted-converter.test.ts
+  unit: modules/data/test/core/diagnostics.test.ts
+  unit: modules/data/test/core/extras.test.ts
+  unit: modules/data/test/core/input.test.ts
+  unit: modules/data/test/core/oracle.test.ts
+  unit: modules/data/test/core/runtime.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  cases: ^conformance > (data-bind-conditions|data-bind-converter-options|data-bind-instance-values|data-bind-keyframes|data-bind-layout|data-bind-script-inputs|data-bind-text|data-binding-absolute|data-binding-once|data-binding-relative|data-binding-to-source|data-binding-two-way-prefer-source|data-binding-two-way-prefer-target|data-component-public-data|data-custom-property-boolean|data-custom-property-color|data-custom-property-enum|data-custom-property-number|data-custom-property-string|data-custom-property-trigger|data-default-instance|data-editor-preview-instance|data-enum-members|data-global-model|data-instance-export|data-list-items|data-model-definition|data-named-instances|data-operation-operand-view-model|data-property-artboard|data-property-asset-blob|data-property-asset-font|data-property-asset-image|data-property-boolean|data-property-color|data-property-enum-custom|data-property-enum-system|data-property-list|data-property-number|data-property-string|data-property-symbol-list-index|data-property-text-style|data-property-trigger|data-property-view-model|data-script-model-api|data-scripted-converter|data-state-action-trigger|data-system-enum-horizontal-text-align|data-system-enum-layout-alignment|data-system-enum-layout-direction|data-system-enum-layout-display|data-system-enum-layout-flex-direction|data-system-enum-layout-position|data-system-enum-layout-position-units|data-system-enum-layout-scale-type|data-system-enum-layout-wrap|data-system-enum-scroll-direction|data-system-enum-semantic-check-state|data-system-enum-text-box|data-system-enum-text-overflow|data-system-enum-text-trim-bottom|data-system-enum-text-trim-top|data-system-enum-vertical-text-align|data-system-enum-word-wrap|drawing-paint-gradient-channel-binding|input-data-listener|input-write-data-constant|input-write-data-copy|input-write-focused|input-write-gamepad-axis|input-write-gamepad-button-pressed|input-write-gamepad-button-value|input-write-gamepad-changed-value)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-57308fd0
+
+
+ Test Files  16 passed | 12 skipped (28)
+      Tests  2369 passed | 366 skipped | 12 todo (2747)
+   Start at  21:58:02
+   Duration  33.65s (tests 59%, import 35%, transform 4%, worker 1%)

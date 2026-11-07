@@ -1,0 +1,30 @@
+VITEST_MAX_WORKERS=1 npm run test:scope -- nested components paint canvas lists componentpaint conformance oracle
+  exit 0; 5687 passed /31 TODO;47 files; all7 owned browser files executed;506.61s
+npx vitest run --project browser modules/canvas/test/web
+  exit 0;2270 passed; both engines;401.84s; also rerun by final scope
+npx vitest run --project unit modules/componentpaint/test/core
+  exit 0 in final scope;19 source core/native cases; focused source/paint unit+CLI98 pass
+npx vitest run --project browser modules/componentpaint/test/web
+  exit 0;12 passed; both engines; includes2 AniML and2 base-validation cases
+npx vitest run --project browser modules/nested/test/web/nested.test.ts -t 'authored blue foreground'
+  exit 0;2 passed; both engines/backends;12 exact blue interior samples
+node tools/size.ts
+  exit 0; core+web20362; nested4514; canvas5255; componentpaint1968; full111159; all limits pass
+node tools/perf.ts
+  exit 0; bell compile2.97ms/frame51.0us; composite38.4us; toolbar41.1us; baseline A/B unverified
+node tools/oracle.ts --strict
+  exit 0;253 cases/449 passing samples;23 existing finding cases/26 samples retained
+npm run typecheck
+  exit 0
+npx eslint .
+  exit 0 after size temp entry completed
+node tools/modules.ts --check
+  exit 0;0 stale files
+node tools/build-animl.ts --check
+  exit 0;476 authored sources
+node tools/build-web.ts --check
+  exit 0;33 browser entries
+node tools/parity.ts --check
+  exit 0;1238 capabilities; all statuses unchanged
+npx prettier --check .
+  exit 0; raw metrics retained as text before generated outputs removed

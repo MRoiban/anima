@@ -1,0 +1,7 @@
+<anima version="0.1" name="assets-image-wrap-y-clamp" grid="8" requires="paint assets">
+  <asset name="tile" type="image"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGElEQVR4AQXBAQEAAAjDIG7/zhNE0k3CAz7tBf7utunjAAAAAElFTkSuQmCC"
+      width="2" height="2"/>
+
+  <image id="tile" asset="tile" x0="0" y0="0" fit="none" align="top-left" sampling="nearest" wrap-x="clamp" wrap-y="clamp" width="2" height="8"/>
+</anima>

@@ -1,0 +1,161 @@
+<Rive version="1" kind="fragment">
+<Artboard name="Playlist" id="0:1" width="480" height="360" viewModelId="0:100" viewModelInstanceId="0:110" defaultStateMachineId="0:10" styleId="0:2">
+<LayoutComponentStyle id="0:2"/>
+<LayoutComponent name="ControllerBox" width="1" height="1" styleId="0:9"><LayoutComponentStyle id="0:9" positionTypeValue="absolute"/><ScriptedLayout scriptAssetId="0:900" name="Controller"/></LayoutComponent>
+<LayoutComponent name="Tracks" width="456" height="288" styleId="0:4"><LayoutComponentStyle id="0:4" positionTypeValue="absolute" positionLeft="0" positionTop="24" positionLeftUnitsValue="points" positionTopUnitsValue="points" flexDirectionValue="column"/><ArtboardComponentList name="Rows"><DataBindContext sourcePathIds="0:100-0:101" propertyKey="800"/></ArtboardComponentList></LayoutComponent>
+<LayoutComponent name="Counter" width="10" height="120" styleId="0:6"><LayoutComponentStyle id="0:6" positionTypeValue="absolute" positionLeft="451.2" positionTop="221" positionLeftUnitsValue="points" positionTopUnitsValue="points" flexDirectionValue="columnReverse"/><ArtboardComponentList name="Dots"><DataBindContext sourcePathIds="0:100-0:101" propertyKey="800" converterId="0:802"/></ArtboardComponentList></LayoutComponent>
+<Shape name="Panel" x="0" y="0"><Rectangle width="480" height="360" originX="0" originY="0"></Rectangle><Fill><SolidColor colorValue="FFF0EEE6"/></Fill></Shape>
+<StateMachine name="Main" id="0:10"><StateMachineLayer><AnyState x="0" y="0"/><ExitState x="200" y="0"/><EntryState x="400" y="0"/></StateMachineLayer></StateMachine>
+</Artboard>
+<Artboard name="TrackRow" x="600" y="0" id="0:20" isComponent="true" width="456" height="72" viewModelId="0:200" viewModelInstanceId="0:220" defaultStateMachineId="0:21" styleId="0:22" clip="false"><LayoutComponentStyle id="0:22" layoutWidthScaleType="fixed" layoutHeightScaleType="fixed"/>
+<Shape name="Highlight" x="22.2" y="-1.8"><DataBindContext sourcePathIds="0:200-0:207" propertyKey="18"/><Rectangle width="409.2" height="51.6" originX="0" originY="0"/><Stroke thickness="3.6"><SolidColor colorValue="FFD97757"/></Stroke></Shape>
+<Image name="Cover" x="24" y="0" originX="0" originY="0" scaleX="6" scaleY="6" assetId="0:500" samplerFilter="nearest"><DataBindContext sourcePathIds="0:200-0:203" propertyKey="206"/></Image>
+<Shape name="Title" x="96" y="6"><Rectangle width="48" height="12" originX="0" originY="0"><DataBindContext sourcePathIds="0:200-0:206" propertyKey="20"/></Rectangle><Fill><SolidColor colorValue="FF141413"/></Fill></Shape>
+<Shape name="Duration" x="96" y="30"><Rectangle width="108" height="12" originX="0" originY="0"><DataBindContext sourcePathIds="0:200-0:202" propertyKey="20" converterId="0:803"/></Rectangle><Fill><SolidColor colorValue="FFD97757"/></Fill></Shape>
+<Shape name="Hit" id="0:25"><Rectangle width="432" height="48" originX="0" originY="0"/></Shape>
+<StateMachine name="Main" id="0:21"><StateMachineLayer><AnyState x="0" y="0"/><ExitState x="200" y="0"/><EntryState x="400" y="0"/></StateMachineLayer><StateMachineListenerSingle targetId="0:25" listenerTypeValue="click"><ListenerViewModelChange fromViewModelProperty="true" fromDataBindId="0:27"><BindablePropertyNumber><DataBindContext id="0:27" sourcePathIds="0:200-0:205" propertyKey="636" converterId="0:804"/><DataBindContext sourcePathIds="0:200-0:205" propertyKey="636" direction="true"/></BindablePropertyNumber></ListenerViewModelChange></StateMachineListenerSingle></StateMachine>
+</Artboard><ComponentAsset artboardId="0:20" name="TrackRow"/>
+<Artboard name="Dot" x="1200" y="0" id="0:30" isComponent="true" width="9.6" height="14.4" viewModelId="0:300" defaultStateMachineId="0:31" styleId="0:32"><LayoutComponentStyle id="0:32" layoutWidthScaleType="fixed" layoutHeightScaleType="fixed"/><Shape x="4.8" y="9.4"><Ellipse width="9.6" height="9.6"/><Fill><SolidColor colorValue="FF141413"/></Fill></Shape><StateMachine name="Main" id="0:31"><StateMachineLayer><AnyState x="0" y="0"/><ExitState x="200" y="0"/><EntryState x="400" y="0"/></StateMachineLayer></StateMachine></Artboard><ComponentAsset artboardId="0:30" name="Dot"/>
+<ViewModel id="0:300" name="Dot" defaultInstanceId="0:301"><ViewModelInstance id="0:301" name="Default" exports="true"/></ViewModel>
+<ViewModel id="0:200" name="Track" defaultInstanceId="0:220">
+<ViewModelPropertyString name="title" id="0:201"/>
+<ViewModelPropertyNumber name="duration" id="0:202"/>
+<ViewModelPropertyAssetImage name="cover" id="0:203"/>
+<ViewModelPropertyString name="audioClip" id="0:204"/>
+<ViewModelPropertyNumber name="requests" id="0:205"/>
+<ViewModelPropertyNumber name="titleWidth" id="0:206"/>
+<ViewModelPropertyNumber name="selected" id="0:207"/>
+<ViewModelPropertyString name="uid" id="0:208"/>
+<ViewModelInstance id="0:220" name="Dawn" exports="true">
+<ViewModelInstanceString viewModelPropertyId="0:201" propertyValue="Dawn"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:202" propertyValue="90"/>
+<ViewModelInstanceAssetImage viewModelPropertyId="0:203" propertyValue="0:500"/>
+<ViewModelInstanceString viewModelPropertyId="0:204" propertyValue="dawnClip"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:205" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:206" propertyValue="48"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:207" propertyValue="0"/>
+<ViewModelInstanceString viewModelPropertyId="0:208" propertyValue="dawn"/>
+</ViewModelInstance>
+<ViewModelInstance id="0:221" name="Tide" exports="true">
+<ViewModelInstanceString viewModelPropertyId="0:201" propertyValue="Tide"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:202" propertyValue="150"/>
+<ViewModelInstanceAssetImage viewModelPropertyId="0:203" propertyValue="0:501"/>
+<ViewModelInstanceString viewModelPropertyId="0:204" propertyValue="tideClip"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:205" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:206" propertyValue="48"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:207" propertyValue="0"/>
+<ViewModelInstanceString viewModelPropertyId="0:208" propertyValue="tide"/>
+</ViewModelInstance>
+<ViewModelInstance id="0:222" name="Ember" exports="true">
+<ViewModelInstanceString viewModelPropertyId="0:201" propertyValue="Ember"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:202" propertyValue="60"/>
+<ViewModelInstanceAssetImage viewModelPropertyId="0:203" propertyValue="0:502"/>
+<ViewModelInstanceString viewModelPropertyId="0:204" propertyValue="emberClip"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:205" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:206" propertyValue="60"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:207" propertyValue="0"/>
+<ViewModelInstanceString viewModelPropertyId="0:208" propertyValue="ember"/>
+</ViewModelInstance>
+<ViewModelInstance id="0:223" name="Moon" exports="true">
+<ViewModelInstanceString viewModelPropertyId="0:201" propertyValue="Moon"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:202" propertyValue="120"/>
+<ViewModelInstanceAssetImage viewModelPropertyId="0:203" propertyValue="0:503"/>
+<ViewModelInstanceString viewModelPropertyId="0:204" propertyValue="moonClip"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:205" propertyValue="0"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:206" propertyValue="48"/>
+<ViewModelInstanceNumber viewModelPropertyId="0:207" propertyValue="0"/>
+<ViewModelInstanceString viewModelPropertyId="0:208" propertyValue="moon"/>
+</ViewModelInstance>
+</ViewModel>
+<ViewModel id="0:100" name="Playlist" defaultInstanceId="0:110"><ViewModelPropertyList id="0:101" name="tracks"/><ViewModelPropertyString id="0:102" name="command"/><ViewModelPropertyNumber id="0:103" name="index"/><ViewModelPropertyNumber id="0:104" name="otherIndex"/><ViewModelPropertyViewModel id="0:105" name="newTrack" viewModelReferenceId="0:200"/><ViewModelPropertyNumber id="0:106" name="playbackRequests"/><ViewModelPropertyString id="0:107" name="lastClip"/><ViewModelPropertyNumber id="0:108" name="clipDuration"/><ViewModelInstance id="0:110" name="Default" exports="true"><ViewModelInstanceList viewModelPropertyId="0:101">
+<ViewModelInstanceListItem viewModelId="0:200" viewModelInstanceId="0:220"/>
+<ViewModelInstanceListItem viewModelId="0:200" viewModelInstanceId="0:221"/>
+<ViewModelInstanceListItem viewModelId="0:200" viewModelInstanceId="0:222"/>
+</ViewModelInstanceList><ViewModelInstanceString viewModelPropertyId="0:102" propertyValue=""/><ViewModelInstanceNumber viewModelPropertyId="0:103" propertyValue="1"/><ViewModelInstanceNumber viewModelPropertyId="0:104" propertyValue="0"/><ViewModelInstanceViewModel viewModelPropertyId="0:105" propertyValue="0:223"/><ViewModelInstanceNumber viewModelPropertyId="0:106" propertyValue="0"/><ViewModelInstanceString viewModelPropertyId="0:107" propertyValue=""/><ViewModelInstanceNumber viewModelPropertyId="0:108" propertyValue="0"/></ViewModelInstance></ViewModel>
+<DataConverterListToLength id="0:800"/><DataConverterNumberToList viewModelId="0:300" id="0:801"/><DataConverterGroup id="0:802"><DataConverterGroupItem converterId="0:800"/><DataConverterGroupItem converterId="0:801"/></DataConverterGroup><DataConverterOperationValue id="0:803" operationType="2" operationValue="1.2"/><DataConverterOperationValue id="0:804" operationType="0" operationValue="1"/>
+<ImageAsset id="0:500" name="dawn" file="dawn.png" samplerFilter="1"/>
+<AudioAsset id="0:600" name="dawnSound" file="dawn.wav"/><AudioAsset id="0:700" file="dawn-clip.wav" includeInExport="true" name="dawnClip"/>
+<ImageAsset id="0:501" name="tide" file="tide.png" samplerFilter="1"/>
+<AudioAsset id="0:601" name="tideSound" file="tide.wav"/><AudioAsset id="0:701" file="tide-clip.wav" includeInExport="true" name="tideClip"/>
+<ImageAsset id="0:502" name="ember" file="ember.png" samplerFilter="1"/>
+<AudioAsset id="0:602" name="emberSound" file="ember.wav"/><AudioAsset id="0:702" file="ember-clip.wav" includeInExport="true" name="emberClip"/>
+<ImageAsset id="0:503" name="moon" file="moon.png" samplerFilter="1"/>
+<AudioAsset id="0:603" name="moonSound" file="moon.wav"/><AudioAsset id="0:703" file="moon-clip.wav" includeInExport="true" name="moonClip"/>
+<ScriptAsset id="0:900" name="controller"><![CDATA[
+type Controller = { vm: ViewModel?, context: Context, seen: {[string]: number}, selected: string, serial: number }
+local function clone(self: Controller, source: ViewModel): ViewModel
+    local row = source:instance()
+    for _, name in {'title', 'audioClip', 'uid'} do
+        local a, b = source:getString(name), row:getString(name)
+        if a and b then b.value = a.value end
+    end
+    for _, name in {'duration', 'titleWidth'} do
+        local a, b = source:getNumber(name), row:getNumber(name)
+        if a and b then b.value = a.value end
+    end
+    local a, b = source:getImage('cover'), row:getImage('cover')
+    if a and b then b.value = a.value end
+    self.serial += 1
+    local uid = row:getString('uid')
+    if uid then uid.value ..= tostring(self.serial) end
+    return row
+end
+local function init(self: Controller, context: Context): boolean
+    self.vm = context:viewModel()
+    print("controller-init")
+    return true
+end
+local function advance(self: Controller, dt: number): boolean
+    local vm = self.vm
+    if not vm then return false end
+    local tracks = vm:getList('tracks')
+    if not tracks then return false end
+    local command = vm:getString('command')
+    local candidate = vm:getViewModel('newTrack')
+    local index = vm:getNumber('index')
+    local other = vm:getNumber('otherIndex')
+    if command and candidate and index and other and command.value ~= '' then
+        local op = command.value
+        if op == 'append' then tracks:push(clone(self, candidate.value))
+        elseif op == 'insert' then tracks:insert(clone(self, candidate.value), index.value + 1)
+        elseif op == 'remove' then tracks:removeAt(index.value + 1)
+        elseif op == 'swap' then tracks:swap(index.value + 1, other.value + 1) end
+        print('host-edit ' .. op)
+        command.value = ''
+    end
+    for i = 1, tracks.length do
+        local row = tracks[i]
+        local title = row:getString('title')
+        local width = row:getNumber('titleWidth')
+        local id = row:getString('uid')
+        local requests = row:getNumber('requests')
+        local clip = row:getString('audioClip')
+        local selected = row:getNumber('selected')
+        if title and width then width.value = #title.value * 12 end
+        if id and requests and clip then
+            local previous = self.seen[id.value] or 0
+            if requests.value > previous then
+                self.selected = id.value
+                local audio = self.context:audio(clip.value)
+                local requestCount = vm:getNumber('playbackRequests')
+                local lastClip = vm:getString('lastClip')
+                local clipDuration = vm:getNumber('clipDuration')
+                if requestCount then requestCount.value += 1 end
+                if lastClip then lastClip.value = clip.value end
+                if audio then
+                    if clipDuration then clipDuration.value = audio.duration end
+                    Audio.play(audio)
+                    print('playback-request ' .. clip.value .. ' duration=' .. tostring(audio.duration))
+                else print('missing-audio ' .. clip.value) end
+            end
+            self.seen[id.value] = requests.value
+            if selected then selected.value = if self.selected == id.value then 1 else 0 end
+        end
+    end
+    return true
+end
+return function(context: Context): Layout<Controller>
+    return {vm = context:viewModel(), context = context, seen = {}, selected = '', serial = 0, init = init, advance = advance}
+end
+]]></ScriptAsset>
+</Rive>

@@ -1033,60 +1033,60 @@
   "id": "assets.audio",
   "category": "assets",
   "capability": "Audio asset",
-  "construct": "new: assets.<name> / build.assets.<name>: named audio resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-audio",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-audio; tests/oracle/assets-audio/skip.json",
   "phase": "P5b"
  },
  {
   "id": "assets.audio-clip",
   "category": "assets",
   "capability": "Trimmed audio resource",
-  "construct": "new: assets.<clip>: {type: \"audio\", source: \"sound\", start: seconds, end: seconds}",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-audio-clip",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-audio-clip; tests/oracle/assets-audio-clip/skip.json",
   "phase": "P5b"
  },
  {
   "id": "assets.audio-export-source",
   "category": "assets",
   "capability": "Audio export encoding",
-  "construct": "new: assets.<name> / build.assets.<name>: named audio-export-source resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-audio-export-source",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-audio-export-source; tests/oracle/assets-audio-export-source/skip.json",
   "phase": "P5b"
  },
  {
   "id": "assets.audio-import-flac",
   "category": "assets",
   "capability": "Audio import: flac",
-  "construct": "new: assets.<name> / build.assets.<name>: named audio-import-flac resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-audio-import-flac",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-audio-import-flac; tests/oracle/assets-audio-import-flac/skip.json",
   "phase": "P5b"
  },
  {
   "id": "assets.audio-import-mp3",
   "category": "assets",
   "capability": "Audio import: mp3",
-  "construct": "new: assets.<name> / build.assets.<name>: named audio-import-mp3 resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-audio-import-mp3",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-audio-import-mp3; tests/oracle/assets-audio-import-mp3/skip.json",
   "phase": "P5b"
  },
  {
   "id": "assets.audio-import-wav",
   "category": "assets",
   "capability": "Audio import: wav",
-  "construct": "new: assets.<name> / build.assets.<name>: named audio-import-wav resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-audio-import-wav",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-audio-import-wav; tests/oracle/assets-audio-import-wav/skip.json",
   "phase": "P5b"
  },
  {
@@ -1103,30 +1103,30 @@
   "id": "assets.blob",
   "category": "assets",
   "capability": "Blob asset",
-  "construct": "new: assets.<name> / build.assets.<name>: named blob resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-blob",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-blob; tests/oracle/assets-blob/skip.json",
   "phase": "P5b"
  },
  {
   "id": "assets.cdn-disable",
   "category": "assets",
   "capability": "Disable asset CDN",
-  "construct": "new: player asset loader API with explicit source resolution: cdn-disable",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-cdn-disable",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-cdn-disable; tests/oracle/assets-cdn-disable/skip.json",
   "phase": "P5b"
  },
  {
   "id": "assets.exclude-export",
   "category": "assets",
   "capability": "Exclude asset export",
-  "construct": "new: assets.<name> / build.assets.<name>: named exclude-export resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-exclude-export",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-exclude-export; tests/oracle/assets-exclude-export/skip.json",
   "phase": "P5b"
  },
  {
@@ -1137,7 +1137,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-font",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "assets.font-formats",
@@ -1147,7 +1147,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-font-formats",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "assets.font-glyphs-all",
@@ -1157,7 +1157,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-font-glyphs-all",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "assets.font-glyphs-custom",
@@ -1167,7 +1167,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-font-glyphs-custom",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "assets.font-glyphs-used",
@@ -1177,7 +1177,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-font-glyphs-used",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "assets.google-font-import",
@@ -1187,16 +1187,16 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-google-font-import",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "assets.host-decode-audio",
   "category": "assets",
   "capability": "Host decode audio",
-  "construct": "new: player asset loader API with explicit source resolution: host-decode-audio",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-host-decode-audio",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-host-decode-audio; tests/oracle/assets-host-decode-audio/skip.json",
   "phase": "P5b"
  },
  {
@@ -1207,7 +1207,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-host-decode-font",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "assets.host-decode-image",
@@ -1237,7 +1237,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-encoding-astc",
-  "phase": "P5b"
+  "phase": "P10"
  },
  {
   "id": "assets.image-encoding-bc7",
@@ -1247,7 +1247,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-encoding-bc7",
-  "phase": "P5b"
+  "phase": "P10"
  },
  {
   "id": "assets.image-encoding-etc2rgba",
@@ -1257,166 +1257,166 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-image-encoding-etc2rgba",
-  "phase": "P5b"
+  "phase": "P10"
  },
  {
   "id": "assets.image-encoding-jpeg",
   "category": "assets",
   "capability": "Image encoding: jpeg",
-  "construct": "new: assets.<name> / build.assets.<name>: named image-encoding-jpeg resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-image-encoding-jpeg",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-encoding-jpeg; tests/oracle/assets-image-encoding-jpeg/skip.json",
   "phase": "P5b"
  },
  {
   "id": "assets.image-encoding-png",
   "category": "assets",
   "capability": "Image encoding: png",
-  "construct": "new: assets.<name> / build.assets.<name>: named image-encoding-png resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-image-encoding-png",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-encoding-png; tests/oracle/assets-image-encoding-png/skip.json",
   "phase": "P5b"
  },
  {
   "id": "assets.image-encoding-webp",
   "category": "assets",
   "capability": "Image encoding: webp",
-  "construct": "new: assets.<name> / build.assets.<name>: named image-encoding-webp resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-image-encoding-webp",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-encoding-webp; tests/oracle/assets-image-encoding-webp/skip.json",
   "phase": "P5b"
  },
  {
   "id": "assets.image-export-controls",
   "category": "assets",
   "capability": "Image encoding controls",
-  "construct": "new: assets.<name> / build.assets.<name>: named image-export-controls resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
   "status": "planned",
-  "test": "oracle/assets-image-export-controls",
-  "phase": "P5b"
+  "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-export-controls; native oracle pending (modules/assets/REPORT.md)",
+  "phase": "P10"
  },
  {
   "id": "assets.image-filter-bilinear",
   "category": "assets",
   "capability": "Image filter: bilinear",
-  "construct": "new: assets.<image>.sampling: named image-filter-bilinear setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-image-filter-bilinear",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-filter-bilinear; tests/oracle/assets-image-filter-bilinear/finding.json",
   "phase": "P5b"
  },
  {
   "id": "assets.image-filter-nearest",
   "category": "assets",
   "capability": "Image filter: nearest",
-  "construct": "new: assets.<image>.sampling: named image-filter-nearest setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-image-filter-nearest",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-filter-nearest; tests/oracle/assets-image-filter-nearest",
   "phase": "P5b"
  },
  {
   "id": "assets.image-import-jpeg",
   "category": "assets",
   "capability": "Image import: jpeg",
-  "construct": "new: assets.<name> / build.assets.<name>: named image-import-jpeg resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-image-import-jpeg",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-import-jpeg; tests/oracle/assets-image-import-jpeg/finding.json",
   "phase": "P5b"
  },
  {
   "id": "assets.image-import-jpg",
   "category": "assets",
   "capability": "Image import: jpg",
-  "construct": "new: assets.<name> / build.assets.<name>: named image-import-jpg resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-image-import-jpg",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-import-jpg; tests/oracle/assets-image-import-jpg/finding.json",
   "phase": "P5b"
  },
  {
   "id": "assets.image-import-png",
   "category": "assets",
   "capability": "Image import: png",
-  "construct": "new: assets.<name> / build.assets.<name>: named image-import-png resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-image-import-png",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-import-png; tests/oracle/assets-image-import-png",
   "phase": "P5b"
  },
  {
   "id": "assets.image-import-webp",
   "category": "assets",
   "capability": "Image import: webp",
-  "construct": "new: assets.<name> / build.assets.<name>: named image-import-webp resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-image-import-webp",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-import-webp; tests/oracle/assets-image-import-webp",
   "phase": "P5b"
  },
  {
   "id": "assets.image-wrap-x-clamp",
   "category": "assets",
   "capability": "Image X wrap: clamp",
-  "construct": "new: assets.<image>.sampling: named image-wrap-x-clamp setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-image-wrap-x-clamp",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-wrap-x-clamp; tests/oracle/assets-image-wrap-x-clamp; tests/oracle/assets-clamp-fractional-finding/finding.json",
   "phase": "P5b"
  },
  {
   "id": "assets.image-wrap-x-mirror",
   "category": "assets",
   "capability": "Image X wrap: mirror",
-  "construct": "new: assets.<image>.sampling: named image-wrap-x-mirror setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-image-wrap-x-mirror",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-wrap-x-mirror; tests/oracle/assets-image-wrap-x-mirror",
   "phase": "P5b"
  },
  {
   "id": "assets.image-wrap-x-repeat",
   "category": "assets",
   "capability": "Image X wrap: repeat",
-  "construct": "new: assets.<image>.sampling: named image-wrap-x-repeat setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-image-wrap-x-repeat",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-wrap-x-repeat; tests/oracle/assets-image-wrap-x-repeat",
   "phase": "P5b"
  },
  {
   "id": "assets.image-wrap-y-clamp",
   "category": "assets",
   "capability": "Image Y wrap: clamp",
-  "construct": "new: assets.<image>.sampling: named image-wrap-y-clamp setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-image-wrap-y-clamp",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-wrap-y-clamp; tests/oracle/assets-image-wrap-y-clamp; tests/oracle/assets-clamp-fractional-finding/finding.json",
   "phase": "P5b"
  },
  {
   "id": "assets.image-wrap-y-mirror",
   "category": "assets",
   "capability": "Image Y wrap: mirror",
-  "construct": "new: assets.<image>.sampling: named image-wrap-y-mirror setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-image-wrap-y-mirror",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-wrap-y-mirror; tests/oracle/assets-image-wrap-y-mirror",
   "phase": "P5b"
  },
  {
   "id": "assets.image-wrap-y-repeat",
   "category": "assets",
   "capability": "Image Y wrap: repeat",
-  "construct": "new: assets.<image>.sampling: named image-wrap-y-repeat setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-image-wrap-y-repeat",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-wrap-y-repeat; tests/oracle/assets-image-wrap-y-repeat",
   "phase": "P5b"
  },
  {
@@ -1433,20 +1433,20 @@
   "id": "assets.lottie-import",
   "category": "assets",
   "capability": "Lottie import",
-  "construct": "new: assets.<name> / build.assets.<name>: named lottie-import resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-lottie-import",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-lottie-import; tests/oracle/assets-lottie-import",
   "phase": "P5b"
  },
  {
   "id": "assets.metadata",
   "category": "assets",
   "capability": "Loader metadata",
-  "construct": "new: player asset loader API with explicit source resolution: metadata",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-metadata",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-metadata; tests/oracle/assets-metadata/skip.json",
   "phase": "P5b"
  },
  {
@@ -1455,9 +1455,10 @@
   "capability": "Photoshop layers",
   "construct": "new: assets.<name> / build.assets.<name>: named psd-layers resource setting",
   "module": "assets",
-  "status": "planned",
+  "status": "maybe-later",
   "test": "oracle/assets-psd-layers",
-  "phase": "P5b"
+  "phase": "later",
+  "reason": "Binary PSD parsing for raster layers; little value for icon authoring (P5b design §0)."
  },
  {
   "id": "assets.replacement-scope-font",
@@ -1467,17 +1468,17 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-replacement-scope-font",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "assets.replacement-scope-image",
   "category": "assets",
   "capability": "Image replacement scope",
-  "construct": "new: assets.<name> / build.assets.<name>: named replacement-scope-image resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
   "status": "planned",
-  "test": "oracle/assets-replacement-scope-image",
-  "phase": "P5b"
+  "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-replacement-scope-image; native oracle pending (modules/assets/REPORT.md)",
+  "phase": "P3b"
  },
  {
   "id": "assets.script-blob",
@@ -1487,7 +1488,7 @@
   "module": "assets",
   "status": "planned",
   "test": "oracle/assets-script-blob",
-  "phase": "P5b"
+  "phase": "P9"
  },
  {
   "id": "assets.storage-embedded",
@@ -1523,31 +1524,31 @@
   "id": "assets.svg-import",
   "category": "assets",
   "capability": "SVG import",
-  "construct": "new: assets.<name> / build.assets.<name>: named svg-import resource setting",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "oracle/assets-svg-import",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-svg-import; tests/oracle/assets-svg-import",
   "phase": "P5b"
  },
  {
   "id": "components.explicit-context",
   "category": "components",
   "capability": "Explicit component context",
-  "construct": "new: components.<name> / nodes[].component: named explicit-context settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
-  "status": "planned",
-  "test": "oracle/components-explicit-context",
+  "construct": "modules/lists/SPEC.md; modules/lists/capabilities/components-explicit-context/example.animl",
+  "module": "lists",
+  "status": "done",
+  "test": "modules/lists/test/core/components-explicit-context.test.ts; spec/conformance/components-explicit-context; tests/oracle/components-explicit-context",
   "phase": "P5b"
  },
  {
   "id": "components.host-artboard-reference",
   "category": "components",
   "capability": "Host bindable artboard",
-  "construct": "new: components.<name> / nodes[].component: named host-artboard-reference settings; seconds, degrees and grid-unit bounds",
+  "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
   "module": "components",
   "status": "planned",
-  "test": "oracle/components-host-artboard-reference",
-  "phase": "P5b"
+  "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
+  "phase": "P3b"
  },
  {
   "id": "components.host-nested-inputs",
@@ -1563,10 +1564,10 @@
   "id": "components.inherited-context",
   "category": "components",
   "capability": "Inherited component context",
-  "construct": "new: components.<name> / nodes[].component: named inherited-context settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
-  "status": "planned",
-  "test": "oracle/components-inherited-context",
+  "construct": "modules/lists/SPEC.md; modules/lists/capabilities/components-inherited-context/example.animl",
+  "module": "lists",
+  "status": "done",
+  "test": "modules/lists/test/core/components-inherited-context.test.ts; spec/conformance/components-inherited-context; tests/oracle/components-inherited-context",
   "phase": "P5b"
  },
  {
@@ -1577,16 +1578,16 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-layout-size",
-  "phase": "P5b"
+  "phase": "P7"
  },
  {
   "id": "components.leaf-fit",
   "category": "components",
   "capability": "Nested fit and alignment",
-  "construct": "new: components.<name> / nodes[].component: named leaf-fit settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
-  "status": "planned",
-  "test": "oracle/components-leaf-fit",
+  "construct": "modules/nested/SPEC.md",
+  "module": "nested",
+  "status": "done",
+  "test": "modules/nested/test/core/nested.test.ts; spec/conformance/components-leaf-fit; tests/oracle/components-leaf-fit",
   "phase": "P5b"
  },
  {
@@ -1613,40 +1614,40 @@
   "id": "components.library-export",
   "category": "components",
   "capability": "Library export selection",
-  "construct": "new: components.<name> / nodes[].component: named library-export settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
+  "construct": "modules/markup-libraries/SPEC.md",
+  "module": "markup-libraries",
   "status": "planned",
-  "test": "oracle/components-library-export",
-  "phase": "P5b"
+  "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-export; tests/oracle/components-library-export",
+  "phase": "P3b"
  },
  {
   "id": "components.library-models",
   "category": "components",
   "capability": "Library data definitions",
-  "construct": "new: components.<name> / nodes[].component: named library-models settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
+  "construct": "modules/markup-libraries/SPEC.md",
+  "module": "markup-libraries",
   "status": "planned",
-  "test": "oracle/components-library-models",
-  "phase": "P5b"
+  "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-models; tests/oracle/components-library-models",
+  "phase": "P3b"
  },
  {
   "id": "components.library-update",
   "category": "components",
   "capability": "Update library dependency",
-  "construct": "new: components.<name> / nodes[].component: named library-update settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
+  "construct": "modules/markup-libraries/SPEC.md",
+  "module": "markup-libraries",
   "status": "planned",
-  "test": "oracle/components-library-update",
-  "phase": "P5b"
+  "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-update; tests/oracle/components-library-update",
+  "phase": "P3b"
  },
  {
   "id": "components.list",
   "category": "components",
   "capability": "Repeated component list",
-  "construct": "new: components.<name> / nodes[].component: named list settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
-  "status": "planned",
-  "test": "oracle/components-list",
+  "construct": "modules/lists/SPEC.md; modules/lists/capabilities/components-list/example.animl",
+  "module": "lists",
+  "status": "done",
+  "test": "modules/lists/test/core/components-list.test.ts; spec/conformance/components-list; tests/oracle/components-list",
   "phase": "P5b"
  },
  {
@@ -1657,26 +1658,26 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-list-layout-inheritance",
-  "phase": "P5b"
+  "phase": "P7"
  },
  {
   "id": "components.list-map",
   "category": "components",
   "capability": "Map model to row artboard",
-  "construct": "new: components.<name> / nodes[].component: named list-map settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
-  "status": "planned",
-  "test": "oracle/components-list-map",
+  "construct": "modules/lists/SPEC.md; modules/lists/capabilities/components-list-map/example.animl",
+  "module": "lists",
+  "status": "done",
+  "test": "modules/lists/test/core/components-list-map.test.ts; spec/conformance/components-list-map; tests/oracle/components-list-map",
   "phase": "P5b"
  },
  {
   "id": "components.list-size-override",
   "category": "components",
   "capability": "Generated item sizing",
-  "construct": "new: components.<name> / nodes[].component: named list-size-override settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
-  "status": "planned",
-  "test": "oracle/components-list-size-override",
+  "construct": "modules/lists/SPEC.md; modules/lists/capabilities/components-list-size-override/example.animl",
+  "module": "lists",
+  "status": "done",
+  "test": "modules/lists/test/core/components-list-size-override.test.ts; spec/conformance/components-list-size-override; tests/oracle/components-list-size-override",
   "phase": "P5b"
  },
  {
@@ -1743,20 +1744,20 @@
   "id": "components.nested-quantize",
   "category": "components",
   "capability": "Nested quantization",
-  "construct": "new: components.<name> / nodes[].component: named nested-quantize settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
-  "status": "planned",
-  "test": "oracle/components-nested-quantize",
+  "construct": "modules/nested/SPEC.md",
+  "module": "nested",
+  "status": "done",
+  "test": "modules/nested/test/core/nested.test.ts; spec/conformance/components-nested-quantize; tests/oracle/components-nested-quantize; tests/oracle/components-nested-quantize/finding.json",
   "phase": "P5b"
  },
  {
   "id": "components.nested-remap",
   "category": "components",
   "capability": "Nested time remapping",
-  "construct": "new: components.<name> / nodes[].component: named nested-remap settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
-  "status": "planned",
-  "test": "oracle/components-nested-remap",
+  "construct": "modules/nested/SPEC.md",
+  "module": "nested",
+  "status": "done",
+  "test": "modules/nested/test/core/nested.test.ts; spec/conformance/components-nested-remap; tests/oracle/components-nested-remap",
   "phase": "P5b"
  },
  {
@@ -1787,7 +1788,7 @@
   "module": "components",
   "status": "planned",
   "test": "oracle/components-script-instance",
-  "phase": "P5b"
+  "phase": "P9"
  },
  {
   "id": "components.stateful-input-animation",
@@ -1823,10 +1824,10 @@
   "id": "components.stateful-output",
   "category": "components",
   "capability": "Read-only component outputs",
-  "construct": "new: components.<name> / nodes[].component: named stateful-output settings; seconds, degrees and grid-unit bounds",
-  "module": "components",
-  "status": "planned",
-  "test": "oracle/components-stateful-output",
+  "construct": "modules/nested/SPEC.md",
+  "module": "nested",
+  "status": "done",
+  "test": "modules/nested/test/core/nested.test.ts; spec/conformance/components-stateful-output; tests/oracle/components-stateful-output",
   "phase": "P5b"
  },
  {
@@ -1873,10 +1874,10 @@
   "id": "data.bind-keyframes",
   "category": "data",
   "capability": "Bind keyframe values",
-  "construct": "TODO: modules/data/capabilities/data-bind-keyframes/registry.ts; spec/SPEC.md (Bind keyframe values); modules/data/capabilities/data-bind-keyframes/example.animl",
+  "construct": "modules/data/SPEC.md#data-keyframe-values; modules/motion/examples/data-keys.animl",
   "module": "data",
-  "status": "planned",
-  "test": "TODO: modules/data/test/core/data-bind-keyframes.test.ts; spec/conformance/data-bind-keyframes; tests/oracle/data-bind-keyframes",
+  "status": "done",
+  "test": "modules/motion/test/core/data-bind-keyframes.test.ts; spec/conformance/data-bind-keyframes; spec/conformance/data-bind-keyframes-blend; modules/motion/test/core/data-keys-oracle.test.ts",
   "phase": "P5b"
  },
  {
@@ -1943,10 +1944,10 @@
   "id": "data.binding-relative",
   "category": "data",
   "capability": "Relative binding path binding",
-  "construct": "TODO: modules/data/capabilities/data-binding-relative/registry.ts; spec/SPEC.md (Relative binding path binding); modules/data/capabilities/data-binding-relative/example.animl",
-  "module": "data",
-  "status": "planned",
-  "test": "TODO: modules/data/test/core/data-binding-relative.test.ts; spec/conformance/data-binding-relative; tests/oracle/data-binding-relative",
+  "construct": "modules/lists/SPEC.md; modules/lists/capabilities/data-binding-relative/example.animl",
+  "module": "lists",
+  "status": "done",
+  "test": "modules/lists/test/core/data-binding-relative.test.ts; spec/conformance/data-binding-relative; tests/oracle/data-binding-relative",
   "phase": "P5b"
  },
  {
@@ -2203,10 +2204,10 @@
   "id": "data.converter-color-formatting",
   "category": "data",
   "capability": "Color formatting",
-  "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
+  "construct": "modules/convert/capabilities/data-converter-color-formatting/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
-  "status": "planned",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "status": "done",
+  "test": "modules/convert/test/core/data-converter-color-formatting.test.ts; spec/conformance/data-converter-color-formatting; modules/convert/test/core/p5b-oracle.test.ts",
   "phase": "P5b"
  },
  {
@@ -2253,10 +2254,10 @@
   "id": "data.converter-number-to-list",
   "category": "data",
   "capability": "Number to list",
-  "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
-  "module": "data",
-  "status": "planned",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "construct": "modules/lists/SPEC.md; modules/lists/capabilities/data-converter-number-to-list/example.animl",
+  "module": "lists",
+  "status": "done",
+  "test": "modules/lists/test/core/data-converter-number-to-list.test.ts; spec/conformance/data-converter-number-to-list; tests/oracle/data-converter-number-to-list",
   "phase": "P5b"
  },
  {
@@ -2363,10 +2364,10 @@
   "id": "data.converter-trigger",
   "category": "data",
   "capability": "Trigger conversion",
-  "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
+  "construct": "modules/convert/capabilities/data-converter-trigger/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
-  "status": "planned",
-  "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+  "status": "done",
+  "test": "modules/convert/test/core/data-converter-trigger.test.ts; spec/conformance/data-converter-trigger; modules/convert/test/core/p5b-oracle.test.ts",
   "phase": "P5b"
  },
  {
@@ -2733,11 +2734,11 @@
   "id": "data.host-artboard",
   "category": "data",
   "capability": "Set model artboard",
-  "construct": "new: player.data API for set model artboard",
+  "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
   "module": "data",
   "status": "planned",
-  "test": "oracle/data-host-artboard",
-  "phase": "P5b"
+  "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
+  "phase": "P3b"
  },
  {
   "id": "data.host-bind-instance",
@@ -2757,7 +2758,7 @@
   "module": "data",
   "status": "planned",
   "test": "oracle/data-host-color",
-  "phase": "P5b"
+  "phase": "P3b"
  },
  {
   "id": "data.host-create-instance",
@@ -2775,8 +2776,8 @@
   "capability": "Get default instance",
   "construct": "new: player.data API for get default instance",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-host-default-instance",
+  "status": "done",
+  "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json",
   "phase": "P5b"
  },
  {
@@ -2795,8 +2796,8 @@
   "capability": "Enum host access",
   "construct": "new: player.data API for enum host access",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-host-enum",
+  "status": "done",
+  "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json",
   "phase": "P5b"
  },
  {
@@ -2807,7 +2808,7 @@
   "module": "data",
   "status": "planned",
   "test": "oracle/data-host-font",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "data.host-global-instance",
@@ -2815,8 +2816,8 @@
   "capability": "Set global instances",
   "construct": "new: player.data API for set global instances",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-host-global-instance",
+  "status": "done",
+  "test": "modules/host-edit/test/core/seams.test.ts; modules/host-edit/test/web/seams.test.ts; modules/host-edit/oracle/seams/skip.json",
   "phase": "P5b"
  },
  {
@@ -2825,8 +2826,8 @@
   "capability": "Set model image",
   "construct": "new: player.data API for set model image",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-host-image",
+  "status": "done",
+  "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json",
   "phase": "P5b"
  },
  {
@@ -2835,8 +2836,8 @@
   "capability": "Host list: addInstance",
   "construct": "new: player.data.<model> typed API: ViewModelInstanceList.addInstance",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-host-list-add-instance",
+  "status": "done",
+  "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json; modules/host-edit/test/core/repeat-contract.test.ts",
   "phase": "P5b"
  },
  {
@@ -2845,8 +2846,8 @@
   "capability": "Host list: addInstanceAt",
   "construct": "new: player.data.<model> typed API: ViewModelInstanceList.addInstanceAt",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-host-list-add-instance-at",
+  "status": "done",
+  "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json; modules/host-edit/test/core/repeat-contract.test.ts",
   "phase": "P5b"
  },
  {
@@ -2875,8 +2876,8 @@
   "capability": "Host list: removeInstance",
   "construct": "new: player.data.<model> typed API: ViewModelInstanceList.removeInstance",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-host-list-remove-instance",
+  "status": "done",
+  "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json; modules/host-edit/test/core/repeat-contract.test.ts",
   "phase": "P5b"
  },
  {
@@ -2885,8 +2886,8 @@
   "capability": "Host list: removeInstanceAt",
   "construct": "new: player.data.<model> typed API: ViewModelInstanceList.removeInstanceAt",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-host-list-remove-instance-at",
+  "status": "done",
+  "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json; modules/host-edit/test/core/repeat-contract.test.ts",
   "phase": "P5b"
  },
  {
@@ -2895,8 +2896,8 @@
   "capability": "Host list: swap",
   "construct": "new: player.data.<model> typed API: ViewModelInstanceList.swap",
   "module": "data",
-  "status": "planned",
-  "test": "oracle/data-host-list-swap",
+  "status": "done",
+  "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json; modules/host-edit/test/core/repeat-contract.test.ts",
   "phase": "P5b"
  },
  {
@@ -2907,7 +2908,7 @@
   "module": "data",
   "status": "planned",
   "test": "oracle/data-host-nested-paths",
-  "phase": "P5b"
+  "phase": "P3b"
  },
  {
   "id": "data.host-scalar-boolean",
@@ -2973,11 +2974,11 @@
   "id": "data.instance-export",
   "category": "data",
   "capability": "Exported instances",
-  "construct": "TODO: modules/data/capabilities/data-instance-export/registry.ts; spec/SPEC.md (Exported instances); modules/data/capabilities/data-instance-export/example.animl",
+  "construct": "modules/data/capabilities/data-instance-export/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
   "status": "planned",
-  "test": "TODO: modules/data/test/core/data-instance-export.test.ts; spec/conformance/data-instance-export; tests/oracle/data-instance-export",
-  "phase": "P5b"
+  "test": "spec/conformance/data-instance-export; modules/data/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
+  "phase": "P3b"
  },
  {
   "id": "data.interpolate-color",
@@ -3073,10 +3074,10 @@
   "id": "data.property-artboard",
   "category": "data",
   "capability": "Artboard property",
-  "construct": "TODO: modules/data/capabilities/data-property-artboard/registry.ts; spec/SPEC.md (Artboard property); modules/data/capabilities/data-property-artboard/example.animl",
+  "construct": "modules/nested/SPEC.md; Model.guardLiterals component(name) and component-valued selectors",
   "module": "data",
-  "status": "planned",
-  "test": "TODO: modules/data/test/core/data-property-artboard.test.ts; spec/conformance/data-property-artboard; tests/oracle/data-property-artboard",
+  "status": "done",
+  "test": "modules/nested/test/core/nested.test.ts; spec/conformance/data-property-artboard; tests/oracle/data-property-artboard",
   "phase": "P5b"
  },
  {
@@ -3183,10 +3184,10 @@
   "id": "data.property-symbol-list-index",
   "category": "data",
   "capability": "Symbol list index property",
-  "construct": "TODO: modules/data/capabilities/data-property-symbol-list-index/registry.ts; spec/SPEC.md (Symbol list index property); modules/data/capabilities/data-property-symbol-list-index/example.animl",
-  "module": "data",
-  "status": "planned",
-  "test": "TODO: modules/data/test/core/data-property-symbol-list-index.test.ts; spec/conformance/data-property-symbol-list-index; tests/oracle/data-property-symbol-list-index",
+  "construct": "modules/lists/SPEC.md; modules/lists/capabilities/data-property-symbol-list-index/example.animl",
+  "module": "lists",
+  "status": "done",
+  "test": "modules/lists/test/core/data-property-symbol-list-index.test.ts; spec/conformance/data-property-symbol-list-index; tests/oracle/data-property-symbol-list-index",
   "phase": "P5b"
  },
  {
@@ -4153,10 +4154,10 @@
   "id": "drawing-paint.image-fit-resize",
   "category": "drawing-paint",
   "capability": "Image fit resize",
-  "construct": "new: image.fit: resize",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "paint",
-  "status": "planned",
-  "test": "oracle/image-fit-resize",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/drawing-paint-image-fit-resize; tests/oracle/drawing-paint-image-fit-resize",
   "phase": "P5b"
  },
  {
@@ -4173,30 +4174,30 @@
   "id": "drawing-paint.image-wrap-clamp",
   "category": "drawing-paint",
   "capability": "clamp image wrapping",
-  "construct": "new: image.wrapX/wrapY: clamp",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "paint",
-  "status": "planned",
-  "test": "oracle/image-wrap-clamp",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/drawing-paint-image-wrap-clamp; tests/oracle/drawing-paint-image-wrap-clamp; tests/oracle/assets-clamp-fractional-finding/finding.json",
   "phase": "P5b"
  },
  {
   "id": "drawing-paint.image-wrap-mirror",
   "category": "drawing-paint",
   "capability": "mirror image wrapping",
-  "construct": "new: image.wrapX/wrapY: mirror",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "paint",
-  "status": "planned",
-  "test": "oracle/image-wrap-mirror",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/drawing-paint-image-wrap-mirror; tests/oracle/drawing-paint-image-wrap-mirror",
   "phase": "P5b"
  },
  {
   "id": "drawing-paint.image-wrap-repeat",
   "category": "drawing-paint",
   "capability": "repeat image wrapping",
-  "construct": "new: image.wrapX/wrapY: repeat",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "paint",
-  "status": "planned",
-  "test": "oracle/image-wrap-repeat",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/drawing-paint-image-wrap-repeat; tests/oracle/drawing-paint-image-wrap-repeat",
   "phase": "P5b"
  },
  {
@@ -4373,10 +4374,10 @@
   "id": "drawing-paint.paint-artboard",
   "category": "drawing-paint",
   "capability": "Live artboard paint",
-  "construct": "new: paint.scene references a component",
-  "module": "components",
-  "status": "planned",
-  "test": "oracle/paint-artboard",
+  "construct": "fill.paint: component:row; AniML paint=\"component:row\"; modules/componentpaint/README.md",
+  "module": "componentpaint",
+  "status": "done",
+  "test": "modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts; modules/componentpaint/test/core/oracle.test.ts; modules/componentpaint/test/web/sources.test.ts; spec/conformance/drawing-paint-paint-artboard; tests/oracle/drawing-paint-paint-artboard/finding.json",
   "phase": "P5b"
  },
  {
@@ -5433,8 +5434,8 @@
   "capability": "Select an artboard",
   "construct": "new: <anima-icon artboard>",
   "module": "components",
-  "status": "planned",
-  "test": "browser/artboard-selection",
+  "status": "done",
+  "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json",
   "phase": "P5b"
  },
  {
@@ -5451,30 +5452,30 @@
   "id": "host-api.asset-cdn-policy",
   "category": "host-api",
   "capability": "Asset CDN policy",
-  "construct": "new: explicit external asset fetch policy; default local",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "browser/asset-cdn-policy",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/host-api-asset-cdn-policy; tests/oracle/host-api-asset-cdn-policy/skip.json",
   "phase": "P5b"
  },
  {
   "id": "host-api.asset-loader",
   "category": "host-api",
   "capability": "Custom asset resolver",
-  "construct": "new: host-provided asset resolver",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "browser/asset-loader",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/host-api-asset-loader; tests/oracle/host-api-asset-loader/skip.json",
   "phase": "P5b"
  },
  {
   "id": "host-api.asset-metadata",
   "category": "host-api",
   "capability": "Asset metadata inspection",
-  "construct": "new: typed asset descriptors",
+  "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
   "module": "assets",
-  "status": "planned",
-  "test": "browser/asset-metadata",
+  "status": "done",
+  "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/host-api-asset-metadata; tests/oracle/host-api-asset-metadata/skip.json",
   "phase": "P5b"
  },
  {
@@ -5515,7 +5516,7 @@
   "module": "data",
   "status": "planned",
   "test": "browser/batched-binding",
-  "phase": "P5b"
+  "phase": "P3b"
  },
  {
   "id": "host-api.bind-view-model",
@@ -5531,11 +5532,11 @@
   "id": "host-api.bindable-artboards",
   "category": "host-api",
   "capability": "Bindable component instances",
-  "construct": "new: component instance handles",
+  "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
   "module": "components",
   "status": "planned",
-  "test": "browser/bindable-artboards",
-  "phase": "P5b"
+  "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
+  "phase": "P3b"
  },
  {
   "id": "host-api.cleanup",
@@ -5571,11 +5572,11 @@
   "id": "host-api.data-artboard",
   "category": "host-api",
   "capability": "View model artboard",
-  "construct": "new: typed data.artboard(path)",
+  "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
   "module": "data",
   "status": "planned",
-  "test": "browser/data-artboard",
-  "phase": "P5b"
+  "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
+  "phase": "P3b"
  },
  {
   "id": "host-api.data-boolean",
@@ -5595,7 +5596,7 @@
   "module": "data",
   "status": "planned",
   "test": "browser/data-color",
-  "phase": "P5b"
+  "phase": "P3b"
  },
  {
   "id": "host-api.data-enum",
@@ -5603,8 +5604,8 @@
   "capability": "View model enum",
   "construct": "new: typed data.enum(path)",
   "module": "data",
-  "status": "planned",
-  "test": "browser/data-enum",
+  "status": "done",
+  "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json",
   "phase": "P5b"
  },
  {
@@ -5615,7 +5616,7 @@
   "module": "data",
   "status": "planned",
   "test": "browser/data-font",
-  "phase": "P5b"
+  "phase": "P6"
  },
  {
   "id": "host-api.data-image",
@@ -5623,8 +5624,8 @@
   "capability": "View model image",
   "construct": "new: typed data.image(path)",
   "module": "data",
-  "status": "planned",
-  "test": "browser/data-image",
+  "status": "done",
+  "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json",
   "phase": "P5b"
  },
  {
@@ -5633,8 +5634,8 @@
   "capability": "View model lists",
   "construct": "new: typed data lists",
   "module": "data",
-  "status": "planned",
-  "test": "browser/data-list",
+  "status": "done",
+  "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json; modules/host-edit/test/core/repeat-contract.test.ts",
   "phase": "P5b"
  },
  {
@@ -5973,8 +5974,8 @@
   "capability": "Global view models",
   "construct": "new: document-scoped shared data contexts",
   "module": "data",
-  "status": "planned",
-  "test": "browser/global-models",
+  "status": "done",
+  "test": "modules/host-edit/test/core/seams.test.ts; modules/host-edit/test/web/seams.test.ts; modules/host-edit/oracle/seams/skip.json",
   "phase": "P5b"
  },
  {
@@ -6259,7 +6260,7 @@
   "module": "data",
   "status": "planned",
   "test": "browser/nested-models",
-  "phase": "P5b"
+  "phase": "P3b"
  },
  {
   "id": "host-api.nested-text-run",
@@ -6407,8 +6408,8 @@
   "capability": "Reuse parsed files",
   "construct": "new: cache compiled documents and decoded assets",
   "module": "assets",
-  "status": "planned",
-  "test": "browser/reuse-loaded-file",
+  "status": "done",
+  "test": "modules/host-edit/test/core/seams.test.ts; modules/host-edit/test/web/seams.test.ts; modules/host-edit/oracle/seams/skip.json",
   "phase": "P5b"
  },
  {
@@ -6527,8 +6528,8 @@
   "capability": "Discover view models",
   "construct": "new: scene.data.models()",
   "module": "data",
-  "status": "planned",
-  "test": "browser/view-model-discovery",
+  "status": "done",
+  "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json; modules/host/test/core/api.test.ts",
   "phase": "P5b"
  },
  {
@@ -6537,8 +6538,8 @@
   "capability": "Create view model instances",
   "construct": "new: typed model instance factory",
   "module": "data",
-  "status": "planned",
-  "test": "browser/view-model-instances",
+  "status": "done",
+  "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json; modules/host/test/core/api.test.ts",
   "phase": "P5b"
  },
  {
@@ -6567,8 +6568,8 @@
   "capability": "Preload runtime",
   "construct": "new: backend preload promise",
   "module": "assets",
-  "status": "planned",
-  "test": "browser/wasm-preload",
+  "status": "done",
+  "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json",
   "phase": "P5b"
  },
  {
@@ -6579,7 +6580,7 @@
   "module": "assets",
   "status": "planned",
   "test": "browser/wasm-url",
-  "phase": "P5b"
+  "phase": "P10"
  },
  {
   "id": "input.align-preserve",
@@ -10105,11 +10106,11 @@
   "id": "state-machine.condition-data",
   "category": "state-machine",
   "capability": "Live data comparisons",
-  "construct": "new: typed when expressions reading property paths",
+  "construct": "modules/machine/capabilities/state-machine-condition-data/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
   "status": "planned",
-  "test": "conformance/condition-data",
-  "phase": "P5b"
+  "test": "spec/conformance/state-machine-condition-data; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
+  "phase": "P3b"
  },
  {
   "id": "state-machine.condition-focus",
@@ -10265,50 +10266,50 @@
   "id": "state-machine.literal-artboard",
   "category": "state-machine",
   "capability": "artboard comparison literal",
-  "construct": "new: typed artboard literal in when expression",
+  "construct": "modules/nested/SPEC.md; Model.guardLiterals component(name) and component-valued selectors",
   "module": "data",
-  "status": "planned",
-  "test": "conformance/literal-artboard",
+  "status": "done",
+  "test": "modules/nested/test/core/state-machine-literal-artboard.test.ts; spec/conformance/state-machine-literal-artboard; modules/nested/test/core/p5b8-oracle.test.ts",
   "phase": "P5b"
  },
  {
   "id": "state-machine.literal-asset",
   "category": "state-machine",
   "capability": "asset comparison literal",
-  "construct": "new: typed asset literal in when expression",
+  "construct": "modules/machine/capabilities/state-machine-literal-asset/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
-  "status": "planned",
-  "test": "conformance/literal-asset",
+  "status": "done",
+  "test": "modules/machine/test/core/state-machine-literal-asset.test.ts; spec/conformance/state-machine-literal-asset; modules/machine/test/core/p5b-oracle.test.ts",
   "phase": "P5b"
  },
  {
   "id": "state-machine.literal-boolean",
   "category": "state-machine",
   "capability": "boolean comparison literal",
-  "construct": "new: typed boolean literal in when expression",
+  "construct": "modules/machine/capabilities/state-machine-literal-boolean/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
-  "status": "planned",
-  "test": "conformance/literal-boolean",
+  "status": "done",
+  "test": "modules/machine/test/core/state-machine-literal-boolean.test.ts; spec/conformance/state-machine-literal-boolean; modules/machine/test/core/p5b-oracle.test.ts",
   "phase": "P5b"
  },
  {
   "id": "state-machine.literal-color",
   "category": "state-machine",
   "capability": "color comparison literal",
-  "construct": "new: typed color literal in when expression",
+  "construct": "modules/machine/capabilities/state-machine-literal-color/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
-  "status": "planned",
-  "test": "conformance/literal-color",
+  "status": "done",
+  "test": "modules/machine/test/core/state-machine-literal-color.test.ts; spec/conformance/state-machine-literal-color; modules/machine/test/core/p5b-oracle.test.ts",
   "phase": "P5b"
  },
  {
   "id": "state-machine.literal-enum",
   "category": "state-machine",
   "capability": "enum comparison literal",
-  "construct": "new: typed enum literal in when expression",
+  "construct": "modules/machine/capabilities/state-machine-literal-enum/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
-  "status": "planned",
-  "test": "conformance/literal-enum",
+  "status": "done",
+  "test": "modules/machine/test/core/state-machine-literal-enum.test.ts; spec/conformance/state-machine-literal-enum; modules/machine/test/core/p5b-oracle.test.ts",
   "phase": "P5b"
  },
  {
@@ -10325,20 +10326,20 @@
   "id": "state-machine.literal-string",
   "category": "state-machine",
   "capability": "string comparison literal",
-  "construct": "new: typed string literal in when expression",
+  "construct": "modules/machine/capabilities/state-machine-literal-string/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
-  "status": "planned",
-  "test": "conformance/literal-string",
+  "status": "done",
+  "test": "modules/machine/test/core/state-machine-literal-string.test.ts; spec/conformance/state-machine-literal-string; modules/machine/test/core/p5b-oracle.test.ts",
   "phase": "P5b"
  },
  {
   "id": "state-machine.literal-trigger",
   "category": "state-machine",
   "capability": "trigger comparison literal",
-  "construct": "new: typed trigger literal in when expression",
+  "construct": "modules/machine/capabilities/state-machine-literal-trigger/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
   "module": "data",
-  "status": "planned",
-  "test": "conformance/literal-trigger",
+  "status": "done",
+  "test": "modules/machine/test/core/state-machine-literal-trigger.test.ts; spec/conformance/state-machine-literal-trigger; modules/machine/test/core/p5b-oracle.test.ts",
   "phase": "P5b"
  },
  {

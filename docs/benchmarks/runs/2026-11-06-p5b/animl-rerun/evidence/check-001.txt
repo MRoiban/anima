@@ -1,0 +1,9 @@
+docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.animl: 4 errors
+docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.animl:36:46 error bind-syntax unknown function
+  hint: unsupported token "asset(\"dawn\")"; use values, arithmetic, comparisons, and/or/not or registered calls
+docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.animl:37:46 error bind-syntax unknown function
+  hint: unsupported token "asset(\"tide\")"; use values, arithmetic, comparisons, and/or/not or registered calls
+docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.animl:38:47 error bind-syntax unknown function
+  hint: unsupported token "asset(\"ember\")"; use values, arithmetic, comparisons, and/or/not or registered calls
+docs/benchmarks/runs/2026-11-06-p5b/animl-rerun/playlist.animl:57:47 error list-map component map has no entry for Track
+  hint: add the list model to the component map

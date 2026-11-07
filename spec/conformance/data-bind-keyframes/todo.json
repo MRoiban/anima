@@ -1,4 +1,0 @@
-{
-  "status": "todo",
-  "reason": "The decided design specifies scalar key values only in existing tracks; no data-backed keyframe representation or resampling policy is decided."
-}

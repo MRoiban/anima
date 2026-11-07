@@ -1,0 +1,2 @@
+advance 0
+snapshot rows/0/dot.x rows/1/dot.x

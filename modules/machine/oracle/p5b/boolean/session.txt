@@ -1,0 +1,17 @@
+ok advance
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/boolean/initial.json
+ok data
+ok advance
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/boolean/changed.json
+ok advance
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/boolean/held.json
+ok quit
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[21:49:12.647] rive  deferred replay: inline
+[21:49:12.657] rive  built (284 bytes, 10ms, 0 errors, 0 warnings)
+[21:49:12.658] rive  showing Probe [1/1]
+[21:49:12.658] rive  viewport 20x20 @1x
+[21:49:12.658] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/boolean/initial.json
+[21:49:12.659] rive  data: value = true (mid-run)
+[21:49:12.659] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/boolean/changed.json
+[21:49:12.659] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/machine/oracle/p5b/boolean/held.json

@@ -1,0 +1,74 @@
+[
+  {
+    "click": 0,
+    "values": {
+      "dot.properties.number": 1,
+      "dot.properties.bool": true
+    },
+    "events": []
+  },
+  {
+    "click": 1,
+    "values": {
+      "dot.properties.number": 1,
+      "dot.properties.bool": true
+    },
+    "events": []
+  },
+  {
+    "click": 2,
+    "values": {
+      "dot.properties.number": 0,
+      "dot.properties.bool": false
+    },
+    "events": []
+  },
+  {
+    "click": 3,
+    "values": {
+      "dot.properties.number": 0,
+      "dot.properties.bool": false
+    },
+    "events": []
+  },
+  {
+    "click": 4,
+    "values": {
+      "dot.properties.number": 1,
+      "dot.properties.bool": true
+    },
+    "events": []
+  },
+  {
+    "click": 5,
+    "values": {
+      "dot.properties.number": 0,
+      "dot.properties.bool": false
+    },
+    "events": []
+  },
+  {
+    "click": 6,
+    "values": {
+      "dot.properties.number": 1,
+      "dot.properties.bool": true
+    },
+    "events": []
+  },
+  {
+    "click": 7,
+    "values": {
+      "dot.properties.number": 0,
+      "dot.properties.bool": false
+    },
+    "events": []
+  },
+  {
+    "click": 8,
+    "values": {
+      "dot.properties.number": 1,
+      "dot.properties.bool": true
+    },
+    "events": []
+  }
+]

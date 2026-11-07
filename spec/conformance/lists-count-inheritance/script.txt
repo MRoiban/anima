@@ -1,0 +1,5 @@
+advance 0
+snapshot rows/0/dot.r rows/1/dot.r
+set $bonus 3
+advance 0
+snapshot rows/0/dot.r rows/1/dot.r rows/2/dot.r

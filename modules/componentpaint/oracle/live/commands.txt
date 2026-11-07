@@ -1,0 +1,7 @@
+advance 0s
+screenshot frames/initial.png
+advance 0.5s
+screenshot frames/half.png
+advance 0.5s
+screenshot frames/end.png
+quit

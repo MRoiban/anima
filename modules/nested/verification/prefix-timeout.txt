@@ -1,0 +1,53 @@
+
+> test:scope
+> node tools/test-scope.ts markup nested oracle --no-browser
+
+Scopes: markup, nested, oracle
+  unit: modules/components/test/markup/components.test.ts
+  unit: modules/convert/test/markup/convert.test.ts
+  unit: modules/data/test/markup/data.test.ts
+  unit: modules/markup-libraries/test/markup/extras.test.ts
+  unit: modules/markup-libraries/test/markup/reuse.test.ts
+  unit: modules/nested/test/cli/nested.test.ts
+  unit: modules/nested/test/core/nested.test.ts
+  unit: modules/nested/test/core/state-machine-literal-artboard.test.ts
+  unit: modules/paint/test/markup/paint.test.ts
+  unit: modules/surface/test/markup/surface.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/format.test.ts
+  unit: packages/markup/test/invalid.test.ts
+  unit: packages/markup/test/module-fields.test.ts
+  unit: packages/markup/test/names.test.ts
+  unit: packages/markup/test/xml.test.ts
+  unit: tools/oracle.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  cases: ^conformance > (components-leaf-fit|components-library-export|components-library-models|components-library-update|components-nested-quantize|components-nested-remap|components-stateful-output|data-property-artboard|state-machine-literal-artboard)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-7fa51d22
+
+ ❯ |scope-unit| packages/markup/test/compile.test.ts (51 tests | 1 failed) 5616ms
+   ❯ AniML compiler (51)
+     × never throws on every prefix of bell.animl 5169ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| packages/markup/test/compile.test.ts > AniML compiler > never throws on every prefix of bell.animl
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ packages/markup/test/compile.test.ts:682:3
+    680|   });
+    681|
+    682|   it('never throws on every prefix of bell.animl', () => {
+       |   ^
+    683|     for (let i = 0; i <= bell.length; i++) {
+    684|       const result = compile(bell.slice(0, i));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 18 passed | 1 skipped (20)
+      Tests  1 failed | 2708 passed | 424 skipped | 37 todo (3170)
+   Start at  22:15:08
+   Duration  26.23s (tests 59%, import 23%, transform 18%, worker 1%)

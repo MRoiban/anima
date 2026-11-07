@@ -596,7 +596,14 @@ export class Compiler {
       moduleCompiler.build?.(this, el, a, children, o, p);
     } else if (el.name === 'track') {
       this.map.set(p, a.get('target')?.valueAt ?? el.at);
-      return this.frames(el, p);
+      const keys = motionCompiler.frames?.(this, el, children, p) ?? this.frames(el, p);
+      // Both element and text spellings validate the final ease before omitting it.
+      if (keys.length && (keys.at(-1) as unknown[]).length === 3)
+        this.finalEases.push({
+          key: keys.at(-1) as unknown[],
+          pointer: ptr(p, keys.length - 1) + '/2',
+        });
+      return keys;
     } else if (el.name === 'event') {
       const v = [
         a.has('at') ? this.read(a.get('at')!, 'number', p + '/0') : 0,
@@ -859,7 +866,7 @@ export class Compiler {
       try {
         if (tokens.length < 2) throw new Error(VERBOSE ? 'expected time value [ease]' : '');
         const time = this.num(tokens[0]![0]);
-        const val = this.scalar(tokens[1]![0]);
+        const val = motionCompiler.keyValue?.(tokens[1]![0]) ?? this.scalar(tokens[1]![0]);
         const key: unknown[] = [time, val];
         this.map.set(kp, at(tokens[0]!.index));
         this.map.set(kp + '/0', at(tokens[0]!.index));
@@ -878,10 +885,6 @@ export class Compiler {
           VERBOSE ? (e instanceof Error ? e.message : 'invalid keyframe') : '',
         );
       }
-    }
-    // As in .ani, the final key's ease has no segment to shape.
-    if (keys.length && keys.at(-1)!.length === 3) {
-      this.finalEases.push({ key: keys.at(-1)!, pointer: ptr(p, keys.length - 1) + '/2' });
     }
     return keys;
   }

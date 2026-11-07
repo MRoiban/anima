@@ -307,11 +307,16 @@ describe('AniML compiler', () => {
         ),
       ).doc.root!,
     );
+    collectPaint(
+      parseXml(
+        '<anima><repeat id="rows" list="$items" count="$n" component="row" dx="2" dy="3" size="10 5"/></anima>',
+      ).doc.root!,
+    );
     for (const form of ['slice', 'feather', 'imagePaint'])
       expect(paintElements.some((e) => e.name === form)).toBe(true);
     collectPaint(
       parseXml(
-        '<anima><instance id="i" component="badge" speed="2" paused="true" data="main"/></anima>',
+        '<anima><instance id="i" component="badge" speed="2" paused="true" data="main" time="$t" fps="12" fit="contain" align="right" size="20 10"/></anima>',
       ).doc.root!,
     );
     collectPaint(
@@ -341,7 +346,7 @@ describe('AniML compiler', () => {
       );
     collectPaint(
       parseXml(
-        '<anima><rect mix="{&quot;mode&quot;:&quot;normal&quot;}" fill-blend-amount="0.5" stroke-blend-amount="0.5"/></anima>',
+        '<anima><image wrap="repeat" wrap-x="mirror" wrap-y="clamp"/><rect mix="{&quot;mode&quot;:&quot;normal&quot;}" fill-blend-amount="0.5" stroke-blend-amount="0.5"/></anima>',
       ).doc.root!,
     );
     const attrs = new Set(

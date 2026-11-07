@@ -1,0 +1,32 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-92dd576e
+
+ ❯ |unit| modules/assets/test/cli/pipeline.test.ts (17 tests | 1 failed | 16 skipped) 35ms
+   × keeps Blob payloads opaque when their bytes resemble media containers 32ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| modules/assets/test/cli/pipeline.test.ts > keeps Blob payloads opaque when their bytes resemble media containers
+AssertionError: expected { type: 'blob', …(5) } to not have property "duration"
+
+- Expected:
+undefined
+
++ Received:
+0.1
+
+ ❯ modules/assets/test/cli/pipeline.test.ts:487:34
+    485|     const doc = JSON.parse(result.out);
+    486|     expect(doc.assets.bytes).toMatchObject({ type: 'blob', source, mim…
+    487|     expect(doc.assets.bytes).not.toHaveProperty('duration');
+       |                                  ^
+    488|     expect(load(doc).diagnostics).toEqual([]);
+    489|   }
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 16 skipped (17)
+   Start at  23:06:46
+   Duration  1.15s (import 69%, transform 27%, tests 4%, worker 1%)

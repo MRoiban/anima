@@ -1,0 +1,2 @@
+advance 0
+snapshot one/dot.r one/dot.y

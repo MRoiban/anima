@@ -1,0 +1,8 @@
+advance 0
+snapshot probe.r
+set $card ""
+advance 0
+snapshot probe.r
+set $card "row"
+advance 0
+snapshot probe.r

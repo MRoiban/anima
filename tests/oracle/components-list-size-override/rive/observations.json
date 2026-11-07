@@ -1,0 +1,18 @@
+[
+  {
+    "click": 0,
+    "values": {
+      "rows/0/dot.opacity": 0,
+      "rows/1/dot.opacity": 0
+    },
+    "events": []
+  },
+  {
+    "click": 1,
+    "values": {
+      "rows/0/dot.opacity": 1,
+      "rows/1/dot.opacity": 0
+    },
+    "events": []
+  }
+]

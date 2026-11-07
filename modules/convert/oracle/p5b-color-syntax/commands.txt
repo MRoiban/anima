@@ -1,0 +1,3 @@
+advance 1
+data-dump /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color-syntax/observed.json
+quit

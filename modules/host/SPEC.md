@@ -2,10 +2,10 @@
 
 Authoring: [Data: view models, `$` paths and converters](../../docs/AUTHORING.md#data-view-models--paths-and-converters).
 
-Optional `@anima-format/core/host` installs `player.data`; register both data and host.
+Optional `@anima-format/core/host` installs `player.data`; register data and host. Host loads its host-values companion automatically.
 `@anima-format/web/host` installs `icon.data`. Host adds no document fields, markup
 spellings or drawing hooks: registry entries are empty. Authored data remains owned
-by data. Pages without this entry pay no host bytes.
+by data. Pages without this entry pay no host bytes. The browser host entry imports its host-values companion automatically; value construction/validation lives there, with the same page-facing API.
 
 Core and web host access starts unbound. `bind(name | {name,model})` selects an
 instance of the document's default model; explicit `$instance:property` paths work
@@ -54,3 +54,23 @@ explicit `$` path contract. Computed handles read their initialized/final resolv
 subscribe with ordinary post-step coalescing, and reject `.set()` with `DataError` code
 `read-only-path`, a pointer, message and corrective hint. Created instances and replacement lists
 retain computed model behavior and converter declarations.
+
+## Extension seams
+
+`enqueue(write)` appends a validated internal write callback to the host queue. Every queued host
+write and optional host-edit write applies in call order before ordinary input processing. The
+queue is detached before execution, so writes enqueued by a write or a subscription wait for the
+next step. Invalid step durations preserve the queue. Pending writes make Player.busy true and
+make a completed step unsettled. A non-function callback is data-type at /data/.
+`wake()` requests a player wake, coalescing inside nested batches. `project(path[, liveValue])`
+is an internal live-value projection for editors; ordinary reads and snapshots remain committed
+values. Projections clear before draining writes; pending whole-list replacements and edits use
+the same canonical named path. Callers must not mutate a projected value outside a queued write.
+
+`rebindInstance(name, ownedRecord)` queues replacement of a named instance by an instance of the
+same model from this API. Unknown/foreign records are data-instance; model mismatch is data-type.
+Before the step reads data, the operation updates host records (including a bound record), named
+scalar routing, existing component/repeat data scopes, ancestor aliases and shared model metadata
+atomically. Existing typed handles and subscriptions follow the named slot. Surviving repeat
+items keep their players. Other root players and the compiled document stay independent. Rebinding
+alone does not fire a trigger. Models marked global include `global: true` in models() reflection.

@@ -1,0 +1,5 @@
+
+/home/jarvis/.t3/worktrees/anima/t3-7fa51d22/modules/components/markup/index.ts
+  122:39  error  Do not delete dynamically computed property keys  @typescript-eslint/no-dynamic-delete
+
+✖ 1 problem (1 error, 0 warnings)

@@ -19,10 +19,11 @@ const propertyNames = [
   'list',
   'model-ref',
   'asset-ref',
+  'component',
 ];
 export const dataMarkup = {
   form(el: Element, base: Form): Form {
-    if (el.name === 'anima' || el.name === 'component')
+    if (el.name === 'anima' || (el.name === 'component' && el.attrs.some((a) => a.name === 'grid')))
       return {
         ...base,
         attrs: {
@@ -58,6 +59,7 @@ export const dataMarkup = {
           name: 'string',
           model: 'string',
           default: 'boolean',
+          export: 'boolean',
           exported: 'boolean',
           label: 'string',
         },
@@ -66,7 +68,7 @@ export const dataMarkup = {
       };
     if (el.name === 'set')
       return { attrs: { path: 'string', value: 'string' }, required: ['path', 'value'] };
-    if (['string', 'enum', 'list', 'model-ref', 'asset-ref'].includes(el.name))
+    if (['string', 'enum', 'list', 'model-ref', 'asset-ref', 'component'].includes(el.name))
       return {
         attrs: {
           name: 'string',
@@ -123,7 +125,7 @@ export const dataMarkup = {
     const out: Obj = {};
     for (const [key, v] of a)
       if (key !== 'name')
-        out[key] =
+        out[key === 'export' ? 'exported' : key] =
           key === 'values'
             ? v.value.trim().startsWith('[')
               ? scalar(v.value)
@@ -231,6 +233,7 @@ export const dataMarkup = {
           'global',
           'model',
           'default',
+          'export',
           'exported',
           'label',
           'min',
@@ -316,7 +319,11 @@ export const dataMarkup = {
       ...Object.entries((data.instances ?? {}) as Record<string, Obj>).map(([name, def]) => {
         const el = entry(
           'instance',
-          Object.fromEntries(Object.entries(def).filter(([k]) => k !== 'values')),
+          Object.fromEntries(
+            Object.entries(def)
+              .filter(([k]) => k !== 'values')
+              .map(([k, v]) => [k === 'exported' ? 'export' : k, v]),
+          ),
           [['name', name]],
         );
         el.children = Object.entries((def.values ?? {}) as Obj).map(([path, value]) =>

@@ -1,0 +1,72 @@
+{
+  "date": "2026-11-06",
+  "branch": "t3/derive-bind-oracle-captures-1",
+  "riveCli": "1.9.1",
+  "completedCases": [
+    "derive-score-label",
+    "derive-list-relative",
+    "bind-logic-lt",
+    "bind-logic-le",
+    "bind-logic-eq",
+    "bind-logic-ne",
+    "bind-logic-and",
+    "bind-logic-or",
+    "bind-logic-not"
+  ],
+  "snapshots": 75,
+  "typedObservations": 186,
+  "sourceValueChecks": 20,
+  "newMismatches": 0,
+  "readOnlyParity": {
+    "status": "evidenced skip",
+    "nativeAcceptedWrites": 1,
+    "animaAcceptedWrites": 0,
+    "nativeAfterAdvance": "manual",
+    "nativeAfterSourceChange": "1,501 pts"
+  },
+  "verification": {
+    "node tools/oracle.ts --strict": {
+      "exit": 0,
+      "cases": 225,
+      "samples": 419,
+      "failingCompletedSamples": 0,
+      "inheritedFindings": 18
+    },
+    "npm run test:scope -- derive bind oracle --no-browser": {
+      "exit": 0,
+      "passed": 2446,
+      "filtered": 367,
+      "existingTodo": 15
+    },
+    "npx prettier --check .": {
+      "exit": 0
+    },
+    "npx eslint .": {
+      "exit": 0
+    },
+    "npm run typecheck": {
+      "exit": 0
+    },
+    "python3 modules/derive/oracle/capture.py --capture": {
+      "exit": 0
+    },
+    "python3 modules/derive/oracle/capture.py": {
+      "exit": 0
+    }
+  },
+  "developmentFailures": [
+    "Initial Prettier check flagged three new/edited files; formatted them without assertion changes.",
+    "Bare npx tsc --noEmit printed help and exited 1 (no root tsconfig); corrected to npm run typecheck, which passed.",
+    "Staged whitespace check caught trailing blank lines in nine capture logs and one AniML source; normalized final newlines in driver/fixtures, without changing values."
+  ],
+  "baselineIntegrity": {
+    "oracleToolByteIdentical": true,
+    "findingsMetricsByteIdentical": true,
+    "first216CasesUnchanged": true,
+    "first216MetricRecordsUnchanged": true
+  },
+  "limits": [
+    "Settled result comparison through native transition comparators; no claim about expression syntax, short-circuiting, precedence, immediate latency or arbitrary float64 precision.",
+    "Read-only skip concerns the captured native composition/schema, not every possible custom script."
+  ]
+}

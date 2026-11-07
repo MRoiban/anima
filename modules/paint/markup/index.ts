@@ -4,13 +4,15 @@ import type { Compiler, Form, Kind } from '../../../packages/markup/src/compile.
 import type { Element, Attr } from '../../../packages/markup/src/xml.ts';
 
 const kind = (s: Shape): Kind =>
-  s.k === 'num'
-    ? 'number'
-    : s.k === 'bool'
-      ? 'boolean'
-      : s.k === 'str' && s.re === NAME
-        ? 'name'
-        : 'string';
+  ['obj', 'map', 'any', 'alt'].includes(s.k)
+    ? 'json'
+    : s.k === 'num'
+      ? 'number'
+      : s.k === 'bool'
+        ? 'boolean'
+        : s.k === 'str' && s.re === NAME
+          ? 'name'
+          : 'string';
 // Structural arrays contain scalar tokens; tuple arity and enum/range constraints still belong
 // to the strict loader. Preserve the attribute origin for each decoded entry.
 function readShape(compiler: Compiler, a: Attr, shape: Shape, p: string): unknown {
@@ -45,6 +47,16 @@ export const paintMarkup = {
     return s.split(/\s*,\s*|\s+/).map((x) => (x.endsWith('%') ? x : compiler.num(x)));
   },
   hasPaint(compiler: Compiler, el: Element, paint: string): boolean {
+    // A registered source attribute can supply a fill without a flat colour attribute.
+    if (
+      compiler
+        .nodeAttrs(el.name as import('@anima-format/core').NodeType)
+        .some(
+          (a) =>
+            a.path[0] === paint && a.path[1] === 'paint' && el.attrs.some((v) => v.name === a.attr),
+        )
+    )
+      return true;
     return el.children.some(
       (c) =>
         c.kind === 'element' &&

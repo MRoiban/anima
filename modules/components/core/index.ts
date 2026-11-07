@@ -7,7 +7,7 @@ import type { Player, PlayerExtension } from '../../../packages/core/src/player.
 import type { ObjShape, NodeType, Shape } from '../../../packages/core/src/registry.ts';
 import { ptr } from '../../../packages/core/src/diag.ts';
 import { VERBOSE as V } from '../../../packages/core/src/flags.ts';
-import { apply, invert, mul } from '../../../packages/core/src/geom.ts';
+import { apply, invert, mul, type Mat } from '../../../packages/core/src/geom.ts';
 import { drawFrame, drawTree, type DrawNode } from '../../../packages/core/src/draw.ts';
 
 interface Instance {
@@ -24,7 +24,26 @@ interface Info {
   depth: number;
 }
 const info = new WeakMap<Model, Info>();
-const targets = new WeakMap<NodeM, Model>();
+export type ComponentModule = EventModule & {
+  placements: WeakMap<NodeM, Map<string, Model>>;
+  selected?: (parent: Player, node: NodeM) => boolean;
+  choices?: (model: Model, node: NodeM) => string[] | undefined;
+  configure?: (parent: Player, child: Player, node: NodeM) => void;
+  matrix?: (parent: Player, child: Player, node: NodeM) => Mat;
+  externalDrawing?: (model: Model) => boolean;
+  forkModel: (source: Model, target: Model) => void;
+  placementContext?: (model: Model, node: NodeM, key?: string) => string | undefined;
+  componentKey?: (model: Model, name: string) => string;
+  loadComponent?: (
+    parent: Model,
+    name: string,
+    doc: Model['doc'],
+    inherited: boolean,
+    run: (doc: Model['doc']) => ReturnType<ModuleRegistry['load']>,
+    itemModel?: string,
+  ) => ReturnType<ModuleRegistry['load']>;
+};
+const placements = new WeakMap<NodeM, Map<string, Model>>();
 // Synchronous loader context: definitions are lexical to the enclosing document, never global.
 interface Context {
   definitions: Model['doc'];
@@ -32,8 +51,10 @@ interface Context {
   stack: Set<string>;
   requires: string[];
   data?: Model['doc'];
+  used: Set<string>;
 }
 let context: Context | undefined;
+let active: ComponentModule | undefined;
 const scoped = /^[a-z][a-zA-Z0-9-]*(?:\.[a-z][a-zA-Z0-9-]*)*$/;
 
 function create(
@@ -41,7 +62,7 @@ function create(
   eventKinds: EventKinds = new Map(
     ['enter', 'leave', 'down', 'up', 'click', 'move'].map((name) => [name, undefined]),
   ),
-): EventModule {
+): ComponentModule {
   const name = (
     runtime.nodeShape('group').p.id as Extract<
       import('../../../packages/core/src/registry.ts').Shape,
@@ -50,6 +71,11 @@ function create(
   ).re!;
   return {
     eventKinds,
+    placements,
+    forkModel(source, target) {
+      const i = info.get(source);
+      if (i) info.set(target, i);
+    },
     name: 'components',
     after,
     init(_modules, shared) {
@@ -76,7 +102,7 @@ function create(
         of: (listener.p.set as Extract<Shape, { k: 'map' }>).of,
       };
       // Preserve composed kinds when AniML replays a module into its isolated registry.
-      return create(shared, new Map(eventKinds));
+      return (active = create(shared, new Map(eventKinds)));
     },
     entries: [
       {
@@ -131,6 +157,7 @@ function create(
         stack: new Set(),
         requires: model.doc.requires,
         data: model.doc.data,
+        used: new Set(),
       });
       const data: Info = { events: new Set(), instances: [], count: 0, depth: 0 };
       info.set(model, data);
@@ -144,12 +171,17 @@ function create(
               ? 'add "bind" to "requires"'
               : 'check the component declaration and its input types'),
         );
-      const component = (name: string, pointer: string): Model | undefined => {
+      const component = (name: string, pointer: string, itemModel?: string): Model | undefined => {
         if (ctx.stack.has(name)) {
           err('component-cycle', pointer, 'recursive component reference');
           return;
         }
-        if (ctx.cache.has(name)) return ctx.cache.get(name);
+        const key = (active?.componentKey?.(model, name) ?? name) + ':' + (itemModel ?? '');
+        ctx.used.add(name);
+        if (ctx.cache.has(key)) {
+          const child = ctx.cache.get(key);
+          return child;
+        }
         if (!Object.hasOwn(ctx.definitions, name) || name === '$comment') {
           err('unknown-component', pointer, `no component "${name}"`);
           return;
@@ -180,10 +212,11 @@ function create(
               V && `rename the input; ${input} is an instance property (e.g. use pos-x)`,
             );
         ctx.stack.add(name);
-        const result = runtime.load({
+        const document = {
           anima: '0.1',
           name: 'component',
           requires: ctx.requires,
+          components: ctx.definitions,
           ...def,
           ...(ctx.data || def.data
             ? {
@@ -193,7 +226,11 @@ function create(
                     : (def.data ?? ctx.data),
               }
             : {}),
-        });
+        };
+        const hook = active?.loadComponent;
+        const result = hook
+          ? hook(model, name, document, !def.data, runtime.load, itemModel)
+          : runtime.load(document);
         ctx.stack.delete(name);
         for (const d of result.diagnostics)
           diag.list.push({
@@ -202,20 +239,42 @@ function create(
               ? d.pointer
               : ptr('/components', name) + d.pointer,
           });
-        ctx.cache.set(name, result.model);
+        ctx.cache.set(key, result.model);
         return result.model;
       };
       try {
-        // Validate even unused definitions. Nested loads share this context without embedding copies.
-        if (!outer)
-          for (const name of Object.keys(ctx.definitions))
-            if (name !== '$comment') component(name, ptr('/components', name));
         model.nodes.forEach((node, ni) => {
+          if ((node.type as string) === 'repeat') {
+            const choices = new Map<string, Model>();
+            placements.set(node, choices);
+            for (const [key, name] of typeof node.raw.component === 'string'
+              ? [['*', node.raw.component]]
+              : Object.entries(node.raw.component ?? {}))
+              if (key !== '$comment') {
+                const child = component(
+                  String(name),
+                  nodePointer(model, ni) + '/component',
+                  active?.placementContext?.(model, node, key),
+                );
+                if (child) choices.set(key, child);
+              }
+            return;
+          }
           if ((node.type as string) !== 'instance') return;
           const pointer = nodePointer(model, ni);
-          const child = component(node.raw.component, pointer + '/component');
+          const names = active?.choices?.(model, node) ?? [node.raw.component];
+          const choices = new Map<string, Model>();
+          for (const name of names) {
+            const child = component(
+              name,
+              pointer + '/component',
+              active?.placementContext?.(model, node),
+            );
+            if (child) choices.set(name, child);
+          }
+          const child = choices.values().next().value;
           if (!child) return;
-          targets.set(node, child);
+          placements.set(node, new Map([['*', child], ...choices]));
           const entry: Instance = {
             node: ni,
             model: child,
@@ -224,9 +283,9 @@ function create(
             offset: 0,
           };
           data.instances.push(entry);
-          const nested = info.get(child);
-          data.count += 1 + (nested?.count ?? 0);
-          data.depth = Math.max(data.depth, 1 + (nested?.depth ?? 0));
+          const nested = [...choices.values()].map((m) => info.get(m));
+          data.count += 1 + Math.max(...nested.map((i) => i?.count ?? 0));
+          data.depth = Math.max(data.depth, 1 + Math.max(...nested.map((i) => i?.depth ?? 0)));
           for (const [name, value] of Object.entries(node.raw.inputs ?? {})) {
             if (name === '$comment') continue;
             const p = ptr(pointer + '/inputs', name),
@@ -259,27 +318,49 @@ function create(
             )
               err('input-type', p, 'instance input type mismatch');
           }
-          // The child model distinguishes its authored inputs from bubbled event triggers.
-          const events = new Set([...(info.get(child)?.events ?? []), ...(child.eventNames ?? [])]);
-          for (const [name, input] of child.inputs)
-            if (!events.has(name))
-              model.inputs.set(node.id + '.' + name, { ...input, name: node.id + '.' + name });
-          for (const name of events) {
-            const address = node.id + '.' + name;
-            if (Object.hasOwn(child.doc.inputs ?? {}, name)) {
-              err('component-event-collision', pointer, 'event and input share a scoped address');
-              continue;
+          for (const child of new Set(choices.values())) {
+            // The child model distinguishes its authored inputs from bubbled event triggers.
+            const events = new Set([
+              ...(info.get(child)?.events ?? []),
+              ...(child.eventNames ?? []),
+            ]);
+            for (const [name, input] of child.inputs)
+              if (!events.has(name)) {
+                const address = node.id + '.' + name,
+                  previous = model.inputs.get(address);
+                if (previous && previous.type !== input.type)
+                  err(
+                    'component-input-type',
+                    pointer + '/component',
+                    'component choices share an input with different types',
+                  );
+                model.inputs.set(address, { ...input, name: address });
+              }
+            for (const name of events) {
+              const address = node.id + '.' + name;
+              if (
+                Object.hasOwn(child.doc.inputs ?? {}, name) ||
+                (model.inputs.has(address) && model.inputs.get(address)!.type !== 'trigger')
+              ) {
+                err('component-event-collision', pointer, 'event and input share a scoped address');
+                continue;
+              }
+              model.inputs.set(address, {
+                name: address,
+                type: 'trigger',
+                def: false,
+                min: 0,
+                max: 1,
+                buffer: 0,
+              });
             }
-            model.inputs.set(address, {
-              name: address,
-              type: 'trigger',
-              def: false,
-              min: 0,
-              max: 1,
-              buffer: 0,
-            });
           }
         });
+        // Validate unused definitions after placements establish their inherited contexts.
+        if (!outer)
+          for (const name of Object.keys(ctx.definitions))
+            if (name !== '$comment' && !ctx.used.has(name))
+              component(name, ptr('/components', name));
         if (data.count > 256 || data.depth > 8)
           err('limit-exceeded', '/nodes', 'components exceed depth 8 or 256 expanded instances');
         if (data.instances.length) model.nesting = (p) => nest(p, data, runtime.Player);
@@ -291,10 +372,18 @@ function create(
       }
     },
     model(node, key) {
-      const input = targets.get(node)?.inputs.get(key);
+      const inputs = [...(placements.get(node)?.values() ?? [])].flatMap(
+          (m) => m.inputs.get(key) ?? [],
+        ),
+        input = inputs[0];
       if (input && input.type !== 'trigger')
         return {
-          prop: { type: input.type, feature: 'components', min: input.min, max: input.max },
+          prop: {
+            type: input.type,
+            feature: 'components',
+            min: Math.min(...inputs.map((i) => i.min)),
+            max: Math.max(...inputs.map((i) => i.max)),
+          },
           rest: input.def,
         };
     },
@@ -324,6 +413,7 @@ function create(
     },
     draw: {
       tree(model, tree) {
+        if (active?.externalDrawing?.(model)) return;
         for (const i of info.get(model)?.instances ?? []) {
           const child = drawTree(i.model),
             offset = (i.offset = tree.nodes.length);
@@ -351,6 +441,7 @@ function create(
         }
       },
       end(p, frame) {
+        if (active?.externalDrawing?.(p.model)) return;
         for (const i of info.get(p.model)?.instances ?? []) {
           const node = i.node;
           const child = (p.nested as Nested).players.get(p.model.nodes[node]!.id)!;
@@ -405,6 +496,11 @@ function nest(parent: Player, data: Info, Child: typeof Player): Nested {
     ]),
   );
   for (const i of data.instances) {
+    active?.configure?.(
+      parent,
+      players.get(parent.model.nodes[i.node]!.id)!,
+      parent.model.nodes[i.node]!,
+    );
     parent.model.bindData?.(
       parent,
       players.get(parent.model.nodes[i.node]!.id)!,
@@ -443,7 +539,11 @@ function nest(parent: Player, data: Info, Child: typeof Player): Nested {
     hits(node, x, y) {
       const p = players.get(parent.model.nodes[node]!.id);
       if (!p) return;
-      const inv = invert(parent.world(node));
+      const n = parent.model.nodes[node]!;
+      if (active?.selected?.(parent, n) === false) return false;
+      const inv = invert(
+        mul(parent.world(node), active?.matrix?.(parent, p, n) ?? [1, 0, 0, 1, 0, 0]),
+      );
       if (!inv) return false;
       const [lx, ly] = apply(inv, x, y),
         [bx, by, w, h] = p.model.viewBox;
@@ -454,7 +554,9 @@ function nest(parent: Player, data: Info, Child: typeof Player): Nested {
       collect((p) => ({
         ...Object.fromEntries(
           [...p.model.inputs]
-            .filter(([n, i]) => i.type !== 'trigger' && !n.includes('.'))
+            .filter(
+              ([n, i]) => i.type !== 'trigger' && (!n.includes('.') || n.startsWith('outputs.')),
+            )
             .map(([n]) => {
               const v = p.get(n)!;
               return [n, Array.isArray(v) ? formatHex(v) : v];
@@ -468,11 +570,21 @@ function nest(parent: Player, data: Info, Child: typeof Player): Nested {
       ),
     pointer(kind, x, y) {
       for (const i of data.instances) {
-        const inv = invert(parent.world(i.node));
+        const n = parent.model.nodes[i.node]!,
+          child = players.get(n.id)!;
+        const inv = invert(
+          mul(parent.world(i.node), active?.matrix?.(parent, child, n) ?? [1, 0, 0, 1, 0, 0]),
+        );
         const [lx, ly] = inv ? apply(inv, x, y) : [0, 0];
         players
           .get(parent.model.nodes[i.node]!.id)!
-          .pointer(inv && parent.visible(i.node) ? kind : 'leave', lx, ly);
+          .pointer(
+            inv && parent.visible(i.node) && active?.selected?.(parent, n) !== false
+              ? kind
+              : 'leave',
+            lx,
+            ly,
+          );
       }
     },
     step(dt) {
@@ -482,6 +594,7 @@ function nest(parent: Player, data: Info, Child: typeof Player): Nested {
       for (const i of data.instances) {
         const n = parent.model.nodes[i.node]!,
           p = players.get(n.id)!;
+        if (active?.selected?.(parent, n) === false) continue;
         for (const [name, e] of i.inputs) {
           const value = e(scope);
           const v =

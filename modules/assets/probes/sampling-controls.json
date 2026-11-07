@@ -1,0 +1,68 @@
+[
+  {
+    "name": "assets-image-filter-bilinear",
+    "vertices": [
+      { "x": 0, "y": 0, "u": 0, "v": 0 },
+      { "x": 240, "y": 0, "u": 1, "v": 0 },
+      { "x": 240, "y": 240, "u": 1, "v": 1 },
+      { "x": 0, "y": 240, "u": 0, "v": 1 }
+    ],
+    "triangles": {
+      "vertices": 4,
+      "triangles": [
+        [0, 1, 2],
+        [0, 2, 3]
+      ]
+    },
+    "sampler": { "filter": 0, "wrapX": 0, "wrapY": 0 },
+    "sha256": "d9422eb9672fff00b45119077ee545f224a53f04b77140289fec7fc4d385b60f",
+    "sameRendererNativeGeometry": { "maxDiff": 0, "over": 0, "overPercent": 0 },
+    "originalNative": { "maxDiff": 27, "over": 1017, "overPercent": 1.765625 },
+    "idealBilinearVsNative": { "maxDiff": 2, "over": 0, "overPercent": 0 },
+    "idealBilinearVsResvg": { "maxDiff": 27, "over": 1027, "overPercent": 1.7829861111111112 }
+  },
+  {
+    "name": "assets-image-import-jpeg",
+    "vertices": [
+      { "x": 0, "y": 0, "u": 0, "v": 0 },
+      { "x": 240, "y": 0, "u": 1, "v": 0 },
+      { "x": 240, "y": 240, "u": 1, "v": 1 },
+      { "x": 0, "y": 240, "u": 0, "v": 1 }
+    ],
+    "triangles": {
+      "vertices": 4,
+      "triangles": [
+        [0, 1, 2],
+        [0, 2, 3]
+      ]
+    },
+    "sampler": { "filter": 1, "wrapX": 0, "wrapY": 0 },
+    "sha256": "8483decd7bd75de559385d74318b7e6092e5b833dc1a065920352e523ba6e355",
+    "sameRendererNativeGeometry": { "maxDiff": 0, "over": 0, "overPercent": 0 },
+    "originalNative": { "maxDiff": 40, "over": 57600, "overPercent": 100 },
+    "nativeDecodedRGBA": [85, 60, 38, 255, 154, 189, 71, 255, 66, 41, 19, 255, 211, 246, 128, 255],
+    "nativeDataRenderedByAnima": { "maxDiff": 1, "over": 0, "overPercent": 0 }
+  },
+  {
+    "name": "assets-image-import-jpg",
+    "vertices": [
+      { "x": 0, "y": 0, "u": 0, "v": 0 },
+      { "x": 240, "y": 0, "u": 1, "v": 0 },
+      { "x": 240, "y": 240, "u": 1, "v": 1 },
+      { "x": 0, "y": 240, "u": 0, "v": 1 }
+    ],
+    "triangles": {
+      "vertices": 4,
+      "triangles": [
+        [0, 1, 2],
+        [0, 2, 3]
+      ]
+    },
+    "sampler": { "filter": 1, "wrapX": 0, "wrapY": 0 },
+    "sha256": "8483decd7bd75de559385d74318b7e6092e5b833dc1a065920352e523ba6e355",
+    "sameRendererNativeGeometry": { "maxDiff": 0, "over": 0, "overPercent": 0 },
+    "originalNative": { "maxDiff": 40, "over": 57600, "overPercent": 100 },
+    "nativeDecodedRGBA": [85, 60, 38, 255, 154, 189, 71, 255, 66, 41, 19, 255, 211, 246, 128, 255],
+    "nativeDataRenderedByAnima": { "maxDiff": 1, "over": 0, "overPercent": 0 }
+  }
+]

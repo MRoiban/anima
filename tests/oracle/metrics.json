@@ -9036,5 +9036,2213 @@
         "pass": true
       }
     ]
+  },
+  {
+    "name": "bind-logic-lt",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "bind-logic-le",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "bind-logic-eq",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "bind-logic-ne",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "bind-logic-and",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "bind-logic-or",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "bind-logic-not",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "dot.properties.number": 0,
+              "dot.properties.bool": false
+            },
+            "events": []
+          },
+          {
+            "click": 8,
+            "values": {
+              "dot.properties.number": 1,
+              "dot.properties.bool": true
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "derive-score-label",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$score": 1250,
+              "$label": "1,250 pts",
+              "$bounded": 12.5
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$score": 980,
+              "$label": "980 pts",
+              "$bounded": 10
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "$score": 40,
+              "$label": "40 pts",
+              "$bounded": 10
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "$score": 1500,
+              "$label": "1,500 pts",
+              "$bounded": 15
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "$score": 0,
+              "$label": "0 pts",
+              "$bounded": 10
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "$score": 2000,
+              "$label": "2,000 pts",
+              "$bounded": 20
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "$score": 2500,
+              "$label": "2,500 pts",
+              "$bounded": 20
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "$score": 1250,
+              "$label": "1,250 pts",
+              "$bounded": 12.5
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$score": 1250,
+              "$label": "1,250 pts",
+              "$bounded": 12.5
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$score": 980,
+              "$label": "980 pts",
+              "$bounded": 10
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "$score": 40,
+              "$label": "40 pts",
+              "$bounded": 10
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "$score": 1500,
+              "$label": "1,500 pts",
+              "$bounded": 15
+            },
+            "events": []
+          },
+          {
+            "click": 4,
+            "values": {
+              "$score": 0,
+              "$label": "0 pts",
+              "$bounded": 10
+            },
+            "events": []
+          },
+          {
+            "click": 5,
+            "values": {
+              "$score": 2000,
+              "$label": "2,000 pts",
+              "$bounded": 20
+            },
+            "events": []
+          },
+          {
+            "click": 6,
+            "values": {
+              "$score": 2500,
+              "$label": "2,500 pts",
+              "$bounded": 20
+            },
+            "events": []
+          },
+          {
+            "click": 7,
+            "values": {
+              "$score": 1250,
+              "$label": "1,250 pts",
+              "$bounded": 12.5
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "derive-list-relative",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$players.0.score": 1250,
+              "$players.0.label": "1,250 pts",
+              "$players.0.bounded": 12.5,
+              "$players.1.score": 980,
+              "$players.1.label": "980 pts",
+              "$players.1.bounded": 10,
+              "$players.2.score": 40,
+              "$players.2.label": "40 pts",
+              "$players.2.bounded": 10
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$players.0.score": 1250,
+              "$players.0.label": "1,250 pts",
+              "$players.0.bounded": 12.5,
+              "$players.1.score": 980,
+              "$players.1.label": "980 pts",
+              "$players.1.bounded": 10,
+              "$players.2.score": 1500,
+              "$players.2.label": "1,500 pts",
+              "$players.2.bounded": 15
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "$players.0.score": 980,
+              "$players.0.label": "980 pts",
+              "$players.0.bounded": 10,
+              "$players.1.score": 980,
+              "$players.1.label": "980 pts",
+              "$players.1.bounded": 10,
+              "$players.2.score": 1500,
+              "$players.2.label": "1,500 pts",
+              "$players.2.bounded": 15
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "$players.0.score": 980,
+              "$players.0.label": "980 pts",
+              "$players.0.bounded": 10,
+              "$players.1.score": 40,
+              "$players.1.label": "40 pts",
+              "$players.1.bounded": 10,
+              "$players.2.score": 1500,
+              "$players.2.label": "1,500 pts",
+              "$players.2.bounded": 15
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$players.0.score": 1250,
+              "$players.0.label": "1,250 pts",
+              "$players.0.bounded": 12.5,
+              "$players.1.score": 980,
+              "$players.1.label": "980 pts",
+              "$players.1.bounded": 10,
+              "$players.2.score": 40,
+              "$players.2.label": "40 pts",
+              "$players.2.bounded": 10
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "$players.0.score": 1250,
+              "$players.0.label": "1,250 pts",
+              "$players.0.bounded": 12.5,
+              "$players.1.score": 980,
+              "$players.1.label": "980 pts",
+              "$players.1.bounded": 10,
+              "$players.2.score": 1500,
+              "$players.2.label": "1,500 pts",
+              "$players.2.bounded": 15
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "$players.0.score": 980,
+              "$players.0.label": "980 pts",
+              "$players.0.bounded": 10,
+              "$players.1.score": 980,
+              "$players.1.label": "980 pts",
+              "$players.1.bounded": 10,
+              "$players.2.score": 1500,
+              "$players.2.label": "1,500 pts",
+              "$players.2.bounded": 15
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "$players.0.score": 980,
+              "$players.0.label": "980 pts",
+              "$players.0.bounded": 10,
+              "$players.1.score": 40,
+              "$players.1.label": "40 pts",
+              "$players.1.bounded": 10,
+              "$players.2.score": 1500,
+              "$players.2.label": "1,500 pts",
+              "$players.2.bounded": 15
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "components-list",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.r": 3,
+              "rows/1/dot.r": 7
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.r": 3,
+              "rows/1/dot.r": 7
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "components-list-map",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.r": 3,
+              "rows/1/dot.r": 7,
+              "rows/2/dot.r": 9
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.r": 3,
+              "rows/1/dot.r": 7,
+              "rows/2/dot.r": 9
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-property-symbol-list-index",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.x": 0,
+              "rows/1/dot.x": 1
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.x": 0,
+              "rows/1/dot.x": 1
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-binding-relative",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.y": 2,
+              "rows/1/dot.y": 2
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.y": 2,
+              "rows/1/dot.y": 2
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "components-explicit-context",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "one/dot.r": 3
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "one/dot.r": 3
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "components-inherited-context",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/child/dot.r": 3,
+              "rows/1/child/dot.r": 7
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/child/dot.r": 3,
+              "rows/1/child/dot.r": 7
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "components-list-size-override",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.opacity": 0,
+              "rows/1/dot.opacity": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "rows/0/dot.opacity": 1,
+              "rows/1/dot.opacity": 0
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.opacity": 0,
+              "rows/1/dot.opacity": 0
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "rows/0/dot.opacity": 1,
+              "rows/1/dot.opacity": 0
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-converter-number-to-list",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.x": 0,
+              "rows/1/dot.x": 1
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "rows/0/dot.x": 0,
+              "rows/1/dot.x": 1,
+              "rows/2/dot.x": 2
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "rows/0/dot.x": 0
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "rows/0/dot.x": 0,
+              "rows/1/dot.x": 1
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "rows/0/dot.x": 0,
+              "rows/1/dot.x": 1,
+              "rows/2/dot.x": 2
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "rows/0/dot.x": 0
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "assets-image-filter-nearest",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-image-fit-resize",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "assets-image-wrap-x-repeat",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "assets-image-wrap-x-mirror",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "assets-image-wrap-y-repeat",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "assets-image-wrap-y-mirror",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-image-wrap-repeat",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-image-wrap-mirror",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "assets-svg-import",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "assets-lottie-import",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 0.5,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      },
+      {
+        "time": 1,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "assets-image-import-png",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "assets-image-import-webp",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 1,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "components-nested-remap",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "badge/dot.x": 6
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "badge/dot.x": 3
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "badge/dot.x": 9
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "badge/dot.x": 3
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "badge/dot.x": 6
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "badge/dot.x": 3
+            },
+            "events": []
+          },
+          {
+            "click": 2,
+            "values": {
+              "badge/dot.x": 9
+            },
+            "events": []
+          },
+          {
+            "click": 3,
+            "values": {
+              "badge/dot.x": 3
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "components-leaf-fit",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "badge/dot.r": 2
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "badge/dot.r": 1
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "badge/dot.r": 2
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "badge/dot.r": 1
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "components-stateful-output",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "badge/outputs.done": 6
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "badge/outputs.done": 6
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "data-property-artboard",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "$card": "box"
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "$card": "box"
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "components-nested-quantize-nonboundary",
+    "threshold": 0,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "actual": [
+          {
+            "click": 0,
+            "values": {
+              "badge/dot.x": 1
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "badge/dot.x": 3
+            },
+            "events": []
+          }
+        ],
+        "reference": [
+          {
+            "click": 0,
+            "values": {
+              "badge/dot.x": 1
+            },
+            "events": []
+          },
+          {
+            "click": 1,
+            "values": {
+              "badge/dot.x": 3
+            },
+            "events": []
+          }
+        ],
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "assets-image-wrap-x-clamp",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "assets-image-wrap-y-clamp",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
+  },
+  {
+    "name": "drawing-paint-image-wrap-clamp",
+    "threshold": 16,
+    "maxOverPercent": 0,
+    "frames": [
+      {
+        "time": 0,
+        "maxDiff": 0,
+        "over": 0,
+        "overPercent": 0,
+        "pass": true
+      }
+    ]
   }
 ]

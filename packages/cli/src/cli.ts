@@ -1,3 +1,4 @@
+import { listState } from '../../../modules/lists/core/index.ts';
 import '@anima-format/core/all';
 // The `anima` command line (ARCHITECTURE §cli). Every command takes --format=json; exit codes are
 // 0 ok, 1 diagnostics or a failed check, 2 usage.
@@ -32,6 +33,11 @@ import { startPlayground } from './playground.ts';
 import { inspectGlyph } from './glyphs.ts';
 import { embedAssets, imageDimensions } from './assets.ts';
 import { buildHTML } from './html.ts';
+import { buildAssets } from './build-assets.ts';
+import { updateLibraries } from './library.ts';
+import { ImageEncoder } from './encode.ts';
+import { importSVG } from './import-svg.ts';
+import { importLottie } from './import-lottie.ts';
 import { lineCol, locate, syntaxErrorAt } from './locate.ts';
 import { DARK, LIGHT, type Look, compareSVG, frameSVG, sheetSVG, toPNG } from './render.ts';
 import { nameFromFile, newDoc, readGlyphSVG, readGlyphy, sha256 } from './scaffold.ts';
@@ -65,6 +71,8 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
   anima new <name> --glyph <file.svg> | --glyphy <project-dir> [-o out.animl] [--ani] [--force]
                                         scaffold AniML whose rest frame is the glyph (--ani for JSON)
   anima build <file.animl|page.html> [-o out] [--embed]  compile AniML to canonical .ani or inline JSON
+  anima import <file.svg|file.json> [-o out.animl]  import supported SVG or Lottie features
+  anima library update <file.animl> [--check]  refresh vendored imports from local source paths
   anima decompile <file.ani> [-o out.animl]    write canonical AniML
   anima schema [type | fill | stroke | a11y | timeline | layer | state | pose | transition | listener | input] [--json-schema]
                                         registry fields, types and markup/.ani spellings
@@ -130,6 +138,33 @@ export async function run(argv: string[], io: IO): Promise<number> {
         else io.out(`Anima Playground: ${host.url}${rest[0] ? '' : ' (example is read-only)'}`);
         return 0;
       }
+      case 'library': {
+        if (rest[0] !== 'update' || rest.length !== 2)
+          throw new Usage('library update needs an AniML file');
+        try {
+          const updates = updateLibraries(rest[1]!, !!o.check);
+          if (json) emit({ updates });
+          else
+            for (const u of updates)
+              io.out(`${u.changed ? (o.check ? 'stale' : 'updated') : 'current'} ${u.file}`);
+          return o.check && updates.some((u) => u.changed) ? 1 : 0;
+        } catch (e) {
+          const error = e as Error & { code?: string; pointer?: string; hint?: string };
+          const diagnostic = {
+            code: error.code ?? 'library-source',
+            pointer: error.pointer ?? '',
+            message: error.message,
+            hint: error.hint ?? 'check local import src and source paths',
+            severity: 'error',
+          };
+          if (json) emit({ diagnostics: [diagnostic] });
+          else
+            io.err(
+              `${diagnostic.code} ${diagnostic.pointer}: ${diagnostic.message}; ${diagnostic.hint}`,
+            );
+          return 1;
+        }
+      }
       case 'validate':
         return validate(file(rest), json, io);
       case 'inspect':
@@ -143,9 +178,59 @@ export async function run(argv: string[], io: IO): Promise<number> {
         return 0;
       }
       case 'render':
-        return render(file(rest), o, json, io);
+        return await render(file(rest), o, json, io);
       case 'build':
-        return build(file(rest), o.out, json, io, o.embed);
+        return await build(file(rest), o.out, json, io, o.embed);
+      case 'import': {
+        const f = file(rest);
+        const name =
+          nameFromFile(f.replace(/\.(svg|json)$/i, '.svg'))
+            .toLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-|-$/g, '') || 'imported';
+        const source = readFileSync(f, 'utf8');
+        if (!/\.(svg|json)$/i.test(f)) throw new Usage('import needs a .svg or Lottie .json file');
+        let imported: import('./import-svg.ts').Imported;
+        try {
+          imported = /\.svg$/i.test(f) ? importSVG(source, name) : importLottie(source, name);
+        } catch (error) {
+          const diagnostics = [
+            {
+              code: 'import-invalid',
+              severity: 'error' as const,
+              pointer: '',
+              message: error instanceof Error ? error.message : 'invalid source document',
+              hint: 'provide a well-formed SVG or Lottie animation with a positive viewBox/frame rate',
+            },
+          ];
+          if (json) io.out(JSON.stringify({ file: f, ok: false, diagnostics }));
+          else report(f, diagnostics, io);
+          return 1;
+        }
+        const checked = load(imported.doc);
+        const diagnostics = [...imported.diagnostics, ...checked.diagnostics];
+        if (diagnostics.some((d) => d.severity === 'error')) {
+          if (json) io.out(JSON.stringify({ file: f, ok: false, diagnostics }));
+          else report(f, diagnostics, io);
+          return 1;
+        }
+        const text = decompile(format(imported.doc));
+        if (o.out) writeFileSync(o.out, text);
+        if (json)
+          io.out(
+            JSON.stringify({
+              file: f,
+              ok: true,
+              diagnostics,
+              ...(o.out ? { wrote: o.out } : { text }),
+            }),
+          );
+        else {
+          report(f, diagnostics, io);
+          if (!o.out) io.out(text.trimEnd());
+        }
+        return 0;
+      }
       case 'decompile': {
         const f = file(rest);
         const r = loaded(f, io, json);
@@ -406,6 +491,32 @@ function inspect(f: string, json: boolean, io: IO): number {
   const preview = new Player(m);
   preview.step(0);
   const instances = preview.inspect().filter((l) => l.layer.includes('/'));
+  const slots = new Map<string, string>();
+  const inputs = (player: Player, prefix = '') => {
+    const repeated = listState(player)?.runs ?? [];
+    const ids = repeated.map((r) => player.model.nodes[r.spec.node]!.id + '.');
+    for (const name of player.model.inputs.keys())
+      if (!(prefix && name.startsWith('$')) && !ids.some((id) => name.startsWith(id)))
+        slots.set(prefix + name, player.model.inputs.get(name)!.type);
+    for (const run of repeated) {
+      for (const item of run.items)
+        inputs(
+          item.player,
+          prefix + player.model.nodes[run.spec.node]!.id + '.' + item.index + '.',
+        );
+      const base = prefix + player.model.nodes[run.spec.node]!.id + '.';
+      for (const name of slots.keys())
+        if (
+          name.startsWith(base) &&
+          !run.items.some((item) => name.startsWith(base + item.index + '.'))
+        )
+          slots.delete(name);
+    }
+    for (const [id, child] of (player.nested as { players?: Map<string, Player> } | undefined)
+      ?.players ?? [])
+      inputs(child, prefix + id + '.');
+  };
+  inputs(preview);
   const summary = {
     instances,
     name: doc.name,
@@ -419,7 +530,7 @@ function inspect(f: string, json: boolean, io: IO): number {
       ]),
     ),
     nodes: m.nodes.flatMap((n, i) => (n.parent < 0 ? [node(i)] : [])),
-    inputs: Object.fromEntries([...m.inputs.values()].map((i) => [i.name, i.type])),
+    inputs: Object.fromEntries(slots),
     timelines: m.timelines.map((t) => ({
       name: t.name,
       duration: t.duration,
@@ -518,7 +629,12 @@ function inspect(f: string, json: boolean, io: IO): number {
 
 // ---------------------------------------------------------------- render
 
-function render(f: string, o: Record<string, unknown>, json: boolean, io: IO): number {
+async function render(
+  f: string,
+  o: Record<string, unknown>,
+  json: boolean,
+  io: IO,
+): Promise<number> {
   const out = o.out as string | undefined;
   const compare = o.compare as string | undefined;
   if ((!compare && !out) || (out && !/\.(svg|png)$/.test(out)))
@@ -527,7 +643,7 @@ function render(f: string, o: Record<string, unknown>, json: boolean, io: IO): n
   if (!model) return 1;
   try {
     embedAssets(model.doc, f, true);
-    imageDimensions(model.doc);
+    await imageDimensions(model.doc);
   } catch {
     const d: Located[] = [
       {
@@ -875,7 +991,7 @@ function docs(topic: string | undefined, list: boolean, json: boolean, io: IO): 
   const chapters = [...spec.matchAll(/^## (.+)$/gm)];
   // Module chapters are the one-word lower-case headings (`## paint`); web-only modules such as
   // `canvas` have a chapter but nothing registered in core.
-  const moduleTopics = chapters.filter((m) => /^[a-z]+$/.test(m[1]!));
+  const moduleTopics = chapters.filter((m) => /^[a-z]+(?:-[a-z]+)*$/.test(m[1]!));
   if (list) {
     const topics = [
       ...new Set([
@@ -916,36 +1032,60 @@ function docs(topic: string | undefined, list: boolean, json: boolean, io: IO): 
   return 0;
 }
 
-function build(f: string, out: string | undefined, json: boolean, io: IO, embed = false): number {
+async function build(
+  f: string,
+  out: string | undefined,
+  json: boolean,
+  io: IO,
+  embed = false,
+): Promise<number> {
   const source = readFileSync(f, 'utf8');
   let text: string | undefined;
   let diagnostics: MarkupDiagnostic[];
+  let sourceMap: import('@anima-format/markup').CompileResult['map'] | undefined;
   if (/\.html?$/i.test(f)) ({ text, diagnostics } = buildHTML(source, f));
   else if (f.endsWith('.animl'))
-    ({ text, diagnostics } = compile(source, {
+    ({
+      text,
+      diagnostics,
+      map: sourceMap,
+    } = compile(source, {
       file: f,
       resolve: (path) => readFileSync(path, 'utf8'),
     }));
   else throw new Usage('build needs a .animl or .html file');
-  if (text !== undefined && embed) {
-    try {
-      if (/\.html?$/i.test(f))
-        ({ text, diagnostics } = buildHTML(source, f, (doc) => embedAssets(doc, f)));
-      else {
-        const doc = JSON.parse(text);
-        embedAssets(doc, f);
-        text = format(doc);
-      }
-    } catch {
-      text = undefined;
-      diagnostics.push({
-        code: 'asset-load',
-        severity: 'error',
-        pointer: '/assets',
-        message: 'cannot read referenced asset',
-        hint: 'check asset sources relative to the document',
+  if (text !== undefined) {
+    const docs: import('./build-assets.ts').AssetDocument[] = [];
+    const maps: (typeof sourceMap)[] = [];
+    if (/\.html?$/i.test(f))
+      buildHTML(source, f, (doc, map) => {
+        docs.push(doc);
+        maps.push(map);
       });
+    else {
+      docs.push(JSON.parse(text));
+      maps.push(sourceMap);
     }
+    const encoder = new ImageEncoder();
+    try {
+      for (const [i, doc] of docs.entries())
+        diagnostics.push(
+          ...(await buildAssets(
+            doc,
+            f,
+            embed,
+            encoder,
+            (pointer) => maps[i]?.get(pointer)?.file ?? f,
+          )),
+        );
+    } finally {
+      await encoder.close();
+    }
+    if (diagnostics.some((d) => d.severity === 'error')) text = undefined;
+    else if (/\.html?$/i.test(f)) {
+      let i = 0;
+      ({ text } = buildHTML(source, f, (doc) => Object.assign(doc, docs[i++])));
+    } else text = format(docs[0]);
   }
   if (json && (text === undefined || out))
     io.out(

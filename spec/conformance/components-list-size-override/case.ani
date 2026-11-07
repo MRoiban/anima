@@ -1,0 +1,83 @@
+{
+  "anima": "0.1",
+  "name": "players",
+  "grid": 30,
+  "requires": ["components", "data", "bind", "lists"],
+  "nodes": [
+    {
+      "id": "rows",
+      "type": "repeat",
+      "list": "$players",
+      "component": "row",
+      "dy": 10,
+      "size": [30, 10]
+    }
+  ],
+  "components": {
+    "row": {
+      "grid": 10,
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [2, 2],
+          "r": 1,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "listeners": [
+        {
+          "on": "click",
+          "emit": "selected"
+        }
+      ],
+      "bind": {
+        "dot.r": "$score",
+        "dot.x": "$index",
+        "dot.y": "$parent.bonus"
+      },
+      "data": "Player"
+    }
+  },
+  "data": {
+    "models": {
+      "Player": {
+        "properties": {
+          "score": {
+            "type": "number"
+          }
+        }
+      },
+      "Board": {
+        "properties": {
+          "bonus": {
+            "type": "number",
+            "default": 2
+          },
+          "players": {
+            "type": "list",
+            "of": "Player"
+          }
+        }
+      }
+    },
+    "instances": {
+      "main": {
+        "model": "Board",
+        "default": true,
+        "values": {
+          "players": [
+            {
+              "score": 3
+            },
+            {
+              "score": 7
+            }
+          ]
+        }
+      }
+    }
+  }
+}

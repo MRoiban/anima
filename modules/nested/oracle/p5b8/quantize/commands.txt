@@ -1,0 +1,51 @@
+advance 0.25s
+data-dump frames/p0.json
+reload
+advance 0.12s
+advance 0.13s
+data-dump frames/p1.json
+reload
+advance 0.125s
+advance 0.125s
+data-dump frames/p2.json
+reload
+advance 0.20000000000000001s
+advance 0.050000000000000003s
+data-dump frames/p3.json
+reload
+advance 0.10000000000000001s
+advance 0.14999999999999999s
+data-dump frames/p4.json
+reload
+advance 0.24999999000000001s
+data-dump frames/p5.json
+reload
+advance 0.25000000999999999s
+data-dump frames/p6.json
+reload
+advance 0.24999999949999999s
+data-dump frames/p7.json
+reload
+advance 0.25000000049999999s
+data-dump frames/p8.json
+reload
+advance 0.12s
+advance 0.13000001s
+data-dump frames/p9.json
+reload
+advance 0.12s
+advance 0.13000001999999999s
+data-dump frames/p10.json
+reload
+advance 0.5s
+data-dump frames/p11.json
+reload
+advance 0.083333333333333329s
+data-dump frames/p12.json
+reload
+advance 0.16666666666666666s
+data-dump frames/p13.json
+reload
+advance 0.75s
+data-dump frames/p14.json
+quit

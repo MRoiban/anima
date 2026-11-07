@@ -49,12 +49,22 @@ export function bindings(
       continue;
     const spec: Binding = typeof raw === 'string' ? { value: raw } : (raw as Binding);
     const at = ptr('/bind', target);
-    const a = resolve(target, model.nodes, model.ids);
+    const trigger = model.inputs.get(target)?.type === 'trigger';
+    const a = trigger
+      ? { prop: { type: 'number' as const }, rest: 0, node: -1, key: target }
+      : resolve(target, model.nodes, model.ids);
     if (Array.isArray(a)) {
       error(a[0], at, String(a[1]));
       continue;
     }
     const mode = spec.mode ?? 'to-target';
+    if (trigger && !['to-target', 'once'].includes(mode))
+      error(
+        dataCodes['binding'],
+        at + '/mode',
+        'trigger destinations are forward-only',
+        'use to-target or once',
+      );
     const source = c?.refs.has(spec.value) ? spec.value : undefined;
     if (mode === 'to-source' || mode === 'two-way') {
       if (!source || c?.refs.get(source)?.readonly)
@@ -71,6 +81,7 @@ export function bindings(
         if (!parse) throw new BindError('undeclared-feature', 0, 'load bind for data expressions');
         const e = parse(spec.value, types);
         if (
+          !trigger &&
           !spec.convert &&
           e.type !== a.prop.type &&
           !(a.prop.type === 'number' && e.type === 'bool')
@@ -80,6 +91,7 @@ export function bindings(
       }
       if (
         source &&
+        !trigger &&
         !spec.convert &&
         model.inputs.get(source)?.type !== a.prop.type &&
         !(a.prop.type === 'number' && model.inputs.get(source)?.type === 'bool')
@@ -92,7 +104,7 @@ export function bindings(
           'unknown converter ' + spec.convert,
           'register the named converter before loading the document',
         );
-      model.addrs.set(target, a);
+      if (!trigger) model.addrs.set(target, a);
       links.push({ target, spec, read, source });
     } catch (e) {
       if (!(e instanceof Error) || !('code' in e)) throw e;
@@ -164,7 +176,10 @@ export function bindings(
         output = raw;
       } else if (mode === 'to-target' || !old || mode === 'two-way') {
         const v = convert(value, 'forward'),
-          prop = model.addrs.get(target)!.prop.type;
+          prop =
+            model.inputs.get(target)?.type === 'trigger'
+              ? 'trigger'
+              : model.addrs.get(target)!.prop.type;
         output =
           prop === 'color' && typeof v === 'string'
             ? parseHex(v)!
@@ -172,7 +187,10 @@ export function bindings(
               ? Number(v)
               : (v as Value);
       }
-      values[slot] = output;
+      if (model.inputs.get(target)?.type === 'trigger') {
+        // Initial conversion establishes a baseline. Delivery queues for the following step.
+        if (old && !same(output, old.output)) p.fire(target);
+      } else values[slot] = output;
       last.set(link, { source: clone(value), raw, output, state: local });
     }
     for (const [path, value] of writes) scope.set(path, value);

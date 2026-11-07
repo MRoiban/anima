@@ -1,0 +1,16 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[00:25:56.249] rive  deferred replay: inline
+[00:25:56.253] rive  built (300 bytes, 4ms, 0 errors, 0 warnings)
+[00:25:56.253] rive  showing Board [1/2]
+[00:25:56.254] rive  viewport 20x20 @1x
+ok advance
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[00:25:56.259] rive  wrote frames/initial.png
+ok screenshot: frames/initial.png
+ok advance
+[00:25:56.260] rive  wrote frames/half.png
+ok screenshot: frames/half.png
+ok advance
+[00:25:56.261] rive  wrote frames/end.png
+ok screenshot: frames/end.png
+ok quit

@@ -1,0 +1,15 @@
+<anima version="0.1" name="components-quantize-boundary" grid="20" requires="components nested bind data">
+  <model name="Clock">
+    <number name="t" default="0.5"/>
+  </model>
+  <component name="row" grid="10">
+    <circle id="dot" cx="5" cy="5" r="1" fill="#000"/>
+    <timeline name="go" duration="1">
+      <track target="dot.x">0 0; 1 12</track>
+    </timeline>
+    <layer name="main" initial="go">
+      <state name="go" play="go"/>
+    </layer>
+  </component>
+  <instance id="badge" component="row" time="$t" fps="12"/>
+</anima>

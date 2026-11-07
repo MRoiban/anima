@@ -1,5 +1,6 @@
 export const dataCodes = {
   asset: 'data-asset',
+  guard: 'data-guard',
   binding: 'data-binding',
   converter: 'data-converter',
   copy: 'data-copy',

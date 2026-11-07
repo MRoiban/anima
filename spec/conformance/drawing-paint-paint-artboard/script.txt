@@ -1,0 +1,6 @@
+advance 0
+snapshot tile/paint/bar.x
+advance 0.5
+snapshot tile/paint/bar.x
+advance 0.5
+snapshot tile/paint/bar.x

@@ -1,7 +1,16 @@
 import type { Value, Model, InputM } from '../../../packages/core/src/load.ts';
 import type { Player } from '../../../packages/core/src/player.ts';
 export type PropertyType =
-  'number' | 'string' | 'bool' | 'color' | 'trigger' | 'enum' | 'list' | 'model-ref' | 'asset-ref';
+  | 'number'
+  | 'string'
+  | 'bool'
+  | 'color'
+  | 'trigger'
+  | 'enum'
+  | 'list'
+  | 'model-ref'
+  | 'asset-ref'
+  | 'component';
 export interface Property {
   type: PropertyType;
   default?: unknown;
@@ -14,7 +23,7 @@ export interface Property {
   system?: string;
   of?: string;
   model?: string;
-  assetType?: 'image' | 'font' | 'blob';
+  assetType?: 'image' | 'audio' | 'font' | 'blob';
   public?: boolean;
   label?: string;
 }
@@ -73,7 +82,7 @@ export function registerConverter(name: string, run: Converter): void {
   converters.set(name, run);
 }
 export function scalarType(p: Property): InputM['type'] {
-  return p.type === 'enum' || p.type === 'asset-ref'
+  return p.type === 'enum' || p.type === 'asset-ref' || p.type === 'component'
     ? 'string'
     : p.type === 'list' || p.type === 'model-ref'
       ? 'number'

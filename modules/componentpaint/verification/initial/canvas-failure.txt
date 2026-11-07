@@ -1,0 +1,75 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-879d301f
+
+ ❯ |browser| modules/canvas/test/web/canvas.test.ts (2242 tests | 12 failed | 2230 skipped) 10073ms
+   ❯ Chromium canvas (1121)
+     × spec/conformance/data-property-artboard/case.ani#0 124ms
+     × spec/conformance/data-property-artboard/case.ani#1 15ms
+     × spec/conformance/data-property-artboard/case.ani#2 9ms
+     × spec/conformance/data-property-artboard/case.ani#3 7ms
+     × spec/conformance/components-leaf-fit/case.ani#0 4ms
+     × spec/conformance/components-leaf-fit/case.ani#1 35ms
+   ❯ Firefox canvas (1121)
+     × spec/conformance/data-property-artboard/case.ani#0 23ms
+     × spec/conformance/data-property-artboard/case.ani#1 15ms
+     × spec/conformance/data-property-artboard/case.ani#2 16ms
+     × spec/conformance/data-property-artboard/case.ani#3 14ms
+     × spec/conformance/components-leaf-fit/case.ani#0 9ms
+     × spec/conformance/components-leaf-fit/case.ani#1 12ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 12 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/data-property-artboard/case.ani#0
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/data-property-artboard/case.ani#1
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/data-property-artboard/case.ani#2
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/data-property-artboard/case.ani#3
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/components-leaf-fit/case.ani#0
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Chromium canvas > spec/conformance/components-leaf-fit/case.ani#1
+Error: page.evaluate: TypeError: Cannot read properties of undefined (reading 'transform')
+    at <anonymous>:1:39683
+    at et (<anonymous>:1:40713)
+    at #v (<anonymous>:1:259806)
+    at e.invalidate (<anonymous>:1:257069)
+    at Object.mount (<anonymous>:1:321518)
+ ❯ modules/canvas/test/web/canvas.test.ts:285:24
+    283|           const diagnostics: unknown[] = [];
+    284|           for (const backend of ['svg', 'canvas']) {
+    285|             await page.evaluate(
+       |                        ^
+    286|               async ({ doc, backend, script }) => window.canvasTest.mo…
+    287|               { ...c, backend },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/12]⎯
+
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Firefox canvas > spec/conformance/data-property-artboard/case.ani#0
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Firefox canvas > spec/conformance/data-property-artboard/case.ani#1
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Firefox canvas > spec/conformance/data-property-artboard/case.ani#2
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Firefox canvas > spec/conformance/data-property-artboard/case.ani#3
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Firefox canvas > spec/conformance/components-leaf-fit/case.ani#0
+ FAIL  |browser| modules/canvas/test/web/canvas.test.ts > Firefox canvas > spec/conformance/components-leaf-fit/case.ani#1
+Error: page.evaluate: can't access property "transform", s is undefined
+et/i<@https://canvas.test/ line 7 > injectedScript:1:39681
+et@https://canvas.test/ line 7 > injectedScript:1:40713
+#v@https://canvas.test/ line 7 > injectedScript:1:259808
+invalidate@https://canvas.test/ line 7 > injectedScript:1:257069
+mount@https://canvas.test/ line 7 > injectedScript:1:321518
+async*@debugger eval code line 370 > eval:1:55
+evaluate@debugger eval code:372:16
+@debugger eval code:1:44
+@debugger eval code:1:62
+
+ ❯ modules/canvas/test/web/canvas.test.ts:285:24
+    283|           const diagnostics: unknown[] = [];
+    284|           for (const backend of ['svg', 'canvas']) {
+    285|             await page.evaluate(
+       |                        ^
+    286|               async ({ doc, backend, script }) => window.canvasTest.mo…
+    287|               { ...c, backend },
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/12]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  12 failed | 2230 skipped (2242)
+   Start at  00:16:09
+   Duration  12.36s (tests 83%, import 11%, transform 6%)

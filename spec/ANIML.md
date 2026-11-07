@@ -283,9 +283,8 @@ is reserved for registry routing and normally omitted.
 ## 11. Libraries and templates (build time)
 
 A reusable file has root `<library name="ui">`, with `color`, `glyph`, `ease`, `template`,
-`component` and `import` children. Components are accepted syntactically but currently produce
-`components-unavailable` (“components arrive with the components module”). A library is consumed
-by an import rather than compiled as a standalone animation.
+`component`, `model` and `import` children. A library is consumed by an import rather than compiled
+as a standalone animation. Components require the components module; model definitions require data.
 
 `<import src="lib/ui.animl" as="ui"/>` at document or library level brings its exported names into
 that lexical scope. References to colours, glyphs, eases and templates use `ui:name`; nested
@@ -293,6 +292,14 @@ imports may be addressed as `ui:other:name`. Definitions inside a library use it
 Imported colour and glyph names become collision-free generated `.ani` names; eases inline as
 usual. Libraries must not declare arbitrary document elements outside templates. Imports and
 local declarations are visible regardless of source order.
+
+`exports="row Score"` on the library restricts public names; `select="row"` on an import selects
+public declarations. Omitted selection exports/imports all public declarations. Private dependencies
+stay in lexical scope. Imported model references (`data`, `model`, `of`) are renamed consistently.
+An import's optional `source="../shared/ui.animl"` records a local vendoring origin; compilation
+still reads `src` only. `anima library update file.animl [--check]` refreshes existing vendored files
+from local origins, preflighting before writes and rejecting network paths. See
+[the library contract](../modules/markup-libraries/SPEC.md).
 
 `<template name="press" params="target scale=0.92">…</template>` declares a template. Parameters
 are names, separated by whitespace, with optional `=default` (a single whitespace-free value).
@@ -356,6 +363,12 @@ node attributes are unchanged; extra attributes are component input initializers
 numbers/bools or `{expression}` strings. Expressions additionally require `bind`. A literal example
 is `count="3"`; bool inputs use `enabled="true"`. Unknown inputs are diagnosed at that attribute.
 `speed="2"` and `paused="true"` control instance stepping. There is no automatic fit or viewBox clip.
+The optional `nested` module adds `time="$t" fps="12"` and explicit `size="20 10" fit="contain"
+align="right"`. A component may declare `<output name="done" value="count > 0"/>`; parent reads
+use `badge.outputs.done`. Expanded decompilation may use a JSON-valued `outputs` attribute.
+Inside a data model, `<component name="card" default="row"/>` declares the component property type;
+`<instance id="badge" component="$card"/>` selects its live definition. The no-`grid` model property
+is distinct from a component definition. See [nested controls](../modules/nested/SPEC.md).
 
 Parent actions use dotted input paths (`set="b1.count=0"`, `fire="b1.pop"`,
 `toggle="b1.enabled"`). `<bind target="b1.count" value="unread"/>` continuously drives an instance
@@ -539,3 +552,9 @@ Custom `data-label="x"` maps to node `properties.label`; canonical output uses t
 JSON attribute. `<bind>` adds `mode`, `prefer`, `convert`, `options`. Listener `copy` and `value`
 are generic registry attributes; `$` paths are allowed in assignment keys and trigger lists.
 See modules/data/examples/scoreboard.animl and the per-row conformance sources.
+
+
+With `data motion`, tracks also accept `<key t="0.5" value="$peak" ease="linear"/>` elements.
+`t` and `value` are required; `ease` is optional. Do not mix elements and text within a track.
+The equivalent text key is `0.5 "$peak" linear`; canonical decompilation can use that form.
+The motion registry owns the key element; data sampling semantics are specified in modules/data/SPEC.md.

@@ -1,0 +1,17 @@
+<anima version="0.1" name="assets-audio-import-flac" grid="24" requires="assets paint events">
+  <asset name="photo" type="image"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAgAAAAECAYAAACzzX7wAAAAG0lEQVR4AWP8r8HwnwEPYGIgAJgYCAAmBgIAABjwAi5tDXySAAAAAElFTkSuQmCC"
+      width="8" height="4"/>
+  <asset name="tone" type="audio"
+      src="data:audio/flac;base64,ZkxhQwAAACIQABAAAACeAACeAfQA8AAAAyDxG7iLJ7nokz95ndbhvq62hAAAKCAAAAByZWZlcmVuY2UgbGliRkxBQyAxLjUuMCAyMDI1MDIxMQAAAAD/+HQIAAMf9xMACQA/j/D/H+H+P8P8f4f4/w/x/h/j/D/H+H+P8P8f4f4/w/x/h/j/D/H+H+P8P8f4f4/w/x/h/j/D/H+H+P8P8f4f4/w/x/h/j/D/H+H+P8P8f4f4/w/x/h/j/D/H+H+P8P8f4f4/w/x/h/j/D/H+H+P8P8f4f4/w/x/h/j/D/H+H+P8P8f4f4/w/x/h/j/D/H+DpyA=="
+      duration="0.1" start="0.01" end="0.09"/>
+  <image id="photo" asset="photo" x0="0" y0="0" width="4" height="4"/>
+  <event-def name="ping" audio="tone"/>
+  <timeline name="resize" duration="1">
+    <track target="photo.width">0 4; 1 8</track>
+    <event at="0.5" name="ping"/>
+  </timeline>
+  <layer name="main" initial="active">
+    <state name="active" play="resize"/>
+  </layer>
+</anima>

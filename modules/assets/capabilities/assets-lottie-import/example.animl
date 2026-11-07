@@ -1,0 +1,20 @@
+<anima version="0.1" name="assets-lottie-import" grid="20" viewBox="0 0 20 20" requires="paint">
+  <group id="layer-0" pivot="0 0" x="2" y="4">
+    <rect id="lottie-0" x0="-2" y0="-2" width="4" height="4" rx="0" fill="#ff0000ff" fill-rule="nonzero"/>
+  </group>
+
+  <timeline name="imported" duration="1">
+    <track target="layer-0.x">
+      0  2   cubic(0,0,1,1)
+      1  10
+    </track>
+    <track target="layer-0.y">
+      0  4  cubic(0,0,1,1)
+      1  4
+    </track>
+  </timeline>
+
+  <layer name="main" initial="play">
+    <state name="play" play="imported"/>
+  </layer>
+</anima>

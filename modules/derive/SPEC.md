@@ -30,3 +30,35 @@ no derived scope, resolver, scheduler or per-step work.
 This completes instance-relative computed evaluation, not upward component lookup; the broader
 `data.binding-relative` parity row remains pending. See oracle/README.md for the native evidence
 boundary. Examples under examples/ compile through the ordinary CLI.
+
+
+## Native evidence (2026-11-06)
+
+Fresh CLI 1.9.1 headless data dumps verify formatted score labels, bounded formula
+values and relative evaluation in three list instances, including source updates.
+Seven paired probes verify `<`, `<=`, `==`, `!=`, `and`, `or`, `not` settled results
+for number and bool targets through native transition comparators. All nine cases
+use exact comparisons. See [the evidence report](oracle/README.md) for raw dumps,
+commands, mappings and scheduling/precision limits.
+
+The read-only contract above remains Anima's contract: the tested native
+converter-to-model composition permits destination writes, including retaining a
+manual label after an advance. Its read-only parity comparison is an evidenced
+skip, not verified parity or a decided intentional difference. No normative
+behavior changes in this evidence follow-up.
+
+**Intentional difference from Rive:** a computed property is read-only. Rive's closest counterpart
+accepts a write to the derived destination and keeps it (1 accepted write) until the next source
+change; Anima rejects it with `read-only-path` (0). The captured evidence is the read-only skip in
+`tests/oracle/`; it is recorded, never counted as a passing comparison.
+
+
+## String length paths
+
+With `derive`, every readable string data path also exposes a numeric, read-only `.length`:
+`$title.length`, `$other:title.length`, `$child.title.length`, `$items.0.title.length` and relative
+component paths. The length is JavaScript UTF-16 code units (empty string 0; `A😀` 3), not grapheme
+clusters. It updates from the current string, including computed strings, at the ordinary binding
+position and works in bindings, computed properties, repeat counts, samples and data reads.
+Computed dependencies through `.length` participate in cycle detection; writes report `read-only-path`.
+No new bind grammar or per-character converter is added.

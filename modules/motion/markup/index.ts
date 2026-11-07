@@ -4,6 +4,9 @@ import type { LayoutElement } from '../../../packages/markup/src/layout.ts';
 type Obj = Record<string, unknown>;
 export const motionMarkup = {
   form(el: Element, base: Form): Form {
+    if (el.name === 'track') return { ...base, children: ['key'] };
+    if (el.name === 'key')
+      return { attrs: { t: 'number', value: 'value', ease: 'ease' }, required: ['t', 'value'] };
     if (el.name === 'channel')
       return {
         attrs: { name: 'name', type: 'string', value: 'value' },
@@ -29,6 +32,44 @@ export const motionMarkup = {
     if (el.name === 'anima' || el.name === 'component')
       return { ...base, children: [...base.children!, 'machine'] };
     return { ...base, children: [...(base.children ?? []), 'channel'] };
+  },
+  keyValue(source: string): string | undefined {
+    return source.startsWith('$') ? source : undefined;
+  },
+  frames(c: Compiler, el: Element, children: Element[], p: string): unknown[][] | undefined {
+    if (!children.length) return;
+    if (el.children.some((child) => child.kind === 'text' && child.value.trim()))
+      c.error(
+        'bad-keyframe',
+        p,
+        el.at,
+        'cannot mix key elements and track text',
+        'use one keyframe spelling per track',
+      );
+    return children.map((key, i) => {
+      const at = p + '/' + i,
+        a = c.attrs(key, at);
+      c.children(key, at);
+      c.map.set(at, key.at);
+      for (const [name, index] of [
+        ['t', 0],
+        ['value', 1],
+        ['ease', 2],
+      ] as const)
+        if (a.has(name)) c.map.set(at + '/' + index, a.get(name)!.valueAt);
+      const value = [
+        a.has('t') ? c.read(a.get('t')!, 'number', at + '/0') : 0,
+        a.has('value')
+          ? c.read(
+              a.get('value')!,
+              a.get('value')!.value.trim().startsWith('$') ? 'string' : 'value',
+              at + '/1',
+            )
+          : 0,
+      ];
+      if (a.has('ease')) value.push(c.read(a.get('ease')!, 'ease', at + '/2'));
+      return value;
+    });
   },
   node(c: Compiler, el: Element, children: Element[], o: Obj, p: string): void {
     for (const child of children.filter((x) => x.name === 'channel')) {

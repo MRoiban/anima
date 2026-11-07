@@ -1,0 +1,41 @@
+ok data
+ok advance
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/red.json
+ok data
+ok advance
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/green.json
+ok data
+ok advance
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/blue.json
+ok data
+ok advance
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/white.json
+ok data
+ok advance
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/black.json
+ok data
+ok advance
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/grey.json
+ok data
+ok advance
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/accent.json
+ok quit
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[21:46:40.441] rive  deferred replay: inline
+[21:46:40.445] rive  built (257 bytes, 3ms, 0 errors, 0 warnings)
+[21:46:40.445] rive  showing Probe [1/1]
+[21:46:40.445] rive  viewport 20x20 @1x
+[21:46:40.445] rive  data: value = 80FF0000 (mid-run)
+[21:46:40.445] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/red.json
+[21:46:40.445] rive  data: value = FF00FF00 (mid-run)
+[21:46:40.445] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/green.json
+[21:46:40.445] rive  data: value = FF0000FF (mid-run)
+[21:46:40.445] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/blue.json
+[21:46:40.445] rive  data: value = FFFFFFFF (mid-run)
+[21:46:40.445] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/white.json
+[21:46:40.445] rive  data: value = FF000000 (mid-run)
+[21:46:40.445] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/black.json
+[21:46:40.445] rive  data: value = FF808080 (mid-run)
+[21:46:40.445] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/grey.json
+[21:46:40.445] rive  data: value = FFD97757 (mid-run)
+[21:46:40.445] rive  wrote /home/jarvis/.t3/worktrees/anima/t3-57308fd0/modules/convert/oracle/p5b-color/accent.json

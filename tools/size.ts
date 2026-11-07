@@ -1,7 +1,8 @@
 // Size budgets and ceilings (owner, 2026-11-06; docs/PLAN.md "Size ceilings"). All min+gzip.
 //   core + web: every page pays for it — ceiling 30 KB.
 //   each module: its own budget, never above 8 KB (split a module before raising it).
-//   full-featured (core + web + every SVG-path module): ceiling 100 KB.
+//   full-featured (core + web + every SVG-path module): ceiling 128 KB (owner raised it from 100 KB
+//   on 2026-11-06, when P5b's lists and host-edit reached 100.5 KB).
 //   Rive-class (adds canvas/WebGL, rigging, text, scripting): ceiling 250 KB.
 // A module over its own budget fails the check; raising a budget inside the ceilings is allowed
 // with a reason in docs/LOG.md. Crossing a ceiling is the owner's call.
@@ -12,7 +13,7 @@ import { bundle } from './browser-build.ts';
 const KB = 1024;
 const CORE_WEB_CEILING = 30 * KB;
 const MODULE_CEILING = 8 * KB;
-const FULL_CEILING = 100 * KB;
+const FULL_CEILING = 128 * KB;
 const RIVE_CLASS_CEILING = 250 * KB;
 
 import { moduleBudgets as MODULES } from './modules.generated.ts';

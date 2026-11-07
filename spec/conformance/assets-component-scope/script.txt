@@ -1,0 +1,5 @@
+advance 0
+pointer down 2 2
+pointer up 2 2
+advance 0
+snapshot $items.0.cover $items.0.clip

@@ -1,0 +1,8 @@
+Baseline f17f481; branch t3/fix-nested-draw-tree-component-paint
+Parity statuses: 1238 unchanged
+Protected module/CLI/measurement paths: unchanged
+Canvas classifier and limits: byte-identical
+Existing oracle files: 3910 unchanged by git; pending marker/README clarified only
+Native binary/scaffold files: 0
+New runtime uses only relative internal imports; core remains DOM-free
+No push/PR/merge/publication/Glyphy action

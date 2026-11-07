@@ -1,0 +1,11 @@
+advance 0
+snapshot probe.r
+fire go
+advance 0
+advance 0.25
+snapshot probe.r
+set $peak 16
+advance 0
+snapshot probe.r
+advance 0.25
+snapshot probe.r

@@ -1,0 +1,68 @@
+{
+  "anima": "0.1",
+  "name": "data-bind-keyframes",
+  "grid": 20,
+  "requires": [
+    "data",
+    "motion"
+  ],
+  "nodes": [
+    {
+      "id": "probe",
+      "type": "circle",
+      "center": [
+        10,
+        10
+      ],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "timelines": {
+    "rise": {
+      "duration": 1,
+      "tracks": {
+        "probe.r": [
+          [
+            0,
+            0
+          ],
+          [
+            1,
+            "$ready"
+          ]
+        ]
+      }
+    }
+  },
+  "machine": {
+    "layers": {
+      "main": {
+        "initial": "run",
+        "states": {
+          "run": {
+            "play": "rise"
+          }
+        }
+      }
+    }
+  },
+  "data": {
+    "models": {
+      "Levels": {
+        "properties": {
+          "peak": {
+            "type": "number",
+            "default": 8
+          },
+          "ready": {
+            "type": "bool"
+          }
+        }
+      }
+    }
+  },
+  "$comment": "expect data-keyframe at /timelines/rise/tracks/probe.r/1/1"
+}

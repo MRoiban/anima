@@ -1,0 +1,12 @@
+<anima version="0.1" name="assets-image-import-png" grid="24" requires="assets paint">
+  <asset name="photo" type="image"
+      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAIAAAACCAYAAABytg0kAAAAGElEQVR4AQXBAQEAAAjDIG7/zhNE0k3CAz7tBf7utunjAAAAAElFTkSuQmCC"
+      width="2" height="2"/>
+  <image id="photo" asset="photo" x0="0" y0="0" sampling="nearest" width="4" height="4"/>
+  <timeline name="resize" duration="1">
+    <track target="photo.width">0 4; 1 8</track>
+  </timeline>
+  <layer name="main" initial="active">
+    <state name="active" play="resize"/>
+  </layer>
+</anima>

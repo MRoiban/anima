@@ -2209,3 +2209,143 @@ were regenerated/rechecked after the last validation fix. Main commit **85409b0*
 - **Open**: `bind` and `host` have no room — split before the next change; the full-featured page
   has ~9 KB left under its ceiling; the Rive CLI now refuses local commands until updated to 1.9.1
   (owner decision), so `derive` has no fresh native capture.
+
+
+## P5b-1 — Lists and data contexts (2026-11-06)
+
+- Added the lists module: retained players/state across mutations, model maps, size bounds, explicit
+  and inherited contexts, index/parent paths and count repetition. Dynamic per-player draw trees
+  and retained SVG reconciliation use the active backends across separate browser bundles.
+- Eight capability rows have spec/registry/diagnostics, compiled AniML, CLI coverage, nine independent
+  conformance probes and eight exact native observation oracles. Parity status fields are unchanged.
+- Verification: 2,971 scoped tests pass / 37 existing TODO, including Chromium and Firefox;
+  strict oracle exits 0 (224 cases / 418 samples), with all 216 prior metric records unchanged.
+  Static and generated-artifact checks pass. No budgets, timeouts, tolerances or thresholds changed.
+- Bytes: core+web unchanged 20,109; lists 4,501/6,144; components 3,551/4,096;
+  data 7,462/8,192; full-featured 98,059 (baseline 93,575, +4,484). P5b has 1,660 B of its
+  +6 KB allocation remaining before integrating other waves. Whole-phase sizing remains open.
+- Performance: first HEAD/current A/B bell 38.9/37.5 µs, composite 25.0/24.2, toolbar 27.8/28.4;
+  reverse order under load varies sharply. Non-regression is unverified; raw runs are retained.
+  Handoff and failures: modules/lists/REPORT.md. Commit only; no push/PR/merge by the sub-agent.
+## P5b-3 assets workstream (2026-11-06)
+
+Implemented resolver policy/metadata, optional media bytes and SVG sampling, clip playback,
+image encoding/inspection/export exclusion, and original SVG/Lottie importers. Core+web remains
+20109 B; full-featured 95305 B (+1730). Requested scope: 5385 pass / 52 TODO across Chromium and
+Firefox; 35 new independent conformance cases, two audio-format probes pending. Native evidence:
+12 passing rows, six unadjusted findings, 19 rows pending; strict 228 cases / 424 samples green.
+Clamp currently retains legacy transparent margins rather than native edge extension and remains
+incomplete. See modules/assets/REPORT.md for exact findings, byte budgets, validation and deviations.
+No phase completion or parity status promotion is claimed; no push/PR/merge.
+
+## P5b-5 data extras — partial local implementation (2026-11-06)
+
+Typed data guard literals, colour component patterns, trigger binding destinations and instance
+export discovery add ten independent conformance vectors and 30 exact module-owned native
+observations. Required scope: 4218 pass / two failures reproduced at starting commit a5fa00a /
+63 TODO; final data scope2369 pass. Strict oracle245 cases/441 samples exit0; 24 findings retained.
+Core+web20147 B (+38), bind2048/2048, data7908/8192, convert6569/8192; all budgets/static/artifact
+checks pass. Keyframes, canonical oracle registration, host export counterpart and a quiet-machine
+performance gate remain pending. No parity status change or phase-completion claim.
+See [the implementation report](../modules/data/P5B-5-REPORT.md) and its preserved verification.
+
+## P5b-6 — Component controls and local libraries, partial (2026-11-06)
+
+Optional `nested` adds absolute/quantized child clocks, viewBox fitting, read-only scalar outputs
+(including repeat-created players), and component-valued selection with instance rebuilding.
+Libraries add export selection, model definitions and local-only checked vendoring refresh through
+`anima library update`. Eight rows are implemented; four have passing native readback, quantization
+retains a delta of 1 at .12+.13s (the .12+.14s control matches), and three library-native probes are pending.
+Component paint awaits the Canvas custom-source seam; typed component literals await the shared bind
+extension. No phase completion, parity status promotion, or new oracle skip is claimed.
+
+Verification: 3,379 scoped tests pass / 53 TODO across Chromium and Firefox; nine independent conformance
+cases / 18 snapshots; strict oracle exits 0 (250 cases / 446 samples, 25 findings / 28 collection samples).
+All 245 prior oracle cases, 24 findings and 1,238 parity statuses are unchanged. Static/generated checks,
+size and perf pass without changed limits. Core+web remains 20,109 B; components 4,055/4,096,
+nested 4,409/5,120, data 7,574/8,192, markup 7,915/8,192, markup-components 755/2,048,
+markup-libraries 1,949/2,048; full 106,275/131,072 (+4,006 vs 102,269). Comparative performance non-regression
+is unverified. Details, measured failures and handoff gaps: modules/nested/REPORT.md. Local commit only;
+no push/PR/merge.
+
+
+## P5b-8 — non-canvas seam closure (2026-11-06)
+
+Typed component guard literals, player-local data keyframe values and shared-queue component host
+handles are implemented, with compiled authoring examples and four independent conformance cases
+(15 snapshots). Native guards row9/box1 and key values2/16/4 match exactly. Quantize's original
+native2/Anima3 delta1 remains unadjusted: direct/split advances, unquantized twins and nearby-rate
+probes isolate native clock/rate precision; the decided1e-9-second boundary rule is unchanged.
+
+Verification: requested scope4471 pass/66TODO; all9 owned browser files run separately52/52 in
+Chromium and Firefox (the broad scope lists but skips them); strict oracle250/446 exit0,25/28
+findings retained. Static/generated checks and unchanged size/perf tools pass. Core+web20362 B
+(+174 vs20188), full108896 (+843 vs108053), data8015/bind2038/components4051 with untouched sources.
+All budgets hold. Canonical oracle inputs/parity statuses stay unchanged; module-owned new native
+captures are not promoted into the central manifest. Foreign-file component/data handles and
+comparative quiet-machine perf remain pending. No phase promotion, push, PR or merge. Full status,
+measurements and failures: modules/nested/P5B-8-REPORT.md.
+
+
+## P5b-10 — benchmark format/tooling gaps (2026-11-07)
+
+Repeated-row audio now finds list-owned players through indexed event scopes instead of looking only
+in ordinary nested players. Trusted Chromium/Firefox clicks observe Web Audio starts at [0,.2,.8],
+including a component inside a repeated row. Build embeds component/library-local assets using
+source-file provenance; component catalogs inherit with nearest-scope shadowing. Audio asset-ref
+kinds, exact property diagnostics, rectangular image hits, numeric repeat length paths, derive-owned
+string lengths, current inspect slots and contradictory docs are covered by regressions and two new
+independent conformance cases. Assets was split into automatically imported assetio before growth.
+The optional host-IO split follows web research §1; scoped metadata follows graph research §6.
+
+Requested scope3729 pass/44TODO, explicit owned browsers68/68; strict oracle253/449 exit0 with23
+inherited findings/26 samples retained. Static/generated/size/perf checks all0. Core+web20362 B
+unchanged; assets1713 over assetio659, media2665, events3793, lists4573, data8034, derive2360;
+full109889/131072. Bell compile2.63ms, bell/composite/toolbar frames106.9/68.9/78.9µs under shared
+load; quiet comparative performance unverified. Initial fixture/format/pointer failures and Firefox
+setup timeouts are retained in the report; no thresholds, timeouts or existing budgets changed.
+Benchmark files/parity statuses/protected inputs and other owners' runtimes are untouched. Fresh
+benchmark rerun remains required for the phase gate. Branch-only commit; no push, PR or merge.
+See modules/assets/P5B-10-REPORT.md and verification/p5b10/ for details and full outputs.
+
+## P5b — lists, assets, host editing (2026-11-07)
+
+- **New modules** (own folders and budgets): `lists` — `<repeat>` over a data list or a count, one
+  component instance per item kept by identity through insert/remove/swap (state survives), model →
+  component maps, item size, per-item data context, `$index`, `$parent`; `host-edit` — list editing,
+  instance management, globals, colour/enum/image/component handles, root component selection,
+  `ready`, document cache; `host-values` — typed handles split out of `host`, with one shared write
+  queue so host and host-edit writes apply in call order; `media` + `assetio` (split from `assets`) —
+  audio/blob loading, audio clips, fetch policy, loader metadata; `nested` — instance time remap and
+  quantize, leaf fit, component outputs, component-valued data; `componentpaint` — a live component
+  as a fill (SVG pattern, canvas offscreen). Image sampling (nearest/bilinear, clamp/repeat/mirror,
+  `fit="resize"`) in `paint`/`canvas`. CLI: sniffing and validation, PNG/JPEG/WebP encoding (one
+  lazily loaded Chromium per command), `export="false"`, `anima import` for SVG and Lottie,
+  `anima library update`. Data: typed literals and functions in guards (`"happy"`, `#d97757`,
+  `asset("photo")`, `component("row")`), colour format patterns, trigger destinations, data
+  keyframes, exported instances.
+- **Bugs fixed on the way**: CLI start-up paid for Playwright on every command (lazy import; the
+  module-order check went from 4.5 s back to main's 2.5–2.8 s per order); replayed nested models
+  inherited draw-tree slots without frame records (canvas crash, both engines); repeated-row audio
+  was silent in the browser (handler skipped list-owned players); `build --embed` skipped
+  component-local assets; three explicit clamp findings (now max 0).
+- **Decisions**: an image with no wrap control keeps its pre-P5b fitted footprint; `derive`'s
+  read-only computed properties are an intentional difference (Rive accepts and keeps the write);
+  library update stays in scope (a local CLI command, not an editor workflow).
+- **Oracle** (strict exit 0, 253 cases): lists 8 exact, host-edit 16 exact, derive/bind logic 9
+  exact; findings recorded with numbers — component paint at 240 × 240 (edges identical, Rive spreads
+  them by 1 px, max 55), nested quantize (delta 1, native precision), fractional SVG clamp
+  (rasterisation, max 164), bilinear and JPEG (encoder/rasteriser, isolated by native-data controls).
+- **Benchmark** (playlist): AniML 5/6 → **6/6** after P5b-10 (67-line scene, 7 min 53 s); Rive 5/6
+  strict (386 lines, 7 min 46 s; its audio clip lookup failed silently, trims pre-cut).
+- **Numbers** (main after P4e → P5b): core + web 20 109 → 20 362 B (+253: typed guard functions,
+  player-aware sampling, the source-loader hook, data-extras guard parsing); full-featured
+  93.6 → 109.1 KB / 128 KB (ceiling raised by the owner); Rive-class 114.5 KB / 250 KB. Module sizes:
+  lists 4 573, host-edit 3 437, host-values 1 211, host 3 463, media 2 665, assetio 659, assets 1 713,
+  nested 4 514, componentpaint 1 968, data 8 034 / 8 192, components 4 051 / 4 096, bind
+  2 038 / 2 048. Perf vs main, in-process alternating, pinned (min): bell frame 32.5 / 31.6 µs,
+  composite 20.9 / 20.3, toolbar 22.0 / 22.1 µs; bell compile 1.74 / 1.73 ms, toolbar 3.26 / 3.30 ms;
+  prefix sweep 139 / 140 ms — no regression.
+- **Parity**: 77 rows done (624 / 1 238); 16 moved to P3b/P10; 19 moved before work began.
+- **Process**: 88 finished-agent worktrees (12 GB) filled the root disk and killed a wave at launch;
+  worktrees are now removed after each merge.

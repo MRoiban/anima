@@ -1,0 +1,215 @@
+$ node tools/new-capability.ts data.host-artboard --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-artboard --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-color --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-color --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-default-instance --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-default-instance --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-enum --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-enum --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-global-instance --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-global-instance --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-image --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-image --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-list-add-instance --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-list-add-instance --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-list-add-instance-at --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-list-add-instance-at --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-list-remove-instance --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-list-remove-instance --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-list-remove-instance-at --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-list-remove-instance-at --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-list-swap --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-list-swap --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-nested-paths --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts data.host-nested-paths --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.batched-binding --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.batched-binding --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.data-artboard --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.data-artboard --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.data-color --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.data-color --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.data-enum --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.data-enum --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.data-image --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.data-image --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.data-list --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.data-list --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.global-models --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.global-models --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.nested-models --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.nested-models --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.view-model-discovery --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.view-model-discovery --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.view-model-instances --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.view-model-instances --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.artboard-selection --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.artboard-selection --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.bindable-artboards --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.bindable-artboards --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.reuse-loaded-file --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.reuse-loaded-file --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.wasm-preload --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts host-api.wasm-preload --module host-edit
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts components.host-artboard-reference --module host-edit --dry-run
+exit 1
+Module name must contain only lower-case letters
+
+$ node tools/new-capability.ts components.host-artboard-reference --module host-edit
+exit 1
+Module name must contain only lower-case letters

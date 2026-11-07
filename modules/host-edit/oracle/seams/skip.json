@@ -1,0 +1,6 @@
+{
+  "status": "skip",
+  "reason": "Local Rive 1.9.1 headless commands expose scalar data reads/writes but reject global attachment, instance binding/creation and list mutations. Browser URL caches, shared decodes and JS queues have no command-runner counterpart. Exact command rejections are captured; no native parity is claimed for these seams.",
+  "exitCode": 1,
+  "evidence": ["commands.txt", "session.txt", "../rive/scene.rml", "../rive/rive.yaml"]
+}

@@ -1,0 +1,25 @@
+import '@anima-format/web';
+import '@anima-format/web/paint';
+import '@anima-format/web/assets';
+import '@anima-format/web/components';
+import '@anima-format/web/data';
+import '@anima-format/web/bind';
+import '@anima-format/web/derive';
+import '@anima-format/web/lists';
+import '@anima-format/web/events';
+import '@anima-format/web/host';
+import '@anima-format/web/host-edit';
+await customElements.get('anima-icon').ready;
+window.icon=document.querySelector('anima-icon');
+window.errors=[];window.events=[];window.starts=[];window.ended=[];
+icon.addEventListener('anima:error',e=>errors.push(e.detail));
+icon.addEventListener('anima:event',e=>events.push(e.detail));
+const nativeStart=AudioBufferSourceNode.prototype.start;
+AudioBufferSourceNode.prototype.start=function(...args){
+  starts.push({args,duration:this.buffer.duration,rate:this.buffer.sampleRate,sample:this.buffer.getChannelData(0)[1]});
+  this.addEventListener('ended',()=>ended.push(args));
+  return nativeStart.apply(this,args);
+};
+icon.setAttribute('src','playlist.ani');
+await icon.ready;
+window.loaded=true;

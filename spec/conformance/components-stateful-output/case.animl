@@ -1,0 +1,12 @@
+<anima version="0.1" name="components-stateful-output" grid="20" requires="components nested bind">
+  <component name="row" grid="10">
+    <number name="count"/>
+    <circle id="dot" cx="5" cy="5" r="1" fill="#000"/>
+    <output name="done" value="count + 1"/>
+    <output name="tone" value="mix(#f00, #00f, 0.5)"/>
+  </component>
+  <instance id="badge" component="row"/>
+  <circle id="result" cx="15" cy="15" r="1" fill="#000"/>
+  <bind target="result.r" value="badge.outputs.done"/>
+  <bind target="result.fill" value="badge.outputs.tone"/>
+</anima>

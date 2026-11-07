@@ -21,6 +21,10 @@ let resolve = resolveAddress;
 let parse: typeof import('../../bind/core/expression.ts').expression | undefined;
 const path = /^(?:\$[a-zA-Z][\w-]*(?::[a-zA-Z][\w-]*)?(?:\.[\w-]+)*|[a-z][\w-]*(?:\.[\w-]+)*)$/;
 export type DataModule = Module & {
+  prepareContext?: (
+    model: import('../../../packages/core/src/load.ts').Model,
+    diag: import('../../../packages/core/src/diag.ts').Diags,
+  ) => void;
   dataState: typeof dataState;
   dataCodes: typeof dataCodes;
   compiled: typeof compiled;
@@ -37,7 +41,7 @@ export const data: DataModule = {
   registerConverter,
   prepare(model, d) {
     custom(model, d);
-    prepare(model, d);
+    prepare(model, d, (this as DataModule).prepareContext);
   },
   init(registry, shared) {
     resolve = shared.resolveAddress;

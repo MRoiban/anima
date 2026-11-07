@@ -1,1 +1,9 @@
-# TODO: inputs, step boundaries and snapshots
+advance 0
+snapshot badge/dot.r
+set $card "box"
+advance 0
+snapshot badge/rect.w
+pointer click 1 1
+snapshot seen badge/rect.w
+advance 0
+snapshot seen badge/rect.w

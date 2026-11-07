@@ -1,0 +1,39 @@
+advance 0.24999998000000001s
+data-dump frames/p0.json
+reload
+advance 0.24999999949999999s
+data-dump frames/p1.json
+reload
+advance 0.25s
+data-dump frames/p2.json
+reload
+advance 0.25000000049999999s
+data-dump frames/p3.json
+reload
+advance 0.25000000999999999s
+data-dump frames/p4.json
+reload
+advance 0.25000001999999999s
+data-dump frames/p5.json
+reload
+advance 0.25000004999999997s
+data-dump frames/p6.json
+reload
+advance 0.2500001s
+data-dump frames/p7.json
+reload
+advance 0.5s
+data-dump frames/p8.json
+reload
+advance 0.75s
+data-dump frames/p9.json
+reload
+advance 0.083333333333333329s
+data-dump frames/p10.json
+reload
+advance 0.083333343333333323s
+data-dump frames/p11.json
+reload
+advance 0.083400000000000002s
+data-dump frames/p12.json
+quit

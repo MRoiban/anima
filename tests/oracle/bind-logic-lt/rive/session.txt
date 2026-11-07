@@ -1,0 +1,106 @@
+ok advance
+ok data
+ok data
+ok data
+ok data
+ok advance
+ok data-dump: tests/oracle/bind-logic-lt/rive/frames/0.json
+ok data
+ok data
+ok data
+ok data
+ok advance
+ok data-dump: tests/oracle/bind-logic-lt/rive/frames/1.json
+ok data
+ok data
+ok data
+ok data
+ok advance
+ok data-dump: tests/oracle/bind-logic-lt/rive/frames/2.json
+ok data
+ok data
+ok data
+ok data
+ok advance
+ok data-dump: tests/oracle/bind-logic-lt/rive/frames/3.json
+ok data
+ok data
+ok data
+ok data
+ok advance
+ok data-dump: tests/oracle/bind-logic-lt/rive/frames/4.json
+ok data
+ok data
+ok data
+ok data
+ok advance
+ok data-dump: tests/oracle/bind-logic-lt/rive/frames/5.json
+ok data
+ok data
+ok data
+ok data
+ok advance
+ok data-dump: tests/oracle/bind-logic-lt/rive/frames/6.json
+ok data
+ok data
+ok data
+ok data
+ok advance
+ok data-dump: tests/oracle/bind-logic-lt/rive/frames/7.json
+ok data
+ok data
+ok data
+ok data
+ok advance
+ok data-dump: tests/oracle/bind-logic-lt/rive/frames/8.json
+ok quit
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[17:54:16.278] rive  deferred replay: inline
+[17:54:16.286] rive  built (463 bytes, 7ms, 0 errors, 0 warnings)
+[17:54:16.286] rive  showing Probe [1/1]
+[17:54:16.286] rive  viewport 20x20 @1x
+[17:54:16.286] rive  data: left = 0 (mid-run)
+[17:54:16.287] rive  data: right = 0 (mid-run)
+[17:54:16.287] rive  data: a = false (mid-run)
+[17:54:16.287] rive  data: b = false (mid-run)
+[17:54:16.287] rive  wrote tests/oracle/bind-logic-lt/rive/frames/0.json
+[17:54:16.287] rive  data: left = -1 (mid-run)
+[17:54:16.287] rive  data: right = 0 (mid-run)
+[17:54:16.287] rive  data: a = false (mid-run)
+[17:54:16.287] rive  data: b = true (mid-run)
+[17:54:16.287] rive  wrote tests/oracle/bind-logic-lt/rive/frames/1.json
+[17:54:16.287] rive  data: left = 1 (mid-run)
+[17:54:16.287] rive  data: right = 0 (mid-run)
+[17:54:16.287] rive  data: a = true (mid-run)
+[17:54:16.287] rive  data: b = false (mid-run)
+[17:54:16.287] rive  wrote tests/oracle/bind-logic-lt/rive/frames/2.json
+[17:54:16.287] rive  data: left = 0 (mid-run)
+[17:54:16.287] rive  data: right = 0 (mid-run)
+[17:54:16.287] rive  data: a = true (mid-run)
+[17:54:16.287] rive  data: b = true (mid-run)
+[17:54:16.287] rive  wrote tests/oracle/bind-logic-lt/rive/frames/3.json
+[17:54:16.287] rive  data: left = 0 (mid-run)
+[17:54:16.287] rive  data: right = 1 (mid-run)
+[17:54:16.287] rive  data: a = false (mid-run)
+[17:54:16.287] rive  data: b = false (mid-run)
+[17:54:16.287] rive  wrote tests/oracle/bind-logic-lt/rive/frames/4.json
+[17:54:16.287] rive  data: left = 1 (mid-run)
+[17:54:16.287] rive  data: right = 1 (mid-run)
+[17:54:16.287] rive  data: a = true (mid-run)
+[17:54:16.287] rive  data: b = false (mid-run)
+[17:54:16.287] rive  wrote tests/oracle/bind-logic-lt/rive/frames/5.json
+[17:54:16.287] rive  data: left = -0.5 (mid-run)
+[17:54:16.287] rive  data: right = -0.25 (mid-run)
+[17:54:16.287] rive  data: a = false (mid-run)
+[17:54:16.287] rive  data: b = true (mid-run)
+[17:54:16.288] rive  wrote tests/oracle/bind-logic-lt/rive/frames/6.json
+[17:54:16.288] rive  data: left = 2 (mid-run)
+[17:54:16.288] rive  data: right = 1 (mid-run)
+[17:54:16.288] rive  data: a = true (mid-run)
+[17:54:16.288] rive  data: b = true (mid-run)
+[17:54:16.288] rive  wrote tests/oracle/bind-logic-lt/rive/frames/7.json
+[17:54:16.288] rive  data: left = 0 (mid-run)
+[17:54:16.288] rive  data: right = 0 (mid-run)
+[17:54:16.288] rive  data: a = false (mid-run)
+[17:54:16.288] rive  data: b = false (mid-run)
+[17:54:16.288] rive  wrote tests/oracle/bind-logic-lt/rive/frames/8.json

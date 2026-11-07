@@ -1,0 +1,6 @@
+advance 0
+data-dump frames/initial.json
+data card=row
+advance 0
+data-dump frames/after.json
+quit

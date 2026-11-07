@@ -1,0 +1,80 @@
+[
+  {
+    "name": "assets-image-filter-nearest",
+    "maxDiff": 0,
+    "over": 0,
+    "overPercent": 0
+  },
+  {
+    "name": "assets-image-filter-bilinear",
+    "maxDiff": 27,
+    "over": 1017,
+    "overPercent": 1.7656249999999998
+  },
+  {
+    "name": "drawing-paint-image-fit-resize",
+    "maxDiff": 0,
+    "over": 0,
+    "overPercent": 0
+  },
+  {
+    "name": "assets-image-wrap-x-clamp",
+    "maxDiff": 255,
+    "over": 10800,
+    "overPercent": 18.75
+  },
+  {
+    "name": "assets-image-wrap-x-repeat",
+    "maxDiff": 0,
+    "over": 0,
+    "overPercent": 0
+  },
+  {
+    "name": "assets-image-wrap-x-mirror",
+    "maxDiff": 0,
+    "over": 0,
+    "overPercent": 0
+  },
+  {
+    "name": "assets-image-wrap-y-clamp",
+    "maxDiff": 255,
+    "over": 10800,
+    "overPercent": 18.75
+  },
+  {
+    "name": "assets-image-wrap-y-repeat",
+    "maxDiff": 0,
+    "over": 0,
+    "overPercent": 0
+  },
+  {
+    "name": "assets-image-wrap-y-mirror",
+    "maxDiff": 0,
+    "over": 0,
+    "overPercent": 0
+  },
+  {
+    "name": "drawing-paint-image-wrap-repeat",
+    "maxDiff": 0,
+    "over": 0,
+    "overPercent": 0
+  },
+  {
+    "name": "drawing-paint-image-wrap-mirror",
+    "maxDiff": 0,
+    "over": 0,
+    "overPercent": 0
+  },
+  {
+    "name": "drawing-paint-image-wrap-clamp",
+    "maxDiff": 255,
+    "over": 54000,
+    "overPercent": 93.75
+  },
+  {
+    "name": "assets-bilinear-repeat-finding",
+    "maxDiff": 188,
+    "over": 36852,
+    "overPercent": 63.979166666666664
+  }
+]

@@ -6,6 +6,7 @@
   "description": "<anima-icon>: the Anima web runtime (retained SVG, sleeping scheduler, a11y).",
   "exports": {
     ".": "./src/index.ts",
+    "./assetio": "./src/assetio.ts",
     "./canvas": "./src/canvas.ts",
     "./components": "./src/components.ts",
     "./markup-components": "./src/markup-components.ts",
@@ -16,9 +17,11 @@
     "./input": "./src/input.ts",
     "./markup": "./src/markup.ts",
     "./markup-libraries": "./src/markup-libraries.ts",
+    "./media": "./src/media.ts",
     "./motion": "./src/motion.ts",
     "./events": "./src/events.ts",
     "./machine": "./src/machine.ts",
+    "./paint-sampling": "./src/paint-sampling.ts",
     "./paint": "./src/paint.ts",
     "./markup-paint": "./src/markup-paint.ts",
     "./composite": "./src/composite.ts",
@@ -27,10 +30,15 @@
     "./convert": "./src/convert.ts",
     "./markup-convert": "./src/markup-convert.ts",
     "./derive": "./src/derive.ts",
+    "./host-values": "./src/host-values.ts",
     "./host": "./src/host.ts",
+    "./host-edit": "./src/host-edit.ts",
+    "./lists": "./src/lists.ts",
+    "./nested": "./src/nested.ts",
     "./surface": "./src/surface.ts",
     "./markup-surface": "./src/markup-surface.ts",
-    "./mix": "./src/mix.ts"
+    "./mix": "./src/mix.ts",
+    "./componentpaint": "./src/componentpaint.ts"
   },
   "files": [
     "src"

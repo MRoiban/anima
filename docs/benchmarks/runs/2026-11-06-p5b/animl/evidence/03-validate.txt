@@ -1,0 +1,11 @@
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl: 5 errors
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:84:3 error data-asset asset reference kind does not match
+  hint: declare an asset of the requested kind
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:84:3 error data-asset asset reference kind does not match
+  hint: declare an asset of the requested kind
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:84:3 error data-asset asset reference kind does not match
+  hint: declare an asset of the requested kind
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:84:3 error data-asset asset reference kind does not match
+  hint: declare an asset of the requested kind
+docs/benchmarks/runs/2026-11-06-p5b/animl/playlist.animl:89:28 error list-source repeat source has the wrong type
+  hint: use a list, or a number with count

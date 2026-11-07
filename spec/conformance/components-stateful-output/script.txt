@@ -1,0 +1,6 @@
+advance 0
+snapshot badge/outputs.done result.r badge/outputs.tone result.fill.color
+set badge.count 3
+advance 0
+advance 0
+snapshot badge/outputs.done result.r badge/outputs.tone result.fill.color

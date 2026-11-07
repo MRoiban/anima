@@ -14,6 +14,8 @@ export function accepts(p: Property, value: unknown): boolean {
           value.length === 4 &&
           value.every((v) => typeof v === 'number' && v >= 0 && v <= 255);
   if (p.type === 'enum') return typeof value === 'string' && !!p.values?.includes(value);
+  if (p.type === 'component')
+    return typeof value === 'string' && (!value || !!p.values?.includes(value));
   if (p.type === 'string' || p.type === 'asset-ref') return typeof value === 'string';
   return false;
 }
@@ -34,7 +36,19 @@ export class DataState extends Map<string, Value> {
   constructor(c: Compiled) {
     super();
     this.compiled = c;
-    this.instances = clone(c.defaults);
+    const seen = new Map<object, unknown>();
+    this.instances = clone(c.defaults, seen);
+    this.modelTypes = new WeakMap();
+    for (const [source, value] of seen) {
+      const name = c.modelOf.get(source);
+      if (name) this.modelTypes.set(value as object, name);
+    }
+  }
+  /** Authored export discovery; private instances remain available to internal bindings. */
+  exports(): { name: string; model: string }[] {
+    return Object.entries(this.compiled.document.instances ?? {})
+      .filter(([, instance]) => instance.exported)
+      .map(([name, instance]) => ({ name, model: instance.model }));
   }
   ref(path: string): Ref | undefined {
     return this.compiled.refs.get(path);

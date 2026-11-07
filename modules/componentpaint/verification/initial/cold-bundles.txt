@@ -1,0 +1,45 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-879d301f
+
+ ❯ |browser| modules/componentpaint/test/web/sources.test.ts (6 tests | 2 failed | 3 skipped) 26355ms
+   ❯ Chromium optional component paint (3)
+     × isolates live sources and replays across separate bundles: index,components,paint,canvas,componentpaint 5012ms
+     × isolates live sources and replays across separate bundles: index,componentpaint,canvas,paint,components 5001ms
+
+⎯⎯⎯⎯⎯⎯ Failed Suites 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/componentpaint/test/web/sources.test.ts > Firefox optional component paint
+Error: Hook timed out in 10000ms.
+If this is a long-running hook, pass a timeout value as the last argument or configure it globally with "hookTimeout".
+ ❯ modules/componentpaint/test/web/sources.test.ts:20:5
+     18|     let browser: Browser;
+     19|     const bundles = new Map<string, string>();
+     20|     beforeAll(async () => {
+       |     ^
+     21|       await Promise.all(
+     22|         [
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯
+
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 2 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |browser| modules/componentpaint/test/web/sources.test.ts > Chromium optional component paint > isolates live sources and replays across separate bundles: index,components,paint,canvas,componentpaint
+ FAIL  |browser| modules/componentpaint/test/web/sources.test.ts > Chromium optional component paint > isolates live sources and replays across separate bundles: index,componentpaint,canvas,paint,components
+Error: Test timed out in 5000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".
+ ❯ modules/componentpaint/test/web/sources.test.ts:45:7
+     43|       ['index', 'componentpaint', 'canvas', 'paint', 'components'],
+     44|     ])
+     45|       it(
+       |       ^
+     46|         'isolates live sources and replays across separate bundles: ' …
+     47|         async () => {
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  2 failed | 1 passed | 3 skipped (6)
+   Start at  00:30:50
+   Duration  29.13s (tests 93%, import 7%, transform 1%)

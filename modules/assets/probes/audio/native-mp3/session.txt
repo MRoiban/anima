@@ -1,0 +1,10 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[21:43:19.671] rive  deferred replay: inline
+[21:43:19.676] rive  built (1275 bytes, 4ms, 0 errors, 0 warnings)
+[21:43:19.676] rive  showing Audio [1/1]
+[21:43:19.676] rive  viewport 240x240 @1x
+[21:43:19.676] rive  sound pulse: triggered
+ok advance
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[21:43:19.682] rive  wrote frame.png
+ok screenshot: frame.png

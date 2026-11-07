@@ -9,6 +9,7 @@ export default {
     svgExport: 'paintSVG',
   },
   web: [
+    { name: 'paint-sampling', budget: 1024, over: 'paint' },
     {
       name: 'paint',
       buildOrder: 3,
@@ -24,6 +25,7 @@ export default {
     },
   ],
   adapters: {
+    'packages/web/src/paint-sampling.ts': 'web/sampling.ts',
     'packages/core/src/modules/paint/index.ts': 'core/index.ts',
     'packages/core/src/modules/paint/svg.ts': 'core/svg.ts',
     'packages/core/src/modules/paint/geometry.ts': 'core/geometry.ts',
@@ -32,6 +34,7 @@ export default {
     'packages/markup/src/modules.ts': 'markup/index.ts',
   },
   exports: {
+    'web:./paint-sampling': 'packages/web/src/paint-sampling.ts',
     'core:./paint': 'packages/core/src/modules/paint/index.ts',
     'core:./paint-svg': 'packages/core/src/modules/paint/svg.ts',
     'web:./paint': 'packages/web/src/paint.ts',
@@ -62,6 +65,10 @@ export default {
     'paint-shape-',
     'drawing-paint-gradient-transform',
     'drawing-paint-gradient-angular',
+    'drawing-paint-image-fit-resize',
+    'drawing-paint-image-wrap-clamp',
+    'drawing-paint-image-wrap-mirror',
+    'drawing-paint-image-wrap-repeat',
   ],
   docs: ['spec/SPEC.md', 'spec/ANIML.md'],
 };

@@ -44,6 +44,9 @@ friction point that blocks an item — is a bug, fixed before the phase's PR mer
 | 2026-11-06 | P4e | [scoreboard](runs/2026-11-06-p4e/BRIEF.md) | AniML | 5/6 | 15 | 4 min 22 s | 62 lines (3.8 k chars) | item 3 partial: no read-only computed model property, so the formatted labels live on node custom properties; bind expressions lack comparisons (leader done with 3 states; misleading `bind-syntax` hint); guide recommends a missing `anima schema data` — fixes in P4e-8, AniML rerun after it |
 | 2026-11-06 | P4e | scoreboard | Rive markup | 5/6 | 26 | 7 min 6 s | 205 lines (32.9 k chars, incl. generator) | item 3 partial: labels format and update but stay host-writable; fractional formatting approximated |
 | 2026-11-06 | P4e (rerun after P4e-8) | scoreboard | AniML | 6/6 | 39 | 5 min 11 s | 44 lines (3.0 k chars) | computed `label` property on the model (read-only, `derive`); leader by comparisons; 126 asserted snapshots. Friction: a sample-script write to a computed property said “takes a string” instead of `read-only-path` — fixed before the PR |
+| 2026-11-06 | P5b | [playlist](runs/2026-11-06-p5b/BRIEF.md) | AniML | 5/6 | 38 | 10 min 9 s | 95-line scene (300 lines / 21.1 k chars with media generator and checks) | item 4 partial: clicks request clips, but audio from repeated rows is silent in the browser; `build --embed` skipped component-local assets; `$tracks.length` rejected as a repeat count; inherited data contexts forced asset catalogs in every component (12 `data-asset`); doc contradictions — fixes in P5b-10, AniML rerun after it |
+| 2026-11-06 | P5b | playlist | Rive markup | 5/6 (agent: 6/6) | 31 | 7 min 46 s | 386 lines (30.9 k chars, incl. generator) | item 4 approximated: the audio clip lookup never resolved (no diagnostic), so trims were pre-cut into separate WAVs by the generator; host list edits through a command adapter (CLI has no list mutation); colours dithered ±1 |
+| 2026-11-06 | P5b (rerun after P5b-10) | playlist | AniML | 6/6 | 34 | 7 min 53 s | 67-line scene (224 lines / 14.1 k chars with media generator and checks) | repeated-row clips start and finish with exact trims in the browser; list edits keep row state; friction: `asset(...)` works in guards but not bindings, `icon.src` as a JS property loads nothing (attribute works), unanimated values absent from `sample` snapshots |
 
 ### P4a findings → actions
 
@@ -96,3 +99,15 @@ friction point that blocks an item — is a bug, fixed before the phase's PR mer
   `bind-syntax` hint that names the unsupported token (P4e-8).
 - **Docs and CLI agreement**: every `anima schema` / `anima docs` topic the guide names exists, tested
   (P4e-8).
+
+### P5b findings → actions
+
+- **Repeated-row audio** (AniML item 4): the browser audio handler skipped list-owned players — fixed
+  in P5b-10 with a two-engine playback test; rerun 6/6.
+- **Component-local assets**: `build --embed` now embeds them; components resolve asset names up to
+  the root document (no duplicated catalogs); `$list.length` is a valid repeat count; strings have
+  `length` (P5b-10).
+- **Open (P3b, agent tools)**: `asset(...)` in binding expressions; `icon.src` as a property should load
+  like the attribute or say why not; `sample` should report unanimated values; Rive's audio clip
+  lookup failed silently for its agent (not ours to fix).
+

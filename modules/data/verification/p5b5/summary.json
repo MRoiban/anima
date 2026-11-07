@@ -1,0 +1,60 @@
+{
+  "baseline": "a5fa00a40f7cdceb453a3fcb3b15cbd6f9253aba",
+  "branch": "t3/data-extras",
+  "scope": {
+    "command": "VITEST_MAX_WORKERS=1 npm run test:scope -- data convert motion machine core markup conformance oracle",
+    "exit": 1,
+    "passed": 4218,
+    "failed": 2,
+    "todo": 63,
+    "baselineReproducedFailures": 2
+  },
+  "dataFinal": {
+    "exit": 0,
+    "passed": 2369,
+    "filtered": 366,
+    "todo": 12
+  },
+  "extrasFinal": {
+    "exit": 0,
+    "passed": 13
+  },
+  "oracleStrict": {
+    "exit": 0,
+    "cases": 245,
+    "samples": 441,
+    "allPass": true,
+    "findings": 24,
+    "findingSamples": 27
+  },
+  "newNativeObservations": 30,
+  "checks": {
+    "typecheck": 0,
+    "eslint": 0,
+    "prettier": 0,
+    "modulesCheck": 0,
+    "animlCheck": 0,
+    "webCheck": 0,
+    "size": 0,
+    "perf": 0
+  },
+  "coreWebBytes": 20147,
+  "coreWebDelta": 38,
+  "moduleBytes": {
+    "bind": 2048,
+    "data": 7908,
+    "convert": 6569,
+    "motion": 6064,
+    "machine": 6041,
+    "markup": 7910
+  },
+  "fullFeatureBytes": 102971,
+  "riveClassBytes": 107932,
+  "inventoryStatusesChanged": 0,
+  "pending": [
+    "data.bind-keyframes",
+    "canonical new oracle manifest registration",
+    "host-side export counterpart",
+    "quiet-machine no-regression gate"
+  ]
+}

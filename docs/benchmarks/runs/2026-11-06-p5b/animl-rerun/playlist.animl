@@ -1,0 +1,67 @@
+<anima version="0.1" name="playlist" grid="40" viewBox="0 0 40 30" requires="paint assets components data bind derive lists events">
+  <asset name="dawn" type="image" src="media/dawn.png"/>
+  <asset name="tide" type="image" src="media/tide.png"/>
+  <asset name="ember" type="image" src="media/ember.png"/>
+  <asset name="dawn-clip" type="audio" src="media/dawn.wav" start="0.2" end="1.0"/>
+  <asset name="tide-clip" type="audio" src="media/tide.wav" start="0.2" end="1.0"/>
+  <asset name="ember-clip" type="audio" src="media/ember.wav" start="0.2" end="1.0"/>
+  <model name="Track">
+    <number name="uid"/>
+    <string name="title"/>
+    <number name="duration"/>
+    <asset-ref name="cover" type="image"/>
+    <asset-ref name="clip" type="audio"/>
+  </model>
+  <model name="Playlist" global="true">
+    <number name="selected" default="-1"/>
+    <list name="tracks" of="Track"/>
+  </model>
+  <instance name="main" model="Playlist" default="true">
+    <set path="tracks" value='[{"uid":1,"title":"Dawn","duration":90,"cover":"dawn","clip":"dawn-clip"},{"uid":2,"title":"Tide","duration":150,"cover":"tide","clip":"tide-clip"},{"uid":3,"title":"Ember","duration":60,"cover":"ember","clip":"ember-clip"}]'/>
+  </instance>
+  <rect id="panel" x0="0" y0="0" width="40" height="30" fill="#f0eee6"/>
+  <component name="row" grid="40" viewBox="0 0 36 5" data="Track">
+    <trigger name="tap"/>
+    <number name="visits" default="0"/>
+    <hit rect="0 0 36 5"/>
+    <rect id="outline" x0="1" y0="-0.2" width="33" height="4.4" stroke="#d97757" stroke-width="0.3" opacity="0"/>
+    <image id="dawn-cover" asset="dawn" x0="2" y0="0" width="4" height="4" sampling="nearest" visible="false"/>
+    <image id="tide-cover" asset="tide" x0="2" y0="0" width="4" height="4" sampling="nearest" visible="false"/>
+    <image id="ember-cover" asset="ember" x0="2" y0="0" width="4" height="4" sampling="nearest" visible="false"/>
+    <rect id="title" x0="8" y0="0.5" width="1" height="1" fill="#141413"/>
+    <rect id="duration" x0="8" y0="2.5" width="1" height="1" fill="#d97757"/>
+    <bind target="title.width" value="$title.length"/>
+    <bind target="duration.width" value="$duration / 10"/>
+    <bind target="outline.opacity" value="$main:selected == $uid"/>
+    <layer name="cover" initial="choose">
+      <state name="choose">
+        <on when="$cover == asset(&quot;dawn&quot;)" to="dawn"/>
+        <on when="$cover == asset(&quot;tide&quot;)" to="tide"/>
+        <on when="$cover == asset(&quot;ember&quot;)" to="ember"/>
+      </state>
+      <state name="dawn"><pose dawn-cover.visible="true"/><on when="$cover != asset(&quot;dawn&quot;)" to="choose"/></state>
+      <state name="tide"><pose tide-cover.visible="true"/><on when="$cover != asset(&quot;tide&quot;)" to="choose"/></state>
+      <state name="ember"><pose ember-cover.visible="true"/><on when="$cover != asset(&quot;ember&quot;)" to="choose"/></state>
+    </layer>
+    <listener on="click" set="$main:selected=$uid visits=visits+1" fire="tap"/>
+    <event-def name="play-dawn" audio="dawn-clip" payload='{"uid":{"type":"number","value":"{$uid}"}}'/>
+    <event-def name="play-tide" audio="tide-clip" payload='{"uid":{"type":"number","value":"{$uid}"}}'/>
+    <event-def name="play-ember" audio="ember-clip" payload='{"uid":{"type":"number","value":"{$uid}"}}'/>
+    <layer name="playback" initial="idle">
+      <state name="idle">
+        <on when="tap and $clip == asset(&quot;dawn-clip&quot;)" to="dawn"/>
+        <on when="tap and $clip == asset(&quot;tide-clip&quot;)" to="tide"/>
+        <on when="tap and $clip == asset(&quot;ember-clip&quot;)" to="ember"/>
+      </state>
+      <state name="dawn" emit="play-dawn"><on when="@after(0)" to="idle"/></state>
+      <state name="tide" emit="play-tide"><on when="@after(0)" to="idle"/></state>
+      <state name="ember" emit="play-ember"><on when="@after(0)" to="idle"/></state>
+    </layer>
+  </component>
+  <component name="dot" grid="1">
+    <circle id="disc" cx="38" cy="28" r="0.4" fill="#141413"/>
+    <bind target="disc.r" value="0.4"/>
+  </component>
+  <repeat id="rows" list="$tracks" component="row" y="2" dy="6" size="36 5"/>
+  <repeat id="count" count="$tracks.length" component="dot" dy="-1.2"/>
+</anima>

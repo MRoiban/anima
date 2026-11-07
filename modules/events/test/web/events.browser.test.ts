@@ -56,11 +56,15 @@ for (const [name, engine, executablePath] of [
       events: string,
       assets: string,
       components: string;
+    let repeatModules: string[];
     beforeAll(async () => {
       [base, events, assets, components] = await Promise.all(
         ['index', 'events', 'assets', 'components'].map((n) =>
           bundle(new URL(`../../../../packages/web/src/${n}.ts`, import.meta.url).pathname),
         ),
+      );
+      repeatModules = await Promise.all(
+        ['data', 'bind', 'lists'].map((n) => bundle(resolve('packages/web/src/' + n + '.ts'))),
       );
       browser = await engine.launch({
         executablePath,
@@ -94,6 +98,114 @@ for (const [name, engine, executablePath] of [
     afterEach(async () => {
       await page.close();
     });
+    it.each([false, true])(
+      'plays a trusted repeated-row click (nested=%s), using its scoped clip',
+      async (nested) => {
+        for (const content of [assets, components, ...repeatModules])
+          await page.addScriptTag({ type: 'module', content });
+        await page.waitForFunction(() =>
+          (customElements.get('anima-icon') as typeof AnimaIcon).modules.has('lists'),
+        );
+        const wave =
+          'data:audio/wav;base64,' +
+          readFileSync(new URL('../../examples/share-tone.wav', import.meta.url)).toString(
+            'base64',
+          );
+        const result = await page.evaluate(
+          ({ wave, nested }) => {
+            window.audioLog = [];
+            window.observed = [];
+            Object.defineProperty(window, 'AudioContext', {
+              value: class {
+                destination = {};
+                async resume() {}
+                async close() {}
+                createGain() {
+                  return { gain: { value: 1 }, connect() {}, disconnect() {} };
+                }
+                async decodeAudioData(bytes: ArrayBuffer) {
+                  if (new TextDecoder().decode(bytes.slice(0, 4)) !== 'RIFF')
+                    throw Error('not WAV');
+                  window.audioLog.push('decode');
+                  return { duration: 2 };
+                }
+                createBufferSource() {
+                  return {
+                    connect() {},
+                    disconnect() {},
+                    stop() {},
+                    start(...args: number[]) {
+                      window.audioLog.push(JSON.stringify(args));
+                    },
+                  };
+                }
+              },
+            });
+            const leaf = {
+              grid: 20,
+              nodes: [{ id: 'hit', type: 'circle', center: [5, 5], r: 4, fill: { color: '#000' } }],
+              listeners: [{ on: 'click', target: 'hit', emit: 'play' }],
+              eventDefs: { play: { audio: 'tone' } },
+            };
+            const row = {
+              ...leaf,
+              assets: { tone: { type: 'audio', source: wave, start: 0.2, end: 1 } },
+              ...(nested
+                ? {
+                    nodes: [{ id: 'inside', type: 'instance', component: 'leaf' }],
+                    listeners: [],
+                    eventDefs: {},
+                  }
+                : {}),
+            };
+            const icon = window.eventIcon;
+            icon.on('event', ({ detail }) => window.observed.push(detail.name));
+            icon.on('error', ({ detail }) => window.observed.push(JSON.stringify(detail)));
+            const diagnostics = icon.load({
+              anima: '0.1',
+              name: 'repeat-audio',
+              grid: 20,
+              requires: ['events', 'assets', 'components', 'data', 'bind', 'lists'],
+              assets: {
+                tone: { type: 'audio', source: 'data:audio/wav;base64,AAAA', start: 0, end: 0.5 },
+              },
+              data: {
+                models: {
+                  Board: { properties: { items: { type: 'list', of: 'Item', default: [{}, {}] } } },
+                  Item: { properties: {} },
+                },
+              },
+              components: { row, leaf },
+              nodes: [{ id: 'rows', type: 'repeat', list: '$items', component: 'row', dy: 10 }],
+            });
+            icon.play();
+            return diagnostics;
+          },
+          { wave, nested },
+        );
+        expect(result.filter((d) => d.severity === 'error')).toEqual([]);
+        const selector = nested
+          ? 'g[id$="rows/1/inside/hit"] circle'
+          : 'g[id$="rows/1/hit"] circle';
+        await page.locator('anima-icon').locator(selector).click();
+        await page.waitForFunction(
+          () => window.audioLog.some((s) => s.startsWith('[')),
+          undefined,
+          { polling: 10 },
+        );
+        expect(
+          await page.evaluate(() => ({
+            audio: window.audioLog,
+            events: window.observed,
+            active: navigator.userActivation.hasBeenActive,
+          })),
+        ).toEqual({
+          audio: ['decode', '[0,0.2,0.8]'],
+          events: [nested ? 'rows.1.inside.play' : 'rows.1.play'],
+          active: true,
+        });
+      },
+    );
     it('delivers payloads, advance/draw/state and supports unsubscribe/deduplication', async () => {
       const result = await page.evaluate(() => {
         const i = window.eventIcon,
@@ -251,6 +363,77 @@ for (const [name, engine, executablePath] of [
       expect(await page.evaluate(() => window.audioLog.filter((s) => s === 'decode').length)).toBe(
         1,
       );
+    });
+    it('plays audio clip offsets and reports decoded-bound failures without starting a source', async () => {
+      await page.evaluate(() => {
+        window.audioLog = [];
+        Object.defineProperty(window, 'AudioContext', {
+          configurable: true,
+          value: class {
+            destination = {};
+            async resume() {}
+            async close() {}
+            createGain() {
+              return { gain: { value: 1 }, connect() {}, disconnect() {} };
+            }
+            async decodeAudioData() {
+              return { duration: 2 };
+            }
+            createBufferSource() {
+              return {
+                buffer: null,
+                onended: null,
+                connect() {},
+                disconnect() {},
+                stop() {},
+                start(...args: number[]) {
+                  window.audioLog.push(JSON.stringify(args));
+                },
+              };
+            }
+          },
+        });
+        const icon = window.eventIcon;
+        icon.player!.model.doc.assets = {
+          tone: { type: 'audio', source: 'unused', start: 0.2, end: 0.9 },
+        };
+        icon.assets = async () => new Blob([new Uint8Array([0])]);
+      });
+      await page.mouse.click(1, 1);
+      await page.evaluate(() => {
+        (customElements.get('anima-icon') as typeof AnimaIcon).eventHook!(
+          window.eventIcon,
+          'event',
+          { name: 'clip', layer: null, time: 0, audio: 'tone' },
+        );
+      });
+      await page.waitForFunction(() => window.audioLog.length === 1);
+      expect(await page.evaluate(() => window.audioLog)).toEqual(['[0,0.2,0.7]']);
+      const error = await page.evaluate(async () => {
+        const icon = window.eventIcon;
+        icon.player!.model.doc.assets.tone.end = 3;
+        const result = new Promise((resolve) =>
+          icon.addEventListener('anima:error', (event) => resolve((event as CustomEvent).detail), {
+            once: true,
+          }),
+        );
+        (customElements.get('anima-icon') as typeof AnimaIcon).eventHook!(icon, 'event', {
+          name: 'clip',
+          layer: null,
+          time: 0,
+          audio: 'tone',
+        });
+        return result;
+      });
+      expect(error).toEqual([
+        expect.objectContaining({
+          code: 'event-audio-load',
+          pointer: '/assets/tone/source',
+          message: expect.stringMatching(/./),
+          hint: expect.stringMatching(/./),
+        }),
+      ]);
+      expect(await page.evaluate(() => window.audioLog)).toHaveLength(1);
     });
     it('drops pre-gesture audio; decodes on demand, caches, applies volume and closes on destroy', async () => {
       await page.evaluate(() => {

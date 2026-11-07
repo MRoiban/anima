@@ -2,9 +2,10 @@
   "anima": "0.1",
   "name": "data-instance-export",
   "grid": 20,
+  "requires": ["data"],
   "nodes": [
     {
-      "id": "probe",
+      "id": "dot",
       "type": "circle",
       "center": [10, 10],
       "r": 1,
@@ -12,5 +13,29 @@
         "color": "#000"
       }
     }
-  ]
+  ],
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "number",
+            "default": 4
+          }
+        }
+      }
+    },
+    "instances": {
+      "public": {
+        "model": "Root",
+        "default": true,
+        "exported": true,
+        "values": {}
+      },
+      "private": {
+        "model": "Root",
+        "values": {}
+      }
+    }
+  }
 }

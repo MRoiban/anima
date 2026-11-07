@@ -46,13 +46,14 @@ function recover(root: Element): Obj {
   const plain = (e: Element): Obj => {
     const o = base(e);
     for (const [k, v] of Object.entries(attrs(e)))
-      o[k] =
+      o[k === 'export' && e.name === 'instance' ? 'exported' : k] =
         (['entry', 'exit', 'actions'].includes(k) && v.startsWith('{')) ||
         (k === 'default' && (v.startsWith('[') || v.startsWith('{')))
           ? JSON.parse(v)
           : [
                 'global',
                 'exported',
+                'export',
                 'public',
                 'default',
                 'min',
@@ -104,7 +105,7 @@ function recover(root: Element): Obj {
         parent[key] =
           key === 'dash'
             ? v.split(' ').map((x) => (x.endsWith('%') ? x : Number(x)))
-            : ['pivot', 'subpaths', 'corners', 'geometryOrigin'].includes(key)
+            : ['pivot', 'subpaths', 'corners', 'geometryOrigin', 'size'].includes(key)
               ? vector(v)
               : v.startsWith('{"') || v.startsWith('[')
                 ? JSON.parse(v)
@@ -182,6 +183,7 @@ function recover(root: Element): Obj {
   };
   const d: Obj = { ...base(root), ...attrs(root), nodes: [] };
   if (typeof d.effects === 'string') d.effects = JSON.parse(d.effects);
+  if (typeof d.outputs === 'string') d.outputs = JSON.parse(d.outputs);
   d.anima = d.version;
   delete d.version;
   d.grid = Number(d.grid);
@@ -294,7 +296,10 @@ function recover(root: Element): Obj {
     else if (el.name === 'asset') {
       const asset: Obj = { ...p, source: p.src };
       delete asset.src;
-      for (const k of ['width', 'height']) if (asset[k] !== undefined) asset[k] = Number(asset[k]);
+      for (const k of ['width', 'height', 'size', 'duration', 'start', 'end', 'quality'])
+        if (asset[k] !== undefined) asset[k] = Number(asset[k]);
+      if (asset.export !== undefined) asset.export = asset.export === 'true';
+      if (typeof asset.metadata === 'string') asset.metadata = JSON.parse(asset.metadata);
       insert('assets', name, asset);
     } else if (el.name === 'a11y') d.a11y = p;
     else if (['bool', 'number', 'trigger'].includes(el.name))
@@ -510,6 +515,10 @@ function check(source: string | object) {
         if (e.name === 'instance' && attrs(e).id && !attrOrder(e.name).includes(a.name)) {
           const component = (expected.components as Obj)[attrs(e).component!] as Obj;
           expect(Object.keys(component.inputs as Obj)).toContain(a.name);
+        } else if (e.name === 'component' && a.name === 'outputs') {
+          expect(JSON.parse(a.value)).toEqual(
+            ((expected.components as Obj)[attrs(e).name!] as Obj).outputs,
+          );
         } else expect(attrOrder(e.name)).toContain(a.name);
       }
     elements(e).forEach(names);

@@ -1,0 +1,100 @@
+{
+  "command": "~/.rive/bin/rive",
+  "version": "1.9.1",
+  "queries": [
+    "docs assets",
+    "docs project/rive-yaml",
+    "schema ImageAsset",
+    "schema ImageAsset --all",
+    "schema AudioAssetClip",
+    "schema AudioAssetClip --all",
+    "schema BlobAsset",
+    "schema FileAsset",
+    "headless --commands=help"
+  ],
+  "headlessCommands": [
+    "advance",
+    "pointer",
+    "touch",
+    "key",
+    "gamepad",
+    "data",
+    "semantic-action",
+    "screenshot",
+    "semantics",
+    "data-dump",
+    "viewport",
+    "artboard",
+    "fit",
+    "reload",
+    "quit",
+    "help"
+  ],
+  "limits": {
+    "imageEncodingIsEditorOnly": true,
+    "clipBoundsAreEditorOnly": true,
+    "audioExportFormatIsEditorOnly": true,
+    "headlessAudioReportsTriggers": true,
+    "exportExclusionTargetsEditorRev": true,
+    "noJavaScriptHostInCommandVocabulary": true
+  },
+  "runtimeFields": {
+    "ImageAsset": [
+      "samplerFilter",
+      "samplerWrapX",
+      "samplerWrapY",
+      "height",
+      "width",
+      "assetId",
+      "cdnUuid",
+      "cdnBaseUrl",
+      "name"
+    ],
+    "AudioAssetClip": ["volume", "assetId", "cdnUuid", "cdnBaseUrl", "name"],
+    "BlobAsset": ["assetId", "cdnUuid", "cdnBaseUrl", "name"],
+    "FileAsset": ["assetId", "cdnUuid", "cdnBaseUrl", "name"]
+  },
+  "encodings": [
+    {
+      "format": "png",
+      "authoredFormatVisible": true,
+      "runtimeFormatVisible": false,
+      "versusUnencodedPNG": { "maxDiff": 0, "over": 0, "overPercent": 0 }
+    },
+    {
+      "format": "jpeg",
+      "authoredFormatVisible": true,
+      "runtimeFormatVisible": false,
+      "versusUnencodedPNG": { "maxDiff": 0, "over": 0, "overPercent": 0 }
+    },
+    {
+      "format": "webp",
+      "authoredFormatVisible": true,
+      "runtimeFormatVisible": false,
+      "versusUnencodedPNG": { "maxDiff": 0, "over": 0, "overPercent": 0 }
+    }
+  ],
+  "audio": [
+    {
+      "format": "wav",
+      "sourceSHA256": "8183a270760859b4a8c4d0822b0543dbbea8c02465133a9e3f9bf33468ab7310",
+      "buildErrors": 0,
+      "triggered": true,
+      "pcmOutput": false
+    },
+    {
+      "format": "flac",
+      "sourceSHA256": "7819b1fb48f33beaf8dc88819a18f7eeed3de942bb806994e33cf158144ec4af",
+      "buildErrors": 0,
+      "triggered": true,
+      "pcmOutput": false
+    },
+    {
+      "format": "mp3",
+      "sourceSHA256": "1821972899385e70f8baf9807db7aa2de09c4adc1b772a44fecaf9d941184e65",
+      "buildErrors": 0,
+      "triggered": true,
+      "pcmOutput": false
+    }
+  ]
+}

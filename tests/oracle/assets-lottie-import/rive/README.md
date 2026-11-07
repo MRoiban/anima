@@ -1,0 +1,1 @@
+Independently authored native expectation for the original transform.svg or motion.json fixture in modules/assets/test/cli/fixtures. Coordinates scale 20 source units to 240 pixels. This tests the imported geometry/motion result; it is not an editor import/reimport workflow or a file conversion. Native source contains no imported binary document.

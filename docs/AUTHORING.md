@@ -409,7 +409,7 @@ are allowed. Parameters substitute attribute values and text, including keyframe
 parameters have no default (`params="target scale=0.92"`). Missing, extra and unused parameters,
 unknown imported names, cycles and recursive applications produce diagnostics showing the
 library's source position and the application/import site. Libraries also share colours, glyphs
-and named eases through `ui:name` references. Components await the components module.
+and named eases through `ui:name` references. Libraries can also share components and their model definitions.
 
 `anima build` and `validate` resolve imports relative to each importing file. The playground
 resolves them inside the project directory; the browser markup module fetches them relative
@@ -449,18 +449,69 @@ Declare an asset, then place it in a box (see `examples/photo.animl`, an origina
 </anima>
 ```
 
-`contain` preserves the full image; `cover` fills and crops; `fill` stretches. `none`,
+`contain` preserves the full image; `cover` fills and crops; `fill` and `resize` stretch. `none`,
 `scale-down`, `fit-width`, and `fit-height` use intrinsic size. Set `align="top-left"` (or
 center/edge/corner names) to position it, and `sampling="nearest"` for pixel art. The box clips
 overflow. Asset `width`/`height` override decoded intrinsic dimensions when needed.
 
 Paths resolve relative to the document URL in the browser and source file in the CLI.
-`anima build photo.animl --embed -o photo.ani` embeds local files as data URIs; only assets
+Components inherit asset names from their enclosing component/document, with local declarations
+shadowing outer ones. Image/audio asset-ref values use this same lookup, so shared data models do
+not need a catalog copied into every row. Image nodes can be click targets using their bounds.
+
+`anima build photo.animl --embed -o photo.ani` embeds local files as data URIs, including component
+catalogs and imported libraries (paths relative to the declaring source file); only assets
 change. `anima render photo.animl -o photo.png` reads local images directly.
 For hosted assets, assign `icon.assets = (name, info) => urlOrBlob` before loading; promises
 work too. Await `icon.ready` on initial load, or listen for `anima:load` on reload. Failed
-loads emit `anima:error`. Embedded images make no network request. Font/audio/blob declarations
-are accepted now; their playback/text modules follow later.
+loads emit `anima:error`. Embedded images make no network request. `icon.assetPolicy` defaults to `'local'`: same-origin URLs and data URIs. Set it to `'any'`
+for a CDN, or supply a resolver to authorize a replacement explicitly. The resolver receives
+`type`, `source`, optional `size`/`mime`, and detached `metadata` in `info`.
+
+Import `@anima-format/web/paint-sampling` (includes paint) for SVG wrapping; canvas supports it directly.
+Sampling can tile outside the fitted rectangle. `wrap="repeat"` repeats it; `wrap="mirror"`
+reflects alternate tiles. SVG repeat requires `sampling="nearest"`; use canvas for bilinear repeat. `wrap-x` and `wrap-y` override one axis. Clamp edge extension is still incomplete: the current
+runtime preserves transparent fitted margins. The three clamp parity rows remain open. For example:
+
+```xml
+<anima version="0.1" name="tiles" grid="24" requires="paint assets">
+  <asset name="photo" type="image" src="photo.png" width="8" height="4"/>
+  <image id="photo" asset="photo" x0="0" y0="0" width="24" height="24"
+    fit="none" align="top-left" sampling="nearest" wrap="mirror" wrap-y="repeat"/>
+</anima>
+```
+
+Build options go on the declaration: `encode="png|jpeg|webp" quality="0.8"` re-encodes and embeds
+pixels. Quality is [0,1]; PNG ignores it. PNG encoding runs in-process; JPEG/WebP encoding and
+WebP decoding need the cached headless Chromium (`CHROMIUM_PATH` overrides its executable).
+Missing Chromium reports `build-encoder-unavailable`. Build checks signatures against extensions
+and MIME, and writes inspected `size`, `mime` and audio `duration`. Audio validation inspects
+headers; playback still requires a browser decoder. `export="false"` leaves a declaration for
+the host resolver and excludes its bytes from build inspection, encoding and embedding. Embedded
+source payloads become `src="anima:NAME"` placeholders that require the resolver.
+
+Import `@anima-format/web/media` to read audio/blob bytes: `await icon.asset('bytes')` yields an
+ArrayBuffer, cached per asset/load. Treat cached bytes as read-only; pass a copy (`bytes.slice(0)`)
+to `AudioContext.decodeAudioData`, which takes ownership of its input. Images/fonts return source URLs. Events owns activated audio
+playback; import `@anima-format/web/events` and `@anima-format/web/assets`, then use a clip:
+
+```xml
+<anima version="0.1" name="clip" grid="24" requires="assets events">
+  <asset name="tone" type="audio" src="tone.wav" start="0.2" end="0.9"/>
+  <circle id="button" cx="12" cy="12" r="10" fill="#d97757"/>
+  <event-def name="play" audio="tone" volume="0.5"/>
+  <listener on="click" target="button" emit="play"/>
+</anima>
+```
+
+`start`/`end` are seconds within the source. Events before user activation are dropped; they do
+not queue or load audio. Fonts remain declarations until text support arrives.
+
+`anima import art.svg -o art.animl` handles vector geometry, groups, paints, user-space gradients
+and representable transforms. `anima import animation.json -o animation.animl` imports the Lottie
+shape subset (groups, paths, paints, transforms, keyframes/easing and stroke trims). Every unsupported
+feature reports `import-unsupported` with a source path; review the warnings before using a lossy
+import. Original hand-made importer inputs and compiled examples are covered by the asset CLI tests.
 
 
 ## Components
@@ -502,6 +553,60 @@ Run `anima inspect examples/toolbar.animl` to see instance layers. With `anima s
 `examples/toolbar.animl` combines three Glyphy icons using the same imported press template and
 an unread badge. Browser hosts import `@anima-format/web/components` and, when expressions are
 used, `@anima-format/web/bind`, alongside the base runtime.
+
+
+Load `@anima-format/web/nested` alongside components for explicit instance clocks, fitting,
+outputs and component-valued selections. In this complete example, `$t` controls the child's
+animation time in seconds, `fps` floors it to a 12 Hz clock, and `fit` maps the child viewBox into
+`size`. Fitting also transforms pointer hits. Cover does not add a clip; add one explicitly when
+needed.
+
+```xml
+<anima version="0.1" name="nested-controls" grid="30" requires="components nested data bind">
+  <model name="Controls">
+    <number name="t" default="0.5"/>
+    <component name="card" default="row"/>
+  </model>
+  <component name="row" grid="10">
+    <number name="count" default="3"/>
+    <circle id="dot" cx="5" cy="5" r="1" fill="#d97757"/>
+    <output name="done" value="count > 0"/>
+    <timeline name="grow" duration="1">
+      <track target="dot.r">0 1; 1 4</track>
+    </timeline>
+    <layer name="main" initial="growing">
+      <state name="growing" play="grow"/>
+    </layer>
+  </component>
+  <instance id="clocked" component="row" time="$t" fps="12" size="20 10" fit="contain" align="right"/>
+  <instance id="selected" component="$card" x="20"/>
+  <circle id="indicator" cx="2" cy="15" r="1" fill="#000"/>
+  <bind target="indicator.opacity" value="clocked.outputs.done"/>
+</anima>
+```
+
+The source and compiled document are [controls.animl](../modules/nested/examples/controls.animl)
+and [controls.ani](../modules/nested/examples/controls.ani). `clocked.outputs.done` is read-only;
+write `clocked.count` instead. A parent evaluates before its children, so a child change reaches
+parent bindings on the next step. Output snapshots use `clocked/outputs.done`. Backward scrubbing
+resamples the current child state; it does not undo transitions. A component property holds a
+declared name or empty string. Changing `$card` rebuilds `selected`; an unchanged name keeps its
+state. Empty selection hides and stops that placement. Typed `component("row")` guard literals
+are still pending shared parser integration.
+
+Libraries may expose only selected declarations with `<library name="cards" exports="row Score">`.
+An import can select a subset: `<import src="lib/cards.animl" as="cards" select="row"/>`.
+Private dependencies remain available inside the library. Put `<model name="Score">…</model>` in
+the library and use `data="Score"` on its component; references are renamed consistently when
+compiled. [cards.animl](../examples/lib/cards.animl) and the three `components-library-*`
+conformance examples show the expanded documents.
+
+For local vendoring, retain the upstream path as import metadata:
+`<import src="vendor/cards.animl" source="../shared/cards.animl" as="cards"/>`.
+Run `anima library update icon.animl --check` to check staleness, then
+`anima library update icon.animl` to refresh it. The command reads local files only, preflights
+all sources before writing, and never contacts a service. Building continues to read the vendored
+`src`, so library updates are explicit and reviewable.
 
 Choose `renderer="canvas"` on the HTML host after importing `@anima-format/web/canvas` when a scene
 needs world-space feathering or a raster surface for future scene features. Keep SVG for ordinary
@@ -569,7 +674,7 @@ Declare `requires="data bind"` for view models and bindings, adding `convert` fo
 converters. A model declares types; an instance stores values. This complete document declares
 every supported property type. `type` on an `asset-ref` is the asset kind, not a model name.
 Empty asset references need no asset declaration; nonempty references must name a declared asset
-of the same kind (`image`, `font` or `blob`, with `requires="assets"`).
+of the same kind (`image`, `audio`, `font` or `blob`, with `requires="assets"`).
 
 ```xml
 <anima version="0.1" name="data-types" grid="20" requires="data bind">
@@ -605,7 +710,7 @@ model. Instance `<set path="score">` initializes a property by its bare name; it
 action. Compound initializers use JSON in `value`. A named reference preserves identity.
 `global="true"` shares matching named instances through a component tree; independent root players
 still have independent storage. A component can declare `data="Player"` and its placement can use
-`data="main"` to share the parent's instance; ordinary children otherwise keep local storage.
+`data="main"` to share the parent's instance; components without `data` inherit their parent when `lists` is declared; components with a public model keep local storage unless explicitly supplied a context.
 
 Use `$` paths wherever an input name is accepted: conditions, binding expressions, listener and
 state/transition actions, event fields and component input expressions. Strings/enums compare with
@@ -643,8 +748,8 @@ and state actions firing triggers. This intentionally differs from the native in
 observation in `tests/oracle/input-data-listener/internal-trigger-difference/finding.json`.
 Host API subscriptions also run after the step; callback writes wait for the next step.
 
-A list of N items can drive N explicitly authored nodes. There is no automatic repeater or implicit
-list-index context. Here three model instances drive three nodes; `$items.2.title` selects the third
+A list of N items can drive N explicitly authored nodes without the lists module. The Lists section
+below shows automatic repetition and item contexts. Here three model instances drive three nodes; `$items.2.title` selects the third
 item and `$items.length` is a read-only number. `data-label` declares a custom string property;
 `properties` JSON declares typed number/bool/string/color/enum/trigger properties when needed.
 Custom channels use `node.properties.name`; strings/enums are discrete, hold-only channels.
@@ -780,7 +885,7 @@ The label starts as `25 percent`; total is `1,234.50`. Other converter types:
 | `enum-to-index` | `values="calm happy angry"`; zero-based ordered member index. |
 | `list-length` | List to number. |
 | `number-to-list` | Bounded integer count to index values or repeated `item`; no retained model creation. |
-| `trigger` | Boolean passthrough or truncated integer counter; no trigger-destination delivery yet. |
+| `trigger` | Boolean passthrough or truncated integer counter; a trigger destination fires on output changes after the baseline, on the next step. |
 | `degrees-to-radians` | Multiply by pi/180; reverse multiplies by 180/pi. |
 | `normalize` | `from="0 100"`; reverse denormalizes, no implicit clamp. |
 
@@ -818,6 +923,7 @@ Common diagnostics carry a code, JSON pointer, message and hint (AniML also give
 | `data-property`, `data-enum` | Use valid property names, ordered numeric limits and unique enum members. |
 | `data-readonly` | Write an item property, not list length. |
 | `data-cycle` | Make nested defaults/references acyclic. |
+| `data-guard` | Match the declared literal type and use equality; asset literals need a typed declared asset. |
 | `data-asset` | Declare an asset with the reference's kind. |
 | `data-binding` | Reverse modes need a direct writable path and compatible target. |
 | `data-converter`, `convert-reference` | Declare the converter/group name. |
@@ -862,14 +968,86 @@ radians keep doubles; measured native differences are float32 storage precision.
 native dump is an observation limit. The unchanged findings and exact paths are linked in
 `anima docs convert`; they remain findings, not passing oracle comparisons.
 
-Not implemented: the 13 pending data inventory rows include data-backed keyframes, layout/text
-consumers, script inputs/model API/scripted converters, upward-relative component lookup, editor
-preview selection, export filtering, artboard references, contextual list-position properties and
-text-style properties. The converter-options row's named integration now exists, but its inventory
+Remaining data work includes layout/text consumers, scripting and text-style properties.
+Data-backed keyframes, relative component contexts, component-valued properties, exported instance
+discovery and contextual list indices are implemented; see the examples below. The converter-options row's named integration now exists, but its inventory
 status remains pending. The four pending convert rows cover HSL/component-format markers,
 retained number-to-model-list creation, counter delivery into trigger destinations and scripted
 converters. Scalar/index-list/boolean functions do not imply those broader capabilities. System
 enums declare vocabulary only; they do not implement future layout/text consumers.
+
+With `derive`, use `$title.length` directly in bindings or computed number properties; it is a
+read-only count of UTF-16 code units and follows title-only edits. For example
+`<number name="titleChars" value="$title.length"/>` needs no separately maintained auxiliary value.
+
+## Lists
+
+Use `count="$tracks.length"` for a live dot counter. Any readable numeric data path is accepted.
+`anima inspect` lists the currently existing repeated input slots, including triggers.
+
+Add `lists components data` to `requires` and import `@anima-format/web/lists` alongside
+components, data and bind. A repeat creates one component player per list item. Bindings in that
+component read the item: `$score` is its score, `$index` is its current zero-based position,
+and `$parent.bonus` reads the enclosing board. The component's data declaration names the item's
+model. `index` and `parent` are reserved property names (`reserved-name`).
+
+```xml
+<anima version="0.1" name="players" grid="30" requires="components data bind lists">
+  <model name="Player">
+    <number name="score"/>
+  </model>
+  <model name="Board">
+    <number name="bonus" default="2"/>
+    <list name="players" of="Player"/>
+  </model>
+  <instance name="main" model="Board" default="true">
+    <set path="players" value="[{&quot;score&quot;:3},{&quot;score&quot;:7}]"/>
+  </instance>
+  <component name="row" grid="10" data="Player">
+    <circle id="dot" cx="2" cy="2" r="1" fill="#000"/>
+    <bind target="dot.r" value="$score"/>
+    <bind target="dot.x" value="$index"/>
+    <bind target="dot.y" value="$parent.bonus"/>
+  </component>
+  <repeat id="rows" list="$players" component="row" dy="10" size="30 10"/>
+</anima>
+```
+
+`dy="10"` offsets each row by its current index; `dx` works the same way. `size="30 10"`
+overrides each instance's local bounds without scaling its geometry. Inserting, removing or swapping
+list objects preserves the surviving component players, including clocks and machine state.
+A removed item releases its player. Repeated references to one object have separate players,
+matched in occurrence order. There can be at most 256 live repeated instances per player.
+
+For mixed models, use `component="Player:row Header:heading"`; JSON uses
+`"component": {"Player":"row","Header":"heading"}`. Declare each mapped component with its own
+model. A missing mapping for a list with a known model is `list-map`; an unmapped runtime model is
+skipped and recorded in `listState(player).warnings` from `@anima-format/core/lists`.
+
+An explicit `<instance id="badge" component="row" data="$team"/>` supplies a model reference;
+`data="main"` selects a named instance. A component without `data` inherits its parent's context.
+Inside a nested component, `$parent.parent.bonus` walks two context levels. `$index` is read-only;
+relative parent paths are read-only too. A component with `data="Player"` keeps its own default
+Player storage when it is placed without an explicit context.
+
+Use `count` when a number supplies the length. This is the number-to-list form of a repeat;
+instances retain index identity as the count grows and shrinks. Counts are floored, negative counts
+produce no items, and counts above 256 are rejected.
+
+```xml
+<anima version="0.1" name="stars" grid="20" requires="components data bind lists">
+  <model name="Board"><number name="stars" default="3"/></model>
+  <component name="star" grid="4">
+    <circle id="dot" cx="2" cy="2" r="1" fill="#e90"/>
+    <bind target="dot.opacity" value="1 - $index / 10"/>
+  </component>
+  <repeat id="stars" count="$stars" component="star" dx="4"/>
+</anima>
+```
+
+`anima schema repeat` lists both source fields. Inspect and sample accept the same documents;
+select `rows/0/dot.r` in snapshots and use `rows.0.input` for a child input. Browser hosts using
+AniML also import `@anima-format/web/markup-components` for component and repeat authoring.
 
 ## Page data API (host module)
 
@@ -901,5 +1079,168 @@ instances, `get('$main:score')` for an explicit read. `.boolean`, `.color`, `.en
 `.list`, `.image`, `.font` work like `.number`. `.trigger('$pulse').fire()` sends a
 signal. Catch `DataError` to inspect `code`, `pointer`, `message`, `hint`.
 
-`examples/page.html` is a self-contained page using the built browser bundles.
+`examples/web/index.html` is a self-contained page using the built browser bundles.
 See `anima docs host` for the complete host contract.
+
+## Editing page data (host-edit module)
+
+Import `@anima-format/web/data`, `@anima-format/web/host`, and
+`@anima-format/web/host-edit` (either host load order). Await the imports, then
+`await customElements.get('anima-icon').ready`. This is module registration readiness;
+`await icon.ready` waits for that icon's document.
+
+```js
+icon.data.bind(icon.data.defaultInstance());
+const tracks = icon.data.list('$tracks');
+const first = tracks.at(0);
+icon.data.batch(() => {
+  tracks.add({ title: 'Next' });
+  tracks.insert(0, { title: 'Intro' });
+});
+// Changes appear on the next frame, or player.step(0) for manual playback.
+// After that frame:
+tracks.swap(0, 1);
+tracks.remove(first); // follows the item identity, even after a move
+icon.data.color('$accent').set([217, 119, 87, 255]);
+console.log(icon.data.color('$accent').rgba, icon.data.color('$accent').hex);
+icon.data.enum('$mood').index = 1;
+console.log(icon.data.enum('$mood').values);
+```
+
+`tracks.length` is read-only; `tracks.at(i).string('title')` is a typed nested handle.
+Call the nested accessor again after reordering to obtain its current property path.
+To insert a shared or mixed-model item, pass `icon.data.instance('named')` or the record returned
+by `icon.data.create('Track', values)`. `defaultInstance()` discovers but does not bind the default.
+
+List helpers preserve stored item objects for the lists module's repeat matching. Whole-list
+`.set()` remains a replacement. In a step mixing helpers with ordinary host `.set()` writes,
+helpers apply first; use separate steps when the order matters.
+
+With components imported, `icon.instance('badge').data` addresses the existing child's models.
+`<anima-icon component="badge" src="icons.ani">` selects a component as root. Set the component
+attribute before loading; change it and reload to select another component.
+
+For images, point the property at a declared image asset first, then:
+
+```js
+await icon.data.image('$cover').set('/images/cover.png');
+await icon.data.image('$cover').set(fileBlob);
+```
+
+These promises wait for decode. The next frame applies the decoded replacement to uses of the
+current asset in that icon; the data value remains its asset name. Failed decode rejects with a
+`DataError`. Use `assetPolicy = 'any'` (assets module) for external URLs. Core-only consumers can
+set declared asset names, while URLs and Blobs require the web consumer.
+
+For typed constructor readiness, import `AnimaIcon` from `@anima-format/web/host-edit` and await
+`AnimaIcon.ready` after all desired module imports. The base web constructor has no preload cost.
+
+### Typed guards, colour markers and exported instances
+
+Data paths accept equality literals of their declared type: `$mood == "happy"`,
+`$ready == true`, `$tint == #d97757`, or `$avatar == asset("photo")`. Enum members must
+exist; an asset id must name the declared asset type. Use `==` or `!=`; a trigger stays
+`when="$levelUp"`. Double quotes in AniML attributes need `&quot;`, and conjunctions need
+`&amp;&amp;`. A quoted string may itself contain `&&`. Colors compare RGBA, including alpha.
+
+A `color-format` converter can use `pattern="{h} {s}% {l}%"`. The markers `{r} {g} {b} {a}`
+produce integer RGBA bytes, `{h}` rounded hue degrees, `{s}`/`{l}` rounded percentages and
+`{hex}` lowercase `#rrggbb`. Achromatic hue is zero. Other text passes through; unknown markers
+are load errors.
+
+A binding target can be a trigger. Conversion runs once per step; the first result establishes
+a baseline. Each later converted-value change queues one pulse for the next step. A change
+from 1.1 to 1.9 through `trigger` stays integer 1 and does not pulse; a change to 2 does. Both
+directions of a value change fire. Use forward-only `to-target` or `once` modes.
+
+This complete example is compiled as [data-extras.ani](../modules/data/examples/data-extras.ani)
+from [data-extras.animl](../modules/data/examples/data-extras.animl):
+
+```xml
+<anima version="0.1" name="data-extras" grid="20" requires="data bind convert">
+  <model name="Player">
+    <enum name="mood" values="calm happy" default="calm"/>
+    <color name="tint" default="#d97757"/>
+    <bool name="ready"/>
+    <number name="level"/>
+    <trigger name="levelUp"/>
+  </model>
+  <instance name="main" model="Player" default="true" export="true"/>
+  <converter name="hsl" type="color-format" pattern="{h} {s}% {l}%"/>
+  <converter name="pulse" type="trigger"/>
+  <circle id="dot" cx="10" cy="10" r="1" fill="#d97757" data-label=""/>
+  <bind target="dot.properties.label" value="$tint" convert="hsl"/>
+  <bind target="$levelUp" value="$level" convert="pulse"/>
+  <layer name="status" initial="idle">
+    <state name="idle">
+      <pose dot.r="1"/>
+      <on when="$mood == &quot;happy&quot; &amp;&amp; $ready == true &amp;&amp; $tint == #d97757" to="ready"/>
+    </state>
+    <state name="ready"><pose dot.r="3"/><on when="$levelUp" to="levelled"/></state>
+    <state name="levelled"><pose dot.r="5"/></state>
+  </layer>
+</anima>
+```
+
+```sh
+anima inspect modules/data/examples/data-extras.ani
+anima sample modules/data/examples/data-extras.ani -e 'advance 0; set $mood "happy"; set $ready true; advance 0; set $level 1; advance 0; advance 0; snapshot dot.r dot.properties.label'
+anima docs data
+anima docs convert
+```
+
+Instance JSON `exported: true` is AniML `export="true"`. Hosts importing `dataState` from
+`@anima-format/web/data` can call `dataState(icon.player).exports()` to discover explicitly
+exported authored `{name,model}` records. Internal private instances remain usable in bindings;
+the existing host/host-edit all-instance list keeps its own behavior.
+
+Data-bound keyframe values (`value="$peak"`) read each player's current data; import `data` and
+`motion`. The following example also shows the element form.
+
+### Live key values and component selections
+
+Import `data` and `motion` for player-local key values. This track interpolates from zero to the
+player's current `peak`, including when `peak` changes while paused or during a state blend:
+
+```xml
+<anima version="0.1" name="data-bind-keyframes" grid="20" requires="data motion">
+  <model name="Levels">
+    <number name="peak" default="8"/>
+  </model>
+  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+  <timeline name="rise" duration="1">
+    <track target="probe.r">
+      <key t="0" value="0"/>
+      <key t="1" value="$peak"/>
+    </track>
+  </timeline>
+  <layer name="main" initial="run">
+    <state name="run" play="rise"/>
+  </layer>
+</anima>
+```
+
+The complete compiled pair is [data-keys.animl](../modules/motion/examples/data-keys.animl) /
+[data-keys.ani](../modules/motion/examples/data-keys.ani). JSON keys retain ordinary tuples:
+`[1, "$peak"]`. Both endpoints resolve against that player; independent players and timeline
+instances never modify one another's key values.
+
+A model's `<component name="card" default="row"/>` stores a local definition name. With
+`data components nested`, use `<instance id="badge" component="$card"/>` and guards such as
+`when="$card == component(&quot;row&quot;)"`. These typed guards do not require `bind`.
+Complete compiled guard example: [component-guard.animl](../modules/nested/examples/component-guard.animl) /
+[component-guard.ani](../modules/nested/examples/component-guard.ani).
+
+With host and host-edit imported, bind the icon's default data instance (or set `auto-bind`):
+
+```js
+const card = icon.data.component('card');
+card.on('change', (name) => console.log(name));
+card.set('box'); // commits on the next step, rebuilding the consuming badge
+card.value;      // the committed local component name
+```
+
+Use the same name to retain the current child, `''` to hide it, or another declared name to start
+that component with default state. The handle uses the ordinary shared host write queue and
+subscriptions; another root icon keeps its own selection. `icon.instance('badge')` addresses the
+selected nested player. It is distinct from the component-valued data handle.

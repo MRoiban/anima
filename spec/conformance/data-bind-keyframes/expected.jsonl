@@ -1,0 +1,4 @@
+{"time":0.25,"values":{"probe.r":2},"states":{"main":"run"},"events":[],"settled":false}
+{"time":0.25,"values":{"probe.r":4},"states":{"main":"run"},"events":[],"settled":false}
+{"time":0.5,"values":{"probe.r":8},"states":{"main":"run"},"events":[],"settled":false}
+{"time":0.5,"values":{"probe.r":12},"states":{"main":"run"},"events":[],"settled":false}

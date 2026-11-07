@@ -1,6 +1,7 @@
 // Transition conditions (spec §8): term ("&&" term)*.
 
-import type { Value } from './load.ts';
+import type { Model, Value } from './load.ts';
+import type { Diags } from './diag.ts';
 import { VERBOSE as V } from './flags.ts';
 
 export type Op = '==' | '!=' | '<' | '<=' | '>' | '>=';
@@ -26,8 +27,14 @@ const AFTER = new RegExp(`^@after\\(\\s*${NUM}\\s*\\)$`);
 
 /** Parse a condition. Returns its terms, or an error message. */
 export function parseCondition(src: string): Term[] | string {
+  const parts = [''];
+  // Quoted literals are opaque: a string can contain the conjunction token.
+  for (const token of src.split(/("(?:[^"\\]|\\.)*"|&&)/)) {
+    if (token === '&&') parts.push('');
+    else parts[parts.length - 1] += token;
+  }
   const terms: Term[] = [];
-  for (const raw of src.split('&&')) {
+  for (const raw of parts) {
     const t = raw.trim();
     let m: RegExpExecArray | null;
     if (t === '@end') terms.push({ k: 'end' });
@@ -48,4 +55,32 @@ export function parseCondition(src: string): Term[] | string {
 /** Typed scalar comparison shared by guard and bind expression evaluation. */
 export function compare(x: Value, y: Value, op: string): boolean {
   return { '==': x === y, '!=': x !== y, '<': x < y, '<=': x <= y, '>': x > y, '>=': x >= y }[op]!;
+}
+
+/** Modules own literal type/name validation; core owns syntax and comparison. */
+export function literalCondition(
+  model: Model,
+  term: Extract<Term, { k: 'expr' }>,
+  at: string,
+  d: Diags,
+): boolean {
+  const call = /^([a-z][a-zA-Z0-9-]*)\(\s*("(?:[^"\\]|\\.)*")\s*\)$/.exec(term.b.trim());
+  const functions = model.guardLiterals;
+  const resolve = call && functions && Object.hasOwn(functions, call[1]!) && functions[call[1]!];
+  if (!resolve) return false;
+  let value: Value | undefined;
+  try {
+    value = resolve(JSON.parse(call![2]!) as string, term.a.trim());
+  } catch {
+    // Malformed JSON string escapes are diagnosed with the other typed literal errors.
+  }
+  if (value === undefined || !['==', '!='].includes(term.op))
+    d.err(
+      'guard-literal',
+      at,
+      V && 'literal function does not match the property or comparison',
+      V && 'use == or != with a declared name and the matching property type',
+    );
+  term.test = (scope) => compare(scope.get(term.a.trim())!, value!, term.op);
+  return true;
 }

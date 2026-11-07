@@ -1,0 +1,100 @@
+{
+  "anima": "0.1",
+  "name": "nested-controls",
+  "grid": 30,
+  "requires": ["components", "nested", "data", "bind"],
+  "nodes": [
+    {
+      "id": "clocked",
+      "type": "instance",
+      "component": "row",
+      "time": "$t",
+      "fps": 12,
+      "size": [20, 10],
+      "fit": "contain",
+      "align": "right"
+    },
+    {
+      "id": "selected",
+      "type": "instance",
+      "x": 20,
+      "component": "$card"
+    },
+    {
+      "id": "indicator",
+      "type": "circle",
+      "center": [2, 15],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
+    }
+  ],
+  "components": {
+    "row": {
+      "grid": 10,
+      "inputs": {
+        "count": {
+          "type": "number",
+          "default": 3
+        }
+      },
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [5, 5],
+          "r": 1,
+          "fill": {
+            "color": "#d97757"
+          }
+        }
+      ],
+      "timelines": {
+        "grow": {
+          "duration": 1,
+          "tracks": {
+            "dot.r": [
+              [0, 1],
+              [1, 4]
+            ]
+          }
+        }
+      },
+      "machine": {
+        "layers": {
+          "main": {
+            "initial": "growing",
+            "states": {
+              "growing": {
+                "play": "grow"
+              }
+            }
+          }
+        }
+      },
+      "outputs": {
+        "done": "count > 0"
+      }
+    }
+  },
+  "bind": {
+    "indicator.opacity": "clocked.outputs.done"
+  },
+  "data": {
+    "models": {
+      "Controls": {
+        "properties": {
+          "t": {
+            "type": "number",
+            "default": 0.5
+          },
+          "card": {
+            "type": "component",
+            "default": "row"
+          }
+        }
+      }
+    }
+  }
+}

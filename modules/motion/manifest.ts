@@ -55,6 +55,8 @@ export default {
       'host-api-scrub',
       'state-machine-exit-time-seconds',
       'transforms-origin-animation',
+      'data-bind-keyframes',
+      'data-bind-keyframes-blend',
     ],
     docs: ['spec/SPEC.md', 'spec/ANIML.md', 'docs/WEB.md'],
   },

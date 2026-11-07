@@ -13,6 +13,7 @@ export const options: Record<string, Shape> = {
   reverse: b,
   decimals: { k: 'num', min: 0, max: 100, int: true },
   grouping: b,
+  pattern: s,
   format: { k: 'str', of: ['hex', 'hexa', 'rgb', 'rgba'] },
   length: { k: 'num', min: 0, max: 10000, int: true },
   fill: s,

@@ -1,0 +1,44 @@
+{
+  "anima": "0.1",
+  "name": "data-converter-color-formatting",
+  "grid": 20,
+  "requires": ["data", "bind", "convert"],
+  "nodes": [
+    {
+      "id": "dot",
+      "type": "circle",
+      "center": [10, 10],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      },
+      "properties": {
+        "label": ""
+      }
+    }
+  ],
+  "bind": {
+    "dot.properties.label": {
+      "value": "$value",
+      "convert": "fmt"
+    }
+  },
+  "data": {
+    "models": {
+      "Root": {
+        "properties": {
+          "value": {
+            "type": "color",
+            "default": "#ff000080"
+          }
+        }
+      }
+    }
+  },
+  "converters": {
+    "fmt": {
+      "type": "color-format",
+      "pattern": "{h} {s}% {l}%"
+    }
+  }
+}

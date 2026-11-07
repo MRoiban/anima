@@ -1,0 +1,6 @@
+tests/oracle/cases.json 245 inherited entries unchanged; 5 additions
+tests/oracle/metrics.json 245 inherited entries unchanged; 5 additions
+tests/oracle/findings-metrics.json 24 inherited entries unchanged; 1 additions
+1238 parity statuses unchanged
+2987 tracked files in all 245 completed baseline oracle trees unchanged
+Ownership/binary/scaffold-documentation audit passes; no tools, thresholds or forbidden module sources changed

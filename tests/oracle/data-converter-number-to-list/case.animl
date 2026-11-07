@@ -1,4 +1,29 @@
-<!-- TODO: data.converter-number-to-list; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="data-converter-number-to-list" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="players" grid="30" requires="components data bind lists">
+  <model name="Player">
+    <number name="score"/>
+  </model>
+  <model name="Board">
+    <number name="bonus" default="2"/>
+    <list name="players" of="Player"/>
+    <number name="n" default="2"/>
+  </model>
+  <instance name="main" model="Board" default="true">
+    <set path="players" value="[{&quot;score&quot;:3},{&quot;score&quot;:7}]"/>
+  </instance>
+  <component name="row" grid="10" data="Player">
+    <trigger name="go"/>
+    <layer name="selection" initial="idle">
+      <state name="idle">
+        <on when="go" to="selected"/>
+      </state>
+      <state name="selected">
+        <pose dot.scale="0.5"/>
+      </state>
+    </layer>
+    <circle id="dot" cx="2" cy="2" r="1" fill="#000"/>
+    <bind target="dot.r" value="$score"/>
+    <bind target="dot.x" value="$index"/>
+    <bind target="dot.y" value="$parent.bonus"/>
+  </component>
+  <repeat id="rows" count="$n" component="row" dy="10" size="30 10"/>
 </anima>

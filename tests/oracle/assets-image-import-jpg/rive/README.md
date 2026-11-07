@@ -1,0 +1,1 @@
+Original 2×2 RGBA pixels, encoded by the Anima CLI encoder at quality 0.8 for JPEG/WebP. This compares independent native and Anima decoding of the same authored bytes; it does not claim identical native encoder output. Source files live under modules/assets/probes/import-formats.

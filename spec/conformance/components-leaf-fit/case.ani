@@ -1,0 +1,50 @@
+{
+  "anima": "0.1",
+  "name": "components-leaf-fit",
+  "grid": 20,
+  "requires": ["components", "nested", "bind"],
+  "nodes": [
+    {
+      "id": "badge",
+      "type": "instance",
+      "component": "row",
+      "size": [20, 10],
+      "fit": "contain",
+      "align": "right"
+    }
+  ],
+  "components": {
+    "row": {
+      "grid": 10,
+      "viewBox": [-5, -5, 10, 10],
+      "inputs": {
+        "count": {
+          "type": "number",
+          "default": 2
+        }
+      },
+      "nodes": [
+        {
+          "id": "dot",
+          "type": "circle",
+          "center": [0, 0],
+          "r": 2,
+          "fill": {
+            "color": "#000"
+          }
+        }
+      ],
+      "listeners": [
+        {
+          "on": "click",
+          "set": {
+            "count": 1
+          }
+        }
+      ],
+      "bind": {
+        "dot.r": "count"
+      }
+    }
+  }
+}

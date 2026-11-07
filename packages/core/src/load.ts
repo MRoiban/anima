@@ -4,7 +4,7 @@
 import { drawTree, type DrawTree } from './draw.ts';
 import { checkDoc } from './check.ts';
 import { type RGBA, parseHex } from './color.ts';
-import { type Term, parseCondition } from './cond.ts';
+import { type Term, parseCondition, literalCondition } from './cond.ts';
 import { type Diagnostic, Diags, ptr, suggest } from './diag.ts';
 import { VERBOSE as V } from './flags.ts';
 import { type EaseFn, hold, linear, parseEase } from './ease.ts';
@@ -52,12 +52,14 @@ export interface Addr {
   rest: Value;
 }
 
+export type KeyValue = Value | ((player: import('./player.ts').Player) => Value);
+
 export interface TrackM {
   addr: string;
   times: number[];
-  values: Value[];
+  values: KeyValue[];
   eases: EaseFn[];
-  sample?: (time: number) => Value;
+  sample?: (time: number, player?: import('./player.ts').Player) => Value;
 }
 
 export interface TimelineM {
@@ -172,6 +174,13 @@ export interface PlaybackPolicy {
   compose(dt: number, values: Value[], events: import('./player.ts').AnimaEvent[]): boolean;
 }
 export interface Model {
+  /** Optional module-owned, typed literal functions in direct equality guards. */
+  guardLiterals?: Record<string, (argument: string, path: string) => Value | undefined>;
+  /** Compile a player-local key value without rewriting the authored track. */
+  keyValue?: (addr: Addr, raw: unknown, pointer: string, d: Diags) => KeyValue | undefined;
+  /** Optional typed guard compilation; installed by data without growing bind. */
+  guard?: (term: Extract<Term, { k: 'expr' }>, pointer: string, d: Diags) => boolean | undefined;
+
   /** Optional typed data scope and post-state binding pass. */
   afterStep?: (player: import('./player.ts').Player) => void;
   signal?: (player: import('./player.ts').Player, name: string) => void;
@@ -575,7 +584,9 @@ function resolve(doc: Raw, d: Diags): Model {
         if (ad?.prop.type === 'bool' && e !== undefined && ef !== hold)
           d.err('bad-ease', kp + '/2', V && 'boolean keys only take "hold"');
         tr.times.push(t);
-        tr.values.push(ad ? (value(ad, val, kp + '/1') ?? 0) : 0);
+        tr.values.push(
+          ad ? (model.keyValue?.(ad, val, kp + '/1', d) ?? value(ad, val, kp + '/1') ?? 0) : 0,
+        );
         tr.eases.push(ef);
       });
       if (ad) {
@@ -749,6 +760,7 @@ function resolve(doc: Raw, d: Diags): Model {
             } else if (term.k === 'cmp') needInput(term.name, wp, ['number'], V && 'a comparison');
             else if (term.k === 'expr') {
               if (term.test) continue;
+              if (literalCondition(model, term, wp, d) || model.guard?.(term, wp, d)) continue;
               const run = inputExpression(
                 model,
                 `${term.a} ${term.op} ${term.b}`,

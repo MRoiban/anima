@@ -1,0 +1,12 @@
+{
+  "status": "skip",
+  "reason": "Native exclusion controls editor export (excludeFromRev/contents), while all content remains in the headless scene; no byte-exclusion export command exists in the permitted route. Publishing/editor-revision or binary inspection would be required and is prohibited.",
+  "tests": ["modules/assets/test/cli/pipeline.test.ts", "modules/assets/test/web/pipeline.test.ts"],
+  "captureEvidence": [
+    "modules/assets/probes/native-capabilities.json",
+    "modules/assets/probes/native-capabilities.ts",
+    "modules/assets/probes/encoding/png/session.txt",
+    "modules/assets/probes/encoding/jpeg/session.txt",
+    "modules/assets/probes/encoding/webp/session.txt"
+  ]
+}

@@ -21,7 +21,7 @@ P4e-3 API; final integration still needs the shared spec/docs chapter and diagno
 | host-api.data-font | Decided API implemented for declared font asset IDs; decoded-font replacement consumer is not in data/§7. CLI rejects font writes (oracle/unsupported). |
 | host-api.data-image | Decided API implemented for declared image asset IDs; decoded-image replacement consumer is outside §7. CLI rejects image writes (oracle/unsupported). |
 | host-api.nested-models | Decided $nested.property and $list.0.property paths implemented; slash paths and null-on-mismatch conflict with the decided $ syntax/typed errors. |
-| host-api.global-models | Root models/instances available; separate global-name and child-context APIs were not specified in §7 and remain pending. |
+| host-api.global-models | Implemented with host-edit globals()/setGlobal() and host-owned atomic rebindInstance; existing child and repeat contexts tested. |
 | host-api.data-artboard | Pending P5 component-value/placement interface; §7 explicitly lists no artboard handle. |
 
 Host has no new JSON or AniML fields: registry entries/both spellings are not applicable.

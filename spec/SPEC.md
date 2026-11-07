@@ -484,6 +484,8 @@ continues to include only animated addresses, never inputs.
 | `unknown-state` | error | `initial` or `to` names a state that is not in the layer. |
 | `state-kind` | error | A state has both or neither of `pose` and `play`, or `speed` without `play`. |
 | `bad-condition` | error | A condition does not parse. |
+| `guard-literal` | error | A module literal function uses the wrong property, name or operator; use ==/!= with a matching typed property. |
+| `data-keyframe` | error | A key source path or live channel value has the wrong type; use compatible scalar data. |
 | `unknown-input` | error | A condition, listener or `a11y` names an input that is not declared. |
 | `input-type` | error | An input is used in a way its type does not allow (`a11y.activate` needs a trigger or bool; `pressed` and `held` need bools). |
 | `bad-end` | error | `@end` on a pose state or a looping timeline. |
@@ -578,7 +580,7 @@ Let the box be W×H and the intrinsic size I×J. The image is scaled and clipped
 |---|---|
 | `contain` (default) | min(W/I, H/J) |
 | `cover` | max(W/I, H/J) |
-| `fill` | x=W/I, y=H/J |
+| `fill`, `resize` | x=W/I, y=H/J |
 | `none` | 1 |
 | `scale-down` | min(1, W/I, H/J) |
 | `fit-width` | W/I |
@@ -601,6 +603,35 @@ cannot express all seven fit modes. Backends receive `Geometry.kind: "image"`, b
 and renderer-neutral image metadata (asset, source, intrinsic size, fit, align, sampling).
 SVG uses a nested clipped viewport and an image leaf; transforms stay on the node's group.
 The host resolves missing intrinsic dimensions before rendering; core draw data keeps them absent.
+
+### Image wrapping (P5b)
+
+`wrap` is `clamp`, `repeat` or `mirror`. `wrapX`/`wrapY` (AniML `wrap-x`/`wrap-y`)
+override their axis independently; an axis without its own value takes `wrap`, and `wrap` defaults to
+`clamp` once any wrap control is authored. An image with **no** wrap control draws only its fitted
+source rectangle, as before P5b (decided for compatibility: existing contain/none renders and their
+conformance cases are unchanged). Fit and alignment first establish the fitted source rectangle.
+Clamp extends the edge texels outside the fitted source rectangle to the box boundary. Repeat
+tiles it in both directions; mirror reflects every odd tile, including negative tile indices.
+Width/height animation
+recomputes fit and pattern extent. Nearest clamp extends isolated edge texels on both backends,
+including mixed periodic/clamped axes and centred alignment. `resize` is the `fill` alias: both axes stretch independently to the box.
+The optional browser entry `@anima-format/web/paint-sampling` imports paint and installs SVG
+wrapping. The ordinary paint entry declines explicit wrap controls with `unsupported-render` and an import
+hint; it does not bundle pattern code. CLI/static SVG includes the backend. SVG uses user-space patterns and transformed groups for
+reflected tiles, keeping transforms off
+image leaves. Canvas uses equivalent source tiles. Filtering remains nearest/bilinear as above;
+SVG declines bilinear `repeat` with `unsupported-render` at the repeating axis, a reason about
+independent image filtering, and a nearest/canvas hint. A native UV-mesh probe measured maximum
+channel delta 188 and 36,852/57,600 pixels above 16 before declining this combination (see
+modules/assets/probes/native-measurements.json). Nearest repeat and mirror pass crisp native probes.
+SVG also declines bilinear clamp when the fitted source leaves margins: stretching a clipped
+texel would interpolate adjacent colours rather than hold the edge colour. This reports
+`unsupported-render` at `/nodes/<index>/sampling` with a nearest/canvas hint. Canvas isolates and
+pads texels before filtering; it implements bilinear clamp and mixed-axis wrapping.
+GPU/rasterizer edge differences are not a claim of bit-identical rendering. Invalid wrap enums
+use the existing `bad-value` structural diagnostic at the authored property. No new player state is
+introduced. Both source syntax spellings and deterministic width tracks have conformance probes.
 
 ### Gradients
 
@@ -980,8 +1011,8 @@ feedback loops described in [animation/state research](../docs/research/rive-ani
 ## assets
 
 The optional `assets` module adds an `assets` map and image draw data. Image nodes also
-require `paint`. Core validation and `Player.step` perform no IO. Fonts, audio and blobs
-are declarations only; their consumers arrive in P6/P4d.
+require `paint`. Core validation and `Player.step` perform no IO. Fonts remain declarations until P6;
+audio/blob consumers are optional host modules.
 
 Each named asset is `{ type, source, storage?, width?, height? }`. `type` is `image`, `font`,
 `audio` or `blob`. `source` is required and nonempty: a data URI or URL (relative URLs are
@@ -989,12 +1020,20 @@ relative to the document). Optional `storage` is `embedded` for data URIs or `re
 for URLs; omitted storage is inferred. A disagreement is `asset-storage` at `/assets/<name>/storage`.
 `width` and `height`, when present, are positive intrinsic dimensions, in grid units for
 layout. Omitted dimensions are decoded by the host before drawing. Declared dimensions override
-decoded dimensions independently. Data URIs use percent encoding or padded standard base64;
+decoded dimensions independently. Decoded pixel counts remain separate host resource information;
+authored width/height change layout, never the texel count used for clamped edge cropping.
+Browser and CLI decoders supply these counts without adding a document field. Data URIs use percent encoding or padded standard base64;
 malformed encoding is `bad-data-uri` at the source. An empty source is `missing-source`;
 an absent source is `missing-key` at the asset object. Messages carry a repair hint.
 
 AniML declares `<asset name="photo" type="image" src="photo.png" storage="referenced"/>`
-at document level; registry `source` maps to `src`. All other field spellings match JSON.
+at document or component level; registry `source` maps to `src`. All other field spellings match JSON.
+A component resolves asset names in its own catalog, then its enclosing component/document catalogs
+up to the root. A local declaration shadows the same outer name, even if its type is wrong.
+This scope applies to image nodes, image/audio `asset-ref` values and event audio clips. Missing or
+wrong-kind references report the offending node, event or data property/value JSON pointer;
+default data asset errors point to `/data/models/<model>/properties/<property>/default`.
+Image hit targets use their current rectangular bounds, including animated width/height.
 
 The browser module `@anima-format/web/assets` registers assets and the SVG image backend;
 image documents also import `@anima-format/web/paint`. Images decode before `anima:load` and
@@ -1004,16 +1043,87 @@ replaces the source before decode; `info` is a copy of the authored declaration.
 or image decode failure empties the icon and dispatches `anima:error` with `asset-load`, the
 source pointer, message and hint. Embedded data URIs require no network. Resolved data is private
 to the loaded model; source declarations are preserved. Superseded loads cannot install their scene.
-Fonts/audio/blob do not load or invoke the resolver yet.
+Audio/blob byte access and policy are specified below; fonts remain declarations.
 
 `anima build --embed` embeds local referenced assets (paths relative to the source file), sets
-storage to `embedded`, and changes no fields outside the assets map. It supports AniML and
+storage to `embedded`, and visits root and component-local catalogs, including imported libraries.
+Imported sources resolve relative to the file declaring that asset; diagnostics keep the complete
+component asset pointer. The built file's embedded assets work after the source tree is removed. It supports AniML and
 AniML scripts in HTML. Already embedded assets are unchanged. Other URL schemes cannot be read
 by this disk build and report `asset-load`; HTTP asset fetching is a browser host responsibility.
 `anima render` embeds local image sources and decodes intrinsic sizes through resvg before
 rendering; other asset types remain declarations. IO/decode failures report `asset-load` at
-`/assets`, with a message and hint. Build does not decode or transcode image bytes.
+`/assets`, with a message and hint. Build inspection and encoding are specified below.
 
+
+### P5b asset pipeline
+
+Asset declarations also accept `size` (nonnegative integer bytes), `mime` (MIME string),
+`metadata` (a JSON object, AniML `metadata='{"credit":"self"}'`), and the build-only
+`encode`, `quality` and `export` options. Resolver metadata includes every authored field;
+its copy is detached, including nested metadata. Source declarations are never mutated by host IO.
+`encode` is `png`, `jpeg` or `webp`; `quality` is in [0,1] and requires `encode`.
+These two options are image-only. PNG ignores quality; JPEG/WebP pass it to the browser encoder.
+Audio-only `start` and `end` are clip offsets in seconds; `duration` is the full source duration.
+Omitted start is zero and omitted end is decoded duration. Require `0 <= start < end <= duration`
+when the relevant bounds are known. Wrong-type options are `asset-option` at the option;
+invalid bounds are `asset-clip` at `/assets/<name>/start` or `/end`. Both carry repair hints.
+All fields have identical JSON/AniML names except `source` → `src`.
+
+`icon.assetPolicy` is `local` (default) or `any`; other assignments throw RangeError.
+Without a custom resolver, local policy permits data URIs and same-origin HTTP(S)/blob URLs,
+relative to the document source URL. Any permits other origins, retaining the protocol allowlist.
+A custom `icon.assets(name, info)` resolver explicitly authorizes its returned URL or Blob;
+relative returned URLs still resolve against the document source URL. This policy applies to
+image loading and event audio; browser CORS and media permissions still apply. Failed policy,
+network or image decoding emits `asset-load` at the source with a resolver/policy repair hint.
+Changing policy affects subsequent loads, not already decoded resources.
+
+Import `@anima-format/web/media` for lazy audio/blob byte access; it imports assets and contributes
+no new document fields. `icon.asset(name)` returns a promise of ArrayBuffer for audio/blob and
+source URL for images/fonts. Byte loads use the same resolver/policy, cache by model and asset,
+retry after a failure, and emit `asset-load` before rejecting with its diagnostics. Unknown names
+reject with RangeError. Audio decoding remains the consumer's responsibility; events uses Web
+Audio on demand after activation, as specified in events. Clip events start at `start` and play
+for `end-start`; invalid decoded bounds emit `event-audio-load`. Neither policy nor media IO changes
+Player.step output. The assets entry imports a separately budgeted `assetio` host-IO entry automatically, and preloads
+images in reachable component catalogs as well as the root. Keeping media in its own entry follows the optional consumer principle in
+`docs/research/rive-web-runtime.md` §1; no native code or document format is copied.
+
+Build inspects local and embedded PNG/JPEG/WebP/WAV/MP3/FLAC signatures, dimensions or duration.
+Extension/MIME/signature disagreement or wrong media kind is `asset-format` at the asset source;
+read/truncation/decode errors are `asset-load`. Metadata `size`, `mime` and audio `duration` are
+written from inspected bytes; clip bounds are checked against inspected duration. PNG/JPEG pixels
+are validated with resvg, WebP with cached Chromium. Audio inspection validates container/frame
+headers, not complete audio decoding; host decoding remains authoritative. Disk build never fetches
+network URLs. Blob payloads remain opaque: their bytes are not decoded or container-validated,
+MIME comes from the declaration or URL hint (otherwise application/octet-stream), size is the
+byte length, and audio-only duration is never attached. Build embedding is byte-preserving without `encode`. PNG encoding runs in-process;
+WebP input needs Chromium to decode because resvg cannot decode WebP. JPEG/WebP encoding uses the
+cached headless Chromium canvas. A command owns one lazy browser shared by all images and HTML
+scripts; each operation closes its page and the command closes its browser on success or failure.
+PNG-only commands do not launch a browser unless they need WebP input decoding. Missing/unlaunchable Chromium is `build-encoder-unavailable` at
+`/assets/<name>/encode` (or `/source` for WebP validation), hinting `CHROMIUM_PATH`.
+`export=false` excludes bytes from embedding/encoding/inspection, preserving the source declaration
+and resolver name so references remain valid; the host supplies that source. An already embedded
+source becomes `anima:<name>` with referenced storage, so its bytes are actually excluded; this
+placeholder requires a resolver. It does not delete
+referenced names from the asset map. Build transformations apply equally to AniML and HTML scripts.
+
+`anima import file.svg [-o out.animl]` imports paths, rects, circles, ellipses, lines/polygons,
+groups, inherited fills/strokes (hex, basic named and RGB/RGBA colours), user-space linear/radial gradients, and translate/scale/rotate
+or nonskew affine matrix transforms. Transform lists become nested groups to preserve order.
+Unsupported elements/attributes/paint servers/transforms emit `import-unsupported` warnings with
+SVG element/attribute paths. Unsupported geometry is omitted with a warning. The import never
+fetches external references. `anima import file.json` accepts Lottie shape layers, groups, paths,
+static rects/ellipses, fills/strokes, transforms and scalar/vector/path keyframes with hold or
+cubic easing; stroke trim paths map to normalized trim fractions. Layer order reverses to preserve
+Lottie's back-to-front order. Unsupported fields/features (including images, expressions, masks,
+effects, skew, spatial curves, partial layer time ranges, animated anchors/primitive sizes and
+paint opacity) warn at their JSON pointer. These warnings describe lossy imports, not exact parity.
+Malformed XML/JSON or invalid import roots/clocks report `import-invalid` at the empty root
+pointer with a source-format repair hint. All imported documents are validated before output. JSON command output includes diagnostics and
+text or output path. The importer is independent of Rive.
 
 ## components
 
@@ -1057,8 +1167,8 @@ errors, just like local inputs.
 Pointers are transformed through the inverse instance world matrix and routed to each child
 player. Invisible or singular instances receive `leave`. The child's own hit areas and listeners
 then operate in local grid units; parent listener targets on instances use their local viewBox.
-Instances do not establish a viewport clip or automatic fit; use their ordinary transforms and
-composite clipping to place/clip them.
+Instances do not establish a viewport clip or automatic fit by default; the optional `nested`
+module adds explicit fit/align into size. Use composite clipping when a viewport clip is needed.
 
 A child's events are returned by that parent step as `<instanceId>.<event>`; nested names continue
 with dots. Event layers use slash scope (`outer/inner/layer`), retaining null for listener events.
@@ -1092,6 +1202,9 @@ each definition. `unknown-component` points at the instance's component name; `u
 `component-event-collision` rejects a component input and event sharing a scoped address.
 Diagnostics retain JSON pointers and corrective hints; errors inside definitions point under
 `/components/<name>`. No partially valid instance tree escapes a failed load.
+
+The optional `nested` module adds explicit time/fps, fit/align, scalar outputs and component-valued
+selection. Its normative contract is [modules/nested/SPEC.md](../modules/nested/SPEC.md).
 
 This implementation is independent. Explicit names, validation before references are used and
 retained nested transforms follow [graph research](../docs/research/rive-format-and-graph.md) §6;
@@ -1825,6 +1938,23 @@ conformance cases and native-oracle evidence. A documented oracle skip is not na
 
 <!-- capability: state-machine.transition-random-weight -->
 
+
+<!-- capability: state-machine.condition-data -->
+<!-- capability: state-machine.literal-asset -->
+<!-- capability: state-machine.literal-boolean -->
+<!-- capability: state-machine.literal-color -->
+<!-- capability: state-machine.literal-enum -->
+<!-- capability: state-machine.literal-string -->
+<!-- capability: state-machine.literal-trigger -->
+### Typed data guards
+
+With `data`, a direct scalar path on the left accepts `==`/`!=` against JSON string/enum,
+boolean, hex colour or `asset("id")` literals. Enum members and typed assets must exist.
+Colors compare all four RGBA bytes; quoted `&&` stays inside a string. The existing JSON/AniML
+`when` field retains its spelling. Type/operator mismatches emit `data-guard` at the `/when`
+pointer with a correction hint. Bare `$trigger` guards consume signal occurrences; there is no
+integer trigger literal syntax. Details: [data contract](../modules/data/SPEC.md).
+
 ## input
 
 Optional P4c input behavior is specified in [the input contract](../modules/input/SPEC.md).
@@ -1942,7 +2072,7 @@ browser popup/target restrictions still apply. There is no navigation in core or
 `audio` references an assets-module audio asset (`event-audio` otherwise); `volume` is an
 optional [0,1] event gain, default 1. The browser requires prior user activation; earlier events
 are dropped without fetching or decoding and are never replayed later. Decode is on demand and
-cached per element/load/asset. Each occurrence starts a separate source. Effective gain is
+cached per element/load/asset. Each occurrence starts a separate source, honoring asset clip `start`/`end` (assets chapter). Effective gain is
 `event.volume * audioVolumes[asset] * icon.volume`, with each omitted gain equal to 1.
 For bubbled component events the owning child supplies the asset and resource gain; the host
 resolver receives its dot-scoped asset name (for example `child.tone`).
@@ -1997,6 +2127,11 @@ normal XML escaping. Neither form changes timeline `<event at="…" name="…"/>
 The event delivery/subscription separation follows the host/runtime concerns recorded in
 `docs/research/rive-web-runtime.md` §§2–3; no Rive implementation or documentation text is used.
 
+
+Repeated event audio resolves its emitting player through both ordinary component placements and
+list indices (for example `rows.1.inside.play`). Decode caches use asset declaration identity, so
+reordering different component catalogs with the same clip name cannot replay another row's audio.
+The host still observes the scoped event and the ordinary Web Audio start call after activation.
 
 ## contour
 
@@ -2155,6 +2290,11 @@ Capability evidence and incomplete rows are enumerated in
 <!-- capability: data.bind-converter-options -->
 <!-- capability: data.bind-instance-values -->
 <!-- capability: data.bind-keyframes -->
+With `data motion`, a keyframe value may be a direct scalar data path. Sampling resolves needed
+endpoints against the current player before interpolation, including blends and TimelineInstances,
+without mutating shared tracks. JSON `[0.5, "$peak"]` and AniML `<key t="0.5" value="$peak"/>`
+are equivalent. Full typing, diagnostics and timing: [data](../modules/data/SPEC.md#data-keyframe-values).
+
 <!-- capability: data.bind-layout -->
 <!-- capability: data.bind-script-inputs -->
 <!-- capability: data.bind-text -->
@@ -2232,6 +2372,14 @@ Import the host entry alongside `data`; it adds no document fields or AniML spel
 typed handles, reflection, instances, binding, batched writes, change subscriptions delivered after
 the step that made the change, and the web `auto-bind` attribute.
 
+## host-edit
+
+Optional page-data editing is specified in [modules/host-edit/SPEC.md](../modules/host-edit/SPEC.md).
+Import `host-edit` alongside `host` and `data`; it adds no document fields. It provides
+identity-preserving list mutation, default and named instance discovery, colour and enum helpers,
+image replacement on the web, nested component player access, component root selection and a
+constructor readiness promise. Its runtime registration key is `hostedit`.
+
 ## convert
 
 Optional feature `convert`, after `bind` and `data`; no runtime dependencies. JSON declarations are a
@@ -2266,7 +2414,7 @@ Bindings evaluate once per data binding evaluation; `mode="once"` retains its co
 | to-number | Number, boolean or string conversion using ECMAScript Number; nonnumeric strings become zero. |
 | to-string | ECMAScript String conversion. |
 | number-format | `decimals` (0–100, default 0), `grouping` boolean; fixed precision, dot decimal, comma thousands; locale independent. |
-| color-format | Hex colour or 4-channel RGBA tuple → `format` hex/hexa/rgb/rgba (default hex). |
+| color-format | Hex colour or RGBA tuple → `format` hex/hexa/rgb/rgba (default hex), or component `pattern` (see below). |
 | pad | String `length` (0–10000), `fill` (nonempty string, default space), `side` start/end. UTF-16 length. |
 | trim | `mode`: start/end/all/none; ECMAScript whitespace. |
 | template | `text`, `open`/`close` delimiters (default braces), `grouping`, optional `args` map/array. Without `args`, scalar input is argument 0 and a list supplies positional arguments. Named keys, numeric positions and sequential `{}` placeholders are supported. `args` values may be `$` paths. `{points:2:8}` fixes two decimals and left-pads to width 8 (maximum 10000). Missing arguments are errors. |
@@ -2274,7 +2422,7 @@ Bindings evaluate once per data binding evaluation; `mode="once"` retains its co
 | enum-to-index | `values`: ordered strings. Unknown values are errors. |
 | list-length | Return list length. |
 | number-to-list | Integer count 0–10000; produce index values or repeated `item`. Model instance creation awaits data integration. |
-| trigger | Boolean pulse passthrough or truncated integer signal counter. Counter-to-trigger delivery awaits data integration. |
+| trigger | Boolean passthrough or truncated integer counter; a trigger binding destination fires when the converted output changes (next step, no initial pulse). |
 | degrees-to-radians | Multiply by pi/180 forward; by 180/pi in reverse. |
 | normalize | Normalize using `from` pair, default 0 1; reverse denormalizes with the same pair. No implicit clamp. |
 | interpolate | `duration` in milliseconds, default 0. First evaluation returns input immediately; changes retarget from the current sample. Numeric or rounded RGBA channel interpolation; optional `ease` uses the existing timeline easing grammar (default linear). No extrapolation before start or after completion. |
@@ -2303,8 +2451,7 @@ The generated `convertCompiler` hook supplies declaration compilation/decompilat
 of events/data authoring. Browser `markup-convert` registers the `convert` slot. JSON declarations,
 AniML, CLI schema/inspect and `anima docs convert` use the same metadata and module chapter.
 
-Remaining parity limits: HSL component-format markers; retained model-instance list creation;
-trigger-counter delivery into a trigger destination; scripted conversion (P9). Their canonical
+Remaining parity limits: retained model-instance list creation; scripted conversion (P9). Their canonical
 probes retain precise `todo.json` reasons. Existing scalar/index-list/boolean conversion functions
 are useful independently but do not complete those broader rows. See ROWS.json and REPORT.md.
 
@@ -2331,8 +2478,113 @@ Algorithms are independently implemented from standard arithmetic and ECMAScript
 No Rive source or .riv files were read; no CLI documentation text was copied. The registry design follows
 the metadata rationale in `docs/research/rive-format-and-graph.md`; this is not a Rive algorithm port.
 
+
+<!-- capability: data.converter-color-formatting -->
+### Colour component patterns
+
+JSON `pattern` / AniML `pattern` overrides `format` on a `color-format` converter.
+Markers `{r} {g} {b} {a}` are rounded bytes, `{h}` rounded degrees (achromatic 0), `{s}`/`{l}`
+rounded HSL percentages, `{hex}` lowercase `#rrggbb`. Unknown markers produce `convert-options`
+at `/converters/<name>/pattern` with a hint. See [convert](../modules/convert/SPEC.md).
+
+<!-- capability: data.converter-trigger -->
+### Trigger destinations
+
+A binding target naming a trigger queues one fire when its converted output changes after the
+initial baseline; transitions/listeners observe it on the following step. Magnitude/direction
+is irrelevant. `trigger` truncates numeric input and passes booleans unchanged. Forward-only
+modes `to-target`/`once` are valid; reverse modes produce `data-binding` at the `/mode` pointer.
+
+### Export discovery and pending keyframe bindings
+
+JSON instance `exported: true` is AniML `export="true"` (legacy `exported` accepted).
+`dataState(player).exports()` lists only explicitly exported authored `{name,model}` records.
+Internal private instances remain addressable. Existing host APIs retain their all-instance list.
+Data-keyframe values remain pending: the model-shared sampler requires a player-aware seam.
+
 ## derive
 
 The optional `derive` module adds computed, read-only scalar model properties. The normative
 contract is [modules/derive/SPEC.md](../modules/derive/SPEC.md); its `value` and `convert` keys
 have identical JSON/AniML spellings. Dependencies resolve per instance and cycles are invalid.
+
+## lists
+
+The optional `lists` module adds retained repeats and nested data contexts. The normative
+JSON/AniML spellings, ordering, bounds, identity, limits and diagnostics are defined in
+[modules/lists/SPEC.md](../modules/lists/SPEC.md). Both `components` and `data` are required.
+
+<!-- capability: components.list -->
+### List instances
+`type: "repeat"`, `list: "$items"`, `component: "row"` is
+`<repeat id="rows" list="$items" component="row"/>`. Surviving item identities retain players.
+
+<!-- capability: components.list-map -->
+### Model component maps
+`component: {Player:"row"}` is `component="Player:row"`; missing known mappings are `list-map`.
+
+<!-- capability: components.list-size-override -->
+### Item bounds
+`size: [w,h]` is `size="w h"`; both numbers are nonnegative. It changes instance hit bounds.
+
+<!-- capability: components.explicit-context -->
+### Explicit data context
+`data: "$team"` is `data="$team"` on an instance; the referenced model must match its public model.
+
+<!-- capability: components.inherited-context -->
+### Inherited data context
+A component with no `data` declaration sees its parent's context when lists is declared.
+
+<!-- capability: data.binding-relative -->
+### Relative bindings
+`$parent.name` walks one context; `$parent.parent.name` walks two. Parent reads are read-only.
+
+<!-- capability: data.property-symbol-list-index -->
+### Item index
+`$index` is the current zero-based index and is read-only. Declaring `index` or `parent` is
+`reserved-name` at `/data/models/<model>/properties/<name>`, with a rename hint.
+
+<!-- capability: data.converter-number-to-list -->
+### Count repetition
+`count: "$n"` is `count="$n"`. It floors nonnegative counts and retains players by index.
+Counts above 256 are rejected; shrinking releases the removed indices. Any readable numeric data
+path is accepted, including `$items.length`, named/relative numeric paths and (with `derive`)
+`$title.length`. Nonnumeric paths report `list-source` at `/nodes/<index>/count` with the accepted
+source forms. `anima inspect` lists only the repeated input slots in the current initial list/count,
+including triggers; reserved potential slots for absent rows are omitted.
+
+## nested
+
+The optional module's normative contract is [modules/nested/SPEC.md](../modules/nested/SPEC.md).
+
+<!-- capability: components.nested-remap -->
+<!-- capability: components.nested-quantize -->
+<!-- capability: components.leaf-fit -->
+<!-- capability: components.stateful-output -->
+Instances gain absolute `time`, positive `fps`, `size`/`fit`/`align`, and read-only scalar `outputs`.
+The parent reads `badge.outputs.done`; the child declares `<output name="done" value="count > 1"/>`.
+
+## markup-libraries
+
+<!-- capability: components.library-export -->
+<!-- capability: components.library-models -->
+<!-- capability: components.library-update -->
+Libraries support public export selection, model definitions and local vendoring updates.
+See [modules/markup-libraries/SPEC.md](../modules/markup-libraries/SPEC.md).
+
+<!-- capability: state-machine.literal-artboard -->
+With `data components nested`, direct component-property guards accept `==`/`!=` against
+`component("row")`, a typed definition-name literal. See [nested](../modules/nested/SPEC.md).
+Independent guard/keyframe conformance is active; module-owned native observations supplement
+the canonical oracle probes pending parent registration.
+
+## componentpaint
+
+<!-- capability: drawing-paint.paint-artboard -->
+Declare `components paint componentpaint`. JSON `fill: {paint: "component:row"}` is AniML
+`paint="component:row"`: an independent live component Player supplies a repeating shape-local
+fill tile, clipped to its viewBox (including its origin). Its own default machine advances once
+per parent step and honors reduced motion. Flat color/type/ordered-paint conflicts, unknown
+components and recursive sources are errors. An ordinary stroke remains independent.
+The normative lifetime, sampling, diagnostic and backend contract is
+[modules/componentpaint/README.md](../modules/componentpaint/README.md).

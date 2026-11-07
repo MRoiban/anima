@@ -1701,7 +1701,7 @@
     "id": "animation.cubic-ease",
     "category": "animation",
     "capability": "Cubic timing easing",
-    "what": "Shape segment timing with a normalized cubic B\u00e9zier curve.",
+    "what": "Shape segment timing with a normalized cubic Bézier curve.",
     "rive": {
       "types": [
         "CubicEaseInterpolator"
@@ -1731,7 +1731,7 @@
     "id": "animation.cubic-value",
     "category": "animation",
     "capability": "Cubic value curves",
-    "what": "Place B\u00e9zier control values in property units so a segment can move even between equal endpoint values.",
+    "what": "Place Bézier control values in property units so a segment can move even between equal endpoint values.",
     "rive": {
       "types": [
         "CubicValueInterpolator"
@@ -1903,7 +1903,7 @@
     "id": "animation.graph-editor",
     "category": "animation",
     "capability": "Value graph editing",
-    "what": "Edit key values and their B\u00e9zier handles through a graph authoring interface.",
+    "what": "Edit key values and their Bézier handles through a graph authoring interface.",
     "rive": {
       "types": [
         "LinearAnimation"
@@ -2876,10 +2876,10 @@
       "rive-runtime/include/rive/assets/audio_asset.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named audio resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-audio",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-audio; tests/oracle/assets-audio/skip.json",
       "phase": "P5b"
     }
   },
@@ -2905,10 +2905,10 @@
       "rive schema AudioAssetClip --all --json"
     ],
     "anima": {
-      "construct": "new: assets.<clip>: {type: \"audio\", source: \"sound\", start: seconds, end: seconds}",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-audio-clip",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-audio-clip; tests/oracle/assets-audio-clip/skip.json",
       "phase": "P5b"
     }
   },
@@ -2932,10 +2932,10 @@
       "rive schema AudioAsset --all --json"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named audio-export-source resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-audio-export-source",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-audio-export-source; tests/oracle/assets-audio-export-source/skip.json",
       "phase": "P5b"
     }
   },
@@ -2958,10 +2958,10 @@
       "rive-runtime/include/rive/assets/audio_asset.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named audio-import-flac resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-audio-import-flac",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-audio-import-flac; tests/oracle/assets-audio-import-flac/skip.json",
       "phase": "P5b"
     }
   },
@@ -2984,10 +2984,10 @@
       "rive-runtime/include/rive/assets/audio_asset.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named audio-import-mp3 resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-audio-import-mp3",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-audio-import-mp3; tests/oracle/assets-audio-import-mp3/skip.json",
       "phase": "P5b"
     }
   },
@@ -3010,10 +3010,10 @@
       "rive-runtime/include/rive/assets/audio_asset.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named audio-import-wav resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-audio-import-wav",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-audio-import-wav; tests/oracle/assets-audio-import-wav/skip.json",
       "phase": "P5b"
     }
   },
@@ -3070,10 +3070,10 @@
       "rive-runtime/include/rive/assets/blob_asset.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named blob resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-blob",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-blob; tests/oracle/assets-blob/skip.json",
       "phase": "P5b"
     }
   },
@@ -3095,10 +3095,10 @@
       "https://rive.app/docs/runtimes/loading-assets"
     ],
     "anima": {
-      "construct": "new: player asset loader API with explicit source resolution: cdn-disable",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-cdn-disable",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-cdn-disable; tests/oracle/assets-cdn-disable/skip.json",
       "phase": "P5b"
     }
   },
@@ -3133,10 +3133,10 @@
       "rive-runtime/include/rive/assets/blob_asset.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named exclude-export resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-exclude-export",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-exclude-export; tests/oracle/assets-exclude-export/skip.json",
       "phase": "P5b"
     }
   },
@@ -3167,7 +3167,7 @@
       "module": "assets",
       "status": "planned",
       "test": "oracle/assets-font",
-      "phase": "P5b"
+      "phase": "P6"
     }
   },
   {
@@ -3194,7 +3194,7 @@
       "module": "assets",
       "status": "planned",
       "test": "oracle/assets-font-formats",
-      "phase": "P5b"
+      "phase": "P6"
     }
   },
   {
@@ -3219,7 +3219,7 @@
       "module": "assets",
       "status": "planned",
       "test": "oracle/assets-font-glyphs-all",
-      "phase": "P5b"
+      "phase": "P6"
     },
     "aliases": [
       "text.font-full-export"
@@ -3247,7 +3247,7 @@
       "module": "assets",
       "status": "planned",
       "test": "oracle/assets-font-glyphs-custom",
-      "phase": "P5b"
+      "phase": "P6"
     },
     "aliases": [
       "text.font-custom-export"
@@ -3275,7 +3275,7 @@
       "module": "assets",
       "status": "planned",
       "test": "oracle/assets-font-glyphs-used",
-      "phase": "P5b"
+      "phase": "P6"
     },
     "aliases": [
       "text.font-used-export"
@@ -3303,7 +3303,7 @@
       "module": "assets",
       "status": "planned",
       "test": "oracle/assets-google-font-import",
-      "phase": "P5b"
+      "phase": "P6"
     }
   },
   {
@@ -3332,10 +3332,10 @@
       "rive-wasm/js/src/rive.ts:6385@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: player asset loader API with explicit source resolution: host-decode-audio",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-host-decode-audio",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-host-decode-audio; tests/oracle/assets-host-decode-audio/skip.json",
       "phase": "P5b"
     },
     "aliases": [
@@ -3372,7 +3372,7 @@
       "module": "assets",
       "status": "planned",
       "test": "oracle/assets-host-decode-font",
-      "phase": "P5b"
+      "phase": "P6"
     },
     "aliases": [
       "host-api.decode-font"
@@ -3468,7 +3468,7 @@
       "module": "assets",
       "status": "planned",
       "test": "oracle/assets-image-encoding-astc",
-      "phase": "P5b"
+      "phase": "P10"
     }
   },
   {
@@ -3495,7 +3495,7 @@
       "module": "assets",
       "status": "planned",
       "test": "oracle/assets-image-encoding-bc7",
-      "phase": "P5b"
+      "phase": "P10"
     }
   },
   {
@@ -3522,7 +3522,7 @@
       "module": "assets",
       "status": "planned",
       "test": "oracle/assets-image-encoding-etc2rgba",
-      "phase": "P5b"
+      "phase": "P10"
     }
   },
   {
@@ -3545,10 +3545,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named image-encoding-jpeg resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-image-encoding-jpeg",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-encoding-jpeg; tests/oracle/assets-image-encoding-jpeg/skip.json",
       "phase": "P5b"
     }
   },
@@ -3572,10 +3572,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named image-encoding-png resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-image-encoding-png",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-encoding-png; tests/oracle/assets-image-encoding-png/skip.json",
       "phase": "P5b"
     }
   },
@@ -3599,10 +3599,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named image-encoding-webp resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-image-encoding-webp",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-encoding-webp; tests/oracle/assets-image-encoding-webp/skip.json",
       "phase": "P5b"
     }
   },
@@ -3629,11 +3629,11 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named image-export-controls resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-image-export-controls",
-      "phase": "P5b"
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-image-export-controls; native oracle pending (modules/assets/REPORT.md)",
+      "phase": "P10"
     }
   },
   {
@@ -3656,10 +3656,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<image>.sampling: named image-filter-bilinear setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-image-filter-bilinear",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-filter-bilinear; tests/oracle/assets-image-filter-bilinear/finding.json",
       "phase": "P5b"
     }
   },
@@ -3683,10 +3683,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<image>.sampling: named image-filter-nearest setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-image-filter-nearest",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-filter-nearest; tests/oracle/assets-image-filter-nearest",
       "phase": "P5b"
     }
   },
@@ -3709,10 +3709,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named image-import-jpeg resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-image-import-jpeg",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-import-jpeg; tests/oracle/assets-image-import-jpeg/finding.json",
       "phase": "P5b"
     }
   },
@@ -3735,10 +3735,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named image-import-jpg resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-image-import-jpg",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-import-jpg; tests/oracle/assets-image-import-jpg/finding.json",
       "phase": "P5b"
     }
   },
@@ -3761,10 +3761,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named image-import-png resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-image-import-png",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-import-png; tests/oracle/assets-image-import-png",
       "phase": "P5b"
     }
   },
@@ -3787,10 +3787,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named image-import-webp resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-image-import-webp",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-import-webp; tests/oracle/assets-image-import-webp",
       "phase": "P5b"
     }
   },
@@ -3814,10 +3814,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<image>.sampling: named image-wrap-x-clamp setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-image-wrap-x-clamp",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-wrap-x-clamp; tests/oracle/assets-image-wrap-x-clamp; tests/oracle/assets-clamp-fractional-finding/finding.json",
       "phase": "P5b"
     }
   },
@@ -3841,10 +3841,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<image>.sampling: named image-wrap-x-mirror setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-image-wrap-x-mirror",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-wrap-x-mirror; tests/oracle/assets-image-wrap-x-mirror",
       "phase": "P5b"
     }
   },
@@ -3868,10 +3868,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<image>.sampling: named image-wrap-x-repeat setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-image-wrap-x-repeat",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-wrap-x-repeat; tests/oracle/assets-image-wrap-x-repeat",
       "phase": "P5b"
     }
   },
@@ -3895,10 +3895,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<image>.sampling: named image-wrap-y-clamp setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-image-wrap-y-clamp",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-wrap-y-clamp; tests/oracle/assets-image-wrap-y-clamp; tests/oracle/assets-clamp-fractional-finding/finding.json",
       "phase": "P5b"
     }
   },
@@ -3922,10 +3922,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<image>.sampling: named image-wrap-y-mirror setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-image-wrap-y-mirror",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-wrap-y-mirror; tests/oracle/assets-image-wrap-y-mirror",
       "phase": "P5b"
     }
   },
@@ -3949,10 +3949,10 @@
       "rive-runtime/include/rive/assets/image_asset.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: assets.<image>.sampling: named image-wrap-y-repeat setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-image-wrap-y-repeat",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-image-wrap-y-repeat; tests/oracle/assets-image-wrap-y-repeat",
       "phase": "P5b"
     }
   },
@@ -3999,10 +3999,10 @@
       "rive schema LottieAsset --all --json"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named lottie-import resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-lottie-import",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-lottie-import; tests/oracle/assets-lottie-import",
       "phase": "P5b"
     }
   },
@@ -4027,10 +4027,10 @@
       "https://rive.app/docs/runtimes/loading-assets"
     ],
     "anima": {
-      "construct": "new: player asset loader API with explicit source resolution: metadata",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-metadata",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-metadata; tests/oracle/assets-metadata/skip.json",
       "phase": "P5b"
     }
   },
@@ -4059,9 +4059,10 @@
     "anima": {
       "construct": "new: assets.<name> / build.assets.<name>: named psd-layers resource setting",
       "module": "assets",
-      "status": "planned",
+      "status": "maybe-later",
       "test": "oracle/assets-psd-layers",
-      "phase": "P5b"
+      "phase": "later",
+      "reason": "Binary PSD parsing for raster layers; little value for icon authoring (P5b design §0)."
     }
   },
   {
@@ -4084,7 +4085,7 @@
       "module": "assets",
       "status": "planned",
       "test": "oracle/assets-replacement-scope-font",
-      "phase": "P5b"
+      "phase": "P6"
     }
   },
   {
@@ -4103,11 +4104,11 @@
       "https://rive.app/docs/runtimes/loading-assets"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named replacement-scope-image resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
       "status": "planned",
-      "test": "oracle/assets-replacement-scope-image",
-      "phase": "P5b"
+      "test": "modules/assets/test/{core,cli,web}/pipeline.test.ts; spec/conformance/assets-replacement-scope-image; native oracle pending (modules/assets/REPORT.md)",
+      "phase": "P3b"
     }
   },
   {
@@ -4133,7 +4134,7 @@
       "module": "assets",
       "status": "planned",
       "test": "oracle/assets-script-blob",
-      "phase": "P5b"
+      "phase": "P9"
     }
   },
   {
@@ -4275,10 +4276,10 @@
       "rive schema SVGAsset --all --json"
     ],
     "anima": {
-      "construct": "new: assets.<name> / build.assets.<name>: named svg-import resource setting",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "oracle/assets-svg-import",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/assets-svg-import; tests/oracle/assets-svg-import",
       "phase": "P5b"
     }
   },
@@ -4304,10 +4305,10 @@
       "rive-runtime/include/rive/nested_artboard.hpp:35@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named explicit-context settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
-      "status": "planned",
-      "test": "oracle/components-explicit-context",
+      "construct": "modules/lists/SPEC.md; modules/lists/capabilities/components-explicit-context/example.animl",
+      "module": "lists",
+      "status": "done",
+      "test": "modules/lists/test/core/components-explicit-context.test.ts; spec/conformance/components-explicit-context; tests/oracle/components-explicit-context",
       "phase": "P5b"
     }
   },
@@ -4330,11 +4331,11 @@
       "rive docs animascript/api/file"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named host-artboard-reference settings; seconds, degrees and grid-unit bounds",
+      "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
       "module": "components",
       "status": "planned",
-      "test": "oracle/components-host-artboard-reference",
-      "phase": "P5b"
+      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
+      "phase": "P3b"
     }
   },
   {
@@ -4390,10 +4391,10 @@
       "rive-runtime/include/rive/nested_artboard.hpp:35@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named inherited-context settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
-      "status": "planned",
-      "test": "oracle/components-inherited-context",
+      "construct": "modules/lists/SPEC.md; modules/lists/capabilities/components-inherited-context/example.animl",
+      "module": "lists",
+      "status": "done",
+      "test": "modules/lists/test/core/components-inherited-context.test.ts; spec/conformance/components-inherited-context; tests/oracle/components-inherited-context",
       "phase": "P5b"
     }
   },
@@ -4425,7 +4426,7 @@
       "module": "components",
       "status": "planned",
       "test": "oracle/components-layout-size",
-      "phase": "P5b"
+      "phase": "P7"
     }
   },
   {
@@ -4452,10 +4453,10 @@
       "rive-runtime/include/rive/nested_artboard_leaf.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named leaf-fit settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
-      "status": "planned",
-      "test": "oracle/components-leaf-fit",
+      "construct": "modules/nested/SPEC.md",
+      "module": "nested",
+      "status": "done",
+      "test": "modules/nested/test/core/nested.test.ts; spec/conformance/components-leaf-fit; tests/oracle/components-leaf-fit",
       "phase": "P5b"
     }
   },
@@ -4528,11 +4529,11 @@
       "rive docs project/libraries-folder"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named library-export settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
+      "construct": "modules/markup-libraries/SPEC.md",
+      "module": "markup-libraries",
       "status": "planned",
-      "test": "oracle/components-library-export",
-      "phase": "P5b"
+      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-export; tests/oracle/components-library-export",
+      "phase": "P3b"
     }
   },
   {
@@ -4558,11 +4559,11 @@
       "rive schema LibraryDataEnum --all --json"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named library-models settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
+      "construct": "modules/markup-libraries/SPEC.md",
+      "module": "markup-libraries",
       "status": "planned",
-      "test": "oracle/components-library-models",
-      "phase": "P5b"
+      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-models; tests/oracle/components-library-models",
+      "phase": "P3b"
     }
   },
   {
@@ -4581,11 +4582,11 @@
       "rive docs project/libraries-folder"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named library-update settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
+      "construct": "modules/markup-libraries/SPEC.md",
+      "module": "markup-libraries",
       "status": "planned",
-      "test": "oracle/components-library-update",
-      "phase": "P5b"
+      "test": "modules/markup-libraries/test/markup/extras.test.ts; modules/markup-libraries/test/cli/library.test.ts; spec/conformance/components-library-update; tests/oracle/components-library-update",
+      "phase": "P3b"
     }
   },
   {
@@ -4608,10 +4609,10 @@
       "rive schema ArtboardComponentList --all --json"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named list settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
-      "status": "planned",
-      "test": "oracle/components-list",
+      "construct": "modules/lists/SPEC.md; modules/lists/capabilities/components-list/example.animl",
+      "module": "lists",
+      "status": "done",
+      "test": "modules/lists/test/core/components-list.test.ts; spec/conformance/components-list; tests/oracle/components-list",
       "phase": "P5b"
     }
   },
@@ -4639,7 +4640,7 @@
       "module": "components",
       "status": "planned",
       "test": "oracle/components-list-layout-inheritance",
-      "phase": "P5b"
+      "phase": "P7"
     }
   },
   {
@@ -4664,10 +4665,10 @@
       "rive-runtime/include/rive/artboard_list_map_rule.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named list-map settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
-      "status": "planned",
-      "test": "oracle/components-list-map",
+      "construct": "modules/lists/SPEC.md; modules/lists/capabilities/components-list-map/example.animl",
+      "module": "lists",
+      "status": "done",
+      "test": "modules/lists/test/core/components-list-map.test.ts; spec/conformance/components-list-map; tests/oracle/components-list-map",
       "phase": "P5b"
     }
   },
@@ -4694,10 +4695,10 @@
       "rive-runtime/include/rive/layout/artboard_component_list_override.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named list-size-override settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
-      "status": "planned",
-      "test": "oracle/components-list-size-override",
+      "construct": "modules/lists/SPEC.md; modules/lists/capabilities/components-list-size-override/example.animl",
+      "module": "lists",
+      "status": "done",
+      "test": "modules/lists/test/core/components-list-size-override.test.ts; spec/conformance/components-list-size-override; tests/oracle/components-list-size-override",
       "phase": "P5b"
     }
   },
@@ -4899,10 +4900,10 @@
       "rive-runtime/include/rive/nested_artboard.hpp:35@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named nested-quantize settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
-      "status": "planned",
-      "test": "oracle/components-nested-quantize",
+      "construct": "modules/nested/SPEC.md",
+      "module": "nested",
+      "status": "done",
+      "test": "modules/nested/test/core/nested.test.ts; spec/conformance/components-nested-quantize; tests/oracle/components-nested-quantize; tests/oracle/components-nested-quantize/finding.json",
       "phase": "P5b"
     }
   },
@@ -4928,10 +4929,10 @@
       "rive-runtime/include/rive/animation/nested_remap_animation.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named nested-remap settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
-      "status": "planned",
-      "test": "oracle/components-nested-remap",
+      "construct": "modules/nested/SPEC.md",
+      "module": "nested",
+      "status": "done",
+      "test": "modules/nested/test/core/nested.test.ts; spec/conformance/components-nested-remap; tests/oracle/components-nested-remap",
       "phase": "P5b"
     }
   },
@@ -5018,7 +5019,7 @@
       "module": "components",
       "status": "planned",
       "test": "oracle/components-script-instance",
-      "phase": "P5b"
+      "phase": "P9"
     }
   },
   {
@@ -5125,10 +5126,10 @@
       "rive schema ViewModelPropertyNumber --all --json"
     ],
     "anima": {
-      "construct": "new: components.<name> / nodes[].component: named stateful-output settings; seconds, degrees and grid-unit bounds",
-      "module": "components",
-      "status": "planned",
-      "test": "oracle/components-stateful-output",
+      "construct": "modules/nested/SPEC.md",
+      "module": "nested",
+      "status": "done",
+      "test": "modules/nested/test/core/nested.test.ts; spec/conformance/components-stateful-output; tests/oracle/components-stateful-output",
       "phase": "P5b"
     }
   },
@@ -5286,10 +5287,10 @@
       "rive-runtime/include/rive/animation/keyframe_double.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "TODO: modules/data/capabilities/data-bind-keyframes/registry.ts; spec/SPEC.md (Bind keyframe values); modules/data/capabilities/data-bind-keyframes/example.animl",
+      "construct": "modules/data/SPEC.md#data-keyframe-values; modules/motion/examples/data-keys.animl",
       "module": "data",
-      "status": "planned",
-      "test": "TODO: modules/data/test/core/data-bind-keyframes.test.ts; spec/conformance/data-bind-keyframes; tests/oracle/data-bind-keyframes",
+      "status": "done",
+      "test": "modules/motion/test/core/data-bind-keyframes.test.ts; spec/conformance/data-bind-keyframes; spec/conformance/data-bind-keyframes-blend; modules/motion/test/core/data-keys-oracle.test.ts",
       "phase": "P5b"
     }
   },
@@ -5522,10 +5523,10 @@
       "rive-runtime/include/rive/data_bind/data_bind_path.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "TODO: modules/data/capabilities/data-binding-relative/registry.ts; spec/SPEC.md (Relative binding path binding); modules/data/capabilities/data-binding-relative/example.animl",
-      "module": "data",
-      "status": "planned",
-      "test": "TODO: modules/data/test/core/data-binding-relative.test.ts; spec/conformance/data-binding-relative; tests/oracle/data-binding-relative",
+      "construct": "modules/lists/SPEC.md; modules/lists/capabilities/data-binding-relative/example.animl",
+      "module": "lists",
+      "status": "done",
+      "test": "modules/lists/test/core/data-binding-relative.test.ts; spec/conformance/data-binding-relative; tests/oracle/data-binding-relative",
       "phase": "P5b"
     }
   },
@@ -6328,10 +6329,10 @@
       "rive-runtime/src/data_bind/converters/data_converter_to_string.cpp:157@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
+      "construct": "modules/convert/capabilities/data-converter-color-formatting/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
-      "status": "planned",
-      "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+      "status": "done",
+      "test": "modules/convert/test/core/data-converter-color-formatting.test.ts; spec/conformance/data-converter-color-formatting; modules/convert/test/core/p5b-oracle.test.ts",
       "phase": "P5b"
     }
   },
@@ -6463,10 +6464,10 @@
       "rive-runtime/src/data_bind/converters/data_converter_number_to_list.cpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
-      "module": "data",
-      "status": "planned",
-      "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+      "construct": "modules/lists/SPEC.md; modules/lists/capabilities/data-converter-number-to-list/example.animl",
+      "module": "lists",
+      "status": "done",
+      "test": "modules/lists/test/core/data-converter-number-to-list.test.ts; spec/conformance/data-converter-number-to-list; tests/oracle/data-converter-number-to-list",
       "phase": "P5b"
     }
   },
@@ -6764,10 +6765,10 @@
       "rive-runtime/src/data_bind/converters/data_converter_trigger.cpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "modules/convert/core/index.ts; modules/convert/SPEC.md (integration/evidence pending)",
+      "construct": "modules/convert/capabilities/data-converter-trigger/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
-      "status": "planned",
-      "test": "modules/convert/test/core/convert.test.ts; modules/convert/test/core/oracle.test.ts; canonical probe pending",
+      "status": "done",
+      "test": "modules/convert/test/core/data-converter-trigger.test.ts; spec/conformance/data-converter-trigger; modules/convert/test/core/p5b-oracle.test.ts",
       "phase": "P5b"
     }
   },
@@ -7810,11 +7811,11 @@
       "rive-wasm/js/src/rive.ts:6273@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: player.data API for set model artboard",
+      "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
       "module": "data",
       "status": "planned",
-      "test": "oracle/data-host-artboard",
-      "phase": "P5b"
+      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
+      "phase": "P3b"
     }
   },
   {
@@ -7865,7 +7866,7 @@
       "module": "data",
       "status": "planned",
       "test": "oracle/data-host-color",
-      "phase": "P5b"
+      "phase": "P3b"
     }
   },
   {
@@ -7911,8 +7912,8 @@
     "anima": {
       "construct": "new: player.data API for get default instance",
       "module": "data",
-      "status": "planned",
-      "test": "oracle/data-host-default-instance",
+      "status": "done",
+      "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json",
       "phase": "P5b"
     }
   },
@@ -7963,8 +7964,8 @@
     "anima": {
       "construct": "new: player.data API for enum host access",
       "module": "data",
-      "status": "planned",
-      "test": "oracle/data-host-enum",
+      "status": "done",
+      "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json",
       "phase": "P5b"
     }
   },
@@ -7989,7 +7990,7 @@
       "module": "data",
       "status": "planned",
       "test": "oracle/data-host-font",
-      "phase": "P5b"
+      "phase": "P6"
     }
   },
   {
@@ -8013,8 +8014,8 @@
     "anima": {
       "construct": "new: player.data API for set global instances",
       "module": "data",
-      "status": "planned",
-      "test": "oracle/data-host-global-instance",
+      "status": "done",
+      "test": "modules/host-edit/test/core/seams.test.ts; modules/host-edit/test/web/seams.test.ts; modules/host-edit/oracle/seams/skip.json",
       "phase": "P5b"
     }
   },
@@ -8037,8 +8038,8 @@
     "anima": {
       "construct": "new: player.data API for set model image",
       "module": "data",
-      "status": "planned",
-      "test": "oracle/data-host-image",
+      "status": "done",
+      "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json",
       "phase": "P5b"
     }
   },
@@ -8061,8 +8062,8 @@
     "anima": {
       "construct": "new: player.data.<model> typed API: ViewModelInstanceList.addInstance",
       "module": "data",
-      "status": "planned",
-      "test": "oracle/data-host-list-add-instance",
+      "status": "done",
+      "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json; modules/host-edit/test/core/repeat-contract.test.ts",
       "phase": "P5b"
     }
   },
@@ -8085,8 +8086,8 @@
     "anima": {
       "construct": "new: player.data.<model> typed API: ViewModelInstanceList.addInstanceAt",
       "module": "data",
-      "status": "planned",
-      "test": "oracle/data-host-list-add-instance-at",
+      "status": "done",
+      "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json; modules/host-edit/test/core/repeat-contract.test.ts",
       "phase": "P5b"
     }
   },
@@ -8157,8 +8158,8 @@
     "anima": {
       "construct": "new: player.data.<model> typed API: ViewModelInstanceList.removeInstance",
       "module": "data",
-      "status": "planned",
-      "test": "oracle/data-host-list-remove-instance",
+      "status": "done",
+      "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json; modules/host-edit/test/core/repeat-contract.test.ts",
       "phase": "P5b"
     }
   },
@@ -8181,8 +8182,8 @@
     "anima": {
       "construct": "new: player.data.<model> typed API: ViewModelInstanceList.removeInstanceAt",
       "module": "data",
-      "status": "planned",
-      "test": "oracle/data-host-list-remove-instance-at",
+      "status": "done",
+      "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json; modules/host-edit/test/core/repeat-contract.test.ts",
       "phase": "P5b"
     }
   },
@@ -8205,8 +8206,8 @@
     "anima": {
       "construct": "new: player.data.<model> typed API: ViewModelInstanceList.swap",
       "module": "data",
-      "status": "planned",
-      "test": "oracle/data-host-list-swap",
+      "status": "done",
+      "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json; modules/host-edit/test/core/repeat-contract.test.ts",
       "phase": "P5b"
     }
   },
@@ -8232,7 +8233,7 @@
       "module": "data",
       "status": "planned",
       "test": "oracle/data-host-nested-paths",
-      "phase": "P5b"
+      "phase": "P3b"
     }
   },
   {
@@ -8412,11 +8413,11 @@
       "rive-runtime/include/rive/viewmodel/viewmodel_instance.hpp:18@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "TODO: modules/data/capabilities/data-instance-export/registry.ts; spec/SPEC.md (Exported instances); modules/data/capabilities/data-instance-export/example.animl",
+      "construct": "modules/data/capabilities/data-instance-export/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
       "status": "planned",
-      "test": "TODO: modules/data/test/core/data-instance-export.test.ts; spec/conformance/data-instance-export; tests/oracle/data-instance-export",
-      "phase": "P5b"
+      "test": "spec/conformance/data-instance-export; modules/data/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
+      "phase": "P3b"
     }
   },
   {
@@ -8710,10 +8711,10 @@
       "rive-runtime/include/rive/viewmodel/viewmodel_instance_artboard.hpp:14@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "TODO: modules/data/capabilities/data-property-artboard/registry.ts; spec/SPEC.md (Artboard property); modules/data/capabilities/data-property-artboard/example.animl",
+      "construct": "modules/nested/SPEC.md; Model.guardLiterals component(name) and component-valued selectors",
       "module": "data",
-      "status": "planned",
-      "test": "TODO: modules/data/test/core/data-property-artboard.test.ts; spec/conformance/data-property-artboard; tests/oracle/data-property-artboard",
+      "status": "done",
+      "test": "modules/nested/test/core/nested.test.ts; spec/conformance/data-property-artboard; tests/oracle/data-property-artboard",
       "phase": "P5b"
     }
   },
@@ -9049,10 +9050,10 @@
       "rive schema ViewModelInstanceSymbolListIndex --all --json"
     ],
     "anima": {
-      "construct": "TODO: modules/data/capabilities/data-property-symbol-list-index/registry.ts; spec/SPEC.md (Symbol list index property); modules/data/capabilities/data-property-symbol-list-index/example.animl",
-      "module": "data",
-      "status": "planned",
-      "test": "TODO: modules/data/test/core/data-property-symbol-list-index.test.ts; spec/conformance/data-property-symbol-list-index; tests/oracle/data-property-symbol-list-index",
+      "construct": "modules/lists/SPEC.md; modules/lists/capabilities/data-property-symbol-list-index/example.animl",
+      "module": "lists",
+      "status": "done",
+      "test": "modules/lists/test/core/data-property-symbol-list-index.test.ts; spec/conformance/data-property-symbol-list-index; tests/oracle/data-property-symbol-list-index",
       "phase": "P5b"
     }
   },
@@ -11906,10 +11907,10 @@
       "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: image.fit: resize",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "paint",
-      "status": "planned",
-      "test": "oracle/image-fit-resize",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/drawing-paint-image-fit-resize; tests/oracle/drawing-paint-image-fit-resize",
       "phase": "P5b"
     }
   },
@@ -11961,10 +11962,10 @@
       "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: image.wrapX/wrapY: clamp",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "paint",
-      "status": "planned",
-      "test": "oracle/image-wrap-clamp",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/drawing-paint-image-wrap-clamp; tests/oracle/drawing-paint-image-wrap-clamp; tests/oracle/assets-clamp-fractional-finding/finding.json",
       "phase": "P5b"
     }
   },
@@ -11989,10 +11990,10 @@
       "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: image.wrapX/wrapY: mirror",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "paint",
-      "status": "planned",
-      "test": "oracle/image-wrap-mirror",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/drawing-paint-image-wrap-mirror; tests/oracle/drawing-paint-image-wrap-mirror",
       "phase": "P5b"
     }
   },
@@ -12017,10 +12018,10 @@
       "rive-runtime/include/rive/generated/shapes/image_base.hpp:10@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: image.wrapX/wrapY: repeat",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "paint",
-      "status": "planned",
-      "test": "oracle/image-wrap-repeat",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/drawing-paint-image-wrap-repeat; tests/oracle/drawing-paint-image-wrap-repeat",
       "phase": "P5b"
     }
   },
@@ -12544,10 +12545,10 @@
       "rive-runtime/include/rive/generated/shapes/paint/paint_image_base.hpp:13@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: paint.scene references a component",
-      "module": "components",
-      "status": "planned",
-      "test": "oracle/paint-artboard",
+      "construct": "fill.paint: component:row; AniML paint=\"component:row\"; modules/componentpaint/README.md",
+      "module": "componentpaint",
+      "status": "done",
+      "test": "modules/componentpaint/test/core/drawing-paint-paint-artboard.test.ts; modules/componentpaint/test/core/oracle.test.ts; modules/componentpaint/test/web/sources.test.ts; spec/conformance/drawing-paint-paint-artboard; tests/oracle/drawing-paint-paint-artboard/finding.json",
       "phase": "P5b"
     }
   },
@@ -12811,7 +12812,7 @@
       "rive-runtime/include/rive/generated/shapes/rectangle_base.hpp:21@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "rect corners [tl,tr,br,bl], animated corners.0\u20133",
+      "construct": "rect corners [tl,tr,br,bl], animated corners.0–3",
       "module": "paint",
       "status": "done",
       "test": "spec/conformance/paint-shape-corners; modules/paint/test/web/paint-geometry.test.ts; tests/oracle/rect-corners",
@@ -15437,8 +15438,8 @@
     "anima": {
       "construct": "new: <anima-icon artboard>",
       "module": "components",
-      "status": "planned",
-      "test": "browser/artboard-selection",
+      "status": "done",
+      "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json",
       "phase": "P5b"
     }
   },
@@ -15490,10 +15491,10 @@
       "rive-wasm/js/src/rive.ts:1594@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: explicit external asset fetch policy; default local",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "browser/asset-cdn-policy",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/host-api-asset-cdn-policy; tests/oracle/host-api-asset-cdn-policy/skip.json",
       "phase": "P5b"
     }
   },
@@ -15517,10 +15518,10 @@
       "rive-wasm/js/src/rive.ts:29@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: host-provided asset resolver",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "browser/asset-loader",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/host-api-asset-loader; tests/oracle/host-api-asset-loader/skip.json",
       "phase": "P5b"
     }
   },
@@ -15549,10 +15550,10 @@
       "rive-wasm/js/src/rive_advanced.mjs.d.ts:1718@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: typed asset descriptors",
+      "construct": "SPEC assets/paint/events; modules/assets/core/index.ts; modules/media/web/index.ts; modules/paint/core/sampling.ts; CLI build/import; modules/assets/REPORT.md",
       "module": "assets",
-      "status": "planned",
-      "test": "browser/asset-metadata",
+      "status": "done",
+      "test": "modules/assets/test/core/pipeline.test.ts; modules/assets/test/cli/pipeline.test.ts; modules/assets/test/web/pipeline.test.ts; spec/conformance/host-api-asset-metadata; tests/oracle/host-api-asset-metadata/skip.json",
       "phase": "P5b"
     }
   },
@@ -15661,7 +15662,7 @@
       "module": "data",
       "status": "planned",
       "test": "browser/batched-binding",
-      "phase": "P5b"
+      "phase": "P3b"
     }
   },
   {
@@ -15713,11 +15714,11 @@
       "rive-wasm/js/src/rive.ts:5264@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: component instance handles",
+      "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
       "module": "components",
       "status": "planned",
-      "test": "browser/bindable-artboards",
-      "phase": "P5b"
+      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
+      "phase": "P3b"
     }
   },
   {
@@ -15818,11 +15819,11 @@
       "rive-wasm/js/src/rive.ts:6273@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "new: typed data.artboard(path)",
+      "construct": "modules/host-edit/SPEC.md: data.component(path) local definition-name handle; foreign-file instance/data handles pending",
       "module": "data",
       "status": "planned",
-      "test": "browser/data-artboard",
-      "phase": "P5b"
+      "test": "modules/host-edit/test/core/components.test.ts; modules/host-edit/test/web/components.test.ts; modules/nested/P5B-8-REPORT.md",
+      "phase": "P3b"
     }
   },
   {
@@ -15878,7 +15879,7 @@
       "module": "data",
       "status": "planned",
       "test": "browser/data-color",
-      "phase": "P5b"
+      "phase": "P3b"
     }
   },
   {
@@ -15904,8 +15905,8 @@
     "anima": {
       "construct": "new: typed data.enum(path)",
       "module": "data",
-      "status": "planned",
-      "test": "browser/data-enum",
+      "status": "done",
+      "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json",
       "phase": "P5b"
     }
   },
@@ -15934,7 +15935,7 @@
       "module": "data",
       "status": "planned",
       "test": "browser/data-font",
-      "phase": "P5b"
+      "phase": "P6"
     }
   },
   {
@@ -15960,8 +15961,8 @@
     "anima": {
       "construct": "new: typed data.image(path)",
       "module": "data",
-      "status": "planned",
-      "test": "browser/data-image",
+      "status": "done",
+      "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json",
       "phase": "P5b"
     }
   },
@@ -15993,8 +15994,8 @@
     "anima": {
       "construct": "new: typed data lists",
       "module": "data",
-      "status": "planned",
-      "test": "browser/data-list",
+      "status": "done",
+      "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json; modules/host-edit/test/core/repeat-contract.test.ts",
       "phase": "P5b"
     }
   },
@@ -16997,8 +16998,8 @@
     "anima": {
       "construct": "new: document-scoped shared data contexts",
       "module": "data",
-      "status": "planned",
-      "test": "browser/global-models",
+      "status": "done",
+      "test": "modules/host-edit/test/core/seams.test.ts; modules/host-edit/test/web/seams.test.ts; modules/host-edit/oracle/seams/skip.json",
       "phase": "P5b"
     }
   },
@@ -17780,7 +17781,7 @@
       "module": "data",
       "status": "planned",
       "test": "browser/nested-models",
-      "phase": "P5b"
+      "phase": "P3b"
     }
   },
   {
@@ -18151,7 +18152,7 @@
       "rive-wasm/js/src/rive.ts:4342@ada7b9f35f951ff491f65f5ffc74a3ed3c582203"
     ],
     "anima": {
-      "construct": "Canvas backing store = rounded CSS viewport \u00d7 DPR; ResizeObserver without stepping (SPEC canvas)",
+      "construct": "Canvas backing store = rounded CSS viewport × DPR; ResizeObserver without stepping (SPEC canvas)",
       "module": "canvas",
       "status": "done",
       "test": "modules/canvas/test/web/canvas.test.ts; spec/conformance/host-api-resize-backing-surface; tests/oracle/host-api-resize-backing-surface/rive/README.md (host oracle skip)",
@@ -18182,8 +18183,8 @@
     "anima": {
       "construct": "new: cache compiled documents and decoded assets",
       "module": "assets",
-      "status": "planned",
-      "test": "browser/reuse-loaded-file",
+      "status": "done",
+      "test": "modules/host-edit/test/core/seams.test.ts; modules/host-edit/test/web/seams.test.ts; modules/host-edit/oracle/seams/skip.json",
       "phase": "P5b"
     }
   },
@@ -18506,8 +18507,8 @@
     "anima": {
       "construct": "new: scene.data.models()",
       "module": "data",
-      "status": "planned",
-      "test": "browser/view-model-discovery",
+      "status": "done",
+      "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json; modules/host/test/core/api.test.ts",
       "phase": "P5b"
     }
   },
@@ -18539,8 +18540,8 @@
     "anima": {
       "construct": "new: typed model instance factory",
       "module": "data",
-      "status": "planned",
-      "test": "browser/view-model-instances",
+      "status": "done",
+      "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json; modules/host/test/core/api.test.ts",
       "phase": "P5b"
     }
   },
@@ -18619,8 +18620,8 @@
     "anima": {
       "construct": "new: backend preload promise",
       "module": "assets",
-      "status": "planned",
-      "test": "browser/wasm-preload",
+      "status": "done",
+      "test": "modules/host-edit/test/core/edit.test.ts; modules/host-edit/test/core/oracle.test.ts; modules/host-edit/test/web/browser.test.ts; modules/host-edit/oracle/skip.json",
       "phase": "P5b"
     }
   },
@@ -18650,7 +18651,7 @@
       "module": "assets",
       "status": "planned",
       "test": "browser/wasm-url",
-      "phase": "P5b"
+      "phase": "P10"
     }
   },
   {
@@ -28058,11 +28059,11 @@
       "rive-runtime/include/rive/generated/animation/transition_property_viewmodel_comparator_base.hpp:9@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: typed when expressions reading property paths",
+      "construct": "modules/machine/capabilities/state-machine-condition-data/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
       "status": "planned",
-      "test": "conformance/condition-data",
-      "phase": "P5b"
+      "test": "spec/conformance/state-machine-condition-data; modules/machine/test; modules/data/P5B-5-REPORT.md (module-owned native captures; canonical oracle manifest integration pending)",
+      "phase": "P3b"
     }
   },
   {
@@ -28495,10 +28496,10 @@
       "rive-runtime/include/rive/generated/animation/transition_value_artboard_comparator_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: typed artboard literal in when expression",
+      "construct": "modules/nested/SPEC.md; Model.guardLiterals component(name) and component-valued selectors",
       "module": "data",
-      "status": "planned",
-      "test": "conformance/literal-artboard",
+      "status": "done",
+      "test": "modules/nested/test/core/state-machine-literal-artboard.test.ts; spec/conformance/state-machine-literal-artboard; modules/nested/test/core/p5b8-oracle.test.ts",
       "phase": "P5b"
     }
   },
@@ -28522,10 +28523,10 @@
       "rive-runtime/include/rive/generated/animation/transition_value_asset_comparator_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: typed asset literal in when expression",
+      "construct": "modules/machine/capabilities/state-machine-literal-asset/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
-      "status": "planned",
-      "test": "conformance/literal-asset",
+      "status": "done",
+      "test": "modules/machine/test/core/state-machine-literal-asset.test.ts; spec/conformance/state-machine-literal-asset; modules/machine/test/core/p5b-oracle.test.ts",
       "phase": "P5b"
     }
   },
@@ -28549,10 +28550,10 @@
       "rive-runtime/include/rive/generated/animation/transition_value_boolean_comparator_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: typed boolean literal in when expression",
+      "construct": "modules/machine/capabilities/state-machine-literal-boolean/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
-      "status": "planned",
-      "test": "conformance/literal-boolean",
+      "status": "done",
+      "test": "modules/machine/test/core/state-machine-literal-boolean.test.ts; spec/conformance/state-machine-literal-boolean; modules/machine/test/core/p5b-oracle.test.ts",
       "phase": "P5b"
     }
   },
@@ -28576,10 +28577,10 @@
       "rive-runtime/include/rive/generated/animation/transition_value_color_comparator_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: typed color literal in when expression",
+      "construct": "modules/machine/capabilities/state-machine-literal-color/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
-      "status": "planned",
-      "test": "conformance/literal-color",
+      "status": "done",
+      "test": "modules/machine/test/core/state-machine-literal-color.test.ts; spec/conformance/state-machine-literal-color; modules/machine/test/core/p5b-oracle.test.ts",
       "phase": "P5b"
     }
   },
@@ -28603,10 +28604,10 @@
       "rive-runtime/include/rive/generated/animation/transition_value_enum_comparator_base.hpp:6@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: typed enum literal in when expression",
+      "construct": "modules/machine/capabilities/state-machine-literal-enum/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
-      "status": "planned",
-      "test": "conformance/literal-enum",
+      "status": "done",
+      "test": "modules/machine/test/core/state-machine-literal-enum.test.ts; spec/conformance/state-machine-literal-enum; modules/machine/test/core/p5b-oracle.test.ts",
       "phase": "P5b"
     }
   },
@@ -28657,10 +28658,10 @@
       "rive-runtime/include/rive/generated/animation/transition_value_string_comparator_base.hpp:8@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: typed string literal in when expression",
+      "construct": "modules/machine/capabilities/state-machine-literal-string/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
-      "status": "planned",
-      "test": "conformance/literal-string",
+      "status": "done",
+      "test": "modules/machine/test/core/state-machine-literal-string.test.ts; spec/conformance/state-machine-literal-string; modules/machine/test/core/p5b-oracle.test.ts",
       "phase": "P5b"
     }
   },
@@ -28684,10 +28685,10 @@
       "rive-runtime/include/rive/generated/animation/transition_value_trigger_comparator_base.hpp:7@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "new: typed trigger literal in when expression",
+      "construct": "modules/machine/capabilities/state-machine-literal-trigger/example.animl; modules/data/SPEC.md; modules/convert/SPEC.md (P5b-5)",
       "module": "data",
-      "status": "planned",
-      "test": "conformance/literal-trigger",
+      "status": "done",
+      "test": "modules/machine/test/core/state-machine-literal-trigger.test.ts; spec/conformance/state-machine-literal-trigger; modules/machine/test/core/p5b-oracle.test.ts",
       "phase": "P5b"
     }
   },
@@ -28738,7 +28739,7 @@
       "rive-runtime/include/rive/generated/animation/state_transition_base.hpp:12@1c8f5d3fe8d1c6bca1cfd7e40367b23aff9dba3f"
     ],
     "anima": {
-      "construct": "every 0.1 crossfade freezes its source (spec \u00a77); a source that keeps playing during the crossfade is the missing variant",
+      "construct": "every 0.1 crossfade freezes its source (spec §7); a source that keeps playing during the crossfade is the missing variant",
       "module": "core",
       "status": "done",
       "test": "conformance/pause-on-exit",
@@ -31050,7 +31051,7 @@
       "status": "wont-do",
       "test": "cli/binary-rive-io",
       "reason": "The guardrails prohibit reading, writing or converting .riv files.",
-      "phase": "\u2014"
+      "phase": "—"
     }
   },
   {
@@ -33100,7 +33101,7 @@
       "rive --help"
     ],
     "anima": {
-      "construct": "playground: pause/play, \u00bc\u00d7 speed, scrubbing, inputs, reset",
+      "construct": "playground: pause/play, ¼× speed, scrubbing, inputs, reset",
       "module": "tooling",
       "status": "done",
       "test": "packages/playground/test (unit, server, Chromium + Firefox)",
@@ -33324,7 +33325,7 @@
       "status": "wont-do",
       "test": "cli/rive-account-operations",
       "reason": "Rive account features are explicitly outside the permitted scope; generic hosting remains a separate maybe-later option.",
-      "phase": "\u2014"
+      "phase": "—"
     }
   },
   {
@@ -33719,7 +33720,7 @@
       "status": "wont-do",
       "test": "cli/watermark-content",
       "reason": "Watermark content and Rive account enforcement conflict with the project guardrails.",
-      "phase": "\u2014"
+      "phase": "—"
     }
   },
   {

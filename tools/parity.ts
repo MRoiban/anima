@@ -80,7 +80,7 @@ export const PHASES: [string, string][] = [
   ['P5', 'Done: components, bindings, assets, images, n-slice and feathering'],
   [
     'P5b',
-    'The rest of P5: asset pipelines (encodings, imports), library detach/update, lists, script instances',
+    'Done: lists, assets, host editing, typed data guards, live keyframes and component controls',
   ],
   ['Pc', 'Done: the canvas backend (minimal), brought forward from P10'],
   ['P6', 'Text'],
@@ -91,7 +91,20 @@ export const PHASES: [string, string][] = [
 ];
 
 /** Phases whose rows are all done. */
-export const FINISHED = ['P0', 'P1', 'P2', 'P3', 'P4a', 'P4b', 'P4c', 'P4d', 'P4e', 'P5', 'Pc'];
+export const FINISHED = [
+  'P0',
+  'P1',
+  'P2',
+  'P3',
+  'P4a',
+  'P4b',
+  'P4c',
+  'P4d',
+  'P4e',
+  'P5',
+  'P5b',
+  'Pc',
+];
 
 const ROOT = new URL('../docs/parity/', import.meta.url);
 

@@ -1,0 +1,12 @@
+{
+  "status": "skip",
+  "reason": "Native format=png quality=0.1 remains editor-only, absent from runtime inspect; PNG source renders max0/over0 against unencoded source. This observes loading, not re-encoding/output bytes, which permitted commands do not expose.",
+  "tests": ["modules/assets/test/cli/pipeline.test.ts", "modules/assets/test/web/pipeline.test.ts"],
+  "captureEvidence": [
+    "modules/assets/probes/native-capabilities.json",
+    "modules/assets/probes/native-capabilities.ts",
+    "modules/assets/probes/encoding/png/session.txt",
+    "modules/assets/probes/encoding/jpeg/session.txt",
+    "modules/assets/probes/encoding/webp/session.txt"
+  ]
+}

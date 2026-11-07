@@ -1,0 +1,7 @@
+docs/parity/inventory.json: all 1238 statuses unchanged
+docs/parity/matrix.json: all 1238 statuses unchanged
+tests/oracle/cases.json: all 216 baseline entries unchanged; 12 added
+tests/oracle/metrics.json: all 216 baseline entries unchanged; 12 added
+tests/oracle/findings-metrics.json: all 18 baseline entries unchanged; 6 added
+Dependency declarations unchanged
+Measurement tools unchanged

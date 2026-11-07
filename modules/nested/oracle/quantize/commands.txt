@@ -1,0 +1,7 @@
+advance 0.12s
+screenshot frames/first.png
+data-dump frames/first.json
+advance 0.13s
+screenshot frames/second.png
+data-dump frames/second.json
+quit

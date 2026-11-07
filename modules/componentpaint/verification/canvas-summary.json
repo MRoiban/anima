@@ -1,0 +1,570 @@
+{
+  "Chromium": {
+    "frames": 1121,
+    "unsupportedSVG": 5,
+    "sourceCases": [
+      {
+        "name": "spec/conformance/drawing-paint-paint-artboard/case.ani#0",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/drawing-paint-paint-artboard/case.ani#1",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/drawing-paint-paint-artboard/case.ani#2",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "component-paint/gradient",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "component-paint/nested",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "component-paint/opacity",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "component-paint/clip",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "component-paint/paint-in-paint",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "component-paint/two-owners",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "component-paint/source-order",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "component-paint/hidden",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      }
+    ],
+    "repairedCases": [
+      {
+        "name": "spec/conformance/data-property-artboard/case.ani#0",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/data-property-artboard/case.ani#1",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/data-property-artboard/case.ani#2",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/data-property-artboard/case.ani#3",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/components-stateful-output/case.ani#0",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/components-stateful-output/case.ani#1",
+        "max": 30,
+        "over": 4,
+        "percent": 0.006944444444444444,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/components-nested-remap/case.ani#0",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/components-nested-remap/case.ani#1",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/components-nested-quantize/case.ani#0",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/components-nested-quantize/case.ani#1",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/components-leaf-fit/case.ani#0",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/components-leaf-fit/case.ani#1",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      }
+    ]
+  },
+  "Firefox": {
+    "frames": 1121,
+    "unsupportedSVG": 5,
+    "sourceCases": [
+      {
+        "name": "spec/conformance/drawing-paint-paint-artboard/case.ani#0",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/drawing-paint-paint-artboard/case.ani#1",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/drawing-paint-paint-artboard/case.ani#2",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "component-paint/gradient",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "component-paint/nested",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "component-paint/opacity",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "component-paint/clip",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "component-paint/paint-in-paint",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "component-paint/two-owners",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "component-paint/source-order",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "component-paint/hidden",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 2,
+          "percent": 0,
+          "feature": "flat/gradient interiors"
+        },
+        "diagnostics": []
+      }
+    ],
+    "repairedCases": [
+      {
+        "name": "spec/conformance/data-property-artboard/case.ani#0",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/data-property-artboard/case.ani#1",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/data-property-artboard/case.ani#2",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/data-property-artboard/case.ani#3",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/components-stateful-output/case.ani#0",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/components-stateful-output/case.ani#1",
+        "max": 1,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/components-nested-remap/case.ani#0",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/components-nested-remap/case.ani#1",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/components-nested-quantize/case.ani#0",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/components-nested-quantize/case.ani#1",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/components-leaf-fit/case.ani#0",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      },
+      {
+        "name": "spec/conformance/components-leaf-fit/case.ani#1",
+        "max": 0,
+        "over": 0,
+        "percent": 0,
+        "tolerance": {
+          "max": 128,
+          "percent": 0.5,
+          "feature": "curved/dashed geometry"
+        },
+        "diagnostics": []
+      }
+    ]
+  }
+}
