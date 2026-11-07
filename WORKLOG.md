@@ -1,10 +1,11 @@
 # Work log
 
 ## Now
-Goal: smaller, agent-native Rive for animated web UI. Order: P3c (size round + 23 carry-overs) → P6 text → P7 minimal layout → P8 rigging.
-State: P3b merged (PR #19, 38dd757). Branch p3c, design/p3c/DESIGN.md. Runtime sum 109,971 → target ≤ 104,472 B; other gates must not grow.
-Next: wave 1 = size survey (scout), tooling carry-overs + benchmark friction (0 runtime B), library rows; then size cuts by module group; then runtime carry-overs; budgets reset ~10 %.
-Don't: push to main; modify oracle findings or benchmark records; raise ceilings; change behaviour in size cuts; leave merged worktrees; --no-verify.
+Goal: P3c-2 tooling carry-overs and benchmark friction; branch-only commit, 0 runtime bytes.
+Verified: baseline six gates 20622/55313/91158/109971/11949/115473; dependencies restored.
+State: frozen changed8049pass/43TODO (244files), tooling92pass; static/wiring/strict-oracle pass; all6gates unchanged.
+Next: branch-only commit and handoff; no push or PR.
+Don't: push/publish/open PR; change measurements/thresholds/parity statuses or shipped runtime bytes.
 
 ## Log
 - 2026-11-06 23:40 [P5b-8]: condensed oldest half per 200-line rule; M0–M5/P1/P3 established spec, runtime, AniML and icons; Glyphy remains draft-only (evidence: prior WORKLOG at 0c5028a; PRs1–6).
@@ -258,3 +259,9 @@ Don't: push to main; modify oracle findings or benchmark records; raise ceilings
 - 2026-11-07 13:08 [P3b-11]: audited119 rows →96done/23P3c; progress624→720/1238 and /886; all canonical citations exist; parity generation/check +3/3policy +format pass, tools427pass/2fail/23TODO (hard-coded completed tooling.seed scaffolder fixtures; tests unchanged); bookkeeping only (evidence: docs/parity/P3b-closure.md; npm run test:scope -- tools --no-browser).
 - 2026-11-07 [claude]: merged AniML rerun (5/6, re-checked: slider valueText 40→45→50→45→40→100 % reproduces) and P3b-11 closure (96 done, 23 → P3c); scaffolder test repointed to animation.joystick-handle (tools 429 pass); LOG P3b entry, PLAN P3b [x] + P3c
 - 2026-11-07 [claude]: PR #19 merged (38dd757); branch p3c; P3c design with carry-over decisions (decided, owner may revisit: heap growth for tooling.benchmark, doctor auth N/A, anima.json exclude/constants, WebM presets via Chromium, schema filters, test groups/expect-error, library native probes skipped because the Rive library commands are banned, warnings {off:[ids]}, load/first-frame marks, computed local/root, componentFrom)
+
+- 2026-11-07 13:45 [P3c-2]: restored missing dependencies; six baseline gates measured; tooling implementation plus 8 focused cases → 7 pass, static snapshot assertion corrected (rerun unverified; evidence: /tmp/p3c2-{before-size,newtests}.txt).
+
+- 2026-11-07 13:50 [P3c-2]: tooling92 pass; focused81 pass; type/lint/format/wiring/strict-oracle exit0; sixgates unchanged → frozen changed rerun after stale cache failures (first broad stopped); perf exits0 but timings under load unverified (evidence: /tmp/p3c2-{tooling-final,focused,after-size,oracle,perf,changed-final}.txt).
+
+- 2026-11-07 13:59 [P3c-2]: frozen changed8049pass/43TODO (244files+13skip), both browsers; static/wiring/strict-oracle/size pass and sixgates byte-identical → six rows closure-ready, planned unchanged; report/evidence staged for branch-only commit (evidence: modules/tooling/P3C-2-REPORT.md; verification/p3c2).

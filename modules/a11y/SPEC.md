@@ -1,6 +1,5 @@
-# Node accessibility (P3b draft; partial implementation)
+# Node accessibility
 
-This chapter specifies the P3b design contract. The bounded implementation is partial:
 The fixed per-entry budgets are reported in REPORT.md. Root document `a11y` in SPEC §10 retains its
 existing shape, validation and behavior. See REPORT.md for remaining gaps.
 
@@ -45,7 +44,7 @@ modal on dialog/alert-dialog. Disabled and hidden apply to all roles.
 ## Shared tree and actions
 
 `SemanticNode`, `SemanticAction`, `SemanticDiff` are exported as types from the core
-entry. `semanticDiff` is exported as a function from `@anima-format/core/a11y-actions`. `test/fixtures/tree.json` is the wave-2 contract, checked by
+entry. `semanticDiff` is exported as a function from `@anima-format/core/a11y-actions`. `test/fixtures/tree.json` is the tree contract, checked by
 `test/core/semantics.test.ts`. The tree is an ordered forest. Every node has id,
 role, states, world-grid bounds [x,y,w,h], actions and children; optional fields are
 label, hint, value (string/number), valueText (string), level, href, min, max, step. States include
@@ -71,11 +70,11 @@ to min/max, then to the numeric input/data property limits. Range writes evaluat
 readonly controls expose no edit actions, including when the binding names a read-only data input such as list length. They may still expose focus. Focus delegates to the optional focus module.
 Focusable ancestors report focused; hidden focus retargets toward a focusable ancestor,
 then the next focusable node in tree order, then clears. Focus/traversal stays in focus.
-[P3b-9] When focus and the companion are registered, eligible items exclude
+When focus and the companion are registered, eligible items exclude
 semantic hidden, disabled and modal-suppressed nodes, including on the first read.
 `focusItems(true)` still exposes structural items for cleanup. Machine focus
 conditions include focusable semantic ancestors; focus-only documents retain their
-existing behavior. P3b-9 verified twelve module arrival orders. [P3b-10a] Already compiled semantic
+existing behavior. Twelve module arrival orders are verified. Already compiled semantic
 models keep inert focus configurations even without focus loaded; registering the
 optional focus module invalidates the cached tree and makes them actionable.
 Repeated row targets use `repeatId.index.localId`, with the same owner, world point,
@@ -96,7 +95,7 @@ Direct native ancestor-condition coverage remains open.
 `anima sample --semantics` requests semantic snapshots. The script integration is
 one dispatch plus an import; the command implementation is tooling only.
 
-### Native semantic keys [P3b-10a]
+### Native semantic keys
 
 In scripts, `key down|up <key>` and input-module `key repeat <key>` on a focused
 semantic control take the overlay's native route before generic focus traversal.
@@ -136,15 +135,15 @@ and may name a trigger or writable bool. Numeric input/data constraints still ap
 after the semantic range clamp. These rules do not infer text labels or add fields
 to the shared tree contract.
 
-[P3b-9] Independent conformance now covers every role (including none/heading),
+Independent conformance now covers every role (including none/heading),
 state changes through semantic actions, a legal role × state trait matrix, live
 politeness during label changes, bound properties, range clamps and focus ancestry.
 `test/core/closure.test.ts` covers filtered inspection and structural/reorder diffs.
 Native captures compare states/values around tap/increase/decrease plus properties,
 remaining states, heading metadata and the none/modal seams; see oracle/roles/.
-Parity statuses remain planned until P3b closes.
+See REPORT.md for per-row closure evidence and remaining gaps.
 
-## Painted-bounds seam [P3b-9]
+## Painted-bounds seam
 
 The decided completion seam keeps exact painted extents out of the core: the DOM
 overlay uses the drawn element's `getBoundingClientRect()` inflated by half its
@@ -173,7 +172,7 @@ Design follows `design/p3b/DESIGN.md` §3.1–3.3. Research context:
 No source algorithms or documentation text from Rive were copied.
 
 
-## Module seam (P3b-1b; markup entry split by the orchestrator)
+## Module seam
 
 `@anima-format/web/a11y` registers validation, registry shapes and the static semantic
 forest. It installs only `player.semantics()`. Static snapshots have empty action

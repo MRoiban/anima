@@ -1,4 +1,4 @@
-# Node semantics (partial P3b implementation)
+# Node semantics
 
 Static labels, explicit boxes, simple painted groups, state bindings and queued actions
 are available. Exact path/stroke bounds and several focus policies remain unfinished;
@@ -23,7 +23,7 @@ to `$path` only when data is declared and loaded. Semantic tap toggles a bound
 checked/pressed/selected bool unless activate explicitly names a bool or trigger.
 Traits follow from role/states; do not write trait bits. Root `<a11y>` is unchanged.
 
-See [SPEC.md](SPEC.md) for the draft tree contract, diagnostics and remaining gaps.
+See [SPEC.md](SPEC.md) for the tree contract, diagnostics and remaining gaps.
 
 
 For static labels/roles load only `@anima-format/web/a11y` (add `@anima-format/web/markup-a11y` when the page compiles AniML in the browser). For interaction and
@@ -48,3 +48,32 @@ a down/up pair; button/switch/link Enter activates on down. Tab-list arrows/Home
 rove enabled tabs. Numeric range actions compose before a step and respect both
 semantic and input/data limits. Repeated targets use `rows.0.item`; author
 `<focus edge="parent-scope"/>` on the repeat to leave a row at its child edge.
+
+
+## Tab list: selection follows focus
+
+Arrow/Home/End keys rove focus; selection is explicit. Bind each tab's `selected` to a bool and
+handle its focus event to set the selection, so keyboard focus and selection agree:
+
+```xml
+<anima version="0.1" name="tabs" grid="20" requires="a11y focus">
+  <bool name="first" default="true"/><bool name="second"/>
+  <group id="tabs">
+    <a11y role="tab-list" label="Views"/>
+    <rect id="one" x0="0" y0="0" width="8" height="8" fill="#000">
+      <a11y role="tab" label="First" selected="first"/>
+    </rect>
+    <rect id="two" x0="10" y0="0" width="8" height="8" fill="#000">
+      <a11y role="tab" label="Second" selected="second"/>
+    </rect>
+  </group>
+  <listener on="focus" target="one" set="first=true"/>
+  <listener on="focus" target="one" set="second=false"/>
+  <listener on="focus" target="two" set="first=false"/>
+  <listener on="focus" target="two" set="second=true"/>
+</anima>
+```
+
+Check with `semantic one focus`, `key down ArrowRight`, `expect second == true`.
+Apply the same selection writes to your panel visibility bindings. Keep disabled tabs out of the
+selection; arrow navigation skips them. Explicit focus listeners also cover pointer/host focus.

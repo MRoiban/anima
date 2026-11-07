@@ -1,10 +1,78 @@
+/// <reference lib="dom" />
 import { accessSync, constants, existsSync, mkdirSync, mkdtempSync, rmSync } from 'node:fs';
+import { createServer } from 'node:net';
+import { findProject } from './project.ts';
 import { homedir } from 'node:os';
 import { resolve, dirname } from 'node:path';
 import { spawnSync } from 'node:child_process';
 export async function doctor(cwd = process.cwd()) {
-  const { firefox } = await import('playwright-core');
+  const { firefox, chromium, devices } = await import('playwright-core');
   const checks: { name: string; pass: boolean; message: string; hint: string }[] = [];
+  checks.push({
+    name: 'authentication',
+    pass: true,
+    message: 'not applicable: Anima has no accounts',
+    hint: 'no authentication required',
+  });
+  try {
+    const project = findProject(cwd);
+    checks.push({
+      name: 'project',
+      pass: true,
+      message: project?.file ?? 'no anima.json (optional)',
+      hint: 'create anima.json to configure this project',
+    });
+  } catch (e) {
+    checks.push({
+      name: 'project',
+      pass: false,
+      message: (e as Error).message,
+      hint: 'repair anima.json; run a project command for its field pointer',
+    });
+  }
+  const port = await new Promise<boolean>((resolve) => {
+    const server = createServer();
+    server.once('error', () => resolve(false));
+    server.listen(4519, '127.0.0.1', () => server.close(() => resolve(true)));
+  });
+  checks.push({
+    name: 'port',
+    pass: port,
+    message: '127.0.0.1:4519',
+    hint: 'stop the process using port 4519 or choose another playground --port',
+  });
+  try {
+    const browser = await chromium.launch({
+      executablePath:
+        process.env.CHROMIUM_PATH ??
+        resolve(
+          homedir(),
+          '.cache/ms-playwright/chromium_headless_shell-1248/chrome-headless-shell-linux64/chrome-headless-shell',
+        ),
+      headless: true,
+    });
+    try {
+      const context = await browser.newContext({ ...devices['iPhone 13'] });
+      const page = await context.newPage();
+      const pass = await page.evaluate(() => innerWidth > 0 && navigator.maxTouchPoints > 0);
+      checks.push({
+        name: 'devices',
+        pass,
+        message: 'Chromium mobile viewport and touch emulation',
+        hint: 'install a working cached Playwright Chromium',
+      });
+      await context.close();
+    } finally {
+      await browser.close();
+    }
+  } catch (e) {
+    checks.push({
+      name: 'devices',
+      pass: false,
+      message: (e as Error).message,
+      hint: 'install cached Playwright Chromium or set CHROMIUM_PATH',
+    });
+  }
   const node = Number(process.versions.node.split('.')[0]);
   checks.push({
     name: 'node',
