@@ -1,0 +1,59 @@
+
+> test:scope
+> node tools/test-scope.ts data-host host host-edit devtools
+
+Scopes: data-host, host, host-edit, devtools
+  unit: modules/data-host/test/cli/api.test.ts
+  unit: modules/data-host/test/core/assets.test.ts
+  unit: modules/data-host/test/core/computed.test.ts
+  unit: modules/data-host/test/core/host.test.ts
+  unit: modules/devtools/test/policy.test.ts
+  unit: modules/host-edit/test/cli/host-edit.test.ts
+  unit: modules/host-edit/test/core/components.test.ts
+  unit: modules/host-edit/test/core/conformance.test.ts
+  unit: modules/host-edit/test/core/edit.test.ts
+  unit: modules/host-edit/test/core/oracle.test.ts
+  unit: modules/host-edit/test/core/repeat-contract.test.ts
+  unit: modules/host-edit/test/core/seams.test.ts
+  unit: modules/host/test/cli/host.test.ts
+  unit: modules/host/test/core/api.test.ts
+  unit: modules/host/test/core/conformance.test.ts
+  unit: modules/host/test/core/errors.test.ts
+  unit: modules/host/test/core/oracle.test.ts
+  unit: modules/host/test/core/standalone.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/data-host/test/web/browser.test.ts
+  browser: modules/host-edit/test/web/browser.test.ts
+  browser: modules/host-edit/test/web/components.test.ts
+  browser: modules/host-edit/test/web/seams.test.ts
+  browser: modules/host/test/web/browser.test.ts
+  browser: packages/web/test/browser.test.ts
+  cases: ^conformance > (data-host-asset-literal|data-host-image-binding|assets-replacement-scope-image)$
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-a95304f0
+
+ ❯ |scope-browser| packages/web/test/browser.test.ts (80 tests | 1 failed) 147111ms
+   ❯ <anima-icon> in Chromium (40)
+     × ships a current standalone demo with only its file document request and no canvas/wasm/watermark 104ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-browser| packages/web/test/browser.test.ts > <anima-icon> in Chromium > ships a current standalone demo with only its file document request and no canvas/wasm/watermark
+AssertionError: run node tools/build-web.ts before browser tests: expected undefined to be defined
+ ❯ packages/web/test/browser.test.ts:1245:75
+    1243|       // Still reject stale source/output and demo bytes here, without…
+    1244|       const runtime = readCachedBundle(resolve('packages/web/src/index…
+    1245|       expect(runtime, 'run node tools/build-web.ts before browser test…
+       |                                                                           ^
+    1246|       const expected = readFileSync(resolve('examples/web/template.htm…
+    1247|         .replace('<!-- BELL -->', () => bell.trim().replace(/<\//g, '<…
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 26 passed (27)
+      Tests  1 failed | 1257 passed | 497 skipped (1755)
+   Start at  15:01:27
+   Duration  150.24s (tests 95%, import 5%, transform 1%)

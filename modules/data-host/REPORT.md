@@ -1,3 +1,5 @@
+P3c follow-up: [P3c-9 report](P3c-9-REPORT.md). Historical promotion claims below do not close the P3c carry-overs.
+
 # P3b-4 implementation handoff
 
 Branch-only implementation of DESIGN §6 (excluding stop and libraries). No PR, push or publication.

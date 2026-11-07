@@ -1,3 +1,5 @@
+P3c follow-up: [P3c-9 report](../data-host/P3c-9-REPORT.md). Historical promotion claims below do not close the P3c carry-overs.
+
 # P3b-5 implementation
 
 Partial handoff: implementation and owned tests pass; the protected components byte guard and
