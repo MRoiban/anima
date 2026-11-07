@@ -148,6 +148,16 @@ recommendations in [web runtime research](research/rive-web-runtime.md#lessons-f
 | `anima:state` | Object mapping layer names to current states | State change. Bubbles across shadow boundaries. |
 
 
+Anima never calls `stopPropagation()` or `stopImmediatePropagation()` on DOM events.
+Keyboard and pointer events from the host or semantic controls bubble to page listeners.
+Only consumed browser defaults are prevented: for example, tab-list arrow navigation
+sets `defaultPrevented`, while an unhandled Escape does not. Semantic controls own their
+native keys and pointer events; the host guards against duplicate root activation and
+legacy pointer routing. Input owns its pointer events even when automatic listeners are
+disabled, so disabling input cannot fall back to legacy pointer handling. Authored
+input `consume`/`propagate` options govern only Anima's internal listener delivery;
+they do not stop DOM propagation to the page.
+
 P5 module registration: inline/fetched sources and failed explicit `load` calls retry when a
 compiler hook or runtime module registers later. The failed attempt still emits `anima:error`
 and rejects its `ready`; the retry replaces `ready` with the new attempt's promise. Successful

@@ -220,34 +220,139 @@ for (const [name, engine, executablePath] of [
       expect(await target('panel').getAttribute('aria-modal')).toBe('true');
       expect(await target('opener').count()).toBe(0);
     });
-    it.fails('B16 blocked seam: Escape reaches an ancestor bubble listener', async () => {
-      await load(scene('pointer'));
-      await page.evaluate(() => {
-        for (const type of ['keydown', 'pointerdown', 'pointermove', 'pointerup']) {
-          document.body.addEventListener(type, () => {
-            document.body.dataset[type] = String(Number(document.body.dataset[type] ?? 0) + 1);
+    // Recreate the page so absent modules really are absent, rather than merely unused.
+    const bubblingScene = async (overlay: boolean, useInput: boolean, useFocus: boolean) => {
+      await page.close();
+      page = await browser.newPage();
+      await page.setContent('<anima-icon fit="fill" style="width:240px;height:70px"></anima-icon>');
+      for (const index of [
+        0,
+        ...(overlay ? [1] : []),
+        ...(useInput ? [2] : []),
+        ...(useFocus ? [3] : []),
+      ]) {
+        await page.addScriptTag({ type: 'module', content: scripts[index]! });
+        await page.waitForFunction((index) => {
+          const Icon = customElements.get('anima-icon') as typeof AnimaIcon;
+          return index === 0
+            ? !!Icon
+            : index === 1
+              ? !!Icon.prototype.semanticAction
+              : index === 2
+                ? !!Icon.prototype.input
+                : !!Icon.prototype.focusNext;
+        }, index);
+      }
+      const doc = scene('pointer');
+      doc.requires = [
+        ...(overlay ? ['a11y'] : []),
+        ...(useInput ? ['input'] : []),
+        ...(useFocus ? ['focus'] : []),
+      ];
+      doc.a11y = { role: 'button', label: 'Host', activate: 'on' };
+      if (!overlay) delete doc.nodes[0].a11y;
+      if (useFocus) doc.nodes[0].focus = {};
+      if (!useInput) doc.listeners = doc.listeners.filter((l: { on: string }) => l.on !== 'drag');
+      // Two pointerdown deliveries would toggle back to false.
+      doc.listeners.find((l: { on: string }) => l.on === 'down').toggle = 'pressed';
+      delete doc.listeners.find((l: { on: string }) => l.on === 'down').set;
+      await load(doc);
+    };
+    for (const overlay of [false, true])
+      for (const useInput of [false, true])
+        for (const useFocus of [false, true]) {
+          const variant = `overlay=${overlay} input=${useInput} focus=${useFocus}`;
+          it(`B16: Escape reaches an ancestor bubble listener; ${variant}`, async () => {
+            await bubblingScene(overlay, useInput, useFocus);
+            await page.evaluate(() => {
+              document.body.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                  document.body.dataset.keydown = String(
+                    Number(document.body.dataset.keydown ?? 0) + 1,
+                  );
+                  document.body.dataset.prevented = String(e.defaultPrevented);
+                }
+              });
+            });
+            if (overlay) await target('drawing').focus();
+            else await page.locator('anima-icon').focus();
+            await page.keyboard.press('Escape');
+            expect(await page.locator('body').getAttribute('data-keydown')).toBe('1');
+            expect(await page.locator('body').getAttribute('data-prevented')).toBe('false');
+          });
+          it(`B16: host pointer events bubble and route once; ${variant}`, async () => {
+            await bubblingScene(overlay, useInput, useFocus);
+            await page.evaluate(() => {
+              for (const type of ['pointerdown', 'pointermove', 'pointerup'])
+                document.body.addEventListener(type, () => {
+                  document.body.dataset[type] = String(
+                    Number(document.body.dataset[type] ?? 0) + 1,
+                  );
+                });
+            });
+            const box = (await page.locator('anima-icon').boundingBox())!;
+            await page.mouse.move(box.x + 30, box.y + 30);
+            await page.mouse.down();
+            expect(await value('pressed')).toBe(true);
+            await page.mouse.move(box.x + 100, box.y + 30);
+            if (useInput) expect(await value('dragged')).toBe(true);
+            await page.mouse.up();
+            expect(await value('pressed')).toBe(false);
+            for (const type of ['pointerdown', 'pointerup'])
+              expect(await page.locator('body').getAttribute('data-' + type)).toBe('1');
+            expect(
+              Number(await page.locator('body').getAttribute('data-pointermove')),
+            ).toBeGreaterThan(0);
           });
         }
-      });
-      await target('drawing').focus();
-      await page.keyboard.press('Escape');
-      expect(await page.locator('body').getAttribute('data-keydown')).toBe('1');
-    });
-    // Expected failure: input's capture stop needs a base host routing guard in BF-3's file.
-    it.fails('B16 blocked seam: input pointer events reach ancestor bubble listeners', async () => {
-      await load(scene('pointer'));
-      await page.evaluate(() => {
-        for (const type of ['pointerdown', 'pointermove', 'pointerup'])
-          document.body.addEventListener(type, () => {
-            document.body.dataset[type] = 'seen';
+    for (const useInput of [false, true])
+      for (const useFocus of [false, true])
+        it(`B16: only consumed semantic keys prevent default; input=${useInput} focus=${useFocus}`, async () => {
+          await bubblingScene(true, useInput, useFocus);
+          const doc = scene('tabs');
+          doc.requires = ['a11y', ...(useInput ? ['input'] : []), ...(useFocus ? ['focus'] : [])];
+          await load(doc);
+          await page.evaluate(() => {
+            document.body.addEventListener('keydown', (e) => {
+              document.body.dataset[e.key.toLowerCase()] = String(e.defaultPrevented);
+            });
           });
+          await target('tab0').focus();
+          await page.keyboard.press('ArrowRight');
+          expect(await active()).toBe('tab1');
+          expect(await page.locator('body').getAttribute('data-arrowright')).toBe('true');
+          await page.keyboard.press('Escape');
+          expect(await page.locator('body').getAttribute('data-escape')).toBe('false');
+        });
+    it('B16: semantic pointer and click events bubble without drawn or root activation', async () => {
+      await bubblingScene(true, true, false);
+      const result = await page.evaluate(() => {
+        const icon = document.querySelector('anima-icon')!;
+        const button = icon.shadowRoot!.querySelector<HTMLElement>('[data-semantic="drawing"]')!;
+        const events: string[] = [];
+        for (const type of ['pointerdown', 'pointermove', 'pointerup', 'click'])
+          document.body.addEventListener(type, (e) => events.push(e.type));
+        const screen = new DOMPoint(3, 3).matrixTransform(
+          icon.shadowRoot!.querySelector('svg')!.getScreenCTM()!,
+        );
+        for (const type of ['pointerdown', 'pointermove', 'pointerup'])
+          button.dispatchEvent(
+            new PointerEvent(type, {
+              bubbles: true,
+              composed: true,
+              clientX: screen.x,
+              clientY: screen.y,
+              pointerId: 7,
+            }),
+          );
+        const drawn = icon.get('pressed');
+        button.click();
+        return { events, drawn, activated: icon.get('on') };
       });
-      const box = (await page.locator('anima-icon').boundingBox())!;
-      await page.mouse.move(box.x + 30, box.y + 30);
-      await page.mouse.down();
-      await page.mouse.move(box.x + 100, box.y + 30);
-      await page.mouse.up();
-      for (const type of ['pointerdown', 'pointermove', 'pointerup'])
-        expect(await page.locator('body').getAttribute('data-' + type)).toBe('seen');
+      expect(result).toEqual({
+        events: ['pointerdown', 'pointermove', 'pointerup', 'click'],
+        drawn: false,
+        activated: true,
+      });
     });
   });

@@ -44,9 +44,6 @@ function attach(icon: AnimaIcon) {
   style.textContent =
     'input{appearance:none;background:none}input::-webkit-slider-thumb{appearance:none;width:0;height:0}input::-moz-range-thumb,input::-moz-range-track{width:0;height:0;border:0;background:none}';
   icon.shadowRoot!.append(style, box);
-  // B16 remains blocked on the base host's duplicate input/activation guard.
-  for (const event of ['keydown', 'keyup', 'pointerdown', 'pointerup', 'pointermove'])
-    box.addEventListener(event, (e) => e.stopPropagation());
   const layout = () => {
     const c = Icon.canvasBox?.(icon, [0, 0, 1, 1]);
     const m = c
@@ -105,8 +102,12 @@ function attach(icon: AnimaIcon) {
             el.addEventListener(
               n.role === 'slider' ? 'input' : n.role === 'radio' ? 'change' : 'click',
               (event) => {
-                if (tag !== 'input' && !current.get(n.id)?.actions.includes('tap')) return;
-                event.stopPropagation();
+                if (
+                  Icon.inputEvents.has(event) ||
+                  (tag !== 'input' && !current.get(n.id)?.actions.includes('tap'))
+                )
+                  return;
+                Icon.inputEvents.add(event);
                 if (n.role === 'slider') {
                   const target = +(event.target as HTMLInputElement).value;
                   let value = Number(current.get(n.id)?.value);
@@ -205,7 +206,6 @@ function attach(icon: AnimaIcon) {
             if (!['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'Home', 'End'].includes(key))
               return;
             event.preventDefault();
-            event.stopPropagation();
             const order = p.focusItems?.().map((n) => n.id);
             const enabled = tabs
               .filter((t) => t.getAttribute('aria-disabled') !== 'true')

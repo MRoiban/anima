@@ -2537,3 +2537,19 @@ The final changed scope exits 0 with 8,175 pass, 1 skip and 40 existing TODOs ac
 strict oracle is 266 cases / 475 passing samples, with 24 unchanged findings. Earlier timeouts,
 an enclosing session's exit143 after green totals, and its clean standalone retry are retained in
 [the BF-3 report](../modules/host-edit/BF3-REPORT.md). Branch-only delivery; no publication or PR.
+
+## BF-5 — host and overlay events bubble to page listeners
+
+Closed downstream B16. Host key routing excludes semantic controls; input marks its pointer events
+in a shared WeakSet before option filters, and legacy routing skips owned/semantic events, including
+leave/cancel. Input and overlay never stop DOM propagation. Focus leaves semantic keys to native
+controls. Semantic action guards prevent a child control click also activating its parent while
+retaining activation through noninteractive children. Only consumed defaults are prevented.
+
+The former expected-failure repros are ordinary tests expanded across fresh-page overlay/input/focus
+combinations. Consumed arrows, unconsumed Escape, pointer/drag single delivery, disabled listeners,
+root/native activation and nested controls pass. Final changed scope: 8,369 pass, 1 skip, 63 inherited
+TODOs across Chromium and Firefox, exit 0. Strict oracle: 266 cases / 475 samples pass; type/lint,
+wiring, generated browser artifacts, formatting and all six size gates pass. Core+web 21,077 →
+21,136 B (+59 B, within the 60 B task limit). Perf samples under shared load do not establish
+non-regression. Branch-only delivery; no push or PR. See [BF-5 report](../modules/a11y-dom/BF5-REPORT.md).

@@ -117,6 +117,7 @@ function attach(icon: AnimaIcon) {
   listen('keydown', ((event: KeyboardEvent) => {
     if (!icon.player?.model.doc.requires?.includes('focus') || icon.hasAttribute('paused')) return;
     if (icon.player.model.doc.requires?.includes('input')) return;
+    if ((event.composedPath()[0] as Element)?.hasAttribute?.('data-semantic')) return;
     if (
       !event.altKey &&
       !event.ctrlKey &&
