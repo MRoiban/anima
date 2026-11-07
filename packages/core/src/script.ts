@@ -269,7 +269,27 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
     }
     return values;
   };
+  const canonicalAddress = (address: string): string => {
+    const aliases = [
+      ...[
+        ...Object.entries(COMMON),
+        ...Object.values(OWN).flatMap((props) => Object.entries(props)),
+      ].map(([key, prop]) => [key, markupName(prop, key)]),
+      ...Object.entries(PAINT).flatMap(([paint, props]) =>
+        Object.entries(props).map(([key, prop]) => [paint + '.' + key, markupName(prop, key)]),
+      ),
+    ];
+    return p.get(address) !== undefined || p.value(address) !== undefined
+      ? address
+      : (Object.keys(allValues()).find((key) =>
+          aliases.some(
+            ([path, alias]) =>
+              key.endsWith('.' + path) && key.slice(0, -path!.length) + alias === address,
+          ),
+        ) ?? address);
+  };
   const read = (address: string) => {
+    address = canonicalAddress(address);
     if (address.startsWith('$')) {
       const value = p.get(address) ?? data().get(dataPath(address));
       return model.inputs.get(address)?.type === 'color' && Array.isArray(value)
@@ -607,28 +627,8 @@ export function createScriptSession(model: Model, opts: ScriptOptions = {}) {
               const pick: typeof values = {};
               // Prefer exact input/JSON addresses. Resolve AniML aliases from the same registry
               // as the compiler, including slash-scoped component snapshot addresses.
-              const aliases = [
-                ...[
-                  ...Object.entries(COMMON),
-                  ...Object.values(OWN).flatMap((props) => Object.entries(props)),
-                ].map(([key, prop]) => [key, markupName(prop, key)]),
-                ...Object.entries(PAINT).flatMap(([paint, props]) =>
-                  Object.entries(props).map(([key, prop]) => [
-                    paint + '.' + key,
-                    markupName(prop, key),
-                  ]),
-                ),
-              ];
               for (const a of addresses) {
-                const canonical =
-                  p.get(a) !== undefined || p.value(a) !== undefined
-                    ? a
-                    : (Object.keys(allValues()).find((key) =>
-                        aliases.some(
-                          ([path, alias]) =>
-                            key.endsWith('.' + path) && key.slice(0, -path!.length) + alias === a,
-                        ),
-                      ) ?? a);
+                const canonical = canonicalAddress(a);
                 const v = read(canonical);
                 if (v === undefined)
                   throw new ScriptError(

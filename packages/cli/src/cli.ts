@@ -100,6 +100,8 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
   anima docs [authoring | spec | markup | <section>] [--list]
                                         the authoring guide and the spec
 
+Script commands: semantics [id]; semantic <id> tap|increase|decrease|focus; snapshot --semantics.
+
 Authoring commands accept .animl and .ani. Every command takes --format=json. Exit codes: 0 ok, 1 diagnostics, 2 usage.`;
 
 export async function run(argv: string[], io: IO): Promise<number> {
@@ -441,11 +443,38 @@ interface Located extends Diagnostic {
 }
 
 /** Load with the CLI-only checks (duplicate keys, glyph hashes) and source positions. */
+// Tooling guidance only: preserve the grammar, including declared hyphenated paths.
+function subtractionHints<T extends Diagnostic>(diagnostics: T[]): T[] {
+  const ambiguous = diagnostics.flatMap((d) => {
+    const match = d.code === 'data-path' && /unknown data path (\$[\w:.-]+)-(\d+)$/.exec(d.message);
+    return match ? [{ diagnostic: d, path: match[1]!, number: match[2]! }] : [];
+  });
+  return diagnostics
+    .filter(
+      (d) =>
+        !ambiguous.some(
+          ({ diagnostic, path, number }) =>
+            d.code === 'unknown-input' &&
+            d.pointer === diagnostic.pointer &&
+            d.message.includes(path + '-' + number),
+        ),
+    )
+    .map((d) => {
+      const entry = ambiguous.find(({ diagnostic }) => diagnostic === d);
+      return entry
+        ? {
+            ...d,
+            hint: `write \`${entry.path} - ${entry.number}\` (spaces around the minus): names may contain hyphens`,
+          }
+        : d;
+    });
+}
+
 function check(f: string): { model?: Model; diagnostics: Located[]; text: string } {
   const text = f.endsWith('.animl') ? projectSource(f) : readFileSync(f, 'utf8');
   if (f.endsWith('.animl')) {
     const c = compile(text, { file: f, resolve: (path) => readFileSync(path, 'utf8') });
-    const diagnostics = [...c.diagnostics];
+    const diagnostics = subtractionHints(c.diagnostics);
     if (c.doc) {
       for (const d of glyphDiagnostics(c.doc)) {
         let pointer = d.pointer;
@@ -457,7 +486,7 @@ function check(f: string): { model?: Model; diagnostics: Located[]; text: string
     return { model: c.text ? load(c.text).model : undefined, diagnostics, text: c.text ?? '' };
   }
   const r = load(text);
-  const diagnostics: Located[] = [...r.diagnostics];
+  const diagnostics: Located[] = subtractionHints(r.diagnostics);
   let at = new Map<string, number>();
   try {
     JSON.parse(text);
@@ -1031,7 +1060,6 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
     bool: ['inputs', '*'],
     number: ['inputs', '*'],
     trigger: ['inputs', '*'],
-    a11y: ['a11y'],
     transition: ['machine', 'layers', '*', 'states', '*', 'on', '*'],
     listener: ['listeners', '*'],
     input: ['inputs', '*'],
@@ -1101,7 +1129,15 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
           ? fields([], compositeField)
           : undefined;
   let data: unknown;
-  if (objectFields)
+  if (topic === 'a11y')
+    data = {
+      topic,
+      scope: 'node.a11y',
+      fields: fields([], nodeShape('path').p.a11y),
+      actions: ['tap', 'increase', 'decrease', 'focus'],
+      root: { scope: 'doc.a11y (root icon semantics)', fields: fields(['a11y']) },
+    };
+  else if (objectFields)
     data = {
       topic,
       fields: objectFields,
@@ -1166,7 +1202,13 @@ function schema(topic: string | undefined, full: boolean, json: boolean, io: IO)
       .filter((f) => f.feature)
       .map((f) => `  ${f.markup} ↔ ${k}.${f.ani}: ${f.type} [${f.feature}]`)
       .join('\n')}`;
-  if (objectFields)
+  if (topic === 'a11y') {
+    const showFields = (rows: ReturnType<typeof fields>) =>
+      rows.map((f) => `  ${f.markup} ↔ ${f.ani}: ${f.type}`).join('\n');
+    io.out(
+      `node.a11y (node semantics; markup ↔ .ani: type)\n${showFields(fields([], nodeShape('path').p.a11y))}\nActions: tap, increase, decrease, focus\n\ndoc.a11y (root icon semantics; markup ↔ .ani: type)\n${showFields(fields(['a11y']))}`,
+    );
+  } else if (objectFields)
     io.out(
       `${topic} (markup ↔ .ani: type)\n${objectFields.map((f) => `  ${f.markup} ↔ ${topic === 'fill' || topic === 'stroke' ? topic + '.' : ''}${f.ani}: ${f.type}${f.required ? ' (required)' : ''}${'default' in f ? ` (default ${JSON.stringify(f.default)})` : ''}${f.feature ? ` [${f.feature}]` : ''}${f.description ? ` — ${f.description}` : ''}`).join('\n')}`,
     );
@@ -1193,6 +1235,20 @@ function docs(topic: string | undefined, list: boolean, json: boolean, io: IO): 
   // Module chapters are the one-word lower-case headings (`## paint`); web-only modules such as
   // `canvas` have a chapter but nothing registered in core.
   const moduleTopics = chapters.filter((m) => /^[a-z]+(?:-[a-z]+)*$/.test(m[1]!));
+  const moduleDocs = new Map(
+    readdirSync(new URL('modules/', ROOT), { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .map(
+        (entry) =>
+          [
+            entry.name,
+            ['AUTHORING.md', 'SPEC.md']
+              .map((file) => `modules/${entry.name}/${file}`)
+              .filter((file) => existsSync(new URL(file, ROOT))),
+          ] as const,
+      )
+      .filter(([, files]) => files.length),
+  );
   if (list) {
     const topics = [
       ...new Set([
@@ -1201,6 +1257,7 @@ function docs(topic: string | undefined, list: boolean, json: boolean, io: IO): 
         ...sections.map((s) => s.slug),
         'markup',
         ...moduleTopics.map((m) => m[1]!),
+        ...moduleDocs.keys(),
       ]),
     ];
     return (io.out(json ? JSON.stringify(topics) : topics.join('\n')), 0);
@@ -1209,12 +1266,12 @@ function docs(topic: string | undefined, list: boolean, json: boolean, io: IO): 
   if (!topic || topic === 'authoring') text = guide;
   else if (topic === 'spec') text = spec;
   else if (topic === 'markup') text = read('spec/ANIML.md');
-  else if (moduleTopics.some((m) => m[1] === topic)) {
+  else if (moduleDocs.has(topic) || moduleTopics.some((m) => m[1] === topic)) {
     const i = chapters.findIndex((m) => m[1] === topic);
-    text = spec.slice(chapters[i]!.index, chapters[i + 1]?.index ?? spec.length).trim();
-    const contract = new URL(`modules/${topic}/SPEC.md`, ROOT);
-    if (existsSync(contract))
-      text += '\n\n' + readFileSync(contract, 'utf8').trim().replace(/^#/gm, '###');
+    text =
+      i < 0 ? '' : spec.slice(chapters[i]!.index, chapters[i + 1]?.index ?? spec.length).trim();
+    for (const file of moduleDocs.get(topic) ?? [])
+      text += '\n\n' + (i < 0 ? read(file).trim() : read(file).trim().replace(/^#/gm, '###'));
     const examples = new URL(`modules/${topic}/examples/`, ROOT);
     if (existsSync(examples))
       text +=

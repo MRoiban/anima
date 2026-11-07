@@ -431,7 +431,8 @@ describe('anima inspect, schema, docs', () => {
       if (shape.k !== 'obj') throw new Error('expected an object registry');
       const json = await cli('schema', topic, '--format=json');
       expect(json.code).toBe(0);
-      const fields = JSON.parse(json.out).fields;
+      const data = JSON.parse(json.out);
+      const fields = topic === 'a11y' ? data.root.fields : data.fields;
       expect(fields.map((f: { ani: string }) => f.ani)).toEqual(Object.keys(shape.p));
       const text = await cli('schema', topic);
       expect(text.code).toBe(0);

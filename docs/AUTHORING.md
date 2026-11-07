@@ -1289,7 +1289,18 @@ resumes. Import `@anima-format/web/devtools` for `icon.stats`, the `perf` attrib
 
 `anima sample board.animl -e 'advance 0; snapshot --all'` includes static values as well as
 animated properties. Add `--semantics` to each snapshot (or the CLI invocation) to get the semantic
-tree; the a11y module must be loaded. Selected addresses accept JSON and AniML property spellings.
+tree; the a11y module must be loaded. `semantics [id]` prints the whole tree or a subtree;
+`semantic <id> tap|increase|decrease|focus` performs an advertised action and steps at zero.
+`snapshot --semantics` includes the tree alongside values. Use `anima docs a11y` for node
+roles, states, properties and actions, `anima docs a11y-dom` for native browser controls,
+and `anima schema a11y` for both node fields and the separately labelled root icon form.
+`anima docs --list` includes every module with an authoring guide or spec.
+Selected snapshot and expect addresses accept JSON and AniML property spellings, such as
+`volumeFill.w` and `volumeFill.width`; exact input/JSON addresses take precedence over aliases.
+Data names may contain hyphens: write `$volume - 5` with spaces for subtraction.
+
+<!-- P3b-10a integration TODO: document value-text and headless semantic key behavior after
+     their names and contract are committed to design/p3b/DESIGN.md and modules/a11y/SPEC.md. -->
 
 For ordered synthetic input, use `pointer click 10 10`, `pointer drag 2 2 10 10 in 4`,
 `touch down 1 10 10` / `touch move 1 12 10` / `touch up 1 12 10`. Different touch ids coexist.
