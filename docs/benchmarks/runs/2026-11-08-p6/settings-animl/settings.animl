@@ -1,0 +1,116 @@
+<anima version="0.1" name="settings" grid="40" viewBox="0 0 40 30" requires="data bind derive convert text a11y a11yactions focus input">
+  <model name="Settings">
+    <number name="volume" default="40" min="0" max="100"/>
+    <bool name="muted"/>
+    <enum name="selectedTab" values="General Sound" default="General"/>
+    <bool name="email" default="true"/>
+    <bool name="push"/>
+    <bool name="sms"/>
+    <string name="generalTitle" default="General"/>
+    <string name="soundTitle" default="Sound"/>
+    <string name="notificationsTitle" default="Notifications"/>
+    <string name="emailTitle" default="Email"/>
+    <string name="pushTitle" default="Push"/>
+    <string name="smsTitle" default="SMS"/>
+    <string name="volumeTitle" default="Volume"/>
+    <string name="muteTitle" default="Mute"/>
+    <string name="settingsTitle" default="Settings"/>
+    <bool name="generalSelected" value="$selectedTab == &quot;General&quot;"/>
+    <bool name="soundSelected" value="$selectedTab == &quot;Sound&quot;"/>
+    <bool name="allChecked" value="$email and $push and $sms"/>
+    <bool name="mixed" value="($email or $push or $sms) and not ($email and $push and $sms)"/>
+    <string name="volumeText" value="$volume" convert="volumeLabel"/>
+  </model>
+  <instance name="settings" model="Settings" default="true" export="true"/>
+  <converter name="volumeLabel" type="template" text="{title} {amount} %" args='{"title":"$volumeTitle","amount":"$volume"}'/>
+  <text-style id="label" font="AnimaTest" size="1.3" fill="#141413"/>
+  <trigger name="selectGeneral"/>
+  <trigger name="selectSound"/>
+  <trigger name="toggleParent"/>
+  <rect id="panel" x0="0" y0="0" width="40" height="30" fill="#f0eee6"/>
+  <group id="tabs">
+    <a11y role="tab-list" label="$settingsTitle"/>
+    <group id="generalTab">
+      <a11y role="tab" label="$generalTitle" selected="$generalSelected" activate="selectGeneral" controls="generalPanel" bounds="2 2 10 3"/>
+      <rect id="generalShape" x0="2" y0="2" width="10" height="3" fill="#d97757" stroke="#141413" stroke-width="0.1"/>
+      <text id="generalLabel" x="3" y="2.8"><run text="$generalTitle" style="label"/></text>
+    </group>
+    <group id="soundTab">
+      <a11y role="tab" label="$soundTitle" selected="$soundSelected" activate="selectSound" controls="soundPanel" bounds="14 2 10 3"/>
+      <rect id="soundShape" x0="14" y0="2" width="10" height="3" fill="#f0eee6" stroke="#141413" stroke-width="0.1"/>
+      <text id="soundLabel" x="15" y="2.8"><run text="$soundTitle" style="label"/></text>
+    </group>
+  </group>
+  <group id="generalPanel">
+    <a11y role="group" label="$generalTitle"/>
+    <group id="notifications">
+      <a11y role="checkbox" label="$notificationsTitle" checked="$allChecked" checked-mixed="$mixed" activate="toggleParent" bounds="2 8 2 2"/>
+      <rect id="parentBox" x0="2" y0="8" width="2" height="2" fill="#f0eee6" stroke="#141413" stroke-width="0.15"/>
+      <rect id="parentBar" x0="2.35" y0="8.85" width="1.3" height="0.3" fill="#141413"/>
+    </group>
+    <text id="notificationsLabel" x="5" y="8.2"><run text="$notificationsTitle" style="label"/></text>
+    <rect id="emailBox" x0="4" y0="12" width="2" height="2" fill="#141413" stroke="#141413" stroke-width="0.15">
+      <a11y role="checkbox" label="$emailTitle" checked="$email" bounds="4 12 2 2"/>
+    </rect>
+    <text id="emailLabel" x="7" y="12.2"><run text="$emailTitle" style="label"/></text>
+    <rect id="pushBox" x0="4" y0="16" width="2" height="2" fill="#f0eee6" stroke="#141413" stroke-width="0.15">
+      <a11y role="checkbox" label="$pushTitle" checked="$push" bounds="4 16 2 2"/>
+    </rect>
+    <text id="pushLabel" x="7" y="16.2"><run text="$pushTitle" style="label"/></text>
+    <rect id="smsBox" x0="4" y0="20" width="2" height="2" fill="#f0eee6" stroke="#141413" stroke-width="0.15">
+      <a11y role="checkbox" label="$smsTitle" checked="$sms" bounds="4 20 2 2"/>
+    </rect>
+    <text id="smsLabel" x="7" y="20.2"><run text="$smsTitle" style="label"/></text>
+  </group>
+  <group id="soundPanel">
+    <a11y role="group" label="$soundTitle"/>
+    <group id="volume">
+      <a11y role="slider" label="$volumeTitle" value="$volume" value-text="$volumeText" min="0" max="100" step="5" bounds="2 10 30 1"/>
+      <rect id="volumeTrack" x0="2" y0="10" width="30" height="1" fill="#141413"/>
+      <rect id="volumeFill" x0="2" y0="10" width="12" height="1" fill="#d97757"/>
+    </group>
+    <text id="volumeLabel" x="2" y="7.5"><run text="$volumeText" style="label"/></text>
+    <group id="mute">
+      <a11y role="switch" label="$muteTitle" checked="$muted" bounds="2 16 6 3"/>
+      <rect id="muteTrack" x0="2" y0="16" width="6" height="3" rx="1.5" fill="#141413"/>
+      <circle id="muteKnob" cx="3.5" cy="17.5" r="1.2" fill="#f0eee6"/>
+    </group>
+    <text id="muteLabel" x="9" y="16.8"><run text="$muteTitle" style="label"/></text>
+  </group>
+  <bind target="generalLabel.runs.0.text" value="$generalTitle"/>
+  <bind target="soundLabel.runs.0.text" value="$soundTitle"/>
+  <bind target="notificationsLabel.runs.0.text" value="$notificationsTitle"/>
+  <bind target="emailLabel.runs.0.text" value="$emailTitle"/>
+  <bind target="pushLabel.runs.0.text" value="$pushTitle"/>
+  <bind target="smsLabel.runs.0.text" value="$smsTitle"/>
+  <bind target="volumeLabel.runs.0.text" value="$volumeText"/>
+  <bind target="muteLabel.runs.0.text" value="$muteTitle"/>
+  <bind target="generalShape.fill" value="mix(#f0eee6, #d97757, $generalSelected)"/>
+  <bind target="soundShape.fill" value="mix(#f0eee6, #d97757, $soundSelected)"/>
+  <bind target="generalPanel.visible" value="$generalSelected"/>
+  <bind target="soundPanel.visible" value="$soundSelected"/>
+  <bind target="parentBox.fill" value="mix(#f0eee6, #141413, $allChecked)"/>
+  <bind target="parentBar.visible" value="$mixed"/>
+  <bind target="emailBox.fill" value="mix(#f0eee6, #141413, $email)"/>
+  <bind target="pushBox.fill" value="mix(#f0eee6, #141413, $push)"/>
+  <bind target="smsBox.fill" value="mix(#f0eee6, #141413, $sms)"/>
+  <bind target="volumeFill.width" value="$volume / 100 * 30"/>
+  <bind target="muteKnob.x" value="$muted * 3"/>
+  <bind target="muteTrack.fill" value="mix(#141413, #d97757, $muted)"/>
+  <listener on="focus" target="generalTab" set="$selectedTab=&quot;General&quot;"/>
+  <listener on="focus" target="soundTab" set="$selectedTab=&quot;Sound&quot;"/>
+  <listener on="click" target="generalTab" set="$selectedTab=&quot;General&quot;"/>
+  <listener on="click" target="soundTab" set="$selectedTab=&quot;Sound&quot;"/>
+  <listener on="click" target="notifications" fire="toggleParent"/>
+  <listener on="click" target="emailBox" toggle="$email"/>
+  <listener on="click" target="pushBox" toggle="$push"/>
+  <listener on="click" target="smsBox" toggle="$sms"/>
+  <listener on="click" target="mute" toggle="$muted"/>
+  <layer name="actions" initial="ready">
+    <state name="ready">
+      <on when="selectGeneral" to="ready" actions='{"set":{"$selectedTab":"\"General\""}}'/>
+      <on when="selectSound" to="ready" actions='{"set":{"$selectedTab":"\"Sound\""}}'/>
+      <on when="toggleParent" to="ready" actions='{"set":{"$email":"not ($email and $push and $sms)","$push":"not ($email and $push and $sms)","$sms":"not ($email and $push and $sms)"}}'/>
+    </state>
+  </layer>
+</anima>

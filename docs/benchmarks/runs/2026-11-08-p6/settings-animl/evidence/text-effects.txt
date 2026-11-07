@@ -1,0 +1,160 @@
+## text-effects
+
+<!-- capability: text.background -->
+<!-- capability: text.modifier-follow-path -->
+<!-- capability: text.modifier-opacity -->
+<!-- capability: text.modifier-origin -->
+<!-- capability: text.modifier-rotation -->
+<!-- capability: text.modifier-scale -->
+<!-- capability: text.modifier-translation -->
+<!-- capability: text.modifier-variation -->
+<!-- capability: text.range-combine -->
+<!-- capability: text.range-easing -->
+<!-- capability: text.range-falloff -->
+<!-- capability: text.range-run -->
+<!-- capability: text.range-units -->
+<!-- capability: text.script-direction -->
+
+The optional `texteffects` feature (`web/text-effects`) adds logical per-cluster translation,
+rotation, scaling, opacity, origins and font-axis effects; scoped glyph/word/line ranges with
+falloff, easing and combination; path positions/tangents; and run backgrounds. The text node's
+JSON `effects` array is AniML `text-effects` or structural `<text-effect>` children, with nested
+`<text-range>` children. `direction` maps whole runs to native SVG/canvas bidi.
+
+[modules/text-effects/SPEC.md](../modules/text-effects/SPEC.md) defines defaults, precise range
+weights and matrix composition, animation addresses, validation, backend limits and evidence.
+The registry drives schema, CLI and both syntax spellings. Thirteen raw native captures are retained; accepted
+comparisons remain unresolved and these rows remain planned. Bidi's measured addition is 150 B min+gzip (owner guard: <=150 B).
+
+<!-- capability: text.script-hit-testing -->
+<!-- capability: a11y.inferred-text -->
+### Text hit testing and inferred semantics (P6)
+
+The optional `text-hit` host adapter exposes grapheme hit positions and caret/selection boxes
+from the shared text layout. `input` listeners may write `text-index` on a text target. The
+optional `a11y-text` browser adapter supplies visible text names and layout bounds to the semantic
+tree; headless tools install this adapter with a11y. Existing JSON/AniML text, label, bounds and
+listener fields are unchanged. See [the normative text semantics contract](../modules/a11y/TEXT.md).
+
+### Text effects
+
+The optional `texteffects` feature is shipped as `web/text-effects` (import after `web/text`,
+or import it alone). Names in `requires` use the runtime's lower-case alphanumeric feature
+vocabulary. `web/texteffects` is an alias so the standard unknown-feature import hint resolves.
+The module folder and browser entry are `text-effects`. Entries are deferred when `text` has not registered yet and recomposed when it arrives.
+It extends `text`; it adds
+no layout or shaping engine. `core/all`, CLI and schema tooling register it automatically.
+
+#### Authoring and defaults
+
+A text node accepts `effects` (AniML `text-effects`, a JSON-valued array, or one `<text-effect>`
+child per array element), `background` (JSON map of run id to a hex color/declared color slot or `{color,radius}`),
+and `direction` (`auto|ltr|rtl`). `<text-range>` children inside `<text-effect>` build its `ranges`
+array. The `text-effects` spelling avoids contour's existing stroke `effects` attribute.
+The optional `web/markup-text-effects` entry reuses text's structural authoring adapter.
+
+Effect fields are `x`, `y` (grid units, default 0), `rotate` (degrees, 0), `scaleX` / `scaleY`
+(`scale-x` / `scale-y`, 1), `opacity` (0..1, 1), `originX` / `originY` (`origin-x` / `origin-y`,
+0), `axes` (map of four printable ASCII axis tags to numbers), `followPath` (`follow-path`, SVG
+path data), `pathOffset` (`path-offset`, grid units, 0), and `amount` (0..1, 1).
+Numeric effect fields, nested range fields and authored axis values can be animated using
+addresses such as `title.effects.0.y`, `title.effects.0.ranges.0.start` and
+`title.effects.0.axes.wght`. Fields omitted from an effect use their defaults, including when
+a timeline animates an omitted field. Strings and array membership are static.
+
+An effect is also its first range. Range fields are `start` (inclusive, 0), `end` (exclusive,
+unbounded), `units` (`glyphs|words|lines`, `glyphs`), `run` (optional run id), `falloff` (units,
+0), `ease` (a core easing string, `linear`), `combine` (`add|intersect|subtract|max|replace`,
+`add`). `start`, `end`, `falloff` must be nonnegative; authored `start <= end`. When animated
+boundaries cross the interior is empty (falloff is still evaluated by the formula below).
+
+#### Selection and evaluation
+
+Selection uses the logical layout before effects, restricted to the selected run when `run`
+is set. Glyph means one extended grapheme cluster, including a ligature's constituent graphemes
+as separate layout entries. Word units count `Intl.Segmenter('und', {granularity:'word'})`
+word-like segments; spaces and punctuation receive zero word weight. Line units count visual
+layout lines containing the scoped run. All units are zero-based within the run scope. Effects
+on mixed-direction text use logical order, not reordered visual glyph indices.
+
+For an integer unit index i in [start,end), weight is 1. Else it is 0. For positive falloff f,
+weight instead is `max(0, 1 - max(start-i, i-end+1, 0)/f)`; word separators and clusters outside
+run scope stay 0. Thus one glyph outside an edge has weight 0.5 for falloff 2. Apply the chosen
+easing to this weight and clamp the result to [0,1]. Empty ranges select nothing without
+falloff. The first range initializes weight. Additional ranges fold in authored order:
+add = min(1,a+b), intersect = a*b, subtract = a*(1-b), max = max(a,b), replace = b. A cluster
+outside an individual range's run scope contributes zero to that range. Multiply final weight
+by amount.
+
+Every draw starts from the cached, unmodified text layout, never from an earlier effect frame.
+For each cluster, effects compose in array order as `matrix = matrix * nextMatrix` (column-vector
+convention: the last matrix acts first). The pivot is its layout baseline position plus origin.
+Translation and angle multiply by weight; scales interpolate from 1; opacity multiplies
+`1 + (opacity-1)*weight` into the cluster alpha. Axes interpolate from an explicit style axis
+value, otherwise the font weight for wght or 0 for other tags. Variation modifies drawing,
+not layout advances; authors must set explicit style axis rests for non-wght axes.
+
+Follow-path measures an authored local-space path using core `parsePath` and `flatten` (12
+uniform subdivisions per cubic). It traverses nonzero chords in subpath order without a
+connecting chord between subpaths, including the closing edge. Sample at `cluster.x + pathOffset`,
+clamped to [0,length]. Blend from the baseline position to the sampled position and add the
+chord tangent to the rotation, both weighted. A path with no nonzero chord samples (0,0,0).
+This is an internal sampler, not a new public path API. Approximation is explicit; there is no
+native glyph shaping/path-fitting equivalence claim.
+
+Backgrounds are one rectangle per contiguous run fragment on each line: x/width bound the union of all cluster advance intervals,
+including reversed positions under negative tracking, y is baseline minus line ascent, height is line ascent
+plus descent. They draw behind all glyphs, before effects, and respect the same overflow clip. Radius (default 0)
+is nonnegative, clamped by each backend to half the rectangle width/height.
+A run without an id may be addressed by its decimal run index. Empty runs draw no rectangle.
+Effects do not change wrapping, clipping, layout extents or hit/selection geometry.
+
+#### Backends, bidi and limits
+
+SVG uses per-cluster `<text>` elements with x/y and a matrix/opacity; the enclosing line becomes
+a group. This preserves the shared paint/gradient attributes. Font variations use
+`font-variation-settings`. Canvas draws clusters at the same positions and matrices, with matching
+alpha, paint order, stroke and clipping. Canvas supports wght through its font weight; arbitrary
+axis settings are not exposed by Canvas2D and remain a limitation of this delivery. Separating
+clusters also disables native ligatures/joining across cluster boundaries; use unmodified text
+for complex shaping. Background-only and direction-only text retains whole-run drawing.
+
+Direction without effects is handled by the browser on whole runs. SVG emits direction ltr/rtl
+with unicode-bidi embed, or unicode-bidi plaintext for auto; canvas temporarily sets its dir and fallback
+text content, reads native `:dir(rtl)` directionality, then restores the canvas attributes. Context state
+is saved/restored. Auto uses native HTML directionality, including detached canvas compositing surfaces.
+The bidi addition measured 150 B min+gzip against otherwise identical sources; it meets the
+owner's <=150 B rule. Per-glyph effects on bidi lines intentionally use logical positions.
+The tool outline renderer does not promise complex-script shaping or arbitrary axes; native
+text and direction can be rendered using `anima render --browser-text`.
+
+The text-effects SVG backend decorates the exported text elements/attributes. Its browser
+adapter captures text root/frame pairs through the existing public ordering hook and draws its
+owned subtree at the draw event, after the text drawer. Cached layout and child identity avoid
+unnecessary rebuilding while surviving a later separately bundled text drawer. Both import orders
+and a text bundle loaded after the model are tested. All extension code is inside text-effects;
+text/core/svg.ts and the base canvas text code are unchanged. This is required because integration's
+text entry is 6142/6144 B. No optional code was moved out of text, and there is no base-text hook cost.
+
+#### Diagnostics and evidence
+
+Registry validation supplies existing typed diagnostics and exact JSON pointers for all fields.
+Semantic diagnostics: `text-range` at `/nodes/N/effects/E/end` (or nested ranges/.../end), hint
+use start <= end; `text-effect-run` at .../run, hint name an authored run; `bad-ease` at .../ease,
+hint use a core easing; `text-effect-path` at .../followPath, hint use SVG path data. `text-background-color` at .../background/run identifies an invalid color; unknown background
+run ids use `text-effect-run`. They carry messages, hints and tests. Dynamic run lists resolve run ids at draw time, so unmatched ids
+select nothing. Missing feature declarations use `undeclared-feature`.
+
+Fourteen capability probes plus a negative-tracking conformance probe have independently authored numerical drawing
+expectations; browser tests cover both import orders, retained animation, matching SVG/canvas
+matrices, alpha and native auto direction. Thirteen independently authored native references are captured using the generated font. Raw
+baseline/pivot/falloff differences remain unresolved and no accepted oracle manifest was added.
+The native authoring schema has no direction override; its skip rationale awaits review. All
+fourteen rows remain planned. There is no conversion of third-party binary files.
+
+The design follows the renderer ownership advice in `docs/research/rive-web-runtime.md` and the
+pure rest-based evaluation/typed-track lessons in `docs/research/rive-animation-and-state.md`.
+No implementation was copied from the reference runtime.
+
+Examples (AniML sources with built .ani siblings):
+- modules/text-effects/examples/title-wave.animl

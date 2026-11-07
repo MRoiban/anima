@@ -1,0 +1,3 @@
+PASS: 29 CLI snapshots; tab/slider/switch/checkbox semantic states; eight data-bound rendered labels.
+Parent checkbox semantic sequence: ['mixed', 'mixed', 'mixed', True, False, False, 'mixed', 'mixed', True, True, False, False, False]
+Rendered label sequence: ['Preferences', 'Audio', 'Alerts', 'Mail', 'Mobile', 'Texts', 'Level 65 %', 'Quiet']

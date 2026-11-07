@@ -1,0 +1,152 @@
+advance 0
+snapshot --all --semantics
+expect $volume == 40
+expect $muted == false
+expect $selectedTab == "General"
+expect $email == true
+expect $push == false
+expect $sms == false
+expect $mixed == true
+expect parentBar.visible == true
+semantic generalTab focus
+snapshot --all --semantics
+key down ArrowRight
+key up ArrowRight
+advance 0
+snapshot --all --semantics
+expect $selectedTab == "Sound"
+expect generalPanel.visible == false
+expect soundPanel.visible == true
+expect volumeFill.width == 12
+semantic volume focus
+snapshot --all --semantics
+key down ArrowRight
+key up ArrowRight
+advance 0
+snapshot --all --semantics
+expect $volume == 45
+expect $volumeText == "Volume 45 %"
+expect volumeFill.width == 13.5
+semantic volume decrease
+snapshot --all --semantics
+expect $volume == 40
+expect volumeFill.width == 12
+semantic mute focus
+snapshot --all --semantics
+key down Space
+key up Space
+advance 0
+snapshot --all --semantics
+expect $muted == true
+expect muteKnob.x == 3
+semantic mute tap
+snapshot --all --semantics
+expect $muted == false
+expect muteKnob.x == 0
+semantic soundTab focus
+snapshot --all --semantics
+key down ArrowLeft
+key up ArrowLeft
+advance 0
+snapshot --all --semantics
+expect $selectedTab == "General"
+semantic notifications tap
+advance 0
+snapshot --all --semantics
+expect $email == true
+expect $push == true
+expect $sms == true
+expect $allChecked == true
+expect $mixed == false
+expect parentBar.visible == false
+semantic notifications tap
+advance 0
+snapshot --all --semantics
+expect $email == false
+expect $push == false
+expect $sms == false
+expect $allChecked == false
+expect $mixed == false
+semantic emailBox focus
+snapshot --all --semantics
+key down Space
+key up Space
+advance 0
+snapshot --all --semantics
+expect $email == true
+expect $mixed == true
+expect parentBar.visible == true
+semantic pushBox tap
+snapshot --all --semantics
+expect $push == true
+expect $mixed == true
+semantic smsBox tap
+snapshot --all --semantics
+expect $sms == true
+expect $allChecked == true
+expect $mixed == false
+semantic notifications focus
+snapshot --all --semantics
+key down Space
+key up Space
+advance 0
+snapshot --all --semantics
+expect $email == false
+expect $push == false
+expect $sms == false
+expect $mixed == false
+semantic soundTab tap
+advance 0
+snapshot --all --semantics
+expect $selectedTab == "Sound"
+set $volume 100
+advance 0
+snapshot --all --semantics
+semantic volume increase
+snapshot --all --semantics
+expect $volume == 100
+expect volumeFill.width == 30
+set $volume 0
+advance 0
+snapshot --all --semantics
+semantic volume decrease
+snapshot --all --semantics
+expect $volume == 0
+expect volumeFill.width == 0
+pointer click 5 3
+advance 0
+snapshot --all --semantics
+expect $selectedTab == "General"
+pointer click 17 3
+advance 0
+snapshot --all --semantics
+expect $selectedTab == "Sound"
+set $generalTitle "Preferences"
+set $soundTitle "Audio"
+set $muteTitle "Quiet"
+set $volumeTitle "Level"
+set $volume 65
+advance 0
+snapshot --all --semantics
+expect $generalTitle == "Preferences"
+expect $soundTitle == "Audio"
+expect $volume == 65
+expect volumeFill.width == 19.5
+expect generalLabel.runs.0.text == "Preferences"
+expect soundLabel.runs.0.text == "Audio"
+expect volumeLabel.runs.0.text == "Level 65 %"
+expect muteLabel.runs.0.text == "Quiet"
+set $notificationsTitle "Alerts"
+set $emailTitle "Mail"
+set $pushTitle "Mobile"
+set $smsTitle "Texts"
+semantic generalTab tap
+advance 0
+snapshot --all --semantics
+expect notificationsLabel.runs.0.text == "Alerts"
+expect emailLabel.runs.0.text == "Mail"
+expect pushLabel.runs.0.text == "Mobile"
+expect smsLabel.runs.0.text == "Texts"
+semantic soundTab tap
+advance 0
+snapshot --all --semantics
