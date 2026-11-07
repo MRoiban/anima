@@ -2653,6 +2653,14 @@ The parent reads `badge.outputs.done`; the child declares `<output name="done" v
 <!-- capability: components.library-export -->
 <!-- capability: components.library-models -->
 <!-- capability: components.library-update -->
+
+Local libraries share model definitions, authored data instances and enums through lexical,
+collision-free import expansion in both AniML and the resulting JSON data declarations.
+Named-instance expressions and enum references are rewritten; member keys and authored values
+are retained. Export selection and private dependencies follow the
+[library contract](../modules/markup-libraries/SPEC.md). Native library-service comparison is
+skip-noted because the required account commands are banned; this does not waive local tests.
+
 Libraries support public export selection, model definitions and local vendoring updates.
 See [modules/markup-libraries/SPEC.md](../modules/markup-libraries/SPEC.md).
 

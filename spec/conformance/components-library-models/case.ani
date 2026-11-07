@@ -2,44 +2,48 @@
   "anima": "0.1",
   "name": "components-library-models",
   "grid": 20,
-  "requires": ["components", "data", "bind"],
+  "requires": ["data", "bind"],
   "nodes": [
     {
-      "id": "badge",
-      "type": "instance",
-      "component": "import-2-row"
+      "id": "dot",
+      "type": "circle",
+      "center": [5, 5],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
     }
   ],
-  "components": {
-    "import-2-row": {
-      "grid": 10,
-      "nodes": [
-        {
-          "id": "dot",
-          "type": "circle",
-          "center": [5, 5],
-          "r": 1,
-          "fill": {
-            "color": "#000"
-          }
-        }
-      ],
-      "bind": {
-        "dot.r": "$points"
-      },
-      "data": "import-1-Score"
-    }
+  "bind": {
+    "dot.r": "$import-3-main:score"
   },
   "data": {
     "models": {
-      "import-1-Score": {
+      "import-2-Person": {
         "properties": {
-          "points": {
+          "score": {
             "type": "number",
             "default": 3
+          },
+          "mood": {
+            "type": "enum",
+            "default": "busy",
+            "enum": "import-1-Mood"
           }
         }
       }
+    },
+    "instances": {
+      "import-3-main": {
+        "model": "import-2-Person",
+        "default": true,
+        "values": {
+          "score": 7
+        }
+      }
+    },
+    "enums": {
+      "import-1-Mood": ["calm", "busy"]
     }
   }
 }

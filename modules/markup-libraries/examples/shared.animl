@@ -1,0 +1,10 @@
+<library name="shared" export="Person main Mood">
+  <enum name="Mood" values="calm busy"/>
+  <model name="Person">
+    <number name="score" default="3"/>
+    <enum name="mood" enum="Mood" default="busy"/>
+  </model>
+  <instance name="main" model="Person" default="true">
+    <set path="score" value="7"/>
+  </instance>
+</library>
