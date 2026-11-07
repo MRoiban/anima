@@ -1,0 +1,112 @@
+{
+  "schema": 1,
+  "artboard": "Settings",
+  "roots": [
+    {
+      "id": 1,
+      "role": "tabList",
+      "roleValue": 13,
+      "label": "Settings",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": {"x": 24, "y": 24, "width": 264, "height": 36},
+      "children": [
+        {
+          "id": 3,
+          "role": "tab",
+          "roleValue": 12,
+          "label": "General",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 2,
+          "traitFlags": 98,
+          "bounds": {"x": 24, "y": 24, "width": 120, "height": 36},
+          "children": []
+        },
+        {
+          "id": 2,
+          "role": "tab",
+          "roleValue": 12,
+          "label": "Audio",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 0,
+          "traitFlags": 98,
+          "bounds": {"x": 168, "y": 24, "width": 120, "height": 36},
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "role": "group",
+      "roleValue": 9,
+      "label": "General panel",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": {"x": 24, "y": 96, "width": 160.820312, "height": 168},
+      "children": [
+        {
+          "id": 8,
+          "role": "checkbox",
+          "roleValue": 3,
+          "label": "Notifications",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 4,
+          "traitFlags": 100,
+          "bounds": {"x": 24, "y": 96, "width": 160.820312, "height": 24},
+          "children": []
+        },
+        {
+          "id": 7,
+          "role": "checkbox",
+          "roleValue": 3,
+          "label": "Email",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 4,
+          "traitFlags": 100,
+          "bounds": {"x": 48, "y": 144, "width": 84.0078125, "height": 24},
+          "children": []
+        },
+        {
+          "id": 6,
+          "role": "checkbox",
+          "roleValue": 3,
+          "label": "Push",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 4,
+          "traitFlags": 100,
+          "bounds": {"x": 48, "y": 192, "width": 74.40625, "height": 24},
+          "children": []
+        },
+        {
+          "id": 5,
+          "role": "checkbox",
+          "roleValue": 3,
+          "label": "SMS",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 4,
+          "traitFlags": 100,
+          "bounds": {"x": 48, "y": 240, "width": 64.8046875, "height": 24},
+          "children": []
+        }
+      ]
+    }
+  ]
+}

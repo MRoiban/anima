@@ -1,0 +1,86 @@
+{
+  "schema": 1,
+  "artboard": "Settings",
+  "roots": [
+    {
+      "id": 1,
+      "role": "tabList",
+      "roleValue": 13,
+      "label": "Settings",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": {"x": 24, "y": 24, "width": 264, "height": 36},
+      "children": [
+        {
+          "id": 3,
+          "role": "tab",
+          "roleValue": 12,
+          "label": "General",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 0,
+          "traitFlags": 98,
+          "bounds": {"x": 24, "y": 24, "width": 120, "height": 36},
+          "children": []
+        },
+        {
+          "id": 2,
+          "role": "tab",
+          "roleValue": 12,
+          "label": "Audio",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 2,
+          "traitFlags": 98,
+          "bounds": {"x": 168, "y": 24, "width": 120, "height": 36},
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "role": "group",
+      "roleValue": 9,
+      "label": "Sound panel",
+      "value": "",
+      "hint": "",
+      "headingLevel": 0,
+      "stateFlags": 0,
+      "traitFlags": 0,
+      "bounds": {"x": 24, "y": 90, "width": 360, "height": 138},
+      "children": [
+        {
+          "id": 11,
+          "role": "slider",
+          "roleValue": 5,
+          "label": "Volume",
+          "value": "Volume 65 %",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 0,
+          "traitFlags": 96,
+          "bounds": {"x": 24, "y": 90, "width": 360, "height": 42},
+          "children": []
+        },
+        {
+          "id": 10,
+          "role": "switchControl",
+          "roleValue": 4,
+          "label": "Mute",
+          "value": "",
+          "hint": "",
+          "headingLevel": 0,
+          "stateFlags": 16,
+          "traitFlags": 104,
+          "bounds": {"x": 24, "y": 192, "width": 126.40625, "height": 36},
+          "children": []
+        }
+      ]
+    }
+  ]
+}

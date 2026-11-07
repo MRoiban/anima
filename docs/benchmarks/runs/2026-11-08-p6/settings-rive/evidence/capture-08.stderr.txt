@@ -1,0 +1,52 @@
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[23:44:17.562] rive  deferred replay: inline
+[23:44:17.669] rive  built (16331 bytes, 106ms, 0 errors, 0 warnings)
+[23:44:17.670] rive  showing Settings [1/1]
+[23:44:17.670] rive  viewport 480x360 @1x
+[23:44:17.671] rive  wrote evidence/13-pointer-sound.tree.json
+[23:44:17.671] rive  wrote evidence/13-pointer-sound.data.json
+[23:44:17.671] rive  data: volume = 100 (mid-run)
+[23:44:17.672] rive  wrote evidence/14-max-before.tree.json
+[23:44:17.672] rive  wrote evidence/14-max-before.data.json
+[23:44:17.672] rive  wrote evidence/15-max-after.tree.json
+[23:44:17.672] rive  wrote evidence/15-max-after.data.json
+[23:44:17.672] rive  data: volume = 0 (mid-run)
+[23:44:17.672] rive  wrote evidence/16-min-before.tree.json
+[23:44:17.673] rive  wrote evidence/16-min-before.data.json
+[23:44:17.673] rive  wrote evidence/17-min-after.tree.json
+[23:44:17.673] rive  wrote evidence/17-min-after.data.json
+[23:44:17.674] rive  wrote evidence/18-key-volume5.tree.json
+[23:44:17.674] rive  wrote evidence/18-key-volume5.data.json
+[23:44:17.674] rive  wrote evidence/19-key-volume0.tree.json
+[23:44:17.674] rive  wrote evidence/19-key-volume0.data.json
+[23:44:17.675] rive  wrote evidence/20-pointer-mute.tree.json
+[23:44:17.675] rive  wrote evidence/20-pointer-mute.data.json
+[23:44:17.676] rive  wrote evidence/21-key-unmute.tree.json
+[23:44:17.676] rive  wrote evidence/21-key-unmute.data.json
+[23:44:17.677] rive  wrote evidence/22-action-general.tree.json
+[23:44:17.677] rive  wrote evidence/22-action-general.data.json
+[23:44:17.677] rive  wrote evidence/23-pointer-push.tree.json
+[23:44:17.677] rive  wrote evidence/23-pointer-push.data.json
+[23:44:17.677] rive  wrote evidence/24-key-push.tree.json
+[23:44:17.677] rive  wrote evidence/24-key-push.data.json
+[23:44:17.677] rive  data: email = false (mid-run)
+[23:44:17.678] rive  data: push = true (mid-run)
+[23:44:17.678] rive  data: sms = true (mid-run)
+[23:44:17.678] rive  data: muted = true (mid-run)
+[23:44:17.678] rive  data: volume = 65 (mid-run)
+[23:44:17.678] rive  data: selectedTab = Sound (mid-run)
+[23:44:17.678] rive  data: soundTitle = Audio (mid-run)
+[23:44:17.679] rive  wrote evidence/25-host-data.tree.json
+[23:44:17.679] rive  wrote evidence/25-host-data.data.json
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[23:44:17.708] rive  wrote evidence/25-host-data.png
+[23:44:17.710] rive  wrote evidence/26-host-checkboxes.tree.json
+[23:44:17.710] rive  wrote evidence/26-host-checkboxes.data.json
+[23:44:17.710] rive  wrote evidence/27-parent-from-mixed.tree.json
+[23:44:17.710] rive  wrote evidence/27-parent-from-mixed.data.json
+[23:44:17.711] rive  wrote evidence/28-parent-clears.tree.json
+[23:44:17.711] rive  wrote evidence/28-parent-clears.data.json
+[23:44:17.711] rive  wrote evidence/29-parent-from-none.tree.json
+[23:44:17.711] rive  wrote evidence/29-parent-from-none.data.json
+[23:44:17.712] rive  wrote evidence/30-child-clears.tree.json
+[23:44:17.712] rive  wrote evidence/30-child-clears.data.json

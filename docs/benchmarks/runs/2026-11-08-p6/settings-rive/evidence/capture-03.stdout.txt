@@ -1,0 +1,53 @@
+ok advance
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/01-general.tree.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/01-general.data.json
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/01-general.png
+ok key
+ok advance
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/02-sound.tree.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/02-sound.data.json
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/02-sound.png
+ok semantic-action
+ok advance
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/03-volume45.tree.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/03-volume45.data.json
+ok semantic-action
+ok advance
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/04-volume40.tree.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/04-volume40.data.json
+ok semantic-action
+ok advance
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/05-muted.tree.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/05-muted.data.json
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/05-muted.png
+ok key
+ok advance
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/06-general-again.tree.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/06-general-again.data.json
+ok semantic-action
+ok advance
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/07-all-checked.tree.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/07-all-checked.data.json
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/07-all-checked.png
+ok semantic-action
+ok advance
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/08-none-checked.tree.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/08-none-checked.data.json
+ok semantic-action
+ok advance
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/09-email-mixed.tree.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/09-email-mixed.data.json
+ok semantic-action
+ok advance
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/10-two-mixed.tree.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/10-two-mixed.data.json
+ok semantic-action
+ok advance
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/11-all-via-children.tree.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/11-all-via-children.data.json
+ok data
+ok advance
+ok semantics: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/12-renamed.tree.json
+ok data-dump: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/12-renamed.data.json
+ok screenshot: /home/jarvis/.t3/worktrees/anima/t3-0bba8d74/docs/benchmarks/runs/2026-11-08-p6/settings-rive/evidence/12-renamed.png
+ok quit

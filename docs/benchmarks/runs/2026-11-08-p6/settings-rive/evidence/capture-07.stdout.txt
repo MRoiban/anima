@@ -1,0 +1,54 @@
+ok advance
+ok semantics: evidence/01-general.tree.json
+ok data-dump: evidence/01-general.data.json
+ok screenshot: evidence/01-general.png
+ok key
+ok advance
+ok semantics: evidence/02-sound.tree.json
+ok data-dump: evidence/02-sound.data.json
+ok screenshot: evidence/02-sound.png
+ok semantic-action
+ok advance
+ok semantics: evidence/03-volume45.tree.json
+ok data-dump: evidence/03-volume45.data.json
+ok screenshot: evidence/03-volume45.png
+ok semantic-action
+ok advance
+ok semantics: evidence/04-volume40.tree.json
+ok data-dump: evidence/04-volume40.data.json
+ok semantic-action
+ok advance
+ok semantics: evidence/05-muted.tree.json
+ok data-dump: evidence/05-muted.data.json
+ok screenshot: evidence/05-muted.png
+ok key
+ok advance
+ok semantics: evidence/06-general-again.tree.json
+ok data-dump: evidence/06-general-again.data.json
+err semantic-action: the scene refused it
+ok advance
+ok semantics: evidence/07-all-checked.tree.json
+ok data-dump: evidence/07-all-checked.data.json
+ok screenshot: evidence/07-all-checked.png
+err semantic-action: the scene refused it
+ok advance
+ok semantics: evidence/08-none-checked.tree.json
+ok data-dump: evidence/08-none-checked.data.json
+err semantic-action: the scene refused it
+ok advance
+ok semantics: evidence/09-email-mixed.tree.json
+ok data-dump: evidence/09-email-mixed.data.json
+err semantic-action: the scene refused it
+ok advance
+ok semantics: evidence/10-two-mixed.tree.json
+ok data-dump: evidence/10-two-mixed.data.json
+err semantic-action: the scene refused it
+ok advance
+ok semantics: evidence/11-all-via-children.tree.json
+ok data-dump: evidence/11-all-via-children.data.json
+ok data
+ok advance
+ok semantics: evidence/12-renamed.tree.json
+ok data-dump: evidence/12-renamed.data.json
+ok screenshot: evidence/12-renamed.png
+ok quit
