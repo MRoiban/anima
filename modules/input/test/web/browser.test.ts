@@ -147,6 +147,65 @@ for (const [name, engine, executablePath] of [
       }, doc);
       expect(r).toEqual([true, true]);
     });
+    it.each(['pointerleave', 'pointercancel'] as const)(
+      'routes %s once through input while letting it reach page listeners',
+      async (type) => {
+        const result = await page.evaluate((type) => {
+          const icon = document.querySelector('anima-icon')!;
+          const controller = icon.input();
+          const pointer = controller.pointer;
+          const calls: string[] = [];
+          let bubbled = 0;
+          controller.pointer = function (...args) {
+            calls.push(args[0]);
+            return pointer.apply(this, args);
+          };
+          document.body.addEventListener(type, () => bubbled++);
+          icon.dispatchEvent(new PointerEvent(type, { pointerId: 7, bubbles: true }));
+          return { calls, bubbled };
+        }, type);
+        expect(result).toEqual({
+          calls: [type === 'pointerleave' ? 'leave' : 'cancel'],
+          bubbled: 1,
+        });
+      },
+    );
+    it('disabled automatic input still bubbles unconsumed keys and pointer events', async () => {
+      const result = await page.evaluate(() => {
+        const icon = document.querySelector('anima-icon')!;
+        icon.inputOptions = { listeners: false };
+        const events: [string, boolean][] = [];
+        for (const type of ['keydown', 'keyup', 'pointerdown', 'pointermove', 'pointerup'])
+          document.body.addEventListener(type, (e) => events.push([e.type, e.defaultPrevented]));
+        for (const type of ['keydown', 'keyup'])
+          icon.dispatchEvent(
+            new KeyboardEvent(type, { key: 'Escape', bubbles: true, cancelable: true }),
+          );
+        const b = icon.getBoundingClientRect();
+        for (const type of ['pointerdown', 'pointermove', 'pointerup'])
+          icon.dispatchEvent(
+            new PointerEvent(type, {
+              clientX: b.x + 100,
+              clientY: b.y + 50,
+              pointerId: 7,
+              bubbles: true,
+              cancelable: true,
+            }),
+          );
+        return { events, down: icon.get('down'), up: icon.get('up') };
+      });
+      expect(result).toEqual({
+        events: [
+          ['keydown', false],
+          ['keyup', false],
+          ['pointerdown', false],
+          ['pointermove', false],
+          ['pointerup', false],
+        ],
+        down: false,
+        up: false,
+      });
+    });
     it('keeps multiple pointer IDs and cancels a contact at its last position', async () => {
       const r = await page.evaluate(() => {
         const i = document.querySelector('anima-icon')!,

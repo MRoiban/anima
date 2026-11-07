@@ -69,7 +69,12 @@ precedence over selection for the one tab stop; otherwise the selected tab or ch
 child is used. Radio arrows select through semanticAction; tabs retain manual activation. When focus is loaded, its item ordering participates; focusing the chosen tab
 synchronizes logical focus directly without a second traversal. The host input
 capture handler leaves semantic keys to these native controls, so each key has
-one routing owner. Tab navigation is
+one routing owner. A child control action does not also activate a semantic parent;
+a noninteractive semantic child still delegates to its enclosing control.
+This uses host routing guards; neither the overlay nor host stops
+DOM propagation. Ancestor page listeners receive keyboard and pointer events, and
+Anima calls `preventDefault()` only when its handling consumes the browser default.
+Tab navigation is
 left to the browser. Controls relations use unique semantic ids within the host shadow root,
 matching the prefixed ids in the shared tree; hidden target nodes remain absent.
 

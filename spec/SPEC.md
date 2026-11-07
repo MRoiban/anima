@@ -436,6 +436,11 @@ It consumes node accessibility; root document `a11y` below is unchanged.
   `docs/research/rive-web-runtime.md`, recommendation 7). The web runtime follows
   `prefers-reduced-motion` unless the element sets `motion="full"` (or `motion="reduce"` to force it).
 
+The host and semantic overlay do not stop DOM event propagation. Page listeners on
+ancestors receive keyboard and pointer events that originate on an icon. Anima calls
+`preventDefault()` only when its own handling consumes the browser default; internal
+host routing guards prevent the same event from being handled twice.
+
 ## 11. Conformance
 
 ### 11.1 Cases
@@ -2071,7 +2076,9 @@ only stop delivery with explicit consume — an intentional difference from Rive
 listener claims the event by default (measured in `tests/oracle/input-capture-phase`): Anima keeps
 the DOM's rule that observing an event in the capture phase does not take it away from the target. This policy includes nested component keys and all
 three keyboard phases; unmatched key/modifier filters never claim a key. Focus navigation and
-native Enter/Space activation retain the focus/host policies above.
+native Enter/Space activation retain the focus/host policies above. These input
+consumption rules apply only to authored Anima listeners; DOM propagation to the
+surrounding page remains intact as specified in §10.
 
 Preserve-offset alignment intentionally differs from the measured native Rive probe. Anima
 stores target origin minus grab point at pointer-down, then adds that offset to each pointer

@@ -372,10 +372,10 @@ app-UI scene (128 KB) and each scene (64 KB); heavy modules count toward Rive-cl
       - [x] B14 (BF-4) `rect corners` draws quadratic corners, not circular arcs (≠ `rx`, CSS).
       - [x] B15 (BF-4) every radio overlay is a tab stop; a radio group must be one tab stop with
             roving arrows (APG).
-      - [ ] B16 (BF-4 → BF-5) host/overlay stops key and pointer events from bubbling to page listeners.
-            Reproduced (expected-failure tests kept); the fix needs guards in `packages/web/src/index.ts`
-            (BF-3's file), so it follows BF-3. Rect-corners oracle reference re-authored for B14.
-            Confirmed; blocked on protected base-host routing guards. Two retained expected-failure repros.
+      - [x] B16 (BF-5) host/overlay key and pointer events bubble to page listeners.
+            Shared event ownership and semantic-origin guards prevent duplicate host/input/focus
+            handling; only consumed defaults are prevented. Fresh-page overlay/input/focus variants
+            pass in Chromium and Firefox; core+web +59 B. Evidence: `modules/a11y-dom/BF5-REPORT.md`.
       - [x] B17 (BF-4) role vocabulary lacks progressbar, meter, status and a controls relation
             (dialog modal and expanded exist: check discoverability).
       - [x] B18 (BF-4, docs) animating a bound value with easing: the interpolate converter

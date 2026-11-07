@@ -140,6 +140,8 @@ export class AnimaIcon extends HTMLElement {
     registerModule(m);
     AnimaIcon.refresh();
   }
+  /** Events claimed by browser adapters, shared across separately built module bundles. */
+  static inputEvents = new WeakSet<Event>();
   static registerSVGBackend = registerSVGBackend;
   static modules = modules;
   /** Live shapes include module init extensions as well as replayable entries. */
@@ -225,8 +227,8 @@ export class AnimaIcon extends HTMLElement {
       ['pointermove', (e: PointerEvent) => this.#ptr('move', e)],
       ['pointerdown', (e: PointerEvent) => e.button === 0 && this.#ptr('down', e)],
       ['pointerup', (e: PointerEvent) => e.button === 0 && this.#ptr('up', e)],
-      ['pointerleave', () => this.#ptr('leave')],
-      ['pointercancel', () => this.#ptr('leave')],
+      ['pointerleave', (e: PointerEvent) => this.#ptr('leave', e)],
+      ['pointercancel', (e: PointerEvent) => this.#ptr('leave', e)],
       ['keydown', (e: KeyboardEvent) => this.#key(e, true)],
       ['keyup', (e: KeyboardEvent) => this.#key(e, false)],
       ['blur', () => this.#hold(false)],
@@ -771,12 +773,17 @@ export class AnimaIcon extends HTMLElement {
 
   // ------------------------------------------------------------ input
 
-  #ptr(kind: 'move' | 'down' | 'up' | 'leave', e?: PointerEvent): void {
+  #ptr(kind: 'move' | 'down' | 'up' | 'leave', e: PointerEvent): void {
+    if (
+      AnimaIcon.inputEvents.has(e) ||
+      (e.composedPath()[0] as Element).hasAttribute('data-semantic')
+    )
+      return;
     const p = this.player;
     if (!p || (!this.#svg && !this.#renderer)) return;
     let x = 0;
     let y = 0;
-    if (e) {
+    if (kind !== 'leave') {
       const m = this.#svg?.getScreenCTM()?.inverse();
       if (!m && !this.#renderer) return;
       ({ x, y } = this.#renderer
@@ -791,6 +798,7 @@ export class AnimaIcon extends HTMLElement {
   }
 
   #key(e: KeyboardEvent, down: boolean): void {
+    if ((e.composedPath()[0] as Element).hasAttribute('data-semantic')) return;
     const a = this.player?.model.doc.a11y;
     if (!a || (a.role !== 'button' && a.role !== 'switch') || (e.key !== 'Enter' && e.key !== ' '))
       return;

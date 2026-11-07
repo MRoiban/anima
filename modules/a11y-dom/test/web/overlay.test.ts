@@ -523,6 +523,28 @@ for (const [name, engine, executablePath] of [
       await target('child').dispatchEvent('click');
       expect(await page.evaluate(() => window.overlayIcon.get('on'))).toBe(true);
     });
+    it('bubbles a child control activation to the page without activating its semantic parent', async () => {
+      expect(
+        await page.evaluate((d) => window.overlayIcon.load(d), {
+          ...doc,
+          nodes: [
+            node('parent', { role: 'button', label: 'Parent', pressed: 'on' }, [
+              node('child', { role: 'button', label: 'Child', pressed: 'mixed' }),
+            ]),
+          ],
+        }),
+      ).toEqual([]);
+      await page.evaluate(() => {
+        document.body.dataset.clicks = '0';
+        document.body.addEventListener('click', () => {
+          document.body.dataset.clicks = String(Number(document.body.dataset.clicks) + 1);
+        });
+      });
+      await target('child').dispatchEvent('click');
+      expect(await page.evaluate(() => window.overlayIcon.get('mixed'))).toBe(false);
+      expect(await page.evaluate(() => window.overlayIcon.get('on'))).toBe(false);
+      expect(await page.locator('body').getAttribute('data-clicks')).toBe('1');
+    });
     it('can activate and remove its own semantic control without a stale-event error', async () => {
       const errors: string[] = [];
       page.on('pageerror', (e) => errors.push(e.message));
