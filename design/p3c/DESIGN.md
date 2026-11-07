@@ -47,3 +47,20 @@ Recorded in WORKLOG as "decided, owner may revisit".
 | Benchmark friction | `docs authoring` gets a table of contents and `docs authoring <section>`; `docs spec --list` lists spec sections; stale "pending" notes removed; a script diagnostic when an action targets a hidden or absent semantic node; a tab-list recipe (selection follows focus) in the a11y guide, as docs unless an option costs ≤ 20 B. |
 
 Runtime carry-overs land after the size round's cuts, inside the reset budgets.
+
+## 4. Size-round decision after the survey (2026-11-07)
+
+`design/p3c/SIZE-SURVEY.md` measured 1 624 B of behaviour-preserving cuts (1.5 %) that grow no
+other gate, and a 4 461 B runtime saving from moving the AniML authoring hooks that runtime modules
+import today into the authoring class (authoring add-on 11 949 → ~14 322 B, under its 16 384 B
+ceiling). **Decided (owner may revisit):** do both. The hooks are in-browser compiler code, which the
+owner's gates put in the authoring add-on, out of page totals. §1's "no gate grows" is relaxed for the
+authoring add-on only, which must stay ≤ 15 360 B (1 KB margin under its ceiling); `markup` is split
+so every entry stays ≤ 8 KB. Pages that compile AniML in the browser must keep working unchanged.
+
+| Ticket | Owns (files) | Measured saving |
+|---|---|---:|
+| P3c-4 authoring seam | `modules/{paint,surface,components,bind,convert,events,focus,motion,data}/web/index.ts`, `modules/*/web/markup.ts`, `modules/markup/` | 4 461 (runtime) |
+| P3c-5 diagnostics: events/data/machine | survey T2 files | 578 |
+| P3c-6 diagnostics: visual | survey T3 files (no clone sharing) | 561 |
+| P3c-7 diagnostics: converter/bind + node pointers | survey T1 + T4 files | 447 |
