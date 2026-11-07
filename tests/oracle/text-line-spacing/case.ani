@@ -19,7 +19,7 @@
       "runs": [
         {
           "id": "first",
-          "text": "abcd",
+          "text": "ab\ncd",
           "style": "s"
         }
       ]

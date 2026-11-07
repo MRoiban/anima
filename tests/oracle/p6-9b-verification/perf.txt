@@ -1,0 +1,4 @@
+compile: bell 5.98 ms; all 9040 prefixes 1128 ms
+frame: bell 61.2 µs; composite 41.6 µs
+frame: toolbar 69.7 µs (step + draw, 4 instances)
+compile: toolbar 11.10 ms

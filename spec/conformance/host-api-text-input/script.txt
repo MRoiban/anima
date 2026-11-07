@@ -1,1 +1,3 @@
-# TODO: inputs, step boundaries and snapshots
+focus target q
+type "abc"
+snapshot --semantics $query

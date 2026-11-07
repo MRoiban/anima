@@ -1,4 +1,0 @@
-{
-  "status": "todo",
-  "reason": "P6-6 runtime/browser implementation exists; independent native reference captures and comparison remain outstanding"
-}

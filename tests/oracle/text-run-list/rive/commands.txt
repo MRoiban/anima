@@ -1,1 +1,9 @@
 screenshot frames/0.png
+data-dump frames/initial.json
+data items[0]/label=WXYZ
+advance 0s
+screenshot frames/1.png
+data items[0]/label=abcdefgh
+advance 0s
+screenshot frames/2.png
+data-dump frames/final.json

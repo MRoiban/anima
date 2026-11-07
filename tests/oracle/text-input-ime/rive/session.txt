@@ -1,0 +1,13 @@
+ok screenshot: frames/0.png
+err text: unknown command 'text', type ? for the list
+err compose: unknown command 'compose', type ? for the list
+err clipboard: unknown command 'clipboard', type ? for the list
+ok semantics: frames/semantics.json
+[egl] using EGL_PLATFORM_DEVICE_EXT (4 devices)
+[00:10:25.160] rive  deferred replay: inline
+[00:10:25.167] rive  built (8197 bytes, 7ms, 0 errors, 0 warnings)
+[00:10:25.168] rive  showing Probe [1/1]
+[00:10:25.168] rive  viewport 240x240 @1x
+rive: no interlock mode supports this frame, drawing it in depthStencil with 4x MSAA
+[00:10:25.178] rive  wrote frames/0.png
+[00:10:25.179] rive  wrote frames/semantics.json

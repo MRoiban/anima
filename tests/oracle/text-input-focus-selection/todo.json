@@ -1,4 +1,4 @@
 {
   "status": "todo",
-  "reason": "P6-6 runtime/browser implementation exists; independent native reference captures and comparison remain outstanding"
+  "reason": "P6-9b: original-font native capture retained; caret coverage and selection rounding differ geometrically. No passing raster budget assigned. Standalone Anima geometry is tested; selected-text paint controls remain unsupported."
 }

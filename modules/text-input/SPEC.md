@@ -57,3 +57,32 @@ Nested/repeated native field mounting, scroll-to-caret and mixed-direction selec
 not yet implemented. Those limits block full parity closure.
 
 Caret and selection colors accept hexadecimal colors (3/4/6/8 digits) or currentColor; other paints are rejected by registry validation. Font shorthand is assigned through its CSS property setter rather than interpolated into a style declaration list.
+
+### Commit scheduling (P6-9b)
+
+A native input/composition-end commit and the headless `type`/`compose` commands queue the
+source write and committed-text listeners before the next `Player.step`. That single step
+applies the source write, derives computed properties before guards, then resolves visual bindings.
+There is no additional field-specific settling step: count, visibility and guard state agree with
+the new source in the first completed step, just as for a queued host `set`. A host inspecting
+the player immediately after dispatching a DOM input event must allow that scheduled step to run;
+`icon.invalidate()` draws without consuming queued writes. `input-write-text` conformance checks
+nonempty, cleared and external writes against derived counts, opacity and a machine guard.
+
+### Native comparison disposition (P6-9b)
+
+Original-font native captures compare the independent text layer, bound field values, explicit
+multiline content and obscured content. The fixture does not contain U+2022, so the obscured
+probe deliberately compares missing-glyph outlines; it does not certify a particular dot design.
+Caret width remains Anima's steady 0.06 grid units. Selection uses SVG rx (or the equivalent
+canvas rounded rectangle) over logical cluster intervals; the native capture's caret coverage
+and selection rounding differ. Those drawable comparisons remain pending with no passing
+budget. Arbitrary selected-text paint/drawable references are not exposed.
+
+IME, DOM host handles, clipboard routing and native field accessibility use the browser contract
+rather than a native window proxy. The permitted headless native command route rejects text,
+compose and clipboard delivery; its semantic JSON is not a browser DOM accessibility tree.
+Row-specific `tests/oracle/*/skip.json` files link the attempted commands and both-engine tests.
+These skips do not certify actual OS IME sessions, clipboard grants, mobile keyboards or
+screen-reader announcements. Four conformance cases project the field state used by these
+DOM APIs; their README files explicitly distinguish that projection from executing a DOM API in Node.

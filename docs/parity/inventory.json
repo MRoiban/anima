@@ -974,10 +974,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
-      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/a11y-role-text-field; tests/oracle/a11y-role-text-field (native comparison pending)",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/a11y-role-text-field; spec/conformance/a11y-role-text-field; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
       "phase": "P6",
-      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -1240,10 +1240,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
-      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/a11y-state-multiline; tests/oracle/a11y-state-multiline (native comparison pending)",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/a11y-state-multiline; spec/conformance/a11y-state-multiline; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
       "phase": "P6",
-      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -1268,10 +1268,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
-      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/a11y-state-obscured; tests/oracle/a11y-state-obscured (native comparison pending)",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/a11y-state-obscured; spec/conformance/a11y-state-obscured; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
       "phase": "P6",
-      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -1426,10 +1426,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
-      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/a11y-text-proxy; tests/oracle/a11y-text-proxy (native comparison pending)",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/a11y-text-proxy; spec/conformance/a11y-text-proxy; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
       "phase": "P6",
-      "reason": "P3b design §0: text and text input render from P6; its DOM-backed input field is the element these map to"
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -9116,7 +9116,7 @@
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/data-property-text-style; native oracle pending (tests/oracle/data-property-text-style)",
       "phase": "P6",
-      "reason": "P6-8: native typed text-style assignment still needs a faithful comparison."
+      "reason": "P6-9b: Native typed style property and styleId binding authored. Native dump labels the property artboard and rejects both id/name writes as no property at this path; a native mutation comparison remains missing."
     }
   },
   {
@@ -15827,9 +15827,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
-      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/host-api-clipboard-text; tests/oracle/host-api-clipboard-text (native comparison pending)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/host-api-clipboard-text; spec/conformance/host-api-clipboard-text; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -18494,9 +18495,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
-      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/host-api-text-input; tests/oracle/host-api-text-input (native comparison pending)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/host-api-text-input; spec/conformance/host-api-text-input; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -20819,9 +20821,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
-      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/input-text-listener; tests/oracle/input-text-listener (native comparison pending)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/input-text-listener; spec/conformance/input-text-listener; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -21276,9 +21279,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
-      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/input-write-text; tests/oracle/input-write-text (native comparison pending)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/input-write-text; spec/conformance/input-write-text; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -29440,7 +29444,7 @@
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-fit-baseline; native oracle pending (tests/oracle/text-fit-baseline)",
       "phase": "P6",
-      "reason": "P6-8: fresh current-generated-font explicit-leading capture retains geometry differences; no tolerance assigned. See tests/oracle/TEXT-PROBES.md and text-measurements.json."
+      "reason": "P6-9b: Retained native font-size-fit geometry differs; algorithm correspondence remains unresolved, no passing tolerance."
     }
   },
   {
@@ -29469,7 +29473,7 @@
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-fit-layout-measure; native oracle pending (tests/oracle/text-fit-layout-measure)",
       "phase": "P6",
-      "reason": "P6-8: fresh current-generated-font explicit-leading capture retains geometry differences; no tolerance assigned. See tests/oracle/TEXT-PROBES.md and text-measurements.json."
+      "reason": "P6-9b: Retained native font-size-fit and reported-box geometry differs; no passing tolerance."
     }
   },
   {
@@ -29492,7 +29496,7 @@
       "status": "planned",
       "test": "oracle/text-flatten",
       "phase": "P6",
-      "reason": "P6-8: native outline-conversion evidence and component/live-text-reference/general-SVG flatten coverage remain incomplete (P6-4 report)."
+      "reason": "P6-9b: Component-definition traversal, general SVG/clip preservation, live text-only reference policy and independent native outline-conversion evidence remain missing."
     }
   },
   {
@@ -29554,7 +29558,7 @@
       "status": "planned",
       "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P6",
-      "reason": "P6-8: browser FontFace load is tested; derived-font axes/features API and independent evidence remain incomplete."
+      "reason": "P6-9b: Browser FontFace decoding works; derived-font axes/features/glyph-path API and independent native evidence remain missing."
     }
   },
   {
@@ -29610,7 +29614,7 @@
       "status": "planned",
       "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P6",
-      "reason": "P6-8: original tool reader metrics/coverage/options tested; full integrated introspection and independent native evidence remain incomplete."
+      "reason": "P6-9b: Tool reader metrics and browser measurement work; complete integrated runtime metrics/coverage/options introspection and independent evidence remain missing."
     }
   },
   {
@@ -29692,9 +29696,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
-      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-clipboard; tests/oracle/text-input-clipboard (native comparison pending)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/text-input-clipboard; spec/conformance/text-input-clipboard; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -29720,7 +29725,8 @@
       "module": "text-input",
       "status": "planned",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-cursor; tests/oracle/text-input-cursor (native comparison pending)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-9b: Native caret stays 1 px despite the authored scaleX=0.72, versus Anima steady 0.06 grid units (0.72 px); measured channel delta63 at20pixels. Standalone Anima draw conformance passes; no passing native budget."
     }
   },
   {
@@ -29746,9 +29752,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
-      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-editable; tests/oracle/text-input-editable (native comparison pending)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/text-input-editable; spec/conformance/text-input-editable; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: original-font native comparison, raw AA-only budget and corner-support check."
     }
   },
   {
@@ -29776,7 +29783,8 @@
       "module": "text-input",
       "status": "planned",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-focus-selection; tests/oracle/text-input-focus-selection (native comparison pending)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-9b: Native selectAllOnFocus is captured, but selection geometry differs (max76/45pixels over16); browser/headless focus selection passes. No passing native budget."
     }
   },
   {
@@ -29798,9 +29806,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
-      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-ime; tests/oracle/text-input-ime (native comparison pending)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/text-input-ime; spec/conformance/text-input-ime; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: evidenced DOM/host-only native oracle skip; headless field projection and both-engine browser coverage, exact scope in skip.json."
     }
   },
   {
@@ -29830,7 +29839,8 @@
       "module": "text-input",
       "status": "planned",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-limits; tests/oracle/text-input-limits (native comparison pending)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-9b: Anima uses HTML UTF-16 maxlength and explicit LF line limits; native schema uses code points and wrapped lines. Wrapped-line limiting/native edit comparison remains missing; programmatic bypass is tested."
     }
   },
   {
@@ -29856,9 +29866,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
-      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-multiline; tests/oracle/text-input-multiline (native comparison pending)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/text-input-multiline; spec/conformance/text-input-multiline; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: original-font native comparison, raw AA-only budget and corner-support check."
     }
   },
   {
@@ -29884,9 +29895,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
-      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-obscured; tests/oracle/text-input-obscured (native comparison pending)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/text-input-obscured; spec/conformance/text-input-obscured; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: original-font native comparison, raw AA-only budget and corner-support check."
     }
   },
   {
@@ -29911,7 +29923,8 @@
       "module": "text-input",
       "status": "planned",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-placeholder; tests/oracle/text-input-placeholder (native comparison pending)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-9b: Placeholder text is implemented; distinct configurable placeholder color and a faithful native placeholder comparison remain missing."
     }
   },
   {
@@ -29940,7 +29953,8 @@
       "module": "text-input",
       "status": "planned",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-selection; tests/oracle/text-input-selection (native comparison pending)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-9b: Native selection rounding differs and arbitrary selected-text paint/drawable references are not exposed. Native raw capture retained without a passing budget."
     }
   },
   {
@@ -29968,7 +29982,8 @@
       "module": "text-input",
       "status": "planned",
       "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-selection-rounding; tests/oracle/text-input-selection-rounding (native comparison pending)",
-      "phase": "P6"
+      "phase": "P6",
+      "reason": "P6-9b: Authored native radii0 and2.4 retain the same captured rounding; Anima SVG rx differs (max76/41pixels over16). Standalone Anima rounding vectors pass, but native correspondence is unresolved."
     }
   },
   {
@@ -29992,9 +30007,10 @@
     "anima": {
       "construct": "nodes[].textInput (AniML <text-input/>); modules/text-input/SPEC.md; modules/text-input/examples/search-card.animl",
       "module": "text-input",
-      "status": "planned",
-      "test": "modules/text-input/test/core/field.test.ts; modules/text-input/test/web/field.browser.test.ts; modules/text-input/test/cli/field.test.ts; spec/conformance/text-input-text; tests/oracle/text-input-text (native comparison pending)",
-      "phase": "P6"
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/text-input-text; spec/conformance/text-input-text; modules/text-input/test/core/field.test.ts; modules/text-input/test/core/drawing-conformance.test.ts; modules/text-input/test/web/field.browser.test.ts",
+      "phase": "P6",
+      "reason": "P6-9b: original-font native comparison, raw AA-only budget and corner-support check."
     }
   },
   {
@@ -30020,10 +30036,10 @@
     "anima": {
       "construct": "modules/text/core/registry.ts; modules/text/SPEC.md; modules/text/capabilities/text-line-spacing/example.animl",
       "module": "text",
-      "status": "planned",
-      "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-line-spacing; native oracle pending (tests/oracle/text-line-spacing)",
+      "status": "done",
+      "test": "tests/oracle/P6-9b-REPORT.md; tests/oracle/text-line-spacing; spec/conformance/text-line-spacing; modules/text/test/core/conformance.test.ts",
       "phase": "P6",
-      "reason": "P6-8: fresh current-generated-font explicit-leading capture retains geometry differences; no tolerance assigned. See tests/oracle/TEXT-PROBES.md and text-measurements.json."
+      "reason": "P6-9b: original-font native comparison, raw AA-only budget and corner-support check. Native first-baseline translation is explicit; symmetric leading is an intentional spec difference, raw unshifted capture retained."
     }
   },
   {
@@ -30271,7 +30287,7 @@
       "status": "planned",
       "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P6",
-      "reason": "P6-8: CSS helper maps tags, but authored text style registry does not yet accept features; actual feature rendering and native comparison remain incomplete."
+      "reason": "P6-9b: Authored text style registry still rejects features; real substitution rendering/animation and native comparison remain missing."
     }
   },
   {
@@ -30362,7 +30378,7 @@
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-ellipsis; native oracle pending (tests/oracle/text-overflow-ellipsis)",
       "phase": "P6",
-      "reason": "P6-8: fresh current-generated-font explicit-leading capture retains geometry differences; no tolerance assigned. See tests/oracle/TEXT-PROBES.md and text-measurements.json."
+      "reason": "P6-9b: Retained native truncation selection/placement differs even with U+2026; no passing tolerance."
     }
   },
   {
@@ -30422,7 +30438,7 @@
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-overflow-fit-font-size; native oracle pending (tests/oracle/text-overflow-fit-font-size)",
       "phase": "P6",
-      "reason": "P6-8: fresh current-generated-font explicit-leading capture retains geometry differences; no tolerance assigned. See tests/oracle/TEXT-PROBES.md and text-measurements.json."
+      "reason": "P6-9b: Retained native fitted font size differs; no passing tolerance."
     }
   },
   {
@@ -30759,7 +30775,7 @@
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-run-list; native oracle pending (tests/oracle/text-run-list)",
       "phase": "P6",
-      "reason": "P6-8: generated-font layout tested; native literal control is insufficient. textRunListSource exists and needs actual list binding/mutations."
+      "reason": "P6-9b: Native actual list with textContent/textStyle symbols is authored; items[0]/label mutations appear in the data dump but the captured text stays blank. DataBindPath/runtime mapping remains unresolved; literal control preserved separately."
     }
   },
   {
@@ -31052,7 +31068,7 @@
       "status": "planned",
       "test": "modules/fonts/test/web/fonts.test.ts; modules/fonts/REPORT.md (closure limits)",
       "phase": "P6",
-      "reason": "P6-8: CSS helper maps axes, but authored text style registry does not yet accept axes; actual axis rendering/animation and native comparison remain incomplete."
+      "reason": "P6-9b: Authored text style registry still rejects axes; independent authored axis rendering/binding/animation and native comparison remain missing."
     }
   },
   {
@@ -31111,7 +31127,7 @@
       "status": "planned",
       "test": "modules/text/test/core/conformance.test.ts; spec/conformance/text-vertical-trim; native oracle pending (tests/oracle/text-vertical-trim)",
       "phase": "P6",
-      "reason": "P6-8: fresh current-generated-font explicit-leading capture retains geometry differences; no tolerance assigned. See tests/oracle/TEXT-PROBES.md and text-measurements.json."
+      "reason": "P6-9b: Retained native trim flags257 still yield displaced geometry; no passing tolerance."
     }
   },
   {

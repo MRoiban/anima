@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "Anima uses an actual textarea plus aria-multiline and mirrors the state to its logical tree. The local native semantic dump has no textarea DOM object or browser accessibility tree. Both-engine tests verify the textarea and multiline semantic state; the matching headless projection remains independent.",
+  "tests": [
+    "modules/text-input/test/web/field.browser.test.ts",
+    "modules/text-input/test/core/field.test.ts",
+    "spec/conformance/a11y-state-multiline/script.txt"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-input-ime/rive/scene.rml",
+    "tests/oracle/text-input-ime/rive/commands.txt",
+    "tests/oracle/text-input-ime/rive/session.txt"
+  ]
+}

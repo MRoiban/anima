@@ -1,0 +1,14 @@
+{
+  "status": "skip",
+  "reason": "This host adapter reads the native input selection and optionally cuts through its input event. The local headless CLI rejects clipboard and cannot expose a DOM selection handle. Both-engine tests check exact selected substring, cut and empty obscured selections; core tests cover readonly edits; no system clipboard grant is claimed.",
+  "tests": [
+    "modules/text-input/test/web/field.browser.test.ts",
+    "modules/text-input/test/core/field.test.ts",
+    "spec/conformance/host-api-clipboard-text/script.txt"
+  ],
+  "captureEvidence": [
+    "tests/oracle/text-input-ime/rive/scene.rml",
+    "tests/oracle/text-input-ime/rive/commands.txt",
+    "tests/oracle/text-input-ime/rive/session.txt"
+  ]
+}

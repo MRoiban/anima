@@ -1,0 +1,66 @@
+
+> test:scope
+> node tools/test-scope.ts text-input --browser=firefox
+
+Scopes: text-input
+  unit: modules/text-input/test/cli/field.test.ts
+  unit: modules/text-input/test/core/field.test.ts
+  unit: packages/markup/test/compile.test.ts
+  unit: packages/markup/test/corpus.test.ts
+  unit: packages/markup/test/decompile.test.ts
+  unit: packages/markup/test/names.test.ts
+  conformance: packages/core/test/conformance.test.ts
+  browser: modules/text-input/test/web/field.browser.test.ts
+  cases: ^conformance > (a11y-role-text-field|a11y-state-multiline|a11y-state-obscured|a11y-text-proxy|host-api-clipboard-text|host-api-text-input|input-text-listener|input-write-text|text-input-clipboard|text-input-cursor|text-input-editable|text-input-focus-selection|text-input-ime|text-input-limits|text-input-multiline|text-input-obscured|text-input-placeholder|text-input-selection|text-input-selection-rounding|text-input-text)$
+  browser filter: firefox
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-a72c88f9
+
+ ❯ |scope-unit| packages/markup/test/corpus.test.ts (1225 tests | 1 failed) 4546ms
+   ❯ authored AniML corpus (1225)
+     × spec/conformance/input-write-text/case.animl is canonically formatted 29ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > spec/conformance/input-write-text/case.animl is canonically formatted
+AssertionError: expected '<anima version="0.1" name="input-writ…' to be '<anima version="0.1" name="input-writ…' // Object.is equality
+
+- Expected
++ Received
+
+@@ -12,11 +12,17 @@
+      <text-input write-text="$query" label="Search"/>
+    </text>
+    <circle id="result" cx="15" cy="5" r="1" fill="#000"/>
+    <bind target="result.opacity" value="$count > 0"/>
+    <layer name="filter" initial="empty">
+-     <state name="empty"><pose result.r="1"/><on when="$hasQuery == true" to="matched"/></state>
++     <state name="empty">
++       <pose result.r="1"/>
++       <on when="$hasQuery == true" to="matched"/>
++     </state>
+-     <state name="matched"><pose result.r="3"/><on when="$hasQuery == false" to="empty"/></state>
++     <state name="matched">
++       <pose result.r="3"/>
++       <on when="$hasQuery == false" to="empty"/>
++     </state>
+    </layer>
+    <listener on="text" target="q" emit="committed"/>
+  </anima>
+
+
+ ❯ packages/markup/test/corpus.test.ts:61:25
+     59|     const result = formatMarkup(source);
+     60|     expect(result.diagnostics).toEqual([]);
+     61|     expect(result.text).toBe(source);
+       |                         ^
+     62|   });
+     63| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed | 7 passed (8)
+      Tests  1 failed | 3039 passed | 574 skipped (3614)
+   Start at  00:02:20
+   Duration  27.76s (tests 62%, transform 22%, import 15%)

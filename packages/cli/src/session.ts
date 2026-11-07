@@ -10,11 +10,11 @@ export interface SessionIO {
 
 /** One JSON reply per input line, including errors, without restarting the interpreter. */
 export async function session(
-  load: () => Model | undefined,
+  load: () => Model | undefined | Promise<Model | undefined>,
   io: SessionIO,
   opts: ScriptOptions = {},
 ): Promise<number> {
-  let model = load();
+  let model = await load();
   if (!model) {
     io.out(
       JSON.stringify({
@@ -56,7 +56,7 @@ export async function session(
       }
       if (cmd === 'reload') {
         const saved = model.doc.requires?.includes('data') ? engine.dataValues() : {};
-        const next = load();
+        const next = await load();
         if (!next) {
           io.out(
             JSON.stringify({

@@ -1,0 +1,32 @@
+
+ RUN  v5.1.0 /home/jarvis/.t3/worktrees/anima/t3-a72c88f9
+
+ ❯ |unit| packages/cli/test/p6-9b.test.ts (6 tests | 1 failed | 5 skipped) 146ms
+   × session installs explicit fonts at startup and reloads changed document font assets 143ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 1 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  |unit| packages/cli/test/p6-9b.test.ts > session installs explicit fonts at startup and reloads changed document font assets
+AssertionError: [{"ok":true,"snapshots":[],"output":[[{"id":"title","role":"text","states":{},"bounds":[1,1.1,3.5999999999999996,2],"actions":[],"children":[],"label":"Old"}]],"diagnostics":[],"stopped":false},{"ok":true,"snapshots":[],"output":[],"diagnostics":[],"stopped":false},{"ok":true,"snapshots":[],"output":[],"diagnostics":[],"stopped":false},{"ok":true,"snapshots":[],"output":[[{"id":"title","role":"text","states":{},"bounds":[1,1.1,8.4,2],"actions":[],"children":[],"label":"Changed"}]],"diagnostics":[],"stopped":false},{"ok":false,"diagnostics":[{"code":"session-reload","pointer":"","message":"reload failed","hint":"fix the file and retry reload"}]},{"ok":false,"diagnostics":[{"code":"font-missing","pointer":"/script/4","message":"line 5: no local font registered for Anima Test","hint":"register a local font with --font Name=path (requested family: Anima Test)"}]},{"ok":true,"quit":true}]: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ packages/cli/test/p6-9b.test.ts:134:65
+    132|     expect(err).toEqual([]);
+    133|     const replies = out.map((s) => JSON.parse(s));
+    134|     expect(replies.every((r) => r.ok), JSON.stringify(replies)).toBe(t…
+       |                                                                 ^
+    135|     expect([
+    136|       replies[0].output[0][0].label,
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯
+
+
+ Test Files  1 failed (1)
+      Tests  1 failed | 5 skipped (6)
+   Start at  23:58:38
+   Duration  2.05s (import 48%, transform 43%, tests 9%, worker 1%)

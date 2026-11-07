@@ -77,15 +77,15 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
   anima import-font <font> -o local.ttf [--chars "ABC"]  store/subset a font
   anima import-font --google "Family:wght@400;600" -o local.ttf  fetch at build time
   anima flatten <file> [--node id] [-o out.ani] [--font name=path]  text to outlines
-  anima validate <file>                 all diagnostics, with JSON pointers, lines and hints
-  anima inspect <file>                  nodes, glyph subpaths and bounds, timelines, state graph
-  anima sample <file> [-s script | -e "cmds"] [--reduced-motion] [--all] [--semantics] [--seed N]
+  anima validate <file> [--font name=path]  all diagnostics, with JSON pointers, lines and hints
+  anima inspect <file> [--font name=path]  nodes, glyph subpaths and bounds, timelines, state graph
+  anima sample <file> [-s script | -e "cmds"] [--reduced-motion] [--all] [--semantics] [--seed N] [--font name=path]
                                         run a script (spec §11.2), print snapshots as JSON lines
-  anima session <file>                 persistent JSON-line script session (reload, quit)
-  anima bench <file> [-s script] [--frames N] [--format=json]  compile and frame costs
-  anima render <file> -o out.svg|png [--at t] [-s script | -e "cmds"] [--size px]
+  anima session <file> [--font name=path]  persistent JSON-line script session (reload, quit)
+  anima bench <file> [-s script] [--frames N] [--format=json] [--font name=path]  compile and frame costs
+  anima render <file> -o out.svg|png [--font name=path] [--at t] [-s script | -e "cmds"] [--size px]
                [--sheet N [--over seconds]] [--dark] [--color slot=#hex] [--current #hex]
-               [--background #hex] [--font name=path] [--browser-text] draw a frame or a labelled contact sheet
+               [--background #hex] [--browser-text] draw a frame or a labelled contact sheet
   anima render <file> --compare glyph.svg [--at t] [-s script | -e "cmds"]
                [--size px] [--tolerance 0..255] [-o diff.png]
                                         compare RGBA pixels (default 256px, black currentColor,
@@ -98,11 +98,11 @@ const HELP = `anima — check, see and scaffold .animl and .ani animations
   anima schema --search <words> | <type>.<field>
                [--animatable] [--bindable] [--inherited] [--editor-only]
   anima new <directory> --sample bell|moon|progress
-  anima build [file] --out-dir <directory>  local HTML and runtime export
+  anima build [file] --out-dir <directory> [--font name=path]  local HTML and runtime export
   anima fmt <file> [--write | --check]  canonical formatting
   anima new <name> --glyph <file.svg> | --glyphy <project-dir> [-o out.animl] [--ani] [--force]
                                         scaffold AniML whose rest frame is the glyph (--ani for JSON)
-  anima build <file.animl|page.html> [-o out] [--embed]  compile AniML to canonical .ani or inline JSON
+  anima build <file.animl|page.html> [-o out] [--embed] [--font name=path]  compile AniML to canonical .ani or inline JSON
   anima import <file.svg|file.json> [-o out.animl]  import supported SVG or Lottie features
   anima library update <file.animl> [--check]  refresh vendored imports from local source paths
   anima decompile <file.ani> [-o out.animl]    write canonical AniML
@@ -187,7 +187,8 @@ export async function run(argv: string[], io: IO): Promise<number> {
   const emit = (v: unknown) => io.out(JSON.stringify(v, null, json ? undefined : 2));
   try {
     let fonts = { measurer: new ToolMeasurer(), diagnostics: [] as Diagnostic[] };
-    if (['sample', 'validate', 'render', 'flatten', 'build'].includes(cmd)) {
+    const prepareFonts = async () => {
+      fonts = { measurer: new ToolMeasurer(), diagnostics: [] };
       const f = file(rest),
         source = projectSource(f);
       let doc: unknown;
@@ -218,7 +219,7 @@ export async function run(argv: string[], io: IO): Promise<number> {
       if (fonts.diagnostics.some((d) => d.severity === 'error')) {
         if (json) emit({ file: f, ok: false, diagnostics: fonts.diagnostics });
         else report(f, fonts.diagnostics, io);
-        return 1;
+        return false;
       }
       fonts.measurer.onDiagnostic = (diagnostic) => {
         if (fonts.diagnostics.some((d) => d.code === diagnostic.code)) return;
@@ -227,7 +228,13 @@ export async function run(argv: string[], io: IO): Promise<number> {
       };
       await installToolMeasurer(fonts.measurer);
       if (cmd !== 'validate') report(f, fonts.diagnostics, io);
-    }
+      return true;
+    };
+    if (
+      ['sample', 'validate', 'render', 'flatten', 'build', 'inspect', 'bench'].includes(cmd) &&
+      !(await prepareFonts())
+    )
+      return 1;
     switch (cmd) {
       case 'doctor': {
         const result = await doctor();
@@ -309,7 +316,14 @@ export async function run(argv: string[], io: IO): Promise<number> {
       case 'session': {
         const f = file(rest);
         if (rest.length !== 1) throw new Usage('session takes one file');
-        return await session(() => check(f).model, io, scriptOptions(o));
+        return await session(
+          async () => {
+            const next = check(f).model;
+            return next && (await prepareFonts()) ? next : undefined;
+          },
+          io,
+          scriptOptions(o),
+        );
       }
       case 'bench': {
         const f = file(rest);
@@ -1400,7 +1414,8 @@ function docs(
   section?: string,
 ): number {
   const read = (p: string) => readFileSync(new URL(p, ROOT), 'utf8');
-  const guide = read('docs/AUTHORING.md');
+  const fontHelp = read('packages/cli/src/font/README.md');
+  const guide = read('docs/AUTHORING.md') + '\n\n' + fontHelp;
   const sections = [...guide.matchAll(/^## (.+)$/gm)].map((m) => ({
     title: m[1]!,
     slug: m[1]!

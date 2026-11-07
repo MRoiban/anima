@@ -1,4 +1,13 @@
-<!-- TODO: input.text-listener; replace this baseline scene with a capability probe. -->
-<anima version="0.1" name="input-text-listener" grid="20">
-  <circle id="probe" cx="10" cy="10" r="1" fill="#000"/>
+<anima version="0.1" name="input-text-listener" grid="20" requires="text textinput a11y focus data assets fonts">
+  <asset name="sans-serif" type="font" src="../../../fixtures/fonts/anima-test.ttf"/>
+  <text-style id="s" font="sans-serif" size="1"/>
+  <model name="Search">
+    <string name="query" default=""/>
+  </model>
+  <instance name="main" model="Search" default="true"/>
+  <text id="q" sizing="fixed" width="10" height="4" x="2" y="3">
+    <run text="" style="s"/>
+    <text-input write-text="$query" label="Search"/>
+  </text>
+  <listener on="text" target="q" emit="committed"/>
 </anima>

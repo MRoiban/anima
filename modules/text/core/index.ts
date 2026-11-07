@@ -87,6 +87,8 @@ function resolveText(p: Player, i: number) {
   if (!value || value.signature !== signature) {
     value = { signature, input, layout: prepared?.layout ?? layoutText(input) };
     state.set(i, value);
+    // seam(P6-9b): semantic readers may refresh layout before afterStep checks it.
+    p.drawVersions[i] = ++p.drawRevision;
   }
   return value;
 }
@@ -295,10 +297,8 @@ export const text: TextModule = {
     model.afterStep = (p) => {
       previous?.(p);
       for (const i of indices) {
-        const old = cache.get(p)?.get(i);
         // No text measurer is needed until a consumer requests layout.
-        if (!old) continue;
-        if (resolveText(p, i) !== old) p.drawVersions[i] = ++p.drawRevision;
+        if (cache.get(p)?.has(i)) resolveText(p, i);
       }
     };
   },

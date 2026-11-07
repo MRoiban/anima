@@ -2,7 +2,7 @@
   "anima": "0.1",
   "name": "input-write-text",
   "grid": 20,
-  "requires": ["text", "textinput", "a11y", "focus", "data", "assets", "fonts"],
+  "requires": ["text", "textinput", "a11y", "focus", "data", "assets", "fonts", "bind", "derive"],
   "nodes": [
     {
       "id": "q",
@@ -22,8 +22,48 @@
         "writeText": "$query",
         "label": "Search"
       }
+    },
+    {
+      "id": "result",
+      "type": "circle",
+      "center": [15, 5],
+      "r": 1,
+      "fill": {
+        "color": "#000"
+      }
     }
   ],
+  "machine": {
+    "layers": {
+      "filter": {
+        "initial": "empty",
+        "states": {
+          "empty": {
+            "pose": {
+              "result.r": 1
+            },
+            "on": [
+              {
+                "when": "$hasQuery == true",
+                "to": "matched"
+              }
+            ]
+          },
+          "matched": {
+            "pose": {
+              "result.r": 3
+            },
+            "on": [
+              {
+                "when": "$hasQuery == false",
+                "to": "empty"
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
   "listeners": [
     {
       "on": "text",
@@ -31,6 +71,9 @@
       "emit": "committed"
     }
   ],
+  "bind": {
+    "result.opacity": "$count > 0"
+  },
   "assets": {
     "sans-serif": {
       "type": "font",
@@ -44,6 +87,14 @@
           "query": {
             "type": "string",
             "default": ""
+          },
+          "count": {
+            "type": "number",
+            "value": "$query.length"
+          },
+          "hasQuery": {
+            "type": "bool",
+            "value": "$count > 0"
           }
         }
       }

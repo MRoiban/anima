@@ -1,0 +1,9 @@
+text-input-ime 1
+Traceback (most recent call last):
+  File "/home/jarvis/.t3/worktrees/anima/t3-a72c88f9/tests/oracle/capture-text.py", line 19, in <module>
+    result.check_returncode()
+    ~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/usr/lib/python3.13/subprocess.py", line 508, in check_returncode
+    raise CalledProcessError(self.returncode, self.args, self.stdout,
+                             self.stderr)
+subprocess.CalledProcessError: Command '['/home/jarvis/.rive/bin/rive', '.', '--commands=commands.txt']' returned non-zero exit status 1.

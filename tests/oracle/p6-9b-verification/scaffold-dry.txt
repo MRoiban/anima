@@ -1,0 +1,8 @@
+Would update 7 files (TODO skeletons; parity status unchanged)
+docs/parity/MATRIX.md
+docs/parity/inventory.json
+docs/parity/matrix.json
+modules/text-input/capabilities/text-input-text/example.ani
+modules/text-input/capabilities/text-input-text/example.animl
+modules/text-input/test/core/text-input-text.test.ts
+spec/conformance/text-input-text/todo.json

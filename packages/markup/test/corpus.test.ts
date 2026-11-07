@@ -37,7 +37,8 @@ describe('authored AniML corpus', () => {
     // seam(P6-8): seven font probes now have real resource/text expectations.
     // seam(P6-7): inferred-text and listener-index conformance probes.
     // seam(P6-6): 14 independent text-field commit/semantic probes.
-    expect(cases).toHaveLength(569);
+    // seam(P6-9b): two standalone field drawings and four DOM bridge state projections.
+    expect(cases).toHaveLength(575);
     for (const file of cases) expect(files).toContain(file.replace(/\.ani$/, '.animl'));
     const drawCases = globSync('spec/draw-conformance/*/case.ani', { cwd: fileURLToPath(root) });
     expect(drawCases).toHaveLength(3);

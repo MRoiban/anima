@@ -121,7 +121,35 @@ Anima deliberately uses the tool font's lineGap for automatic leading and splits
 above and below each baseline. Native automatic leading and first-line extra-leading placement
 are not equivalent for the original test font. The Anima policy preserves deterministic OpenType
 metrics and symmetric authored line boxes. Matching explicit 1-em leading is used for completed
-native layout comparisons; default leading, larger leading, font-size fitting, ellipsis and trimming
-remain separately pending geometry comparisons. No raster tolerance certifies those differences.
+native layout comparisons; default leading remains an intentional policy difference. Larger explicit leading is compared
+with a documented first-baseline translation; font-size fitting, ellipsis and trimming remain
+pending geometry comparisons. No raster tolerance certifies those differences.
 See [the measured native probe report](../../tests/oracle/TEXT-PROBES.md). This documents the existing
 Anima contract; it does not change layout output or assert native default identity.
+
+<!-- // seam(P6-9b): benchmark binding and CLI font diagnostic contract. -->
+
+### Semantic reads and drawing invalidation
+
+Reading layout or semantics may populate the layout cache. Replacing that cached layout also
+invalidates drawing immediately; a semantic reader cannot consume the notification needed by SVG
+or canvas. This applies to `$path` run shorthand, style references and list mutations, without
+requiring an explicit `node.runs.0.text` binding. Repeated unchanged reads preserve layout identity.
+
+CLI `sample`, `session` (including reload), `bench`, `inspect`, `validate`, `render`, `flatten` and `build` accept repeatable `--font Name=path`
+overrides in addition to document font assets. Semantic sampling that needs an unregistered
+family reports `font-missing`, a script-line JSON pointer, the requested family and a
+`--font Name=path` hint. Structure-only commands do not install these overrides.
+
+### Explicit leading native mapping (P6-9b)
+
+For a 12 px font with ascent+descent 12 px and explicit line height 24 px, Anima places
+6 px of leading above and below every line. The native comparison keeps its first baseline
+at the ordinary ascent and therefore places its text node at y=6 px. Subsequent baselines
+are 24 px apart in both. This is an explicit coordinate mapping, not a claim that the native
+line-height parameter has identical first-line semantics. The unshifted source and raw capture
+remain in `tests/oracle/text-line-spacing/rive/`. Symmetric line boxes are intentional: they
+keep top alignment and metric trimming independent of whether a line is first, and preserve
+Anima's specified deterministic tool layout (see docs/research/rive-web-runtime.md). Browser
+automatic leading still omits lineGap because Canvas does not expose it; use explicit leading
+for matching browser/tool layout. No raster tolerance absorbs a baseline displacement.
