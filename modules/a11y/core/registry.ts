@@ -17,6 +17,7 @@ export const shape: ObjShape = {
     label: str,
     hint: str,
     value: str,
+    valueText: { ...str, markup: 'value-text' },
     level: { k: 'alt', of: [{ k: 'num', int: true, min: 1, max: 6 }, str] },
     href: str,
     activate: str,

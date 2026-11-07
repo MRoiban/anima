@@ -1,0 +1,8 @@
+advance 0
+snapshot --semantics
+semantic volume focus
+key down ArrowRight
+key up ArrowRight
+snapshot --semantics
+key down ArrowDown
+snapshot --semantics

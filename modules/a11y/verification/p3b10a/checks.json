@@ -1,0 +1,168 @@
+{
+  "tag": "P3b-10a",
+  "status": "bounded partial",
+  "base": "97211d87",
+  "branch": "t3/a11y-slider-value-text",
+  "rows": {
+    "closure_ready": [
+      "a11y.ancestor-focus",
+      "a11y.check-checked",
+      "a11y.check-mixed",
+      "a11y.check-unchecked",
+      "a11y.focus-action-target",
+      "a11y.focus-retarget",
+      "a11y.focus-sync",
+      "a11y.headless-inspection",
+      "a11y.overlay-policy",
+      "a11y.property-heading-level",
+      "a11y.property-hint",
+      "a11y.property-label",
+      "a11y.property-value",
+      "a11y.role-alert-dialog",
+      "a11y.role-checkbox",
+      "a11y.role-dialog",
+      "a11y.role-group",
+      "a11y.role-link",
+      "a11y.role-list",
+      "a11y.role-list-item",
+      "a11y.role-none",
+      "a11y.role-radio-button",
+      "a11y.role-radio-group",
+      "a11y.role-slider",
+      "a11y.role-tab",
+      "a11y.role-tab-list",
+      "a11y.role-text",
+      "a11y.roving-focus",
+      "a11y.semantic-diffs",
+      "a11y.state-disabled",
+      "a11y.state-expanded",
+      "a11y.state-focused",
+      "a11y.state-hidden",
+      "a11y.state-live-region",
+      "a11y.state-modal",
+      "a11y.state-read-only",
+      "a11y.state-required",
+      "a11y.state-selected",
+      "a11y.state-toggled",
+      "a11y.tab-focus",
+      "a11y.trait-checkable",
+      "a11y.trait-enablable",
+      "a11y.trait-expandable",
+      "a11y.trait-focusable",
+      "a11y.trait-requirable",
+      "a11y.trait-selectable",
+      "a11y.trait-toggleable",
+      "a11y.web-overlay",
+      "host-api.keyboard-focus",
+      "host-api.low-level-focus",
+      "host-api.semantic-overlay",
+      "input.semantic-decrease",
+      "input.semantic-increase",
+      "input.semantic-tap",
+      "tooling.headless-semantic-actions",
+      "tooling.headless-semantics"
+    ],
+    "open": [
+      "a11y.focus-action-traversal",
+      "a11y.focus-condition",
+      "a11y.spatial-focus",
+      "a11y.tree-bounds",
+      "a11y.tree-visibility",
+      "host-api.low-level-semantics"
+    ],
+    "parity_statuses": "1238 unchanged"
+  },
+  "checks": {
+    "VITEST_MAX_WORKERS=2 npm run test:scope -- changed": {
+      "exit": 0,
+      "pass": 8020,
+      "todo": 43,
+      "files_pass": 242,
+      "files_skip": 13
+    },
+    "VITEST_MAX_WORKERS=1 npm run test:scope -- a11y a11y-actions a11y-dom focus": {
+      "exit": 0,
+      "pass": 1247,
+      "todo": 1,
+      "filtered": 440,
+      "engines": ["Chromium", "Firefox"]
+    },
+    "node tools/oracle.ts --strict": {
+      "exit": 0,
+      "cases": 266,
+      "samples": 475,
+      "all_pass": true
+    },
+    "node tools/modules.ts --check": {
+      "exit": 0
+    },
+    "npm run typecheck": {
+      "exit": 0
+    },
+    "ESLint owned source and changed shared tests": {
+      "exit": 0
+    },
+    "Prettier changed/untracked files --ignore-unknown": {
+      "exit": 0
+    },
+    "node tools/build-animl.ts --check": {
+      "exit": 0,
+      "files": 540
+    },
+    "node tools/build-web.ts --check": {
+      "exit": 0,
+      "entries": 40
+    },
+    "node tools/size.ts": {
+      "exit": 0
+    },
+    "node tools/perf.ts": {
+      "exit": 0,
+      "paired_non_regression": "unverified under shared load"
+    }
+  },
+  "modules_bytes": {
+    "a11y": [2044, 2047, 2048],
+    "a11y-actions": [960, 1021, 1024],
+    "a11y-dom": [1897, 1899, 2048],
+    "focus": [4073, 4075, 4096],
+    "markup-a11y": [970, 970, 1024]
+  },
+  "gates_bytes": {
+    "core+web": [20622, 20622, 24576],
+    "largest scene": [51822, 51822, 65536],
+    "app-UI": [91061, 91156, 131072],
+    "runtime sum": [109872, 109966, 163840],
+    "authoring": [11949, 11949, 16384],
+    "Rive-class": [115385, 115467, 256000]
+  },
+  "native_focus": {
+    "captures": 6,
+    "matched_stages": ["child", "parent", "first", "hidden"],
+    "matched_nodes": 15,
+    "matched_booleans": 30,
+    "directional": "known mismatch",
+    "native_condition": "wiring unverified"
+  },
+  "limitations": [
+    "Screen-reader speech and independent benchmark rerun unverified; browser range AX projection remains numeric despite aria-valuetext.",
+    "Six rows remain open with measured reasons in REPORT.md."
+  ],
+  "deviations": [
+    "Shared markup corpus census and independent decompile reader updated for new fixtures/attribute.",
+    "Existing semanticCommand dispatch handles keys without editing script.ts.",
+    "No new optional module or reference-set change."
+  ],
+  "earlier_failures": [
+    "missing npm dependencies",
+    "discarded overlapping size baseline",
+    "missing generated ANI/corpus census",
+    "generic focus-only key regression corrected",
+    "TS inferred prototype/action/this types corrected",
+    "independent decompile reader lacked value-text, corrected",
+    "native JSON formatting corrected",
+    "Firefox startup hook timeouts pass alone and in final scopes",
+    "native replay cwd and unsupported state-name authoring errors corrected",
+    "AX text expectation corrected to observed native projection; no speech claim"
+  ]
+}

@@ -3323,6 +3323,9 @@
                 "value": {
                   "type": "string"
                 },
+                "valueText": {
+                  "type": "string"
+                },
                 "level": {
                   "anyOf": [
                     {
@@ -5222,6 +5225,9 @@
                   "type": "string"
                 },
                 "value": {
+                  "type": "string"
+                },
+                "valueText": {
                   "type": "string"
                 },
                 "level": {
@@ -7126,6 +7132,9 @@
                   "type": "string"
                 },
                 "value": {
+                  "type": "string"
+                },
+                "valueText": {
                   "type": "string"
                 },
                 "level": {
@@ -9059,6 +9068,9 @@
                 "value": {
                   "type": "string"
                 },
+                "valueText": {
+                  "type": "string"
+                },
                 "level": {
                   "anyOf": [
                     {
@@ -10973,6 +10985,9 @@
                 "value": {
                   "type": "string"
                 },
+                "valueText": {
+                  "type": "string"
+                },
                 "level": {
                   "anyOf": [
                     {
@@ -11620,6 +11635,9 @@
                   "type": "string"
                 },
                 "value": {
+                  "type": "string"
+                },
+                "valueText": {
                   "type": "string"
                 },
                 "level": {
@@ -12372,6 +12390,9 @@
                   "type": "string"
                 },
                 "value": {
+                  "type": "string"
+                },
+                "valueText": {
                   "type": "string"
                 },
                 "level": {
@@ -14144,6 +14165,9 @@
                   "type": "string"
                 },
                 "value": {
+                  "type": "string"
+                },
+                "valueText": {
                   "type": "string"
                 },
                 "level": {
@@ -16062,6 +16086,9 @@
                   "type": "string"
                 },
                 "value": {
+                  "type": "string"
+                },
+                "valueText": {
                   "type": "string"
                 },
                 "level": {
@@ -17983,6 +18010,9 @@
                 "value": {
                   "type": "string"
                 },
+                "valueText": {
+                  "type": "string"
+                },
                 "level": {
                   "anyOf": [
                     {
@@ -19892,6 +19922,9 @@
                 "value": {
                   "type": "string"
                 },
+                "valueText": {
+                  "type": "string"
+                },
                 "level": {
                   "anyOf": [
                     {
@@ -21141,6 +21174,9 @@
                   "type": "string"
                 },
                 "value": {
+                  "type": "string"
+                },
+                "valueText": {
                   "type": "string"
                 },
                 "level": {
@@ -22435,6 +22471,9 @@
                   "type": "string"
                 },
                 "value": {
+                  "type": "string"
+                },
+                "valueText": {
                   "type": "string"
                 },
                 "level": {

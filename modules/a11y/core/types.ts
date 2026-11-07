@@ -6,6 +6,7 @@ export interface SemanticNode {
   label?: string;
   hint?: string;
   value?: string | number;
+  valueText?: string;
   level?: number;
   href?: string;
   states: {
@@ -37,6 +38,7 @@ export interface A11yConfig {
   label?: string;
   hint?: string;
   value?: string;
+  valueText?: string;
   level?: number | string;
   href?: string;
   checked?: boolean | string;

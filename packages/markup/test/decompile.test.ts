@@ -148,10 +148,21 @@ function recover(root: Element): Obj {
       if (child.name === 'a11y') {
         const semantics = base(child);
         for (const [key, value] of Object.entries(a))
-          semantics[key === 'checked-mixed' ? 'checkedMixed' : key] =
+          semantics[
+            key === 'checked-mixed' ? 'checkedMixed' : key === 'value-text' ? 'valueText' : key
+          ] =
             key === 'bounds'
               ? vector(value)
-              : ['role', 'label', 'hint', 'value', 'href', 'activate', 'live'].includes(key)
+              : [
+                    'role',
+                    'label',
+                    'hint',
+                    'value',
+                    'value-text',
+                    'href',
+                    'activate',
+                    'live',
+                  ].includes(key)
                 ? value
                 : scalar(value);
         o.a11y = semantics;

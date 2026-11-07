@@ -45,3 +45,22 @@ it('[P3b-9] sample filters semantics by id and validates bound heading metadata'
     },
   ]);
 });
+it('[P3b-10a] sample keys update the numeric and derived spoken slider values together', async () => {
+  const out: string[] = [],
+    err: string[] = [];
+  const file = new URL('../../examples/slider-value-text.animl', import.meta.url).pathname;
+  const code = await run(
+    [
+      'sample',
+      file,
+      '--semantics',
+      '-e',
+      'semantic volume focus\nkey down ArrowRight\nkey up ArrowRight\nsnapshot',
+    ],
+    { out: (s) => out.push(s), err: (s) => err.push(s) },
+  );
+  expect({ code, err }).toEqual({ code: 0, err: [] });
+  expect(out.map((s) => JSON.parse(s).semantics[0])).toEqual([
+    expect.objectContaining({ value: 45, valueText: 'Volume 45 %', states: { focused: true } }),
+  ]);
+});

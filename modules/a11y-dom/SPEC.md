@@ -15,7 +15,7 @@ entry, neither the semantic DOM nor its observers and step wrapper are installed
 | checkbox | input type checkbox; checked=mixed sets indeterminate |
 | radio | input type radio; name is the nearest radio-group id |
 | radio-group | div role radiogroup |
-| slider | input type range with min/max/step and numeric value; string value sets aria-valuetext |
+| slider | input type range with min/max/step and numeric value; valueText sets aria-valuetext independently of numeric value |
 | link | a with href |
 | heading | h1–h6 according to level (default 1) |
 | tab, tab-list, list, list-item | div role tab, tablist, list, listitem |

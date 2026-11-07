@@ -1,0 +1,5 @@
+ FAIL  |unit| packages/markup/test/decompile.test.ts > decompile > a11y-slider-value-text preserves every compiled value deterministically
+AssertionError: expected { name: 'slider-value-text', …(6) } to deeply equal { anima: '0.1', …(6) }
+ Test Files  1 failed (1)
+      Tests  1 failed | 2 passed | 1476 skipped (1479)
+   Duration  1.81s (transform 76%, import 19%, tests 5%, worker 1%)

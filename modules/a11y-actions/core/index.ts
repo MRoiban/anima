@@ -1,3 +1,4 @@
+import type { Player } from '../../../packages/core/src/player.ts';
 import type { Module } from '../../../packages/core/src/modules.ts';
 import { clamp } from '../../../packages/core/src/geom.ts';
 import type { A11yConfig } from '../../a11y/core/types.ts';
@@ -8,6 +9,7 @@ import { after } from '../manifest.ts';
 import { semanticDiff } from './diff.ts';
 export { semanticDiff } from './diff.ts';
 export * from '../../a11y/core/types.ts';
+const pending = new WeakMap<Player, Map<string, number>>();
 const installed = new WeakSet<object>();
 const focusInstalled = new WeakSet<object>();
 export const a11yActions: Module = {
@@ -18,41 +20,40 @@ export const a11yActions: Module = {
     const base = modules.get('a11y') as typeof a11y | undefined;
     if (!base) return a11yActions;
     const runtime = base.runtime;
+    runtime.version = modules.size;
     const { caches, flat } = runtime;
     runtime.update = (p, cache, old) => {
       const { entries, tree } = cache;
-      for (const n of flat(tree)) {
+      const live = flat(tree),
+        ancestry = new Set<string>();
+      let at = entries.find((e) => e.id === p.focused);
+      while (at) {
+        ancestry.add(at.id);
+        at = entries.find((e) => e.id === at!.parent);
+      }
+      for (const n of live) {
         const e = entries.find((e) => e.id === n.id)!,
           c = e.config!,
           d = e.data;
         if (!d.disabled) {
           const writable = (key: unknown) =>
-            typeof key === 'string' && !e.p.model.inputs.get(key)?.readonly;
-          if (!d.readonly) {
-            if (writable(tapKey(c))) n.actions.push('tap');
-            if (c.role === 'slider' && writable(c.value)) n.actions.push('increase', 'decrease');
-          }
+            !d.readonly && typeof key === 'string' && !e.p.model.inputs.get(key)?.readonly;
+          if (writable(tapKey(c))) n.actions.push('tap');
+          if (c.role === 'slider' && writable(c.value)) n.actions.push('increase', 'decrease');
           if (e.p.focusItems?.().some((f) => f.id === e.p.model.nodes[e.i]!.id))
             n.actions.push('focus');
         }
-        if (n.actions.includes('focus')) {
-          const focused = p.focused;
-          let at = entries.find((e) => e.id === focused);
-          while (at && at.id !== e.id) at = entries.find((e) => e.id === at!.parent);
-          n.states.focused = !!at;
-        }
+        if (n.actions.includes('focus')) n.states.focused = ancestry.has(n.id);
       }
-      const live = flat(tree);
-      if (p.focused && !live.some((n) => n.id === p.focused && n.actions.includes('focus'))) {
+      const targets = live.filter((n) => n.actions.includes('focus'));
+      if (p.focused && !targets.some((n) => n.id === p.focused)) {
         const previous = old?.entries ?? entries;
         let ancestor = previous.find((e) => e.id === p.focused);
-        while (ancestor && !live.some((n) => n.id === ancestor!.id && n.actions.includes('focus')))
+        while (ancestor && !targets.some((n) => n.id === ancestor!.id))
           ancestor = previous.find((e) => e.id === ancestor!.parent);
         const order = previous.findIndex((e) => e.id === p.focused);
         const next =
-          live.find(
-            (n) => n.actions.includes('focus') && entries.findIndex((e) => e.id === n.id) > order,
-          ) ?? live.find((n) => n.actions.includes('focus'));
+          targets.find((n) => entries.findIndex((e) => e.id === n.id) > order) ?? targets[0];
         p.focusTarget?.(ancestor?.id ?? next?.id ?? null);
         return true;
       }
@@ -97,26 +98,45 @@ export const a11yActions: Module = {
         const e = caches.get(this)!.entries.find((e) => e.id === id)!;
         const c = e.config!;
         if (action === 'tap') {
-          const key = tapKey(c);
-          if (typeof key !== 'string') return false;
+          const key = tapKey(c) as string;
           if (e.p.model.inputs.get(key)?.type === 'trigger') e.p.fire(key);
           else e.p.toggle(key);
         } else {
-          const value = clamp(
-            Number(node.value) + (action === 'increase' ? 1 : -1) * node.step!,
-            node.min!,
-            node.max!,
-          );
-          if (value === node.value) return false;
-          e.p.set(c.value!, value);
+          const input = e.p.model.inputs.get(c.value!)!,
+            key = input.name;
+          const values = pending.get(e.p) ?? new Map<string, number>();
+          pending.set(e.p, values);
+          const range = (v: number) =>
+            clamp(
+              clamp(v + (action === 'increase' ? 1 : -1) * node.step!, node.min!, node.max!),
+              input.min,
+              input.max,
+            );
+          const from = values.get(key) ?? (e.p.get(key) as number),
+            value = range(from);
+          if (value === from) return false;
+          values.set(key, value);
+          // act queues the compiled ActionM payload; listener routing fields are not read.
+          e.p.act({
+            fire: [],
+            toggle: [],
+            set: [
+              [
+                key,
+                () => {
+                  values.delete(key);
+                  return range(e.p.get(key) as number);
+                },
+              ],
+            ],
+          } as unknown as import('../../../packages/core/src/load.ts').ListenerM);
         }
         return true;
       };
     }
-    return { ...a11yActions, resolve: modules.has('focus') ? a11yActions.resolve : undefined };
+    return a11yActions;
   },
   resolve(model) {
-    if (!model.nodes.some((n) => n.raw.a11y)) return;
     for (const n of model.nodes)
       if (
         n.raw.a11y &&

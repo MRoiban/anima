@@ -1,0 +1,34 @@
+advance 0
+snapshot --semantics
+semantic button focus
+key down Enter
+key up Enter
+expect buttonOn == true
+semantic switch focus
+key down Space
+key up Space
+expect switchOn == true
+semantic checkbox focus
+key down Space
+key up Space
+expect checkboxOn == true
+semantic radio focus
+key down Space
+key up Space
+expect radioOn == true
+key down Space
+key up Space
+expect radioOn == true
+semantic link focus
+key down Enter
+key up Enter
+expect linkOn == true
+snapshot --semantics
+semantic t1 focus
+key down ArrowRight
+key up ArrowRight
+snapshot --semantics
+key down Home
+key down End
+key down ArrowRight
+snapshot --semantics

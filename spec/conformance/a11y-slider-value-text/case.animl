@@ -1,0 +1,11 @@
+<anima version="0.1" name="slider-value-text" grid="20" requires="a11y focus data bind derive convert">
+  <model name="Settings">
+    <number name="volume" default="40" min="0" max="100"/>
+    <string name="volumeText" value="$volume" convert="spoken"/>
+  </model>
+  <instance name="settings" model="Settings" default="true"/>
+  <converter name="spoken" type="template" text="Volume {0} %"/>
+  <group id="volume">
+    <a11y role="slider" label="Volume" value="$volume" value-text="$volumeText" step="5" bounds="1 2 18 4"/>
+  </group>
+</anima>

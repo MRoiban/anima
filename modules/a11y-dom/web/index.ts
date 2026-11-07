@@ -9,7 +9,6 @@ const roles: Record<string, string> = {
   'tab-list': 'tablist',
   'list-item': 'listitem',
   'alert-dialog': 'alertdialog',
-  text: 'text',
 };
 Object.defineProperty(Icon.prototype, 'semantics', {
   get() {
@@ -156,7 +155,7 @@ function attach(icon: AnimaIcon) {
             input.indeterminate = n.states.checked === 'mixed';
             for (const key of ['min', 'max', 'step'] as const) input[key] = String(n[key] ?? '');
             if (typeof n.value === 'number') input.value = String(n.value);
-            if (typeof n.value === 'string') el.setAttribute('aria-valuetext', n.value);
+            if (n.valueText !== undefined) el.setAttribute('aria-valuetext', n.valueText);
             else el.removeAttribute('aria-valuetext');
           }
           if (tag === 'a') (el as HTMLAnchorElement).href = n.href ?? '';
@@ -165,7 +164,7 @@ function attach(icon: AnimaIcon) {
           if (!el.dataset.focus || n.states.disabled)
             el.tabIndex = n.states.disabled
               ? -1
-              : ['button', 'switch', 'checkbox', 'radio', 'slider', 'link', 'tab'].includes(n.role)
+              : 'button switch checkbox radio slider link tab'.split(' ').includes(n.role)
                 ? 0
                 : -1;
           const [x, y, w, h] = n.bounds;

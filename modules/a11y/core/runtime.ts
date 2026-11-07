@@ -23,16 +23,13 @@ export interface Cache {
   entries: Entry[];
 }
 const caches = new WeakMap<Player, Cache>();
-const installed = new WeakSet<object>();
-const resolve = (p: Player, value: unknown) =>
-  typeof value === 'string' ? (p.get(value) ?? value) : value;
 /** Shared through the active registry, including separately bundled action entries. */
 export const runtime: {
   caches: typeof caches;
   flat: typeof flat;
-  resolve: typeof resolve;
+  version?: number;
   update?: (p: Player, cache: Cache, previous?: Cache) => boolean;
-} = { caches, flat, resolve };
+} = { caches, flat };
 function box(points: [number, number][]): SemanticNode['bounds'] {
   const xs = points.map((p) => p[0]),
     ys = points.map((p) => p[1]);
@@ -41,8 +38,7 @@ function box(points: [number, number][]): SemanticNode['bounds'] {
   return [x, y, Math.max(...xs) - x, Math.max(...ys) - y];
 }
 export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) {
-  if (installed.has(P.prototype)) return;
-  installed.add(P.prototype);
+  if ('semantics' in (P.prototype as object)) return;
   P.prototype.semantics = function () {
     const entries: Entry[] = [];
     const collect = (p: Player, prefix = '', parent = '', matrix = IDENTITY, visible = true) => {
@@ -56,9 +52,10 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
         if (!bounds && g) {
           if (g.d)
             points = flatten(parsePath(g.d)).flatMap((poly) =>
-              poly.pts
-                .filter((_, i) => i % 2 === 0)
-                .map((x, i) => [x, poly.pts[i * 2 + 1]!] as [number, number]),
+              Array.from(
+                { length: poly.pts.length / 2 },
+                (_, i) => poly.pts.slice(i * 2, i * 2 + 2) as [number, number],
+              ),
             );
           else if (g.r !== undefined) bounds = [g.cx! - g.r, g.cy! - g.r, g.r * 2, g.r * 2];
           else if (g.width !== undefined) bounds = [g.x ?? 0, g.y ?? 0, g.width, g.height ?? 0];
@@ -72,12 +69,10 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
             [x + w, y + h],
           ];
         }
-        const data = Object.fromEntries(
-          Object.entries(c ?? {}).map(([k, v]) => [
-            k,
-            ['role', 'live', 'href', 'activate'].includes(k) ? v : resolve(p, v),
-          ]),
-        );
+        const data: Record<string, unknown> = { ...c };
+        for (const k in data)
+          if (typeof data[k] === 'string' && !['role', 'live', 'href', 'activate'].includes(k))
+            data[k] = p.get(data[k]) ?? data[k];
         const entry: Entry = {
           p,
           i,
@@ -117,6 +112,7 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
       });
     };
     collect(this);
+    const owners = new Map(entries.map((e) => [e.id, e]));
     for (const e of [...entries].reverse()) {
       if (e.bounds) continue;
       const points = entries
@@ -131,12 +127,15 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
       if (points.length) e.bounds = box(points);
     }
     const signature = JSON.stringify([
-      !!runtime.update,
+      runtime.version,
       this.focused,
       entries.map((e) => [e.id, e.parent, e.data, e.visible, e.bounds, e.p.focused]),
     ]);
     const old = caches.get(this);
-    if (old?.signature === signature) return old.tree;
+    if (old?.signature === signature) {
+      old.entries = entries;
+      return old.tree;
+    }
     const nodes = new Map<string, SemanticNode>();
     const tree: SemanticNode[] = [];
     const excluded = new Set<string>();
@@ -157,10 +156,11 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
         actions: [],
         children: [],
       };
-      for (const key of ['label', 'hint', 'value', 'level', 'href'] as const)
-        if (d[key] !== undefined) Object.assign(n, { [key]: d[key] });
+      for (const key of 'label hint value valueText level href'.split(' '))
+        if (d[key] !== undefined) (n as unknown as Record<string, unknown>)[key] = d[key];
       for (const key of states)
-        if (key !== 'hidden' && d[key] !== undefined) Object.assign(n.states, { [key]: d[key] });
+        if (key !== 'hidden' && d[key] !== undefined)
+          (n.states as Record<string, unknown>)[key] = d[key];
       if (d.checkedMixed) n.states.checked = 'mixed';
       if (c.live && c.live !== 'off') n.states.live = c.live;
       if (!d.disabled && c.role === 'slider') {
@@ -168,9 +168,8 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
         n.max = c.max ?? 100;
         n.step = c.step ?? 1;
       }
-      let parent = entries.find((entry) => entry.id === e.parent);
-      while (parent && !nodes.has(parent.id))
-        parent = entries.find((entry) => entry.id === parent!.parent);
+      let parent = owners.get(e.parent);
+      while (parent && !nodes.has(parent.id)) parent = owners.get(parent.parent);
       (parent ? nodes.get(parent.id)!.children : tree).push(n);
       nodes.set(e.id, n);
     }
@@ -190,7 +189,7 @@ export function install(P: typeof Player, modules: ReadonlyMap<string, Module>) 
   };
 }
 export function prepare(model: import('../../../packages/core/src/load.ts').Model) {
-  if (!model.nodes.some((n) => n.raw.a11y)) return;
+  if (!model.doc.requires?.includes('a11y')) return;
   const previous = model.afterStep;
   model.afterStep = (p) => {
     previous?.(p);

@@ -1,0 +1,27 @@
+{
+  "anima": "0.1",
+  "name": "actions-input-limits",
+  "grid": 20,
+  "requires": ["a11y", "focus"],
+  "inputs": {
+    "amount": {
+      "type": "number",
+      "default": 40,
+      "min": 20,
+      "max": 50
+    }
+  },
+  "nodes": [
+    {
+      "id": "slider",
+      "type": "group",
+      "children": [],
+      "a11y": {
+        "role": "slider",
+        "value": "amount",
+        "step": 5,
+        "bounds": [1, 2, 3, 4]
+      }
+    }
+  ]
+}

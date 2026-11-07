@@ -33,3 +33,12 @@ waive the technical gaps explicitly open in REPORT.md.
 Dotted repeat focus, late focus registration, Solo/native visibility, exact painted
 bounds, independent standalone string inputs and queued/narrower range behavior
 are open work, not oracle skips. No existing finding record has been changed.
+
+[P3b-10a] New native focus-policy captures verify ancestor flags/targeting/first
+Tab traversal. The directional candidate mismatch and unverified native condition
+probe remain explicit open gaps in focus-policy/README.md. New valueText, queued
+range writes and string-path bindings use independent conformance and browser/API
+checks: the native headless tree exposes a string value, without the structured
+numeric slider range contract (benchmark P3b item 3). No full range-contract equality
+is claimed. Registration and owner replacement are Anima host lifecycle operations,
+with no matching local native command; their direct regression tests are the oracle.

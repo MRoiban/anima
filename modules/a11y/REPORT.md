@@ -1,8 +1,100 @@
-# [P3b-9] Current accessibility closure report
+# [P3b-10a] Current accessibility closure report
 
 Status: **partial**. Parity statuses stay **planned**; the final phase promotion
 belongs to the orchestrator. This is the shared current row table for both a11y
 and a11y-dom. Historical measurements remain in their verification folders.
+
+## P3b-10a incremental result
+
+Status: **bounded partial**, 56/62 closure-ready; all parity statuses remain planned.
+The benchmark's authoring gap is fixed: slider `valueText` / `value-text` binds a
+separate spoken string, including the derived "Volume 40 %" example. Headless
+native-style keys are tooling only (0 shipped key-emulation bytes).
+
+The twelve newly ready rows are `a11y.property-hint`, `a11y.property-label`,
+`a11y.property-value`, `input.semantic-increase`, `input.semantic-decrease`,
+`tooling.headless-semantic-actions`, `a11y.ancestor-focus`,
+`a11y.focus-action-target`, `a11y.focus-retarget`, `a11y.state-focused`,
+`a11y.tab-focus`, `a11y.trait-focusable`. Six remain open, with measured reasons
+in the current table below. The previous 44 ready rows retain their evidence.
+
+Kept implementation:
+- Split numeric slider value from string value text in the registry, diagnostics,
+  tree, generated schema, AniML and DOM attribute. Strings bind through data paths;
+  Anima has no standalone string-input system.
+- Tooling routes focused semantic keys before generic key/focus traversal: range
+  arrows/Home/End, native activation phases, enabled tab roving. Existing script
+  dispatch suffices; script.ts and CLI/docs owned by P3b-10b are untouched.
+- Queued range actions use compiled action evaluators, so host writes and repeated
+  increments compose at their queue positions; per-owner/input predictions report
+  no-ops against semantic and input/data limits. Input aliases share a prediction.
+- Focus reuses one component/repeat item collector, preserving owners, local ids,
+  matrices and world points. Parent-scope remains explicit at a repeat boundary; Tab/Shift+Tab detect stops in repeated children, and web blur uses the same complete item set.
+  Peer generations invalidate cached trees on late focus registration; inert focus
+  configurations exist on already compiled semantic models. A semantic host with
+  only nested/repeated semantics refreshes before generic focus cleanup.
+- Same-signature snapshots retain tree identity while refreshing entry ownership.
+- Four new independent conformance sources, two additional AniML examples, core
+  regression tests, both-engine attribute tests, and six native focus snapshots.
+  Native ancestry/target/initial Tab/hidden projections match 15 nodes / 30 booleans.
+
+| Module, min+gzip B | Clean HEAD | Final | Budget |
+|---|---:|---:|---:|
+| a11y | 2,044 | 2,047 | 2,048 |
+| a11y-actions | 960 | 1,021 | 1,024 |
+| a11y-dom | 1,897 | 1,899 | 2,048 |
+| focus | 4,073 | 4,075 | 4,096 |
+| markup-a11y (unchanged source) | 970 | 970 | 1,024 |
+
+| Gate, min+gzip B | Clean HEAD | Final | Ceiling |
+|---|---:|---:|---:|
+| core+web | 20,622 | 20,622 | 24,576 |
+| largest scene (28 scenes) | 51,822 | 51,822 | 65,536 |
+| app-UI | 91,061 | 91,156 | 131,072 |
+| runtime sum | 109,872 | 109,966 | 163,840 |
+| authoring add-on | 11,949 | 11,949 | 16,384 |
+| Rive-class | 115,385 | 115,467 | 256,000 |
+
+All sizes come from unchanged tools/size.ts; baseline is frozen clean HEAD after
+npm ci, not the initial run that overlapped edits. The supplied ticket's numbers
+precede merged P3b-6 bundle-context changes; the clean same-checkout baseline above
+is authoritative for this diff. Protected data/bind/components source is unchanged.
+No new module, budget change or app-UI reference change was needed.
+
+Verification is recorded in verification/p3b10a/checks.json. The focused frozen
+scope passes 1,247 tests in both engines, and strict oracle passes 266 cases /
+475 samples. The previous broad run passed 8,019 tests / 43 inherited TODOs; the
+final Tab/unrelated-key fixes pass the fresh changed run: 8,020 tests / 43 inherited TODOs, 242 files passed / 13 skipped.
+Typecheck, ESLint, wiring, schema, generated ANI/web and all size gates pass.
+Final shared-load perf: bell compile 6.65 ms, 9,040-prefix sweep 1,481 ms; frame
+bell/composite/toolbar 91.4/55.4/60.9 microseconds; toolbar compile 9.32 ms.
+No controlled paired baseline exists; the <=3% timing non-regression is unverified.
+The first broad run exposed a real independent decompile reader omission for the
+new value-text spelling; the reader now maps it and the isolated three cases pass.
+The only shared test edits are that reader and the exact corpus census (487→491).
+Generated schema, ANI and web demo were regenerated using the prescribed tools.
+No benchmark record, oracle finding, measurement input, parity status, licence,
+package dependency or Glyphy file was edited. No push or PR is authorized.
+
+Native browser observation: the DOM receives aria-valuetext and the headless tree
+contains valueText, while both Playwright ARIA snapshots and Chromium's direct AX
+projection retain the native range's number. A standalone native range and div
+probe reproduces the projection limitation outside Anima; see native-range-ax.txt.
+Screen-reader speech and the independent benchmark rerun remain unverified. The
+browser tests check the real attribute plus numeric native role/value, without
+claiming the capture speaks the text. The generic script focus-only regression
+found during development was fixed by restricting semantic routing to a11y docs.
+
+Painted-bounds decision is specified but unimplemented: screen rectangles inflated
+by resolved half-stroke in the overlay, exact path/stroke extents in tooling.
+The current SVG DOM has no node-id association for a measurement adapter, and the
+existing tooling has exact cubic centerline extrema but no exact stroke-outline
+helper. No approximate bounds are promoted. Solo/native visibility matrix is still
+missing. Focus/collection extensions need an optional seam beyond the remaining
+1 B / 3 B / 21 B in a11y / actions / focus; a11y-focus remains a candidate, and was
+not added to any reference bundle.
+
+## Historical P3b-9 result
 
 ## Kept changes
 
@@ -108,7 +200,7 @@ components measures 4,053 B, already 2 B above the historical 4,051 B brief; the
 before/after comparison must show no further growth. Performance numbers are
 shared-load observations, not controlled ≤3% evidence.
 
-## Current per-row closure evidence [P3b-9]
+## Current per-row closure evidence [P3b-10a]
 
 All statuses remain planned. **Ready** means the specified evidence is present,
 subject to final phase-wide verification; **open** names a remaining technical gap.
@@ -117,25 +209,25 @@ Native dispositions are in `oracle/SKIP-P3B9.md` and `oracle/roles/P3B9.md`;
 DOM-only rows use `../a11y-dom/oracle/SKIP.md`. Registry and diagnostic coverage is
 shared in `core/registry.ts` and `test/core/diagnostics.test.ts`.
 
-44 closure-ready; 18 open; 62 unique rows. No status promotions.
+56 closure-ready; 6 open; 62 unique rows. No status promotions. [P3b-10a] adds twelve closure-ready rows to the previous 44.
 
 | Row | Evidence (paths relative to this module / spec/conformance) | Disposition |
 |---|---|---|
-| `a11y.ancestor-focus` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Open:** Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete. |
+| `a11y.ancestor-focus` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Ready** [P3b-10a]: dotted repeats/late peer/retarget: `edges.test.ts`, `a11y-focus-repeat`; native ancestry/target/Tab/hidden projection: `focus-native-policy.test.ts`. |
 | `a11y.check-checked` | `a11y-state-checked[-mixed]` before/after; native actions/properties | **Ready** (planned phase gate). |
 | `a11y.check-mixed` | `a11y-state-checked[-mixed]` before/after; native actions/properties | **Ready** (planned phase gate). |
 | `a11y.check-unchecked` | `a11y-state-checked[-mixed]` before/after; native actions/properties | **Ready** (planned phase gate). |
-| `a11y.focus-action-target` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Open:** Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete. |
-| `a11y.focus-action-traversal` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Open:** Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete. |
-| `a11y.focus-condition` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Open:** Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete. |
-| `a11y.focus-retarget` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Open:** Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete. |
+| `a11y.focus-action-target` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Ready** [P3b-10a]: dotted repeats/late peer/retarget: `edges.test.ts`, `a11y-focus-repeat`; native ancestry/target/Tab/hidden projection: `focus-native-policy.test.ts`. |
+| `a11y.focus-action-traversal` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Open:** Native directional traversal selects sibling while Anima selects its focusable ancestor; default synthesized focus points do not use painted bounds. Sequential/repeat traversal and late focus now pass. See `oracle/focus-policy/README.md`; focus has 21 B and actions 3 B headroom. |
+| `a11y.focus-condition` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Open:** Anima ancestor/repeat conditions pass; native ancestor condition wiring remains unverified (marker center stays 90 rather than 70 in both accepted comparator probes). See `oracle/focus-policy/README.md`. |
+| `a11y.focus-retarget` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Ready** [P3b-10a]: dotted repeats/late peer/retarget: `edges.test.ts`, `a11y-focus-repeat`; native ancestry/target/Tab/hidden projection: `focus-native-policy.test.ts`. |
 | `a11y.focus-sync` | `a11y-dom/test/web/overlay.test.ts` both engines; inherited mute example; DOM oracle skip | **Ready** (planned phase gate). |
 | `a11y.headless-inspection` | Filtered `semantics item` CLI and subtree inspection tests; all semantic snapshots | **Ready** (planned phase gate). |
 | `a11y.overlay-policy` | `a11y-dom/test/web/overlay.test.ts` both engines; inherited mute example; DOM oracle skip | **Ready** (planned phase gate). |
 | `a11y.property-heading-level` | `a11y-properties-data`, `a11y-property-heading-level`; CLI `sample.test.ts`; native properties and dynamic heading captures | **Ready** (planned phase gate). |
-| `a11y.property-hint` | `a11y-properties-data`, `a11y-property-heading-level`; CLI `sample.test.ts`; native properties and dynamic heading captures | **Open:** Dynamic data paths pass; standalone string input declarations do not exist in the current input grammar. |
-| `a11y.property-label` | `a11y-properties-data`, `a11y-property-heading-level`; CLI `sample.test.ts`; native properties and dynamic heading captures | **Open:** Dynamic data paths pass; standalone string input declarations do not exist in the current input grammar. |
-| `a11y.property-value` | `a11y-properties-data`, `a11y-property-heading-level`; CLI `sample.test.ts`; native properties and dynamic heading captures | **Open:** Dynamic data paths pass; standalone string input declarations do not exist in the current input grammar. |
+| `a11y.property-hint` | `a11y-properties-data`, `a11y-property-heading-level`; CLI `sample.test.ts`; native properties and dynamic heading captures | **Ready** [P3b-10a]: string semantics use typed data paths; `a11y-properties-data` + existing native properties. |
+| `a11y.property-label` | `a11y-properties-data`, `a11y-property-heading-level`; CLI `sample.test.ts`; native properties and dynamic heading captures | **Ready** [P3b-10a]: string semantics use typed data paths; `a11y-properties-data` + existing native properties. |
+| `a11y.property-value` | `a11y-properties-data`, `a11y-property-heading-level`; CLI `sample.test.ts`; native properties and dynamic heading captures | **Ready** [P3b-10a]: string semantics use typed data paths; `a11y-properties-data` + existing native properties. |
 | `a11y.role-alert-dialog` | `a11y-role-alert-dialog` example/conformance pair; `oracle/roles` | **Ready** (planned phase gate). |
 | `a11y.role-checkbox` | `a11y-role-checkbox` example/conformance pair; `oracle/roles` | **Ready** (planned phase gate). |
 | `a11y.role-dialog` | `a11y-role-dialog` example/conformance pair; `oracle/roles` | **Ready** (planned phase gate). |
@@ -152,10 +244,10 @@ shared in `core/registry.ts` and `test/core/diagnostics.test.ts`.
 | `a11y.role-text` | `a11y-role-text` example/conformance pair; `oracle/roles` | **Ready** (planned phase gate). |
 | `a11y.roving-focus` | `a11y-dom/test/web/overlay.test.ts` both engines; inherited mute example; DOM oracle skip | **Ready** (planned phase gate). |
 | `a11y.semantic-diffs` | `closure.test.ts`: add/remove/change/reorder; native snapshots (diff API skip) | **Ready** (planned phase gate). |
-| `a11y.spatial-focus` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Open:** Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete. |
+| `a11y.spatial-focus` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Open:** Native directional traversal selects sibling while Anima selects its focusable ancestor; default synthesized focus points do not use painted bounds. Sequential/repeat traversal and late focus now pass. See `oracle/focus-policy/README.md`; focus has 21 B and actions 3 B headroom. |
 | `a11y.state-disabled` | `a11y-state-disabled` before/after; native actions/properties | **Ready** (planned phase gate). |
 | `a11y.state-expanded` | `a11y-state-expanded` before/after; native actions/properties | **Ready** (planned phase gate). |
-| `a11y.state-focused` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Open:** Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete. |
+| `a11y.state-focused` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Ready** [P3b-10a]: dotted repeats/late peer/retarget: `edges.test.ts`, `a11y-focus-repeat`; native ancestry/target/Tab/hidden projection: `focus-native-policy.test.ts`. |
 | `a11y.state-hidden` | `a11y-state-hidden` before/after; native actions/properties | **Ready** (planned phase gate). |
 | `a11y.state-live-region` | `a11y-state-live-region` before/after; native actions/properties; inherited overlay tests | **Ready** (planned phase gate). |
 | `a11y.state-modal` | `a11y-state-modal` before/after; native actions/properties | **Ready** (planned phase gate). |
@@ -163,11 +255,11 @@ shared in `core/registry.ts` and `test/core/diagnostics.test.ts`.
 | `a11y.state-required` | `a11y-state-required` before/after; native actions/properties | **Ready** (planned phase gate). |
 | `a11y.state-selected` | `a11y-state-selected` before/after; native actions/properties | **Ready** (planned phase gate). |
 | `a11y.state-toggled` | `a11y-state-pressed` before/after; native actions/properties | **Ready** (planned phase gate). |
-| `a11y.tab-focus` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Open:** Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete. |
+| `a11y.tab-focus` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Ready** [P3b-10a]: dotted repeats/late peer/retarget: `edges.test.ts`, `a11y-focus-repeat`; native ancestry/target/Tab/hidden projection: `focus-native-policy.test.ts`. |
 | `a11y.trait-checkable` | `a11y-traits-matrix` false→true; native 64-node stable trait masks | **Ready** (planned phase gate). |
 | `a11y.trait-enablable` | `a11y-traits-matrix` false→true; native 64-node stable trait masks | **Ready** (planned phase gate). |
 | `a11y.trait-expandable` | `a11y-traits-matrix` false→true; native 64-node stable trait masks | **Ready** (planned phase gate). |
-| `a11y.trait-focusable` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Open:** Dotted repeat targets and late focus registration remain unsupported; native ancestor policies incomplete. |
+| `a11y.trait-focusable` | `a11y-focus-policy`, `a11y-focus-condition`; `closure.test.ts`; native roles focus captures | **Ready** [P3b-10a]: dotted repeats/late peer/retarget: `edges.test.ts`, `a11y-focus-repeat`; native ancestry/target/Tab/hidden projection: `focus-native-policy.test.ts`. |
 | `a11y.trait-requirable` | `a11y-traits-matrix` false→true; native 64-node stable trait masks | **Ready** (planned phase gate). |
 | `a11y.trait-selectable` | `a11y-traits-matrix` false→true; native 64-node stable trait masks | **Ready** (planned phase gate). |
 | `a11y.trait-toggleable` | `a11y-traits-matrix` false→true; native 64-node stable trait masks | **Ready** (planned phase gate). |
@@ -176,10 +268,10 @@ shared in `core/registry.ts` and `test/core/diagnostics.test.ts`.
 | `a11y.web-overlay` | `a11y-dom/test/web/overlay.test.ts` both engines; inherited mute example; DOM oracle skip | **Ready** (planned phase gate). |
 | `host-api.keyboard-focus` | `a11y-dom/test/web/overlay.test.ts` both engines; inherited mute example; DOM oracle skip | **Ready** (planned phase gate). |
 | `host-api.low-level-focus` | `a11y-dom/test/web/overlay.test.ts` both engines; inherited mute example; DOM oracle skip | **Ready** (planned phase gate). |
-| `host-api.low-level-semantics` | `semantics.test.ts`, `closure.test.ts`; native actions; inherited DOM API tests | **Open:** Dependency-driven collection and same-signature owner replacement remain. |
+| `host-api.low-level-semantics` | `semantics.test.ts`, `closure.test.ts`; native actions; inherited DOM API tests | **Open:** Same-signature replacement-owner routing now passes `edges.test.ts`; collection still rebuilds entries/signatures on every read (no dependency subscriptions; a11y has 1 B headroom). |
 | `host-api.semantic-overlay` | `a11y-dom/test/web/overlay.test.ts` both engines; inherited mute example; DOM oracle skip | **Ready** (planned phase gate). |
-| `input.semantic-decrease` | `a11y-action-edges`, `a11y-actions-range`; native before/tap/increase/decrease | **Open:** Basic steps, semantic clamps and readonly no-ops pass; queued repeated range writes and narrower input-limit no-op reporting remain. |
-| `input.semantic-increase` | `a11y-action-edges`, `a11y-actions-range`; native before/tap/increase/decrease | **Open:** Basic steps, semantic clamps and readonly no-ops pass; queued repeated range writes and narrower input-limit no-op reporting remain. |
+| `input.semantic-decrease` | `a11y-action-edges`, `a11y-actions-range`; native before/tap/increase/decrease | **Ready** [P3b-10a]: queue composition + narrower limits: `p3b10.test.ts`, `a11y-actions-input-limits`, `a11y-headless-keys`; prior native range disposition. |
+| `input.semantic-increase` | `a11y-action-edges`, `a11y-actions-range`; native before/tap/increase/decrease | **Ready** [P3b-10a]: queue composition + narrower limits: `p3b10.test.ts`, `a11y-actions-input-limits`, `a11y-headless-keys`; prior native range disposition. |
 | `input.semantic-tap` | `a11y-action-edges`, `a11y-actions-range`; native before/tap/increase/decrease | **Ready** (planned phase gate). |
-| `tooling.headless-semantic-actions` | `a11y-action-edges`, `a11y-actions-range`; native before/tap/increase/decrease | **Open:** Basic steps, semantic clamps and readonly no-ops pass; queued repeated range writes and narrower input-limit no-op reporting remain. |
+| `tooling.headless-semantic-actions` | `a11y-action-edges`, `a11y-actions-range`; native before/tap/increase/decrease | **Ready** [P3b-10a]: queue composition + narrower limits: `p3b10.test.ts`, `a11y-actions-input-limits`, `a11y-headless-keys`; prior native range disposition. |
 | `tooling.headless-semantics` | Filtered `semantics item` CLI and subtree inspection tests; all semantic snapshots | **Ready** (planned phase gate). |

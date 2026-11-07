@@ -1,0 +1,14 @@
+ FAIL  |scope-conformance| packages/core/test/conformance.test.ts > conformance > input-focus-down
+AssertionError: snapshot 1: expected '.events[2].name: "a-focus" ≠ "c-focus"' to be null
+ FAIL  |scope-conformance| packages/core/test/conformance.test.ts > conformance > input-focus-left
+ FAIL  |scope-conformance| packages/core/test/conformance.test.ts > conformance > input-focus-up
+AssertionError: snapshot 1: expected '.events[2].name: "outside-focus" ≠ "a…' to be null
+ FAIL  |scope-conformance| packages/core/test/conformance.test.ts > conformance > input-focus-right
+AssertionError: snapshot 1: expected '.events[2].name: "a-focus" ≠ "b-focus"' to be null
+ FAIL  |scope-conformance| packages/core/test/conformance.test.ts > conformance > input-focus-target-components
+AssertionError: snapshot 1: expected '.events[2].name: "child.selected" ≠ "…' to be null
+ FAIL  |scope-unit| packages/markup/test/corpus.test.ts > authored AniML corpus > includes the bell example and all conformance sources
+AssertionError: expected [ …(488) ] to have a length of 487 but got 488
+ Test Files  2 failed | 11 passed | 1 skipped (14)
+      Tests  6 failed | 1173 passed | 440 skipped | 1 todo (1620)
+   Duration  7.61s (import 50%, tests 38%, transform 11%, worker 1%)
